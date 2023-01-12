@@ -115,7 +115,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
             if (DTSalesIncentiveUpload.Rows.Count > 0)
             {
                 List<PDMS_DealerEmployee> Employee = new List<PDMS_DealerEmployee>();
-                Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, true);
+                Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, true, 1, null);
                 foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
                 {
                     bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[7].ToString() && item.DealerEmployeeRole.Dealer.DealerCode == dr[4].ToString() && item.DealerEmployeeRole.IsActive == true);
@@ -171,7 +171,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                             }
                         }
                         List<PDMS_DealerEmployee> Employee = new List<PDMS_DealerEmployee>();
-                        Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, true);
+                        Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, true, 1, null);
                         foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
                         {
                             bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[7].ToString() && item.DealerEmployeeRole.Dealer.DealerCode == dr[4].ToString() && item.DealerEmployeeRole.IsActive == true);
@@ -396,30 +396,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
 
-            //    DataTable DTSalesIncentive = new DataTable();
-            //    int Index = 0,sno = 0,Rowcount = 1,CRowcount = 2;
-            //    string Flag = string.Empty;
-            //    while (Rowcount < CRowcount)
-            //    {
-            //        if (Flag == "Success")
-            //        {
-            //            goto Success;
-            //        }
-            //        Index = Index + 1;
-            //        Rowcount = Index * 100;
-            //        if (Rowcount > CRowcount && sno != 0)
-            //        {
-            //            Rowcount = CRowcount - ((Index - 1) * 100);
-            //            Flag = "Success";
-            //        }
-            //        DTSalesIncentive.Merge(new BSalesIncentive().GetSalesIncentive(null, Year, Month, DealerID, DealerEmployeeID, InvoiceNo, null, null, PSession.User.UserID, Index, Rowcount));
-            //        CRowcount = Convert.ToInt32(DTSalesIncentive.Rows[0]["RowCount"].ToString());
-            //        sno += 1;
-            //    }
-            //Success:
-
-
-
             DataTable dt = new DataTable();
             dt.Columns.Add("Month&Year");
             dt.Columns.Add("InvoiceNo");
@@ -432,8 +408,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
             dt.Columns.Add("DealerDesignation");
             dt.Columns.Add("Model");
             dt.Columns.Add("IncentiveAmount", typeof(decimal));
-
-
 
             int Index = 0;
             int Rowcount = 100;
