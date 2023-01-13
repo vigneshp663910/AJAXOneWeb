@@ -1373,6 +1373,47 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return true;
         }
+        public List<PDMS_DealerEmployee> GetDealerResponsibleUser(int? DealerID, string DealerCode)
+        {
+            List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
+            try
+            {
 
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter DealerCodeP = provider.CreateParameter("DealerCode", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.String);
+
+                DbParameter[] Params = new DbParameter[2] { DealerIDP, DealerCodeP };
+
+                using (DataSet DataSet = provider.Select("GetDealerResponsibleUser", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            EMP.Add(new PDMS_DealerEmployee()
+                            {
+                                Name = Convert.ToString(dr["Name"]),
+                                ContactNumber = Convert.ToString(dr["ContactNumber"]),
+                                Email = Convert.ToString(dr["EmailID"]),
+                                DealerEmployeeRole = new PDMS_DealerEmployeeRole()
+                                {
+                                    DealerDepartment = new PDMS_DealerDepartment() { DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
+                                    DealerDesignation = new PDMS_DealerDesignation() { DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },                                    
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return EMP;
+        }
     }
 }

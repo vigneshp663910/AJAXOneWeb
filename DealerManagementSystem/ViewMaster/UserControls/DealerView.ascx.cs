@@ -82,6 +82,22 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
         }
 
+        public List<PDMS_DealerEmployee> DealerResponsibleUserList
+        {
+            get
+            {
+                if (Session["DealerResponsibleUser"] == null)
+                {
+                    Session["DealerResponsibleUser"] = new List<PDMS_DealerEmployee>();
+                }
+                return (List<PDMS_DealerEmployee>)Session["DealerResponsibleUser"];
+            }
+            set
+            {
+                Session["DealerResponsibleUser"] = value;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
@@ -125,6 +141,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillDealerOffice();
             fillDealerEmployee();
             fillDealerNotification();
+            fillDealerResponsibleUser();
             ActionControlMange();
         }
 
@@ -454,6 +471,41 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             filldealer(Dealer.DealerID);
         }
+        void fillDealerResponsibleUser()
+        {
+            DealerResponsibleUserList = new BDMS_Dealer().GetDealerResponsibleUser(Dealer.DealerID, Dealer.DealerCode);
+            DealerResponsibleUserBind();
+            //gvDealerResponsibleUser.DataSource = DealerResponsibleUserList;
+            //gvDealerResponsibleUser.DataBind();
+        }
+        void DealerResponsibleUserBind()
+        {
+            gvDealerResponsibleUser.DataSource = DealerResponsibleUserList;
+            gvDealerResponsibleUser.DataBind();
+            lblRowCountDealerResponsibleUser.Text = (((gvDealerResponsibleUser.PageIndex) * gvDealerResponsibleUser.PageSize) + 1) + " - " + (((gvDealerResponsibleUser.PageIndex) * gvDealerResponsibleUser.PageSize) + gvDealerResponsibleUser.Rows.Count) + " of " + DealerResponsibleUserList.Count;
+        }
+        protected void ibtnDealerResponsibleUserArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvDealerResponsibleUser.PageIndex > 0)
+            {
+                gvDealerResponsibleUser.PageIndex = gvDealerResponsibleUser.PageIndex - 1;
+                DealerResponsibleUserBind();
+            }
+        }
 
+        protected void ibtnDealerResponsibleUserArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvDealerResponsibleUser.PageCount > gvDealerResponsibleUser.PageIndex)
+            {
+                gvDealerResponsibleUser.PageIndex = gvDealerResponsibleUser.PageIndex + 1;
+                DealerResponsibleUserBind();
+            }
+        }
+
+        protected void gvDealerResponsibleUser_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvDealerResponsibleUser.PageIndex = e.NewPageIndex;
+            fillDealerResponsibleUser();
+        }
     }
 }
