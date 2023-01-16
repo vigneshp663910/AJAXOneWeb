@@ -114,7 +114,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
 
-            PEnquiry = new BEnquiry().GetEnquiry(null, DealerID, DealerEmployeeUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT, SourceID, StatusID,PSession.User.UserID);
+           // PEnquiry = new BEnquiry().GetEnquiry(null, DealerID, DealerEmployeeUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT, SourceID, StatusID,PSession.User.UserID);
 
             gvEnquiry.DataSource = PEnquiry;
             gvEnquiry.DataBind();

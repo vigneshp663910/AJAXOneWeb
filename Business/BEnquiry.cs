@@ -128,93 +128,21 @@ namespace Business
             }
             return true;
         }
-        public List<PEnquiry> GetEnquiry(long? EnquiryID, int? DealerID, int? EngineerUserID, string EnquiryNumber, string CustomerName, int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? StatusID,int UserID)
+        public PApiResult GetEnquiry(long? EnquiryID, int? DealerID, int? EngineerUserID, string EnquiryNumber, string CustomerName
+            , int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID
+            , int? StatusID, int? PageIndex = null, int? PageSize = null)
         {
-            List<PEnquiry> projects = new List<PEnquiry>();
-            try
-            {
-                DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int32); 
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter DealerEmployeeUserIDP = provider.CreateParameter("EngineerUserID", EngineerUserID, DbType.Int32);
-                DbParameter EnquiryNumberP = provider.CreateParameter("EnquiryNumber", EnquiryNumber == "" ? null : EnquiryNumber, DbType.String);
-                DbParameter CustomerNameP = provider.CreateParameter("CustomerName", string.IsNullOrEmpty(CustomerName) ? null : CustomerName, DbType.String);
-                DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
-                DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
-                DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
-                DbParameter DateFromP = provider.CreateParameter("DateFrom", DateFrom, DbType.DateTime);
-                DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);
-                DbParameter SourceIDP = provider.CreateParameter("SourceID", SourceID, DbType.Int32);
-                DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[13] { EnquiryIDP, DealerIDP, DealerEmployeeUserIDP, EnquiryNumberP, CountryIDP, StateIDP, DistrictIDP, CustomerNameP, DateFromP, DateToP, SourceIDP, StatusIDP, UserIDP };
-
-                using (DataSet DataSet = provider.Select("GetEnquiry", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            projects.Add(new PEnquiry()
-                            {
-                                EnquiryID = Convert.ToInt64(dr["EnquiryID"]),
-                                LeadID = DBNull.Value == dr["LeadID"] ? (long?)null: Convert.ToInt64(dr["LeadID"]),
-                                
-                                CustomerName = Convert.ToString(dr["CustomerName"]),
-                                EnquiryDate = Convert.ToDateTime(dr["EnquiryDate"]),
-                                EnquiryNumber = Convert.ToString(dr["EnquiryNumber"]),
-                                Source = DBNull.Value == dr["LeadSourceID"] ? null : new PLeadSource()
-                                {
-                                    Source = Convert.ToString(dr["LeadSource"]),
-                                    SourceID = Convert.ToInt32(dr["LeadSourceID"]),
-                               
-                                },
-                                Status = DBNull.Value == dr["PreSaleStatusID"] ? null : new PPreSaleStatus()
-                                {
-                                    Status = Convert.ToString(dr["PreSaleStatus"]),
-                                    StatusID = Convert.ToInt32(dr["PreSaleStatusID"]),
-                                },
-                                Country = DBNull.Value == dr["CountryID"] ? null : new PDMS_Country()
-                                {
-                                    Country = Convert.ToString(dr["Country"]),
-                                    CountryID = Convert.ToInt32(dr["CountryID"]),
-                                },
-                                State = DBNull.Value == dr["StateID"] ? null : new PDMS_State()
-                                {
-                                    State = Convert.ToString(dr["State"]),
-                                    StateID = Convert.ToInt32(dr["StateID"]),
-                                    Region = new PDMS_Region() { Region = Convert.ToString(dr["Region"]) }
-                                },
-                                District = DBNull.Value == dr["DistrictID"] ? null : new PDMS_District()
-                                {
-                                    District = Convert.ToString(dr["District"]),
-                                    DistrictID = Convert.ToInt32(dr["DistrictID"]), 
-                                    Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]),DealerName = Convert.ToString(dr["DealerName"]) }
-                                },
-                                Address = Convert.ToString(dr["Address"]),
-                                Address2 = Convert.ToString(dr["Address2"]),
-                                Address3 = Convert.ToString(dr["Address3"]),
-                                PersonName = Convert.ToString(dr["PersonName"]),
-                                Mobile = Convert.ToString(dr["Mobile"]),
-                                Mail = Convert.ToString(dr["Mail"]),
-                                Product = Convert.ToString(dr["Product"]),
-                                Remarks = Convert.ToString(dr["Remarks"]),
-                                CreatedBy = new PUser() { ContactName = Convert.ToString(dr["CreatedByName"]) },
-                                CreatedOn = Convert.ToDateTime(dr["CreatedOn"])
-
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return projects;
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Enquiry/GetEnquiry?EnquiryID=" + EnquiryID + "&DealerID=" + DealerID + "&EngineerUserID=" + EngineerUserID + "&EnquiryNumber=" + EnquiryNumber
+                + "&CustomerName=" + CustomerName + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID
+                + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SourceID=" + SourceID + "&StatusID=" + StatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PEnquiry GetEnquiryByID(long? EnquiryID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Enquiry/EnquiryByID?EnquiryID=" + EnquiryID ; 
+            return JsonConvert.DeserializeObject<PEnquiry>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public Boolean UpdateEnquiryReject(long EnquiryID,string Remark, int UserID)
         {
@@ -251,6 +179,14 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Enquiry/CountByStatus?From=" + From + "&To=" + To + "&DealerID=" + DealerID + "&EngineerUserID=" + EngineerUserID ;
             return JsonConvert.DeserializeObject<List<PPreSaleStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PApiResult GetEnquiryTimeLineReport(string DateFrom, string DateTo, int? DealerID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Enquiry/EnquiryTimeLineReport?DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&DealerID=" + DealerID;
+            //return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            //  TraceLogger.Log(DateTime.Now);
         }
     }
 }

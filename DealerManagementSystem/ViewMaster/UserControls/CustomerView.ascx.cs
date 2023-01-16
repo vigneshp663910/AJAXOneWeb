@@ -108,10 +108,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 lbtnVerifiedCustomer.Visible = false;
             }
-            lbtnInActivateCustomer.Visible = true;
+            lbtnDeactivateCustomer.Visible = true;
             if (!Customer.IsActive)
             {
-                lbtnInActivateCustomer.Visible = false;
+                lbtnDeactivateCustomer.Visible = false;
             }
 
             fillAttribute();
@@ -188,7 +188,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     //}
                     //lblMessage.Visible = true;
                 }
-                else if (lbActions.Text == "In Activate Customer")
+                else if (lbActions.Text == "Deactivate Customer")
                 {
                     string endPoint = "Customer/UpdateCustomerInActivate?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID + "&Active=False";
                     string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
@@ -1028,7 +1028,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         void ActionControlMange()
         {
             lbtnActivateCustomer.Visible = false;
-            lbtnInActivateCustomer.Visible = true;
+            lbtnDeactivateCustomer.Visible = true;
 
             lbEditCustomer.Visible = true;
             lbAddAttribute.Visible = true;
@@ -1051,7 +1051,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             else
             {
                 lbtnActivateCustomer.Visible = true;
-                lbtnInActivateCustomer.Visible = false;
+                lbtnDeactivateCustomer.Visible = false;
 
                 lbEditCustomer.Visible = false;
                 lbAddAttribute.Visible = false;

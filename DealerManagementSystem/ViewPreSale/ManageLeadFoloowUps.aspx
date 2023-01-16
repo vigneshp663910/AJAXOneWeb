@@ -101,108 +101,109 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
-                                <Columns>
-                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                            <asp:Label ID="lblLeadFollowUpID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadFollowUpID")%>' runat="server" Visible="false" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Sales Engineer">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblSEContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Follow Up Date">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblFollowUpDate" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpDate","{0:d}")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Follow Up Note">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblFollowUpNote" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpNote")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Lead Number">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblLeadNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.LeadNumber")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Lead Date">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.LeadDate","{0:d}")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%--  <asp:TemplateField HeaderText="Category" SortExpression="Country">
+                            <div style="padding-bottom: 50px">
+                                <asp:GridView ID="gvFollowUp" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                                <asp:Label ID="lblLeadFollowUpID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadFollowUpID")%>' runat="server" Visible="false" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Sales Engineer">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblSEContactName" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Follow Up Date">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblFollowUpDate" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpDate","{0:d}")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Follow Up Note">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblFollowUpNote" Text='<%# DataBinder.Eval(Container.DataItem, "FollowUpNote")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Lead Number">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblLeadNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.LeadNumber")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Lead Date">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblLeadDate" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.LeadDate","{0:d}")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <%--  <asp:TemplateField HeaderText="Category" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Category.Category")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                    <%-- <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
+                                        <%-- <asp:TemplateField HeaderText="Progress Status" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblProgressStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.ProgressStatus.ProgressStatus")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                    <asp:TemplateField HeaderText="Qualification">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblQualification" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Qualification.Qualification")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Source">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Source.Source")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Status">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblLeadStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Status.Status")%>' runat="server" />
+                                        <asp:TemplateField HeaderText="Qualification">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblQualification" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Qualification.Qualification")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Source">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Source.Source")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Status">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblLeadStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Status.Status")%>' runat="server" />
 
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%--  <asp:TemplateField HeaderText="Type" SortExpression="Country">
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <%--  <asp:TemplateField HeaderText="Type" SortExpression="Country">
                                         <ItemTemplate>
                                             <asp:Label ID="lblType" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Type.Type")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                    <asp:TemplateField HeaderText="Dealer Code">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Dealer.DealerCode")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Customer Name">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="FollowUp Status">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblFollowUpStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
-                                            <asp:Label ID="lblFollowUpStatusID" Text='<%# DataBinder.Eval(Container.DataItem, "Status.StatusID")%>' runat="server" Visible="false" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Update Status">
-                                        <ItemTemplate>
-                                            <div class="dropdown" id='<%# "divActions"+ Container.DataItemIndex%>'>
-                                                <div class="btn Approval" style="height: 25px">Actions</div>
-                                                <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                                                    <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
-                                                    <asp:LinkButton ID="lbClose" runat="server" OnClick="lbActions_Click">Close</asp:LinkButton>
+                                        <asp:TemplateField HeaderText="Dealer Code">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Lead.Dealer.DealerCode")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Customer Name">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="FollowUp Status">
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblFollowUpStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
+                                                <asp:Label ID="lblFollowUpStatusID" Text='<%# DataBinder.Eval(Container.DataItem, "Status.StatusID")%>' runat="server" Visible="false" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Update Status">
+                                            <ItemTemplate>
+                                                <div class="dropdown" id='<%# "divActions"+ Container.DataItemIndex%>'>
+                                                    <div class="btn Approval" style="height: 25px">Actions</div>
+                                                    <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                                                        <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
+                                                        <asp:LinkButton ID="lbClose" runat="server" OnClick="lbActions_Click">Close</asp:LinkButton>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <AlternatingRowStyle BackColor="White" />
-                                <FooterStyle ForeColor="White" />
-                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                <RowStyle BackColor="#FBFCFD" ForeColor="Black" HorizontalAlign="Left" />
-                            </asp:GridView>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <AlternatingRowStyle BackColor="White" />
+                                    <FooterStyle ForeColor="White" />
+                                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                    <RowStyle BackColor="#FBFCFD" ForeColor="Black" HorizontalAlign="Left" />
+                                </asp:GridView>
+                            </div>
                         </div>
                     </fieldset>
                 </div>

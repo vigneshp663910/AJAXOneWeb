@@ -696,5 +696,12 @@ namespace Properties
         Designation,
         PhoneNumber
     }
-    
+    public enum enumRegion
+    {
+        East = 2,
+        North = 3,
+        South1 = 4,
+        South2 = 5,
+        West = 6
+    }
 }

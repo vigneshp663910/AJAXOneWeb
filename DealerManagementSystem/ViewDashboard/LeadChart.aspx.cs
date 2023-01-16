@@ -56,8 +56,13 @@ namespace DealerManagementSystem.ViewDashboard
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
-            ClientScript.RegisterStartupScript(GetType(), "hwa", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(drawChart); ", true);
-            ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionWiseLeadStatusChart); ", true);
+            ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionEastChart); ", true);
+            ClientScript.RegisterStartupScript(GetType(), "hwa2", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionNorthChart); ", true);
+            ClientScript.RegisterStartupScript(GetType(), "hwa3", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionSouthChart); ", true);
+            ClientScript.RegisterStartupScript(GetType(), "hwa4", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionWestChart); ", true);
+
+            ClientScript.RegisterStartupScript(GetType(), "hwa5", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(drawChart); ", true);
+            ClientScript.RegisterStartupScript(GetType(), "hwa6", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionWiseLeadStatusChart); ", true);
         }
 
         [WebMethod]
@@ -164,5 +169,99 @@ namespace DealerManagementSystem.ViewDashboard
         {
             new DDLBind(ddlYRegion, new BDMS_Address().GetRegion(ddlYCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYCountry.SelectedValue), null, null), "Region", "RegionID");
         }
+
+
+        [WebMethod]
+        public static List<object> RegionEastChart(string Dealer, string LeadDateFrom, string LeadDateTo, string Country, string Region, string ProductType)
+        {
+            List<object> chartData = new List<object>();
+            chartData.Add(new object[] { "General", "Open", "Quotation", "Won", "Lost", "Cancel" });
+            int? DealerID = Dealer == "0" ? (int?)null : Convert.ToInt32(Dealer);
+            int? CountryID = string.IsNullOrEmpty(Country) || Country == "0" ? (int?)null : Convert.ToInt32(Country);
+            int? ProductTypeID = ProductType == "0" ? (int?)null : Convert.ToInt32(ProductType);
+
+
+            int? RegionID = string.IsNullOrEmpty(Region) || Region == "0" ? (short)enumRegion.East : Convert.ToInt32(Region);
+
+            DataTable dt = new BLead().GetLeadCountByStatusAndDealer(DealerID, LeadDateFrom, LeadDateTo, CountryID, RegionID, ProductTypeID);
+            foreach (DataRow dr in dt.Rows)
+            {
+                chartData.Add(new object[] { Convert.ToString(dr["DisplayName"]), Convert.ToInt32(dr["Open"]), Convert.ToInt32(dr["Quotation"]), Convert.ToInt32(dr["Won"]), Convert.ToInt32(dr["Lost"]), Convert.ToInt32(dr["Cancel"]) });
+            } 
+            return chartData; 
+        }
+
+        [WebMethod]
+        public static List<object> RegionNorthChart(string Dealer, string LeadDateFrom, string LeadDateTo, string Country, string Region, string ProductType)
+        {
+            List<object> chartData = new List<object>();
+            chartData.Add(new object[] { "General", "Open", "Quotation", "Won", "Lost", "Cancel" });
+            int? DealerID = Dealer == "0" ? (int?)null : Convert.ToInt32(Dealer);
+            int? CountryID = string.IsNullOrEmpty(Country) || Country == "0" ? (int?)null : Convert.ToInt32(Country);
+            int? ProductTypeID = ProductType == "0" ? (int?)null : Convert.ToInt32(ProductType);
+
+
+            int? RegionID = string.IsNullOrEmpty(Region) || Region == "0" ? (short)enumRegion.North : Convert.ToInt32(Region);
+
+            DataTable dt = new BLead().GetLeadCountByStatusAndDealer(DealerID, LeadDateFrom, LeadDateTo, CountryID, RegionID, ProductTypeID);
+            foreach (DataRow dr in dt.Rows)
+            {
+                chartData.Add(new object[] { Convert.ToString(dr["DisplayName"]), Convert.ToInt32(dr["Open"]), Convert.ToInt32(dr["Quotation"]), Convert.ToInt32(dr["Won"]), Convert.ToInt32(dr["Lost"]), Convert.ToInt32(dr["Cancel"]) });
+            }
+            return chartData;
+        }
+
+        [WebMethod]
+        public static List<object> RegionSouthChart(string Dealer, string LeadDateFrom, string LeadDateTo, string Country, string Region, string ProductType)
+        {
+            List<object> chartData = new List<object>();
+            chartData.Add(new object[] { "General", "Open", "Quotation", "Won", "Lost", "Cancel" });
+            int? DealerID = Dealer == "0" ? (int?)null : Convert.ToInt32(Dealer);
+            int? CountryID = string.IsNullOrEmpty(Country) || Country == "0" ? (int?)null : Convert.ToInt32(Country);
+            int? ProductTypeID = ProductType == "0" ? (int?)null : Convert.ToInt32(ProductType);
+
+
+            int? RegionID = string.IsNullOrEmpty(Region) || Region == "0" ? (short)enumRegion.South1 : Convert.ToInt32(Region);
+
+            DataTable dt = new BLead().GetLeadCountByStatusAndDealer(DealerID, LeadDateFrom, LeadDateTo, CountryID, RegionID, ProductTypeID);
+            foreach (DataRow dr in dt.Rows)
+            {
+                chartData.Add(new object[] { Convert.ToString(dr["DisplayName"]), Convert.ToInt32(dr["Open"]), Convert.ToInt32(dr["Quotation"]), Convert.ToInt32(dr["Won"]), Convert.ToInt32(dr["Lost"]), Convert.ToInt32(dr["Cancel"]) });
+            }
+
+            if (string.IsNullOrEmpty(Region) || Region == "0")
+            {
+                RegionID = string.IsNullOrEmpty(Region) || Region == "0" ? (short)enumRegion.South2 : Convert.ToInt32(Region);
+
+                dt = new BLead().GetLeadCountByStatusAndDealer(DealerID, LeadDateFrom, LeadDateTo, CountryID, RegionID, ProductTypeID);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    chartData.Add(new object[] { Convert.ToString(dr["DisplayName"]), Convert.ToInt32(dr["Open"]), Convert.ToInt32(dr["Quotation"]), Convert.ToInt32(dr["Won"]), Convert.ToInt32(dr["Lost"]), Convert.ToInt32(dr["Cancel"]) });
+                }
+            }
+
+            return chartData;
+        }
+
+        [WebMethod]
+        public static List<object> RegionWestChart(string Dealer, string LeadDateFrom, string LeadDateTo, string Country, string Region, string ProductType)
+        {
+            List<object> chartData = new List<object>();
+            chartData.Add(new object[] { "General", "Open", "Quotation", "Won", "Lost", "Cancel" });
+            int? DealerID = Dealer == "0" ? (int?)null : Convert.ToInt32(Dealer);
+            int? CountryID = string.IsNullOrEmpty(Country) || Country == "0" ? (int?)null : Convert.ToInt32(Country);
+            int? ProductTypeID = ProductType == "0" ? (int?)null : Convert.ToInt32(ProductType);
+
+
+            int? RegionID = string.IsNullOrEmpty(Region) || Region == "0" ? (short)enumRegion.West : Convert.ToInt32(Region);
+
+            DataTable dt = new BLead().GetLeadCountByStatusAndDealer(DealerID, LeadDateFrom, LeadDateTo, CountryID, RegionID, ProductTypeID);
+            foreach (DataRow dr in dt.Rows)
+            {
+                chartData.Add(new object[] { Convert.ToString(dr["DisplayName"]), Convert.ToInt32(dr["Open"]), Convert.ToInt32(dr["Quotation"]), Convert.ToInt32(dr["Won"]), Convert.ToInt32(dr["Lost"]), Convert.ToInt32(dr["Cancel"]) });
+            }
+            return chartData;
+        }
+
     }
 }

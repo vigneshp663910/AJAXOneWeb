@@ -56,7 +56,9 @@ namespace Properties
         public Boolean ajaxOne { get; set; }
         public Boolean ajaxOneDealer { get; set; }
         public List<PUserMobileFeature> UserMobileFeature { get; set; }
+        public string Language { get; set; }
         public Boolean IsOffLineAllowed { get; set; }
+        public Boolean DebuggingStatus { get; set; }
         #endregion
     }
     [Serializable]

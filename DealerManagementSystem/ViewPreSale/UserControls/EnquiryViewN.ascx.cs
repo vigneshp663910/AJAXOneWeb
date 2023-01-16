@@ -34,7 +34,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 if (Session["EnquiryView"] == null)
                 {
-                    Session["EnquiryView"] = new PLead();
+                    Session["EnquiryView"] = new PEnquiry();
                 }
                 return (PEnquiry)Session["EnquiryView"];
             }
@@ -69,14 +69,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 long EnquiryID = Convert.ToInt64(Convert.ToString(ViewState["EnquiryID"]));
                 if (EnquiryID != Enquiry.EnquiryID)
                 {
-                    Enquiry = new BEnquiry().GetEnquiry(EnquiryID, null, null, null, null, null, null, null, null, null, null, null, PSession.User.UserID)[0];
+                    Enquiry = new BEnquiry().GetEnquiryByID(EnquiryID);
                 }
             }
         }
         public void fillViewEnquiry(long EnquiryID)
         {
             ViewState["EnquiryID"] = EnquiryID;
-            Enquiry = new BEnquiry().GetEnquiry(EnquiryID, null, null, null, null, null, null, null, null, null, null, null, PSession.User.UserID)[0];
+            Enquiry = new BEnquiry().GetEnquiryByID(EnquiryID);
             lblEnquiryNumber.Text = Enquiry.EnquiryNumber;
             lblCustomerName.Text = Enquiry.CustomerName;
             lblPersonName.Text = Enquiry.PersonName;

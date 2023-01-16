@@ -150,7 +150,7 @@ namespace DealerManagementSystem
                 if (ResultToken.Status == PApplication.Failure)
                 {
                     lblMessage.ForeColor = System.Drawing.Color.Red;
-                    lblMessage.Text = Results.Message;
+                    lblMessage.Text = ResultToken.Message;
                     lblMessage.Visible = true;
                     return;
                 }

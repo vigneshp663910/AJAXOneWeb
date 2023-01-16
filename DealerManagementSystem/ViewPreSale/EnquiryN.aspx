@@ -117,7 +117,7 @@
                             </div>
                             <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
                             <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
-                                AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvEnquiry_PageIndexChanging">
+                                AutoGenerateColumns="false" Width="100%"  >
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
