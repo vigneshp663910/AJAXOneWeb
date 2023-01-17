@@ -33,6 +33,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnEditBank;
 
         /// <summary>
+        /// lnkBtnEditDealerResponsibleUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnEditDealerResponsibleUser;
+
+        /// <summary>
         /// lblDealerCode control.
         /// </summary>
         /// <remarks>
@@ -589,6 +598,96 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_EditBank;
+
+        /// <summary>
+        /// pnlEditDealerResponsibleUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlEditDealerResponsibleUser;
+
+        /// <summary>
+        /// btnEditDealerResponsibleUserClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditDealerResponsibleUserClose;
+
+        /// <summary>
+        /// lblEditDealerResponsibleUserMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEditDealerResponsibleUserMessage;
+
+        /// <summary>
+        /// Fieldset2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset2;
+
+        /// <summary>
+        /// lblDealerResposnibleUserType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblDealerResposnibleUserType;
+
+        /// <summary>
+        /// ddlDealerResposibleUserType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerResposibleUserType;
+
+        /// <summary>
+        /// lblDealerResponsibleUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblDealerResponsibleUser;
+
+        /// <summary>
+        /// ddlDealerResponsibleUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerResponsibleUser;
+
+        /// <summary>
+        /// btnUpdateDealerResposibleUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateDealerResposibleUser;
+
+        /// <summary>
+        /// MPE_EditDealerResposibleUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_EditDealerResposibleUser;
 
         /// <summary>
         /// lnkMPE control.

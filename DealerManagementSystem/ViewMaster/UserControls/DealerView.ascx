@@ -92,6 +92,7 @@
                 <%-- <asp:LinkButton ID="lnkBtnAddDealerOffice" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Office</asp:LinkButton>--%>
                 <asp:LinkButton ID="lnkBtnAddNotification" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Notification</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnEditBank" runat="server" OnClick="lnkBtnActions_Click">Edit Bank Details</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnEditDealerResponsibleUser" runat="server" OnClick="lnkBtnActions_Click">Edit Dealer Responsible User</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -118,7 +119,7 @@
                     <label>IFSC Code : </label>
                     <asp:Label ID="lblIFSCCode" runat="server" CssClass="label"></asp:Label>
                 </div>
-                
+
                 <%--<div class="col-md-12">
                     <label>Team Lead : </label>
                     <asp:Label ID="lblTeamLead" runat="server" CssClass="label"></asp:Label>
@@ -543,17 +544,17 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Contact">
-                                        <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblContactNumber" runat="server">
+                                    <ItemStyle VerticalAlign="Middle" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblContactNumber" runat="server">
                                                 <a href='tel:<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "ContactNumber")%></a>
-                                            </asp:Label>
-                                            <br />
-                                             <asp:Label ID="lblEMail" runat="server">
+                                        </asp:Label>
+                                        <br />
+                                        <asp:Label ID="lblEMail" runat="server">
                                                 <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Email")%>'><%# DataBinder.Eval(Container.DataItem, "Email")%></a>
-                                            </asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                             <AlternatingRowStyle BackColor="White" />
                             <FooterStyle ForeColor="White" />
@@ -669,6 +670,42 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_EditBank" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditBank" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlEditDealerResponsibleUser" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueEditDealerResponsibleUser">Edit Dealer Responsible User</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnEditDealerResponsibleUserClose" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblEditDealerResponsibleUserMessage" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
+                <div class="col-md-12">
+                     <div class="col-md-6 col-sm-12">
+                        <label class="modal-label" runat="server" id="lblDealerResposnibleUserType">Dealer Resposible User Type</label>
+                        <asp:DropDownList ID="ddlDealerResposibleUserType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealerResposibleUserType_SelectedIndexChanged" AutoPostBack="true" >
+                            <asp:ListItem Text="Select Dealer Responsible User Type" Value="0"></asp:ListItem>
+                            <asp:ListItem Text="Team Lead" Value="TL"></asp:ListItem>
+                            <asp:ListItem Text="Service Manager" Value="SM"></asp:ListItem>
+                            <asp:ListItem Text="Sales Responsible User" Value="Sales Responsible User"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                      <div class="col-md-6 col-sm-12">
+                        <label class="modal-label" runat="server" id="lblDealerResponsibleUser">Dealer Resposible User</label>
+                        <asp:DropDownList ID="ddlDealerResponsibleUser" runat="server" CssClass="form-control" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnUpdateDealerResposibleUser" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateDealerResposibleUser_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditDealerResposibleUser" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditDealerResponsibleUser" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

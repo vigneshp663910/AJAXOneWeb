@@ -69,7 +69,6 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
             lblMessage.Text = "";
         }
         public void fillEquipment(long EquipmentHeaderID)
@@ -86,19 +85,19 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lblDistrict.Text = EquipmentViewDet.Customer.District == null ? "" : Convert.ToString(EquipmentViewDet.Customer.District.District);
             //lblState.Text = EquipmentViewDet.Customer.State.State;
             lblState.Text = EquipmentViewDet.Customer.State == null ? "" : Convert.ToString(EquipmentViewDet.Customer.State.State);
-            lblDispatchedOn.Text = EquipmentViewDet.DispatchedOn == null ? "" : ((DateTime)EquipmentViewDet.DispatchedOn).ToLongDateString();
-            lblWarrantyExpiryDate.Text = EquipmentViewDet.WarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToLongDateString();
+            lblDispatchedOn.Text = EquipmentViewDet.DispatchedOn == null ? "" : ((DateTime)EquipmentViewDet.DispatchedOn).ToShortDateString();
+            lblWarrantyExpiryDate.Text = EquipmentViewDet.WarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToShortDateString();
             lblEngineModel.Text = EquipmentViewDet.EngineModel;
             lblCurrentHMRValue.Text = EquipmentViewDet.CurrentHMRValue.ToString();
-            lblCommisioningOn.Text = EquipmentViewDet.CommissioningOn == null ? "" : ((DateTime)EquipmentViewDet.CommissioningOn).ToLongDateString();
-            lblCurrentHMRDate.Text = EquipmentViewDet.CurrentHMRDate == null ? "" : ((DateTime)EquipmentViewDet.CurrentHMRDate).ToLongDateString();
+            lblCommisioningOn.Text = EquipmentViewDet.CommissioningOn == null ? "" : ((DateTime)EquipmentViewDet.CommissioningOn).ToShortDateString();
+            lblCurrentHMRDate.Text = EquipmentViewDet.CurrentHMRDate == null ? "" : ((DateTime)EquipmentViewDet.CurrentHMRDate).ToShortDateString();
             //EquipmentViewDet.IsRefurbished;
             //EquipmentViewDet.RefurbishedBy;
-            lblRFWarrantyStartDate.Text = EquipmentViewDet.RFWarrantyStartDate == null ? "" : ((DateTime)EquipmentViewDet.RFWarrantyStartDate).ToLongDateString();
-            lblRFWarrantyExpiryDate.Text = EquipmentViewDet.RFWarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.RFWarrantyExpiryDate).ToLongDateString();
+            lblRFWarrantyStartDate.Text = EquipmentViewDet.RFWarrantyStartDate == null ? "" : ((DateTime)EquipmentViewDet.RFWarrantyStartDate).ToShortDateString();
+            lblRFWarrantyExpiryDate.Text = EquipmentViewDet.RFWarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.RFWarrantyExpiryDate).ToShortDateString();
             cbIsAMC.Checked = EquipmentViewDet.IsAMC == null ? false : Convert.ToBoolean(EquipmentViewDet.IsAMC);
-            lblAMCStartDate.Text = EquipmentViewDet.AMCStartDate == null ? "" : ((DateTime)EquipmentViewDet.AMCStartDate).ToLongDateString();
-            lblAMCExpiryDate.Text = EquipmentViewDet.AMCExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.AMCExpiryDate).ToLongDateString();
+            lblAMCStartDate.Text = EquipmentViewDet.AMCStartDate == null ? "" : ((DateTime)EquipmentViewDet.AMCStartDate).ToShortDateString();
+            lblAMCExpiryDate.Text = EquipmentViewDet.AMCExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.AMCExpiryDate).ToShortDateString();
             lblTypeOfWheelAssembly.Text = EquipmentViewDet.TypeOfWheelAssembly;
             lblMaterialCode.Text = EquipmentViewDet.Material.MaterialCode;
             lblChassisSlNo.Text = EquipmentViewDet.ChassisSlNo;
@@ -106,14 +105,14 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lblPlant.Text = EquipmentViewDet.Plant;
             lblSpecialVariants.Text = EquipmentViewDet.SpecialVariants;
             lblProductionStatus.Text = EquipmentViewDet.ProductionStatus;
-            lblVariantsFittingDate.Text = EquipmentViewDet.VariantsFittingDate == null ? "" : ((DateTime)EquipmentViewDet.VariantsFittingDate).ToLongDateString();
+            lblVariantsFittingDate.Text = EquipmentViewDet.VariantsFittingDate == null ? "" : ((DateTime)EquipmentViewDet.VariantsFittingDate).ToShortDateString();
             lblManufacturingDate.Text = Convert.ToString(EquipmentViewDet.ManufacturingDate);
-            lblInstalledBaseNo.Text = EquipmentViewDet.Ibase.InstalledBaseNo;
+            lblInstalledBaseNo.Text = EquipmentViewDet.Ibase.InstalledBaseNo == null ? "" : EquipmentViewDet.Ibase.InstalledBaseNo.ToString();
             lblIBaseLocation.Text = EquipmentViewDet.Ibase.IBaseLocation;
-            lblDeliveryDate.Text = EquipmentViewDet.Ibase.DeliveryDate == null ? "" : ((DateTime)EquipmentViewDet.Ibase.DeliveryDate).ToLongDateString();
-            lblIBaseCreatedOn.Text = EquipmentViewDet.Ibase.IBaseCreatedOn == null ? "" : ((DateTime)EquipmentViewDet.Ibase.IBaseCreatedOn).ToLongDateString();
-            lblIbaseWarrantyStart.Text = EquipmentViewDet.Ibase.WarrantyStart == null ? "" : ((DateTime)EquipmentViewDet.Ibase.WarrantyStart).ToLongDateString();
-            lblIbaseWarrantyEnd.Text = EquipmentViewDet.Ibase.WarrantyEnd == null ? "" : ((DateTime)EquipmentViewDet.Ibase.WarrantyEnd).ToLongDateString();
+            lblDeliveryDate.Text = EquipmentViewDet.Ibase.DeliveryDate == null ? "" : ((DateTime)EquipmentViewDet.Ibase.DeliveryDate).ToShortDateString();
+            lblIBaseCreatedOn.Text = EquipmentViewDet.Ibase.IBaseCreatedOn == null ? "" : ((DateTime)EquipmentViewDet.Ibase.IBaseCreatedOn).ToShortDateString();
+            lblIbaseWarrantyStart.Text = EquipmentViewDet.Ibase.WarrantyStart == null ? "" : ((DateTime)EquipmentViewDet.Ibase.WarrantyStart).ToShortDateString();
+            lblIbaseWarrantyEnd.Text = EquipmentViewDet.Ibase.WarrantyEnd == null ? "" : ((DateTime)EquipmentViewDet.Ibase.WarrantyEnd).ToShortDateString();
             lblFinancialYearOfDispatch.Text = EquipmentViewDet.Ibase.FinancialYearOfDispatch.ToString();
             lblMajorRegion.Text = EquipmentViewDet.Ibase.MajorRegion.Region;
             lblWarrantyType.Text = EquipmentViewDet.EquipmentWarrantyType == null ? "" : EquipmentViewDet.EquipmentWarrantyType.Description;
@@ -300,7 +299,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 //}
                 if (lbActions.Text == "Approve Warranty Type Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrrantyTypeChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrrantyTypeChange(Convert.ToInt64(lblWarrantyTypeChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
                     {
                         lblMessage.Text = "Equipment Warrranty Type Change approved.";
                         lblMessage.ForeColor = Color.Green;
@@ -314,7 +313,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (lbActions.Text == "Reject Warranty Type Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(lblWarrantyTypeChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
                     {
                         lblMessage.Text = "Equipment Warrranty Type Change rejected.";
                         lblMessage.ForeColor = Color.Green;
@@ -325,11 +324,10 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblMessage.Text = "Equipment Warrranty Type Change not rejected.";
                         lblMessage.ForeColor = Color.Red;
                     }
-
                 }
                 if (lbActions.Text == "Approve Ownership Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(lblOwnershipChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
                     {
                         lblMessage.Text = "Equipment Ownership Change approved.";
                         lblMessage.ForeColor = Color.Green;
@@ -343,7 +341,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (lbActions.Text == "Reject Ownership Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(lblOwnershipChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
                     {
                         lblMessage.Text = "Equipment Ownership Change rejected.";
                         lblMessage.ForeColor = Color.Green;
@@ -357,7 +355,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (lbActions.Text == "Approve Warranty Expiry Date Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(lblWarrantyExpiryDateChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
                     {
                         lblMessage.Text = "Equipment Warrranty Expiry Date Change approved.";
                         lblMessage.ForeColor = Color.Green;
@@ -373,7 +371,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (lbActions.Text == "Reject Warranty Expiry Date Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(Session["ChangeID"]), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(lblWarrantyExpiryDateChangeID), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
                     {
                         lblMessage.Text = "Equipment Warrranty Expiry Date Change approved.";
                         lblMessage.ForeColor = Color.Green;
@@ -410,26 +408,54 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lnkBtnRejOwnershipChangeReq.Visible = false;
             lnkBtnApprWarrantyExpiryDateChangeReq.Visible = false;
             lnkBtnRejWarrantyExpiryDateChangeReq.Visible = false;
+            divWarrantyTypeChangeReq.Visible = false;
+            divOwnershipChangeReq.Visible = false;
+            divExpiryDateChangeReq.Visible = false;
             DataTable Equip = new BDMS_Equipment().GetEquipmentChangeForApproval(null, null, EquipmentViewDet.EquipmentSerialNo);
+            
             foreach (DataRow dr in Equip.Rows)
             {
                 if (Convert.ToString(dr["ChangeRequested"]) == "Warranty Type")
                 {
                     lnkBtnApprWarrantyTypeChangeReq.Visible = true;
                     lnkBtnRejWarrantyTypeChangeReq.Visible = true;
+                    divWarrantyTypeChangeReq.Visible = true;
+                    if (!string.IsNullOrEmpty(dr["NewValue"].ToString()))
+                    {
+                        lblWarrantyTypeWTR.Text = EquipmentViewDet.EquipmentWarrantyType == null ? "" : EquipmentViewDet.EquipmentWarrantyType.Description; ;
+                        lblHMRValueWTR.Text = EquipmentViewDet.CurrentHMRValue.ToString(); ;
+                        lblWarrantyChangeTypeReq.Text = dr["NewValue"].ToString();
+                        lblHMRValueNew.Text = dr["WarrantyStartDate"].ToString();
+                        lblWarrantyStartDateWTR.Text = dr["WarrantyStartDate"].ToString();
+                        lblWarrantyEndDateWTR.Text = dr["WarrantyEndDate"].ToString();
+                        lblWarrantyTypeChangeID.Text = dr["ChangeID"].ToString();
+                    }
                 }
                 if (Convert.ToString(dr["ChangeRequested"]) == "Ownership Change")
                 {
                     lnkBtnApprOwnershipChangeReq.Visible = true;
                     lnkBtnRejOwnershipChangeReq.Visible = true;
+                    divOwnershipChangeReq.Visible = true;
+                    if (!string.IsNullOrEmpty(dr["NewValue"].ToString()))
+                    {
+                        lblCustomerOCR.Text = EquipmentViewDet.Customer.CustomerFullName;
+                        lblOwnershipChangeReq.Text = dr["NewValue"].ToString() ;
+                        lblOwnershipChangeID.Text = dr["ChangeID"].ToString();
+                    }
                 }
                 if (Convert.ToString(dr["ChangeRequested"]) == "Warranty Expiry Date")
                 {
                     lnkBtnApprWarrantyExpiryDateChangeReq.Visible = true;
                     lnkBtnRejWarrantyExpiryDateChangeReq.Visible = true;
+                    divExpiryDateChangeReq.Visible = true;
+                    if (!string.IsNullOrEmpty(dr["NewValue"].ToString()))
+                    {
+                        lblWarrantyExpiryDateEDC.Text = EquipmentViewDet.WarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToShortDateString(); ;
+                        lblExpiryDateChangeReq.Text = dr["NewValue"].ToString();
+                        lblWarrantyExpiryDateChangeID.Text = dr["ChangeID"].ToString();
+                    }
                 }
             }
-
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.UpdateCommDate).Count() == 0)
@@ -447,7 +473,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ExpiryDateChange).Count() == 0)
             {
-                lnkBtnReqWarrantyExpiryDateChange.Visible = false;
+                lnkBtnReqWarrantyExpiryDateChange.Visible = false;                
             }
 
 
@@ -455,16 +481,19 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             {
                 lnkBtnApprWarrantyTypeChangeReq.Visible = false;
                 lnkBtnRejWarrantyTypeChangeReq.Visible = false;
+                divWarrantyTypeChangeReq.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ApproveOwnershipChange).Count() == 0)
             {
                 lnkBtnApprOwnershipChangeReq.Visible = false;
                 lnkBtnRejOwnershipChangeReq.Visible = false;
+                divOwnershipChangeReq.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ApproveExpiryDateChange).Count() == 0)
             {
                 lnkBtnApprWarrantyExpiryDateChangeReq.Visible = false;
                 lnkBtnRejWarrantyExpiryDateChangeReq.Visible = false;
+                divExpiryDateChangeReq.Visible = false;
             }
         }
         protected void btnUpdateCommiDate_Click(object sender, EventArgs e)
@@ -509,9 +538,34 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
 
             if (ddlWarranty.SelectedValue == "0")
             {
-                lblMessageWarrantyTypeChangeReq.Text = "Please select the Warranty Type";
+                lblMessageWarrantyTypeChangeReq.Text = "Please select the Warranty Type.";
                 lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
                 MPE_WarrantyTypeChangeReq.Show();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtWarrantyStartDate.Text))
+            {
+                lblMessageWarrantyTypeChangeReq.Text = "Please select Warranty Start Date.";
+                lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
+                return;
+            }
+            if (string.IsNullOrEmpty(txtWarrantyEndDate.Text))
+            {
+                lblMessageWarrantyTypeChangeReq.Text = "Please select Warranty End Date.";
+                lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
+                return;
+            }
+            if (string.IsNullOrEmpty(txtWarrantyHMRValue.Text))
+            {
+                lblMessageWarrantyTypeChangeReq.Text = "Please enter the Warranty HMR.";
+                lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
+                return;
+            }
+            if (Convert.ToInt32(txtWarrantyHMRValue.Text) < Convert.ToInt32(EquipmentViewDet.CurrentHMRValue.ToString()))
+            {
+                lblMessageWarrantyTypeChangeReq.Text = "Warranty HMR cannot be lesser than previous HMR.";
+                lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
                 return;
             }
             //if (fileUpload.FileName.Length == 0)
@@ -533,6 +587,9 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             PEquipmentWarranty_Insert WT = new PEquipmentWarranty_Insert(); 
             WT.EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID; 
             WT.EquipmentWarrantyTypeID = Convert.ToInt32(ddlWarranty.SelectedValue);
+            WT.WarrantyStartDate = Convert.ToDateTime(txtWarrantyStartDate.Text);
+            WT.WarrantyEndDate = Convert.ToDateTime(txtWarrantyEndDate.Text);
+            WT.WarrantyHMR = Convert.ToInt32(txtWarrantyHMRValue.Text);
             WT.AttachedFile = new List<PEquipmentAttachedFilee_Insert>();
             WT.AttachedFile = AttachedFileTemp;
 

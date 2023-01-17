@@ -260,7 +260,7 @@ namespace Business
                         Equip.VariantsFittingDate = dr["VariantsFittingDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["VariantsFittingDate"]);
                         //   Equip.ManufacturingDate = Convert.ToString(dr["ManufacturingDate"]);
 
-                        Equip.Ibase = new PDMS_EquipmentIbase
+                        Equip.Ibase = dr["InstalledBaseNo"] == DBNull.Value ? null : new PDMS_EquipmentIbase
                         {
                             InstalledBaseNo = Convert.ToString(dr["InstalledBaseNo"]),
                             IBaseLocation = Convert.ToString(dr["IBaseLocation"]),

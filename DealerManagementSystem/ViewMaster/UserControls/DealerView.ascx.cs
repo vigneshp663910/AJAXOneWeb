@@ -178,6 +178,12 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     txtAccountNo.Text = lblAccountNo.Text;
                     MPE_EditBank.Show();                    
                }
+               if(lbActions.Text == "Edit Dealer Responsible User")
+               {
+                    lblEditDealerResponsibleUserMessage.Text = "";
+                    lblEditDealerResponsibleUserMessage.Visible = false;
+                    MPE_EditDealerResposibleUser.Show();
+                }
             }
             catch (Exception ex)
             {
@@ -506,6 +512,41 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             gvDealerResponsibleUser.PageIndex = e.NewPageIndex;
             fillDealerResponsibleUser();
+        }
+        protected void ddlDealerResposibleUserType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(ddlDealerResposibleUserType.SelectedValue == "TL" || ddlDealerResposibleUserType.SelectedValue == "SM")
+            {
+                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, Dealer.DealerID, true, null, 2, null), "ContactName", "UserID");
+            }
+            if(ddlDealerResposibleUserType.SelectedValue == "Sales Responsible User")
+            {
+                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, Dealer.DealerID, true, null, 1, null), "ContactName", "UserID");
+            }
+            MPE_EditDealerResposibleUser.Show();
+        }
+        protected void btnUpdateDealerResposibleUser_Click(object sender, EventArgs e)
+        {
+            if (ddlDealerResponsibleUser.SelectedValue == "0")
+            {
+                lblEditDealerResponsibleUserMessage.Text = "";
+                lblEditDealerResponsibleUserMessage.ForeColor = Color.Red;
+                lblEditDealerResponsibleUserMessage.Visible = true;
+            }
+
+            if (new BDMS_Dealer().UpdateDealerResponsibleUser(Dealer.DealerID, PSession.User.UserID, Convert.ToInt32(ddlDealerResposibleUserType.SelectedValue)))
+            {
+                lblEditDealerResponsibleUserMessage.Text = "Dealer Responsible updated for the Dealer.";
+                lblEditDealerResponsibleUserMessage.ForeColor = Color.Green;
+                lblEditDealerResponsibleUserMessage.Visible = true;
+            }
+            else
+            {
+                lblEditDealerResponsibleUserMessage.Text = "Dealer Responsible not updated for the Dealer.";
+                lblEditDealerResponsibleUserMessage.ForeColor = Color.Red;
+                lblEditDealerResponsibleUserMessage.Visible = true;
+            }
+            filldealer(Dealer.DealerID);
         }
     }
 }

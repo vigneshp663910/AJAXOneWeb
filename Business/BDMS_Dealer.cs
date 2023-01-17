@@ -1415,5 +1415,30 @@ namespace Business
             }
             return EMP;
         }
+        public Boolean UpdateDealerResponsibleUser(Int64 DealerID, int UserID, int DealerResponsibleUserType)
+        {
+            TraceLogger.Log(DateTime.Now);
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter DealerResponsibleUserTypeP = provider.CreateParameter("DealerResponsibleUserType", DealerResponsibleUserType, DbType.Int32);
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+
+                    DbParameter[] Params = new DbParameter[3] { DealerIDP, UserIDP, DealerResponsibleUserTypeP };
+                    provider.Insert("UpdateDealerResponsibleUser", Params);
+                    scope.Complete();
+                }
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessageService("BDMS_Dealer", "UpdateDealerResponsibleUser", ex);
+                return false;
+            }
+            return true;
+        }
+
     }
 }

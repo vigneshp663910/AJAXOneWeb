@@ -105,6 +105,150 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnRejWarrantyExpiryDateChangeReq;
 
         /// <summary>
+        /// divWarrantyTypeChangeReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divWarrantyTypeChangeReq;
+
+        /// <summary>
+        /// lblWarrantyTypeWTR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWarrantyTypeWTR;
+
+        /// <summary>
+        /// lblWarrantyTypeChangeID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWarrantyTypeChangeID;
+
+        /// <summary>
+        /// lblWarrantyChangeTypeReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWarrantyChangeTypeReq;
+
+        /// <summary>
+        /// lblHMRValueWTR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHMRValueWTR;
+
+        /// <summary>
+        /// lblHMRValueNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHMRValueNew;
+
+        /// <summary>
+        /// lblWarrantyStartDateWTR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWarrantyStartDateWTR;
+
+        /// <summary>
+        /// lblWarrantyEndDateWTR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWarrantyEndDateWTR;
+
+        /// <summary>
+        /// divOwnershipChangeReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOwnershipChangeReq;
+
+        /// <summary>
+        /// lblCustomerOCR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCustomerOCR;
+
+        /// <summary>
+        /// lblOwnershipChangeID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOwnershipChangeID;
+
+        /// <summary>
+        /// lblOwnershipChangeReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOwnershipChangeReq;
+
+        /// <summary>
+        /// divExpiryDateChangeReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divExpiryDateChangeReq;
+
+        /// <summary>
+        /// lblWarrantyExpiryDateEDC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWarrantyExpiryDateEDC;
+
+        /// <summary>
+        /// lblWarrantyExpiryDateChangeID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWarrantyExpiryDateChangeID;
+
+        /// <summary>
+        /// lblExpiryDateChangeReq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExpiryDateChangeReq;
+
+        /// <summary>
         /// lblModel control.
         /// </summary>
         /// <remarks>
@@ -733,6 +877,69 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlWarranty;
+
+        /// <summary>
+        /// txtWarrantyStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWarrantyStartDate;
+
+        /// <summary>
+        /// cEWarrantyStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cEWarrantyStartDate;
+
+        /// <summary>
+        /// txtBoxWEWarrantyStartDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtBoxWEWarrantyStartDate;
+
+        /// <summary>
+        /// txtWarrantyEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWarrantyEndDate;
+
+        /// <summary>
+        /// cEWarrantyEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender cEWarrantyEndDate;
+
+        /// <summary>
+        /// txtBoxWarrantyEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtBoxWarrantyEndDate;
+
+        /// <summary>
+        /// txtWarrantyHMRValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWarrantyHMRValue;
 
         /// <summary>
         /// fileUpload control.

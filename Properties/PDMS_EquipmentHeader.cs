@@ -147,6 +147,9 @@ namespace Properties
         public DateTime NewExpiryDate { get; set; }
         public List<PEquipmentAttachedFilee_Insert> AttachedFile { get; set; }
         public DateTime SoldDate { get; set; }
+        public DateTime WarrantyStartDate { get; set; }
+        public DateTime WarrantyEndDate { get; set; }
+        public int WarrantyHMR { get; set; }
     }
     public class PEquipmentAttachedFilee_Insert
     {

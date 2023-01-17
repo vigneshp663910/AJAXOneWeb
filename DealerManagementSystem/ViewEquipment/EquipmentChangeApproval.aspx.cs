@@ -114,7 +114,7 @@ namespace DealerManagementSystem.ViewEquipment
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblChangeID = (Label)gvRow.FindControl("lblChangeID");
             Label lblEquipmentHeaderID = (Label)gvRow.FindControl("lblEquipmentHeaderID"); 
-            Session["ChangeID"] = lblChangeID.Text; 
+            Session["ChangeID"] = lblChangeID.Text;
             UC_EquipmentView.fillEquipment(Convert.ToInt64(lblEquipmentHeaderID.Text));
         }
         protected void btnBackToList_Click(object sender, EventArgs e)

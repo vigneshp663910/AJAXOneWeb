@@ -143,18 +143,15 @@
                                     <asp:TemplateField HeaderText="Dispatched On">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDispatchedOn" Text='<%# DataBinder.Eval(Container.DataItem, "DispatchedOn")%>' runat="server" />
+                                            <asp:Label ID="lblDispatchedOn" Text='<%# DataBinder.Eval(Container.DataItem, "DispatchedOn", "{0:d}")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Warranty ExpiryDate">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblWarrantyExpiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyExpiryDate")%>' runat="server" />
+                                            <asp:Label ID="lblWarrantyExpiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyExpiryDate", "{0:d}")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    
-
-
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnViewEquipment" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewEquipment_Click" Width="75px" Height="25px" />

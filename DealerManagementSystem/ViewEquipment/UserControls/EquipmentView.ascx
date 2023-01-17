@@ -100,6 +100,105 @@
     </div>
 </div>
 
+<div id="divWarrantyTypeChangeReq" runat="server" class="col-md-12 field-margin-top" visible="false">
+    <fieldset class="fieldset-border">
+        <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Type Approval</legend>
+        <div class="col-md-12 View">
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Old Warranty Type : </label>
+                    <asp:Label ID="lblWarrantyTypeWTR" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblWarrantyTypeChangeID" runat="server" CssClass="label" Visible="false"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>New Warranty Type : </label>
+                    <asp:Label ID="lblWarrantyChangeTypeReq" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Old HMR Value : </label>
+                    <asp:Label ID="lblHMRValueWTR" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>New Warranty HMR : </label>
+                    <asp:Label ID="lblHMRValueNew" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>New Warranty Start Date : </label>
+                    <asp:Label ID="lblWarrantyStartDateWTR" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>New Warranty End Date : </label>
+                    <asp:Label ID="lblWarrantyEndDateWTR" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+&nbsp;&nbsp;&nbsp;
+<div id="divOwnershipChangeReq" runat="server" class="col-md-12 field-margin-top" visible="false">
+    <fieldset class="fieldset-border">
+        <legend style="background: none; color: #007bff; font-size: 17px;">Ownership Approval</legend>
+        <div class="col-md-12 View">
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Old Customer : </label>
+                    <asp:Label ID="lblCustomerOCR" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblOwnershipChangeID" runat="server" CssClass="label" Visible="false"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>New Customer : </label>
+                    <asp:Label ID="lblOwnershipChangeReq" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+&nbsp;&nbsp;&nbsp;
+<div id="divExpiryDateChangeReq" runat="server" class="col-md-12 field-margin-top" visible="false">
+    <fieldset class="fieldset-border">
+        <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Expiry Date Approval</legend>
+        <div class="col-md-12 View">
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Old Warranty Expiry Date : </label>
+                    <asp:Label ID="lblWarrantyExpiryDateEDC" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblWarrantyExpiryDateChangeID" runat="server" CssClass="label" Visible="false"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>New Expiry Date : </label>
+                    <asp:Label ID="lblExpiryDateChangeReq" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <%--<div class="col-md-12">
+                    <label>Equipment Serial No : </label>
+                    <asp:Label ID="lblEquipSerialNoEDC" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>State : </label>
+                    <asp:Label ID="lblStateEDC" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Dispatched On : </label>
+                    <asp:Label ID="lblDispatchedOnEDC" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Commisioning On : </label>
+                    <asp:Label ID="lblCommisioningOnEDC" runat="server" CssClass="label"></asp:Label>
+                </div>--%>
+            </div>
+        </div>
+    </fieldset>
+</div>
+&nbsp;&nbsp;&nbsp;
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Equipment</legend>
@@ -115,7 +214,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <label>Warranty ExpiryDate : </label>
+                    <label>Warranty Expiry Date : </label>
                     <asp:Label ID="lblWarrantyExpiryDate" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
@@ -149,7 +248,7 @@
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Engine SerialNo : </label>
+                    <label>Engine Serial No : </label>
                     <asp:Label ID="lblEngineSerialNo" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
@@ -179,7 +278,7 @@
                     <asp:Label ID="lblPlant" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>ProductionStatus : </label>
+                    <label>Production Status : </label>
                     <asp:Label ID="lblProductionStatus" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
@@ -189,7 +288,7 @@
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Equipment SerialNo : </label>
+                    <label>Equipment Serial No : </label>
                     <asp:Label ID="lblEquipmentSerialNo" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
@@ -394,7 +493,6 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-
     <asp1:TabPanel ID="tabPnlAttachedFile" runat="server" HeaderText="Support Document">
         <ContentTemplate>
             <div class="col-md-12 Report">
@@ -524,8 +622,22 @@
                         <label class="modal-label">Warranty Type</label>
                         <asp:DropDownList ID="ddlWarranty" runat="server" CssClass="form-control" BorderColor="Silver" />
                     </div>
-
-
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Warranty Start Date</label>
+                        <asp:TextBox ID="txtWarrantyStartDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                        <asp1:CalendarExtender ID="cEWarrantyStartDate" runat="server" TargetControlID="txtWarrantyStartDate" PopupButtonID="txtWarrantyStartDate" Format="dd/MM/yyyy" />
+                        <asp1:TextBoxWatermarkExtender ID="txtBoxWEWarrantyStartDate" runat="server" TargetControlID="txtWarrantyStartDate" WatermarkText="DD/MM/YYYY" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Warranty End Date</label>
+                        <asp:TextBox ID="txtWarrantyEndDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                        <asp1:CalendarExtender ID="cEWarrantyEndDate" runat="server" TargetControlID="txtWarrantyEndDate" PopupButtonID="txtWarrantyEndDate" Format="dd/MM/yyyy" />
+                        <asp1:TextBoxWatermarkExtender ID="txtBoxWarrantyEndDate" runat="server" TargetControlID="txtWarrantyEndDate" WatermarkText="DD/MM/YYYY" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Warranty HMR Value</label>
+                        <asp:TextBox ID="txtWarrantyHMRValue" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
                     <div class="col-md-12">
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">File</label>

@@ -166,7 +166,7 @@
                                             <asp:Label ID="lblOldValue" Text='<%# DataBinder.Eval(Container.DataItem, "OldValue")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                      <asp:TemplateField HeaderText="Old Value">
+                                      <asp:TemplateField HeaderText="New Value">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblNewValue" Text='<%# DataBinder.Eval(Container.DataItem, "NewValue")%>' runat="server" />
