@@ -105,22 +105,22 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnRejWarrantyExpiryDateChangeReq;
 
         /// <summary>
-        /// divWarrantyTypeChangeReq control.
+        /// divWarrantyTypeApproval control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divWarrantyTypeChangeReq;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divWarrantyTypeApproval;
 
         /// <summary>
-        /// lblWarrantyTypeWTR control.
+        /// lblOldWarrantyType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWarrantyTypeWTR;
+        protected global::System.Web.UI.WebControls.Label lblOldWarrantyType;
 
         /// <summary>
         /// lblWarrantyTypeChangeID control.
@@ -132,67 +132,67 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.Label lblWarrantyTypeChangeID;
 
         /// <summary>
-        /// lblWarrantyChangeTypeReq control.
+        /// lblNewWarrantyType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWarrantyChangeTypeReq;
+        protected global::System.Web.UI.WebControls.Label lblNewWarrantyType;
 
         /// <summary>
-        /// lblHMRValueWTR control.
+        /// lblOldWarrantyHMR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHMRValueWTR;
+        protected global::System.Web.UI.WebControls.Label lblOldWarrantyHMR;
 
         /// <summary>
-        /// lblHMRValueNew control.
+        /// lblNewWarrantyHMR control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHMRValueNew;
+        protected global::System.Web.UI.WebControls.Label lblNewWarrantyHMR;
 
         /// <summary>
-        /// lblWarrantyStartDateWTR control.
+        /// lblOldWarrantyStartEndDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWarrantyStartDateWTR;
+        protected global::System.Web.UI.WebControls.Label lblOldWarrantyStartEndDate;
 
         /// <summary>
-        /// lblWarrantyEndDateWTR control.
+        /// lblNewWarrantyStartEndDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWarrantyEndDateWTR;
+        protected global::System.Web.UI.WebControls.Label lblNewWarrantyStartEndDate;
 
         /// <summary>
-        /// divOwnershipChangeReq control.
+        /// divOwnershipApproval control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOwnershipChangeReq;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOwnershipApproval;
 
         /// <summary>
-        /// lblCustomerOCR control.
+        /// lblOldCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCustomerOCR;
+        protected global::System.Web.UI.WebControls.Label lblOldCustomer;
 
         /// <summary>
         /// lblOwnershipChangeID control.
@@ -204,31 +204,31 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.Label lblOwnershipChangeID;
 
         /// <summary>
-        /// lblOwnershipChangeReq control.
+        /// lblNewCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOwnershipChangeReq;
+        protected global::System.Web.UI.WebControls.Label lblNewCustomer;
 
         /// <summary>
-        /// divExpiryDateChangeReq control.
+        /// divExpiryDateApproval control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divExpiryDateChangeReq;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divExpiryDateApproval;
 
         /// <summary>
-        /// lblWarrantyExpiryDateEDC control.
+        /// lblOldWarrantyExpiryDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWarrantyExpiryDateEDC;
+        protected global::System.Web.UI.WebControls.Label lblOldWarrantyExpiryDate;
 
         /// <summary>
         /// lblWarrantyExpiryDateChangeID control.
@@ -240,13 +240,13 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.Label lblWarrantyExpiryDateChangeID;
 
         /// <summary>
-        /// lblExpiryDateChangeReq control.
+        /// lblNewWarrantyExpiryDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblExpiryDateChangeReq;
+        protected global::System.Web.UI.WebControls.Label lblNewWarrantyExpiryDate;
 
         /// <summary>
         /// lblModel control.

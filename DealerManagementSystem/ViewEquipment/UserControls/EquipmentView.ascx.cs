@@ -59,7 +59,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             {
                 Session["PEquipmentAttachedFileEquipmentView"] = value;
             }
-        }        
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -245,6 +245,9 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                     gvWarrantyTypeSupportDocument.DataSource = null;
                     gvWarrantyTypeSupportDocument.DataBind();
                     AttachedFileTemp.Clear();
+                    txtWarrantyStartDate.Text = "";
+                    txtWarrantyEndDate.Text = "";
+                    txtWarrantyHMRValue.Text = "";
                     new DDLBind(ddlWarranty, new BDMS_Equipment().GetEquipmentWarrantyType(null, null), "Description", "EquipmentWarrantyTypeID");
                     //ddlWarranty.SelectedValue = EquipmentViewDet.EquipmentWarrantyType.EquipmentWarrantyTypeID.ToString();
                     ddlWarranty.SelectedValue = EquipmentViewDet.EquipmentWarrantyType == null ? "0" : EquipmentViewDet.EquipmentWarrantyType.EquipmentWarrantyTypeID.ToString();
@@ -260,6 +263,8 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                     gvOwnershipChangeReqSupportDocument.DataSource = null;
                     gvOwnershipChangeReqSupportDocument.DataBind();
                     AttachedFileTemp.Clear();
+                    txtBoxCustomerOwnershipChange.Text = "";
+                    txtSoldDate.Text = "";
                     lblCustomerOwnership.Text = EquipmentViewDet.Customer.CustomerFullName;
                     lblModelOwnership.Text = EquipmentViewDet.EquipmentModel.Model;
                     lblEquipmentSerialNoOwnership.Text = EquipmentViewDet.EquipmentSerialNo;
@@ -272,6 +277,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                     gvWarrantyExpiryDateChangeSupportDocument.DataSource = null;
                     gvWarrantyExpiryDateChangeSupportDocument.DataBind();
                     AttachedFileTemp.Clear();
+                    txtWarrantyExpiryDate.Text = "";
                     lblCustomerWarrantyExpiryDate.Text = EquipmentViewDet.Customer.CustomerFullName;
                     lblModelWarrantyExpiryDate.Text = EquipmentViewDet.EquipmentModel.Model;
                     lblEquipmentSerialNoWarrantyExpiryDate.Text = EquipmentViewDet.EquipmentSerialNo;
@@ -408,26 +414,58 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lnkBtnRejOwnershipChangeReq.Visible = false;
             lnkBtnApprWarrantyExpiryDateChangeReq.Visible = false;
             lnkBtnRejWarrantyExpiryDateChangeReq.Visible = false;
-            divWarrantyTypeChangeReq.Visible = false;
-            divOwnershipChangeReq.Visible = false;
-            divExpiryDateChangeReq.Visible = false;
+
+            divWarrantyTypeApproval.Visible = false;
+            divOwnershipApproval.Visible = false;
+            divExpiryDateApproval.Visible = false;
+
             DataTable Equip = new BDMS_Equipment().GetEquipmentChangeForApproval(null, null, EquipmentViewDet.EquipmentSerialNo);
-            
+
             foreach (DataRow dr in Equip.Rows)
             {
                 if (Convert.ToString(dr["ChangeRequested"]) == "Warranty Type")
                 {
                     lnkBtnApprWarrantyTypeChangeReq.Visible = true;
                     lnkBtnRejWarrantyTypeChangeReq.Visible = true;
-                    divWarrantyTypeChangeReq.Visible = true;
+                    divWarrantyTypeApproval.Visible = true;
                     if (!string.IsNullOrEmpty(dr["NewValue"].ToString()))
                     {
-                        lblWarrantyTypeWTR.Text = EquipmentViewDet.EquipmentWarrantyType == null ? "" : EquipmentViewDet.EquipmentWarrantyType.Description; ;
-                        lblHMRValueWTR.Text = EquipmentViewDet.CurrentHMRValue.ToString(); ;
-                        lblWarrantyChangeTypeReq.Text = dr["NewValue"].ToString();
-                        lblHMRValueNew.Text = dr["WarrantyStartDate"].ToString();
-                        lblWarrantyStartDateWTR.Text = dr["WarrantyStartDate"].ToString();
-                        lblWarrantyEndDateWTR.Text = dr["WarrantyEndDate"].ToString();
+                        lblOldWarrantyType.Text = EquipmentViewDet.EquipmentWarrantyType == null ? "" : EquipmentViewDet.EquipmentWarrantyType.Description;
+                        lblNewWarrantyType.Text = dr["NewValue"].ToString();
+                        lblOldWarrantyHMR.Text = EquipmentViewDet.WarrantyHMR == null ? "" : EquipmentViewDet.WarrantyHMR.ToString();
+                        lblNewWarrantyHMR.Text = dr["WarrantyHMR"].ToString();
+                        //lblOldWarrantyStartEndDate.Text = (EquipmentViewDet.WarrantyStartDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyStartDate).ToShortDateString()) + " - " + (EquipmentViewDet.WarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToShortDateString());
+                        //lblNewWarrantyStartEndDate.Text = Convert.ToDateTime(dr["WarrantyStartDate"]).ToString("dd/MM/yyyy") + " - " + Convert.ToDateTime(dr["WarrantyEndDate"]).ToString("dd/MM/yyyy");
+                        if (EquipmentViewDet.WarrantyStartDate != null)
+                        {
+                            if (EquipmentViewDet.WarrantyExpiryDate != null)
+                            {
+                                lblOldWarrantyStartEndDate.Text = ((DateTime)EquipmentViewDet.WarrantyStartDate).ToShortDateString() + " - " + ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToShortDateString();
+                            }
+                            else
+                            {
+                                lblOldWarrantyStartEndDate.Text = ((DateTime)EquipmentViewDet.WarrantyStartDate).ToShortDateString();
+                            }
+                        }
+                        else
+                        {
+                            lblOldWarrantyStartEndDate.Text = "";
+                        }
+                        if (dr["WarrantyStartDate"] != null)
+                        {
+                            if (dr["WarrantyEndDate"] != null)
+                            {
+                                lblNewWarrantyStartEndDate.Text = Convert.ToDateTime(dr["WarrantyStartDate"]).ToString("dd/MM/yyyy") + " - " + Convert.ToDateTime(dr["WarrantyEndDate"]).ToString("dd/MM/yyyy");
+                            }
+                            else
+                            {
+                                lblNewWarrantyStartEndDate.Text = Convert.ToDateTime(dr["WarrantyStartDate"]).ToString("dd/MM/yyyy");
+                            }
+                        }
+                        else
+                        {
+                            lblNewWarrantyStartEndDate.Text = "";
+                        }
                         lblWarrantyTypeChangeID.Text = dr["ChangeID"].ToString();
                     }
                 }
@@ -435,11 +473,11 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 {
                     lnkBtnApprOwnershipChangeReq.Visible = true;
                     lnkBtnRejOwnershipChangeReq.Visible = true;
-                    divOwnershipChangeReq.Visible = true;
+                    divOwnershipApproval.Visible = true;
                     if (!string.IsNullOrEmpty(dr["NewValue"].ToString()))
                     {
-                        lblCustomerOCR.Text = EquipmentViewDet.Customer.CustomerFullName;
-                        lblOwnershipChangeReq.Text = dr["NewValue"].ToString() ;
+                        lblOldCustomer.Text = EquipmentViewDet.Customer.CustomerFullName;
+                        lblNewCustomer.Text = dr["NewValue"].ToString();
                         lblOwnershipChangeID.Text = dr["ChangeID"].ToString();
                     }
                 }
@@ -447,11 +485,11 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 {
                     lnkBtnApprWarrantyExpiryDateChangeReq.Visible = true;
                     lnkBtnRejWarrantyExpiryDateChangeReq.Visible = true;
-                    divExpiryDateChangeReq.Visible = true;
+                    divExpiryDateApproval.Visible = true;
                     if (!string.IsNullOrEmpty(dr["NewValue"].ToString()))
                     {
-                        lblWarrantyExpiryDateEDC.Text = EquipmentViewDet.WarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToShortDateString(); ;
-                        lblExpiryDateChangeReq.Text = dr["NewValue"].ToString();
+                        lblOldWarrantyExpiryDate.Text = EquipmentViewDet.WarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToShortDateString();
+                        lblNewWarrantyExpiryDate.Text = dr["NewValue"].ToString();
                         lblWarrantyExpiryDateChangeID.Text = dr["ChangeID"].ToString();
                     }
                 }
@@ -473,7 +511,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ExpiryDateChange).Count() == 0)
             {
-                lnkBtnReqWarrantyExpiryDateChange.Visible = false;                
+                lnkBtnReqWarrantyExpiryDateChange.Visible = false;
             }
 
 
@@ -481,26 +519,26 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             {
                 lnkBtnApprWarrantyTypeChangeReq.Visible = false;
                 lnkBtnRejWarrantyTypeChangeReq.Visible = false;
-                divWarrantyTypeChangeReq.Visible = false;
+                divWarrantyTypeApproval.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ApproveOwnershipChange).Count() == 0)
             {
                 lnkBtnApprOwnershipChangeReq.Visible = false;
                 lnkBtnRejOwnershipChangeReq.Visible = false;
-                divOwnershipChangeReq.Visible = false;
+                divOwnershipApproval.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ApproveExpiryDateChange).Count() == 0)
             {
                 lnkBtnApprWarrantyExpiryDateChangeReq.Visible = false;
                 lnkBtnRejWarrantyExpiryDateChangeReq.Visible = false;
-                divExpiryDateChangeReq.Visible = false;
+                divExpiryDateApproval.Visible = false;
             }
         }
         protected void btnUpdateCommiDate_Click(object sender, EventArgs e)
         {
             lblMessageUpdateCommissioningDate.Text = string.Empty;
             lblMessageUpdateCommissioningDate.Visible = true;
-            if(string.IsNullOrEmpty(txtCommissioningDate.Text))
+            if (string.IsNullOrEmpty(txtCommissioningDate.Text))
             {
                 lblMessageUpdateCommissioningDate.ForeColor = Color.Red;
                 lblMessageUpdateCommissioningDate.Text = "Please select Commissioning Date.";
@@ -535,12 +573,12 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected void btnReqWarrantyTypeChange_Click(object sender, EventArgs e)
         {
             lblMessageWarrantyTypeChangeReq.Visible = true;
+            MPE_WarrantyTypeChangeReq.Show();
 
             if (ddlWarranty.SelectedValue == "0")
             {
                 lblMessageWarrantyTypeChangeReq.Text = "Please select the Warranty Type.";
                 lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
-                MPE_WarrantyTypeChangeReq.Show();
                 return;
             }
 
@@ -562,30 +600,51 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
                 return;
             }
-            if (Convert.ToInt32(txtWarrantyHMRValue.Text) < Convert.ToInt32(EquipmentViewDet.CurrentHMRValue.ToString()))
+            if (Convert.ToInt32(txtWarrantyHMRValue.Text) < Convert.ToInt32(EquipmentViewDet.WarrantyHMR))
             {
                 lblMessageWarrantyTypeChangeReq.Text = "Warranty HMR cannot be lesser than previous HMR.";
                 lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
                 return;
             }
-            //if (fileUpload.FileName.Length == 0)
-            //{
+            if (Convert.ToDateTime(txtWarrantyStartDate.Text) > Convert.ToDateTime(txtWarrantyEndDate.Text))
+            {
+                lblMessageWarrantyTypeChangeReq.Text = "Warranty End Date earlier than the End Date.";
+                lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
+                return;
+            }
 
-            //    lblMessageWarrantyTypeChangeReq.Text = "Please upload the File.";
-            //    lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
-            //    MPE_WarrantyTypeChangeReq.Show();
-            //    return;
-            //}
-            //if (fileUpload.FileName.Length != 0 && gvWarrantyTypeSupportDocument.Visible != false)
-            //{
+            if (fileUpload.FileName.Length != 0)
+            {
+                Boolean old = true;
+                foreach (PEquipmentAttachedFilee_Insert f in AttachedFileTemp)
+                {
+                    if (f.FileName == fileUpload.FileName)
+                    {
+                        old = false;
+                    }
+                }
+                if (old)
+                {
+                    string Message = Validation(fileUpload.PostedFile);
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessageWarrantyTypeChangeReq.Text = Message;
+                        lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
+                        return;
+                    }
+                    AttachedFileTemp.Add(CreateUploadedFileEquipment(fileUpload.PostedFile));
+                }
+            }
 
-            //    lblMessageWarrantyTypeChangeReq.Text = "Please upload the selected File.";
-            //    lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
-            //    MPE_WarrantyTypeChangeReq.Show();
-            //    return;
-            //}
-            PEquipmentWarranty_Insert WT = new PEquipmentWarranty_Insert(); 
-            WT.EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID; 
+            if (AttachedFileTemp.Count == 0)
+            {
+                lblMessageWarrantyTypeChangeReq.Text = "Please upload the File.";
+                lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
+                return;
+            }
+
+            PEquipmentWarranty_Insert WT = new PEquipmentWarranty_Insert();
+            WT.EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID;
             WT.EquipmentWarrantyTypeID = Convert.ToInt32(ddlWarranty.SelectedValue);
             WT.WarrantyStartDate = Convert.ToDateTime(txtWarrantyStartDate.Text);
             WT.WarrantyEndDate = Convert.ToDateTime(txtWarrantyEndDate.Text);
@@ -593,20 +652,18 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             WT.AttachedFile = new List<PEquipmentAttachedFilee_Insert>();
             WT.AttachedFile = AttachedFileTemp;
 
-            string result = new BAPI().ApiPut("Equipment/InsertEquipmentWarrantyTypeChangeRequest", WT);
-            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
-            //if (result == "0")
-            //{
-            //    MPE_Customer.Show();
-            //    lblMessageCustomer.Text = "Customer is not updated successfully ";
-            //    return;
-            //}
-            //else
-            //{
-            //    lblMessage.Visible = true;
-            //    lblMessage.ForeColor = Color.Green;
-            //    lblMessage.Text = "Customer is updated successfully ";
-            //}
+            PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Equipment/InsertEquipmentWarrantyTypeChangeRequest", WT));
+            if (result.Status == PApplication.Failure)
+            {
+                lblMessageWarrantyTypeChangeReq.Text = result.Message;
+                lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
+                return;
+            }
+
+            MPE_WarrantyTypeChangeReq.Hide();
+            lblMessage.Text = "Equipment Warranty Type Change is requested.";
+            lblMessage.ForeColor = Color.Green;
+            lblMessage.Visible = true;
 
             //if (new BDMS_Equipment().InsertEquipmentWarrantyTypeChangeRequest(EquipmentViewDet.EquipmentHeaderID, Convert.ToInt32(ddlWarranty.SelectedValue), PSession.User.UserID, 1, AttachedFileTemp))
             //{
@@ -620,7 +677,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             //    lblMessage.ForeColor = Color.Red;
             //}
             fillEquipment(EquipmentViewDet.EquipmentHeaderID);
-        }        
+        }
         protected void btnAddFile_Click(object sender, EventArgs e)
         {
             MPE_WarrantyTypeChangeReq.Show();
@@ -639,7 +696,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             {
                 lblMessageWarrantyTypeChangeReq.Text = Message;
                 lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
-                
+
                 return;
             }
             AttachedFileTemp.Add(CreateUploadedFileEquipment(fileUpload.PostedFile));
@@ -664,7 +721,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 return "Please choose only .jpg, .png and .gif image types!";
             }
             return "";
-        }                
+        }
         private PEquipmentAttachedFilee_Insert CreateUploadedFileEquipment(HttpPostedFile file)
         {
             int size = file.ContentLength;
@@ -676,48 +733,43 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             return new PEquipmentAttachedFilee_Insert()
             {
                 FileName = name,
-             //   ReferenceName = file.ContentType,
+                //   ReferenceName = file.ContentType,
                 AttachedFile = fileData,
-             //   AttachedFileID = 0,
-              //  CreatedBy = new PUser() { UserID = PSession.User.UserID },
-              //  Equipment = new PDMS_EquipmentHeader() { EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID }
+                //   AttachedFileID = 0,
+                //  CreatedBy = new PUser() { UserID = PSession.User.UserID },
+                //  Equipment = new PDMS_EquipmentHeader() { EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID }
             };
         }
-        protected void lnkBtnWarrantyTypeSupportDocumentDownload_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // LinkButton lnkDownload = (LinkButton)sender;
-                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //protected void lnkBtnEquipmentAttachedFileDownload_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        LinkButton lnkDownload = (LinkButton)sender;
+        //        GridViewRow gvRow = (GridViewRow)lnkDownload.NamingContainer;
 
-                LinkButton lnkDownload = (LinkButton)sender;
-                GridViewRow gvRow = (GridViewRow)lnkDownload.NamingContainer;
+        //        Label AttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
 
-                long AttachedFileID = Convert.ToInt64(gvWarrantyTypeSupportDocument.DataKeys[gvRow.RowIndex].Value);
+        //        Label lblFileName = (Label)gvRow.FindControl("lblFileName");
 
-                Label lblFileName = (Label)gvRow.FindControl("lblFileName");
-                Label lblFileType = (Label)gvRow.FindControl("lblFileType");
+        //        PAttachedFile UploadedFile = new BDMS_Equipment().GetEquipmentAttachedFile(AttachedFileID + Path.GetExtension(lblFileName.Text));
 
-                PAttachedFile UploadedFile = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(AttachedFileID);
-
-                Response.AddHeader("Content-type", UploadedFile.FileType);
-                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblFileName.Text);
-                HttpContext.Current.Response.Charset = "utf-16";
-                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
-                Response.BinaryWrite(UploadedFile.AttachedFile);
-                Response.Flush();
-                Response.End();
-
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                Response.End();
-            }
-        }
+        //        Response.AddHeader("Content-type", UploadedFile.FileType);
+        //        Response.AddHeader("Content-Disposition", "attachment; filename=" + lblFileName.Text);
+        //        HttpContext.Current.Response.Charset = "utf-16";
+        //        HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+        //        Response.BinaryWrite(UploadedFile.AttachedFile);
+        //        Response.Flush();
+        //        Response.End();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    finally
+        //    {
+        //        Response.End();
+        //    }
+        //}
         protected void lnkBtnvWarrantyTypeAttachedFileRemove_Click(object sender, EventArgs e)
         {
             lblMessage.Visible = true;
@@ -747,25 +799,6 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         //    lblMessage.Text = "File Removed";
         //    lblMessage.ForeColor = Color.Green;
         //}
-        protected void lnkBtnAttachedFileRemove_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            long AttachedFileID = Convert.ToInt64(gvAttachedFile.DataKeys[gvRow.RowIndex].Value);
-
-            PEquipmentAttachedFile AttachedFile = new PEquipmentAttachedFile();
-            AttachedFile.AttachedFileID = AttachedFileID;
-            //AttachedFile.IsDeleted = true;
-
-            //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicketFSR/AddOrRemoveFSRAttachment", AttachedFile));
-            //if (Results.Status == PApplication.Failure)
-            //{
-            //    lblMessage.Text = Results.Message;
-            //    return;
-            //}
-            lblMessage.Text = "File Removed";
-            lblMessage.ForeColor = Color.Green;
-        }
         protected void btnAddFileOwnershipChange_Click(object sender, EventArgs e)
         {
             MPE_OwnershipChangeReq.Show();
@@ -818,12 +851,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 lblMessageOwnershipChangeReq.ForeColor = Color.Red;
                 return;
             }
-            //if (fileUploadOwnershipChange.FileName.Length == 0)
-            //{
-            //    lblMessageOwnershipChangeReq.Text = "Please upload the File.";
-            //    lblMessageOwnershipChangeReq.ForeColor = Color.Red;
-            //    return;
-            //}
+
             //long? CustomerID = null;
             List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, txtBoxCustomerOwnershipChange.Text.Trim());
             if (Customer.Count == 0)
@@ -834,6 +862,36 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             }
             //CustomerID = Customer[0].CustomerID;
 
+            if (fileUploadOwnershipChange.FileName.Length != 0)
+            {
+                Boolean old = true;
+                foreach (PEquipmentAttachedFilee_Insert f in AttachedFileTemp)
+                {
+                    if (f.FileName == fileUploadOwnershipChange.FileName)
+                    {
+                        old = false;
+                    }
+                }
+                if (old)
+                {
+                    string Message = Validation(fileUploadOwnershipChange.PostedFile);
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessageOwnershipChangeReq.Text = Message;
+                        lblMessageOwnershipChangeReq.ForeColor = Color.Red;
+                        return;
+                    }
+                    AttachedFileTemp.Add(CreateUploadedFileEquipment(fileUploadOwnershipChange.PostedFile));
+                }
+            }
+
+            if (AttachedFileTemp.Count == 0)
+            {
+                lblMessageOwnershipChangeReq.Text = "Please upload the File.";
+                lblMessageOwnershipChangeReq.ForeColor = Color.Red;
+                return;
+            }
+
             PEquipmentWarranty_Insert WT = new PEquipmentWarranty_Insert();
             WT.EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID;
             WT.CustomerID = Customer[0].CustomerID;
@@ -841,20 +899,16 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             WT.AttachedFile = new List<PEquipmentAttachedFilee_Insert>();
             WT.AttachedFile = AttachedFileTemp;
 
-            string result = new BAPI().ApiPut("Equipment/InsertEquipmentOwnershipChangeRequest", WT);
-            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
-            if (result == "0")
+            PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Equipment/InsertEquipmentOwnershipChangeRequest", WT));
+            if (result.Status == PApplication.Failure)
             {
-                lblMessage.Text = "Ownership Change is not requested.";
-                lblMessage.ForeColor = Color.Red;
-                MPE_OwnershipChangeReq.Hide();
+                lblMessageOwnershipChangeReq.Text = result.Message;
+                lblMessageOwnershipChangeReq.ForeColor = Color.Red;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Ownership Change is requested successfully ";
-                lblMessage.ForeColor = Color.Green;
-                MPE_OwnershipChangeReq.Hide();
-            }
+            lblMessage.Text = "Ownership Change is requested successfully ";
+            lblMessage.ForeColor = Color.Green;
+            MPE_OwnershipChangeReq.Hide();
             fillEquipment(EquipmentViewDet.EquipmentHeaderID);
         }
         protected void btnAddFileWarrantyExpiryDateChange_Click(object sender, EventArgs e)
@@ -893,34 +947,71 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         }
         protected void btnReqWarrantyExpiryDate_Click(object sender, EventArgs e)
         {
-            lblMessage.Visible = true;
-
+            lblMessageWarrantyExpiryDateChangeReq.Visible = true;
+            MPE_WarrantyExpiryDateChangeReq.Show();
             if (string.IsNullOrEmpty(txtWarrantyExpiryDate.Text))
             {
                 lblMessageWarrantyExpiryDateChangeReq.Text = "Please select the Warranty Expiry Date.";
                 lblMessageWarrantyExpiryDateChangeReq.ForeColor = Color.Red;
                 return;
             }
-            
+            if (EquipmentViewDet.WarrantyExpiryDate != null)
+            {
+                if (Convert.ToDateTime(txtWarrantyExpiryDate.Text) < Convert.ToDateTime(EquipmentViewDet.WarrantyExpiryDate))
+                {
+                    lblMessageWarrantyExpiryDateChangeReq.Text = "Warranty Expiry Date earlier than the current Warranty Expiry Date.";
+                    lblMessageWarrantyExpiryDateChangeReq.ForeColor = Color.Red;
+                    return;
+                }
+            }
+
+            if (fileUploadWarrantyExpiryDateChange.FileName.Length != 0)
+            {
+                Boolean old = true;
+                foreach (PEquipmentAttachedFilee_Insert f in AttachedFileTemp)
+                {
+                    if (f.FileName == fileUploadWarrantyExpiryDateChange.FileName)
+                    {
+                        old = false;
+                    }
+                }
+                if (old)
+                {
+                    string Message = Validation(fileUploadWarrantyExpiryDateChange.PostedFile);
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessageWarrantyExpiryDateChangeReq.Text = Message;
+                        lblMessageWarrantyExpiryDateChangeReq.ForeColor = Color.Red;
+                        return;
+                    }
+                    AttachedFileTemp.Add(CreateUploadedFileEquipment(fileUploadWarrantyExpiryDateChange.PostedFile));
+                }
+            }
+
+            if (AttachedFileTemp.Count == 0)
+            {
+                lblMessageWarrantyExpiryDateChangeReq.Text = "Please upload the File.";
+                lblMessageWarrantyExpiryDateChangeReq.ForeColor = Color.Red;
+                return;
+            }
+
             PEquipmentWarranty_Insert WT = new PEquipmentWarranty_Insert();
             WT.EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID;
-            WT.OldExpiryDate =  Convert.ToDateTime(EquipmentViewDet.WarrantyExpiryDate);
+            WT.OldExpiryDate = Convert.ToDateTime(EquipmentViewDet.WarrantyExpiryDate);
             WT.NewExpiryDate = Convert.ToDateTime(txtWarrantyExpiryDate.Text.Trim());
             WT.AttachedFile = new List<PEquipmentAttachedFilee_Insert>();
             WT.AttachedFile = AttachedFileTemp;
-
-            string result = new BAPI().ApiPut("Equipment/InsertEquipmentWarrantyExpiryDateChangeRequest", WT);
-            result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
-            if (result == "0")
+            
+            PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Equipment/InsertEquipmentWarrantyExpiryDateChangeRequest", WT));
+            if (result.Status == PApplication.Failure)
             {
-                lblMessage.Text = "Warranty Expiry Date Change is not requested.";
-                lblMessage.ForeColor = Color.Red;
+                lblMessageWarrantyExpiryDateChangeReq.Text = result.Message;
+                lblMessageWarrantyExpiryDateChangeReq.ForeColor = Color.Red;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Warranty Expiry Date Change is requested successfully ";
-                lblMessage.ForeColor = Color.Green;
-            }
+            MPE_WarrantyExpiryDateChangeReq.Hide();
+            lblMessage.Text = "Warranty Expiry Date Change is requested successfully ";
+            lblMessage.ForeColor = Color.Green;
             fillEquipment(EquipmentViewDet.EquipmentHeaderID);
         }
         void fillSupportDocument()

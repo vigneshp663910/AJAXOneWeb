@@ -138,7 +138,7 @@ namespace Business
                 throw ex;
             }
         }
-        public List<PDMS_Equipment> GetEquipmentHeader(int? DealerID, string EquipmentSerialNo, string Customer, DateTime? WarrantyStart, DateTime? WarrantyEnd, int? RegionID, int? StateID, int? DivisionID)
+        public List<PDMS_Equipment> GetEquipmentHeader(int? DealerID, string EquipmentSerialNo, string Customer, DateTime? WarrantyStart, DateTime? WarrantyEnd, int? RegionID, int? StateID, int? DivisionID, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             List<PDMS_Equipment> pDMS_Equipment = new List<PDMS_Equipment>();
@@ -147,13 +147,14 @@ namespace Business
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
                 DbParameter EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", string.IsNullOrEmpty(EquipmentSerialNo) ? null : EquipmentSerialNo, DbType.String);
                 DbParameter CustomerP = provider.CreateParameter("Customer", string.IsNullOrEmpty(Customer) ? null : Customer, DbType.String);
-                DbParameter WarrantyStartP = provider.CreateParameter("WarrantyStart", WarrantyStart, DbType.DateTime);
-                DbParameter WarrantyEndP = provider.CreateParameter("WarrantyEnd", WarrantyEnd, DbType.DateTime);
+                DbParameter WarrantyStartP = provider.CreateParameter("WarrantyExpiryFrom", WarrantyStart, DbType.DateTime);
+                DbParameter WarrantyEndP = provider.CreateParameter("WarrantyExpiryTo", WarrantyEnd, DbType.DateTime);
                 DbParameter RegionIDP = provider.CreateParameter("RegionID", RegionID, DbType.Int32);
                 DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
                 DbParameter DivisionIDP = provider.CreateParameter("DivisionID", DivisionID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
 
-                DbParameter[] Params = new DbParameter[8] { DealerIDP, EquipmentSerialNoP, CustomerP, WarrantyStartP, WarrantyEndP, RegionIDP, StateIDP, DivisionIDP };
+                DbParameter[] Params = new DbParameter[9] { DealerIDP, EquipmentSerialNoP, CustomerP, WarrantyStartP, WarrantyEndP, RegionIDP, StateIDP, DivisionIDP, UserIDP };
                 using (DataSet ds = provider.Select("GetEquipmentHeader", Params))
                 {
                     if (ds != null)
@@ -281,6 +282,8 @@ namespace Business
                             WarrantyType = Convert.ToString(dr["WarrantyType"]),
                             Description = Convert.ToString(dr["Description"])
                         };
+                        Equip.WarrantyStartDate = dr["WarrantyStartDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["WarrantyStartDate"]);
+                        Equip.WarrantyHMR = dr["WarrantyHMR"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["WarrantyHMR"]);
                     }
                 }
             }

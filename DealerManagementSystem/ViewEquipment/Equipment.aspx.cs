@@ -91,7 +91,7 @@ namespace DealerManagementSystem.ViewEquipment
                 //}
                 //EquipmentHeader = new BDMS_Equipment().GetEquipmentPopulationReport(DealerID, txtEquipment.Text.Trim(), txtCustomer.Text.Trim(), WarrantyStart, WarrantyEnd, StateID, RegionID, DivisionID).Tables[0];
 
-                EquipmentHeader = new BDMS_Equipment().GetEquipmentHeader(DealerID, txtEquipment.Text.Trim(), txtCustomer.Text.Trim(), WarrantyStart, WarrantyEnd, StateID, RegionID, DivisionID);
+                EquipmentHeader = new BDMS_Equipment().GetEquipmentHeader(DealerID, txtEquipment.Text.Trim(), txtCustomer.Text.Trim(), WarrantyStart, WarrantyEnd, StateID, RegionID, DivisionID, PSession.User.UserID);
 
                 //if (ddlDealerCode.SelectedValue == "0")
                 //{

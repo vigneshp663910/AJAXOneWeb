@@ -100,100 +100,82 @@
     </div>
 </div>
 
-<div id="divWarrantyTypeChangeReq" runat="server" class="col-md-12 field-margin-top" visible="false">
+<div id="divWarrantyTypeApproval" runat="server" class="col-md-12 field-margin-top" visible="false">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Type Approval</legend>
         <div class="col-md-12 View">
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Old Warranty Type : </label>
-                    <asp:Label ID="lblWarrantyTypeWTR" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblOldWarrantyType" runat="server" CssClass="label"></asp:Label>
                     <asp:Label ID="lblWarrantyTypeChangeID" runat="server" CssClass="label" Visible="false"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>New Warranty Type : </label>
-                    <asp:Label ID="lblWarrantyChangeTypeReq" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblNewWarrantyType" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Old HMR Value : </label>
-                    <asp:Label ID="lblHMRValueWTR" runat="server" CssClass="label"></asp:Label>
+                    <label>Old Warranty HMR : </label>
+                    <asp:Label ID="lblOldWarrantyHMR" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>New Warranty HMR : </label>
-                    <asp:Label ID="lblHMRValueNew" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblNewWarrantyHMR" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>New Warranty Start Date : </label>
-                    <asp:Label ID="lblWarrantyStartDateWTR" runat="server" CssClass="label"></asp:Label>
+                    <label>Old Warranty Date : </label>
+                    <asp:Label ID="lblOldWarrantyStartEndDate" runat="server" CssClass="label"></asp:Label> 
                 </div>
                 <div class="col-md-12">
-                    <label>New Warranty End Date : </label>
-                    <asp:Label ID="lblWarrantyEndDateWTR" runat="server" CssClass="label"></asp:Label>
+                    <label>New Warranty Date : </label>
+                    <asp:Label ID="lblNewWarrantyStartEndDate" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
         </div>
     </fieldset>
 </div>
 &nbsp;&nbsp;&nbsp;
-<div id="divOwnershipChangeReq" runat="server" class="col-md-12 field-margin-top" visible="false">
+<div id="divOwnershipApproval" runat="server" class="col-md-12 field-margin-top" visible="false">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Ownership Approval</legend>
         <div class="col-md-12 View">
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Old Customer : </label>
-                    <asp:Label ID="lblCustomerOCR" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblOldCustomer" runat="server" CssClass="label"></asp:Label>
                     <asp:Label ID="lblOwnershipChangeID" runat="server" CssClass="label" Visible="false"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>New Customer : </label>
-                    <asp:Label ID="lblOwnershipChangeReq" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblNewCustomer" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
         </div>
     </fieldset>
 </div>
 &nbsp;&nbsp;&nbsp;
-<div id="divExpiryDateChangeReq" runat="server" class="col-md-12 field-margin-top" visible="false">
+<div id="divExpiryDateApproval" runat="server" class="col-md-12 field-margin-top" visible="false">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Expiry Date Approval</legend>
         <div class="col-md-12 View">
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Old Warranty Expiry Date : </label>
-                    <asp:Label ID="lblWarrantyExpiryDateEDC" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblOldWarrantyExpiryDate" runat="server" CssClass="label"></asp:Label>
                     <asp:Label ID="lblWarrantyExpiryDateChangeID" runat="server" CssClass="label" Visible="false"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>New Expiry Date : </label>
-                    <asp:Label ID="lblExpiryDateChangeReq" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblNewWarrantyExpiryDate" runat="server" CssClass="label"></asp:Label>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <%--<div class="col-md-12">
-                    <label>Equipment Serial No : </label>
-                    <asp:Label ID="lblEquipSerialNoEDC" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>State : </label>
-                    <asp:Label ID="lblStateEDC" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Dispatched On : </label>
-                    <asp:Label ID="lblDispatchedOnEDC" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Commisioning On : </label>
-                    <asp:Label ID="lblCommisioningOnEDC" runat="server" CssClass="label"></asp:Label>
-                </div>--%>
             </div>
         </div>
     </fieldset>
@@ -515,7 +497,8 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
-                                    <%--<asp:LinkButton ID="lnkBtnWarrantyTypeChangeAttachedFileDownload" runat="server" OnClick="lnkBtnWarrantyTypeChangeAttachedFileDownload_Click" Text="Download"></asp:LinkButton>--%>
+                                    <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
+                                    <%--<asp:LinkButton ID="lnkBtnEquipmentAttachedFileDownload" runat="server" OnClick="lnkBtnEquipmentAttachedFileDownload_Click" Text="Download"></asp:LinkButton>--%>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Date">
@@ -528,12 +511,6 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Action">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="lnkBtnAttachedFileRemove" runat="server" OnClick="lnkBtnAttachedFileRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

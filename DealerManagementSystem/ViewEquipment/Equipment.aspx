@@ -26,13 +26,13 @@
                                 <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
                             <div class="col-md-2 col-sm-12">
-                                <label class="modal-label">Warranty Start</label>
+                                <label class="modal-label">Warranty Start From</label>
                                 <asp:TextBox ID="txtWarrantyStart" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtWarrantyStart" PopupButtonID="txtWarrantyStart" Format="dd/MM/yyyy"></asp:CalendarExtender>
                                 <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtWarrantyStart" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                             </div>
                             <div class="col-md-2 col-sm-12">
-                                <label class="modal-label">Warranty End</label>
+                                <label class="modal-label">Warranty End To</label>
                                 <asp:TextBox ID="txtWarrantyEnd" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                                 <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtWarrantyEnd" PopupButtonID="txtWarrantyEnd" Format="dd/MM/yyyy"></asp:CalendarExtender>
                                 <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtWarrantyEnd" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
