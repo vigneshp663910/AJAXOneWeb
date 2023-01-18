@@ -580,7 +580,8 @@ namespace Properties
         UpdateSalesQuotationDeliveryDetails = 23 ,
         SalesQuotationFlowFromSap = 24,
         EnquiryFromCRM = 25,
-        LeadQualificationByExpectedDateOfSale = 26
+        LeadQualificationByExpectedDateOfSale = 26,
+        IntegrationEquipmentFromSAP_New = 27
     }
 
     public enum DashboardControl

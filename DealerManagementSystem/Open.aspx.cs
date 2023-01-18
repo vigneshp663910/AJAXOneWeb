@@ -46,7 +46,7 @@ namespace DealerManagementSystem
         }
         protected void btnEnquiryIndiamart_Click(object sender, EventArgs e)
         {
-            new BEnquiryIndiamart().InsertOrUpdateEnquiryIndiamart();
+            new BAPI().ApiGetWithOutToken("Equipment/IntegrationEquipmentFromSAP_new");
         }
 
         protected void BtnCreateCustomer_Click(object sender, EventArgs e)
@@ -183,6 +183,11 @@ namespace DealerManagementSystem
         protected void btnIntegrationEquipmentFromSAP_Click(object sender, EventArgs e)
         {
             new BDMS_Equipment().IntegrationEquipmentFromSAP();
+        }
+
+        protected void btnIntegrationEquipmentFromSAP_New_Click(object sender, EventArgs e)
+        {
+            new BAPI().ApiGetWithOutToken("Equipment/IntegrationEquipmentFromSAP_new");
         }
     }
 }
