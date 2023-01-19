@@ -49,7 +49,7 @@ namespace DealerManagementSystem.ViewPreSale
             DateTime? DateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
             DateTime? DateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
             int? PreSaleStatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
-            Enquiry = new BEnquiryIndiamart().GetEnquiryIndiamart(DateFrom, DateTo, PreSaleStatusID);
+            Enquiry = new BEnquiry().GetEnquiryIndiamart(DateFrom, DateTo, PreSaleStatusID);
             gvEnquiry.DataSource = Enquiry;
             gvEnquiry.DataBind();
             //for (int i = 0; i < gvEnquiry.Rows.Count; i++)
@@ -203,7 +203,7 @@ namespace DealerManagementSystem.ViewPreSale
                     //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
                     //string QUERY_ID = Convert.ToString(gvEnquiry.DataKeys[gvRow.RowIndex].Value);
                     
-                    if (new BEnquiryIndiamart().UpdateEnquiryIndiamartStatus(lblQueryIDAdd.Text, 2, PSession.User.UserID, txtRejectEnquiryReason.Text.Trim()))
+                    if (new BEnquiry().UpdateEnquiryIndiamartStatus(lblQueryIDAdd.Text, 2, PSession.User.UserID, txtRejectEnquiryReason.Text.Trim()))
                     {
                         lblMessage.Text = "Enquiry from India Mart saved successfully.";
                         lblMessage.ForeColor = Color.Green;
@@ -250,7 +250,7 @@ namespace DealerManagementSystem.ViewPreSale
                 //LinkButton lnkBtnReject = (LinkButton)gvRow.FindControl("lnkBtnReject");
                 //string QUERY_ID = Convert.ToString(gvEnquiry.DataKeys[gvRow.RowIndex].Values[11].ToString());
 
-                if (new BEnquiryIndiamart().UpdateEnquiryIndiamartStatus(lblQueryID.Text, 5, PSession.User.UserID, txtRejectEnquiryReason.Text.Trim()))
+                if (new BEnquiry().UpdateEnquiryIndiamartStatus(lblQueryID.Text, 5, PSession.User.UserID, txtRejectEnquiryReason.Text.Trim()))
                 {
                     lblMessage.Text = "Enquiry from India Mart rejected successfully.";
                     lblMessage.ForeColor = Color.Green;

@@ -162,7 +162,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BEnquiry.cs" />
-    <Compile Include="BEnquiryIndiamart.cs" />
     <Compile Include="BFeedback.cs" />
     <Compile Include="BForum.cs" />
     <Compile Include="BHelp.cs" />
