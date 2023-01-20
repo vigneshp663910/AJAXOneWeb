@@ -24,6 +24,15 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// divList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
+
+        /// <summary>
         /// txtDateFrom control.
         /// </summary>
         /// <remarks>
@@ -51,6 +60,15 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.DropDownList ddlSStatus;
 
         /// <summary>
+        /// ddlSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSource;
+
+        /// <summary>
         /// btnSearch control.
         /// </summary>
         /// <remarks>
@@ -69,31 +87,31 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.Button btnExportExcel;
 
         /// <summary>
-        /// lblRowCountEnquiryIM control.
+        /// lblRowCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRowCountEnquiryIM;
+        protected global::System.Web.UI.WebControls.Label lblRowCount;
 
         /// <summary>
-        /// ibtnEnquiryIMArrowLeft control.
+        /// ibtnArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnEnquiryIMArrowLeft;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowLeft;
 
         /// <summary>
-        /// ibtnEnquiryIMArrowRight control.
+        /// ibtnArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnEnquiryIMArrowRight;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
 
         /// <summary>
         /// gvEnquiry control.
@@ -103,6 +121,33 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvEnquiry;
+
+        /// <summary>
+        /// divDetailsView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDetailsView;
+
+        /// <summary>
+        /// btnBackToList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBackToList;
+
+        /// <summary>
+        /// UC_ViewEquiryIndiamart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewPreSale.UserControls.EnquiryIndiamartView UC_ViewEquiryIndiamart;
 
         /// <summary>
         /// lnkMPE control.
@@ -121,140 +166,5 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
-
-        /// <summary>
-        /// pnlAddEnquiry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAddEnquiry;
-
-        /// <summary>
-        /// Button6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button6;
-
-        /// <summary>
-        /// lblAddEnquiryMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAddEnquiryMessage;
-
-        /// <summary>
-        /// lblQueryIDAdd control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQueryIDAdd;
-
-        /// <summary>
-        /// UC_AddEnquiry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DealerManagementSystem.ViewPreSale.UserControls.AddEnquiry UC_AddEnquiry;
-
-        /// <summary>
-        /// btnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
-
-        /// <summary>
-        /// MPE_AddEnquiry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MPE_AddEnquiry;
-
-        /// <summary>
-        /// pnlRejectEnquiry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlRejectEnquiry;
-
-        /// <summary>
-        /// btnRejectEnquiryClose control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRejectEnquiryClose;
-
-        /// <summary>
-        /// lblRejectEnquiryMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRejectEnquiryMessage;
-
-        /// <summary>
-        /// Fieldset2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset2;
-
-        /// <summary>
-        /// lblQueryID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQueryID;
-
-        /// <summary>
-        /// txtRejectEnquiryReason control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRejectEnquiryReason;
-
-        /// <summary>
-        /// btnRejectEnquiry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRejectEnquiry;
-
-        /// <summary>
-        /// MPE_RejectEnquiry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MPE_RejectEnquiry;
     }
 }

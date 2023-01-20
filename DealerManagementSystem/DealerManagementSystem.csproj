@@ -509,6 +509,7 @@
     <Content Include="ViewPreSale\UserControls\AssignSE.ascx" />
     <Content Include="ViewPreSale\UserControls\ColdVisitsView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
+    <Content Include="ViewPreSale\UserControls\EnquiryIndiamartView.ascx" />
     <Content Include="ViewPreSale\UserControls\EnquiryView.ascx" />
     <Content Include="ViewPreSale\UserControls\EnquiryViewN.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
@@ -1714,6 +1715,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\Effort.ascx.designer.cs">
       <DependentUpon>Effort.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\EnquiryIndiamartView.ascx.cs">
+      <DependentUpon>EnquiryIndiamartView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\EnquiryIndiamartView.ascx.designer.cs">
+      <DependentUpon>EnquiryIndiamartView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\EnquiryView.ascx.cs">
       <DependentUpon>EnquiryView.ascx</DependentUpon>
