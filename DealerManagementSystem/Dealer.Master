@@ -2312,6 +2312,10 @@
 
 
 
+
+      
+
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -2371,74 +2375,7 @@
                 </div>--%>
                 <div id="MenuNew" runat="server">
                 </div>
-
-
-                <%--  <nav id="main-nav">
-                    <ul id="main-menu" class="sm sm-blue">
-                        <li class="menu-item-list">
-                            <a href="javascript:void(0)" onclick="Menu('Admin','','iAdmin')" class="w3-button w3-block w3-blue w3-left-align w3-padding" id="MenuAdmin">
-                            <i class="fa fa-cogs fa-sm" style="color: #2fa8b3"></i>&nbsp;<span>Admin</span><i id="iAdmin" class="sub-menu-icon fa fa-angle-up fa-2x" style="color: lightgray"></i></a>
-                            <div id="Admin" class="w3-bar-block w3-hide w3-medium" runat="server">
-                            <div class="menu-item"><a href="/ViewAdmin/tab_AdminModule.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Modules</span></a></div>
-                            <div class="menu-item"><a href="/ViewAdmin/UserManagement.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Users</span></a></div>
-                            <div class="menu-item"><a href="/SignIn.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Login</span></a></div>
-                            <div class="menu-item"><a href="/Account/LoginAs.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Login As</span></a></div>
-                            <div class="menu-item"><a href="/BackUp/SignIn.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Message / Prev Login</span></a></div>
-                            <div class="menu-item"><a href="/UnderCons.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Mobile User Approve</span></a></div>
-                        </div>
-                        </li>
-                    </ul>
-                </nav>--%>
-                <%-- <nav id="main-nav">
-                    <ul id="main-menu" class="sm sm-blue">
-                        <li class="menu-item-list">
-                            <a href="javascript:void(0)" onclick="Menu('Admin','','iAdmin')" class="w3-button w3-block w3-blue w3-left-align w3-padding" id="MenuAdmin">
-                                <i class="fa fa-cogs fa-sm" style="color: #2fa8b3"></i>&nbsp;<span>Admin</span><i id="iAdmin" class="fa fa-angle-down fa-2x" style="color: lightgray"></i></a>
-                            <div id="Admin" class="w3-bar-block w3-hide w3-medium" runat="server">
-                                <a href="/ViewAdmin/tab_AdminModule.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Modules</a>
-                                <a href="/ViewAdmin/UserManagement.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Users</a><a href="/SignIn.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Login</a><a href="/Account/LoginAs.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #ff6666"></i>&nbsp;LoginAs</a><a href="/BackUp/SignIn.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;Message/PrevLogin</a><a href="/UnderCons.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('Admin','Admin')"><i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;MobileUserApprove</a>
-                            </div>
-                        </li>
-                        <li class="menu-item-list">
-                            <a href="javascript:void(0)" onclick="Menu('Master','','iMaster')" class="w3-button w3-block w3-blue w3-left-align w3-padding" id="MenuMaster">
-                                <i class="fa fa-anchor fa-sm" style="color: #2fa8b3"></i>&nbsp;<span>Master</span><i id="iMaster" class="fa fa-angle-down fa-2x" style="color: lightgray"></i>
-                            </a>
-                            <div id="Master" class="w3-bar-block w3-hide w3-medium" runat="server">
-                                <div class="menu-item">
-                                    <a href="#" class="w3-bar-item w3-button" onclick="ParentMenuClick('Master','Master')">
-                                        <i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Location</span></a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="/TestPageForMenu.aspx" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Master','Master')">
-                                        <i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Customer</span></a>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="/material" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Master','Master')">
-                                        <i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Material</span></a>
-                                </div>
-                                <div class="menu-item">
-                                    <a onclick="Menu('DealerEmployee','Master','iDealerEmployee')" href="javascript:void(0)" class="w3-bar-item w3-button w3-block w3-left-align submenu" id="MenuDealerEmployee">
-                                        <i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>DealerEmployee</span>
-                                        <i id="iDealerEmployee" class="sub-menu-icon fa fa-angle-down fa-2x" style="color: lightgray"></i></a>
-                                    <div id="DealerEmployee" class="w3-bar-block w3-hide w3-padding-large w3-medium" runat="server">
-                                        <a href="/ProcessFlow/DMM_Process.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>ProcessFlow</span></a>
-                                        <a href="/ViewMaster/DealerEmployeeCreate.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>Create</span></a>
-                                        <a href="/ViewMaster/DealerEmployeeAssigningRole.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>RoleAssign</span></a>
-                                        <a href="/ViewMaster/DealerEmployeeManage.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>Manage</span></a>
-                                        <a href="/ViewMaster/DealerEmployeeApproval.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>Approval</span></a>
-                                        <a href="/ViewMaster/DealerEmployeeLeaving.aspx" class="w3-bar-item w3-button" onclick="ParentMenuClick('DealerEmployee','Master')"><i class="fa fa-bolt" style="color: #2fb7c3"></i>&nbsp;<span>Leaving/Exit</span></a>
-                                    </div>
-                                </div>
-                                <div class="menu-item">
-                                    <a href="/material" class="w3-bar-item w3-button w3-padding" onclick="ParentMenuClick('Master','Master')">
-                                        <i class="fa fa-mercury" style="color: #db6e6e"></i>&nbsp;<span>Test</span></a>
-                                </div>
-
-                            </div>
-                        </li>
-
-                    </ul>
-                </nav>--%>
+                 
             </div>
         </nav>
         <header class="responsive-menu-click w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #2f516e !important; color: #fff !important">
@@ -2625,7 +2562,10 @@
     <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
 </body>
 
 </html>

@@ -5,25 +5,47 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <script type="text/javascript">
-         $(document).ready(function () {
-             var hdfCustomerID = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID');
-             if (hdfCustomerID.value != "") {
-                 document.getElementById('divCustomerViewID').style.display = "block";
-                 document.getElementById('divCustomerCreateID').style.display = "none";
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
 
-                 document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfCustomerName').value;
-                 document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfContactPerson').value;
-                 document.getElementById('lblMobile').innerText = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfMobile').value;
-             }
-         });        
-     </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var hdfCustomerID = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID');
+            if (hdfCustomerID != null)
+                if (hdfCustomerID.value != "") {
+                    document.getElementById('divCustomerViewID').style.display = "block";
+                    document.getElementById('divCustomerCreateID').style.display = "none";
+
+                    document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfCustomerName').value;
+                    document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfContactPerson').value;
+                    document.getElementById('lblMobile').innerText = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfMobile').value;
+                }
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('[id*=MainContent_lstFruits]').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
-
+    <asp:ListBox ID="lstFruits" runat="server" SelectionMode="Multiple">
+        <asp:ListItem Text="Mango" Value="1" />
+        <asp:ListItem Text="Apple" Value="2" />
+        <asp:ListItem Text="Banana" Value="3" />
+        <asp:ListItem Text="Guava" Value="4" />
+        <asp:ListItem Text="Orange" Value="5" />
+    </asp:ListBox>
 
     <div class="col-md-12">
+
         <div class="col-md-12" id="divList" runat="server">
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
@@ -31,6 +53,7 @@
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer</label>
                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
+
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Employee</label>
@@ -92,7 +115,7 @@
                 </div>
             </fieldset>
             <div class="col-md-12">
-                 
+
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
@@ -117,7 +140,7 @@
                             </div>
                             <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
                             <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
-                                AutoGenerateColumns="false" Width="100%"  >
+                                AutoGenerateColumns="false" Width="100%">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -146,7 +169,7 @@
                                             </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                   
+
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                     <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Address">
@@ -159,7 +182,7 @@
                                             <asp:Label ID="lblAddress3" Text='<%# DataBinder.Eval(Container.DataItem, "Address3")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                   
+
                                     <asp:BoundField HeaderText="Product" DataField="Product"></asp:BoundField>
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
@@ -224,76 +247,77 @@
     </asp:Panel>
     <ajaxToolkit:ModalPopupExtender ID="MPE_AddEnquiry" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddEnquiry" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-     <script type="text/javascript"> 
-         function GetCustomerAuto() {
-             $("#MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID").val('');
-             var param = { Cust: $('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').val() }
-             var Customers = [];
-             if ($('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').val().trim().length >= 3) {
-                 $.ajax({
-                     url: "ColdVisits.aspx/GetCustomer1",
-                     contentType: "application/json; charset=utf-8",
-                     type: 'POST',
-                     data: JSON.stringify(param),
-                     dataType: 'JSON',
-                     success: function (data) {
-                         var DataList = JSON.parse(data.d);
-                         for (i = 0; i < DataList.length; i++) {
-                             Customers[i] = {
-                                 value: DataList[i].CustomerName,
-                                 value1: DataList[i].CustomerID,
-                                 CustomerType: DataList[i].CustomerType,
-                                 ContactPerson: DataList[i].ContactPerson,
-                                 Mobile: DataList[i].Mobile
-                             };
-                         }
-                         $('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').autocomplete({
-                             source: function (request, response) { response(Customers) },
-                             select: function (e, u) {
-                                 $("#MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID").val(u.item.value1);
-                                 document.getElementById('divCustomerViewID').style.display = "block";
-                                 document.getElementById('divCustomerCreateID').style.display = "none";
+    <script type="text/javascript"> 
+        function GetCustomerAuto() {
+            $("#MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID").val('');
+            var param = { Cust: $('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').val() }
+            var Customers = [];
+            if ($('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').val().trim().length >= 3) {
+                $.ajax({
+                    url: "ColdVisits.aspx/GetCustomer1",
+                    contentType: "application/json; charset=utf-8",
+                    type: 'POST',
+                    data: JSON.stringify(param),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        var DataList = JSON.parse(data.d);
+                        for (i = 0; i < DataList.length; i++) {
+                            Customers[i] = {
+                                value: DataList[i].CustomerName,
+                                value1: DataList[i].CustomerID,
+                                CustomerType: DataList[i].CustomerType,
+                                ContactPerson: DataList[i].ContactPerson,
+                                Mobile: DataList[i].Mobile
+                            };
+                        }
+                        $('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').autocomplete({
+                            source: function (request, response) { response(Customers) },
+                            select: function (e, u) {
+                                $("#MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID").val(u.item.value1);
+                                document.getElementById('divCustomerViewID').style.display = "block";
+                                document.getElementById('divCustomerCreateID').style.display = "none";
 
-                                 $("#MainContent_UC_EnquiryView_UC_Customer_hdfCustomerName").val(u.item.value);
-                                 $("#MainContent_UC_EnquiryView_UC_Customer_hdfContactPerson").val(u.item.ContactPerson);
-                                 $("#MainContent_UC_EnquiryView_UC_Customer_hdfMobile").val(u.item.Mobile);
+                                $("#MainContent_UC_EnquiryView_UC_Customer_hdfCustomerName").val(u.item.value);
+                                $("#MainContent_UC_EnquiryView_UC_Customer_hdfContactPerson").val(u.item.ContactPerson);
+                                $("#MainContent_UC_EnquiryView_UC_Customer_hdfMobile").val(u.item.Mobile);
 
-                                 document.getElementById('lblCustomerName').innerText = u.item.value;
-                                 document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
-                                 document.getElementById('lblMobile').innerText = u.item.Mobile;
+                                document.getElementById('lblCustomerName').innerText = u.item.value;
+                                document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
+                                document.getElementById('lblMobile').innerText = u.item.Mobile;
 
-                             },
-                             open: function (event, ui) {
-                                 $(this).autocomplete("widget").css({
-                                     "max-width":
-                                         $('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').width() + 48,
-                                 });
-                                 $(this).autocomplete("widget").scrollTop(0);
-                             }
-                         }).focus(function (e) {
-                             $(this).autocomplete("search");
-                         }).click(function () {
-                             $(this).autocomplete("search");
-                         }).data('ui-autocomplete')._renderItem = function (ul, item) {
+                            },
+                            open: function (event, ui) {
+                                $(this).autocomplete("widget").css({
+                                    "max-width":
+                                        $('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').width() + 48,
+                                });
+                                $(this).autocomplete("widget").scrollTop(0);
+                            }
+                        }).focus(function (e) {
+                            $(this).autocomplete("search");
+                        }).click(function () {
+                            $(this).autocomplete("search");
+                        }).data('ui-autocomplete')._renderItem = function (ul, item) {
 
-                             var inner_html = FormatAutocompleteList(item);
-                             return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
-                                 .data('item.autocomplete', item)
-                                 .append(inner_html)
-                                 .appendTo(ul);
-                         };
+                            var inner_html = FormatAutocompleteList(item);
+                            return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                                .data('item.autocomplete', item)
+                                .append(inner_html)
+                                .appendTo(ul);
+                        };
 
-                     }
-                 });
-             }
-             else {
-                 $('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').autocomplete({
-                     source: function (request, response) {
-                         response($.ui.autocomplete.filter(Customers, ""))
-                     }
-                 });
-             }
-         }
-     </script>
+                    }
+                });
+            }
+            else {
+                $('#MainContent_UC_EnquiryView_UC_Customer_txtCustomerName').autocomplete({
+                    source: function (request, response) {
+                        response($.ui.autocomplete.filter(Customers, ""))
+                    }
+                });
+            }
+        }
+    </script>
+
 
 </asp:Content>

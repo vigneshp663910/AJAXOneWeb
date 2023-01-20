@@ -361,12 +361,16 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="SignIn.aspx" />
     <Content Include="Test.aspx" />
+    <Content Include="TestDrop.aspx" />
+    <Content Include="testDropWithMasteMain.aspx" />
+    <Content Include="TestDropWithMaterSite.aspx" />
     <Content Include="TestPageForMenu.aspx" />
     <Content Include="UserControls\EquipmentView.ascx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
     <Content Include="UserControls\ICTicketButton.ascx" />
     <Content Include="UserControls\ICTicketTSIR.ascx" />
     <Content Include="UserControls\ICTicketTSIRView.ascx" />
+    <Content Include="UserControls\MultiSelectDropDown.ascx" />
     <Content Include="ViewActivity\Activity.aspx" />
     <Content Include="ViewActivity\UserControls\AddActivity.ascx" />
     <Content Include="ViewActivity\UserControls\ViewActivity.ascx" />
@@ -509,6 +513,7 @@
     <Content Include="ViewPreSale\UserControls\AssignSE.ascx" />
     <Content Include="ViewPreSale\UserControls\ColdVisitsView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
+    <Content Include="ViewPreSale\UserControls\EnquiryIndiamartView.ascx" />
     <Content Include="ViewPreSale\UserControls\EnquiryView.ascx" />
     <Content Include="ViewPreSale\UserControls\EnquiryViewN.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
@@ -844,6 +849,27 @@
     <Compile Include="Test.aspx.designer.cs">
       <DependentUpon>Test.aspx</DependentUpon>
     </Compile>
+    <Compile Include="TestDrop.aspx.cs">
+      <DependentUpon>TestDrop.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestDrop.aspx.designer.cs">
+      <DependentUpon>TestDrop.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="testDropWithMasteMain.aspx.cs">
+      <DependentUpon>testDropWithMasteMain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testDropWithMasteMain.aspx.designer.cs">
+      <DependentUpon>testDropWithMasteMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TestDropWithMaterSite.aspx.cs">
+      <DependentUpon>TestDropWithMaterSite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestDropWithMaterSite.aspx.designer.cs">
+      <DependentUpon>TestDropWithMaterSite.aspx</DependentUpon>
+    </Compile>
     <Compile Include="TestPageForMenu.aspx.cs">
       <DependentUpon>TestPageForMenu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -885,6 +911,13 @@
     </Compile>
     <Compile Include="UserControls\ICTicketTSIRView.ascx.designer.cs">
       <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MultiSelectDropDown.ascx.cs">
+      <DependentUpon>MultiSelectDropDown.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\MultiSelectDropDown.ascx.designer.cs">
+      <DependentUpon>MultiSelectDropDown.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewActivity\Activity.aspx.cs">
       <DependentUpon>Activity.aspx</DependentUpon>
@@ -1714,6 +1747,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\Effort.ascx.designer.cs">
       <DependentUpon>Effort.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\EnquiryIndiamartView.ascx.cs">
+      <DependentUpon>EnquiryIndiamartView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\EnquiryIndiamartView.ascx.designer.cs">
+      <DependentUpon>EnquiryIndiamartView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\EnquiryView.ascx.cs">
       <DependentUpon>EnquiryView.ascx</DependentUpon>

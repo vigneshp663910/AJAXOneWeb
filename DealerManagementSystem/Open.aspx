@@ -9,7 +9,7 @@
     <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    
+
     <script type="text/javascript"> 
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChart1);
@@ -39,7 +39,7 @@
     </script>
 </head>
 <body>
-    
+
     <form id="form1" runat="server">
         <asp:ScriptManager runat="server"></asp:ScriptManager>
         <asp:DropDownList ID="DrpMonth" runat="server" AutoPostBack="true">
@@ -51,7 +51,7 @@
         </asp:DropDownList>
 
 
-        
+
         <table>
 
             <tr>
@@ -151,42 +151,49 @@
                 </td>
             </tr>
 
-              <tr>
+            <tr>
                 <td>
                     <br />
-                     <asp:Label ID="Label5" runat="server" Text="Customer Code"></asp:Label>
+                    <asp:Label ID="Label5" runat="server" Text="Customer Code"></asp:Label>
                     <asp:TextBox ID="txtCustomerCodeMiss" runat="server"></asp:TextBox>
                     <asp:Button ID="btnCustomerMiss" runat="server" Text="Customer Miss" OnClick="btnCustomerMiss_Click" />
                 </td>
             </tr>
-            
-              <tr>
+
+            <tr>
                 <td>
                     <br />
-                     <asp:Label ID="Label6" runat="server" Text="API E Invoice"></asp:Label> 
+                    <asp:Label ID="Label6" runat="server" Text="API E Invoice"></asp:Label>
                     <asp:Button ID="btnAPIEInvoice" runat="server" Text="API E Invoice" OnClick="btnAPIEInvoice_Click" />
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <td>
                     <br />
-                     <asp:Label ID="Label7" runat="server" Text="Dealer Address from SAP"></asp:Label> 
+                    <asp:Label ID="Label7" runat="server" Text="Dealer Address from SAP"></asp:Label>
                     <asp:Button ID="btnDealerAddress" runat="server" Text="Dealer Address from SAP" OnClick="btnDealerAddress_Click" />
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <td>
                     <br />
-                     <asp:Label ID="Label8" runat="server" Text="Dealer Address from SAP"></asp:Label> 
+                    <asp:Label ID="Label8" runat="server" Text="Dealer Address from SAP"></asp:Label>
                     <asp:Button ID="btnIntegrationWarrantyClaimAnnexureToSAP" runat="server" Text="IntegrationWarrantyClaimAnnexureToSAP" OnClick="btnIntegrationWarrantyClaimAnnexureToSAP_Click" />
                 </td>
             </tr>
 
-              <tr>
+            <tr>
                 <td>
                     <br />
-                     <asp:Label ID="Label9" runat="server" Text="Integration Equipment From SAP"></asp:Label> 
+                    <asp:Label ID="Label9" runat="server" Text="Integration Equipment From SAP"></asp:Label>
                     <asp:Button ID="btnIntegrationEquipmentFromSAP" runat="server" Text="IntegrationEquipmentFromSAP" OnClick="btnIntegrationEquipmentFromSAP_Click" />
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <br />
+                    <asp:Label ID="Label10" runat="server" Text="Integration Equipment From SAP New"></asp:Label>
+                    <asp:Button ID="btnIntegrationEquipmentFromSAP_New" runat="server" Text="Integration Equipment From SAP New" OnClick="btnIntegrationEquipmentFromSAP_New_Click" />
                 </td>
             </tr>
         </table>

@@ -188,5 +188,134 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             //  TraceLogger.Log(DateTime.Now);
         }
-    }
+
+
+        public DataTable GetEnquiryIndiamart(DateTime? DateFrom, DateTime? DateTo, int? PreSaleStatusID, int? SourceID, int? PageIndex = null, int? PageSize = null)
+        {
+            DbParameter DateFromP = provider.CreateParameter("DateFrom", DateFrom, DbType.DateTime);
+            DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);
+            DbParameter PreSaleStatusIDP = provider.CreateParameter("PreSaleStatusID", PreSaleStatusID, DbType.Int32);
+            DbParameter SourceIDP = provider.CreateParameter("SourceID", SourceID, DbType.Int32);
+            DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
+            DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
+            try
+            {
+                using (DataSet DS = provider.Select("GetEnquiryIndiamart", new DbParameter[6] { DateFromP, DateToP, PreSaleStatusIDP, SourceIDP, PageIndexP, PageSizeP }))
+                {
+                    if (DS != null)
+                    {
+                        return DS.Tables[0];
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
+        }
+        public DataTable GetEnquiryIndiamartByID(long? EnquiryIndiamartID)
+        {
+            DbParameter EnquiryIndiamartIDP = provider.CreateParameter("EnquiryIndiamartID", EnquiryIndiamartID, DbType.Int64);
+            try
+            {
+                using (DataSet DS = provider.Select("GetEnquiryIndiamartByID", new DbParameter[1] { EnquiryIndiamartIDP }))
+                {
+                    if (DS != null)
+                    {
+                        return DS.Tables[0];
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
+        }
+        public DataTable GetEnquiryIndiamartStatusHistory(long? EnquiryIndiamartID)
+        {
+            DbParameter EnquiryIndiamartIDP = provider.CreateParameter("EnquiryIndiamartID", EnquiryIndiamartID, DbType.Int64);
+            try
+            {
+                using (DataSet DS = provider.Select("GetEnquiryIndiamartStatusHistory", new DbParameter[1] { EnquiryIndiamartIDP }))
+                {
+                    if (DS != null)
+                    {
+                        return DS.Tables[0];
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
+        }
+        public Boolean UpdateEnquiryIndiamartStatus(long? EnquiryIndiamartID, int? EnquiryRemarkID, int PreSaleStatusID, int RejectedBy, string RejectedReason)
+        {
+            try
+            {
+                provider = new ProviderFactory().GetProvider();
+                DbParameter EnquiryIndiamartIDP = provider.CreateParameter("EnquiryIndiamartID", EnquiryIndiamartID, DbType.Int64);
+                DbParameter EnquiryRemarkIDP = provider.CreateParameter("EnquiryRemarkID", EnquiryRemarkID, DbType.Int32);
+                DbParameter PreSaleStatusIDP = provider.CreateParameter("PreSaleStatusID", PreSaleStatusID, DbType.Int32);
+                DbParameter RejectedByP = provider.CreateParameter("UserID", RejectedBy, DbType.Int32);
+                DbParameter RejectedReasonP = provider.CreateParameter("RejectedReason", RejectedReason, DbType.String);
+
+                DbParameter[] Params = new DbParameter[5] { EnquiryIndiamartIDP, EnquiryRemarkIDP, PreSaleStatusIDP, RejectedByP, RejectedReasonP };
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("UpdateEnquiryIndiamartStatus", Params);
+                    scope.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+        public List<PEnquiryRemark> GetEnquiryRemark(int? EnquiryRemarkID, string Remark, bool? IsIndiaMartInProgress, bool? IsIndiaMartReject, bool? IsInProgress, bool? IsReject)
+        {
+            List<PEnquiryRemark> pEnquiryRemarks = new List<PEnquiryRemark>();
+            try
+            {
+                DbParameter EnquiryRemarkIDP = provider.CreateParameter("EnquiryRemarkID", EnquiryRemarkID, DbType.Int32);
+                DbParameter RemarkP = provider.CreateParameter("Remark", Remark, DbType.String);
+                DbParameter IsIndiaMartInProgressP = provider.CreateParameter("IsIndiaMartInProgress", IsIndiaMartInProgress, DbType.Boolean);
+                DbParameter IsIndiaMartRejectP = provider.CreateParameter("IsIndiaMartReject", IsIndiaMartReject, DbType.Boolean);
+                DbParameter IsInProgressP = provider.CreateParameter("IsInProgress", IsInProgress, DbType.Boolean);
+                DbParameter IsRejectP = provider.CreateParameter("IsReject", IsReject, DbType.Boolean);
+
+                DbParameter[] Params = new DbParameter[6] { EnquiryRemarkIDP, RemarkP, IsIndiaMartInProgressP, IsIndiaMartRejectP, IsInProgressP, IsRejectP };
+                using (DataSet DataSet = provider.Select("GetEnquiryRemark", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            pEnquiryRemarks.Add(new PEnquiryRemark()
+                            {
+                                EnquiryRemarkID = Convert.ToInt32(dr["EnquiryRemarkID"]),
+                                Remark = Convert.ToString(dr["Remark"])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BEnquiry", "GetEnquiryRemark", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BEnquiry", "GetEnquiryRemark", ex);
+                throw ex;
+            }
+            return pEnquiryRemarks;
+        }
+    }  
 }
