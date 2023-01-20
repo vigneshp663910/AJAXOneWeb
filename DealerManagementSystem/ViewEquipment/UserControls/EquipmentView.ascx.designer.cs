@@ -879,69 +879,6 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlWarranty;
 
         /// <summary>
-        /// txtWarrantyStartDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWarrantyStartDate;
-
-        /// <summary>
-        /// cEWarrantyStartDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender cEWarrantyStartDate;
-
-        /// <summary>
-        /// txtBoxWEWarrantyStartDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtBoxWEWarrantyStartDate;
-
-        /// <summary>
-        /// txtWarrantyEndDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWarrantyEndDate;
-
-        /// <summary>
-        /// cEWarrantyEndDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender cEWarrantyEndDate;
-
-        /// <summary>
-        /// txtBoxWarrantyEndDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtBoxWarrantyEndDate;
-
-        /// <summary>
-        /// txtWarrantyHMRValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWarrantyHMRValue;
-
-        /// <summary>
         /// fileUpload control.
         /// </summary>
         /// <remarks>

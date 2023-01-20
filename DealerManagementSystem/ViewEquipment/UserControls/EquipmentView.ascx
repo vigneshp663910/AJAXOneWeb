@@ -128,7 +128,7 @@
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Old Warranty Date : </label>
-                    <asp:Label ID="lblOldWarrantyStartEndDate" runat="server" CssClass="label"></asp:Label> 
+                    <asp:Label ID="lblOldWarrantyStartEndDate" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>New Warranty Date : </label>
@@ -490,15 +490,15 @@
                             <asp:TemplateField HeaderText="Attached File Type" HeaderStyle-Width="250px">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "ReferenceName")%>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblReferenceName" Text='<%# DataBinder.Eval(Container.DataItem, "ReferenceName")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="File Name" HeaderStyle-Width="250px">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
+                                    <%--<asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>--%>
                                     <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
-                                    <%--<asp:LinkButton ID="lnkBtnEquipmentAttachedFileDownload" runat="server" OnClick="lnkBtnEquipmentAttachedFileDownload_Click" Text="Download"></asp:LinkButton>--%>
+                                    <asp:LinkButton ID="lnkBtnEquipmentAttachedFileDownload" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" OnClick="lnkBtnEquipmentAttachedFileDownload_Click"></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Date">
@@ -599,22 +599,22 @@
                         <label class="modal-label">Warranty Type</label>
                         <asp:DropDownList ID="ddlWarranty" runat="server" CssClass="form-control" BorderColor="Silver" />
                     </div>
-                    <div class="col-md-6 col-sm-12">
+                    <%--<div class="col-md-6 col-sm-12">
                         <label class="modal-label">Warranty Start Date</label>
                         <asp:TextBox ID="txtWarrantyStartDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                         <asp1:CalendarExtender ID="cEWarrantyStartDate" runat="server" TargetControlID="txtWarrantyStartDate" PopupButtonID="txtWarrantyStartDate" Format="dd/MM/yyyy" />
                         <asp1:TextBoxWatermarkExtender ID="txtBoxWEWarrantyStartDate" runat="server" TargetControlID="txtWarrantyStartDate" WatermarkText="DD/MM/YYYY" />
-                    </div>
-                    <div class="col-md-6 col-sm-12">
+                    </div>--%>
+                    <%--<div class="col-md-6 col-sm-12">
                         <label class="modal-label">Warranty End Date</label>
                         <asp:TextBox ID="txtWarrantyEndDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                         <asp1:CalendarExtender ID="cEWarrantyEndDate" runat="server" TargetControlID="txtWarrantyEndDate" PopupButtonID="txtWarrantyEndDate" Format="dd/MM/yyyy" />
                         <asp1:TextBoxWatermarkExtender ID="txtBoxWarrantyEndDate" runat="server" TargetControlID="txtWarrantyEndDate" WatermarkText="DD/MM/YYYY" />
-                    </div>
-                    <div class="col-md-6 col-sm-12">
+                    </div>--%>
+                    <%--<div class="col-md-6 col-sm-12">
                         <label class="modal-label">Warranty HMR Value</label>
                         <asp:TextBox ID="txtWarrantyHMRValue" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                    </div>
+                    </div>--%>
                     <div class="col-md-12">
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">File</label>
