@@ -216,6 +216,12 @@ namespace Business
                         new BAPI().ApiGetWithOutToken("Equipment/IntegrationEquipmentFromSAP_new");
                         new FileLogger().LogMessageService("Ended", "IntegrationEquipmentFromSAP_New", null);
                         break;
+
+                    case Jobs.EnquiryIndiamart:
+                        new FileLogger().LogMessageService("Started", "IntegrationEquipmentFromSAP_New", null);
+                        new BAPI().ApiGetWithOutToken("Enquiry/IntegrationEnquiryIndiamart");
+                        new FileLogger().LogMessageService("Ended", "IntegrationEquipmentFromSAP_New", null);
+                        break;
                 }
                 i = true;
             }

@@ -138,6 +138,8 @@ namespace Properties
         public int CountryID { get; set; }
         public int StateID { get; set; }
         public int DistrictID { get; set; }
+        public int ICTicketRequestedByID { get; set; }
+        
     }
     [Serializable]
     public class PICTicketServiceConfirmation
@@ -477,5 +479,12 @@ namespace Properties
         public long FileSize { get; set; }
         public Boolean IsDeleted { get; set; }
         public PDMS_FSRAttachedName FSRAttachedName { get; set; }
+    }
+
+    [Serializable]
+    public class PICTicketRequestedBy
+    {
+        public int ICTicketRequestedByID { get; set; } 
+        public string ICTicketRequestedBy { get; set; } 
     }
 }
