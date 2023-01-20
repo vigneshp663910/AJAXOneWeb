@@ -13,19 +13,34 @@ namespace DealerManagementSystem.ViewPreSale
 {
     public partial class EnquiryIndiamart : System.Web.UI.Page
     {
-        public DataTable Enquiry
+        private int PageCount
         {
             get
             {
-                if (Session["EnquiryIndiamart"] == null)
+                if (ViewState["EnquiryIndiamartPageCount"] == null)
                 {
-                    Session["EnquiryIndiamart"] = new DataTable();
+                    ViewState["EnquiryIndiamartPageCount"] = 0;
                 }
-                return (DataTable)Session["EnquiryIndiamart"];
+                return (int)ViewState["EnquiryIndiamartPageCount"];
             }
             set
             {
-                Session["EnquiryIndiamart"] = value;
+                ViewState["EnquiryIndiamartPageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["EnquiryIndiamartPageIndex"] == null)
+                {
+                    ViewState["EnquiryIndiamartPageIndex"] = 1;
+                }
+                return (int)ViewState["EnquiryIndiamartPageIndex"];
+            }
+            set
+            {
+                ViewState["EnquiryIndiamartPageIndex"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -40,125 +55,53 @@ namespace DealerManagementSystem.ViewPreSale
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Enquiry Indiamart');</script>");
             if (!IsPostBack)
             {
+                PageCount = 0;
+                PageIndex = 1;
                 txtDateFrom.Text = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
                 txtDateTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null,null), "Source", "SourceID");
+                new DDLBind(ddlSStatus, new BDMS_Master().GetPreSaleStatus(null, null), "Status", "StatusID");
+                UC_ViewEquiryIndiamart.EnquiryIndiamartViewID = null;
             }
-        }
-        protected void btnEnquiryIndiamart_Click(object sender, EventArgs e)
+        }        
+        private void FillGrid()
         {
-            DateTime? DateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
-            DateTime? DateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
-            int? PreSaleStatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
-            Enquiry = new BEnquiry().GetEnquiryIndiamart(DateFrom, DateTo, PreSaleStatusID);
-            gvEnquiry.DataSource = Enquiry;
-            gvEnquiry.DataBind();
-            //for (int i = 0; i < gvEnquiry.Rows.Count; i++)
-            //{
-            //    if (gvEnquiry.Rows[i].Cells[4].Text != "Open")                 
-            //    {
-            //        LinkButton lnkBtnConvert = (LinkButton)gvEnquiry.Rows[i].FindControl("lnkBtnConvert");
-            //        LinkButton lnkBtnReject = (LinkButton)gvEnquiry.Rows[i].FindControl("lnkBtnReject");
-            //        lnkBtnConvert.Visible = false;
-            //        lnkBtnReject.Visible = false;
-            //    }
-            //}
-            lblRowCountEnquiryIM.Text = (((gvEnquiry.PageIndex) * gvEnquiry.PageSize) + 1) + " - " + (((gvEnquiry.PageIndex) * gvEnquiry.PageSize) + gvEnquiry.Rows.Count) + " of " + Enquiry.Rows.Count;
-        }
-        protected void btnExportExcel_Click(object sender, EventArgs e)
-        {
-            new BXcel().ExporttoExcel(Enquiry, "Enquiry Indiamart");
-        }
-        protected void gvEnquiry_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvEnquiry.PageIndex = e.NewPageIndex;
-            gvEnquiry.DataSource = Enquiry;
-            gvEnquiry.DataBind();
-        }
-        protected void ibtnEnquiryIMArrowLeft_Click(object sender, ImageClickEventArgs e)
-        {
-            if (gvEnquiry.PageIndex > 0)
+            try
             {
-                gvEnquiry.PageIndex = gvEnquiry.PageIndex - 1;
-                EnquiryIndiamartBind(gvEnquiry, lblRowCountEnquiryIM, Enquiry);
-            }
-        }
-        protected void ibtnEnquiryIMArrowRight_Click(object sender, ImageClickEventArgs e)
-        {
-            if (gvEnquiry.PageCount > gvEnquiry.PageIndex)
-            {
-                gvEnquiry.PageIndex = gvEnquiry.PageIndex + 1;
-                EnquiryIndiamartBind(gvEnquiry, lblRowCountEnquiryIM, Enquiry);
-            }
-        }
-        void EnquiryIndiamartBind(GridView gv, Label lbl,DataTable Enquiry)
-        {
-            gv.DataSource = Enquiry;
-            gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Enquiry.Rows.Count;
-        }
-        protected void lbActions_Click(object sender, EventArgs e)
-        {
-            LinkButton lbActions = ((LinkButton)sender);
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            if (lbActions.Text == "Convert to Enquiry")
-            {
-                MPE_AddEnquiry.Show();
-                UC_AddEnquiry.FillMaster();
-                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                Panel pnlAddEnquiry = new Panel();
-                lblQueryIDAdd.Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[10].ToString();
-                //TextBox txtCustomerName = UC_AddEnquiry.FindControl("txtCustomerName") as TextBox;
-                //txtCustomerName.Text = gvEnquiry.DataKeys[gvRow.RowIndex].Value.ToString();
-                if (gvEnquiry.DataKeys[gvRow.RowIndex].Values[3].ToString() != "")
+                DateTime? DateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
+                DateTime? DateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
+                int? PreSaleStatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
+                int? SourceID = ddlSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSource.SelectedValue);
+                int RowCount = 0;
+                DataTable Enquiry = new BEnquiry().GetEnquiryIndiamart(DateFrom, DateTo, PreSaleStatusID, SourceID, PageIndex, gvEnquiry.PageSize);
+                
+                if (Enquiry.Rows.Count > 0)
+                    RowCount = Convert.ToInt32(Enquiry.Rows[0]["RowCount"].ToString());
+                if (RowCount == 0)
                 {
-                    ((TextBox)UC_AddEnquiry.FindControl("txtCustomerName")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[3].ToString();
+                    gvEnquiry.DataSource = null;
+                    gvEnquiry.DataBind();
+                    lblRowCount.Visible = false;
+                    ibtnArrowLeft.Visible = false;
+                    ibtnArrowRight.Visible = false;
                 }
                 else
                 {
-                    ((TextBox)UC_AddEnquiry.FindControl("txtCustomerName")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[0].ToString();
+                    gvEnquiry.DataSource = Enquiry;
+                    gvEnquiry.DataBind();
+                    PageCount = (RowCount + gvEnquiry.PageSize - 1) / gvEnquiry.PageSize;
+                    lblRowCount.Visible = true;
+                    ibtnArrowLeft.Visible = true;
+                    ibtnArrowRight.Visible = true;
+                    lblRowCount.Text = (((PageIndex - 1) * gvEnquiry.PageSize) + 1) + " - " + (((PageIndex - 1) * gvEnquiry.PageSize) + gvEnquiry.Rows.Count) + " of " + RowCount;
                 }
-                ((TextBox)UC_AddEnquiry.FindControl("txtEnquiryDate")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[8].ToString();
-                ((TextBox)UC_AddEnquiry.FindControl("txtPersonName")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[0].ToString();
-                ((TextBox)UC_AddEnquiry.FindControl("txtMobile")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[2].ToString().Replace("+91-", "");
-                ((TextBox)UC_AddEnquiry.FindControl("txtMail")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[1].ToString();
-
-                TextBox txtAddress = ((TextBox)UC_AddEnquiry.FindControl("txtAddress"));
-                TextBox txtAddress2 = ((TextBox)UC_AddEnquiry.FindControl("txtAddress2"));
-                TextBox txtAddress3 = ((TextBox)UC_AddEnquiry.FindControl("txtAddress3"));
-                AddressSplit(gvEnquiry.DataKeys[gvRow.RowIndex].Values[4].ToString(), txtAddress, txtAddress2, txtAddress3);
-
-                //List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
-                //if (Country.Count == 1)
-                //{
-                //    ((DropDownList)UC_AddEnquiry.FindControl("ddlCountry")).SelectedValue = Country[0].CountryID.ToString();
-                //}
-
-                //List<PDMS_State> State = new BDMS_Address().GetState(Country[0].CountryID, null, null, gvEnquiry.DataKeys[gvRow.RowIndex].Values[5].ToString());
-                List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, gvEnquiry.DataKeys[gvRow.RowIndex].Values[5].ToString());
-                if (State.Count == 1)
-                {
-                    ((DropDownList)UC_AddEnquiry.FindControl("ddlState")).SelectedValue = State[0].StateID.ToString();
-                }
-
-                //List<PDMS_District> District = new BDMS_Address().GetDistrict(Country[0].CountryID, null, State[0].StateID, null, null, null);
-                List<PDMS_District> District = new BDMS_Address().GetDistrict(1, null, State[0].StateID, null, gvEnquiry.DataKeys[gvRow.RowIndex].Values[9].ToString(), null);
-                if (District.Count >= 1)
-                {
-                    ((DropDownList)UC_AddEnquiry.FindControl("ddlDistrict")).SelectedValue = District[0].DistrictID.ToString();
-                }
-
-                ((TextBox)UC_AddEnquiry.FindControl("txtProduct")).Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[7].ToString();
             }
-            else if (lbActions.Text == "Reject")
+            catch (Exception ex)
             {
-                
-                lblQueryID.Text = gvEnquiry.DataKeys[gvRow.RowIndex].Values[10].ToString();
-                MPE_RejectEnquiry.Show();
-                lblRejectEnquiryMessage.Text = string.Empty;
-                lblRejectEnquiryMessage.Visible = false;
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
             }
         }
-
         public void AddressSplit(string Input, TextBox txtAddress1, TextBox txtAddress2, TextBox txtAddress3)
         {
             string[] SplitedInput = Input.Split(' ');
@@ -182,94 +125,121 @@ namespace DealerManagementSystem.ViewPreSale
             txtAddress2.Text = txtAddress2.Text.Trim();
             txtAddress3.Text = txtAddress3.Text.Trim();
         }
-
-        protected void btnSave_Click(object sender, EventArgs e)
+        protected void btnEnquiryIndiamart_Click(object sender, EventArgs e)
         {
             try
             {
-                lblAddEnquiryMessage.Visible = true;
-                lblAddEnquiryMessage.ForeColor = Color.Red;
-                MPE_AddEnquiry.Show();
-                string Message = UC_AddEnquiry.Validation();
-                if (!string.IsNullOrEmpty(Message))
-                {
-                    lblAddEnquiryMessage.Text = Message;
-                    return;
-                }
-                PEnquiry enquiryAdd = new PEnquiry();
-                enquiryAdd = UC_AddEnquiry.Read();
-                if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
-                {
-                    //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                    //string QUERY_ID = Convert.ToString(gvEnquiry.DataKeys[gvRow.RowIndex].Value);
-                    
-                    if (new BEnquiry().UpdateEnquiryIndiamartStatus(lblQueryIDAdd.Text, 2, PSession.User.UserID, txtRejectEnquiryReason.Text.Trim()))
-                    {
-                        lblMessage.Text = "Enquiry from India Mart saved successfully.";
-                        lblMessage.ForeColor = Color.Green;
-                        MPE_AddEnquiry.Hide();
-                    }
-                    else
-                    {
-                        lblAddEnquiryMessage.Text = "Enquiry from India Mart not saved successfully!";
-                        lblAddEnquiryMessage.ForeColor = Color.Red;
-                    }
-                    
-                }
-                else
-                {
-                    lblAddEnquiryMessage.Text = "Enquiry from India Mart not saved successfully!!";
-                    lblAddEnquiryMessage.ForeColor = Color.Red;
-                }
+                PageIndex = 1;
+                FillGrid();
             }
             catch (Exception ex)
             {
-                lblAddEnquiryMessage.Text = ex.Message.ToString();
-                lblAddEnquiryMessage.ForeColor = Color.Red;
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
             }
         }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            DateTime? DateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
+            DateTime? DateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
+            int? PreSaleStatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
+            int? SourceID = ddlSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSource.SelectedValue);
 
-        protected void btnRejectEnquiry_Click(object sender, EventArgs e)
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Query ID");
+            dt.Columns.Add("Date", typeof(DateTime));
+            dt.Columns.Add("Query Type");
+            dt.Columns.Add("Status");
+            dt.Columns.Add("LeadSource");
+            dt.Columns.Add("Sender Name");
+            dt.Columns.Add("Sender Email");
+            dt.Columns.Add("MOB");
+            dt.Columns.Add("Company Name");
+            dt.Columns.Add("Address");
+            dt.Columns.Add("City");
+            dt.Columns.Add("State");
+            dt.Columns.Add("Country");
+            dt.Columns.Add("Product Name");
+            dt.Columns.Add("Receiver Mob");
+            dt.Columns.Add("Email Alt");
+            dt.Columns.Add("Mobile Alt");
+            dt.Columns.Add("Message");
+
+            int Index = 0;
+            int Rowcount = 100;
+            int CRowcount = Rowcount;
+
+            while (Rowcount == CRowcount)
+            {
+                Index = Index + 1;
+                DataTable Enquiry = new BEnquiry().GetEnquiryIndiamart(DateFrom, DateTo, PreSaleStatusID, SourceID, Index, Rowcount);
+                CRowcount = 0;
+                dt.Merge(Enquiry);
+                CRowcount = Enquiry.Rows.Count;
+            }
+            foreach (DataColumn column in dt.Columns)
+            {
+                if (column.ColumnName == "EnquiryIndiamartID")
+                {
+                    dt.Columns.Remove("EnquiryIndiamartID");
+                    goto RowCount;
+                }
+            }
+        RowCount:
+            foreach (DataColumn column in dt.Columns)
+            {
+                if (column.ColumnName == "RowCount")
+                {
+                    dt.Columns.Remove("RowCount");
+                    goto Ready;
+                }
+            }
+        Ready:
+            new BXcel().ExporttoExcel(dt, "Enquiry Indiamart");
+        }       
+        protected void BtnView_Click(object sender, EventArgs e)
+        {
+            divList.Visible = false;
+            divDetailsView.Visible = true;
+
+            //lblAddEnquiryMessage.Text = "";
+            lblMessage.Text = "";
+            Button BtnView = (Button)sender; 
+            UC_ViewEquiryIndiamart.fillViewEnquiryIndiamart(Convert.ToInt64(BtnView.CommandArgument));
+        }
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divList.Visible = true;
+            divDetailsView.Visible = false;
+            btnEnquiryIndiamart_Click(null, null);
+        }
+        protected void gvEnquiry_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
             {
-                //Panel pnlRejectEnquiry = new Panel();
-                //GridViewRow gvRow = (GridViewRow)(sender as Control);
-                //string QUERY_ID = gvEnquiry.DataKeys[gvRow.RowIndex].Values[11].ToString();
-
-                if (string.IsNullOrEmpty(txtRejectEnquiryReason.Text.Trim()))
-                {
-                    lblRejectEnquiryMessage.Text = "Please enter the Reasons to reject the Enquiry.";
-                    lblRejectEnquiryMessage.ForeColor = Color.Red;
-                    lblRejectEnquiryMessage.Visible = true;
-                    MPE_RejectEnquiry.Show();
-                    return;
-                }
-
-                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-                //LinkButton lnkBtnReject = (LinkButton)gvRow.FindControl("lnkBtnReject");
-                //string QUERY_ID = Convert.ToString(gvEnquiry.DataKeys[gvRow.RowIndex].Values[11].ToString());
-
-                if (new BEnquiry().UpdateEnquiryIndiamartStatus(lblQueryID.Text, 5, PSession.User.UserID, txtRejectEnquiryReason.Text.Trim()))
-                {
-                    lblMessage.Text = "Enquiry from India Mart rejected successfully.";
-                    lblMessage.ForeColor = Color.Green;
-                    MPE_RejectEnquiry.Hide();
-                }
-                else
-                {
-                    lblRejectEnquiryMessage.Text = "Enquiry from India Mart not rejected successfully!";
-                    lblRejectEnquiryMessage.ForeColor = Color.Red;
-                    lblRejectEnquiryMessage.Visible = true;
-                    MPE_RejectEnquiry.Show();
-                }
+                gvEnquiry.PageIndex = e.NewPageIndex;
+                FillGrid();
             }
             catch (Exception ex)
             {
-                lblRejectEnquiryMessage.Text = ex.Message.ToString();
-                lblRejectEnquiryMessage.ForeColor = Color.Red;
-                lblRejectEnquiryMessage.Visible = true;
-                MPE_RejectEnquiry.Show();
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageIndex > 1)
+            {
+                PageIndex = PageIndex - 1;
+                FillGrid();
+            }
+        }
+        protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageCount > PageIndex)
+            {
+                PageIndex = PageIndex + 1;
+                FillGrid();
             }
         }
     }

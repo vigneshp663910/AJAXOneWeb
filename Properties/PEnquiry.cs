@@ -68,4 +68,11 @@ namespace Properties
         public string RejectedReason { get; set; }
 
     }
+
+    [Serializable]
+    public class PEnquiryRemark
+    {
+        public long EnquiryRemarkID { get; set; }
+        public string Remark { get; set; }
+    }
 }
