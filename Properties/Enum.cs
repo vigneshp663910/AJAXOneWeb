@@ -498,6 +498,7 @@ namespace Properties
         ApproveWarrantyTypeChange,
         ApproveOwnershipChange,
         ApproveExpiryDateChange,
+        LeadAjax,
     }
     public enum DMS_WarrantyClaimStatus
     {

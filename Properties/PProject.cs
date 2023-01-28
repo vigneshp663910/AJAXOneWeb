@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Properties
 {
-   public class PProject
+    [Serializable]
+    public class PProject
     {
         public long? ProjectID { get; set; }
         public string ProjectNumber { get; set; }

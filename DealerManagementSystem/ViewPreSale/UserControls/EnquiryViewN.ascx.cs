@@ -32,50 +32,50 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             get
             {
-                if (Session["EnquiryView"] == null)
+                if (ViewState["EnquiryView"] == null)
                 {
-                    Session["EnquiryView"] = new PEnquiry();
+                    ViewState["EnquiryView"] = new PEnquiry();
                 }
-                return (PEnquiry)Session["EnquiryView"];
+                return (PEnquiry)ViewState["EnquiryView"];
             }
             set
             {
-                Session["EnquiryView"] = value;
+                ViewState["EnquiryView"] = value;
             }
         }
-        public PLead Lead
-        {
-            get
-            {
-                if (Session["EnquiryViewPLead"] == null)
-                {
-                    Session["EnquiryViewPLead"] = new PLead();
-                }
-                return (PLead)Session["EnquiryViewPLead"];
-            }
-            set
-            {
-                Session["EnquiryViewPLead"] = value;
-            }
-        }
+        //public PLead Lead
+        //{
+        //    get
+        //    {
+        //        if (ViewState["EnquiryViewPLead"] == null)
+        //        {
+        //            ViewState["EnquiryViewPLead"] = new PLead();
+        //        }
+        //        return (PLead)ViewState["EnquiryViewPLead"];
+        //    }
+        //    set
+        //    {
+        //        Session["EnquiryViewPLead"] = value;
+        //    }
+        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
             lblAddEnquiryMessage.Text = "";
 
-            if (!string.IsNullOrEmpty(Convert.ToString(ViewState["EnquiryID"])))
-            {
-                long EnquiryID = Convert.ToInt64(Convert.ToString(ViewState["EnquiryID"]));
-                if (EnquiryID != Enquiry.EnquiryID)
-                {
-                    Enquiry = new BEnquiry().GetEnquiryByID(EnquiryID);
-                }
-            }
+            //if (!string.IsNullOrEmpty(Convert.ToString(ViewState["EnquiryID"])))
+            //{
+            //    long EnquiryID = Convert.ToInt64(Convert.ToString(ViewState["EnquiryID"]));
+            //    if (EnquiryID != Enquiry.EnquiryID)
+            //    {
+            //        Enquiry = new BEnquiry().GetEnquiryByID(EnquiryID);
+            //    }
+            //}
         }
         public void fillViewEnquiry(long EnquiryID)
         {
-            ViewState["EnquiryID"] = EnquiryID;
+           // ViewState["EnquiryID"] = EnquiryID;
             Enquiry = new BEnquiry().GetEnquiryByID(EnquiryID);
             lblEnquiryNumber.Text = Enquiry.EnquiryNumber;
             lblCustomerName.Text = Enquiry.CustomerName;
@@ -96,7 +96,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             if (Enquiry.LeadID != null)
             {
-                Lead = new BLead().GetLeadByID((long)Enquiry.LeadID);
+                PLead Lead = new BLead().GetLeadByID((long)Enquiry.LeadID);
                 CustomerViewSoldTo.fillCustomer(Lead.Customer);
                 UC_LeadView.fillViewLead(Lead);
             }

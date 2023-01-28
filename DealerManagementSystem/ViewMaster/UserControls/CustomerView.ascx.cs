@@ -40,15 +40,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             get
             {
-                if (Session["CustomerView"] == null)
+                if (ViewState["CustomerView"] == null)
                 {
-                    Session["CustomerView"] =  new PDMS_Customer();
+                    ViewState["CustomerView"] =  new PDMS_Customer();
                 }
-                return (PDMS_Customer)Session["CustomerView"];
+                return (PDMS_Customer)ViewState["CustomerView"];
             }
             set
             {
-                Session["CustomerView"] = value;
+                ViewState["CustomerView"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -64,19 +64,19 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 ActionControlMange();
             }
 
-            if (!string.IsNullOrEmpty(Convert.ToString(ViewState["CustomerID"])))
-            {
-                long CustomerID = Convert.ToInt64(Convert.ToString(ViewState["CustomerID"]));
-                if (CustomerID != Customer.CustomerID)
-                {
-                    Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
-                }
-            }
+            //if (!string.IsNullOrEmpty(Convert.ToString(ViewState["CustomerID"])))
+            //{
+            //    long CustomerID = Convert.ToInt64(Convert.ToString(ViewState["CustomerID"]));
+            //    if (CustomerID != Customer.CustomerID)
+            //    {
+            //        Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
+            //    }
+            //}
         }
         public void fillCustomer(long CustomerID)
         {
             // this.CustomerID = CustomerID; ;
-            ViewState["CustomerID"] = CustomerID;
+          //  ViewState["CustomerID"] = CustomerID;
             Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
             lblCustomer.Text = Customer.CustomerFullName;
              lblContactPerson.Text = Customer.ContactPerson;
@@ -359,6 +359,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     lblMessage.Text = Results.Message;
                     lblMessage.Visible = true;
                     lblMessage.ForeColor = Color.Green;
+                }
+                else if (lbActions.Text == "Add Lead Ajax")
+                { 
+                    List<PLeadQualification> Qualification = new BLead().GetLeadQualification(null, null); 
+                    List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
+                    new DDLBind(ddlSource, Source, "Source", "SourceID"); 
+                    List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
+                    new DDLBind(ddlProductTypeLead, ProductType, "ProductType", "ProductTypeID"); 
+                    new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID");
+                    new DDLBind(ddlProject, new BProject().GetProject(null, null, null, null, null, null, null), "ProjectName_state", "ProjectID");
+                    MPE_LeadAjax.Show();
                 }
             }
             catch(Exception ex)
@@ -1039,6 +1050,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lbtnVerifiedCustomer.Visible = true;
             lbtnSyncToSap.Visible = true;
             lbtnSyncToParts.Visible = true;
+            lbtnAddLeadAjax.Visible = true;
 
             if (Customer.IsVerified)
             {
@@ -1072,6 +1084,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SyncToParts).Count() == 0)
             {
                 lbtnSyncToParts.Visible = false;
+            }
+
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.LeadAjax).Count() == 0)
+            {
+                lbtnAddLeadAjax.Visible = false;
             }
         }
 
@@ -1263,6 +1280,109 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
         }
 
-        
+        protected void btnLeadAjaxSave_Click(object sender, EventArgs e)
+        {
+            MPE_LeadAjax.Show();
+            string Message = ValidationLeadAjax();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageLeadAjax.Text = Message;
+                return;
+            }
+
+            PLead_Insert Lead = new PLead_Insert();
+            Lead.Customer = new PDMS_Customer_Insert() { CustomerID = Customer.CustomerID };
+            Lead.ProductTypeID = Convert.ToInt32(ddlProductTypeLead.SelectedValue); 
+            Lead.SourceID = ddlSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSource.SelectedValue);
+            Lead.ProjectID = ddlProject.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProject.SelectedValue); 
+            Lead.ExpectedDateOfSale = Convert.ToDateTime(txtExpectedDateOfSale.Text.Trim());
+            Lead.MainApplicationID = ddlApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlApplication.SelectedValue);
+            Lead.CustomerFeedback = txtCustomerFeedback.Text.Trim();
+            Lead.Remarks = txtRemarks.Text.Trim();
+
+            string result = new BAPI().ApiPut("Lead/InsertLeadAjax", Lead);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessageLeadAjax.Text = Result.Message;
+                return;
+            }
+            lblMessage.Text = Result.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+            fillLead();
+            ClearLeadAjaxSave();
+            MPE_LeadAjax.Hide(); 
+        }
+        public string ValidationLeadAjax()
+        {
+            string Message = "";
+            ddlProductTypeLead.BorderColor = Color.Silver;
+            txtExpectedDateOfSale.BorderColor = Color.Silver;
+            //ddlApplication.BorderColor = Color.Silver;
+            //ddlCategory.BorderColor = Color.Silver;
+            //ddlQualification.BorderColor = Color.Silver;
+            //ddlSource.BorderColor = Color.Silver;
+            //ddlLeadType.BorderColor = Color.Silver;
+            //txtRemarks.BorderColor = Color.Silver;
+            
+            if (ddlProductTypeLead.SelectedValue == "0")
+            {
+                ddlProductTypeLead.BorderColor = Color.Red;
+                return "Please select the Product Type";
+            }
+            else if (string.IsNullOrEmpty(txtExpectedDateOfSale.Text.Trim()))
+            {
+                txtExpectedDateOfSale.BorderColor = Color.Red;
+                return "Please select the Expected Date of Sale";
+
+            }
+            //else if (ddlCategory.SelectedValue == "0")
+            //{
+            //    ddlCategory.BorderColor = Color.Red;
+            //    return "Please select the Category";
+
+            //}
+            //else if (ddlQualification.SelectedValue == "0")
+            //{
+            //    ddlQualification.BorderColor = Color.Red;
+            //    return "Please select the Qualification"; 
+            //}
+            //else if (ddlSource.SelectedValue == "0")
+            //{
+            //    ddlSource.BorderColor = Color.Red;
+            //    return "Please select the Source";
+
+            //}
+            //else if (ddlLeadType.SelectedValue == "0")
+            //{
+            //    ddlLeadType.BorderColor = Color.Red;
+            //    return "Please select the LeadType";
+
+            //} 
+            //else if (ddlUrgency.SelectedValue == "0")
+            //{
+            //    ddlUrgency.BorderColor = Color.Red;
+            //    return "Please select the Urgency"; 
+            //}
+            //else if (ddlApplication.SelectedValue == "0")
+            //{
+            //    ddlApplication.BorderColor = Color.Red;
+            //    return "Please select the Application"; 
+            //}
+            //else if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
+            //{
+            //    txtRemarks.BorderColor = Color.Red;
+            //    Message = Message + "<br/>Please enter the Remark"; 
+            //} 
+            return Message;
+        }
+        void ClearLeadAjaxSave()
+        {
+            txtExpectedDateOfSale.Text = ""; 
+            txtCustomerFeedback.Text = "";
+            txtRemarks.Text = "";
+        }
     }
 }

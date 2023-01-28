@@ -205,6 +205,7 @@ namespace Properties
         public Int32 QuotationTypeID { get; set; }
         public string QuotationType { get; set; }
     }
+    [Serializable]
     public class PSalesQuotationStatus
     {
         public Int32 SalesQuotationStatusID { get; set; }

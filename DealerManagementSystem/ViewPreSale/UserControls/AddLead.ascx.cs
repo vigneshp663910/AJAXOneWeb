@@ -107,7 +107,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if(string.IsNullOrEmpty(txtExpectedDateOfSale.Text.Trim()))
             {
-                txtLeadDate.BorderColor = Color.Red;
+                txtExpectedDateOfSale.BorderColor = Color.Red;
                 return "Please select the Expected Date of Sale";
 
             }
