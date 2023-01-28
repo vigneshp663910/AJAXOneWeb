@@ -1150,6 +1150,11 @@ namespace Business
             { }
             return null;
         }
+        public PEquipmentAttachedFile GetEquipmentAttachedFileByID(string DocumentName)
+        {
+            string endPoint = "Equipment/GetEquipmentAttachedFileByID?DocumentName=" + DocumentName;
+            return JsonConvert.DeserializeObject<PEquipmentAttachedFile>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }
 
