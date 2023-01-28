@@ -17,6 +17,7 @@
     <%--<link rel="stylesheet" href="CSS/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="CSS/bootstrap.min.3.4.1.css" />--%>
     <script src="/JS/jquery.min.js"></script>
+     <%-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />--%>
     <script src="/JS/bootstrap.min.js"></script>
     <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
     <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
@@ -2304,16 +2305,7 @@
             return "";
         }
     </script>
-    <%--<div class="loading" align="center">
-        Loading. Please wait.<br />
-        <br />
-        <img src="loader.gif" alt="" />
-    </div>--%>
-
-
-
-
-      
+   
 
 
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -2335,8 +2327,7 @@
             <div class="ajaxheaderinner">
                 <div class="row">
                     <div id="CompanyLogo" class="logo">
-                        <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
-                        <%--  <asp:Image ID="ImgLogo" Width="130px" Height="50px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" />--%>
+                        <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" /> 
                     </div>
                     <div id="SideBarToggle" class="w3-display-topleft" style="color: white; padding-left: 235px">
                         <a class="navbar-brand" href="javascript:void(0)" onclick="w3_closeSideBar()" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
@@ -2368,11 +2359,8 @@
             </div>
         </div>
 
-        <nav id="mySidebar" class="w3-sidebar w3-blue w3-collapse w3-top w3-large" style="z-index: 3; width: 250px; font-weight: bold;">
-            <%--  <br>--%>
-            <div class="w3-bar-block">
-                <%--  <div id="Menu" class="w3-padding-32 w3-large w3-text-white" style="font-weight: bold" runat="server">
-                </div>--%>
+        <nav id="mySidebar" class="w3-sidebar w3-blue w3-collapse w3-top w3-large" style="z-index: 3; width: 250px; font-weight: bold;"> 
+            <div class="w3-bar-block"> 
                 <div id="MenuNew" runat="server">
                 </div>
                  
@@ -2562,10 +2550,12 @@
     <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <%--  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />--%>
+   
+    
+<%--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>--%>
 </body>
 
 </html>

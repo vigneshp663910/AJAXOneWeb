@@ -100,7 +100,7 @@
     <asp1:TabPanel ID="tpnlEnquiryPresaleStatus" runat="server" HeaderText="Status History" Font-Bold="True">
         <ContentTemplate>
             <asp:GridView ID="gvEnquiryPresaleStatus" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false"
-                EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvEnquiryPresaleStatus_PageIndexChanging">
+                EmptyDataText="No Data Found" >
                 <Columns>
                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                         <ItemTemplate>

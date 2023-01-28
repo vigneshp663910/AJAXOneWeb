@@ -386,6 +386,7 @@
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
+    <Content Include="ViewDashboard\EnquiryChart.aspx" />
     <Content Include="ViewDashboard\LeadChart.aspx" />
     <Content Include="ViewDashboard\UserControls\CustomerSatisfactionInAfterSalesSupport.ascx" />
     <Content Include="ViewDashboard\UserControls\FoloowUpCount.ascx" />
@@ -1023,6 +1024,13 @@
     </Compile>
     <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.designer.cs">
       <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\EnquiryChart.aspx.cs">
+      <DependentUpon>EnquiryChart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\EnquiryChart.aspx.designer.cs">
+      <DependentUpon>EnquiryChart.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\LeadChart.aspx.cs">
       <DependentUpon>LeadChart.aspx</DependentUpon>

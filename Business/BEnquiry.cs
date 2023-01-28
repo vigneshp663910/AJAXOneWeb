@@ -317,5 +317,22 @@ namespace Business
             }
             return pEnquiryRemarks;
         }
+
+        public DataTable GetEnquiryRegionWiseCount(string DateFrom, string DateTo, string DealerID,  int? CountryID, string RegionID, string ProductTypeID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Enquiry/EnquiryRegionWiseCount?DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&Dealer=" + DealerID
+                + "&Country=" + CountryID + "&Region=" + RegionID + "&ProductType=" + ProductTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+        public DataTable GetEnquirySourceWiseCount(string DateFrom, string DateTo, string DealerID, int? CountryID, string RegionID, string ProductTypeID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Enquiry/EnquirySourceWiseCount?DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&Dealer=" + DealerID
+                + "&Country=" + CountryID + "&Region=" + RegionID + "&ProductType=" + ProductTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
     }  
 }
