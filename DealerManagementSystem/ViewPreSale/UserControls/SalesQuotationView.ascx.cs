@@ -37,15 +37,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             get
             {
-                if (Session["SalesQuotationView"] == null)
+                if (ViewState["SalesQuotationView"] == null)
                 {
-                    Session["SalesQuotationView"] = new PSalesQuotation();
+                    ViewState["SalesQuotationView"] = new PSalesQuotation();
                 }
-                return (PSalesQuotation)Session["SalesQuotationView"];
+                return (PSalesQuotation)ViewState["SalesQuotationView"];
             }
             set
             {
-                Session["SalesQuotationView"] = value;
+                ViewState["SalesQuotationView"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -53,14 +53,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Visible = false;
 
 
-            if (!string.IsNullOrEmpty(Convert.ToString(ViewState["QuotationID"])))
-            {
-                long QuotationID = Convert.ToInt64(Convert.ToString(ViewState["QuotationID"]));
-                if (QuotationID != Quotation.QuotationID)
-                {
-                    Quotation = new BSalesQuotation().GetSalesQuotationByID(QuotationID);
-                }
-            }
+            //if (!string.IsNullOrEmpty(Convert.ToString(ViewState["QuotationID"])))
+            //{
+            //    long QuotationID = Convert.ToInt64(Convert.ToString(ViewState["QuotationID"]));
+            //    if (QuotationID != Quotation.QuotationID)
+            //    {
+            //        Quotation = new BSalesQuotation().GetSalesQuotationByID(QuotationID);
+            //    }
+            //}
         }
         public void FillMaster()
         {
@@ -799,7 +799,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void fillViewQuotation(long QuotationID)
         {
-            ViewState["QuotationID"] = QuotationID;
+            //ViewState["QuotationID"] = QuotationID;
             Quotation = new BSalesQuotation().GetSalesQuotationByID(QuotationID);
             if (Quotation.QuotationID == 0)
             {

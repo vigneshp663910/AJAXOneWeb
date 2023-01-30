@@ -13,35 +13,20 @@ using System.IO;
 namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class LeadView : System.Web.UI.UserControl
-    {
-        //public long LeadID
-        //{
-        //    get
-        //    {
-        //        if (Session["LeadID"] == null)
-        //        {
-        //            Session["LeadID"] = 0;
-        //        }
-        //        return Convert.ToInt64(Session["LeadID"]);
-        //    }
-        //    set
-        //    {
-        //        Session["LeadID"] = value;
-        //    }
-        //}
+    { 
         public PLead Lead
         {
             get
             {
-                if (Session["LeadView"] == null)
+                if (ViewState["LeadView"] == null)
                 {
-                    Session["LeadView"] = new PLead();
+                    ViewState["LeadView"] = new PLead();
                 }
-                return (PLead)Session["LeadView"];
+                return (PLead)ViewState["LeadView"];
             }
             set
             {
-                Session["LeadView"] = value;
+                ViewState["LeadView"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -55,18 +40,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessageFinancial.Text = "";
             lblMessageProduct.Text = "";
             lblMessageQuotation.Text = "";
-            if (!string.IsNullOrEmpty(Convert.ToString( ViewState["LeadID"])))
-            {
-                long LeadID = Convert.ToInt64(Convert.ToString(ViewState["LeadID"]));
-                if(LeadID != Lead.LeadID)
-                {
-                    Lead = new BLead().GetLeadByID(LeadID); 
-                }
-            }
+            //if (!string.IsNullOrEmpty(Convert.ToString( ViewState["LeadID"])))
+            //{
+            //    long LeadID = Convert.ToInt64(Convert.ToString(ViewState["LeadID"]));
+            //    if(LeadID != Lead.LeadID)
+            //    {
+            //        Lead = new BLead().GetLeadByID(LeadID); 
+            //    }
+            //}
         }
         public void fillViewLead(long LeadID)
         {
-            ViewState["LeadID"] = LeadID;
+            //ViewState["LeadID"] = LeadID;
             Lead = new BLead().GetLeadByID(LeadID);
             lblLeadNumber.Text = Lead.LeadNumber;
             lblLeadDate.Text = Lead.LeadDate.ToLongDateString();

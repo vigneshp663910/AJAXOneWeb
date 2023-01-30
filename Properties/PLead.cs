@@ -135,6 +135,7 @@ namespace Properties
     }
 
 
+    [Serializable]
     public class PLeadProduct
     {
         public long LeadProductID { get; set; }

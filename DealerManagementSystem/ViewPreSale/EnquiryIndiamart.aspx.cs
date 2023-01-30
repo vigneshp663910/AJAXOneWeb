@@ -61,7 +61,7 @@ namespace DealerManagementSystem.ViewPreSale
                 txtDateTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null,null), "Source", "SourceID");
                 new DDLBind(ddlSStatus, new BDMS_Master().GetPreSaleStatus(null, null), "Status", "StatusID");
-                UC_ViewEquiryIndiamart.EnquiryIndiamartViewID = null;
+              //  UC_ViewEquiryIndiamart.EnquiryIndiamartViewID = null;
             }
         }        
         private void FillGrid()

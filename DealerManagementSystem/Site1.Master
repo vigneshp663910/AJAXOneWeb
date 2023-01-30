@@ -4,13 +4,32 @@
 
 <html>
 <head runat="server">
-    <title></title>
+     
+    <title>AJAX-Dealer Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">--%>
+  <%--  <link rel="stylesheet" href="CSS/w3.css">
+    <link rel="stylesheet" href="CSS/font.css">
+    <link rel="stylesheet" href="CSS/StyleSheet1.css" />--%>
+   
+    <script src="/JS/jquery.min.js"></script>
+   <%-- <script src="/JS/bootstrap.min.js"></script>--%>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />
+
+  <%--  <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />--%>
+    
+   <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">--%>
+   
+<%--    <link href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"> --%>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+   
+
     <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
-     <%-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>--%>
+    </asp:ContentPlaceHolder> 
     <script src="/JS/jquery.min.js"></script>
     
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />
+<%--    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />--%>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>

@@ -7,7 +7,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <style>
+   <%-- <style>
         .portlet.box.green {
             border: 1px solid #5cd1db;
             border-top: 0;
@@ -43,7 +43,7 @@
         b, optgroup, strong {
             font-weight: 700;
         }
-    </style>
+    </style>--%>
 
     <script type="text/javascript">
         function ConfirmCancel() {

@@ -17,60 +17,75 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             get
             {
-                if (Session["EnquiryIndiamartViewEnquiryIndiamartID"] == null)
+                if (ViewState["EnquiryIndiamartViewEnquiryIndiamartID"] == null)
                 {
-                    Session["EnquiryIndiamartViewEnquiryIndiamartID"] = null;
+                    ViewState["EnquiryIndiamartViewEnquiryIndiamartID"] = null;
                 }
-                return Convert.ToString(Session["EnquiryIndiamartViewEnquiryIndiamartID"]);
+                return Convert.ToString(ViewState["EnquiryIndiamartViewEnquiryIndiamartID"]);
             }
             set
             {
-                Session["EnquiryIndiamartViewEnquiryIndiamartID"] = value;
+                ViewState["EnquiryIndiamartViewEnquiryIndiamartID"] = value;
             }
         }
+        //public DataTable Enquiry
+        //{
+        //    get
+        //    {
+        //        if (Session["EnquiryIndiamartView"] == null)
+        //        {
+        //            Session["EnquiryIndiamartView"] = new DataTable();
+        //        }
+        //        return (DataTable)Session["EnquiryIndiamartView"];
+        //    }
+        //    set
+        //    {
+        //        Session["EnquiryIndiamartView"] = value;
+        //    }
+        //}
         public DataTable Enquiry
         {
             get
             {
-                if (Session["EnquiryIndiamartView"] == null)
+                if (ViewState["EnquiryIndiamartView"] == null)
                 {
-                    Session["EnquiryIndiamartView"] = new DataTable();
+                    ViewState["EnquiryIndiamartView"] = new DataTable();
                 }
-                return (DataTable)Session["EnquiryIndiamartView"];
+                return (DataTable)ViewState["EnquiryIndiamartView"];
             }
             set
             {
-                Session["EnquiryIndiamartView"] = value;
+                ViewState["EnquiryIndiamartView"] = value;
             }
         }
-        public DataTable EnquiryStatusHistory
-        {
-            get
-            {
-                if (Session["EnquiryIndiamartViewStatusHistory"] == null)
-                {
-                    Session["EnquiryIndiamartViewStatusHistory"] = new DataTable();
-                }
-                return (DataTable)Session["EnquiryIndiamartViewStatusHistory"];
-            }
-            set
-            {
-                Session["EnquiryIndiamartViewStatusHistory"] = value;
-            }
-        }
+        //public DataTable EnquiryStatusHistory
+        //{
+        //    get
+        //    {
+        //        if (Session["EnquiryIndiamartViewStatusHistory"] == null)
+        //        {
+        //            Session["EnquiryIndiamartViewStatusHistory"] = new DataTable();
+        //        }
+        //        return (DataTable)Session["EnquiryIndiamartViewStatusHistory"];
+        //    }
+        //    set
+        //    {
+        //        Session["EnquiryIndiamartViewStatusHistory"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
             lblAddEnquiryMessage.Text = "";
             lblRejectEnquiryMessage.Text = "";
             lblInprogressEnquiryMessage.Text = "";
-            if (!string.IsNullOrEmpty(EnquiryIndiamartViewID))
-            { 
-                if (Convert.ToInt64(EnquiryIndiamartViewID) != Convert.ToInt64(Enquiry.Rows[0]["EnquiryIndiamartID"]))
-                {
-                    Enquiry = new BEnquiry().GetEnquiryIndiamartByID(Convert.ToInt64(EnquiryIndiamartViewID));
-                }
-            }
+            //if (!string.IsNullOrEmpty(EnquiryIndiamartViewID))
+            //{ 
+            //    if (Convert.ToInt64(EnquiryIndiamartViewID) != Convert.ToInt64(Enquiry.Rows[0]["EnquiryIndiamartID"]))
+            //    {
+            //        Enquiry = new BEnquiry().GetEnquiryIndiamartByID(Convert.ToInt64(EnquiryIndiamartViewID));
+            //    }
+            //}
         }
         public void fillViewEnquiryIndiamart(long EnquiryIndiamartID)
         {
@@ -97,17 +112,19 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMobileAlt.Text = "<a href='tel:" + Enquiry.Rows[0]["Mobile Alt"].ToString() + "'>" + Enquiry.Rows[0]["Mobile Alt"].ToString() + "</a>";
             }
 
-            EnquiryStatusHistory = new BEnquiry().GetEnquiryIndiamartStatusHistory(EnquiryIndiamartID);
-            if (EnquiryStatusHistory.Rows.Count > 0)
-            {
-                gvEnquiryPresaleStatus.DataSource = EnquiryStatusHistory;
-                gvEnquiryPresaleStatus.DataBind();
-            }
-            else
-            {
-                gvEnquiryPresaleStatus.DataSource = null;
-                gvEnquiryPresaleStatus.DataBind();
-            }
+            gvEnquiryPresaleStatus.DataSource = new BEnquiry().GetEnquiryIndiamartStatusHistory(EnquiryIndiamartID);
+            gvEnquiryPresaleStatus.DataBind();
+            //EnquiryStatusHistory = new BEnquiry().GetEnquiryIndiamartStatusHistory(EnquiryIndiamartID);
+            //if (EnquiryStatusHistory.Rows.Count > 0)
+            //{
+            //    gvEnquiryPresaleStatus.DataSource = EnquiryStatusHistory;
+            //    gvEnquiryPresaleStatus.DataBind();
+            //}
+            //else
+            //{
+            //    gvEnquiryPresaleStatus.DataSource = null;
+            //    gvEnquiryPresaleStatus.DataBind();
+            //}
             ActionControlMange();
         }
         public void AddressSplit(string Input, TextBox txtAddress1, TextBox txtAddress2, TextBox txtAddress3)
@@ -146,12 +163,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lbInProgress.Visible = false;
                 }
         }
-        protected void gvEnquiryPresaleStatus_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvEnquiryPresaleStatus.PageIndex = e.NewPageIndex;
-            gvEnquiryPresaleStatus.DataSource = EnquiryStatusHistory;
-            gvEnquiryPresaleStatus.DataBind();
-        }        
+        //protected void gvEnquiryPresaleStatus_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    gvEnquiryPresaleStatus.PageIndex = e.NewPageIndex;
+        //    gvEnquiryPresaleStatus.DataSource = EnquiryStatusHistory;
+        //    gvEnquiryPresaleStatus.DataBind();
+        //}        
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);

@@ -14,22 +14,7 @@ using System.Web.UI.WebControls;
 namespace DealerManagementSystem.ViewMaster
 {
     public partial class Customer : System.Web.UI.Page
-    {
-        public List<PDMS_Customer> Cust
-        {
-            get
-            {
-                if (Session["Customer"] == null)
-                {
-                    Session["Customer"] = new List<PDMS_Customer>();
-                }
-                return (List<PDMS_Customer>)Session["Customer"];
-            }
-            set
-            {
-                Session["Customer"] = value;
-            }
-        }
+    { 
 
         private int PageCount
         {
