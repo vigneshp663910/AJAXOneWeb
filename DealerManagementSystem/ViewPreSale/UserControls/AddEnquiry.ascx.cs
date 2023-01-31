@@ -18,10 +18,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void FillMaster()
         {
-            new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
-            ddlCountry.SelectedValue = "1";
-            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
-            new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
+          //  new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+           // ddlCountry.SelectedValue = "1";
+           // new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+           // new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             Clear();
         } 
         void Clear()
@@ -39,7 +39,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlCountry.SelectedValue = "1";
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null, null, null), "District", "DistrictID");
-            
+            new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             txtAddress.Text = string.Empty;
             txtAddress2.Text = string.Empty;
@@ -57,6 +57,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             enquiry.PersonName = txtPersonName.Text.Trim();
             enquiry.Mobile = txtMobile.Text.Trim();
             enquiry.Mail = txtMail.Text.Trim();
+            enquiry.ProductType = new PProductType();
+            enquiry.ProductType.ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue);
+
             enquiry.Source = new PLeadSource();
             enquiry.Source.SourceID = Convert.ToInt32(ddlSource.SelectedValue);
             enquiry.Status = new PPreSaleStatus();
@@ -86,11 +89,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             new DDLBind(ddlState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null, null), "District", "DistrictID");
+            new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             ddlCountry.SelectedValue = enquiry.Country.CountryID.ToString();
             ddlState.SelectedValue = enquiry.State.StateID.ToString();
             ddlDistrict.SelectedValue = enquiry.District.DistrictID.ToString();
             ddlSource.SelectedValue = enquiry.Source.SourceID.ToString();
+            ddlProductType.SelectedValue = enquiry.ProductType == null? "0": enquiry.ProductType.ProductTypeID.ToString();
             txtAddress.Text = enquiry.Address.ToString();
             txtAddress2.Text = enquiry.Address2.ToString();
             txtAddress3.Text = enquiry.Address3.ToString();
@@ -99,6 +104,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public string Validation()
         {
+            txtCustomerName.BorderColor = Color.Silver;
+            txtEnquiryDate.BorderColor = Color.Silver;
+            txtMobile.BorderColor = Color.Silver;
+            ddlProductType.BorderColor = Color.Silver;
+            ddlSource.BorderColor = Color.Silver;
+            ddlCountry.BorderColor = Color.Silver;
+            ddlState.BorderColor = Color.Silver;
+            ddlDistrict.BorderColor = Color.Silver; 
             string Message = "";
             if (string.IsNullOrEmpty(txtCustomerName.Text.Trim()))
             {
@@ -115,12 +128,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 txtMobile.BorderColor = Color.Red;
                 return "Please Enter the Mobile...!";
             }
-            else if (txtMobile.Text.Trim().Length != 10)
+            if (txtMobile.Text.Trim().Length != 10)
             {
-                Message = Message + "<br/>Mobile Length should be 10 digit";
                 txtMobile.BorderColor = Color.Red;
+                return "Mobile Length should be 10 digit";                
             }
-
+            if (ddlProductType.SelectedValue == "0")
+            {
+                ddlProductType.BorderColor = Color.Red;
+                return "Please select the Product Type";
+            }
             if (ddlSource.SelectedValue == "0")
             {
                 ddlSource.BorderColor = Color.Red;

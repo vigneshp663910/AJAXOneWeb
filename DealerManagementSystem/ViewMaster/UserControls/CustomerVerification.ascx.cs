@@ -17,22 +17,23 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             get
             {
-                if (Session["CustomerView"] == null)
+                if (ViewState["CustomerView"] == null)
                 {
-                    Session["CustomerView"] = new PDMS_Customer();
+                    ViewState["CustomerView"] = new PDMS_Customer();
                 }
-                return (PDMS_Customer)Session["CustomerView"];
+                return (PDMS_Customer)ViewState["CustomerView"];
             }
             set
             {
-                Session["CustomerView"] = value;
+                ViewState["CustomerView"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
         { 
         }
-        public void FillMaster()
+        public void FillMaster(PDMS_Customer Cu)
         {
+            Customer = Cu;
             List<PDMS_Customer> cust = new List<PDMS_Customer>();
             cust.Add(Customer);
             gvCustomer.DataSource = cust;

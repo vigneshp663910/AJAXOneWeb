@@ -18,15 +18,15 @@ namespace DealerManagementSystem.ViewActivity.UserControls
         {
             get
             {
-                if (Session["LeadView"] == null)
+                if (ViewState["LeadView"] == null)
                 {
-                    Session["LeadView"] = new PLead();
+                    ViewState["LeadView"] = new PLead();
                 }
-                return (PLead)Session["LeadView"];
+                return (PLead)ViewState["LeadView"];
             }
             set
             {
-                Session["LeadView"] = value;
+                ViewState["LeadView"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)

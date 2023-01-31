@@ -28,21 +28,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ViewState["EnquiryIndiamartViewEnquiryIndiamartID"] = value;
             }
         }
-        //public DataTable Enquiry
-        //{
-        //    get
-        //    {
-        //        if (Session["EnquiryIndiamartView"] == null)
-        //        {
-        //            Session["EnquiryIndiamartView"] = new DataTable();
-        //        }
-        //        return (DataTable)Session["EnquiryIndiamartView"];
-        //    }
-        //    set
-        //    {
-        //        Session["EnquiryIndiamartView"] = value;
-        //    }
-        //}
+      
         public DataTable Enquiry
         {
             get
@@ -210,6 +196,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
 
                 ((TextBox)UC_AddEnquiry.FindControl("txtProduct")).Text = Enquiry.Rows[0]["Product Name"].ToString();
+
+
+                DropDownList ddlSource = ((DropDownList)UC_AddEnquiry.FindControl("ddlSource"));
+                ddlSource.Enabled = true;
+                if (Enquiry.Rows[0]["SourceID"] != DBNull.Value)
+                {
+                    ddlSource.SelectedValue = Enquiry.Rows[0]["SourceID"].ToString();
+                    ddlSource.Enabled = false;
+                }
             }
             else if (lbActions.Text == "Reject")
             {

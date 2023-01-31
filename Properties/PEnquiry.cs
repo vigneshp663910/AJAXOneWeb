@@ -26,7 +26,7 @@ namespace Properties
         public PDMS_District District { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PProductType ProductType { get; set; }
-        public PProduct ProductList { get; set; }
+      //  public PProduct ProductList { get; set; }
         public string Product { get; set; }
         public string Remarks { get; set; }
         public string RejectReason { get; set; }

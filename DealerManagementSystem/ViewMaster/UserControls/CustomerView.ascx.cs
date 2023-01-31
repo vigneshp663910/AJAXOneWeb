@@ -172,7 +172,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
                     PnlCustomerView.Visible = false;
                     PnlCustomerVerification.Visible = true;
-                    UC_CustomerVerification.FillMaster();
+                    UC_CustomerVerification.FillMaster(Customer);
                     //string endPoint = "Customer/UpdateCustomerVerified?CustomerID=" + Customer.CustomerID + "&UserID=" + PSession.User.UserID;
                     //string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data);
                     //if (Convert.ToBoolean(s) == true)
@@ -580,7 +580,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             for(int i=0; i<gvFleet.Rows.Count;i++)
             {
                 Label lblCustomerID = (Label)gvFleet.Rows[i].FindControl("lblCustomerID");
-                if(txtFleetID.Text == lblCustomerID.Text)
+                //if(txtFleetID.Text == lblCustomerID.Text)
+                //{
+                //    lblMessageFleet.Visible = true;
+                //    lblMessageFleet.ForeColor = Color.Red;
+                //    lblMessageFleet.Text = "Already Fleet customer added";
+                //    return;
+                //}
+                if (hdfCustomerID.Value == lblCustomerID.Text)
                 {
                     lblMessageFleet.Visible = true;
                     lblMessageFleet.ForeColor = Color.Red;
@@ -592,7 +599,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             PCustomerFleet Fleet = new PCustomerFleet();
             Fleet.CustomerFleetID = 0;
             Fleet.CustomerID = Customer.CustomerID;
-            Fleet.Fleet =new PDMS_Customer() { CustomerID = Convert.ToInt64(txtFleetID.Text) };
+            // Fleet.Fleet =new PDMS_Customer() { CustomerID = Convert.ToInt64(txtFleetID.Text) };
+            Fleet.Fleet = new PDMS_Customer() { CustomerID = Convert.ToInt64(hdfCustomerID.Value) };
             Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet));
             if (Results.Status == PApplication.Failure)
@@ -913,16 +921,16 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             string Message = "";
             txtFleet.BorderColor = Color.Silver;
 
-            if (string.IsNullOrEmpty(txtFleetID.Text.Trim()))
+            if (string.IsNullOrEmpty(hdfCustomerID.Value.Trim()))
             {
                 Message = "Please enter the Customer";
                 txtFleet.BorderColor = Color.Red;
             }
-            else if (string.IsNullOrEmpty(txtFleet.Text.Trim()))
-            {
-                Message = "Please enter the Customer";
-                txtFleet.BorderColor = Color.Red;
-            }
+            //else if (string.IsNullOrEmpty(txtFleet.Text.Trim()))
+            //{
+            //    Message = "Please enter the Customer";
+            //    txtFleet.BorderColor = Color.Red;
+            //}
             return Message;
         }
        
