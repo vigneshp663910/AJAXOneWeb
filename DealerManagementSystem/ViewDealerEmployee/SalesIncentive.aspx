@@ -8,7 +8,7 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12 Report" id="divSalesIncentiveList" runat="server">
-            <asp:TabContainer ID="tbpSaleQuotation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="10">
+            <asp:TabContainer ID="tbpSaleQuotation" runat="server" ToolTip="Sales Incentive..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
                 <asp:TabPanel ID="tpnlReport" runat="server" HeaderText="Report" Font-Bold="True" ToolTip="">
                     <ContentTemplate>
                         <div class="col-md-12">
@@ -87,7 +87,7 @@
                                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:BoundField HeaderText="Dealer Code" DataField="DealerCode"></asp:BoundField>
+                                                <asp:BoundField HeaderText="DCode" DataField="DealerCode"></asp:BoundField>
                                                 <asp:TemplateField HeaderText="Dealer Name" ControlStyle-Width="250px">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerName")%>' runat="server" />
@@ -98,7 +98,7 @@
                                                 <%--<asp:BoundField HeaderText="Month" DataField="Month"></asp:BoundField>
                                                 <asp:BoundField HeaderText="Year" DataField="Year"></asp:BoundField>--%>
                                                 <asp:BoundField HeaderText="Month&Year" DataField="Month&Year"></asp:BoundField>
-                                                <asp:BoundField HeaderText="Sales Level 1/2" DataField="SalesLevel"></asp:BoundField>
+                                                <asp:BoundField HeaderText="Sales Level 1/2" DataField="SalesLevel"  ItemStyle-HorizontalAlign="Center"></asp:BoundField>
                                                 <asp:TemplateField HeaderText="Invoice No">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                     <ItemTemplate>
@@ -108,7 +108,7 @@
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField HeaderText="Model" DataField="Model"></asp:BoundField>
-                                                <asp:BoundField HeaderText="Incentive Amount" DataField="IncentiveAmount"></asp:BoundField>
+                                                <asp:BoundField HeaderText="Incentive Amount" DataField="IncentiveAmount" ItemStyle-HorizontalAlign="Right"></asp:BoundField>
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
                                                         <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SalesIncentiveID")%>' CssClass="btn Back" OnClick="BtnView_Click" Width="75px" Height="25px" />
