@@ -243,7 +243,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 enquiryAdd = UC_AddEnquiry.Read();
                 if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
                 {
-                    if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), null, 2, PSession.User.UserID, enquiryAdd.Remarks.Trim()))
+                    if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), null, 2, enquiryAdd.Remarks.Trim(), PSession.User.UserID))
                     {
                         lblMessage.Text = "Enquiry from India Mart saved successfully.";
                         lblMessage.ForeColor = Color.Green;
@@ -291,7 +291,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     return;
                 }
 
-                if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), Convert.ToInt32(ddlRejectionRemarks.SelectedValue), 5, PSession.User.UserID, txtRejectEnquiryReason.Text.Trim()))
+                if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), Convert.ToInt32(ddlRejectionRemarks.SelectedValue), 5, txtRejectEnquiryReason.Text.Trim(), PSession.User.UserID))
                 {
                     lblMessage.Text = "Enquiry from India Mart rejected successfully.";
                     lblMessage.ForeColor = Color.Green;
@@ -336,7 +336,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     return;
                 }
 
-                if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), Convert.ToInt32(ddlInprogressRemarks.SelectedValue), 6, PSession.User.UserID, txtInprogressEnquiryReason.Text.Trim()))
+                if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), Convert.ToInt32(ddlInprogressRemarks.SelectedValue), 6, txtInprogressEnquiryReason.Text.Trim(), PSession.User.UserID))
                 {
                     lblMessage.Text = "Enquiry India Mart Status is updated successfully.";
                     lblMessage.ForeColor = Color.Green;

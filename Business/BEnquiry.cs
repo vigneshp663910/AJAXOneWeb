@@ -253,7 +253,7 @@ namespace Business
             { }
             return null;
         }
-        public Boolean UpdateEnquiryIndiamartStatus(long EnquiryIndiamartID, int EnquiryRemarkID, int StatusID, string Reason, int UserID)
+        public Boolean UpdateEnquiryIndiamartStatus(long EnquiryIndiamartID, int? EnquiryRemarkID, int StatusID, string Reason, int UserID)
         {
             try
             {
@@ -361,7 +361,7 @@ namespace Business
                 DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int64);
                 DbParameter EnquiryRemarkIDP = provider.CreateParameter("EnquiryRemarkID", EnquiryRemarkID, DbType.Int32);
                 DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
-                DbParameter RemarkP = provider.CreateParameter("Remark", Remark, DbType.String);
+                DbParameter RemarkP = provider.CreateParameter("Reason", Remark, DbType.String);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
                 
 

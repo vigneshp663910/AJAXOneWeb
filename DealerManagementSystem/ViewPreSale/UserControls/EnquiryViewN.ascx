@@ -170,9 +170,13 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border" id="Fieldset5" runat="server">
+                 <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Remarks</label>
+                        <asp:DropDownList ID="ddlEnquiryRejectRemarks" runat="server" CssClass="form-control" DataTextField="Remark" DataValueField="EnquiryRemarkID" />
+                    </div>
                 <div class="col-md-12 col-sm-12">
                     <label class="modal-label">Remark</label>
-                    <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="txtEnquiryRejectReason" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                 </div>
             </fieldset>
         </div>

@@ -105,6 +105,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 CustomerViewSoldTo.Clear();
                 UC_LeadView.Clear();
             }
+
+            fillEnquiryStatusHistory();
             ActionControlMange();
         }
         protected void BtnSave_Click(object sender, EventArgs e)
@@ -159,6 +161,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if (lbActions.Text == "Reject")
             {
                 MPE_EnquiryReject.Show();
+                new DDLBind(ddlEnquiryRejectRemarks, new BEnquiry().GetEnquiryRemark(null, null, null, null, null, true), "Remark", "EnquiryRemarkID");
             }
             else if (lbActions.Text == "InProgress")
             {
@@ -173,7 +176,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void btnEnquiryStatus_Click(object sender, EventArgs e)
         {
-            if (new BEnquiry().UpdateEnquiryReject(Enquiry.EnquiryID, txtRemark.Text.Trim(), PSession.User.UserID))
+            if (new BEnquiry().UpdateEnquiryStatus(Enquiry.EnquiryID, Convert.ToInt32(ddlEnquiryRejectRemarks.SelectedValue), 5, txtEnquiryRejectReason.Text.Trim(), PSession.User.UserID))
+            //if (new BEnquiry().UpdateEnquiryReject(Enquiry.EnquiryID, txtRemark.Text.Trim(), PSession.User.UserID))
             {
                 lblMessage.Text = "Enquiry Rejected Successfully...";
                 lblMessage.ForeColor = Color.Green;
@@ -351,16 +355,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     return;
                 }
 
-                if (new BEnquiry().UpdateEnquiryIndiamartStatus(Enquiry.EnquiryID, Convert.ToInt32(ddlInprogressRemarks.SelectedValue), 6, PSession.User.UserID, txtInprogressEnquiryReason.Text.Trim()))
+                if (new BEnquiry().UpdateEnquiryStatus(Enquiry.EnquiryID, Convert.ToInt32(ddlInprogressRemarks.SelectedValue), 6, txtInprogressEnquiryReason.Text.Trim(), PSession.User.UserID))
                 {
                     lblMessage.Text = "Enquiry India Mart Status is updated successfully.";
                     lblMessage.ForeColor = Color.Green;
-                    fillEnquiryStatusHistory();
+                    fillViewEnquiry(Enquiry.EnquiryID);
                     MPE_InprogressEnquiry.Hide();
                 }
                 else
                 {
-                    lblInprogressEnquiryMessage.Text = "Enquiry India Mart Status was not updated successfully!";
+                    lblInprogressEnquiryMessage.Text = "Enquiry Status was not updated successfully!";
                     lblInprogressEnquiryMessage.ForeColor = Color.Red;
                     lblInprogressEnquiryMessage.Visible = true;
                     MPE_InprogressEnquiry.Show();

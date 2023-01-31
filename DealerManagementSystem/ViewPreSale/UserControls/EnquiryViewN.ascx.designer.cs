@@ -357,13 +357,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset5;
 
         /// <summary>
-        /// txtRemark control.
+        /// ddlEnquiryRejectRemarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRemark;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEnquiryRejectRemarks;
+
+        /// <summary>
+        /// txtEnquiryRejectReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEnquiryRejectReason;
 
         /// <summary>
         /// btnEnquiryStatus control.
