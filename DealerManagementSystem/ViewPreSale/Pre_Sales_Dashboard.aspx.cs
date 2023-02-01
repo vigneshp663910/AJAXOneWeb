@@ -144,19 +144,25 @@ namespace DealerManagementSystem.ViewPreSale
 
 
             lblEnquiryOpen.Text = "0";
+            lblEnquiryInProgress.Text = "0";
             lblEnquiryConvertedToLead.Text = "0";
             lblEnquiryRejected.Text = "0";
             int TotalEnq = 0;
             List <PPreSaleStatus> StatusEnq = new BEnquiry().GetEnquiryCountByStatus(From, null, DealerID, EngineerUserID);
             if (StatusEnq != null)
             {
-                if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Open).Count() != 0))
+                if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Unattended).Count() != 0))
                 {
-                    var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Open).ToList();
+                    var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.Unattended).ToList();
                     lblEnquiryOpen.Text = ss[0].Count.ToString();
                     TotalEnq = ss[0].Count;
                 }
-
+                if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.InProgress).Count() != 0))
+                {
+                    var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.InProgress).ToList();
+                    lblEnquiryOpen.Text = ss[0].Count.ToString();
+                    TotalEnq = ss[0].Count;
+                }
                 if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).Count() != 0))
                 {
                     var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).ToList();
@@ -230,29 +236,29 @@ namespace DealerManagementSystem.ViewPreSale
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Open")
+            if (lbActions.Text == "Unattended")
             {
-                Session["leadStatusID"] = 1;
+                Session["leadStatusID"] = (short)LeadStatus.Unattended;
             }
-            else if (lbActions.Text == "Assigned")
+            else if (lbActions.Text == "In Progress")
             {
-                Session["leadStatusID"] = 2;
+                Session["leadStatusID"] = (short)LeadStatus.InProgress;
             }
             else if (lbActions.Text == "Quotation")
             {
-                Session["leadStatusID"] = 3;
+                Session["leadStatusID"] = (short)LeadStatus.Quotation;
             }
             else if (lbActions.Text == "Won")
             {
-                Session["leadStatusID"] = 4;
+                Session["leadStatusID"] = (short)LeadStatus.Won;
             }
-            else if (lbActions.Text == "Lost")
+            else if (lbActions.Text == "Sales Lost")
             {
-                Session["leadStatusID"] = 5;
+                Session["leadStatusID"] = (short)LeadStatus.SalesLost;
             }
-            else if (lbActions.Text == "Cancelled")
+            else if (lbActions.Text == "Dropped")
             {
-                Session["leadStatusID"] = 6;
+                Session["leadStatusID"] = (short)LeadStatus.Dropped;
             }
 
 
@@ -278,23 +284,27 @@ namespace DealerManagementSystem.ViewPreSale
             Session["leadDealerID"] = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
             Session["EngineerUserID"] = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
 
-            Response.Redirect("lead.aspx");
+            Response.Redirect("leadN.aspx");
         }
 
         protected void lbEnquiryActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Open")
+            if (lbActions.Text == "Unattended")
             {
-                Session["leadStatusID"] = 1;
+                Session["leadStatusID"] = (short)PreSaleStatus.Unattended;
+            }
+            else if (lbActions.Text == "In Progress")
+            {
+                Session["leadStatusID"] = (short)PreSaleStatus.InProgress;
             }
             else if (lbActions.Text == "Converted To Lead")
             {
-                Session["leadStatusID"] = 4;
+                Session["leadStatusID"] = (short)PreSaleStatus.ConvertedToLead;
             }
             else if (lbActions.Text == "Rejected")
             {
-                Session["leadStatusID"] = 5;
+                Session["leadStatusID"] = (short)PreSaleStatus.Rejected;
             }
 
             DateTime TodayDate = DateTime.Now.Date;
@@ -318,7 +328,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             Session["leadDealerID"] = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             Session["EngineerUserID"] = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-            Response.Redirect("Enquiry.aspx");
+            Response.Redirect("EnquiryN.aspx");
         }
         
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)

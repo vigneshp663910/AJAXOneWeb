@@ -1801,9 +1801,37 @@ namespace DealerManagementSystem.ViewService.UserControls
             lbtnServiceProfarmaInvoice.Visible = true;
             lbtnServiceInvoice.Visible = true;
             lbtnMaterialClaim.Visible = true;
-            lbtnMaterialQuotation.Visible = true; 
+            lbtnMaterialQuotation.Visible = true;
+            lbtnUnlockTicket.Visible = true;
 
-            if(!SDMS_ICTicket.ServiceType.IsMaterialRequired)
+            if ((Boolean)SDMS_ICTicket.IsLocked)
+            {
+                lbtnAddTechnician.Visible = false;
+                lbtnEditCallInformation.Visible = false;
+                lbtnEditFSR.Visible = false;
+                lbtnAddFSRAttachments.Visible = false;
+                lbtnAddOtherMachine.Visible = false;
+                lbtnAddServiceCharges.Visible = false;
+                lbtnAddTSIR.Visible = false;
+                lbtnAddMaterialCharges.Visible = false; 
+                lbtAddTechnicianWork.Visible = false;
+                lbtnRestore.Visible = false;
+
+
+                lbtnCustomerFeedback.Visible = false;
+                lbtnServiceClaim.Visible = false;
+                lbtnServiceQuotation.Visible = false;
+                lbtnServiceProfarmaInvoice.Visible = false;
+                lbtnServiceInvoice.Visible = false;
+                lbtnMaterialClaim.Visible = false;
+                lbtnMaterialQuotation.Visible = false;
+            }
+            else
+            {
+                lbtnUnlockTicket.Visible = false;
+            }
+
+            if (!SDMS_ICTicket.ServiceType.IsMaterialRequired)
             {
                 lbtnAddMaterialCharges.Visible = false;
             }

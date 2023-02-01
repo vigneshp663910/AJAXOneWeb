@@ -36,6 +36,7 @@
                 <asp:LinkButton ID="lbtnServiceProfarmaInvoice" runat="server" OnClick="lbActions_Click">Service Profarma Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbtnServiceInvoice" runat="server" OnClick="lbActions_Click">Service Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbtnMaterialClaim" runat="server" OnClick="lbActions_Click">Material Claim</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnUnlockTicket" runat="server" OnClick="lbActions_Click">Unlock Ticket</asp:LinkButton>
             </div>
         </div>
     </div>

@@ -385,11 +385,25 @@
                                         <asp:Label ID="lblEnquiryOpen" runat="server" Text="0"></asp:Label>
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
                                         <div class="desc">
-                                            <asp:LinkButton ID="LinkButton1" runat="server" Style="color: white;" OnClick="lbEnquiryActions_Click">Open</asp:LinkButton>
+                                            <asp:LinkButton ID="LinkButton1" runat="server" Style="color: white;" OnClick="lbEnquiryActions_Click">Unattended</asp:LinkButton>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;">
+                                <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
+                                    <div class="visual"><i class="fa fa-ticket"></i></div>
+                                    <div class="details" style="color: white;">
+                                        <asp:Label ID="lblEnquiryInProgress" runat="server" Text="0"></asp:Label>
+                                        <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
+                                        <div class="desc">
+                                            <asp:LinkButton ID="LinkButton3" runat="server" Style="color: white;" OnClick="lbEnquiryActions_Click">In Progress</asp:LinkButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: darkolivegreen">
                                 <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
@@ -439,7 +453,7 @@
                                         <asp:Label ID="lblOpen" runat="server" Text="0"></asp:Label>
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
                                         <div class="desc">
-                                            <asp:LinkButton ID="lbtnNewlyCreated" runat="server" Style="color: white;" OnClick="lbActions_Click">Open</asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnNewlyCreated" runat="server" Style="color: white;" OnClick="lbActions_Click">Unattended</asp:LinkButton>
                                         </div>
                                     </div>
                                 </div>
@@ -451,7 +465,7 @@
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
                                         <asp:Label ID="lblAssigned" runat="server" Text="0"></asp:Label>
                                         <div class="desc">
-                                            <asp:LinkButton ID="lbtnAssigned" runat="server" Style="color: white;" OnClick="lbActions_Click">Assigned</asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnAssigned" runat="server" Style="color: white;" OnClick="lbActions_Click">In Progress</asp:LinkButton>
                                         </div>
                                     </div>
                                 </div>
@@ -488,7 +502,7 @@
                                     <div class="details" style="color: white;">
                                         <asp:Label ID="lblLost" runat="server" Text="0"></asp:Label>
                                         <div class="desc">
-                                            <asp:LinkButton ID="lbtnLost" runat="server" Style="color: white;" OnClick="lbActions_Click">Lost</asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnLost" runat="server" Style="color: white;" OnClick="lbActions_Click">Sales Lost</asp:LinkButton>
                                         </div>
 
                                     </div>
@@ -500,7 +514,7 @@
                                     <div class="details" style="color: white;">
                                         <asp:Label ID="lblCancelled" runat="server" Text="0"></asp:Label>
                                         <div class="desc">
-                                            <asp:LinkButton ID="lbtnCancelled" runat="server" Style="color: white;" OnClick="lbActions_Click">Cancelled</asp:LinkButton>
+                                            <asp:LinkButton ID="lbtnCancelled" runat="server" Style="color: white;" OnClick="lbActions_Click">Dropped</asp:LinkButton>
                                         </div>
                                     </div>
                                 </div>
