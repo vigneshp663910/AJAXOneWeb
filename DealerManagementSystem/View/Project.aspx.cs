@@ -502,8 +502,12 @@ namespace DealerManagementSystem.View
                                         int i = 0;
                                         foreach (IXLCell cell in row.Cells())
                                         {
-                                            dt.Rows[dt.Rows.Count - 1][i] = cell.Value.ToString();
-                                            i++;
+                                            try
+                                            {
+                                                dt.Rows[dt.Rows.Count - 1][i] = cell.Value.ToString();
+                                                i++;
+                                            }
+                                            catch (Exception ex) { }
                                         }
                                     }
                                 }
