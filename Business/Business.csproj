@@ -116,6 +116,7 @@
     <Compile Include="BChangeHistory.cs" />
     <Compile Include="BColdVisit.cs" />
     <Compile Include="BDealer.cs" />
+    <Compile Include="BDealerOperatorDetails.cs" />
     <Compile Include="BDMS_Address.cs" />
     <Compile Include="BDMS_AvailabilityOfOtherMachine.cs" />
     <Compile Include="BDMS_BankDepositClearing.cs" />

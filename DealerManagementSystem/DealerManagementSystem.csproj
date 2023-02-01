@@ -395,6 +395,7 @@
     <Content Include="ViewDashboard\UserControls\ICTicketTransactionStatics.ascx" />
     <Content Include="ViewDashboard\UserControls\LeadStatusDashboard.ascx" />
     <Content Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
+    <Content Include="ViewDealerEmployee\DealerOperatorDetails.aspx" />
     <Content Include="ViewDealerEmployee\SalesIncentive.aspx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
@@ -432,7 +433,6 @@
     <Content Include="ViewMaster\LocationMap.aspx" />
     <Content Include="ViewPreSale\BudgetPlanningMonth.aspx" />
     <Content Include="ViewPreSale\BudgetPlanningYear.aspx" />
-    <Content Include="ViewPreSale\Enquiry.aspx" />
     <Content Include="ViewPreSale\EnquiryIndiamart.aspx" />
     <Content Include="ViewMaster\Material.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
@@ -496,7 +496,6 @@
     <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\EnquiryN.aspx" />
     <Content Include="ViewPreSale\EnquiryTimeLineReport.aspx" />
-    <Content Include="ViewPreSale\Lead.aspx" />
     <Content Include="ViewPreSale\LeadN.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\PreSalesReport.aspx" />
@@ -516,7 +515,6 @@
     <Content Include="ViewPreSale\UserControls\ColdVisitsView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
     <Content Include="ViewPreSale\UserControls\EnquiryIndiamartView.ascx" />
-    <Content Include="ViewPreSale\UserControls\EnquiryView.ascx" />
     <Content Include="ViewPreSale\UserControls\EnquiryViewN.ascx" />
     <Content Include="ViewPreSale\UserControls\Expense.ascx" />
     <Content Include="ViewPreSale\UserControls\LeadView.ascx" />
@@ -1082,6 +1080,13 @@
     <Compile Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewDealerEmployee\DealerOperatorDetails.aspx.cs">
+      <DependentUpon>DealerOperatorDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\DealerOperatorDetails.aspx.designer.cs">
+      <DependentUpon>DealerOperatorDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewDealerEmployee\SalesIncentive.aspx.cs">
       <DependentUpon>SalesIncentive.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1340,13 +1345,6 @@
     </Compile>
     <Compile Include="ViewPreSale\BudgetPlanningYear.aspx.designer.cs">
       <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewPreSale\Enquiry.aspx.cs">
-      <DependentUpon>Enquiry.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\Enquiry.aspx.designer.cs">
-      <DependentUpon>Enquiry.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryIndiamart.aspx.cs">
       <DependentUpon>EnquiryIndiamart.aspx</DependentUpon>
@@ -1624,13 +1622,6 @@
     <Compile Include="ViewPreSale\EnquiryTimeLineReport.aspx.designer.cs">
       <DependentUpon>EnquiryTimeLineReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\Lead.aspx.cs">
-      <DependentUpon>Lead.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\Lead.aspx.designer.cs">
-      <DependentUpon>Lead.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ViewPreSale\LeadN.aspx.cs">
       <DependentUpon>LeadN.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1763,13 +1754,6 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\EnquiryIndiamartView.ascx.designer.cs">
       <DependentUpon>EnquiryIndiamartView.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewPreSale\UserControls\EnquiryView.ascx.cs">
-      <DependentUpon>EnquiryView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\UserControls\EnquiryView.ascx.designer.cs">
-      <DependentUpon>EnquiryView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\EnquiryViewN.ascx.cs">
       <DependentUpon>EnquiryViewN.ascx</DependentUpon>

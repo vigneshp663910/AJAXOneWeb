@@ -28,21 +28,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ViewState["EnquiryIndiamartViewEnquiryIndiamartID"] = value;
             }
         }
-        //public DataTable Enquiry
-        //{
-        //    get
-        //    {
-        //        if (Session["EnquiryIndiamartView"] == null)
-        //        {
-        //            Session["EnquiryIndiamartView"] = new DataTable();
-        //        }
-        //        return (DataTable)Session["EnquiryIndiamartView"];
-        //    }
-        //    set
-        //    {
-        //        Session["EnquiryIndiamartView"] = value;
-        //    }
-        //}
+      
         public DataTable Enquiry
         {
             get
@@ -210,6 +196,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
 
                 ((TextBox)UC_AddEnquiry.FindControl("txtProduct")).Text = Enquiry.Rows[0]["Product Name"].ToString();
+
+
+                DropDownList ddlSource = ((DropDownList)UC_AddEnquiry.FindControl("ddlSource"));
+                ddlSource.Enabled = true;
+                if (Enquiry.Rows[0]["SourceID"] != DBNull.Value)
+                {
+                    ddlSource.SelectedValue = Enquiry.Rows[0]["SourceID"].ToString();
+                    ddlSource.Enabled = false;
+                }
             }
             else if (lbActions.Text == "Reject")
             {
@@ -248,7 +243,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 enquiryAdd = UC_AddEnquiry.Read();
                 if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
                 {
-                    if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), null, 2, PSession.User.UserID, enquiryAdd.Remarks.Trim()))
+                    if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), null, 2, enquiryAdd.Remarks.Trim(), PSession.User.UserID))
                     {
                         lblMessage.Text = "Enquiry from India Mart saved successfully.";
                         lblMessage.ForeColor = Color.Green;
@@ -296,7 +291,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     return;
                 }
 
-                if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), Convert.ToInt32(ddlRejectionRemarks.SelectedValue), 5, PSession.User.UserID, txtRejectEnquiryReason.Text.Trim()))
+                if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), Convert.ToInt32(ddlRejectionRemarks.SelectedValue), 5, txtRejectEnquiryReason.Text.Trim(), PSession.User.UserID))
                 {
                     lblMessage.Text = "Enquiry from India Mart rejected successfully.";
                     lblMessage.ForeColor = Color.Green;
@@ -341,7 +336,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     return;
                 }
 
-                if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), Convert.ToInt32(ddlInprogressRemarks.SelectedValue), 6, PSession.User.UserID, txtInprogressEnquiryReason.Text.Trim()))
+                if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), Convert.ToInt32(ddlInprogressRemarks.SelectedValue), 6, txtInprogressEnquiryReason.Text.Trim(), PSession.User.UserID))
                 {
                     lblMessage.Text = "Enquiry India Mart Status is updated successfully.";
                     lblMessage.ForeColor = Color.Green;

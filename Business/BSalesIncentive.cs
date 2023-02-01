@@ -50,7 +50,7 @@ namespace Business
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessageService("BProject", "InsertOrUpdateTSalesIncentive_ForExcelUpload", ex);
+                new FileLogger().LogMessageService("BSalesIncentive", "InsertOrUpdateTSalesIncentive_ForExcelUpload", ex);
                 return false;
             }
             return true;

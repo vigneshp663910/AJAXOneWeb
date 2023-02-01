@@ -1724,11 +1724,11 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             MPE_AddTechnicianWork.Show();
             string Message = UC_ICTicketAddTechnicianWork.Validation(SDMS_TechniciansWD);
-            lblMessageAssignEngineer.ForeColor = Color.Red;
-            lblMessageAssignEngineer.Visible = true;
+            lblMessageTechnicianWork.ForeColor = Color.Red;
+            lblMessageTechnicianWork.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageAssignEngineer.Text = Message;
+                lblMessageTechnicianWork.Text = Message;
                 return;
             }
             string endPoint = "ICTicket/AddOrRemoveTicketTechnicianWorks?ServiceTechnicianWorkDateID=0&ICTicket=" + SDMS_ICTicket.ICTicketID
@@ -1736,7 +1736,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblMessageTechnicianWork.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);

@@ -17,6 +17,7 @@
                 <asp:LinkButton ID="lbEditEnquiry" runat="server" OnClick="lbActions_Click">Edit Enquiry</asp:LinkButton>
                 <asp:LinkButton ID="lbInActive" runat="server" OnClick="lbActions_Click">Convert To Lead</asp:LinkButton>
                 <asp:LinkButton ID="lbReject" runat="server" OnClick="lbActions_Click">Reject</asp:LinkButton>
+                <asp:LinkButton ID="lbInProgress" runat="server" OnClick="lbActions_Click">InProgress</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -114,6 +115,31 @@
             <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView> 
         </ContentTemplate>
     </asp1:TabPanel>
+      <asp1:TabPanel ID="tpnlStatusHistory" runat="server" HeaderText="Status History" Font-Bold="True">
+        <ContentTemplate>
+            <asp:GridView ID="gvStatusHistory" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false"
+                EmptyDataText="No Data Found" >
+                <Columns>
+                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                        <ItemTemplate>
+                            <itemstyle width="25px" horizontalalign="Center"></itemstyle>
+                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex+1 %>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField HeaderText="Status" DataField="PreSaleStatus" />
+                    <asp:BoundField HeaderText="Remark" DataField="Remark" />
+                    <asp:BoundField HeaderText="Reason" DataField="Reason" />
+                    <asp:BoundField HeaderText="Created By" DataField="ContactName" />
+                    <asp:BoundField HeaderText="Created On" DataField="CreatedOn" />
+                </Columns>
+                <AlternatingRowStyle BackColor="#ffffff" />
+                <FooterStyle ForeColor="White" />
+                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+            </asp:GridView>
+        </ContentTemplate>
+    </asp1:TabPanel>
 </asp1:TabContainer>
 
 
@@ -144,9 +170,13 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border" id="Fieldset5" runat="server">
+                 <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Remarks</label>
+                        <asp:DropDownList ID="ddlEnquiryRejectRemarks" runat="server" CssClass="form-control" DataTextField="Remark" DataValueField="EnquiryRemarkID" />
+                    </div>
                 <div class="col-md-12 col-sm-12">
                     <label class="modal-label">Remark</label>
-                    <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="txtEnquiryRejectReason" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                 </div>
             </fieldset>
         </div>
@@ -254,6 +284,40 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Lead" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLead" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlInprogressEnquiry" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueInprogressEnquiry">Inprogress Enquiry</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnInprogressEnquiryClose" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <asp:Label ID="lblInprogressEnquiryMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <fieldset class="fieldset-border" id="Fieldset1" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Query ID</label>
+                        <asp:Label ID="lblInProgressQueryID" runat="server" Text="" CssClass="message" />
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Remarks</label>
+                        <asp:DropDownList ID="ddlInprogressRemarks" runat="server" CssClass="form-control" DataTextField="Remark" DataValueField="EnquiryRemarkID" />
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Reason</label>
+                        <asp:TextBox ID="txtInprogressEnquiryReason" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnInprogressEnquiry" runat="server" Text="Save" CssClass="btn Save" OnClick="btnInprogressEnquiry_Click" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_InprogressEnquiry" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlInprogressEnquiry" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <div style="display: none">

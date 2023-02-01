@@ -47,9 +47,10 @@ namespace Business
                 throw ex;
             }
         }
-        public List<PDMS_Equipment> GetEquipmentHeader(int? DealerID, string EquipmentSerialNo, string Customer, DateTime? WarrantyStart, DateTime? WarrantyEnd, int? RegionID, int? StateID, int? DivisionID, int UserID)
+        public List<PDMS_Equipment> GetEquipmentHeader(int? DealerID, string EquipmentSerialNo, string Customer, DateTime? WarrantyStart, DateTime? WarrantyEnd, int? RegionID, int? StateID, int? DivisionID, int UserID, int? PageIndex , int? PageSize , out int RowCount)
         {
             TraceLogger.Log(DateTime.Now);
+            RowCount = 0;
             List<PDMS_Equipment> pDMS_Equipment = new List<PDMS_Equipment>();
             try
             {
@@ -62,8 +63,10 @@ namespace Business
                 DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
                 DbParameter DivisionIDP = provider.CreateParameter("DivisionID", DivisionID, DbType.Int32);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-
-                DbParameter[] Params = new DbParameter[9] { DealerIDP, EquipmentSerialNoP, CustomerP, WarrantyStartP, WarrantyEndP, RegionIDP, StateIDP, DivisionIDP, UserIDP };
+                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
+                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
+                DbParameter[] Params = new DbParameter[11] { DealerIDP, EquipmentSerialNoP, CustomerP, WarrantyStartP, WarrantyEndP
+                    , RegionIDP, StateIDP, DivisionIDP, UserIDP,PageIndexP, PageSizeP};
                 using (DataSet ds = provider.Select("GetEquipmentHeader", Params))
                 {
                     if (ds != null)
@@ -97,6 +100,7 @@ namespace Business
                             Equip.DispatchedOn = dr["DispatchedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["DispatchedOn"]);
                             Equip.WarrantyExpiryDate = Convert.ToDateTime(dr["WarrantyExpiryDate"]);
                             pDMS_Equipment.Add(Equip);
+                            RowCount = Convert.ToInt32(dr["RowCount"]);
                         }
                     }
                 }

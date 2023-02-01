@@ -33,15 +33,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             get
             {
-                if (Session["CustomerView"] == null)
+                if (ViewState["CustomerView"] == null)
                 {
-                    Session["CustomerView"] = new PDMS_Customer();
+                    ViewState["CustomerView"] = new PDMS_Customer();
                 }
-                return (PDMS_Customer)Session["CustomerView"];
+                return (PDMS_Customer)ViewState["CustomerView"];
             }
             set
             {
-                Session["CustomerView"] = value;
+                ViewState["CustomerView"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -53,19 +53,19 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 ActionControlMange();
             }
 
-            if (!string.IsNullOrEmpty(Convert.ToString(ViewState["CustomerID"])))
-            {
-                long CustomerID = Convert.ToInt64(Convert.ToString(ViewState["CustomerID"]));
-                if (CustomerID != Customer.CustomerID)
-                {
-                    Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
-                }
-            }
+            //if (!string.IsNullOrEmpty(Convert.ToString(ViewState["CustomerID"])))
+            //{
+            //    long CustomerID = Convert.ToInt64(Convert.ToString(ViewState["CustomerID"]));
+            //    if (CustomerID != Customer.CustomerID)
+            //    {
+            //        Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
+            //    }
+            //}
         }
         public void fillCustomer(long CustomerID)
         {
             // this.CustomerID = CustomerID; ;
-            ViewState["CustomerID"] = CustomerID;
+            //ViewState["CustomerID"] = CustomerID;
             Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
             lblCustomer.Text = Customer.CustomerFullName;
             lblContactPerson.Text = Customer.ContactPerson;
@@ -404,9 +404,6 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lbtnVerifiedCustomer.Visible = false;
             }
 
-        }
-
-       
-        
+        } 
     }
 }

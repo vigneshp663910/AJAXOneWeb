@@ -105,6 +105,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 CustomerViewSoldTo.Clear();
                 UC_LeadView.Clear();
             }
+
+            fillEnquiryStatusHistory();
             ActionControlMange();
         }
         protected void BtnSave_Click(object sender, EventArgs e)
@@ -159,12 +161,23 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if (lbActions.Text == "Reject")
             {
                 MPE_EnquiryReject.Show();
+                new DDLBind(ddlEnquiryRejectRemarks, new BEnquiry().GetEnquiryRemark(null, null, null, null, null, true), "Remark", "EnquiryRemarkID");
+            }
+            else if (lbActions.Text == "InProgress")
+            {
+                lblInProgressQueryID.Text = Enquiry.EnquiryNumber;
+                new DDLBind(ddlInprogressRemarks, new BEnquiry().GetEnquiryRemark(null, null, null, null, true, null), "Remark", "EnquiryRemarkID");
+                txtInprogressEnquiryReason.Text = string.Empty;
+                MPE_InprogressEnquiry.Show();
+                lblInprogressEnquiryMessage.Text = string.Empty;
+                lblInprogressEnquiryMessage.Visible = false;
             }
         }
 
         protected void btnEnquiryStatus_Click(object sender, EventArgs e)
         {
-            if (new BEnquiry().UpdateEnquiryReject(Enquiry.EnquiryID, txtRemark.Text.Trim(), PSession.User.UserID))
+            if (new BEnquiry().UpdateEnquiryStatus(Enquiry.EnquiryID, Convert.ToInt32(ddlEnquiryRejectRemarks.SelectedValue), 5, txtEnquiryRejectReason.Text.Trim(), PSession.User.UserID))
+            //if (new BEnquiry().UpdateEnquiryReject(Enquiry.EnquiryID, txtRemark.Text.Trim(), PSession.User.UserID))
             {
                 lblMessage.Text = "Enquiry Rejected Successfully...";
                 lblMessage.ForeColor = Color.Green;
@@ -205,6 +218,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             UC_AddLead.FillMaster();
             UC_Customer.FillMaster();
 
+            DropDownList ddlProductType = (DropDownList)UC_AddLead.FindControl("ddlProductType");
             DropDownList ddlSource = (DropDownList)UC_AddLead.FindControl("ddlSource");
             DropDownList ddlCountry = (DropDownList)UC_Customer.FindControl("ddlCountry");
             DropDownList ddlState = (DropDownList)UC_Customer.FindControl("ddlState");
@@ -221,7 +235,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             TextBox txtAddress2 = (TextBox)UC_Customer.FindControl("txtAddress2");
             TextBox txtAddress3 = (TextBox)UC_Customer.FindControl("txtAddress3");
 
+            ddlProductType.SelectedValue = Enquiry.ProductType == null ? "0" : Convert.ToString(Enquiry.ProductType.ProductTypeID);
             ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
+
+            if (Enquiry.ProductType != null)
+            {
+                ddlProductType.Enabled = false;
+            }
+            if (Enquiry.Source != null)
+            {
+                ddlSource.Enabled = false;
+            }
+
             ddlCountry.SelectedValue = Convert.ToString(Enquiry.Country.CountryID);
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             ddlState.SelectedValue = Convert.ToString(Enquiry.State.StateID);
@@ -306,6 +331,58 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbInActive.Visible = false;
                 lbReject.Visible = false;
             }
+        }
+
+        protected void btnInprogressEnquiry_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ddlInprogressRemarks.SelectedValue == "0")
+                {
+                    lblInprogressEnquiryMessage.Text = "Please select the Remark...!";
+                    lblInprogressEnquiryMessage.ForeColor = Color.Red;
+                    lblInprogressEnquiryMessage.Visible = true;
+                    MPE_InprogressEnquiry.Show();
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(txtInprogressEnquiryReason.Text.Trim()))
+                {
+                    lblInprogressEnquiryMessage.Text = "Please enter the Comments.";
+                    lblInprogressEnquiryMessage.ForeColor = Color.Red;
+                    lblInprogressEnquiryMessage.Visible = true;
+                    MPE_InprogressEnquiry.Show();
+                    return;
+                }
+
+                if (new BEnquiry().UpdateEnquiryStatus(Enquiry.EnquiryID, Convert.ToInt32(ddlInprogressRemarks.SelectedValue), 6, txtInprogressEnquiryReason.Text.Trim(), PSession.User.UserID))
+                {
+                    lblMessage.Text = "Enquiry India Mart Status is updated successfully.";
+                    lblMessage.ForeColor = Color.Green;
+                    fillViewEnquiry(Enquiry.EnquiryID);
+                    MPE_InprogressEnquiry.Hide();
+                }
+                else
+                {
+                    lblInprogressEnquiryMessage.Text = "Enquiry Status was not updated successfully!";
+                    lblInprogressEnquiryMessage.ForeColor = Color.Red;
+                    lblInprogressEnquiryMessage.Visible = true;
+                    MPE_InprogressEnquiry.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblInprogressEnquiryMessage.Text = ex.Message.ToString();
+                lblInprogressEnquiryMessage.ForeColor = Color.Red;
+                lblInprogressEnquiryMessage.Visible = true;
+                MPE_InprogressEnquiry.Show();
+            }
+        }
+
+        public void fillEnquiryStatusHistory()
+        {
+            gvStatusHistory.DataSource = new BEnquiry().GetEnquiryStatusHistory(Enquiry.EnquiryID);
+            gvStatusHistory.DataBind();  
         }
     }
 }

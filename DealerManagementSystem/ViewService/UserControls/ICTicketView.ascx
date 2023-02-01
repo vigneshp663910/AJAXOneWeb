@@ -1150,7 +1150,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label13" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageTechnicianWork" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketAddTechnicianWork ID="UC_ICTicketAddTechnicianWork" runat="server"></UC:UC_ICTicketAddTechnicianWork>
         </div>
         <div class="col-md-12 text-center">

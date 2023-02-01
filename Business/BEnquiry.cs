@@ -105,6 +105,7 @@ namespace Business
                 DbParameter Address = provider.CreateParameter("Address", enquiry.Address, DbType.String);
                 DbParameter Address2 = provider.CreateParameter("Address2", enquiry.Address2, DbType.String);
                 DbParameter Address3 = provider.CreateParameter("Address3", enquiry.Address3, DbType.String);
+                DbParameter ProductTypeID = provider.CreateParameter("ProductTypeID", enquiry.ProductType.ProductTypeID, DbType.Int32);
                 DbParameter SourceID = provider.CreateParameter("SourceID", enquiry.Source.SourceID, DbType.Int32); 
                 DbParameter CountryID = provider.CreateParameter("CountryID", enquiry.Country.CountryID, DbType.Int32);
                 DbParameter StateID = provider.CreateParameter("StateID", enquiry.State.StateID, DbType.Int32);
@@ -115,7 +116,7 @@ namespace Business
                 DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    DbParameter[] Params = new DbParameter[17] { EnquiryID, EnquiryDate,  CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
+                    DbParameter[] Params = new DbParameter[18] { EnquiryID, EnquiryDate,  CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, ProductTypeID, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
                     provider.Insert("InsertOrUpdateEnquiry", Params);
                     scope.Complete();
                 }
@@ -252,18 +253,18 @@ namespace Business
             { }
             return null;
         }
-        public Boolean UpdateEnquiryIndiamartStatus(long? EnquiryIndiamartID, int? EnquiryRemarkID, int PreSaleStatusID, int RejectedBy, string RejectedReason)
+        public Boolean UpdateEnquiryIndiamartStatus(long EnquiryIndiamartID, int? EnquiryRemarkID, int StatusID, string Reason, int UserID)
         {
             try
             {
                 provider = new ProviderFactory().GetProvider();
                 DbParameter EnquiryIndiamartIDP = provider.CreateParameter("EnquiryIndiamartID", EnquiryIndiamartID, DbType.Int64);
                 DbParameter EnquiryRemarkIDP = provider.CreateParameter("EnquiryRemarkID", EnquiryRemarkID, DbType.Int32);
-                DbParameter PreSaleStatusIDP = provider.CreateParameter("PreSaleStatusID", PreSaleStatusID, DbType.Int32);
-                DbParameter RejectedByP = provider.CreateParameter("UserID", RejectedBy, DbType.Int32);
-                DbParameter RejectedReasonP = provider.CreateParameter("RejectedReason", RejectedReason, DbType.String);
+                DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
+                DbParameter ReasonP = provider.CreateParameter("Reason", Reason, DbType.String);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
 
-                DbParameter[] Params = new DbParameter[5] { EnquiryIndiamartIDP, EnquiryRemarkIDP, PreSaleStatusIDP, RejectedByP, RejectedReasonP };
+                DbParameter[] Params = new DbParameter[5] { EnquiryIndiamartIDP, EnquiryRemarkIDP, StatusIDP, ReasonP, UserIDP };
 
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
@@ -333,6 +334,50 @@ namespace Business
                 + "&Country=" + CountryID + "&Region=" + RegionID + "&ProductType=" + ProductTypeID;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public DataTable GetEnquiryStatusHistory(long EnquiryID)
+        {
+            DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int64);
+            try
+            {
+                using (DataSet DS = provider.Select("GetEnquiryStatusHistory", new DbParameter[1] { EnquiryIDP }))
+                {
+                    if (DS != null)
+                    {
+                        return DS.Tables[0];
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
+        }
+        public Boolean UpdateEnquiryStatus(long EnquiryID, int EnquiryRemarkID, int StatusID, string Remark, int UserID)
+        {
+            try
+            {
+                provider = new ProviderFactory().GetProvider();
+                DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int64);
+                DbParameter EnquiryRemarkIDP = provider.CreateParameter("EnquiryRemarkID", EnquiryRemarkID, DbType.Int32);
+                DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
+                DbParameter RemarkP = provider.CreateParameter("Reason", Remark, DbType.String);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                
 
+                DbParameter[] Params = new DbParameter[5] { EnquiryIDP, EnquiryRemarkIDP, StatusIDP, RemarkP, UserIDP };
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("UpdateEnquiryReject", Params);
+                    scope.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
     }  
 }

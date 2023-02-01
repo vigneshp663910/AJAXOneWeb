@@ -12,21 +12,64 @@ namespace DealerManagementSystem.ViewEquipment
 {
     public partial class Equipment : System.Web.UI.Page
     {
-        public List<PDMS_Equipment> EquipmentHeader
+
+        int? DealerID = null;
+        string EquipmentSerialNo = null;
+        string Customer = null;
+        DateTime? WarrantyStart = null;
+        DateTime? WarrantyEnd = null;
+        int? RegionID = null;
+        int? StateID = null;
+        int? DivisionID = null;
+
+
+
+
+        private int PageCount
         {
             get
             {
-                if (Session["EquipmentHeader"] == null)
+                if (ViewState["PageCount"] == null)
                 {
-                    Session["EquipmentHeader"] = new DataTable();
+                    ViewState["PageCount"] = 0;
                 }
-                return (List<PDMS_Equipment>)Session["EquipmentHeader"];
+                return (int)ViewState["PageCount"];
             }
             set
             {
-                Session["EquipmentHeader"] = value;
+                ViewState["PageCount"] = value;
             }
         }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
+        //public List<PDMS_Equipment> EquipmentHeader
+        //{
+        //    get
+        //    {
+        //        if (Session["EquipmentHeader"] == null)
+        //        {
+        //            Session["EquipmentHeader"] = new DataTable();
+        //        }
+        //        return (List<PDMS_Equipment>)Session["EquipmentHeader"];
+        //    }
+        //    set
+        //    {
+        //        Session["EquipmentHeader"] = value;
+        //    }
+        //}
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Equipment');</script>");
@@ -34,7 +77,6 @@ namespace DealerManagementSystem.ViewEquipment
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
-            this.Page.MasterPageFile = "~/Dealer.master";
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -46,11 +88,9 @@ namespace DealerManagementSystem.ViewEquipment
             }
             if (!IsPostBack)
             {
-
-                //    new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
+                PageCount = 0;
+                PageIndex = 1;
                 new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
-                //  new BDMS_Address().Getr(ddlState, null, "");
-
                 txtWarrantyStart.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtWarrantyEnd.Text = DateTime.Now.ToShortDateString();
 
@@ -75,46 +115,15 @@ namespace DealerManagementSystem.ViewEquipment
             try
             {
                 TraceLogger.Log(DateTime.Now);
+                Search();
+                int RowCount = 0;
+                List<PDMS_Equipment> EquipmentHeader = new BDMS_Equipment().GetEquipmentHeader(DealerID, EquipmentSerialNo, Customer, WarrantyStart, WarrantyEnd, StateID, RegionID, DivisionID, PSession.User.UserID, PageIndex, gvEquipment.PageSize, out RowCount);
 
-                int? RegionID = null, DivisionID = null;
-                int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
-                DateTime? WarrantyStart = string.IsNullOrEmpty(txtWarrantyStart.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtWarrantyStart.Text.Trim());
-                DateTime? WarrantyEnd = string.IsNullOrEmpty(txtWarrantyEnd.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtWarrantyEnd.Text.Trim());
-                //   RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
-                int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
-                //int? DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
-
-                //string Division = "";
-                //if (ddlDivision.SelectedValue != "0")
-                //{
-                //    Division = ddlDivision.SelectedValue;
-                //}
-                //EquipmentHeader = new BDMS_Equipment().GetEquipmentPopulationReport(DealerID, txtEquipment.Text.Trim(), txtCustomer.Text.Trim(), WarrantyStart, WarrantyEnd, StateID, RegionID, DivisionID).Tables[0];
-
-                EquipmentHeader = new BDMS_Equipment().GetEquipmentHeader(DealerID, txtEquipment.Text.Trim(), txtCustomer.Text.Trim(), WarrantyStart, WarrantyEnd, StateID, RegionID, DivisionID, PSession.User.UserID);
-
-                //if (ddlDealerCode.SelectedValue == "0")
-                //{
-                //    List<string> DealerIDs = new List<string>();
-
-                //    foreach (PDealer ID in PSession.User.Dealer)
-                //    {
-                //        DealerIDs.Add(ID.UserName);
-                //    }
-                //    for (int i = 0; i < EquipmentHeader.Rows.Count; i++)
-                //    {
-                //        if (!DealerIDs.Contains(Convert.ToString(EquipmentHeader.Rows[i]["DealerCode"])))
-                //        {
-                //            EquipmentHeader.Rows[i].Delete();
-                //        }
-                //    }
-                //    EquipmentHeader.AcceptChanges();
-                //}
 
                 gvEquipment.PageIndex = 0;
                 gvEquipment.DataSource = EquipmentHeader;
                 gvEquipment.DataBind();
-                if (EquipmentHeader.Count == 0)
+                if (RowCount == 0)
                 {
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
@@ -122,10 +131,11 @@ namespace DealerManagementSystem.ViewEquipment
                 }
                 else
                 {
+                    PageCount = (RowCount + gvEquipment.PageSize - 1) / gvEquipment.PageSize;
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvEquipment.PageIndex) * gvEquipment.PageSize) + 1) + " - " + (((gvEquipment.PageIndex) * gvEquipment.PageSize) + gvEquipment.Rows.Count) + " of " + EquipmentHeader.Count;
+                    lblRowCount.Text = (((PageIndex - 1) * gvEquipment.PageSize) + 1) + " - " + (((PageIndex - 1) * gvEquipment.PageSize) + gvEquipment.Rows.Count) + " of " + RowCount;
                 }
 
                 TraceLogger.Log(DateTime.Now);
@@ -139,36 +149,61 @@ namespace DealerManagementSystem.ViewEquipment
 
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvEquipment.PageIndex > 0)
+            if (PageIndex > 1)
             {
-                gvEquipment.DataSource = EquipmentHeader;
-                gvEquipment.PageIndex = gvEquipment.PageIndex - 1;
-
-                gvEquipment.DataBind();
-                lblRowCount.Text = (((gvEquipment.PageIndex) * gvEquipment.PageSize) + 1) + " - " + (((gvEquipment.PageIndex) * gvEquipment.PageSize) + gvEquipment.Rows.Count) + " of " + EquipmentHeader.Count;
+                PageIndex = PageIndex - 1;
+                GetEquipmentHeader();
             }
         }
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvEquipment.PageCount > gvEquipment.PageIndex)
+            if (PageCount > PageIndex)
             {
-                gvEquipment.DataSource = EquipmentHeader;
-                gvEquipment.PageIndex = gvEquipment.PageIndex + 1;
-                gvEquipment.DataBind();
-                lblRowCount.Text = (((gvEquipment.PageIndex) * gvEquipment.PageSize) + 1) + " - " + (((gvEquipment.PageIndex) * gvEquipment.PageSize) + gvEquipment.Rows.Count) + " of " + EquipmentHeader.Count;
+                PageIndex = PageIndex + 1;
+                GetEquipmentHeader();
             }
         }
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            //new BXcel().ExporttoExcel(EquipmentHeader, "Equipment Population Report");
-        }
-        protected void gvEquipment_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvEquipment.DataSource = EquipmentHeader;
-            gvEquipment.PageIndex = e.NewPageIndex;
-            gvEquipment.DataBind();
-            lblRowCount.Text = (((gvEquipment.PageIndex) * gvEquipment.PageSize) + 1) + " - " + (((gvEquipment.PageIndex) * gvEquipment.PageSize) + gvEquipment.Rows.Count) + " of " + EquipmentHeader.Count;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("EngineSerialNo");
+            dt.Columns.Add("EquipmentSerialNo");
+            dt.Columns.Add("Model");
+            dt.Columns.Add("ModelDescription");
+            dt.Columns.Add("CustomerCode");
+            dt.Columns.Add("CustomerName");
+            dt.Columns.Add("District");
+            dt.Columns.Add("State");
+            dt.Columns.Add("DispatchedOn");
+            dt.Columns.Add("WarrantyExpiryDate"); 
+            Search();
+            int Index = 0;
+            int Rowcount = 1000;
+            int CRowcount = Rowcount;
+            while (Rowcount == CRowcount)
+            {
+                Index = Index + 1;
+                int RRowCount = 0;
+                List<PDMS_Equipment> EquipmentHeader = new BDMS_Equipment().GetEquipmentHeader(DealerID, EquipmentSerialNo, Customer, WarrantyStart, WarrantyEnd, StateID, RegionID, DivisionID, PSession.User.UserID, Index, Rowcount, out RRowCount);
+                CRowcount = EquipmentHeader.Count;
+                foreach (PDMS_Equipment M in EquipmentHeader)
+                {
+                    dt.Rows.Add(
+                                                 M.EngineSerialNo
+                                               , M.EquipmentSerialNo
+                                               , M.EquipmentModel.Model
+                                               , M.EquipmentModel.ModelDescription
+                                               , M.Customer.CustomerCode
+                                               , M.Customer.CustomerName
+                                               , M.Customer.District.District
+                                               , M.Customer.State.State
+                                               , M.DispatchedOn
+                                                 , M.WarrantyExpiryDate
+                                                );
+                }
+            }
+            new BXcel().ExporttoExcel(dt, "Equipment");
         }
 
         void fillDealer()
@@ -199,6 +234,16 @@ namespace DealerManagementSystem.ViewEquipment
         {
             divEquipmentView.Visible = false;
             divList.Visible = true;
+        }
+
+        void Search()
+        {
+            EquipmentSerialNo = txtEquipment.Text.Trim();
+            Customer = txtCustomer.Text.Trim();
+            DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            WarrantyStart = string.IsNullOrEmpty(txtWarrantyStart.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtWarrantyStart.Text.Trim());
+            WarrantyEnd = string.IsNullOrEmpty(txtWarrantyEnd.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtWarrantyEnd.Text.Trim());
+            StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
         }
     }
 }

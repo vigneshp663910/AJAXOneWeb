@@ -51,16 +51,16 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             string Message = "";
 
-            foreach (PDMS_ServiceTechnician t in SDMS_TechniciansWD)
-            {
-                foreach (PDMS_ServiceTechnicianWorkedDate W in t.ServiceTechnicianWorkedDate)
-                {
-                    if ((t.UserID.ToString() == ddlTechnician.SelectedValue) && (W.WorkedDate.ToString() == txtWorkedDate.Text))
-                    {
-                        return "Already this date added for this ticket. Please check it";
-                    }
-                }
-            }
+            //foreach (PDMS_ServiceTechnician t in SDMS_TechniciansWD)
+            //{
+            //    foreach (PDMS_ServiceTechnicianWorkedDate W in t.ServiceTechnicianWorkedDate)
+            //    {
+            //        if ((t.UserID.ToString() == ddlTechnician.SelectedValue) && (W.WorkedDate.ToString() == txtWorkedDate.Text))
+            //        {
+            //            return "Already this date added for this ticket. Please check it";
+            //        }
+            //    }
+            //}
             
             if (ddlTechnician.SelectedValue == "0")
             {

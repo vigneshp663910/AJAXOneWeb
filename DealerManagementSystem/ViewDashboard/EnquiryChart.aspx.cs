@@ -57,8 +57,8 @@ namespace DealerManagementSystem.ViewDashboard
 
             string Dealer = "";
             int? CountryID =  ddlMCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMCountry.SelectedValue);
-            string Region = "";
-            string ProductType = "";
+            string Region = ddlMRegion.SelectedValue == "0" ? null :  ddlMRegion.SelectedValue;
+            string ProductType = ddlProductType.SelectedValue == "0" ? null : ddlProductType.SelectedValue;
             DataTable dt = new BEnquiry().GetEnquirySourceWiseCount(txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), Dealer, CountryID, Region, ProductType);
             int Total = 0;
             foreach (DataRow dr in dt.Rows)
@@ -79,8 +79,10 @@ namespace DealerManagementSystem.ViewDashboard
             List<object> chartData = new List<object>();
             chartData.Add(new object[] { "Task", "Open" }); 
             int? CountryID = string.IsNullOrEmpty(Country) || Country == "0" ? (int?)null : Convert.ToInt32(Country);
-
+             
             Dealer = Dealer == "0" ? "" : Dealer;
+            Region = Region == "0" ? "" : Region;
+            ProductType = ProductType == "0" ? "" : ProductType;
             DataTable dt = new BEnquiry().GetEnquiryRegionWiseCount( DateFrom, DateTo, Dealer, CountryID, Region, ProductType);
             foreach (DataRow dr in dt.Rows)
             {
@@ -97,6 +99,8 @@ namespace DealerManagementSystem.ViewDashboard
             chartData.Add(new object[] { "Task", "Open" });
             int? CountryID = string.IsNullOrEmpty(Country) || Country == "0" ? (int?)null : Convert.ToInt32(Country);
             Dealer = Dealer == "0" ? "" : Dealer;
+            Region = Region == "0" ? "" : Region;
+            ProductType = ProductType == "0" ? "" : ProductType;
             DataTable dt = new BEnquiry().GetEnquirySourceWiseCount(DateFrom, DateTo, Dealer, CountryID, Region, ProductType);
             foreach (DataRow dr in dt.Rows)
             {

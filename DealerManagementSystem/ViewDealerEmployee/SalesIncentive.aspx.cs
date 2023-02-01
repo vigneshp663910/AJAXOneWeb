@@ -48,30 +48,30 @@ namespace DealerManagementSystem.ViewDealerEmployee
         {
             get
             {
-                if (Session["DTSalesIncentiveUpload"] == null)
+                if (ViewState["DTSalesIncentiveUpload"] == null)
                 {
-                    Session["DTSalesIncentiveUpload"] = new DataTable();
+                    ViewState["DTSalesIncentiveUpload"] = new DataTable();
                 }
-                return (DataTable)Session["DTSalesIncentiveUpload"];
+                return (DataTable)ViewState["DTSalesIncentiveUpload"];
             }
             set
             {
-                Session["DTSalesIncentiveUpload"] = value;
+                ViewState["DTSalesIncentiveUpload"] = value;
             }
         }
         public DataTable DTSalesIncentiveByID
         {
             get
             {
-                if (Session["SalesIncentiveByID"] == null)
+                if (ViewState["SalesIncentiveByID"] == null)
                 {
-                    Session["SalesIncentiveByID"] = new DataTable();
+                    ViewState["SalesIncentiveByID"] = new DataTable();
                 }
-                return (DataTable)Session["SalesIncentiveByID"];
+                return (DataTable)ViewState["SalesIncentiveByID"];
             }
             set
             {
-                Session["SalesIncentiveByID"] = value;
+                ViewState["SalesIncentiveByID"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -211,8 +211,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 {
                     InvoiceNo = txtInvoiceNo.Text.Trim();
                 }
-                //DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
-                //DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
                 int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
                 int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
 
@@ -358,11 +356,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 PageIndex = PageIndex - 1;
                 FillGrid();
             }
-            //if (gvSalesIncentive.PageIndex > 0)
-            //{
-            //    gvSalesIncentive.PageIndex = gvSalesIncentive.PageIndex - 1;
-            //    BindSalesIncentive(gvSalesIncentive, lblRowCount);
-            //}
         }
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
@@ -371,11 +364,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 PageIndex = PageIndex + 1;
                 FillGrid();
             }
-            //if (gvSalesIncentive.PageCount > gvSalesIncentive.PageIndex)
-            //{
-            //    gvSalesIncentive.PageIndex = gvSalesIncentive.PageIndex + 1;
-            //    BindSalesIncentive(gvSalesIncentive, lblRowCount);
-            //}
         }
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
@@ -440,6 +428,18 @@ namespace DealerManagementSystem.ViewDealerEmployee
             }
             Ready:
             new BXcel().ExporttoExcel(dt, "Sales Incentive");
+        }
+        protected void BtnFUpload_Click(object sender, EventArgs e)
+        {
+            FldSearch.Visible = false;
+            DivReport.Visible = false;
+            FldUpload.Visible = true;
+        }
+        protected void BtnFBack_Click(object sender, EventArgs e)
+        {
+            FldSearch.Visible = true;
+            DivReport.Visible = true;
+            FldUpload.Visible = false;
         }
     }
 }

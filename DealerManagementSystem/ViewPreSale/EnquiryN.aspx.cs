@@ -14,6 +14,19 @@ namespace DealerManagementSystem.ViewPreSale
 {
     public partial class EnquiryN : System.Web.UI.Page
     {
+        long? EnquiryID = null;
+        int? DealerID = null;
+        int? EngineerUserID = null;
+        string EnquiryNumber = null;
+        string CustomerName = null;
+        int? CountryID = null;
+        int? StateID = null;
+        int? DistrictID = null;
+        DateTime? DateFrom = null;
+        DateTime? DateTo = null;
+        int? SourceID = null;
+        int? StatusID = null;
+
         //public List<PEnquiry> PEnquiry
         //{
         //    get
@@ -123,26 +136,27 @@ namespace DealerManagementSystem.ViewPreSale
         }
         private void FillGrid()
         {
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            int? DealerEmployeeUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-            string CustomerName = txtSCustomerName.Text.Trim();
-            int? StateID = null, DistrictID = null;
-            int? CountryID = ddlCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCountry.SelectedValue);
-            if (CountryID != null)
-            {
-                StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
-                if (StateID != null)
-                    DistrictID = ddlDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDistrict.SelectedValue);
-            }
+            Search(); 
+            //int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            //int? DealerEmployeeUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+            //string CustomerName = txtSCustomerName.Text.Trim();
+            //int? StateID = null, DistrictID = null;
+            //int? CountryID = ddlCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCountry.SelectedValue);
+            //if (CountryID != null)
+            //{
+            //    StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+            //    if (StateID != null)
+            //        DistrictID = ddlDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDistrict.SelectedValue);
+            //}
 
-            int? SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
-            int? StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
+            //int? SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
+            //int? StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
 
-            DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
+            //DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
 
-            DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
+            //DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
 
-            PApiResult Result =  new BEnquiry().GetEnquiry(null, DealerID, DealerEmployeeUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT, SourceID, StatusID, PageIndex, gvEnquiry.PageSize);
+            PApiResult Result =  new BEnquiry().GetEnquiry(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, StatusID, PageIndex, gvEnquiry.PageSize);
 
             gvEnquiry.DataSource = JsonConvert.DeserializeObject<List<PEnquiry>>(JsonConvert.SerializeObject(Result.Data));
             gvEnquiry.DataBind();
@@ -231,8 +245,6 @@ namespace DealerManagementSystem.ViewPreSale
             }
         }
         
-
-
         protected void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -310,35 +322,18 @@ namespace DealerManagementSystem.ViewPreSale
             dt.Columns.Add("Country");
             dt.Columns.Add("State");
             dt.Columns.Add("District");
-            dt.Columns.Add("Product.");
+            dt.Columns.Add("Product");
             dt.Columns.Add("Source");
             dt.Columns.Add("Remarks"); 
             dt.Columns.Add("Rejected Remark"); 
-            dt.Columns.Add("Product Type");
-            dt.Columns.Add("Product");
+            dt.Columns.Add("Product Type"); 
             dt.Columns.Add("Sales Teritory Manager");
-            
+
+            Search();
 
 
 
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            int? DealerEmployeeUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-            string CustomerName = txtSCustomerName.Text.Trim();
-            int? StateID = null, DistrictID = null;
-            int? CountryID = ddlCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCountry.SelectedValue);
-            if (CountryID != null)
-            {
-                StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
-                if (StateID != null)
-                    DistrictID = ddlDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDistrict.SelectedValue);
-            }
 
-            int? SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
-            int? StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
-
-            DateTime? DateF = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
-
-            DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
             int i = 0;
             int Index = 0;
             int Rowcount = 200;
@@ -347,7 +342,7 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 Index = Index + 1;
                
-                PApiResult Result = new BEnquiry().GetEnquiry(null, DealerID, DealerEmployeeUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateF, DateT, SourceID, StatusID, Index, Rowcount);
+                PApiResult Result = new BEnquiry().GetEnquiry(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, StatusID, Index, Rowcount);
                  
                 List<PEnquiry> Enquirys = JsonConvert.DeserializeObject<List<PEnquiry>>(JsonConvert.SerializeObject(Result.Data));
                 CRowcount = Enquirys.Count; 
@@ -377,8 +372,7 @@ namespace DealerManagementSystem.ViewPreSale
                         , Enquiry.Source.Source
                         , Enquiry.Remarks
                         , Enquiry.RejectReason
-                        , Enquiry.ProductType.ProductType
-                        , Enquiry.ProductList.Product 
+                        , Enquiry.ProductType.ProductType 
                         ,Enquiry.STM.ContactName
                         );
                 }
@@ -394,6 +388,28 @@ namespace DealerManagementSystem.ViewPreSale
             finally
             { 
             }
+        }
+
+        void Search()
+        {
+            DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            EngineerUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+            CustomerName = txtSCustomerName.Text.Trim();
+
+            CountryID = ddlCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCountry.SelectedValue);
+            if (CountryID != null)
+            {
+                StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+                if (StateID != null)
+                    DistrictID = ddlDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDistrict.SelectedValue);
+            }
+
+            SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
+            StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
+
+            DateFrom = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
+
+            DateTo = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
         }
     }
 }

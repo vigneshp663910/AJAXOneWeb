@@ -4,55 +4,8 @@
 <%@ Register Src="~/ViewMaster/UserControls/CustomerVerification.ascx" TagPrefix="UC" TagName="UC_CustomerVerification" %>
 
 <script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
-<script type="text/javascript">  
-    function FleAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
+ 
 
-        var txtCustomerID = document.getElementById('MainContent_UC_CustomerView_txtFleetID');
-        txtCustomerID.value = CustomerID.innerText;
-        var txtCustomer = document.getElementById('MainContent_UC_CustomerView_txtFleet');
-        txtCustomer.value = CustomerName.innerText;
-
-        document.getElementById('FleDivAuto').style.display = "none";
-    }
-</script>
-<script type="text/javascript"> 
-    $(function () {
-        $('#FleDiv1').click(function () {
-            var CustomerID = document.getElementById('lblCustomerID1')
-            var CustomerName = document.getElementById('lblCustomerName1')
-            FleAutoCustomer(CustomerID, CustomerName, "", "");
-        });
-    });
-    $(function () {
-        $('#FleDiv2').click(function () {
-            var CustomerID = document.getElementById('lblCustomerID2')
-            var CustomerName = document.getElementById('lblCustomerName2')
-            FleAutoCustomer(CustomerID, CustomerName, "", "");
-        });
-    });
-    $(function () {
-        $('#FleDiv3').click(function () {
-            var CustomerID = document.getElementById('lblCustomerID3')
-            var CustomerName = document.getElementById('lblCustomerName3')
-            FleAutoCustomer(CustomerID, CustomerName, "", "");
-        });
-    });
-    $(function () {
-        $('#FleDiv4').click(function () {
-            var CustomerID = document.getElementById('lblCustomerID4')
-            var CustomerName = document.getElementById('lblCustomerName4')
-            FleAutoCustomer(CustomerID, CustomerName, "", "");
-        });
-    });
-    $(function () {
-        $('#FleDiv5').click(function () {
-            var CustomerID = document.getElementById('lblCustomerID5')
-            var CustomerName = document.getElementById('lblCustomerName5')
-            FleAutoCustomer(CustomerID, CustomerName, "", "");
-        });
-    });
-
-</script>
 <style>
     .fieldset-borderAuto {
         border: solid 1px #cacaca;
@@ -80,6 +33,7 @@
         height: 25px;
     }
 </style>
+<asp:HiddenField ID="hdfCustomerID" runat="server" />
 <asp:Panel ID="PnlCustomerView" runat="server" class="col-md-12">
     <div class="col-md-12">
         <div class="action-btn">
@@ -1012,19 +966,8 @@
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Customer Name</label>
-                        <asp:TextBox ID="txtFleet" runat="server" CssClass="form-control" MaxLength="40" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
-                        <div id="FleDivAuto" style="position: absolute; background-color: red; z-index: 1;">
-                            <div id="FleDiv1" class="fieldset-borderAuto" style="display: none">
-                            </div>
-                            <div id="FleDiv2" class="fieldset-borderAuto" style="display: none">
-                            </div>
-                            <div id="FleDiv3" class="fieldset-borderAuto" style="display: none">
-                            </div>
-                            <div id="FleDiv4" class="fieldset-borderAuto" style="display: none">
-                            </div>
-                            <div id="FleDiv5" class="fieldset-borderAuto" style="display: none">
-                            </div>
-                        </div>
+                        <asp:TextBox ID="txtFleet" runat="server" CssClass="form-control" MaxLength="40" BorderColor="Silver" onKeyUp="GetCustomerFleetAuto()" AutoCompleteType="Disabled"></asp:TextBox>
+                      
                     </div>
                     <div style="display: none">
                         <asp:TextBox ID="txtFleetID" runat="server" />
@@ -1211,3 +1154,77 @@
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
+
+
+<script type="text/javascript"> 
+    function GetCustomerFleetAuto() {
+        $("#MainContent_UC_CustomerView_hdfCustomerID").val('');
+        var param = { Cust: $('#MainContent_UC_CustomerView_txtFleet').val() }
+        var Customers = [];
+        if ($('#MainContent_UC_CustomerView_txtFleet').val().trim().length >= 3) {
+            $.ajax({
+                url: "Customer.aspx/GetCustomer1",
+                contentType: "application/json; charset=utf-8",
+                type: 'POST',
+                data: JSON.stringify(param),
+                dataType: 'JSON',
+                success: function (data) {
+                    var DataList = JSON.parse(data.d);
+                    for (i = 0; i < DataList.length; i++) {
+                        Customers[i] = {
+                            value: DataList[i].CustomerName,
+                            value1: DataList[i].CustomerID,
+                            CustomerType: DataList[i].CustomerType,
+                            ContactPerson: DataList[i].ContactPerson,
+                            Mobile: DataList[i].Mobile
+                        };
+                    }
+                    $('#MainContent_UC_CustomerView_txtFleet').autocomplete({
+                        source: function (request, response) { response(Customers) },
+                        select: function (e, u) {
+                            $("#MainContent_UC_CustomerView_hdfCustomerID").val(u.item.value1);
+                            document.getElementById('divCustomerViewID').style.display = "block";
+                            document.getElementById('divCustomerCreateID').style.display = "none";
+
+                            //$("#MainContent_UC_Customer_hdfCustomerName").val(u.item.value);
+                            //$("#MainContent_UC_Customer_hdfContactPerson").val(u.item.ContactPerson);
+                            //$("#MainContent_UC_Customer_hdfMobile").val(u.item.Mobile);
+
+                            //document.getElementById('lblCustomerName').innerText = u.item.value;
+                            //document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
+                            //document.getElementById('lblMobile').innerText = u.item.Mobile;
+
+
+                        },
+                        open: function (event, ui) {
+                            $(this).autocomplete("widget").css({
+                                "max-width":
+                                    $('#MainContent_UC_CustomerView_txtFleet').width() + 48,
+                            });
+                            $(this).autocomplete("widget").scrollTop(0);
+                        }
+                    }).focus(function (e) {
+                        $(this).autocomplete("search");
+                    }).click(function () {
+                        $(this).autocomplete("search");
+                    }).data('ui-autocomplete')._renderItem = function (ul, item) {
+
+                        var inner_html = FormatAutocompleteList(item);
+                        return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                            .data('item.autocomplete', item)
+                            .append(inner_html)
+                            .appendTo(ul);
+                    };
+
+                }
+            });
+        }
+        else {
+            $('#MainContent_UC_Customer_txtCustomerName').autocomplete({
+                source: function (request, response) {
+                    response($.ui.autocomplete.filter(Customers, ""))
+                }
+            });
+        }
+    }
+</script>

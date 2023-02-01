@@ -27,6 +27,10 @@
                     <label class="modal-label">EMail</label>
                     <asp:TextBox ID="txtMail" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                 </div>
+                 <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Product Type<samp style="color: red">*</samp></label>
+                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
+                </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Source<samp style="color: red">*</samp></label>
                     <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
