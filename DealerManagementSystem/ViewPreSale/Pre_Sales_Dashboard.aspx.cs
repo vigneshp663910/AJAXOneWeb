@@ -33,7 +33,7 @@ namespace DealerManagementSystem.ViewPreSale
         {
             if (!IsPostBack)
             {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales Dashboard');</script>"); 
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard  » Pre-Sales');</script>"); 
                 From = DateTime.Now.Date;
                 FromF = DateTime.Now.Date.AddDays(-7);
                 new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
