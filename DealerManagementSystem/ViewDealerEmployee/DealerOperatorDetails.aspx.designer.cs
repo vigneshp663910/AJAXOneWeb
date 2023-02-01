@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
 {
 
 
-    public partial class SalesIncentive
+    public partial class DealerOperatorDetails
     {
 
         /// <summary>
@@ -24,13 +24,13 @@ namespace DealerManagementSystem.ViewDealerEmployee
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// divSalesIncentiveList control.
+        /// divDealerOperatorDetailsList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSalesIncentiveList;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDealerOperatorDetailsList;
 
         /// <summary>
         /// FldSearch control.
@@ -42,33 +42,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl FldSearch;
 
         /// <summary>
-        /// ddlYear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlYear;
-
-        /// <summary>
-        /// ddlMonth control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMonth;
-
-        /// <summary>
-        /// txtInvoiceNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInvoiceNo;
-
-        /// <summary>
         /// ddlDealer control.
         /// </summary>
         /// <remarks>
@@ -78,13 +51,22 @@ namespace DealerManagementSystem.ViewDealerEmployee
         protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
-        /// ddlDealerEmployee control.
+        /// ddlRegion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealerEmployee;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRegion;
+
+        /// <summary>
+        /// ddlState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlState;
 
         /// <summary>
         /// BtnSearch control.
@@ -204,31 +186,31 @@ namespace DealerManagementSystem.ViewDealerEmployee
         protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
 
         /// <summary>
-        /// HiddenSalesIncentiveID control.
+        /// HiddenDealerOperatorDetailsID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenSalesIncentiveID;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenDealerOperatorDetailsID;
 
         /// <summary>
-        /// gvSalesIncentive control.
+        /// gvDealerOperatorDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSalesIncentive;
+        protected global::System.Web.UI.WebControls.GridView gvDealerOperatorDetails;
 
         /// <summary>
-        /// divSalesIncentiveView control.
+        /// divDealerOperatorDetailsView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSalesIncentiveView;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDealerOperatorDetailsView;
 
         /// <summary>
         /// btnBackToList control.
@@ -249,31 +231,22 @@ namespace DealerManagementSystem.ViewDealerEmployee
         protected global::System.Web.UI.WebControls.Label lblDealerCode;
 
         /// <summary>
-        /// lblSPAadhaarNo control.
+        /// lblState control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSPAadhaarNo;
+        protected global::System.Web.UI.WebControls.Label lblState;
 
         /// <summary>
-        /// lblInvoiceNo control.
+        /// lblEmailID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInvoiceNo;
-
-        /// <summary>
-        /// lblIncentiveAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIncentiveAmount;
+        protected global::System.Web.UI.WebControls.Label lblEmailID;
 
         /// <summary>
         /// lblDealerName control.
@@ -285,48 +258,39 @@ namespace DealerManagementSystem.ViewDealerEmployee
         protected global::System.Web.UI.WebControls.Label lblDealerName;
 
         /// <summary>
-        /// lblSalesLevel control.
+        /// lblRegion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSalesLevel;
+        protected global::System.Web.UI.WebControls.Label lblRegion;
 
         /// <summary>
-        /// lblInvoiceDate control.
+        /// lblYearsOfExperience control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInvoiceDate;
+        protected global::System.Web.UI.WebControls.Label lblYearsOfExperience;
 
         /// <summary>
-        /// lblSPName control.
+        /// lblDealerOperatorName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSPName;
+        protected global::System.Web.UI.WebControls.Label lblDealerOperatorName;
 
         /// <summary>
-        /// lblMonthandYear control.
+        /// lblContactNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMonthandYear;
-
-        /// <summary>
-        /// lblModel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblModel;
+        protected global::System.Web.UI.WebControls.Label lblContactNumber;
     }
 }

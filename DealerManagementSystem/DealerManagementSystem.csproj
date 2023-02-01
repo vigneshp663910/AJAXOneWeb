@@ -394,6 +394,7 @@
     <Content Include="ViewDashboard\UserControls\ICTicketTransactionStatics.ascx" />
     <Content Include="ViewDashboard\UserControls\LeadStatusDashboard.ascx" />
     <Content Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
+    <Content Include="ViewDealerEmployee\DealerOperatorDetails.aspx" />
     <Content Include="ViewDealerEmployee\SalesIncentive.aspx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
@@ -1077,6 +1078,13 @@
     </Compile>
     <Compile Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\DealerOperatorDetails.aspx.cs">
+      <DependentUpon>DealerOperatorDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\DealerOperatorDetails.aspx.designer.cs">
+      <DependentUpon>DealerOperatorDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\SalesIncentive.aspx.cs">
       <DependentUpon>SalesIncentive.aspx</DependentUpon>
