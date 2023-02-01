@@ -294,11 +294,11 @@
     <Content Include="ProcessFlow\DMM_Process.aspx" />
     <Content Include="ProcessFlow\DMM_Process.png" />
     <Content Include="ProcessFlow\Parts_Org1.png" />
-    <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Pre_Sales1.png" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\Sales_Org1.png" />
     <Content Include="ProcessFlow\Service_Org1.png" />
+    <Content Include="ProcessFlow\Ticketing.aspx" />
     <Content Include="ProcessFlow\V0_DMPM.png" />
     <Content Include="ProcessFlow\V0_Implementation.png" />
     <Content Include="ProcessFlow\V0_Physical_Inventory.png" />
@@ -306,6 +306,7 @@
     <Content Include="ProcessFlow\V0_Purchse_Return.png" />
     <Content Include="ProcessFlow\V0_Secondary_Sales.png" />
     <Content Include="ProcessFlow\V0_Stock_Transfer.png" />
+    <Content Include="ProcessFlow\V0_Ticket_System.png" />
     <Content Include="ProcessFlow\V0_WebMobileUserID.png" />
     <Content Include="ProcessFlow\V1_SalesCommision.png" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -814,12 +815,12 @@
     <Compile Include="ProcessFlow\DMM_Process.aspx.designer.cs">
       <DependentUpon>DMM_Process.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ProcessFlow\Pre_Sales.aspx.cs">
-      <DependentUpon>Pre_Sales.aspx</DependentUpon>
+    <Compile Include="ProcessFlow\Ticketing.aspx.cs">
+      <DependentUpon>Ticketing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ProcessFlow\Pre_Sales.aspx.designer.cs">
-      <DependentUpon>Pre_Sales.aspx</DependentUpon>
+    <Compile Include="ProcessFlow\Ticketing.aspx.designer.cs">
+      <DependentUpon>Ticketing.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesOrderTemp.aspx.cs">
       <DependentUpon>SalesOrderTemp.aspx</DependentUpon>
