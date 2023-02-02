@@ -84,8 +84,8 @@
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
-<asp:TabContainer ID="tbpTaskView" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="10">
-    <asp:TabPanel ID="tpnlAssigned" runat="server" HeaderText="Assigned" Font-Bold="True" ToolTip="">
+<asp:TabContainer ID="tbpTaskView" runat="server" ToolTip="Assigned Status..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="10">
+    <asp:TabPanel ID="tpnlAssigned" runat="server" HeaderText="Assigned" Font-Bold="True" ToolTip="Assigned Status...">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -162,7 +162,7 @@
             </div>
         </ContentTemplate>
     </asp:TabPanel>
-    <asp:TabPanel ID="tpnlTicketHistory" runat="server" HeaderText="Ticket History" Font-Bold="True" ToolTip="">
+    <asp:TabPanel ID="tpnlTicketHistory" runat="server" HeaderText="Ticket History" Font-Bold="True" ToolTip="Ticket Conversations...">
         <ContentTemplate>
             <div class="col-md-12" id="Div1" runat="server">
                 <div class="col-md-12 Report">
@@ -199,7 +199,7 @@
             </div>
         </ContentTemplate>
     </asp:TabPanel>
-    <asp:TabPanel ID="tpnlTicketApprovalDetails" runat="server" HeaderText="Ticket Approval Details" Font-Bold="True" ToolTip="">
+    <asp:TabPanel ID="tpnlTicketApprovalDetails" runat="server" HeaderText="Ticket Approval Details" Font-Bold="True" ToolTip="Approval Status...">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">

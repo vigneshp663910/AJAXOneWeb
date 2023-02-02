@@ -29,7 +29,8 @@ namespace DealerManagementSystem.ViewDashboard
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            { 
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Enquiry');</script>");
                 new DDLBind(ddlMDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 new DDLBind(ddlMCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                 new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");

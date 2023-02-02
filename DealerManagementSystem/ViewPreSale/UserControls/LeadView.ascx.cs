@@ -892,7 +892,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnLostLead.Visible = true;
             lbtnCancelLead.Visible = true;
 
-            if (Lead.Status.StatusID == (short)LeadStatus.Cancelled)
+            if (Lead.Status.StatusID == (short)LeadStatus.Dropped)
             {
                 lbtnEditLead.Visible = false;
                 lbtnAssign.Visible = false;

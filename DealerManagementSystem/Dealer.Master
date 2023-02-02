@@ -1303,7 +1303,7 @@
 
 
         #divEnquiryStatistics .thumbnail.wide_thumbnail {
-            width: 30.6%;
+            width: 20%;
             padding-top: 20px;
             padding-bottom: 20px;
             padding-right: 25px !important;

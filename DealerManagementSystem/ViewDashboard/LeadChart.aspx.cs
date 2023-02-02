@@ -32,6 +32,7 @@ namespace DealerManagementSystem.ViewDashboard
         {
             if (!IsPostBack)
             {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Lead');</script>");
                 new DDLBind(ddlYDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 new DDLBind(ddlYCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                 new DDLBind(ddlMDealer, PSession.User.Dealer, "CodeWithName", "DID");

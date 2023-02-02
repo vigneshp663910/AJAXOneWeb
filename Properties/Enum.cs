@@ -646,21 +646,24 @@ namespace Properties
     }
     public enum LeadStatus
     {
-        Open = 1,
-        Assigned,
-        Quotation,
-        Won,
-        Lost,
-        Cancelled,
+        Unattended = 1,
+        InProgress = 2,
+        Quotation = 3,
+        Won = 4,
+        SalesLost = 5,
+        Dropped = 6
     }
     public enum PreSaleStatus
     {
-        Open = 1,
-        Close,
-        Cancel,
-        ConvertedToLead ,
-        Rejected,
+        Unattended = 1,
+        Close = 2,
+        Cancel = 3,
+        ConvertedToLead = 4,
+        Rejected = 5,
+        InProgress = 6
     }
+     
+
 
     public enum DealerDesignation
     {

@@ -117,6 +117,14 @@
             </ContentTemplate>
         </asp1:TabPanel>
 
+        <asp1:TabPanel ID="tpTask" runat="server" HeaderText="Task">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:Image ID="Image12" runat="server" ImageUrl="~/ProcessFlow/V0_Ticket_System.png" />
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+
 
     </asp1:TabContainer>
     <%--    </div>--%>

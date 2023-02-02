@@ -141,7 +141,7 @@
                     </div>
                 </fieldset>
 
-                <asp:TabContainer ID="tbpTaskView" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="10">
+                <asp:TabContainer ID="tbpTaskView" runat="server" ToolTip="Assigned Status..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="1">
                     <asp:TabPanel ID="tpnlAssigned" runat="server" HeaderText="Assigned" Font-Bold="True" ToolTip="">
                         <ContentTemplate>
                             <div class="col-md-12 Report">
