@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Transactions;
 using System.Web.UI.WebControls;
@@ -187,7 +188,41 @@ namespace Business
             { }
             return Dealers;
         }
+        public List<PDealer> GetUserByDealerIDs(string DealerID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDealer> Dealers = new List<PDealer>();
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.String);
+                DbParameter[] Params = new DbParameter[1] { DealerIDP};
+                using (DataSet ds = provider.Select("GetUserByDealerIDs", Params))
+                {
+                    if (ds != null)
+                    {
+                        DataTable dt = ds.Tables[0];
 
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            PDealer Dealer = new PDealer();
+                            Dealer.DID = Convert.ToInt32(dr["DID"]);
+                            Dealer.UserName = Convert.ToString(dr["UserName"]);
+                            Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
+                            Dealer.ContactName = Convert.ToString(dr["ContactName"]);
+                            Dealer.CodeWithName = Convert.ToString(dr["DealerCode"]) + "-" + Convert.ToString(dr["DisplayName"]);
+                            Dealer.MailID1 = Convert.ToString(dr["MailID"]);
+                            Dealers.Add(Dealer);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDealer", "GetUserByDealerIDs", ex);
+                throw ex;
+            }
+            return Dealers;
+        }
 
         public PDealer GetDealerByID(int? DealerID,string DealerCode)
         {
