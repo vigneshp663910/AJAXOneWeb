@@ -382,8 +382,7 @@
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption" style="font-size: 25px; border-bottom-color: #FF9933; border-bottom-width: medium; border-bottom-style: solid;">
-                        Enquiry Statistics     
-                       
+                        Enquiry Statistics                       
                     </div>
                 </div>
 
@@ -408,7 +407,7 @@
                             <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color:#3598dc;">
                                 <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                     <div class="visual myDIV"><i class="fa fa-ticket"></i></div>
-                                    <div class="hide">Yet to Reach Customer</div>
+                                    <div class="hide">Contacting the Customer</div>
                                     <div class="details" style="color: white;">
                                         <asp:Label ID="lblEnquiryInProgress" runat="server" Text="0"></asp:Label>
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
@@ -451,8 +450,9 @@
             </div>
 
             <div class="portlet box green">
+
                 <div class="portlet-title">
-                    <div class="caption" style="font-size: 25px; border-bottom-color: #556b2f; border-bottom-width:initial; border-bottom-style:none;">
+                    <div class="caption" style="font-size: 25px; border-bottom-color: #417D1C; border-bottom-width:initial; border-bottom-style:solid;">
                         Lead Statistics             
                     
                     </div>
