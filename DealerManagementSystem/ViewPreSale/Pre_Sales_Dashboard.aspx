@@ -405,7 +405,7 @@
                                   
                             </div>
 
-                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;">
+                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color:#3598dc;">
                                 <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                     <div class="visual myDIV"><i class="fa fa-ticket"></i></div>
                                     <div class="hide">Yet to Reach Customer</div>
