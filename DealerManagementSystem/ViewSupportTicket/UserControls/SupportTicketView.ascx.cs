@@ -1097,6 +1097,10 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             lbtnForceclose.Visible = true;
             lbtnClose.Visible = true;
 
+
+
+
+
             if (Ticket[0].Status.StatusID == 1)
             {
                 lbtnClose.Visible = false;
@@ -1188,7 +1192,12 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lbtnForceclose.Visible = false;
                 lbtnClose.Visible = false;
             }
-            if (PSession.User.UserID != 1)
+
+            if (PSession.User.UserID == 1 || PSession.User.UserID == 382 || PSession.User.UserID == 491
+               || PSession.User.UserID == 383 || PSession.User.UserID == 2954)
+            {
+
+            }
             {
                 lbtnAssignTo.Visible = false;
                 lbtnSendApproval.Visible = false;

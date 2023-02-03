@@ -67,6 +67,24 @@ namespace DealerManagementSystem.ViewDashboard
                 Total = Total + Convert.ToInt32(dr["Count"]);
             }
             lblEnquiryCount.Text = Total.ToString();
+
+
+            DataSet ds = new BEnquiry().GetEnquiryConversionPercentage(txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), Dealer, CountryID, Region, ProductType);
+
+            gvEnquiryProductType.DataSource = ds.Tables[0];
+            gvEnquiryProductType.DataBind();
+
+            gvEnquirySource.DataSource = ds.Tables[1];
+            gvEnquirySource.DataBind();
+
+            int TotalCount = 0, ConvertedCount = 0;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                TotalCount = TotalCount + Convert.ToInt32(dr["TotalCount"]);
+                ConvertedCount = ConvertedCount + Convert.ToInt32(dr["ConvertedCount"]);
+            }
+            lblTotalConversion.Text = Convert.ToDecimal((ConvertedCount * 100 / TotalCount)).ToString("00.00") + " %";
+            
         } 
         protected void ddlMCountry_SelectedIndexChanged(object sender, EventArgs e)
         {

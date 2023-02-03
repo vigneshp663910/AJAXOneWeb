@@ -334,6 +334,15 @@ namespace Business
                 + "&Country=" + CountryID + "&Region=" + RegionID + "&ProductType=" + ProductTypeID;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public DataSet GetEnquiryConversionPercentage(string DateFrom, string DateTo, string DealerID, int? CountryID, string RegionID, string ProductTypeID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Enquiry/EnquiryConversionPercentage?DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&Dealer=" + DealerID
+                + "&Country=" + CountryID + "&Region=" + RegionID + "&ProductType=" + ProductTypeID;
+            return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
         public DataTable GetEnquiryStatusHistory(long EnquiryID)
         {
             DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int64);

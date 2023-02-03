@@ -1,33 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="EnquiryChart.aspx.cs" Inherits="DealerManagementSystem.ViewDashboard.EnquiryChart" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style>
-        #divRegionEast {
-            position: relative;
-            width: 550px;
-            height: 400px;
-        }
-
-        #divRegionNorth {
-            position: relative;
-            width: 550px;
-            height: 400px;
-        }
-
-        #divRegionSouth {
-            position: relative;
-            width: 550px;
-            height: 400px;
-        }
-
-        #divRegionWest {
-            position: relative;
-            width: 550px;
-            height: 400px;
-        }
-    </style>
-
+<asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
     <style>
         .sapMNCValueScr {
             overflow: hidden;
@@ -38,6 +12,213 @@
         }
     </style>
 
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <style>
+        /*#div1 {*/
+        /*height: 91.7vh;*/
+        /*display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin-left: 1px;
+            background: skyblue;
+            background: linear-gradient(to right, #4e97d5, #30526f );*/
+        /* background-image:url('https://localhost:44343/Ajax/Images/bg01.jpg');*/
+        /* background-image:url('https://localhost:44343/Ajax/Images/bg05q.png');*/
+        /* background-image:url('https://localhost:44343/Ajax/Images/bg04r.png');*/
+        /*background-image: url('https://ajaxapps.ajax-engg.com:1444/Ajax/Images/bg05qr.png');*/
+        /* scroll*/
+        /*}*/
+
+
+
+
+        #div1 {
+            /*height: 91.7vh;*/
+            /* height: 100vh;*/
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin-left: 1px;
+            background: skyblue;
+            background: linear-gradient(to right, #4e97d5, #30526f );
+            /* background-image:url('https://localhost:44343/Ajax/Images/bg01.jpg');*/
+            /* background-image:url('https://localhost:44343/Ajax/Images/bg05q.png');*/
+            /* background-image:url('https://localhost:44343/Ajax/Images/bg04r.png');*/
+            background-image: url('https://ajaxapps.ajax-engg.com:1444/Ajax/Images/bg05qr.png');
+            /* scroll*/
+        }
+
+        .home-search-panel {
+            padding: 15px;
+        }
+
+            .home-search-panel .tbl-col-right {
+                margin-bottom: 10px;
+            }
+
+        .tbl-col-right .textBox.form-control {
+            height: 35px;
+            padding: 0px 7px;
+        }
+
+        .tbl-col-right input.form-control {
+            height: 35px;
+            padding: 0px 10px;
+        }
+
+        .home-search-bar {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #2f516e;
+        }
+
+            .home-search-bar:hover {
+                background: #336699;
+            }
+
+            .home-search-bar a {
+                padding: 5px;
+            }
+
+        .home-history-body {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .navbar-home-content {
+            width: 300px;
+        }
+
+        .home-search-main {
+            transition: width .4s;
+            /*width: 300px;*/
+            float: right;
+            margin-top: 21px;
+            margin-bottom: 20px;
+            position: absolute;
+            right: 0;
+            z-index: 9;
+            border: 1px solid #3C4C5B;
+        }
+
+        .details {
+            position: relative;
+        }
+
+            .details .desc {
+                clear: both;
+                font-size: larger;
+            }
+
+            .details #donut_single {
+                float: right;
+            }
+
+        .details-position {
+            position: absolute;
+            width: 100%;
+            /* bottom: 0; */
+            top: 47px;
+        }
+        /*Home page tiles*/
+        /*.container .tblcontrols12 {
+            position: relative;
+        }
+        .container .tblcontrols12 div.cell {
+
+        }
+        .container .tblcontrols12 #Div1 {
+            float:left;
+            width:48%;
+        }
+        .container .tblcontrols12 #Div1 .modbox, .container .tblcontrols12 #Div2 .modbox  {
+            margin-right:11px;
+            margin-bottom:15px;
+        }
+        .container .tblcontrols12 #Div3 .modbox {
+            margin-right:11px;
+        }
+        .container .tblcontrols12 #Div2 {
+            float:right;
+            width:52%;
+        }
+        .container .tblcontrols12 #Div2 .modbox, .container .tblcontrols12 #Div5 .modbox, .container .tblcontrols12 #Div6 .modbox, 
+        .container .tblcontrols12 #Div7 .modbox {
+            margin-left:22px;
+        }
+        .container .tblcontrols12 #Div1 .dashboardGrid, .container .tblcontrols12 #Div2 .dashboardGrid {
+            padding:15px;
+            background:#d8d8d8;
+        }
+        .container .tblcontrols12 #Div3 {
+            width:70%;
+            float:left;
+        }
+        .container .tblcontrols12 #Div3 .dashboardGrid img  {
+        }
+        .container .tblcontrols12 #Div4 {
+            clear:both;
+        }
+        .container .tblcontrols12 #Div4, .container .tblcontrols12 #Div5,.container .tblcontrols12 #Div6 {
+            width:33.33%;
+            float:left;
+        }*/
+        /* .container .tblcontrols12 #Div6 {
+            width:30%;
+            float:right;
+        }
+            
+        .container .tblcontrols12 #Div7 {
+            width:30%;
+            float:right;
+        }*/
+        /*.container .tblcontrols12 div.cell table {
+            width:100%;
+        }
+        .container .tblcontrols12 div.cell table tr td {
+            
+        }
+        .modbox .row {
+            margin: 0;
+        }
+        .modbox .wide_thumbnail {
+            margin: 0!important;
+            padding-bottom: 10px;
+        }
+        .modbox .portlet-body {
+            padding: 0!important;
+        }
+        .modbox .portlet-body .details span {
+            font-size:100px;
+        }
+        .container .tblcontrols12 div.cell {
+            margin-bottom: 15px;
+        }
+        .cell .modbox .modtitle {
+            font-size: 18px;
+            text-shadow: 1px 2px 3px #bac4cf;
+            font-weight: 500;
+        }
+        @media screen and (max-width: 767px) {
+            .container .tblcontrols12 div.cell {
+                width:100%!important;
+                float:none!important;
+            }
+            .container .tblcontrols12 #Div1 .modbox, .container .tblcontrols12 #Div3 .modbox, .container .tblcontrols12 #Div2 .modbox, .container .tblcontrols12 #Div4 .modbox, .container .tblcontrols12 #Div5 .modbox, .container .tblcontrols12 #Div6 .modbox, 
+            .container .tblcontrols12 #Div7 .modbox {
+                margin:0;
+            }
+        }
+        @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
+
+            #div1 {
+                /*height: 93.2vh;
+                 margin-left: 0px;*/
+        /* }
+        }*/
+    </style>
     <style>
         .grid-item {
             background: #fff;
@@ -79,91 +260,185 @@
             height: 100px !important;
         }
 
-
-        #div1 {
-            /*height: 91.7vh;*/
-            min-height: 91.7vh; 
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            margin-left: 1px;
-            background: skyblue;
-            background: linear-gradient(to right, #4e97d5, #30526f );
-            /* background-image:url('https://localhost:44343/Ajax/Images/bg01.jpg');*/
-            /* background-image:url('https://localhost:44343/Ajax/Images/bg05q.png');*/
-            /* background-image:url('https://localhost:44343/Ajax/Images/bg04r.png');*/
-            background-image: url('https://ajaxapps.ajax-engg.com:1444/Ajax/Images/bg05qr.png');
-            /* scroll*/
+        #MainContent_tblDashboard .grid {
+            /*  display: flex;
+    flex-wrap: wrap;*/
+            /*-webkit-column-width: 19em;
+    -webkit-column-gap: 1rem;*/
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            $('.grid').masonry({
+                // options
+                itemSelector: '.grid-item',
+                columnWidth: 10
+            });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
-    
 
-        <div class="col-md-12">
-            <div class="col-md-12" id="divList" runat="server">
-                <fieldset class="fieldset-border" id="Fieldset2" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
-                    <div class="col-md-12">
-                        <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Date From</label>
-                            <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Date To</label>
-                            <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-                        </div>
 
-                        <div class="col-md-2 text-left">
-                            <label>Dealer</label>
-                            <asp:DropDownList ID="ddlMDealer" runat="server" CssClass="form-control" />
-                        </div>
-                        <div class="col-md-2 text-left">
-                            <label>Country</label>
-                            <asp:DropDownList ID="ddlMCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlMCountry_SelectedIndexChanged" AutoPostBack="true" />
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label>Region</label>
-                            <asp:DropDownList ID="ddlMRegion" runat="server" CssClass="form-control"></asp:DropDownList>
-                        </div>
-
-                        <div class="col-md-2 col-sm-12">
-                            <label>ProductType</label>
-                            <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control"></asp:DropDownList>
-                        </div>
-                        <div class="col-md-12 text-center">
-                            <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                        </div>
+    <div class="col-md-12">
+        <div class="col-md-12" id="divList" runat="server">
+            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Date From</label>
+                        <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                     </div>
-                </fieldset>
-            </div>
-        </div>
-        <div class="col-md-12 Report">
-            <div class="table-responsive">
-            </div>
-        </div>
-        <div id="div1">
-        <div class="tile-size-two grid-item">
-            <div class="content">
-                <div class="details">
-                    <div class="desc">
-                        <asp:Label ID="Label3" Text="Sum of Enquiry" runat="server" />
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Date To</label>
+                        <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                     </div>
-                    <div class="details-position">
-                        <asp:Label ID="lblEnquiryCount" runat="server" Text="0" CssClass="sapMNCValueScr"></asp:Label>
+
+                    <div class="col-md-2 text-left">
+                        <label>Dealer</label>
+                        <asp:DropDownList ID="ddlMDealer" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-2 text-left">
+                        <label>Country</label>
+                        <asp:DropDownList ID="ddlMCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlMCountry_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label>Region</label>
+                        <asp:DropDownList ID="ddlMRegion" runat="server" CssClass="form-control"></asp:DropDownList>
+                    </div>
+
+                    <div class="col-md-2 col-sm-12">
+                        <label>ProductType</label>
+                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="col-md-12 Report">
+        <div class="table-responsive">
+        </div>
+    </div>
+    <div id="div1">
+        <div class="grid">
+            <div class="tile-size-one grid-item">
+                <div class="content">
+                    <div class="details">
+                        <div class="desc">
+                            <asp:Label ID="Label3" Text="Total Enquiry" runat="server" />
+                        </div>
+                        <div class="details-position">
+                            <asp:Label ID="lblEnquiryCount" runat="server" Text="0" CssClass="sapMNCValueScr"></asp:Label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="col-md-5">
-                <div id="divRegion"></div>
+            <div class="tile-size-one grid-item">
+                <div class="content">
+                    <div class="details">
+                        <div class="desc">
+                            <asp:Label ID="Label1" Text="Enquiry Conversion % " runat="server" />
+                        </div>
+                        <div class="details-position">
+                            <asp:Label ID="lblTotalConversion" runat="server" Text="0" CssClass="sapMNCValueScr"></asp:Label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-5">
-                <div id="divSource"></div>
+            <div class="tile-size-one grid-item">
+                <div class="content">
+                    <div class="details">
+                        <div class="desc">
+                            <asp:Label ID="Label4" Text="Enquiry Velocity Avg" runat="server" />
+                        </div>
+                        <div class="details-position">
+                            <asp:Label ID="Label5" runat="server" Text="0" CssClass="sapMNCValueScr"></asp:Label>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="tile-size-two grid-item" style="height: auto !important">
+                <div class="content">
+                    <div class="details">
+                        <div id="divRegion" style="height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tile-size-two grid-item" style="height: auto !important">
+                <div class="content">
+                    <div class="details">
+                        <div id="divSource" style="height: 300px"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tile-size-two grid-item" style="height: auto !important">
+                <div class="content">
+                    <div class="content">
+                        <div class="details">
+                            <div class="desc">
+                                <asp:Label ID="Label2" Text="Conversion % - Product wise" runat="server" />
+                            </div>
+
+                            <asp:GridView ID="gvEnquiryProductType" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Product Type" DataField="ProductType" />
+                                    <asp:BoundField HeaderText="Conversion" DataField="Conversion">
+                                        <ItemStyle HorizontalAlign="Right" ForeColor="#e78c07" />
+                                    </asp:BoundField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tile-size-four grid-item" style="height: auto !important">
+                <div class="content">
+                    <div class="content">
+                        <div class="details">
+                            <div class="desc">
+                                <asp:Label ID="Label6" Text="Conversion % - Source wise" runat="server" />
+                                <br />
+                            </div>
+                            <asp:GridView ID="gvEnquirySource" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
+                                <Columns>
+                                    <asp:BoundField HeaderText="Source" DataField="LeadSource" />
+                                    <asp:BoundField HeaderText="Conversion" DataField="Conversion">
+                                        <ItemStyle HorizontalAlign="Right" ForeColor="#e78c07" />
+                                    </asp:BoundField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%--      <div class="col-md-12">
+                <div class="col-md-5">
+                    
+                </div>
+                <div class="col-md-5">
+                   
+                </div>
+            </div>--%>
         </div>
+
 
     </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -261,8 +536,8 @@
                         title: 'Source Wise Enquiry',
                         pieHole: 0.5,
                         ////width: '80%',
-                        height: 300, 
-                         legend: { position: 'bottom' },
+                        height: 300,
+                        legend: { position: 'bottom' },
                         //bar: { groupWidth: '80%' },
                         //isStacked: true,
                         //is3D: true,
