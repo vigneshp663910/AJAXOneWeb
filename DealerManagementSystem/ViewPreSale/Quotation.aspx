@@ -44,11 +44,14 @@
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Mobile</label>
-                            <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                            <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtMobile" WatermarkText="Mobile" WatermarkCssClass="WatermarkCssClass" />
+                            <label class="modal-label">Lead Number</label>
+                            <asp:TextBox ID="txtLeadNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                       <%-- <div class="col-md-2 col-sm-12">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Quotation Number</label>
+                            <asp:TextBox ID="txtQuotationNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <%-- <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Country</label>
                             <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" />
                         </div>--%>
@@ -90,7 +93,7 @@
                                 </div>
                             </div>
 
-                            <asp:GridView ID="gvQuotation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
+                            <asp:GridView ID="gvQuotation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" >
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -156,7 +159,7 @@
                                     <asp:TemplateField HeaderText="Created">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" /> 
+                                            <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField>

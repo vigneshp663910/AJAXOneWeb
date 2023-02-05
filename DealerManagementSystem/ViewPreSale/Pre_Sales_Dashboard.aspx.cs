@@ -160,8 +160,8 @@ namespace DealerManagementSystem.ViewPreSale
                 if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.InProgress).Count() != 0))
                 {
                     var ss = StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.InProgress).ToList();
-                    lblEnquiryOpen.Text = ss[0].Count.ToString();
-                    TotalEnq = ss[0].Count;
+                    lblEnquiryInProgress.Text = ss[0].Count.ToString();
+                    TotalEnq = TotalEnq + ss[0].Count;
                 }
                 if ((StatusEnq.Where(m => m.StatusID == (short)PreSaleStatus.ConvertedToLead).Count() != 0))
                 {

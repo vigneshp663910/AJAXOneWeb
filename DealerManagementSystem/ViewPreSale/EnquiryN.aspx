@@ -5,7 +5,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-   <%-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <%-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
@@ -36,7 +36,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
-  <%--  <asp:ListBox ID="lstFruits" runat="server" SelectionMode="Multiple">
+    <%--  <asp:ListBox ID="lstFruits" runat="server" SelectionMode="Multiple">
         <asp:ListItem Text="Mango" Value="1" />
         <asp:ListItem Text="Apple" Value="2" />
         <asp:ListItem Text="Banana" Value="3" />
@@ -101,7 +101,8 @@
                         <label>Status</label>
                         <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control">
                             <asp:ListItem Value="0">Select</asp:ListItem>
-                            <asp:ListItem Value="1">Open</asp:ListItem>
+                            <asp:ListItem Value="1">Unattended</asp:ListItem>
+                            <asp:ListItem Value="6">In Progress</asp:ListItem>
                             <asp:ListItem Value="4">Converted To Lead</asp:ListItem>
                             <asp:ListItem Value="5">Rejected</asp:ListItem>
                         </asp:DropDownList>

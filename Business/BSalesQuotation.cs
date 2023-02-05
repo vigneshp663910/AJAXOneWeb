@@ -719,14 +719,14 @@ namespace Business
             return Ws;
         }
 
-        public List<PSalesQuotation> GetSalesQuotationBasic(long? SalesQuotationID, long? RefQuotationID, long? LeadID,string RefQuotationDate
-          , string QuotationNo, string QuotationDateFrom, string QuotationDateTo, int? QuotationTypeID, int? StatusID, int? UserStatusID, int? DealerID, int? SalesEngineerID, string CustomerCode,string Mobile)
+        public PApiResult GetSalesQuotationBasic(long? SalesQuotationID, string QuotationNo, string QuotationDateFrom, string QuotationDateTo
+            , long? LeadID,string LeadNumber, int? StatusID, int? UserStatusID, int? DealerID, int? SalesEngineerID, string CustomerCode, int? PageIndex = null, int? PageSize = null)
         {
-            string endPoint = "SalesQuotation/SalesQuotationBasic?SalesQuotationID=" + SalesQuotationID + "&RefQuotationID=" + RefQuotationID + "&LeadID=" + LeadID 
-                + "&RefQuotationDate=" + RefQuotationDate                + "&QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom 
-                + "&QuotationDateTo=" + QuotationDateTo + "&QuotationTypeID=" + QuotationTypeID + "&StatusID=" + StatusID + "&UserStatusID=" + UserStatusID
-                + "&DealerID=" + DealerID + "&SalesEngineerID=" + SalesEngineerID +   "&CustomerCode=" + CustomerCode + "&Mobile=" + Mobile; ;
-            return JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            string endPoint = "SalesQuotation/SalesQuotationBasic?SalesQuotationID=" + SalesQuotationID + "&QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom  + "&QuotationDateTo=" + QuotationDateTo 
+                + "&LeadID=" + LeadID + "&LeadNumber=" + LeadNumber
+                + "&StatusID=" + StatusID + "&UserStatusID=" + UserStatusID + "&DealerID=" + DealerID + "&SalesEngineerID=" + SalesEngineerID
+                + "&CustomerCode=" + CustomerCode + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
 
         }
         public PSalesQuotation GetSalesQuotationByID(long SalesQuotationID)

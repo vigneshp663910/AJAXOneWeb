@@ -60,13 +60,13 @@ namespace DealerManagementSystem.ViewDashboard
         protected global::System.Web.UI.WebControls.TextBox txtDateTo;
 
         /// <summary>
-        /// ddlMDealer control.
+        /// ddlmDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMDealer;
+        protected global::DealerManagementSystem.UserControls.MultiSelectDropDown ddlmDealer;
 
         /// <summary>
         /// ddlMCountry control.
@@ -87,13 +87,13 @@ namespace DealerManagementSystem.ViewDashboard
         protected global::System.Web.UI.WebControls.DropDownList ddlMRegion;
 
         /// <summary>
-        /// ddlProductType control.
+        /// ddlmProductType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
+        protected global::DealerManagementSystem.UserControls.MultiSelectDropDown ddlmProductType;
 
         /// <summary>
         /// BtnSearch control.
@@ -141,22 +141,31 @@ namespace DealerManagementSystem.ViewDashboard
         protected global::System.Web.UI.WebControls.Label lblTotalConversion;
 
         /// <summary>
-        /// Label4 control.
+        /// Label8 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label Label8;
 
         /// <summary>
-        /// Label5 control.
+        /// Label9 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
+        protected global::System.Web.UI.WebControls.Label Label9;
+
+        /// <summary>
+        /// Label7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label7;
 
         /// <summary>
         /// Label2 control.

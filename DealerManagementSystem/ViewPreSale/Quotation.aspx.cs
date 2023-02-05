@@ -15,6 +15,50 @@ namespace DealerManagementSystem.ViewPreSale
 {
     public partial class Quotation : System.Web.UI.Page
     {
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] = 0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
+
+        long? SalesQuotationID = null;
+        string QuotationNo = null;
+        string QuotationDateFrom = null;
+        string QuotationDateTo = null;
+        long? LeadID = null;
+        string LeadNumber = null;
+        int? StatusID = null;
+        int? UserStatusID = null;
+        int? DealerID = null;
+        int? SalesEngineerID = null;
+        string CustomerCode = null;
+
+
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -31,6 +75,8 @@ namespace DealerManagementSystem.ViewPreSale
 
             if (!IsPostBack)
             {
+                PageCount = 0;
+                PageIndex = 1;
                 new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                 if (Request.QueryString["Quotation"] != null)
                 {
@@ -55,41 +101,25 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
+            PageCount = 0;
+            PageIndex = 1;
             FillQuotation();
         }
-
-        public List<PSalesQuotation> Quote
-        {
-            get
-            {
-                if (Session["Quote"] == null)
-                {
-                    Session["Quote"] = new List<PSalesQuotation>();
-                }
-                return (List<PSalesQuotation>)Session["Quote"];
-            }
-            set
-            {
-                Session["Quote"] = value;
-            }
-        }
-
+              
         protected void ibtnQuoteArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvQuotation.PageIndex > 0)
+            if (PageIndex > 1)
             {
-                gvQuotation.PageIndex = gvQuotation.PageIndex - 1;
-                QuoteBind(gvQuotation, lblRowCount, Quote);
+                PageIndex = PageIndex - 1;
+                FillQuotation();
             }
         }
-
-
         protected void ibtnQuoteArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvQuotation.PageCount > gvQuotation.PageIndex)
+            if (PageCount > PageIndex)
             {
-                gvQuotation.PageIndex = gvQuotation.PageIndex + 1;
-                QuoteBind(gvQuotation, lblRowCount, Quote);
+                PageIndex = PageIndex + 1;
+                FillQuotation();
             }
         }
 
@@ -100,32 +130,32 @@ namespace DealerManagementSystem.ViewPreSale
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Quote.Count ;
         }
 
+        void Search()
+        {
 
+            SalesQuotationID = null;
+            QuotationNo = txtQuotationNumber.Text.Trim();
+            QuotationDateFrom = txtDateFrom.Text.Trim();
+            QuotationDateTo = txtDateTo.Text.Trim();
+            //  long? LeadID = null;
+            LeadNumber = txtLeadNumber.Text.Trim();
+            StatusID = ddlQuotationStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlQuotationStatus.SelectedValue);
+            UserStatusID = ddlUserStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlUserStatus.SelectedValue);
+            DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+            CustomerCode = txtCustomer.Text.Trim();
+        }
         void FillQuotation()
         {
-            long? SalesQuotationID = null;
-            long? RefQuotationID = null;
-            long? LeadID = null; 
-            string QuotationNo = null; 
-            DateTime? QuotationDateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
-
-
-            int? QuotationTypeID = null;
-            int? StatusID = ddlQuotationStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlQuotationStatus.SelectedValue);
-
-            string CustomerCode = txtCustomer.Text.Trim(); 
-            int? UserStatusID = ddlUserStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlUserStatus.SelectedValue);
-
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            int? SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-            
+            Search();
             //List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
-            Quote = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, "", QuotationNo, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), QuotationTypeID, StatusID, UserStatusID, DealerID, SalesEngineerID,  CustomerCode,txtMobile.Text.Trim());
-            gvQuotation.DataSource = Quote;
+             PApiResult Result = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, QuotationNo, QuotationDateFrom, QuotationDateTo
+                , LeadID, LeadNumber, StatusID, UserStatusID, DealerID, SalesEngineerID,  CustomerCode, PageIndex, gvQuotation.PageSize);
+
+            gvQuotation.DataSource = JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(Result.Data));
             gvQuotation.DataBind();
 
-
-            if (Quote.Count == 0)
+            if (Result.RowCount == 0)
             {
                 lblRowCount.Visible = false;
                 ibtnQuoteArrowLeft.Visible = false;
@@ -133,12 +163,12 @@ namespace DealerManagementSystem.ViewPreSale
             }
             else
             {
+                PageCount = (Result.RowCount + gvQuotation.PageSize - 1) / gvQuotation.PageSize;
                 lblRowCount.Visible = true;
                 ibtnQuoteArrowLeft.Visible = true;
                 ibtnQuoteArrowRight.Visible = true;
-                lblRowCount.Text = (((gvQuotation.PageIndex) * gvQuotation.PageSize) + 1) + " - " + (((gvQuotation.PageIndex) * gvQuotation.PageSize) + gvQuotation.Rows.Count) + " of " + Quote.Count;
+                lblRowCount.Text = (((PageIndex - 1) * gvQuotation.PageSize) + 1) + " - " + (((PageIndex - 1) * gvQuotation.PageSize) + gvQuotation.Rows.Count) + " of " + Result.RowCount;
             }
-
         }
         //protected void btnSave_Click(object sender, EventArgs e)
         //{
@@ -250,13 +280,7 @@ namespace DealerManagementSystem.ViewPreSale
         //    new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
         //    new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
         //}
-
-        protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvQuotation.PageIndex = e.NewPageIndex;
-            FillQuotation();
-        }
-
+ 
         protected void btnViewQuotation_Click(object sender, EventArgs e)
         {
             divColdVisitView.Visible = true;
@@ -266,7 +290,6 @@ namespace DealerManagementSystem.ViewPreSale
             Label lblQuotationID = (Label)gvRow.FindControl("lblQuotationID");
             UC_QuotationView.fillViewQuotation(Convert.ToInt64(lblQuotationID.Text));
         }
-
         protected void btnAddQuotation_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/ViewPreSale/Lead.aspx");

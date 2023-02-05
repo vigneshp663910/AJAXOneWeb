@@ -132,22 +132,22 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender6;
 
         /// <summary>
-        /// txtMobile control.
+        /// txtLeadNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMobile;
+        protected global::System.Web.UI.WebControls.TextBox txtLeadNumber;
 
         /// <summary>
-        /// TextBoxWatermarkExtender1 control.
+        /// txtQuotationNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
+        protected global::System.Web.UI.WebControls.TextBox txtQuotationNumber;
 
         /// <summary>
         /// ddlUserStatus control.

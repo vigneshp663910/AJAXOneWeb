@@ -1,0 +1,198 @@
+﻿using Business;
+using Properties;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Drawing;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Web.UI.WebControls;
+
+namespace DealerManagementSystem
+{
+    public partial class DealerDashboard : System.Web.UI.MasterPage
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            lblPageName.Text = (string)Session["PageName"];
+            Session["PageName"] = "";
+            if (!IsPostBack)
+            { 
+                if (PSession.User == null)
+                {
+                    Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+                } 
+                lblusername.Text = PSession.User.ContactName;
+
+                string MenuCon = "<ul id='topnav'>";
+                
+                MenuCon = MenuCon + "<li style='float: right; margin-top: 0px;'><ul style='list-style-type: none;'>";
+                MenuCon = MenuCon + "<li class='right-boarder'><a href='Home.aspx' style='white-space: pre;'><img src='Ajax/HomeLogo.png'  width='17px' /></a></li>";
+                MenuCon = MenuCon + "<li class='right-boarder'><a href='ChangePassword.aspx' style='white-space: pre;'><img src='Ajax/ChangePasswordLogo.png'  width='17px' /></a></li>";
+                MenuCon = MenuCon + "<li class='right-boarder'><a href='Login.aspx' style='white-space: pre;'><img src='Ajax/SignOutLogo.png'  width='17px' /></a></li>";
+                MenuCon = MenuCon + " <li><a href='DMS_ContactUs.aspx' style='white-space: pre;'><img src='Ajax/ContactUsLogo.png'  width='17px' /></a></li>";
+                MenuCon = MenuCon + "</ul></li></ul>";
+                MenuNew.InnerHtml = MenuCon;
+                menu();
+            }
+
+        }
+        string ReMenu(List<PSubModuleAccess> SMs, string SubModuleName, String MenuDMS, [Optional] string MainMenu)
+        {
+            List<PSubModuleAccess> SMsCount = SMs.Where(x => x.ParentMenu == SubModuleName).ToList();
+            if (SMsCount.Count() == 0)
+            {
+                 return MenuDMS + "<a href='/" + SMs[0].ModuleAction + ".aspx' class='w3-bar-item w3-button' onclick=ParentMenuClick('" + SMs[0].DisplayName1.Replace(" ", "") + "','" + MainMenu + "')><i class='fa fa-bolt' style='color: #2fb7c3'></i>&nbsp;<span>" + SMs[0].DisplayName1 + "</span></a>";
+            }
+            foreach (PSubModuleAccess SM in SMsCount)
+            {
+                List<PSubModuleAccess> PA1s = SMs.Where(x => x.ParentMenu == SM.SubModuleName).ToList();
+                if (PA1s.Count() == 0)
+                {
+                    MenuDMS += "<div class='menu-item'>";
+                    MenuDMS += "<a href='/" + SM.ModuleAction + ".aspx' class='w3-bar-item w3-button w3-padding' onclick=ParentMenuClick('" + SM.ParentMenu.Replace(" ", "") + "','" + MainMenu + "')><i class='fa fa-mercury' style='color: #db6e6e'></i>&nbsp;<span>" + SM.DisplayName1 + "</span></a>";
+                    MenuDMS += "</div>";
+                }
+                else
+                {
+                    MenuDMS += "<div class='menu-item'>";
+                    MenuDMS += "<a onclick=Menu('" + SM.DisplayName1.Replace(" ", "") + "','" + SM.ParentMenu.Replace(" ", "") + "','i" + SM.DisplayName1.Replace(" ", "") + "') href='javascript:void(0)' class='w3-bar-item w3-button w3-block w3-left-align submenu' id='Menu" + SM.DisplayName1.Replace(" ", "") + "'><i class='fa fa-mercury' style='color: #db6e6e'></i>&nbsp;<span>" + SM.DisplayName1 + "</span><i id='i" + SM.DisplayName1.Replace(" ", "") + "' class='sub-menu-icon fa fa-angle-down fa-2x' style='color: lightgray'></i></a>";
+                    MenuDMS += "<div id='" + SM.DisplayName1.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-padding-large w3-medium' runat='server'>";
+                    MenuDMS = ReMenu(PA1s, SM.SubModuleName, MenuDMS, SM.ParentMenu);
+                    MenuDMS += "</div>";
+                    MenuDMS += "</div>";
+                }
+            }
+            return MenuDMS;
+        }
+        private void menu()
+        {
+            String MenuDMS = "<nav id='main-nav'>";
+            MenuDMS += "<ul id='main-menu' class='sm sm-blue'>";
+            
+            foreach (PModuleAccess AM in PSession.User.DMSModules)
+            {
+                MenuDMS += "<li class='menu-item-list'><a href='javascript:void(0)' onclick=Menu('" + AM.ModuleName.Replace(" ", "") + "','','i" + AM.ModuleName.Replace(" ", "") + "') class='w3-button w3-block w3-blue w3-left-align w3-padding' id='Menu" + AM.ModuleName.Replace(" ", "") + "'>" +
+                    "<i class='" + AM.ModuleAwesomeIco + " fa-sm' style='color: #2fa8b3'></i>&nbsp;<span>" + AM.ModuleName.Replace(" ", "") + "</span><i id='i" + AM.ModuleName.Replace(" ", "") + "' class='fa fa-angle-down fa-2x' style='color: lightgray'></i></a>";
+                MenuDMS += "<div id='" + AM.ModuleName.Replace(" ", "") + "' class='w3-bar-block w3-hide w3-medium' runat='server'>";
+                MenuDMS = ReMenu(AM.SubModuleAccess, AM.ModuleName, MenuDMS, AM.ModuleName.Replace(" ", ""));
+                MenuDMS += "</div></li>";
+            } 
+            MenuDMS += "</ul>";
+            MenuDMS += "</nav>";
+            MenuNew.InnerHtml = MenuDMS;
+        }
+        protected void BtnClear_Click(object sender, EventArgs e)
+        {
+            lblFeedbackErrMsg.Text = string.Empty;
+            textfeedback.Text = string.Empty;
+            Star1.Attributes.Add("class", "star outline");
+            Star2.Attributes.Add("class", "star outline");
+            Star3.Attributes.Add("class", "star outline");
+            Star4.Attributes.Add("class", "star outline");
+            Star5.Attributes.Add("class", "star outline");
+            mp1.Show();
+        }
+
+        protected void BtnSubmit_Click(object sender, EventArgs e)
+        {
+            lblFeedbackErrMsg.Text = string.Empty;
+            if (textfeedback.Text == "")
+            {
+                lblFeedbackErrMsg.ForeColor = Color.Red;
+                lblFeedbackErrMsg.Text = "Please Enter Query...!";
+                lblFeedbackErrMsg.Visible = true;
+                mp1.Show();
+                return;
+            }
+            if (HiddenStar.Value == "")
+            {
+                lblFeedbackErrMsg.ForeColor = Color.Red;
+                lblFeedbackErrMsg.Text = "Please Click Ratings...!";
+                lblFeedbackErrMsg.Visible = true;
+                mp1.Show();
+                return;
+            }
+            PComment Comment = new PComment();
+            Comment.ModuleNo = 203;
+            Comment.UserID = PSession.User.UserID;
+            Comment.Comments = textfeedback.Text.Trim();
+            Comment.Ratings = Convert.ToInt32(HiddenStar.Value);
+            long success = new BFeedback().coTg_Insert_AppsFeedBack(Comment);
+            if (success != 0)
+            {
+                Star1.Attributes.Add("class", "star outline");
+                Star2.Attributes.Add("class", "star outline");
+                Star3.Attributes.Add("class", "star outline");
+                Star4.Attributes.Add("class", "star outline");
+                Star5.Attributes.Add("class", "star outline");
+                HiddenStar.Value = "0";
+                textfeedback.Text = string.Empty;
+                mp1.Hide();
+            }
+        }
+
+        protected void FeedBackClose_Click(object sender, EventArgs e)
+        {
+            lblFeedbackErrMsg.Text = string.Empty;
+            textfeedback.Text = string.Empty;
+            mp1.Hide();
+        }
+
+        protected void Star1_ServerClick(object sender, EventArgs e)
+        {
+            Star1.Attributes.Add("class", "star filled");
+            Star2.Attributes.Add("class", "star outline");
+            Star3.Attributes.Add("class", "star outline");
+            Star4.Attributes.Add("class", "star outline");
+            Star5.Attributes.Add("class", "star outline");
+            HiddenStar.Value = "1";
+            mp1.Show();
+        }
+
+        protected void Star2_ServerClick(object sender, EventArgs e)
+        {
+            Star1.Attributes.Add("class", "star filled");
+            Star2.Attributes.Add("class", "star filled");
+            Star3.Attributes.Add("class", "star outline");
+            Star4.Attributes.Add("class", "star outline");
+            Star5.Attributes.Add("class", "star outline");
+            HiddenStar.Value = "2";
+            mp1.Show();
+        }
+
+        protected void Star3_ServerClick(object sender, EventArgs e)
+        {
+            Star1.Attributes.Add("class", "star filled");
+            Star2.Attributes.Add("class", "star filled");
+            Star3.Attributes.Add("class", "star filled");
+            Star4.Attributes.Add("class", "star outline");
+            Star5.Attributes.Add("class", "star outline");
+            HiddenStar.Value = "3";
+            mp1.Show();
+        }
+
+        protected void Star4_ServerClick(object sender, EventArgs e)
+        {
+            Star1.Attributes.Add("class", "star filled");
+            Star2.Attributes.Add("class", "star filled");
+            Star3.Attributes.Add("class", "star filled");
+            Star4.Attributes.Add("class", "star filled");
+            Star5.Attributes.Add("class", "star outline");
+            HiddenStar.Value = "4";
+            mp1.Show();
+        }
+
+        protected void Star5_ServerClick(object sender, EventArgs e)
+        {
+            Star1.Attributes.Add("class", "star filled");
+            Star2.Attributes.Add("class", "star filled");
+            Star3.Attributes.Add("class", "star filled");
+            Star4.Attributes.Add("class", "star filled");
+            Star5.Attributes.Add("class", "star filled");
+            HiddenStar.Value = "5";
+            mp1.Show();
+        }
+    }
+}

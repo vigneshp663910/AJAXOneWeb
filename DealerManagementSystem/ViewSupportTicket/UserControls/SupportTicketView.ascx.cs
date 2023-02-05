@@ -1198,6 +1198,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             {
 
             }
+            else
             {
                 lbtnAssignTo.Visible = false;
                 lbtnSendApproval.Visible = false;

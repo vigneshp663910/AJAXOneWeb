@@ -1,5 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="EnquiryChart.aspx.cs" Inherits="DealerManagementSystem.ViewDashboard.EnquiryChart" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/DealerDashboard.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true"
+    CodeBehind="EnquiryChart.aspx.cs" Inherits="DealerManagementSystem.ViewDashboard.EnquiryChart" %>
 
+<%@ Register Src="~/UserControls/MultiSelectDropDown.ascx" TagPrefix="UC" TagName="UC_M_Dealer" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
     <style>
@@ -35,7 +37,7 @@
         #div1 {
             /*height: 91.7vh;*/
             /* height: 100vh;*/
-            display: flex;
+            display: inline;
             flex-direction: column;
             overflow: hidden;
             margin-left: 1px;
@@ -276,6 +278,14 @@
             });
         });
     </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('[id*=lstFruits]').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
@@ -297,7 +307,7 @@
 
                     <div class="col-md-2 text-left">
                         <label>Dealer</label>
-                        <asp:DropDownList ID="ddlMDealer" runat="server" CssClass="form-control" />
+                        <UC:UC_M_Dealer ID="ddlmDealer" runat="server"></UC:UC_M_Dealer>
                     </div>
                     <div class="col-md-2 text-left">
                         <label>Country</label>
@@ -310,7 +320,7 @@
 
                     <div class="col-md-2 col-sm-12">
                         <label>ProductType</label>
-                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control"></asp:DropDownList>
+                        <UC:UC_M_Dealer ID="ddlmProductType" runat="server"></UC:UC_M_Dealer>
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
@@ -319,10 +329,7 @@
             </fieldset>
         </div>
     </div>
-    <div class="col-md-12 Report">
-        <div class="table-responsive">
-        </div>
-    </div>
+
     <div id="div1">
         <div class="grid">
             <div class="tile-size-one grid-item">
@@ -349,22 +356,14 @@
                     </div>
                 </div>
             </div>
-            <div class="tile-size-one grid-item">
-                <div class="content">
-                    <div class="details">
-                        <div class="desc">
-                            <asp:Label ID="Label4" Text="Enquiry Velocity Avg" runat="server" />
-                        </div>
-                        <div class="details-position">
-                            <asp:Label ID="Label5" runat="server" Text="0" CssClass="sapMNCValueScr"></asp:Label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
 
             <div class="tile-size-two grid-item" style="height: auto !important">
                 <div class="content">
                     <div class="details">
+                         <div class="desc">
+                            <asp:Label ID="Label8" Text="Region Wise Enquiry" runat="server" />
+                        </div>
                         <div id="divRegion" style="height: 300px"></div>
                     </div>
                 </div>
@@ -372,26 +371,46 @@
             <div class="tile-size-two grid-item" style="height: auto !important">
                 <div class="content">
                     <div class="details">
+                         <div class="desc">
+                            <asp:Label ID="Label9" Text="Source Wise Enquiry" runat="server" />
+                        </div>
                         <div id="divSource" style="height: 300px"></div>
                     </div>
                 </div>
             </div>
 
+            <div class="tile-size-two grid-item" style="height: auto !important">
+                <div class="content">
+                    <div class="details">
+                        <div class="desc">
+                            <asp:Label ID="Label7" Text="Enquiry Velocity" runat="server" />
+                        </div>
+                        <div id="divVelocity" style="height: 300px"></div>
+                    </div>
+                </div>
+            </div>
 
             <div class="tile-size-two grid-item" style="height: auto !important">
                 <div class="content">
                     <div class="content">
                         <div class="details">
                             <div class="desc">
-                                <asp:Label ID="Label2" Text="Conversion % - Product wise" runat="server" />
+                                <asp:Label ID="Label2" Text="Conversion Ratio - Product wise" runat="server" />
                             </div>
 
                             <asp:GridView ID="gvEnquiryProductType" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                                 <Columns>
                                     <asp:BoundField HeaderText="Product Type" DataField="ProductType" />
-                                    <asp:BoundField HeaderText="Conversion" DataField="Conversion">
-                                        <ItemStyle HorizontalAlign="Right" ForeColor="#e78c07" />
+                                    <asp:BoundField HeaderText="Conv Ratio" DataField="Conversion">
+                                        <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
                                     </asp:BoundField>
+                                    <asp:BoundField HeaderText="Total Enq" DataField="TotalCount">
+                                        <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Won" DataField="ConvertedCount">
+                                        <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
+                                    </asp:BoundField>
+
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
@@ -409,14 +428,23 @@
                     <div class="content">
                         <div class="details">
                             <div class="desc">
-                                <asp:Label ID="Label6" Text="Conversion % - Source wise" runat="server" />
+                                <asp:Label ID="Label6" Text="Conversion Ratio - Source wise" runat="server" />
                                 <br />
                             </div>
                             <asp:GridView ID="gvEnquirySource" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                                 <Columns>
                                     <asp:BoundField HeaderText="Source" DataField="LeadSource" />
-                                    <asp:BoundField HeaderText="Conversion" DataField="Conversion">
-                                        <ItemStyle HorizontalAlign="Right" ForeColor="#e78c07" />
+                                    <asp:BoundField HeaderText="Conv Ratio" DataField="Conversion">
+                                        <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Total Enq" DataField="Total">
+                                        <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Won" DataField="Won">
+                                        <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
+                                    </asp:BoundField>
+                                    <asp:BoundField HeaderText="Effectiveness" DataField="Effectiveness">
+                                        <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
                                     </asp:BoundField>
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
@@ -448,10 +476,8 @@
             var param = {
                 DateFrom: $('#MainContent_txtDateFrom').val()
                 , DateTo: $('#MainContent_txtDateTo').val()
-                , Dealer: $('#MainContent_ddlMDealer').val()
                 , Country: $('#MainContent_ddlMCountry').val()
                 , Region: Region
-                , ProductType: $('#MainContent_ddlProductType').val()
             }
             $.ajax({
                 type: "POST",
@@ -476,7 +502,7 @@
                     //    2, 3, 4, 5
                     //]);
                     var options = {
-                        title: 'Region Wise Enquiry',
+                       // title: 'Region Wise Enquiry',
                         ////width: '80%',
                         height: 300,
                         legend: { position: 'bottom' },
@@ -504,10 +530,8 @@
             var param = {
                 DateFrom: $('#MainContent_txtDateFrom').val()
                 , DateTo: $('#MainContent_txtDateTo').val()
-                , Dealer: $('#MainContent_ddlMDealer').val()
                 , Country: $('#MainContent_ddlMCountry').val()
                 , Region: Region
-                , ProductType: $('#MainContent_ddlProductType').val()
             }
             $.ajax({
                 type: "POST",
@@ -533,7 +557,7 @@
                     //    2, 3, 4, 5
                     //]);
                     var options = {
-                        title: 'Source Wise Enquiry',
+                       // title: 'Source Wise Enquiry',
                         pieHole: 0.5,
                         ////width: '80%',
                         height: 300,
@@ -556,7 +580,54 @@
                 }
             });
         }
-
+        function VelocityChart() {
+            var Region = $('#MainContent_ddlMRegion').val();
+            var param = {
+                DateFrom: $('#MainContent_txtDateFrom').val()
+                , DateTo: $('#MainContent_txtDateTo').val()
+                , Country: $('#MainContent_ddlMCountry').val()
+                , Region: Region
+            }
+            $.ajax({
+                type: "POST",
+                url: 'EnquiryChart.aspx/GetVelocity',
+                //data: "{country: '  country '}",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                dataFilter: function (data) {
+                    return data;
+                },
+                success: function (data) {
+                    var data1 = google.visualization.arrayToDataTable(data.d);
+                    var view = new google.visualization.DataView(data1);
+                    view.setColumns([0, 1
+                        //{
+                        //    calc: "stringify",
+                        //    sourceColumn: 1,
+                        //    type: "string",
+                        //    role: "annotation"
+                        //}, 
+                    ]);
+                    var options = {
+                        //width: '80%',
+                        height: 300,
+                        legend: { position: 'none' },
+                        bar: { groupWidth: '80%' },
+                        isStacked: true,
+                        is3D: true
+                    };
+                    var chart = new google.visualization.ColumnChart(document.getElementById("divVelocity"));
+                    chart.draw(view, options);
+                },
+                failure: function (r) {
+                    alert(r);
+                },
+                error: function (r) {
+                    alert(r);
+                }
+            });
+        }
     </script>
 
 

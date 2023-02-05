@@ -254,9 +254,11 @@
     <Content Include="HomeWithTiles.aspx" />
     <Content Include="Images\apple.png" />
     <Content Include="Images\ARROW01.png" />
+    <Content Include="Images\ArrowDown.png" />
     <Content Include="Images\ArrowLeft.png" />
     <Content Include="Images\ArrowRight.png" />
     <Content Include="Images\ChangePw.jpg" />
+    <Content Include="Images\CloseIcon.jpg" />
     <Content Include="Images\Customer.png" />
     <Content Include="Images\DealerBranchOffice.png" />
     <Content Include="Images\DealerMainOffice.png" />
@@ -319,6 +321,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Help\Files\Getting Started.pdf" />
     <Content Include="Help\Files\Getting Started.pps" />
+    <Content Include="DealerDashboard.Master" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="SalesOrderTemp.aspx" />
@@ -744,6 +747,13 @@
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ChatHub.cs" />
+    <Compile Include="DealerDashboard.Master.cs">
+      <DependentUpon>DealerDashboard.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DealerDashboard.Master.designer.cs">
+      <DependentUpon>DealerDashboard.Master</DependentUpon>
+    </Compile>
     <Compile Include="Geolocation.aspx.cs">
       <DependentUpon>Geolocation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
