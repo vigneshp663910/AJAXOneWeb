@@ -107,14 +107,17 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lblProductionStatus.Text = EquipmentViewDet.ProductionStatus;
             lblVariantsFittingDate.Text = EquipmentViewDet.VariantsFittingDate == null ? "" : ((DateTime)EquipmentViewDet.VariantsFittingDate).ToShortDateString();
             lblManufacturingDate.Text = Convert.ToString(EquipmentViewDet.ManufacturingDate);
-            lblInstalledBaseNo.Text = EquipmentViewDet.Ibase.InstalledBaseNo == null ? "" : EquipmentViewDet.Ibase.InstalledBaseNo.ToString();
-            lblIBaseLocation.Text = EquipmentViewDet.Ibase.IBaseLocation;
-            lblDeliveryDate.Text = EquipmentViewDet.Ibase.DeliveryDate == null ? "" : ((DateTime)EquipmentViewDet.Ibase.DeliveryDate).ToShortDateString();
-            lblIBaseCreatedOn.Text = EquipmentViewDet.Ibase.IBaseCreatedOn == null ? "" : ((DateTime)EquipmentViewDet.Ibase.IBaseCreatedOn).ToShortDateString();
-            lblIbaseWarrantyStart.Text = EquipmentViewDet.Ibase.WarrantyStart == null ? "" : ((DateTime)EquipmentViewDet.Ibase.WarrantyStart).ToShortDateString();
-            lblIbaseWarrantyEnd.Text = EquipmentViewDet.Ibase.WarrantyEnd == null ? "" : ((DateTime)EquipmentViewDet.Ibase.WarrantyEnd).ToShortDateString();
-            lblFinancialYearOfDispatch.Text = EquipmentViewDet.Ibase.FinancialYearOfDispatch.ToString();
-            lblMajorRegion.Text = EquipmentViewDet.Ibase.MajorRegion.Region;
+            if (EquipmentViewDet.Ibase != null)
+            {
+                lblInstalledBaseNo.Text = EquipmentViewDet.Ibase.InstalledBaseNo;
+                lblIBaseLocation.Text = EquipmentViewDet.Ibase.IBaseLocation;
+                lblDeliveryDate.Text = EquipmentViewDet.Ibase.DeliveryDate == null ? "" : ((DateTime)EquipmentViewDet.Ibase.DeliveryDate).ToShortDateString();
+                lblIBaseCreatedOn.Text = EquipmentViewDet.Ibase.IBaseCreatedOn == null ? "" : ((DateTime)EquipmentViewDet.Ibase.IBaseCreatedOn).ToShortDateString();
+                lblIbaseWarrantyStart.Text = EquipmentViewDet.Ibase.WarrantyStart == null ? "" : ((DateTime)EquipmentViewDet.Ibase.WarrantyStart).ToShortDateString();
+                lblIbaseWarrantyEnd.Text = EquipmentViewDet.Ibase.WarrantyEnd == null ? "" : ((DateTime)EquipmentViewDet.Ibase.WarrantyEnd).ToShortDateString();
+                lblFinancialYearOfDispatch.Text = Convert.ToString(EquipmentViewDet.Ibase.FinancialYearOfDispatch);
+                lblMajorRegion.Text = EquipmentViewDet.Ibase.MajorRegion.Region;
+            }
             lblWarrantyType.Text = EquipmentViewDet.EquipmentWarrantyType == null ? "" : EquipmentViewDet.EquipmentWarrantyType.Description;
             CustomerViewSoldTo.fillCustomer(EquipmentViewDet.Customer);
             fillEquipmentService();
@@ -434,38 +437,6 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblNewWarrantyType.Text = dr["NewValue"].ToString();
                         lblOldWarrantyHMR.Text = EquipmentViewDet.WarrantyHMR == null ? "" : EquipmentViewDet.WarrantyHMR.ToString();
                         lblNewWarrantyHMR.Text = dr["WarrantyHMR"].ToString();
-                        //lblOldWarrantyStartEndDate.Text = (EquipmentViewDet.WarrantyStartDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyStartDate).ToShortDateString()) + " - " + (EquipmentViewDet.WarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToShortDateString());
-                        //lblNewWarrantyStartEndDate.Text = Convert.ToDateTime(dr["WarrantyStartDate"]).ToString("dd/MM/yyyy") + " - " + Convert.ToDateTime(dr["WarrantyEndDate"]).ToString("dd/MM/yyyy");
-                        if (EquipmentViewDet.WarrantyStartDate != null)
-                        {
-                            if (EquipmentViewDet.WarrantyExpiryDate != null)
-                            {
-                                lblOldWarrantyStartEndDate.Text = ((DateTime)EquipmentViewDet.WarrantyStartDate).ToShortDateString() + " - " + ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToShortDateString();
-                            }
-                            else
-                            {
-                                lblOldWarrantyStartEndDate.Text = ((DateTime)EquipmentViewDet.WarrantyStartDate).ToShortDateString();
-                            }
-                        }
-                        else
-                        {
-                            lblOldWarrantyStartEndDate.Text = "";
-                        }
-                        if (dr["WarrantyStartDate"] != null)
-                        {
-                            if (dr["WarrantyEndDate"] != null)
-                            {
-                                lblNewWarrantyStartEndDate.Text = Convert.ToDateTime(dr["WarrantyStartDate"]).ToString("dd/MM/yyyy") + " - " + Convert.ToDateTime(dr["WarrantyEndDate"]).ToString("dd/MM/yyyy");
-                            }
-                            else
-                            {
-                                lblNewWarrantyStartEndDate.Text = Convert.ToDateTime(dr["WarrantyStartDate"]).ToString("dd/MM/yyyy");
-                            }
-                        }
-                        else
-                        {
-                            lblNewWarrantyStartEndDate.Text = "";
-                        }
                         lblWarrantyTypeChangeID.Text = dr["ChangeID"].ToString();
                     }
                 }
