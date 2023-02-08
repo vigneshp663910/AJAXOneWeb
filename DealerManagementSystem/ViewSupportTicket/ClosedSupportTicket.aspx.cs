@@ -1,6 +1,7 @@
 ﻿using Business;
 using Properties;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -9,6 +10,36 @@ namespace DealerManagementSystem.ViewSupportTicket
 {
     public partial class ClosedSupportTicket : System.Web.UI.Page
     {
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] = 0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -22,9 +53,9 @@ namespace DealerManagementSystem.ViewSupportTicket
 
             if (!IsPostBack)
             {
+                PageCount = 0;
+                PageIndex = 1;
                 FillCategory();
-                //FillStatus();
-                //FillResolutionType(); 
                 FillTickets();
             }
         }
@@ -45,25 +76,6 @@ namespace DealerManagementSystem.ViewSupportTicket
             ddlSubcategory.DataBind();
             ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
         }
-
-        //void FillStatus()
-        //{
-        //    ddlStatus.DataTextField = "TicketStatus";
-        //    ddlStatus.DataValueField = "TicketStatusID";
-        //    ddlStatus.DataSource = new BTicketStatus().getTicketStatus(null, null);
-        //    ddlStatus.DataBind();
-        //    ddlStatus.Items.Insert(0, new ListItem("Select", "0"));
-        //}
-
-        //void FillResolutionType()
-        //{
-        //    ddlResolutionType.DataTextField = "TicketResolutionType";
-        //    ddlResolutionType.DataValueField = "TicketResolutionTypeID";
-        //    ddlResolutionType.DataSource = new BTicketResolutionType().getTicketResolutionType(null, null);
-        //    ddlResolutionType.DataBind();
-        //    ddlResolutionType.Items.Insert(0, new ListItem("Select", "0"));
-        //}
-
         void FillTickets()
         {
             string TicketNO = txtTicketNo.Text.Trim();
@@ -74,9 +86,27 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 TicketSubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             }
-
-            gvTickets.DataSource = new BTickets().GetTicketToClose(HeaderID, TicketCategoryID, TicketSubCategoryID, PSession.User.UserID);
-            gvTickets.DataBind();
+            int RowCount = 0;
+            List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
+            TicketHeader = new BTickets().GetTicketToClose(HeaderID, TicketCategoryID, TicketSubCategoryID, PSession.User.UserID, PageIndex, gvTickets.PageSize, out RowCount);
+            if (RowCount == 0)
+            {
+                gvTickets.DataSource = null;
+                gvTickets.DataBind();
+                lblRowCount.Visible = false;
+                ibtnArrowLeft.Visible = false;
+                ibtnArrowRight.Visible = false;
+            }
+            else
+            {
+                gvTickets.DataSource = TicketHeader;
+                gvTickets.DataBind();
+                PageCount = (RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
+                lblRowCount.Visible = true;
+                ibtnArrowLeft.Visible = true;
+                ibtnArrowRight.Visible = true;
+                lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + RowCount;
+            }
             for (int i = 0; i < gvTickets.Rows.Count; i++)
             {
                 Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
@@ -96,6 +126,7 @@ namespace DealerManagementSystem.ViewSupportTicket
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            PageIndex = 1;
             FillTickets();
         }
 
@@ -112,16 +143,13 @@ namespace DealerManagementSystem.ViewSupportTicket
         }
         protected void gvTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            FillTickets();
             gvTickets.PageIndex = e.NewPageIndex;
-            gvTickets.DataBind();
+            FillTickets();
         }
         protected void ibMessage_Click(object sender, ImageClickEventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            //string url = "SupportTicketView.aspx?TicketNo=" + ((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text;
-            //Response.Redirect(url);
             divSupportTicketView.Visible = true;
             btnBackToList.Visible = true;
             divList.Visible = false;
@@ -139,8 +167,8 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-
-            PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null)[0];
+            int RowCount = 0;
+            PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null,null,null, 1, 10000, out RowCount)[0];
 
             new BTickets().UpdateTicketClosedStatus(H.HeaderID,PSession.User.UserID);
 
@@ -148,6 +176,22 @@ namespace DealerManagementSystem.ViewSupportTicket
             lblMessage.Text = "Ticket is  successfully updated.";
             lblMessage.ForeColor = Color.Green;
             lblMessage.Visible = true;
+        }
+        protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageIndex > 1)
+            {
+                PageIndex = PageIndex - 1;
+                FillTickets();
+            }
+        }
+        protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageCount > PageIndex)
+            {
+                PageIndex = PageIndex + 1;
+                FillTickets();
+            }
         }
     }
 }
