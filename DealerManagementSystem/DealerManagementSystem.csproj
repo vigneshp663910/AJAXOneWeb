@@ -392,6 +392,7 @@
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
     <Content Include="ViewDashboard\EnquiryChart.aspx" />
     <Content Include="ViewDashboard\LeadChart.aspx" />
+    <Content Include="ViewDashboard\Task_Dashboard.aspx" />
     <Content Include="ViewDashboard\UserControls\CustomerSatisfactionInAfterSalesSupport.ascx" />
     <Content Include="ViewDashboard\UserControls\FoloowUpCount.ascx" />
     <Content Include="ViewDashboard\UserControls\ICTicketEscalationOnBreakdownCount.ascx" />
@@ -1048,6 +1049,13 @@
     </Compile>
     <Compile Include="ViewDashboard\LeadChart.aspx.designer.cs">
       <DependentUpon>LeadChart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\Task_Dashboard.aspx.cs">
+      <DependentUpon>Task_Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\Task_Dashboard.aspx.designer.cs">
+      <DependentUpon>Task_Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\CustomerSatisfactionInAfterSalesSupport.ascx.cs">
       <DependentUpon>CustomerSatisfactionInAfterSalesSupport.ascx</DependentUpon>

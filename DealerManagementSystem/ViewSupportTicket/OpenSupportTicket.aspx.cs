@@ -12,6 +12,36 @@ namespace DealerManagementSystem.ViewSupportTicket
 {
     public partial class OpenSupportTicket : System.Web.UI.Page
     {
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] = 0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -25,6 +55,8 @@ namespace DealerManagementSystem.ViewSupportTicket
 
             if (!IsPostBack)
             {
+                PageCount = 0;
+                PageIndex = 1;
                 if (!string.IsNullOrEmpty(Request.QueryString["SendForApproval"]))
                 {
                     FillAllFields(Convert.ToInt32(Request.QueryString["SendForApproval"]));
@@ -96,9 +128,27 @@ namespace DealerManagementSystem.ViewSupportTicket
 
                     HeaderId = Convert.ToInt32(txtTicketId.Text);
                 }
-
-                gvTickets.DataSource = new BTickets().GetOpenTickets(HeaderId, TicketCategoryID, null, CreatedBy, RequestedDateFrom, RequestedDateTo, PSession.User.UserID);
-                gvTickets.DataBind();
+                int RowCount = 0;
+                List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
+                TicketHeader = new BTickets().GetOpenTickets(HeaderId, TicketCategoryID, null, CreatedBy, RequestedDateFrom, RequestedDateTo, PSession.User.UserID, PageIndex, gvTickets.PageSize, out RowCount);
+                if (RowCount == 0)
+                {
+                    gvTickets.DataSource = null;
+                    gvTickets.DataBind();
+                    lblRowCount.Visible = false;
+                    ibtnArrowLeft.Visible = false;
+                    ibtnArrowRight.Visible = false;
+                }
+                else
+                {
+                    gvTickets.DataSource = TicketHeader;
+                    gvTickets.DataBind();
+                    PageCount = (RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
+                    lblRowCount.Visible = true;
+                    ibtnArrowLeft.Visible = true;
+                    ibtnArrowRight.Visible = true;
+                    lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + RowCount;
+                }
 
 
                 //else if (PSession.User.L1Support == true)
@@ -118,6 +168,7 @@ namespace DealerManagementSystem.ViewSupportTicket
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            PageIndex = 1;
             FillOpenTickets();
         }
 
@@ -154,9 +205,8 @@ namespace DealerManagementSystem.ViewSupportTicket
 
         protected void gvTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            FillOpenTickets();
             gvTickets.PageIndex = e.NewPageIndex;
-            gvTickets.DataBind();
+            FillOpenTickets();
             FillMessageStatus();
         }
         void FillAllFields(int HeaderId)
@@ -376,6 +426,22 @@ namespace DealerManagementSystem.ViewSupportTicket
             divSupportTicketView.Visible = false;
             btnBackToList.Visible = false;
             divList.Visible = true;
+        }
+        protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageIndex > 1)
+            {
+                PageIndex = PageIndex - 1;
+                FillOpenTickets();
+            }
+        }
+        protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageCount > PageIndex)
+            {
+                PageIndex = PageIndex + 1;
+                FillOpenTickets();
+            }
         }
     }
 }

@@ -155,7 +155,8 @@ namespace DealerManagementSystem.ViewSupportTicket
             //}
             PTicketHeader Tickets = new PTicketHeader();
             // Tickets = new BTickets().GeTicketsByTicketNo(TicketNo);
-            Tickets = new BTickets().GetOpenTickets(TicketNo, null, null, null, null, null, PSession.User.UserID)[0];
+            int RowCount = 0;
+            Tickets = new BTickets().GetOpenTickets(TicketNo, null, null, null, null, null, PSession.User.UserID,null,null,out RowCount)[0];
 
             txtRequestedOn.Text = Convert.ToString(Tickets.CreatedOn);
             ddlCategory.SelectedValue = Convert.ToString(Tickets.Category.CategoryID);

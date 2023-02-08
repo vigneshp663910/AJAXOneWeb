@@ -56,6 +56,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
             {
                 if (!IsPostBack)
                 {
+                    new DDLBind(ddlRegion, new BDMS_Address().GetRegion(null, null, null), "Region", "RegionID");
                     FillDealer();
                 }
             }
@@ -82,7 +83,9 @@ namespace DealerManagementSystem.ViewDealerEmployee
         }
         void FillDealer()
         {
-            ListViewDealer.DataSource = PSession.User.Dealer;
+            int? RegionID = (ddlRegion.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
+            List<PDMS_Dealer> DealerList = new BDMS_Dealer().GetDealer(null, "", PSession.User.UserID, RegionID);
+            ListViewDealer.DataSource = DealerList;
             ListViewDealer.DataBind();
         }
         private void FillGrid()
@@ -106,7 +109,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 List<PDealer> Dealers = new List<PDealer>();
                 foreach (PDealer pDealer in UserwiseDealerList)
                 {
-                    var duplicates = UserwiseDealerList.Where(i => i.UserName == pDealer.UserName ).ToList();
+                    var duplicates = UserwiseDealerList.Where(i => i.UserName == pDealer.UserName).ToList();
                     if (duplicates.Count == dealerCount)
                     {
                         bool containsItemState = Dealers.Any(item => item.UserName == pDealer.UserName);
@@ -117,7 +120,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                             Dealer.ContactName = pDealer.ContactName;
                             Dealer.MailID1 = pDealer.MailID1;
                             Dealers.Add(Dealer);
-                        }                        
+                        }
                     }
                 }
                 UserwiseDealerList = Dealers.ToList();
@@ -205,6 +208,10 @@ namespace DealerManagementSystem.ViewDealerEmployee
             gv.DataSource = DealerList;
             gv.DataBind();
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + DealerList.Count;
+        }
+        protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillDealer();
         }
     }
 }

@@ -239,8 +239,8 @@ namespace DealerManagementSystem.ViewSupportTicket
 
         void FillTickets()
         {
-
-            gvTickets.DataSource = new BTickets().GetTicketDetails(null, null, null, null, null, null, null, null, PSession.User.UserID, "Open,Assigned");
+            int RowCount = 0;
+            gvTickets.DataSource = new BTickets().GetTicketDetails(null, null, null, null, null, null, null, null, PSession.User.UserID, "Open,Assigned",null,null, 1, 10000, out RowCount);
             gvTickets.DataBind();
         }
 
