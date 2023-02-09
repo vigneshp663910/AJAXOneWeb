@@ -28,87 +28,8 @@ namespace SapIntegration
             }
             return Materials;
         }
-        public List<PDMS_Material> getMaterialIntegration()
-        {
-            List<PDMS_Material> Materials = new List<PDMS_Material>();
-            PDMS_Material Material = null;
-
-            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_GET");
-            tagListBapi.SetValue("P_MATERIAL_DIS", "X");
-            tagListBapi.Invoke(SAP.RfcDes());
-            IRfcTable tagTable = tagListBapi.GetTable("IT_MATERIAL");
-            for (int i = 0; i < tagTable.RowCount; i++)
-            {
-                tagTable.CurrentIndex = i;
-                Material = new PDMS_Material();
-                Material.MaterialCode = tagTable.CurrentRow.GetString("MATERIAL");
-                Material.ValidFrom = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_FROM"));
-                Material.ValidTo = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_TO"));
-                Material.MaterialDescription = tagTable.CurrentRow.GetString("MATERIAL_DESC");
-                Material.MaterialType = tagTable.CurrentRow.GetString("MATERIAL_TYPE");
-                Material.MaterialGroup = tagTable.CurrentRow.GetString("MATERIAL_GROUP");
-                Material.Model = new PDMS_Model()
-                {
-                    ModelCode = tagTable.CurrentRow.GetString("MATERIAL_GROUP"),
-                    Model = tagTable.CurrentRow.GetString("GROUP_DES"),
-                    Division = new PDMS_Division()
-                    {
-                        DivisionCode = tagTable.CurrentRow.GetString("SPART"),
-                        DivisionDescription = tagTable.CurrentRow.GetString("DIVISION_DES")
-                    },
-                };
-                Material.SubCategory = tagTable.CurrentRow.GetString("SUB_CATEGORY");
-                Material.GrossWeight = tagTable.CurrentRow.GetDecimal("GROSS_WEIGHT");
-                Material.NetWeight = tagTable.CurrentRow.GetDecimal("NET_WEIGHT");
-                Material.BaseUnit = tagTable.CurrentRow.GetString("BASE_UNIT");
-                Material.SerialProfile = tagTable.CurrentRow.GetString("SERIAL_PROFILE");
-                Material.MaterialDivision = tagTable.CurrentRow.GetString("MATERIAL_DIVISION");
-                Material.HSN = tagTable.CurrentRow.GetString("HSN_SAC");
-                Material.IsActive = (tagTable.CurrentRow.GetString("ACTIVE") == "X") ? false : true;
-                Materials.Add(Material);
-            }
-            return Materials;
-        }
-        public void setMaterialInActive(string MaterialCode)
-        {
-            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_SET");
-            IRfcStructure tagTable = tagListBapi.GetStructure("IT_MAT");
-            tagTable.SetValue("MATERIAL", MaterialCode);
-            tagTable.SetValue("ACTIVE", "X");
-            tagListBapi.Invoke(SAP.RfcDes());
-        }
-        public List<PSupersede> getMaterialSupersedeIntegration()
-        {
-            List<PSupersede> Supersedes = new List<PSupersede>();
-            PSupersede Supersede = null;
-
-            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_GET");
-            tagListBapi.SetValue("P_SUPERSEED_DIS", "X");
-            tagListBapi.Invoke(SAP.RfcDes());
-            IRfcTable tagTable = tagListBapi.GetTable("IT_SUPERSEED");
-            for (int i = 0; i < tagTable.RowCount; i++)
-            {
-                tagTable.CurrentIndex = i;
-                Supersede = new PSupersede();
-                Supersede.Material = tagTable.CurrentRow.GetString("MATERIAL");
-                Supersede.MaterialDescription = tagTable.CurrentRow.GetString("SSMATNR");
-                Supersede.Description = tagTable.CurrentRow.GetString("DESCRIPTION");
-                Supersede.ValidFrom = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_FROM"));
-                Supersede.ValidTo = Convert.ToDateTime(tagTable.CurrentRow.GetString("VALID_TO"));
-                Supersede.IsActive = (tagTable.CurrentRow.GetString("ACTIVE") == "X") ? false : true;
-                Supersedes.Add(Supersede);
-            }
-            return Supersedes;
-        }
-        public void setMaterialSupersedeInActive(string Material, string MaterialDescription)
-        {
-            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZMM_BAPI_DMS_SET");
-            IRfcStructure tagTable = tagListBapi.GetStructure("IT_SC");
-            tagTable.SetValue("MATERIAL", Material);
-            tagTable.SetValue("SSMATNR", MaterialDescription);
-            tagTable.SetValue("ACTIVE", "X");
-            tagListBapi.Invoke(SAP.RfcDes());
-        }
+        
+         
         //public List<PDMS_Material> getMaterialDetails(string MaterialCode)
         //{
         //    List<PDMS_Material> Materials = new List<PDMS_Material>();

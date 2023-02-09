@@ -307,7 +307,7 @@
 
                     <div class="col-md-2 text-left">
                         <label>Dealer</label>
-                        <UC:UC_M_Dealer ID="ddlmDealer" runat="server"></UC:UC_M_Dealer>
+                        <UC:UC_M_Dealer ID="ddlmDealer" runat="server" CssClass="form-control" ></UC:UC_M_Dealer>
                     </div>
                     <div class="col-md-2 text-left">
                         <label>Country</label>

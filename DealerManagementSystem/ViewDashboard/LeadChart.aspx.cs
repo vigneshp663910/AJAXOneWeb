@@ -248,7 +248,7 @@ namespace DealerManagementSystem.ViewDashboard
         public static List<object> RegionWestChart(string Dealer, string LeadDateFrom, string LeadDateTo, string Country, string Region, string ProductType)
         {
             List<object> chartData = new List<object>();
-            chartData.Add(new object[] { "General", "Open", "Quotation", "Won", "Lost", "Cancel" });
+            chartData.Add(new object[] { "General", "Count" });
             int? DealerID = Dealer == "0" ? (int?)null : Convert.ToInt32(Dealer);
             int? CountryID = string.IsNullOrEmpty(Country) || Country == "0" ? (int?)null : Convert.ToInt32(Country);
             int? ProductTypeID = ProductType == "0" ? (int?)null : Convert.ToInt32(ProductType);
@@ -259,7 +259,7 @@ namespace DealerManagementSystem.ViewDashboard
             DataTable dt = new BLead().GetLeadCountByStatusAndDealer(DealerID, LeadDateFrom, LeadDateTo, CountryID, RegionID, ProductTypeID);
             foreach (DataRow dr in dt.Rows)
             {
-                chartData.Add(new object[] { Convert.ToString(dr["DisplayName"]), Convert.ToInt32(dr["Open"]), Convert.ToInt32(dr["Quotation"]), Convert.ToInt32(dr["Won"]), Convert.ToInt32(dr["Lost"]), Convert.ToInt32(dr["Cancel"]) });
+                chartData.Add(new object[] { Convert.ToString(dr["DisplayName"]), Convert.ToInt32(dr["Open"])});
             }
             return chartData;
         }

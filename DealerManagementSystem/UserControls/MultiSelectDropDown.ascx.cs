@@ -38,6 +38,21 @@ namespace DealerManagementSystem.UserControls
             {
                 divMultiSelect.Visible = false;
                 btnView.ImageUrl = "~/Images/ArrowDown.png";
+                lblDisplay.Text = "";
+                for (int i = 0; i < cbList.Items.Count; i++)
+                {
+                    if (cbList.Items[i].Selected)
+                    {
+                        if(!string.IsNullOrEmpty(lblDisplay.Text))
+                        {
+                            lblDisplay.Text = "Selected Multiple Value";
+                        }
+                        else
+                        {
+                            lblDisplay.Text = cbList.Items[i].Text.ToString();
+                        }
+                    } 
+                } 
             }
             else
             {

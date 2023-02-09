@@ -18,7 +18,7 @@
                                 <div class="col-md-3 col-sm-12">
                                     <asp:CheckBox ID="chkDealer" runat="server" />
                                     <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "CodeWithDisplayName")%>' runat="server" />
-                                    <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DID")%>' runat="server" Visible="false" />                                    
+                                    <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DID")%>' runat="server" Visible="false" />
                                 </div>
                             </ItemTemplate>
                         </asp:ListView>
@@ -35,23 +35,23 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
                     <div class="col-md-12 Report">
                         <div class="boxHead">
-                                <div class="logheading">
-                                    <div style="float: left">
-                                        <table>
-                                            <tr>
-                                                <td>Dealer Operator(s):</td>
+                            <div class="logheading">
+                                <div style="float: left">
+                                    <table>
+                                        <tr>
+                                            <td>Dealer Operator(s):</td>
 
-                                                <td>
-                                                    <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
-                                                <td>
-                                                    <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
-                                                <td>
-                                                    <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                                            <td>
+                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
+                        </div>
                         <asp:GridView ID="gvDealerUsers" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" OnPageIndexChanging="gvDealerUsers_PageIndexChanging" AllowPaging="true" PageSize="15">
                             <Columns>
                                 <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">

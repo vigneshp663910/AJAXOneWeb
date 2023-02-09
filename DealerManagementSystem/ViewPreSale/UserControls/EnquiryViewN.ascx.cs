@@ -324,12 +324,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbEditEnquiry.Visible = true;
             lbInActive.Visible = true;
             lbReject.Visible = true;
+            lbInProgress.Visible = true;
+
 
             if ((Enquiry.Status.StatusID == (short)PreSaleStatus.ConvertedToLead) || (Enquiry.Status.StatusID == (short)PreSaleStatus.Rejected))
             {
                 lbEditEnquiry.Visible = false;
                 lbInActive.Visible = false;
                 lbReject.Visible = false;
+                lbInProgress.Visible = false;
             }
         }
 

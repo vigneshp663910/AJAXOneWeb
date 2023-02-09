@@ -80,7 +80,7 @@ namespace Business
                         break;
                     case Jobs.MaterialIntegrationFromSAP:
                         new FileLogger().LogMessageService("Started", "MaterialIntegrationFromSAP", null);
-                        new BDMS_Material().IntegrationMaterial();
+                        new BAPI().ApiGetWithOutToken("Material/MaterialIntegrationFromSap"); 
                         new FileLogger().LogMessageService("Ended", "MaterialIntegrationFromSAP", null);
                         break;
                     case Jobs.CustomerIntegration:

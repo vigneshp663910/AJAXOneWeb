@@ -15,13 +15,13 @@ namespace DealerManagementSystem.UserControls
     {
 
         /// <summary>
-        /// txtbox control.
+        /// lblDisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtbox;
+        protected global::System.Web.UI.WebControls.Label lblDisplay;
 
         /// <summary>
         /// btnView control.
@@ -31,6 +31,15 @@ namespace DealerManagementSystem.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton btnView;
+
+        /// <summary>
+        /// txtbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtbox;
 
         /// <summary>
         /// divMultiSelect control.

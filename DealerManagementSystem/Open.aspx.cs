@@ -37,12 +37,12 @@ namespace DealerManagementSystem
 
         protected void BtnMaterial_Click(object sender, EventArgs e)
         {
-            new BDMS_Material().IntegrationMaterialMaster();
+            new BAPI().ApiGetWithOutToken("Material/MaterialIntegrationFromSap");
         }
 
         protected void BtnMaterialSupersede_Click(object sender, EventArgs e)
         {
-            new BDMS_Material().IntegrationMaterialSupersede();
+            new BAPI().ApiGetWithOutToken("Material/MaterialIntegrationFromSap"); 
         }
         protected void btnEnquiryIndiamart_Click(object sender, EventArgs e)
         {

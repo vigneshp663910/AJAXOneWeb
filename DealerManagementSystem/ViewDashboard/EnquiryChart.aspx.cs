@@ -53,9 +53,8 @@ namespace DealerManagementSystem.ViewDashboard
             //}
         }
 
-        protected void BtnSearch_Click(object sender, EventArgs e)
+        protected void Page_LoadComplete(object sender, EventArgs e)
         {
-
             string Dealer = ddlmDealer.SelectedValue;
             int? CountryID = ddlMCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMCountry.SelectedValue);
             string Region = ddlMRegion.SelectedValue == "0" ? null : ddlMRegion.SelectedValue;
@@ -92,9 +91,15 @@ namespace DealerManagementSystem.ViewDashboard
             ClientScript.RegisterStartupScript(GetType(), "hwa2", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(SourceChart); ", true);
             ClientScript.RegisterStartupScript(GetType(), "hwa3", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(VelocityChart);", true);
 
-       
+
             //   Boolean IsMainServiceMaterial = (Boolean)HttpContext.Current.Session["IsMainServiceMaterial"];
 
+        }
+
+        protected void BtnSearch_Click(object sender, EventArgs e)
+        {
+
+           
         }
         protected void ddlMCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
