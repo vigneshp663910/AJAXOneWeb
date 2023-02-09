@@ -102,4 +102,16 @@ namespace Properties
         public string HandleType { get; set; }
         public string Password { get; set; }
     }
+    [Serializable]
+    public class PDealerUserPermission
+    {
+        public int DealerID { get; set; }
+        public string UserName { get; set; }
+        public string DealerCode { get; set; }
+        public string ContactName { get; set; }
+        public string CodeWithName { get; set; }
+        public string MailID { get; set; }
+        public string DealerDesignation { get; set; }
+        public string DealerDepartment { get; set; }
+}
 }

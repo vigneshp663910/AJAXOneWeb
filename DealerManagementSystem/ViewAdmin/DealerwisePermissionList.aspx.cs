@@ -56,6 +56,8 @@ namespace DealerManagementSystem.ViewAdmin
                 if (!IsPostBack)
                 {
                     new DDLBind(ddlRegion, new BDMS_Address().GetRegion(null, null, null), "Region", "RegionID");
+                    new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
+                    new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
                     FillDealer();
                 }
             }
@@ -65,15 +67,15 @@ namespace DealerManagementSystem.ViewAdmin
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        public List<PDealer> UserwiseDealerList
+        public List<PDealerUserPermission> UserwiseDealerList
         {
             get
             {
                 if (ViewState["UserwiseDealerList"] == null)
                 {
-                    ViewState["UserwiseDealerList"] = new List<PDealer>();
+                    ViewState["UserwiseDealerList"] = new List<PDealerUserPermission>();
                 }
-                return (List<PDealer>)ViewState["UserwiseDealerList"];
+                return (List<PDealerUserPermission>)ViewState["UserwiseDealerList"];
             }
             set
             {
@@ -82,7 +84,7 @@ namespace DealerManagementSystem.ViewAdmin
         }
         void FillDealer()
         {
-            int? RegionID = (ddlRegion.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
+            int? RegionID = (ddlRegion.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);            
             List<PDMS_Dealer> DealerList = new BDMS_Dealer().GetDealer(null, "", PSession.User.UserID, RegionID);
             ListViewDealer.DataSource = DealerList;
             ListViewDealer.DataBind();
@@ -103,22 +105,26 @@ namespace DealerManagementSystem.ViewAdmin
                         dealerCount += 1;
                     }
                 }
-                UserwiseDealerList = new BDealer().GetUserByDealerIDs(DealerIDs);
+                int? DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+                int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+                UserwiseDealerList = new BDealer().GetUserByDealerIDs(DealerIDs, DepartmentID, DesignationID);
 
-                List<PDealer> Dealers = new List<PDealer>();
-                foreach (PDealer pDealer in UserwiseDealerList)
+                List<PDealerUserPermission> Dealers = new List<PDealerUserPermission>();
+                foreach (PDealerUserPermission pDealerUserPermission in UserwiseDealerList)
                 {
-                    var duplicates = UserwiseDealerList.Where(i => i.UserName == pDealer.UserName).ToList();
+                    var duplicates = UserwiseDealerList.Where(i => i.UserName == pDealerUserPermission.UserName).ToList();
                     if (duplicates.Count == dealerCount)
                     {
-                        bool containsItemState = Dealers.Any(item => item.UserName == pDealer.UserName);
+                        bool containsItemState = Dealers.Any(item => item.UserName == pDealerUserPermission.UserName);
                         if (!containsItemState)
                         {
-                            PDealer Dealer = new PDealer();
-                            Dealer.UserName = pDealer.UserName;
-                            Dealer.ContactName = pDealer.ContactName;
-                            Dealer.MailID1 = pDealer.MailID1;
-                            Dealers.Add(Dealer);
+                            PDealerUserPermission User = new PDealerUserPermission();
+                            User.UserName = pDealerUserPermission.UserName;
+                            User.ContactName = pDealerUserPermission.ContactName;
+                            User.MailID = pDealerUserPermission.MailID;
+                            User.DealerDesignation = pDealerUserPermission.DealerDesignation;
+                            User.DealerDepartment = pDealerUserPermission.DealerDepartment;
+                            Dealers.Add(User);
                         }
                     }
                 }
@@ -202,7 +208,7 @@ namespace DealerManagementSystem.ViewAdmin
                 DealerBind(gvDealerUsers, lblRowCount, UserwiseDealerList);
             }
         }
-        void DealerBind(GridView gv, Label lbl, List<PDealer> DealerList)
+        void DealerBind(GridView gv, Label lbl, List<PDealerUserPermission> DealerList)
         {
             gv.DataSource = DealerList;
             gv.DataBind();
@@ -211,6 +217,10 @@ namespace DealerManagementSystem.ViewAdmin
         protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillDealer();
+        }
+        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
         }
     }
 }
