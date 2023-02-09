@@ -401,16 +401,16 @@
                             <asp:GridView ID="gvEnquiryProductType" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                                 <Columns>
                                     <asp:BoundField HeaderText="Product Type" DataField="ProductType" />
-                                    <asp:BoundField HeaderText="Conv Ratio" DataField="Conversion">
-                                        <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
-                                    </asp:BoundField>
+                                   
                                     <asp:BoundField HeaderText="Total Enq" DataField="TotalCount">
                                         <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
                                     </asp:BoundField>
                                     <asp:BoundField HeaderText="Won" DataField="ConvertedCount">
                                         <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
                                     </asp:BoundField>
-
+                                    <asp:BoundField HeaderText="Conv Ratio" DataField="Conversion">
+                                        <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
+                                    </asp:BoundField>
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
@@ -434,18 +434,18 @@
                             <asp:GridView ID="gvEnquirySource" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                                 <Columns>
                                     <asp:BoundField HeaderText="Source" DataField="LeadSource" />
-                                    <asp:BoundField HeaderText="Conv Ratio" DataField="Conversion">
+                                    <asp:BoundField HeaderText="Total Enq" DataField="Total">
                                         <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
                                     </asp:BoundField>
-                                    <asp:BoundField HeaderText="Total Enq" DataField="Total">
+                                    <asp:BoundField HeaderText="Contribution" DataField="Effectiveness">
                                         <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
                                     </asp:BoundField>
                                     <asp:BoundField HeaderText="Won" DataField="Won">
                                         <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
                                     </asp:BoundField>
-                                    <asp:BoundField HeaderText="Effectiveness" DataField="Effectiveness">
+                                    <asp:BoundField HeaderText="Conv Ratio" DataField="Conversion">
                                         <ItemStyle HorizontalAlign="Right" ForeColor="#bd0cbd" Font-Bold="true" />
-                                    </asp:BoundField>
+                                    </asp:BoundField> 
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
