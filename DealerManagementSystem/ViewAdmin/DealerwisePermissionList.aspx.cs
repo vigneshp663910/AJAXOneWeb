@@ -50,7 +50,7 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Employee » Dealerwise Permission List');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Dealerwise Permission List');</script>");
             try
             {
                 if (!IsPostBack)
