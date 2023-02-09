@@ -42,7 +42,7 @@ namespace Business
                             Dealer.DealerID = Convert.ToInt32(Dr["DealerID"]);
                             Dealer.DealerCode = Convert.ToString(Dr["DealerCode"]);
                             Dealer.DealerName = Convert.ToString(Dr["DealerName"]);
-
+                            Dealer.DisplayName = Convert.ToString(Dr["DisplayName"]);
                             Dealer.AuthorityName = Convert.ToString(Dr["AuthorityName"]);
                             Dealer.AuthorityDesignation = Convert.ToString(Dr["AuthorityDesignation"]);
                             Dealer.AuthorityMobile = Convert.ToString(Dr["AuthorityMobile"]);

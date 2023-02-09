@@ -125,7 +125,7 @@
                     <asp:Label ID="lblNewWarrantyHMR" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
-            <div class="col-md-4">
+            <%--<div class="col-md-4">
                 <div class="col-md-12">
                     <label>Old Warranty Date : </label>
                     <asp:Label ID="lblOldWarrantyStartEndDate" runat="server" CssClass="label"></asp:Label>
@@ -134,7 +134,7 @@
                     <label>New Warranty Date : </label>
                     <asp:Label ID="lblNewWarrantyStartEndDate" runat="server" CssClass="label"></asp:Label>
                 </div>
-            </div>
+            </div>--%>
         </div>
     </fieldset>
 </div>

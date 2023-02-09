@@ -194,13 +194,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             ddlSeverity.DataBind();
             ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
         }
-        void FillTicketType()
-        {
-            ddlTicketType.DataTextField = "Type";
-            ddlTicketType.DataValueField = "TypeID";
-            ddlTicketType.DataSource = new BTicketType().getTicketType(null, null);
-            ddlTicketType.DataBind();
-        }
         void FillAssignTo()
         {
             ddlAssignedTo.DataTextField = "ContactName";
@@ -222,12 +215,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         }
         void ClearField()
         {
-
-            //  txtDepartment.Text = string.Empty;
-            //  ddlTicketType.SelectedValue = "1";
-            // ddlCategory.SelectedValue = "1";
             txtAssignerRemark.Text = string.Empty;
-            //  BulletedList1.Items.Clear();
         }
         Boolean validatetion()
         {
@@ -450,53 +438,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             if (LastMessageID != 0)
                 new BForum().UdateMessageViewStatus(TicketNO, PSession.User.UserID, LastMessageID);
         }
-
-        void FillAllFields(int TicketNo)
-        {
-            txtRequestedOn.Text = Convert.ToString(Ticket[0].CreatedOn);
-            ddlCategory.SelectedValue = Convert.ToString(Ticket[0].Category.CategoryID);
-            FillSubCategory();
-
-            if (Ticket[0].SubCategory != null)
-            {
-                ddlSubcategory.SelectedValue = Convert.ToString(Ticket[0].SubCategory.SubCategoryID);
-            }
-
-            if (Ticket[0].Severity != null)
-            {
-                ddlCategory.Enabled = false;
-                ddlSubcategory.Enabled = false;
-                ddlSeverity.Enabled = false;
-            }
-
-            if (Ticket[0].Severity != null)
-            {
-                ddlSeverity.SelectedValue = Convert.ToString(Ticket[0].Severity.SeverityID);
-            }
-            txtRequestedBy.Text = Ticket[0].CreatedBy.ContactName + " " + txtRequestedOn.Text;
-            ddlTicketType.SelectedValue = Convert.ToString(Ticket[0].Type.TypeID);
-            
-            ddlStatus.SelectedValue = Convert.ToString(Ticket[0].Status.StatusID);
-            txtRequesterRemark.Text = Ticket[0].Description;
-
-            Dictionary<string, long> AttachedFiles = new Dictionary<string, long>(); // new BTickets().getAttachedFiles(TicketNo);
-            List<PForum> Forums = new BTickets().GetForumDetails(TicketNo);
-            foreach (PForum F in Forums)
-            {
-                if (F.FileTypeID != (short)FileType.Message)
-                {
-                    AttachedFiles.Add(F.Message, F.ID);
-                }
-            }
-            List<ListItem> files = new List<ListItem>();
-            foreach (KeyValuePair<string, long> Files in AttachedFiles)
-            {
-                files.Add(new ListItem(Files.Key, Files.Value + "." + Files.Key.Split('.')[Files.Key.Split('.').Count() - 1]));
-            }
-            gvFileAttached.DataSource = files;
-            gvFileAttached.DataBind();
-            ViewState["RequestedBy"] = Ticket[0].CreatedBy.UserName;
-        }
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
@@ -549,9 +490,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 FillCategory();
                 FillSubCategory();
                 FillTicketSeverity();
-                FillTicketType();
                 FillAssignTo();
-                FillAllFields(Convert.ToInt32(ViewState["TicketNo"]));
                 MPE_AssignTo.Show();
             }
             else if (lbActions.Text == "In Progress")
@@ -650,10 +589,14 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                             PUser UserApproval = new BUser().GetUserDetails(Convert.ToInt32(item.Value));
                             string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/Forum.htm");
 
+                            messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                            messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                            messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                            messageBody = messageBody.Replace("@@Message", Forum.Message);
                             messageBody = messageBody.Replace("@@TicketNo", Forum.HeaderID.ToString());
                             messageBody = messageBody.Replace("@@ToName", UserApproval.ContactName);
                             messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-                            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "ViewSupportTicket/ManageSupportTicket.aspx");
+                            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                             new EmailManager().MailSend(UserApproval.Mail, "New Ticket " + Forum.HeaderID.ToString(), messageBody, Forum.HeaderID);
                         }
                     }
@@ -662,10 +605,14 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         PUser UserApproval = new BUser().GetUserDetails(Convert.ToInt32(ddlMailNotification.SelectedValue));
                         string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/Forum.htm");
 
+                        messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                        messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                        messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                        messageBody = messageBody.Replace("@@Message", Forum.Message);
                         messageBody = messageBody.Replace("@@TicketNo", Forum.HeaderID.ToString());
                         messageBody = messageBody.Replace("@@ToName", UserApproval.ContactName);
                         messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-                        messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "ViewSupportTicket/ManageSupportTicket.aspx");
+                        messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                         new EmailManager().MailSend(UserApproval.Mail, "New Ticket " + Forum.HeaderID.ToString(), messageBody, Forum.HeaderID);
                     }
                 }
@@ -720,16 +667,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         }
         protected void DownloadFile(object sender, EventArgs e)
         {
-
             try
             {
-                // LinkButton lnkDownload = (LinkButton)sender;
-                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-
                 string filePath = (sender as LinkButton).CommandArgument;
                 string fileName = (sender as LinkButton).Text;
                 PAttachedFile UploadedFile = new BTickets().GetAttachedFileTaskForDownload(filePath);
-
                 Response.AddHeader("Content-type", filePath.Split('.')[1]);
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + fileName);
                 HttpContext.Current.Response.Charset = "utf-16";
@@ -810,15 +752,16 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             PUser userAssignedTo = new BUser().GetUserDetails(Convert.ToInt32(ddlAssignedTo.SelectedValue));
 
             messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
-            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "ViewSupportTicket/AssignedSupportTicket.aspx");
+            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
             messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
             messageBody = messageBody.Replace("@@ToName", userAssignedTo.ContactName);
-            messageBody = messageBody.Replace("@@RequestedOn", txtRequestedOn.Text);
+            messageBody = messageBody.Replace("@@RequestedOn", Convert.ToString(Ticket[0].CreatedOn));
             messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
             messageBody = messageBody.Replace("@@Subcategory", ddlSubcategory.SelectedItem.Text);
+            messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
             messageBody = messageBody.Replace("@@Severity", ddlSeverity.SelectedItem.Text);
-            messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
-            messageBody = messageBody.Replace("@@Description", txtRequesterRemark.Text);
+            messageBody = messageBody.Replace("@@TicketType", Convert.ToString(Ticket[0].Type.Type));
+            messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
             messageBody = messageBody.Replace("@@Justification", txtAssignerRemark.Text);
             messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
             new EmailManager().MailSend(userAssignedTo.Mail, Subject, messageBody, TaskItem.HeaderID);
@@ -894,9 +837,10 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
                 messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
                 messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
                 messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
 
-                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "ViewSupportTicket/ManageSupportTicket.aspx");
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                 new EmailManager().MailSend(UserApproval.Mail, "New Ticket " + Convert.ToInt32(ViewState["TicketNo"]).ToString(), messageBody, Convert.ToInt32(ViewState["TicketNo"]));
             }
         }
@@ -1012,10 +956,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 string messageBody = "";
                 PTicketHeader Tickets = new BTickets().GetTicketByID(TaskItem.HeaderID)[0];
                 messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketResolved.htm");
-                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "ViewSupportTicket/ClosedSupportTicket.aspx");
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                 messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
                 messageBody = messageBody.Replace("@@RequestedOn", Tickets.CreatedOn.ToString());
                 messageBody = messageBody.Replace("@@Category", Tickets.Category.Category);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
                 messageBody = messageBody.Replace("@@Resolution", TaskItem.Resolution);
                 messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
                 PUser user = new BUser().GetUserDetails(Tickets.CreatedBy.UserID);
@@ -1087,7 +1032,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         {
             lbtnMessage.Visible = true;
             lbtnUploadFile.Visible = true;
-
             lbtnSendApproval.Visible = true;
             lbtnApprove.Visible = true;
             lbtnAssignTo.Visible = true;
@@ -1096,11 +1040,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             lbtnCancel.Visible = true;
             lbtnForceclose.Visible = true;
             lbtnClose.Visible = true;
-
-
-
-
-
             if (Ticket[0].Status.StatusID == 1)
             {
                 lbtnClose.Visible = false;
@@ -1109,7 +1048,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lbtnInProgress.Visible = false;
                 lbtnApprove.Visible = false;
             }
-
             if ((Ticket[0].Status.StatusID == 2) || (Ticket[0].Status.StatusID == 8))
             {
                 lbtnApprove.Visible = false;

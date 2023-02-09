@@ -596,23 +596,23 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (old)
                 {
-                    string Message = Validation(fileUpload.PostedFile);
-                    if (!string.IsNullOrEmpty(Message))
-                    {
-                        lblMessageWarrantyTypeChangeReq.Text = Message;
-                        lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
-                        return;
-                    }
+                    //string Message = Validation(fileUpload.PostedFile);
+                    //if (!string.IsNullOrEmpty(Message))
+                    //{
+                    //    lblMessageWarrantyTypeChangeReq.Text = Message;
+                    //    lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
+                    //    return;
+                    //}
                     AttachedFileTemp.Add(CreateUploadedFileEquipment(fileUpload.PostedFile));
                 }
             }
 
-            if (AttachedFileTemp.Count == 0)
-            {
-                lblMessageWarrantyTypeChangeReq.Text = "Please upload the File.";
-                lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
-                return;
-            }
+            //if (AttachedFileTemp.Count == 0)
+            //{
+            //    lblMessageWarrantyTypeChangeReq.Text = "Please upload the File.";
+            //    lblMessageWarrantyTypeChangeReq.ForeColor = Color.Red;
+            //    return;
+            //}
 
             PEquipmentWarranty_Insert WT = new PEquipmentWarranty_Insert();
             WT.EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID;
@@ -789,7 +789,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         }
         protected void btnReqOwnershipChange_Click(object sender, EventArgs e)
         {
-            lblMessage.Visible = true;
+            lblMessageOwnershipChangeReq.Visible = true;
             MPE_OwnershipChangeReq.Show();
 
             if (string.IsNullOrEmpty(txtBoxCustomerOwnershipChange.Text))
@@ -827,23 +827,23 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (old)
                 {
-                    string Message = Validation(fileUploadOwnershipChange.PostedFile);
-                    if (!string.IsNullOrEmpty(Message))
-                    {
-                        lblMessageOwnershipChangeReq.Text = Message;
-                        lblMessageOwnershipChangeReq.ForeColor = Color.Red;
-                        return;
-                    }
+                    //string Message = Validation(fileUploadOwnershipChange.PostedFile);
+                    //if (!string.IsNullOrEmpty(Message))
+                    //{
+                    //    lblMessageOwnershipChangeReq.Text = Message;
+                    //    lblMessageOwnershipChangeReq.ForeColor = Color.Red;
+                    //    return;
+                    //}
                     AttachedFileTemp.Add(CreateUploadedFileEquipment(fileUploadOwnershipChange.PostedFile));
                 }
             }
 
-            if (AttachedFileTemp.Count == 0)
-            {
-                lblMessageOwnershipChangeReq.Text = "Please upload the File.";
-                lblMessageOwnershipChangeReq.ForeColor = Color.Red;
-                return;
-            }
+            //if (AttachedFileTemp.Count == 0)
+            //{
+            //    lblMessageOwnershipChangeReq.Text = "Please upload the File.";
+            //    lblMessageOwnershipChangeReq.ForeColor = Color.Red;
+            //    return;
+            //}
 
             PEquipmentWarranty_Insert WT = new PEquipmentWarranty_Insert();
             WT.EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID;
@@ -930,23 +930,23 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 }
                 if (old)
                 {
-                    string Message = Validation(fileUploadWarrantyExpiryDateChange.PostedFile);
-                    if (!string.IsNullOrEmpty(Message))
-                    {
-                        lblMessageWarrantyExpiryDateChangeReq.Text = Message;
-                        lblMessageWarrantyExpiryDateChangeReq.ForeColor = Color.Red;
-                        return;
-                    }
+                    //string Message = Validation(fileUploadWarrantyExpiryDateChange.PostedFile);
+                    //if (!string.IsNullOrEmpty(Message))
+                    //{
+                    //    lblMessageWarrantyExpiryDateChangeReq.Text = Message;
+                    //    lblMessageWarrantyExpiryDateChangeReq.ForeColor = Color.Red;
+                    //    return;
+                    //}
                     AttachedFileTemp.Add(CreateUploadedFileEquipment(fileUploadWarrantyExpiryDateChange.PostedFile));
                 }
             }
 
-            if (AttachedFileTemp.Count == 0)
-            {
-                lblMessageWarrantyExpiryDateChangeReq.Text = "Please upload the File.";
-                lblMessageWarrantyExpiryDateChangeReq.ForeColor = Color.Red;
-                return;
-            }
+            //if (AttachedFileTemp.Count == 0)
+            //{
+            //    lblMessageWarrantyExpiryDateChangeReq.Text = "Please upload the File.";
+            //    lblMessageWarrantyExpiryDateChangeReq.ForeColor = Color.Red;
+            //    return;
+            //}
 
             PEquipmentWarranty_Insert WT = new PEquipmentWarranty_Insert();
             WT.EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID;

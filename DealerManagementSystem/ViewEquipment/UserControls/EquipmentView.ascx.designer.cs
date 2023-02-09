@@ -159,24 +159,6 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.Label lblNewWarrantyHMR;
 
         /// <summary>
-        /// lblOldWarrantyStartEndDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOldWarrantyStartEndDate;
-
-        /// <summary>
-        /// lblNewWarrantyStartEndDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNewWarrantyStartEndDate;
-
-        /// <summary>
         /// divOwnershipApproval control.
         /// </summary>
         /// <remarks>

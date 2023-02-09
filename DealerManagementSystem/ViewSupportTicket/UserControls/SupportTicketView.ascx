@@ -304,29 +304,6 @@
     <div class="col-md-12">
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
             <div class="col-md-12">
-                <div style="display: none">
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="Label9" runat="server" Text="Requested By" CssClass="label" Visible="false"></asp:Label>
-                        <asp:TextBox ID="txtRequestedBy" runat="server" Enabled="false" CssClass="TextBox form-control" Visible="false" />
-                        <asp:TextBox ID="txtRequestedOn" runat="server" CssClass="TextBox form-control" Visible="false"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="lblTicketNo" runat="server" Text="Ticket No" CssClass="label" Visible="false"></asp:Label>
-                        <asp:TextBox ID="txtTicketNo" runat="server" CssClass="TextBox form-control" Visible="false"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="Label10" runat="server" Text="Ticket Type" CssClass="label" Visible="false"></asp:Label>
-                        <asp:DropDownList ID="ddlTicketType" runat="server" CssClass="TextBox form-control" Enabled="false" Visible="false"></asp:DropDownList>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="Label11" runat="server" Text="Status" CssClass="label" Visible="false"></asp:Label>
-                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="TextBox form-control" Enabled="false" Visible="false"></asp:DropDownList>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <asp:Label ID="lblTicketDescription" runat="server" Text="Requester Remark" CssClass="label" Visible="false"></asp:Label>
-                        <asp:TextBox ID="txtRequesterRemark" runat="server" TextMode="MultiLine" Height="100%" CssClass="TextBox form-control" Enabled="false" Visible="false"></asp:TextBox>
-                    </div>
-                </div>
                 <div class="col-md-6 col-sm-6">
                     <asp:Label ID="Label4" runat="server" Text="Category" CssClass="label"></asp:Label><span style="color: red">*</span>
                     <asp:DropDownList ID="ddlCategory" runat="server" CssClass="TextBox form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged"></asp:DropDownList>

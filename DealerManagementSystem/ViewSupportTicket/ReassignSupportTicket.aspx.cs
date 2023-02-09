@@ -22,7 +22,8 @@ namespace DealerManagementSystem.ViewSupportTicket
                     ViewState["TicketNo"] = TicketNo;
                     int ItemNo = Convert.ToInt32(Request.QueryString["ItemNo"]);
                     ViewState["ItemNo"] = ItemNo;
-                    List<PTicketHeader> Ticket = new BTickets().GetTicketDetails(TicketNo, ItemNo, null, null, null, null, null, null, null, null);
+                    int RowCount = 0;
+                    List<PTicketHeader> Ticket = new BTickets().GetTicketDetails(TicketNo, ItemNo, null, null, null, null, null, null, null, null,null,null, 1, 10000, out RowCount);
                     txtActualDuration.Text = "0.00";
 
                     if (Ticket[0].TicketItems[0].ItemStatus.StatusID == (short)TicketStatus.Assigned)
@@ -49,7 +50,8 @@ namespace DealerManagementSystem.ViewSupportTicket
 
         void FillTickets(int TicketNO)
         {
-            List<PTicketHeader> Ticket = new BTickets().GetTicketDetails(TicketNO, null, null, null, null, null, null, null, null, null);
+            int RowCount = 0;
+            List<PTicketHeader> Ticket = new BTickets().GetTicketDetails(TicketNO, null, null, null, null, null, null, null, null, null,null,null, 1, 10000, out RowCount);
             gvTickets.DataSource = Ticket;
             gvTickets.DataBind();
 
@@ -90,7 +92,8 @@ namespace DealerManagementSystem.ViewSupportTicket
 
                 string messageBody = "";
                 string Subject = "New Ticket " + (int)ViewState["TicketNo"];
-                PTicketHeader TH = new BTickets().GetTicketDetails((int)ViewState["TicketNo"], null, null, null, null, null, null, null, null, "")[0];
+                int RowCount = 0;
+                PTicketHeader TH = new BTickets().GetTicketDetails((int)ViewState["TicketNo"], null, null, null, null, null, null, null, null, "",null,null, 1, 10000, out RowCount)[0];
                 PUser userAssignedTo = new BUser().GetUserDetails(Convert.ToInt32(ddlAssignedTo.SelectedValue));
 
                 messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");

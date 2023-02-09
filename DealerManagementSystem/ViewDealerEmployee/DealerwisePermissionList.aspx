@@ -11,14 +11,19 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Region</label>
+                            <asp:DropDownList ID="ddlRegion" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlRegion_SelectedIndexChanged"/>
+                        </div>
+                        <br />
                         <asp:CheckBox ID="chkSelectAll" runat="server" AutoPostBack="true" OnCheckedChanged="chkSelectAll_CheckedChanged" /><asp:Label ID="lblSelect" runat="server" Text="Select All Dealer"></asp:Label>
                         <br />
-                        <asp:ListView ID="ListViewDealer" runat="server" DataKeyNames="DID">
+                        <asp:ListView ID="ListViewDealer" runat="server" DataKeyNames="DealerID">
                             <ItemTemplate>
                                 <div class="col-md-3 col-sm-12">
                                     <asp:CheckBox ID="chkDealer" runat="server" />
-                                    <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "CodeWithDisplayName")%>' runat="server" />
-                                    <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DID")%>' runat="server" Visible="false" />
+                                    <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")+"-"+DataBinder.Eval(Container.DataItem, "DisplayName")%>' runat="server" />
+                                    <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
                                 </div>
                             </ItemTemplate>
                         </asp:ListView>
