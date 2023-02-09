@@ -188,14 +188,16 @@ namespace Business
             { }
             return Dealers;
         }
-        public List<PDealer> GetUserByDealerIDs(string DealerID)
+        public List<PDealerUserPermission> GetUserByDealerIDs(string DealerID, int? DepartmentID, int? DesignationID)
         {
             TraceLogger.Log(DateTime.Now);
-            List<PDealer> Dealers = new List<PDealer>();
+            List<PDealerUserPermission> Users = new List<PDealerUserPermission>();
             try
             {
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.String);
-                DbParameter[] Params = new DbParameter[1] { DealerIDP};
+                DbParameter DepartmentIDP = provider.CreateParameter("DepartmentID", DepartmentID, DbType.Int32);
+                DbParameter DesignationIDP = provider.CreateParameter("DesignationID", DesignationID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[3] { DealerIDP, DepartmentIDP, DesignationIDP };
                 using (DataSet ds = provider.Select("GetUserByDealerIDs", Params))
                 {
                     if (ds != null)
@@ -204,14 +206,16 @@ namespace Business
 
                         foreach (DataRow dr in ds.Tables[0].Rows)
                         {
-                            PDealer Dealer = new PDealer();
-                            Dealer.DID = Convert.ToInt32(dr["DID"]);
-                            Dealer.UserName = Convert.ToString(dr["UserName"]);
-                            Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
-                            Dealer.ContactName = Convert.ToString(dr["ContactName"]);
-                            Dealer.CodeWithName = Convert.ToString(dr["DealerCode"]) + "-" + Convert.ToString(dr["DisplayName"]);
-                            Dealer.MailID1 = Convert.ToString(dr["MailID"]);
-                            Dealers.Add(Dealer);
+                            PDealerUserPermission User = new PDealerUserPermission();
+                            User.DealerID = Convert.ToInt32(dr["DID"]);
+                            User.UserName = Convert.ToString(dr["UserName"]);
+                            User.DealerCode = Convert.ToString(dr["DealerCode"]);
+                            User.ContactName = Convert.ToString(dr["ContactName"]);
+                            User.CodeWithName = Convert.ToString(dr["DealerCode"]) + "-" + Convert.ToString(dr["DisplayName"]);
+                            User.MailID = Convert.ToString(dr["MailID"]);
+                            User.DealerDesignation = Convert.ToString(dr["DealerDesignation"]);
+                            User.DealerDepartment = Convert.ToString(dr["DealerDepartment"]);
+                            Users.Add(User);
                         }
                     }
                 }
@@ -221,7 +225,7 @@ namespace Business
                 new FileLogger().LogMessage("BDealer", "GetUserByDealerIDs", ex);
                 throw ex;
             }
-            return Dealers;
+            return Users;
         }
 
         public PDealer GetDealerByID(int? DealerID,string DealerCode)

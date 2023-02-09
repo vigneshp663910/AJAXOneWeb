@@ -29,28 +29,8 @@ namespace DealerManagementSystem.ViewDashboard
             {
                 new FillDropDownt().Category(ddlCategory, null, null);
                 ddlCategory_SelectedIndexChanged(null, null);
-                FillTicketSeverity();
-                //new FillDropDownt().Type(ddlTicketType, null, null);
-                FillStatus();
-                //rbStatus_CheckedChanged(null, null);
                 FillStatusCount();
             }
-        }
-        void FillStatus()
-        {
-            lbStatus.DataTextField = "Status";
-            lbStatus.DataValueField = "StatusID";
-            lbStatus.DataSource = new BTicketStatus().getTicketStatus(null, null);
-            lbStatus.DataBind();
-            lbStatus.Items.Insert(0, new ListItem("Select", "0"));
-        }
-        void FillTicketSeverity()
-        {
-            //ddlSeverity.DataTextField = "Severity";
-            //ddlSeverity.DataValueField = "SeverityID";
-            //ddlSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
-            //ddlSeverity.DataBind();
-            //ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
         }
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -84,27 +64,6 @@ namespace DealerManagementSystem.ViewDashboard
             {
                 Session["TaskStatusID"] = 6;
             }
-
-
-            //DateTime TodayDate = DateTime.Now.Date;
-
-            //if (rbToday.Checked)
-            //{
-            //    Session["TaskDateFrom"] = TodayDate;
-            //}
-            //else if (rbWeek.Checked)
-            //{
-            //    Session["TaskDateFrom"] = TodayDate.AddDays(-7);
-            //}
-            //else if (rbMonth.Checked)
-            //{
-            //    Session["TaskDateFrom"] = TodayDate.AddMonths(-1);
-            //}
-            //else
-            //{
-            //    Session["TaskDateFrom"] = TodayDate.AddYears(-1);
-            //}
-
             //Response.Redirect("lead.aspx");
         }
 
@@ -133,17 +92,7 @@ namespace DealerManagementSystem.ViewDashboard
             }
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
-            int? SeverityID = null;//ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
-            int? TypeId = null;//ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
-            string TicketStatus = "";
-            foreach (ListItem li in lbStatus.Items)
-            {
-                if (li.Selected)
-                {
-                    TicketStatus = TicketStatus + "," + li.Text;
-                }
-            }
-            DataSet ds = new BTickets().GetTicketDetailsCountByStatus(CategoryID, SubCategoryID, SeverityID, TypeId, null, null, PSession.User.UserID, TicketStatus, From, To);
+            DataSet ds = new BTickets().GetTicketDetailsCountByStatus(CategoryID, SubCategoryID, PSession.User.UserID, From, To);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 lblCreated.Text = ds.Tables[0].Compute("Sum(TotalCreated)", "").ToString();
@@ -170,7 +119,7 @@ namespace DealerManagementSystem.ViewDashboard
             DateTime? From = string.IsNullOrEmpty(DateFrom)? (DateTime?)null : Convert.ToDateTime(DateFrom);
             DateTime? To = string.IsNullOrEmpty(DateTo) ? (DateTime?)null : Convert.ToDateTime(DateTo);
 
-            DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(CategoryID, SubcategoryID, null, null, null, null, PSession.User.UserID, null, From, To);
+            DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(CategoryID, SubcategoryID, PSession.User.UserID, From, To);
 
             if (ds != null)
             {

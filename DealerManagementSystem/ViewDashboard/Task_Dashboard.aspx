@@ -286,47 +286,6 @@
                     <label class="modal-label">Subcategory</label>
                     <asp:DropDownList ID="ddlSubcategory" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
                 </div>
-                <%--<div class="col-md-2 col-sm-12">
-                    <label class="modal-label">Severity</label>
-                    <asp:DropDownList ID="ddlSeverity" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
-                </div>
-                <div class="col-md-2 col-sm-12">
-                    <label class="modal-label">Ticket Type</label>
-                    <asp:DropDownList ID="ddlTicketType" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
-                </div>--%>
-                <div class="col-md-2 col-sm-12" runat="server" visible="false" id="DivSts">
-                    <label class="modal-label">Status</label>
-                    <asp:ListBox ID="lbStatus" runat="server" SelectionMode="Multiple" CssClass="TextBox form-control"></asp:ListBox>
-                </div>
-                <%--<div class="col-md-8 col-sm-12">
-                    <label class="modal-label">Period</label>
-
-                    <label class="container" style="width: 150px">
-                        Date Range
-                   <asp:RadioButton ID="rbDateSelection" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">
-                        Today
-                    <asp:RadioButton ID="rbToday" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">
-                        Week
-                    <asp:RadioButton ID="rbWeek" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">
-                        Month
-                    <asp:RadioButton ID="rbMonth" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" />
-                        <span class="checkmark"></span>
-                    </label>
-                    <label class="container">
-                        Year
-                   <asp:RadioButton ID="rbYear" runat="server" GroupName="s" OnCheckedChanged="rbStatus_CheckedChanged" AutoPostBack="true" Checked="true" />
-                        <span class="checkmark"></span>
-                    </label>
-                </div>--%>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                 </div>
