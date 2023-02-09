@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewDealerEmployee
+namespace DealerManagementSystem.ViewAdmin
 {
 
 

@@ -4,11 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ViewDealerEmployee
+namespace DealerManagementSystem.ViewAdmin
 {
     public partial class DealerwisePermissionList : System.Web.UI.Page
     {

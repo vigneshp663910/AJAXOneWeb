@@ -1,10 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="DealerwisePermissionList.aspx.cs" Inherits="DealerManagementSystem.ViewDealerEmployee.DealerwisePermissionList" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="DealerwisePermissionList.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.DealerwisePermissionList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
-
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
@@ -34,7 +32,6 @@
                     </div>
                 </fieldset>
             </div>
-
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
@@ -80,5 +77,4 @@
             </div>
         </div>
     </div>
-
 </asp:Content>

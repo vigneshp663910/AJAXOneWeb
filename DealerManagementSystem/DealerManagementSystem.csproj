@@ -380,6 +380,7 @@
     <Content Include="ViewActivity\UserControls\ViewActivity.ascx" />
     <Content Include="ViewAdmin\DealerCustomerMapping.aspx" />
     <Content Include="ViewAdmin\DealerStateMapping.aspx" />
+    <Content Include="ViewAdmin\DealerwisePermissionList.aspx" />
     <Content Include="ViewAdmin\DefaultUserModule.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
@@ -400,7 +401,6 @@
     <Content Include="ViewDashboard\UserControls\LeadStatusDashboard.ascx" />
     <Content Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
     <Content Include="ViewDealerEmployee\DealerOperatorDetails.aspx" />
-    <Content Include="ViewDealerEmployee\DealerwisePermissionList.aspx" />
     <Content Include="ViewDealerEmployee\SalesIncentive.aspx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
@@ -966,6 +966,13 @@
     <Compile Include="ViewAdmin\DealerStateMapping.aspx.designer.cs">
       <DependentUpon>DealerStateMapping.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewAdmin\DealerwisePermissionList.aspx.cs">
+      <DependentUpon>DealerwisePermissionList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerwisePermissionList.aspx.designer.cs">
+      <DependentUpon>DealerwisePermissionList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewAdmin\DefaultUserModule.aspx.cs">
       <DependentUpon>DefaultUserModule.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1105,13 +1112,6 @@
     </Compile>
     <Compile Include="ViewDealerEmployee\DealerOperatorDetails.aspx.designer.cs">
       <DependentUpon>DealerOperatorDetails.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewDealerEmployee\DealerwisePermissionList.aspx.cs">
-      <DependentUpon>DealerwisePermissionList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewDealerEmployee\DealerwisePermissionList.aspx.designer.cs">
-      <DependentUpon>DealerwisePermissionList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\SalesIncentive.aspx.cs">
       <DependentUpon>SalesIncentive.aspx</DependentUpon>
