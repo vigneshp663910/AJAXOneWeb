@@ -1998,14 +1998,10 @@ namespace Business
             }
             return success;
         }
-        public DataSet GetTicketDetailsCountByStatus(int? CategoryID, int? SubCategoryID, int? Severity, int? Type, int? AssignedBy, int? AssignedTo, int? UserId, string HeaderStatus, DateTime? TicketFrom = null, DateTime? TicketTo = null)
+        public DataSet GetTicketDetailsCountByStatus(int? CategoryID, int? SubCategoryID, int? UserId, DateTime? TicketFrom = null, DateTime? TicketTo = null)
         {
             DbParameter CategoryIDP;
             DbParameter SubCategoryIDP;
-            DbParameter SeverityP;
-            DbParameter TypeP;
-            DbParameter AssignedToP;
-            DbParameter AssignedByP;
             DbParameter UserIdP;
 
             try
@@ -2020,39 +2016,14 @@ namespace Business
                 else
                     SubCategoryIDP = provider.CreateParameter("SubCategoryID", DBNull.Value, DbType.Int32);
 
-                if (Severity != null)
-                    SeverityP = provider.CreateParameter("Severity", Severity, DbType.Int32);
-                else
-                    SeverityP = provider.CreateParameter("Severity", DBNull.Value, DbType.Int32);
-
-                if (Type != null)
-                    TypeP = provider.CreateParameter("Type", Type, DbType.Int32);
-                else
-                    TypeP = provider.CreateParameter("Type", DBNull.Value, DbType.Int32);
-
-                if (AssignedTo != null)
-                    AssignedToP = provider.CreateParameter("AssignedTo", AssignedTo, DbType.String);
-                else
-                    AssignedToP = provider.CreateParameter("AssignedTo", DBNull.Value, DbType.String);
-
-                if (AssignedBy != null)
-                    AssignedByP = provider.CreateParameter("AssignedBy", AssignedBy, DbType.Int32);
-                else
-                    AssignedByP = provider.CreateParameter("AssignedBy", DBNull.Value, DbType.Int32);
                 if (UserId != null)
                     UserIdP = provider.CreateParameter("UserId", UserId, DbType.Int32);
                 else
                     UserIdP = provider.CreateParameter("UserId", DBNull.Value, DbType.Int32);
 
-                DbParameter HeaderStatusP;
-                if (!string.IsNullOrEmpty(HeaderStatus))
-                    HeaderStatusP = provider.CreateParameter("HeaderStatus", HeaderStatus, DbType.String);
-                else
-                    HeaderStatusP = provider.CreateParameter("HeaderStatus", DBNull.Value, DbType.String);
-
                 DbParameter TicketFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
                 DbParameter TicketToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
-                DbParameter[] TicketTypeParams = new DbParameter[10] { CategoryIDP, SubCategoryIDP, SeverityP, TypeP, AssignedToP, AssignedByP, UserIdP, HeaderStatusP, TicketFromP, TicketToP };
+                DbParameter[] TicketTypeParams = new DbParameter[5] { CategoryIDP, SubCategoryIDP, UserIdP, TicketFromP, TicketToP };
                 return provider.Select("GetTicketDetailsCountByStatus", TicketTypeParams);
             }
             catch (Exception ex)
@@ -2061,14 +2032,10 @@ namespace Business
                 throw ex;
             }
         }
-        public DataSet GetTicketDetailsCountByStatusForChart(int? CategoryID, int? SubCategoryID, int? Severity, int? Type, int? AssignedBy, int? AssignedTo, int? UserId, string HeaderStatus, DateTime? TicketFrom = null, DateTime? TicketTo = null)
+        public DataSet GetTicketDetailsCountByStatusForChart(int? CategoryID, int? SubCategoryID, int? UserId, DateTime? TicketFrom = null, DateTime? TicketTo = null)
         {
             DbParameter CategoryIDP;
             DbParameter SubCategoryIDP;
-            DbParameter SeverityP;
-            DbParameter TypeP;
-            DbParameter AssignedToP;
-            DbParameter AssignedByP;
             DbParameter UserIdP;
 
             try
@@ -2083,39 +2050,14 @@ namespace Business
                 else
                     SubCategoryIDP = provider.CreateParameter("SubCategoryID", DBNull.Value, DbType.Int32);
 
-                if (Severity != null)
-                    SeverityP = provider.CreateParameter("Severity", Severity, DbType.Int32);
-                else
-                    SeverityP = provider.CreateParameter("Severity", DBNull.Value, DbType.Int32);
-
-                if (Type != null)
-                    TypeP = provider.CreateParameter("Type", Type, DbType.Int32);
-                else
-                    TypeP = provider.CreateParameter("Type", DBNull.Value, DbType.Int32);
-
-                if (AssignedTo != null)
-                    AssignedToP = provider.CreateParameter("AssignedTo", AssignedTo, DbType.String);
-                else
-                    AssignedToP = provider.CreateParameter("AssignedTo", DBNull.Value, DbType.String);
-
-                if (AssignedBy != null)
-                    AssignedByP = provider.CreateParameter("AssignedBy", AssignedBy, DbType.Int32);
-                else
-                    AssignedByP = provider.CreateParameter("AssignedBy", DBNull.Value, DbType.Int32);
                 if (UserId != null)
                     UserIdP = provider.CreateParameter("UserId", UserId, DbType.Int32);
                 else
                     UserIdP = provider.CreateParameter("UserId", DBNull.Value, DbType.Int32);
 
-                DbParameter HeaderStatusP;
-                if (!string.IsNullOrEmpty(HeaderStatus))
-                    HeaderStatusP = provider.CreateParameter("HeaderStatus", HeaderStatus, DbType.String);
-                else
-                    HeaderStatusP = provider.CreateParameter("HeaderStatus", DBNull.Value, DbType.String);
-
                 DbParameter TicketFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
                 DbParameter TicketToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
-                DbParameter[] TicketTypeParams = new DbParameter[10] { CategoryIDP, SubCategoryIDP, SeverityP, TypeP, AssignedToP, AssignedByP, UserIdP, HeaderStatusP, TicketFromP, TicketToP };
+                DbParameter[] TicketTypeParams = new DbParameter[5] { CategoryIDP, SubCategoryIDP, UserIdP, TicketFromP, TicketToP };
                 return provider.Select("GetTicketDetailsCountByStatusForChart", TicketTypeParams);
             }
             catch (Exception ex)
