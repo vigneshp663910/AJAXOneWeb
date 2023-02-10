@@ -17,6 +17,8 @@ namespace DealerManagementSystem.ViewDashboard
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Lead');</script>");
+
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -31,8 +33,7 @@ namespace DealerManagementSystem.ViewDashboard
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Lead');</script>");
+            {            
                 new DDLBind(ddlYDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 new DDLBind(ddlYCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                 new DDLBind(ddlMDealer, PSession.User.Dealer, "CodeWithName", "DID");
