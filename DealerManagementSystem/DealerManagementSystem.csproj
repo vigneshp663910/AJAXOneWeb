@@ -382,6 +382,7 @@
     <Content Include="ViewAdmin\DealerStateMapping.aspx" />
     <Content Include="ViewAdmin\DealerwisePermissionList.aspx" />
     <Content Include="ViewAdmin\DefaultUserModule.aspx" />
+    <Content Include="ViewAdmin\ModulePermissionList.aspx" />
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
@@ -979,6 +980,13 @@
     </Compile>
     <Compile Include="ViewAdmin\DefaultUserModule.aspx.designer.cs">
       <DependentUpon>DefaultUserModule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\ModulePermissionList.aspx.cs">
+      <DependentUpon>ModulePermissionList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\ModulePermissionList.aspx.designer.cs">
+      <DependentUpon>ModulePermissionList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>

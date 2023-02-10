@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewAdmin
 {
-    public partial class DealerwisePermissionList : System.Web.UI.Page
+    public partial class ModulePermissionList : System.Web.UI.Page
     {
         private int PageCount
         {
@@ -50,15 +51,17 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Dealerwise Permission List');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Modulewise Permission List');</script>");
             try
             {
                 if (!IsPostBack)
                 {
-                    new DDLBind(ddlRegion, new BDMS_Address().GetRegion(null, null, null), "Region", "RegionID");
+                    new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                     new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
                     new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
-                    FillDealer();
+                    GetMainModule(ddlMainModule, null, null);
+                    GetSubModule(ddlSubModule, null, null, null);
+                    GetSubModuleChildMaster(ddlChildModule, null, null, null);
                 }
             }
             catch (Exception ex)
@@ -82,51 +85,65 @@ namespace DealerManagementSystem.ViewAdmin
                 ViewState["UserwiseDealerList"] = value;
             }
         }
-        void FillDealer()
+        private void GetMainModule(DropDownList ddl, int? ModuleMasterID, string ModuleName)
         {
-            int? RegionID = (ddlRegion.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);            
-            List<PDMS_Dealer> DealerList = new BDMS_Dealer().GetDealer(null, "", PSession.User.UserID, RegionID);
-            ListViewDealer.DataSource = DealerList;
-            ListViewDealer.DataBind();
+            List<PModuleAccess> MainModule = new BUser().GetModuleMaster(ModuleMasterID, ModuleName);
+            ddl.DataValueField = "ModuleMasterID";
+            ddl.DataTextField = "ModuleName";
+            ddl.DataSource = MainModule;
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        private void GetSubModule(DropDownList ddl, int? ModuleMasterID, int? SubModuleMasterID, string SubModuleName)
+        {
+            List<PSubModuleAccess> MainModule = new BUser().GetSubModuleMaster(ModuleMasterID, SubModuleMasterID, SubModuleName);
+            ddl.DataValueField = "SubModuleMasterID";
+            ddl.DataTextField = "SubModuleName";
+            ddl.DataSource = MainModule;
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        private void GetSubModuleChildMaster(DropDownList ddl, int? SubModuleMasterID, int? SubModuleChildID, string ChildName)
+        {
+            List<PSubModuleChild> MainModule = new BUser().GetSubModuleChildMaster(SubModuleMasterID, SubModuleChildID, ChildName);
+            ddl.DataValueField = "SubModuleChildID";
+            ddl.DataTextField = "ChildName";
+            ddl.DataSource = MainModule;
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
         private void FillGrid()
         {
             try
             {
-                string DealerIDs = "";
-                int dealerCount = 0;
-                foreach (ListViewItem item in ListViewDealer.Items)
+                if(ddlSubModule.SelectedValue == "0")
                 {
-                    CheckBox chkDealer = (CheckBox)item.FindControl("chkDealer");
-                    Label lblDID = (Label)item.FindControl("lblDID");
-                    if (chkDealer.Checked == true)
-                    {
-                        DealerIDs = DealerIDs + "," + lblDID.Text;
-                        dealerCount += 1;
-                    }
+                    lblMessage.Text = "Please Select SubModule...!";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
                 }
+
+                int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
                 int? DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
                 int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
-                UserwiseDealerList = new BUser().GetUserByDealerIDs(DealerIDs, DepartmentID, DesignationID);
+                int? ModuleMasterID = (ddlMainModule.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlMainModule.SelectedValue);
+                int? SubModuleMasterID = (ddlSubModule.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlSubModule.SelectedValue);
+                int? SubModuleChildID = (ddlChildModule.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlChildModule.SelectedValue);
+                UserwiseDealerList = new BUser().GetUserByModulePermissions(DealerID, DepartmentID, DesignationID, ModuleMasterID, SubModuleMasterID, SubModuleChildID);
 
                 List<PDealerUserPermission> Dealers = new List<PDealerUserPermission>();
                 foreach (PDealerUserPermission pDealerUserPermission in UserwiseDealerList)
                 {
-                    var duplicates = UserwiseDealerList.Where(i => i.UserName == pDealerUserPermission.UserName).ToList();
-                    if (duplicates.Count == dealerCount)
-                    {
-                        bool containsItemState = Dealers.Any(item => item.UserName == pDealerUserPermission.UserName);
-                        if (!containsItemState)
-                        {
-                            PDealerUserPermission User = new PDealerUserPermission();
-                            User.UserName = pDealerUserPermission.UserName;
-                            User.ContactName = pDealerUserPermission.ContactName;
-                            User.MailID = pDealerUserPermission.MailID;
-                            User.DealerDesignation = pDealerUserPermission.DealerDesignation;
-                            User.DealerDepartment = pDealerUserPermission.DealerDepartment;
-                            Dealers.Add(User);
-                        }
-                    }
+                    PDealerUserPermission User = new PDealerUserPermission();
+                    User.UserName = pDealerUserPermission.UserName;
+                    User.ContactName = pDealerUserPermission.ContactName;
+                    User.MailID = pDealerUserPermission.MailID;
+                    User.DealerDesignation = pDealerUserPermission.DealerDesignation;
+                    User.DealerDepartment = pDealerUserPermission.DealerDepartment;
+                    User.ModuleName = pDealerUserPermission.ModuleName;
+                    User.SubModuleName = pDealerUserPermission.SubModuleName;
+                    User.ChildName = pDealerUserPermission.ChildName;
+                    Dealers.Add(User);
                 }
                 UserwiseDealerList = Dealers.ToList();
 
@@ -168,25 +185,6 @@ namespace DealerManagementSystem.ViewAdmin
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        protected void chkSelectAll_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkSelectAll.Checked == true)
-            {
-                foreach (ListViewItem item in ListViewDealer.Items)
-                {
-                    CheckBox chkDealer = (CheckBox)item.FindControl("chkDealer");
-                    chkDealer.Checked = true;
-                }
-            }
-            else
-            {
-                foreach (ListViewItem item in ListViewDealer.Items)
-                {
-                    CheckBox chkDealer = (CheckBox)item.FindControl("chkDealer");
-                    chkDealer.Checked = false;
-                }
-            }
-        }
         protected void gvDealerUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDealerUsers.PageIndex = e.NewPageIndex;
@@ -197,7 +195,7 @@ namespace DealerManagementSystem.ViewAdmin
             if (gvDealerUsers.PageIndex > 0)
             {
                 gvDealerUsers.PageIndex = gvDealerUsers.PageIndex - 1;
-                DealerBind(gvDealerUsers, lblRowCount, UserwiseDealerList);
+                UserBind(gvDealerUsers, lblRowCount, UserwiseDealerList);
             }
         }
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
@@ -205,22 +203,29 @@ namespace DealerManagementSystem.ViewAdmin
             if (gvDealerUsers.PageCount > gvDealerUsers.PageIndex)
             {
                 gvDealerUsers.PageIndex = gvDealerUsers.PageIndex + 1;
-                DealerBind(gvDealerUsers, lblRowCount, UserwiseDealerList);
+                UserBind(gvDealerUsers, lblRowCount, UserwiseDealerList);
             }
         }
-        void DealerBind(GridView gv, Label lbl, List<PDealerUserPermission> DealerList)
+        void UserBind(GridView gv, Label lbl, List<PDealerUserPermission> DealerList)
         {
             gv.DataSource = DealerList;
             gv.DataBind();
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + DealerList.Count;
         }
-        protected void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillDealer();
-        }
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
             new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+        }
+        protected void ddlMainModule_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? ModuleMasterID = (ddlMainModule.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlMainModule.SelectedValue);
+            GetSubModule(ddlSubModule, ModuleMasterID, null, null);
+            GetSubModuleChildMaster(ddlChildModule, null, null, null);
+        }
+        protected void ddlSubModule_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? SubModuleMasterID = (ddlSubModule.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlSubModule.SelectedValue);
+            GetSubModuleChildMaster(ddlChildModule, SubModuleMasterID, null, null);
         }
     }
 }

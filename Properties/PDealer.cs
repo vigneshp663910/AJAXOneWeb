@@ -113,5 +113,8 @@ namespace Properties
         public string MailID { get; set; }
         public string DealerDesignation { get; set; }
         public string DealerDepartment { get; set; }
-}
+        public string ModuleName { get; set; }
+        public string SubModuleName { get; set; }
+        public string ChildName { get; set; }
+    }
 }
