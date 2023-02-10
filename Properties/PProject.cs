@@ -26,6 +26,7 @@ namespace Properties
         public decimal Value { get; set; }
         public string L1ContractorName { get; set; }
         public string L1ContractorAddress { get; set; }
+        public string L1ContractorAddress2 { get; set; }
         public string L2Bidder { get; set; }
         public string L3Bidder { get; set; }
         public DateTime ContractAwardDate { get; set; }

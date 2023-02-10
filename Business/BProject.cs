@@ -33,6 +33,7 @@ namespace Business
                 DbParameter Value = provider.CreateParameter("Value", project.Value, DbType.Decimal);
                 DbParameter L1ContractorName = provider.CreateParameter("L1ContractorName", project.L1ContractorName, DbType.String);
                 DbParameter L1ContractorAddress = provider.CreateParameter("L1ContractorAddress", project.L1ContractorAddress, DbType.String);
+                DbParameter L1ContractorAddress2 = provider.CreateParameter("L1ContractorAddress2", project.L1ContractorAddress2, DbType.String);
                 DbParameter L2Bidder = provider.CreateParameter("L2Bidder", project.L2Bidder, DbType.String);
                 DbParameter L3Bidder = provider.CreateParameter("L3Bidder", project.L3Bidder, DbType.String);
                 DbParameter ContractAwardDate = provider.CreateParameter("ContractAwardDate", project.ContractAwardDate, DbType.DateTime);
@@ -41,7 +42,7 @@ namespace Business
                 DbParameter ProjectName = provider.CreateParameter("ProjectName", project.ProjectName, DbType.String);
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    DbParameter[] Params = new DbParameter[15] { ProjectID, ProjectNumber, EmailDate, TenderNumber, StateID, DistrictID, Value, L1ContractorName, L1ContractorAddress, L2Bidder, L3Bidder, ContractAwardDate, ContractEndDate, Remarks, ProjectName };
+                    DbParameter[] Params = new DbParameter[16] { ProjectID, ProjectNumber, EmailDate, TenderNumber, StateID, DistrictID, Value, L1ContractorName, L1ContractorAddress, L1ContractorAddress2, L2Bidder, L3Bidder, ContractAwardDate, ContractEndDate, Remarks, ProjectName };
                     provider.Insert("ZDMS_InsertOrUpdateProject", Params);
                     scope.Complete();
                 }
@@ -94,6 +95,7 @@ namespace Business
                                 Value = DBNull.Value == dr["Value"] ? 0 : Convert.ToDecimal(dr["Value"]),
                                 L1ContractorName = Convert.ToString(dr["L1ContractorName"]),
                                 L1ContractorAddress = Convert.ToString(dr["L1ContractorAddress"]),
+                                L1ContractorAddress2 = Convert.ToString(dr["L1ContractorAddress2"]),
                                 L2Bidder = Convert.ToString(dr["L2Bidder"]),
                                 L3Bidder = Convert.ToString(dr["L3Bidder"]),
                                 ContractAwardDate = Convert.ToDateTime(dr["ContractAwardDate"]),
