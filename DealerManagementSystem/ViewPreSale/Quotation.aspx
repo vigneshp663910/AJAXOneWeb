@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Quotation.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Quotation" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="Quotation.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Quotation" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewPreSale/UserControls/SalesQuotationView.ascx" TagPrefix="UC" TagName="UC_QuotationView" %>
@@ -60,6 +60,14 @@
                             <label class="modal-label">UserStatus</label>
                             <asp:DropDownList ID="ddlUserStatus" runat="server" CssClass="form-control" />
                         </div>
+                        <div class="col-md-2 text-left">
+                            <label>Product Type</label>
+                            <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlProductType_SelectedIndexChanged" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <label>Product</label>
+                            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="form-control" />
+                        </div>
 
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
@@ -93,7 +101,7 @@
                                 </div>
                             </div>
 
-                            <asp:GridView ID="gvQuotation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" >
+                            <asp:GridView ID="gvQuotation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -150,13 +158,9 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblMobile" runat="server">
                                                 <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Lead.Customer.Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Lead.Customer.Mobile")%></a>
-                                            </asp:Label>
-                                            <asp:Label ID="lblEMail" runat="server">
+                                            </asp:Label><asp:Label ID="lblEMail" runat="server">
                                                 <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Lead.Customer.EMail")%>'><%# DataBinder.Eval(Container.DataItem, "Lead.Customer.EMail")%></a>
-                                            </asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Created">
+                                            </asp:Label></ItemTemplate></asp:TemplateField><asp:TemplateField HeaderText="Created">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
@@ -177,10 +181,7 @@
 
                         </div>
                     </fieldset>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12" id="divColdVisitView" runat="server" visible="false">
+                 </div></div></div><div class="col-md-12" id="divColdVisitView" runat="server" visible="false">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
                 <div class="back-buttton" id="backBtn">

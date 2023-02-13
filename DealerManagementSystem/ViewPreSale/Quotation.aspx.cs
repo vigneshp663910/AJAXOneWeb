@@ -57,6 +57,8 @@ namespace DealerManagementSystem.ViewPreSale
         int? DealerID = null;
         int? SalesEngineerID = null;
         string CustomerCode = null;
+        int? ProductTypeID = null;
+        int? ProductID = null;
 
 
         protected void Page_PreInit(object sender, EventArgs e)
@@ -96,6 +98,8 @@ namespace DealerManagementSystem.ViewPreSale
 
                 new DDLBind(ddlUserStatus, new BSalesQuotation().GetSalesQuotationUserStatus(null, null), "SalesQuotationUserStatus", "SalesQuotationUserStatusID");
                 new DDLBind(ddlQuotationStatus, new BSalesQuotation().GetSalesQuotationStatus(null, null), "SalesQuotationStatus", "SalesQuotationStatusID");
+                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+                new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, Convert.ToInt32(ddlProductType.SelectedValue), null), "Product", "ProductID");
             }
         }
 
@@ -122,17 +126,9 @@ namespace DealerManagementSystem.ViewPreSale
                 FillQuotation();
             }
         }
-
-        void QuoteBind(GridView gv, Label lbl, List<PSalesQuotation> Quote)
-        {
-            gv.DataSource = Quote ;
-            gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Quote.Count ;
-        }
-
+  
         void Search()
-        {
-
+        { 
             SalesQuotationID = null;
             QuotationNo = txtQuotationNumber.Text.Trim();
             QuotationDateFrom = txtDateFrom.Text.Trim();
@@ -144,13 +140,15 @@ namespace DealerManagementSystem.ViewPreSale
             DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             CustomerCode = txtCustomer.Text.Trim();
+            ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
+            ProductID = ddlProduct.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProduct.SelectedValue);
         }
         void FillQuotation()
         {
             Search();
             //List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
-             PApiResult Result = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, QuotationNo, QuotationDateFrom, QuotationDateTo
-                , LeadID, LeadNumber, StatusID, UserStatusID, DealerID, SalesEngineerID,  CustomerCode, PageIndex, gvQuotation.PageSize);
+            PApiResult Result = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, QuotationNo, QuotationDateFrom, QuotationDateTo
+               , LeadID, LeadNumber, StatusID, UserStatusID, ProductTypeID, ProductID, DealerID, SalesEngineerID, CustomerCode, PageIndex, gvQuotation.PageSize);
 
             gvQuotation.DataSource = JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(Result.Data));
             gvQuotation.DataBind();
@@ -306,6 +304,11 @@ namespace DealerManagementSystem.ViewPreSale
         {
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+        }
+
+        protected void ddlProductType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null,Convert.ToInt32(ddlProductType.SelectedValue),null), "Product", "ProductID");
         }
     }
 }

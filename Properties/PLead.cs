@@ -198,18 +198,15 @@ namespace Properties
         public DateTime? LeadDateFrom { get; set; }
         public DateTime? LeadDateTo { get; set; }
         public int? StatusID { get; set; }
-        public int? ProgressStatusID { get; set; }
-        public int? CategoryID { get; set; }
+        public int? ProductTypeID { get; set; } 
         public int? QualificationID { get; set; }
-        public int? SourceID { get; set; }
-        public int? TypeID { get; set; }
+        public int? SourceID { get; set; } 
         public int? DealerID { get; set; }
         public long? SalesEngineerID { get; set; }
         public long? CustomerID { get; set; }
         public string CustomerCode { get; set; }
         public int? CountryID { get; set; }
-        public int? StateID { get; set; }
-        public string Name { get; set; }
+        public int? StateID { get; set; } 
     }
     [Serializable]
     public class PLeadQuestionaries

@@ -342,12 +342,12 @@ namespace Business
                 + "&Country=" + CountryID + "&Region=" + RegionID + "&ProductType=" + ProductTypeID;
             return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public DataTable GetEnquiryVelocityCount(string DateFrom, string DateTo, string DealerID, int? CountryID, string RegionID, string ProductTypeID)
+        public DataSet GetEnquiryVelocityCount(string DateFrom, string DateTo, string DealerID, int? CountryID, string RegionID, string ProductTypeID)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Enquiry/GetEnquiryVelocityCount?DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&Dealer=" + DealerID
                 + "&Country=" + CountryID + "&Region=" + RegionID + "&ProductType=" + ProductTypeID;
-            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public DataTable GetEnquiryStatusHistory(long EnquiryID)
         {
