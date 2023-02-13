@@ -44,7 +44,10 @@ namespace DealerManagementSystem.ViewPreSale
                 new DDLBind(ddlSState, State, "State", "StateID");  
 
                 List<PLeadStatus> Status = new BLead().GetLeadStatus(null, null);
-                new DDLBind(ddlSStatus, Status, "Status", "StatusID");  
+                new DDLBind(ddlSStatus, Status, "Status", "StatusID");
+                 
+                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+
 
                 if (Session["leadStatusID"] != null)
                 {
@@ -174,7 +177,8 @@ namespace DealerManagementSystem.ViewPreSale
             S.LeadNumber = txtLeadNumber.Text.Trim();
             S.StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue); 
             S.QualificationID = ddlSQualification.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSQualification.SelectedValue);
-            S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue); 
+            S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
+            S.ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
             S.CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
 

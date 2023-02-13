@@ -72,6 +72,10 @@
                         <label>State</label>
                         <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" />
                     </div>
+                     <div class="col-md-2 text-left">
+                        <label>Product Type</label>
+                        <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
+                    </div>
 
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>

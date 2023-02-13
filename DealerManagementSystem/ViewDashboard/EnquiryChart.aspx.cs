@@ -82,15 +82,14 @@ namespace DealerManagementSystem.ViewDashboard
                 TotalCount = TotalCount + Convert.ToInt32(dr["TotalCount"]);
                 ConvertedCount = ConvertedCount + Convert.ToInt32(dr["ConvertedCount"]);
             }
-            lblTotalConversion.Text = Convert.ToDecimal((ConvertedCount * 100 / TotalCount)).ToString("00.00") + " %";
+            lblTotalConversion.Text = Convert.ToDecimal((ConvertedCount * 100.00 / TotalCount)).ToString("00.00") + " %";
 
             HttpContext.Current.Session["Dealer"] = Dealer;
             HttpContext.Current.Session["ProductType"] = ProductType;
 
             ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionChart); ", true);
             ClientScript.RegisterStartupScript(GetType(), "hwa2", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(SourceChart); ", true);
-            ClientScript.RegisterStartupScript(GetType(), "hwa3", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(VelocityChart);", true);
-
+            ClientScript.RegisterStartupScript(GetType(), "hwa3", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(VelocityChart);", true); 
 
             //   Boolean IsMainServiceMaterial = (Boolean)HttpContext.Current.Session["IsMainServiceMaterial"];
 
@@ -149,24 +148,112 @@ namespace DealerManagementSystem.ViewDashboard
         }
 
         [WebMethod]
-        public static List<object> GetVelocity(string DateFrom, string DateTo,   string Country, string Region)
+        public static List<object> GetVelocity(string DateFrom, string DateTo, string Country, string Region)
         {
             string Dealer = (string)HttpContext.Current.Session["Dealer"];
             string ProductType = (string)HttpContext.Current.Session["ProductType"];
+             
 
-            List<object> chartData = new List<object>();
-            chartData.Add(new object[] { "Description", "Count" });
             int? CountryID = string.IsNullOrEmpty(Country) || Country == "0" ? (int?)null : Convert.ToInt32(Country);
             Dealer = Dealer == "0" ? "" : Dealer;
             Region = Region == "0" ? "" : Region;
             ProductType = ProductType == "0" ? "" : ProductType;
-            DataTable dt = new BEnquiry().GetEnquiryVelocityCount(DateFrom, DateTo, Dealer, CountryID, Region, ProductType);
-            foreach (DataRow dr in dt.Rows)
+             
+            DataSet ds = new BEnquiry().GetEnquiryVelocityCount(DateFrom, DateTo, Dealer, CountryID, Region, ProductType);
+            List<object> Main = new List<object>();
+
+            foreach (DataTable dt in ds.Tables)
             {
-                chartData.Add(new object[] { Convert.ToString(dr["Description"]), Convert.ToInt32(dr["Count"]) });
+                Main.Add(GetVelocityData(dt));
             }
-            return chartData;
+
+          //  List<object> Sub = null;
+
+            //Sub = new List<object>();
+            //Sub.Add(new object[] { "Description", "Count" });            
+            //foreach (DataRow dr in ds.Tables[0].Rows)
+            //{
+            //    Sub.Add(new object[] { Convert.ToString(dr["Description"]), Convert.ToInt32(dr["Count"]) });
+            //}
+            //Main.Add(new object[] { Sub });
+
+
+            //Sub = new List<object>();
+            //Sub.Add(new object[] { "Description", "Count" });
+            //foreach (DataRow dr in ds.Tables[1].Rows)
+            //{
+            //    Sub.Add(new object[] { Convert.ToString(dr["Description"]), Convert.ToInt32(dr["Count"]) });
+            //}
+            //Main.Add(new object[] { Sub });
+
+
+            //Sub = new List<object>();
+            //Sub.Add(new object[] { "Description", "Count" });
+            //foreach (DataRow dr in ds.Tables[2].Rows)
+            //{
+            //    Sub.Add(new object[] { Convert.ToString(dr["Description"]), Convert.ToInt32(dr["Count"]) });
+            //}
+            //Main.Add(new object[] { Sub });
+
+            //Sub = new List<object>();
+            //Sub.Add(new object[] { "Description", "Count" });
+            //foreach (DataRow dr in ds.Tables[3].Rows)
+            //{
+            //    Sub.Add(new object[] { Convert.ToString(dr["Description"]), Convert.ToInt32(dr["Count"]) });
+            //}
+            //Main.Add(new object[] { Sub });
+
+            //Sub = new List<object>();
+            //Sub.Add(new object[] { "Description", "Count" });
+            //foreach (DataRow dr in ds.Tables[4].Rows)
+            //{
+            //    Sub.Add(new object[] { Convert.ToString(dr["Description"]), Convert.ToInt32(dr["Count"]) });
+            //}
+            //Main.Add(new object[] { Sub });
+
+            //Sub = new List<object>();
+            //Sub.Add(new object[] { "Description", "Count" });
+            //foreach (DataRow dr in ds.Tables[5].Rows)
+            //{
+            //    Sub.Add(new object[] { Convert.ToString(dr["Description"]), Convert.ToInt32(dr["Count"]) });
+            //}
+            //Main.Add(new object[] { Sub });
+
+            //Sub = new List<object>();
+            //Sub.Add(new object[] { "Description", "Count" });
+            //foreach (DataRow dr in ds.Tables[6].Rows)
+            //{
+            //    Sub.Add(new object[] { Convert.ToString(dr["Description"]), Convert.ToInt32(dr["Count"]) });
+            //}
+            //Sub.Add(new object[] { "0",0 });
+
+            //Main.Add(new object[] { Sub });
+
+            //Sub = new List<object>();
+            //Sub.Add(new object[] { "Description", "Count" });
+            //foreach (DataRow dr in ds.Tables[7].Rows)
+            //{
+            //    Sub.Add(new object[] { Convert.ToString(dr["Description"]), Convert.ToInt32(dr["Count"]) });
+            //}
+            //Main.Add(new object[] { Sub });
+
+            return Main;
         }
 
+
+        static List<object> GetVelocityData(DataTable dt)
+        {
+            List<object> Sub = new List<object>();
+            Sub.Add(new object[] { "Description", "Count" });
+            foreach (DataRow dr in dt.Rows)
+            {
+                Sub.Add(new object[] { Convert.ToString(dr["Description"]), Convert.ToInt32(dr["Count"]) });
+            }
+            if (Sub.Count == 1)
+            {
+                Sub.Add(new object[] { "0", 0 });
+            } 
+            return Sub;
+        }
     }
 }
