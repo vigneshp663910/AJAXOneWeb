@@ -28,12 +28,13 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
+
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard  » Pre-Sales');</script>");
         }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard  » Pre-Sales');</script>"); 
+            {               
                 From = DateTime.Now.Date;
                 FromF = DateTime.Now.Date.AddDays(-7);
                 new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);

@@ -28,10 +28,9 @@ namespace DealerManagementSystem.ViewDashboard
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Enquiry');</script>");
             if (!IsPostBack)
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Enquiry');</script>");
-               
+            { 
                 new DDLBind(ddlMCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID"); 
                 loadYearAndMonth();
 
