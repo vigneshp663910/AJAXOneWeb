@@ -1678,5 +1678,194 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
+        public List<PSubModuleChild> GetSubModuleChildMaster(int? SubModuleMasterID,int? SubModuleChildID,string ChildName)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            List<PSubModuleChild> MAs = new List<PSubModuleChild>();
+            PSubModuleChild MA = null;
+            try
+            {
+                DbParameter SubModuleMasterIDP = provider.CreateParameter("SubModuleMasterID", SubModuleMasterID, DbType.Int32);
+                DbParameter SubModuleChildIDP = provider.CreateParameter("SubModuleChildID", SubModuleChildID, DbType.Int32);
+                DbParameter ChildNameP = provider.CreateParameter("ChildName", ChildName, DbType.String);
+                DbParameter[] Params = new DbParameter[3] { SubModuleMasterIDP, SubModuleChildIDP, ChildNameP };
+
+                using (DataSet ds = provider.Select("GetSubModuleChildMaster", Params))
+                {
+                    if (ds != null)
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            MA = new PSubModuleChild();
+                            MAs.Add(MA);
+                            MA.SubModuleChildID = Convert.ToInt32(dr["SubModuleChildID"]);
+                            MA.ChildName = Convert.ToString(dr["ChildName"]);
+                        }
+                }
+                TraceLogger.Log(traceStartTime);
+                return MAs;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
+        }
+        public List<PSubModuleAccess> GetSubModuleMaster(int? ModuleMasterID, int? SubModuleMasterID, string SubModuleName)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            List<PSubModuleAccess> MAs = new List<PSubModuleAccess>();
+            PSubModuleAccess MA = null;
+            try
+            {
+                DbParameter ModuleMasterIDP = provider.CreateParameter("ModuleMasterID", ModuleMasterID, DbType.Int32);
+                DbParameter SubModuleMasterIDP = provider.CreateParameter("SubModuleMasterID", SubModuleMasterID, DbType.Int32);
+                DbParameter SubModuleNameP = provider.CreateParameter("SubModuleName", SubModuleName, DbType.String);
+                DbParameter[] Params = new DbParameter[3] { ModuleMasterIDP, SubModuleMasterIDP, SubModuleNameP };
+
+                using (DataSet ds = provider.Select("GetSubModuleMaster", Params))
+                {
+                    if (ds != null)
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            MA = new PSubModuleAccess();
+                            MAs.Add(MA);
+                            MA.SubModuleMasterID = Convert.ToInt32(dr["SubModuleMasterID"]);
+                            MA.SubModuleName = Convert.ToString(dr["SubModuleName"]);
+                        }
+                }
+                TraceLogger.Log(traceStartTime);
+                return MAs;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
+        }
+        public List<PModuleAccess> GetModuleMaster(int? ModuleMasterID, string ModuleName)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            List<PModuleAccess> MAs = new List<PModuleAccess>();
+            PModuleAccess MA = null;
+            try
+            {
+                DbParameter ModuleMasterIDP = provider.CreateParameter("ModuleMasterID", ModuleMasterID, DbType.Int32);
+                DbParameter ModuleNameP = provider.CreateParameter("ModuleName", ModuleName, DbType.String);
+                DbParameter[] Params = new DbParameter[2] { ModuleMasterIDP, ModuleNameP };
+                using (DataSet ds = provider.Select("GetModuleMaster", Params))
+                {
+                    if (ds != null)
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            MA = new PModuleAccess();
+                            MAs.Add(MA);
+                            MA.ModuleMasterID = Convert.ToInt32(dr["ModuleMasterID"]);
+                            MA.ModuleName = Convert.ToString(dr["ModuleName"]);
+                        }
+                }
+                TraceLogger.Log(traceStartTime);
+                return MAs;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
+        }
+        public List<PDealerUserPermission> GetUserByDealerIDs(string DealerID, int? DepartmentID, int? DesignationID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDealerUserPermission> Users = new List<PDealerUserPermission>();
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.String);
+                DbParameter DepartmentIDP = provider.CreateParameter("DepartmentID", DepartmentID, DbType.Int32);
+                DbParameter DesignationIDP = provider.CreateParameter("DesignationID", DesignationID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[3] { DealerIDP, DepartmentIDP, DesignationIDP };
+                using (DataSet ds = provider.Select("GetUserByDealerIDs", Params))
+                {
+                    if (ds != null)
+                    {
+                        DataTable dt = ds.Tables[0];
+
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            PDealerUserPermission User = new PDealerUserPermission();
+                            User.DealerID = Convert.ToInt32(dr["DID"]);
+                            User.UserName = Convert.ToString(dr["UserName"]);
+                            User.DealerCode = Convert.ToString(dr["DealerCode"]);
+                            User.ContactName = Convert.ToString(dr["ContactName"]);
+                            User.CodeWithName = Convert.ToString(dr["DealerCode"]) + "-" + Convert.ToString(dr["DisplayName"]);
+                            User.MailID = Convert.ToString(dr["MailID"]);
+                            User.DealerDesignation = Convert.ToString(dr["DealerDesignation"]);
+                            User.DealerDepartment = Convert.ToString(dr["DealerDepartment"]);
+                            Users.Add(User);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDealer", "GetUserByDealerIDs", ex);
+                throw ex;
+            }
+            return Users;
+        }
+        public List<PDealerUserPermission> GetUserByModulePermissions(int? DealerID, int? DepartmentID, int? DesignationID, int? ModuleMasterID, int? SubModuleMasterID, int? SubModuleChildID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDealerUserPermission> Users = new List<PDealerUserPermission>();
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter DepartmentIDP = provider.CreateParameter("DepartmentID", DepartmentID, DbType.Int32);
+                DbParameter DesignationIDP = provider.CreateParameter("DesignationID", DesignationID, DbType.Int32);
+                DbParameter ModuleMasterIDP = provider.CreateParameter("ModuleMasterID", ModuleMasterID, DbType.Int32);
+                DbParameter SubModuleMasterIDP = provider.CreateParameter("SubModuleMasterID", SubModuleMasterID, DbType.Int32);
+                DbParameter SubModuleChildIDP = provider.CreateParameter("SubModuleChildID", SubModuleChildID, DbType.Int32);
+
+
+                DbParameter[] Params = new DbParameter[6] { DealerIDP, DepartmentIDP, DesignationIDP, ModuleMasterIDP, SubModuleMasterIDP, SubModuleChildIDP };
+                using (DataSet ds = provider.Select("GetUserByModulePermission", Params))
+                {
+                    if (ds != null)
+                    {
+                        DataTable dt = ds.Tables[0];
+
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            PDealerUserPermission User = new PDealerUserPermission();
+                            User.DealerID = Convert.ToInt32(dr["DID"]);
+                            User.UserName = Convert.ToString(dr["UserName"]);
+                            User.DealerCode = Convert.ToString(dr["DealerCode"]);
+                            User.ContactName = Convert.ToString(dr["ContactName"]);
+                            User.CodeWithName = Convert.ToString(dr["DealerCode"]) + "-" + Convert.ToString(dr["DisplayName"]);
+                            User.MailID = Convert.ToString(dr["MailID"]);
+                            User.DealerDesignation = Convert.ToString(dr["DealerDesignation"]);
+                            User.DealerDepartment = Convert.ToString(dr["DealerDepartment"]);
+                            User.ModuleName = Convert.ToString(dr["ModuleName"]);
+                            User.SubModuleName = Convert.ToString(dr["SubModuleName"]);
+                            User.ChildName = Convert.ToString(dr["ChildName"]);
+                            Users.Add(User);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDealer", "GetUserByDealerIDs", ex);
+                throw ex;
+            }
+            return Users;
+        }
     }
 }

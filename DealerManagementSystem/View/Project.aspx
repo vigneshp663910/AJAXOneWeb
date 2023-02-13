@@ -53,6 +53,11 @@
                                 <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID="txtAddress1" WatermarkText="Address 1" WatermarkCssClass="WatermarkCssClass" />
                             </div>
                             <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Address 2</label>
+                                <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40" autocomplete="off"></asp:TextBox>
+                                <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtAddress2" WatermarkText="Address 2" WatermarkCssClass="WatermarkCssClass" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
                                 <label class="modal-label">L2 Bidder</label>
                                 <asp:TextBox ID="txtL2Bidder" runat="server" CssClass="form-control" MaxLength="35" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                             </div>
@@ -126,13 +131,9 @@
                                     <asp:Label ID="lblL1ContractorName" runat="server" CssClass="label"></asp:Label>
                                 </div>
                                 <div class="col-md-12">
-                                    <label>L3Bidder : </label>
-                                    <asp:Label ID="lblL3Bidder" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>Remarks : </label>
-                                    <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
-                                </div>
+                                    <label>L2Bidder : </label>
+                                    <asp:Label ID="lblL2Bidder" runat="server" CssClass="label"></asp:Label>
+                                </div>                                
                             </div>
                             <div class="col-md-4">
                                 <div class="col-md-12">
@@ -148,8 +149,12 @@
                                     <asp:Label ID="lblAddress1" runat="server" CssClass="label"></asp:Label>
                                 </div>
                                 <div class="col-md-12">
-                                    <label>ContractAwardDate : </label>
-                                    <asp:Label ID="lblContractAwardDate" runat="server" CssClass="label"></asp:Label>
+                                    <label>L3Bidder : </label>
+                                    <asp:Label ID="lblL3Bidder" runat="server" CssClass="label"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Remarks : </label>
+                                    <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -162,8 +167,12 @@
                                     <asp:Label ID="lblValue" runat="server" CssClass="label"></asp:Label>
                                 </div>
                                 <div class="col-md-12">
-                                    <label>L2Bidder : </label>
-                                    <asp:Label ID="lblL2Bidder" runat="server" CssClass="label"></asp:Label>
+                                    <label>Address 2 : </label>
+                                    <asp:Label ID="lblAddress2" runat="server" CssClass="label"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>ContractAwardDate : </label>
+                                    <asp:Label ID="lblContractAwardDate" runat="server" CssClass="label"></asp:Label>
                                 </div>
                                 <div class="col-md-12">
                                     <label>ContractEndDate : </label>
@@ -266,6 +275,7 @@
                                     <asp:BoundField HeaderText="Value" DataField="Value"></asp:BoundField>
                                     <asp:BoundField HeaderText="L1 Contractor Name" DataField="L1ContractorName"></asp:BoundField>
                                     <asp:BoundField HeaderText="L1 Contractor Address" DataField="L1ContractorAddress"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Address2" DataField="L1ContractorAddress2"></asp:BoundField>
                                     <asp:BoundField HeaderText="L2 Bidder" DataField="L2Bidder"></asp:BoundField>
                                     <asp:BoundField HeaderText="L3 Bidder" DataField="L3Bidder"></asp:BoundField>
                                     <asp:BoundField HeaderText="Contract Award Date" DataField="ContractAwardDate"></asp:BoundField>

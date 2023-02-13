@@ -150,6 +150,24 @@ namespace DealerManagementSystem.View
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender7;
 
         /// <summary>
+        /// txtAddress2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAddress2;
+
+        /// <summary>
+        /// TextBoxWatermarkExtender6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender6;
+
+        /// <summary>
         /// txtL2Bidder control.
         /// </summary>
         /// <remarks>
@@ -330,22 +348,13 @@ namespace DealerManagementSystem.View
         protected global::System.Web.UI.WebControls.Label lblL1ContractorName;
 
         /// <summary>
-        /// lblL3Bidder control.
+        /// lblL2Bidder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblL3Bidder;
-
-        /// <summary>
-        /// lblRemarks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRemarks;
+        protected global::System.Web.UI.WebControls.Label lblL2Bidder;
 
         /// <summary>
         /// lblEmailDate control.
@@ -375,13 +384,22 @@ namespace DealerManagementSystem.View
         protected global::System.Web.UI.WebControls.Label lblAddress1;
 
         /// <summary>
-        /// lblContractAwardDate control.
+        /// lblL3Bidder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContractAwardDate;
+        protected global::System.Web.UI.WebControls.Label lblL3Bidder;
+
+        /// <summary>
+        /// lblRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRemarks;
 
         /// <summary>
         /// lblTenderNumber control.
@@ -402,13 +420,22 @@ namespace DealerManagementSystem.View
         protected global::System.Web.UI.WebControls.Label lblValue;
 
         /// <summary>
-        /// lblL2Bidder control.
+        /// lblAddress2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblL2Bidder;
+        protected global::System.Web.UI.WebControls.Label lblAddress2;
+
+        /// <summary>
+        /// lblContractAwardDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblContractAwardDate;
 
         /// <summary>
         /// lblContractEndDate control.

@@ -103,15 +103,7 @@ namespace DealerManagementSystem.ViewMaster
                // CustBind(gvCustomer, lblRowCount, Cust);
             }
         }
-
-
-        void CustBind(GridView gv, Label lbl, List<PDMS_Customer> Cust)
-        {
-            gv.DataSource = Cust;
-            gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Cust.Count;
-        }
-
+         
         void SearchCustomer()
         {
             long? CustomerID = null;

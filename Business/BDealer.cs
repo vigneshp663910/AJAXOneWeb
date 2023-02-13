@@ -187,47 +187,7 @@ namespace Business
             catch (Exception ex)
             { }
             return Dealers;
-        }
-        public List<PDealerUserPermission> GetUserByDealerIDs(string DealerID, int? DepartmentID, int? DesignationID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            List<PDealerUserPermission> Users = new List<PDealerUserPermission>();
-            try
-            {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.String);
-                DbParameter DepartmentIDP = provider.CreateParameter("DepartmentID", DepartmentID, DbType.Int32);
-                DbParameter DesignationIDP = provider.CreateParameter("DesignationID", DesignationID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[3] { DealerIDP, DepartmentIDP, DesignationIDP };
-                using (DataSet ds = provider.Select("GetUserByDealerIDs", Params))
-                {
-                    if (ds != null)
-                    {
-                        DataTable dt = ds.Tables[0];
-
-                        foreach (DataRow dr in ds.Tables[0].Rows)
-                        {
-                            PDealerUserPermission User = new PDealerUserPermission();
-                            User.DealerID = Convert.ToInt32(dr["DID"]);
-                            User.UserName = Convert.ToString(dr["UserName"]);
-                            User.DealerCode = Convert.ToString(dr["DealerCode"]);
-                            User.ContactName = Convert.ToString(dr["ContactName"]);
-                            User.CodeWithName = Convert.ToString(dr["DealerCode"]) + "-" + Convert.ToString(dr["DisplayName"]);
-                            User.MailID = Convert.ToString(dr["MailID"]);
-                            User.DealerDesignation = Convert.ToString(dr["DealerDesignation"]);
-                            User.DealerDepartment = Convert.ToString(dr["DealerDepartment"]);
-                            Users.Add(User);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDealer", "GetUserByDealerIDs", ex);
-                throw ex;
-            }
-            return Users;
-        }
-
+        }        
         public PDealer GetDealerByID(int? DealerID,string DealerCode)
         {
            
@@ -280,7 +240,6 @@ namespace Business
             { }
             return Dealer;
         }
-
         public int InsertOrUpdateDealerAddress(string Code)
         {
             PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Code);

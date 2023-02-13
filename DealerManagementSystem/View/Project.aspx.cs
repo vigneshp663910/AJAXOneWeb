@@ -60,7 +60,6 @@ namespace DealerManagementSystem.View
                 lblMessage.ForeColor = Color.Red;
             }
         }
-
         protected void BtnSave_Click(object sender, EventArgs e)
         {
             try
@@ -87,6 +86,7 @@ namespace DealerManagementSystem.View
                 project.Value = Convert.ToDecimal(txtValue.Text);
                 project.L1ContractorName = txtL1ContractorName.Text.Trim();
                 project.L1ContractorAddress = txtAddress1.Text.Trim();
+                project.L1ContractorAddress2 = txtAddress2.Text.Trim();
                 project.L2Bidder = txtL2Bidder.Text.Trim();
                 project.L3Bidder = txtL3Bidder.Text.Trim();
                 project.ContractAwardDate = Convert.ToDateTime(txtContractAwardDate.Text.Trim());
@@ -187,6 +187,7 @@ namespace DealerManagementSystem.View
             txtValue.Text = string.Empty;
             txtL1ContractorName.Text = string.Empty;
             txtAddress1.Text = string.Empty;
+            txtAddress2.Text = string.Empty;
             txtL2Bidder.Text = string.Empty;
             txtL3Bidder.Text = string.Empty;
             txtContractAwardDate.Text = string.Empty;
@@ -250,6 +251,7 @@ namespace DealerManagementSystem.View
                     lblValue.Text = project.Value.ToString();
                     lblL1ContractorName.Text = project.L1ContractorName;
                     lblAddress1.Text = project.L1ContractorAddress;
+                    lblAddress2.Text = project.L1ContractorAddress2;
                     lblL2Bidder.Text = project.L2Bidder;
                     lblL3Bidder.Text = project.L3Bidder;
                     lblContractAwardDate.Text = project.ContractAwardDate.ToString("dd/MM/yyyy");
@@ -350,6 +352,7 @@ namespace DealerManagementSystem.View
                     txtValue.Text = project.Value.ToString();
                     txtL1ContractorName.Text = project.L1ContractorName;
                     txtAddress1.Text = project.L1ContractorAddress;
+                    txtAddress2.Text = project.L1ContractorAddress2;
                     txtL2Bidder.Text = project.L2Bidder;
                     txtL3Bidder.Text = project.L3Bidder;
                     txtContractAwardDate.Text = project.ContractAwardDate.ToString("dd/MM/yyyy");
@@ -417,6 +420,7 @@ namespace DealerManagementSystem.View
                 dt.Columns.Add("Value");
                 dt.Columns.Add("L1 Contractor Name");
                 dt.Columns.Add("L1 Contractor Address");
+                dt.Columns.Add("L1 Contractor Address2");
                 dt.Columns.Add("L2 Bidder");
                 dt.Columns.Add("L3 Bidder");
                 dt.Columns.Add("Contract Award Date");
@@ -438,6 +442,7 @@ namespace DealerManagementSystem.View
                         , Project.Value
                         , Project.L1ContractorName
                         , Project.L1ContractorAddress
+                        , Project.L1ContractorAddress2
                         , Project.L2Bidder
                         , Project.L3Bidder
                         , Project.ContractAwardDate
