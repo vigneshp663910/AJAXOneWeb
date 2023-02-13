@@ -1088,7 +1088,7 @@ namespace Business
             }
             return true;
         }
-        public List<PEquipmentAttachedFile> GetEquipmentAttachedFileDetails(long EquipmentHeaderID, long? AttachedFileID)
+        public List<PEquipmentAttachedFile> GetEquipmentAttachedFileDetails(long EquipmentHeaderID, long? AttachedFileID, long? ChangeID)
         {
             List<PEquipmentAttachedFile> AF = new List<PEquipmentAttachedFile>();
             try
@@ -1117,7 +1117,7 @@ namespace Business
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentWarrantyTypeAttachedFileDetails", ex);
+                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentAttachedFileDetails", ex);
                 return null;
             }
         }
@@ -1158,6 +1158,30 @@ namespace Business
         {
             string endPoint = "Equipment/GetEquipmentAttachedFileByID?DocumentName=" + DocumentName;
             return JsonConvert.DeserializeObject<PEquipmentAttachedFile>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetEquipmentChangeRequestHistory(long EquipmentHeaderID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            try
+            {
+                DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
+                DbParameter[] Params = new DbParameter[1] { EquipmentHeaderIDP };
+                
+                using (DataSet DataSet = provider.Select("GetEquipmentChangeRequestHistory", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        return DataSet.Tables[0];
+                    }
+                }
+                return null;
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
         }
     }
 }

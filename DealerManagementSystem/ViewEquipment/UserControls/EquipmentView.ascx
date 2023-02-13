@@ -135,6 +135,22 @@
                     <asp:Label ID="lblNewWarrantyStartEndDate" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>--%>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Attached File : </label>
+                    <asp:GridView ID="gvlWarrantyTypeChangeAttachedFile" runat="server" AutoGenerateColumns="False" DataKeyNames="AttachedFileID" GridLines="None" ShowHeader="False">
+                        <Columns>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblWarrantyTypeChangeAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
+                                    <asp:LinkButton ID="lnkBtnWarrantyTypeChangeAttachedFileDownload" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" OnClick="lnkBtnWarrantyTypeChangeAttachedFileDownload_Click"></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <RowStyle BackColor="#f1f1f1" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </div>
         </div>
     </fieldset>
 </div>
@@ -156,6 +172,22 @@
                     <asp:Label ID="lblNewCustomer" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Attached File : </label>
+                    <asp:GridView ID="gvOwnershipChangeAttachedFile" runat="server" AutoGenerateColumns="False" DataKeyNames="AttachedFileID" GridLines="None" ShowHeader="False">
+                        <Columns>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblOwnershipChangeAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
+                                    <asp:LinkButton ID="lnkBtOwnershipChangeAttachedFileDownload" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" OnClick="lnkBtOwnershipChangeAttachedFileDownload_Click"></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <RowStyle BackColor="#f1f1f1" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </div>
         </div>
     </fieldset>
 </div>
@@ -175,6 +207,22 @@
                 <div class="col-md-12">
                     <label>New Expiry Date : </label>
                     <asp:Label ID="lblNewWarrantyExpiryDate" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Attached File : </label>
+                    <asp:GridView ID="gvWarrantyExpiryDateChangeAttachedFile" runat="server" AutoGenerateColumns="False" DataKeyNames="AttachedFileID" GridLines="None" ShowHeader="False">
+                        <Columns>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblWarrantyExpiryDateChangeAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
+                                    <asp:LinkButton ID="lnkBtnWarrantyExpiryDateChangeAttachedFileDownload" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" OnClick="lnkBtnWarrantyExpiryDateChangeAttachedFileDownload"></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <RowStyle BackColor="#f1f1f1" HorizontalAlign="Left" />
+                    </asp:GridView>
                 </div>
             </div>
         </div>
@@ -511,6 +559,77 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tabPnlChgReqHst" runat="server" HeaderText="Change Request History">
+        <ContentTemplate>
+            <div class="boxHead">
+                <div class="logheading">
+                    <div style="float: left">
+                        <table>
+                            <tr>
+                                <td>Change Request History:</td>
+                                <td>
+                                    <asp:Label ID="lblRowCountChgReqHst" runat="server" CssClass="label"></asp:Label></td>
+                                <td>
+                                    <asp:ImageButton ID="ibtnChgReqHstArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnChgReqHstArrowLeft_Click" /></td>
+                                <td>
+                                    <asp:ImageButton ID="ibtnChgReqHstArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnChgReqHstArrowRight_Click" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 Report">
+                <div class="table-responsive">
+                    <asp:GridView ID="gvChgReqHst" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" EmptyDataText="No Data Found"
+                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvChgReqHst_PageIndexChanging">
+                        <Columns>
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Change Type">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblChangeType" Text='<%# DataBinder.Eval(Container.DataItem, "ChangeType")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Requested By">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRequestedBy" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedBy")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Requested Date">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRequestedDate" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedDate")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Approved By">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblApprovedBy" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovedBy")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Approved Date">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblApprovedDate" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovedDate")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

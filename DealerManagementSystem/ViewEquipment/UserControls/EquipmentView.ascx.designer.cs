@@ -159,6 +159,15 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.Label lblNewWarrantyHMR;
 
         /// <summary>
+        /// gvlWarrantyTypeChangeAttachedFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvlWarrantyTypeChangeAttachedFile;
+
+        /// <summary>
         /// divOwnershipApproval control.
         /// </summary>
         /// <remarks>
@@ -195,6 +204,15 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.Label lblNewCustomer;
 
         /// <summary>
+        /// gvOwnershipChangeAttachedFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvOwnershipChangeAttachedFile;
+
+        /// <summary>
         /// divExpiryDateApproval control.
         /// </summary>
         /// <remarks>
@@ -229,6 +247,15 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNewWarrantyExpiryDate;
+
+        /// <summary>
+        /// gvWarrantyExpiryDateChangeAttachedFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvWarrantyExpiryDateChangeAttachedFile;
 
         /// <summary>
         /// lblModel control.
@@ -670,6 +697,51 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvAttachedFile;
+
+        /// <summary>
+        /// tabPnlChgReqHst control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tabPnlChgReqHst;
+
+        /// <summary>
+        /// lblRowCountChgReqHst control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRowCountChgReqHst;
+
+        /// <summary>
+        /// ibtnChgReqHstArrowLeft control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnChgReqHstArrowLeft;
+
+        /// <summary>
+        /// ibtnChgReqHstArrowRight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnChgReqHstArrowRight;
+
+        /// <summary>
+        /// gvChgReqHst control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvChgReqHst;
 
         /// <summary>
         /// pnlUpdateCommiDate control.

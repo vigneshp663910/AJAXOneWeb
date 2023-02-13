@@ -60,6 +60,21 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 Session["PEquipmentAttachedFileEquipmentView"] = value;
             }
         }
+        public DataTable EquipmentChgReqHst
+        {
+            get
+            {
+                if (Session["EquipmentChgReqHst"] == null)
+                {
+                    Session["EquipmentChgReqHst"] = new DataTable();
+                }
+                return (DataTable)Session["EquipmentChgReqHst"];
+            }
+            set
+            {
+                Session["EquipmentChgReqHst"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -126,6 +141,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             //fillOwnershipChangeSupportDocument();
             //fillWarrantyExpiryDateChangeSupportDocument();
             fillSupportDocument();
+            fillChangeRequestHistory();
         }
         void fillEquipmentService()
         {
@@ -438,6 +454,10 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblOldWarrantyHMR.Text = EquipmentViewDet.WarrantyHMR == null ? "" : EquipmentViewDet.WarrantyHMR.ToString();
                         lblNewWarrantyHMR.Text = dr["WarrantyHMR"].ToString();
                         lblWarrantyTypeChangeID.Text = dr["ChangeID"].ToString();
+
+                        List<PEquipmentAttachedFile> WarrantyTypeChangeAttachedFile = new BDMS_Equipment().GetEquipmentAttachedFileDetails(EquipmentViewDet.EquipmentHeaderID, null, Convert.ToInt64(dr["ChangeID"]));
+                        gvlWarrantyTypeChangeAttachedFile.DataSource = WarrantyTypeChangeAttachedFile;
+                        gvlWarrantyTypeChangeAttachedFile.DataBind();
                     }
                 }
                 if (Convert.ToString(dr["ChangeRequested"]) == "Ownership Change")
@@ -451,6 +471,9 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblNewCustomer.Text = dr["NewValue"].ToString();
                         lblOwnershipChangeID.Text = dr["ChangeID"].ToString();
                     }
+                    List<PEquipmentAttachedFile> OwnershipChangeAttachedFile = new BDMS_Equipment().GetEquipmentAttachedFileDetails(EquipmentViewDet.EquipmentHeaderID, null, Convert.ToInt64(dr["ChangeID"]));
+                    gvOwnershipChangeAttachedFile.DataSource = OwnershipChangeAttachedFile;
+                    gvOwnershipChangeAttachedFile.DataBind();
                 }
                 if (Convert.ToString(dr["ChangeRequested"]) == "Warranty Expiry Date")
                 {
@@ -463,6 +486,9 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblNewWarrantyExpiryDate.Text = dr["NewValue"].ToString();
                         lblWarrantyExpiryDateChangeID.Text = dr["ChangeID"].ToString();
                     }
+                    List<PEquipmentAttachedFile> WarrantyExpiryDateChangeAttachedFile = new BDMS_Equipment().GetEquipmentAttachedFileDetails(EquipmentViewDet.EquipmentHeaderID, null, Convert.ToInt64(dr["ChangeID"]));
+                    gvWarrantyExpiryDateChangeAttachedFile.DataSource = WarrantyExpiryDateChangeAttachedFile;
+                    gvWarrantyExpiryDateChangeAttachedFile.DataBind();
                 }
             }
 
@@ -839,7 +865,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             }
 
             //if (AttachedFileTemp.Count == 0)
-            //{
+            //{act
             //    lblMessageOwnershipChangeReq.Text = "Please upload the File.";
             //    lblMessageOwnershipChangeReq.ForeColor = Color.Red;
             //    return;
@@ -971,13 +997,142 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         {
             try
             {
-                List<PEquipmentAttachedFile> UploadedFile = new BDMS_Equipment().GetEquipmentAttachedFileDetails(EquipmentViewDet.EquipmentHeaderID, null);
+                List<PEquipmentAttachedFile> UploadedFile = new BDMS_Equipment().GetEquipmentAttachedFileDetails(EquipmentViewDet.EquipmentHeaderID, null, null);
                 gvAttachedFile.DataSource = UploadedFile;
                 gvAttachedFile.DataBind();
             }
             catch (Exception ex)
             {
 
+            }
+        }
+        void fillChangeRequestHistory()
+        {
+            EquipmentChgReqHst = new BDMS_Equipment().GetEquipmentChangeRequestHistory(EquipmentViewDet.EquipmentHeaderID);
+
+            gvChgReqHst.DataSource = EquipmentChgReqHst;
+            gvChgReqHst.DataBind();
+
+            if (gvChgReqHst.Rows.Count == 0)
+            {
+                gvChgReqHst.DataSource = null;
+                gvChgReqHst.DataBind();
+                //lblRowCountChgReqHst.Visible = false;
+                //ibtnChgReqHstArrowLeft.Visible = false;
+                //ibtnChgReqHstArrowRight.Visible = false;
+                return;
+            }
+            EquipmentChangeReqHstBind();
+        }
+        void EquipmentChangeReqHstBind()
+        {
+            gvChgReqHst.DataSource = EquipmentChgReqHst;
+            gvChgReqHst.DataBind();
+            lblRowCountChgReqHst.Text = (((gvChgReqHst.PageIndex) * gvChgReqHst.PageSize) + 1) + " - " + (((gvChgReqHst.PageIndex) * gvChgReqHst.PageSize) + gvChgReqHst.Rows.Count) + " of " + EquipmentChgReqHst.Rows.Count;
+        }
+        protected void ibtnChgReqHstArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvChgReqHst.PageIndex > 0)
+            {
+                gvChgReqHst.PageIndex = gvChgReqHst.PageIndex - 1;
+                EquipmentChangeReqHstBind();
+            }
+        }
+        protected void ibtnChgReqHstArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvChgReqHst.PageCount > gvChgReqHst.PageIndex)
+            {
+                gvChgReqHst.PageIndex = gvChgReqHst.PageIndex + 1;
+                EquipmentChangeReqHstBind();
+            }
+        }
+        protected void gvChgReqHst_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvChgReqHst.PageIndex = e.NewPageIndex;
+            fillChangeRequestHistory();
+        }
+        protected void lnkBtnWarrantyTypeChangeAttachedFileDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton lnkBtnWarrantyTypeChangeAttachedFileDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkBtnWarrantyTypeChangeAttachedFileDownload.NamingContainer;
+
+                Label lblWarrantyTypeChangeAttachedFileID = (Label)gvRow.FindControl("lblWarrantyTypeChangeAttachedFileID");
+
+                PEquipmentAttachedFile UploadedFile = new BDMS_Equipment().GetEquipmentAttachedFileByID(lblWarrantyTypeChangeAttachedFileID.Text + Path.GetExtension(lnkBtnWarrantyTypeChangeAttachedFileDownload.Text));
+
+                Response.AddHeader("Content-type", UploadedFile.ReferenceName);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lnkBtnWarrantyTypeChangeAttachedFileDownload.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Response.End();
+            }
+        }
+        protected void lnkBtOwnershipChangeAttachedFileDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton lnkBtOwnershipChangeAttachedFileDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkBtOwnershipChangeAttachedFileDownload.NamingContainer;
+
+                Label lblOwnershipChangeAttachedFileID = (Label)gvRow.FindControl("lblOwnershipChangeAttachedFileID");
+
+                PEquipmentAttachedFile UploadedFile = new BDMS_Equipment().GetEquipmentAttachedFileByID(lblOwnershipChangeAttachedFileID.Text + Path.GetExtension(lnkBtOwnershipChangeAttachedFileDownload.Text));
+
+                Response.AddHeader("Content-type", UploadedFile.ReferenceName);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lnkBtOwnershipChangeAttachedFileDownload.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Response.End();
+            }
+        }
+        protected void lnkBtnWarrantyExpiryDateChangeAttachedFileDownload(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton lnkBtnWarrantyExpiryDateChangeAttachedFileDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkBtnWarrantyExpiryDateChangeAttachedFileDownload.NamingContainer;
+
+                Label lblWarrantyExpiryDateChangeAttachedFileID = (Label)gvRow.FindControl("lblWarrantyExpiryDateChangeAttachedFileID");
+
+                PEquipmentAttachedFile UploadedFile = new BDMS_Equipment().GetEquipmentAttachedFileByID(lblWarrantyExpiryDateChangeAttachedFileID.Text + Path.GetExtension(lnkBtnWarrantyExpiryDateChangeAttachedFileDownload.Text));
+
+                Response.AddHeader("Content-type", UploadedFile.ReferenceName);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lnkBtnWarrantyExpiryDateChangeAttachedFileDownload.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Response.End();
             }
         }
     }
