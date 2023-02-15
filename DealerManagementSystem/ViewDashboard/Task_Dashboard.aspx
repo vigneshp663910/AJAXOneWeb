@@ -452,7 +452,7 @@
                                         <asp:LinkButton ID="lnkTotalCreated" Text='<%# DataBinder.Eval(Container.DataItem, "TotalCreated")%>' runat="server"></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Opened">
+                                <asp:TemplateField HeaderText="Open">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkOpened" Text='<%# DataBinder.Eval(Container.DataItem, "Opened")%>' runat="server"></asp:LinkButton>
@@ -507,7 +507,7 @@
                                         <asp:LinkButton ID="lnkWaitingForApproval" Text='<%# DataBinder.Eval(Container.DataItem, "WaitingForApproval")%>' runat="server"></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Pending">
+                                <asp:TemplateField HeaderText="Pending %">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lnkPending" Text='<%# DataBinder.Eval(Container.DataItem, "Pending")%>' runat="server"></asp:Label>
