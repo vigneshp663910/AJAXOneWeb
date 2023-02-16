@@ -1998,32 +1998,22 @@ namespace Business
             }
             return success;
         }
-        public DataSet GetTicketDetailsCountByStatus(int? CategoryID, int? SubCategoryID, int? UserId, DateTime? TicketFrom = null, DateTime? TicketTo = null)
+        public DataSet GetTicketDetailsCountByStatus(int? DealerEmployeeUserID, DateTime? TicketFrom = null, DateTime? TicketTo = null)
         {
             DbParameter CategoryIDP;
             DbParameter SubCategoryIDP;
-            DbParameter UserIdP;
+            DbParameter DealerEmployeeUserIDP;
 
             try
             {
-                if (CategoryID != null)
-                    CategoryIDP = provider.CreateParameter("CategoryID", CategoryID, DbType.Int32);
+                if (DealerEmployeeUserID != null)
+                    DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
                 else
-                    CategoryIDP = provider.CreateParameter("CategoryID", DBNull.Value, DbType.Int32);
-
-                if (SubCategoryID != null)
-                    SubCategoryIDP = provider.CreateParameter("SubCategoryID", SubCategoryID, DbType.Int32);
-                else
-                    SubCategoryIDP = provider.CreateParameter("SubCategoryID", DBNull.Value, DbType.Int32);
-
-                if (UserId != null)
-                    UserIdP = provider.CreateParameter("UserId", UserId, DbType.Int32);
-                else
-                    UserIdP = provider.CreateParameter("UserId", DBNull.Value, DbType.Int32);
+                    DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DBNull.Value, DbType.Int32);
 
                 DbParameter TicketFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
                 DbParameter TicketToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
-                DbParameter[] TicketTypeParams = new DbParameter[5] { CategoryIDP, SubCategoryIDP, UserIdP, TicketFromP, TicketToP };
+                DbParameter[] TicketTypeParams = new DbParameter[3] { DealerEmployeeUserIDP, TicketFromP, TicketToP };
                 return provider.Select("GetTicketDetailsCountByStatus", TicketTypeParams);
             }
             catch (Exception ex)
@@ -2032,32 +2022,32 @@ namespace Business
                 throw ex;
             }
         }
-        public DataSet GetTicketDetailsCountByStatusForChart(int? CategoryID, int? SubCategoryID, int? UserId, DateTime? TicketFrom = null, DateTime? TicketTo = null)
+        public DataSet GetTicketDetailsCountByStatusForChart(int? DealerEmployeeUserID, DateTime? TicketFrom = null, DateTime? TicketTo = null)
         {
             DbParameter CategoryIDP;
             DbParameter SubCategoryIDP;
-            DbParameter UserIdP;
+            DbParameter DealerEmployeeUserIDP;
 
             try
             {
-                if (CategoryID != null)
-                    CategoryIDP = provider.CreateParameter("CategoryID", CategoryID, DbType.Int32);
-                else
-                    CategoryIDP = provider.CreateParameter("CategoryID", DBNull.Value, DbType.Int32);
+                //if (CategoryID != null)
+                //    CategoryIDP = provider.CreateParameter("CategoryID", CategoryID, DbType.Int32);
+                //else
+                //    CategoryIDP = provider.CreateParameter("CategoryID", DBNull.Value, DbType.Int32);
 
-                if (SubCategoryID != null)
-                    SubCategoryIDP = provider.CreateParameter("SubCategoryID", SubCategoryID, DbType.Int32);
-                else
-                    SubCategoryIDP = provider.CreateParameter("SubCategoryID", DBNull.Value, DbType.Int32);
+                //if (SubCategoryID != null)
+                //    SubCategoryIDP = provider.CreateParameter("SubCategoryID", SubCategoryID, DbType.Int32);
+                //else
+                //    SubCategoryIDP = provider.CreateParameter("SubCategoryID", DBNull.Value, DbType.Int32);
 
-                if (UserId != null)
-                    UserIdP = provider.CreateParameter("UserId", UserId, DbType.Int32);
+                if (DealerEmployeeUserID != null)
+                    DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
                 else
-                    UserIdP = provider.CreateParameter("UserId", DBNull.Value, DbType.Int32);
+                    DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DBNull.Value, DbType.Int32);
 
                 DbParameter TicketFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
                 DbParameter TicketToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
-                DbParameter[] TicketTypeParams = new DbParameter[5] { CategoryIDP, SubCategoryIDP, UserIdP, TicketFromP, TicketToP };
+                DbParameter[] TicketTypeParams = new DbParameter[3] { DealerEmployeeUserIDP, TicketFromP, TicketToP };
                 return provider.Select("GetTicketDetailsCountByStatusForChart", TicketTypeParams);
             }
             catch (Exception ex)
@@ -2189,6 +2179,38 @@ namespace Business
             catch (Exception ex)
             { }
             return Header;
+        }
+        public DataSet GetTicketDetailsMonthwiseCountByStatus1(int? DealerEmployeeUserID, string Year, string Month)
+        {
+            try
+            {
+                DbParameter DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
+                DbParameter YearP = provider.CreateParameter("Year", Year, DbType.String);
+                DbParameter MonthP = provider.CreateParameter("Month", Month, DbType.String);
+                DbParameter[] TicketTypeParams = new DbParameter[3] { DealerEmployeeUserIDP, YearP, MonthP };
+                return provider.Select("GetTicketDetailsMonthwiseCountByStatus1", TicketTypeParams);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BTickets", "GetTicketDetailsMonthwiseCountByStatus1", ex);
+                throw ex;
+            }
+        }
+        public DataSet GetTicketDetailsMonthwiseCountByStatus(int? DealerEmployeeUserID, DateTime DateFrom, DateTime DateTo)
+        {
+            try
+            {
+                DbParameter DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
+                DbParameter DateFromP = provider.CreateParameter("DateFrom", DateFrom, DbType.DateTime);
+                DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);
+                DbParameter[] TicketTypeParams = new DbParameter[3] { DealerEmployeeUserIDP, DateFromP, DateToP };
+                return provider.Select("GetTicketDetailsMonthwiseCountByStatus", TicketTypeParams);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BTickets", "GetTicketDetailsMonthwiseCountByStatus", ex);
+                throw ex;
+            }
         }
     }
 }
