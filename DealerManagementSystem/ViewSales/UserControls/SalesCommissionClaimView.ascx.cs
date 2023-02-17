@@ -68,8 +68,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblApproved1On.Text = Claim.Approved1On == null ? "" : ((DateTime)Claim.Approved1On).ToLongDateString();
             lblApproved2By.Text = Claim.Approved2By == null ? "" : Claim.Approved2By.ContactName;
             lblApproved2On.Text = Claim.Approved2On == null ? "" : ((DateTime)Claim.Approved2On).ToLongDateString();
-            lblApproved3By.Text = Claim.Approved3By == null ? "" : Claim.Approved3By.ContactName;
-            lblApproved3On.Text = Claim.Approved3On == null ? "" : ((DateTime)Claim.Approved3On).ToLongDateString(); 
+            //lblApproved3By.Text = Claim.FinanceVerifiedBy == null ? "" : Claim.FinanceVerifiedBy.ContactName;
+            //lblApproved3On.Text = Claim.FinanceVerifiedOn == null ? "" : ((DateTime)Claim.FinanceVerifiedOn).ToLongDateString();
+            //lblApproved3Remarks.Text = Claim.FinanceRemarks;
             lblInvoiceNumber.Text = Claim.Quotation.SalesInvoiceNumber;
             lblInvoiceDate.Text = ((DateTime)Claim.Quotation.SalesInvoiceDate).ToLongDateString();
 
@@ -79,11 +80,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblAmount.Text = Convert.ToString(Claim.ClaimItem.Amount);
             lblBaseTax.Text = Convert.ToString(Claim.ClaimItem.BaseTax);
             lblApproved1Amount.Text = Convert.ToString(Claim.ClaimItem.Approved1Amount);
-            lblApproved2Amount.Text = Convert.ToString(Claim.ClaimItem.Approved2Amount);
-            lblApproved3Amount.Text = Convert.ToString(Claim.ClaimItem.Approved3Amount);
+            lblApproved2Amount.Text = Convert.ToString(Claim.ClaimItem.Approved2Amount); 
             lblApproved1Remarks.Text = Claim.ClaimItem.Approved1Remarks;
             lblApproved2Remarks.Text = Claim.ClaimItem.Approved2Remarks;
-            lblApproved3Remarks.Text = Claim.ClaimItem.Approved3Remarks;
+            
             //fillCompetitor();
 
             //ActionControlMange();

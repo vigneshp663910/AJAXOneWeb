@@ -219,6 +219,14 @@ namespace DealerManagementSystem.ViewPreSale
             MPE_Customer.Show();
             UC_AddLead.FillMaster();
             UC_Customer.FillMaster();
+            UC_Customer.FindControl("txtCity");
+            UC_Customer.FindControl("txtDOB");
+            UC_Customer.FindControl("txtDOAnniversary");
+            UC_Customer.FindControl("cbSendSMS");
+            UC_Customer.FindControl("cbSendEmail");
+
+            UC_Customer.FindControl("txtLatitude");
+            UC_Customer.FindControl("txtDOB");
         }
         [WebMethod]
         public static List<string> GetCustomer(string CustS)

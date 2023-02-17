@@ -3,10 +3,10 @@
 <fieldset class="fieldset-border" id="fldCountry" runat="server">
     <legend style="background: none; color: #007bff; font-size: 17px;">Lead</legend>
     <div class="col-md-12">
-        <div class="col-md-6 col-sm-12">
+       <%-- <div class="col-md-6 col-sm-12">
             <label>Lead Date</label>
             <asp:TextBox ID="txtLeadDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" AutoCompleteType="Disabled"></asp:TextBox>
-        </div>
+        </div>--%>
         <div class="col-md-6 col-sm-12">
             <label>Product Type</label>
             <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />

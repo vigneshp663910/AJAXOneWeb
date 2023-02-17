@@ -182,11 +182,10 @@ namespace DealerManagementSystem.ViewSales
             dt.Columns.Add("Approved 2 Amount");
             dt.Columns.Add("Approved 2 By");
             dt.Columns.Add("Approved 2 On");
-            dt.Columns.Add("Approved 2 Remark");
-            dt.Columns.Add("Approved 3 Amount");
-            dt.Columns.Add("Approved 3 By");
-            dt.Columns.Add("Approved 3 On");
-            dt.Columns.Add("Approved 3 Remark");
+            dt.Columns.Add("Approved 2 Remark"); 
+            //dt.Columns.Add("Verified By");
+            //dt.Columns.Add("Verified On");
+            //dt.Columns.Add("Verified Remark");
             dt.Columns.Add("Status");
             dt.Columns.Add("Invoice Number");
             dt.Columns.Add("Invoice Date");
@@ -212,11 +211,10 @@ namespace DealerManagementSystem.ViewSales
                     , CommissionClaim.ClaimItem.Approved2Amount
                     , CommissionClaim.Approved2By.ContactName
                     , CommissionClaim.Approved2On == null ? "" : CommissionClaim.Approved2On.ToString()
-                    , CommissionClaim.ClaimItem.Approved2Remarks
-                    , CommissionClaim.ClaimItem.Approved3Amount
-                    , CommissionClaim.Approved3By.ContactName
-                    , CommissionClaim.Approved3On == null ? "" : CommissionClaim.Approved3On.ToString()
-                    , CommissionClaim.ClaimItem.Approved3Remarks
+                    , CommissionClaim.ClaimItem.Approved2Remarks 
+                    //, CommissionClaim.FinanceVerifiedBy.ContactName
+                    //, CommissionClaim.FinanceVerifiedOn == null ? "" : CommissionClaim.FinanceVerifiedOn.ToString()
+                    //, CommissionClaim.FinanceRemarks
                     , CommissionClaim.Status.Status
                     , (CommissionClaim.Quotation.SalesInvoiceNumber == null) ? "" : CommissionClaim.Quotation.SalesInvoiceNumber
                     , (CommissionClaim.Quotation.SalesInvoiceDate == null) ? "" : CommissionClaim.Quotation.SalesInvoiceDate.ToString()

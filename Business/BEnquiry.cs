@@ -97,7 +97,7 @@ namespace Business
             try
             {
                 DbParameter EnquiryID = provider.CreateParameter("EnquiryID", enquiry.EnquiryID, DbType.Int32);
-                DbParameter EnquiryDate = provider.CreateParameter("EnquiryDate", enquiry.EnquiryDate, DbType.DateTime); 
+              //  DbParameter EnquiryDate = provider.CreateParameter("EnquiryDate", enquiry.EnquiryDate, DbType.DateTime); 
                 DbParameter CustomerName = provider.CreateParameter("CustomerName", enquiry.CustomerName, DbType.String);
                 DbParameter PersonName = provider.CreateParameter("PersonName", enquiry.PersonName, DbType.String);
                 DbParameter Mail = provider.CreateParameter("Mail", enquiry.Mail, DbType.String);
@@ -116,7 +116,7 @@ namespace Business
                 DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    DbParameter[] Params = new DbParameter[18] { EnquiryID, EnquiryDate,  CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, ProductTypeID, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
+                    DbParameter[] Params = new DbParameter[17] { EnquiryID,   CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, ProductTypeID, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
                     provider.Insert("InsertOrUpdateEnquiry", Params);
                     scope.Complete();
                 }

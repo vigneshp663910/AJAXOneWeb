@@ -77,7 +77,7 @@ namespace Properties
 
         public Boolean IsVerified { get; set; }
         public PUser VerifiedBy { get; set; }
-        public Boolean VerifiedOn { get; set; }
+        public DateTime? VerifiedOn { get; set; }
 
         public Boolean IsActive { get; set; }
         public Boolean OrderBlock { get; set; }
@@ -88,6 +88,11 @@ namespace Properties
         public Boolean IsDraft { get; set; }
         public string CustomerType { get; set; }
         public DateTime? LastVisitDate { get; set; }
+
+        public Boolean IsFinanceVerified { get; set; }
+        public PUser FinanceVerifiedBy { get; set; }
+        public DateTime? FinanceVerifiedOn { get; set; }
+
     }
 
     [Serializable]

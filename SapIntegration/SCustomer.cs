@@ -90,8 +90,11 @@ namespace SapIntegration
             tagListBapi.SetValue("P_PHONE", Customer.Mobile);
             tagListBapi.SetValue("P_MOBILE", Customer.AlternativeMobile);
             tagListBapi.SetValue("P_EMAIL", Customer.Email);
-            tagListBapi.SetValue("P_GSTIN", Customer.GSTIN);
-            tagListBapi.SetValue("P_PANNO", Customer.PAN);
+            if (Customer.IsFinanceVerified)
+            {
+                tagListBapi.SetValue("P_GSTIN", Customer.GSTIN);
+                tagListBapi.SetValue("P_PANNO", Customer.PAN);
+            }
             tagListBapi.SetValue("P_CONTACT", Customer.ContactPerson);
             tagListBapi.SetValue("P_CONTACT2", Customer.ContactPerson);
 
@@ -150,8 +153,14 @@ namespace SapIntegration
             tagListBapi.SetValue("P_PHONE", Customer.Mobile);
             tagListBapi.SetValue("P_MOBILE", Customer.AlternativeMobile);
             tagListBapi.SetValue("P_EMAIL", Customer.Email);
-            tagListBapi.SetValue("P_GSTIN", Customer.GSTIN);
-            if(IsShipTo == false) { tagListBapi.SetValue("P_PANNO", Customer.PAN); }
+            if (Customer.IsFinanceVerified)
+            {
+                tagListBapi.SetValue("P_GSTIN", Customer.GSTIN);
+                if (IsShipTo == false)
+                {
+                    tagListBapi.SetValue("P_PANNO", Customer.PAN);
+                }
+            }
             tagListBapi.SetValue("P_CONTACT", Customer.ContactPerson);
             tagListBapi.SetValue("P_CONTACT2", Customer.ContactPerson);
             //tagListBapi.SetValue("P_DOC_NO", "");

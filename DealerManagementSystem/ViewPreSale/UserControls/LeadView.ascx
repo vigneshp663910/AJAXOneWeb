@@ -19,16 +19,18 @@
                 <asp:LinkButton ID="lbtnEditLead" runat="server" OnClick="lbActions_Click">Edit Lead</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAssign" runat="server" OnClick="lbActions_Click">Assign</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddFollowUp" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
-                <asp:LinkButton ID="lbtnCustomerConversation" runat="server" OnClick="lbActions_Click">Customer Conversation</asp:LinkButton>
-               <%-- <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
-                <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>--%>
-                <asp:LinkButton ID="lbtnAddFinancialInfo" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>
-                <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
-                <%--<asp:LinkButton ID="lbtnAddQuotation" runat="server" OnClick="lbActions_Click">Convert to Quotation</asp:LinkButton>--%>
+               <%-- <asp:LinkButton ID="lbtnCustomerConversation" runat="server" OnClick="lbActions_Click">Customer Conversation</asp:LinkButton>--%> 
+               <%-- <asp:LinkButton ID="lbtnAddFinancialInfo" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>--%>
+                <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton> 
                 <asp:LinkButton ID="lbtAddQuestionaries" runat="server" OnClick="lbActions_Click">Add Questionaries</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
                 <asp:LinkButton ID="lbtnLostLead" runat="server" OnClick="lbActions_Click">Lost Lead</asp:LinkButton>
                 <asp:LinkButton ID="lbtnCancelLead" runat="server" OnClick="lbActions_Click">Cancel Lead</asp:LinkButton>
+
+
+                 <%-- <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>--%>
+                <%--<asp:LinkButton ID="lbtnAddQuotation" runat="server" OnClick="lbActions_Click">Convert to Quotation</asp:LinkButton>--%>
             </div>
         </div>
     </div>
@@ -284,7 +286,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>--%>
-    <asp1:TabPanel ID="tpnlConversation" runat="server" HeaderText="Conversation">
+    <asp1:TabPanel ID="tpnlConversation" runat="server" HeaderText="Conversation" Visible="false">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -329,7 +331,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="VC Summary">
+    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="VC Summary" Visible="false">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -386,7 +388,7 @@
             <%--</div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlFinancial" runat="server" HeaderText="Financial Info">
+    <asp1:TabPanel ID="tpnlFinancial" runat="server" HeaderText="Financial Info" Visible="false">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
