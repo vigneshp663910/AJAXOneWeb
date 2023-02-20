@@ -49,12 +49,12 @@
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <label class="modal-label">Address 1</label>
-                                <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40" autocomplete="off"></asp:TextBox>
+                                <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="80" autocomplete="off"></asp:TextBox>
                                 <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID="txtAddress1" WatermarkText="Address 1" WatermarkCssClass="WatermarkCssClass" />
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <label class="modal-label">Address 2</label>
-                                <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40" autocomplete="off"></asp:TextBox>
+                                <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="80" autocomplete="off"></asp:TextBox>
                                 <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtAddress2" WatermarkText="Address 2" WatermarkCssClass="WatermarkCssClass" />
                             </div>
                             <div class="col-md-6 col-sm-12">
