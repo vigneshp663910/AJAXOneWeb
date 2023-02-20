@@ -74,17 +74,23 @@
                         <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateFrom" PopupButtonID="txtDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtDateFrom" WatermarkText="Date From"></asp:TextBoxWatermarkExtender>
                     </div>
-
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Date To</label>
                         <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateTo" PopupButtonID="txtDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateTo" WatermarkText="Date To"></asp:TextBoxWatermarkExtender>
                     </div>
-
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">IsVerified</label>
+                        <asp:DropDownList ID="ddlIsVerified" runat="server" CssClass="form-control">
+                            <asp:ListItem Value="0" Selected="True">ALL</asp:ListItem>
+                            <asp:ListItem Value="1">Yes</asp:ListItem>
+                            <asp:ListItem Value="2">No</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
-                          <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelForSAP_Click" Width="100px" />
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelForSAP_Click" Width="100px" />
                     </div>
                 </div>
             </fieldset>
@@ -198,6 +204,12 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblSAPInvoiceTDSValue" Text='<%# DataBinder.Eval(Container.DataItem, "SAPInvoiceTDSValue","{0:n}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="IsVerified"><%--SAP Invoice Value--%>
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblIsVerified" Text='<%# DataBinder.Eval(Container.DataItem, "IsVerified")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="PDF">
