@@ -96,6 +96,15 @@ namespace DealerManagementSystem.ViewSales
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender3;
 
         /// <summary>
+        /// ddlIsVerified control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlIsVerified;
+
+        /// <summary>
         /// BtnSearch control.
         /// </summary>
         /// <remarks>

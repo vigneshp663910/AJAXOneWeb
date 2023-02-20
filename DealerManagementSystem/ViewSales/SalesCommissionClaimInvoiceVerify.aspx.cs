@@ -78,8 +78,12 @@ namespace DealerManagementSystem.ViewSales
                 string InvoiceNumber = txtClaimNumber.Text.Trim();
                 string InvoiceDateFrom = txtDateFrom.Text.Trim();
                 string InvoiceDateTo = txtDateTo.Text.Trim();
-                Boolean IsVerified = false;
-                Invoices = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(null, DealerID, InvoiceNumber, InvoiceDateFrom, InvoiceDateTo, IsVerified);
+                Boolean IsVerified = false;               
+
+                int RowCount = 0;
+                PApiResult Result = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(null, DealerID, InvoiceNumber, InvoiceDateFrom, InvoiceDateTo, IsVerified,null,null);
+                Invoices = JsonConvert.DeserializeObject<List<PSalesCommissionClaimInvoice>>(JsonConvert.SerializeObject(Result.Data));
+                RowCount = Result.RowCount;
                 gvClaimInvoice.PageIndex = 0;
                 gvClaimInvoice.DataSource = Invoices;
                 gvClaimInvoice.DataBind();

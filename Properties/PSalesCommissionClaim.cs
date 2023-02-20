@@ -75,7 +75,7 @@ namespace Properties
         public DateTime? SAPClearingDate { get; set; }
         public decimal? SAPInvoiceTDSValue { get; set; }
 
-
+        public Boolean? IsVerified { get; set; }
         public PUser FinanceVerifiedBy { get; set; }
         public DateTime? FinanceVerifiedOn { get; set; }
         public string FinanceRemarks { get; set; }

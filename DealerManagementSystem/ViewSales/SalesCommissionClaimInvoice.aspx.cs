@@ -1,5 +1,6 @@
 ﻿using Business;
 using Microsoft.Reporting.WebForms;
+using Newtonsoft.Json;
 using Properties;
 using SapIntegration;
 using System;
@@ -17,6 +18,36 @@ namespace DealerManagementSystem.ViewSales
 {
     public partial class SalesCommissionClaimInvoice : System.Web.UI.Page
     {
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] = 0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "SalesCommissionClaimInvoice.aspx";
@@ -53,6 +84,8 @@ namespace DealerManagementSystem.ViewSales
             }
             if (!IsPostBack)
             {
+                PageCount = 0;
+                PageIndex = 1;
                 fillDealer();
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
@@ -63,6 +96,7 @@ namespace DealerManagementSystem.ViewSales
         {
             try
             {
+                PageIndex = 1;
                 fillWarrantyInvoice();
             }
             catch (Exception e1)
@@ -83,24 +117,47 @@ namespace DealerManagementSystem.ViewSales
                 string InvoiceNumber = txtClaimNumber.Text.Trim();
                 string InvoiceDateFrom = txtDateFrom.Text.Trim();
                 string InvoiceDateTo = txtDateTo.Text.Trim();
+                bool? IsVerified = null;
+                if (ddlIsVerified.SelectedValue == "1") { IsVerified = true; } else if (ddlIsVerified.SelectedValue == "2") { IsVerified = false; }
 
-                Invoices = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(null, DealerID, InvoiceNumber, InvoiceDateFrom, InvoiceDateTo,null);
-                gvClaimInvoice.PageIndex = 0;
-                gvClaimInvoice.DataSource = Invoices;
-                gvClaimInvoice.DataBind();
+                int RowCount = 0;
+                PApiResult Result = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(null, DealerID, InvoiceNumber, InvoiceDateFrom, InvoiceDateTo, IsVerified, PageIndex, gvClaimInvoice.PageSize);
+                Invoices = JsonConvert.DeserializeObject<List<PSalesCommissionClaimInvoice>>(JsonConvert.SerializeObject(Result.Data));
+                RowCount = Result.RowCount;
+                //gvClaimInvoice.PageIndex = 0;
+                //gvClaimInvoice.DataSource = Invoices;
+                //gvClaimInvoice.DataBind();
 
-                if (Invoices.Count == 0)
+                //if (Invoices.Count == 0)
+                //{
+                //    lblRowCount.Visible = false;
+                //    ibtnArrowLeft.Visible = false;
+                //    ibtnArrowRight.Visible = false;
+                //}
+                //else
+                //{
+                //    lblRowCount.Visible = true;
+                //    ibtnArrowLeft.Visible = true;
+                //    ibtnArrowRight.Visible = true;
+                //    lblRowCount.Text = (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + 1) + " - " + (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + gvClaimInvoice.Rows.Count) + " of " + Invoices.Count;
+                //}
+                if (RowCount == 0)
                 {
+                    gvClaimInvoice.DataSource = null;
+                    gvClaimInvoice.DataBind();
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
                     ibtnArrowRight.Visible = false;
                 }
                 else
                 {
+                    gvClaimInvoice.DataSource = Invoices;
+                    gvClaimInvoice.DataBind();
+                    PageCount = (RowCount + gvClaimInvoice.PageSize - 1) / gvClaimInvoice.PageSize;
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + 1) + " - " + (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + gvClaimInvoice.Rows.Count) + " of " + Invoices.Count;
+                    lblRowCount.Text = (((PageIndex - 1) * gvClaimInvoice.PageSize) + 1) + " - " + (((PageIndex - 1) * gvClaimInvoice.PageSize) + gvClaimInvoice.Rows.Count) + " of " + RowCount;
                 }
 
                 TraceLogger.Log(DateTime.Now);
@@ -123,33 +180,26 @@ namespace DealerManagementSystem.ViewSales
 
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvClaimInvoice.PageIndex > 0)
+            if (PageIndex > 1)
             {
-                gvClaimInvoice.PageIndex = gvClaimInvoice.PageIndex - 1;
-                gvClaimInvoice.DataSource = Invoices;
-                gvClaimInvoice.DataBind();
-                lblRowCount.Text = (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + 1) + " - " + (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + gvClaimInvoice.Rows.Count) + " of " + Invoices.Count;
+                PageIndex = PageIndex - 1;
+                fillWarrantyInvoice();
             }
         }
 
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvClaimInvoice.PageCount > gvClaimInvoice.PageIndex)
+            if (PageCount > PageIndex)
             {
-                gvClaimInvoice.PageIndex = gvClaimInvoice.PageIndex + 1;
-                gvClaimInvoice.DataSource = Invoices;
-                gvClaimInvoice.DataBind();
-                lblRowCount.Text = (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + 1) + " - " + (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + gvClaimInvoice.Rows.Count) + " of " + Invoices.Count;
+                PageIndex = PageIndex + 1;
+                fillWarrantyInvoice();
             }
         }
 
         protected void gvICTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvClaimInvoice.PageIndex = e.NewPageIndex;
-            gvClaimInvoice.DataSource = Invoices;
-            gvClaimInvoice.DataBind();
-            lblRowCount.Text = (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + 1) + " - " + (((gvClaimInvoice.PageIndex) * gvClaimInvoice.PageSize) + gvClaimInvoice.Rows.Count) + " of " + Invoices.Count;
-
+            fillWarrantyInvoice();
         }
         protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -184,7 +234,7 @@ namespace DealerManagementSystem.ViewSales
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
                 Label lblSalesCommissionClaimInvoiceID = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblSalesCommissionClaimInvoiceID");
 
-                PSalesCommissionClaimInvoice SOIs = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text), null, null, null, null, null)[0];
+                PSalesCommissionClaimInvoice SOIs = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceByID(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
 
 
                 //if (string.IsNullOrEmpty(SOIs.InvoiceItem.Material.HSN))
@@ -247,12 +297,12 @@ namespace DealerManagementSystem.ViewSales
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
-        } 
+        }
         public PAttachedFile SalesCommissionClaimInvoice1(long SalesCommissionClaimInvoiceID)
         {
             try
             {
-                PSalesCommissionClaimInvoice SalesCommissionClaimInvoice = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID, null, null, null, null, null)[0];
+                PSalesCommissionClaimInvoice SalesCommissionClaimInvoice = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceByID(SalesCommissionClaimInvoiceID);
 
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(SalesCommissionClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
