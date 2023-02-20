@@ -48,6 +48,7 @@ namespace Properties
     public class PDMS_DealerOffice
     {
         public int OfficeID { get; set; }
+        public int DealerID { get; set; }
         public string OfficeCode { get; set; }
         public string OfficeName { get; set; }
         public string OfficeName_OfficeCode { get; set; }

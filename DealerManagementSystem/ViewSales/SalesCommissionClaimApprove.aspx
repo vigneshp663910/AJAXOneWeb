@@ -175,21 +175,7 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblApproved2On" Text='<%# DataBinder.Eval(Container.DataItem, "Approved2On","{0:d}")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-
-                                <asp:TemplateField HeaderText="Apr.3 By" HeaderStyle-Width="55px">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnApproved3By" runat="server" Text="Approve" CssClass="btn Save" Width="80px" Height="30px" UseSubmitBehavior="true" Visible="false" OnClick="btnApproved3By_Click" />
-                                        <asp:Label ID="lblApproved3By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3By.ContactName")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Apr.3 On" HeaderStyle-Width="55px">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblApproved3On" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3On","{0:d}")%>' runat="server"></asp:Label>
-                                        <tr>
+                                     <tr>
                                             <td colspan="100%" style="padding-left: 96px">
                                                 <div id="SalesCommissionClaimID-<%# Eval("SalesCommissionClaimID") %>" style="display: inline; position: relative;">
 
@@ -241,10 +227,7 @@
                                                             <td>
                                                                 <asp:TextBox ID="txtApproved2Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Remarks")%>' CssClass="form-control"   Enabled="false" /></td>
 
-                                                            <td>
-                                                                <asp:TextBox ID="txtApproved3Amount" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved3Amount")%>' CssClass="form-control" Enabled="false" /></td>
-                                                            <td>
-                                                                <asp:TextBox ID="txtApproved3Remarks" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved1Remarks")%>' CssClass="form-control"   Enabled="false" /></td>
+                                                            <td> 
 
                                                         </tr>
                                                     </table>
