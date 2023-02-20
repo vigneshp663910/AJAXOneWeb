@@ -90,16 +90,15 @@ namespace Business
                         new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
                         break;
 
-                    case Jobs.UpdateSalesQuotationDeliveryDetails:
-                        new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
-                        new BAPI().ApiGetWithOutToken("SalesQuotation/InsertOrUpdateSalesQuotationDeliveryDetails");
-                        new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
-                        break;
+                    //case Jobs.UpdateSalesQuotationDeliveryDetails:
+                    //    new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
+                    //    new BAPI().ApiGetWithOutToken("SalesQuotation/InsertOrUpdateSalesQuotationDeliveryDetails");
+                    //    new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
+                    //    break;
 
                     case Jobs.SalesQuotationFlowFromSap:
                         new FileLogger().LogMessageService("Started", "SalesQuotationDocumentsFromSap", null);
-                        new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow");
-                        // new BSalesQuotation().GetSalesQuotationFlow();
+                        new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow"); 
                         new FileLogger().LogMessageService("Ended", "SalesQuotationDocumentsFromSap ", null);
                         break;
                     case Jobs.EnquiryFromCRM:

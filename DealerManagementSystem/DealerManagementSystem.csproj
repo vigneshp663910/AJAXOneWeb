@@ -821,6 +821,10 @@
     <Compile Include="PDF.aspx.designer.cs">
       <DependentUpon>PDF.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PowerBIFiles\EmbedConfig.cs" />
+    <Compile Include="PowerBIFiles\EmbedService.cs" />
+    <Compile Include="PowerBIFiles\IEmbedService.cs" />
+    <Compile Include="PowerBIFiles\TileEmbedConfig.cs" />
     <Compile Include="ProcessFlow\DMM_Process.aspx.cs">
       <DependentUpon>DMM_Process.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -578,7 +578,7 @@ namespace Properties
         GetPurchaseOrderIntegration = 20,
         MaterialIntegrationFromSAP = 21,
         CustomerIntegration =22  ,
-        UpdateSalesQuotationDeliveryDetails = 23 ,
+      //  UpdateSalesQuotationDeliveryDetails = 23 ,
         SalesQuotationFlowFromSap = 24,
         EnquiryFromCRM = 25,
         LeadQualificationByExpectedDateOfSale = 26,

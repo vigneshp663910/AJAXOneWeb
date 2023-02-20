@@ -196,6 +196,15 @@
                     <asp:Button ID="btnIntegrationEquipmentFromSAP_New" runat="server" Text="Integration Equipment From SAP New" OnClick="btnIntegrationEquipmentFromSAP_New_Click" />
                 </td>
             </tr>
+
+             <tr>
+                <td>
+                    <br />
+                    <asp:Label ID="Label11" runat="server" Text="Sales Quotation Flow From Sap"></asp:Label>
+                    <asp:Button ID="Button1" runat="server" Text="Sales Quotation Flow From Sap" OnClick="Button1_Click" />
+                </td>
+            </tr>
+
         </table>
 
         <div id="chart" style="width: 100%; height: 500px;"></div>

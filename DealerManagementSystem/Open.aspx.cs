@@ -177,5 +177,10 @@ namespace DealerManagementSystem
         {
             new BAPI().ApiGetWithOutToken("Equipment/IntegrationEquipmentFromSAP_new");
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow");
+        }
     }
 }
