@@ -42,24 +42,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnAddFollowUp;
 
         /// <summary>
-        /// lbtnCustomerConversation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnCustomerConversation;
-
-        /// <summary>
-        /// lbtnAddFinancialInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnAddFinancialInfo;
-
-        /// <summary>
         /// lbtnAddProduct control.
         /// </summary>
         /// <remarks>

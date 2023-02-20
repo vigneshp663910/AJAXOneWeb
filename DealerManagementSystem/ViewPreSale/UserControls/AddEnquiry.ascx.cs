@@ -27,7 +27,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         void Clear()
         {
             txtCustomerName.Text = string.Empty;
-            txtEnquiryDate.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+          //  txtEnquiryDate.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             txtPersonName.Text = string.Empty;
             txtMobile.Text = string.Empty;
             txtMail.Text = string.Empty;
@@ -53,7 +53,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             PEnquiry enquiry = new PEnquiry();
             enquiry.CustomerName = txtCustomerName.Text.Trim();
-            enquiry.EnquiryDate = Convert.ToDateTime(txtEnquiryDate.Text.Trim());
+            //  enquiry.EnquiryDate = Convert.ToDateTime(txtEnquiryDate.Text.Trim());
             enquiry.PersonName = txtPersonName.Text.Trim();
             enquiry.Mobile = txtMobile.Text.Trim();
             enquiry.Mail = txtMail.Text.Trim();
@@ -75,14 +75,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             enquiry.Address3 = txtAddress3.Text.Trim();
             enquiry.Product = txtProduct.Text.Trim();
             enquiry.Remarks = txtRemarks.Text.Trim();
-            enquiry.CreatedBy = new PUser(); 
+            enquiry.CreatedBy = new PUser();
             return enquiry;
         }
 
         public void Write(PEnquiry enquiry)
         {
             txtCustomerName.Text = enquiry.CustomerName;
-            txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
+           // txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
             txtPersonName.Text = enquiry.PersonName;
             txtMobile.Text = enquiry.Mobile;
             txtMail.Text = enquiry.Mail;
@@ -105,7 +105,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public string Validation()
         {
             txtCustomerName.BorderColor = Color.Silver;
-            txtEnquiryDate.BorderColor = Color.Silver;
+            //txtEnquiryDate.BorderColor = Color.Silver;
             txtMobile.BorderColor = Color.Silver;
             ddlProductType.BorderColor = Color.Silver;
             ddlSource.BorderColor = Color.Silver;
@@ -118,11 +118,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 txtCustomerName.BorderColor = Color.Red;
                 return "Please enter the Customer Name...!";
             }
-            if (string.IsNullOrEmpty(txtEnquiryDate.Text.Trim()))
-            {
-                txtEnquiryDate.BorderColor = Color.Red;
-                return "Please select the Enquiry Date...!";
-            }
+            //if (string.IsNullOrEmpty(txtEnquiryDate.Text.Trim()))
+            //{
+            //    txtEnquiryDate.BorderColor = Color.Red;
+            //    return "Please select the Enquiry Date...!";
+            //}
             if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
             {
                 txtMobile.BorderColor = Color.Red;

@@ -84,7 +84,7 @@ namespace DealerManagementSystem.ViewSales
                 string InvoiceDateFrom = txtDateFrom.Text.Trim();
                 string InvoiceDateTo = txtDateTo.Text.Trim();
 
-                Invoices = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(null, DealerID, InvoiceNumber, InvoiceDateFrom, InvoiceDateTo);
+                Invoices = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(null, DealerID, InvoiceNumber, InvoiceDateFrom, InvoiceDateTo,null);
                 gvClaimInvoice.PageIndex = 0;
                 gvClaimInvoice.DataSource = Invoices;
                 gvClaimInvoice.DataBind();
@@ -184,7 +184,7 @@ namespace DealerManagementSystem.ViewSales
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
                 Label lblSalesCommissionClaimInvoiceID = (Label)gvClaimInvoice.Rows[gvRow.RowIndex].FindControl("lblSalesCommissionClaimInvoiceID");
 
-                PSalesCommissionClaimInvoice SOIs = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text), null, null, null, null)[0];
+                PSalesCommissionClaimInvoice SOIs = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text), null, null, null, null, null)[0];
 
 
                 //if (string.IsNullOrEmpty(SOIs.InvoiceItem.Material.HSN))
@@ -252,7 +252,7 @@ namespace DealerManagementSystem.ViewSales
         {
             try
             {
-                PSalesCommissionClaimInvoice SalesCommissionClaimInvoice = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID, null, null, null, null)[0];
+                PSalesCommissionClaimInvoice SalesCommissionClaimInvoice = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID, null, null, null, null, null)[0];
 
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(SalesCommissionClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
@@ -453,6 +453,94 @@ namespace DealerManagementSystem.ViewSales
                         , Item.SGSTValue
                         , Item.IGST
                         , Item.IGSTValue
+                        , M.SAPDoc
+                        , M.SAPPostingDate == null ? "" : ((DateTime)M.SAPPostingDate).ToShortDateString()
+                        , M.SAPClearingDocument
+                        , M.SAPClearingDate == null ? "" : ((DateTime)M.SAPClearingDate).ToShortDateString()
+                        , M.SAPInvoiceValue
+                        , M.SAPInvoiceTDSValue);
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("DMS_WarrantyClaimInvoiceReport", "btnExportExcelForSAP_Click", ex);
+            }
+            new BXcel().ExporttoExcel(dt, "Claim Invoice Report");
+        }
+
+        protected void btnExportExcelForSAP_Click(object sender, EventArgs e)
+        {
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Dealer_Code");
+            dt.Columns.Add("Invoice_Date");
+            dt.Columns.Add("Invoice_Number");
+            dt.Columns.Add("Material");
+            dt.Columns.Add("Taxable_Value");
+            dt.Columns.Add("Total");
+
+            dt.Columns.Add("BP_Code");
+            dt.Columns.Add("BP_Name");
+            dt.Columns.Add("IC_Ticket");
+            dt.Columns.Add("Machine_Serial_No");
+            dt.Columns.Add("HSN_Code");
+            dt.Columns.Add("Created By");
+            dt.Columns.Add("Model");
+            dt.Columns.Add("HMR");
+            dt.Columns.Add("Remark");
+            dt.Columns.Add("Annexure No");
+            dt.Columns.Add("Period");
+            dt.Columns.Add("TCS Amt.");
+
+            dt.Columns.Add("IRN No.");
+            dt.Columns.Add("IRN DATE");
+
+
+            dt.Columns.Add("CGST %");
+            dt.Columns.Add("CGST Value");
+            dt.Columns.Add("SGST %");
+            dt.Columns.Add("SGST Value");
+            dt.Columns.Add("IGST %");
+            dt.Columns.Add("IGST Value");
+
+            dt.Columns.Add("SAP Doc");
+            dt.Columns.Add("AE Inv. Accounted Date");
+            dt.Columns.Add("Payment Voucher. No");
+            dt.Columns.Add("Payment Date");
+            dt.Columns.Add("Payment Value");
+            dt.Columns.Add("TDS Value");
+            try
+            {
+                foreach (PSalesCommissionClaimInvoice M in Invoices)
+                {
+
+                    dt.Rows.Add(
+                         string.Format("80{0}", M.Dealer.DealerCode.Substring(2))
+                        , ((DateTime)M.InvoiceDate).ToShortDateString()
+                        , M.InvoiceNumber
+                        , "'" + M.InvoiceItem.Material
+                        , M.InvoiceItem.TaxableValue
+                        , M.InvoiceItem.TaxableValue + M.InvoiceItem.CGSTValue + M.InvoiceItem.SGSTValue + M.InvoiceItem.IGSTValue
+                        , M.Quotation.Lead.Customer.CustomerCode
+                        , M.Quotation.Lead.Customer.CustomerName
+                        , ""
+                        , M.Quotation.EquipmentSerialNo
+                        , M.InvoiceItem.Material.HSN
+                        , ""
+                        , M.InvoiceItem.Material.Model
+                        , ""
+                        , ""
+                        , M.Claim.ClaimNumber
+                        , ""
+                        , Convert.ToString(M.TCSValue)
+                        , M.IRN
+                        , M.IRNDate == null ? "" : ((DateTime)M.IRNDate).ToShortDateString()
+                        , M.InvoiceItem.CGST
+                        , M.InvoiceItem.CGSTValue
+                        , M.InvoiceItem.SGST
+                        , M.InvoiceItem.SGSTValue
+                        , M.InvoiceItem.IGST
+                        , M.InvoiceItem.IGSTValue
                         , M.SAPDoc
                         , M.SAPPostingDate == null ? "" : ((DateTime)M.SAPPostingDate).ToShortDateString()
                         , M.SAPClearingDocument

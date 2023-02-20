@@ -881,10 +881,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnEditLead.Visible = true; 
             lbtnAssign.Visible = true;
             lbtnAddFollowUp.Visible = true;
-            lbtnCustomerConversation.Visible = true;
+            //lbtnCustomerConversation.Visible = true;
             //lbtnAddEffort.Visible = true;
             //lbtnAddExpense.Visible = true;
-            lbtnAddFinancialInfo.Visible = true;
+            //lbtnAddFinancialInfo.Visible = true;
             lbtnAddProduct.Visible = true;
            // lbtnAddQuotation.Visible = true;
             lbtAddQuestionaries.Visible = true;
@@ -897,10 +897,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnEditLead.Visible = false;
                 lbtnAssign.Visible = false;
                 lbtnAddFollowUp.Visible = false;
-                lbtnCustomerConversation.Visible = false;
+                //lbtnCustomerConversation.Visible = false;
                 //lbtnAddEffort.Visible = false;
                 //lbtnAddExpense.Visible = false;
-                lbtnAddFinancialInfo.Visible = false;
+                //lbtnAddFinancialInfo.Visible = false;
                 lbtnAddProduct.Visible = false;
                 //lbtnAddQuotation.Visible = false;
                 lbtAddQuestionaries.Visible = false;
@@ -928,10 +928,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lbtnAddFollowUp.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerConversationLead).Count() == 0)
-            {
-                lbtnCustomerConversation.Visible = false;
-            }   
+            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerConversationLead).Count() == 0)
+            //{
+            //    lbtnCustomerConversation.Visible = false;
+            //}   
             //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddEffortLead).Count() == 0)
             //{
             //    lbtnAddEffort.Visible = false;
@@ -940,10 +940,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //{
             //    lbtnAddExpense.Visible = false;
             //}
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.FinancialInfoLead).Count() == 0)
-            {
-                lbtnAddFinancialInfo.Visible = false;
-            }
+
+            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.FinancialInfoLead).Count() == 0)
+            //{
+            //    lbtnAddFinancialInfo.Visible = false;
+            //}
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AddProductLead).Count() == 0)
             {
                 lbtnAddProduct.Visible = false;

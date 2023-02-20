@@ -1079,7 +1079,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 if (Ticket[0].TicketItems.Any(item => item.ItemStatus.StatusID == 3 && item.AssignedTo.UserID == PSession.User.UserID))
                 {
                     lbtnClose.Visible = false;
-                    lbtnCancel.Visible = false;
+                    //lbtnCancel.Visible = false;
                     //lbtnResolve.Visible = false;
                     lbtnInProgress.Visible = false;
                 }

@@ -19,8 +19,7 @@ namespace Properties
         public DateTime? Approved1On { get; set; }
         public PUser Approved2By { get; set; }
         public DateTime? Approved2On { get; set; }
-        public PUser Approved3By { get; set; }
-        public DateTime? Approved3On { get; set; }
+       
         public PSalesCommissionClaimStatus Status { get; set; }
         public PSalesQuotation Quotation { get; set; }
         public PSalesCommissionClaimItem ClaimItem { get; set; }
@@ -40,10 +39,7 @@ namespace Properties
         public decimal? Approved1Amount { get; set; }
         public string Approved1Remarks { get; set; }
         public decimal? Approved2Amount { get; set; }
-        public string Approved2Remarks { get; set; }
-        public decimal? Approved3Amount { get; set; }
-        public string Approved3Remarks { get; set; }
-
+        public string Approved2Remarks { get; set; } 
     }
     [Serializable]
     public class PSalesCommissionClaimStatus
@@ -79,6 +75,10 @@ namespace Properties
         public DateTime? SAPClearingDate { get; set; }
         public decimal? SAPInvoiceTDSValue { get; set; }
 
+
+        public PUser FinanceVerifiedBy { get; set; }
+        public DateTime? FinanceVerifiedOn { get; set; }
+        public string FinanceRemarks { get; set; }
 
         public PSalesCommissionClaimInvoiceItem InvoiceItem { get; set; }
         public PSalesCommissionClaimInvoiceDetails InvoiceDetails { get; set; }

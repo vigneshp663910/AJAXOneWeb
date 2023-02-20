@@ -7,101 +7,83 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewPreSale.UserControls
+namespace DealerManagementSystem.ViewSupportTicket
 {
 
 
-    public partial class AddLead
+    public partial class Task_DashboardMonthwise
     {
 
         /// <summary>
-        /// fldCountry control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fldCountry;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// ddlProductType control.
+        /// divList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
-        /// ddlSource control.
+        /// ddlYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSource;
+        protected global::System.Web.UI.WebControls.DropDownList ddlYear;
 
         /// <summary>
-        /// ddlProject control.
+        /// ddlMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProject;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMonth;
 
         /// <summary>
-        /// txtExpectedDateOfSale control.
+        /// ddlDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtExpectedDateOfSale;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
-        /// cxExpectedDateOfSale control.
+        /// ddlEmployee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender cxExpectedDateOfSale;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEmployee;
 
         /// <summary>
-        /// TextBoxWatermarkExtender13 control.
+        /// BtnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender13;
+        protected global::System.Web.UI.WebControls.Button BtnSearch;
 
         /// <summary>
-        /// ddlApplication control.
+        /// gvTicketsMonthwise control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlApplication;
-
-        /// <summary>
-        /// txtCustomerFeedback control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomerFeedback;
-
-        /// <summary>
-        /// txtRemarks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        protected global::System.Web.UI.WebControls.GridView gvTicketsMonthwise;
     }
 }

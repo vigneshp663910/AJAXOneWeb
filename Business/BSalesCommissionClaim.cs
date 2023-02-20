@@ -58,10 +58,10 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
         }
 
-        public List<PSalesCommissionClaimInvoice> GetSalesCommissionClaimInvoice(long? SalesCommissionClaimInvoiceID, int? DealerID, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo)
+        public List<PSalesCommissionClaimInvoice> GetSalesCommissionClaimInvoice(long? SalesCommissionClaimInvoiceID, int? DealerID, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, Boolean? IsVerified)
         {
             string endPoint = "SalesCommission/SalesCommissionClaimInvoice?SalesCommissionClaimInvoiceID" + SalesCommissionClaimInvoiceID
-                + "&DealerID=" + DealerID + "&InvoiceNumber=" + InvoiceNumber + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo;
+                + "&DealerID=" + DealerID + "&InvoiceNumber=" + InvoiceNumber + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo + "&IsVerified=" + IsVerified;
             return JsonConvert.DeserializeObject<List<PSalesCommissionClaimInvoice>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public PAttachedFile GetSalesCommissionClaimInvoiceFile(long SalesCommissionClaimInvoiceID)
@@ -160,7 +160,7 @@ namespace Business
         {
             try
             {
-                PSalesCommissionClaimInvoice SalesCommissionClaimInvoice = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID, null, null, null, null)[0];
+                PSalesCommissionClaimInvoice SalesCommissionClaimInvoice = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID, null, null, null, null, null)[0];
 
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(SalesCommissionClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
@@ -475,6 +475,6 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return false;
         }
-
+         
     }
 }

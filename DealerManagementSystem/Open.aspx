@@ -126,7 +126,7 @@
                     <asp:Button ID="BtnSalesQuotationDetails" runat="server" Text="SalesQuotationDocumentDetails" OnClick="BtnSalesQuotationDetails_Click" />
                 </td>
             </tr>
-            <tr>
+        <%--    <tr>
                 <td>
                     <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
                     <asp1:CalendarExtender ID="calendarextender2" runat="server" TargetControlID="txtFromDate" PopupButtonID="txtFromDate" Format="dd/MM/yyyy" />
@@ -149,7 +149,7 @@
                 <td>
                     <asp:Button ID="BtnEnquiryDetails" runat="server" Text="EnquiryDetails" OnClick="BtnEnquiryDetails_Click" />
                 </td>
-            </tr>
+            </tr>--%>
 
             <tr>
                 <td>

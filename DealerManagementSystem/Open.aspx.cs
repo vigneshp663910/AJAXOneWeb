@@ -99,19 +99,7 @@ namespace DealerManagementSystem
            // new BSalesQuotation().GetSalesQuotationFlow();
         }
 
-        protected void BtnEnquiryDetails_Click(object sender, EventArgs e)
-        {
-            try
-            {
-               // DateTime From = Convert.ToDateTime(txtFromDate.Text.Trim());
-               // DateTime To = Convert.ToDateTime(txtToDate.Text.Trim());
-               // new BEnquiry().EnquirySync(From, To,txtEnquiryNo.Text.Trim(),txtDelaerCode.Text.Trim(),txtCustomerCode.Text.Trim());               
-            }
-            catch (Exception ex)
-            {
-                
-            }
-        }
+       
 
         protected void btnCustomerMiss_Click(object sender, EventArgs e)
         {

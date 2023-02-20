@@ -103,17 +103,7 @@
                                         </ItemTemplate>
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Approved 3 By" SortExpression="Country">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblApproved3By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3By.ContactName")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Approved 3 On">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblApproved3On" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3On")%>' runat="server" />
-                                        </ItemTemplate>
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    </asp:TemplateField>
+                                    
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnCreateInvoice" runat="server" Text="Create Invoice" CssClass="btn Back" OnClick="btnCreateInvoice_Click" Width="120px" Height="33px" />

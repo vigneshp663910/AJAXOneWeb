@@ -29,6 +29,8 @@ namespace DealerManagementSystem.ViewDashboard
             {
                 new FillDropDownt().Category(ddlCategory, null, null);
                 ddlCategory_SelectedIndexChanged(null, null);
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, 7, null);
+                new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
                 FillStatusCount();
             }
         }
@@ -66,7 +68,6 @@ namespace DealerManagementSystem.ViewDashboard
             }
             //Response.Redirect("lead.aspx");
         }
-
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillStatusCount();
@@ -92,7 +93,8 @@ namespace DealerManagementSystem.ViewDashboard
             }
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
-            DataSet ds = new BTickets().GetTicketDetailsCountByStatus(CategoryID, SubCategoryID, PSession.User.UserID, From, To);
+            int? DealerEmployeeUserID = ddlEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlEmployee.SelectedValue);
+            DataSet ds = new BTickets().GetTicketDetailsCountByStatus(DealerEmployeeUserID, From, To);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 lblCreated.Text = ds.Tables[0].Compute("Sum(TotalCreated)", "").ToString();
@@ -109,23 +111,28 @@ namespace DealerManagementSystem.ViewDashboard
             ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(TaskStatusChart); ", true);
         }
         [WebMethod]
-        public static List<object> TaskStatusChart(string Category, string Subcategory, string DateFrom, string DateTo)
+        public static List<object> TaskStatusChart(string DateFrom, string DateTo, string DealerEmployeeUser)
         {
             List<object> chartData = new List<object>();
             chartData.Add(new object[] { "Year&Month", "Created","Progress", "Closed" });
-            int? CategoryID = Category == "0" ? (int?)null : Convert.ToInt32(Category);
-            int? SubcategoryID = Subcategory == "0" ? (int?)null : Convert.ToInt32(Subcategory);
+            //int? CategoryID = Category == "0" ? (int?)null : Convert.ToInt32(Category);
+            //int? SubcategoryID = Subcategory == "0" ? (int?)null : Convert.ToInt32(Subcategory);
+            int? DealerEmployeeUserID = DealerEmployeeUser == "0" ? (int?)null : Convert.ToInt32(DealerEmployeeUser);
 
             DateTime? From = string.IsNullOrEmpty(DateFrom)? (DateTime?)null : Convert.ToDateTime(DateFrom);
             DateTime? To = string.IsNullOrEmpty(DateTo) ? (DateTime?)null : Convert.ToDateTime(DateTo);
 
-            DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(CategoryID, SubcategoryID, PSession.User.UserID, From, To);
+            //DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(CategoryID, SubcategoryID, PSession.User.UserID, From, To);
+            DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(DealerEmployeeUserID, From, To);
 
             if (ds != null)
             {
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    chartData.Add(new object[] { Convert.ToString(dr["Year"])+"-"+Convert.ToString(dr["Month"]), Convert.ToInt32(dr["TotalCreated"]), Convert.ToInt32(dr["InProgress"]), Convert.ToInt32(dr["Closed"]) });
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        chartData.Add(new object[] { Convert.ToString(dr["Year"]) + "-" + Convert.ToString(dr["Month"]), Convert.ToInt32(dr["TotalCreated"]), Convert.ToInt32(dr["InProgress"]), Convert.ToInt32(dr["Closed"]) });
+                    }
                 }
             }
             return chartData;

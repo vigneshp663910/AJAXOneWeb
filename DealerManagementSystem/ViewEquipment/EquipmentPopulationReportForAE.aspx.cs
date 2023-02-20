@@ -120,8 +120,7 @@ namespace DealerManagementSystem.ViewEquipment
             gvEquipment.PageIndex = e.NewPageIndex;
             gvEquipment.DataBind();
             lblRowCount.Text = (((gvEquipment.PageIndex) * gvEquipment.PageSize) + 1) + " - " + (((gvEquipment.PageIndex) * gvEquipment.PageSize) + gvEquipment.Rows.Count) + " of " + Equipment.Rows.Count;
-        }
-
+        } 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             fillEquipmentPopulationReport();

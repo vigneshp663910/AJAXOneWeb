@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="SalesCommissionClaimInvoice.aspx.cs" Inherits="DealerManagementSystem.ViewSales.SalesCommissionClaimInvoice" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="SalesCommissionClaimInvoiceVerify.aspx.cs" Inherits="DealerManagementSystem.ViewSales.SalesCommissionClaimInvoiceVerify" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
@@ -84,7 +84,8 @@
 
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
-                          <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelForSAP_Click" Width="100px" />
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                        
                     </div>
                 </div>
             </fieldset>
@@ -164,46 +165,17 @@
                                         <asp:Label ID="lblTCSValue" Text='<%# DataBinder.Eval(Container.DataItem, "TCSValue")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="SAP Doc">
+                                <asp:TemplateField HeaderText="Remarks">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblSAPDoc" Text='<%# DataBinder.Eval(Container.DataItem, "SAPDoc")%>' runat="server"></asp:Label>
+                                         <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="AE Inv. Accounted Date"><%--SAP Posting Date--%>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblSAPPostingDate" Text='<%# DataBinder.Eval(Container.DataItem, "SAPPostingDate","{0:d}")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Payment Voucher. No"><%-- SAP Clearing Document --%>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblSAPClearingDocument" Text='<%# DataBinder.Eval(Container.DataItem, "SAPClearingDocument")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Payment Date"><%-- SAP Clearing Date--%>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblSAPClearingDate" Text='<%# DataBinder.Eval(Container.DataItem, "SAPClearingDate","{0:d}")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Payment Value"><%--SAP Invoice Value--%>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblSAPInvoiceValue" Text='<%# DataBinder.Eval(Container.DataItem, "SAPInvoiceValue","{0:n}")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="TDS Value"><%--SAP Invoice Value--%>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblSAPInvoiceTDSValue" Text='<%# DataBinder.Eval(Container.DataItem, "SAPInvoiceTDSValue","{0:n}")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                               
                                 <asp:TemplateField HeaderText="PDF">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="ibPDF" runat="server" Height="50px" Width="60px" ImageUrl="~/Images/pdf_dload.png" OnClick="ibPDF_Click" />
+                                        <asp:Button ID="btnVerify" runat="server" CssClass="btn Search" Text="Verify" OnClick="btnVerify_Click" Width="100px" Height="30px"></asp:Button>
                                         <tr>
                                             <td colspan="100%" style="padding-left: 96px">
                                                 <div id="SalesCommissionClaimInvoiceID-<%# Eval("SalesCommissionClaimInvoiceID") %>" style="display: none; position: relative;">

@@ -264,7 +264,7 @@
                     background: white;
                 }
     </style>
-    
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="lead-static">
@@ -278,23 +278,23 @@
                     <label class="modal-label">To</label>
                     <asp:TextBox ID="txtTicketTo" runat="server" CssClass="TextBox form-control" TextMode="Date"></asp:TextBox>
                 </div>
-                <div class="col-md-1 col-sm-12">
+                <div class="col-md-1 col-sm-12" runat="server" visible="false">
                     <label class="modal-label">Category</label>
                     <asp:DropDownList ID="ddlCategory" runat="server" CssClass="TextBox form-control" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                 </div>
-                <div class="col-md-1 col-sm-12">
+                <div class="col-md-1 col-sm-12" runat="server" visible="false">
                     <label class="modal-label">Subcategory</label>
                     <asp:DropDownList ID="ddlSubcategory" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Employee</label>
+                    <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
                 </div>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                 </div>
             </div>
         </div>
-
-
-
-
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption" style="font-size: 25px; border-bottom-color: #556b2f; border-bottom-width: initial; border-bottom-style: none;">
@@ -536,10 +536,11 @@
     <script type="text/javascript"> 
         function TaskStatusChart() {
             var param = {
-                Category: $('#MainContent_ddlCategory').val()
-                , Subcategory: $('#MainContent_ddlSubcategory').val()
-                , DateFrom: $('#MainContent_txtTicketFrom').val()
+                //Category: $('#MainContent_ddlCategory').val()
+                //, Subcategory: $('#MainContent_ddlSubcategory').val()
+                DateFrom: $('#MainContent_txtTicketFrom').val()
                 , DateTo: $('#MainContent_txtTicketTo').val()
+                , DealerEmployeeUser: $('#MainContent_ddlEmployee').val()
             }
             $.ajax({
                 type: "POST",
@@ -591,5 +592,5 @@
             });
         }
     </script>
-    
+
 </asp:Content>

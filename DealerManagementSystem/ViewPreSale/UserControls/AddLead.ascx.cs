@@ -18,8 +18,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void FillMaster()
         {
-            txtLeadDate.Text = DateTime.Now.ToString("yyyy-MM-dd"); 
-            txtLeadDate.TextMode = TextBoxMode.Date;
+            //txtLeadDate.Text = DateTime.Now.ToString("yyyy-MM-dd"); 
+           // txtLeadDate.TextMode = TextBoxMode.Date;
 
             List<PLeadQualification> Qualification = new BLead().GetLeadQualification(null, null);
             //new DDLBind(ddlQualification, Qualification, "Qualification", "QualificationID");
@@ -50,7 +50,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void fillLead(PLead Lead)
         {
-            txtLeadDate.Text = Lead.LeadDate.ToString("yyyy-MM-dd");
+            //txtLeadDate.Text = Lead.LeadDate.ToString("yyyy-MM-dd");
             List<PLeadProduct> LeadProduct = new BLead().GetLeadProduct(Lead.LeadID, PSession.User.UserID);
             if(LeadProduct.Count !=0)
             {
@@ -68,7 +68,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public PLead_Insert Read()
         {
             PLead_Insert Lead = new PLead_Insert();
-            Lead.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
+           // Lead.LeadDate = Convert.ToDateTime(txtLeadDate.Text.Trim());
             Lead.ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue);
 
             //Lead.Category = ddlCategory.SelectedValue == "" ? null : new PLeadCategory() { CategoryID = Convert.ToInt32(ddlCategory.SelectedValue) };
@@ -85,27 +85,30 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public string Validation()
         {
             string Message = "";
-            txtLeadDate.BorderColor = Color.Silver;
+            //  txtLeadDate.BorderColor = Color.Silver;
             ddlProductType.BorderColor = Color.Silver;
-             txtExpectedDateOfSale.BorderColor = Color.Silver;
+            txtExpectedDateOfSale.BorderColor = Color.Silver;
             //ddlApplication.BorderColor = Color.Silver;
             //ddlCategory.BorderColor = Color.Silver;
             //ddlQualification.BorderColor = Color.Silver;
-            //ddlSource.BorderColor = Color.Silver;
+            ddlSource.BorderColor = Color.Silver;
             //ddlLeadType.BorderColor = Color.Silver;
             //txtRemarks.BorderColor = Color.Silver;
-            if (string.IsNullOrEmpty(txtLeadDate.Text.Trim()))
-            {
-                txtLeadDate.BorderColor = Color.Red;
-                return "Please enter the Lead Date";
 
-            }
-            else if (ddlProductType.SelectedValue == "0")
+
+            //if (string.IsNullOrEmpty(txtLeadDate.Text.Trim()))
+            //{
+            //    txtLeadDate.BorderColor = Color.Red;
+            //    return "Please enter the Lead Date";
+
+            //}
+            //else 
+            if (ddlProductType.SelectedValue == "0")
             {
                 ddlProductType.BorderColor = Color.Red;
                 return "Please select the Product Type";
             }
-            else if(string.IsNullOrEmpty(txtExpectedDateOfSale.Text.Trim()))
+            if (string.IsNullOrEmpty(txtExpectedDateOfSale.Text.Trim()))
             {
                 txtExpectedDateOfSale.BorderColor = Color.Red;
                 return "Please select the Expected Date of Sale";
@@ -122,12 +125,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //    ddlQualification.BorderColor = Color.Red;
             //    return "Please select the Qualification"; 
             //}
-            //else if (ddlSource.SelectedValue == "0")
-            //{
-            //    ddlSource.BorderColor = Color.Red;
-            //    return "Please select the Source";
 
-            //}
+            if (ddlSource.SelectedValue == "0")
+            {
+                ddlSource.BorderColor = Color.Red;
+                return "Please select the Source";
+
+            }
             //else if (ddlLeadType.SelectedValue == "0")
             //{
             //    ddlLeadType.BorderColor = Color.Red;

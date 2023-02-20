@@ -536,6 +536,7 @@
     <Content Include="ViewSales\SalesCommissionClaimCreate.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimInvoice.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimInvoiceCreate.aspx" />
+    <Content Include="ViewSales\SalesCommissionClaimInvoiceVerify.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewProcurement\MonthlyProcurement.aspx" />
@@ -667,6 +668,7 @@
     <Content Include="ViewSupportTicket\RequestSupportTicket.aspx" />
     <Content Include="ViewAdmin\UserList.aspx" />
     <Content Include="ViewSupportTicket\SupportTicketView.aspx" />
+    <Content Include="ViewSupportTicket\Task_DashboardMonthwise.aspx" />
     <Content Include="ViewSupportTicket\UserControls\SupportTicketView.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="View\Appointment.aspx" />
@@ -1894,6 +1896,13 @@
     <Compile Include="ViewSales\SalesCommissionClaimInvoiceCreate.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimInvoiceCreate.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimInvoiceVerify.aspx.cs">
+      <DependentUpon>SalesCommissionClaimInvoiceVerify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimInvoiceVerify.aspx.designer.cs">
+      <DependentUpon>SalesCommissionClaimInvoiceVerify.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2543,6 +2552,13 @@
     </Compile>
     <Compile Include="ViewSupportTicket\SupportTicketView.aspx.designer.cs">
       <DependentUpon>SupportTicketView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\Task_DashboardMonthwise.aspx.cs">
+      <DependentUpon>Task_DashboardMonthwise.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\Task_DashboardMonthwise.aspx.designer.cs">
+      <DependentUpon>Task_DashboardMonthwise.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\UserControls\SupportTicketView.ascx.cs">
       <DependentUpon>SupportTicketView.ascx</DependentUpon>

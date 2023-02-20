@@ -235,7 +235,6 @@ namespace Business
         public DataSet GetEquipmentPopulationReportForAE(string EquipmentSerialNo, string Customer, DateTime? WarrantyStart, DateTime? WarrantyEnd, int? RegionID, int? StateID, int? DivisionID)
         {
             TraceLogger.Log(DateTime.Now);
-            List<PDMS_ICTicket> ICTickets = new List<PDMS_ICTicket>();
             try
             {
                 DbParameter EquipmentSerialNoP = provider.CreateParameter("EquipmentSerialNo", string.IsNullOrEmpty(EquipmentSerialNo) ? null : EquipmentSerialNo, DbType.String);
@@ -247,8 +246,7 @@ namespace Business
                 DbParameter DivisionIDP = provider.CreateParameter("DivisionID", DivisionID, DbType.Int32);
 
                 DbParameter[] Params = new DbParameter[7] { EquipmentSerialNoP, CustomerP, WarrantyStartP, WarrantyEndP, RegionIDP, StateIDP, DivisionIDP };
-                PDMS_ICTicket ICTicket = new PDMS_ICTicket();
-                return provider.Select("ZDMS_GetEquipmentPopulationReportForAE", Params);
+                return provider.Select("GetEquipmentPopulationReportForAE_N", Params);
             }
             catch (Exception ex)
             {
