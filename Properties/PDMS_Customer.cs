@@ -58,9 +58,9 @@ namespace Properties
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Address3 { get; set; }
-        public string Pincode { get; set; } 
+        public string Pincode { get; set; }
         public string CIN { get; set; }
-        public string Web { get; set; } 
+        public string Web { get; set; }
         public PDMS_Country Country { get; set; }
         public PDMS_State State { get; set; }
         public PDMS_District District { get; set; }
@@ -94,7 +94,6 @@ namespace Properties
         public DateTime? FinanceVerifiedOn { get; set; }
 
     }
-
     [Serializable]
     public class PDMS_Customer_Insert
     {
@@ -123,7 +122,6 @@ namespace Properties
         public Boolean SendEmail { get; set; }
         public Boolean IsDraft { get; set; }
     }
-
     [Serializable]
     public class PDMS_CustomerShipTo
     {
@@ -174,7 +172,6 @@ namespace Properties
         public int CustomerCategoryID { get; set; }
         public string CustomerCategory { get; set; }
     }
-
     [Serializable]
     public class PCustomerProduct
     {
@@ -192,7 +189,6 @@ namespace Properties
 
     }
     [Serializable]
-
     public class PCustomerRelation
     {
         public long CustomerRelationID { get; set; }
@@ -222,7 +218,6 @@ namespace Properties
         public string Remark { get; set; }
         public PUser CreatedBy { get; set; }
     }
-
     [Serializable]
     public class PCustomerAttributeMain
     {
@@ -237,7 +232,6 @@ namespace Properties
         public string AttributeSub { get; set; }
         public PCustomerAttributeMain AttributeMain { get; set; }
     }
-
     [Serializable]
     public class PCustomerResponsibleEmployee
     {
@@ -256,7 +250,6 @@ namespace Properties
         public PUser CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
     }
-
     public class PDMS_CustomerJSON
     {
         public string fromentityname { get; set; }
@@ -355,5 +348,23 @@ namespace Properties
         public string r_statutory_type { get; set; }
         public string r_value { get; set; }
         public string s_tenant_id1 { get; set; }
+    }
+    [Serializable]
+    public class PDMS_CustomerChangeForApproval
+    {
+        public long CustomerChangeForApprovalID { get; set; }
+        public int CustomerID { get; set; }
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+        public Boolean Unregistered { get; set; }
+        public string GSTIN { get; set; }
+        public string PAN { get; set; }
+        public Boolean? IsApproved { get; set; }
+        public PUser ApprovedBy { get; set; }
+        public DateTime? ApprovedOn { get; set; }
+        public int? SendSAP { get; set; }
+        public int? Success { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
     }
 }

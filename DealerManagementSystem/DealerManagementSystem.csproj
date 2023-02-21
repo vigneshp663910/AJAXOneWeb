@@ -427,6 +427,7 @@
     <Content Include="ViewMaster\Application.aspx" />
     <Content Include="ViewMaster\CreateAjaxEmployee.aspx" />
     <Content Include="ViewMaster\Customer.aspx" />
+    <Content Include="ViewMaster\CustomerChangeForApproval.aspx" />
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewMaster\EInvoiceRequest.aspx" />
@@ -1301,6 +1302,13 @@
     </Compile>
     <Compile Include="ViewMaster\Customer.aspx.designer.cs">
       <DependentUpon>Customer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\CustomerChangeForApproval.aspx.cs">
+      <DependentUpon>CustomerChangeForApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\CustomerChangeForApproval.aspx.designer.cs">
+      <DependentUpon>CustomerChangeForApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Dealer.aspx.cs">
       <DependentUpon>Dealer.aspx</DependentUpon>
