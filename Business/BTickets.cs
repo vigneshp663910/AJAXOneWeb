@@ -327,6 +327,7 @@ namespace Business
                             };
                             pTickets.MobileNo = Convert.ToString(TicketTypeRow["MobileNo"]);
                             pTickets.ContactName = Convert.ToString(TicketTypeRow["ContactName"]);
+                            pTickets.age = Convert.ToInt32(TicketTypeRow["Age"]);
                             TicketsList.Add(pTickets);
                             RowCount = Convert.ToInt32(TicketTypeRow["RowCount"]);
                         }
@@ -381,6 +382,7 @@ namespace Business
                             pHeader.Status = DR["HeaderStatusID"] == DBNull.Value ? null : new PStatus { StatusID = Convert.ToInt32(DR["HeaderStatusID"]), Status = Convert.ToString(DR["HeaderStatus"]) };
                             pHeader.MobileNo = Convert.ToString(DR["MobileNo"]);
                             pHeader.ContactName = Convert.ToString(DR["ContactName"]);
+                            pHeader.age = Convert.ToInt32(DR["Age"]);
                             pHeader.TicketItem = new PTicketItem();
                             Header.Add(pHeader);
                             RowCount = Convert.ToInt32(DR["RowCount"]);
@@ -770,6 +772,7 @@ namespace Business
 
                             pHeader.MobileNo = Convert.ToString(DR["MobileNo"]);
                             pHeader.ContactName = Convert.ToString(DR["ContactName"]);
+                            pHeader.age = Convert.ToInt32(DR["Age"]);
                             pHeader.TicketItem = new PTicketItem();
 
                             Header.Add(pHeader);
@@ -1648,6 +1651,7 @@ namespace Business
                                 pHeader.PriorityLevel = DR["PriorityLevel"] == DBNull.Value ? (int?)null : Convert.ToInt32(DR["PriorityLevel"]);
                                 pHeader.ContactName = Convert.ToString(DR["ContactName"]);
                                 pHeader.MobileNo = Convert.ToString(DR["MobileNo"]);
+                                pHeader.age = Convert.ToInt32(DR["Age"]);
                                 pHeader.TicketItems = new List<PTicketItem>();
                                 pHeader.ApprovalDetails = new List<PTicketsApprovalDetails>();
                             }
@@ -2003,7 +2007,7 @@ namespace Business
             DbParameter CategoryIDP;
             DbParameter SubCategoryIDP;
             DbParameter DealerEmployeeUserIDP;
-
+            DataSet ds = new DataSet();
             try
             {
                 if (DealerEmployeeUserID != null)
@@ -2014,7 +2018,8 @@ namespace Business
                 DbParameter TicketFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
                 DbParameter TicketToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
                 DbParameter[] TicketTypeParams = new DbParameter[3] { DealerEmployeeUserIDP, TicketFromP, TicketToP };
-                return provider.Select("GetTicketDetailsCountByStatus", TicketTypeParams);
+                ds = provider.Select("GetTicketDetailsCountByStatus", TicketTypeParams);
+                return ds;
             }
             catch (Exception ex)
             {
@@ -2162,6 +2167,7 @@ namespace Business
                                 cHeaderId = Convert.ToInt32(DR["HeaderID"]);
                                 pHeader.ContactName = Convert.ToString(DR["ContactName"]);
                                 pHeader.MobileNo = Convert.ToString(DR["MobileNo"]);
+                                pHeader.age = Convert.ToInt32(DR["Age"]);
                                 pHeader.TicketItems = new List<PTicketItem>();
                                 pHeader.ApprovalDetails = new List<PTicketsApprovalDetails>();
                             }
@@ -2196,7 +2202,7 @@ namespace Business
                 throw ex;
             }
         }
-        public DataSet GetTicketDetailsMonthwiseCountByStatus(int? DealerEmployeeUserID, DateTime DateFrom, DateTime DateTo)
+        public DataSet GetTicketDetailsMonthwiseCountByStatus(int? DealerEmployeeUserID, DateTime? DateFrom, DateTime? DateTo)
         {
             try
             {

@@ -65,12 +65,14 @@ namespace DealerManagementSystem.ViewSupportTicket
             DateTime DateFrom = Convert.ToDateTime("01-" + Month + "-" + Year);
             DateTime DateTo = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
             DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DateFrom, DateTo);
+            gvTicketsMonthwise.DataSource = null;
+            gvTicketsMonthwise.DataBind();
             DataTable dtMonthwise = new DataTable();
             dtMonthwise.Columns.Add("Date", typeof(string));
-            dtMonthwise.Columns.Add("O/B", typeof(Int32));
+            dtMonthwise.Columns.Add("Opening", typeof(Int32));
             dtMonthwise.Columns.Add("Created", typeof(Int32));
             dtMonthwise.Columns.Add("Closed", typeof(Int32));
-            dtMonthwise.Columns.Add("C/B", typeof(Int32));
+            dtMonthwise.Columns.Add("Closing", typeof(Int32));
             if (ds != null)
             {
                 if (ds.Tables[0].Rows.Count > 0)
@@ -81,28 +83,58 @@ namespace DealerManagementSystem.ViewSupportTicket
                         var Tickets = from Ticket in ds.Tables[0].AsEnumerable()
                                       where Ticket.Field<DateTime>("TnDate") == Convert.ToDateTime(i + "-" + Month + "-" + Year)
                                       select Ticket;
-
-
-
                         var data = Tickets.ToList();
-
                         if (data.Count > 0)
                         {
                             Count += 1;
                             OP = (Count == 1) ? OP : CL;
                             CL = (OP + Convert.ToInt32(data[0][1].ToString())) - Convert.ToInt32(data[0][2]);
-                            dtMonthwise.Rows.Add(Convert.ToDateTime(data[0][4]).ToString("dd-MM-yyyy"), OP, Convert.ToInt32(data[0][1]), Convert.ToInt32(data[0][2]), CL);
+                            dtMonthwise.Rows.Add(Convert.ToDateTime(data[0][4]).ToString("dd"), OP, Convert.ToInt32(data[0][1]), Convert.ToInt32(data[0][2]), CL);
                         }
                         else
                         {
                             Count += 1;
                             OP = (Count == 1) ? OP : CL;
                             CL = OP;
-                            dtMonthwise.Rows.Add(Convert.ToDateTime(i + "-" + Month + "-" + Year).ToString("dd-MM-yyyy"), OP, 0, 0, CL);
+                            dtMonthwise.Rows.Add(i.ToString("00"), OP, 0, 0, CL);
                         }
                     }
-                    gvTicketsMonthwise.DataSource = dtMonthwise;
-                    gvTicketsMonthwise.DataBind();
+                    //gvTicketsMonthwise.DataSource = dtMonthwise;
+                    //gvTicketsMonthwise.DataBind();
+                }
+            }
+            DataTable dt2 = new DataTable();
+            for (int i = 0; i <= dtMonthwise.Rows.Count; i++)
+            {
+                dt2.Columns.Add();
+            }
+            for (int i = 0; i < dtMonthwise.Columns.Count; i++)
+            {
+                dt2.Rows.Add();
+                dt2.Rows[i][0] = dtMonthwise.Columns[i].ColumnName;
+            }
+            for (int i = 0; i < dtMonthwise.Columns.Count; i++)
+            {
+                for (int j = 0; j < dtMonthwise.Rows.Count; j++)
+                {
+                    dt2.Rows[i][j + 1] = dtMonthwise.Rows[j][i];
+                }
+            }
+
+            dt2.AcceptChanges();
+            gvTicketsMonthwise.DataSource = dt2;
+            gvTicketsMonthwise.DataBind();
+            int rowcount = 0;
+            foreach (GridViewRow row in gvTicketsMonthwise.Rows)
+            {
+                row.Cells[0].CssClass = "Header";
+                rowcount += 1;
+                if(rowcount==1)
+                {
+                    for(int i = 0; i < row.Cells.Count; i++)
+                    {
+                        row.Cells[i].CssClass = "Header";
+                    }
                 }
             }
         }

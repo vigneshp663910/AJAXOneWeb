@@ -55,10 +55,8 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         private string Action;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Task Report View');</script>");
             if (!IsPostBack)
             {
-                //new BEmployees().CheckPermition(0);
                 if (!string.IsNullOrEmpty(Convert.ToString(ViewState["TicketNo"])))
                 {
                     int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
@@ -193,15 +191,18 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             ddlSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
             ddlSeverity.DataBind();
             ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
+            ddlSeverity.SelectedValue = "3";
         }
         void FillAssignTo()
         {
-            ddlAssignedTo.DataTextField = "ContactName";
-            ddlAssignedTo.DataValueField = "UserID";
-            List<PUser> user = new BUser().GetAllUsers();
-            ddlAssignedTo.DataSource = user;
-            ddlAssignedTo.DataBind();
-            ddlAssignedTo.Items.Insert(0, new ListItem("Select", "0"));
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, 7, null);
+            new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
+            //ddlAssignedTo.DataTextField = "ContactName";
+            //ddlAssignedTo.DataValueField = "UserID";
+            //List<PUser> user = new BUser().GetAllUsers();
+            //ddlAssignedTo.DataSource = user;
+            //ddlAssignedTo.DataBind();
+            //ddlAssignedTo.Items.Insert(0, new ListItem("Select", "0"));
         }
         void FillApproval()
         {
@@ -212,6 +213,19 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             ddlapprovar.DataSource = user;//.Where(M => M.SystemCategoryID == (short)SystemCategory.AF).ToList();
             ddlapprovar.DataBind();
             ddlapprovar.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        void FillAllFields(int TicketNo)
+        {
+            ddlCategory.SelectedValue = Convert.ToString(Ticket[0].Category.CategoryID);
+            FillSubCategory();
+            if (Ticket[0].SubCategory != null)
+            {
+                ddlSubcategory.SelectedValue = Convert.ToString(Ticket[0].SubCategory.SubCategoryID);
+            }
+            if (Ticket[0].Severity != null)
+            {
+                ddlSeverity.SelectedValue = Convert.ToString(Ticket[0].Severity.SeverityID);
+            }
         }
         void ClearField()
         {
@@ -488,9 +502,9 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             {
                 btnAssign.Visible = true;
                 FillCategory();
-                FillSubCategory();
                 FillTicketSeverity();
                 FillAssignTo();
+                FillAllFields(Convert.ToInt32(ViewState["TicketNo"]));
                 MPE_AssignTo.Show();
             }
             else if (lbActions.Text == "In Progress")
@@ -750,11 +764,12 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             string Subject = "New Ticket " + TaskItem.HeaderID;
 
             PUser userAssignedTo = new BUser().GetUserDetails(Convert.ToInt32(ddlAssignedTo.SelectedValue));
+            PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
 
             messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
             messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
             messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
-            messageBody = messageBody.Replace("@@ToName", userAssignedTo.ContactName);
+            messageBody = messageBody.Replace("@@ToName", "");
             messageBody = messageBody.Replace("@@RequestedOn", Convert.ToString(Ticket[0].CreatedOn));
             messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
             messageBody = messageBody.Replace("@@Subcategory", ddlSubcategory.SelectedItem.Text);
@@ -764,7 +779,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
             messageBody = messageBody.Replace("@@Justification", txtAssignerRemark.Text);
             messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-            new EmailManager().MailSend(userAssignedTo.Mail, Subject, messageBody, TaskItem.HeaderID);
+            new EmailManager().MailSend(userAssignedTo.Mail+","+userCreatedBy.Mail, Subject, messageBody, TaskItem.HeaderID);
             ClearField();
             btnAssign.Visible = false;
             MPE_AssignTo.Hide();
@@ -874,7 +889,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             PTaskItem_Insert TaskItem = new PTaskItem_Insert();
             foreach (PTicketItem ticketItem in Ticket[0].TicketItems)
             {
-                if (ticketItem.ItemStatus.Status == "Assigned" && ticketItem.AssignedTo.UserID == PSession.User.UserID)
+                if ((ticketItem.ItemStatus.Status == "Assigned" || ticketItem.ItemStatus.Status == "In Progress") && ticketItem.AssignedTo.UserID == PSession.User.UserID)
                 {
                     TaskItem.HeaderID = ticketItem.HeaderID;
                     TaskItem.ItemID = ticketItem.ItemID;

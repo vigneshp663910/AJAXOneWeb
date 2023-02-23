@@ -31,6 +31,9 @@ namespace DealerManagementSystem.ViewDashboard
                 ddlCategory_SelectedIndexChanged(null, null);
                 List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, 7, null);
                 new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
+                var today = DateTime.Now;
+                txtTicketFrom.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("yyyy-MM-dd");
+                txtTicketTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 FillStatusCount();
             }
         }
@@ -38,33 +41,39 @@ namespace DealerManagementSystem.ViewDashboard
         {
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             new FillDropDownt().SubCategory(ddlSubcategory, null, null, CategoryID);
-        }        
+        }
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Open")
+            Session["DashboardTaskUserID"] = (ddlEmployee.SelectedValue == "0") ? null : ddlEmployee.SelectedValue;
+            if (lbActions.Text == "Created")
             {
-                Session["TaskStatusID"] = 1;
+                Session["DashboardTaskStatus"] = "";
+            }
+            else if (lbActions.Text == "Open")
+            {
+                Session["DashboardTaskStatus"] = ",Open";
+                Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
             }
             else if (lbActions.Text == "Assigned")
             {
-                Session["TaskStatusID"] = 2;
+                Session["DashboardTaskStatus"] = ",Assigned";
+                Response.Redirect("../ViewSupportTicket/AssignedSupportTicket.aspx");
             }
-            else if (lbActions.Text == "Quotation")
+            else if (lbActions.Text == "In Progress")
             {
-                Session["TaskStatusID"] = 3;
+                Session["DashboardTaskStatus"] = ",In Progress";
+                Response.Redirect("../ViewSupportTicket/InProgressSupportTicket.aspx");
             }
-            else if (lbActions.Text == "Won")
+            else if (lbActions.Text == "Resolved")
             {
-                Session["TaskStatusID"] = 4;
+                Session["DashboardTaskStatus"] = ",Resolved,Closed";
+                Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
             }
-            else if (lbActions.Text == "Lost")
+            else if (lbActions.Text == "Approval")
             {
-                Session["TaskStatusID"] = 5;
-            }
-            else if (lbActions.Text == "Cancelled")
-            {
-                Session["TaskStatusID"] = 6;
+                Session["DashboardTaskStatus"] = ",Waiting for Approval";
+                Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
             }
             //Response.Redirect("lead.aspx");
         }
@@ -79,7 +88,7 @@ namespace DealerManagementSystem.ViewDashboard
             lblWaitingForApproval.Text = "0";
             lblAssigned.Text = "0";
             lblInProgress.Text = "0";
-            lblResolved.Text = "0";
+            //lblResolved.Text = "0";
             lblClosed.Text = "0";
             DateTime TodayDate = DateTime.Now.Date;
 
@@ -89,12 +98,14 @@ namespace DealerManagementSystem.ViewDashboard
             }
             if (!string.IsNullOrEmpty(txtTicketTo.Text))
             {
-                To = Convert.ToDateTime(txtTicketTo.Text).AddDays(1);
+                To = Convert.ToDateTime(txtTicketTo.Text);
             }
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             int? DealerEmployeeUserID = ddlEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlEmployee.SelectedValue);
-            DataSet ds = new BTickets().GetTicketDetailsCountByStatus(DealerEmployeeUserID, From, To);
+            gvTickets.DataSource = null;
+            gvTickets.DataBind();
+            DataSet ds = new BTickets().GetTicketDetailsCountByStatus(DealerEmployeeUserID, null, null);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 lblCreated.Text = ds.Tables[0].Compute("Sum(TotalCreated)", "").ToString();
@@ -102,28 +113,61 @@ namespace DealerManagementSystem.ViewDashboard
                 lblWaitingForApproval.Text = ds.Tables[0].Compute("Sum(WaitingForApproval)", "").ToString();
                 lblAssigned.Text = ds.Tables[0].Compute("Sum(Assigned)", "").ToString();
                 lblInProgress.Text = ds.Tables[0].Compute("Sum(InProgress)", "").ToString();
-                lblResolved.Text = ds.Tables[0].Compute("Sum(Resolved)", "").ToString();
-                lblClosed.Text = ds.Tables[0].Compute("Sum(Closed)", "").ToString();
+                //lblResolved.Text = ds.Tables[0].Compute("Sum(Resolved)", "").ToString();
+                //lblClosed.Text = ds.Tables[0].Compute("Sum(Closed)", "").ToString();
+                lblClosed.Text = (Convert.ToDouble(ds.Tables[0].Compute("Sum(Resolved)", "")) + Convert.ToDouble(ds.Tables[0].Compute("Sum(Closed)", ""))).ToString();
 
                 gvTickets.DataSource = ds.Tables[0];
                 gvTickets.DataBind();
+
+                gvTickets.FooterRow.CssClass = "FooterStyle";
+                gvTickets.FooterRow.Cells[1].Text = "Total";
+                gvTickets.FooterRow.Cells[1].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[2].Text = ds.Tables[0].Compute("SUM(TotalCreated)", "").ToString();//total.ToString("N2");
+                gvTickets.FooterRow.Cells[2].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[3].Text = ds.Tables[0].Compute("SUM(Opened)", "").ToString();
+                gvTickets.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[4].Text = ds.Tables[0].Compute("SUM(Assigned)", "").ToString();
+                gvTickets.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[5].Text = ds.Tables[0].Compute("SUM(InProgress)", "").ToString();
+                gvTickets.FooterRow.Cells[5].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[6].Text = ds.Tables[0].Compute("SUM(Resolved)", "").ToString();
+                gvTickets.FooterRow.Cells[6].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[7].Text = ds.Tables[0].Compute("SUM(Closed)", "").ToString();
+                gvTickets.FooterRow.Cells[7].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[8].Text = ds.Tables[0].Compute("SUM(WaitingForApproval)", "").ToString();
+                gvTickets.FooterRow.Cells[8].HorizontalAlign = HorizontalAlign.Right;
+
+                double Average = ((Convert.ToDouble(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(WaitingForApproval)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(InProgress)", ""))) / Convert.ToDouble(ds.Tables[0].Compute("SUM(TotalCreated)", ""))) * 100;
+
+                gvTickets.FooterRow.Cells[9].Text = Average.ToString("N2");
+                gvTickets.FooterRow.Cells[9].HorizontalAlign = HorizontalAlign.Right;
+                lblMonthlyReportTitle.Text = (ddlEmployee.SelectedValue == "0") ? " Over All Status" : " Over All Status - " +ddlEmployee.SelectedItem.Text.Trim();
             }
+            gvTicketsMonthwise.DataSource = null;
+            gvTicketsMonthwise.DataBind();
+
             ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(TaskStatusChart); ", true);
+            if (!string.IsNullOrEmpty(txtTicketTo.Text))
+            {
+                DaywiseReport();
+                ClientScript.RegisterStartupScript(GetType(), "hwa2", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(DailyTaskStatusChart); ", true);
+            }
         }
         [WebMethod]
         public static List<object> TaskStatusChart(string DateFrom, string DateTo, string DealerEmployeeUser)
         {
             List<object> chartData = new List<object>();
-            chartData.Add(new object[] { "Year&Month", "Created","Progress", "Closed" });
+            chartData.Add(new object[] { "Year&Month", "Created", "Progress", "Closed" });
             //int? CategoryID = Category == "0" ? (int?)null : Convert.ToInt32(Category);
             //int? SubcategoryID = Subcategory == "0" ? (int?)null : Convert.ToInt32(Subcategory);
             int? DealerEmployeeUserID = DealerEmployeeUser == "0" ? (int?)null : Convert.ToInt32(DealerEmployeeUser);
 
-            DateTime? From = string.IsNullOrEmpty(DateFrom)? (DateTime?)null : Convert.ToDateTime(DateFrom);
+            DateTime? From = string.IsNullOrEmpty(DateFrom) ? (DateTime?)null : Convert.ToDateTime(DateFrom);
             DateTime? To = string.IsNullOrEmpty(DateTo) ? (DateTime?)null : Convert.ToDateTime(DateTo);
 
             //DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(CategoryID, SubcategoryID, PSession.User.UserID, From, To);
-            DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(DealerEmployeeUserID, From, To);
+            DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(DealerEmployeeUserID, null, null);
 
             if (ds != null)
             {
@@ -134,7 +178,197 @@ namespace DealerManagementSystem.ViewDashboard
                         chartData.Add(new object[] { Convert.ToString(dr["Year"]) + "-" + Convert.ToString(dr["Month"]), Convert.ToInt32(dr["TotalCreated"]), Convert.ToInt32(dr["InProgress"]), Convert.ToInt32(dr["Closed"]) });
                     }
                 }
+                else
+                {
+                    chartData = null;
+                }
             }
+            else
+            {
+                chartData = null;
+            }
+            return chartData;
+        }
+        void DaywiseReport()
+        {
+            int? DealerEmployeeUserID = (ddlEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlEmployee.SelectedValue);
+            string Year = string.IsNullOrEmpty(txtTicketTo.Text) ? DateTime.Now.Year.ToString() : Convert.ToDateTime(txtTicketTo.Text).Year.ToString();
+            string Month = string.IsNullOrEmpty(txtTicketTo.Text) ? DateTime.Now.Month.ToString() : Convert.ToDateTime(txtTicketTo.Text).Month.ToString();
+            var lastDayOfMonth = DateTime.DaysInMonth(Convert.ToInt32(Year), Convert.ToInt32(Month));
+            From = Convert.ToDateTime("01-" + Month + "-" + Year);
+            To = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
+
+            if (DateTime.Now < To)
+            {
+                if (DateTime.Now.Month == Convert.ToDateTime(To).Month)
+                {
+                    lastDayOfMonth = DateTime.Now.Day;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, From, To);
+            if (ds != null)
+            {
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataTable dtMonthwise = new DataTable();
+                    dtMonthwise.Columns.Add("Date", typeof(string));
+                    dtMonthwise.Columns.Add("Opening", typeof(Int32));
+                    dtMonthwise.Columns.Add("Created", typeof(Int32));
+                    dtMonthwise.Columns.Add("Closed", typeof(Int32));
+                    dtMonthwise.Columns.Add("Closing", typeof(Int32));
+
+                    int OP = Convert.ToInt32(ds.Tables[0].Rows[0]["OpeningBalance"]), CL = 0, Count = 0, CreatedCount = 0, ClosedCount = 0;
+                    for (int i = 1; i <= lastDayOfMonth; i++)
+                    {
+                        var Tickets = from Ticket in ds.Tables[0].AsEnumerable()
+                                      where Ticket.Field<DateTime>("TnDate") == Convert.ToDateTime(i + "-" + Month + "-" + Year)
+                                      select Ticket;
+                        var data = Tickets.ToList();
+                        if (data.Count > 0)
+                        {
+                            Count += 1;
+                            OP = (Count == 1) ? OP : CL;
+                            CL = (OP + Convert.ToInt32(data[0][1].ToString())) - Convert.ToInt32(data[0][2]);
+                            dtMonthwise.Rows.Add(Convert.ToDateTime(data[0][4]).ToString("dd"), OP, Convert.ToInt32(data[0][1]), Convert.ToInt32(data[0][2]), CL);
+                            CreatedCount += Convert.ToInt32(data[0][1]);
+                            ClosedCount += Convert.ToInt32(data[0][2]);
+                            lblDailyReportTitle.Text = (ddlEmployee.SelectedValue == "0") ? "Over All Status" :  ((string.IsNullOrEmpty(txtTicketTo.Text)) ? "" : " For The Month Of " + Convert.ToDateTime(txtTicketTo.Text).ToString("MMM-yyyy") + " - "+ ddlEmployee.SelectedItem.Text.Trim());
+                        }
+                        else
+                        {
+                            Count += 1;
+                            OP = (Count == 1) ? OP : CL;
+                            CL = OP;
+                            dtMonthwise.Rows.Add(i.ToString("00"), OP, 0, 0, CL);
+                        }
+                    }
+
+                    DataTable dt2 = new DataTable();
+                    for (int i = 0; i <= dtMonthwise.Rows.Count; i++)
+                    {
+                        dt2.Columns.Add();
+                    }
+                    dt2.Columns.Add("Total", typeof(String));
+                    for (int i = 0; i < dtMonthwise.Columns.Count; i++)
+                    {
+                        dt2.Rows.Add();
+                        dt2.Rows[i][0] = dtMonthwise.Columns[i].ColumnName;
+                    }
+                    for (int i = 0; i < dtMonthwise.Columns.Count; i++)
+                    {
+                        for (int j = 0; j < dtMonthwise.Rows.Count; j++)
+                        {
+                            dt2.Rows[i][j + 1] = dtMonthwise.Rows[j][i];
+                        }
+                    }
+                    dt2.Rows[0]["Total"] = "Total";
+                    dt2.Rows[1]["Total"] = Convert.ToInt32(ds.Tables[0].Rows[0]["OpeningBalance"]);
+                    dt2.Rows[2]["Total"] = CreatedCount;
+                    dt2.Rows[3]["Total"] = ClosedCount;
+                    dt2.Rows[4]["Total"] = (Convert.ToInt32(ds.Tables[0].Rows[0]["OpeningBalance"]) + CreatedCount) - ClosedCount;
+                    dt2.AcceptChanges();
+                    gvTicketsMonthwise.DataSource = dt2;
+                    gvTicketsMonthwise.DataBind();
+                    int rowcount = 0;
+                    foreach (GridViewRow row in gvTicketsMonthwise.Rows)
+                    {
+                        row.Cells[0].CssClass = "Header";
+                        rowcount += 1;
+                        if (rowcount == 1)
+                        {
+                            for (int i = 0; i < row.Cells.Count; i++)
+                            {
+                                row.Cells[i].CssClass = "Header";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        [WebMethod]
+        public static List<object> DailyTaskStatusChart(string DateFrom, string DateTo, string DealerEmployeeUser)
+        {
+            List<object> chartData = new List<object>();
+            //chartData.Add(new object[] { "Date", "Opening Balance", "Created", "Closed", "Closing Balance" });
+            chartData.Add(new object[] { "Date", "Opening + Created", "Closed" });
+            int? DealerEmployeeUserID = DealerEmployeeUser == "0" ? (int?)null : Convert.ToInt32(DealerEmployeeUser);
+
+            string Year = string.IsNullOrEmpty(DateTo) ? DateTime.Now.Year.ToString() : Convert.ToDateTime(DateTo).Year.ToString();
+            string Month = string.IsNullOrEmpty(DateTo) ? DateTime.Now.Month.ToString() : Convert.ToDateTime(DateTo).Month.ToString();
+            var lastDayOfMonth = DateTime.DaysInMonth(Convert.ToInt32(Year), Convert.ToInt32(Month));
+            DateTime? From = Convert.ToDateTime("01-" + Month + "-" + Year);
+            DateTime? To = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
+
+            if (DateTime.Now < To)
+            {
+                if (DateTime.Now.Month == Convert.ToDateTime(To).Month)
+                {
+                    lastDayOfMonth = DateTime.Now.Day;
+                }
+                else
+                {
+                    chartData = null;
+                    goto Fail;
+                }
+            }
+
+            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, From, To);
+
+            if (ds != null)
+            {
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataTable dtMonthwise = new DataTable();
+                    dtMonthwise.Columns.Add("Date", typeof(string));
+                    dtMonthwise.Columns.Add("Opening", typeof(Int32));
+                    dtMonthwise.Columns.Add("Created", typeof(Int32));
+                    dtMonthwise.Columns.Add("Closed", typeof(Int32));
+                    dtMonthwise.Columns.Add("Closing", typeof(Int32));
+
+                    int OP = Convert.ToInt32(ds.Tables[0].Rows[0]["OpeningBalance"]), CL = 0, Count = 0;
+                    for (int i = 1; i <= lastDayOfMonth; i++)
+                    {
+                        var Tickets = from Ticket in ds.Tables[0].AsEnumerable()
+                                      where Ticket.Field<DateTime>("TnDate") == Convert.ToDateTime(i + "-" + Month + "-" + Year)
+                                      select Ticket;
+                        var data = Tickets.ToList();
+                        if (data.Count > 0)
+                        {
+                            Count += 1;
+                            OP = (Count == 1) ? OP : CL;
+                            CL = (OP + Convert.ToInt32(data[0][1].ToString())) - Convert.ToInt32(data[0][2]);
+                            dtMonthwise.Rows.Add(Convert.ToDateTime(data[0][4]).ToString("dd"), OP, Convert.ToInt32(data[0][1]), Convert.ToInt32(data[0][2]), CL);
+                        }
+                        else
+                        {
+                            Count += 1;
+                            OP = (Count == 1) ? OP : CL;
+                            CL = OP;
+                            dtMonthwise.Rows.Add(i.ToString("00"), OP, 0, 0, CL);
+                        }
+                    }
+
+                    foreach (DataRow dr in dtMonthwise.Rows)
+                    {
+                        //chartData.Add(new object[] { Convert.ToString(dr["Date"]), Convert.ToInt32(dr["Opening"]), Convert.ToInt32(dr["Created"]), Convert.ToInt32(dr["Closed"]), Convert.ToInt32(dr["Closing"]) });
+                        chartData.Add(new object[] { Convert.ToString(dr["Date"]), (Convert.ToInt32(dr["Opening"]) + Convert.ToInt32(dr["Created"])), Convert.ToInt32(dr["Closed"]) });
+                    }
+                }
+                else
+                {
+                    chartData = null;
+                }
+            }
+            else
+            {
+                chartData = null;
+            }
+        Fail:
             return chartData;
         }
     }
