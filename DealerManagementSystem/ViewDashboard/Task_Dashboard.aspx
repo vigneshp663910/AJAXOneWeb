@@ -264,7 +264,92 @@
                     background: white;
                 }
     </style>
+    <style>
+        .FooterStyle {
+            background-color: #d8d8d8;
+            color: black;
+            font-weight: bold;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        }
 
+        .table.table-bordered.table-condensed.Grid tr:last-child td {
+            background-color: #d8d8d8;
+            color: black;
+            font-weight: bold;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        }
+    </style>
+
+    <style>
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        .tablinks {
+            height: auto;
+            padding-bottom: 33px
+        }
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 6px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+    </style>
+    <script>
+        function openSelection(evt, SelectionName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontentEnq");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(SelectionName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+    <style>
+        .Header {
+            padding: 0.3rem 0.75rem;
+            font-size: 14px;
+            text-align: right;
+            background-color: #d8d8d8;
+            color: black;
+            font-weight: bold !important;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+            border: 1px solid #dee2e6;
+            width: 50px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="lead-static">
@@ -301,34 +386,41 @@
                     Task Statistics                    
                 </div>
             </div>
-            <div class="portlet-body" style="padding: 5px;">
-                <div id="divEnquiryStat1">
-                    <div id="divLeadStatistics" class="row no-margin" style="font-size: medium; text-align: right;">
-                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;">
-                            <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('Created');">
-                                <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details" style="color: white;">
-                                    <asp:Label ID="lblCreated" runat="server" Text="0"></asp:Label>
-                                    <div class="desc">
-                                        <asp:LinkButton ID="lbtnCreated" runat="server" Style="color: white;" OnClick="lbActions_Click">Created</asp:LinkButton>
+            <div class="tab">
+                <button class="tablinks active" onclick="openSelection(event, 'Monthly'); return false;">Monthly</button>
+                <button class="tablinks" onclick="openSelection(event, 'Daily'); return false;">Daily</button>
+            </div>
+            <div id="Monthly" class="tabcontentEnq">
+                <div class="div1">
+                    <div class="grid">
+                        <div class="portlet-body" style="padding: 5px;">
+                            <div id="divEnquiryStat1">
+                                <div id="divLeadStatistics" class="row no-margin" style="font-size: medium; text-align: right;">
+                                    <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;">
+                                        <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('Created');">
+                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <div class="details" style="color: white;">
+                                                <asp:Label ID="lblCreated" runat="server" Text="0"></asp:Label>
+                                                <div class="desc">
+                                                    <asp:LinkButton ID="lbtnCreated" runat="server" Style="color: white;" OnClick="lbActions_Click">Created</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #CC6E2A">
-                            <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Open');">
-                                <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details" style="color: white;">
-                                    <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
-                                    <asp:Label ID="lblOpen" runat="server" Text="0"></asp:Label>
-                                    <div class="desc">
-                                        <asp:LinkButton ID="lbtnOpen" runat="server" Style="color: white;" OnClick="lbActions_Click">Open</asp:LinkButton>
+                                    <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #CC6E2A">
+                                        <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Open');">
+                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <div class="details" style="color: white;">
+                                                <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
+                                                <asp:Label ID="lblOpen" runat="server" Text="0"></asp:Label>
+                                                <div class="desc">
+                                                    <asp:LinkButton ID="lbtnOpen" runat="server" Style="color: white;" OnClick="lbActions_Click">Open</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <%--<div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 1px; background-color: #CC6E2A;">
+                                    <%--<div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 1px; background-color: #CC6E2A;">
                             <div class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Approved');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
                                 <div class="details" style="color: white;">
@@ -339,40 +431,40 @@
                                 </div>
                             </div>
                         </div>--%>
-                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #bf9020;">
-                            <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
-                                <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details" style="color: white;">
-                                    <asp:Label ID="lblAssigned" runat="server" Text="0"></asp:Label>
-                                    <div class="desc">
-                                        <asp:LinkButton ID="lbtnAssigned" runat="server" Style="color: white;" OnClick="lbActions_Click">Assigned</asp:LinkButton>
+                                    <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #bf9020;">
+                                        <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
+                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <div class="details" style="color: white;">
+                                                <asp:Label ID="lblAssigned" runat="server" Text="0"></asp:Label>
+                                                <div class="desc">
+                                                    <asp:LinkButton ID="lbtnAssigned" runat="server" Style="color: white;" OnClick="lbActions_Click">Assigned</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #3598dc;">
-                            <div class="dashboard-stat dashboard-stat-v2 green-jungle" href="javascript:void(0);" onclick="VisitMyEnquiries('InProgress');">
-                                <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details" style="color: white;">
-                                    <asp:Label ID="lblInProgress" runat="server" Text="0"></asp:Label>
-                                    <div class="desc">
-                                        <asp:LinkButton ID="lbtnInProgress" runat="server" Style="color: white;" OnClick="lbActions_Click">In Progress</asp:LinkButton>
+                                    <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #3598dc;">
+                                        <div class="dashboard-stat dashboard-stat-v2 green-jungle" href="javascript:void(0);" onclick="VisitMyEnquiries('InProgress');">
+                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <div class="details" style="color: white;">
+                                                <asp:Label ID="lblInProgress" runat="server" Text="0"></asp:Label>
+                                                <div class="desc">
+                                                    <asp:LinkButton ID="lbtnInProgress" runat="server" Style="color: white;" OnClick="lbActions_Click">In Progress</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #009DA1;">
-                            <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Resolved');">
-                                <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details" style="color: white;">
-                                    <asp:Label ID="lblResolved" runat="server" Text="0"></asp:Label>
-                                    <div class="desc">
-                                        <asp:LinkButton ID="lbtnResolved" runat="server" Style="color: white;" OnClick="lbActions_Click">Resolved</asp:LinkButton>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <%--<div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 1px; background-color: #d91e18;">
+                                    <%--<div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #009DA1;">
+                                        <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Resolved');">
+                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <div class="details" style="color: white;">
+                                                <asp:Label ID="lblResolved" runat="server" Text="0"></asp:Label>
+                                                <div class="desc">
+                                                    <asp:LinkButton ID="lbtnResolved" runat="server" Style="color: white;" OnClick="lbActions_Click">Resolved</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>--%>
+                                    <%--<div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 1px; background-color: #d91e18;">
                             <div class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Cancelled');">
                                 <div class="visual"><i class="fa fa-ticket"></i></div>
                                 <div class="details" style="color: white;">
@@ -394,96 +486,102 @@
                                 </div>
                             </div>
                         </div>--%>
-                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: darkolivegreen;">
-                            <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Closed');">
-                                <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details" style="color: white;">
-                                    <asp:Label ID="lblClosed" runat="server" Text="0"></asp:Label>
-                                    <div class="desc">
-                                        <asp:LinkButton ID="lbtnClosed" runat="server" Style="color: white;" OnClick="lbActions_Click">Closed</asp:LinkButton>
+                                    <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: darkolivegreen;">
+                                        <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Closed');">
+                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <div class="details" style="color: white;">
+                                                <asp:Label ID="lblClosed" runat="server" Text="0"></asp:Label>
+                                                <div class="desc">
+                                                    <asp:LinkButton ID="lbtnClosed" runat="server" Style="color: white;" OnClick="lbActions_Click">Resolved</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #d05454">
+                                        <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('WaitingForApproval');">
+                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <div class="details" style="color: white;">
+                                                <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
+                                                <asp:Label ID="lblWaitingForApproval" runat="server" Text="0"></asp:Label>
+                                                <div class="desc">
+                                                    <asp:LinkButton ID="lbtnWaitingForApproval" runat="server" Style="color: white;" OnClick="lbActions_Click">Approval</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #d05454">
-                            <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('WaitingForApproval');">
-                                <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details" style="color: white;">
-                                    <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
-                                    <asp:Label ID="lblWaitingForApproval" runat="server" Text="0"></asp:Label>
-                                    <div class="desc">
-                                        <asp:LinkButton ID="lbtnWaitingForApproval" runat="server" Style="color: white;" OnClick="lbActions_Click">Approval</asp:LinkButton>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12 Report">
+                                <fieldset class="fieldset-border">
+                                    <legend style="background: none; color: #007bff; font-size: 17px;">Monthly Report</legend>
+                                    <div class="col-md-12 Report">
+                                        <div class="boxHead">
+                                            <div class="logheading">
+                                                <div style="float: left">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <asp:Label ID="lblMonthlyReportTitle" runat="server" CssClass="label"></asp:Label>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="15" ShowFooter="true" EmptyDataText="No Data Found">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="Year">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblYear" Text='<%# DataBinder.Eval(Container.DataItem, "Year")%>' runat="server" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Month">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "Month")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="TotalCreated">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkTotalCreated" Text='<%# DataBinder.Eval(Container.DataItem, "TotalCreated")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Open">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkOpened" Text='<%# DataBinder.Eval(Container.DataItem, "Opened")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
 
-
-
-
-
-
-        </div>
-        <div class="col-md-12">
-            <div class="col-md-12 Report">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
-                    <div class="col-md-12 Report">
-                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="15">
-                            <Columns>
-                                <asp:TemplateField HeaderText="Year">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblYear" Text='<%# DataBinder.Eval(Container.DataItem, "Year")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Month">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "Month")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="TotalCreated">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkTotalCreated" Text='<%# DataBinder.Eval(Container.DataItem, "TotalCreated")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Open">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkOpened" Text='<%# DataBinder.Eval(Container.DataItem, "Opened")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-
-                                <%--<asp:TemplateField HeaderText="Approved">
+                                                <%--<asp:TemplateField HeaderText="Approved">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkApproved" Text='<%# DataBinder.Eval(Container.DataItem, "Approved")%>' runat="server"></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>--%>
-                                <asp:TemplateField HeaderText="Assigned">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkAssigned" Text='<%# DataBinder.Eval(Container.DataItem, "Assigned")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="In Progress">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkInProgress" Text='<%# DataBinder.Eval(Container.DataItem, "InProgress")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Resolved">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkResolved" Text='<%# DataBinder.Eval(Container.DataItem, "Resolved")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <%--<asp:TemplateField HeaderText="Cancelled">
+                                                <asp:TemplateField HeaderText="Assigned">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkAssigned" Text='<%# DataBinder.Eval(Container.DataItem, "Assigned")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="In Progress">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkInProgress" Text='<%# DataBinder.Eval(Container.DataItem, "InProgress")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Resolved">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkResolved" Text='<%# DataBinder.Eval(Container.DataItem, "Resolved")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <%--<asp:TemplateField HeaderText="Cancelled">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkCancelled" Text='<%# DataBinder.Eval(Container.DataItem, "Cancelled")%>' runat="server"></asp:LinkButton>
@@ -495,42 +593,83 @@
                                         <asp:LinkButton ID="lnkForceClose" Text='<%# DataBinder.Eval(Container.DataItem, "ForceClose")%>' runat="server"></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>--%>
-                                <asp:TemplateField HeaderText="Closed">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkClosed" Text='<%# DataBinder.Eval(Container.DataItem, "Closed")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Approval">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkWaitingForApproval" Text='<%# DataBinder.Eval(Container.DataItem, "WaitingForApproval")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Pending %">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lnkPending" Text='<%# DataBinder.Eval(Container.DataItem, "Pending")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                            <AlternatingRowStyle BackColor="#ffffff" />
-                            <FooterStyle ForeColor="White" />
-                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                        </asp:GridView>
+                                                <asp:TemplateField HeaderText="Closed">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkClosed" Text='<%# DataBinder.Eval(Container.DataItem, "Closed")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Approval">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkWaitingForApproval" Text='<%# DataBinder.Eval(Container.DataItem, "WaitingForApproval")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Pending %">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkPending" Text='<%# DataBinder.Eval(Container.DataItem, "Pending")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <AlternatingRowStyle BackColor="#ffffff" />
+                                            <FooterStyle CssClass="FooterStyle" />
+                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                        </asp:GridView>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="divTaskChartStatistics"></div>
+                        </div>
                     </div>
-                </fieldset>
+                </div>
+            </div>
+            <div id="Daily" class="tabcontentEnq">
+                <div class="div1">
+                    <div class="grid">
+                        <div class="col-md-12">
+                            <div class="col-md-12 Report">
+                                <fieldset class="fieldset-border">
+                                    <legend style="background: none; color: #007bff; font-size: 17px;">Daily Report</legend>
+                                    <div class="col-md-12 Report">
+
+                                        <div class="boxHead">
+                                            <div class="logheading">
+                                                <div style="float: left">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <asp:Label ID="lblDailyReportTitle" runat="server" CssClass="label"></asp:Label>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <asp:GridView ID="gvTicketsMonthwise" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" HeaderStyle-CssClass="table table-bordered table-condensed Grid" ShowHeader="false" EmptyDataText="No Data Found">
+                                            <AlternatingRowStyle BackColor="#ffffff" />
+                                            <FooterStyle ForeColor="White" />
+                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Right" />
+                                        </asp:GridView>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="divDailyTaskChartStatistics"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="col-md-12">
-            <div id="divTaskChartStatistics"></div>
-        </div>
-
         <br />
-
     </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript"> 
@@ -555,32 +694,60 @@
 
                     var data1 = google.visualization.arrayToDataTable(data.d);
                     var view = new google.visualization.DataView(data1);
-                    view.setColumns([0, 1,
-                        //{
-                        //    calc: "stringify",
-                        //    sourceColumn: 1,
-                        //    type: "string",
-                        //    role: "annotation"
-                        //},
-                        2, 3
-                    ]);
+                    view.setColumns([0, 1, 2, 3]);
                     var options = {
-                        //width: '80%',
-                        title: 'Task Statistics',
+                        hAxis: {
+                            title: 'Year-Month'
+                        },
+                        vAxis: {
+                            title: 'NOs'
+                        },
+                        title: 'Monthly Task Statistics',
                         height: 500
-                        //legend: { position: 'top', maxLines: 5 },
-                        //bar: { groupWidth: '80%' },
-                        //isStacked: true,
-                        //is3D: true
-                        //trendlines: {
-                        //    0: { type: 'exponential', color: '#333', opacity: 2 }
-                        //}
                     };
-
-                    //var chart = new google.charts.Bar(document.getElementById('divTaskChartStatistics'));
-                    //chart.draw(data, google.charts.Bar.convertOptions(options));
-
                     var chart = new google.visualization.ColumnChart(document.getElementById("divTaskChartStatistics"));
+                    chart.draw(view, options);
+                },
+                failure: function (r) {
+                    alert(r);
+                },
+                error: function (r) {
+                    alert(r);
+                }
+            });
+        }
+        function DailyTaskStatusChart() {
+            var param = {
+                DateFrom: $('#MainContent_txtTicketFrom').val()
+                , DateTo: $('#MainContent_txtTicketTo').val()
+                , DealerEmployeeUser: $('#MainContent_ddlEmployee').val()
+            }
+            $.ajax({
+                type: "POST",
+                url: 'Task_Dashboard.aspx/DailyTaskStatusChart',
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                dataFilter: function (data) {
+                    return data;
+                },
+                success: function (data) {
+
+                    var data1 = google.visualization.arrayToDataTable(data.d);
+                    var view = new google.visualization.DataView(data1);
+                    view.setColumns([0, 1, 2]);
+                    var options = {
+                        hAxis: {
+                            title: 'Day'
+                        },
+                        vAxis: {
+                            title: 'NOs'
+                        },
+                        title: 'Daily Task Statistics',
+                        /*curveType: 'function',*/
+                        height: 300
+                    };
+                    var chart = new google.visualization.LineChart(document.getElementById("divDailyTaskChartStatistics"));
                     chart.draw(view, options);
                 },
                 failure: function (r) {

@@ -142,7 +142,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 lblMessage.Text = Result.Message;
                 return;
             }
-            lblMessage.Text = Result.Message;
+            lblMessage.Text = Result.Message+" Ticket No : "+ Result.Data;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
             ClearField();

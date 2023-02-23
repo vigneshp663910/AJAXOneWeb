@@ -141,24 +141,6 @@ namespace DealerManagementSystem.ViewDashboard
         protected global::System.Web.UI.WebControls.LinkButton lbtnInProgress;
 
         /// <summary>
-        /// lblResolved control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblResolved;
-
-        /// <summary>
-        /// lbtnResolved control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnResolved;
-
-        /// <summary>
         /// lblClosed control.
         /// </summary>
         /// <remarks>
@@ -195,6 +177,15 @@ namespace DealerManagementSystem.ViewDashboard
         protected global::System.Web.UI.WebControls.LinkButton lbtnWaitingForApproval;
 
         /// <summary>
+        /// lblMonthlyReportTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMonthlyReportTitle;
+
+        /// <summary>
         /// gvTickets control.
         /// </summary>
         /// <remarks>
@@ -202,5 +193,23 @@ namespace DealerManagementSystem.ViewDashboard
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvTickets;
+
+        /// <summary>
+        /// lblDailyReportTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDailyReportTitle;
+
+        /// <summary>
+        /// gvTicketsMonthwise control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvTicketsMonthwise;
     }
 }

@@ -56,6 +56,11 @@ namespace DealerManagementSystem.ViewSupportTicket
                 PageIndex = 1;
                 FillCategory();
                 FillTicketSeverity();
+                if (Session["DashboardTaskUserID"] != null)
+                {
+                    ViewState["DashboardTaskUserID"] = Session["DashboardTaskUserID"];
+                    Session["DashboardTaskUserID"] = null;
+                }
                 FillTickets();
 
                 //if (PSession.User.UserTypeID == (short)UserTypes.Manager || PSession.User.UserTypeID == (short)UserTypes.Admin)
@@ -99,10 +104,10 @@ namespace DealerManagementSystem.ViewSupportTicket
                 TicketSubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             }
             int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
-
+            int UserID = (ViewState["DashboardTaskUserID"] == null) ? PSession.User.UserID : Convert.ToInt32(ViewState["DashboardTaskUserID"]);
             int RowCount = 0;
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            TicketHeader= new BTickets().GetAssignedTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity, PSession.User.UserID, PageIndex, gvTickets.PageSize, out RowCount);
+            TicketHeader= new BTickets().GetAssignedTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity, UserID, PageIndex, gvTickets.PageSize, out RowCount);
             if (RowCount == 0)
             {
                 gvTickets.DataSource = null;
@@ -126,7 +131,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
                 ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
 
-                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), PSession.User.UserID);
+                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), UserID);
                 if (count == 0)
                 {
                     ibMessage.ImageUrl = "~/Images/Message.jpg";
