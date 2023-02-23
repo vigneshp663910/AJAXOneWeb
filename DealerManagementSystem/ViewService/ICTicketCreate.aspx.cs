@@ -100,11 +100,11 @@ namespace DealerManagementSystem.ViewService
             }
             PICTicket_Create IC = new PICTicket_Create();
          //   IC.RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim()); 
-            IC.RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim() + " " + ddlRequestedHH.SelectedValue + ":" + ddlRequestedMM.SelectedValue);
+          //  IC.RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim() + " " + ddlRequestedHH.SelectedValue + ":" + ddlRequestedMM.SelectedValue);
             IC.ContactPerson = txtContactPerson.Text;
             IC.PresentContactNumber = txtContactNumber.Text;
             IC.ComplaintDescription = txtComplaintDescription.Text;
-           // IC.Information = txtInformation.Text;
+             IC.Location = txtLocation.Text;
             IC.ServicePriorityID = Convert.ToInt32(ddlServicePriority.SelectedValue) ;
 
             IC.EquipmentHeaderID = Convert.ToInt64(lblEquipmentHeaderID.Text) ;
@@ -119,6 +119,7 @@ namespace DealerManagementSystem.ViewService
             {
                 return;
             }
+
             Clear();
             lblMessage.ForeColor = Color.Green; 
         }
@@ -158,10 +159,10 @@ namespace DealerManagementSystem.ViewService
             txtContactNumber.BorderColor = Color.Silver;
             txtContactPerson.BorderColor = Color.Silver;
             txtComplaintDescription.BorderColor = Color.Silver;
-            txtRequestedDate.BorderColor = Color.Silver;
+           // txtRequestedDate.BorderColor = Color.Silver;
 
-            ddlRequestedHH.BorderColor = Color.Silver;
-            ddlRequestedMM.BorderColor = Color.Silver;
+           // ddlRequestedHH.BorderColor = Color.Silver;
+           // ddlRequestedMM.BorderColor = Color.Silver;
             ddlServicePriority.BorderColor = Color.Silver;
             ddlState.BorderColor = Color.Silver;
             ddlDistrict.BorderColor = Color.Silver;
@@ -186,21 +187,23 @@ namespace DealerManagementSystem.ViewService
                 txtComplaintDescription.BorderColor = Color.Red;
                 return "Please enter the Complaint Description";
             }
-            if (string.IsNullOrEmpty(txtRequestedDate.Text.Trim()))
-            {
-                txtRequestedDate.BorderColor = Color.Red;
-                return "Please enter the Requested Date.";
-            }
-            if (ddlRequestedHH.SelectedValue == "-1")
-            {
-                ddlRequestedHH.BorderColor = Color.Red;
-                return "Please enter the Requested Hour."; 
-            }
-            if (ddlRequestedMM.SelectedValue == "0")
-            {
-                ddlRequestedMM.BorderColor = Color.Red;
-                return "Please enter the Requested Minute."; 
-            }
+
+            //if (string.IsNullOrEmpty(txtRequestedDate.Text.Trim()))
+            //{
+            //    txtRequestedDate.BorderColor = Color.Red;
+            //    return "Please enter the Requested Date.";
+            //}
+            //if (ddlRequestedHH.SelectedValue == "-1")
+            //{
+            //    ddlRequestedHH.BorderColor = Color.Red;
+            //    return "Please enter the Requested Hour."; 
+            //}
+            //if (ddlRequestedMM.SelectedValue == "0")
+            //{
+            //    ddlRequestedMM.BorderColor = Color.Red;
+            //    return "Please enter the Requested Minute."; 
+            //}
+
             if (ddlServicePriority.SelectedValue == "0")
             {
                 ddlServicePriority.BorderColor = Color.Red;
@@ -225,9 +228,7 @@ namespace DealerManagementSystem.ViewService
             txtContactNumber.Text = "";
             txtContactPerson.Text = "";
             txtComplaintDescription.Text = "";
-            txtRequestedDate.Text = "";
-            ddlRequestedHH.SelectedValue = "9";
-            ddlRequestedMM.SelectedValue = "0";
+            txtLocation.Text = "";
             ddlServicePriority.SelectedValue = "0";
             ddlState.SelectedValue = "0";
             ddlDistrict.Items.Clear();

@@ -173,7 +173,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 {
                     ((TextBox)UC_AddEnquiry.FindControl("txtCustomerName")).Text = Enquiry.Rows[0]["Sender Name"].ToString();
                 }
-                ((TextBox)UC_AddEnquiry.FindControl("txtEnquiryDate")).Text = Enquiry.Rows[0]["Date"].ToString();
+                //((TextBox)UC_AddEnquiry.FindControl("txtEnquiryDate")).Text = Enquiry.Rows[0]["Date"].ToString();
                 ((TextBox)UC_AddEnquiry.FindControl("txtPersonName")).Text = Enquiry.Rows[0]["Sender Name"].ToString();
                 ((TextBox)UC_AddEnquiry.FindControl("txtMobile")).Text = Enquiry.Rows[0]["MOB"].ToString().Replace("+91-", "");
                 ((TextBox)UC_AddEnquiry.FindControl("txtMail")).Text = Enquiry.Rows[0]["Sender Email"].ToString();

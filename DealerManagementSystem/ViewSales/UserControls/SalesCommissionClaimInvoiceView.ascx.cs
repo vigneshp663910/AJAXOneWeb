@@ -11,23 +11,8 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSales.UserControls
 {
-    public partial class SalesCommissionClaimView : System.Web.UI.UserControl
+    public partial class SalesCommissionClaimInvoiceView : System.Web.UI.UserControl
     { 
-        public PSalesCommissionClaim Claim
-        {
-            get
-            {
-                if (Session["SalesCommissionClaimView"] == null)
-                {
-                    Session["SalesCommissionClaimView"] = new PSalesQuotation();
-                }
-                return (PSalesCommissionClaim)Session["SalesCommissionClaimView"];
-            }
-            set
-            {
-                Session["SalesCommissionClaimView"] = value;
-            }
-        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Visible = false;
@@ -38,20 +23,31 @@ namespace DealerManagementSystem.ViewSales.UserControls
             //new BDMS_IncoTerm().GetIncoTermDDL(ddlIncoterms, null, null);
             //new BDMS_Financier().GetFinancierDDL(ddlBankName, null, null); 
 
-            
-        }
-        protected void lbActions_Click(object sender, EventArgs e)
-        {
-            LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Edit Quotation Basic Info")
-            {
 
-            }
-        } 
-      
-        public void fillViewSalesCommission(long SalesCommissionClaimID)
+        }
+         
+        public void fillViewSalesCommissionClaimInvoice(long SalesCommissionClaimInvoiceID)
         {
-            Claim = new BSalesCommissionClaim().GetSalesCommissionClaimByID(SalesCommissionClaimID);
+            
+
+            PSalesCommissionClaimInvoice Invoice = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceByID(SalesCommissionClaimInvoiceID);
+            if (Invoice.SalesCommissionClaimInvoiceID == 0)
+            {
+                lblMessage.Text = "Please Contact Administrator...!";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+
+            PApiResult Result = new BSalesCommissionClaim().GetSalesCommissionClaimInvoice(SalesCommissionClaimInvoiceID, null, Invoice.InvoiceNumber, null, null, null, 1, gvClaimInvoice.PageSize);
+            List<PSalesCommissionClaimInvoice> Invoices = JsonConvert.DeserializeObject<List<PSalesCommissionClaimInvoice>>(JsonConvert.SerializeObject(Result.Data));
+
+            gvClaimInvoice.DataSource = Invoices;
+            gvClaimInvoice.DataBind();
+            gvClaimInvoiceItem.DataSource = Invoices;
+            gvClaimInvoiceItem.DataBind();
+
+            PSalesCommissionClaim Claim = new BSalesCommissionClaim().GetSalesCommissionClaimByID(Invoice.Claim.SalesCommissionClaimID);
             if (Claim.SalesCommissionClaimID == 0)
             {
                 lblMessage.Text = "Please Contact Administrator...!";
@@ -59,6 +55,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
+
+            fillViewSalesCommission(Claim);
+
+            UC_LeadView.fillViewLead(Claim.Quotation.Lead);
+            UC_SalesQuotationView.fillViewQuotation(Claim.Quotation); 
+        }
+         
+        public void fillViewSalesCommission(PSalesCommissionClaim Claim)
+        {             
             lblClaimNumber.Text = Claim.ClaimNumber;
             lblClaimDate.Text = Claim.ClaimDate.ToLongDateString();
 
@@ -68,9 +73,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblApproved1On.Text = Claim.Approved1On == null ? "" : ((DateTime)Claim.Approved1On).ToLongDateString();
             lblApproved2By.Text = Claim.Approved2By == null ? "" : Claim.Approved2By.ContactName;
             lblApproved2On.Text = Claim.Approved2On == null ? "" : ((DateTime)Claim.Approved2On).ToLongDateString();
-            //lblApproved3By.Text = Claim.FinanceVerifiedBy == null ? "" : Claim.FinanceVerifiedBy.ContactName;
-            //lblApproved3On.Text = Claim.FinanceVerifiedOn == null ? "" : ((DateTime)Claim.FinanceVerifiedOn).ToLongDateString();
-            //lblApproved3Remarks.Text = Claim.FinanceRemarks;
+          
             lblInvoiceNumber.Text = Claim.Quotation.SalesInvoiceNumber;
             lblInvoiceDate.Text = ((DateTime)Claim.Quotation.SalesInvoiceDate).ToLongDateString();
 
@@ -80,50 +83,17 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblAmount.Text = Convert.ToString(Claim.ClaimItem.Amount);
             lblBaseTax.Text = Convert.ToString(Claim.ClaimItem.BaseTax);
             lblApproved1Amount.Text = Convert.ToString(Claim.ClaimItem.Approved1Amount);
-            lblApproved2Amount.Text = Convert.ToString(Claim.ClaimItem.Approved2Amount); 
+            lblApproved2Amount.Text = Convert.ToString(Claim.ClaimItem.Approved2Amount);
             lblApproved1Remarks.Text = Claim.ClaimItem.Approved1Remarks;
-            lblApproved2Remarks.Text = Claim.ClaimItem.Approved2Remarks;
-            
-            //fillCompetitor();
-
-            //ActionControlMange();
-
-            UC_LeadView.fillViewLead(Claim.Quotation.Lead);
-            UC_SalesQuotationView.fillViewQuotation(Claim.Quotation);
-            //fillSalesCommissionClaim();
+            lblApproved2Remarks.Text = Claim.ClaimItem.Approved2Remarks; 
         }
-        
-        public void fillProduct()
-        {
-            //gvProduct.DataSource = Quotation.QuotationItems;
-            //gvProduct.DataBind();
-        }
-        public void fillCompetitor()
-        {
-            //gvCompetitor.DataSource = Quotation.Competitor;
-            //gvCompetitor.DataBind();
-        }
-          
-        void ActionControlMange()
-        { 
-        }
-       
+         
         void ShowMessage(PApiResult Results)
         {
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
         }
-
-        
-        void fillSalesCommissionClaim()
-        {
-             //List<PSalesCommissionClaim> claim = new BSalesCommissionClaim().GetSalesCommissionClaim(null, Quotation.QuotationID, null, null, null, null, null);
-            //gvSalesCommission.DataSource = claim;
-            //gvSalesCommission.DataBind();
-            //gvSalesCommissionItem.DataSource = claim;
-            //gvSalesCommissionItem.DataBind();
-
-        }
+         
     }
 }

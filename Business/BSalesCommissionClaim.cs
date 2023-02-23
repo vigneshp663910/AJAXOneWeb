@@ -41,6 +41,13 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PSalesCommissionClaim>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }
+        public DataSet GetSalesCommissionClaimPerformanceReport(long? SalesCommissionClaimID, long? SalesQuotationID
+        , string ClaimNumber, string ClaimDateFrom, string ClaimDateTo, int? StatusID, int? DealerID)
+        {
+            string endPoint = "SalesCommission/SalesCommissionClaimPerformanceReport?SalesCommissionClaimID=" + SalesCommissionClaimID + "&SalesQuotationID=" + SalesQuotationID + "&ClaimNumber=" + ClaimNumber
+                + "&ClaimDateFrom=" + ClaimDateFrom + "&ClaimDateTo=" + ClaimDateTo + "&StatusID=" + StatusID + "&DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public PSalesCommissionClaim GetSalesCommissionClaimByID(long SalesCommissionClaimID)
         {
             string endPoint = "SalesCommission/GetSalesCommissionClaimByID?SalesCommissionClaimID=" + SalesCommissionClaimID;
@@ -95,7 +102,7 @@ namespace Business
 
                             W.Claim = new PSalesCommissionClaim()
                             {
-                                SalesCommissionClaimID = Convert.ToInt64(dr["SalesCommissionClaimInvoiceID"]),
+                                SalesCommissionClaimID = Convert.ToInt64(dr["SalesCommissionClaimID"]),
                                 ClaimNumber = Convert.ToString(dr["ClaimNumber"]),
                                 ClaimDate = Convert.ToDateTime(dr["ClaimDate"])
                             };
