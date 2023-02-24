@@ -15,15 +15,6 @@ namespace DealerManagementSystem.ViewService
     {
 
         /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
-
-        /// <summary>
         /// hdfCustomerId control.
         /// </summary>
         /// <remarks>
@@ -87,6 +78,15 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.GridView gvEquipment;
 
         /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+
+        /// <summary>
         /// Fieldset2 control.
         /// </summary>
         /// <remarks>
@@ -123,33 +123,6 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.TextBox txtComplaintDescription;
 
         /// <summary>
-        /// txtRequestedDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRequestedDate;
-
-        /// <summary>
-        /// ddlRequestedHH control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRequestedHH;
-
-        /// <summary>
-        /// ddlRequestedMM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRequestedMM;
-
-        /// <summary>
         /// ddlServicePriority control.
         /// </summary>
         /// <remarks>
@@ -184,6 +157,15 @@ namespace DealerManagementSystem.ViewService
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDistrict;
+
+        /// <summary>
+        /// txtLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtLocation;
 
         /// <summary>
         /// btnSave control.

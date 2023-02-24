@@ -568,7 +568,7 @@ namespace DealerManagementSystem.ViewSales
                          string.Format("80{0}", M.Dealer.DealerCode.Substring(2))
                         , ((DateTime)M.InvoiceDate).ToShortDateString()
                         , M.InvoiceNumber
-                        , "'" + M.InvoiceItem.Material
+                        , "'" + M.InvoiceItem.Material.MaterialCode
                         , M.InvoiceItem.TaxableValue
                         , M.InvoiceItem.TaxableValue + M.InvoiceItem.CGSTValue + M.InvoiceItem.SGSTValue + M.InvoiceItem.IGSTValue
                         , M.Quotation.Lead.Customer.CustomerCode
@@ -604,6 +604,21 @@ namespace DealerManagementSystem.ViewSales
                 new FileLogger().LogMessage("DMS_WarrantyClaimInvoiceReport", "btnExportExcelForSAP_Click", ex);
             }
             new BXcel().ExporttoExcel(dt, "Claim Invoice Report");
+        }
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divClaimInvoiceView.Visible = false;
+            btnBackToList.Visible = false;
+            divList.Visible = true;
+        }
+        protected void btnViewClaimInvoice_Click(object sender, EventArgs e)
+        {
+            divClaimInvoiceView.Visible = true;
+            btnBackToList.Visible = true;
+            divList.Visible = false;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblSalesCommissionClaimInvoiceID = (Label)gvRow.FindControl("lblSalesCommissionClaimInvoiceID");
+            UC_ClaimInvoiceView.fillViewSalesCommissionClaimInvoice(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
         }
     }
 }

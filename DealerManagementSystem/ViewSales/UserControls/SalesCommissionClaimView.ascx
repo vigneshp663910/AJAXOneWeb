@@ -62,14 +62,7 @@
                     <label>Approved2On : </label>
                     <asp:Label ID="lblApproved2On" runat="server"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>Approved3By : </label>
-                    <asp:Label ID="lblApproved3By" runat="server"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Approved3On : </label>
-                    <asp:Label ID="lblApproved3On" runat="server"></asp:Label>
-                </div>
+                
             </div>
         </div>
     </fieldset>
@@ -116,26 +109,18 @@
                                 <label>Approved 2 Amount : </label>
                                 <asp:Label ID="lblApproved2Amount" runat="server"></asp:Label>
                             </div>
-                            <div class="col-md-12">
-                                <label>Approved 3 Amount : </label>
-                                <asp:Label ID="lblApproved3Amount" runat="server"></asp:Label>
-                            </div>
-
+                            
                         </div>
                         <div class="col-md-4">
                             <div class="col-md-12">
                                 <label>Approved 1 Remarks : </label>
                                 <asp:Label ID="lblApproved1Remarks" runat="server"></asp:Label>
                             </div>
-                            <div class="col-md-12">
+                          <div class="col-md-12">
                                 <label>Approved 2 Remarks : </label>
                                 <asp:Label ID="lblApproved2Remarks" runat="server"></asp:Label>
                             </div>
-                            <div class="col-md-12">
-                                <label>Approved 3 Remarks : </label>
-                                <asp:Label ID="lblApproved3Remarks" runat="server"></asp:Label>
-                            </div>
-                           
+                          
                         </div>
                 </fieldset>
             </div>

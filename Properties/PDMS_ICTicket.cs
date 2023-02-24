@@ -130,16 +130,17 @@ namespace Properties
         public long ICTicketID { get; set; }
         public long? CustomerID { get; set; }
         public long? EquipmentHeaderID { get; set; }
+        public string Location { get; set; }
         public string PresentContactNumber { get; set; }
         public string ContactPerson { get; set; }
         public DateTime? RequestedDate { get; set; }
         public string ComplaintDescription { get; set; }
-        public int? ServicePriorityID { get; set; } 
+        public int? ServicePriorityID { get; set; }
         public int CountryID { get; set; }
         public int StateID { get; set; }
         public int DistrictID { get; set; }
         public int ICTicketRequestedByID { get; set; }
-        
+
     }
     [Serializable]
     public class PICTicketServiceConfirmation

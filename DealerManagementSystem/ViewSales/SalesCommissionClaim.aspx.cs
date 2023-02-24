@@ -90,7 +90,7 @@ namespace DealerManagementSystem.ViewSales
             string ClaimDateFrom = txtDateFrom.Text.Trim();
             string ClaimDateTo = txtDateTo.Text.Trim();
             int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); ;
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
             Claim = new BSalesCommissionClaim().GetSalesCommissionClaim(SalesCommissionClaimID, SalesQuotationID, ClaimNumber, ClaimDateFrom, ClaimDateTo, StatusID, DealerID);
             gvQuotation.DataSource = Claim;
             gvQuotation.DataBind();

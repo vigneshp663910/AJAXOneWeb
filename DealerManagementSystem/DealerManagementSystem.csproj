@@ -392,6 +392,7 @@
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
+    <Content Include="ViewDashboard\BiEnquiry.aspx" />
     <Content Include="ViewDashboard\EnquiryChart.aspx" />
     <Content Include="ViewDashboard\LeadChart.aspx" />
     <Content Include="ViewDashboard\Task_Dashboard.aspx" />
@@ -538,6 +539,7 @@
     <Content Include="ViewSales\SalesCommissionClaimInvoice.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimInvoiceCreate.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimInvoiceVerify.aspx" />
+    <Content Include="ViewSales\SalesCommissionClaimPerformanceReport.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
     <Content Include="ViewSales\tab_ASN.aspx" />
     <Content Include="ViewProcurement\MonthlyProcurement.aspx" />
@@ -556,6 +558,7 @@
     <Content Include="ViewSales\SalesOrder.aspx" />
     <Content Include="ViewSales\SalesOrderItems.aspx" />
     <Content Include="ViewSales\SalesOrderPerformance.aspx" />
+    <Content Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx" />
     <Content Include="ViewSales\UserControls\SalesCommissionClaimView.ascx" />
     <Content Include="ViewService\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx" />
@@ -571,6 +574,7 @@
     <Content Include="ViewService\ICTicketReachedDateChange.aspx" />
     <Content Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx" />
     <Content Include="ViewService\ICTicketStatusReport.aspx" />
+    <Content Include="ViewService\ICTicketStatusReportForIC.aspx" />
     <Content Include="ViewService\ICTicketTechnicianAssign.aspx" />
     <Content Include="ViewService\ICTicketTSIRApprove.aspx" />
     <Content Include="ViewService\ICTicketTSIRMailToVendorReport.aspx" />
@@ -1057,6 +1061,13 @@
     </Compile>
     <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.designer.cs">
       <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\BiEnquiry.aspx.cs">
+      <DependentUpon>BiEnquiry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\BiEnquiry.aspx.designer.cs">
+      <DependentUpon>BiEnquiry.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\EnquiryChart.aspx.cs">
       <DependentUpon>EnquiryChart.aspx</DependentUpon>
@@ -1915,6 +1926,13 @@
     <Compile Include="ViewSales\SalesCommissionClaimInvoiceVerify.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimInvoiceVerify.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimPerformanceReport.aspx.cs">
+      <DependentUpon>SalesCommissionClaimPerformanceReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesCommissionClaimPerformanceReport.aspx.designer.cs">
+      <DependentUpon>SalesCommissionClaimPerformanceReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2041,6 +2059,13 @@
     <Compile Include="ViewSales\SalesOrderPerformance.aspx.designer.cs">
       <DependentUpon>SalesOrderPerformance.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx.cs">
+      <DependentUpon>SalesCommissionClaimInvoiceView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx.designer.cs">
+      <DependentUpon>SalesCommissionClaimInvoiceView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSales\UserControls\SalesCommissionClaimView.ascx.cs">
       <DependentUpon>SalesCommissionClaimView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2145,6 +2170,13 @@
     </Compile>
     <Compile Include="ViewService\ICTicketStatusReport.aspx.designer.cs">
       <DependentUpon>ICTicketStatusReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\ICTicketStatusReportForIC.aspx.cs">
+      <DependentUpon>ICTicketStatusReportForIC.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\ICTicketStatusReportForIC.aspx.designer.cs">
+      <DependentUpon>ICTicketStatusReportForIC.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketTechnicianAssign.aspx.cs">
       <DependentUpon>ICTicketTechnicianAssign.aspx</DependentUpon>

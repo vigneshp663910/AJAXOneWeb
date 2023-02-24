@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewSales
+namespace DealerManagementSystem.ViewService
 {
 
 
-    public partial class SalesCommissionClaimInvoiceVerify
+    public partial class ICTicketStatusReportForIC
     {
 
         /// <summary>
@@ -24,40 +24,40 @@ namespace DealerManagementSystem.ViewSales
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// divList control.
+        /// ddlDealerCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerCode;
 
         /// <summary>
-        /// ddlDealer control.
+        /// txtCustomerCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
+        protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
 
         /// <summary>
-        /// txtClaimNumber control.
+        /// txtICTicketNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtClaimNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtICTicketNumber;
 
         /// <summary>
-        /// txtDateFrom control.
+        /// txtICLoginDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDateFrom;
+        protected global::System.Web.UI.WebControls.TextBox txtICLoginDateFrom;
 
         /// <summary>
         /// CalendarExtender1 control.
@@ -69,22 +69,22 @@ namespace DealerManagementSystem.ViewSales
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
 
         /// <summary>
-        /// TextBoxWatermarkExtender2 control.
+        /// TextBoxWatermarkExtender1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
 
         /// <summary>
-        /// txtDateTo control.
+        /// txtICLoginDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDateTo;
+        protected global::System.Web.UI.WebControls.TextBox txtICLoginDateTo;
 
         /// <summary>
         /// CalendarExtender2 control.
@@ -96,22 +96,40 @@ namespace DealerManagementSystem.ViewSales
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
 
         /// <summary>
-        /// TextBoxWatermarkExtender3 control.
+        /// TextBoxWatermarkExtender2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender3;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
 
         /// <summary>
-        /// BtnSearch control.
+        /// ddlStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSearch;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
+
+        /// <summary>
+        /// txtMachineSerialNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMachineSerialNumber;
+
+        /// <summary>
+        /// btnSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
         /// btnExportExcel control.
@@ -150,39 +168,12 @@ namespace DealerManagementSystem.ViewSales
         protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
 
         /// <summary>
-        /// gvClaimInvoice control.
+        /// gvICTickets control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvClaimInvoice;
-
-        /// <summary>
-        /// divClaimInvoiceView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClaimInvoiceView;
-
-        /// <summary>
-        /// btnBackToList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBackToList;
-
-        /// <summary>
-        /// UC_ClaimInvoiceView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DealerManagementSystem.ViewSales.UserControls.SalesCommissionClaimInvoiceView UC_ClaimInvoiceView;
+        protected global::System.Web.UI.WebControls.GridView gvICTickets;
     }
 }

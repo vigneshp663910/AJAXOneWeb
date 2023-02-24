@@ -280,5 +280,21 @@ namespace DealerManagementSystem.ViewSales
             lblMessage.Text = Results.Message;
             fillWarrantyInvoice();
         }
+
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divClaimInvoiceView.Visible = false;
+            btnBackToList.Visible = false;
+            divList.Visible = true;
+        }
+        protected void btnViewClaimInvoice_Click(object sender, EventArgs e)
+        {
+            divClaimInvoiceView.Visible = true;
+            btnBackToList.Visible = true;
+            divList.Visible = false;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblSalesCommissionClaimInvoiceID = (Label)gvRow.FindControl("lblSalesCommissionClaimInvoiceID");
+            UC_ClaimInvoiceView.fillViewSalesCommissionClaimInvoice(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
+        }
     }
 }
