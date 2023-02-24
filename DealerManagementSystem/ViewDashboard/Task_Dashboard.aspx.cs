@@ -3,6 +3,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -125,24 +126,57 @@ namespace DealerManagementSystem.ViewDashboard
                 gvTickets.FooterRow.Cells[1].HorizontalAlign = HorizontalAlign.Right;
                 gvTickets.FooterRow.Cells[2].Text = ds.Tables[0].Compute("SUM(TotalCreated)", "").ToString();//total.ToString("N2");
                 gvTickets.FooterRow.Cells[2].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[2].BackColor = Color.FromArgb(135, 117, 167);
+                gvTickets.FooterRow.Cells[2].ForeColor = Color.White;
                 gvTickets.FooterRow.Cells[3].Text = ds.Tables[0].Compute("SUM(Opened)", "").ToString();
                 gvTickets.FooterRow.Cells[3].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[3].BackColor = Color.Firebrick;
+                gvTickets.FooterRow.Cells[3].ForeColor = Color.White;
                 gvTickets.FooterRow.Cells[4].Text = ds.Tables[0].Compute("SUM(Assigned)", "").ToString();
                 gvTickets.FooterRow.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[4].BackColor = Color.Firebrick;
+                gvTickets.FooterRow.Cells[4].ForeColor = Color.White;
                 gvTickets.FooterRow.Cells[5].Text = ds.Tables[0].Compute("SUM(InProgress)", "").ToString();
                 gvTickets.FooterRow.Cells[5].HorizontalAlign = HorizontalAlign.Right;
-                gvTickets.FooterRow.Cells[6].Text = ds.Tables[0].Compute("SUM(Resolved)", "").ToString();
+                gvTickets.FooterRow.Cells[5].BackColor = Color.Firebrick;
+                gvTickets.FooterRow.Cells[5].ForeColor = Color.White;
+                gvTickets.FooterRow.Cells[6].Text = ds.Tables[0].Compute("SUM(WaitingForApproval)", "").ToString();
                 gvTickets.FooterRow.Cells[6].HorizontalAlign = HorizontalAlign.Right;
-                gvTickets.FooterRow.Cells[7].Text = ds.Tables[0].Compute("SUM(Closed)", "").ToString();
+                gvTickets.FooterRow.Cells[6].BackColor = Color.Firebrick;
+                gvTickets.FooterRow.Cells[6].ForeColor = Color.White;
+                gvTickets.FooterRow.Cells[7].Text = ds.Tables[0].Compute("SUM(Resolved)", "").ToString();
                 gvTickets.FooterRow.Cells[7].HorizontalAlign = HorizontalAlign.Right;
-                gvTickets.FooterRow.Cells[8].Text = ds.Tables[0].Compute("SUM(WaitingForApproval)", "").ToString();
+                gvTickets.FooterRow.Cells[7].BackColor = Color.DarkOliveGreen;
+                gvTickets.FooterRow.Cells[7].ForeColor = Color.White;
+                gvTickets.FooterRow.Cells[8].Text = ds.Tables[0].Compute("SUM(Closed)", "").ToString();
                 gvTickets.FooterRow.Cells[8].HorizontalAlign = HorizontalAlign.Right;
-
+                gvTickets.FooterRow.Cells[8].BackColor = Color.DarkOliveGreen;
+                gvTickets.FooterRow.Cells[8].ForeColor = Color.White;
                 double Average = ((Convert.ToDouble(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(WaitingForApproval)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(InProgress)", ""))) / Convert.ToDouble(ds.Tables[0].Compute("SUM(TotalCreated)", ""))) * 100;
-
                 gvTickets.FooterRow.Cells[9].Text = Average.ToString("N2");
                 gvTickets.FooterRow.Cells[9].HorizontalAlign = HorizontalAlign.Right;
-                lblMonthlyReportTitle.Text = (ddlEmployee.SelectedValue == "0") ? " Over All Status" : " Over All Status - " +ddlEmployee.SelectedItem.Text.Trim();
+
+                GridViewRow footer = gvTickets.FooterRow;
+                int numCells = footer.Cells.Count;
+                GridViewRow newRow = new GridViewRow(footer.RowIndex + 1, -1, footer.RowType, footer.RowState);
+                for (int j = 0; j <= numCells - 1; j++)
+                {
+                    TableCell emptyCell = new TableCell();
+                    emptyCell.ApplyStyle(gvTickets.Columns[j].ItemStyle);
+                    newRow.Cells.Add(emptyCell);
+                }
+                newRow.Cells[1].Text = "Average";
+                newRow.Cells[2].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(TotalCreated)", ""))/ Convert.ToInt32(ds.Tables[0].Rows.Count)).ToString();
+                newRow.Cells[2].ForeColor = Color.FromArgb(135, 117, 167);
+                newRow.Cells[6].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(InProgress)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(WaitingForApproval)", ""))).ToString();
+                newRow.Cells[6].ForeColor = Color.Firebrick;
+                newRow.Cells[8].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(Resolved)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Closed)", ""))).ToString();
+                newRow.Cells[8].ForeColor = Color.DarkOliveGreen;
+                gvTickets.Controls[0].Controls.Add(newRow);
+
+
+
+                lblMonthlyReportTitle.Text = (ddlEmployee.SelectedValue == "0") ? " Over All Status" : " Over All Status - " + ddlEmployee.SelectedItem.Text.Trim();
             }
             gvTicketsMonthwise.DataSource = null;
             gvTicketsMonthwise.DataBind();
@@ -158,7 +192,7 @@ namespace DealerManagementSystem.ViewDashboard
         public static List<object> TaskStatusChart(string DateFrom, string DateTo, string DealerEmployeeUser)
         {
             List<object> chartData = new List<object>();
-            chartData.Add(new object[] { "Year&Month", "Created", "Progress", "Closed" });
+            chartData.Add(new object[] { "Year&Month", "Created", "Closed", "Progress" });
             //int? CategoryID = Category == "0" ? (int?)null : Convert.ToInt32(Category);
             //int? SubcategoryID = Subcategory == "0" ? (int?)null : Convert.ToInt32(Subcategory);
             int? DealerEmployeeUserID = DealerEmployeeUser == "0" ? (int?)null : Convert.ToInt32(DealerEmployeeUser);
@@ -175,7 +209,7 @@ namespace DealerManagementSystem.ViewDashboard
                 {
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        chartData.Add(new object[] { Convert.ToString(dr["Year"]) + "-" + Convert.ToString(dr["Month"]), Convert.ToInt32(dr["TotalCreated"]), Convert.ToInt32(dr["InProgress"]), Convert.ToInt32(dr["Closed"]) });
+                        chartData.Add(new object[] { Convert.ToString(dr["Year"]) + "-" + Convert.ToString(dr["Month"]), Convert.ToInt32(dr["TotalCreated"]), Convert.ToInt32(dr["Closed"]), Convert.ToInt32(dr["InProgress"]) });
                     }
                 }
                 else
@@ -210,7 +244,7 @@ namespace DealerManagementSystem.ViewDashboard
                 }
             }
 
-            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, From, To);
+            DataSet ds = new BTickets().GetTicketDetailsDaywiseCountByStatus(DealerEmployeeUserID, From, To);
             if (ds != null)
             {
                 if (ds.Tables[0].Rows.Count > 0)
@@ -237,7 +271,7 @@ namespace DealerManagementSystem.ViewDashboard
                             dtMonthwise.Rows.Add(Convert.ToDateTime(data[0][4]).ToString("dd"), OP, Convert.ToInt32(data[0][1]), Convert.ToInt32(data[0][2]), CL);
                             CreatedCount += Convert.ToInt32(data[0][1]);
                             ClosedCount += Convert.ToInt32(data[0][2]);
-                            lblDailyReportTitle.Text = (ddlEmployee.SelectedValue == "0") ? "Over All Status" :  ((string.IsNullOrEmpty(txtTicketTo.Text)) ? "" : " For The Month Of " + Convert.ToDateTime(txtTicketTo.Text).ToString("MMM-yyyy") + " - "+ ddlEmployee.SelectedItem.Text.Trim());
+                            lblDailyReportTitle.Text = (ddlEmployee.SelectedValue == "0") ? "Over All Status" : ((string.IsNullOrEmpty(txtTicketTo.Text)) ? "" : " For The Month Of " + Convert.ToDateTime(txtTicketTo.Text).ToString("MMM-yyyy") + " - " + ddlEmployee.SelectedItem.Text.Trim());
                         }
                         else
                         {
@@ -317,7 +351,7 @@ namespace DealerManagementSystem.ViewDashboard
                 }
             }
 
-            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, From, To);
+            DataSet ds = new BTickets().GetTicketDetailsDaywiseCountByStatus(DealerEmployeeUserID, From, To);
 
             if (ds != null)
             {

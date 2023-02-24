@@ -141,24 +141,6 @@ namespace DealerManagementSystem.ViewDashboard
         protected global::System.Web.UI.WebControls.LinkButton lbtnInProgress;
 
         /// <summary>
-        /// lblClosed control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblClosed;
-
-        /// <summary>
-        /// lbtnClosed control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnClosed;
-
-        /// <summary>
         /// lblWaitingForApproval control.
         /// </summary>
         /// <remarks>
@@ -175,6 +157,24 @@ namespace DealerManagementSystem.ViewDashboard
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnWaitingForApproval;
+
+        /// <summary>
+        /// lblClosed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblClosed;
+
+        /// <summary>
+        /// lbtnClosed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnClosed;
 
         /// <summary>
         /// lblMonthlyReportTitle control.

@@ -486,17 +486,7 @@
                                 </div>
                             </div>
                         </div>--%>
-                                    <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: darkolivegreen;">
-                                        <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Closed');">
-                                            <div class="visual"><i class="fa fa-ticket"></i></div>
-                                            <div class="details" style="color: white;">
-                                                <asp:Label ID="lblClosed" runat="server" Text="0"></asp:Label>
-                                                <div class="desc">
-                                                    <asp:LinkButton ID="lbtnClosed" runat="server" Style="color: white;" OnClick="lbActions_Click">Resolved</asp:LinkButton>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #d05454">
                                         <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('WaitingForApproval');">
                                             <div class="visual"><i class="fa fa-ticket"></i></div>
@@ -509,13 +499,24 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: darkolivegreen;">
+                                        <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Closed');">
+                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <div class="details" style="color: white;">
+                                                <asp:Label ID="lblClosed" runat="server" Text="0"></asp:Label>
+                                                <div class="desc">
+                                                    <asp:LinkButton ID="lbtnClosed" runat="server" Style="color: white;" OnClick="lbActions_Click">Resolved</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-12 Report">
                                 <fieldset class="fieldset-border">
-                                    <legend style="background: none; color: #007bff; font-size: 17px;">Monthly Report</legend>
+                                    <legend style="background: none; color: #007bff; font-size: 17px;">Monthly</legend>
                                     <div class="col-md-12 Report">
                                         <div class="boxHead">
                                             <div class="logheading">
@@ -545,18 +546,17 @@
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="TotalCreated">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
                                                         <asp:Label ID="lnkTotalCreated" Text='<%# DataBinder.Eval(Container.DataItem, "TotalCreated")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Open">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
                                                         <asp:Label ID="lnkOpened" Text='<%# DataBinder.Eval(Container.DataItem, "Opened")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-
                                                 <%--<asp:TemplateField HeaderText="Approved">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
@@ -564,19 +564,25 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>--%>
                                                 <asp:TemplateField HeaderText="Assigned">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
                                                         <asp:Label ID="lnkAssigned" Text='<%# DataBinder.Eval(Container.DataItem, "Assigned")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="In Progress">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
                                                         <asp:Label ID="lnkInProgress" Text='<%# DataBinder.Eval(Container.DataItem, "InProgress")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Approval">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkWaitingForApproval" Text='<%# DataBinder.Eval(Container.DataItem, "WaitingForApproval")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Resolved">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
                                                         <asp:Label ID="lnkResolved" Text='<%# DataBinder.Eval(Container.DataItem, "Resolved")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
@@ -594,15 +600,9 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>--%>
                                                 <asp:TemplateField HeaderText="Closed">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
                                                         <asp:Label ID="lnkClosed" Text='<%# DataBinder.Eval(Container.DataItem, "Closed")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Approval">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue"/>
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lnkWaitingForApproval" Text='<%# DataBinder.Eval(Container.DataItem, "WaitingForApproval")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Pending %">
@@ -634,7 +634,7 @@
                         <div class="col-md-12">
                             <div class="col-md-12 Report">
                                 <fieldset class="fieldset-border">
-                                    <legend style="background: none; color: #007bff; font-size: 17px;">Daily Report</legend>
+                                    <legend style="background: none; color: #007bff; font-size: 17px;">Daily</legend>
                                     <div class="col-md-12 Report">
 
                                         <div class="boxHead">
@@ -650,7 +650,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <asp:GridView ID="gvTicketsMonthwise" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" HeaderStyle-CssClass="table table-bordered table-condensed Grid" ShowHeader="false" EmptyDataText="No Data Found">
                                             <AlternatingRowStyle BackColor="#ffffff" />
                                             <FooterStyle ForeColor="White" />
@@ -696,6 +695,7 @@
                     var view = new google.visualization.DataView(data1);
                     view.setColumns([0, 1, 2, 3]);
                     var options = {
+                        colors: ['#8775a7', 'DarkOliveGreen', 'Firebrick'],
                         hAxis: {
                             title: 'Year-Month'
                         },
@@ -759,5 +759,4 @@
             });
         }
     </script>
-
 </asp:Content>

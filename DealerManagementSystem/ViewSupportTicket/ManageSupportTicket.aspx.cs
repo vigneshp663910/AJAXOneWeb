@@ -80,10 +80,9 @@ namespace DealerManagementSystem.ViewSupportTicket
                 if (Session["DashboardTaskUserID"] != null)
                 {
                     ddlEmployee.SelectedValue = Session["DashboardTaskUserID"].ToString();
-                    PageIndex = 1;
-                    FillTickets();
                 }
-                
+                PageIndex = 1;
+                FillTickets();
             }
         }
         void FillStatus()
