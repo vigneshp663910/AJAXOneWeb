@@ -504,6 +504,7 @@
     <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\EnquiryN.aspx" />
     <Content Include="ViewPreSale\EnquiryTimeLineReport.aspx" />
+    <Content Include="ViewPreSale\LeadFoloowUpReport.aspx" />
     <Content Include="ViewPreSale\LeadN.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\PreSalesReport.aspx" />
@@ -1680,6 +1681,13 @@
     </Compile>
     <Compile Include="ViewPreSale\EnquiryTimeLineReport.aspx.designer.cs">
       <DependentUpon>EnquiryTimeLineReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadFoloowUpReport.aspx.cs">
+      <DependentUpon>LeadFoloowUpReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadFoloowUpReport.aspx.designer.cs">
+      <DependentUpon>LeadFoloowUpReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\LeadN.aspx.cs">
       <DependentUpon>LeadN.aspx</DependentUpon>

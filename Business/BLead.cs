@@ -206,5 +206,10 @@ namespace Business
                 + "&CountryID=" + CountryID + "&RegionID=" + RegionID + "&ProductTypeID=" + ProductTypeID;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public DataSet GetLeadFollowUpReport(PLeadSearch Lead)
+        { 
+            return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadFollowUpReport", Lead)).Data));
+        }
     }
 }
