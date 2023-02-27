@@ -2218,5 +2218,21 @@ namespace Business
                 throw ex;
             }
         }
+        public DataSet GetTicketDetailsDaywiseCountByStatus(int? DealerEmployeeUserID, DateTime? DateFrom, DateTime? DateTo)
+        {
+            try
+            {
+                DbParameter DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
+                DbParameter DateFromP = provider.CreateParameter("DateFrom", DateFrom, DbType.DateTime);
+                DbParameter DateToP = provider.CreateParameter("DateTo", DateTo, DbType.DateTime);
+                DbParameter[] TicketTypeParams = new DbParameter[3] { DealerEmployeeUserIDP, DateFromP, DateToP };
+                return provider.Select("GetTicketDetailsDaywiseCountByStatus", TicketTypeParams);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BTickets", "GetTicketDetailsDaywiseCountByStatus", ex);
+                throw ex;
+            }
+        }
     }
 }
