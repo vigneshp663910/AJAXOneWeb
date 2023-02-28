@@ -7,8 +7,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
      <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 
-    <div class="col-md-12">
-
+    <div class="col-md-12"> 
         <div class="col-md-12" id="divList" runat="server">
             <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
@@ -89,8 +88,7 @@
                     </fieldset>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
-     
 </asp:Content>
 

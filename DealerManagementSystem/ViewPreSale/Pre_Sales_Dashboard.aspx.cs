@@ -142,7 +142,7 @@ namespace DealerManagementSystem.ViewPreSale
                     lblCancelled.Text = ss[0].Count.ToString();
                 }
             }
-
+            lblOpenLead.Text = Convert.ToString(Convert.ToInt32(lblOpen.Text)+ Convert.ToInt32(lblAssigned.Text) + Convert.ToInt32(lblQuotation.Text));
 
             lblEnquiryOpen.Text = "0";
             lblEnquiryInProgress.Text = "0";
@@ -178,6 +178,8 @@ namespace DealerManagementSystem.ViewPreSale
                 }
             }
 
+            lblOpenEnqury.Text = Convert.ToString(Convert.ToInt32(lblEnquiryOpen.Text) + Convert.ToInt32(lblEnquiryInProgress.Text));
+           
             List<PLeadStatus> StatusFunnel = new BLead().GetLeadCountByStatus(From, null, DealerID, EngineerUserID);
 
             int AssignedFunnel = 0, QuotationFunnel = 0, WonFunnel = 0, LostFunnel = 0, CancelFunnel = 0;
