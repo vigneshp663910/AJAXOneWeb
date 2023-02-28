@@ -244,7 +244,7 @@ namespace DealerManagementSystem.ViewDashboard
                 }
             }
 
-            DataSet ds = new BTickets().GetTicketDetailsDaywiseCountByStatus(DealerEmployeeUserID, From, To);
+            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, From, To);
             if (ds != null)
             {
                 if (ds.Tables[0].Rows.Count > 0)
@@ -351,7 +351,7 @@ namespace DealerManagementSystem.ViewDashboard
                 }
             }
 
-            DataSet ds = new BTickets().GetTicketDetailsDaywiseCountByStatus(DealerEmployeeUserID, From, To);
+            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, From, To);
 
             if (ds != null)
             {
