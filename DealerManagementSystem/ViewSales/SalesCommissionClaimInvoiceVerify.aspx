@@ -182,7 +182,7 @@
                                     <asp:TemplateField HeaderText="PDF">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
-                                            <asp:Button ID="btnVerify" runat="server" CssClass="btn Search" Text="Verify" OnClick="btnVerify_Click" Width="100px" Height="30px"></asp:Button>
+                                            <asp:Button ID="btnVerify" runat="server" CssClass="btn Search" Text="Release" OnClick="btnVerify_Click" Width="100px" Height="30px"></asp:Button>
                                             <tr>
                                                 <td colspan="100%" style="padding-left: 96px">
                                                     <div id="SalesCommissionClaimInvoiceID-<%# Eval("SalesCommissionClaimInvoiceID") %>" style="display: none; position: relative;">

@@ -1581,12 +1581,12 @@ namespace Business
             }
             return Ws;
         }
-        public List<PDMS_ICTicket> GetICTicketStatusReportForIC(int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, string MachineSerialNumber)
+        public DataTable GetICTicketStatusReportForIC(long? EquipmentHeaderID, int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, string MachineSerialNumber)
         {
-            List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
-            PDMS_ICTicket W = null;
+             
             try
             {
+                DbParameter EquipmentHeaderIDP = provider.CreateParameter("EquipmentHeaderID", EquipmentHeaderID, DbType.Int64);
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
                 DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
                 DbParameter ICTicketNumberP = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber) ? null : ICTicketNumber, DbType.String);
@@ -1595,41 +1595,26 @@ namespace Business
                 DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
                 DbParameter StatusIDP = provider.CreateParameter("ServiceStatusID", StatusID, DbType.Int32);
                 DbParameter MachineSerialNumberP = provider.CreateParameter("MachineSerialNumber", string.IsNullOrEmpty(MachineSerialNumber) ? null : MachineSerialNumber, DbType.String);
-                DbParameter[] Params = new DbParameter[7] { DealerIDP, CustomerCodeP, ICTicketNumberP, ICTicketDateFP, ICTicketDateTP, StatusIDP, MachineSerialNumberP };
+                DbParameter[] Params = new DbParameter[8] { EquipmentHeaderIDP, DealerIDP, CustomerCodeP, ICTicketNumberP, ICTicketDateFP, ICTicketDateTP, StatusIDP, MachineSerialNumberP };
                 using (DataSet DataSet = provider.Select("GetICTicketStatusReportForIC", Params))
                 {
                     if (DataSet != null)
                     {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            W = new PDMS_ICTicket();
-                            Ws.Add(W);
-                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
-                            W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
-                            W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-                            W.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
-                            W.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
-                            W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
-                            W.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
-                            W.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatus = Convert.ToString(dr["ServiceStatus"]) };
-                            W.ReqDeclinedReason = Convert.ToString(dr["DeclineReason"]);
-                            W.ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]); 
-                            W.Equipment = new PDMS_EquipmentHeader();
-                            W.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
-                            W.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["EquipmentModel"]) }; 
-                        }
+                        return DataSet.Tables[0];
                     }
                 }
             }
             catch (SqlException sqlEx)
             {
                 new FileLogger().LogMessage("BDMS_ICTicket", "InsertDeviatedICTicketRequestForApproval", sqlEx);
+                throw sqlEx;
             }
             catch (Exception ex)
             {
                 new FileLogger().LogMessage("BDMS_ICTicket", " InsertDeviatedICTicketRequestForApproval", ex);
+                throw ex;
             }
-            return Ws;
+            return null;
         }
 
         public Boolean InsertDeviatedICTicketRequestForApproval(long ICTicketID, int ICTicketDeviationTypeID, int UserID)

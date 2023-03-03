@@ -38,7 +38,7 @@ namespace DealerManagementSystem.ViewPreSale
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Visible = false;
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales »  Lead »  Lead FoloowUp Report');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales »  Lead »  Lead FollowUp Report');</script>");
 
             lblMessage.Text = "";
             if (!IsPostBack)

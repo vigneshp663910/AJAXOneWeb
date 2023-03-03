@@ -12,19 +12,19 @@ namespace DealerManagementSystem.ViewService
 {
     public partial class ICTicketStatusReportForIC : System.Web.UI.Page
     {
-        public List<PDMS_ICTicket> ICTicket
+        public DataTable ICTicket
         {
             get
             {
-                if (Session["DMS_ICTicketStatusReport"] == null)
+                if (Session["ICTicketStatusReportForIC"] == null)
                 {
-                    Session["DMS_ICTicketStatusReport"] = new List<PDMS_ICTicket>();
+                    Session["ICTicketStatusReportForIC"] = new DataTable();
                 }
-                return (List<PDMS_ICTicket>)Session["DMS_ICTicketStatusReport"];
+                return (DataTable)Session["ICTicketStatusReportForIC"];
             }
             set
             {
-                Session["DMS_ICTicketStatusReport"] = value;
+                Session["ICTicketStatusReportForIC"] = value;
             }
         }
 
@@ -99,30 +99,15 @@ namespace DealerManagementSystem.ViewService
                 DateTime? ICTicketDateF = string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateFrom.Text.Trim());
                 DateTime? ICTicketDateT = string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateTo.Text.Trim());
                 int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
-                 List<PDMS_ICTicket> SOIs = null;
-                
-                SOIs = new BDMS_ICTicket().GetICTicketStatusReportForIC(DealerID, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, StatusID, txtMachineSerialNumber.Text.Trim());
+                  
 
-                if (ddlDealerCode.SelectedValue == "0")
-                {
-                    var SOIs1 = (from S in SOIs
-                                 join D in PSession.User.Dealer on S.Dealer.DealerCode equals D.UserName
-                                 select new
-                                 {
-                                     S
-                                 }).ToList();
-                    SOIs.Clear();
-                    foreach (var w in SOIs1)
-                    {
-                        SOIs.Add(w.S);
-                    }
-                }
-                ICTicket = SOIs;
+                ICTicket = new BDMS_ICTicket().GetICTicketStatusReportForIC(null,DealerID, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, StatusID, txtMachineSerialNumber.Text.Trim());
+                 
 
                 gvICTickets.PageIndex = 0;
-                gvICTickets.DataSource = SOIs;
+                gvICTickets.DataSource = ICTicket;
                 gvICTickets.DataBind();
-                if (SOIs.Count == 0)
+                if (ICTicket.Rows.Count == 0)
                 {
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
@@ -133,7 +118,7 @@ namespace DealerManagementSystem.ViewService
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
+                    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Rows.Count;
                 }
 
                 TraceLogger.Log(DateTime.Now);
@@ -153,7 +138,7 @@ namespace DealerManagementSystem.ViewService
                 gvICTickets.PageIndex = gvICTickets.PageIndex - 1;
 
                 gvICTickets.DataBind();
-                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
+                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Rows.Count;
             }
         }
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
@@ -163,7 +148,7 @@ namespace DealerManagementSystem.ViewService
                 gvICTickets.DataSource = ICTicket;
                 gvICTickets.PageIndex = gvICTickets.PageIndex + 1;
                 gvICTickets.DataBind();
-                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
+                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Rows.Count;
             }
         }
 
@@ -185,34 +170,16 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("Dealer Code");
             dt.Columns.Add("Dealer Name");
 
-            foreach (PDMS_ICTicket IC in ICTicket)
-            {
-                dt.Rows.Add(
-                    IC.ICTicketNumber
-                    , IC.ICTicketDate.ToShortDateString()
-                    , IC.RequestedDate == null ? "" : ((DateTime)IC.RequestedDate).ToShortDateString()
-                    , IC.ServiceType == null ? "" : IC.ServiceType.ServiceType
-                    , IC.Customer.CustomerCode
-                    , IC.Customer.CustomerName
-                    , IC.ServiceStatus.ServiceStatus
-                    , IC.ReqDeclinedReason
-                    , IC.ComplaintDescription
-                    , IC.Equipment.EquipmentModel.Model
-                    , IC.Equipment.EquipmentSerialNo                    
-                    , IC.Dealer.DealerCode
-                    , IC.Dealer.DealerName
-                   );
-            }
+           
 
-
-            new BXcel().ExporttoExcel(dt, "IC Ticket Status Report");
+            new BXcel().ExporttoExcel(ICTicket, "IC Ticket Status Report");
         }
         protected void gvICTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvICTickets.DataSource = ICTicket;
             gvICTickets.PageIndex = e.NewPageIndex;
             gvICTickets.DataBind();
-            lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
+            lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Rows.Count;
         }
 
         void fillDealer()

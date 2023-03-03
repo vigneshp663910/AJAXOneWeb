@@ -16,11 +16,11 @@
 
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Equipment</label>
-                        <asp:TextBox ID="txtEquipment" runat="server" CssClass="input"></asp:TextBox>
+                        <asp:TextBox ID="txtEquipment" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Customer</label>
-                        <asp:TextBox ID="txtCustomer" runat="server" CssClass="input"></asp:TextBox>
+                        <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Warranty Start</label>
@@ -37,7 +37,15 @@
 
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">State</label>
-                        <asp:DropDownList ID="ddlState" runat="server" CssClass="TextBox" />
+                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" />
+                    </div>
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Warranty Status</label>
+                        <asp:DropDownList ID="ddlWarrantyStatus" runat="server" CssClass="form-control" >
+                            <asp:ListItem Value="2">All</asp:ListItem>
+                            <asp:ListItem Value="1">Yes</asp:ListItem>
+                            <asp:ListItem Value="0">No</asp:ListItem>
+                         </asp:DropDownList>
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="btnSearch_Click" />

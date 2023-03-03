@@ -15,6 +15,21 @@ namespace DealerManagementSystem.ViewService
 {
     public partial class ICTicketCreate : System.Web.UI.Page
     {
+        public long EquipmentHeaderID
+        {
+            get
+            {
+                if (ViewState["EquipmentHeaderID"] == null)
+                {
+                    ViewState["EquipmentHeaderID"] = 0;
+                }
+                return (long)ViewState["EquipmentHeaderID"];
+            }
+            set
+            {
+                ViewState["EquipmentHeaderID"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -67,6 +82,9 @@ namespace DealerManagementSystem.ViewService
             }
             gvEquipment.DataSource = new BDMS_Equipment().GetEquipmentForCreateICTicket(CustomerID, EquipmentSerialNo, Customer);
             gvEquipment.DataBind();
+
+            gvICTickets.Visible = false;
+            gvEquipment.Visible = true;
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -121,7 +139,9 @@ namespace DealerManagementSystem.ViewService
             }
 
             Clear();
-            lblMessage.ForeColor = Color.Green; 
+            lblMessage.ForeColor = Color.Green;
+            gvICTickets.Visible = false;
+            gvEquipment.Visible = true;
         }
         private void FillGetServicePriority()
         {
@@ -236,6 +256,30 @@ namespace DealerManagementSystem.ViewService
             ddlDistrict.DataBind();
             gvEquipment.DataSource = null;
             gvEquipment.DataBind();
+        }
+
+        protected void rbCheck_CheckedChanged(object sender, EventArgs e)
+        {
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            int index = gvRow.RowIndex;
+
+            Label lblEquipmentHeaderID = (Label)gvEquipment.Rows[index].FindControl("lblEquipmentHeaderID");
+            long  ID = Convert.ToInt64(lblEquipmentHeaderID.Text);
+            EquipmentHeaderID = ID;
+            gvICTickets.DataSource = new BDMS_ICTicket().GetICTicketStatusReportForIC(EquipmentHeaderID, null, null, null, null, null, null, null);
+            gvICTickets.DataBind();
+
+            gvICTickets.Visible = true;
+            gvEquipment.Visible = false;
+
+        }
+
+        protected void gvICTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvICTickets.DataSource = new BDMS_ICTicket().GetICTicketStatusReportForIC(EquipmentHeaderID, null, null, null, null, null, null, null); ;
+            gvICTickets.PageIndex = e.NewPageIndex;
+            gvICTickets.DataBind();
         }
     }
 }

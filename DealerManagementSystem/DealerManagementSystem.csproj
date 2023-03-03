@@ -602,6 +602,7 @@
     <Content Include="ViewService\UserControls\ICTicketAddServiceCharges.ascx" />
     <Content Include="ViewService\UserControls\ICTicketAddTechnician.ascx" />
     <Content Include="ViewService\UserControls\ICTicketAddTechnicianWork.ascx" />
+    <Content Include="ViewService\UserControls\ICTicketMarginWarrantyChange.ascx" />
     <Content Include="ViewService\UserControls\ICTicketTSIRView.ascx" />
     <Content Include="ViewService\UserControls\ICTicketUpdateCallInformation.ascx" />
     <Content Include="ViewService\UserControls\ICTicketUpdateRestore.ascx" />
@@ -2367,6 +2368,13 @@
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddTechnicianWork.ascx.designer.cs">
       <DependentUpon>ICTicketAddTechnicianWork.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\UserControls\ICTicketMarginWarrantyChange.ascx.cs">
+      <DependentUpon>ICTicketMarginWarrantyChange.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\UserControls\ICTicketMarginWarrantyChange.ascx.designer.cs">
+      <DependentUpon>ICTicketMarginWarrantyChange.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketTSIRView.ascx.cs">
       <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>

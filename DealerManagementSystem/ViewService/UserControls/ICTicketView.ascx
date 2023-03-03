@@ -17,7 +17,7 @@
         <div class="" id="boxHere"></div>
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
-            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px; overflow-x: auto; max-height: 300px">
                 <asp:LinkButton ID="lbtnAddTechnician" runat="server" OnClick="lbActions_Click">Add Technician</asp:LinkButton>
                 <asp:LinkButton ID="lbtnEditCallInformation" runat="server" OnClick="lbActions_Click">Edit Call Information</asp:LinkButton>
                 <asp:LinkButton ID="lbtnEditFSR" runat="server" OnClick="lbActions_Click">Edit FSR</asp:LinkButton>
@@ -35,8 +35,15 @@
                 <asp:LinkButton ID="lbtnServiceQuotation" runat="server" OnClick="lbActions_Click">Service Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnServiceProfarmaInvoice" runat="server" OnClick="lbActions_Click">Service Profarma Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbtnServiceInvoice" runat="server" OnClick="lbActions_Click">Service Invoice</asp:LinkButton>
-                <asp:LinkButton ID="lbtnMaterialClaim" runat="server" OnClick="lbActions_Click">Material Claim</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnMaterialClaim" runat="server" OnClick="lbActions_Click">Material Claim</asp:LinkButton>
                 <asp:LinkButton ID="lbtnUnlockTicket" runat="server" OnClick="lbActions_Click">Unlock Ticket</asp:LinkButton>
+
+                <asp:LinkButton ID="lbtnRequestForDecline" runat="server" OnClick="lbActions_Click">Request for Decline</asp:LinkButton>
+                <asp:LinkButton ID="lbtnMarginWarrantyChange" runat="server" OnClick="lbActions_Click">Margin Warranty Change</asp:LinkButton>
+                <asp:LinkButton ID="lbtnRequestDateChange" runat="server" OnClick="lbActions_Click">Request Date Change</asp:LinkButton>
+                <%--<asp:LinkButton ID="lbtnDeviatedICTicketRequest60Days" runat="server" OnClick="lbActions_Click">Deviated IC Ticket Request for 60 Days</asp:LinkButton>
+                <asp:LinkButton ID="lbtnDeviatedICTicketRequestCommissioning" runat="server" OnClick="lbActions_Click">Deviated IC Ticket Request for Commissioning</asp:LinkButton>
+ --%>
             </div>
         </div>
     </div>
@@ -1201,6 +1208,129 @@
 
 
 
+<asp:Panel ID="pnlRequestForDecline" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Customer Feedback</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button11" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <fieldset class="fieldset-border">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+            <div class="col-md-12">
+                 <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Reason For Declain</label>
+                    <asp:TextBox ID="txtDeclineReason" runat="server" TextMode="MultiLine" Width="700px" Height="300px" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                </div>
+                <div class="col-md-19 text-left">
+                    <asp:Button ID="btnSaveRequestForDecline" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnSaveRequestForDecline_Click" />  
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_RequestForDecline" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestForDecline" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlMarginWarrantyChange" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Margin Warranty Change</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button13" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12"> 
+          <asp:Label ID="lblMessageMarginWarrantyChange" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Change</legend>
+                <div class="col-md-12">
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Margin Remark</label>
+                        <asp:TextBox ID="txtMarginRemark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 text-left">
+                        <label class="modal-label">-</label>
+                        <asp:Button ID="btnSaveMarginWarrantyChange" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnSaveMarginWarrantyChange_Click" OnClientClick="return dateValidation();" />
+                    </div>
+                </div>
+            </fieldset> 
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_MarginWarrantyChange" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMarginWarrantyChange" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlRequestDateChange" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Request Date Change</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button12" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12"> 
+          <asp:Label ID="lblMessageRequestDateChange" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Request Date Change</legend>
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Requested Date</label>
+                        <asp:TextBox ID="txtRequestedDate" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtRequestedDate');"  ></asp:TextBox>
+                        <asp1:CalendarExtender ID="ceRequestedDate" runat="server" TargetControlID="txtRequestedDate" PopupButtonID="txtRequestedDate" Format="dd/MM/yyyy"></asp1:CalendarExtender>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtRequestedDate" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-1 col-sm-12">
+                        <label class="modal-label">-</label>
+                        <asp:DropDownList ID="ddlRequestedHH" runat="server" CssClass="form-control" Width="70px">
+                            <asp:ListItem Value="-1">HH</asp:ListItem>
+                            <asp:ListItem>0</asp:ListItem>
+                            <asp:ListItem>1</asp:ListItem>
+                            <asp:ListItem>2</asp:ListItem>
+                            <asp:ListItem>3</asp:ListItem>
+                            <asp:ListItem>4</asp:ListItem>
+                            <asp:ListItem>5</asp:ListItem>
+                            <asp:ListItem>6</asp:ListItem>
+                            <asp:ListItem>7</asp:ListItem>
+                            <asp:ListItem>8</asp:ListItem>
+                            <asp:ListItem>9</asp:ListItem>
+                            <asp:ListItem>10</asp:ListItem>
+                            <asp:ListItem>11</asp:ListItem>
+                            <asp:ListItem>12</asp:ListItem>
+                            <asp:ListItem>13</asp:ListItem>
+                            <asp:ListItem>14</asp:ListItem>
+                            <asp:ListItem>15</asp:ListItem>
+                            <asp:ListItem>16</asp:ListItem>
+                            <asp:ListItem>17</asp:ListItem>
+                            <asp:ListItem>18</asp:ListItem>
+                            <asp:ListItem>19</asp:ListItem>
+                            <asp:ListItem>20</asp:ListItem>
+                            <asp:ListItem>21</asp:ListItem>
+                            <asp:ListItem>22</asp:ListItem>
+                            <asp:ListItem>23</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-1 col-sm-12">
+                        <label class="modal-label">-</label>
+                        <asp:DropDownList ID="ddlRequestedMM" runat="server" CssClass="form-control" Width="75px">
+                            <asp:ListItem Value="0">MM</asp:ListItem>
+                            <asp:ListItem>00</asp:ListItem>
+                            <asp:ListItem>05</asp:ListItem>
+                            <asp:ListItem>10</asp:ListItem>
+                            <asp:ListItem>15</asp:ListItem>
+                            <asp:ListItem>20</asp:ListItem>
+                            <asp:ListItem>25</asp:ListItem>
+                            <asp:ListItem>30</asp:ListItem>
+                            <asp:ListItem>35</asp:ListItem>
+                            <asp:ListItem>40</asp:ListItem>
+                            <asp:ListItem>45</asp:ListItem>
+                            <asp:ListItem>50</asp:ListItem>
+                            <asp:ListItem>55</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-6 text-left">
+                        <label class="modal-label">-</label>
+                        <asp:Button ID="btnSaveRequestDateChange" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnSaveRequestDateChange_Click" OnClientClick="return dateValidation();" />
+                    </div>
+                </div>
+            </fieldset> 
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_RequestDateChange" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestDateChange" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+ 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>

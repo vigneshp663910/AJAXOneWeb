@@ -63,7 +63,8 @@ namespace DealerManagementSystem.ViewEquipment
                 DateTime? WarrantyStart = string.IsNullOrEmpty(txtWarrantyStart.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtWarrantyStart.Text.Trim());
                 DateTime? WarrantyEnd = string.IsNullOrEmpty(txtWarrantyEnd.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtWarrantyEnd.Text.Trim());
                 int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
-                Equipment = new BDMS_Equipment().GetEquipmentPopulationReportForAE(txtEquipment.Text.Trim(), txtCustomer.Text.Trim(), WarrantyStart, WarrantyEnd, StateID, RegionID, DivisionID).Tables[0];
+                Boolean? WarrantyStatusID = ddlWarrantyStatus.SelectedValue == "2" ? (Boolean?)null : Convert.ToBoolean(Convert.ToInt32(ddlWarrantyStatus.SelectedValue));
+                Equipment = new BDMS_Equipment().GetEquipmentPopulationReportForAE(txtEquipment.Text.Trim(), txtCustomer.Text.Trim(), WarrantyStart, WarrantyEnd, StateID, RegionID, DivisionID, WarrantyStatusID).Tables[0];
 
                 gvEquipment.PageIndex = 0;
                 gvEquipment.DataSource = Equipment;

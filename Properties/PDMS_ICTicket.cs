@@ -260,41 +260,7 @@ namespace Properties
         public int ServiceStatusID { get; set; }
         public string ServiceStatus { get; set; }
         public Boolean IsActive { get; set; }
-    }
-
-    public class PDMS_ICTicketJSON
-    {
-        public IEnumerable<PDMS_ICTicketResultsJSON> results { get; set; }
-    }
-    public class PDMS_ICTicketResultsJSON
-    {
-        public string f_call_login_date { get; set; }
-        public string r_equipment_ser_no { get; set; }
-        public string f_cust_id { get; set; }
-        public string f_equipment_id { get; set; }
-        public string f_franchisee_id { get; set; }
-        public string f_ic_ticket_id { get; set; }
-        public string r_country { get; set; }
-        public string r_date_of_req { get; set; }
-        public string r_date_warr_expiry { get; set; }
-        public string r_district { get; set; }
-        public string r_district_desc { get; set; }
-        public string r_priority_class_desc { get; set; }
-        public string r_priority_class { get; set; }
-
-        public string r_state { get; set; }
-        public string r_state_desc { get; set; }
-        public string r_ext_id { get; set; }
-
-        public IEnumerable<PDMS_dsprr_psr_hdr_notesJSON> dsprr_psr_hdr_notes { get; set; }
-    }
-    public class PDMS_dsprr_psr_hdr_notesJSON
-    {
-        public string r_comments { get; set; }
-        public string r_note_type { get; set; }
-        public string t_note_type_desc { get; set; }
-    }
-     
+    } 
     
     [Serializable]
     public class PDMS_ICTicketFSR

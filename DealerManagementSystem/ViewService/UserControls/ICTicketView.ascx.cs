@@ -706,6 +706,33 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
                 ShowMessage(Results);
             }
+            else if (lbActions.Text == "Request for Decline")
+            { 
+                MPE_RequestForDecline.Show();
+                FillICTicket(SDMS_ICTicket.ICTicketID);
+            }
+            else if (lbActions.Text == "Margin Warranty Change")
+            { 
+                MPE_MarginWarrantyChange.Show(); 
+            }
+            else if (lbActions.Text == "Request Date Change")
+            { 
+                MPE_RequestDateChange.Show();
+            }
+            else if (lbActions.Text == "Unlock Ticket")
+            {
+                string endPoint = "ICTicket/LockOrUnlockTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID+ "&IsLock=False";
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                ShowMessage(Results);
+                FillICTicket(SDMS_ICTicket.ICTicketID);
+            } 
         }
         protected void btnSaveAssignSE_Click(object sender, EventArgs e)
         {
@@ -1804,6 +1831,13 @@ namespace DealerManagementSystem.ViewService.UserControls
             lbtnMaterialQuotation.Visible = true;
             lbtnUnlockTicket.Visible = true;
 
+            lbtnRequestForDecline.Visible = true;
+            lbtnMarginWarrantyChange.Visible = true;
+            lbtnRequestDateChange.Visible = true;
+           // lbtnDeviatedICTicketRequest60Days.Visible = true;
+         //   lbtnDeviatedICTicketRequestCommissioning.Visible = true;
+           
+
             if ((Boolean)SDMS_ICTicket.IsLocked)
             {
                 lbtnAddTechnician.Visible = false;
@@ -1973,16 +2007,30 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
             }
 
-            //List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditLead).Count() == 0)
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.RequestForDecline).Count() == 0)
+            {
+                lbtnRequestForDecline.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.MarginWarrantyChange).Count() == 0)
+            {
+                lbtnMarginWarrantyChange.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.RequestDateChange).Count() == 0)
+            {
+                lbtnRequestDateChange.Visible = false;
+            }
+            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DeviatedICTicketRequestForApproval).Count() == 0)
             //{
-            //    lbtnEditLead.Visible = false;
+            //    lbtnDeviatedICTicketRequest60Days.Visible = false;
+            //    lbtnDeviatedICTicketRequestCommissioning.Visible = false;
             //}
-            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AssignLead).Count() == 0)
-            //{
-            //    lbtnAssign.Visible = false;
-            //} 
-
+            
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ICTicketUnlock).Count() == 0)
+            {
+                lbtnUnlockTicket.Visible = false;
+            }
+            
             HttpContext.Current.Session["ServiceTypeID"] =   SDMS_ICTicket.ServiceType.ServiceTypeID;
         }
 
@@ -2056,6 +2104,93 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected void lbtnSignature_Click(object sender, EventArgs e)
         {
 
+        }
+
+        protected void btnSaveRequestForDecline_Click(object sender, EventArgs e)
+        {
+            MPE_RequestForDecline.Show();
+            Boolean Success = new BDMS_ICTicket().UpdateICTicketDecline(SDMS_ICTicket.ICTicketID, txtDeclineReason.Text, PSession.User.UserID);
+            if (!Success)
+            {
+                lblMessageCustomerFeedback.Text = "";
+                return;
+            }
+            lblMessage.Text = "";
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
+            FillICTicket(SDMS_ICTicket.ICTicketID);
+            //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/CustomerFeedback", Feedback));
+            //if (Results.Status == PApplication.Failure)
+            //{
+            //    lblMessageCustomerFeedback.Text = Results.Message;
+            //    return;
+            //}
+            //  ShowMessage(Results);
+            MPE_RequestForDecline.Hide();
+        }
+
+        protected void btnSaveMarginWarrantyChange_Click(object sender, EventArgs e)
+        {
+            MPE_MarginWarrantyChange.Show();
+            //if (cbIsMarginWarranty.Checked == SDMS_ICTicket.IsMarginWarranty)
+            //{
+            //    lblMessage.Text = "Please change Margin Warranty";
+            //    lblMessage.ForeColor = Color.Red;
+            //    return;
+            //}
+            if (new BDMS_ICTicket().UpdateICTicketMarginWarranty(SDMS_ICTicket.ICTicketID, true, txtMarginRemark.Text.Trim(), PSession.User.UserID))
+            {
+                lblMessage.Visible = true;
+                lblMessage.Text = "Margin Warranty Changed";
+                lblMessage.ForeColor = Color.Green; 
+                FillICTicket(SDMS_ICTicket.ICTicketID);
+            }
+            else
+            {
+                lblMessageMarginWarrantyChange.Visible = true;
+                lblMessageMarginWarrantyChange.Text = "Margin Warranty is not Changed";
+                lblMessageMarginWarrantyChange.ForeColor = Color.Red;
+                return;
+            }
+            MPE_MarginWarrantyChange.Hide();
+        }
+
+        protected void btnSaveRequestDateChange_Click(object sender, EventArgs e)
+        {
+            MPE_RequestDateChange.Show();
+            lblMessageMarginWarrantyChange.Visible = true;
+            lblMessageMarginWarrantyChange.ForeColor = Color.Red;
+            if (string.IsNullOrEmpty(txtRequestedDate.Text.Trim()))
+            {
+                lblMessageMarginWarrantyChange.Text = "Please enter Requested Date";
+                return;
+            }
+            if (ddlRequestedHH.SelectedValue == "-1")
+            {
+                lblMessageMarginWarrantyChange.Text = "Please select the Requested Hour";
+                return;
+            }
+            if (ddlRequestedMM.SelectedValue == "0")
+            {
+                lblMessageMarginWarrantyChange.Text = "Please select the Requested Minute";
+                return;
+            }
+            DateTime RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim() + " " + ddlRequestedHH.SelectedValue + ":" + ddlRequestedMM.SelectedValue);
+            if (new BDMS_ICTicket().ChangeICTicketRequestedDate(SDMS_ICTicket.ICTicketID, RequestedDate, PSession.User.UserID))
+            {
+                lblMessageMarginWarrantyChange.Text = "Requested date and time changed";
+                lblMessageMarginWarrantyChange.ForeColor = Color.Green;
+                txtRequestedDate.Enabled = false;
+
+                FillICTicket(SDMS_ICTicket.ICTicketID);
+            }
+            else
+            {
+                lblMessageMarginWarrantyChange.Text = "Requested date and time is not changed";
+                return;
+            }
+            MPE_RequestDateChange.Hide();
         }
     }
 }

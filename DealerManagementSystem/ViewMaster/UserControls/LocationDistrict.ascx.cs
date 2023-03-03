@@ -317,13 +317,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                DropDownList ddlSalesEngineer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlSalesEngineer");
-                if (ddlSalesEngineer.SelectedValue == "0")
-                {
-                    lblMessage.Text = "Please select Sales Engineer.";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
+                 DropDownList ddlSalesEngineer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlSalesEngineer");
+                //if (ddlSalesEngineer.SelectedValue == "0")
+                //{
+                //    lblMessage.Text = "Please select Sales Engineer.";
+                //    lblMessage.ForeColor = Color.Red;
+                //    return;
+                //}
                 string District = ((TextBox)gvDistrict.FooterRow.FindControl("txtGDDistrict")).Text.Trim();
                 if (string.IsNullOrEmpty(District))
                 {
@@ -357,7 +357,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 else
                 {
-                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(HiddenID.Value), Convert.ToInt32(ddlGDCountry.SelectedValue), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDSalesOffice.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), Convert.ToInt32(ddlSalesEngineer.SelectedValue), District, null, true, PSession.User.UserID);
+                    int? SalesEngineerUserID = ddlSalesEngineer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesEngineer.SelectedValue);
+                    Success = new BDMS_Address().InsertOrUpdateAddressDistrict(Convert.ToInt32(HiddenID.Value), Convert.ToInt32(ddlGDCountry.SelectedValue), Convert.ToInt32(ddlGDState.SelectedValue), Convert.ToInt32(ddlGDSalesOffice.SelectedValue), Convert.ToInt32(ddlGDDealer.SelectedValue), SalesEngineerUserID, District, null, true, PSession.User.UserID);
 
                     if (Success == true)
                     {

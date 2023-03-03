@@ -1,15 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="MTTR_New.aspx.cs" Inherits="DealerManagementSystem.ViewService.MTTR_New" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <%--<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="YDMS/YDMSStyles.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="YDMS/YDMS_Scripts.js"></script>--%>
-
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server"> 
     <script type="text/javascript">
         function collapseExpand(obj) {
             var gvObject = document.getElementById(obj);
@@ -98,6 +90,13 @@
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Division</label>
                         <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" BorderColor="Silver" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Export Excel Type</label>
+                        <asp:DropDownList ID="ddlExportExcelType" runat="server" CssClass="form-control" BorderColor="Silver" >
+                            <asp:ListItem Value="1">Export Excel Without Note</asp:ListItem>
+                            <asp:ListItem Value="2">Export Excel With Note</asp:ListItem>
+                        </asp:DropDownList>
                     </div>
                     <div class="col-md-10 text-left">
                         <label class="modal-label">-</label>

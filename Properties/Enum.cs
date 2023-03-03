@@ -499,6 +499,10 @@ namespace Properties
         ApproveOwnershipChange,
         ApproveExpiryDateChange,
         LeadAjax,
+        RequestForDecline = 42,
+        MarginWarrantyChange,
+        RequestDateChange, 
+        ICTicketUnlock
     }
     public enum DMS_WarrantyClaimStatus
     {

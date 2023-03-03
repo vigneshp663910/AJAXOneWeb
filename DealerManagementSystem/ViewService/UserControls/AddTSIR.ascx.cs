@@ -22,57 +22,57 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillSROCoder(SDMS_ICTicket);
          //   FillTSIRDetails();
         }
-        public PDMS_ICTicket SDMS_ICTicket
-        {
-            get;
-            set;
-        }
-        public PDMS_ICTicketTSIR ICTicketTSIR
-        {
-            get
-            {
-                if (ViewState["PDMS_ICTicketTSIR"] == null)
-                {
-                    ViewState["PDMS_ICTicketTSIR"] = new PDMS_ICTicketTSIR();
-                }
-                return (PDMS_ICTicketTSIR)ViewState["PDMS_ICTicketTSIR"];
-            }
-            set
-            {
-                ViewState["PDMS_ICTicketTSIR"] = value;
-            }
-        }
-        public List<PDMS_ICTicketTSIR> ICTicketTSIRs
-        {
-            get
-            {
-                if (Session["PDMS_ICTicketTSIRs"] == null)
-                {
-                    Session["PDMS_ICTicketTSIRs"] = new List<PDMS_ICTicketTSIR>();
-                }
-                return (List<PDMS_ICTicketTSIR>)Session["PDMS_ICTicketTSIRs"];
-            }
-            set
-            {
-                Session["PDMS_ICTicketTSIRs"] = value;
-            }
-        }
+        //public PDMS_ICTicket SDMS_ICTicket
+        //{
+        //    get;
+        //    set;
+        //}
+        //public PDMS_ICTicketTSIR ICTicketTSIR
+        //{
+        //    get
+        //    {
+        //        if (ViewState["PDMS_ICTicketTSIR"] == null)
+        //        {
+        //            ViewState["PDMS_ICTicketTSIR"] = new PDMS_ICTicketTSIR();
+        //        }
+        //        return (PDMS_ICTicketTSIR)ViewState["PDMS_ICTicketTSIR"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["PDMS_ICTicketTSIR"] = value;
+        //    }
+        //}
+        //public List<PDMS_ICTicketTSIR> ICTicketTSIRs
+        //{
+        //    get
+        //    {
+        //        if (Session["PDMS_ICTicketTSIRs"] == null)
+        //        {
+        //            Session["PDMS_ICTicketTSIRs"] = new List<PDMS_ICTicketTSIR>();
+        //        }
+        //        return (List<PDMS_ICTicketTSIR>)Session["PDMS_ICTicketTSIRs"];
+        //    }
+        //    set
+        //    {
+        //        Session["PDMS_ICTicketTSIRs"] = value;
+        //    }
+        //}
       
-        public List<PDMS_ServiceMaterial> SS_ServiceMaterial
-        {
-            get
-            {
-                if (Session["ServiceMaterialICTicketProcess"] == null)
-                {
-                    Session["ServiceMaterialICTicketProcess"] = new List<PDMS_ServiceMaterial>();
-                }
-                return (List<PDMS_ServiceMaterial>)Session["ServiceMaterialICTicketProcess"];
-            }
-            set
-            {
-                Session["ServiceMaterialICTicketProcess"] = value;
-            }
-        }
+        //public List<PDMS_ServiceMaterial> SS_ServiceMaterial
+        //{
+        //    get
+        //    {
+        //        if (Session["ServiceMaterialICTicketProcess"] == null)
+        //        {
+        //            Session["ServiceMaterialICTicketProcess"] = new List<PDMS_ServiceMaterial>();
+        //        }
+        //        return (List<PDMS_ServiceMaterial>)Session["ServiceMaterialICTicketProcess"];
+        //    }
+        //    set
+        //    {
+        //        Session["ServiceMaterialICTicketProcess"] = value;
+        //    }
+        //}
          
         //public void FillTSIRDetails()
         //{

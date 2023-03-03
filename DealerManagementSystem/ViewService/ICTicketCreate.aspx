@@ -216,6 +216,7 @@
             </div>
         </div>
         <%--<div class="col-md-12 Report">--%>
+         
         <fieldset class="fieldset-border">
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -230,7 +231,7 @@
                             <asp:TemplateField HeaderText="Select">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                    <asp:RadioButton ID="rbCheck" runat="server" GroupName="G" />
+                                   <asp:RadioButton ID="rbCheck" runat="server" GroupName="G" OnCheckedChanged="rbCheck_CheckedChanged" AutoPostBack="true" />
                                     <asp:Label ID="lblEquipmentHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentHeaderID")%>' runat="server" Visible="false" />
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -297,6 +298,14 @@
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
 
+                        <asp:GridView ID="gvICTickets" runat="server"   CssClass="table table-bordered table-condensed Grid" AllowPaging="true"   PageSize="10"  OnPageIndexChanging="gvICTickets_PageIndexChanging" >
+                        
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
                 </div>
             </div>
         </fieldset>

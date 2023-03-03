@@ -232,7 +232,7 @@ namespace Business
                 throw ex;
             }
         }
-        public DataSet GetEquipmentPopulationReportForAE(string EquipmentSerialNo, string Customer, DateTime? WarrantyStart, DateTime? WarrantyEnd, int? RegionID, int? StateID, int? DivisionID)
+        public DataSet GetEquipmentPopulationReportForAE(string EquipmentSerialNo, string Customer, DateTime? WarrantyStart, DateTime? WarrantyEnd, int? RegionID, int? StateID, int? DivisionID,Boolean? WarrantyStatusID)
         {
             TraceLogger.Log(DateTime.Now);
             try
@@ -244,8 +244,8 @@ namespace Business
                 DbParameter RegionIDP = provider.CreateParameter("RegionID", RegionID, DbType.Int32);
                 DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
                 DbParameter DivisionIDP = provider.CreateParameter("DivisionID", DivisionID, DbType.Int32);
-
-                DbParameter[] Params = new DbParameter[7] { EquipmentSerialNoP, CustomerP, WarrantyStartP, WarrantyEndP, RegionIDP, StateIDP, DivisionIDP };
+                DbParameter WarrantyStatusIDP = provider.CreateParameter("WarrantyStatusID", WarrantyStatusID, DbType.Boolean);
+                DbParameter[] Params = new DbParameter[8] { EquipmentSerialNoP, CustomerP, WarrantyStartP, WarrantyEndP, RegionIDP, StateIDP, DivisionIDP, WarrantyStatusIDP };
                 return provider.Select("GetEquipmentPopulationReportForAE_N", Params);
             }
             catch (Exception ex)

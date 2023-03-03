@@ -20,8 +20,8 @@ namespace Business
         }
         public void Start()
         {
-            // UpdateJobsStatus((short)Jobs.IntegrationEquipmentFromSAP, Joblist((Jobs.IntegrationEquipmentFromSAP)));
-            // return;
+            UpdateJobsStatus((short)Jobs.EInvoice, Joblist((Jobs.EInvoice)));
+            return;
             List<int> activeJobs = GetActiveJobsForNextRun();
             foreach (int Job in activeJobs)
             {

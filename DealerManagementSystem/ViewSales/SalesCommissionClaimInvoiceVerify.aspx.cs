@@ -44,7 +44,7 @@ namespace DealerManagementSystem.ViewSales
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Visible = false;
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Commision » Claim Invoice');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Commision » Claim Invoice Release');</script>");
              
             if (!IsPostBack)
             {
