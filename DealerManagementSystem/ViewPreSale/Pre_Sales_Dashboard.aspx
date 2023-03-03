@@ -390,9 +390,10 @@
                     <div id="divEnquiryStat1">
                         <div id="divEnquiryStatistics" class="row no-margin" style="font-size: medium; text-align: right;" >
                               
-                             <div class="thumbnail wide_thumbnail " style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;" >                            
+                             <div class="thumbnail wide_thumbnail col-md-2" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;" >                            
                                 <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                     <div class="visual myDIV" ><i class="fa fa-ticket"></i></div>  
+                                     <div class="hide">Unattended + InProgress</div>
                                     <div class="details" style="color: white;">
                                         <asp:Label ID="lblOpenEnqury" runat="server" Text="0"></asp:Label>
                                          <div class="desc" Style="color: white;">
@@ -402,7 +403,7 @@
                                 </div> 
                             </div>
 
-                            <div class="thumbnail wide_thumbnail " style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;" >                            
+                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 1px; background-color:darkgoldenrod;" >                            
                                 <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                     <div class="visual myDIV" ><i class="fa fa-ticket"></i></div>       
                                     <div class="hide">No Action Taken</div>
@@ -416,7 +417,7 @@
                                 </div> 
                             </div>
 
-                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color:#3598dc;">
+                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 1px; background-color:#3598dc;">
                                 <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                     <div class="visual myDIV"><i class="fa fa-ticket"></i></div>
                                     <div class="hide">Contacting the Customer</div>
@@ -443,7 +444,7 @@
                                 </div>
                             </div>
 
-                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #d91e18;">
+                            <div class="thumbnail wide_thumbnail col-md-2" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #d91e18;">
                                 <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Lost');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
@@ -476,7 +477,9 @@
 
                              <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;">
                                 <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
-                                    <div class="visual"><i class="fa fa-ticket"></i></div>
+                                   <%-- <div class="visual"><i class="fa fa-ticket"></i></div>--%>
+                                     <div class="visual myDIV" ><i class="fa fa-ticket"></i></div>  
+                                     <div class="hide">Unattended+InProgress + Quotation</div>
                                     <div class="details" style="color: white;">
                                         <asp:Label ID="lblOpenLead" runat="server" Text="0"></asp:Label>
                                         <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
@@ -487,7 +490,7 @@
                                 </div>
                             </div>
 
-                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;">
+                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 1px; background-color: darkgoldenrod;">
                                 <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
@@ -524,7 +527,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #26c281;">
+                            <div class="thumbnail wide_thumbnail col-md-1" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #26c281;">
                                 <div class="dashboard-stat dashboard-stat-v2 green-jungle" href="javascript:void(0);" onclick="VisitMyEnquiries('Won');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
@@ -537,7 +540,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #d91e18;">
+                            <div class="thumbnail wide_thumbnail col-md-1" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #d91e18;">
                                 <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Lost');">
                                     <div class="visual"><i class="fa fa-ticket"></i></div>
                                     <div class="details" style="color: white;">
