@@ -1,6 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="UserActivityTrackingReport.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.UserActivityTrackingReport" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+       #lblLoginCount{
+            color:black !important;
+        }
+       #lblDaysSince{
+           color:black !important;
+       }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
@@ -84,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvUser_PageIndexChanging" OnSorting="gvUser_Sorting">
+                    <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvUser_PageIndexChanging" OnSorting="gvUser_Sorting" AllowSorting="true">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
                                 <ItemTemplate>
@@ -165,13 +173,13 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="DaysSince" SortExpression="DaysSince">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="150px" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" BorderStyle="None" Width="150px"/>
                                 <ItemTemplate>
                                     <asp:Label ID="lblDaysSince" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "DaysSince")%>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="LoginCount" SortExpression="LoginCount">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="150px" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" BorderStyle="None" Width="150px"/>
                                 <ItemTemplate>
                                     <asp:Label ID="lblLoginCount" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "LoginCount")%>'></asp:Label>
                                 </ItemTemplate>
