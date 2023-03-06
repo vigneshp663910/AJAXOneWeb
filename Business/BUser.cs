@@ -310,6 +310,88 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
+        public List<PUser> GetUsersActivityTracking(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID, bool? IsLocked, bool? ajaxOne, int? PageIndex, int? PageSize, out int RowCount)
+        {
+            List<PUser> users = new List<PUser>();
+            PUser user = null;
+            DateTime traceStartTime = DateTime.Now;
+            DataTable usersDataTable = new DataTable();
+            RowCount = 0;
+            try
+            {
+                DbParameter UserNameP, ExternalReferenceIDP;
+
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+
+                if (!string.IsNullOrEmpty(UserName))
+                    UserNameP = provider.CreateParameter("UserName", UserName, DbType.String);
+                else
+                    UserNameP = provider.CreateParameter("UserName", DBNull.Value, DbType.String);
+
+                DbParameter UserTypeIDP = provider.CreateParameter("UserTypeID", UserTypeID, DbType.Int32);
+
+                if (!string.IsNullOrEmpty(ExternalReferenceID))
+                    ExternalReferenceIDP = provider.CreateParameter("ExternalReferenceID", ExternalReferenceID, DbType.String);
+                else
+                    ExternalReferenceIDP = provider.CreateParameter("ExternalReferenceID", DBNull.Value, DbType.String);
+
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+
+                DbParameter IsEnabledP = provider.CreateParameter("IsEnabled", IsEnabled, DbType.Boolean);
+                DbParameter IsLockedP = provider.CreateParameter("IsLocked", IsLocked, DbType.Boolean);
+                DbParameter ajaxOneP = provider.CreateParameter("ajaxOne", ajaxOne, DbType.Boolean);
+                DbParameter ContactNameP = provider.CreateParameter("ContactName", ContactName, DbType.String);
+
+                DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
+                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int32);
+                DbParameter DMS = provider.CreateParameter("DMS", 2, DbType.Int32);
+                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
+                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
+
+                DbParameter[] userParams = new DbParameter[14] { UserIDP, UserNameP, UserTypeIDP, ExternalReferenceIDP, DealerIDP, IsEnabledP, ContactNameP, DealerDepartmentIDP, DealerDesignationIDP, DMS, IsLockedP, ajaxOneP, PageIndexP, PageSizeP };
+
+                using (DataSet usersDataSet = provider.Select("GetUsersActivityTracking", userParams))
+                {
+                    if (usersDataSet != null)
+                        foreach (DataRow userRow in usersDataSet.Tables[0].Rows)
+                        {
+                            user = new PUser();
+                            user.PassWord = Convert.ToString(userRow["LoginPassword"]);
+                            user.UserID = Convert.ToInt32(userRow["UserID"]);
+                            user.UserName = Convert.ToString(userRow["UserName"]);
+                            user.ContactName = Convert.ToString(userRow["ContactName"]);
+                            user.UserTypeID = Convert.ToInt16(userRow["UserTypeID"]);
+                            user.ExternalReferenceID = userRow["ExternalReferenceID"] != DBNull.Value ? Convert.ToString(userRow["ExternalReferenceID"]) : string.Empty;
+                            user.IsFirstTimeLogin = Convert.ToBoolean(userRow["IsFirstTime"]);
+                            user.IsLocked = Convert.ToBoolean(userRow["IsLocked"]);
+                            user.IsEnabled = Convert.ToBoolean(userRow["IsEnabled"]);
+                            user.PasswordExpiryDate = Convert.ToDateTime(userRow["PasswordExpirationDate"]);
+                            user.CreatedBy = Convert.ToInt32(userRow["CreatedBy"]);
+                            user.CreatedOn = Convert.ToDateTime(userRow["CreatedOn"]);
+                            user.LastLoginDate = userRow["LastLoginDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(userRow["LastLoginDate"]);
+                            user.CreatedByName = Convert.ToString(userRow["UserName"]);
+                            user.SystemCategoryID = Convert.ToInt16(userRow["SystemCategoryID"]);
+                            user.Mail = Convert.ToString(userRow["Mail"]);
+                            user.ContactNumber = Convert.ToString(userRow["ContactNumber"]);
+                            user.IsTechnician = userRow["IsTechnician"] == DBNull.Value ? false : Convert.ToBoolean(userRow["IsTechnician"]);
+                            user.DaysSince = userRow["DaysSince"] == DBNull.Value ? (Int32?)null : Convert.ToInt32(userRow["DaysSince"]);
+                            user.LoginCount = userRow["LoginCount"] == DBNull.Value ? (Int32?)null : Convert.ToInt32(userRow["LoginCount"]);
+                            users.Add(user);
+                            RowCount = Convert.ToInt32(userRow["RowCount"]);
+                        }
+                }
+                TraceLogger.Log(traceStartTime);
+                return users;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         //public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID, bool? ajaxOne)
         public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID)      
