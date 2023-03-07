@@ -386,6 +386,7 @@
     <Content Include="ViewAdmin\SignIn.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
+    <Content Include="ViewAdmin\UserActivityTrackingReport.aspx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
     <Content Include="ViewAdmin\VisitTagetPlanning.aspx" />
@@ -1022,6 +1023,13 @@
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.designer.cs">
       <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserActivityTrackingReport.aspx.cs">
+      <DependentUpon>UserActivityTrackingReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserActivityTrackingReport.aspx.designer.cs">
+      <DependentUpon>UserActivityTrackingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserMobileApproval.aspx.cs">
       <DependentUpon>UserMobileApproval.aspx</DependentUpon>

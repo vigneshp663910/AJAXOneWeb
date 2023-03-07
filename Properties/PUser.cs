@@ -59,6 +59,8 @@ namespace Properties
         public string Language { get; set; }
         public Boolean IsOffLineAllowed { get; set; }
         public Boolean DebuggingStatus { get; set; }
+        public Int32? DaysSince { get; set; }
+        public Int32? LoginCount { get; set; }
         #endregion
     }
     [Serializable]
