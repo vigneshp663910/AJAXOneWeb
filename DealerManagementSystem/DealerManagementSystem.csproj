@@ -408,6 +408,7 @@
     <Content Include="ViewEquipment\Equipment.aspx" />
     <Content Include="ViewEquipment\EquipmentChangeApproval.aspx" />
     <Content Include="ViewEquipment\EquipmentHistory.aspx" />
+    <Content Include="ViewEquipment\EquipmentMissing.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReport.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReportForAE.aspx" />
     <Content Include="ViewEquipment\UserControls\EquipmentView.ascx" />
@@ -1175,6 +1176,13 @@
     </Compile>
     <Compile Include="ViewEquipment\EquipmentHistory.aspx.designer.cs">
       <DependentUpon>EquipmentHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentMissing.aspx.cs">
+      <DependentUpon>EquipmentMissing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentMissing.aspx.designer.cs">
+      <DependentUpon>EquipmentMissing.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentPopulationReport.aspx.cs">
       <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>

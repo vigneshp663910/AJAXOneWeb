@@ -47,6 +47,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             gvClaimInvoiceItem.DataSource = Invoices;
             gvClaimInvoiceItem.DataBind();
 
+            lblSalesInvoiceNumber.Text = Invoices[0].Quotation.SalesInvoiceNumber;
+            lblSalesInvoiceDate.Text = ((DateTime)Invoices[0].Quotation.SalesInvoiceDate).ToShortDateString();
+            lblEquipmentSerialNo.Text = Invoices[0].Quotation.EquipmentSerialNo;
+
             PSalesCommissionClaim Claim = new BSalesCommissionClaim().GetSalesCommissionClaimByID(Invoice.Claim.SalesCommissionClaimID);
             if (Claim.SalesCommissionClaimID == 0)
             {
@@ -59,7 +63,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             fillViewSalesCommission(Claim);
 
             UC_LeadView.fillViewLead(Claim.Quotation.Lead);
-            UC_SalesQuotationView.fillViewQuotation(Claim.Quotation); 
+            UC_SalesQuotationView.fillViewQuotation(Claim.Quotation);
+            CustomerViewSoldTo.fillCustomer(Claim.Quotation.Lead.Customer);
         }
          
         public void fillViewSalesCommission(PSalesCommissionClaim Claim)

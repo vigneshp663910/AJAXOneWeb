@@ -50,10 +50,18 @@ namespace DealerManagementSystem.ViewService.UserControls
                 txtWorkCarriedOut.Text = SDMS_ICTicketFSR.WorkCarriedOut; 
             }
         }
-        void Clear()
+        public void Clear()
         {
-             
+            cbIsRental.Checked = false;
+            txtOperatorName.Text = "";
+            txtOperatorNumber.Text = "";
+            txtRentalName.Text = "";
 
+            txtReport.Text = "";
+            txtRentalNumber.Text = ""; ;
+            txtNatureOfComplaint.Text = "";
+            txtObservation.Text = "";
+            txtWorkCarriedOut.Text = "";
         }
         public PDMS_ICTicketFSR_M Read()
         {

@@ -2,6 +2,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
 <%@ Register Src="~/ViewPreSale/UserControls/SalesQuotationViewHeader.ascx" TagPrefix="UC" TagName="UC_SalesQuotationView" %>
+<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -137,6 +138,13 @@
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
                 <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
+     <asp:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
+        <ContentTemplate>
+            <div class="col-md-12 field-margin-top">
+                <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
             </div>
         </ContentTemplate>
     </asp:TabPanel>

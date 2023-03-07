@@ -53,6 +53,9 @@ namespace DealerManagementSystem.ViewService
             int CountryID = Dealer.Country.CountryID;
             ddlCountry.SelectedValue = Convert.ToString(CountryID);
             new DDLBind(ddlState, new BDMS_Address().GetState(null, CountryID, null, null, null), "State", "StateID");
+
+            new DDLBind(ddlCallCategory, new BDMS_Master().GetICTicketCallCategory(null, null), "CallCategory", "CallCategoryID",false);
+            
             FillGetServicePriority();
             Clear();
         }
@@ -130,7 +133,7 @@ namespace DealerManagementSystem.ViewService
             IC.CountryID = Convert.ToInt32(ddlCountry.SelectedValue);
             IC.StateID = Convert.ToInt32(ddlState.SelectedValue);
             IC.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
-
+            IC.CallCategoryID = Convert.ToInt32(ddlCallCategory.SelectedValue);
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket", IC));
             lblMessage.Text = Results.Message;
             if (Results.Status == PApplication.Failure)

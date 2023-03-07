@@ -501,8 +501,11 @@ namespace Properties
         LeadAjax,
         RequestForDecline = 42,
         MarginWarrantyChange,
-        RequestDateChange, 
-        ICTicketUnlock
+        RequestDateChange,
+        ICTicketUnlock,
+        AddServiceEngineer,
+        EditCall_InfoFSR_TSIR_Restore = 47,
+        RequstForClaimAndInvoice,
     }
     public enum DMS_WarrantyClaimStatus
     {

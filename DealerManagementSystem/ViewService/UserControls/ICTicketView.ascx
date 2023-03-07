@@ -301,8 +301,7 @@
                 </div>
                 <div class="col-md-4">
                     <label>Operator Contact No : </label>
-                    <asp:Label ID="lblOperatorNumber" runat="server" CssClass="label"></asp:Label>
-                    >
+                    <asp:Label ID="lblOperatorNumber" runat="server" CssClass="label"></asp:Label> 
                 </div>
                 <div class="col-md-4">
                     <label>Machine Maintenance Level : </label>
@@ -1210,24 +1209,21 @@
 
 <asp:Panel ID="pnlRequestForDecline" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Customer Feedback</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Request for Decline</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button11" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <div class="col-md-12">
-        <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+    <div class="col-md-12"> 
             <div class="col-md-12">
                  <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
                 <div class="col-md-2 col-sm-12">
-                    <label class="modal-label">Reason For Declain</label>
+                    <label class="modal-label">Reason For Decline</label>
                     <asp:TextBox ID="txtDeclineReason" runat="server" TextMode="MultiLine" Width="700px" Height="300px" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                 </div>
-                <div class="col-md-19 text-left">
+                <div class="col-md-19 text-center">
                     <asp:Button ID="btnSaveRequestForDecline" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnSaveRequestForDecline_Click" />  
                 </div>
             </div>
-        </fieldset>
-
+       
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_RequestForDecline" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestForDecline" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />

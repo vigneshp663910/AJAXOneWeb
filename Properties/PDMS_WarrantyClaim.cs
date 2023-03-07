@@ -274,6 +274,76 @@ namespace Properties
         public List<PDMS_WarrantyInvoiceHeader> Invoice { get; set; }
       
     }
+
+    [Serializable]
+    public class PDMS_WarrantyInvoiceHeader_New
+    {
+        public long WarrantyInvoiceHeaderID { get; set; }
+        public string InvoiceNumber { get; set; }
+        public DateTime? InvoiceDate { get; set; }
+
+        public long ICTicketID { get; set; }
+        public string ICTicketNumber { get; set; }
+        public DateTime? ICTicketDate { get; set; }
+
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+        public string DealerCode { get; set; }
+        public string DealerName { get; set; }
+
+        public PDMS_ICTicket ICTicket { get; set; }
+
+
+        public PUser Approved1By { get; set; }
+        public DateTime? Approved1On { get; set; }
+        public PUser Approved2By { get; set; }
+        public DateTime? Approved2On { get; set; }
+
+        public PUser Approved3By { get; set; }
+        public DateTime? Approved3On { get; set; }
+
+
+        public int? HMR { get; set; }
+        public Boolean? MarginWarranty { get; set; }
+        public string MachineSerialNumber { get; set; }
+        public string Model { get; set; }
+        public string InvoiceStatus { get; set; }
+        public string ClaimStatus { get; set; }
+        public string PscID { get; set; }
+        public string ReasonForFailure { get; set; }
+        public DateTime? DateOfCommissioning { get; set; }
+        public string FSRNumber { get; set; }
+        public string TSIRNumber { get; set; }
+        public DateTime? RestoreDate { get; set; }
+        public PDMS_WarrantyInvoiceItem InvoiceItem { get; set; }
+        public List<PDMS_WarrantyInvoiceItem> InvoiceItems { get; set; }
+        public int? DaysSinceClaimCreation { get; set; }
+
+        public string OrderType = "ZDIP";
+        public string SalesOrg = "AJF";
+        public string DisChannel = "DS";
+        public string Division = "SP";
+        public string Location { get; set; }
+        public DateTime? WarrantyEndDate { get; set; }
+        public string Application { get; set; }
+        //public string PricingDate { get; set; }
+
+        public string PaymentTerm = "C000";
+        public string IncoTerms = "EXW";
+        public string OrderReason = "215";
+        public string Plant { get; set; }
+        public string Partner { get; set; }
+        public string AcInvoiceNumber { get; set; }
+        public DateTime? AcInvoiceDate { get; set; }
+        public string AnnexureNumber { get; set; }
+        public DateTime? AnnexureDate { get; set; }
+        //  public string PricingDate { get; set; }
+        //  public string InvoiceNumberNew { get; set; }
+
+        public Boolean? DeviatedIsApproved { get; set; }
+        public Boolean? DeviatedIsRejected { get; set; }
+    }
+
     [Serializable]
     public class PDMS_WarrantyInvoiceHeader
     {
@@ -281,7 +351,7 @@ namespace Properties
         public string InvoiceNumber { get; set; }
         public DateTime? InvoiceDate { get; set; }
 
-        public string ICTicketID { get; set; }
+        public string ICTicketID { get; set; } 
         public DateTime? ICTicketDate { get; set; }
 
         public string CustomerCode { get; set; }

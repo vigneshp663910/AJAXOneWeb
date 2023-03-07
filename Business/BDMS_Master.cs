@@ -162,6 +162,10 @@ namespace Business
             string endPoint = "Master/Division?DivisionID=" + DivisionID + "&DivisionCode=" + DivisionCode;
             return JsonConvert.DeserializeObject<List<PDMS_Division>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-         
+        public List<PICTicketCallCategory> GetICTicketCallCategory(int? CallCategoryID, string CallCategory)
+        {
+            string endPoint = "Master/ICTicketCallCategory?CallCategoryID=" + CallCategoryID + "&CallCategory=" + CallCategory;
+            return JsonConvert.DeserializeObject<List<PICTicketCallCategory>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 } 

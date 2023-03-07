@@ -90,6 +90,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             UC_LeadView.fillViewLead(Claim.Quotation.Lead);
             UC_SalesQuotationView.fillViewQuotation(Claim.Quotation);
+            CustomerViewSoldTo.fillCustomer(Claim.Quotation.Lead.Customer);
             //fillSalesCommissionClaim();
         }
         

@@ -612,6 +612,169 @@ namespace Business
             { }
             return Ws;
         }
+
+
+
+        public List<PDMS_WarrantyInvoiceHeader_New> GetWarrantyClaimReport_New(string ICTicketID, DateTime? ICTicketDateF, DateTime? ICTicketDateT, string InvoiceNumber,
+      DateTime? InvoiceDateF, DateTime? InvoiceDateT, string DealerCode, int? StatusID,
+        DateTime? AnnexureF, DateTime? AnnexureT, string TSIRNumber, string CustomerCode, string MachineSerialNumber, Boolean IsAbove50K, int? UserID)
+        {
+            List<PDMS_WarrantyInvoiceHeader_New> Ws = new List<PDMS_WarrantyInvoiceHeader_New>();
+            PDMS_WarrantyInvoiceHeader_New W = null;
+            DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", string.IsNullOrEmpty(ICTicketID) ? null : ICTicketID, DbType.String);
+            DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
+            DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
+
+            DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", string.IsNullOrEmpty(InvoiceNumber) ? null : InvoiceNumber, DbType.String);
+            DbParameter InvoiceDateFP = provider.CreateParameter("InvoiceDateF", InvoiceDateF, DbType.DateTime);
+            DbParameter InvoiceDateTP = provider.CreateParameter("InvoiceDateT", InvoiceDateT, DbType.DateTime);
+
+            DbParameter DealerCodeP = provider.CreateParameter("DealerID", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.String);
+            DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
+
+
+            DbParameter AnnexureFP = provider.CreateParameter("AnnexureF", AnnexureF, DbType.DateTime);
+            DbParameter AnnexureTP = provider.CreateParameter("AnnexureT", AnnexureT, DbType.DateTime);
+
+            DbParameter TSIRNumberP = provider.CreateParameter("TSIRNumber", string.IsNullOrEmpty(TSIRNumber) ? null : TSIRNumber, DbType.String);
+
+            DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
+            DbParameter MachineSerialNumberP = provider.CreateParameter("MachineSerialNumber", string.IsNullOrEmpty(MachineSerialNumber) ? null : MachineSerialNumber, DbType.String);
+            DbParameter UserIDP = provider.CreateParameter("IsAbove50K", IsAbove50K, DbType.Boolean);
+            DbParameter IsAbove50KP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[15] { ICTicketIDP, ICTicketDateFP, ICTicketDateTP, InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, DealerCodeP, StatusIDP,
+               AnnexureFP,AnnexureTP , TSIRNumberP,CustomerCodeP,MachineSerialNumberP,IsAbove50KP, UserIDP };
+            try
+            {
+                using (DataSet EmployeeDataSet = provider.Select("ZDMS_GetWarrantyClaimReportAPI", Params, (20) * 60))
+                {
+                    if (EmployeeDataSet != null)
+                    {
+                        long HeaderID = -1;
+                        foreach (DataRow dr in EmployeeDataSet.Tables[0].Rows)
+                        {
+
+                            if (HeaderID != Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]))
+                            {
+                                W = new PDMS_WarrantyInvoiceHeader_New();
+                                Ws.Add(W);
+                                W.WarrantyInvoiceHeaderID = Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]);
+                                W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
+
+                                W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
+                                W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
+                                W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+                                W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+
+                                W.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+                                W.CustomerName = Convert.ToString(dr["CustomerName"]);
+                                W.DealerCode = Convert.ToString(dr["DealerCode"]);
+                                W.DealerName = Convert.ToString(dr["DealerName"]);
+                                W.ICTicket = new PDMS_ICTicket()
+                                {
+                                    ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) },
+                                    ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]),
+                                    Equipment = new PDMS_EquipmentHeader() { CommissioningOn = DBNull.Value == dr["CommissioningOn"] ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]) },
+
+                                };
+
+                                W.Approved1By = new PUser();
+                                if (dr["Approved1By"] != DBNull.Value)
+                                {
+                                    W.Approved1By.ContactName = Convert.ToString(dr["Approved1By"]);
+                                }
+                                // W.Approved1By = new PUser() { UserID = DBNull.Value == dr["Approved1By"] ? (int?)null : Convert.ToInt32(dr["Approved1By"]) };
+                                W.Approved1On = DBNull.Value == dr["Approved1On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved1On"]);
+
+                                //  W.Approved2By = DBNull.Value == dr["Approved2By"] ? (int?)null : Convert.ToInt32(dr["Approved2By"]);
+
+                                W.Approved2By = new PUser();
+                                if (dr["Approved2By"] != DBNull.Value)
+                                {
+                                    W.Approved2By.ContactName = Convert.ToString(dr["Approved2By"]);
+                                }
+                                W.Approved2On = DBNull.Value == dr["Approved2On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved2On"]);
+
+                                W.Approved3By = new PUser();
+                                if (dr["Approved3By"] != DBNull.Value)
+                                {
+                                    W.Approved3By.ContactName = Convert.ToString(dr["Approved3By"]);
+                                }
+                                W.Approved3On = DBNull.Value == dr["Approved3On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved3On"]);
+
+                                W.ClaimStatus = Convert.ToString(dr["Status"]).Trim();
+                                W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
+                                W.MarginWarranty = DBNull.Value == dr["MarginWarranty"] ? (Boolean?)null : Convert.ToBoolean(dr["MarginWarranty"]);
+                                W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
+                                W.Model = Convert.ToString(dr["Model"]);
+                                W.PscID = Convert.ToString(dr["PscID"]);
+                                //  W.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
+                                W.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
+                                W.AnnexureNumber = Convert.ToString(dr["AnnexureNumber"]);
+                                W.AnnexureDate = DBNull.Value == dr["AnnexureDate"] ? (DateTime?)null : Convert.ToDateTime(dr["AnnexureDate"]);
+                                W.AcInvoiceNumber = Convert.ToString(dr["AcInvoiceNumber"]);
+                                W.AcInvoiceDate = DBNull.Value == dr["AcInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["AcInvoiceDate"]);
+                                HeaderID = W.WarrantyInvoiceHeaderID;
+
+                                W.InvoiceItems = new List<PDMS_WarrantyInvoiceItem>();
+                            }
+                            PDMS_WarrantyInvoiceItem item = new PDMS_WarrantyInvoiceItem();
+                            item.WarrantyInvoiceItemID = Convert.ToInt64(dr["WarrantyInvoiceItemID"]);
+
+                            item.Item = Convert.ToString(dr["Item"]);
+                            item.RefDocID = Convert.ToString(dr["RefDocID"]);
+                            item.Material = Convert.ToString(dr["Material"]);
+                            item.MaterialDesc = Convert.ToString(dr["MaterialDesc"]);
+                            item.DeliveryNumber = Convert.ToString(dr["DeliveryNumber"]);
+                            item.Category = Convert.ToString(dr["Category"]);
+
+                            item.HSNCode = Convert.ToString(dr["HSNCode"]);
+                            item.Qty = Convert.ToDecimal(dr["Qty"]);
+                            item.Per = DBNull.Value == dr["Per"] ? (decimal?)null : Convert.ToDecimal(dr["Per"]);
+                            item.UnitOM = Convert.ToString(dr["UnitOM"]);
+                            item.MaterialStatus = Convert.ToString(dr["MaterialStatus"]);
+                            item.MaterialStatusRemarks1 = Convert.ToString(dr["MaterialStatusRemarks1"]);
+                            item.MaterialStatusRemarks2 = Convert.ToString(dr["MaterialStatusRemarks2"]);
+                            item.Amount = DBNull.Value == dr["Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Amount"]);
+                            item.BaseTax = DBNull.Value == dr["BaseTax"] ? (decimal?)null : Convert.ToDecimal(dr["BaseTax"]);
+                            item.Approved1Amount = DBNull.Value == dr["Approved1Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved1Amount"]);
+                            item.Approved1Remarks = Convert.ToString(dr["Approved1Remarks"]);
+
+                            item.Approved2Amount = DBNull.Value == dr["Approved2Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved2Amount"]);
+                            item.Approved2Remarks = Convert.ToString(dr["Approved2Remarks"]);
+                            item.Approved3Amount = DBNull.Value == dr["Approved3Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved3Amount"]);
+                            item.Approved3Remarks = Convert.ToString(dr["Approved3Remarks"]);
+
+
+                            //   item.InvoiceNumberNew = Convert.ToString(dr["InvoiceNumberNew"]);                           
+
+                            item.SAPDoc = Convert.ToString(dr["SAPDoc"]);
+                            item.SAPPostingDate = DBNull.Value == dr["SAPPostingDate"] ? (DateTime?)null : Convert.ToDateTime(dr["SAPPostingDate"]);
+                            item.SAPInvoiceValue = DBNull.Value == dr["SAPInvoiceValue"] ? (decimal?)null : Convert.ToDecimal(dr["SAPInvoiceValue"]);
+                            item.SAPClearingDocument = Convert.ToString(dr["SAPClearingDocument"]);
+                            item.DeliveryNumber = Convert.ToString(dr["DeliveryNumber"]);
+                            item.AnnexureNumber = Convert.ToString(dr["AnnexureNumber"]);
+                            item.WarrantyMaterialReturnStatus = new PDMS_WarrantyMaterialReturnStatus();
+                            if (DBNull.Value != dr["WarrantyMaterialReturnStatusID"])
+                            {
+                                item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatusID = Convert.ToInt32(dr["WarrantyMaterialReturnStatusID"]);
+                                item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatus = Convert.ToString(dr["WarrantyMaterialReturnStatus"]);
+                            }
+                            item.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
+                            //  item.TSIRDate = DBNull.Value == dr["TSIRDate"] ? (DateTime?)null : Convert.ToDateTime(dr["TSIRDate"]);
+                            W.InvoiceItems.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Ws;
+        }
+
+
         public List<PDMS_WarrantyTicket> GetWarrantyClaimReportByICTicket1(string ICTicketID, DateTime? ICTicketDateF, DateTime? ICTicketDateT, string InvoiceNumber,
         DateTime? InvoiceDateF, DateTime? InvoiceDateT, string DealerCode, int? StatusID, string TSIRNumber, int UserID)
         {
@@ -723,10 +886,10 @@ namespace Business
             { }
             return Ws;
         }
-        public List<PDMS_WarrantyInvoiceHeader> GetWarrantyClaimApproval(string ICTicketID, DateTime? ICTicketDateF, DateTime? ICTicketDateT, string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, string DealerCode, int? StatusID, string TSIRNumber,string DivisionID, int UserID)
+        public List<PDMS_WarrantyInvoiceHeader_New> GetWarrantyClaimApproval(string ICTicketID, DateTime? ICTicketDateF, DateTime? ICTicketDateT, string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, int? StatusID, string TSIRNumber,string DivisionID, int UserID)
         {
-            List<PDMS_WarrantyInvoiceHeader> Ws = new List<PDMS_WarrantyInvoiceHeader>();
-            PDMS_WarrantyInvoiceHeader W = null;
+            List<PDMS_WarrantyInvoiceHeader_New> Ws = new List<PDMS_WarrantyInvoiceHeader_New>();
+            PDMS_WarrantyInvoiceHeader_New W = null;
             DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", string.IsNullOrEmpty(ICTicketID) ? null : ICTicketID, DbType.String);
             DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
             DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
@@ -735,15 +898,15 @@ namespace Business
             DbParameter InvoiceDateFP = provider.CreateParameter("InvoiceDateF", InvoiceDateF, DbType.DateTime);
             DbParameter InvoiceDateTP = provider.CreateParameter("InvoiceDateT", InvoiceDateT, DbType.DateTime);
 
-            DbParameter DealerCodeP = provider.CreateParameter("DealerCode", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.String);
+            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.String);
             DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
             DbParameter TSIRNumberP = provider.CreateParameter("TSIRNumber", string.IsNullOrEmpty(TSIRNumber) ? null : TSIRNumber, DbType.String);
             DbParameter DivisionIDP = provider.CreateParameter("DivisionID", DivisionID, DbType.String);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[11] { ICTicketIDP, ICTicketDateFP, ICTicketDateTP, InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, DealerCodeP, StatusIDP, TSIRNumberP, DivisionIDP, UserIDP };
+            DbParameter[] Params = new DbParameter[11] { ICTicketIDP, ICTicketDateFP, ICTicketDateTP, InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, DealerIDP, StatusIDP, TSIRNumberP, DivisionIDP, UserIDP };
             try
             {
-                using (DataSet EmployeeDataSet = provider.Select("ZDMS_GetWarrantyClaimApproval", Params))
+                using (DataSet EmployeeDataSet = provider.Select("ZDMS_GetWarrantyClaimApprovalAPI", Params))
                 {
                     if (EmployeeDataSet != null)
                     {
@@ -753,14 +916,15 @@ namespace Business
 
                             if (HeaderID != Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]))
                             {
-                                W = new PDMS_WarrantyInvoiceHeader();
+                                W = new PDMS_WarrantyInvoiceHeader_New();
                                 Ws.Add(W);
                                 W.WarrantyInvoiceHeaderID = Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]);
                                 W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
                                 W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
                                 W.ICTicket = new PDMS_ICTicket() { ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) } };
 
-                                W.ICTicketID = Convert.ToString(dr["ICTicketID"]);
+                                W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
+                                W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
                                 W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
                                 W.CustomerCode = Convert.ToString(dr["CustomerCode"]);
                                 W.CustomerName = Convert.ToString(dr["CustomerName"]);

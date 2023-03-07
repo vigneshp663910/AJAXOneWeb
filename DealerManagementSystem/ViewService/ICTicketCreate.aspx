@@ -326,52 +326,7 @@
                     <asp:TextBox ID="txtComplaintDescription" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
                 </div>
 
-                <%-- <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Requested Date<samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtRequestedDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" MaxLength="10"></asp:TextBox>
-                    <asp:DropDownList ID="ddlRequestedHH" runat="server" CssClass="TextBox" Width="60px">
-                        <asp:ListItem Value="-1">HH</asp:ListItem>
-                        <asp:ListItem>0</asp:ListItem>
-                        <asp:ListItem>1</asp:ListItem>
-                        <asp:ListItem>2</asp:ListItem>
-                        <asp:ListItem>3</asp:ListItem>
-                        <asp:ListItem>4</asp:ListItem>
-                        <asp:ListItem>5</asp:ListItem>
-                        <asp:ListItem>6</asp:ListItem>
-                        <asp:ListItem>7</asp:ListItem>
-                        <asp:ListItem>8</asp:ListItem>
-                        <asp:ListItem>9</asp:ListItem>
-                        <asp:ListItem>10</asp:ListItem>
-                        <asp:ListItem>11</asp:ListItem>
-                        <asp:ListItem>12</asp:ListItem>
-                        <asp:ListItem>13</asp:ListItem>
-                        <asp:ListItem>14</asp:ListItem>
-                        <asp:ListItem>15</asp:ListItem>
-                        <asp:ListItem>16</asp:ListItem>
-                        <asp:ListItem>17</asp:ListItem>
-                        <asp:ListItem>18</asp:ListItem>
-                        <asp:ListItem>19</asp:ListItem>
-                        <asp:ListItem>20</asp:ListItem>
-                        <asp:ListItem>21</asp:ListItem>
-                        <asp:ListItem>22</asp:ListItem>
-                        <asp:ListItem>23</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:DropDownList ID="ddlRequestedMM" runat="server" CssClass="TextBox" Width="65px">
-                        <asp:ListItem Value="0">MM</asp:ListItem>
-                        <asp:ListItem>00</asp:ListItem>
-                        <asp:ListItem>05</asp:ListItem>
-                        <asp:ListItem>10</asp:ListItem>
-                        <asp:ListItem>15</asp:ListItem>
-                        <asp:ListItem>20</asp:ListItem>
-                        <asp:ListItem>25</asp:ListItem>
-                        <asp:ListItem>30</asp:ListItem>
-                        <asp:ListItem>35</asp:ListItem>
-                        <asp:ListItem>40</asp:ListItem>
-                        <asp:ListItem>45</asp:ListItem>
-                        <asp:ListItem>50</asp:ListItem>
-                        <asp:ListItem>55</asp:ListItem>
-                    </asp:DropDownList>
-                </div>--%>
+           
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Service Priority<samp style="color: red">*</samp></label>
                     <asp:DropDownList ID="ddlServicePriority" runat="server" CssClass="form-control" DataTextField="ServicePriority" DataValueField="ServicePriorityID" />
@@ -392,6 +347,10 @@
                     <label class="modal-label">Location<samp style="color: red">*</samp></label>
                      <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control"  BorderColor="Silver"  ></asp:TextBox>
                </div>
+                 <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Call Category<samp style="color: red">*</samp></label>
+                    <asp:DropDownList ID="ddlCallCategory" runat="server" CssClass="form-control" DataTextField="CallCategory" DataValueField="CallCategoryID"   />
+                </div>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="btnSave" runat="server" CssClass="btn Save" Text="Save" OnClick="btnSave_Click"></asp:Button>
                 </div>

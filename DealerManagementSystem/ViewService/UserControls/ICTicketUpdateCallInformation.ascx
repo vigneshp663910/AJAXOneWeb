@@ -151,11 +151,11 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Site Contact Person’s Number</label>
-                    <asp:TextBox ID="txtSiteContactPersonNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtSiteContactPersonNumber" runat="server" CssClass="form-control" MaxLength="10"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Site Contact Person’s Number 2</label>
-                    <asp:TextBox ID="txtSiteContactPersonNumber2" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtSiteContactPersonNumber2" runat="server" CssClass="form-control"  MaxLength="10"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Designation</label>

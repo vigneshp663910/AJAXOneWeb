@@ -139,7 +139,7 @@ namespace Properties
         public int CountryID { get; set; }
         public int StateID { get; set; }
         public int DistrictID { get; set; }
-        public int ICTicketRequestedByID { get; set; }
+        public int CallCategoryID { get; set; }
 
     }
     [Serializable]
@@ -449,9 +449,9 @@ namespace Properties
     }
 
     [Serializable]
-    public class PICTicketRequestedBy
+    public class PICTicketCallCategory
     {
-        public int ICTicketRequestedByID { get; set; } 
-        public string ICTicketRequestedBy { get; set; } 
+        public int CallCategoryID { get; set; }
+        public string CallCategory { get; set; }
     }
 }

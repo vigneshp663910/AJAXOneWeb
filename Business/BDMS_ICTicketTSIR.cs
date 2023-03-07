@@ -493,6 +493,14 @@ namespace Business
                 return null;
             }
         }
+        public PAttachedFile GetICTicketFSRAttachedFileForDownload(long AttachedFileID)
+        {
+            string endPoint = "ICTicketTsir/AttachmentsForDownload?AttachedFileID=" + AttachedFileID;
+            // return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+            return JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+
+        }
         public List<PDMS_TSIRAttachedFile> GetICTicketTSIRAttachedFileDetails(long? ICTicketID, long? TsirID, long? AttachedFileID)
         {
             List<PDMS_TSIRAttachedFile> D8 = new List<PDMS_TSIRAttachedFile>();

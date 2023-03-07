@@ -24,15 +24,15 @@ namespace DealerManagementSystem.ViewService
             }
             this.Page.MasterPageFile = "~/Dealer.master";
         }
-        public List<PDMS_WarrantyInvoiceHeader> SDMS_WarrantyClaimHeader
+        public List<PDMS_WarrantyInvoiceHeader_New> SDMS_WarrantyClaimHeader
         {
             get
             {
                 if (Session["DMS_WarrantyClaim1"] == null)
                 {
-                    Session["DMS_WarrantyClaim1"] = new List<PDMS_WarrantyInvoiceHeader>();
+                    Session["DMS_WarrantyClaim1"] = new List<PDMS_WarrantyInvoiceHeader_New>();
                 }
-                return (List<PDMS_WarrantyInvoiceHeader>)Session["DMS_WarrantyClaim1"];
+                return (List<PDMS_WarrantyInvoiceHeader_New>)Session["DMS_WarrantyClaim1"];
             }
             set
             {
@@ -119,34 +119,19 @@ namespace DealerManagementSystem.ViewService
 
 
                 StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
-                List<PDMS_WarrantyInvoiceHeader> SOIs = null;
-
+                
                 GridView gv = null;
                 if (ddlReoprt.SelectedValue == "0")
                 {
-                    SOIs = new BDMS_WarrantyClaim().GetWarrantyClaimReport(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimNumber.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, ApprovedDateF, ApprovedDateT, txtTSIRNumber.Text.Trim(), txtCustomerCode.Text.Trim(), txtMachineSerialNumber.Text.Trim(), cbIsAbove50K.Checked, PSession.User.UserID);
-                    if (ddlDealerCode.SelectedValue == "0")
-                    {
-                        var SOIs1 = (from S in SOIs
-                                     join D in PSession.User.Dealer on S.DealerCode equals D.UserName
-                                     select new
-                                     {
-                                         S
-                                     }).ToList();
-                        SOIs.Clear();
-                        foreach (var w in SOIs1)
-                        {
-                            SOIs.Add(w.S);
-                        }
-                    }
-                    SDMS_WarrantyClaimHeader = SOIs;
+                    SDMS_WarrantyClaimHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport_New(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimNumber.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, ApprovedDateF, ApprovedDateT, txtTSIRNumber.Text.Trim(), txtCustomerCode.Text.Trim(), txtMachineSerialNumber.Text.Trim(), cbIsAbove50K.Checked, PSession.User.UserID);
+                      
                     gv = gvClaimByClaimID;
                     gvClaimByClaimID.Visible = true;
                     gvClaimByTicket.Visible = false;
                     gv.PageIndex = 0;
-                    gv.DataSource = SOIs;
+                    gv.DataSource = SDMS_WarrantyClaimHeader;
                     gv.DataBind();
-                    if (SOIs.Count == 0)
+                    if (SDMS_WarrantyClaimHeader.Count == 0)
                     {
                         lblRowCount.Visible = false;
                         ibtnArrowLeft.Visible = false;
@@ -312,7 +297,7 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("Annexure Number");
             dt.Columns.Add("Annexure Date");
 
-            foreach (PDMS_WarrantyInvoiceHeader M in SDMS_WarrantyClaimHeader)
+            foreach (PDMS_WarrantyInvoiceHeader_New M in SDMS_WarrantyClaimHeader)
             {
                 foreach (PDMS_WarrantyInvoiceItem Item in M.InvoiceItems)
                 {
@@ -403,36 +388,35 @@ namespace DealerManagementSystem.ViewService
                 {
                     string supplierPOID = Convert.ToString(gvClaimByClaimID.DataKeys[e.Row.RowIndex].Value);
                     GridView supplierPOLinesGrid = (GridView)e.Row.FindControl("gvICTicketItems");
-                    Label lblPscID = (Label)e.Row.FindControl("lblPscID");
-                    if (!string.IsNullOrEmpty(lblPscID.Text))
-                    {
-                        GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
-                        gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
-                        gvFileAttached.DataBind();
-                    }
+                    //Label lblPscID = (Label)e.Row.FindControl("lblPscID");
+                    //if (!string.IsNullOrEmpty(lblPscID.Text))
+                    //{
+                    //    GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
+                    //    gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
+                    //    gvFileAttached.DataBind();
+                    //}
                     Label lblICTicketID = (Label)e.Row.FindControl("lblICTicketID");
-                    List<PDMS_ICTicket> SOIs = new BDMS_ICTicket().GetICTicket(null, "", lblICTicketID.Text, null, null, null, null);
-                    if (SOIs.Count == 1)
-                    {
-                        List<PAttachedFile> UploadedFile = new BDMS_ICTicket().GetICTicketAttachedFile(SOIs[0].ICTicketID, null);
+                    //List<PDMS_ICTicket> SOIs = new BDMS_ICTicket().GetICTicket(null, "", lblICTicketID.Text, null, null, null, null);
+                    //if (SOIs.Count == 1)
+                    //{
+                        List<PAttachedFile> UploadedFile = new BDMS_ICTicket().GetICTicketAttachedFile(Convert.ToInt64(lblICTicketID.Text), null);
                         GridView gvFileAttachedAF = (GridView)e.Row.FindControl("gvFileAttachedAF");
                         gvFileAttachedAF.DataSource = UploadedFile;
                         gvFileAttachedAF.DataBind();
 
-                        List<PDMS_FSRAttachedFile> UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileDetails(SOIs[0].ICTicketID, null);
+                        List<PDMS_FSRAttachedFile> UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileDetails(Convert.ToInt64(lblICTicketID.Text), null);
                         GridView gvFileAttachedFSR = (GridView)e.Row.FindControl("gvFileAttachedFSR");
                         gvFileAttachedFSR.DataSource = UploadedFileFSR;
                         gvFileAttachedFSR.DataBind();
 
-                        List<PDMS_TSIRAttachedFile> UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(SOIs[0].ICTicketID, null, null);
+                        List<PDMS_TSIRAttachedFile> UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(Convert.ToInt64(lblICTicketID.Text), null, null);
                         GridView gvFileAttachedTSIR = (GridView)e.Row.FindControl("gvFileAttachedTSIR");
                         gvFileAttachedTSIR.DataSource = UploadedFileTSIR;
                         gvFileAttachedTSIR.DataBind();
 
-                    }
+                   // }
 
-                    //    List<PDMS_ICTicketTSIR> Tsirs = new BDMS_ICTicketTSIR().GetICTicketTSIR(null, null, null, null, null, lblICTicketID.Text, null, null, null, null, null, null, null, null);
-
+                  
                     List<PDMS_WarrantyInvoiceItem> supplierPurchaseOrderLines = new List<PDMS_WarrantyInvoiceItem>();
                     supplierPurchaseOrderLines = SDMS_WarrantyClaimHeader.Find(s => s.InvoiceNumber == supplierPOID).InvoiceItems;
 
@@ -495,7 +479,7 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("Apr.2 By");
             dt.Columns.Add("Apr.2 On");
 
-            foreach (PDMS_WarrantyInvoiceHeader M in SDMS_WarrantyClaimHeader)
+            foreach (PDMS_WarrantyInvoiceHeader_New M in SDMS_WarrantyClaimHeader)
             {
                 foreach (PDMS_WarrantyInvoiceItem Item in M.InvoiceItems)
                 {

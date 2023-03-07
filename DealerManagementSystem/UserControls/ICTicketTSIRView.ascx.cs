@@ -23,7 +23,7 @@ namespace DealerManagementSystem.UserControls
 
                 long AttachedFileID = Convert.ToInt64(Parentgrid.DataKeys[gvRow.RowIndex].Value);
 
-                PDMS_TSIRAttachedFile UploadedFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(AttachedFileID);
+                PAttachedFile UploadedFile = new BDMS_ICTicketTSIR().GetICTicketFSRAttachedFileForDownload(AttachedFileID);
                 Response.AddHeader("Content-type", UploadedFile.FileType);
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName);
                 HttpContext.Current.Response.Charset = "utf-16";

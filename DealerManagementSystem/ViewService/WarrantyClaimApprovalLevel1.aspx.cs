@@ -24,15 +24,15 @@ namespace DealerManagementSystem.ViewService
             }
             this.Page.MasterPageFile = "~/Dealer.master";
         }
-        public List<PDMS_WarrantyInvoiceHeader> SDMS_WarrantyClaimHeader
+        public List<PDMS_WarrantyInvoiceHeader_New> SDMS_WarrantyClaimHeader
         {
             get
             {
                 if (Session["DMS_ClaimApprovalList1"] == null)
                 {
-                    Session["DMS_ClaimApprovalList1"] = new List<PDMS_WarrantyInvoiceHeader>();
+                    Session["DMS_ClaimApprovalList1"] = new List<PDMS_WarrantyInvoiceHeader_New>();
                 }
-                return (List<PDMS_WarrantyInvoiceHeader>)Session["DMS_ClaimApprovalList1"];
+                return (List<PDMS_WarrantyInvoiceHeader_New>)Session["DMS_ClaimApprovalList1"];
             }
             set
             {
@@ -79,18 +79,20 @@ namespace DealerManagementSystem.ViewService
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
             if (!IsPostBack)
-            {
-                //   new BDMS_WarrantyClaim().insertWarrantyClaim();
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+            { 
+                //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
+                //{
+                //    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
+                //    ddlDealerCode.Enabled = false;
+                //}
+                //else
+                //{
+                //    ddlDealerCode.Enabled = true;
+                //    fillDealer();
+                //}
+
+                new DDLBind().FillDealerAndEngneer(ddlDealerCode, null);
+
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
@@ -169,11 +171,11 @@ namespace DealerManagementSystem.ViewService
                 DateTime? ClaimDateF = null;
                 DateTime? ClaimDateT = null;
                 int? StatusID = null;
-                string DealerCode = "";
+                int? DealerID = null;
 
                 if (ddlDealerCode.SelectedValue != "0")
                 {
-                    DealerCode = ddlDealerCode.SelectedValue;
+                    DealerID = Convert.ToInt32(ddlDealerCode.SelectedValue);
                 }
                 if (!string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()))
                 {
@@ -229,21 +231,8 @@ namespace DealerManagementSystem.ViewService
                 }
 
                 string DivisionID = ddlDivision.SelectedValue == "0" ? null : ddlDivision.SelectedValue;
-                List<PDMS_WarrantyInvoiceHeader> SOIs = new BDMS_WarrantyClaim().GetWarrantyClaimApproval(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimID.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, txtTSIRNumber.Text.Trim(), DivisionID, PSession.User.UserID);
-                if (ddlDealerCode.SelectedValue == "0")
-                {
-                    var SOIs1 = (from S in SOIs
-                                 join D in PSession.User.Dealer on S.DealerCode equals D.UserName
-                                 select new
-                                 {
-                                     S
-                                 }).ToList();
-                    SOIs.Clear();
-                    foreach (var w in SOIs1)
-                    {
-                        SOIs.Add(w.S);
-                    }
-                }
+                List<PDMS_WarrantyInvoiceHeader_New> SOIs = new BDMS_WarrantyClaim().GetWarrantyClaimApproval(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimID.Text.Trim(), ClaimDateF, ClaimDateT, DealerID, StatusID, txtTSIRNumber.Text.Trim(), DivisionID, PSession.User.UserID);
+                
 
                 SDMS_WarrantyClaimHeader = SOIs;
 
@@ -333,7 +322,7 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("Apr. 2 Amt");
             dt.Columns.Add("Apr. 2 Remarks");
 
-            foreach (PDMS_WarrantyInvoiceHeader M in SDMS_WarrantyClaimHeader)
+            foreach (PDMS_WarrantyInvoiceHeader_New M in SDMS_WarrantyClaimHeader)
             {
                 foreach (PDMS_WarrantyInvoiceItem Item in M.InvoiceItems)
                 {
@@ -397,20 +386,20 @@ namespace DealerManagementSystem.ViewService
                      
                     Label lblICTicketID = (Label)e.Row.FindControl("lblICTicketID");
 
-                    List<PDMS_ICTicket> SOIs = new BDMS_ICTicket().GetICTicket(null, "", lblICTicketID.Text, null, null, null, null);
-                    if (SOIs.Count == 1)
-                    { 
-                        List<PDMS_FSRAttachedFile> UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileDetails(SOIs[0].ICTicketID, null);
+                    //List<PDMS_ICTicket> SOIs = new BDMS_ICTicket().GetICTicketManage( null, null, lblICTicketID.Text, null, null, null, null, null, null);
+                    //if (SOIs.Count == 1)
+                    //{ 
+                        List<PDMS_FSRAttachedFile> UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileDetails(Convert.ToInt64(lblICTicketID.Text), null);
                         GridView gvFileAttachedFSR = (GridView)e.Row.FindControl("gvFileAttachedFSR");
                         gvFileAttachedFSR.DataSource = UploadedFileFSR;
                         gvFileAttachedFSR.DataBind(); 
 
-                        List<PDMS_TSIRAttachedFile> UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(SOIs[0].ICTicketID, null, null);
+                        List<PDMS_TSIRAttachedFile> UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(Convert.ToInt64(lblICTicketID.Text), null, null);
                         GridView gvFileAttachedTSIR = (GridView)e.Row.FindControl("gvFileAttachedTSIR");
                         gvFileAttachedTSIR.DataSource = UploadedFileTSIR;
                         gvFileAttachedTSIR.DataBind();
 
-                    }
+                   // }
 
                     List<PDMS_WarrantyInvoiceItem> supplierPurchaseOrderLines = new List<PDMS_WarrantyInvoiceItem>();
                     supplierPurchaseOrderLines = SDMS_WarrantyClaimHeader.Find(s => s.InvoiceNumber == supplierPOID).InvoiceItems;
@@ -939,14 +928,7 @@ namespace DealerManagementSystem.ViewService
             }
             lblMessage.Visible = true;
         }
-        void fillDealer()
-        {
-            ddlDealerCode.DataTextField = "CodeWithName";
-            ddlDealerCode.DataValueField = "UserName";
-            ddlDealerCode.DataSource = PSession.User.Dealer;
-            ddlDealerCode.DataBind();
-            ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
-        }
+        
         protected void lnkDownload_Click(object sender, EventArgs e)
         {
             try

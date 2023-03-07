@@ -407,11 +407,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     lblMessageProduct.Text = "GST Tax value not found this material..!";
                     return;
                 }
-                if (MaterialTax.TCSValue == 0)
-                {
-                    lblMessageProduct.Text = "TCS Tax value not found this material..!";
-                    return;
-                }
+                // this is Commented based on Rajendra Prasad
+                //if (MaterialTax.TCSValue == 0)
+                //{
+                //    lblMessageProduct.Text = "TCS Tax value not found this material..!";
+                //    return;
+                //}
+
+
                 MaterialTax.CreatedBy = new PUser() { UserID = PSession.User.UserID };
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItem", MaterialTax));
                 if (Results.Status == PApplication.Failure)

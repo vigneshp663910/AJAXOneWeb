@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Operator Contact No</label>
-            <asp:TextBox ID="txtOperatorNumber" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:TextBox ID="txtOperatorNumber" runat="server" CssClass="form-control" MaxLength="10"></asp:TextBox>
         </div>
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Machine Maintenance Level</label>
@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-6 col-sm-12">
             <label class="modal-label">Rental Contractor Contact No</label>
-            <asp:TextBox ID="txtRentalNumber" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:TextBox ID="txtRentalNumber" runat="server" CssClass="form-control"  MaxLength="10"></asp:TextBox>
         </div>
         <div class="col-md-12 col-sm-12">
             <label class="modal-label">Nature Of Complaint</label>

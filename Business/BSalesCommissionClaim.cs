@@ -73,109 +73,113 @@ namespace Business
         }
         public PSalesCommissionClaimInvoice GetSalesCommissionClaimInvoiceByID(long SalesCommissionClaimInvoiceID)
         {
-            PSalesCommissionClaimInvoice Ws = new PSalesCommissionClaimInvoice();
-            PSalesCommissionClaimInvoice W = null;
-            DbParameter SalesCommissionClaimInvoiceIDP = provider.CreateParameter("SalesCommissionClaimInvoiceID", SalesCommissionClaimInvoiceID, DbType.Int64);
-            DbParameter[] Params = new DbParameter[1] { SalesCommissionClaimInvoiceIDP };
-            try
-            {
-                using (DataSet EmployeeDataSet = provider.Select("GetSalesCommissionClaimInvoiceByID", Params))
-                {
-                    if (EmployeeDataSet != null)
-                    {
-                        foreach (DataRow dr in EmployeeDataSet.Tables[0].Rows)
-                        {
-                            W = new PSalesCommissionClaimInvoice();
-                            W.IRN = Convert.ToString(dr["IRN"]);
-                            W.SAPDoc = Convert.ToString(dr["SAPDoc"]);
-                            Ws=W;
-                            W.SalesCommissionClaimInvoiceID = Convert.ToInt64(dr["SalesCommissionClaimInvoiceID"]);
-                            W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
-                            W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
-                            W.Dealer = new PDMS_Dealer()
-                            {
-                                DealerCode = Convert.ToString(dr["UserName"]),
-                                DealerName = Convert.ToString(dr["ContactName"]),
-                                IsEInvoice = DBNull.Value == dr["IsEInvoice"] ? false : Convert.ToBoolean(dr["IsEInvoice"]),
-                                EInvoiceDate = DBNull.Value == dr["EInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["EInvoiceDate"])
-                            };
+            string endPoint = "SalesCommission/SalesCommissionClaimInvoiceByID?SalesCommissionClaimInvoiceID=" + SalesCommissionClaimInvoiceID;
+          
+            return JsonConvert.DeserializeObject<PSalesCommissionClaimInvoice>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+             
+            //PSalesCommissionClaimInvoice Ws = new PSalesCommissionClaimInvoice();
+            //PSalesCommissionClaimInvoice W = null;
+            //DbParameter SalesCommissionClaimInvoiceIDP = provider.CreateParameter("SalesCommissionClaimInvoiceID", SalesCommissionClaimInvoiceID, DbType.Int64);
+            //DbParameter[] Params = new DbParameter[1] { SalesCommissionClaimInvoiceIDP };
+            //try
+            //{
+            //    using (DataSet EmployeeDataSet = provider.Select("GetSalesCommissionClaimInvoiceByID", Params))
+            //    {
+            //        if (EmployeeDataSet != null)
+            //        {
+            //            foreach (DataRow dr in EmployeeDataSet.Tables[0].Rows)
+            //            {
+            //                W = new PSalesCommissionClaimInvoice();
+            //                W.IRN = Convert.ToString(dr["IRN"]);
+            //                W.SAPDoc = Convert.ToString(dr["SAPDoc"]);
+            //                Ws=W;
+            //                W.SalesCommissionClaimInvoiceID = Convert.ToInt64(dr["SalesCommissionClaimInvoiceID"]);
+            //                W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
+            //                W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
+            //                W.Dealer = new PDMS_Dealer()
+            //                {
+            //                    DealerCode = Convert.ToString(dr["UserName"]),
+            //                    DealerName = Convert.ToString(dr["ContactName"]),
+            //                    IsEInvoice = DBNull.Value == dr["IsEInvoice"] ? false : Convert.ToBoolean(dr["IsEInvoice"]),
+            //                    EInvoiceDate = DBNull.Value == dr["EInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["EInvoiceDate"])
+            //                };
 
-                            W.Claim = new PSalesCommissionClaim()
-                            {
-                                SalesCommissionClaimID = Convert.ToInt64(dr["SalesCommissionClaimID"]),
-                                ClaimNumber = Convert.ToString(dr["ClaimNumber"]),
-                                ClaimDate = Convert.ToDateTime(dr["ClaimDate"])
-                            };
-                            W.Quotation = new PSalesQuotation()
-                            {
-                                QuotationID = Convert.ToInt64(dr["SalesQuotationID"]),
-                                SalesInvoiceNumber = Convert.ToString(dr["SalesInvoiceNumber"]),
-                                SalesInvoiceDate = Convert.ToDateTime(dr["SalesInvoiceDate"]),
-                                AccountNumber = Convert.ToString(dr["AccountNumber"]),
-                                AccountDate = DBNull.Value == dr["AccountDate"] ? (DateTime?)null : Convert.ToDateTime(dr["AccountDate"]),
-                                EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]),
-                                Model = new PDMS_Model()
-                                {
-                                    Model = Convert.ToString(dr["Model"]),
-                                    Division = new PDMS_Division()
-                                    {
-                                        DivisionDescription = Convert.ToString(dr["DivisionDescription"])
-                                    }
-                                },
-                                Lead = new PLead()
-                                {
-                                    Customer = new PDMS_Customer()
-                                    {
-                                        CustomerCode = Convert.ToString(dr["CustomerCode"]),
-                                        CustomerName = (Convert.ToString(dr["CustomerName"]) + " " + Convert.ToString(dr["CustomerName2"])).Trim(),
-                                        // CustomerName2 = Convert.ToString(dr["CustomerName2"]),
-                                    }
-                                }
-                            };
-                            W.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
-                            W.TCSValue = DBNull.Value == dr["TCSValue"] ? 0 : Convert.ToDecimal(dr["TCSValue"]);
-                            W.TCSTax = DBNull.Value == dr["TCSTax"] ? 0 : Convert.ToDecimal(dr["TCSTax"]);
+            //                W.Claim = new PSalesCommissionClaim()
+            //                {
+            //                    SalesCommissionClaimID = Convert.ToInt64(dr["SalesCommissionClaimID"]),
+            //                    ClaimNumber = Convert.ToString(dr["ClaimNumber"]),
+            //                    ClaimDate = Convert.ToDateTime(dr["ClaimDate"])
+            //                };
+            //                W.Quotation = new PSalesQuotation()
+            //                {
+            //                    QuotationID = Convert.ToInt64(dr["SalesQuotationID"]),
+            //                    SalesInvoiceNumber = Convert.ToString(dr["SalesInvoiceNumber"]),
+            //                    SalesInvoiceDate = Convert.ToDateTime(dr["SalesInvoiceDate"]),
+            //                    AccountNumber = Convert.ToString(dr["AccountNumber"]),
+            //                    AccountDate = DBNull.Value == dr["AccountDate"] ? (DateTime?)null : Convert.ToDateTime(dr["AccountDate"]),
+            //                    EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]),
+            //                    Model = new PDMS_Model()
+            //                    {
+            //                        Model = Convert.ToString(dr["Model"]),
+            //                        Division = new PDMS_Division()
+            //                        {
+            //                            DivisionDescription = Convert.ToString(dr["DivisionDescription"])
+            //                        }
+            //                    },
+            //                    Lead = new PLead()
+            //                    {
+            //                        Customer = new PDMS_Customer()
+            //                        {
+            //                            CustomerCode = Convert.ToString(dr["CustomerCode"]),
+            //                            CustomerName = (Convert.ToString(dr["CustomerName"]) + " " + Convert.ToString(dr["CustomerName2"])).Trim(),
+            //                            // CustomerName2 = Convert.ToString(dr["CustomerName2"]),
+            //                        }
+            //                    }
+            //                };
+            //                W.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
+            //                W.TCSValue = DBNull.Value == dr["TCSValue"] ? 0 : Convert.ToDecimal(dr["TCSValue"]);
+            //                W.TCSTax = DBNull.Value == dr["TCSTax"] ? 0 : Convert.ToDecimal(dr["TCSTax"]);
 
-                            W.IRNDate = DBNull.Value == dr["IRNDate"] ? (DateTime?)null : Convert.ToDateTime(dr["IRNDate"]);
-                            W.SAPPostingDate = DBNull.Value == dr["SAPPostingDate"] ? (DateTime?)null : Convert.ToDateTime(dr["SAPPostingDate"]);
-                            W.SAPClearingDocument = Convert.ToString(dr["SAPClearingDocument"]);
-                            W.SAPClearingDate = DBNull.Value == dr["SAPClearingDate"] ? (DateTime?)null : Convert.ToDateTime(dr["SAPClearingDate"]);
-                            W.SAPInvoiceValue = DBNull.Value == dr["SAPInvoiceValue"] ? (decimal?)null : Convert.ToDecimal(dr["SAPInvoiceValue"]);
-                            W.SAPInvoiceTDSValue = DBNull.Value == dr["SAPInvoiceTDSValue"] ? (decimal?)null : Convert.ToDecimal(dr["SAPInvoiceTDSValue"]);
-                            W.IsVerified = DBNull.Value == dr["IsVerified"] ? false : Convert.ToBoolean(dr["IsVerified"]);
-                            W.InvoiceItem = new PSalesCommissionClaimInvoiceItem()
-                            {
-                                Material = new PDMS_Material()
-                                {
-                                    MaterialCode = Convert.ToString(dr["MaterialCode"]),
-                                    MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
-                                    HSN = Convert.ToString(dr["HSNCode"])
-                                },
-                                Qty = Convert.ToInt32(dr["Qty"]),
-                                Rate = Convert.ToDecimal(dr["Rate"]),
-                                TaxableValue = Convert.ToDecimal(dr["TaxableValue"]),
-                                CGST = Convert.ToDecimal(dr["CGST"]),
-                                SGST = Convert.ToDecimal(dr["SGST"]),
-                                IGST = Convert.ToDecimal(dr["IGST"]),
-                                CGSTValue = Convert.ToDecimal(dr["CGSTValue"]),
-                                SGSTValue = Convert.ToDecimal(dr["SGSTValue"]),
-                                IGSTValue = Convert.ToDecimal(dr["IGSTValue"])
-                            };
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BSalesCommissionClaim", "GetSalesCommissionClaimInvoiceByID", sqlEx);
-                return null;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BSalesCommissionClaim", "GetSalesCommissionClaimInvoiceByID", ex);
-                return null;
-            }
-            return Ws;
+            //                W.IRNDate = DBNull.Value == dr["IRNDate"] ? (DateTime?)null : Convert.ToDateTime(dr["IRNDate"]);
+            //                W.SAPPostingDate = DBNull.Value == dr["SAPPostingDate"] ? (DateTime?)null : Convert.ToDateTime(dr["SAPPostingDate"]);
+            //                W.SAPClearingDocument = Convert.ToString(dr["SAPClearingDocument"]);
+            //                W.SAPClearingDate = DBNull.Value == dr["SAPClearingDate"] ? (DateTime?)null : Convert.ToDateTime(dr["SAPClearingDate"]);
+            //                W.SAPInvoiceValue = DBNull.Value == dr["SAPInvoiceValue"] ? (decimal?)null : Convert.ToDecimal(dr["SAPInvoiceValue"]);
+            //                W.SAPInvoiceTDSValue = DBNull.Value == dr["SAPInvoiceTDSValue"] ? (decimal?)null : Convert.ToDecimal(dr["SAPInvoiceTDSValue"]);
+            //                W.IsVerified = DBNull.Value == dr["IsVerified"] ? false : Convert.ToBoolean(dr["IsVerified"]);
+            //                W.InvoiceItem = new PSalesCommissionClaimInvoiceItem()
+            //                {
+            //                    Material = new PDMS_Material()
+            //                    {
+            //                        MaterialCode = Convert.ToString(dr["MaterialCode"]),
+            //                        MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
+            //                        HSN = Convert.ToString(dr["HSNCode"])
+            //                    },
+            //                    Qty = Convert.ToInt32(dr["Qty"]),
+            //                    Rate = Convert.ToDecimal(dr["Rate"]),
+            //                    TaxableValue = Convert.ToDecimal(dr["TaxableValue"]),
+            //                    CGST = Convert.ToDecimal(dr["CGST"]),
+            //                    SGST = Convert.ToDecimal(dr["SGST"]),
+            //                    IGST = Convert.ToDecimal(dr["IGST"]),
+            //                    CGSTValue = Convert.ToDecimal(dr["CGSTValue"]),
+            //                    SGSTValue = Convert.ToDecimal(dr["SGSTValue"]),
+            //                    IGSTValue = Convert.ToDecimal(dr["IGSTValue"])
+            //                };
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (SqlException sqlEx)
+            //{
+            //    new FileLogger().LogMessage("BSalesCommissionClaim", "GetSalesCommissionClaimInvoiceByID", sqlEx);
+            //    return null;
+            //}
+            //catch (Exception ex)
+            //{
+            //    new FileLogger().LogMessage("BSalesCommissionClaim", "GetSalesCommissionClaimInvoiceByID", ex);
+            //    return null;
+            //}
+            //return Ws;
         }
         public PAttachedFile GetSalesCommissionClaimInvoiceFile(long SalesCommissionClaimInvoiceID)
         {

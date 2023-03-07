@@ -2,7 +2,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
 <%@ Register Src="~/ViewPreSale/UserControls/SalesQuotationViewHeader.ascx" TagPrefix="UC" TagName="UC_SalesQuotationView" %>
- 
+ <%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
 <asp:GridView ID="gvClaimInvoice" runat="server" AutoGenerateColumns="false" Width="100%"     CssClass="table table-bordered table-condensed Grid"   PageSize="20" >
     <Columns> 
         <asp:TemplateField HeaderText="Invoice Number">
@@ -209,17 +209,33 @@
                                 <label>Invoice Date : </label>
                                 <asp:Label ID="lblInvoiceDate" runat="server"></asp:Label>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="col-md-12">
+                             <div class="col-md-12">
                                 <label>Dealer : </label>
                                 <asp:Label ID="lblDealer" runat="server"></asp:Label>
                             </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-12">
+                                <label>Sales Invoice Number : </label>
+                                <asp:Label ID="lblSalesInvoiceNumber" runat="server"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Sales Invoice Date : </label>
+                                <asp:Label ID="lblSalesInvoiceDate" runat="server"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Equipment Serial No : </label>
+                                <asp:Label ID="lblEquipmentSerialNo" runat="server"></asp:Label>
+                            </div>
+                           
                             <div class="col-md-12">
                                 <label>Requested By : </label>
                                 <asp:Label ID="lblRequestedBy" runat="server"></asp:Label>
                             </div>
-                            <div class="col-md-12">
+                           
+                        </div>
+                        <div class="col-md-4">
+                             <div class="col-md-12">
                                 <label>Approved1By : </label>
                                 <asp:Label ID="lblApproved1By" runat="server"></asp:Label>
                             </div>
@@ -227,8 +243,6 @@
                                 <label>Approved1On : </label>
                                 <asp:Label ID="lblApproved1On" runat="server"></asp:Label>
                             </div>
-                        </div>
-                        <div class="col-md-4">
                             <div class="col-md-12">
                                 <label>Approved2By : </label>
                                 <asp:Label ID="lblApproved2By" runat="server"></asp:Label>
@@ -302,6 +316,13 @@
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
                 <UC:UC_LeadView ID="UC_LeadView" runat="server"></UC:UC_LeadView>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
+    <asp:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
+        <ContentTemplate>
+            <div class="col-md-12 field-margin-top">
+                <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
             </div>
         </ContentTemplate>
     </asp:TabPanel>

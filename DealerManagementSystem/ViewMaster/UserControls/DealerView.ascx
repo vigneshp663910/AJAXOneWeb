@@ -448,18 +448,20 @@
                                         <asp:Label ID="lblDealerDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "User.Designation.DealerDesignation")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Contact Number">
+                                <asp:TemplateField HeaderText="Contact">
                                     <ItemTemplate>
                                         <asp:Label ID="lblContactNumber" runat="server">
                                             <a href='tel:<%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%></a>
                                         </asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Email ID">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblMail" runat="server">
+                                        <br />
+                                          <asp:Label ID="lblMail" runat="server">
                                             <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "User.Mail")%>'><%# DataBinder.Eval(Container.DataItem, "User.Mail")%></a>
                                         </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Dealer">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerNotificationID" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"  />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SMS">

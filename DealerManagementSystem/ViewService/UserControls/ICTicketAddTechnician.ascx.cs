@@ -31,7 +31,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             ddlDealerSalesEngineer.BorderColor = Color.Silver;
             if (ddlDealerSalesEngineer.SelectedValue == "0") 
             {
-                Message = Message + "Please select the Sales Engineer";
+                Message = "Please select the Service Engineer";
                 ddlDealerSalesEngineer.BorderColor = Color.Red;
             }
             return Message;

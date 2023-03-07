@@ -344,7 +344,7 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblAnnexureNumber" Text='<%# DataBinder.Eval(Container.DataItem, "AnnexureNumber")%>' runat="server"></asp:Label>
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="InputButton" UseSubmitBehavior="true" Visible="false" OnClientClick="return ConfirmCancel();" OnClick="btnCancel_Click" />
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn Search" Width="100px" Height="30px" UseSubmitBehavior="true" Visible="false" OnClientClick="return ConfirmCancel();" OnClick="btnCancel_Click" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Attachment">
