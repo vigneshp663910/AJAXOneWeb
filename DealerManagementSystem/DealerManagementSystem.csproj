@@ -296,6 +296,7 @@
     <Content Include="ProcessFlow\DMM_Process.aspx" />
     <Content Include="ProcessFlow\DMM_Process.png" />
     <Content Include="ProcessFlow\Parts_Org1.png" />
+    <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Pre_Sales1.png" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\Sales_Org1.png" />
@@ -840,6 +841,13 @@
     </Compile>
     <Compile Include="ProcessFlow\DMM_Process.aspx.designer.cs">
       <DependentUpon>DMM_Process.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProcessFlow\Pre_Sales.aspx.cs">
+      <DependentUpon>Pre_Sales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProcessFlow\Pre_Sales.aspx.designer.cs">
+      <DependentUpon>Pre_Sales.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\Ticketing.aspx.cs">
       <DependentUpon>Ticketing.aspx</DependentUpon>
