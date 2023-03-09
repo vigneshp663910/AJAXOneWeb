@@ -184,7 +184,18 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             //  TraceLogger.Log(DateTime.Now);
         }
-       
+
+        public PApiResult GetSalesPipelineReport(int? CountryID, int? RegionID, int? StateID, int? DealerID, string ExpectedDateOfSaleFrom, string ExpectedDateOfSaleTo, int? QualificationID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "PreSale/SalesPipelineReport?CountryID=" + CountryID + "&RegionID=" + RegionID
+                + "&StateID=" + StateID + "&DealerID=" + DealerID
+                 + "&ExpectedDateOfSaleFrom=" + ExpectedDateOfSaleFrom + "&ExpectedDateOfSaleTo=" + ExpectedDateOfSaleTo + "&QualificationID=" + QualificationID;
+            //return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            //  TraceLogger.Log(DateTime.Now);
+        }
+
         public List<int> GetLeadFollowUpCount(int? DealerID, int? UserID)
         {
             TraceLogger.Log(DateTime.Now);

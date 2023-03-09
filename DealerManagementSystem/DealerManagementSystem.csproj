@@ -515,6 +515,7 @@
     <Content Include="ViewMaster\UserControls\CustomerView.ascx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewPreSale\Quotation.aspx" />
+    <Content Include="ViewPreSale\SalesPipelineReport.aspx" />
     <Content Include="ViewPreSale\UserControls\AddCustomerConversation.ascx" />
     <Content Include="ViewPreSale\UserControls\AddEnquiry.ascx" />
     <Content Include="ViewPreSale\UserControls\AddFinancial.ascx" />
@@ -578,7 +579,6 @@
     <Content Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx" />
     <Content Include="ViewService\ICTicketStatusReport.aspx" />
     <Content Include="ViewService\ICTicketStatusReportForIC.aspx" />
-    <Content Include="ViewService\ICTicketTechnicianAssign.aspx" />
     <Content Include="ViewService\ICTicketTSIRApprove.aspx" />
     <Content Include="ViewService\ICTicketTSIRMailToVendorReport.aspx" />
     <Content Include="ViewService\ICTicketTSIRManage.aspx" />
@@ -1762,6 +1762,13 @@
     <Compile Include="ViewPreSale\Quotation.aspx.designer.cs">
       <DependentUpon>Quotation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\SalesPipelineReport.aspx.cs">
+      <DependentUpon>SalesPipelineReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\SalesPipelineReport.aspx.designer.cs">
+      <DependentUpon>SalesPipelineReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\UserControls\AddCustomerConversation.ascx.cs">
       <DependentUpon>AddCustomerConversation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2202,13 +2209,6 @@
     </Compile>
     <Compile Include="ViewService\ICTicketStatusReportForIC.aspx.designer.cs">
       <DependentUpon>ICTicketStatusReportForIC.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewService\ICTicketTechnicianAssign.aspx.cs">
-      <DependentUpon>ICTicketTechnicianAssign.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewService\ICTicketTechnicianAssign.aspx.designer.cs">
-      <DependentUpon>ICTicketTechnicianAssign.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRApprove.aspx.cs">
       <DependentUpon>ICTicketTSIRApprove.aspx</DependentUpon>
