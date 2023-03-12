@@ -2,6 +2,7 @@
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -485,14 +486,14 @@ namespace DealerManagementSystem.ViewAdmin
             CheckBox cbAjaxOne = (CheckBox)gvUser.Rows[index].FindControl("cbAjaxOne");
 
 
-            lblPassWord.Visible = false;
+            //lblPassWord.Visible = false;
             lblUserName.Visible = false;
             lblContactName.Visible = false;
             lblMail.Visible = false;
             lblContactNumber.Visible = false;
             lblExternalReferenceID.Visible = false;
 
-            txtPassWord.Visible = true;
+            //txtPassWord.Visible = true;
             txtUserName.Visible = true;
             txtContactName.Visible = true;
             txtMail.Visible = true;
@@ -536,14 +537,14 @@ namespace DealerManagementSystem.ViewAdmin
             CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
             CheckBox cbAjaxOne = (CheckBox)gvUser.Rows[index].FindControl("cbAjaxOne");
 
-            lblPassWord.Visible = true;
+            //lblPassWord.Visible = true;
             lblUserName.Visible = true;
             lblContactName.Visible = true;
             lblMail.Visible = true;
             lblContactNumber.Visible = true;
             lblExternalReferenceID.Visible = true;
 
-            txtPassWord.Visible = false;
+            //txtPassWord.Visible = false;
             txtUserName.Visible = false;
             txtContactName.Visible = false;
             txtMail.Visible = false;
@@ -697,6 +698,46 @@ namespace DealerManagementSystem.ViewAdmin
                     }
                 }
             }
+        }
+
+        protected void btnUserResetPassword_Click(object sender, EventArgs e)
+        {
+            lblMessage.Visible = true;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            int index = gvRow.RowIndex;
+            Label lblUserID = (Label)gvUser.Rows[index].FindControl("lblUserID");
+
+            if (new BUser().UpdateUserResetPasswordByAdmin(Convert.ToInt64(lblUserID.Text), PSession.User.UserID))
+            {
+                lblMessage.Text = "User reset successfully.";
+                lblMessage.ForeColor = Color.Green;
+                PUser userDetails = new BUser().GetUserDetails(Convert.ToInt64(lblUserID.Text));
+                if (!string.IsNullOrEmpty(userDetails.UserName))
+                {
+                    string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/UserResetPassword/UserResetPassword.htm");
+                    messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
+                    messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
+                    messageBody = messageBody.Replace("@@Password", "ajax@123");
+                    messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+                    new EmailManager().MailSend(userDetails.Mail, "", "Password Reset Request", messageBody);
+
+                    //messageBody = "Dear User, Your Password for login is ajax@123. From AJAX ENGG";
+                    //new EmailManager().SendSMS(userDetails.Employee.ContactNumber, messageBody);
+                }
+                else
+                {
+                    lblMessage.Text = "Invalid UserName...!";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+            }
+            else
+            {
+                lblMessage.Text = "User not reset successfully.";
+                lblMessage.ForeColor = Color.Red;
+            }
+
         }
     }
 }

@@ -1949,5 +1949,37 @@ namespace Business
             }
             return Users;
         }
+
+        public Boolean UpdateUserResetPasswordByAdmin(long UserID, long UpdatedBy)
+        {
+            List<PUser> users = new List<PUser>();
+            DateTime traceStartTime = DateTime.Now;
+            DataTable usersDataTable = new DataTable();
+            try
+            {
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+                DbParameter UpdatedByP = provider.CreateParameter("UpdatedBy", UpdatedBy, DbType.Int64);
+
+                DbParameter[] userParams = new DbParameter[2] { UserIDP , UpdatedByP };
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("UpdateUserResetPasswordByAdmin", userParams, false);
+                    scope.Complete();
+                    // This call is for track the status and logged into the trace logeer
+                    TraceLogger.Log(traceStartTime);
+                }
+                return true;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
+            return false;
+        }
     }
 }
