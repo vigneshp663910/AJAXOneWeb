@@ -1,6 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true"  CodeBehind="UserManagement.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.UserManagement" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+    <script type="text/javascript">
+        function ConfirmReset() {
+            var x = confirm("Are you sure you want to reset the User Password?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+    </script>
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
 
     <div class="col-md-12">
@@ -218,13 +229,28 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Password">
+                                <%--<asp:TemplateField HeaderText="Password">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="150px" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblPassWord" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "PassWord")%>'></asp:Label>
                                         <asp:TextBox ID="txtPassWord" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "PassWord")%>' Visible="false"></asp:TextBox>
                                     </ItemTemplate>
+                                </asp:TemplateField>--%>
+
+                                <asp:TemplateField HeaderText="Reset Password" ItemStyle-Width="140px">
+                                    <ItemTemplate>
+                                        <table>
+                                            <tr>
+                                                <td style="border-bottom-width: 0px; border-right-width: 0px;">
+                                                    <asp:Button ID="btnUserResetPassword" runat="server" Text="Reset" CssClass="InputButton" OnClick="btnUserResetPassword_Click" OnClientClick="return ConfirmReset();" Width="60px" Height="20px" Font-Size="X-Small" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </ItemTemplate>
+
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 </asp:TemplateField>
+
                                 <asp:TemplateField HeaderText="Last Login Date">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" BorderStyle="None" Width="150px" />
                                     <ItemTemplate>
