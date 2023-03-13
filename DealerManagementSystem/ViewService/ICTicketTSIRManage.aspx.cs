@@ -15,8 +15,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class ICTicketTSIRManage : System.Web.UI.Page
+    public partial class ICTicketTSIRManage : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicketTSIRManage; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_ICTicketTSIRManage.aspx";

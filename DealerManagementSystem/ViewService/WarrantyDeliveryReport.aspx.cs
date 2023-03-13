@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class WarrantyDeliveryReport : System.Web.UI.Page
+    public partial class WarrantyDeliveryReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyDeliveryReport; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_DeliveryReport.aspx";

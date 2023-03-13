@@ -11,8 +11,9 @@ using Newtonsoft.Json;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class DealerCustomerMapping : System.Web.UI.Page
+    public partial class DealerCustomerMapping : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewAdmin_DealerCustomerMapping; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

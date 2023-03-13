@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class ICTicketTSIRReport : System.Web.UI.Page
+    public partial class ICTicketTSIRReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicketTSIRReport; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_ICTicketTSIRReport.aspx";

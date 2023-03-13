@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
 {
-    public partial class TestDropWithMaterSite : System.Web.UI.Page
+    public partial class TestDropWithMaterSite : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

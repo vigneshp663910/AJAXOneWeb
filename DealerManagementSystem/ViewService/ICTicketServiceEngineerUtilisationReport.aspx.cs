@@ -8,8 +8,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class ICTicketServiceEngineerUtilisationReport : System.Web.UI.Page
+    public partial class ICTicketServiceEngineerUtilisationReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicketServiceEngineerUtilisationReport; } }
         public DataTable ICTicket
         {
             get

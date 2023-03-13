@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.Account
 {
-    public partial class SignOut : System.Web.UI.Page
+    public partial class SignOut : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

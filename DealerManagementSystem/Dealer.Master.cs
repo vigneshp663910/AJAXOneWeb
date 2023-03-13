@@ -13,8 +13,11 @@ namespace DealerManagementSystem
 {
     public partial class Dealer : System.Web.UI.MasterPage
     {
+        private BasePage CurrentPage = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            CurrentPage = (BasePage)this.Page;
+           Boolean BDefaultPage = false;
             lblPageName.Text = (string)Session["PageName"];
             Session["PageName"] = "";
             if (!IsPostBack)
@@ -27,6 +30,31 @@ namespace DealerManagementSystem
                 {
                     Response.Redirect(UIHelper.SessionFailureRedirectionPage);
                 }
+
+                 
+
+                if ((CurrentPage.ToString() == "ASP.home_aspx") || (CurrentPage.ToString() == "ASP.myprofile_aspx") || 
+                    (CurrentPage.ToString() == "ASP.aboutus_aspx") || (CurrentPage.ToString() == "ASP.account_changepassword_aspx")||
+                    (CurrentPage.ToString() == "ASP.account_signout_aspx") || (CurrentPage.ToString() == "ASP.pdf_aspx") ||
+                    (CurrentPage.ToString() == "ASP.help_help_aspx") || (CurrentPage.ToString() == "ASP.undercons_aspx") ||
+                     (CurrentPage.ToString() == "ASP.help_helpdoc_aspx") ||
+                    (CurrentPage.ToString() == "ASP.account_myprofile_aspx") || (CurrentPage.ToString() == "ASP.account_companyprofile_aspx"))
+                {
+                    BDefaultPage = true;
+                }
+
+                if (!UIHelper.HasAccess((short)CurrentPage.SubModuleName) && !BDefaultPage)
+                { 
+                    new BAPI().ApiGet("User/InsertUnauthorizedAccess?PageID=" + (short)CurrentPage.SubModuleName + "&PageName=" + CurrentPage.ToString());
+
+                    if ((short)CurrentPage.SubModuleName != 0)
+                    {
+                        Session.Clear();
+                        Session.Abandon();
+                        Redirect(UIHelper.RedirectOnAccessViolation);
+                    }
+                }
+
                 //    lblWelcome.Text = PSession.User.ContactName;
                 lblusername.Text = PSession.User.ContactName;
 
@@ -263,6 +291,11 @@ namespace DealerManagementSystem
             Star5.Attributes.Add("class", "star filled");
             HiddenStar.Value = "5";
             mp1.Show();
+        }
+
+        private void Redirect(string pageName)
+        {
+            Response.Redirect(pageName);
         }
     }
 }

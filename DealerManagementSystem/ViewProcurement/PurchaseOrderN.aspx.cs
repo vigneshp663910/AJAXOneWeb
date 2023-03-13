@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DealerManagementSystem.ViewProcurement
 {
-    public partial class PurchaseOrderN : System.Web.UI.Page
+    public partial class PurchaseOrderN : BasePage
     {
         public List<PDMS_PurchaseOrderN> SDMS_SalesInvoice
         {

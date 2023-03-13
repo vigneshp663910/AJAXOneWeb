@@ -14,8 +14,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class SalesPipelineReport : System.Web.UI.Page
+    public partial class SalesPipelineReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_SalesPipelineReport; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

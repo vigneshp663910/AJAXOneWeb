@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
 {
-    public partial class TestPageForMenu : System.Web.UI.Page
+    public partial class TestPageForMenu : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

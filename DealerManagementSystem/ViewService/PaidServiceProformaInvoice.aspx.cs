@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class PaidServiceProformaInvoice : System.Web.UI.Page
+    public partial class PaidServiceProformaInvoice : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_PaidServiceProformaInvoice; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_PaidServiceProformaInvoice.aspx";

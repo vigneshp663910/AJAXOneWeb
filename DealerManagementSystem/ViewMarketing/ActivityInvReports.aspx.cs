@@ -9,7 +9,7 @@ using SapIntegration;
 
 namespace DealerManagementSystem.ViewMarketing
 {
-    public partial class ActivityInvReports : System.Web.UI.Page
+    public partial class ActivityInvReports : BasePage
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {

@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewAdmin
 {
-    public partial class UserMobileApproval : System.Web.UI.Page
+    public partial class UserMobileApproval : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewAdmin_UserMobileApproval; } }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Approve Mobile User');</script>");

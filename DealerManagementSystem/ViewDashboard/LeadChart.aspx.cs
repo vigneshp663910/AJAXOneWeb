@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewDashboard
 {
-    public partial class LeadChart : System.Web.UI.Page
+    public partial class LeadChart : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewDashboard_LeadChart; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Lead');</script>");

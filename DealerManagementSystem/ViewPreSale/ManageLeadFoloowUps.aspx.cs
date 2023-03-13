@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 namespace DealerManagementSystem.ViewPreSale
 {
 
-    public partial class ManageLeadFoloowUps : System.Web.UI.Page
+    public partial class ManageLeadFoloowUps : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_ManageLeadFoloowUps; } }
         public long LeadFollowUpID
         {
             get

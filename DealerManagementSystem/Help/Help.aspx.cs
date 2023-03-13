@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.Help
 {
-    public partial class Help : System.Web.UI.Page
+    public partial class Help : BasePage
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {

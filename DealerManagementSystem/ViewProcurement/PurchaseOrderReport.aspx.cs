@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewProcurement
 {
-    public partial class PurchaseOrderReport : System.Web.UI.Page
+    public partial class PurchaseOrderReport : BasePage
     {
         public DataTable PurchaseOrder
         {

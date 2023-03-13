@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class ICTicketReachedDateChange : System.Web.UI.Page
+    public partial class ICTicketReachedDateChange : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicketReachedDateChange; } }
         public PDMS_ICTicket ICTicket
         {
             get

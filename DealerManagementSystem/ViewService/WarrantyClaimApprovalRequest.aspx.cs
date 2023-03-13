@@ -8,8 +8,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class WarrantyClaimApprovalRequest : System.Web.UI.Page
+    public partial class WarrantyClaimApprovalRequest : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyClaimApprovalRequest; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_WarrantyClaimApprovalRequest.aspx";

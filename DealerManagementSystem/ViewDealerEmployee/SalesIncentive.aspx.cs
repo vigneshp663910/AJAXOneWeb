@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewDealerEmployee
 {
-    public partial class SalesIncentive : System.Web.UI.Page
+    public partial class SalesIncentive : BasePage
     {
         private int PageCount
         {

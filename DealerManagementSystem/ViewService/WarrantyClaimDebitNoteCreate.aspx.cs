@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class WarrantyClaimDebitNoteCreate : System.Web.UI.Page
+    public partial class WarrantyClaimDebitNoteCreate : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyClaimDebitNoteCreate; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_WarrantyClaimDebitNoteCreate.aspx";

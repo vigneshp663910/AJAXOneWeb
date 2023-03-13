@@ -12,8 +12,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSupportTicket
 {
-    public partial class RequestSupportTicket : System.Web.UI.Page
+    public partial class RequestSupportTicket : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewSupportTicket_RequestSupportTicket; } }
         private List<PAttachedFile> AttchedFile
         {
             get

@@ -7,8 +7,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class ICTicketTSIRMailToVendorReport : System.Web.UI.Page
+    public partial class ICTicketTSIRMailToVendorReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicketTSIRMailToVendorReport; } }
         public List<PDMS_ICTicketTSIR> ICTicket
         {
             get

@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSales
 {
-    public partial class SaleOrderInvoiceWarrantyReport : System.Web.UI.Page
+    public partial class SaleOrderInvoiceWarrantyReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewSales_SaleOrderInvoiceWarrantyReport; } }
         public List<PDMS_SalesInvoice> SDMS_SalesInvoice
         {
             get

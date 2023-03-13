@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSales
 {
-    public partial class tab_ASN : System.Web.UI.Page
+    public partial class tab_ASN : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class CreateAjaxEmployee : System.Web.UI.Page
+    public partial class CreateAjaxEmployee : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_CreateAjaxEmployee; } }
         public string AadhaarCardNo
         {
             get

@@ -9,12 +9,12 @@
                     <label class="modal-label">Customer Name<samp style="color: red">*</samp></label>
                     <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                 </div>
-               <%-- <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Enquiry Date<samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtEnquiryDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
-                    <asp1:CalendarExtender ID="calendarextender1" runat="server" TargetControlID="txtEnquiryDate" PopupButtonID="txtEnquiryDate" Format="dd/MM/yyyy HH:mm:ss" />
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtEnquiryDate" WatermarkText="DD/MM/YYYY HH:mm:ss" />
-                </div>--%>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Next FollowUp Date<samp style="color: red">*</samp></label>
+                    <asp:TextBox ID="txtNextFollowUpDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
+                    <asp1:CalendarExtender ID="calendarextender1" runat="server" TargetControlID="txtNextFollowUpDate" PopupButtonID="txtNextFollowUpDate" Format="dd/MM/yyyy HH:mm:ss" />
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtNextFollowUpDate" WatermarkText="DD/MM/YYYY HH:mm:ss" />
+                </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Contact Person Name</label>
                     <asp:TextBox ID="txtPersonName" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>

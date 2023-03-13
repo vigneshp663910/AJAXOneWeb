@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class WarrantyClaimAnnexureReport : System.Web.UI.Page
+    public partial class WarrantyClaimAnnexureReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyClaimAnnexureReport; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "WarrantyClaimAnnexureReport.aspx";

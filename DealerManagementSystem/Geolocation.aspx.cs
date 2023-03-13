@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
 {
-    public partial class Geolocation : System.Web.UI.Page
+    public partial class Geolocation : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

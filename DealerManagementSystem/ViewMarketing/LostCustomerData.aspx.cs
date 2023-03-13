@@ -12,7 +12,7 @@ using Properties;
 
 namespace DealerManagementSystem.ViewMarketing
 {
-    public partial class LostCustomerData : System.Web.UI.Page
+    public partial class LostCustomerData : BasePage
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {

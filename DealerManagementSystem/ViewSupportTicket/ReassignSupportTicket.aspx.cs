@@ -9,8 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSupportTicket
 {
-    public partial class ReassignSupportTicket : System.Web.UI.Page
+    public partial class ReassignSupportTicket : BasePage
     {
+       // public override SubModule SubModuleName { get { return SubModule.ViewSupportTicket_ReassignSupportTicket; } }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)

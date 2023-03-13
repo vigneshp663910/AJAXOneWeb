@@ -13,9 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class Customer : System.Web.UI.Page
-    { 
-
+    public partial class Customer : BasePage
+    {
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_Customer; } }
         private int PageCount
         {
             get

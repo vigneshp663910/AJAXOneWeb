@@ -9,8 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSupportTicket
 {
-    public partial class ManageSupportTicket : System.Web.UI.Page
+    public partial class ManageSupportTicket : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewSupportTicket_ManageSupportTicket; } }
         private int PageCount
         {
             get

@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewProcurement
 {
-    public partial class PurchaseOrderASNReport : System.Web.UI.Page
+    public partial class PurchaseOrderASNReport : BasePage
     {
         public DataTable Asn
         {

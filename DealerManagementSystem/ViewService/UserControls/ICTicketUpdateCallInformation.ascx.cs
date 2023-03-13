@@ -618,7 +618,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             IC.CurrentHMRDate = string.IsNullOrEmpty(txtHMRDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtHMRDate.Text.Trim());
             IC.CurrentHMRValue = string.IsNullOrEmpty(txtHMRValue.Text.Trim()) ? (int?)null : Convert.ToInt32(txtHMRValue.Text.Trim());
 
-          //  IC.IsWarranty = ICTicket.IsWarranty;
+           // IC.IsWarranty = ICTicket.IsWarranty;
 
             IC.TypeOfWarrantyID = ddlTypeOfWarranty.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTypeOfWarranty.SelectedValue);
 

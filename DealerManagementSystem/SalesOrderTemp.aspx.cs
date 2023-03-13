@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
 {
-    public partial class SalesOrderTemp : System.Web.UI.Page
+    public partial class SalesOrderTemp : BasePage
     {
         public PSalesQuotation Quotation
         {

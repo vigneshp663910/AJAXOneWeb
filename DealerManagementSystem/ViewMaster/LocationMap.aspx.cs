@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class LocationMap : System.Web.UI.Page
+    public partial class LocationMap : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_LocationMap; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

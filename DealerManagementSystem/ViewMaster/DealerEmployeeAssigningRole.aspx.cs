@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class DealerEmployeeAssigningRole : System.Web.UI.Page
+    public partial class DealerEmployeeAssigningRole : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_DealerEmployeeAssigningRole; } }
         public string AadhaarCardNo
         {
             get

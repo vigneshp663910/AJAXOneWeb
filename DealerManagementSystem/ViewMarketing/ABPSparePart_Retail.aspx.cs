@@ -14,7 +14,7 @@ using Properties;
 
 namespace DealerManagementSystem.ViewMarketing
 {
-    public partial class ABPSparePart_Retail : System.Web.UI.Page
+    public partial class ABPSparePart_Retail : BasePage
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {

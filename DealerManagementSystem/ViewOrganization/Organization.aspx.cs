@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewOrganization
 {
-    public partial class Organization : System.Web.UI.Page
+    public partial class Organization : BasePage
     {
         //public int DealerID
         //{

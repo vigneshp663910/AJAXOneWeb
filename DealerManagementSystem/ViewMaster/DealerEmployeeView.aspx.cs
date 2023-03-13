@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class DealerEmployeeView : System.Web.UI.Page
+    public partial class DealerEmployeeView : BasePage
     {
+     //   public override SubModule SubModuleName { get { return SubModule.ViewMaster_DealerEmployeeView; } }
         public PDMS_DealerEmployeeAttachedFile PhotoFile
         {
             get

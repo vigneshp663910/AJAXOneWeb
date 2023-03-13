@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewDealerEmployee
 {
-    public partial class UserMonthlyVerification : System.Web.UI.Page
+    public partial class UserMonthlyVerification : BasePage
     {
         public List<PDMS_DealerEmployee> DealerEmployeeList
         {

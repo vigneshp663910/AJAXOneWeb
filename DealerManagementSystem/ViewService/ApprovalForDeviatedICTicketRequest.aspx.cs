@@ -9,8 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class ApprovalForDeviatedICTicketRequest : System.Web.UI.Page
+    public partial class ApprovalForDeviatedICTicketRequest : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_ApprovalForDeviatedICTicketRequest; } }
         public DataTable ICTicketDT
         {
             get

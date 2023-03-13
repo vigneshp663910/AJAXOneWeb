@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class PaidServiceQuotation : System.Web.UI.Page
+    public partial class PaidServiceQuotation : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_PaidServiceQuotation; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_PaidServiceQuotation.aspx";

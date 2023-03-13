@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class SalesCommissionClaimPrice : System.Web.UI.Page
+    public partial class SalesCommissionClaimPrice : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_SalesCommissionClaimPrice; } }
         public List<PSalesCommissionClaimPrice> SalesCommClaimPrice
         {
             get

@@ -9,8 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewEquipment
 {
-    public partial class EquipmentMissing : System.Web.UI.Page
+    public partial class EquipmentMissing : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewEquipment_EquipmentMissing; } }
         protected void Page_Load(object sender, EventArgs e)
         {
 

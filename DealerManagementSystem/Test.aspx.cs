@@ -7,7 +7,7 @@ using System.Web.Services;
 
 namespace DealerManagementSystem
 {
-    public partial class Test : System.Web.UI.Page
+    public partial class Test : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewDashboard
 {
-    public partial class EnquiryChart : System.Web.UI.Page
+    public partial class EnquiryChart : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewDashboard_EnquiryChart; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

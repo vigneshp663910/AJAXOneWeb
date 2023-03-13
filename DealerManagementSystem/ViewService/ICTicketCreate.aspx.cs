@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class ICTicketCreate : System.Web.UI.Page
+    public partial class ICTicketCreate : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicketCreate; } }
         public long EquipmentHeaderID
         {
             get

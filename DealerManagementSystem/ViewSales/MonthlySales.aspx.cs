@@ -2,7 +2,7 @@
 
 namespace DealerManagementSystem.ViewSales
 {
-    public partial class MonthlySales : System.Web.UI.Page
+    public partial class MonthlySales : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

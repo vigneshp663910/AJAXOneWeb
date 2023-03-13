@@ -9,8 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class AjaxEmployeeManage : System.Web.UI.Page
+    public partial class AjaxEmployeeManage : BasePage
     {
+       // public override SubModule SubModuleName { get { return SubModule.ViewMaster_AjaxEmployeeManage; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

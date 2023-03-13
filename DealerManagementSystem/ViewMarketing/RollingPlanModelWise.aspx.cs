@@ -13,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMarketing
 {
-    public partial class RollingPlanModelWise : System.Web.UI.Page
+    public partial class RollingPlanModelWise : BasePage
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {

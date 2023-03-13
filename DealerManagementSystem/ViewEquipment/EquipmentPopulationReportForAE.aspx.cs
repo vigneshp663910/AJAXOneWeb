@@ -7,8 +7,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewEquipment
 {
-    public partial class EquipmentPopulationReportForAE : System.Web.UI.Page
+    public partial class EquipmentPopulationReportForAE : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewEquipment_EquipmentPopulationReportForAE; } }
         public DataTable Equipment
         {
             get

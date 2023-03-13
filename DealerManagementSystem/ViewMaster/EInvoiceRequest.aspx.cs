@@ -13,9 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class EInvoiceRequest : System.Web.UI.Page
+    public partial class EInvoiceRequest : BasePage
     {
-
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_EInvoiceRequest; } }
         public class PSuccess
         {
             public string data { get; set; }

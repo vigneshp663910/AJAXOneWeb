@@ -14,8 +14,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class EnquiryTimeLineReport : System.Web.UI.Page
+    public partial class EnquiryTimeLineReport : BasePage
     {
+       // public override SubModule SubModuleName { get { return SubModule.ViewPreSale_EnquiryTimeLineReport; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

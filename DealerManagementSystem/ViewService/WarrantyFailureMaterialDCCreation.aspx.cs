@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class WarrantyFailureMaterialDCCreation : System.Web.UI.Page
+    public partial class WarrantyFailureMaterialDCCreation : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyFailureMaterialDCCreation; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_FailedMaterialReturn.aspx";

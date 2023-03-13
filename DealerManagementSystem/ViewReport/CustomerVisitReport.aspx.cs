@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewReport
 {
-    public partial class CustomerVisitReport : System.Web.UI.Page
+    public partial class CustomerVisitReport : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

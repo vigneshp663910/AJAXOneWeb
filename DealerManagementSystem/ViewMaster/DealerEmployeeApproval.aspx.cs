@@ -9,8 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class DealerEmployeeApproval : System.Web.UI.Page
+    public partial class DealerEmployeeApproval : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_DealerEmployeeApproval; } }
         public List<PDMS_DealerEmployee> ICTicket
         {
             get

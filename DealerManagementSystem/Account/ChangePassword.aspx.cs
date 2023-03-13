@@ -7,7 +7,7 @@ using System.Web.UI;
 
 namespace DealerManagementSystem.Account
 {
-    public partial class ChangePassword : System.Web.UI.Page
+    public partial class ChangePassword : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
