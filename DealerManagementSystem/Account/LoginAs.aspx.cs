@@ -8,8 +8,10 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.Account
 {
-    public partial class LoginAs : System.Web.UI.Page
+     
+    public partial class LoginAs : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.Account_LoginAs; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

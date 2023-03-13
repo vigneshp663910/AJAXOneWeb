@@ -12,8 +12,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class MTTR_New : System.Web.UI.Page
+    public partial class MTTR_New : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_MTTR_New; } }
         private int PageCount
         {
             get

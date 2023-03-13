@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.View
 {
-    public partial class Appointment : System.Web.UI.Page
+    public partial class Appointment : BasePage
     {
         public List<PLeadFollowUp> FollowUp
         {

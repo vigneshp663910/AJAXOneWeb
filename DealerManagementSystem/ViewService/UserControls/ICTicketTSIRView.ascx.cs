@@ -376,6 +376,13 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnSendBack.Visible = false;
                 
             }
+
+            if ((Tsir.ICTicket.ServiceType.ServiceTypeID != (short)DMS_ServiceType.GoodwillWarranty))
+            {
+                lbtnSalesApproveL1.Visible = false;
+                lbtnSalesApproveL2.Visible = false;
+                lbtnSalesReject.Visible = false;
+            }
         }
          
 

@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class PresalesMasters : System.Web.UI.Page
+    public partial class PresalesMasters : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_PresalesMasters; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

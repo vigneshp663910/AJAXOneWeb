@@ -8,7 +8,7 @@ using System.Web.UI;
 
 namespace DealerManagementSystem.Account
 {
-    public partial class CompanyProfile : System.Web.UI.Page
+    public partial class CompanyProfile : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

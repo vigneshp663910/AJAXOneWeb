@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Properties;
+using System;
 using System.Web.UI;
 
 namespace DealerManagementSystem.ProcessFlow
 {
-    public partial class ProjectTeam : System.Web.UI.Page
+    public partial class ProjectTeam : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ProcessFlow_ProjectTeam; } }
         protected void Page_Load(object sender, EventArgs e)
         {
 

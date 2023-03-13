@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMarketing
 {
-    public partial class ActivityInfoM : System.Web.UI.Page
+    public partial class ActivityInfoM : BasePage
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {

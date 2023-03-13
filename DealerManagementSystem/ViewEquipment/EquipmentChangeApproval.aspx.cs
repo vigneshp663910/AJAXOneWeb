@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewEquipment
 {
-    public partial class EquipmentChangeApproval : System.Web.UI.Page
+    public partial class EquipmentChangeApproval : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewEquipment_EquipmentChangeApproval; } }
         public DataTable EquipChgReq
         {
             get

@@ -2,7 +2,7 @@
 
 namespace DealerManagementSystem.Help
 {
-    public partial class HelpDoc : System.Web.UI.Page
+    public partial class HelpDoc : BasePage
     {
 
         protected void Page_Load(object sender, EventArgs e)

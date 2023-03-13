@@ -6,7 +6,7 @@ using Properties;
 
 namespace DealerManagementSystem.Account
 {
-    public partial class MyProfile : System.Web.UI.Page
+    public partial class MyProfile : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -10,9 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class Application : System.Web.UI.Page
+    public partial class Application : BasePage
     {
-
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_Application; } }
         public List<PDMS_SubApplication> subApp
         {
             get

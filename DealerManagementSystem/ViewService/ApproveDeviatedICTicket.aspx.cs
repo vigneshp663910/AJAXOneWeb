@@ -9,8 +9,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class ApproveDeviatedICTicket : System.Web.UI.Page
+    public partial class ApproveDeviatedICTicket : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_ApproveDeviatedICTicket; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_DeviatedICTicketApprove.aspx";

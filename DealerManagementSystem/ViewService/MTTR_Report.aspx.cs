@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class MTTR_Report : System.Web.UI.Page
+    public partial class MTTR_Report : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_MTTR_Report; } }
         public List<PDMS_MTTR> SDMS_MTTR
         {
             get

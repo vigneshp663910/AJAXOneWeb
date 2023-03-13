@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
 {
-    public partial class PDF : System.Web.UI.Page
+    public partial class PDF : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

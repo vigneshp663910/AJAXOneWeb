@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewDealerEmployee
 {
-    public partial class DealerOperatorDetails : System.Web.UI.Page
+    public partial class DealerOperatorDetails : BasePage
     {
         private int PageCount
         {

@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewProcurement
 {
-    public partial class MonthlyProcurement : System.Web.UI.Page
+    public partial class MonthlyProcurement : BasePage
     {
         public List<PDMS_PurchaseOrder> SDMS_SalesOrder
         {

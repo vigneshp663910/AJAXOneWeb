@@ -14,7 +14,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMarketing
 {
-    public partial class ABPModelWise : System.Web.UI.Page
+    public partial class ABPModelWise : BasePage
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {

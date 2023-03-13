@@ -17,6 +17,7 @@ namespace Properties
         public PLeadQualification Qualification { get; set; }
         public PLeadSource Source { get; set; }
         public DateTime? ExpectedDateOfSale { get; set; }
+        public DateTime? NextFollowUpDate { get; set; }
         public PLeadStatus Status { get; set; }
         public PProject Project { get; set; }
         //public PLeadUrgency Urgency { get; set; }
@@ -47,7 +48,7 @@ namespace Properties
         public int ProductTypeID { get; set; }
         public int? SourceID { get; set; }
         public DateTime ExpectedDateOfSale { get; set; }
-
+        public DateTime NextFollowUpDate { get; set; }
         public int? ProjectID { get; set; } 
         public int? MainApplicationID { get; set; }
         public string CustomerFeedback { get; set; }

@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class Material : System.Web.UI.Page
+    public partial class Material : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_Material; } }
         public List<PDMS_Material> Mat
         {
             get

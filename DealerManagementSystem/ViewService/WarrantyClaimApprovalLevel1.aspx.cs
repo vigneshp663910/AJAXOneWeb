@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class WarrantyClaimApprovalLevel1 : System.Web.UI.Page
+    public partial class WarrantyClaimApprovalLevel1 : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyClaimApprovalLevel1; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_ClaimApprovalList1.aspx";

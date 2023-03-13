@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class ICTicketCommissionMailToReport : System.Web.UI.Page
+    public partial class ICTicketCommissionMailToReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicketCommissionMailToReport; } }
         public DataTable ICTicket
         {
             get

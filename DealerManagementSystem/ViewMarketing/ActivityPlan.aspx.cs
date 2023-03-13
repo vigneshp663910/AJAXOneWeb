@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMarketing
 {
-    public partial class ActivityPlan : System.Web.UI.Page
+    public partial class ActivityPlan : BasePage
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {

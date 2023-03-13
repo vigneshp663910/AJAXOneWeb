@@ -12,8 +12,10 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class EnquiryN : System.Web.UI.Page
+    public partial class EnquiryN : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_EnquiryN; } }
+
         long? EnquiryID = null;
         int? DealerID = null;
         int? EngineerUserID = null;

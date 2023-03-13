@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class DealerEmployeeLeaving : System.Web.UI.Page
+    public partial class DealerEmployeeLeaving : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_DealerEmployeeLeaving; } }
         public List<PDMS_DealerEmployee> EmployeeManageLeave
         {
             get

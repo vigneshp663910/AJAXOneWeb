@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSales
 {
-    public partial class SalesCommissionClaimPerformanceReport : System.Web.UI.Page
+    public partial class SalesCommissionClaimPerformanceReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewSales_SalesCommissionClaimPerformanceReport; } }
         public DataTable Claim
         {
             get

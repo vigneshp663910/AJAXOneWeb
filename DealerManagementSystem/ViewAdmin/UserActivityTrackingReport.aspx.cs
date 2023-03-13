@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewAdmin
 {
-    public partial class UserActivityTrackingReport : System.Web.UI.Page
+    public partial class UserActivityTrackingReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewAdmin_UserActivityTrackingReport; } }
         private int PageCount
         {
             get

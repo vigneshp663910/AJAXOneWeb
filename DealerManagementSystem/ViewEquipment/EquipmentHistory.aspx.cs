@@ -6,8 +6,9 @@ using System.Data;
 
 namespace DealerManagementSystem.ViewEquipment
 {
-    public partial class EquipmentHistory : System.Web.UI.Page
+    public partial class EquipmentHistory : BasePage
     {
+       // public override SubModule SubModuleName { get { return SubModule.ViewEquipment_EquipmentHistory; } }
         public List<PDMS_ICTicket> ICTickets0
         {
             get

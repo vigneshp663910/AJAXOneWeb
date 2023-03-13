@@ -16,7 +16,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.View
 {
-    public partial class Project : System.Web.UI.Page
+    public partial class Project : BasePage
     {
         public List<PProject> PProject
         {

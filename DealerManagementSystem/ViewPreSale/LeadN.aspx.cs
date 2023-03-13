@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class LeadN : System.Web.UI.Page
+    public partial class LeadN : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_LeadN; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -72,8 +73,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             }
         }
-
-
+         
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -120,16 +120,12 @@ namespace DealerManagementSystem.ViewPreSale
             UC_Customer.FillClean();
             MPE_Customer.Hide();
         }
-
-
- 
-
+         
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillLead();
         }
-
-
+         
         public List<PLead> Lead1
         {
             get
@@ -145,8 +141,7 @@ namespace DealerManagementSystem.ViewPreSale
                 Session["Lead1"] = value;
             }
         }
-
-
+         
         protected void ibtnLeadArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvLead.PageIndex > 0)

@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSales
 {
-    public partial class SalesCommissionClaimCreate : System.Web.UI.Page
+    public partial class SalesCommissionClaimCreate : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewSales_SalesCommissionClaimCreate; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

@@ -2,7 +2,7 @@
 
 namespace DealerManagementSystem.ViewAdmin
 {
-    public partial class tab_AdminModulePages : System.Web.UI.Page
+    public partial class tab_AdminModulePages : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

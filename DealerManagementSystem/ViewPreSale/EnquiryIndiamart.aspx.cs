@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class EnquiryIndiamart : System.Web.UI.Page
+    public partial class EnquiryIndiamart : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_EnquiryIndiamart; } }
         private int PageCount
         {
             get

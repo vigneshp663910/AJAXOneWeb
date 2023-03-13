@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewAdmin
 {
-    public partial class ModulePermissionList : System.Web.UI.Page
+    public partial class ModulePermissionList : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewAdmin_ModulePermissionList; } }
         private int PageCount
         {
             get

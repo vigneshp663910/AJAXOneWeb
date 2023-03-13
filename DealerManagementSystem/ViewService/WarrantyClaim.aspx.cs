@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class WarrantyClaim : System.Web.UI.Page
+    public partial class WarrantyClaim : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyClaim; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "WarrantyClaim1.aspx";

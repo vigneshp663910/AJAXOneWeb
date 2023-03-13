@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.View
 {
-    public partial class Attendance : System.Web.UI.Page
+    public partial class Attendance : BasePage
     {
         public DataTable Attendance1
         {

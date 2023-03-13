@@ -18,10 +18,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
         public void FillMaster()
         {
+            calendarextender1.StartDate = DateTime.Now;
           //  new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
-           // ddlCountry.SelectedValue = "1";
-           // new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
-           // new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
+          // ddlCountry.SelectedValue = "1";
+          // new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+          // new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             Clear();
         } 
         void Clear()
@@ -46,14 +47,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtAddress3.Text = string.Empty;
             txtProduct.Text = string.Empty;
             txtRemarks.Text = string.Empty;
-           
 
+            txtNextFollowUpDate.Text = string.Empty;
         }
         public PEnquiry Read()
         {
             PEnquiry enquiry = new PEnquiry();
             enquiry.CustomerName = txtCustomerName.Text.Trim();
-            //  enquiry.EnquiryDate = Convert.ToDateTime(txtEnquiryDate.Text.Trim());
+            enquiry.EnquiryNextFollowUpDate = Convert.ToDateTime(txtNextFollowUpDate.Text.Trim());
             enquiry.PersonName = txtPersonName.Text.Trim();
             enquiry.Mobile = txtMobile.Text.Trim();
             enquiry.Mail = txtMail.Text.Trim();
@@ -101,6 +102,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtAddress3.Text = enquiry.Address3.ToString();
             txtProduct.Text = enquiry.Product;
             txtRemarks.Text = enquiry.Remarks;
+            txtNextFollowUpDate.Text = Convert.ToString(enquiry.EnquiryNextFollowUpDate);
         }
         public string Validation()
         {
@@ -111,18 +113,19 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlSource.BorderColor = Color.Silver;
             ddlCountry.BorderColor = Color.Silver;
             ddlState.BorderColor = Color.Silver;
-            ddlDistrict.BorderColor = Color.Silver; 
+            ddlDistrict.BorderColor = Color.Silver;
+            txtNextFollowUpDate.BorderColor = Color.Silver;
             string Message = "";
             if (string.IsNullOrEmpty(txtCustomerName.Text.Trim()))
             {
                 txtCustomerName.BorderColor = Color.Red;
                 return "Please enter the Customer Name...!";
             }
-            //if (string.IsNullOrEmpty(txtEnquiryDate.Text.Trim()))
-            //{
-            //    txtEnquiryDate.BorderColor = Color.Red;
-            //    return "Please select the Enquiry Date...!";
-            //}
+            if (string.IsNullOrEmpty(txtNextFollowUpDate.Text.Trim()))
+            {
+                txtNextFollowUpDate.BorderColor = Color.Red;
+                return "Please select the Next FollowUp Date.!";
+            }
             if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
             {
                 txtMobile.BorderColor = Color.Red;

@@ -8,8 +8,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewAdmin
 {
-    public partial class UserList : System.Web.UI.Page
+    public partial class UserList : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewAdmin_UserList; } }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » User List');</script>");

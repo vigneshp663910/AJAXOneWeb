@@ -15,8 +15,9 @@ using Newtonsoft.Json;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class Pre_Sales_Dashboard : System.Web.UI.Page
+    public partial class Pre_Sales_Dashboard : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Pre_Sales_Dashboard; } }
         DateTime? From = null;
        // DateTime? To = DateTime.Now.Date;
         DateTime? FromF = null;

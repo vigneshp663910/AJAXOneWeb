@@ -11,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSupportTicket
 {
-    public partial class Task_DashboardMonthwise : System.Web.UI.Page
+    public partial class Task_DashboardMonthwise : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewSupportTicket_Task_DashboardMonthwise; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

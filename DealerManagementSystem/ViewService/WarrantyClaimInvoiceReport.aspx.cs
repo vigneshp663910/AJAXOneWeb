@@ -12,8 +12,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class WarrantyClaimInvoiceReport : System.Web.UI.Page
+    public partial class WarrantyClaimInvoiceReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyClaimInvoiceReport; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DMS_WarrantyClaimInvoiceReport.aspx";

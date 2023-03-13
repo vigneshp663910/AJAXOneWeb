@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class tab_MaterialMaster : System.Web.UI.Page
+    public partial class tab_MaterialMaster : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

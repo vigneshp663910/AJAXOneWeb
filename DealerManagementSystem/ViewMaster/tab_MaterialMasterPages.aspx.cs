@@ -2,7 +2,7 @@
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class tab_MaterialMasterPages : System.Web.UI.Page
+    public partial class tab_MaterialMasterPages : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

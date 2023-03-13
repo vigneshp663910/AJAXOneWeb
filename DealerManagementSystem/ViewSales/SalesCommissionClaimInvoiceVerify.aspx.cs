@@ -16,8 +16,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSales
 {
-    public partial class SalesCommissionClaimInvoiceVerify : System.Web.UI.Page
+    public partial class SalesCommissionClaimInvoiceVerify : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewSales_SalesCommissionClaimInvoiceVerify; } }
         protected void Page_PreInit(object sender, EventArgs e)
         { 
             if (PSession.User == null)

@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class PaidServiceReportNew : System.Web.UI.Page
+    public partial class PaidServiceReportNew : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_PaidServiceReportNew; } }
         public List<PDMS_PaidServiceHeader> SDMS_PaidService
         {
             get

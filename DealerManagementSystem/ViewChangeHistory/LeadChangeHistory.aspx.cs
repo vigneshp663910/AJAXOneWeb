@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewChangeHistory
 {
-    public partial class LeadChangeHistory : System.Web.UI.Page
+    public partial class LeadChangeHistory : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewChangeHistory_LeadChangeHistory; } }
         public DataTable LeadCH
         {
             get

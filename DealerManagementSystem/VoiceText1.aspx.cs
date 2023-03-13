@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
 {
-    public partial class VoiceText1 : System.Web.UI.Page
+    public partial class VoiceText1 : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

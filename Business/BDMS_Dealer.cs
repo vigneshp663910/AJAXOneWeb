@@ -65,10 +65,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return Dealers;
         }
         public List<PDMS_DealerOffice> GetDealerOffice(int? DealerID, int? DealerOfficeID, string DealerOfficeCode)
@@ -107,10 +105,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return DealerOffice;
         }
         public List<PDMS_Dealer> GetDealerBankDetails(int? DealerID, string DealerCode, int? DealerBankID)
@@ -177,11 +173,8 @@ namespace Business
                 }
                 TraceLogger.Log(DateTime.Now);
             }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessageService("BDMS_Dealer", "InsertOrUpdateDealerBankDetails", ex);
-                return false;
-            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return true;
         }
 
@@ -249,11 +242,8 @@ namespace Business
                 }
                 TraceLogger.Log(DateTime.Now);
             }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessageService("BDMS_Dealer", "InsertOrUpdateDealerEmployee", ex);
-                return 0;
-            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EmployeeID;
         }
         public int InsertOrUpdateAjaxEmployee(PDMS_DealerEmployee Emp, PDMS_DealerEmployeeRole EmpRole, int UserID)
@@ -306,11 +296,8 @@ namespace Business
                 }
                 TraceLogger.Log(DateTime.Now);
             }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessageService("BDMS_Dealer", "ZDMS_InsertOrUpdateAjaxEmployee", ex);
-                return 0;
-            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EmployeeID;
         }
         public Int64 InsertOrUpdateDealerEmployeeAttachedFile(PDMS_DealerEmployeeAttachedFile AttachedFile, int UserID)
@@ -335,16 +322,8 @@ namespace Business
                 success = provider.Insert("ZDMS_InsertOrUpdateDealerEmployeeAttachedFile", Params);
                 AttachedFileID = Convert.ToInt64(OutValueDParam.Value);
             }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Dealer", "InsertOrUpdateDealerEmployeeAttachedFile", sqlEx);
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Dealer", " InsertOrUpdateDealerEmployeeAttachedFile", ex);
-                return 0;
-            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return AttachedFileID;
         }
 
@@ -434,10 +413,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             ddl.DataValueField = "EqucationalQualificationID";
             ddl.DataTextField = "EqucationalQualification";
             ddl.DataSource = Qualification;
@@ -472,10 +449,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             ddl.DataValueField = "BloodGroupID";
             ddl.DataTextField = "BloodGroup";
             ddl.DataSource = BG;
@@ -553,10 +528,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
         public List<PDMS_DealerEmployee> GetDealerEmployeeManageBasedRole(string AadhaarCardNo)
@@ -619,10 +592,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
         public PDMS_DealerEmployee GetDealerEmployeeByDealerEmployeeID(int DealerEmployeeID)
@@ -688,10 +659,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
         public PDMS_DealerEmployeeAttachedFile GetDealerEmployeeAttachedFile(long AttachedFileID)
@@ -720,10 +689,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
 
@@ -754,10 +721,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             ddl.DataValueField = "DealerDepartmentID";
             ddl.DataTextField = "DealerDepartment";
             ddl.DataSource = Qualification;
@@ -808,10 +773,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
 
             return Designation;
         }
@@ -860,10 +823,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
         public Boolean ApproveDealerEmployee(int DealerEmployeeID, int UserID)
@@ -920,10 +881,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
 
@@ -997,10 +956,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
         public List<PDMS_DealerEmployee> GetDealerEmployeeManageLeaving(int DealerID, string Name)
@@ -1048,10 +1005,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
         public Boolean UpdateDealerEmployeeLeaving(PDMS_DealerEmployeeRole Emp, int UserID)
@@ -1176,14 +1131,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
 
@@ -1275,10 +1224,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
 
@@ -1338,10 +1285,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return Designation;
         }
         public Boolean UpdateVisitTargetPlanning(List<PDMS_DealerDesignation> VisitTargetPlanning)
@@ -1405,14 +1350,8 @@ namespace Business
                     }
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
             return EMP;
         }
         public Boolean UpdateDealerResponsibleUser(Int64 DealerID, int UserID, int DealerResponsibleUserType)

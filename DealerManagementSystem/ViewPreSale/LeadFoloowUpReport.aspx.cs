@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class LeadFoloowUpReport : System.Web.UI.Page
+    public partial class LeadFoloowUpReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_LeadFoloowUpReport; } }
         public DataTable LeadFoloowUp
         {
             get

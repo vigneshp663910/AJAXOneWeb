@@ -11,8 +11,9 @@ using System.Data;
 
 namespace DealerManagementSystem.ViewAdmin
 {
-    public partial class DealerCustomerMapping : System.Web.UI.Page
+    public partial class DealerCustomerMapping : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewAdmin_DealerCustomerMapping; } }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Relate Dealer & Customer');</script>");

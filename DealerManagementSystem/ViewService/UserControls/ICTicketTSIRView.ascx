@@ -278,8 +278,8 @@
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnSaleApproveL1" runat="server" Text="Sale Approve" CssClass="btn Save" OnClick="btnSaleApproveL1_Click" />
-            <asp:Button ID="btnSaleApproveL2" runat="server" Text="Sale Approve" CssClass="btn Save" OnClick="btnSaleApproveL2_Click" />
+            <asp:Button ID="btnSaleApproveL1" runat="server" Text="Sale Approve" CssClass="btn Save" Width="150px" OnClick="btnSaleApproveL1_Click" />
+            <asp:Button ID="btnSaleApproveL2" runat="server" Text="Sale Approve" CssClass="btn Save" Width="150px" OnClick="btnSaleApproveL2_Click" />
         </div>
 
     </div>

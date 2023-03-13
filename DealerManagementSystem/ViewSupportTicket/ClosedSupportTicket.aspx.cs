@@ -8,8 +8,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewSupportTicket
 {
-    public partial class ClosedSupportTicket : System.Web.UI.Page
+    public partial class ClosedSupportTicket : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewSupportTicket_ClosedSupportTicket; } }
         private int PageCount
         {
             get

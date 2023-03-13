@@ -12,8 +12,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class VisitReport : System.Web.UI.Page
+    public partial class VisitReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_VisitReport; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

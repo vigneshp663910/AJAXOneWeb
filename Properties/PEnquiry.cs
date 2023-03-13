@@ -34,6 +34,7 @@ namespace Properties
         public DateTime CreatedOn { get; set; }
         public long? LeadID { get; set; }
         public PUser STM { get; set; }
+        public DateTime? EnquiryNextFollowUpDate { get; set; }
     }
 
     [Serializable]

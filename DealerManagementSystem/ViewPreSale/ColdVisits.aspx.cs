@@ -14,8 +14,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class ColdVisits : System.Web.UI.Page
+    public partial class ColdVisits : BasePage
     {
+       // public override SubModule SubModuleName { get { return SubModule.ViewPreSale_ColdVisits; } }
         protected void Page_PreInit(object sender, EventArgs e)
         { 
             if (PSession.User == null)

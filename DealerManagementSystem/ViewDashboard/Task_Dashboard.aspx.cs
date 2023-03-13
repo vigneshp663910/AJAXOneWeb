@@ -12,8 +12,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewDashboard
 {
-    public partial class Task_Dashboard : System.Web.UI.Page
+    public partial class Task_Dashboard : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewDashboard_Task_Dashboard; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

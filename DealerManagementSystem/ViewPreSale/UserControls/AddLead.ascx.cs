@@ -41,6 +41,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             
             new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID");
             new DDLBind(ddlProject, new BProject().GetProject(null, null,null,null,null,null,null), "ProjectName_state", "ProjectID");
+
+            cxNextFollowUpDate.StartDate = DateTime.Now;
+            cxExpectedDateOfSale.StartDate = DateTime.Now;
         }
 
         void Clear()
@@ -64,6 +67,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlApplication.SelectedValue = Lead.Application == null ? "0" : Convert.ToString(Lead.Application.MainApplicationID);
             txtCustomerFeedback.Text = Lead.CustomerFeedback;
             txtRemarks.Text = Lead.Remarks;
+            txtNextFollowUpDate.Text = Lead.NextFollowUpDate == null ? "" : Convert.ToString(Lead.NextFollowUpDate);
         }
         public PLead_Insert Read()
         {
@@ -80,12 +84,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead.MainApplicationID = ddlApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlApplication.SelectedValue);
             Lead.CustomerFeedback = txtCustomerFeedback.Text.Trim();
             Lead.Remarks = txtRemarks.Text.Trim();
+            Lead.NextFollowUpDate = Convert.ToDateTime(txtNextFollowUpDate.Text.Trim());
             return Lead;
         }
         public string Validation()
         {
             string Message = "";
-            //  txtLeadDate.BorderColor = Color.Silver;
+             txtNextFollowUpDate.BorderColor = Color.Silver;
             ddlProductType.BorderColor = Color.Silver;
             txtExpectedDateOfSale.BorderColor = Color.Silver;
             //ddlApplication.BorderColor = Color.Silver;
@@ -96,12 +101,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //txtRemarks.BorderColor = Color.Silver;
 
 
-            //if (string.IsNullOrEmpty(txtLeadDate.Text.Trim()))
-            //{
-            //    txtLeadDate.BorderColor = Color.Red;
-            //    return "Please enter the Lead Date";
+            if (string.IsNullOrEmpty(txtNextFollowUpDate.Text.Trim()))
+            {
+                txtNextFollowUpDate.BorderColor = Color.Red;
+                return "Please enter the Next FollowUp Date.";
 
-            //}
+            }
             //else 
             if (ddlProductType.SelectedValue == "0")
             {

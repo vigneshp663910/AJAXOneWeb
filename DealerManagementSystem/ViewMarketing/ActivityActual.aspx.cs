@@ -12,7 +12,7 @@ using Properties;
 
 namespace DealerManagementSystem.ViewMarketing
 {
-    public partial class ActivityActual : System.Web.UI.Page
+    public partial class ActivityActual : BasePage
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {

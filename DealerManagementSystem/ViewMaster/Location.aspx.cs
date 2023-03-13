@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class Location : System.Web.UI.Page
+    public partial class Location : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMaster_Location; } }
         public List<PDMS_Country> LCountry
         {
             get

@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class WarrantyClaimInvoiceCreate5k : System.Web.UI.Page
+    public partial class WarrantyClaimInvoiceCreate5k : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyClaimInvoiceCreate5k; } }
         public List<PDMS_WarrantyInvoiceHeader> SDMS_WarrantyClaimHeader
         {
             get

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Properties;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -10,8 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewAdmin
 {
-    public partial class OrganizationStructure : System.Web.UI.Page
+    public partial class OrganizationStructure : BasePage
     {
+      //  public override SubModule SubModuleName { get { return SubModule.Organization_OrganizationStructure; } }
         protected void Page_Load(object sender, EventArgs e)
         {
 

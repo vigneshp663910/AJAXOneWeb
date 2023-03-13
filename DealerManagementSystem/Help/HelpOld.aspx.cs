@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.Help
 {
-    public partial class HelpOld : System.Web.UI.Page
+    public partial class HelpOld : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

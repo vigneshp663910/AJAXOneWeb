@@ -8,8 +8,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class WarrantyPartsAvailabilityReport : System.Web.UI.Page
+    public partial class WarrantyPartsAvailabilityReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyPartsAvailabilityReport; } }
         public List<PDMS_ServiceMaterial> ServiceMaterial
         {
             get

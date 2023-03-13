@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
-    public partial class Quotation : System.Web.UI.Page
+    public partial class Quotation : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Quotation; } }
         private int PageCount
         {
             get

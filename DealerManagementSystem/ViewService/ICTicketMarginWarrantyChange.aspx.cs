@@ -10,8 +10,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewService
 {
-    public partial class ICTicketMarginWarrantyChange : System.Web.UI.Page
+    public partial class ICTicketMarginWarrantyChange : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicketMarginWarrantyChange; } }
         public PDMS_ICTicket ICTicket
         {
             get

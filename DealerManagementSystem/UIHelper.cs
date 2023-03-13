@@ -2,6 +2,7 @@
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
@@ -139,6 +140,27 @@ namespace DealerManagementSystem
             }
         }
 
+        public static bool HasAccess(int SubModuleMasterID)
+        {
+            List<PModuleAccess> SubModule = PSession.User.DMSModules;
+            foreach(PModuleAccess MA in PSession.User.DMSModules)
+            {
+                List<PSubModuleAccess> SubModuleAccess = MA.SubModuleAccess;
+                if (SubModuleAccess.Where(A => A.SubModuleMasterID == SubModuleMasterID).Count() != 0)
+                {
+                    return true;
+                } 
+            }
+            return false;
+            //if (SubModule.Where(A => A.SubModuleAccessID == SubModuleMasterID).Count() == 0)
+            //{
+            //    return false;
+            //}
+            //else
+            //{
+            //    return true;
+            //}
+        }
     }
 
     static class MailFormate

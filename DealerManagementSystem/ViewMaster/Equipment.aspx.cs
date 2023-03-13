@@ -13,8 +13,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class Equipment : System.Web.UI.Page
+    public partial class Equipment : BasePage
     {
+          public override SubModule SubModuleName { get { return SubModule.ViewEquipment_Equipment; } }
         public List<PDMS_EquipmentHeader> Equip
         {
             get
