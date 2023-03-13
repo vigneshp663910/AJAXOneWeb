@@ -714,7 +714,7 @@ namespace DealerManagementSystem.ViewAdmin
                 PUser userDetails = new BUser().GetUserDetails(Convert.ToInt64(lblUserID.Text));
                 if (!string.IsNullOrEmpty(userDetails.UserName))
                 {
-                    string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/UserResetPassword/UserResetPassword.htm");
+                    string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/UserResetPassword.htm");
                     messageBody = messageBody.Replace("@@Addresse", userDetails.ContactName);
                     messageBody = messageBody.Replace("@@UserName", userDetails.UserName);
                     messageBody = messageBody.Replace("@@Password", "ajax@123");
