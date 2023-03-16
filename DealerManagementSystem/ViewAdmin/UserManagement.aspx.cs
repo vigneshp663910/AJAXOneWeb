@@ -474,7 +474,7 @@ namespace DealerManagementSystem.ViewAdmin
             Label lblContactNumber = (Label)gvUser.Rows[index].FindControl("lblContactNumber");
             Label lblExternalReferenceID = (Label)gvUser.Rows[index].FindControl("lblExternalReferenceID");
 
-            TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
+            // TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
             TextBox txtUserName = (TextBox)gvUser.Rows[index].FindControl("txtUserName");
             TextBox txtContactName = (TextBox)gvUser.Rows[index].FindControl("txtContactName");
             TextBox txtMail = (TextBox)gvUser.Rows[index].FindControl("txtMail");
@@ -526,7 +526,7 @@ namespace DealerManagementSystem.ViewAdmin
             Label lblContactNumber = (Label)gvUser.Rows[index].FindControl("lblContactNumber");
             Label lblExternalReferenceID = (Label)gvUser.Rows[index].FindControl("lblExternalReferenceID");
 
-            TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
+            //TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
             TextBox txtUserName = (TextBox)gvUser.Rows[index].FindControl("txtUserName");
             TextBox txtContactName = (TextBox)gvUser.Rows[index].FindControl("txtContactName");
             TextBox txtMail = (TextBox)gvUser.Rows[index].FindControl("txtMail");
@@ -572,14 +572,14 @@ namespace DealerManagementSystem.ViewAdmin
             btnUpdate.Visible = false;
             btnCancel.Visible = false;
 
-            Label lblPassWord = (Label)gvUser.Rows[index].FindControl("lblPassWord");
+            //Label lblPassWord = (Label)gvUser.Rows[index].FindControl("lblPassWord");
             Label lblUserName = (Label)gvUser.Rows[index].FindControl("lblUserName");
             Label lblContactName = (Label)gvUser.Rows[index].FindControl("lblContactName");
             Label lblMail = (Label)gvUser.Rows[index].FindControl("lblMail");
             Label lblContactNumber = (Label)gvUser.Rows[index].FindControl("lblContactNumber");
             Label lblExternalReferenceID = (Label)gvUser.Rows[index].FindControl("lblExternalReferenceID");
 
-            TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
+            //TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
             TextBox txtUserName = (TextBox)gvUser.Rows[index].FindControl("txtUserName");
             TextBox txtContactName = (TextBox)gvUser.Rows[index].FindControl("txtContactName");
             TextBox txtMail = (TextBox)gvUser.Rows[index].FindControl("txtMail");
@@ -600,7 +600,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             PUser userDAO = new BUser().GetUserDetails(Convert.ToInt32(lblUserID.Text));
             userDAO.UserName = txtUserName.Text.Trim();
-            userDAO.PassWord = txtPassWord.Text.Trim();
+            // userDAO.PassWord = txtPassWord.Text.Trim();
             userDAO.ContactName = txtContactName.Text.Trim();
             userDAO.Mail = txtMail.Text.Trim();
             userDAO.ContactNumber = txtContactNumber.Text.Trim();
@@ -623,14 +623,14 @@ namespace DealerManagementSystem.ViewAdmin
                 btnUpdate.Visible = false;
                 btnCancel.Visible = false;
 
-                lblPassWord.Visible = true;
+              //  lblPassWord.Visible = true;
                 lblUserName.Visible = true;
                 lblContactName.Visible = true;
                 lblMail.Visible = true;
                 lblContactNumber.Visible = true;
                 lblExternalReferenceID.Visible = true;
 
-                txtPassWord.Visible = false;
+               // txtPassWord.Visible = false;
                 txtUserName.Visible = false;
                 txtContactName.Visible = false;
                 txtMail.Visible = false;
@@ -642,7 +642,7 @@ namespace DealerManagementSystem.ViewAdmin
                 cbIsEnabled.Enabled = false;
                 cbAjaxOne.Enabled = false;
 
-                lblPassWord.Text = txtPassWord.Text.Trim();
+                //lblPassWord.Text = txtPassWord.Text.Trim();
                 lblContactName.Text = txtContactName.Text.Trim();
                 lblMail.Text = txtMail.Text.Trim();
                 lblContactNumber.Text = txtContactNumber.Text.Trim();

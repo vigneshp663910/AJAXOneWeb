@@ -14,6 +14,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
 {
     public partial class DealerOperatorDetails : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewDealerEmployee_DealerOperatorDetails; } }
         private int PageCount
         {
             get

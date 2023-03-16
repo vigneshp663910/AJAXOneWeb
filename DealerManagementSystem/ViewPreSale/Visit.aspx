@@ -357,7 +357,7 @@
             var Customers = [];
             if ($('#MainContent_UC_Customer_txtCustomerName').val().trim().length >= 3) {
                 $.ajax({
-                    url: "ColdVisits.aspx/GetCustomer1",
+                    url: "Visit.aspx/GetCustomer1",
                     contentType: "application/json; charset=utf-8",
                     type: 'POST',
                     data: JSON.stringify(param),

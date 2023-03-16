@@ -15,6 +15,7 @@ namespace DealerManagementSystem.ViewActivity
 {
     public partial class Activity : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewActivity_Activity; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

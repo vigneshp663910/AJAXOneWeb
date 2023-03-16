@@ -1136,29 +1136,29 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 string MaterialText3 = string.Empty;
                 string MaterialText4 = string.Empty;
                 string MaterialText5 = string.Empty;
-                int sno = 0;
+
                 foreach (DataRow dr in DTMaterialText.Rows)
                 {
                     count = count + 1;
                     if (count < 10)
                     {
-                        MaterialText1 += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                        MaterialText1 += string.IsNullOrEmpty(MaterialText1)? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); 
                     }
                     else if (count < 20)
                     {
-                        MaterialText2 += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                        MaterialText2 += string.IsNullOrEmpty(MaterialText2) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
                     }
                     else if (count < 30)
                     {
-                        MaterialText3 += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                        MaterialText3 += string.IsNullOrEmpty(MaterialText3) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
                     }
                     else if (count < 40)
                     {
-                        MaterialText4 += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                        MaterialText4 += string.IsNullOrEmpty(MaterialText4) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
                     }
                     else
                     {
-                        MaterialText5 += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                        MaterialText5 += string.IsNullOrEmpty(MaterialText5) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
                     }
                 }
 

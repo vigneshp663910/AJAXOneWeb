@@ -111,15 +111,7 @@
                             <label for="txtToDateSearch">To Date</label>
                             <asp:TextBox runat="server" ID="txtToDateSearch" CssClass="form-control"></asp:TextBox>
                             <cc1:CalendarExtender ID="calToDateSearch" runat="server" TargetControlID="txtToDateSearch" Format="dd-MMM-yyyy"></cc1:CalendarExtender>
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                            <label for="ddlAppStatus">Approval Status</label>
-                            <asp:DropDownList ID="ddlAppStatus" runat="server" CssClass="form-control">
-                                <asp:ListItem Text="Pending" Value="0"></asp:ListItem>
-                                <asp:ListItem Text="All" Value="-1"></asp:ListItem>
-                                <asp:ListItem Text="Approved" Value="1"></asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
+                        </div> 
                         <div class="col-md-12 text-center">
                             <asp:Button ID="Search" runat="server" Text="Search" CssClass="btn Search" OnClick="Search_Click" />
                             <asp:Button ID="btnExcel" runat="server" Text="Export to Excel" CssClass="btn Back" OnClick="btnExcel_Click" Width="120px" />

@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 
 using System;
@@ -21,6 +22,24 @@ namespace Business
         private IDataAccess provider;
         private string MaterialGroup = "889";
         private string EncryptionKey = "ENC@KEY@123";
+
+        public void BindActivityActualDataForApproval(GridView gvData, int DealerID, string FromDate, string ToDate)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Marketing/MarketingActivityActualForApproval?DealerID=" + DealerID + "&FromDate=" + FromDate + "&ToDate=" + ToDate ;
+            DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            gvData.DataSource = dt;
+            gvData.DataBind();
+        }
+        public DataTable GetActivityActualDataForApproval_ForExcel(int DealerID, string FromDate, string ToDate)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Marketing/MarketingActivityActualForApproval?DealerID=" + DealerID + "&FromDate=" + FromDate + "&ToDate=" + ToDate;
+            DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+             
+            return dt;
+        }
+
         public List<PDealer> GetDealerByUserID(long UserID)
         {
             List<PDealer> Dealers = new List<PDealer>();
@@ -56,6 +75,7 @@ namespace Business
             { }
             return Dealers;
         }
+
 
         public BDMS_Activity()
         {

@@ -223,7 +223,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillRestore();
 
             ActionControlMange();
-
+            FillCustomerFeedBack();
 
         }
         public void FillBasicInformation()
@@ -303,11 +303,12 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblMainApplication.Text = SDMS_ICTicket.MainApplication.MainApplication;
                 if (SDMS_ICTicket.SubApplication != null)
                 {
-                    lblSubApplication.Text = SDMS_ICTicket.SubApplication.SubApplicationID.ToString();
-                    //if (SDMS_ICTicket.SubApplication.SubApplicationID.ToString() == "26")
-                    //{
-                    //    txtSubApplicationEntry.Visible = true;
-                    //}
+                    lblSubApplication.Text = SDMS_ICTicket.SubApplication.SubApplication;
+                    if (SDMS_ICTicket.SubApplication.SubApplicationID.ToString() == "26")
+                    {
+                        lblSubApplicationEntry.Visible = true;
+                        lblSubApplicationEntry.Text = SDMS_ICTicket.SubApplicationEntry;
+                    }
                 }
             }
 
@@ -1794,7 +1795,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             if (CustomerFeedback != null)
             {
                 if (CustomerFeedback.CustomerSatisfactionLevel != null)
-                    lblCustomerSatisfactionLevel.Text = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevelID.ToString();
+                    lblCustomerSatisfactionLevel.Text = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel;
                 lblCustomerRemarks.Text = SDMS_ICTicketFSR.CustomerRemarks;
                 lbtnPhoto.Text = CustomerFeedback.Photo == null ? "" : CustomerFeedback.Photo.FileName;
                 lbtnSignature.Text = CustomerFeedback.Signature == null ? "" : CustomerFeedback.Signature.FileName;
@@ -2170,12 +2171,25 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
 
         protected void lbtnPhoto_Click(object sender, EventArgs e)
-        {
+        {  
 
+            Response.AddHeader("Content-type", CustomerFeedback.Photo.FileType);
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnPhoto.Text);
+            HttpContext.Current.Response.Charset = "utf-16";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+            Response.BinaryWrite(CustomerFeedback.Photo.AttachedFile);
+            Response.Flush();
+            Response.End();
         } 
         protected void lbtnSignature_Click(object sender, EventArgs e)
         {
-
+            Response.AddHeader("Content-type", CustomerFeedback.Signature.FileType);
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnPhoto.Text);
+            HttpContext.Current.Response.Charset = "utf-16";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+            Response.BinaryWrite(CustomerFeedback.Signature.AttachedFile);
+            Response.Flush();
+            Response.End();
         }
 
         protected void btnSaveRequestForDecline_Click(object sender, EventArgs e)

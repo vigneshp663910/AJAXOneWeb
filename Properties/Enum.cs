@@ -725,6 +725,18 @@ namespace Properties
         AddServiceEngineer,
         EditCall_InfoFSR_TSIR_Restore = 47,
         RequstForClaimAndInvoice,
+        ActivityClaimApprovalLevel1,
+        ActivityClaimApprovalLevel2,
+        ActivityClaimApprovalMarketingLevel1,
+        ActivityClaimApprovalMarketingLevel2,
+        ActivityClaimApprovalServiceLevel1,
+        ActivityClaimApprovalServiceLevel2,
+        ActivityClaimApprovalSparesLevel1,
+        ActivityClaimApprovalSparesLevel2,
+        ActivityClaimApprovalSalesLevel1,
+        ActivityClaimApprovalSalesLevel2,
+        ActivityClaimApprovalTrainingLevel1,
+        ActivityClaimApprovalTrainingLevel2
     }
     public enum DMS_WarrantyClaimStatus
     {

@@ -18,6 +18,7 @@ namespace DealerManagementSystem.View
 {
     public partial class Project : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.View_Project; } }
         public List<PProject> PProject
         {
             get

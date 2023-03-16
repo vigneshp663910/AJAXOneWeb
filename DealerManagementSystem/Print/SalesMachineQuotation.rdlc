@@ -72,13 +72,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>4.57065cm</Width>
+                  <Width>4.74877cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.17065cm</Width>
+                  <Width>5.34877cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.51717cm</Width>
+                  <Width>9.69529cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -650,7 +650,7 @@
             <Top>0.3175cm</Top>
             <Left>0.08368cm</Left>
             <Height>7.18743cm</Height>
-            <Width>19.25847cm</Width>
+            <Width>19.79284cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -661,12 +661,12 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>19.25848cm</Width>
+                  <Width>19.89251cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>46.86253cm</Height>
+                  <Height>42.69269cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1473,18 +1473,6 @@ In no event shall AJAX be liable for incidental, consequential, statutory or exe
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
                                   <Value>=Parameters!ErectionCommissoningHead.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
@@ -1621,15 +1609,14 @@ In the event of any breach in the warranty by Ajax, the parties agree that Ajax 
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>VALIDITY:</Value>
+                                  <Value>VALIDITY:   </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>
-This offer is valid till one month from the date of offer.</Value>
+                                  <Value>This offer is valid till one month from the date of offer.</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
@@ -1793,8 +1780,8 @@ Yours faithfully,</Value>
               <BreakLocation>Start</BreakLocation>
             </PageBreak>
             <Top>15.12041cm</Top>
-            <Height>46.86253cm</Height>
-            <Width>19.25848cm</Width>
+            <Height>42.69269cm</Height>
+            <Width>19.89251cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -1806,7 +1793,7 @@ Yours faithfully,</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>10.50363cm</Width>
+                  <Width>11.03798cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.72426cm</Width>
@@ -2712,6 +2699,10 @@ Yours faithfully,</Value>
                             <TopBorder>
                               <Style>None</Style>
                             </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Width>1pt</Width>
+                            </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2744,6 +2735,10 @@ Yours faithfully,</Value>
                             <TopBorder>
                               <Style>None</Style>
                             </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Width>1pt</Width>
+                            </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2776,6 +2771,10 @@ Yours faithfully,</Value>
                             <TopBorder>
                               <Style>None</Style>
                             </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Width>1pt</Width>
+                            </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2808,6 +2807,10 @@ Yours faithfully,</Value>
                             <TopBorder>
                               <Style>None</Style>
                             </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Width>1pt</Width>
+                            </BottomBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2859,7 +2862,8 @@ Yours faithfully,</Value>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Style>None</Style>
+                              <Color>Black</Color>
+                              <Width>1pt</Width>
                             </TopBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -2888,7 +2892,9 @@ Yours faithfully,</Value>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox75</rd:DefaultName>
@@ -2897,7 +2903,8 @@ Yours faithfully,</Value>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Style>None</Style>
+                              <Color>Black</Color>
+                              <Width>1pt</Width>
                             </TopBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -3065,7 +3072,7 @@ Yours faithfully,</Value>
             <Top>7.80289cm</Top>
             <Left>0.08369cm</Left>
             <Height>7.02454cm</Height>
-            <Width>19.25848cm</Width>
+            <Width>19.79283cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -3074,10 +3081,10 @@ Yours faithfully,</Value>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>24.4944in</Height>
+        <Height>22.76106in</Height>
         <Style />
       </Body>
-      <Width>7.61503in</Width>
+      <Width>7.8317in</Width>
       <Page>
         <PageHeader>
           <Height>2.8649cm</Height>
@@ -3126,7 +3133,7 @@ Yours faithfully,</Value>
               <Value>AjaxNewLogo</Value>
               <Sizing>FitProportional</Sizing>
               <Top>0.86994cm</Top>
-              <Left>14.05367cm</Left>
+              <Left>14.68867cm</Left>
               <Height>1.52287cm</Height>
               <Width>4.96604cm</Width>
               <ZIndex>1</ZIndex>
@@ -3302,7 +3309,7 @@ Yours faithfully,</Value>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>4.65072cm</Height>
+          <Height>4.20033cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -3335,10 +3342,10 @@ Yours faithfully,</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>PageNumber</rd:DefaultName>
-              <Top>0.13359cm</Top>
+              <Top>0.07056cm</Top>
               <Left>8.62167cm</Left>
               <Height>0.6cm</Height>
-              <Width>2.5cm</Width>
+              <Width>4.44733cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3354,10 +3361,10 @@ Yours faithfully,</Value>
               <Source>Embedded</Source>
               <Value>FooterImage</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.8747cm</Top>
+              <Top>0.79003cm</Top>
               <Left>0.08369cm</Left>
-              <Height>3.64313cm</Height>
-              <Width>19.25847cm</Width>
+              <Height>3.4103cm</Height>
+              <Width>19.80882cm</Width>
               <ZIndex>1</ZIndex>
               <Visibility>
                 <Hidden>=Globals!PageNumber&lt;&gt;1</Hidden>

@@ -13,6 +13,7 @@ namespace DealerManagementSystem.View
 {
     public partial class Attendance : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.View_Attendance; } }
         public DataTable Attendance1
         {
             get

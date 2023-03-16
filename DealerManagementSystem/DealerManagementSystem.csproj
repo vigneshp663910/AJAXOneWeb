@@ -418,7 +418,6 @@
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
     <Content Include="ViewMarketing\ActivityActual.aspx" />
-    <Content Include="ViewMarketing\ActivityClaimApproval.aspx" />
     <Content Include="ViewMarketing\ActivityInvoice.aspx" />
     <Content Include="ViewMarketing\ActivityInvReports.aspx" />
     <Content Include="ViewMarketing\ActivityPlan.aspx" />
@@ -504,7 +503,6 @@
     <Content Include="ViewMaster\UserControls\CustomerViewHeader.ascx" />
     <Content Include="ViewMaster\UserControls\DealerView.ascx" />
     <Content Include="ViewOrganization\Organization.aspx" />
-    <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\EnquiryN.aspx" />
     <Content Include="ViewPreSale\EnquiryTimeLineReport.aspx" />
     <Content Include="ViewPreSale\LeadFoloowUpReport.aspx" />
@@ -1249,13 +1247,6 @@
     <Compile Include="ViewMarketing\ActivityActual.aspx.designer.cs">
       <DependentUpon>ActivityActual.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewMarketing\ActivityClaimApproval.aspx.cs">
-      <DependentUpon>ActivityClaimApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewMarketing\ActivityClaimApproval.aspx.designer.cs">
-      <DependentUpon>ActivityClaimApproval.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ViewMarketing\ActivityInvoice.aspx.cs">
       <DependentUpon>ActivityInvoice.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1685,13 +1676,6 @@
     </Compile>
     <Compile Include="ViewOrganization\Organization.aspx.designer.cs">
       <DependentUpon>Organization.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewPreSale\ColdVisits.aspx.cs">
-      <DependentUpon>ColdVisits.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\ColdVisits.aspx.designer.cs">
-      <DependentUpon>ColdVisits.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryN.aspx.cs">
       <DependentUpon>EnquiryN.aspx</DependentUpon>

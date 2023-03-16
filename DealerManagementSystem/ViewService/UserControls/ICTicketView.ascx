@@ -226,7 +226,11 @@
                 <div class="col-md-4">
                     <label>Sub Application Manual : </label>
                     <asp:Label ID="lblSubApplication" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblSubApplicationEntry" runat="server" CssClass="label" Visible="false"></asp:Label>
                 </div>
+                 
+                    
+                 
                 <div class="col-md-4">
                     <label>Site Contact Person’s Name : </label>
                     <asp:Label ID="lblOperatorName" runat="server" CssClass="label"></asp:Label>
