@@ -674,18 +674,7 @@
                                     <asp:Label ID="lblApproved2On" Text='<%# DataBinder.Eval(Container.DataItem, "Approved1On")%>' runat="server" />
                                 </ItemTemplate>
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Approved2By" SortExpression="Country">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblApproved3By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3By.ContactName")%>' runat="server" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Approved3On">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblApproved3On" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3On")%>' runat="server" />
-                                </ItemTemplate>
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField>
+                            </asp:TemplateField> 
                         </Columns>
                         <FooterStyle ForeColor="White" />
                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
@@ -761,18 +750,8 @@
                                         <asp:Label ID="lblApproved2Remarks" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Remarks")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Approved 3 Amount">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblApproved3Amount" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved3Amount")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Approved 3 Remarks">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblApproved3Remarks" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved3Remarks")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                                
+                                 
                             </Columns>
                             <FooterStyle ForeColor="White" />
                             <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />

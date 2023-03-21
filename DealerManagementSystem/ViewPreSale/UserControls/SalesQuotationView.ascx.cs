@@ -2906,7 +2906,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnAddEffort.Visible = true;
             //lbtnAddExpense.Visible = true;
             lbtnGenerateQuotation.Visible = true;
-          
+
             lbtnViewTaxQuotation.Visible = true;
             lbtnDownloadTaxQuotation.Visible = true;
             lbtnDownloadConsolidatedTaxQuotation.Visible = true;
@@ -2917,6 +2917,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             lbtnSaleOrderConfirmation.Visible = true;
 
+            lbtnAddVisit.Visible = true;
+
+
             if (Quotation.CommissionAgent)
             {
                 lbtnSaleOrderConfirmation.Visible = false;
@@ -2926,6 +2929,28 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnSaleOrderConfirmation.Visible = false;
             }
 
+            if ((Quotation.Lead.Status.StatusID == (short)LeadStatus.Dropped)
+                || (Quotation.Lead.Status.StatusID == (short)LeadStatus.SalesLost)
+                || (Quotation.Lead.Status.StatusID == (short)LeadStatus.Won)
+                )
+            {
+                lbtnEditQuotation.Visible = false;
+                lbtnEditFinancier.Visible = false;
+                lbtnAddProduct.Visible = false;
+                lbtnAddCompetitor.Visible = false;
+                lbtnAddQuotationNote.Visible = false;
+                lbtnAddFollowUp.Visible = false;
+                lbtnGenerateQuotation.Visible = false;
+
+                lbtnViewTaxQuotation.Visible = false;
+                lbtnDownloadTaxQuotation.Visible = false;
+                lbtnDownloadConsolidatedTaxQuotation.Visible = false;
+                lbtnViewMachineQuotation.Visible = false;
+                lbtnDownloadMachineQuotation.Visible = false;
+                lbtnSaleOrderConfirmation.Visible = false;
+                lbtnAddVisit.Visible = false;
+            }
+
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TaxQuotationPrint).Count() == 0)
             {
@@ -2933,15 +2958,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnDownloadTaxQuotation.Visible = false;
                 lbtnDownloadConsolidatedTaxQuotation.Visible = false;
             }
-            if(Quotation.Status.SalesQuotationStatusID != (short)SalesQuotationStatus.Quotation) 
+            if (Quotation.Status.SalesQuotationStatusID != (short)SalesQuotationStatus.Quotation)
             {
                 lbtnEditQuotation.Visible = false;
                 lbtnEditFinancier.Visible = false;
                 lbtnAddProduct.Visible = false;
                 lbtnAddCompetitor.Visible = false;
                 lbtnAddQuotationNote.Visible = false;
-                lbtnAddFollowUp.Visible = false; 
-                lbtnGenerateQuotation.Visible = false; 
+                lbtnAddFollowUp.Visible = false;
+                lbtnGenerateQuotation.Visible = false;
                 lbtnSaleOrderConfirmation.Visible = false;
             }
         }

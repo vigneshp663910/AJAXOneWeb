@@ -68,18 +68,7 @@
                                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                             <asp:Label ID="lblSalesCommissionClaimPriceID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesCommissionClaimPriceID")%>' runat="server" Visible="false" />
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <%--<asp:TemplateField HeaderText="Plant" HeaderStyle-Width="120px">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblPlant" Text='<%# DataBinder.Eval(Container.DataItem, "PlantName.PlantCode")%>' runat="server" />
-                                                            <asp:Label ID="lblPlantID" Text='<%# DataBinder.Eval(Container.DataItem, "PlantName.PlantID")%>' runat="server" Visible="false" />
-                                                        </ItemTemplate>
-                                                        <FooterTemplate>--%>
-                                                            <%--<asp:TextBox ID="txtPlant" runat="server" placeholder="Plant" CssClass="form-control"></asp:TextBox>--%>
-                                                            <%--<asp:DropDownList ID="ddlGPlant" runat="server" CssClass="form-control"></asp:DropDownList>
-                                                        </FooterTemplate>
-                                                    </asp:TemplateField>--%>
+                                                    </asp:TemplateField> 
                                                     <asp:TemplateField HeaderText="Material Code">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                         <ItemTemplate>
@@ -87,18 +76,14 @@
                                                             <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Materail.MaterialID")%>' runat="server" Enabled="false" Visible="false"></asp:Label>
                                                         </ItemTemplate>
                                                         <FooterTemplate>
-                                                             <%--<ItemStyle VerticalAlign="center" HorizontalAlign="center" />--%>
-                                                            <asp:TextBox ID="txtMaterailCode" runat="server" placeholder="Materail Code" CssClass="form-control"></asp:TextBox>
+                                                             <asp:TextBox ID="txtMaterailCode" runat="server" placeholder="Materail Code" CssClass="form-control"></asp:TextBox>
                                                         </FooterTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Material Description">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Materail.MaterialDescription")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                        <%--<FooterTemplate>
-                                                            <asp:TextBox ID="txtMaterailDescription" runat="server" placeholder="Materail Description" CssClass="form-control"></asp:TextBox>
-                                                        </FooterTemplate>--%>
+                                                        </ItemTemplate> 
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Percentage">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
@@ -106,7 +91,6 @@
                                                             <asp:Label ID="lblPercentage" Text='<%# DataBinder.Eval(Container.DataItem, "Percentage")%>' runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                         <FooterTemplate>
-                                                            <%--<ItemStyle VerticalAlign="center" HorizontalAlign="center" />--%>
                                                             <asp:TextBox ID="txtPercentage" runat="server" placeholder="Percentage" CssClass="form-control"></asp:TextBox>
                                                         </FooterTemplate>
                                                     </asp:TemplateField>
@@ -116,20 +100,10 @@
                                                             <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount")%>' runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                         <FooterTemplate>
-                                                            <%--<ItemStyle VerticalAlign="center" HorizontalAlign="center" />--%>
                                                             <asp:TextBox ID="txtAmount" runat="server" placeholder="Amount" CssClass="form-control"></asp:TextBox>
                                                         </FooterTemplate>
                                                     </asp:TemplateField>
-                                                    <%--<asp:TemplateField HeaderText="Is Active">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                        <ItemTemplate>
-                                                            <asp:CheckBox ID="chkbxGIsActive" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsActive")%>' Enabled="false"></asp:CheckBox>
-                                                        </ItemTemplate>
-                                                        <FooterTemplate>
-                                                            <ItemStyle HorizontalAlign="Center"/>
-                                                            <asp:CheckBox ID="chkbxFIsActive" runat="server"></asp:CheckBox>
-                                                        </FooterTemplate>
-                                                    </asp:TemplateField>--%>
+                                                   
                                                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="lnkBtnSalCommClaimPriceEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SalesCommissionClaimPriceID")%>' OnClick="lnkBtnSalCommClaimPriceEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>

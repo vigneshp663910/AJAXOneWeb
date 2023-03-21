@@ -713,7 +713,7 @@ namespace Properties
         UpdateCommDate,
         WarrantyTypeChange,
         OwnershipChange,
-        ExpiryDateChange,
+        SalesClaimPriceCreateAndEdit,
         ApproveWarrantyTypeChange,
         ApproveOwnershipChange,
         ApproveExpiryDateChange,
