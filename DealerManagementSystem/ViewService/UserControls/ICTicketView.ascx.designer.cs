@@ -195,6 +195,24 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnRequestForDecline;
 
         /// <summary>
+        /// lbtnDeclineApprove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnDeclineApprove;
+
+        /// <summary>
+        /// lbtnDeclineReject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnDeclineReject;
+
+        /// <summary>
         /// lbtnMarginWarrantyChange control.
         /// </summary>
         /// <remarks>
@@ -1473,13 +1491,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button8;
 
         /// <summary>
-        /// Label11 control.
+        /// lblMessageNote control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label11;
+        protected global::System.Web.UI.WebControls.Label lblMessageNote;
 
         /// <summary>
         /// UC_ICTicketAddNotes control.

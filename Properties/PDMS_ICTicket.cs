@@ -445,8 +445,17 @@ namespace Properties
         public byte[] AttachedFile { get; set; }
         public long FileSize { get; set; }
         public Boolean IsDeleted { get; set; }
-        public PDMS_FSRAttachedName FSRAttachedName { get; set; }
+        public PAttachedName FSRAttachedName { get; set; }
     }
+
+    [Serializable]
+    public class PAttachedName
+    {
+        public int AttachedFileNameID { get; set; }
+        public string AttachedName { get; set; }
+        public Boolean IsActive { get; set; }
+    }
+
 
     [Serializable]
     public class PICTicketCallCategory

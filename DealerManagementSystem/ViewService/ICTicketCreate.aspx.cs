@@ -4,6 +4,7 @@ using Newtonsoft.JsonResult;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -44,7 +45,8 @@ namespace DealerManagementSystem.ViewService
             if (!IsPostBack)
             {
                 hdfCustomerId.Value = "";
-                FillMaster(); 
+                FillMaster();
+                ViewState["ICTicketID"] = 0;
             }
         }
         public void FillMaster()
@@ -89,6 +91,8 @@ namespace DealerManagementSystem.ViewService
 
             gvICTickets.Visible = false;
             gvEquipment.Visible = true;
+
+            ViewState["ICTicketID"] = 0;
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -121,8 +125,9 @@ namespace DealerManagementSystem.ViewService
                 return;
             }
             PICTicket_Create IC = new PICTicket_Create();
+            IC.ICTicketID =  Convert.ToInt64( ViewState["ICTicketID"]);
          //   IC.RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim()); 
-          //  IC.RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim() + " " + ddlRequestedHH.SelectedValue + ":" + ddlRequestedMM.SelectedValue);
+         //  IC.RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim() + " " + ddlRequestedHH.SelectedValue + ":" + ddlRequestedMM.SelectedValue);
             IC.ContactPerson = txtContactPerson.Text;
             IC.PresentContactNumber = txtContactNumber.Text;
             IC.ComplaintDescription = txtComplaintDescription.Text;
@@ -141,7 +146,7 @@ namespace DealerManagementSystem.ViewService
             {
                 return;
             }
-
+            ViewState["ICTicketID"] = IC.ICTicketID;
             Clear();
             lblMessage.ForeColor = Color.Green;
             gvICTickets.Visible = false;
@@ -273,7 +278,12 @@ namespace DealerManagementSystem.ViewService
             EquipmentHeaderID = ID;
             gvICTickets.DataSource = new BDMS_ICTicket().GetICTicketStatusReportForIC(EquipmentHeaderID, null, null, null, null, null, null, null);
             gvICTickets.DataBind();
-
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CreateICTicketEdit).Count() == 0)
+            {
+                gvICTickets.Columns[0].Visible = false;
+            }
+            
             gvICTickets.Visible = true;
             gvEquipment.Visible = false;
 
@@ -284,6 +294,30 @@ namespace DealerManagementSystem.ViewService
             gvICTickets.DataSource = new BDMS_ICTicket().GetICTicketStatusReportForIC(EquipmentHeaderID, null, null, null, null, null, null, null); ;
             gvICTickets.PageIndex = e.NewPageIndex;
             gvICTickets.DataBind();
+        }
+
+        protected void BtnEdit_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            int index = gvRow.RowIndex;
+            Label lblICTicketID = (Label)gvICTickets.Rows[index].FindControl("lblICTicketID");
+            PDMS_ICTicket IC = new BDMS_ICTicket().GetICTicketByICTIcketID(Convert.ToInt64(lblICTicketID.Text));
+            ViewState["ICTicketID"] = IC.ICTicketID;
+            txtContactPerson.Text = IC.ContactPerson;
+            txtContactNumber.Text = IC.PresentContactNumber;
+            txtComplaintDescription.Text = IC.ComplaintDescription;
+            txtLocation.Text = IC.Location;
+             ddlServicePriority.SelectedValue = Convert.ToString(IC.ServicePriority.ServicePriorityID);
+             ddlCountry.SelectedValue = Convert.ToString(IC.Address.Country.CountryID);
+             ddlState.SelectedValue = Convert.ToString(IC.Address.State.StateID);// = Convert.ToInt32(ddlState.SelectedValue);
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
+            ddlDistrict.SelectedValue = Convert.ToString(IC.Address.District.DistrictID);// = Convert.ToInt32(ddlDistrict.SelectedValue);
+             //ddlCallCategory.SelectedValue = Convert.ToString(IC.CallCategory.CallCategoryID);// = Convert.ToInt32(ddlCallCategory.SelectedValue);
+
+            ddlCountry.Enabled = false;
+            ddlState.Enabled = false;
+            ddlDistrict.Enabled = false;
+            ddlCallCategory.Enabled = false;
         }
     }
 }

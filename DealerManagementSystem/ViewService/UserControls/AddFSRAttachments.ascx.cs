@@ -27,7 +27,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             PDMS_FSRAttachedFile_M AttachedFile = new PDMS_FSRAttachedFile_M(); 
             AttachedFile = CreateUploadedFileFSR(fu.PostedFile);
-            AttachedFile.FSRAttachedName = new PDMS_FSRAttachedName() { FSRAttachedFileNameID = Convert.ToInt32(ddlFSRAttachedName.SelectedValue) };
+            AttachedFile.FSRAttachedName = new PAttachedName() { AttachedFileNameID = Convert.ToInt32(ddlFSRAttachedName.SelectedValue) };
 
             return AttachedFile;
         }

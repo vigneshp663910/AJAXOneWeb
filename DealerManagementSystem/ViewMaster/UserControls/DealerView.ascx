@@ -91,7 +91,7 @@
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <%-- <asp:LinkButton ID="lnkBtnAddDealerOffice" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Office</asp:LinkButton>--%>
                 <asp:LinkButton ID="lnkBtnAddNotification" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Notification</asp:LinkButton>
-                <asp:LinkButton ID="lnkBtnEditBank" runat="server" OnClick="lnkBtnActions_Click">Edit Bank Details</asp:LinkButton>
+                 <asp:LinkButton ID="lnkBtnEditBank" runat="server" OnClick="lnkBtnActions_Click">Edit Bank Details</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnEditDealerResponsibleUser" runat="server" OnClick="lnkBtnActions_Click">Edit Dealer Responsible User</asp:LinkButton>
             </div>
         </div>

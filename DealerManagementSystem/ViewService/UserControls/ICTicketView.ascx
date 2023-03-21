@@ -39,6 +39,8 @@
                 <asp:LinkButton ID="lbtnUnlockTicket" runat="server" OnClick="lbActions_Click">Unlock Ticket</asp:LinkButton>
 
                 <asp:LinkButton ID="lbtnRequestForDecline" runat="server" OnClick="lbActions_Click">Request for Decline</asp:LinkButton>
+                <asp:LinkButton ID="lbtnDeclineApprove" runat="server" OnClick="lbActions_Click">Decline Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbtnDeclineReject" runat="server" OnClick="lbActions_Click">Decline Reject</asp:LinkButton>
                 <asp:LinkButton ID="lbtnMarginWarrantyChange" runat="server" OnClick="lbActions_Click">Margin Warranty Change</asp:LinkButton>
                 <asp:LinkButton ID="lbtnRequestDateChange" runat="server" OnClick="lbActions_Click">Request Date Change</asp:LinkButton>
                 <%--<asp:LinkButton ID="lbtnDeviatedICTicketRequest60Days" runat="server" OnClick="lbActions_Click">Deviated IC Ticket Request for 60 Days</asp:LinkButton>
@@ -1143,7 +1145,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label11" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageNote" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketAddNotes ID="UC_ICTicketAddNotes" runat="server"></UC:UC_ICTicketAddNotes>
         </div>
         <div class="col-md-12 text-center">

@@ -243,45 +243,15 @@ namespace DealerManagementSystem.ViewService
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            string url = "DMS_ICTicketView.aspx?TicketID=" + gvICTickets.DataKeys[index].Value.ToString();
-            Response.Redirect(url);
+            ViewState["ICTicketID"] = gvICTickets.DataKeys[index].Value.ToString();
+            divList.Visible = false;
+            divDetailsView.Visible = true;
+            UC_ICTicketView.FillICTicket(Convert.ToInt64(ViewState["ICTicketID"]));
         }
-
-
-        protected void lbApprove_Click(object sender, EventArgs e)
+        protected void btnBackToList_Click(object sender, EventArgs e)
         {
-            lblMessage.Visible = true;
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            int index = gvRow.RowIndex;
-            if (new BDMS_ICTicket().ApproveOrDeclineICTicketReqDecline(Convert.ToInt64(gvICTickets.DataKeys[index].Value), true))
-            {
-                lblMessage.Text = "This IC ticket declined";
-                lblMessage.ForeColor = Color.Green;
-                fillICTicket();
-            }
-            else
-            {
-                lblMessage.Text = "Contact administrator";
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
-
-        protected void lbReject_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            int index = gvRow.RowIndex;
-            if (new BDMS_ICTicket().ApproveOrDeclineICTicketReqDecline(Convert.ToInt64(gvICTickets.DataKeys[index].Value), false))
-            {
-                lblMessage.Text = "This IC ticket reopened again";
-                lblMessage.ForeColor = Color.Green;
-                fillICTicket();
-            }
-            else
-            {
-                lblMessage.Text = "Contact administrator ";
-                lblMessage.ForeColor = Color.Red;
-            }
+            divList.Visible = true;
+            divDetailsView.Visible = false;
         }
     }
 }
