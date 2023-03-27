@@ -14,6 +14,7 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class ActivityActual : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMarketing_ActivityActual; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

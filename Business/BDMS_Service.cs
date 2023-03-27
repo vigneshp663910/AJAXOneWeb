@@ -844,54 +844,7 @@ namespace Business
             { }
             return Category1s;
         }
-
-        public long InsertServiceInvoice(long ICTicketID, Boolean IsIGST, int CreatedBy)
-        {
-
-            int success = 0;
-            long ServiceInvoiceHeaderID = 0;
-
-            DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
-            //  DbParameter IsIGSTP = provider.CreateParameter("IsIGST", IsIGST, DbType.Boolean);
-            DbParameter CreatedByP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int32);
-            //    DbParameter InvoiceIDP = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-            DbParameter[] Params = new DbParameter[2] { ICTicketIDP, CreatedByP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    success = provider.Insert("ZDMS_InsertServiceInvoice", Params);
-                    //  ServiceInvoiceHeaderID = Convert.ToInt64(InvoiceIDP.Value);
-                    //if (success != 0)
-                    //{
-                    //    foreach (long ReferenceID in ReferenceIDs)
-                    //    {
-                    //        DbParameter ICTicketIDIP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
-                    //        DbParameter ServiceInvoiceHeaderIDP = provider.CreateParameter("ServiceInvoiceHeaderID", ServiceInvoiceHeaderID, DbType.Int64);
-                    //        DbParameter IsIGSTP = provider.CreateParameter("IsIGST", IsIGST, DbType.Boolean);
-                    //        DbParameter ReferenceIDP = provider.CreateParameter("ReferenceID", ReferenceID, DbType.Int64);
-                    //        DbParameter[] Paramss = new DbParameter[4] { ICTicketIDIP, ServiceInvoiceHeaderIDP, IsIGSTP, ReferenceIDP };
-                    //        provider.Insert("ZDMS_InsertServiceInvoiceItem", Paramss);
-                    //    }
-                    //    //   WarrantyClaimInvoiceID = Convert.ToInt64(WarrantyClaimInvoiceIDP.Value);
-                    //}
-                    scope.Complete();
-                }
-                new BDMS_Service().insertServiceInvoiceFile(ServiceInvoiceHeaderID, ServiceInvoicefile(ServiceInvoiceHeaderID));
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Service", "InsertServiceInvoice", sqlEx);
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Service", " InsertServiceInvoice", ex);
-                return 0;
-            }
-            return ServiceInvoiceHeaderID;
-        }
-        public List<PDMS_PaidServiceInvoice> GetPaidServiceInvoice(long? ServiceInvoiceID, long? ICTicketID, string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode, Boolean? IsNotDeleted)
+         public List<PDMS_PaidServiceInvoice> GetPaidServiceInvoice(long? ServiceInvoiceID, long? ICTicketID, string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode, Boolean? IsNotDeleted)
         {
             List<PDMS_PaidServiceInvoice> Services = new List<PDMS_PaidServiceInvoice>();
             try
@@ -1068,14 +1021,15 @@ namespace Business
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
-                if (string.IsNullOrEmpty(Customer.GSTIN))
-                {
-                    DataTable dt = new NpgsqlServer().ExecuteReader("select r_value as GSTIN from doohr_bp_statutory where r_statutory_type='GSTIN' and s_tenant_id=" + PaidServiceInvoice.ICTicket.Dealer.DealerCode + " and p_bp_id='" + PaidServiceInvoice.ICTicket.Customer.CustomerCode + "' limit 1");
-                    if (dt.Rows.Count == 1)
-                    {
-                        Customer.GSTIN = Convert.ToString(dt.Rows[0][0]);
-                    }
-                }
+                //if (string.IsNullOrEmpty(Customer.GSTIN))
+                //{
+                //    DataTable dt = new NpgsqlServer().ExecuteReader("select r_value as GSTIN from doohr_bp_statutory where r_statutory_type='GSTIN' and s_tenant_id=" + PaidServiceInvoice.ICTicket.Dealer.DealerCode + " and p_bp_id='" + PaidServiceInvoice.ICTicket.Customer.CustomerCode + "' limit 1");
+                //    if (dt.Rows.Count == 1)
+                //    {
+                //        Customer.GSTIN = Convert.ToString(dt.Rows[0][0]);
+                //    }
+                //}
+
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
                 CommissionDT.Columns.Add("Material");
@@ -1719,14 +1673,14 @@ namespace Business
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
 
-                if (string.IsNullOrEmpty(Customer.GSTIN))
-                {
-                    DataTable dt = new NpgsqlServer().ExecuteReader("select r_value as GSTIN from doohr_bp_statutory where r_statutory_type='GSTIN' and s_tenant_id=" + PaidServiceInvoice.ICTicket.Dealer.DealerCode + " and p_bp_id='" + PaidServiceInvoice.ICTicket.Customer.CustomerCode + "' limit 1");
-                    if (dt.Rows.Count == 1)
-                    {
-                        Customer.GSTIN = Convert.ToString(dt.Rows[0][0]);
-                    }
-                }
+                //if (string.IsNullOrEmpty(Customer.GSTIN))
+                //{
+                //    DataTable dt = new NpgsqlServer().ExecuteReader("select r_value as GSTIN from doohr_bp_statutory where r_statutory_type='GSTIN' and s_tenant_id=" + PaidServiceInvoice.ICTicket.Dealer.DealerCode + " and p_bp_id='" + PaidServiceInvoice.ICTicket.Customer.CustomerCode + "' limit 1");
+                //    if (dt.Rows.Count == 1)
+                //    {
+                //        Customer.GSTIN = Convert.ToString(dt.Rows[0][0]);
+                //    }
+                //}
 
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");

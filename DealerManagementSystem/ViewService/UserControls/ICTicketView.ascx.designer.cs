@@ -1275,13 +1275,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button4;
 
         /// <summary>
-        /// lblFSRAttachmentMessage control.
+        /// lblMessageOtherMachine control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFSRAttachmentMessage;
+        protected global::System.Web.UI.WebControls.Label lblMessageOtherMachine;
 
         /// <summary>
         /// UC_ICTicketAddOtherMachine control.
@@ -1599,13 +1599,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button9;
 
         /// <summary>
-        /// Label12 control.
+        /// lblMessageRestore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label12;
+        protected global::System.Web.UI.WebControls.Label lblMessageRestore;
 
         /// <summary>
         /// UC_ICTicketUpdateRestore control.

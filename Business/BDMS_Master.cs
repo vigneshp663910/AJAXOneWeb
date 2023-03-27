@@ -83,10 +83,7 @@ namespace Business
             { }
             return Ca;
         }
-        public DataTable ExecuteReader(String Query,Boolean live = false)
-        {
-            return new NpgsqlServer().ExecuteReader(Query);
-        }
+        
 
         public List<PBankName> GetBankName(int? BankNameID, string BankName)
         {

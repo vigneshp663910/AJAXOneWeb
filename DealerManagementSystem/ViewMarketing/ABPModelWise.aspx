@@ -129,7 +129,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"/>
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
@@ -359,7 +359,7 @@
                                                 <asp:HiddenField ID="hdnModelID" runat="server" Value='<%# Bind("ModelID") %>' />
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                <asp:Button ID="btnAdd" OnClientClick="return Validate()" runat="server" CssClass="btn Save" OnClick="btnAdd_Click" Text="Save & Add More" Width="135px" Height="33px"/>
+                                                <asp:Button ID="btnAdd" OnClientClick="return Validate()" runat="server" CssClass="btn Save" OnClick="btnAdd_Click" Text="Save & Add More" Width="135px" Height="33px" />
                                             </FooterTemplate>
                                             <ItemStyle Width="6%" HorizontalAlign="Center" />
                                             <FooterStyle Width="6%" HorizontalAlign="Center" />

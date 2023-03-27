@@ -20,9 +20,9 @@ namespace Business
     public class BDMS_Delivery
     {
         private IDataAccess provider;
-        public BDMS_Delivery(Boolean Live= false)
+        public BDMS_Delivery()
         {
-            provider = new ProviderFactory().GetProvider(Live);
+            provider = new ProviderFactory().GetProvider();
         }
         public List<PDMS_DeliveryHeader> getDelivery(string DealerCode, string DeliveryNumber, DateTime? DeliveryDateFrom, DateTime? DeliveryDateTo, int? DeliveryTypeID, string DealerStateCode)
         {
@@ -158,17 +158,11 @@ namespace Business
             try
             {
 
-                // PDMS_Dealer DE = new BDealer
-                // PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
-                // string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-                // string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State) ? "" : "," + Dealer.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
-                // PDMS_DeliveryHeader Delivery = getDelivery("", DeliveryNumber, null, null, null, Dealer.StateCode)[0];
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
+                   PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
                 PDMS_DeliveryHeader Delivery = getDelivery("", DeliveryNumber, null, null, null, Dealer.State.StateCode)[0];
 
 
-              //  PDealer Dealer = new BDealer().GetDealerList(null, Delivery.Dealer.DealerCode, "")[0];
-                PDMS_DealerOffice DealerOffice = new BDMS_Dealer().GetDealerOffice(null, null, Delivery.Dealer.DealerOffice.OfficeCode)[0];
+                 PDMS_DealerOffice DealerOffice = new BDMS_Dealer().GetDealerOffice(null, null, Delivery.Dealer.DealerOffice.OfficeCode)[0];
                 PDMS_Customer DealerAD = new SCustomer().getCustomerAddress(DealerOffice.SapLocationCode.Trim());
                 string DealerAddress1 = (DealerAD.Address1 + (string.IsNullOrEmpty(DealerAD.Address2) ? "" : "," + DealerAD.Address2) + (string.IsNullOrEmpty(DealerAD.Address3) ? "" : "," + DealerAD.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (DealerAD.City + (string.IsNullOrEmpty(DealerAD.State.State) ? "" : "," + DealerAD.State.State) + (string.IsNullOrEmpty(DealerAD.Pincode) ? "" : "-" + DealerAD.Pincode)).Trim(',', ' ');
@@ -200,8 +194,8 @@ namespace Business
                 CommissionDT.Columns.Add("SGST");
                 CommissionDT.Columns.Add("CGSTValue", typeof(decimal));
                 CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
-                CommissionDT.Columns.Add("Amount", typeof(decimal));
-                //  decimal GrandTotal = 0;
+                CommissionDT.Columns.Add("Amount", typeof(decimal)); 
+
                 string StateCode = DealerAD.State.StateCode;
                 string GST_Header = "";
                 int i = 0;

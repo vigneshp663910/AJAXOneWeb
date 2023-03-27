@@ -11,6 +11,7 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class ActivityPlan : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMarketing_ActivityPlan; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

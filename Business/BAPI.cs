@@ -207,7 +207,7 @@ namespace Business
             }
             else
             {
-                throw new Exception("APIResponse, Error : " + APIResponse.StatusCode);
+                throw new Exception("Internal Error '" + APIResponse.StatusCode + "' Please contact Administrator.");
             }
         }
 

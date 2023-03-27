@@ -14,6 +14,7 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class LostCustomerData : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMarketing_LostCustomerData; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

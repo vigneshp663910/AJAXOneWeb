@@ -1,10 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DealerView.ascx.cs" Inherits="DealerManagementSystem.ViewMaster.UserControls.DealerView" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_DealerCreate" %>
-
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 
-<script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
+<script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>s
 <script type="text/javascript">  
     function FleAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
 
@@ -91,7 +90,7 @@
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <%-- <asp:LinkButton ID="lnkBtnAddDealerOffice" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Office</asp:LinkButton>--%>
                 <asp:LinkButton ID="lnkBtnAddNotification" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Notification</asp:LinkButton>
-                 <asp:LinkButton ID="lnkBtnEditBank" runat="server" OnClick="lnkBtnActions_Click">Edit Bank Details</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnEditBank" runat="server" OnClick="lnkBtnActions_Click">Edit Bank Details</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnEditDealerResponsibleUser" runat="server" OnClick="lnkBtnActions_Click">Edit Dealer Responsible User</asp:LinkButton>
             </div>
         </div>
@@ -454,14 +453,14 @@
                                             <a href='tel:<%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%></a>
                                         </asp:Label>
                                         <br />
-                                          <asp:Label ID="lblMail" runat="server">
+                                        <asp:Label ID="lblMail" runat="server">
                                             <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "User.Mail")%>'><%# DataBinder.Eval(Container.DataItem, "User.Mail")%></a>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDealerNotificationID" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"  />
+                                        <asp:Label ID="lblDealerNotificationID" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SMS">
@@ -685,16 +684,16 @@
             <asp:Label ID="lblEditDealerResponsibleUserMessage" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset2" runat="server">
                 <div class="col-md-12">
-                     <div class="col-md-6 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
                         <label class="modal-label" runat="server" id="lblDealerResposnibleUserType">Dealer Resposible User Type</label>
-                        <asp:DropDownList ID="ddlDealerResposibleUserType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealerResposibleUserType_SelectedIndexChanged" AutoPostBack="true" >
+                        <asp:DropDownList ID="ddlDealerResposibleUserType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealerResposibleUserType_SelectedIndexChanged" AutoPostBack="true">
                             <asp:ListItem Text="Select Dealer Responsible User Type" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Team Lead" Value="TL"></asp:ListItem>
                             <asp:ListItem Text="Service Manager" Value="SM"></asp:ListItem>
                             <asp:ListItem Text="Sales Responsible User" Value="Sales Responsible User"></asp:ListItem>
                         </asp:DropDownList>
                     </div>
-                      <div class="col-md-6 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
                         <label class="modal-label" runat="server" id="lblDealerResponsibleUser">Dealer Resposible User</label>
                         <asp:DropDownList ID="ddlDealerResponsibleUser" runat="server" CssClass="form-control" />
                     </div>

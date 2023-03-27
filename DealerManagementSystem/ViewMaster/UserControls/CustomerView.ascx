@@ -291,13 +291,7 @@
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <asp:Label ID="lblCustomerRelationID" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerRelationID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Type">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblDecisionMaker" Text='<%# DataBinder.Eval(Container.DataItem, "DecisionMaker")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField> 
                                     <asp:TemplateField HeaderText="Contact Name">
                                         <ItemTemplate>
                                             <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" />
@@ -425,24 +419,43 @@
                                             <asp:Label ID="lblCustomerID" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.CustomerID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-
-                                    <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.CustomerName")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Contact Person">
+                                     <asp:TemplateField HeaderText="Contact Person">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.ContactPerson")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Mobile">
+                                     <asp:TemplateField HeaderText="Mobile">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMobile" runat="server">
                                             <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Fleet.Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Fleet.Mobile")%></a>
                                             </asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Customer Name" SortExpression="Country">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.CustomerName")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                   <asp:TemplateField HeaderText="GST" SortExpression="Country">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblGST" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.GSTIN")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                   <asp:TemplateField HeaderText="Customer Code" SortExpression="Country">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.CustomerCode")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="District" SortExpression="Country">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.District.District")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="State" SortExpression="Country">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "Fleet.State.State")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="EMail">

@@ -1066,12 +1066,12 @@
 
 <asp:Panel ID="pnlICTicketAddOtherMachine" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add FSR Attachments</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Add Other Machine</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblFSRAttachmentMessage" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageOtherMachine" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketAddOtherMachine ID="UC_ICTicketAddOtherMachine" runat="server"></UC:UC_ICTicketAddOtherMachine>
         </div>
         <div class="col-md-12 text-center">
@@ -1176,12 +1176,12 @@
 
 <asp:Panel ID="pnlUpdateRestore" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add Notes</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">IC Ticket Restoration</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button9" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label12" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageRestore" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketUpdateRestore ID="UC_ICTicketUpdateRestore" runat="server"></UC:UC_ICTicketUpdateRestore>
         </div>
         <div class="col-md-12 text-center">

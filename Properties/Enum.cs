@@ -5,9 +5,7 @@ using System.Text;
 using System.Web;
 
 namespace Properties
-{
-
-   
+{   
     public enum FileType
     {
         Unknown = 1,
@@ -66,62 +64,13 @@ namespace Properties
     {
         Intput = 1,
         Output = 2
-    }
-
-    public enum Category
-    {
-        SAP = 1,
-        EnterpriseCollaboration = 2,
-        EnterpriseProjects,
-        Infrastructure,
-        SAPDevelopment,
-        Domain,
-        CustomApps,
-        CRM,
-        Exchange_Email,
-        SAP_MaterialMaster,
-        SAP_VendorMaster,
-        SparesMIS,
-        CustomerList,
-        PartsProcurement,
-        SpareSales,
-        Service,
-        Reports,
-        TallyExport,
-        MachineProcurement,
-        MachineSales,
-        Warranty,
-        DMS,
-        SAPAuthorization,
-        SAP_BI,
-        PLM,
-        SAPBug,
-        SAPCRM,
-        AdminSupportDpurPlant_Obedenahalli,
-        Attendance,
-        HealthInsurance,
-        ProvidentFund,
-        HRLetters,
-        ePMSRelatedIssues,
-        PersonalInfoUpdation,
-        HRPolicyRelatedClarification,
-        Payroll,
-        Form16,
-        DealerEmployeeMasterData,
-        HROthers,
-        AdminSupportDpurPlant_Bashettihalli,
-        AdminSupportPeenyaOffice,
-        AdminSupportRegionalOffices,
-        SoftwareConfiguration,
-    }
-
+    }    
     public enum ApplicationSettings
     {
         DebitNoteNumberFormat = 1,
         ICTicketNumber = 2,
         EInvoiceToken = 3 
     }
-
     public enum UserTypes
     {
         Director = 1,
@@ -136,8 +85,6 @@ namespace Properties
     {
         public LMSFunctionalException(FunctionalErrorCode message) : base(message.ToString()) { }
     }
-   
-
     public static class ErrorHandler
     {
         #region Properties
@@ -251,13 +198,6 @@ namespace Properties
 
         #endregion
     }
-
-    public class LMSMessageStatus
-    {
-        public string Errormessage { get; set; }
-        public bool IsProcessed { get; set; }
-    }
-
     public enum TicketStatus
     {
         Open = 1,
@@ -272,8 +212,6 @@ namespace Properties
         Deleted,
         Foreclose
     }
-
-    
     public enum SystemCategory
     {
         AF = 1,
@@ -282,16 +220,6 @@ namespace Properties
         SupportTR,
         Support,
         HR
-    }
-
-    public enum TicketStatus1
-    {
-        Open = 1,
-        Assigned,
-        InProgress,
-        Resolved,
-        Closed,
-        Approve,
     }
     public enum DMS_MenuMain
     {
@@ -312,141 +240,7 @@ namespace Properties
         PreSales,
         Task
     }
-    public enum DMS_MenuSub
-    {
-        Material = 1,
-        Customer = 2,
-        Equipment = 3,
-        BIN = 4,
-        Price = 5,
-        Supercede = 6,
-        ROQ_DOQ = 7,
-        POList = 8,
-        ASNList = 9,
-        GRList = 10,
-        POReturn = 11,
-        PendingSAPPO = 12,
-        PendingASN = 13,
-        PendingGR = 14,
-        POPerfomance = 15,
-        Quotation = 16,
-        SaleOrderHeader = 17,
-        SaleOrderItem = 18,
-        Delivery = 19,
-        SaleOrderInvoicePartsReport = 20,
-        SalesReturn = 21,
-        PendingDelivery = 22,
-        PendingInvoice = 23,
-        SalesPerfomance = 24,
-        MTTR = 25,
-        PaidService = 26,
-        WarrantyClaim = 27,
-        ApprovalStatus = 28,
-        WarrantyFailedMaterialReturn = 29,
-        WarrantyClaimInvoiceReport = 30,
-        WarrantyClaimInvoiceCreate = 31,
-        WarrantyClaimAnnexureReport = 32,
-        ServicePerfomance = 33,
-        ConvertedStock = 34,
-        StockOverview = 35,
-        StockSummary = 36,
-        DMS_AFAccount = 37,
-        Procurement = 38,
-        Sales = 39,
-        Service = 40,
-        Stock = 41,
-        ClaimPrint = 42,
-        TicketTracking = 43,
-        WarrantyClaimAnnexureCreate = 44,
-        WarrantyDeliveryReport = 45,
-        WarrantyReqForClaimApproval = 46,
-        WarrantyFinalInvoiceCreateAbove50K = 47,
-        WarrantyDebitNoteCreate = 48,
-        DMSUserManagement = 49,
-        ICTicketManage = 50,
-        PaidServiceQuotation = 51,
-        PaidServiceProformaInvoice = 52,
-        PaidServiceInvoice = 53,
-        MTTR_New = 54,
-        ApproveDeclinedICTicket = 55,
-        WarrantyFailedMaterialDCCreation,
-        WarrantyFailedMaterialDCReport,
-        WarrantyFailedMaterialDCGateEntry,
-        ICTicketRequestedDateChange,
-        ICTicketMarginWarrantyChange,
-        UserManagement,
-        MobileUserApprove,
-        WarrantyDebitNoteAcknowledge,
-        WarrantyDebitNoteReport,
-        CampignCreateOrUpdate,
-        CampignReport,
-        ICTicketFSRManage,
-        ICTicketTsirManage,
-        DealerEmployeeCreate,
-        DealerEmployeeManage,
-        DealerEmployeeApproval,
-        DealerEmployeeRoleAssign,
-        DealerEmployeeLeaving,
-        ActivityInfoMater,
-        ActivityPlan,
-        ActivityActual,
-        ICTicketTsirMailSendVendorReport,
-        ICTicketStatusReport,
-        ICTicketTsirReport,
-        ActivityClaimApprovalMarketingLevel1,
-        ActivityClaimApprovalMarketingLevel2,
-        ActivityClaimApprovalServiceLevel1,
-        ActivityClaimApprovalServiceLevel2,
-        ActivityClaimApprovalSparesLevel2,
-        ActivityInvoiceReport,
-        WarrantyPartsAvailabilityReport,
-        DeviatedICTicketRequestForApproval,
-        DeviatedICTicketApprove,
-        DeviatedCliamRequestForApproval,
-        DeviatedCliamApprove,
-
-        GeographyManage,
-        TehsilTransfer,
-        VillageTransfer,
-        ActivityInfoMaster,
-        ABPPlanModelWise,
-        MonthlyPlanModelWise,
-        EquipmentHistory,
-        ServiceEngineerUtilisationReport,
-        ICTicketListDUMP,
-        SaleOrderInvoiceMcReport,
-        SaleOrderInvoiceWarrantyReport,
-        DirectClaimEntry,
-        ActivityClaimApprovalLevel1,
-        ActivityClaimApprovalLevel2,
-        ABPSparePart,
-        ABPSparePartRetail,
-        LostCustomerData,
-        ICTicketTSIRSalesApproveLevel1,
-        ICTicketTSIRSalesApprove,
-        ActivityClaimApprovalSalesLevel1,
-        ActivityClaimApprovalSalesLevel2,
-        ActivityClaimApprovalTrainingLevel1,
-        ActivityClaimApprovalTrainingLevel2,
-        DashboardICTicketService,
-        DashboardICTicketClaim,
-        ICTicketTSIRMessage,
-        EInvoiceRequest,
-        EDebitNoteRequest,
-        WebQuotationCreate,
-        WebQuotationApprove,
-        WebQuotationReport,
-        WebQuotationSendToSAP,
-
-
-        BankDepositClearingCreate,
-        BankDepositClearingEditAndConfirm,
-        BankDepositClearingPostingInSAP,
-        BankDepositClearingReport,
-        UpdateCommissioningDate,
-        EquipmentPopulationReportForAE
-
-    }
+   
     public enum SubModule
     {
         ViewMaster_Material = 1,
@@ -522,7 +316,7 @@ namespace Properties
         ViewMaster_DealerEmployeeApproval = 71,
         ViewMaster_DealerEmployeeAssigningRole = 72,
         ViewMaster_DealerEmployeeLeaving = 73,
-     //   UnderCons = 74,
+        //   UnderCons = 74,
         ViewMarketing_ActivityPlan = 75,
         ViewMarketing_ActivityActual = 76,
         ViewService_ICTicketTSIRMailToVendorReport = 77,
@@ -538,13 +332,13 @@ namespace Properties
         ViewService_ApprovalForDeviatedICTicketRequest = 87,
         ViewService_ApproveDeviatedICTicket = 88,
         ViewService_ApprovalForDeviatedCliamReques = 89,
-        ViewService_ApproveDeviatedCliamApprove = 90,
+        ViewService_ApproveDeviatedCliamApprove = 90,       
         ViewMaster_Location = 91,
         TehsilTransfer = 92,
         VillageTransfer = 93,
-        ActivityInfoMaster = 94,
-        ABPPlanModelWise = 95,
-        MonthlyPlanModelWise = 96,
+        ViewMarketing_ActivityInfoM = 94,
+        ViewMarketing_ABPModelWise = 95,
+        ViewMarketing_RollingPlanModelWise = 96,
         ViewService_EquipmentHistory = 97,
         ViewService_ICTicketServiceEngineerUtilisationReport = 98,
         ICTicketListDUMP = 99,
@@ -561,7 +355,7 @@ namespace Properties
         //UnderCons = 110,
         //UnderCons = 111,
         //UnderCons = 112,
-        //UnderCons = 113,
+        //UnderCons = 113, 
       //  _DMS_DashboardICTicketService.aspx = 114,
       //  _DMS_DashboardICTicketClaim.aspx = 115,
         ViewService_ICTicketTSIRMessage = 116,
@@ -673,7 +467,9 @@ namespace Properties
         ViewAdmin_UserActivityTrackingReport = 222,
         ViewEquipment_EquipmentMissing = 223,
         ViewPreSale_SalesPipelineReport = 224,
-        ViewService_ICTicketTSIRApprove = 224,
+        ViewService_ICTicketTSIRApprove = 225,
+        ViewMarketing_ClaimApproval = 226,
+        ViewMaster_MaterialSync = 227,
     }
     public enum SubModuleChildMaster
     {
@@ -754,7 +550,6 @@ namespace Properties
         PAID,
         APPROVED_L2,
     }
-
     public enum DMS_InvoiceType
     {
         NEPI_Commission = 1,
@@ -764,7 +559,6 @@ namespace Properties
         Warranty_ServicePartial,
         Above50kPartial
     }
-
     public enum DMS_ServiceType
     {
         Paid1 = 1,
@@ -793,7 +587,6 @@ namespace Properties
         Declined,
         Reopen
     }
-
     public enum Jobs
     {
         SendSMS = 1,
@@ -825,7 +618,6 @@ namespace Properties
         IntegrationEquipmentFromSAP_New = 27,
         EnquiryIndiamart =28
     }
-
     public enum DashboardControl
     {
         CustomerSatisfactionInAfterSalesSupport = 1,
@@ -851,14 +643,7 @@ namespace Properties
         TechnicianSignature,
         CustomerSignature,
         CheckList
-    }
-    public enum MaterialSource
-    {
-        Dealer = 1,
-        Vendor,
-        Ajax,
-        Customer
-    }
+    }    
     public enum TSIRStatus
     {
         Requested = 1,
@@ -879,11 +664,7 @@ namespace Properties
         OnlyForInfo,
         Policy_Warranty,
         MarginWarranty
-    }
-    public enum RefreshEnum
-    {
-        ServiceChargesAddOrRemove = 1
-    }
+    }    
     public enum LeadStatus
     {
         Unattended = 1,
@@ -902,9 +683,6 @@ namespace Properties
         Rejected = 5,
         InProgress = 6
     }
-     
-
-
     public enum DealerDesignation
     {
         SalesExecutive = 4,
@@ -913,7 +691,6 @@ namespace Properties
         BusinessSystemExecutive = 32,
         BusinessSystemHead = 51
     }
-
     public enum SalesQuotationStatus
     {
         Quotation = 1,
@@ -925,7 +702,6 @@ namespace Properties
         Closed
 
     }
-
     public enum SalesQuotationNoteList
     {
         Reference = 1,

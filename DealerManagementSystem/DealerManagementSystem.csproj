@@ -435,6 +435,7 @@
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewMaster\EInvoiceRequest.aspx" />
     <Content Include="ViewMaster\Equipment.aspx" />
+    <Content Include="ViewMaster\MaterialSync.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerVerification.ascx" />
     <Content Include="ViewMaster\UserControls\EquipmentView.ascx" />
     <Content Include="ViewMaster\UserControls\LocationDistrict.ascx" />
@@ -584,7 +585,6 @@
     <Content Include="ViewService\ICTicketTSIRMessage.aspx" />
     <Content Include="ViewService\ICTicketTSIRReport.aspx" />
     <Content Include="ViewService\MTTR_New.aspx" />
-    <Content Include="ViewService\MTTR_Report.aspx" />
     <Content Include="ViewService\PaidServiceInvoice.aspx" />
     <Content Include="ViewService\PaidServiceProformaInvoice.aspx" />
     <Content Include="ViewService\PaidServiceQuotation.aspx" />
@@ -1365,6 +1365,13 @@
     </Compile>
     <Compile Include="ViewMaster\Equipment.aspx.designer.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\MaterialSync.aspx.cs">
+      <DependentUpon>MaterialSync.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\MaterialSync.aspx.designer.cs">
+      <DependentUpon>MaterialSync.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerVerification.ascx.cs">
       <DependentUpon>CustomerVerification.ascx</DependentUpon>
@@ -2243,13 +2250,6 @@
     </Compile>
     <Compile Include="ViewService\MTTR_New.aspx.designer.cs">
       <DependentUpon>MTTR_New.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewService\MTTR_Report.aspx.cs">
-      <DependentUpon>MTTR_Report.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewService\MTTR_Report.aspx.designer.cs">
-      <DependentUpon>MTTR_Report.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\PaidServiceInvoice.aspx.cs">
       <DependentUpon>PaidServiceInvoice.aspx</DependentUpon>

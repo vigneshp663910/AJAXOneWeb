@@ -18,7 +18,7 @@ namespace Business
         public BOrganization()
         {
             provider = new ProviderFactory().GetProvider();
-            providerReport = new ProviderFactory().GetProvider(true);
+            providerReport = new ProviderFactory().GetProvider();
         }
         public List<PDealerEmployee> GetOrganization( int? DealerEmployeeID, int? DealerID,int? DealerDepartmentID)
         {

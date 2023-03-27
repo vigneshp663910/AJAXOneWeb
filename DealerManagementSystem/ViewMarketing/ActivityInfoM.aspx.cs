@@ -13,6 +13,7 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class ActivityInfoM : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMarketing_ActivityInfoM; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
