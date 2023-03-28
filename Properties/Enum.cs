@@ -470,6 +470,9 @@ namespace Properties
         ViewService_ICTicketTSIRApprove = 225,
         ViewMarketing_ClaimApproval = 226,
         ViewMaster_MaterialSync = 227,
+        ViewDealerEmployee_MachineOperatorRegister = 228,
+        ViewDealerEmployee_MachineOperatorApproval = 229,
+        ViewDealerEmployee_MachineOperatorManage = 230,
     }
     public enum SubModuleChildMaster
     {
