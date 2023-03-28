@@ -537,7 +537,9 @@ namespace Properties
         ActivityClaimApprovalTrainingLevel1,
         ActivityClaimApprovalTrainingLevel2,
         ICTicketDeclineApprove,
-        CreateICTicketEdit
+        CreateICTicketEdit,
+        OperatorEdit = 63,
+        ICTicketUnblock
     }
     public enum DMS_WarrantyClaimStatus
     {

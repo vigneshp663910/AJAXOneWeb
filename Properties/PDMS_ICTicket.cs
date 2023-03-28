@@ -121,7 +121,9 @@ namespace Properties
         public Boolean? IsLocked { get; set; }
         public int? LockedUserID { get; set; }
         public int? LockedDeviceID { get; set; }
-        public DateTime? LockedOn { get; set; }
+        public DateTime? LockedOn { get; set; } 
+        public Boolean SyncBlock { get; set; }
+
 
     }
     [Serializable]

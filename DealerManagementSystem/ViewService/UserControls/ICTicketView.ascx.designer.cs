@@ -186,6 +186,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnUnlockTicket;
 
         /// <summary>
+        /// lbtnUnblockTicket control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnUnblockTicket;
+
+        /// <summary>
         /// lbtnRequestForDecline control.
         /// </summary>
         /// <remarks>

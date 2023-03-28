@@ -764,7 +764,21 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
                 ShowMessage(Results);
                 FillICTicket(SDMS_ICTicket.ICTicketID);
-            } 
+            }
+            else if (lbActions.Text == "Unblock Ticket")
+            {
+                string endPoint = "ICTicket/UnblockICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                ShowMessage(Results);
+                FillICTicket(SDMS_ICTicket.ICTicketID);
+            }
         }
         protected void btnSaveAssignSE_Click(object sender, EventArgs e)
         {
@@ -1918,6 +1932,12 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnUnlockTicket.Visible = false;
             }
 
+            if (!SDMS_ICTicket.SyncBlock)
+            {
+                lbtnUnlockTicket.Visible = false;
+            }
+          
+
             if (SDMS_ICTicket.IsMarginWarranty) 
             {
                 lbtnMarginWarrantyChange.Visible = false;
@@ -2160,12 +2180,18 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 lbtnUnlockTicket.Visible = false;
             }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ICTicketUnblock).Count() == 0)
+            {
+                lbtnUnblockTicket.Visible = false;
+            }
+
 
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ICTicketDeclineApprove).Count() == 0)
             {
                 lbtnDeclineApprove.Visible = false;
                 lbtnDeclineReject.Visible = false;
             }
+          
             HttpContext.Current.Session["ServiceTypeID"] =   SDMS_ICTicket.ServiceType.ServiceTypeID;
         }
 
@@ -2236,7 +2262,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         {  
 
             Response.AddHeader("Content-type", "image/jpeg");
-            Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnPhoto.Text);
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnPhoto.Text + ".jpg");
             HttpContext.Current.Response.Charset = "utf-16";
             HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
             Response.BinaryWrite(CustomerFeedback.Photo.AttachedFile);
@@ -2245,8 +2271,8 @@ namespace DealerManagementSystem.ViewService.UserControls
         } 
         protected void lbtnSignature_Click(object sender, EventArgs e)
         {
-            Response.AddHeader("Content-type", CustomerFeedback.Signature.FileType);
-            Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnPhoto.Text);
+            Response.AddHeader("Content-type", "image/jpeg");
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnSignature.Text+".jpg");
             HttpContext.Current.Response.Charset = "utf-16";
             HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
             Response.BinaryWrite(CustomerFeedback.Signature.AttachedFile);
