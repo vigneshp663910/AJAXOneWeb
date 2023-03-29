@@ -1136,29 +1136,29 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 string MaterialText3 = string.Empty;
                 string MaterialText4 = string.Empty;
                 string MaterialText5 = string.Empty;
-                int sno = 0;
+
                 foreach (DataRow dr in DTMaterialText.Rows)
                 {
                     count = count + 1;
                     if (count < 10)
                     {
-                        MaterialText1 += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                        MaterialText1 += string.IsNullOrEmpty(MaterialText1)? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); 
                     }
                     else if (count < 20)
                     {
-                        MaterialText2 += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                        MaterialText2 += string.IsNullOrEmpty(MaterialText2) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
                     }
                     else if (count < 30)
                     {
-                        MaterialText3 += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                        MaterialText3 += string.IsNullOrEmpty(MaterialText3) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
                     }
                     else if (count < 40)
                     {
-                        MaterialText4 += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                        MaterialText4 += string.IsNullOrEmpty(MaterialText4) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
                     }
                     else
                     {
-                        MaterialText5 += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
+                        MaterialText5 += string.IsNullOrEmpty(MaterialText5) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
                     }
                 }
 
@@ -2906,7 +2906,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnAddEffort.Visible = true;
             //lbtnAddExpense.Visible = true;
             lbtnGenerateQuotation.Visible = true;
-          
+
             lbtnViewTaxQuotation.Visible = true;
             lbtnDownloadTaxQuotation.Visible = true;
             lbtnDownloadConsolidatedTaxQuotation.Visible = true;
@@ -2917,6 +2917,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             lbtnSaleOrderConfirmation.Visible = true;
 
+            lbtnAddVisit.Visible = true;
+
+
             if (Quotation.CommissionAgent)
             {
                 lbtnSaleOrderConfirmation.Visible = false;
@@ -2926,6 +2929,28 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnSaleOrderConfirmation.Visible = false;
             }
 
+            if ((Quotation.Lead.Status.StatusID == (short)LeadStatus.Dropped)
+                || (Quotation.Lead.Status.StatusID == (short)LeadStatus.SalesLost)
+                || (Quotation.Lead.Status.StatusID == (short)LeadStatus.Won)
+                )
+            {
+                lbtnEditQuotation.Visible = false;
+                lbtnEditFinancier.Visible = false;
+                lbtnAddProduct.Visible = false;
+                lbtnAddCompetitor.Visible = false;
+                lbtnAddQuotationNote.Visible = false;
+                lbtnAddFollowUp.Visible = false;
+                lbtnGenerateQuotation.Visible = false;
+
+                lbtnViewTaxQuotation.Visible = false;
+                lbtnDownloadTaxQuotation.Visible = false;
+                lbtnDownloadConsolidatedTaxQuotation.Visible = false;
+                lbtnViewMachineQuotation.Visible = false;
+                lbtnDownloadMachineQuotation.Visible = false;
+                lbtnSaleOrderConfirmation.Visible = false;
+                lbtnAddVisit.Visible = false;
+            }
+
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TaxQuotationPrint).Count() == 0)
             {
@@ -2933,15 +2958,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnDownloadTaxQuotation.Visible = false;
                 lbtnDownloadConsolidatedTaxQuotation.Visible = false;
             }
-            if(Quotation.Status.SalesQuotationStatusID != (short)SalesQuotationStatus.Quotation) 
+            if (Quotation.Status.SalesQuotationStatusID != (short)SalesQuotationStatus.Quotation)
             {
                 lbtnEditQuotation.Visible = false;
                 lbtnEditFinancier.Visible = false;
                 lbtnAddProduct.Visible = false;
                 lbtnAddCompetitor.Visible = false;
                 lbtnAddQuotationNote.Visible = false;
-                lbtnAddFollowUp.Visible = false; 
-                lbtnGenerateQuotation.Visible = false; 
+                lbtnAddFollowUp.Visible = false;
+                lbtnGenerateQuotation.Visible = false;
                 lbtnSaleOrderConfirmation.Visible = false;
             }
         }

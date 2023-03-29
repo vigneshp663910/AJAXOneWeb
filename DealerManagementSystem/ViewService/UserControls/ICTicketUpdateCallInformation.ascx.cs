@@ -49,6 +49,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
         {
+            Clear();
             if ((SDMS_ICTicket.Equipment.IsRefurbished == true) && (SDMS_ICTicket.Equipment.RefurbishedBy == SDMS_ICTicket.Dealer.DealerID) && (SDMS_ICTicket.Equipment.RFWarrantyExpiryDate >= SDMS_ICTicket.ICTicketDate))
             {
                 FillGetServiceType(2);
@@ -149,12 +150,15 @@ namespace DealerManagementSystem.ViewService.UserControls
                     {
                         txtSubApplicationEntry.Visible = true;
                     }
+                    else
+                    {
+                        txtSubApplicationEntry.Visible = false;
+                    }
                 }
             }
 
 
             txtScopeOfWork.Text = SDMS_ICTicket.ScopeOfWork;
-
 
             txtKindAttn.Text = SDMS_ICTicket.KindAttn;
             txtRemarks.Text = SDMS_ICTicket.Remarks;
@@ -551,6 +555,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         protected void ddlSubApplication_SelectedIndexChanged(object sender, EventArgs e)
         {
+            txtSubApplicationEntry.Text = "";
             if (ddlSubApplication.SelectedValue == "26")
             {
                 txtSubApplicationEntry.Visible = true;
@@ -653,6 +658,54 @@ namespace DealerManagementSystem.ViewService.UserControls
             IC.ServiceEndedDate = string.IsNullOrEmpty(txtServiceEndedDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtServiceEndedDate.Text.Trim());
 
             return IC;
+        }
+
+        void Clear()
+        { 
+            txtLocation.Text = "";
+            txtDepartureDate.Text = "";
+            txtReachedDate.Text = "";
+            //  ddlDealerOffice.SelectedValue = SDMS_ICTicket.DealerOffice.OfficeID.ToString();  
+            // ddlDepartureHH.SelectedValue = SDMS_ICTicket.DepartureDate == null ? "-1" : ((DateTime)SDMS_ICTicket.DepartureDate).Hour.ToString();
+            //  ddlDepartureMM.SelectedValue = DepartureMMMinute.ToString().PadLeft(2, '0');
+              // ddlReachedHH.SelectedValue = SDMS_ICTicket.ReachedDate == null ? "-1" : ((DateTime)SDMS_ICTicket.ReachedDate).Hour.ToString();
+            // ddlReachedMM.SelectedValue = ReachedMMMinute.ToString().PadLeft(2, '0');
+
+            ddlReachedMM.SelectedValue = "0";
+
+
+            //  ddlServiceType.SelectedValue = SDMS_ICTicket.ServiceType.ServiceTypeID.ToString(); 
+            //  ddlServiceTypeOverhaul.SelectedValue = SDMS_ICTicket.ServiceTypeOverhaul.ServiceTypeOverhaulID.ToString(); 
+            //  ddlServiceSubType.SelectedValue = SDMS_ICTicket.ServiceSubType.ServiceSubTypeID.ToString(); 
+            //  ddlServicePriority.SelectedValue = SDMS_ICTicket.ServicePriority.ServicePriorityID.ToString();
+
+            txtHMRDate.Text = "";
+            txtHMRValue.Text = "";
+
+            //  ddlMainApplication.SelectedValue = SDMS_ICTicket.MainApplication.MainApplicationID.ToString();
+            //  FillSubApplication(); 
+            //  ddlSubApplication.SelectedValue = SDMS_ICTicket.SubApplication.SubApplicationID.ToString();
+
+
+
+            txtScopeOfWork.Text = ""; 
+            txtKindAttn.Text = "";
+            txtRemarks.Text = ""; 
+            txtOperatorName.Text = "";
+            txtSiteContactPersonNumber.Text = "";
+            txtSiteContactPersonNumber2.Text = ""; 
+            // EnableOrDesableBasedOnServiceCharges(); 
+            // ddlDesignation.SelectedValue = SDMS_ICTicket.SiteContactPersonDesignation.DesignationID.ToString(); 
+            // ddlTypeOfWarranty.SelectedValue = SDMS_ICTicket.TypeOfWarranty.TypeOfWarrantyID.ToString();
+
+            cbCess.Checked = false;
+            txtSubApplicationEntry.Text = "";
+            cbIsMachineActive.Checked = false;
+            cbNoClaim.Checked = false;
+            txtNoClaimReason.Text = "";
+            txtMcEnteredServiceDate.Text = "";
+            txtServiceStartedDate.Text = "";
+            txtServiceEndedDate.Text = "";
         }
     }
 }

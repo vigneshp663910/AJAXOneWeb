@@ -37,8 +37,11 @@
                 <asp:LinkButton ID="lbtnServiceInvoice" runat="server" OnClick="lbActions_Click">Service Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbtnMaterialClaim" runat="server" OnClick="lbActions_Click">Material Claim</asp:LinkButton>
                 <asp:LinkButton ID="lbtnUnlockTicket" runat="server" OnClick="lbActions_Click">Unlock Ticket</asp:LinkButton>
+                 <asp:LinkButton ID="lbtnUnblockTicket" runat="server" OnClick="lbActions_Click">Unblock Ticket</asp:LinkButton>
 
                 <asp:LinkButton ID="lbtnRequestForDecline" runat="server" OnClick="lbActions_Click">Request for Decline</asp:LinkButton>
+                <asp:LinkButton ID="lbtnDeclineApprove" runat="server" OnClick="lbActions_Click">Decline Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbtnDeclineReject" runat="server" OnClick="lbActions_Click">Decline Reject</asp:LinkButton>
                 <asp:LinkButton ID="lbtnMarginWarrantyChange" runat="server" OnClick="lbActions_Click">Margin Warranty Change</asp:LinkButton>
                 <asp:LinkButton ID="lbtnRequestDateChange" runat="server" OnClick="lbActions_Click">Request Date Change</asp:LinkButton>
                 <%--<asp:LinkButton ID="lbtnDeviatedICTicketRequest60Days" runat="server" OnClick="lbActions_Click">Deviated IC Ticket Request for 60 Days</asp:LinkButton>
@@ -226,7 +229,11 @@
                 <div class="col-md-4">
                     <label>Sub Application Manual : </label>
                     <asp:Label ID="lblSubApplication" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblSubApplicationEntry" runat="server" CssClass="label" Visible="false"></asp:Label>
                 </div>
+                 
+                    
+                 
                 <div class="col-md-4">
                     <label>Site Contact Person’s Name : </label>
                     <asp:Label ID="lblOperatorName" runat="server" CssClass="label"></asp:Label>
@@ -1060,12 +1067,12 @@
 
 <asp:Panel ID="pnlICTicketAddOtherMachine" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add FSR Attachments</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Add Other Machine</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblFSRAttachmentMessage" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageOtherMachine" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketAddOtherMachine ID="UC_ICTicketAddOtherMachine" runat="server"></UC:UC_ICTicketAddOtherMachine>
         </div>
         <div class="col-md-12 text-center">
@@ -1139,7 +1146,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label11" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageNote" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketAddNotes ID="UC_ICTicketAddNotes" runat="server"></UC:UC_ICTicketAddNotes>
         </div>
         <div class="col-md-12 text-center">
@@ -1170,12 +1177,12 @@
 
 <asp:Panel ID="pnlUpdateRestore" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Add Notes</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">IC Ticket Restoration</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button9" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label12" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageRestore" runat="server" Text="" CssClass="message" Visible="false" />
             <UC:UC_ICTicketUpdateRestore ID="UC_ICTicketUpdateRestore" runat="server"></UC:UC_ICTicketUpdateRestore>
         </div>
         <div class="col-md-12 text-center">

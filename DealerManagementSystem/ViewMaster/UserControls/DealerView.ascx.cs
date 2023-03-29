@@ -347,6 +347,25 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
         void ActionControlMange()
         {
+            lnkBtnEditBank.Visible = true;
+            lnkBtnAddNotification.Visible = true;
+            lnkBtnEditDealerResponsibleUser.Visible = true;
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.UpdateCommDate).Count() == 0)
+            {
+                lnkBtnEditBank.Visible = false;
+            }             
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.UpdateCommDate).Count() == 0)
+            {
+                lnkBtnAddNotification.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.UpdateCommDate).Count() == 0)
+            {
+                lnkBtnEditDealerResponsibleUser.Visible = false;
+            }
+
+
             if (PSession.User.UserID == 1 || PSession.User.UserID == 383 || PSession.User.UserID == 2954)
             {
                 lnkBtnEditBank.Visible = true;

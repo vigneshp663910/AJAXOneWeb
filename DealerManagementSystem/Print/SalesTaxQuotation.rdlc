@@ -2280,6 +2280,7 @@
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
+                                    <Format>#,0.00;(#,0.00)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -3270,9 +3271,8 @@ prescribed.The same will be validatedat the time of final invoicing and will be 
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="GrandTotal">
-      <DataType>String</DataType>
+      <DataType>Float</DataType>
       <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="YourRef">

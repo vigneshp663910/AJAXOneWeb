@@ -493,7 +493,7 @@ namespace Business
                 return null;
             }
         }
-        public PAttachedFile GetICTicketFSRAttachedFileForDownload(long AttachedFileID)
+        public PAttachedFile GetICTicketTSIRAttachedFileForDownload(long AttachedFileID)
         {
             string endPoint = "ICTicketTsir/AttachmentsForDownload?AttachedFileID=" + AttachedFileID;
             // return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));

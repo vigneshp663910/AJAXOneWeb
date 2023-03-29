@@ -15,6 +15,7 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class ClaimEntry : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMarketing_ClaimEntry; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

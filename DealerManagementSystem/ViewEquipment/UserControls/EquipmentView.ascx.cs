@@ -377,40 +377,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblMessage.Text = "Equipment Ownership Change not rejected.";
                         lblMessage.ForeColor = Color.Red;
                     }
-                }
-                if (lbActions.Text == "Approve Warranty Expiry Date Change")
-                {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(lblWarrantyExpiryDateChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
-                    {
-                        lblMessage.Text = "Equipment Warrranty Expiry Date Change approved.";
-                        lblMessage.ForeColor = Color.Green;
-                        lblMessage.Visible = true;
-                        fillEquipment(EquipmentViewDet.EquipmentHeaderID);
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Equipment Warrranty Expiry Date Change not approved.";
-                        lblMessage.ForeColor = Color.Red;
-                        lblMessage.Visible = true;
-                    }
-                }
-                if (lbActions.Text == "Reject Warranty Expiry Date Change")
-                {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(lblWarrantyExpiryDateChangeID), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
-                    {
-                        lblMessage.Text = "Equipment Warrranty Expiry Date Change approved.";
-                        lblMessage.ForeColor = Color.Green;
-                        lblMessage.Visible = true;
-                        fillEquipment(EquipmentViewDet.EquipmentHeaderID);
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Equipment Warrranty Expiry Date Change not approved.";
-                        lblMessage.ForeColor = Color.Red;
-                        lblMessage.Visible = true;
-                    }
-
-                }
+                } 
             }
             catch (Exception ex)
             {
@@ -424,19 +391,15 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lnkBtnUpdateCommDate.Visible = true;
 
             lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqOwnershipChange.Visible = true;
-            lnkBtnReqWarrantyExpiryDateChange.Visible = true;
+            lnkBtnReqOwnershipChange.Visible = true; 
 
             lnkBtnApprWarrantyTypeChangeReq.Visible = false;
             lnkBtnRejWarrantyTypeChangeReq.Visible = false;
             lnkBtnApprOwnershipChangeReq.Visible = false;
-            lnkBtnRejOwnershipChangeReq.Visible = false;
-            lnkBtnApprWarrantyExpiryDateChangeReq.Visible = false;
-            lnkBtnRejWarrantyExpiryDateChangeReq.Visible = false;
+            lnkBtnRejOwnershipChangeReq.Visible = false;  
 
             divWarrantyTypeApproval.Visible = false;
-            divOwnershipApproval.Visible = false;
-            divExpiryDateApproval.Visible = false;
+            divOwnershipApproval.Visible = false; 
 
             DataTable Equip = new BDMS_Equipment().GetEquipmentChangeForApproval(null, null, EquipmentViewDet.EquipmentSerialNo);
 
@@ -474,22 +437,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                     List<PEquipmentAttachedFile> OwnershipChangeAttachedFile = new BDMS_Equipment().GetEquipmentAttachedFileDetails(EquipmentViewDet.EquipmentHeaderID, null, Convert.ToInt64(dr["ChangeID"]));
                     gvOwnershipChangeAttachedFile.DataSource = OwnershipChangeAttachedFile;
                     gvOwnershipChangeAttachedFile.DataBind();
-                }
-                if (Convert.ToString(dr["ChangeRequested"]) == "Warranty Expiry Date")
-                {
-                    lnkBtnApprWarrantyExpiryDateChangeReq.Visible = true;
-                    lnkBtnRejWarrantyExpiryDateChangeReq.Visible = true;
-                    divExpiryDateApproval.Visible = true;
-                    if (!string.IsNullOrEmpty(dr["NewValue"].ToString()))
-                    {
-                        lblOldWarrantyExpiryDate.Text = EquipmentViewDet.WarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToShortDateString();
-                        lblNewWarrantyExpiryDate.Text = dr["NewValue"].ToString();
-                        lblWarrantyExpiryDateChangeID.Text = dr["ChangeID"].ToString();
-                    }
-                    List<PEquipmentAttachedFile> WarrantyExpiryDateChangeAttachedFile = new BDMS_Equipment().GetEquipmentAttachedFileDetails(EquipmentViewDet.EquipmentHeaderID, null, Convert.ToInt64(dr["ChangeID"]));
-                    gvWarrantyExpiryDateChangeAttachedFile.DataSource = WarrantyExpiryDateChangeAttachedFile;
-                    gvWarrantyExpiryDateChangeAttachedFile.DataBind();
-                }
+                } 
             }
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
@@ -506,11 +454,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             {
                 lnkBtnReqOwnershipChange.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ExpiryDateChange).Count() == 0)
-            {
-                lnkBtnReqWarrantyExpiryDateChange.Visible = false;
-            }
-
+            
 
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ApproveWarrantyTypeChange).Count() == 0)
             {
@@ -524,12 +468,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 lnkBtnRejOwnershipChangeReq.Visible = false;
                 divOwnershipApproval.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ApproveExpiryDateChange).Count() == 0)
-            {
-                lnkBtnApprWarrantyExpiryDateChangeReq.Visible = false;
-                lnkBtnRejWarrantyExpiryDateChangeReq.Visible = false;
-                divExpiryDateApproval.Visible = false;
-            }
+            
         }
         protected void btnUpdateCommiDate_Click(object sender, EventArgs e)
         {

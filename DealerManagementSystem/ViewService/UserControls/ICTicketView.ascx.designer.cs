@@ -186,6 +186,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnUnlockTicket;
 
         /// <summary>
+        /// lbtnUnblockTicket control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnUnblockTicket;
+
+        /// <summary>
         /// lbtnRequestForDecline control.
         /// </summary>
         /// <remarks>
@@ -193,6 +202,24 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnRequestForDecline;
+
+        /// <summary>
+        /// lbtnDeclineApprove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnDeclineApprove;
+
+        /// <summary>
+        /// lbtnDeclineReject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnDeclineReject;
 
         /// <summary>
         /// lbtnMarginWarrantyChange control.
@@ -544,6 +571,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSubApplication;
+
+        /// <summary>
+        /// lblSubApplicationEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSubApplicationEntry;
 
         /// <summary>
         /// lblOperatorName control.
@@ -1248,13 +1284,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button4;
 
         /// <summary>
-        /// lblFSRAttachmentMessage control.
+        /// lblMessageOtherMachine control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFSRAttachmentMessage;
+        protected global::System.Web.UI.WebControls.Label lblMessageOtherMachine;
 
         /// <summary>
         /// UC_ICTicketAddOtherMachine control.
@@ -1464,13 +1500,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button8;
 
         /// <summary>
-        /// Label11 control.
+        /// lblMessageNote control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label11;
+        protected global::System.Web.UI.WebControls.Label lblMessageNote;
 
         /// <summary>
         /// UC_ICTicketAddNotes control.
@@ -1572,13 +1608,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button9;
 
         /// <summary>
-        /// Label12 control.
+        /// lblMessageRestore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label12;
+        protected global::System.Web.UI.WebControls.Label lblMessageRestore;
 
         /// <summary>
         /// UC_ICTicketUpdateRestore control.

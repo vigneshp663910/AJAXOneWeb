@@ -614,14 +614,14 @@ namespace Business
                  string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                  string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
-                 if (string.IsNullOrEmpty(Customer.GSTIN))
-                 {
-                     DataTable dt = new NpgsqlServer().ExecuteReader("select r_value as GSTIN from doohr_bp_statutory where r_statutory_type='GSTIN' and s_tenant_id=" + PaidServiceInvoice.ICTicket.Dealer.DealerCode + " and p_bp_id='" + PaidServiceInvoice.ICTicket.Customer.CustomerCode + "' limit 1");
-                     if (dt.Rows.Count == 1)
-                     {
-                         Customer.GSTIN = Convert.ToString(dt.Rows[0][0]);
-                     }
-                 }
+                 //if (string.IsNullOrEmpty(Customer.GSTIN))
+                 //{
+                 //    DataTable dt = new NpgsqlServer().ExecuteReader("select r_value as GSTIN from doohr_bp_statutory where r_statutory_type='GSTIN' and s_tenant_id=" + PaidServiceInvoice.ICTicket.Dealer.DealerCode + " and p_bp_id='" + PaidServiceInvoice.ICTicket.Customer.CustomerCode + "' limit 1");
+                 //    if (dt.Rows.Count == 1)
+                 //    {
+                 //        Customer.GSTIN = Convert.ToString(dt.Rows[0][0]);
+                 //    }
+                 //}
 
                  DataTable CommissionDT = new DataTable();
                  CommissionDT.Columns.Add("SNO");

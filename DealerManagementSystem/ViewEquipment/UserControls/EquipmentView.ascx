@@ -88,13 +88,11 @@
                 <asp:LinkButton ID="lnkBtnUpdateCommDate" runat="server" OnClick="lnkBtnActions_Click">Update Commissioning Date</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnReqWarrantyTypeChange" runat="server" OnClick="lnkBtnActions_Click">Warranty Type Change Request</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnReqOwnershipChange" runat="server" OnClick="lnkBtnActions_Click">Ownership Change Request</asp:LinkButton>
-                <asp:LinkButton ID="lnkBtnReqWarrantyExpiryDateChange" runat="server" OnClick="lnkBtnActions_Click">Expiry Date Change Request</asp:LinkButton>
+               
                 <asp:LinkButton ID="lnkBtnApprWarrantyTypeChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmApprWarrantyTypeChg();">Approve Warranty Type Change</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnRejWarrantyTypeChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejWarrantyTypeChg();">Reject Warranty Type Change</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnApprOwnershipChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmApprOwnershipChg();">Approve Ownership Change</asp:LinkButton>
-                <asp:LinkButton ID="lnkBtnRejOwnershipChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejrOwnershipChg();">Reject Ownership Change</asp:LinkButton>
-                <asp:LinkButton ID="lnkBtnApprWarrantyExpiryDateChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmApprWarrantyExpiryDateChg();">Approve Warranty Expiry Date Change</asp:LinkButton>
-                <asp:LinkButton ID="lnkBtnRejWarrantyExpiryDateChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejWarrantyExpiryDateChg();">Reject Warranty Expiry Date Change</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnRejOwnershipChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejrOwnershipChg();">Reject Ownership Change</asp:LinkButton> 
             </div>
         </div>
     </div>
@@ -125,16 +123,7 @@
                     <asp:Label ID="lblNewWarrantyHMR" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
-            <%--<div class="col-md-4">
-                <div class="col-md-12">
-                    <label>Old Warranty Date : </label>
-                    <asp:Label ID="lblOldWarrantyStartEndDate" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>New Warranty Date : </label>
-                    <asp:Label ID="lblNewWarrantyStartEndDate" runat="server" CssClass="label"></asp:Label>
-                </div>
-            </div>--%>
+           
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Attached File : </label>
@@ -191,43 +180,7 @@
         </div>
     </fieldset>
 </div>
-&nbsp;&nbsp;&nbsp;
-<div id="divExpiryDateApproval" runat="server" class="col-md-12 field-margin-top" visible="false">
-    <fieldset class="fieldset-border">
-        <legend style="background: none; color: #007bff; font-size: 17px;">Warranty Expiry Date Approval</legend>
-        <div class="col-md-12 View">
-            <div class="col-md-4">
-                <div class="col-md-12">
-                    <label>Old Warranty Expiry Date : </label>
-                    <asp:Label ID="lblOldWarrantyExpiryDate" runat="server" CssClass="label"></asp:Label>
-                    <asp:Label ID="lblWarrantyExpiryDateChangeID" runat="server" CssClass="label" Visible="false"></asp:Label>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="col-md-12">
-                    <label>New Expiry Date : </label>
-                    <asp:Label ID="lblNewWarrantyExpiryDate" runat="server" CssClass="label"></asp:Label>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="col-md-12">
-                    <label>Attached File : </label>
-                    <asp:GridView ID="gvWarrantyExpiryDateChangeAttachedFile" runat="server" AutoGenerateColumns="False" DataKeyNames="AttachedFileID" GridLines="None" ShowHeader="False">
-                        <Columns>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                    <asp:Label ID="lblWarrantyExpiryDateChangeAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
-                                    <asp:LinkButton ID="lnkBtnWarrantyExpiryDateChangeAttachedFileDownload" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" OnClick="lnkBtnWarrantyExpiryDateChangeAttachedFileDownload"></asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                        <RowStyle BackColor="#f1f1f1" HorizontalAlign="Left" />
-                    </asp:GridView>
-                </div>
-            </div>
-        </div>
-    </fieldset>
-</div>
+ 
 &nbsp;&nbsp;&nbsp;
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">

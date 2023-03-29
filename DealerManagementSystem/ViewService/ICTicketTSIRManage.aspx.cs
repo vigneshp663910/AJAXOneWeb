@@ -391,443 +391,7 @@ namespace DealerManagementSystem.ViewService
                 lblMessage.Visible = true;
             }
         }
-        void PrintFSR(PDMS_ICTicketTSIR TSIR)
-        {
-            try
-            {
-                string FailureCode = "";
-                PDMS_ICTicket ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID(TSIR.ICTicket.ICTicketID);
-                PDMS_ICTicketFSR FSR = new BDMS_ICTicketFSR().GetICTicketFSRByFsrID(null, TSIR.ICTicket.ICTicketID, null, null, null, null, null, null);
-
-                List<PDMS_WarrantyInvoiceHeader> ClaimList = new BDMS_WarrantyClaim().GetWarrantyClaimReport(TSIR.ICTicket.ICTicketNumber, null, null, "", null, null, "", null, null, null, "", "", "", false, null);
-                string TL_ContactDetails = "";
-                string SM_ContactDetails = "";
-                if (ClaimList.Count != 0)
-                {
-                    TL_ContactDetails = ClaimList[0].Approved1By == null ? "" : ClaimList[0].Approved1By.ContactName + "" + ClaimList[0].Approved1By.ContactNumber;
-                    SM_ContactDetails = ClaimList[0].Approved2By == null ? "" : ClaimList[0].Approved2By.ContactName + "" + ClaimList[0].Approved2By.ContactNumber;
-                }
-                if (string.IsNullOrEmpty(TL_ContactDetails))
-                {
-                    TL_ContactDetails = ICTicket.Dealer.TL == null ? "" : ICTicket.Dealer.TL.ContactName + "" + ICTicket.Dealer.TL.ContactNumber;
-                    SM_ContactDetails = ICTicket.Dealer.SM == null ? "" : ICTicket.Dealer.SM.ContactName + "" + ICTicket.Dealer.SM.ContactNumber;
-                }
-                List<PDMS_ServiceCharge> Charge = new BDMS_Service().GetServiceCharges(TSIR.ICTicket.ICTicketID, null, "", false);
-                foreach (PDMS_ServiceCharge SC in Charge)
-                {
-                    List<string> Materials = new BDMS_Material().GetMaterialServiceAutocomplete(SC.Material.MaterialCode, "", TSIR.ICTicket.ServiceType.ServiceTypeID, null, true);
-                    if (Materials.Count() == 1)
-                    {
-                        FailureCode = SC.Material.MaterialCode;
-                    }
-                }
-                PDMS_Customer Customer = new SCustomer().getCustomerAddress(TSIR.ICTicket.Customer.CustomerCode);
-                string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.State.State + " - " + Customer.Pincode;
-                CustomerAddress = CustomerAddress.Replace(", ,", ",").Replace(",,", ",");
-                CustomerAddress = CustomerAddress.Trim(',', ' ');
-
-                DataTable MaterialDT = new DataTable();
-                MaterialDT.Columns.Add("Material");
-                MaterialDT.Columns.Add("Description");
-                MaterialDT.Columns.Add("HSN");
-                MaterialDT.Columns.Add("Qty");
-
-                DataTable FMaterialDT = new DataTable();
-                FMaterialDT.Columns.Add("Material");
-                FMaterialDT.Columns.Add("Description");
-                FMaterialDT.Columns.Add("HSN");
-
-                List<PDMS_ServiceMaterial> MaterialC = new BDMS_Service().GetServiceMaterials(TSIR.ICTicket.ICTicketID, null, TSIR.TsirID, "", false, "");
-                foreach (PDMS_ServiceMaterial Mat in MaterialC)
-                {
-                    MaterialDT.Rows.Add(Mat.Material.MaterialCode, Mat.Material.MaterialDescription, Mat.Material.MaterialSerialNumber, Mat.Qty);
-                    if (Mat.DefectiveMaterial != null)
-                        FMaterialDT.Rows.Add(Mat.DefectiveMaterial.MaterialCode, Mat.DefectiveMaterial.MaterialDescription, Mat.DefectiveMaterial.MaterialSerialNumber);
-                }
-
-                DataTable FsrFiles = new DataTable();
-                FsrFiles.Columns.Add("FileName1");
-                FsrFiles.Columns.Add("FiePath1");
-                FsrFiles.Columns.Add("FileName2");
-                FsrFiles.Columns.Add("FiePath2");
-
-                string Path1 = "";
-                string Path2 = "";
-                List<PDMS_FSRAttachedFile> FSRFile = new List<PDMS_FSRAttachedFile>();
-                List<PDMS_FSRAttachedFile> FSRFileAll = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileDetails(TSIR.ICTicket.ICTicketID, null);
-                for (int i = 0; i < FSRFileAll.Count(); i++)
-                {
-                    int FileNameID = FSRFileAll[i].FSRAttachedName.FSRAttachedFileNameID;
-                    if ((FileNameID == (short)FSRAttachedFileName.Technician) || (FileNameID == (short)FSRAttachedFileName.Customer)
-                         || (FileNameID == (short)FSRAttachedFileName.TechnicianSignature) || (FileNameID == (short)FSRAttachedFileName.CustomerSignature))
-                    {
-                    }
-                    else
-                    {
-                        FSRFile.Add(FSRFileAll[i]);
-                    }
-                }
-                for (int i = 0; i < FSRFile.Count(); i++)
-                {
-                    PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i].AttachedFileID);
-                    string Url1 = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
-                    if (File.Exists(MapPath(Url1)))
-                    {
-                        File.Delete(MapPath(Url1));
-                    }
-                    File.WriteAllBytes(MapPath(Url1), F1.AttachedFile);
-                    Path1 = new Uri(Server.MapPath("~/" + Url1)).AbsoluteUri;
-                    if (i + 1 != FSRFile.Count())
-                    {
-                        PDMS_FSRAttachedFile F2 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i + 1].AttachedFileID);
-                        string Url2 = "ICTickrtFSR_Files/" + F2.AttachedFileID + "." + F2.FileName.Split('.')[F2.FileName.Split('.').Count() - 1];
-                        if (File.Exists(MapPath(Url2)))
-                        {
-                            File.Delete(MapPath(Url2));
-                        }
-                        File.WriteAllBytes(MapPath(Url2), F2.AttachedFile);
-                        Path2 = new Uri(Server.MapPath("~/" + Url2)).AbsoluteUri;
-                        FsrFiles.Rows.Add(F1.FSRAttachedName.FSRAttachedName, Path1, F2.FSRAttachedName.FSRAttachedName, Path2);
-                    }
-                    else
-                    {
-                        FsrFiles.Rows.Add(F1.FSRAttachedName.FSRAttachedName, Path1, "", "");
-                    }
-                    i = i + 1;
-                }
-
-                List<PDMS_TSIRAttachedFile> TSIRFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(TSIR.ICTicket.ICTicketID, TSIR.TsirID, null);
-                for (int i = 0; i < TSIRFile.Count(); i++)
-                {
-                    PDMS_TSIRAttachedFile T1 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(TSIRFile[i].AttachedFileID);
-
-                    string Url1 = "ICTickrtTSIR_Files/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
-                    if (File.Exists(MapPath(Url1)))
-                    {
-                        File.Delete(MapPath(Url1));
-                    }
-                    File.WriteAllBytes(MapPath(Url1), T1.AttachedFile);
-                    Path1 = new Uri(Server.MapPath("~/" + Url1)).AbsoluteUri;
-                    if (i + 1 != TSIRFile.Count())
-                    {
-                        PDMS_TSIRAttachedFile T2 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(TSIRFile[i + 1].AttachedFileID);
-                        string Url2 = "ICTickrtTSIR_Files/" + T2.AttachedFileID + "." + T2.FileName.Split('.')[T2.FileName.Split('.').Count() - 1];
-                        if (File.Exists(MapPath(Url2)))
-                        {
-                            File.Delete(MapPath(Url2));
-                        }
-                        File.WriteAllBytes(MapPath(Url2), T2.AttachedFile);
-                        Path2 = new Uri(Server.MapPath("~/" + Url2)).AbsoluteUri;
-
-                        FsrFiles.Rows.Add(T1.FSRAttachedName.FSRAttachedName, Path1, T2.FSRAttachedName.FSRAttachedName, Path2);
-                    }
-                    else
-                    {
-                        FsrFiles.Rows.Add(T1.FSRAttachedName.FSRAttachedName, Path1, "", "");
-                    }
-                    i = i + 1;
-                }
-
-                string contentType = string.Empty;
-                contentType = "application/pdf";
-                var CC = CultureInfo.CurrentCulture;
-                string FileName = "TSIR_" + TSIR.TsirNumber + ".pdf";
-                string extension;
-                string encoding;
-                string mimeType;
-                string[] streams;
-                Warning[] warnings;
-                LocalReport report = new LocalReport();
-                report.EnableExternalImages = true;
-                ReportParameter[] P = new ReportParameter[36];
-
-                P[0] = new ReportParameter("TSIRNumber", TSIR.TsirNumber, false);
-                P[1] = new ReportParameter("TSIRDate", TSIR.TsirDate.ToShortDateString(), false);
-                P[2] = new ReportParameter("ICTicketNo", TSIR.ICTicket.ICTicketNumber, false);
-                P[3] = new ReportParameter("ICTicketDate", TSIR.ICTicket.ICTicketDate.ToShortDateString(), false);
-                P[4] = new ReportParameter("FSRNo", ICTicket.ICTicketNumber + "/" + ICTicket.Dealer.DealerCode + "/" + ICTicket.Technician.UserName + "/" + FSR.FSRDate.Year, false);
-                P[5] = new ReportParameter("Application", ICTicket.MainApplication == null ? "" : TSIR.ICTicket.MainApplication.MainApplication, false);
-                P[6] = new ReportParameter("EquipmentModel", ICTicket.Equipment.EquipmentModel.Model, false);
-                P[7] = new ReportParameter("EquipmentSerialNo", ICTicket.Equipment.EquipmentSerialNo, false);
-
-                P[8] = new ReportParameter("DealerCode", ICTicket.Dealer.DealerCode, false);
-                P[9] = new ReportParameter("DealerName", ICTicket.Dealer.DealerName, false);
-                P[10] = new ReportParameter("HMR", ICTicket.CurrentHMRValue == null ? "" : Convert.ToString(ICTicket.CurrentHMRValue) + " (" + ICTicket.Equipment.EquipmentModel.Division.UOM + ")", false);
-                P[11] = new ReportParameter("TypeOfWarranty", ICTicket.TypeOfWarranty == null ? "" : ICTicket.TypeOfWarranty.TypeOfWarranty, false);
-                P[12] = new ReportParameter("FSRDate", FSR.FSRDate.ToShortDateString(), false);
-                P[13] = new ReportParameter("CustomerName", Customer.CustomerName, false);
-                P[14] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
-                P[15] = new ReportParameter("Location", ICTicket.Location, false);
-                P[16] = new ReportParameter("CustomerGSTStateCode", "GST State Code : " + Customer.State.StateCode, false);
-                P[17] = new ReportParameter("CustomerGSTIN", "GSTIN/UIN No : " + Customer.GSTIN, false);
-                P[18] = new ReportParameter("CustomerAddress", CustomerAddress, false);
-
-                P[19] = new ReportParameter("NatureOfFailures", TSIR.NatureOfFailures, false);
-                P[20] = new ReportParameter("ProblemNoticedBy", TSIR.ProblemNoticedBy, false);
-                P[21] = new ReportParameter("UnderWhatConditionFailureTaken", TSIR.UnderWhatConditionFailureTaken, false);
-                P[22] = new ReportParameter("FailureDetails", TSIR.FailureDetails, false);
-                P[23] = new ReportParameter("PointsChecked", TSIR.PointsChecked, false);
-                P[24] = new ReportParameter("PossibleRootCauses", TSIR.PossibleRootCauses, false);
-                P[25] = new ReportParameter("SpecificPointsNoticed", TSIR.SpecificPointsNoticed, false);
-
-
-                P[26] = new ReportParameter("ProblemCategory", ICTicket.ServicePriority.ServicePriority, false);
-                P[27] = new ReportParameter("CommissioningOn", ICTicket.Equipment.CommissioningOn == null ? "" : ((DateTime)ICTicket.Equipment.CommissioningOn).ToShortDateString(), false);
-                P[28] = new ReportParameter("DispatchedOn", ICTicket.Equipment.DispatchedOn == null ? "" : ((DateTime)ICTicket.Equipment.DispatchedOn).ToShortDateString(), false);
-                P[29] = new ReportParameter("HOComments", TSIR.ServiceComments + " " + TSIR.ServiceComments, false);
-                P[30] = new ReportParameter("FailureCode", FailureCode, false);
-                P[31] = new ReportParameter("FsrfilesDisplay", FsrFiles.Rows.Count.ToString(), false);
-
-                P[32] = new ReportParameter("SE_Name", ICTicket.Technician.ContactName, false);
-                P[33] = new ReportParameter("SE_ContactNumber", ICTicket.Technician.ContactNumber, false);
-
-
-
-                P[34] = new ReportParameter("TL_ContactDetails", TL_ContactDetails, false);
-                P[35] = new ReportParameter("SM_ContactDetails", SM_ContactDetails, false);
-
-                report.ReportPath = Server.MapPath("~/Print/DMS_TSIR.rdlc");
-                report.SetParameters(P);
-
-                ReportDataSource rds = new ReportDataSource();
-                rds.Name = "Fsrfiles";//This refers to the dataset name in the RDLC file  
-                rds.Value = FsrFiles;
-                report.DataSources.Add(rds);
-
-
-                ReportDataSource rds2 = new ReportDataSource();
-                rds2.Name = "Material";//This refers to the dataset name in the RDLC file  
-                rds2.Value = MaterialDT;
-                report.DataSources.Add(rds2);
-
-                ReportDataSource rds3 = new ReportDataSource();
-                rds3.Name = "FMaterial";//This refers to the dataset name in the RDLC file  
-                rds3.Value = FMaterialDT;
-                report.DataSources.Add(rds3);
-
-                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
-
-                
-                Response.Buffer = true;
-                Response.Clear();
-                Response.ContentType = mimeType;
-                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-                Response.BinaryWrite(mybytes); // create the file
-                new BXcel().PdfDowload();
-                Response.Flush(); // send it to the client to download
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = "Please Contact Administrator. " + ex.Message;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-        }
-        void PrintFSR1(PDMS_ICTicketTSIR TSIR)
-        {
-            try
-            {
-                string FailureCode = "";
-                PDMS_ICTicket ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID(TSIR.ICTicket.ICTicketID);
-                PDMS_ICTicketFSR FSR = new BDMS_ICTicketFSR().GetICTicketFSRByFsrID(null, TSIR.ICTicket.ICTicketID, null, null, null, null, null, null);
-
-                List<PDMS_WarrantyInvoiceHeader> ClaimList = new BDMS_WarrantyClaim().GetWarrantyClaimReport(TSIR.ICTicket.ICTicketNumber, null, null, "", null, null, "", null, null, null, "", "", "", false, null);
-                string TL_ContactDetails = "";
-                string SM_ContactDetails = "";
-                if (ClaimList.Count != 0)
-                {
-                    TL_ContactDetails = ClaimList[0].Approved1By == null ? "" : ClaimList[0].Approved1By.ContactName + "" + ClaimList[0].Approved1By.ContactNumber;
-                    SM_ContactDetails = ClaimList[0].Approved2By == null ? "" : ClaimList[0].Approved2By.ContactName + "" + ClaimList[0].Approved2By.ContactNumber;
-                }
-                if (string.IsNullOrEmpty(TL_ContactDetails))
-                {
-                    TL_ContactDetails = ICTicket.Dealer.TL == null ? "" : ICTicket.Dealer.TL.ContactName + "" + ICTicket.Dealer.TL.ContactNumber;
-                    SM_ContactDetails = ICTicket.Dealer.SM == null ? "" : ICTicket.Dealer.SM.ContactName + "" + ICTicket.Dealer.SM.ContactNumber;
-                }
-                List<PDMS_ServiceCharge> Charge = new BDMS_Service().GetServiceCharges(TSIR.ICTicket.ICTicketID, null, "", false);
-                foreach (PDMS_ServiceCharge SC in Charge)
-                {
-                    List<string> Materials = new BDMS_Material().GetMaterialServiceAutocomplete(SC.Material.MaterialCode, "", TSIR.ICTicket.ServiceType.ServiceTypeID, null, true);
-                    if (Materials.Count() == 1)
-                    {
-                        FailureCode = SC.Material.MaterialCode;
-                    }
-                }
-                PDMS_Customer Customer = new SCustomer().getCustomerAddress(TSIR.ICTicket.Customer.CustomerCode);
-                string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.State.State + " - " + Customer.Pincode;
-                CustomerAddress = CustomerAddress.Replace(", ,", ",").Replace(",,", ",");
-                CustomerAddress = CustomerAddress.Trim(',', ' ');
-
-                DataTable MaterialDT = new DataTable();
-                MaterialDT.Columns.Add("Material");
-                MaterialDT.Columns.Add("Description");
-                MaterialDT.Columns.Add("HSN");
-                MaterialDT.Columns.Add("Qty");
-
-                DataTable FMaterialDT = new DataTable();
-                FMaterialDT.Columns.Add("Material");
-                FMaterialDT.Columns.Add("Description");
-                FMaterialDT.Columns.Add("HSN");
-
-                List<PDMS_ServiceMaterial> MaterialC = new BDMS_Service().GetServiceMaterials(TSIR.ICTicket.ICTicketID, null, TSIR.TsirID, "", false, "");
-                foreach (PDMS_ServiceMaterial Mat in MaterialC)
-                {
-                    MaterialDT.Rows.Add(Mat.Material.MaterialCode, Mat.Material.MaterialDescription, Mat.Material.MaterialSerialNumber, Mat.Qty);
-                    if (Mat.DefectiveMaterial != null)
-                        FMaterialDT.Rows.Add(Mat.DefectiveMaterial.MaterialCode, Mat.DefectiveMaterial.MaterialDescription, Mat.DefectiveMaterial.MaterialSerialNumber);
-                }
-
-                DataTable FsrFiles = new DataTable();
-                FsrFiles.Columns.Add("FileName1");
-                FsrFiles.Columns.Add("FiePath1");
-                //FsrFiles.Columns.Add("FileName2");
-                //FsrFiles.Columns.Add("FiePath2");
-
-                string Path1 = "";
-                List<PDMS_FSRAttachedFile> FSRFile = new List<PDMS_FSRAttachedFile>();
-                List<PDMS_FSRAttachedFile> FSRFileAll = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileDetails(TSIR.ICTicket.ICTicketID, null);
-                for (int i = 0; i < FSRFileAll.Count(); i++)
-                {
-                    int FileNameID = FSRFileAll[i].FSRAttachedName.FSRAttachedFileNameID;
-                    if ((FileNameID == (short)FSRAttachedFileName.Technician) || (FileNameID == (short)FSRAttachedFileName.Customer)
-                         || (FileNameID == (short)FSRAttachedFileName.TechnicianSignature) || (FileNameID == (short)FSRAttachedFileName.CustomerSignature))
-                    {
-                    }
-                    else
-                    {
-                        FSRFile.Add(FSRFileAll[i]);
-                    }
-                }
-                for (int i = 0; i < FSRFile.Count(); i++)
-                {
-                    PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i].AttachedFileID);
-                    string Url1 = "ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
-
-                    if (File.Exists(MapPath(Url1)))
-                    {
-                        File.Delete(MapPath(Url1));
-                    }
-                    File.WriteAllBytes(MapPath(Url1), F1.AttachedFile);
-
-
-                    string DestPath = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
-
-                    resizeImage1(MapPath(Url1), Server.MapPath("~/" + DestPath));
-                    Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
-                    FsrFiles.Rows.Add(F1.FSRAttachedName.FSRAttachedName, Path1);
-                }
-
-                List<PDMS_TSIRAttachedFile> TSIRFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(TSIR.ICTicket.ICTicketID, TSIR.TsirID, null);
-                for (int i = 0; i < TSIRFile.Count(); i++)
-                {
-                    PDMS_TSIRAttachedFile T1 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(TSIRFile[i].AttachedFileID);
-                    string Url1 = "ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
-                    if (File.Exists(MapPath(Url1)))
-                    {
-                        File.Delete(MapPath(Url1));
-                    }
-                    File.WriteAllBytes(MapPath(Url1), T1.AttachedFile);
-                    string DestPath = "ICTickrtFSR_Files/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
-
-                    resizeImage1(MapPath(Url1), Server.MapPath("~/" + DestPath));
-                    Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
-                    FsrFiles.Rows.Add(T1.FSRAttachedName.FSRAttachedName, Path1);
-                }
-
-                string contentType = string.Empty;
-                contentType = "application/pdf";
-                var CC = CultureInfo.CurrentCulture;
-                string FileName = "TSIR_" + TSIR.TsirNumber + ".pdf";
-                string extension;
-                string encoding;
-                string mimeType;
-                string[] streams;
-                Warning[] warnings;
-                LocalReport report = new LocalReport();
-                report.EnableExternalImages = true;
-                ReportParameter[] P = new ReportParameter[36];
-
-                P[0] = new ReportParameter("TSIRNumber", TSIR.TsirNumber, false);
-                P[1] = new ReportParameter("TSIRDate", TSIR.TsirDate.ToShortDateString(), false);
-                P[2] = new ReportParameter("ICTicketNo", TSIR.ICTicket.ICTicketNumber, false);
-                P[3] = new ReportParameter("ICTicketDate", TSIR.ICTicket.ICTicketDate.ToShortDateString(), false);
-                P[4] = new ReportParameter("FSRNo", ICTicket.ICTicketNumber + "/" + ICTicket.Dealer.DealerCode + "/" + ICTicket.Technician.UserName + "/" + FSR.FSRDate.Year, false);
-                P[5] = new ReportParameter("Application", ICTicket.MainApplication == null ? "" : TSIR.ICTicket.MainApplication.MainApplication, false);
-                P[6] = new ReportParameter("EquipmentModel", ICTicket.Equipment.EquipmentModel.Model, false);
-                P[7] = new ReportParameter("EquipmentSerialNo", ICTicket.Equipment.EquipmentSerialNo, false);
-
-                P[8] = new ReportParameter("DealerCode", ICTicket.Dealer.DealerCode, false);
-                P[9] = new ReportParameter("DealerName", ICTicket.Dealer.DealerName, false);
-                P[10] = new ReportParameter("HMR", ICTicket.CurrentHMRValue == null ? "" : Convert.ToString(ICTicket.CurrentHMRValue) + " (" + ICTicket.Equipment.EquipmentModel.Division.UOM + ")", false);
-                P[11] = new ReportParameter("TypeOfWarranty", ICTicket.TypeOfWarranty == null ? "" : ICTicket.TypeOfWarranty.TypeOfWarranty, false);
-                P[12] = new ReportParameter("FSRDate", FSR.FSRDate.ToShortDateString(), false);
-                P[13] = new ReportParameter("CustomerName", Customer.CustomerName, false);
-                P[14] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
-                P[15] = new ReportParameter("Location", ICTicket.Location, false);
-                P[16] = new ReportParameter("CustomerGSTStateCode", "GST State Code : " + Customer.State.StateCode, false);
-                P[17] = new ReportParameter("CustomerGSTIN", "GSTIN/UIN No : " + Customer.GSTIN, false);
-                P[18] = new ReportParameter("CustomerAddress", CustomerAddress, false);
-
-                P[19] = new ReportParameter("NatureOfFailures", TSIR.NatureOfFailures, false);
-                P[20] = new ReportParameter("ProblemNoticedBy", TSIR.ProblemNoticedBy, false);
-                P[21] = new ReportParameter("UnderWhatConditionFailureTaken", TSIR.UnderWhatConditionFailureTaken, false);
-                P[22] = new ReportParameter("FailureDetails", TSIR.FailureDetails, false);
-                P[23] = new ReportParameter("PointsChecked", TSIR.PointsChecked, false);
-                P[24] = new ReportParameter("PossibleRootCauses", TSIR.PossibleRootCauses, false);
-                P[25] = new ReportParameter("SpecificPointsNoticed", TSIR.SpecificPointsNoticed, false);
-
-
-                P[26] = new ReportParameter("ProblemCategory", ICTicket.ServicePriority.ServicePriority, false);
-                P[27] = new ReportParameter("CommissioningOn", ICTicket.Equipment.CommissioningOn == null ? "" : ((DateTime)ICTicket.Equipment.CommissioningOn).ToShortDateString(), false);
-                P[28] = new ReportParameter("DispatchedOn", ICTicket.Equipment.DispatchedOn == null ? "" : ((DateTime)ICTicket.Equipment.DispatchedOn).ToShortDateString(), false);
-                P[29] = new ReportParameter("HOComments", TSIR.ServiceComments + " " + TSIR.ServiceComments, false);
-                P[30] = new ReportParameter("FailureCode", FailureCode, false);
-                P[31] = new ReportParameter("FsrfilesDisplay", FsrFiles.Rows.Count.ToString(), false);
-
-                P[32] = new ReportParameter("SE_Name", ICTicket.Technician.ContactName, false);
-                P[33] = new ReportParameter("SE_ContactNumber", ICTicket.Technician.ContactNumber, false);
-
-
-
-                P[34] = new ReportParameter("TL_ContactDetails", TL_ContactDetails, false);
-                P[35] = new ReportParameter("SM_ContactDetails", SM_ContactDetails, false);
-
-                report.ReportPath = Server.MapPath("~/Print/DMS_TSIR1.rdlc");
-                report.SetParameters(P);
-
-                ReportDataSource rds = new ReportDataSource();
-                rds.Name = "Fsrfiles";//This refers to the dataset name in the RDLC file  
-                rds.Value = FsrFiles;
-                report.DataSources.Add(rds);
-
-
-                ReportDataSource rds2 = new ReportDataSource();
-                rds2.Name = "Material";//This refers to the dataset name in the RDLC file  
-                rds2.Value = MaterialDT;
-                report.DataSources.Add(rds2);
-
-                ReportDataSource rds3 = new ReportDataSource();
-                rds3.Name = "FMaterial";//This refers to the dataset name in the RDLC file  
-                rds3.Value = FMaterialDT;
-                report.DataSources.Add(rds3);
-
-                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
-
-                Response.Buffer = true;
-                Response.Clear();
-                Response.ContentType = mimeType;
-                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-                Response.BinaryWrite(mybytes); // create the file
-                Response.Flush(); // send it to the client to download
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = "Please Contact Administrator. " + ex.Message;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-        }
-
+         
         void PrintFSR2(PDMS_ICTicketTSIR TSIR)
         {
             try
@@ -909,7 +473,7 @@ namespace DealerManagementSystem.ViewService
                 }
                 for (int i = 0; i < FSRFile.Count(); i++)
                 {
-                    PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i].AttachedFileID);
+                    PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFile[i].AttachedFileID);
                     string Url1 = "ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
 
                     if (File.Exists(MapPath(Url1)))
@@ -917,33 +481,34 @@ namespace DealerManagementSystem.ViewService
                         File.Delete(MapPath(Url1));
                     }
                     File.WriteAllBytes(MapPath(Url1), F1.AttachedFile);
-                    string DestPath = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
+                    string DestPath = "ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
 
                     resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
                     Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
                     // FsrFiles.Rows.Add(F1.FSRAttachedName.FSRAttachedName, Path1);
 
-                    FileNames.Add(F1.FSRAttachedName.FSRAttachedName);
+                    FileNames.Add(F1.FileName);
                     FiePath.Add(Path1);
                 }
 
                 List<PDMS_TSIRAttachedFile> TSIRFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(TSIR.ICTicket.ICTicketID, TSIR.TsirID, null);
                 for (int i = 0; i < TSIRFile.Count(); i++)
                 {
-                    PDMS_TSIRAttachedFile T1 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(TSIRFile[i].AttachedFileID);
+                    PAttachedFile T1 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileForDownload(TSIRFile[i].AttachedFileID);
                     string Url1 = "ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
                     if (File.Exists(MapPath(Url1)))
                     {
                         File.Delete(MapPath(Url1));
                     }
+                    
                     File.WriteAllBytes(MapPath(Url1), T1.AttachedFile);
-                    string DestPath = "ICTickrtTSIR_Files/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
+                    string DestPath = "ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
 
                     resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
                     Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
                     //  FsrFiles.Rows.Add(T1.FSRAttachedName.FSRAttachedName, Path1);
 
-                    FileNames.Add(T1.FSRAttachedName.FSRAttachedName);
+                    FileNames.Add(T1.FileName);
                     FiePath.Add(Path1);
                 }
 

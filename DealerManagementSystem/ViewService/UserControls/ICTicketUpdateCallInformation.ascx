@@ -141,7 +141,7 @@
                     <asp:DropDownList ID="ddlMainApplication" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlMainApplication_SelectedIndexChanged" AutoPostBack="true" />
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Sub Application Manual</label>
+                    <label class="modal-label">Sub Application</label>
                     <asp:DropDownList ID="ddlSubApplication" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlSubApplication_SelectedIndexChanged" AutoPostBack="true" />
                     <asp:TextBox ID="txtSubApplicationEntry" runat="server" CssClass="form-control" AutoComplete="Off" Visible="false" OnTextChanged="txtSubApplicationEntry_TextChanged"></asp:TextBox>
                 </div>

@@ -14,6 +14,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
 {
     public partial class UserMonthlyVerification : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewDealerEmployee_UserMonthlyVerification; } }
         public List<PDMS_DealerEmployee> DealerEmployeeList
         {
             get

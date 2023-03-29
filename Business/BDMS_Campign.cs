@@ -20,9 +20,9 @@ namespace Business
     public class BDMS_Campign
     {
         private IDataAccess provider;
-        public BDMS_Campign(Boolean Live = false)
+        public BDMS_Campign()
         {
-            provider = new ProviderFactory().GetProvider(Live);
+            provider = new ProviderFactory().GetProvider();
         }
         public List<PDMS_Campign> GetCampign(int? CampignID, string CampignName)
         {

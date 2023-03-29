@@ -418,7 +418,6 @@
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
     <Content Include="ViewMarketing\ActivityActual.aspx" />
-    <Content Include="ViewMarketing\ActivityClaimApproval.aspx" />
     <Content Include="ViewMarketing\ActivityInvoice.aspx" />
     <Content Include="ViewMarketing\ActivityInvReports.aspx" />
     <Content Include="ViewMarketing\ActivityPlan.aspx" />
@@ -436,6 +435,7 @@
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewMaster\EInvoiceRequest.aspx" />
     <Content Include="ViewMaster\Equipment.aspx" />
+    <Content Include="ViewMaster\MaterialSync.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerVerification.ascx" />
     <Content Include="ViewMaster\UserControls\EquipmentView.ascx" />
     <Content Include="ViewMaster\UserControls\LocationDistrict.ascx" />
@@ -504,7 +504,6 @@
     <Content Include="ViewMaster\UserControls\CustomerViewHeader.ascx" />
     <Content Include="ViewMaster\UserControls\DealerView.ascx" />
     <Content Include="ViewOrganization\Organization.aspx" />
-    <Content Include="ViewPreSale\ColdVisits.aspx" />
     <Content Include="ViewPreSale\EnquiryN.aspx" />
     <Content Include="ViewPreSale\EnquiryTimeLineReport.aspx" />
     <Content Include="ViewPreSale\LeadFoloowUpReport.aspx" />
@@ -586,7 +585,6 @@
     <Content Include="ViewService\ICTicketTSIRMessage.aspx" />
     <Content Include="ViewService\ICTicketTSIRReport.aspx" />
     <Content Include="ViewService\MTTR_New.aspx" />
-    <Content Include="ViewService\MTTR_Report.aspx" />
     <Content Include="ViewService\PaidServiceInvoice.aspx" />
     <Content Include="ViewService\PaidServiceProformaInvoice.aspx" />
     <Content Include="ViewService\PaidServiceQuotation.aspx" />
@@ -1249,13 +1247,6 @@
     <Compile Include="ViewMarketing\ActivityActual.aspx.designer.cs">
       <DependentUpon>ActivityActual.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewMarketing\ActivityClaimApproval.aspx.cs">
-      <DependentUpon>ActivityClaimApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewMarketing\ActivityClaimApproval.aspx.designer.cs">
-      <DependentUpon>ActivityClaimApproval.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ViewMarketing\ActivityInvoice.aspx.cs">
       <DependentUpon>ActivityInvoice.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1374,6 +1365,13 @@
     </Compile>
     <Compile Include="ViewMaster\Equipment.aspx.designer.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\MaterialSync.aspx.cs">
+      <DependentUpon>MaterialSync.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\MaterialSync.aspx.designer.cs">
+      <DependentUpon>MaterialSync.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerVerification.ascx.cs">
       <DependentUpon>CustomerVerification.ascx</DependentUpon>
@@ -1685,13 +1683,6 @@
     </Compile>
     <Compile Include="ViewOrganization\Organization.aspx.designer.cs">
       <DependentUpon>Organization.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewPreSale\ColdVisits.aspx.cs">
-      <DependentUpon>ColdVisits.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewPreSale\ColdVisits.aspx.designer.cs">
-      <DependentUpon>ColdVisits.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryN.aspx.cs">
       <DependentUpon>EnquiryN.aspx</DependentUpon>
@@ -2259,13 +2250,6 @@
     </Compile>
     <Compile Include="ViewService\MTTR_New.aspx.designer.cs">
       <DependentUpon>MTTR_New.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewService\MTTR_Report.aspx.cs">
-      <DependentUpon>MTTR_Report.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewService\MTTR_Report.aspx.designer.cs">
-      <DependentUpon>MTTR_Report.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\PaidServiceInvoice.aspx.cs">
       <DependentUpon>PaidServiceInvoice.aspx</DependentUpon>

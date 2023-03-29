@@ -259,10 +259,10 @@ namespace DealerManagementSystem.ViewService
 
                     GridView supplierPOLinesGrid = (GridView)e.Row.FindControl("gvICTicketItems");
 
-                    Label lblPscID = (Label)e.Row.FindControl("lblPscID");
-                    GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
-                    gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
-                    gvFileAttached.DataBind();
+                   // Label lblPscID = (Label)e.Row.FindControl("lblPscID");
+                   // GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
+                   // gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
+                  //  gvFileAttached.DataBind();
 
 
                     List<PDMS_WarrantyInvoiceItem> supplierPurchaseOrderLines = new List<PDMS_WarrantyInvoiceItem>();

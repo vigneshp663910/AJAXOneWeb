@@ -15,10 +15,7 @@ using System.Web.UI.WebControls;
 namespace DealerManagementSystem.ViewService.UserControls
 {
     public partial class ICTicketView : System.Web.UI.UserControl
-    {
-
-        public string PageName { get; set; }
-
+    { 
         public PDMS_ICTicket SDMS_ICTicket
         {
             get
@@ -223,7 +220,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillRestore();
 
             ActionControlMange();
-
+            FillCustomerFeedBack();
 
         }
         public void FillBasicInformation()
@@ -303,11 +300,12 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblMainApplication.Text = SDMS_ICTicket.MainApplication.MainApplication;
                 if (SDMS_ICTicket.SubApplication != null)
                 {
-                    lblSubApplication.Text = SDMS_ICTicket.SubApplication.SubApplicationID.ToString();
-                    //if (SDMS_ICTicket.SubApplication.SubApplicationID.ToString() == "26")
-                    //{
-                    //    txtSubApplicationEntry.Visible = true;
-                    //}
+                    lblSubApplication.Text = SDMS_ICTicket.SubApplication.SubApplication;
+                    if (SDMS_ICTicket.SubApplication.SubApplicationID.ToString() == "26")
+                    {
+                        lblSubApplicationEntry.Visible = true;
+                        lblSubApplicationEntry.Text = SDMS_ICTicket.SubApplicationEntry;
+                    }
                 }
             }
 
@@ -552,7 +550,37 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Add Technician")
+            if (lbActions.Text == "Decline Approve")
+            {
+                lblMessage.Visible = true; 
+                if (new BDMS_ICTicket().ApproveOrDeclineICTicketReqDecline(SDMS_ICTicket.ICTicketID, true))
+                {
+                    lblMessage.Text = "This IC ticket declined";
+                    lblMessage.ForeColor = Color.Green;
+                    FillICTicket(SDMS_ICTicket.ICTicketID);
+                }
+                else
+                {
+                    lblMessage.Text = "Contact administrator";
+                    lblMessage.ForeColor = Color.Red;
+                }
+            }
+            else if (lbActions.Text == "Decline Reject")
+            {
+                lblMessage.Visible = true; 
+                if (new BDMS_ICTicket().ApproveOrDeclineICTicketReqDecline(SDMS_ICTicket.ICTicketID, false))
+                {
+                    lblMessage.Text = "This IC ticket reopened again";
+                    lblMessage.ForeColor = Color.Green;
+                    FillICTicket(SDMS_ICTicket.ICTicketID);
+                }
+                else
+                {
+                    lblMessage.Text = "Contact administrator ";
+                    lblMessage.ForeColor = Color.Red;
+                }
+            }
+            else if(lbActions.Text == "Add Technician")
             {
                 MPE_AddTechnician.Show();
                 UC_ICTicketAddTechnician.FillMaster(SDMS_ICTicket.Dealer.DealerID);
@@ -712,7 +740,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             else if (lbActions.Text == "Request for Decline")
             { 
                 MPE_RequestForDecline.Show();
-                FillICTicket(SDMS_ICTicket.ICTicketID);
+                txtDeclineReason.Text = "";
+               // FillICTicket(SDMS_ICTicket.ICTicketID);
             }
             else if (lbActions.Text == "Margin Warranty Change")
             { 
@@ -735,7 +764,21 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
                 ShowMessage(Results);
                 FillICTicket(SDMS_ICTicket.ICTicketID);
-            } 
+            }
+            else if (lbActions.Text == "Unblock Ticket")
+            {
+                string endPoint = "ICTicket/UnblockICTicket?ICTicketID=" + SDMS_ICTicket.ICTicketID;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                ShowMessage(Results);
+                FillICTicket(SDMS_ICTicket.ICTicketID);
+            }
         }
         protected void btnSaveAssignSE_Click(object sender, EventArgs e)
         {
@@ -813,12 +856,13 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             PDMS_FSRAttachedFile_M AttachedFile = new PDMS_FSRAttachedFile_M();
             AttachedFile.AttachedFileID = AttachedFileID;
+            AttachedFile.ICTicketID = SDMS_ICTicket.ICTicketID;
             AttachedFile.IsDeleted = true;
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicketFSR/AddOrRemoveFSRAttachment", AttachedFile));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageFsrAttachments.Text = Results.Message;
+                lblMessage.Text = Results.Message;
                 return;
             }
             lblMessage.Text = "File Removed";
@@ -852,21 +896,28 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             long AvailabilityOfOtherMachineID = Convert.ToInt64(gvAvailabilityOfOtherMachine.DataKeys[gvRow.RowIndex].Value);
-            new BDMS_AvailabilityOfOtherMachine().InsertOrUpdateAvailabilityOfOtherMachineAddOrRemoveICTicket(AvailabilityOfOtherMachineID, 0, 0, 0, 0, true, PSession.User.UserID);
-            lblMessage.Text = "Note is removed from this ticket";
-            lblMessage.ForeColor = Color.Green; 
-            FillAvailabilityOfOtherMachine();
-            DropDownList ddlTypeOfMachine = (DropDownList)gvAvailabilityOfOtherMachine.FooterRow.FindControl("ddlTypeOfMachine");
+             
+
+            string endPoint = "ICTicket/AddOrRemoveICTicketOtherMachine?AvailabilityOfOtherMachineID="+AvailabilityOfOtherMachineID 
+                +"&ICTicketID=" + SDMS_ICTicket.ICTicketID + "&IsDeleted=true";
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);  
+            FillAvailabilityOfOtherMachine(); 
         }
         protected void btnICTicketAddOtherMachine_Click(object sender, EventArgs e)
         {
             MPE_ICTicketAddOtherMachine.Show();
             string Message = UC_ICTicketAddOtherMachine.Validation();
-            lblMessageAssignEngineer.ForeColor = Color.Red;
-            lblMessageAssignEngineer.Visible = true;
+            lblMessageOtherMachine.ForeColor = Color.Red;
+            lblMessageOtherMachine.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageAssignEngineer.Text = Message;
+                lblMessageOtherMachine.Text = Message;
                 return;
             }
             PDMS_AvailabilityOfOtherMachine OM = UC_ICTicketAddOtherMachine.Read();
@@ -875,7 +926,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblMessageOtherMachine.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
@@ -1330,7 +1381,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
                 long AttachedFileID = Convert.ToInt64(Parentgrid.DataKeys[gvRow.RowIndex].Value);
 
-                PAttachedFile UploadedFile = new BDMS_ICTicketTSIR().GetICTicketFSRAttachedFileForDownload(AttachedFileID);
+                PAttachedFile UploadedFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileForDownload(AttachedFileID);
                 Response.AddHeader("Content-type", UploadedFile.FileType);
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName.Replace(",", " "));
                 HttpContext.Current.Response.Charset = "utf-16";
@@ -1678,21 +1729,29 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             long ServiceNoteID = Convert.ToInt64(gvNotes.DataKeys[gvRow.RowIndex].Value);
-            new BDMS_ICTicket().InsertOrUpdateNoteAddOrRemoveICTicket(ServiceNoteID, 0, 0, "", true, PSession.User.UserID);
-            lblMessage.Text = "Note is removed from this ticket";
-            lblMessage.ForeColor = Color.Green;
-            FillServiceNotes();
-            DropDownList ddlNoteType = (DropDownList)gvNotes.FooterRow.FindControl("ddlNoteType");
+
+            string endPoint = "ICTicket/AddOrRemoveTicketNoticeInfo?ServiceNoteID=" + ServiceNoteID + "&ICTicket=" + SDMS_ICTicket.ICTicketID + "&NoteTypeID=0&IsDeleted=true";
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageNote.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_ICTicketAddNotes.Hide();
+            tbpCust.ActiveTabIndex = 7;
+            FillServiceNotes(); 
         }
         protected void btnAddNotes_Click(object sender, EventArgs e)
         {
             MPE_ICTicketAddNotes.Show();
             string Message = UC_ICTicketAddNotes.Validation();
-            lblMessageAssignEngineer.ForeColor = Color.Red;
-            lblMessageAssignEngineer.Visible = true;
+            lblMessageNote.ForeColor = Color.Red;
+            lblMessageNote.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageAssignEngineer.Text = Message;
+                lblMessageNote.Text = Message;
                 return;
             }
             string endPoint = "ICTicket/AddOrRemoveTicketNoticeInfo?ServiceNoteID=0&ICTicket=" + SDMS_ICTicket.ICTicketID + UC_ICTicketAddNotes.Read() + "&IsDeleted=false";
@@ -1700,7 +1759,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblMessageNote.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
@@ -1713,25 +1772,24 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             MPE_UpdateRestore.Show();
             string Message = UC_ICTicketUpdateRestore.Validation(SDMS_ICTicket);
-            lblMessageAssignEngineer.ForeColor = Color.Red;
-            lblMessageAssignEngineer.Visible = true;
+            lblMessageRestore.ForeColor = Color.Red;
+            lblMessageRestore.Visible = true;
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageAssignEngineer.Text = Message;
+                lblMessageRestore.Text = Message;
                 return;
             }
             string endPoint = "ICTicket/UpdateTicketRestorationInfo?ICTicket=" + SDMS_ICTicket.ICTicketID + "&" + UC_ICTicketUpdateRestore.Read() + "&IsDeleted=false";
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblMessageRestore.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
             MPE_UpdateRestore.Hide();
             tbpCust.ActiveTabIndex = 9;
-            FillICTicket(SDMS_ICTicket.ICTicketID);
-            FillRestore();
+            FillICTicket(SDMS_ICTicket.ICTicketID); 
         }
 
 
@@ -1794,7 +1852,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             if (CustomerFeedback != null)
             {
                 if (CustomerFeedback.CustomerSatisfactionLevel != null)
-                    lblCustomerSatisfactionLevel.Text = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevelID.ToString();
+                    lblCustomerSatisfactionLevel.Text = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel;
                 lblCustomerRemarks.Text = SDMS_ICTicketFSR.CustomerRemarks;
                 lbtnPhoto.Text = CustomerFeedback.Photo == null ? "" : CustomerFeedback.Photo.FileName;
                 lbtnSignature.Text = CustomerFeedback.Signature == null ? "" : CustomerFeedback.Signature.FileName;
@@ -1820,7 +1878,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             lbtnAddServiceCharges.Visible = true; 
             lbtnAddTSIR.Visible = true;
             lbtnAddMaterialCharges.Visible = true;
-            //lbtnAddNotes.Visible = true; 
+            lbtnAddNotes.Visible = true; 
             lbtAddTechnicianWork.Visible = true;
             lbtnRestore.Visible = true;
 
@@ -1835,13 +1893,16 @@ namespace DealerManagementSystem.ViewService.UserControls
             lbtnUnlockTicket.Visible = true;
 
             lbtnRequestForDecline.Visible = true;
+            lbtnDeclineApprove.Visible = true;
+            lbtnDeclineReject.Visible = true;
+
             lbtnMarginWarrantyChange.Visible = true;
             lbtnRequestDateChange.Visible = true;
             // lbtnDeviatedICTicketRequest60Days.Visible = true;
             //   lbtnDeviatedICTicketRequestCommissioning.Visible = true;
-            
 
-                if ((Boolean)SDMS_ICTicket.IsLocked)
+
+            if ((Boolean)SDMS_ICTicket.IsLocked)
             {
                 lbtnAddTechnician.Visible = false;
                 lbtnEditCallInformation.Visible = false;
@@ -1850,10 +1911,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnAddOtherMachine.Visible = false;
                 lbtnAddServiceCharges.Visible = false;
                 lbtnAddTSIR.Visible = false;
-                lbtnAddMaterialCharges.Visible = false; 
+                lbtnAddMaterialCharges.Visible = false;
                 lbtAddTechnicianWork.Visible = false;
-                lbtnRestore.Visible = false;
-
+                lbtnRestore.Visible = false; 
 
                 lbtnCustomerFeedback.Visible = false;
                 lbtnServiceClaim.Visible = false;
@@ -1865,11 +1925,22 @@ namespace DealerManagementSystem.ViewService.UserControls
 
                 lbtnMarginWarrantyChange.Visible = false;
                 lbtnRequestDateChange.Visible = false;
-
+                lbtnAddNotes.Visible = false;
             }
             else
             {
                 lbtnUnlockTicket.Visible = false;
+            }
+
+            if (!SDMS_ICTicket.SyncBlock)
+            {
+                lbtnUnlockTicket.Visible = false;
+            }
+          
+
+            if (SDMS_ICTicket.IsMarginWarranty) 
+            {
+                lbtnMarginWarrantyChange.Visible = false;
             }
 
             if (!SDMS_ICTicket.ServiceType.IsMaterialRequired)
@@ -2059,6 +2130,13 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
             }
 
+
+            if ((SDMS_ICTicket.ServiceStatus.ServiceStatusID != (short)DMS_ServiceStatus.ReqDeclined))
+            {
+                lbtnDeclineApprove.Visible = false;
+                lbtnDeclineReject.Visible = false;
+            }
+
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.RequestForDecline).Count() == 0)
             {
@@ -2102,7 +2180,18 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 lbtnUnlockTicket.Visible = false;
             }
-            
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ICTicketUnblock).Count() == 0)
+            {
+                lbtnUnblockTicket.Visible = false;
+            }
+
+
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ICTicketDeclineApprove).Count() == 0)
+            {
+                lbtnDeclineApprove.Visible = false;
+                lbtnDeclineReject.Visible = false;
+            }
+          
             HttpContext.Current.Session["ServiceTypeID"] =   SDMS_ICTicket.ServiceType.ServiceTypeID;
         }
 
@@ -2170,12 +2259,25 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
 
         protected void lbtnPhoto_Click(object sender, EventArgs e)
-        {
+        {  
 
+            Response.AddHeader("Content-type", "image/jpeg");
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnPhoto.Text + ".jpg");
+            HttpContext.Current.Response.Charset = "utf-16";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+            Response.BinaryWrite(CustomerFeedback.Photo.AttachedFile);
+            Response.Flush();
+            Response.End();
         } 
         protected void lbtnSignature_Click(object sender, EventArgs e)
         {
-
+            Response.AddHeader("Content-type", "image/jpeg");
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnSignature.Text+".jpg");
+            HttpContext.Current.Response.Charset = "utf-16";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+            Response.BinaryWrite(CustomerFeedback.Signature.AttachedFile);
+            Response.Flush();
+            Response.End();
         }
 
         protected void btnSaveRequestForDecline_Click(object sender, EventArgs e)
@@ -2211,58 +2313,52 @@ namespace DealerManagementSystem.ViewService.UserControls
             //    lblMessage.ForeColor = Color.Red;
             //    return;
             //}
-            if (new BDMS_ICTicket().UpdateICTicketMarginWarranty(SDMS_ICTicket.ICTicketID, true, txtMarginRemark.Text.Trim(), PSession.User.UserID))
+
+            string endPoint = "ICTicket/UpdateICTicketMarginWarranty?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&MarginRemark=" + txtMarginRemark.Text.Trim();
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Visible = true;
-                lblMessage.Text = "Margin Warranty Changed";
-                lblMessage.ForeColor = Color.Green; 
-                FillICTicket(SDMS_ICTicket.ICTicketID);
-            }
-            else
-            {
-                lblMessageMarginWarrantyChange.Visible = true;
-                lblMessageMarginWarrantyChange.Text = "Margin Warranty is not Changed";
-                lblMessageMarginWarrantyChange.ForeColor = Color.Red;
+                lblMessageMarginWarrantyChange.Text = Results.Message;
                 return;
             }
+            ShowMessage(Results);
             MPE_MarginWarrantyChange.Hide();
+            FillICTicket(SDMS_ICTicket.ICTicketID);
         }
 
         protected void btnSaveRequestDateChange_Click(object sender, EventArgs e)
         {
             MPE_RequestDateChange.Show();
-            lblMessageMarginWarrantyChange.Visible = true;
-            lblMessageMarginWarrantyChange.ForeColor = Color.Red;
+            lblMessageRequestDateChange.Visible = true;
+            lblMessageRequestDateChange.ForeColor = Color.Red;
             if (string.IsNullOrEmpty(txtRequestedDate.Text.Trim()))
             {
-                lblMessageMarginWarrantyChange.Text = "Please enter Requested Date";
+                lblMessageRequestDateChange.Text = "Please enter Requested Date";
                 return;
             }
             if (ddlRequestedHH.SelectedValue == "-1")
             {
-                lblMessageMarginWarrantyChange.Text = "Please select the Requested Hour";
+                lblMessageRequestDateChange.Text = "Please select the Requested Hour";
                 return;
             }
             if (ddlRequestedMM.SelectedValue == "0")
             {
-                lblMessageMarginWarrantyChange.Text = "Please select the Requested Minute";
+                lblMessageRequestDateChange.Text = "Please select the Requested Minute";
                 return;
             }
-            DateTime RequestedDate = Convert.ToDateTime(txtRequestedDate.Text.Trim() + " " + ddlRequestedHH.SelectedValue + ":" + ddlRequestedMM.SelectedValue);
-            if (new BDMS_ICTicket().ChangeICTicketRequestedDate(SDMS_ICTicket.ICTicketID, RequestedDate, PSession.User.UserID))
-            {
-                lblMessageMarginWarrantyChange.Text = "Requested date and time changed";
-                lblMessageMarginWarrantyChange.ForeColor = Color.Green;
-                txtRequestedDate.Enabled = false;
+            string RequestedDate = txtRequestedDate.Text.Trim() + " " + ddlRequestedHH.SelectedValue + ":" + ddlRequestedMM.SelectedValue;
 
-                FillICTicket(SDMS_ICTicket.ICTicketID);
-            }
-            else
+
+            string endPoint = "ICTicket/ChangeICTicketRequestedDate?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&RequestedDate=" + RequestedDate;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessageMarginWarrantyChange.Text = "Requested date and time is not changed";
+                lblMessageRequestDateChange.Text = Results.Message;
                 return;
             }
+            ShowMessage(Results);
             MPE_RequestDateChange.Hide();
+            FillICTicket(SDMS_ICTicket.ICTicketID);
         }
     }
 }

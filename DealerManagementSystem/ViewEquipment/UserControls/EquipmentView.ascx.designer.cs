@@ -42,15 +42,6 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnReqOwnershipChange;
 
         /// <summary>
-        /// lnkBtnReqWarrantyExpiryDateChange control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnReqWarrantyExpiryDateChange;
-
-        /// <summary>
         /// lnkBtnApprWarrantyTypeChangeReq control.
         /// </summary>
         /// <remarks>
@@ -85,24 +76,6 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnRejOwnershipChangeReq;
-
-        /// <summary>
-        /// lnkBtnApprWarrantyExpiryDateChangeReq control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnApprWarrantyExpiryDateChangeReq;
-
-        /// <summary>
-        /// lnkBtnRejWarrantyExpiryDateChangeReq control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnRejWarrantyExpiryDateChangeReq;
 
         /// <summary>
         /// divWarrantyTypeApproval control.
@@ -211,51 +184,6 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvOwnershipChangeAttachedFile;
-
-        /// <summary>
-        /// divExpiryDateApproval control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divExpiryDateApproval;
-
-        /// <summary>
-        /// lblOldWarrantyExpiryDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOldWarrantyExpiryDate;
-
-        /// <summary>
-        /// lblWarrantyExpiryDateChangeID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWarrantyExpiryDateChangeID;
-
-        /// <summary>
-        /// lblNewWarrantyExpiryDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNewWarrantyExpiryDate;
-
-        /// <summary>
-        /// gvWarrantyExpiryDateChangeAttachedFile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvWarrantyExpiryDateChangeAttachedFile;
 
         /// <summary>
         /// lblModel control.

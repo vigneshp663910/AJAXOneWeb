@@ -14,6 +14,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
 {
     public partial class SalesIncentive : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewDealerEmployee_SalesIncentive; } }
         private int PageCount
         {
             get

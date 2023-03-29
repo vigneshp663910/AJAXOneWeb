@@ -192,7 +192,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-   
+
     <asp:HiddenField ID="hdfCustomerId" runat="server" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
@@ -216,7 +216,7 @@
             </div>
         </div>
         <%--<div class="col-md-12 Report">--%>
-         
+
         <fieldset class="fieldset-border">
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -231,7 +231,7 @@
                             <asp:TemplateField HeaderText="Select">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                   <asp:RadioButton ID="rbCheck" runat="server" GroupName="G" OnCheckedChanged="rbCheck_CheckedChanged" AutoPostBack="true" />
+                                    <asp:RadioButton ID="rbCheck" runat="server" GroupName="G" OnCheckedChanged="rbCheck_CheckedChanged" AutoPostBack="true" />
                                     <asp:Label ID="lblEquipmentHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentHeaderID")%>' runat="server" Visible="false" />
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -298,19 +298,29 @@
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
 
-                        <asp:GridView ID="gvICTickets" runat="server"   CssClass="table table-bordered table-condensed Grid" AllowPaging="true"   PageSize="10"  OnPageIndexChanging="gvICTickets_PageIndexChanging" >
-                        
+                    <asp:GridView ID="gvICTickets" runat="server" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10" OnPageIndexChanging="gvICTickets_PageIndexChanging">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Edit">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Button ID="BtnEdit" runat="server" CssClass="btn Search" Text="Edit" OnClick="BtnEdit_Click" Width="80px" Height="30px"></asp:Button>
+                                    <asp:Label ID="lblICTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketID")%>' runat="server" Visible="false" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
+
+
                 </div>
             </div>
         </fieldset>
         <%--</div>--%>
-         <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+        <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
         <fieldset class="fieldset-border" id="Fieldset2" runat="server">
             <div class="col-md-12">
                 <div class="col-md-6 col-sm-12">
@@ -326,7 +336,7 @@
                     <asp:TextBox ID="txtComplaintDescription" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
                 </div>
 
-           
+
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Service Priority<samp style="color: red">*</samp></label>
                     <asp:DropDownList ID="ddlServicePriority" runat="server" CssClass="form-control" DataTextField="ServicePriority" DataValueField="ServicePriorityID" />
@@ -343,13 +353,13 @@
                     <label class="modal-label">District<samp style="color: red">*</samp></label>
                     <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
                 </div>
-                 <div class="col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Location<samp style="color: red">*</samp></label>
-                     <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control"  BorderColor="Silver"  ></asp:TextBox>
-               </div>
-                 <div class="col-md-6 col-sm-12">
+                    <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Call Category<samp style="color: red">*</samp></label>
-                    <asp:DropDownList ID="ddlCallCategory" runat="server" CssClass="form-control" DataTextField="CallCategory" DataValueField="CallCategoryID"   />
+                    <asp:DropDownList ID="ddlCallCategory" runat="server" CssClass="form-control" DataTextField="CallCategory" DataValueField="CallCategoryID" />
                 </div>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="btnSave" runat="server" CssClass="btn Save" Text="Save" OnClick="btnSave_Click"></asp:Button>

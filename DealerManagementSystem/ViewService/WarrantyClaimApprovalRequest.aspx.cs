@@ -108,26 +108,9 @@ namespace DealerManagementSystem.ViewService
                 Filter = Filter + "  group by invg.p_inv_id  ,invg.s_tenant_id )	t where Sum_Value >= 50000) ";
 
 
-                //if (!string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()))
-                //{
-                //    Filter = Filter + " and psc.f_ic_ticket_date >= '" + txtICLoginDateFrom.Text.Trim().Split('/')[1] + "/" + txtICLoginDateFrom.Text.Trim().Split('/')[0] + "/" + txtICLoginDateFrom.Text.Trim().Split('/')[2] + "'";
-                //}
-                //if (!string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()))
-                //{
-                //    Filter = Filter + " and psc.f_ic_ticket_date <= '" + txtICLoginDateTo.Text.Trim().Split('/')[1] + "/" + txtICLoginDateTo.Text.Trim().Split('/')[0] + "/" + txtICLoginDateTo.Text.Trim().Split('/')[2] + "'";
-                //}
-
-                //if (!string.IsNullOrEmpty(txtClaimDateF.Text.Trim()))
-                //{
-                //    Filter = Filter + " and inv.r_inv_date >= '" + txtClaimDateF.Text.Trim().Split('/')[1] + "/" + txtClaimDateF.Text.Trim().Split('/')[0] + "/" + txtClaimDateF.Text.Trim().Split('/')[2] + "'";
-                //}
-                //if (!string.IsNullOrEmpty(txtClaimDateT.Text.Trim()))
-                //{
-                //    Filter = Filter + " and inv.r_inv_date <= '" + txtClaimDateT.Text.Trim().Split('/')[1] + "/" + txtClaimDateT.Text.Trim().Split('/')[0] + "/" + txtClaimDateT.Text.Trim().Split('/')[2] + "'";
-                //}
 
 
-                List<PDMS_WarrantyInvoiceHeader> SOIs = new BDMS_WarrantyClaim().GetWarrantyInvoiceFromPostGres(Filter);
+                List<PDMS_WarrantyInvoiceHeader> SOIs = null; //                                                          new BDMS_WarrantyClaim().GetWarrantyInvoiceFromPostGres(Filter);
 
                 lblMessage.Text = SOIs.Count == 0 ? "No claim requested for approval" : (SOIs.Count + " Claim requested for approval");
                 lblMessage.ForeColor = (SOIs.Count == 0)?Color.Red: Color.Green;

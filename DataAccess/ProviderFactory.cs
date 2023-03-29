@@ -28,11 +28,11 @@ namespace DataAccess
         #endregion
 
         #region Public Methods
-        public IDataAccess GetProvider(Boolean IsReport = false)
+        public IDataAccess GetProvider()
         // public IDataAccess GetProvider(Boolean isReport = false)
         {
             if (providerType.Equals(sqlProvider))
-                provider = new SQLServer(IsReport);
+                provider = new SQLServer();
 
             if (providerType.Equals(npgsqlProvider))
                 providerNP = new NpgsqlServer();

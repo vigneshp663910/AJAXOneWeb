@@ -59,43 +59,7 @@ namespace DealerManagementSystem.ViewService
                 gvInv.DataBind();
 
                 TraceLogger.Log(DateTime.Now);
-                string Fillter = "";
-
-                if (!string.IsNullOrEmpty(txtICTicket.Text.Trim()))
-                    Fillter = " and m.p_material = '" + txtICTicket.Text.Trim() + "'";
-                else
-                    return;
-                string PsrQuery = "select p_sr_id as SR_ID,s_tenant_id as Dealer,f_technician_id as Technician_ID,s_status as Status,f_cust_id as Customer from  dsprr_psr_hdr where f_ic_ticket_id = " + txtICTicket.Text.Trim();
-
-                DataTable dtPSR = new BDMS_Master().ExecuteReader(PsrQuery, true);
-                if (dtPSR.Rows.Count != 0)
-                {
-                    gvPSR.DataSource = dtPSR;
-                    gvPSR.DataBind();
-                    string PscQuery = "select p_sc_id as SC_ID,f_sr_id as SR_ID,f_ic_ticket_id as IC_Ticket_ID ,f_ic_ticket_date as I_Ticket_Date,s_tenant_id as Dealer from dsprr_psc_hdr where f_ic_ticket_id = " + txtICTicket.Text.Trim();
-
-                    DataTable dtPSC = new BDMS_Master().ExecuteReader(PscQuery, true);
-                    if (dtPSC.Rows.Count != 0)
-                    {
-                        gvPSC.DataSource = dtPSC;
-                        gvPSC.DataBind();
-
-                        string InvQuery = "select  r_ext_id as SC_ID, inv.s_status as Status ,p_inv_id as Invoice ,r_inv_date as Invoice_date,invi.p_inv_item as ITEM,f_del_Id as Delivery_ID  ,f_material_id  as material "
-   + " ,(case when   d_material_desc is null then  m.r_description else   d_material_desc end)  material_desc  "
-   + " , f_uom as uom,r_qty as qty ,r_hsn_id as HSN_Code,inv.f_customer_id as Customer,cust_bp.r_org_name  as Customer_Name "
-   + " ,invi.r_gross_amt  Base_Value,case when  invi.r_gross_amt = invi.r_net_amt then invi.r_net_amt * 1.18 else invi.r_net_amt end   as Total	,invi.p_inv_item "
-   + " from  dsinr_inv_hdr inv  inner join dsinr_inv_item invi ON ( invi.k_id = inv.p_id AND invi.s_tenant_id = inv.s_tenant_id )  "
-   + " INNER JOIN doohr_bp AS cust_bp ON ( cust_bp.s_tenant_id = invi.s_tenant_id AND cust_bp.p_bp_id = inv.f_customer_id  AND cust_bp.p_bp_type = 'CU' )  "
-   + " left join af_m_materials m on m.p_material = invi.f_material_id   where r_ext_id = '" + dtPSC.Rows[0]["SC_ID"].ToString() + "'";
-
-                        DataTable dtInv = new BDMS_Master().ExecuteReader(InvQuery, true);
-                        if (dtInv.Rows.Count != 0)
-                        {
-                            gvInv.DataSource = dtInv;
-                            gvInv.DataBind();
-                        }
-                    }
-                }
+               
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)

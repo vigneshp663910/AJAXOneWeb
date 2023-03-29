@@ -19,17 +19,11 @@ namespace DataAccess
         #endregion
 
         #region Constructor
-        public SQLServer(Boolean isReport)
+        public SQLServer()
         {
-            if (isReport)
-            {
-                connectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["ConnectionStringReport"]);
-
-            }
-            else
-            {
+             
                 connectionString = Convert.ToString(ConfigurationManager.ConnectionStrings["ConnectionString"]);
-            }
+            
         }
         #endregion
 

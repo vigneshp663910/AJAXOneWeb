@@ -13,6 +13,7 @@ namespace DealerManagementSystem.ViewMarketing
 {
     public partial class ClaimApproval : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewMarketing_ClaimApproval; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -27,49 +28,50 @@ namespace DealerManagementSystem.ViewMarketing
             {
                 List<PDealer> Dealer = new BDMS_Activity().GetDealerByUserID(PSession.User.UserID);
 
-                ddlDealerSearch.DataTextField = "CodeWithName"; ddlDealerSearch.DataValueField = "DID"; ddlDealerSearch.DataSource = Dealer; ddlDealerSearch.DataBind();
+                ddlDealerSearch.DataTextField = "CodeWithName"; 
+                ddlDealerSearch.DataValueField = "DID"; 
+                ddlDealerSearch.DataSource = Dealer; 
+                ddlDealerSearch.DataBind();
                 if (ddlDealerSearch.Items.Count > 1) ddlDealerSearch.Items.Insert(0, new ListItem("Select", "0"));
 
                 divStatus.Visible = false;
                 divSearch.Visible = true;
-                if (Request.QueryString.Count == 0)
-                {
-                    divSearch.Visible = false;
-                }
+                //if (Request.QueryString.Count == 0)
+                //{
+                //    divSearch.Visible = false;
+                //}
                 Aes myAes = Aes.Create();
 
                 BDMS_Activity oAct = new BDMS_Activity();
                 try
                 {
-                    if (Request.QueryString["PAGE"] != null)
+                    List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                    if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalLevel1).Count()  
+                        +  SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalMarketingLevel1).Count()  
+                       +  SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalServiceLevel1).Count() 
+                        +  SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSparesLevel1).Count()  
+                        +  SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSalesLevel1).Count() 
+                        +  SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalTrainingLevel1).Count()) != 0)                       
                     {
-                        string sAppLevel = Convert.ToString(Request.QueryString["PAGE"]);
-                        string sArea = Convert.ToString(Request.QueryString["FA"]);
-                        string AppLevelEnc = oAct.Encrypt(sAppLevel);
-                        string AreaLevelEnc = oAct.Encrypt(sArea);
-                        Response.Redirect("ClaimApproval.aspx?PID=" + HttpUtility.UrlEncode(AppLevelEnc) + "&FAID=" + AreaLevelEnc);
-
+                        lbllevel.Text = "- Level 1";
                     }
-                    else if (Request.QueryString["PID"] != null)
+                    if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalLevel2).Count()
+                       + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalMarketingLevel2).Count() 
+                       + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalServiceLevel2).Count() 
+                        + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSparesLevel2).Count()  
+                        + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSalesLevel2).Count()  
+                        + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalTrainingLevel2).Count()) != 0)                        
                     {
-                        string sAppLevelEnc = HttpUtility.UrlDecode(Convert.ToString(Request.QueryString["PID"]));
-                        string AreaLevelEnc = HttpUtility.UrlDecode(Convert.ToString(Request.QueryString["FAID"]));
-                        string sAppLevel = oAct.Decrypt(sAppLevelEnc);
-                        string sFA = oAct.Decrypt(AreaLevelEnc);
-                        ViewState["ApprovalLevel"] = sAppLevel;
-                        ViewState["FAID"] = sFA.Split('.')[0];
-                        lbllevel.Text = "- Level " + sAppLevel;
+                        lbllevel.Text = "- Level 2";
                     }
+                    // john      lbllevel.Text = "- Level " + sAppLevel; 
                 }
                 catch (Exception ex)
                 {
                     ExceptionLogger.LogError("Claim Approval page loading", ex);
                     divSearch.Visible = false;
-                }
-
-
-            }
-
+                } 
+            } 
         }
 
 
@@ -81,7 +83,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void Search_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            oActivity.BindActivityActualDataForApproval(gvData, Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, Convert.ToInt32(ddlAppStatus.SelectedValue), PSession.User.UserID, Convert.ToInt32(ViewState["ApprovalLevel"]), Convert.ToInt32(ViewState["FAID"]));
+            oActivity.BindActivityActualDataForApproval(gvData, Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text);
         }
         protected void lnkDownload_Click(object sender, EventArgs e)
         {
@@ -103,7 +105,7 @@ namespace DealerManagementSystem.ViewMarketing
         protected void btnExcel_Click(object sender, EventArgs e)
         {
             BDMS_Activity oActivity = new BDMS_Activity();
-            System.Data.DataTable dt = oActivity.GetActivityActualDataForApproval_ForExcel(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text, Convert.ToInt32(ddlAppStatus.SelectedValue), PSession.User.UserID, Convert.ToInt32(ViewState["ApprovalLevel"]), Convert.ToInt32(ViewState["FAID"]));
+            System.Data.DataTable dt = oActivity.GetActivityActualDataForApproval_ForExcel(Convert.ToInt32(ddlDealerSearch.SelectedValue), txtFromDateSearch.Text, txtToDateSearch.Text);
 
             new BXcel().ExporttoExcel(dt, "Activity Data");
         }
@@ -146,20 +148,52 @@ namespace DealerManagementSystem.ViewMarketing
                     txtApp2Remarks.Text = dr["AppRemarks2"].ToString();
                     txtApp2Amount.Text = dr["App2Amount"].ToString();
                     ViewState["PKActualID"] = dr["PKActualID"].ToString();
-                    if (Convert.ToInt32(ViewState["ApprovalLevel"]) == 1)
+
+
+                    List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                    if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalLevel1).Count() 
+                        + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalMarketingLevel1).Count() 
+                        + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalServiceLevel1).Count() 
+                        + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSparesLevel1).Count() 
+                        + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSalesLevel1).Count()  
+                        + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalTrainingLevel1).Count()) != 0)
+                        
                     {
                         divApp2.Visible = false;
                     }
-                    else
+
+                  else  if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalLevel2).Count() 
+                       + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalMarketingLevel2).Count() 
+                       + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalServiceLevel2).Count() 
+                       + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSparesLevel2).Count() 
+                       + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSalesLevel2).Count()  
+                       + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalTrainingLevel2).Count()) != 0)
+                      
                     {
-                        ddlAppStatus1.Enabled = false;
+                       
                         txtApp1Amount.Enabled = true;
                         txtApp1Remarks.Enabled = true;
                     }
-                    if (Convert.ToInt32(ViewState["FAID"]) == 3)
+                    else
                     {
                         divApp1.Style.Add("display", "none");
                     }
+
+                    //if (Convert.ToInt32(ViewState["ApprovalLevel"]) == 1)
+                    //{
+                    //    divApp2.Visible = false;
+                    //}
+                    //else
+                    //{
+                    //    ddlAppStatus1.Enabled = false;
+                    //    txtApp1Amount.Enabled = true;
+                    //    txtApp1Remarks.Enabled = true;
+                    //}
+
+                    //if (Convert.ToInt32(ViewState["FAID"]) == 3)
+                    //{
+                    //    divApp1.Style.Add("display", "none");
+                    //}
                     string blnCheck = lblPeriod.Text == "" ? "true" : "false";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "key123", "HidePlan(" + blnCheck + ");GetActivityData('" + dr["AP_FKActivityID"].ToString() + "');SetActualDates('" + txtFromDate.Text + "','" + txtToDate.Text + "')", true);
                 }
@@ -191,7 +225,30 @@ namespace DealerManagementSystem.ViewMarketing
             {
                 BDMS_Activity objAct = new BDMS_Activity();
                 int ActualID = Convert.ToInt32(ViewState["PKActualID"]);
-                int ApprovalLevel = Convert.ToInt32(ViewState["ApprovalLevel"]);
+                int ApprovalLevel = 0;
+                //int ApprovalLevel = Convert.ToInt32(ViewState["ApprovalLevel"]);
+
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalLevel1).Count() == 0)
+                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalMarketingLevel1).Count() == 0)
+                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalServiceLevel1).Count() == 0)
+                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSparesLevel1).Count() == 0)
+                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSalesLevel1).Count() == 0)
+                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalTrainingLevel1).Count() == 0)
+                    )
+                {
+                    ApprovalLevel = 1;
+                }
+                else if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalLevel2).Count() == 0)
+                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalMarketingLevel2).Count() == 0)
+                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalServiceLevel2).Count() == 0)
+                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSparesLevel2).Count() == 0)
+                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSalesLevel2).Count() == 0)
+                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalTrainingLevel2).Count() == 0)
+                    )
+                {
+                    ApprovalLevel = 2;
+                }
                 long UpdatedBy = PSession.User.UserID;
                 int Status = ApprovalLevel == 1 ? Convert.ToInt32(ddlAppStatus1.SelectedValue) : Convert.ToInt32(ddlAppStatus2.SelectedValue);
                 string strStatus = ApprovalLevel == 1 ? (ddlAppStatus1.SelectedItem.Text) : (ddlAppStatus2.SelectedItem.Text);

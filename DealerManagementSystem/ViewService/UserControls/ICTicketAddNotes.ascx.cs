@@ -16,7 +16,8 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         }
         public void FillMaster()
-        { 
+        {
+            Clear();
             ddlNoteType.DataTextField = "NoteType";
             ddlNoteType.DataValueField = "NoteTypeID";
             ddlNoteType.DataSource = new BDMS_Service().GetNoteType(null, null);
@@ -24,9 +25,8 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
 
         void Clear()
-        {
-
-
+        { 
+            txtComments.Text = "";
         }
         public string Read()
         {

@@ -14,21 +14,21 @@ namespace DealerManagementSystem.ViewMaster
     public partial class SalesCommissionClaimPrice : BasePage
     {
         public override SubModule SubModuleName { get { return SubModule.ViewMaster_SalesCommissionClaimPrice; } }
-        public List<PSalesCommissionClaimPrice> SalesCommClaimPrice
-        {
-            get
-            {
-                if (Session["SalesCommClaimPrice"] == null)
-                {
-                    Session["SalesCommClaimPrice"] = new List<PSalesCommissionClaimPrice>();
-                }
-                return (List<PSalesCommissionClaimPrice>)Session["SalesCommClaimPrice"];
-            }
-            set
-            {
-                Session["SalesCommClaimPrice"] = value;
-            }
-        }
+        //public List<PSalesCommissionClaimPrice> SalesCommClaimPrice
+        //{
+        //    get
+        //    {
+        //        if (Session["SalesCommClaimPrice"] == null)
+        //        {
+        //            Session["SalesCommClaimPrice"] = new List<PSalesCommissionClaimPrice>();
+        //        }
+        //        return (List<PSalesCommissionClaimPrice>)Session["SalesCommClaimPrice"];
+        //    }
+        //    set
+        //    {
+        //        Session["SalesCommClaimPrice"] = value;
+        //    }
+        //}
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -53,22 +53,14 @@ namespace DealerManagementSystem.ViewMaster
                 }
             }
         }
-
-        //protected void ddlPlant_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    GetSalesCommissionClaimPrice();
-        //}
-        //protected void ddlMaterial_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    GetSalesCommissionClaimPrice();
-        //}
+ 
 
         protected void ibtnSalCommClaimPriceArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvSalCommClaimPrice.PageIndex > 0)
             {
                 gvSalCommClaimPrice.PageIndex = gvSalCommClaimPrice.PageIndex - 1;
-                SalesCommClaimPriceBind(gvSalCommClaimPrice, lblRowCountSalCommClaimPrice, SalesCommClaimPrice);
+                GetSalesCommissionClaimPrice();
             }
         }
         protected void ibtnSalCommClaimPriceArrowRight_Click(object sender, ImageClickEventArgs e)
@@ -76,42 +68,27 @@ namespace DealerManagementSystem.ViewMaster
             if (gvSalCommClaimPrice.PageCount > gvSalCommClaimPrice.PageIndex)
             {
                 gvSalCommClaimPrice.PageIndex = gvSalCommClaimPrice.PageIndex + 1;
-                SalesCommClaimPriceBind(gvSalCommClaimPrice, lblRowCountSalCommClaimPrice, SalesCommClaimPrice);
+                GetSalesCommissionClaimPrice();
             }
         }
         protected void btnSalCommClaimPriceSearch_Click(object sender, EventArgs e)
         {
+            gvSalCommClaimPrice.PageIndex = 0;
             GetSalesCommissionClaimPrice();
         }
         protected void gvSalCommClaimPrice_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvSalCommClaimPrice.PageIndex = e.NewPageIndex;
-            SalesCommClaimPriceBind(gvSalCommClaimPrice, lblRowCountSalCommClaimPrice, SalesCommClaimPrice);
+            GetSalesCommissionClaimPrice();
         }       
-        void SalesCommClaimPriceBind(GridView gv, Label lbl, List<PSalesCommissionClaimPrice> Mat)
-        {
-            gv.DataSource = Mat;
-            gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + Mat.Count;
-        }
+       
         void DisplayErrorMessage(Exception e1)
         {
             lblMessage.Text = e1.ToString();
             lblMessage.ForeColor = Color.Red;
             lblMessage.Visible = true;
         }
-        void DisplayErrorMessage(String Message)
-        {
-            lblMessage.Text = Message;
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
-        }
-        void DisplayMessage(String Message)
-        {
-            lblMessage.Text = Message;
-            lblMessage.ForeColor = Color.Green;
-            lblMessage.Visible = true;
-        }
+        
         private void GetSalesCommissionClaimPrice()
         {
             try
@@ -125,7 +102,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
 
                 //SalesCommClaimPrice = new BSalesCommissionClaim().GetSalesCommissionClaimPrice(PlantID, Materail);
-                SalesCommClaimPrice = new BSalesCommissionClaim().GetSalesCommissionClaimPrice(Materail);
+                List<PSalesCommissionClaimPrice> SalesCommClaimPrice = new BSalesCommissionClaim().GetSalesCommissionClaimPrice(Materail);
 
                 if (SalesCommClaimPrice.Count == 0)
                 {
@@ -137,8 +114,7 @@ namespace DealerManagementSystem.ViewMaster
                     gvSalCommClaimPrice.DataBind();
                 }
                 else
-                {
-                    gvSalCommClaimPrice.PageIndex = 0;
+                { 
                     gvSalCommClaimPrice.DataSource = SalesCommClaimPrice;
                     gvSalCommClaimPrice.DataBind();
 
@@ -155,6 +131,7 @@ namespace DealerManagementSystem.ViewMaster
             {
                 DisplayErrorMessage(e1);
             }
+            ActionControlMange();
         }
         protected void lnkBtnSalCommClaimPriceEdit_Click(object sender, EventArgs e)
         {
@@ -261,22 +238,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Visible = true;
                 Boolean Success = true;
                 Button BtnAddOrUpdateCountry = (Button)gvSalCommClaimPrice.FooterRow.FindControl("BtnAddOrUpdateSalCommClaimPrice");
-
-                //DropDownList ddlPlant = (DropDownList)gvSalCommClaimPrice.FooterRow.FindControl("ddlGPlant");
-                //if (ddlPlant.SelectedValue == "0")
-                //{
-                //    lblMessage.Text = "Please select Plant.";
-                //    lblMessage.ForeColor = Color.Red;
-                //    return;
-                //}
-
-                //string Material = ((TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtMaterail")).Text.Trim();
-                //if (string.IsNullOrEmpty(Material))
-                //{
-                //    lblMessage.Text = "Please enter Material.";
-                //    lblMessage.ForeColor = Color.Red;
-                //    return;
-                //}
+                 
                 string MaterailCode = ((TextBox)gvSalCommClaimPrice.FooterRow.FindControl("txtMaterailCode")).Text.Trim();
                 if (string.IsNullOrEmpty(MaterailCode))
                 {
@@ -308,31 +270,16 @@ namespace DealerManagementSystem.ViewMaster
                     lblMessage.Text = "Please enter Amount or Percentage.";
                     lblMessage.ForeColor = Color.Red;
                     return;
-                }
-                //if ((txtPercentage.Text.Trim()!="0") && (txtAmount.Text.Trim()!="0"))
-                //{
-                //    lblMessage.Text = "Please enter Amount or Percentage.";
-                //    lblMessage.ForeColor = Color.Red;
-                //    return;
-                //}
-               
-
+                } 
                 if (Percentage != 0 && Amount != 0)
                 {
                     lblMessage.Text = "Please enter either Amount or Percentage.";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                
-                //if (BtnAddOrUpdateCountry.Text != "Add")
-                //{
-                //    SalesCommissionClaimPriceID = Convert.ToInt32(HiddenID.Value);
-                //}
-
-                //int PlantID = Convert.ToInt32(ddlPlant.SelectedValue);
+                 
                 int MaterialID =0;
-                //Success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, PlantID, Convert.ToInt32(MM.MaterialID), Percentage, Amount, PSession.User.UserID, IsActive);
-
+                
                 if (BtnAddOrUpdateCountry.Text == "Add")
                 {
                     Success = new BSalesCommissionClaim().InsertOrUpdateSalesCommissionClaimPrice(SalesCommissionClaimPriceID, Convert.ToInt32(MM[0].MaterialID), Percentage, Amount, PSession.User.UserID, IsActive);
@@ -386,6 +333,17 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
+            }
+        }
+        void ActionControlMange()
+        {
+            
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesClaimPriceCreateAndEdit).Count() == 0)
+            {
+                gvSalCommClaimPrice.FooterRow.Visible = false;
+                gvSalCommClaimPrice.Columns[5].Visible = false;
             }
         }
     }
