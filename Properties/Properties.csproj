@@ -101,6 +101,7 @@
     <Compile Include="PHelp.cs" />
     <Compile Include="PL1Support.cs" />
     <Compile Include="PLead.cs" />
+    <Compile Include="PMachineOperator.cs" />
     <Compile Include="PMaster.cs" />
     <Compile Include="PMenu.cs" />
     <Compile Include="PNotifications.cs" />

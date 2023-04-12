@@ -405,7 +405,11 @@
     <Content Include="ViewDashboard\UserControls\LeadStatusDashboard.ascx" />
     <Content Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
     <Content Include="ViewDealerEmployee\DealerOperatorDetails.aspx" />
+    <Content Include="ViewDealerEmployee\MachineOperatorApproval.aspx" />
+    <Content Include="ViewDealerEmployee\MachineOperatorManage.aspx" />
+    <Content Include="ViewDealerEmployee\MachineOperatorRegister.aspx" />
     <Content Include="ViewDealerEmployee\SalesIncentive.aspx" />
+    <Content Include="ViewDealerEmployee\UserControls\MachineOperatorView.ascx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
     <Content Include="ViewEquipment\EquipmentChangeApproval.aspx" />
@@ -1156,12 +1160,40 @@
     <Compile Include="ViewDealerEmployee\DealerOperatorDetails.aspx.designer.cs">
       <DependentUpon>DealerOperatorDetails.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewDealerEmployee\MachineOperatorApproval.aspx.cs">
+      <DependentUpon>MachineOperatorApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\MachineOperatorApproval.aspx.designer.cs">
+      <DependentUpon>MachineOperatorApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\MachineOperatorManage.aspx.cs">
+      <DependentUpon>MachineOperatorManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\MachineOperatorManage.aspx.designer.cs">
+      <DependentUpon>MachineOperatorManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\MachineOperatorRegister.aspx.cs">
+      <DependentUpon>MachineOperatorRegister.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\MachineOperatorRegister.aspx.designer.cs">
+      <DependentUpon>MachineOperatorRegister.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewDealerEmployee\SalesIncentive.aspx.cs">
       <DependentUpon>SalesIncentive.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDealerEmployee\SalesIncentive.aspx.designer.cs">
       <DependentUpon>SalesIncentive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\UserControls\MachineOperatorView.ascx.cs">
+      <DependentUpon>MachineOperatorView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\UserControls\MachineOperatorView.ascx.designer.cs">
+      <DependentUpon>MachineOperatorView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\UserMonthlyVerification.aspx.cs">
       <DependentUpon>UserMonthlyVerification.aspx</DependentUpon>
@@ -2694,6 +2726,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewDealerEmployee\MachineOpPhotos\" />
     <Folder Include="ViewFinance\" />
     <Folder Include="ViewStock\" />
   </ItemGroup>
