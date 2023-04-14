@@ -26,10 +26,9 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PMachineOperator>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
-        public List<PMachineOperator> GetMachineOperatorDetailsManage(string AadhaarCardNo, string DLNumber, string Name, int? DealerDepartmentID, int? DealerDesignationID)
+        public List<PMachineOperator> GetMachineOperatorDetailsManage(string AadhaarCardNo, string DLNumber, string Name)
         {
-            string endPoint = "Operator/Manage?AadhaarCardNo=" + AadhaarCardNo + "&DLNumber=" + DLNumber
-                + "&Name=" + Name + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID;
+            string endPoint = "Operator/Manage?AadhaarCardNo=" + AadhaarCardNo + "&DLNumber=" + DLNumber + "&Name=" + Name;
             return JsonConvert.DeserializeObject<List<PMachineOperator>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public PMachineOperator GetMachineOperatorDetailsByID(long MachineOperatorDetailsID)
@@ -51,6 +50,36 @@ namespace Business
         {
             string endPoint = "Operator/AttachedFileForDownload?DocumentName=" + DocumentName;
             return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+        }
+        public DataTable GetMachineOperatorDetailsInExcel(string AadhaarCardNo, string DLNumber, string Name, int? PageIndex = null, int? PageSize = null)
+        {
+            DataTable dtDealerOperatorDetails = new DataTable();
+            try
+            {
+                DbParameter AadhaarCardNoP = provider.CreateParameter("AadhaarCardNo", AadhaarCardNo, DbType.String);
+                DbParameter DLNumberP = provider.CreateParameter("DLNumber", DLNumber, DbType.String);
+                DbParameter NameP = provider.CreateParameter("Name", Name, DbType.String);
+                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
+                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
+                DbParameter[] Params = new DbParameter[5] { AadhaarCardNoP, DLNumberP, NameP, PageIndexP, PageSizeP };
+
+                using (DataSet DataSet = provider.Select("GetMachineOperatorDetailsInExcel", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        dtDealerOperatorDetails = DataSet.Tables[0];
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dtDealerOperatorDetails;
         }
         //public long InsertOrUpdateMachineOperatorDetails(PMachineOperator OP)
         //{

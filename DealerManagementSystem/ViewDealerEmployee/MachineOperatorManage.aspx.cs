@@ -47,8 +47,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
             if (!IsPostBack)
             {
                 new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
-                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
-                new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
             }
         }
         private void FillMachineOperator()
@@ -72,9 +70,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
             {
                 Name = txtName.Text.Trim();
             }
-            int? DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
-            int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
-            MachineOperator = new BMachineOperator().GetMachineOperatorDetailsManage(SAadhaarCardNo, DLNumber, Name, DepartmentID, DesignationID);
+            MachineOperator = new BMachineOperator().GetMachineOperatorDetailsManage(SAadhaarCardNo, DLNumber, Name);
             gvMachineOperator.DataSource = MachineOperator;
             gvMachineOperatorDataBind();
         }
@@ -146,10 +142,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
             gvMachineOperator.DataSource = MachineOperator;
             gvMachineOperatorDataBind();
         }
-        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
-        }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             FillMachineOperator();
@@ -159,6 +151,65 @@ namespace DealerManagementSystem.ViewDealerEmployee
             divMachineOperatorView.Visible = false;
             btnBackToList.Visible = false;
             divMachineOperatorList.Visible = true;
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            string SAadhaarCardNo = null, DLNumber = null, Name = null;
+            if (!string.IsNullOrEmpty(AadhaarCardNo))
+            {
+                SAadhaarCardNo = AadhaarCardNo;
+            }
+            if (!string.IsNullOrEmpty(txtDLNumber.Text))
+            {
+                DLNumber = txtDLNumber.Text.Trim();
+            }
+            if (!string.IsNullOrEmpty(txtName.Text))
+            {
+                Name = txtName.Text.Trim();
+            }
+            DataTable dt = new DataTable();
+            dt.Columns.Add("MachineOperatorDetailsID", typeof(Int64));
+            dt.Columns.Add("Name");
+            dt.Columns.Add("FatherName");
+            dt.Columns.Add("DOB", typeof(DateTime));
+            dt.Columns.Add("ContactNumber");
+            dt.Columns.Add("ContactNumber1");
+            dt.Columns.Add("EmailID");
+            dt.Columns.Add("Address");
+            dt.Columns.Add("State");
+            dt.Columns.Add("District");
+            dt.Columns.Add("Tehsil");
+            dt.Columns.Add("Village");
+            dt.Columns.Add("Location");
+            dt.Columns.Add("AadhaarCardNo");
+            dt.Columns.Add("EqucationalQualification");
+            dt.Columns.Add("TotalExperience", typeof(decimal));
+            dt.Columns.Add("PANNo");
+            dt.Columns.Add("BankName");
+            dt.Columns.Add("AccountNo");
+            dt.Columns.Add("IFSCCode");
+            dt.Columns.Add("EmergencyContactNumber");
+            dt.Columns.Add("BloodGroup");
+            dt.Columns.Add("DLNumber");
+            dt.Columns.Add("DLIssueDate", typeof(DateTime));
+            dt.Columns.Add("DLIssueingOffice");
+            dt.Columns.Add("DLExpiryDate", typeof(DateTime));
+            dt.Columns.Add("DLFor");
+            dt.Columns.Add("IsAjaxHPApproved", typeof(Boolean));
+            dt.Columns.Add("CreatedBy");
+            int Index = 0;
+            int Rowcount = 100;
+            int CRowcount = Rowcount;
+
+            while (Rowcount == CRowcount)
+            {
+                Index = Index + 1;
+                DataTable DTDealerOperatorDetails = (new BMachineOperator().GetMachineOperatorDetailsInExcel(SAadhaarCardNo, DLNumber, Name, Index, Rowcount));
+                CRowcount = 0;
+                dt.Merge(DTDealerOperatorDetails);
+                CRowcount = DTDealerOperatorDetails.Rows.Count;
+            }
+            new BXcel().ExporttoExcel(dt, "Machine Operator Details");
         }
     }
 }
