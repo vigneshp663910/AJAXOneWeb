@@ -152,19 +152,7 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
             lblDOB.Text = Convert.ToString(Emp.DOB);
             lblContactNumber.Text = "<a href='tel:" + Emp.ContactNumber + "'>" + Emp.ContactNumber + "</a>";
             lblContactNumber1.Text = "<a href='tel:" + Emp.ContactNumber1 + "'>" + Emp.ContactNumber1 + "</a>";
-            if (Emp.Department != null)
-            {
-                lblDepartment.Text = Emp.Department.DealerDepartment;
-            }
-            if (Emp.Designation != null)
-            {
-                lblDesignation.Text = Emp.Designation.DealerDesignation;
-            }
-            if (Emp.ReportingTo != null)
-            {
-                lblReportingTo.Text = Emp.ReportingTo.Name;
-            }
-
+            
             lblEmail.Text = "<a href='mailto:" + Emp.Email + "'>" + Emp.Email + "</a>";
             lblAddress.Text = Emp.Address;
             lblLocation.Text = Emp.Location;
@@ -175,7 +163,10 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
             lblAccountNo.Text = Emp.AccountNo;
             lblIFSCCode.Text = Emp.IFSCCode;
             lblEmergencyContact.Text = Emp.EmergencyContactNumber;
-            lblBloodGroup.Text = Emp.BloodGroup.BloodGroup;
+            if (Emp.BloodGroup != null)
+            {
+                lblBloodGroup.Text = Emp.BloodGroup.BloodGroup;
+            }
             if (Emp.State != null)
             {
                 lblState.Text = Emp.State.State;

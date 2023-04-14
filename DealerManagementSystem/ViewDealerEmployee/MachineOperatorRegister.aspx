@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="MachineOperatorRegister.aspx.cs" Inherits="DealerManagementSystem.ViewDealerEmployee.MachineOperatorRegister" %>
+﻿<%@ Page Title="" Language="C#" MaintainScrollPositionOnPostback="true" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="MachineOperatorRegister.aspx.cs" Inherits="DealerManagementSystem.ViewDealerEmployee.MachineOperatorRegister" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -101,6 +101,31 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Machine Operator Input</legend>
                 <div class="col-md-12">
                     <div class="col-md-3 text-right">
+                        <label>Aadhaar Card No</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" MaxLength="14" onkeydown="return isNumber(event);" onkeyUp="AadhaarCardNo(event)" OnTextChanged="txtAadhaarCardNo_TextChanged" AutoPostBack="true"></asp:TextBox>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtAadhaarCardNo" WatermarkText="XXXX-XXXX-XXXX"></asp:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Adhaar Card Copy Front Side</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:FileUpload ID="fuAdhaarCardCopyFrontSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
+                        <asp:Label ID="lblAdhaarCardCopyFrontSideFileName" runat="server" Text=""></asp:Label>
+                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Adhaar Card Copy Back Side</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:FileUpload ID="fuAdhaarCardCopyBackSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
+                        <asp:Label ID="lblAdhaarCardCopyBackSideFileName" runat="server" Text=""></asp:Label>
+                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyBackSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
+                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyBackSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
+                    </div>                    
+                    <div class="col-md-3 text-right">
                         <label>Name</label>
                     </div>
                     <div class="col-md-3">
@@ -197,31 +222,6 @@
                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Aadhaar Card No</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" MaxLength="14" onkeydown="return isNumber(event);" onkeyUp="AadhaarCardNo(event)" OnTextChanged="txtAadhaarCardNo_TextChanged" AutoPostBack="true"></asp:TextBox>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtAadhaarCardNo" WatermarkText="XXXX-XXXX-XXXX"></asp:TextBoxWatermarkExtender>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>Adhaar Card Copy Front Side</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:FileUpload ID="fuAdhaarCardCopyFrontSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
-                        <asp:Label ID="lblAdhaarCardCopyFrontSideFileName" runat="server" Text=""></asp:Label>
-                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
-                        <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>Adhaar Card Copy Back Side</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:FileUpload ID="fuAdhaarCardCopyBackSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
-                        <asp:Label ID="lblAdhaarCardCopyBackSideFileName" runat="server" Text=""></asp:Label>
-                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyBackSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
-                        <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyBackSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
-                    </div>
-                    <div class="col-md-3 text-right">
                         <label>PANNo</label>
                     </div>
                     <div class="col-md-3">
@@ -265,24 +265,6 @@
                         <asp:LinkButton ID="lbChequeCopyFileDownload" runat="server" OnClick="lbChequeCopyFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Department</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>Designation</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>Reporting To</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:DropDownList ID="ddlReportingTo" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-3 text-right">
                         <label>Emergency Contact</label>
                     </div>
                     <div class="col-md-3">
@@ -299,21 +281,20 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Operator For</legend>
                 <div class="col-md-3 text-right">
-                        <label>Select Operator</label>
-                    </div>
-                    <div class="col-md-9">
-                        <asp:ListView ID="ListViewProductType" runat="server" DataKeyNames="ProductTypeID">
-                            <ItemTemplate>
-                                <div class="col-md-3 col-sm-12">
-                                    <asp:CheckBox ID="chkProductType" runat="server" />
-                                    <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType")%>' runat="server" />
-                                    <asp:Label ID="lblProductTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ProductTypeID")%>' runat="server" Visible="false" />
-                                </div>
-                            </ItemTemplate>
-                        </asp:ListView>
-                    </div>
-                    
-                    
+                    <label>Select Operator</label>
+                </div>
+                <div class="col-md-9">
+                    <asp:ListView ID="ListViewProductType" runat="server" DataKeyNames="ProductTypeID">
+                        <ItemTemplate>
+                            <div class="col-md-3 col-sm-12">
+                                <asp:CheckBox ID="chkProductType" runat="server" AutoPostBack="true" OnCheckedChanged="chkProductType_CheckedChanged"/>
+                                <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType")%>' runat="server" />
+                                <asp:Label ID="lblProductTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ProductTypeID")%>' runat="server" Visible="false" />
+                            </div>
+                        </ItemTemplate>
+                    </asp:ListView>
+                </div>
+                <div class="col-md-12" runat="server" id="DivDLInfo" visible="false">
                     <div class="col-md-3 text-right">
                         <label>DL Number</label>
                     </div>
@@ -341,7 +322,7 @@
                         <asp:TextBox ID="txtDLExpiryDate" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDLExpiryDate');"></asp:TextBox>
                         <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtDLExpiryDate" PopupButtonID="txtDLExpiryDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtDLExpiryDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                    </div>                    
+                    </div>
                     <div class="col-md-3 text-right">
                         <label>DL Copy Front Side</label>
                     </div>
@@ -366,6 +347,7 @@
                     <div class="col-md-3">
                         <asp:TextBox ID="txtDLFor" runat="server" CssClass="uppercase form-control" AutoComplete="off"></asp:TextBox>
                     </div>
+                </div>
             </fieldset>
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
