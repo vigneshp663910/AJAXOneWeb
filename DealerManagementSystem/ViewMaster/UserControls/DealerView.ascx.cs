@@ -528,11 +528,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             if(ddlDealerResposibleUserType.SelectedValue == "TL" || ddlDealerResposibleUserType.SelectedValue == "SM")
             {
-                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, Dealer.DealerID, true, null, 2, null), "ContactName", "UserID");
+                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, 53, true, null, 2, null), "ContactName", "UserID");
             }
             if(ddlDealerResposibleUserType.SelectedValue == "Sales Responsible User")
             {
-                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, Dealer.DealerID, true, null, 1, null), "ContactName", "UserID");
+                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, 53, true, null, 1, null), "ContactName", "UserID");
             }
             MPE_EditDealerResposibleUser.Show();
         }
