@@ -219,8 +219,10 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillTechniciansByTicketID();
             FillRestore();
 
-            ActionControlMange();
+           
             FillCustomerFeedBack();
+
+            ActionControlMange();
 
         }
         public void FillBasicInformation()
@@ -1934,7 +1936,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             if (!SDMS_ICTicket.SyncBlock)
             {
-                lbtnUnlockTicket.Visible = false;
+                lbtnUnblockTicket.Visible = false;
             }
           
 

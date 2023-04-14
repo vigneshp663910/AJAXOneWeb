@@ -30,7 +30,16 @@ namespace Business
                 new FileLogger().LogMessageService("BDMS_ICTicket", "provider : " + e1.Message, null);
             }
         }
-        public List<PDMS_PurchaseOrder> GetPurchaseOrder(string filter)
+
+        public PApiResult GetPurchaseOrderHeader(int? DealerID, string VendorID, string PurchaseOrderNo, DateTime? PurchaseOrderDateF, DateTime? PurchaseOrderDateT
+            , int? PurchaseOrderStatusID, int? PurchaseOrderTypeID, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderHeader?DealerID=" + DealerID + "&VendorID=" + VendorID + "&VendorID=" + VendorID + "&PurchaseOrderNo=" + PurchaseOrderNo
+                + "&PurchaseOrderDateF=" + PurchaseOrderDateF + "&PurchaseOrderDateT=" + PurchaseOrderDateT + "&PurchaseOrderStatusID=" + PurchaseOrderStatusID 
+                + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public List<PDMS_PurchaseOrder> GetPurchaseOrderPG(string filter)
         {
             string endPoint = "PurchaseOrder/PurchaseOrder?Filter=" + filter;
             return JsonConvert.DeserializeObject<List<PDMS_PurchaseOrder>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
@@ -49,9 +58,7 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PDMS_PurchaseOrder>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }
-
-     
-
+          
         public DataTable GetPurchaseOrderReport(int? DealerID, string CustomerCode, string PurchaseOrderNo, DateTime? PurchaseOrderDateF, DateTime? PurchaseOrderDateT, string PurchaseOrderStatusID, string MaterialCode, int? PurchaseOrderTypeID,long UserID)
         {
             TraceLogger.Log(DateTime.Now);           

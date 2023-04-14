@@ -517,7 +517,7 @@ namespace DealerManagementSystem.ViewService
                 Division = ddlDivision.SelectedValue;
             }
             int Index = 0;
-            int Rowcount = 1000;
+            int Rowcount = 5000;
             int CRowcount = Rowcount;
             while (Rowcount == CRowcount)
             {
@@ -724,7 +724,7 @@ namespace DealerManagementSystem.ViewService
                 Division = ddlDivision.SelectedValue;
             }
             int Index = 0;
-            int Rowcount = 1000;
+            int Rowcount = 5000;
             int CRowcount = Rowcount;
             while (Rowcount == CRowcount)
             {

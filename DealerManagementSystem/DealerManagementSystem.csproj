@@ -540,6 +540,9 @@
     <Content Include="ViewPreSale\Visit.aspx" />
     <Content Include="ViewPreSale\VisitReport.aspx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
+    <Content Include="ViewProcurement\PurchaseOrderPG.aspx" />
+    <Content Include="ViewProcurement\UserControls\PurchaseOrderCreate.ascx" />
+    <Content Include="ViewProcurement\UserControls\PurchaseOrderView.ascx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
     <Content Include="ViewSales\SalesCommissionClaim.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimApprove.aspx" />
@@ -592,7 +595,6 @@
     <Content Include="ViewService\PaidServiceInvoice.aspx" />
     <Content Include="ViewService\PaidServiceProformaInvoice.aspx" />
     <Content Include="ViewService\PaidServiceQuotation.aspx" />
-    <Content Include="ViewService\PaidServiceReport.aspx" />
     <Content Include="ViewService\PaidServiceReportNew.aspx" />
     <Content Include="ViewService\TicketTracking.aspx" />
     <Content Include="ViewService\UserControls\AddFSR.ascx" />
@@ -1940,6 +1942,27 @@
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.designer.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewProcurement\PurchaseOrderPG.aspx.cs">
+      <DependentUpon>PurchaseOrderPG.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\PurchaseOrderPG.aspx.designer.cs">
+      <DependentUpon>PurchaseOrderPG.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\PurchaseOrderCreate.ascx.cs">
+      <DependentUpon>PurchaseOrderCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\PurchaseOrderCreate.ascx.designer.cs">
+      <DependentUpon>PurchaseOrderCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\PurchaseOrderView.ascx.cs">
+      <DependentUpon>PurchaseOrderView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\PurchaseOrderView.ascx.designer.cs">
+      <DependentUpon>PurchaseOrderView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewReport\CustomerVisitReport.aspx.cs">
       <DependentUpon>CustomerVisitReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2303,13 +2326,6 @@
     </Compile>
     <Compile Include="ViewService\PaidServiceQuotation.aspx.designer.cs">
       <DependentUpon>PaidServiceQuotation.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewService\PaidServiceReport.aspx.cs">
-      <DependentUpon>PaidServiceReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewService\PaidServiceReport.aspx.designer.cs">
-      <DependentUpon>PaidServiceReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\PaidServiceReportNew.aspx.cs">
       <DependentUpon>PaidServiceReportNew.aspx</DependentUpon>

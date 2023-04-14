@@ -182,6 +182,7 @@ namespace Business
 
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
+            client.Timeout = TimeSpan.FromSeconds(2500);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             //var RequestBody = new Dictionary<string, string>
@@ -218,6 +219,7 @@ namespace Business
             string AccessToken = PSession.AccessToken;
             HttpClientHandler handler = new HttpClientHandler();
             HttpClient client = new HttpClient(handler);
+            client.Timeout = TimeSpan.FromSeconds(2500);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
 
             //var RequestBody = new Dictionary<string, string>
@@ -246,7 +248,8 @@ namespace Business
             
 
             HttpClientHandler handler = new HttpClientHandler();
-            HttpClient client = new HttpClient(handler); 
+            HttpClient client = new HttpClient(handler);
+            client.Timeout = TimeSpan.FromSeconds(2500);
             var APIResponse = client.GetAsync(ApiBaseAddress + Filter).Result;
             if (APIResponse.IsSuccessStatusCode)
             {
@@ -268,7 +271,8 @@ namespace Business
         public String ApiPutWithOutToken(string EndPoint, object obj = null)
         { 
             HttpClientHandler handler = new HttpClientHandler();
-            HttpClient client = new HttpClient(handler);  
+            HttpClient client = new HttpClient(handler);
+            client.Timeout = TimeSpan.FromSeconds(2500);
             var APIResponse = client.PostAsync(ApiBaseAddress + EndPoint, new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")).Result; 
             if (APIResponse.IsSuccessStatusCode)
             {

@@ -539,7 +539,10 @@ namespace Properties
         ICTicketDeclineApprove,
         CreateICTicketEdit,
         OperatorEdit = 63,
-        ICTicketUnblock
+        ICTicketUnblock,
+        DealerNotificationAdd,
+        DealerBankDetailsEdit,
+ DealerResponsibleUserEdit,
     }
     public enum DMS_WarrantyClaimStatus
     {

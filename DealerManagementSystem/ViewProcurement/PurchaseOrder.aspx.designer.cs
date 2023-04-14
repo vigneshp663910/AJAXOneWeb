@@ -24,6 +24,15 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// divList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
+
+        /// <summary>
         /// ddlDealerCode control.
         /// </summary>
         /// <remarks>
@@ -157,5 +166,59 @@ namespace DealerManagementSystem.ViewProcurement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvICTickets;
+
+        /// <summary>
+        /// divDetailsView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDetailsView;
+
+        /// <summary>
+        /// btnPurchaseOrderViewBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPurchaseOrderViewBack;
+
+        /// <summary>
+        /// UC_PurchaseOrderView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewProcurement.UserControls.PurchaseOrderView UC_PurchaseOrderView;
+
+        /// <summary>
+        /// divPurchaseOrderCreate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPurchaseOrderCreate;
+
+        /// <summary>
+        /// btnPurchaseOrderCreateBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPurchaseOrderCreateBack;
+
+        /// <summary>
+        /// UC_PurchaseOrderCreate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewProcurement.UserControls.PurchaseOrderCreate UC_PurchaseOrderCreate;
     }
 }

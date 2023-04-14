@@ -8,37 +8,36 @@ using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ViewService
+namespace DealerManagementSystem.ViewProcurement
 {
-    public partial class PaidServiceReport : BasePage
+    public partial class PurchaseOrderPG : BasePage
     {
-      //  public override SubModule SubModuleName { get { return SubModule.ViewService_PaidServiceReport; } }
-        public List<PDMS_PaidServiceHeader> SDMS_PurchaseOrder
+        public List<PDMS_PurchaseOrder> SDMS_PurchaseOrder
         {
             get
             {
-                if (Session["DMS_PaidServiceReport"] == null)
+                if (Session["PDMS_PurchaseOrder"] == null)
                 {
-                    Session["DMS_PaidServiceReport"] = new List<PDMS_PaidServiceHeader>();
+                    Session["PDMS_PurchaseOrder"] = new List<PDMS_PurchaseOrder>();
                 }
-                return (List<PDMS_PaidServiceHeader>)Session["DMS_PaidServiceReport"];
+                return (List<PDMS_PurchaseOrder>)Session["PDMS_PurchaseOrder"];
             }
             set
             {
-                Session["DMS_PaidServiceReport"] = value;
+                Session["PDMS_PurchaseOrder"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            Session["previousUrl"] = "DMS_PaidServiceReport.aspx";
+            Session["previousUrl"] = "DMS_PurchaseOrder.aspx";
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
-            this.Page.MasterPageFile = "~/Dealer.master";
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Orders');</script>");
             lblMessage.Visible = false;
 
             if (PSession.User == null)
@@ -71,7 +70,7 @@ namespace DealerManagementSystem.ViewService
         {
             try
             {
-                fillPaidService();
+                fillPurchaseOrder();
             }
             catch (Exception e1)
             {
@@ -81,15 +80,52 @@ namespace DealerManagementSystem.ViewService
             }
         }
 
-        void fillPaidService()
+        void fillPurchaseOrder()
         {
             try
             {
                 TraceLogger.Log(DateTime.Now);
+                //int PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
+                //int PageNo = Convert.ToInt32(ddlPageNo.SelectedValue);
+
+
+                string Fillter1 = "";
+                if (!string.IsNullOrEmpty(txtPoNumber.Text.Trim()))
+                    Fillter1 = " and po.p_po_id = '" + txtPoNumber.Text.Trim().ToUpper() + "'";
+
+
+                //if (cbActive.Checked)
+                //    Fillter1 = Fillter1 + "  and r_mrp > 0  and f_mat_type <> 'RECO' ";
+
+                if (!string.IsNullOrEmpty(txtPoDateFrom.Text.Trim()))
+                {
+                    Fillter1 = Fillter1 + " and po.s_created_on>= '" + txtPoDateFrom.Text.Trim().Split('/')[1] + "/" + txtPoDateFrom.Text.Trim().Split('/')[0] + "/" + txtPoDateFrom.Text.Trim().Split('/')[2] + "'";
+                }
+
+                if (!string.IsNullOrEmpty(txtPoDateTo.Text.Trim()))
+                {
+                    Fillter1 = Fillter1 + "and po.s_created_on <= '" + txtPoDateTo.Text.Trim().Split('/')[1] + "/" + txtPoDateTo.Text.Trim().Split('/')[0] + "/" + txtPoDateTo.Text.Trim().Split('/')[2] + "'";
+                }
+                if (ddlDealerCode.SelectedValue != "0")
+                {
+                    Fillter1 = Fillter1 + " and po.s_tenant_id  = '" + ddlDealerCode.SelectedValue + "'";
+                }
+
+
+                if (ddlPOStatus.SelectedValue != "0")
+                {
+                    Fillter1 = Fillter1 + " and po.s_status   = '" + ddlPOStatus.SelectedItem.Text + "'";
+                }
+
+
+                //      Fillter1 = Fillter1 + " order by r_hsn_id desc";
+
+
                 string Fillter = "Where 1=1";
                 if (!string.IsNullOrEmpty(txtPoNumber.Text.Trim()))
                 {
                     Fillter = "'" + txtPoNumber.Text.Trim() + "'";
+                    //Fillter = Fillter + "and t.f_ic_ticket_id = " + txtICServiceTicket.Text.Trim();
                 }
                 else
                 {
@@ -129,7 +165,7 @@ namespace DealerManagementSystem.ViewService
                     Fillter = Fillter + "," + "null";
                 }
 
-                List<PDMS_PurchaseOrder> PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrder(Fillter);
+                List<PDMS_PurchaseOrder> PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrderPG(Fillter1);
 
 
                 if (ddlDealerCode.SelectedValue == "0")
@@ -147,7 +183,7 @@ namespace DealerManagementSystem.ViewService
                     }
                 }
 
-                //   SDMS_PurchaseOrder = PurchaseOrder;
+                SDMS_PurchaseOrder = PurchaseOrder;
 
                 gvICTickets.PageIndex = 0;
                 gvICTickets.DataSource = PurchaseOrder;
@@ -169,7 +205,7 @@ namespace DealerManagementSystem.ViewService
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_PaidServiceReport", "fillPaidService", e1);
+                new FileLogger().LogMessage("DMS_MTTR_Report", "fillMTTR", e1);
                 throw e1;
             }
         }
@@ -229,35 +265,35 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("Gross Amt");
 
 
-            //foreach (PDMS_PurchaseOrder M in SDMS_PurchaseOrder)
-            //{
-            //    dt.Rows.Add(
-            //        M.PurchaseOrderID, M.PurchaseOrderItem.POItem, M.PurchaseOrderDate.ToShortDateString()
-            //       , M.POType
-            //        , M.Dealer.DealerCode, M.Dealer.DealerName
-            //        , M.Location
-            //        , M.Currency
-            //        , M.BillTo
-            //        , M.POStatus
-            //        , M.Division
-            //        , "'" + M.PurchaseOrderItem.Material.MaterialCode
-            //         , M.PurchaseOrderItem.Material.HSN
-            //          , M.PurchaseOrderItem.Material.MaterialDescription
-            //        , decimal.Round(M.PurchaseOrderItem.OrderQuantity, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.ShipedQuantity, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.ApprovedQuantity, 2, MidpointRounding.AwayFromZero)
-            //        , M.PurchaseOrderItem.UOM
-            //        , decimal.Round(M.PurchaseOrderItem.NetAmount, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.DiscountAmount, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.UnitPrice, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.Fright, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.Insurance, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.PackingAndForwarding, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.SGST, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.CGST, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.IGST, 2, MidpointRounding.AwayFromZero)
-            //        , decimal.Round(M.PurchaseOrderItem.GrossAmount, 2, MidpointRounding.AwayFromZero));
-            //}
+            foreach (PDMS_PurchaseOrder M in SDMS_PurchaseOrder)
+            {
+                dt.Rows.Add(
+                    M.PurchaseOrderID, M.PurchaseOrderItem.POItem, M.PurchaseOrderDate.ToShortDateString()
+                   , M.POType
+                    , M.Dealer.DealerCode, M.Dealer.DealerName
+                    , M.Location
+                    , M.Currency
+                    , M.BillTo
+                    , M.POStatus
+                    , M.Division
+                    , "'" + M.PurchaseOrderItem.Material.MaterialCode
+                     , M.PurchaseOrderItem.Material.HSN
+                      , M.PurchaseOrderItem.Material.MaterialDescription
+                    , decimal.Round(M.PurchaseOrderItem.OrderQuantity, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.ShipedQuantity, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.ApprovedQuantity, 2, MidpointRounding.AwayFromZero)
+                    , M.PurchaseOrderItem.UOM
+                    , decimal.Round(M.PurchaseOrderItem.NetAmount, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.DiscountAmount, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.UnitPrice, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.Fright, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.Insurance, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.PackingAndForwarding, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.SGST, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.CGST, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.IGST, 2, MidpointRounding.AwayFromZero)
+                    , decimal.Round(M.PurchaseOrderItem.GrossAmount, 2, MidpointRounding.AwayFromZero));
+            }
             new BXcel().ExporttoExcel(dt, "PurchaseOrder Report");
         }
 
@@ -277,5 +313,6 @@ namespace DealerManagementSystem.ViewService
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
+        
     }
 }
