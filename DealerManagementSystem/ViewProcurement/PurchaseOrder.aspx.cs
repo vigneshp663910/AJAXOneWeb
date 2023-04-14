@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,14 @@ namespace DealerManagementSystem.ViewProcurement
 {
     public partial class PurchaseOrder : BasePage
     {
+        int? DealerID = null;
+        string VendorID = null;
+        string PurchaseOrderNo = null;
+        DateTime? PurchaseOrderDateF = null;
+        DateTime? PurchaseOrderDateT = null;
+        int? PurchaseOrderStatusID = null; 
+        int? PurchaseOrderTypeID = null;
+
         public List<PDMS_PurchaseOrder> SDMS_PurchaseOrder
         {
             get
@@ -25,6 +34,37 @@ namespace DealerManagementSystem.ViewProcurement
             set
             {
                 Session["PDMS_PurchaseOrder"] = value;
+            }
+        }
+
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] = 0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -46,6 +86,8 @@ namespace DealerManagementSystem.ViewProcurement
             }
             if (!IsPostBack)
             {
+                PageCount = 0;
+                PageIndex = 1;
                 // fillMTTR();
                 // FillPageNo(1);
                 txtPoDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
@@ -79,116 +121,32 @@ namespace DealerManagementSystem.ViewProcurement
                 lblMessage.Visible = true;
             }
         }
+        void Search()
+        {
+            DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            //   VendorID = null; 
+            PurchaseOrderDateF = null;
+            PurchaseOrderDateF = string.IsNullOrEmpty(txtPoDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtPoDateFrom.Text.Trim());
+            PurchaseOrderDateT = string.IsNullOrEmpty(txtPoDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtPoDateTo.Text.Trim());
 
+            PurchaseOrderStatusID = ddlPOStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPOStatus.SelectedValue);
+          
+            //  int? PurchaseOrderTypeID = ddlPOStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPOStatus.SelectedValue);
+            PurchaseOrderNo = txtPoNumber.Text.Trim();
+        }
         void fillPurchaseOrder()
         {
             try
-            {
+            { 
                 TraceLogger.Log(DateTime.Now);
-                //int PageSize = Convert.ToInt32(ddlPageSize.SelectedValue);
-                //int PageNo = Convert.ToInt32(ddlPageNo.SelectedValue);
-
-
-                string Fillter1 = "";
-                if (!string.IsNullOrEmpty(txtPoNumber.Text.Trim()))
-                    Fillter1 = " and po.p_po_id = '" + txtPoNumber.Text.Trim().ToUpper() + "'";
-
-
-                //if (cbActive.Checked)
-                //    Fillter1 = Fillter1 + "  and r_mrp > 0  and f_mat_type <> 'RECO' ";
-
-                if (!string.IsNullOrEmpty(txtPoDateFrom.Text.Trim()))
-                {
-                    Fillter1 = Fillter1 + " and po.s_created_on>= '" + txtPoDateFrom.Text.Trim().Split('/')[1] + "/" + txtPoDateFrom.Text.Trim().Split('/')[0] + "/" + txtPoDateFrom.Text.Trim().Split('/')[2] + "'";
-                }
-
-                if (!string.IsNullOrEmpty(txtPoDateTo.Text.Trim()))
-                {
-                    Fillter1 = Fillter1 + "and po.s_created_on <= '" + txtPoDateTo.Text.Trim().Split('/')[1] + "/" + txtPoDateTo.Text.Trim().Split('/')[0] + "/" + txtPoDateTo.Text.Trim().Split('/')[2] + "'";
-                }
-                if (ddlDealerCode.SelectedValue != "0")
-                {
-                    Fillter1 = Fillter1 + " and po.s_tenant_id  = '" + ddlDealerCode.SelectedValue + "'";
-                }
-
-
-                if (ddlPOStatus.SelectedValue != "0")
-                {
-                    Fillter1 = Fillter1 + " and po.s_status   = '" + ddlPOStatus.SelectedItem.Text + "'";
-                }
-
-
-                //      Fillter1 = Fillter1 + " order by r_hsn_id desc";
-
-
-                string Fillter = "Where 1=1";
-                if (!string.IsNullOrEmpty(txtPoNumber.Text.Trim()))
-                {
-                    Fillter = "'" + txtPoNumber.Text.Trim() + "'";
-                    //Fillter = Fillter + "and t.f_ic_ticket_id = " + txtICServiceTicket.Text.Trim();
-                }
-                else
-                {
-                    Fillter = "null";
-                }
-                if (!string.IsNullOrEmpty(txtPoDateFrom.Text.Trim()))
-                {
-                    Fillter = Fillter + ",'" + txtPoDateFrom.Text.Trim().Split('/')[1] + "/" + txtPoDateFrom.Text.Trim().Split('/')[0] + "/" + txtPoDateFrom.Text.Trim().Split('/')[2] + "'";
-                }
-                else
-                {
-                    Fillter = Fillter + "," + "null";
-                }
-                if (!string.IsNullOrEmpty(txtPoDateTo.Text.Trim()))
-                {
-                    Fillter = Fillter + ",'" + txtPoDateTo.Text.Trim().Split('/')[1] + "/" + txtPoDateTo.Text.Trim().Split('/')[0] + "/" + txtPoDateTo.Text.Trim().Split('/')[2] + "'";
-                }
-                else
-                {
-                    Fillter = Fillter + "," + "null";
-                }
-                if (ddlDealerCode.SelectedValue != "0")
-                {
-                    Fillter = Fillter + ",'" + ddlDealerCode.SelectedValue + "'";
-                }
-                else
-                {
-                    Fillter = Fillter + "," + "null";
-                }
-
-                if (ddlPOStatus.SelectedValue != "0")
-                {
-                    Fillter = Fillter + ",'" + ddlPOStatus.SelectedItem.Text + "'";
-                }
-                else
-                {
-                    Fillter = Fillter + "," + "null";
-                }
-
-                List<PDMS_PurchaseOrder> PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrder(Fillter1);
-
-
-                if (ddlDealerCode.SelectedValue == "0")
-                {
-                    var SOIs1 = (from S in PurchaseOrder
-                                 join D in PSession.User.Dealer on S.Dealer.DealerCode equals D.UserName
-                                 select new
-                                 {
-                                     S
-                                 }).ToList();
-                    PurchaseOrder.Clear();
-                    foreach (var w in SOIs1)
-                    {
-                        PurchaseOrder.Add(w.S);
-                    }
-                }
-
-                SDMS_PurchaseOrder = PurchaseOrder;
-
+                Search();
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderHeader(DealerID, VendorID, PurchaseOrderNo, PurchaseOrderDateF
+                    , PurchaseOrderDateT, PurchaseOrderStatusID,  PurchaseOrderTypeID, PageIndex, gvICTickets.PageSize); 
+                 
                 gvICTickets.PageIndex = 0;
-                gvICTickets.DataSource = PurchaseOrder;
+                gvICTickets.DataSource = JsonConvert.DeserializeObject<List<PDMS_PurchaseOrder>>(JsonConvert.SerializeObject(Result.Data)); ;
                 gvICTickets.DataBind();
-                if (PurchaseOrder.Count == 0)
+                if (Result.RowCount == 0)
                 {
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
@@ -196,39 +154,36 @@ namespace DealerManagementSystem.ViewProcurement
                 }
                 else
                 {
+                    PageCount = (Result.RowCount + gvICTickets.PageSize - 1) / gvICTickets.PageSize;
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_PurchaseOrder.Count;
-                }
+                    lblRowCount.Text = (((PageIndex - 1) * gvICTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + Result.RowCount;
+                } 
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_MTTR_Report", "fillMTTR", e1);
+                new FileLogger().LogMessage("PurchaseOrder", "fillPurchaseOrder", e1);
                 throw e1;
             }
         }
 
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvICTickets.PageIndex > 0)
+            if (PageIndex > 1)
             {
-                gvICTickets.PageIndex = gvICTickets.PageIndex - 1;
-                gvICTickets.DataSource = SDMS_PurchaseOrder;
-                gvICTickets.DataBind();
-                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_PurchaseOrder.Count;
-            }
+                PageIndex = PageIndex - 1;
+                fillPurchaseOrder();
+            } 
         }
 
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvICTickets.PageCount > gvICTickets.PageIndex)
+            if (PageCount > PageIndex)
             {
-                gvICTickets.PageIndex = gvICTickets.PageIndex + 1;
-                gvICTickets.DataSource = SDMS_PurchaseOrder;
-                gvICTickets.DataBind();
-                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + SDMS_PurchaseOrder.Count;
+                PageIndex = PageIndex + 1;
+                fillPurchaseOrder();
             }
         }
 
@@ -308,18 +263,37 @@ namespace DealerManagementSystem.ViewProcurement
         void fillDealer()
         {
             ddlDealerCode.DataTextField = "CodeWithName";
-            ddlDealerCode.DataValueField = "UserName";
+            ddlDealerCode.DataValueField = "DID";
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
-        //void FillPageNo(int TotalPage)
-        //{
-        //     ddlPageNo.Items.Clear(); 
-        //    for (int i = 1; i <= TotalPage; i++)
-        //    {
-        //        ddlPageNo.Items.Insert(i-1, new ListItem(i.ToString(), i.ToString()));
-        //    }
-        //}
+         
+        protected void BtnView_Click(object sender, EventArgs e)
+        {
+            divList.Visible = false;
+            divDetailsView.Visible = true; 
+            lblMessage.Text = "";
+            Button BtnView = (Button)sender;
+            ViewState["EnquiryID"] = Convert.ToInt64(BtnView.CommandArgument);
+            UC_PurchaseOrderView.fillViewEnquiry(Convert.ToInt64(BtnView.CommandArgument));
+        }
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divList.Visible = true;
+            divDetailsView.Visible = false;
+        }
+
+        protected void btnPurchaseOrderCreateBack_Click(object sender, EventArgs e)
+        {
+            divList.Visible = true;
+            divPurchaseOrderCreate.Visible = false;
+        }
+
+        protected void btnPurchaseOrderViewBack_Click(object sender, EventArgs e)
+        {
+            divList.Visible = true;
+            divDetailsView.Visible = false;
+        }
     }
 }

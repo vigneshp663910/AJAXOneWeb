@@ -302,4 +302,127 @@ namespace Properties
         public decimal NetAmount { get; set; }
         public decimal GrossAmount { get; set; }
     }
+
+
+    [Serializable]
+    public class PPurchaseOrderType
+    {
+        public long PurchaseOrderTypeID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+    [Serializable]
+    public class PPurchaseOrderStatus
+    {
+        public long StatusID { get; set; }
+        public string Code { get; set; }
+        public string Description { get; set; }
+    }
+
+    [Serializable]
+    public class PPurchaseOrder
+    {
+        public string PurchaseOrderID { get; set; }
+        public DateTime PurchaseOrderDate { get; set; }
+        public PPurchaseOrderType POType { get; set; }
+        public PPurchaseOrderStatus Status { get; set; }
+        public string Location { get; set; }
+        public string Currency { get; set; }
+        public string BillTo { get; set; }
+        public string Insurance { get; set; }
+        public decimal TaxAmount { get; set; }
+        public string SoldTo { get; set; }
+        public decimal NetAmount { get; set; }
+        public decimal GrossAmount { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public PDMS_Division Division { get; set; }
+        public PPurchaseOrderItem PurchaseOrderItem { get; set; }
+        public List<PPurchaseOrderItem> PurchaseOrderItems { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
+    }
+
+    [Serializable]
+    public class PPurchaseOrderItem
+    {
+        public string PurchaseOrderID { get; set; }
+        public int POItem { get; set; }
+        public PDMS_Material Material { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal TaxAmount { get; set; }
+        public string UOM { get; set; }
+        public decimal NetAmount { get; set; }
+        public decimal GrossAmount { get; set; }
+        public decimal ShipedQuantity { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal TaxableAmount { get; set; }
+        public decimal ApprovedQuantity { get; set; }
+
+        public decimal Fright { get; set; }
+        public decimal Insurance { get; set; }
+        public decimal PackingAndForwarding { get; set; }
+
+        public decimal SGST { get; set; }
+        public decimal CGST { get; set; }
+        public decimal IGST { get; set; }
+    }
+    [Serializable]
+    public class PAsn
+    {
+        public long AsnID { get; set; }
+        public string AsnNumber { get; set; }
+        public DateTime AsnDate { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
+        public string DeliveryNumber { get; set; }
+        public string SapDeliveryNumber { get; set; }
+        public DateTime? DeliveryDate { get; set; }
+
+        public DateTime? PickupDate { get; set; }
+        public DateTime? LoadingDate { get; set; }
+        public decimal? NetWeight { get; set; }
+        public string TrackID { get; set; }
+        public string CourierID { get; set; }
+        public DateTime? CourierDate { get; set; }
+        public string Status { get; set; }
+        public string ShipingAddress { get; set; }
+        public decimal? CourierCharge { get; set; }
+        public string LRNo { get; set; }
+        public string Remarks { get; set; }
+        public PAsnItem AsnItem { get; set; }
+        public List<PAsnItem> AsnItemS { get; set; }
+
+        public string GrNumber { get; set; }
+        public DateTime GrDate { get; set; }
+        public string GrStatus { get; set; }
+
+    }
+
+    [Serializable]
+    public class PAsnItem
+    {
+        public string AsnItemID { get; set; }
+        public long AsnID { get; set; }
+        public int AsnItem { get; set; }
+        public string SoNumber { get; set; }
+        public int SoItem { get; set; }
+        public string SapSoNumber { get; set; }
+
+        public PDMS_Material Material { get; set; }
+        public decimal Qty { get; set; }
+        public decimal NetWeight { get; set; }
+        public string UomWeight { get; set; }
+        public decimal PackCount { get; set; }
+        public string UomPackCount { get; set; }
+        public string StockType { get; set; }
+        public Boolean IsChangedpart { get; set; }
+        public string Remarks { get; set; }
+        public PDMS_PurchaseOrderN PO { get; set; }
+
+        public decimal DeliveredQty { get; set; }
+        public decimal ReceivedQty { get; set; }
+        public decimal DamagedQty { get; set; }
+        public decimal ReturnedQty { get; set; }
+        public string GrRemarks { get; set; }
+    }
+
 }

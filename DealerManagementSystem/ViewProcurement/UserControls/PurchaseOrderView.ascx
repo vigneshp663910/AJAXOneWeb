@@ -1,0 +1,2 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PurchaseOrderView.ascx.cs" Inherits="DealerManagementSystem.ViewProcurement.UserControls.PurchaseOrderView" %>
+ <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />

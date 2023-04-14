@@ -1155,6 +1155,14 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             {
                 lbtnAssignTo.Visible = false;
                 lbtnSendApproval.Visible = false;
+              
+            }
+            if (PSession.User.UserID == 1 )
+            {
+
+            }
+            else
+            { 
                 lbtnForceclose.Visible = false;
             }
         }

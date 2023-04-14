@@ -352,27 +352,19 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lnkBtnEditDealerResponsibleUser.Visible = true;
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.UpdateCommDate).Count() == 0)
-            {
-                lnkBtnEditBank.Visible = false;
-            }             
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.UpdateCommDate).Count() == 0)
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerNotificationAdd).Count() == 0)
             {
                 lnkBtnAddNotification.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.UpdateCommDate).Count() == 0)
-            {
-                lnkBtnEditDealerResponsibleUser.Visible = false;
-            }
 
-
-            if (PSession.User.UserID == 1 || PSession.User.UserID == 383 || PSession.User.UserID == 2954)
-            {
-                lnkBtnEditBank.Visible = true;
-            }
-            else
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBankDetailsEdit).Count() == 0)
             {
                 lnkBtnEditBank.Visible = false;
+            }
+
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerResponsibleUserEdit).Count() == 0)
+            {
+                lnkBtnEditDealerResponsibleUser.Visible = false;
             }
         }
 
@@ -536,11 +528,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             if(ddlDealerResposibleUserType.SelectedValue == "TL" || ddlDealerResposibleUserType.SelectedValue == "SM")
             {
-                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, Dealer.DealerID, true, null, 2, null), "ContactName", "UserID");
+                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, 53, true, null, 2, null), "ContactName", "UserID");
             }
             if(ddlDealerResposibleUserType.SelectedValue == "Sales Responsible User")
             {
-                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, Dealer.DealerID, true, null, 1, null), "ContactName", "UserID");
+                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, 53, true, null, 1, null), "ContactName", "UserID");
             }
             MPE_EditDealerResposibleUser.Show();
         }

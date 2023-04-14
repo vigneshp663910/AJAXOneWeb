@@ -424,7 +424,7 @@ namespace DataAccess
         private DataSet ExecuteDataset(string commandText,
             CommandType commandType = CommandType.Text,
             DbParameter[] parameters = null,
-            SqlTransaction sqlTransaction = null, int commandTimeout = 0)
+            SqlTransaction sqlTransaction = null, int commandTimeout = 600)
         {            
             try
             {
@@ -476,7 +476,7 @@ namespace DataAccess
             Boolean outputValueRequired = false,
             CommandType commandType = CommandType.Text,
             DbParameter[] parameters = null,
-            SqlTransaction sqlTransaction = null, int commandTimeout = 0
+            SqlTransaction sqlTransaction = null, int commandTimeout = 600
             )
         {
             try
@@ -534,7 +534,7 @@ namespace DataAccess
         private object ExecuteScalar(string commandText,
             CommandType commandType = CommandType.Text,
             DbParameter[] parameters = null,
-            SqlTransaction sqlTransaction = null, int commandTimeout = 0)
+            SqlTransaction sqlTransaction = null, int commandTimeout = 600)
         {
             try
             {

@@ -174,20 +174,37 @@ namespace Business
                         Equip.VariantsFittingDate = dr["VariantsFittingDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["VariantsFittingDate"]);
                         //   Equip.ManufacturingDate = Convert.ToString(dr["ManufacturingDate"]);
 
-                        Equip.Ibase = dr["InstalledBaseNo"] == DBNull.Value ? null : new PDMS_EquipmentIbase
+                        if (dr["InstalledBaseNo"] != DBNull.Value)
                         {
-                            InstalledBaseNo = Convert.ToString(dr["InstalledBaseNo"]),
-                            IBaseLocation = Convert.ToString(dr["IBaseLocation"]),
-                            DeliveryDate = Convert.ToDateTime(dr["DeliveryDate"]),
-                            IBaseCreatedOn = dr["IBaseCreatedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IBaseCreatedOn"]),
-                            WarrantyStart = dr["IbaseWarrantyStart"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IbaseWarrantyStart"]),
-                            WarrantyEnd = dr["IbaseWarrantyEnd"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IbaseWarrantyEnd"]),
-                            FinancialYearOfDispatch = Convert.ToInt32(dr["FinancialYearOfDispatch"]),
-                            MajorRegion = new PDMS_Region
-                            {
-                                Region = Convert.ToString(dr["MajorRegion"])
-                            },
-                        };
+                            Equip.Ibase = new PDMS_EquipmentIbase();
+                            Equip.Ibase.InstalledBaseNo = Convert.ToString(dr["InstalledBaseNo"]);
+                            Equip.Ibase.IBaseLocation = Convert.ToString(dr["IBaseLocation"]);
+                            Equip.Ibase.DeliveryDate = Convert.ToDateTime(dr["DeliveryDate"]);
+                            Equip.Ibase.IBaseCreatedOn = dr["IBaseCreatedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IBaseCreatedOn"]);
+                            Equip.Ibase.WarrantyStart = dr["IbaseWarrantyStart"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IbaseWarrantyStart"]);
+                            Equip.Ibase.WarrantyEnd = dr["IbaseWarrantyEnd"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IbaseWarrantyEnd"]);
+                            Equip.Ibase.FinancialYearOfDispatch = Convert.ToInt32(dr["FinancialYearOfDispatch"]);
+                                Equip.Ibase.MajorRegion = new PDMS_Region
+                                {
+                                    Region = Convert.ToString(dr["MajorRegion"])
+                                };
+                            
+                        }
+                                                   //    Equip.Ibase = dr["InstalledBaseNo"] == DBNull.Value ? null : new PDMS_EquipmentIbase
+                        //{
+                        //    InstalledBaseNo = Convert.ToString(dr["InstalledBaseNo"]),
+                        //    IBaseLocation = Convert.ToString(dr["IBaseLocation"]),
+                        //    DeliveryDate = Convert.ToDateTime(dr["DeliveryDate"]),
+                        //    IBaseCreatedOn = dr["IBaseCreatedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IBaseCreatedOn"]),
+                        //    WarrantyStart = dr["IbaseWarrantyStart"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IbaseWarrantyStart"]),
+                        //    WarrantyEnd = dr["IbaseWarrantyEnd"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["IbaseWarrantyEnd"]),
+                        //    FinancialYearOfDispatch = Convert.ToInt32(dr["FinancialYearOfDispatch"]),
+                        //    MajorRegion = new PDMS_Region
+                        //    {
+                        //        Region = Convert.ToString(dr["MajorRegion"])
+                        //    },
+                        //};
+
 
                         Equip.EquipmentWarrantyType = dr["EquipmentWarrantyTypeID"] == DBNull.Value ? null : new PDMS_EquipmentWarrantyType
                         {
