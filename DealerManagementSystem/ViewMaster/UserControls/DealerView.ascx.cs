@@ -549,7 +549,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblEditDealerResponsibleUserMessage.Visible = true;
             }
 
-            if (new BDMS_Dealer().UpdateDealerResponsibleUser(Dealer.DealerID, Convert.ToInt64(ddlDealerResponsibleUser.SelectedValue), ddlDealerResposibleUserType.SelectedValue))
+            if (new BDMS_Dealer().UpdateDealerResponsibleUser(Dealer.DealerID, Convert.ToInt32(ddlDealerResponsibleUser.SelectedValue), ddlDealerResposibleUserType.SelectedValue))
             {
                 lblMessage.Text = "Dealer Responsible User updated for the Dealer.";
                 lblMessage.ForeColor = Color.Green;
