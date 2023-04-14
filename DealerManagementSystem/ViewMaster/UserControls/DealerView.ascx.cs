@@ -180,6 +180,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                }
                if(lbActions.Text == "Edit Dealer Responsible User")
                {
+                    ddlDealerResposibleUserType.SelectedValue = "0";
+                    //ddlDealerResponsibleUser.SelectedValue = "0";
+                    //ddlDealerResposibleUserType.Items.Clear();
+                    ddlDealerResponsibleUser.Items.Clear();
                     lblEditDealerResponsibleUserMessage.Text = "";
                     lblEditDealerResponsibleUserMessage.Visible = false;
                     MPE_EditDealerResposibleUser.Show();
@@ -545,17 +549,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblEditDealerResponsibleUserMessage.Visible = true;
             }
 
-            if (new BDMS_Dealer().UpdateDealerResponsibleUser(Dealer.DealerID, PSession.User.UserID, Convert.ToInt32(ddlDealerResposibleUserType.SelectedValue)))
+            if (new BDMS_Dealer().UpdateDealerResponsibleUser(Dealer.DealerID, Convert.ToInt64(ddlDealerResponsibleUser.SelectedValue), ddlDealerResposibleUserType.SelectedValue))
             {
-                lblEditDealerResponsibleUserMessage.Text = "Dealer Responsible updated for the Dealer.";
-                lblEditDealerResponsibleUserMessage.ForeColor = Color.Green;
-                lblEditDealerResponsibleUserMessage.Visible = true;
+                lblMessage.Text = "Dealer Responsible User updated for the Dealer.";
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Visible = true;
             }
             else
             {
-                lblEditDealerResponsibleUserMessage.Text = "Dealer Responsible not updated for the Dealer.";
-                lblEditDealerResponsibleUserMessage.ForeColor = Color.Red;
-                lblEditDealerResponsibleUserMessage.Visible = true;
+                lblMessage.Text = "Dealer Responsible User not updated for the Dealer.";
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
             }
             filldealer(Dealer.DealerID);
         }
