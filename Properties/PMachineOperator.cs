@@ -34,9 +34,6 @@ namespace Properties
         public string AccountNo { get; set; }
         public string IFSCCode { get; set; }
         public PMachineOperatorAttachedFile ChequeCopy { get; set; }
-        public PDMS_DealerDepartment Department { get; set; }
-        public PDMS_DealerDesignation Designation { get; set; }
-        public PDMS_DealerEmployee ReportingTo { get; set; }
         public string DLNumber { get; set; }
         public DateTime? DLIssueDate { get; set; }
         public string DLIssueingOffice { get; set; }
@@ -100,9 +97,6 @@ namespace Properties
         public int DistrictID { get; set; }
         public int TehsilID { get; set; }
         public int EqucationalQualificationID { get; set; }
-        public int DealerDepartmentID { get; set; }
-        public int DealerDesignationID { get; set; }
-        public int ReportingToID { get; set; }
         public int BloodGroupID { get; set; }
         public PMachineOperatorAttachedFile_Insert Photo { get; set; }
         public PMachineOperatorAttachedFile_Insert AdhaarCardCopyFrontSide { get; set; }

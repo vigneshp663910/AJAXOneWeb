@@ -65,17 +65,9 @@
                         <label class="modal-label">Name</label>
                         <asp:TextBox ID="txtName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
-                    <div class="col-md-2 text-left">
-                        <label>Department</label>
-                        <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
-                    </div>
-                    <div class="col-md-2 text-left">
-                        <label>Designation</label>
-                        <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
-                    </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="InputButton btn Search" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
-                        <%--<asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButton btn Search" OnClick="btnExportExcel_Click" Width="100px" />--%>
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButton btn Search" OnClick="btnExportExcel_Click" Width="100px" />
                     </div>
                 </div>
             </fieldset>
@@ -158,13 +150,6 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblGDLNumber" Text='<%# DataBinder.Eval(Container.DataItem, "DLNumber" )%>' runat="server"></asp:Label>
                                     </ItemTemplate>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Designation">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblser_res_date" Text='<%# DataBinder.Eval(Container.DataItem, "Designation.DealerDesignation")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                    <HeaderStyle Width="76px" />
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Created By">

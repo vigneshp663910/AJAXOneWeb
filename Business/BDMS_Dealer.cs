@@ -1354,14 +1354,14 @@ namespace Business
             catch (Exception ex) { throw ex; }
             return EMP;
         }
-        public Boolean UpdateDealerResponsibleUser(Int64 DealerID, int UserID, int DealerResponsibleUserType)
+        public Boolean UpdateDealerResponsibleUser(Int32 DealerID, Int32 UserID, string DealerResponsibleUserType)
         {
             TraceLogger.Log(DateTime.Now);
             try
             {
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter DealerResponsibleUserTypeP = provider.CreateParameter("DealerResponsibleUserType", DealerResponsibleUserType, DbType.Int32);
+                DbParameter DealerResponsibleUserTypeP = provider.CreateParameter("DealerResponsibleUserType", DealerResponsibleUserType, DbType.String);
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
 

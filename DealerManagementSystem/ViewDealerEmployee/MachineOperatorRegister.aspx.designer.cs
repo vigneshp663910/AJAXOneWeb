@@ -24,6 +24,96 @@ namespace DealerManagementSystem.ViewDealerEmployee
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// txtAadhaarCardNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAadhaarCardNo;
+
+        /// <summary>
+        /// TextBoxWatermarkExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
+
+        /// <summary>
+        /// fuAdhaarCardCopyFrontSide control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAdhaarCardCopyFrontSide;
+
+        /// <summary>
+        /// lblAdhaarCardCopyFrontSideFileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdhaarCardCopyFrontSideFileName;
+
+        /// <summary>
+        /// lbAdhaarCardCopyFrontSideFileRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbAdhaarCardCopyFrontSideFileRemove;
+
+        /// <summary>
+        /// lbAdhaarCardCopyFrontSideFileDownload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbAdhaarCardCopyFrontSideFileDownload;
+
+        /// <summary>
+        /// fuAdhaarCardCopyBackSide control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAdhaarCardCopyBackSide;
+
+        /// <summary>
+        /// lblAdhaarCardCopyBackSideFileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdhaarCardCopyBackSideFileName;
+
+        /// <summary>
+        /// lbAdhaarCardCopyBackSideFileRemove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbAdhaarCardCopyBackSideFileRemove;
+
+        /// <summary>
+        /// lbAdhaarCardCopyBackSideFileDownload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbAdhaarCardCopyBackSideFileDownload;
+
+        /// <summary>
         /// txtName control.
         /// </summary>
         /// <remarks>
@@ -213,96 +303,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
         protected global::System.Web.UI.WebControls.TextBox txtLocation;
 
         /// <summary>
-        /// txtAadhaarCardNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAadhaarCardNo;
-
-        /// <summary>
-        /// TextBoxWatermarkExtender1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
-
-        /// <summary>
-        /// fuAdhaarCardCopyFrontSide control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuAdhaarCardCopyFrontSide;
-
-        /// <summary>
-        /// lblAdhaarCardCopyFrontSideFileName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAdhaarCardCopyFrontSideFileName;
-
-        /// <summary>
-        /// lbAdhaarCardCopyFrontSideFileRemove control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbAdhaarCardCopyFrontSideFileRemove;
-
-        /// <summary>
-        /// lbAdhaarCardCopyFrontSideFileDownload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbAdhaarCardCopyFrontSideFileDownload;
-
-        /// <summary>
-        /// fuAdhaarCardCopyBackSide control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuAdhaarCardCopyBackSide;
-
-        /// <summary>
-        /// lblAdhaarCardCopyBackSideFileName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAdhaarCardCopyBackSideFileName;
-
-        /// <summary>
-        /// lbAdhaarCardCopyBackSideFileRemove control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbAdhaarCardCopyBackSideFileRemove;
-
-        /// <summary>
-        /// lbAdhaarCardCopyBackSideFileDownload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbAdhaarCardCopyBackSideFileDownload;
-
-        /// <summary>
         /// txtPANNo control.
         /// </summary>
         /// <remarks>
@@ -420,33 +420,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
         protected global::System.Web.UI.WebControls.LinkButton lbChequeCopyFileDownload;
 
         /// <summary>
-        /// ddlDepartment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDepartment;
-
-        /// <summary>
-        /// ddlDesignation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
-
-        /// <summary>
-        /// ddlReportingTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlReportingTo;
-
-        /// <summary>
         /// txtEmergencyContactNumber control.
         /// </summary>
         /// <remarks>
@@ -472,6 +445,15 @@ namespace DealerManagementSystem.ViewDealerEmployee
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListView ListViewProductType;
+
+        /// <summary>
+        /// DivDLInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivDLInfo;
 
         /// <summary>
         /// txtDLNumber control.

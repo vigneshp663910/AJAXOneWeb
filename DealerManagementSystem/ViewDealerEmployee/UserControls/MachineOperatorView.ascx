@@ -157,25 +157,7 @@
                     <asp:LinkButton ID="lbChequeCopyFileName" runat="server" OnClick="lbChequeCopy_Click" Visible="false">
                         <asp:Label ID="lblChequeCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
                     </asp:LinkButton>
-                </div>
-                <div class="col-md-3 text-right">
-                    <label>Department</label>
-                </div>
-                <div class="col-md-3">
-                    <asp:Label ID="lblDepartment" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-3 text-right">
-                    <label>Designation</label>
-                </div>
-                <div class="col-md-3">
-                    <asp:Label ID="lblDesignation" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-3 text-right">
-                    <label>Reporting To</label>
-                </div>
-                <div class="col-md-3">
-                    <asp:Label ID="lblReportingTo" runat="server" CssClass="label"></asp:Label>
-                </div>
+                </div>                
                 <div class="col-md-3 text-right">
                     <label>Emergency Contact</label>
                 </div>

@@ -158,9 +158,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
 
                 new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
                 new BDMS_Dealer().GetEqucationalQualificationDDL(ddlEqucationalQualification, null, null);
-                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
-                new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, null, null, null);
-                new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, null);
                 new BDMS_Dealer().GetBloodGroupDDL(ddlBloodGroup, null, null);
                 FillProductType();
                 if (!string.IsNullOrEmpty(Request.QueryString["MO_MachineOperatorDetailsID"]))
@@ -169,7 +166,11 @@ namespace DealerManagementSystem.ViewDealerEmployee
                     if (ViewState["MO_PhotoAttachedFileID"] != null)
                     {
                         PMachineOperatorAttachedFile PHFile = new BMachineOperator().GetMachineOperatorAttachedFile((long)ViewState["MO_PhotoAttachedFileID"]);
-                        PAttachedFile Files = new BMachineOperator().GetAttachedFileCustomerForDownload(PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName));
+                        PAttachedFile Files = null;
+                        if (!string.IsNullOrEmpty(PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName)) && PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName) != "0")
+                        {
+                            Files = new BMachineOperator().GetAttachedFileCustomerForDownload(PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName));
+                        }
                         PHFile.AttachedFile = Files.AttachedFile;
                         string Url = "MachineOpPhotos/" + ((long)ViewState["MO_MachineOperatorDetailsID"]).ToString() + "." + PHFile.FileName.Split('.')[PHFile.FileName.Split('.').Count() - 1];
                         if (File.Exists(MapPath(Url)))
@@ -261,7 +262,15 @@ namespace DealerManagementSystem.ViewDealerEmployee
                     Directory.CreateDirectory(dir);
                 }
                 string filePath = dir + "/" + imgID + "." + PHFile.FileName.Split('.')[PHFile.FileName.Split('.').Count() - 1];
-                File.WriteAllBytes(filePath, PHFile.AttachedFile);
+                PAttachedFile FileT = null;
+                if (!string.IsNullOrEmpty(PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName)) && PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName) != "0")
+                {
+                    FileT = new BMachineOperator().GetAttachedFileCustomerForDownload(PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName));
+                }
+                if (FileT.AttachedFile != null)
+                {
+                    File.WriteAllBytes(filePath, FileT.AttachedFile);
+                }
             }
             catch (Exception ex)
             {
@@ -287,11 +296,11 @@ namespace DealerManagementSystem.ViewDealerEmployee
             txtBankName.Text = Emp.BankName;
             txtAccountNo.Text = Emp.AccountNo;
             txtIFSCCode.Text = Emp.IFSCCode;
-            ddlDepartment.SelectedValue = Emp.Department.DealerDepartmentID.ToString();
-            ddlDesignation.SelectedValue = Emp.Designation.DealerDesignationID.ToString();
-            ddlReportingTo.SelectedValue = Emp.ReportingTo.DealerEmployeeID.ToString();
             txtEmergencyContactNumber.Text = Emp.EmergencyContactNumber;
-            ddlBloodGroup.SelectedValue = Emp.BloodGroup.BloodGroupID.ToString();
+            if (Emp.BloodGroup != null)
+            {
+                ddlBloodGroup.SelectedValue = Emp.BloodGroup.BloodGroupID.ToString();
+            }
             if (Emp.State != null)
             {
                 ddlState.SelectedValue = Convert.ToString(Emp.State.StateID);
@@ -511,28 +520,31 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 {
                     UploadedFile = new BMachineOperator().GetMachineOperatorAttachedFile(AttachedFileID);
                 }
-                PAttachedFile File = new BMachineOperator().GetAttachedFileCustomerForDownload(AttachedFileID + Path.GetExtension(UploadedFile.FileName));
-                Response.AddHeader("Content-type", UploadedFile.FileType);
-                Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName);
-                HttpContext.Current.Response.Charset = "utf-16";
-                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
-                Response.BinaryWrite(File.AttachedFile);
-                // Append cookie
-                HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
-                cookie.Value = "Flag";
-                cookie.Expires = DateTime.Now.AddDays(1);
-                HttpContext.Current.Response.AppendCookie(cookie);
-                // end 
-                Response.Flush();                
-                Response.End();
+
+                PAttachedFile File = null;
+                if (!string.IsNullOrEmpty(AttachedFileID + Path.GetExtension(UploadedFile.FileName)) && AttachedFileID + Path.GetExtension(UploadedFile.FileName) != "0")
+                {
+                    File = new BMachineOperator().GetAttachedFileCustomerForDownload(AttachedFileID + Path.GetExtension(UploadedFile.FileName));
+
+                    //PAttachedFile File = new BMachineOperator().GetAttachedFileCustomerForDownload(AttachedFileID + Path.GetExtension(UploadedFile.FileName));
+                    Response.AddHeader("Content-type", UploadedFile.FileType);
+                    Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName);
+                    HttpContext.Current.Response.Charset = "utf-16";
+                    HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                    Response.BinaryWrite(File.AttachedFile);
+                    // Append cookie
+                    HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+                    cookie.Value = "Flag";
+                    cookie.Expires = DateTime.Now.AddDays(1);
+                    HttpContext.Current.Response.AppendCookie(cookie);
+                    // end 
+                    Response.Flush();
+                    Response.End();
+                }
             }
             catch (Exception ex)
             {
             }
-        }
-        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
         }
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -568,18 +580,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
             Emp.DOB = Convert.ToDateTime(txtDOB.Text.Trim());
             Emp.ContactNumber = txtContactNumber.Text.Trim();
             Emp.ContactNumber1 = txtContactNumber1.Text.Trim();
-            if (ddlDepartment.SelectedValue != "0")
-            {
-                Emp.DealerDepartmentID = Convert.ToInt32(ddlDepartment.SelectedValue);
-            }
-            if (ddlDesignation.SelectedValue != "0")
-            {
-                Emp.DealerDesignationID = Convert.ToInt32(ddlDesignation.SelectedValue);
-            }
-            if (ddlReportingTo.SelectedValue != "0")
-            {
-                Emp.ReportingToID = Convert.ToInt32(ddlReportingTo.SelectedValue);
-            }
             Emp.Email = txtEmail.Text.Trim();
             Emp.Address = txtAddress.Text.Trim();
             if (ddlState.SelectedValue != "0")
@@ -791,10 +791,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
             fuDLCopyFrontSide.BorderColor = Color.Silver;
             fuDLCopyBackSide.BorderColor = Color.Silver;
 
-            ddlDepartment.BorderColor = Color.Silver;
-            ddlDesignation.BorderColor = Color.Silver;
-            ddlReportingTo.BorderColor = Color.Silver;
-
             Boolean Ret = true;
             string Message = "";
             if (AadhaarCardNo.Count() != 12)
@@ -875,25 +871,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 txtLocation.BorderColor = Color.Red;
             }
 
-            if (ddlDepartment.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the department";
-                Ret = false;
-                ddlDepartment.BorderColor = Color.Red;
-            }
-            if (ddlDesignation.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the designation";
-                Ret = false;
-                ddlDesignation.BorderColor = Color.Red;
-            }
-            if (ddlReportingTo.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Reporting To";
-                Ret = false;
-                ddlReportingTo.BorderColor = Color.Red;
-            }
-
             string ProductTypes = "";
             int productCount = 0;
             foreach (ListViewItem item in ListViewProductType.Items)
@@ -953,9 +930,8 @@ namespace DealerManagementSystem.ViewDealerEmployee
             }
             if (productCount == 0)
             {
-                Message = Message + "<br/>Please select the ProductType";
+                Message = Message + "<br/>Please select the Operator";
                 Ret = false;
-                ddlReportingTo.BorderColor = Color.Red;
             }
 
             //if (string.IsNullOrEmpty(txtPANNo.Text.Trim()))
@@ -1177,6 +1153,24 @@ namespace DealerManagementSystem.ViewDealerEmployee
         {
             string url = "MachineOperatorApproval.aspx";
             Response.Redirect(url);
+        }
+
+        protected void chkProductType_CheckedChanged(object sender, EventArgs e)
+        {
+            DivDLInfo.Visible = false;
+            foreach (ListViewItem item in ListViewProductType.Items)
+            {
+                CheckBox chkProductType = (CheckBox)item.FindControl("chkProductType");
+                Label lblProductType = (Label)item.FindControl("lblProductType");
+                Label lblProductTypeID = (Label)item.FindControl("lblProductTypeID");
+                if (chkProductType.Checked == true)
+                {
+                    if (lblProductType.Text == "SLCM" || lblProductType.Text == "Transit Mixer" || lblProductType.Text == "Boom Pump" || lblProductType.Text == "Placing Equipment")
+                    {
+                        DivDLInfo.Visible = true;
+                    }
+                }
+            }
         }
     }
 }
