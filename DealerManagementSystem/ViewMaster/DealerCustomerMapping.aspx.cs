@@ -91,7 +91,7 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     Result = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCode.SelectedValue), txtCustomerCode.Text.Trim(), PSession.User.UserID, true);
                      
-                    List<PDMS_Customer> Customer = JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(new BDMS_Customer().GetCustomerN(null, txtCustomerCode.Text.Trim(), null, null, null, null, null, null, null).Data));
+                    List<PDMS_Customer> Customer = JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(new BDMS_Customer().GetCustomerN(null, txtCustomerCode.Text.Trim(), null, null, null, null, null, null, null, null).Data));
                     if (Result == 1)
                     {
                         new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Customer[0].CustomerID); 

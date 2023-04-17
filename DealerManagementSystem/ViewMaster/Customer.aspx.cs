@@ -113,8 +113,9 @@ namespace DealerManagementSystem.ViewMaster
 
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+            int? DistrictID = ddlDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDistrict.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            PApiResult Result = new BDMS_Customer().GetCustomerN(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DealerID, PageIndex, gvCustomer.PageSize);
+            PApiResult Result = new BDMS_Customer().GetCustomerN(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID, DealerID, PageIndex, gvCustomer.PageSize);
 
             gvCustomer.DataSource = JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(Result.Data));
             gvCustomer.DataBind();
@@ -151,6 +152,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null,null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -185,7 +187,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = "Customer is updated successfully ";
             }
-            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomer(Convert.ToInt64(result), "", "", "", null, null, null);
+            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomer(Convert.ToInt64(result), "", "", "", null, null, null, null, null, null);
             gvCustomer.DataSource = Leads;
             gvCustomer.DataBind();
             UC_Customer.FillClean();
@@ -406,6 +408,12 @@ namespace DealerManagementSystem.ViewMaster
             List<string> Emp = new List<string>();
             List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(Cust, 1);
             return JsonConvert.SerializeObject(Customer);
+        }
+
+        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
+
         }
     }
 }

@@ -159,7 +159,7 @@ namespace DealerManagementSystem.ViewAdmin
                         lblMessage.Text = "Customer mapped to Dealer successfully.";
                         lblMessage.ForeColor = Color.Green;
                    
-                        List<PDMS_Customer> Cust = new BDMS_Customer().GetCustomer(null, txtCustomerCode.Text.Trim(), null, null, null, null, null, null, null); 
+                        List<PDMS_Customer> Cust = new BDMS_Customer().GetCustomer(null, txtCustomerCode.Text.Trim(), null, null, null, null, null, null, null, null); 
                         new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Cust[0].CustomerID);
                         txtCustomerCodeS.Text = txtCustomerCode.Text.Trim();
                         FillCustomer();
@@ -170,7 +170,7 @@ namespace DealerManagementSystem.ViewAdmin
                         lblMessage.Text = "Customer already mapped to Dealer.";
                         lblMessage.ForeColor = Color.Red;
 
-                        List<PDMS_Customer> Cust = new BDMS_Customer().GetCustomer(null, txtCustomerCode.Text.Trim(), null, null, null, null, null, null, null);
+                        List<PDMS_Customer> Cust = new BDMS_Customer().GetCustomer(null, txtCustomerCode.Text.Trim(), null, null, null, null, null, null, null, null);
                         new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Cust[0].CustomerID);
                         return;
                     }

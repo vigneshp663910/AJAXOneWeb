@@ -145,7 +145,7 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = "Customer is updated successfully ";
             }
-            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomer(Convert.ToInt64(result), "", "", "", null, null, null);
+            List<PDMS_Customer> Leads = new BDMS_Customer().GetCustomer(Convert.ToInt64(result), "", "", "", null, null, null, null, null, null);
             gvEquipment.DataSource = Leads;
             gvEquipment.DataBind();
             UC_Customer.FillClean();

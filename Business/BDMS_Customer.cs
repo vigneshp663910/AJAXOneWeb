@@ -244,18 +244,18 @@ namespace Business
         }
 
 
-        public List<PDMS_Customer> GetCustomer(long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DealerID, int? PageIndex = null, int? PageSize = null)
+        public List<PDMS_Customer> GetCustomer(long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DistrictID, int? DealerID, int? PageIndex, int? PageSize)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Customer?CustomerID=" + CustomerID + "&CustomerCode=" + CustomerCode + "&CustomerName=" + CustomerName + "&Mobile=" + Mobile
-                + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DealerID=" + DealerID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID + "&DealerID=" + DealerID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public PApiResult GetCustomerN(long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DealerID, int? PageIndex = null, int? PageSize = null)
+        public PApiResult GetCustomerN(long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DistrictID, int? DealerID, int? PageIndex, int? PageSize)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Customer?CustomerID=" + CustomerID + "&CustomerCode=" + CustomerCode + "&CustomerName=" + CustomerName + "&Mobile=" + Mobile
-                + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DealerID=" + DealerID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID + "&DealerID=" + DealerID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public DataTable GetCustomerExcelDownload(long? CustomerID, string CustomerCode, string CustomerName, string Mobile, int? CountryID, int? StateID, int? DealerID)

@@ -158,7 +158,11 @@
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">State</label>
-                            <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" />
+                            <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
+                        </div>
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">District</label>
+                            <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" />
                         </div>
 
                         <div class="col-md-12 text-center">
