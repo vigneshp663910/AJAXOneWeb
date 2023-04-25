@@ -172,6 +172,7 @@
     <Compile Include="BOrganization.cs" />
     <Compile Include="BPreSale.cs" />
     <Compile Include="BProject.cs" />
+    <Compile Include="BProcurementMasters.cs" />
     <Compile Include="BSalesCommissionClaim.cs" />
     <Compile Include="BSalesIncentive.cs" />
     <Compile Include="BSalesQuotation.cs" />

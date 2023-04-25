@@ -308,15 +308,15 @@ namespace Properties
     public class PPurchaseOrderType
     {
         public long PurchaseOrderTypeID { get; set; }
+        public string PurchaseOrderType { get; set; }
         public string Code { get; set; }
-        public string Description { get; set; }
     }
     [Serializable]
     public class PPurchaseOrderStatus
     {
         public long StatusID { get; set; }
         public string Code { get; set; }
-        public string Description { get; set; }
+        public string Status { get; set; }
     }
 
     [Serializable]
@@ -345,26 +345,29 @@ namespace Properties
     public class PPurchaseOrderItem
     {
         public string PurchaseOrderID { get; set; }
-        public int POItem { get; set; }
+        public int Item { get; set; }
         public PDMS_Material Material { get; set; }
         public decimal Quantity { get; set; }
-        public decimal TaxAmount { get; set; }
         public string UOM { get; set; }
-        public decimal NetAmount { get; set; }
-        public decimal GrossAmount { get; set; }
-        public decimal ShipedQuantity { get; set; }
-        public decimal DiscountAmount { get; set; }
         public decimal UnitPrice { get; set; }
+        public decimal DiscountAmount { get; set; }
         public decimal TaxableAmount { get; set; }
-        public decimal ApprovedQuantity { get; set; }
-
-        public decimal Fright { get; set; }
-        public decimal Insurance { get; set; }
-        public decimal PackingAndForwarding { get; set; }
 
         public decimal SGST { get; set; }
         public decimal CGST { get; set; }
         public decimal IGST { get; set; }
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
+        public decimal TaxAmount { get; set; }       
+        public decimal NetAmount { get; set; } 
+        public decimal ShipedQuantity { get; set; } 
+
+        //public decimal Fright { get; set; }
+        //public decimal Insurance { get; set; }
+        //public decimal PackingAndForwarding { get; set; }
+
+       
     }
     [Serializable]
     public class PAsn

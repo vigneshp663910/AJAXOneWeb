@@ -250,7 +250,7 @@ namespace Properties
         ViewDashboard_BIEnquiry = 5,
         UnderCons = 6,
         ViewDashboard_Task_Dashboard = 7,
-        ViewProcurement_PurchaseOrder = 8,
+        ViewProcurement_PurchaseOrderPG = 8,
         ViewProcurement_PurchaseOrderASNReport = 9,
        // UnderCons = 10,
      //   UnderCons = 11, 
@@ -473,6 +473,8 @@ namespace Properties
         ViewDealerEmployee_MachineOperatorRegister = 228,
         ViewDealerEmployee_MachineOperatorApproval = 229,
         ViewDealerEmployee_MachineOperatorManage = 230,
+       ViewProcurement_PurchaseOrder = 231,
+        ViewEquipment_NepiDueReport = 232,
     }
     public enum SubModuleChildMaster
     {

@@ -1198,6 +1198,14 @@ namespace Business
             { }
             return null;
         }
+
+        public PApiResult GetNepiDueReport(int? DealerID, string EquipmentSerialNo, string Customer, int? RegionID, int? StateID,int OverDueID, int? PageIndex = null, int? PageSize = null)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Equipment/GetNepiDueReport?DealerID=" + DealerID + "&EquipmentSerialNo=" + EquipmentSerialNo + "&Customer=" + Customer
+                + "&RegionID=" + RegionID + "&StateID=" + StateID + "&OverDueID=" + OverDueID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }
 

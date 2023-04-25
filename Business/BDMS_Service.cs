@@ -171,217 +171,7 @@ namespace Business
             { }
             return ServicePrioritys;
         }
-
-        public void GetCategory1DDL(DropDownList ddl, int? Category1ID, string Category1)
-        {
-            ddl.DataTextField = "Category1";
-            ddl.DataValueField = "Category1ID";
-            ddl.DataSource = GetCategory1(Category1ID, Category1);
-            ddl.DataBind();
-            ddl.Items.Insert(0, new ListItem("Select", "0"));
-        }
-        public List<PDMS_Category1> GetCategory1(int? Category1ID, string Category1)
-        {
-            List<PDMS_Category1> Category1s = new List<PDMS_Category1>();
-            try
-            {
-                DbParameter Category1P;
-                DbParameter Category1IDP = provider.CreateParameter("Category1ID", Category1ID, DbType.Int32);
-                if (!string.IsNullOrEmpty(Category1))
-                    Category1P = provider.CreateParameter("Category1", Category1, DbType.String);
-                else
-                    Category1P = provider.CreateParameter("Category1", null, DbType.String);
-
-                DbParameter[] Params = new DbParameter[2] { Category1IDP, Category1P };
-                using (DataSet DataSet = provider.Select("ZDMS_GetCategory1", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Category1s.Add(new PDMS_Category1()
-                            {
-                                Category1ID = Convert.ToInt32(dr["Category1ID"]),
-                                Category1 = Convert.ToString(dr["Category1"]),
-                                Category1Code = Convert.ToString(dr["Category1Code"]),
-                                Category1_Category1Code = Convert.ToString(dr["Category1"]) + "-" + Convert.ToString(dr["Category1Code"])
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Category1s;
-        }
-
-
-        public void GetCategory2DDL(DropDownList ddl, int? Category1ID, int? Category2ID, string Category2)
-        {
-            ddl.DataTextField = "Category2";
-            ddl.DataValueField = "Category2ID";
-            ddl.DataSource = GetCategory2(Category1ID, Category2ID, Category2);
-            ddl.DataBind();
-            ddl.Items.Insert(0, new ListItem("Select", "0"));
-        }
-        public List<PDMS_Category2> GetCategory2(int? Category1ID, int? Category2ID, string Category2)
-        {
-            List<PDMS_Category2> Category2s = new List<PDMS_Category2>();
-            try
-            {
-
-                DbParameter Category1IDP = provider.CreateParameter("Category1ID", Category1ID, DbType.Int32);
-                DbParameter Category2IDP = provider.CreateParameter("Category2ID", Category2ID, DbType.Int32);
-                DbParameter Category2P;
-                if (!string.IsNullOrEmpty(Category2))
-                    Category2P = provider.CreateParameter("Category2", Category2, DbType.String);
-                else
-                    Category2P = provider.CreateParameter("Category2", null, DbType.String);
-
-                DbParameter[] Params = new DbParameter[3] { Category1IDP, Category2IDP, Category2P };
-                using (DataSet DataSet = provider.Select("ZDMS_GetCategory2", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Category2s.Add(new PDMS_Category2()
-                            {
-                                Category1ID = Convert.ToInt32(dr["Category1ID"]),
-                                Category2ID = Convert.ToInt32(dr["Category2ID"]),
-                                Category2 = Convert.ToString(dr["Category2"]),
-                                Category2Code = Convert.ToString(dr["Category2Code"]),
-                                Category2_Category2Code = Convert.ToString(dr["Category2"]) + "-" + Convert.ToString(dr["Category2Code"])
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Category2s;
-        }
-        public List<PDMS_Category3> GetCategory3(int? Category2ID, int? Category3ID, string Category3)
-        {
-            List<PDMS_Category3> Category3s = new List<PDMS_Category3>();
-            try
-            {
-
-                DbParameter Category2IDP = provider.CreateParameter("Category2ID", Category2ID, DbType.Int32);
-                DbParameter Category3IDP = provider.CreateParameter("Category3ID", Category3ID, DbType.Int32);
-                DbParameter Category3P;
-                if (!string.IsNullOrEmpty(Category3))
-                    Category3P = provider.CreateParameter("Category3", Category3, DbType.String);
-                else
-                    Category3P = provider.CreateParameter("Category3", null, DbType.String);
-
-                DbParameter[] Params = new DbParameter[3] { Category2IDP, Category3IDP, Category3P };
-                using (DataSet DataSet = provider.Select("ZDMS_GetCategory3", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Category3s.Add(new PDMS_Category3()
-                            {
-                                Category2ID = Convert.ToInt32(dr["Category2ID"]),
-                                Category3ID = Convert.ToInt32(dr["Category3ID"]),
-                                Category3 = Convert.ToString(dr["Category3"]),
-                                Category3Code = Convert.ToString(dr["Category3Code"]),
-                                Category3_Category3Code = Convert.ToString(dr["Category3"]) + "-" + Convert.ToString(dr["Category3Code"])
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Category3s;
-        }
-        public List<PDMS_Category4> GetCategory4(int? Category3ID, int? Category4ID, string Category4)
-        {
-            List<PDMS_Category4> Category4s = new List<PDMS_Category4>();
-            try
-            {
-
-                DbParameter Category3IDP = provider.CreateParameter("Category3ID", Category3ID, DbType.Int32);
-                DbParameter Category4IDP = provider.CreateParameter("Category4ID", Category4ID, DbType.Int32);
-                DbParameter Category4P;
-                if (!string.IsNullOrEmpty(Category4))
-                    Category4P = provider.CreateParameter("Category4", Category4, DbType.String);
-                else
-                    Category4P = provider.CreateParameter("Category4", null, DbType.String);
-
-                DbParameter[] Params = new DbParameter[3] { Category3IDP, Category4IDP, Category4P };
-                using (DataSet DataSet = provider.Select("ZDMS_GetCategory4", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Category4s.Add(new PDMS_Category4()
-                            {
-                                Category3ID = Convert.ToInt32(dr["Category3ID"]),
-                                Category4ID = Convert.ToInt32(dr["Category4ID"]),
-                                Category4 = Convert.ToString(dr["Category4"]),
-                                Category4Code = Convert.ToString(dr["Category4Code"]),
-                                Category4_Category4Code = Convert.ToString(dr["Category4"]) + "-" + Convert.ToString(dr["Category4Code"])
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Category4s;
-        }
-        public List<PDMS_Category5> GetCategory5(int? Category4ID, int? Category5ID, string Category5)
-        {
-            List<PDMS_Category5> Category5s = new List<PDMS_Category5>();
-            try
-            {
-
-                DbParameter Category4IDP = provider.CreateParameter("Category4ID", Category4ID, DbType.Int32);
-                DbParameter Category5IDP = provider.CreateParameter("Category5ID", Category5ID, DbType.Int32);
-                DbParameter Category5P;
-                if (!string.IsNullOrEmpty(Category5))
-                    Category5P = provider.CreateParameter("Category5", Category5, DbType.String);
-                else
-                    Category5P = provider.CreateParameter("Category5", null, DbType.String);
-
-                DbParameter[] Params = new DbParameter[3] { Category4IDP, Category5IDP, Category5P };
-                using (DataSet DataSet = provider.Select("ZDMS_GetCategory5", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Category5s.Add(new PDMS_Category5()
-                            {
-                                Category4ID = Convert.ToInt32(dr["Category4ID"]),
-                                Category5ID = Convert.ToInt32(dr["Category5ID"]),
-                                Category5 = Convert.ToString(dr["Category5"]),
-                                Category5Code = Convert.ToString(dr["Category5Code"]),
-                                Category5_Category5Code = Convert.ToString(dr["Category5"]) + "-" + Convert.ToString(dr["Category5Code"])
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Category5s;
-        }
+         
         public List<PDMS_ServiceTechnician> GetTechniciansByDealerID(int DealerID)
         {
             List<PDMS_ServiceTechnician> Technicians = new List<PDMS_ServiceTechnician>();
@@ -452,6 +242,63 @@ namespace Business
                                     WorkedDate = Convert.ToDateTime(dr["WorkedDate"]),
                                     WorkedHours = Convert.ToDecimal(dr["WorkedHours"]),
                                     UserID = Convert.ToInt32(dr["UserID"])
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Technicians;
+        }
+        public List<PDMS_ServiceTechnician> GetTechniciansForMTTR(int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? ServiceStatusID, int UserID)
+        {
+            int UserIDTemp = 0;
+            List<PDMS_ServiceTechnician> Technicians = new List<PDMS_ServiceTechnician>();
+            PDMS_ServiceTechnician Technician = null; 
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
+                DbParameter ICTicketNumberP = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber) ? null : ICTicketNumber, DbType.String);
+                DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
+                DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
+                DbParameter ServiceStatusIDP = provider.CreateParameter("ServiceStatusID", ServiceStatusID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[7] { DealerIDP, CustomerCodeP, ICTicketNumberP, ICTicketDateFP, ICTicketDateTP, ServiceStatusIDP, UserIDP };
+
+                using (DataSet DataSet = provider.Select("ZDMS_GetTechniciansForMTTR", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            if (UserIDTemp != Convert.ToInt64(dr["UserID"]))
+                            {
+                                Technician = new PDMS_ServiceTechnician();
+                                Technicians.Add(Technician);
+                                Technician.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
+                            //    Technician.UserID = Convert.ToInt32(dr["UserID"]);
+                                Technician.ContactName = Convert.ToString(dr["ContactName"]);
+                             //   Technician.UserName = Convert.ToString(dr["UserName"]);
+                                Technician.ServiceTechnicianWorkedDate = new List<PDMS_ServiceTechnicianWorkedDate>();
+                               // UserIDTemp = Technician.UserID;
+                               // Technician.AssignedOn = Convert.ToDateTime(dr["AssignedOn"]);
+                               // Technician.AssignedBy = new PUser() { ContactName = Convert.ToString(dr["AssignedBy"]) };
+                            }
+                            if (DBNull.Value != dr["ServiceTechnicianWorkDateID"])
+                            {
+                                Technician.ServiceTechnicianWorkedDate.Add(new PDMS_ServiceTechnicianWorkedDate()
+                                {
+                                    // ServiceTechnicianWorkDateID = Convert.ToInt64(dr["ServiceTechnicianWorkDateID"]),
+                                    // UserName_ContactName = Technician.UserName + "-" + Technician.ContactName,
+                                    WorkedDate = Convert.ToDateTime(dr["WorkedDate"]),
+                                    WorkedHours = Convert.ToDecimal(dr["WorkedHours"]),
+                                    ICTicketID = Convert.ToInt64(dr["ICTicketID"])
+                                    //UserID = Convert.ToInt32(dr["UserID"])
                                 });
                             }
                         }
@@ -810,6 +657,45 @@ namespace Business
             { }
             return ServiceMaterials;
         }
+        public List<PDMS_ServiceNote> GetServiceNoteForMTTR(int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? ServiceStatusID,int UserID)
+        {
+            List<PDMS_ServiceNote> ServiceMaterials = new List<PDMS_ServiceNote>();
+            try
+            { 
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
+                DbParameter ICTicketNumberP = provider.CreateParameter("ICTicketNumber", string.IsNullOrEmpty(ICTicketNumber) ? null : ICTicketNumber, DbType.String);
+                DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
+                DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
+                DbParameter ServiceStatusIDP = provider.CreateParameter("ServiceStatusID", ServiceStatusID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[7] { DealerIDP, CustomerCodeP, ICTicketNumberP, ICTicketDateFP, ICTicketDateTP, ServiceStatusIDP, UserIDP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetServiceNoteForMTTR", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            ServiceMaterials.Add(new PDMS_ServiceNote()
+                            {
+                               // ServiceNoteID = Convert.ToInt64(dr["ServiceNoteID"]),
+                                ICTicketID = Convert.ToInt64(dr["ICTicketID"]),
+                                Comments = Convert.ToString(dr["Comments"]),
+                                NoteType = new PDMS_NoteType()
+                                { 
+                                    NoteType = Convert.ToString(dr["NoteType"]) 
+                                } 
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return ServiceMaterials;
+        } 
         public List<PDMS_CustomerSatisfactionLevel> GetCustomerSatisfactionLevel(int? CustomerSatisfactionLevelID, string CustomerSatisfactionLevel)
         {
             List<PDMS_CustomerSatisfactionLevel> Category1s = new List<PDMS_CustomerSatisfactionLevel>();

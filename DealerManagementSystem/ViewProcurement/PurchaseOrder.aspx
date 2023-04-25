@@ -67,6 +67,7 @@
                     <div class="col-md-2 text-left">
                         <label class="modal-label">-</label>
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
+                        <asp:Button ID="btnCreatePO" runat="server" CssClass="btn Save" Text="Create PO" OnClick="btnCreatePO_Click" Width="150px"></asp:Button>
                         <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
                     </div>
                 </div>
@@ -284,7 +285,7 @@
             </div>
             <UC:uc_PurchaseOrderView id="UC_PurchaseOrderView" runat="server"></UC:uc_PurchaseOrderView>
         </div>
-        <div class="col-md-12" id="divPurchaseOrderCreate" runat="server" visible="false" style="padding: 5px 15px">
+        <div class="col-md-12" id="divPurchaseOrderCreate" runat="server" visible="false">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
                 <div class="back-buttton" id="backBtn">

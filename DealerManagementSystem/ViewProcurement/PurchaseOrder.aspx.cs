@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -282,6 +283,7 @@ namespace DealerManagementSystem.ViewProcurement
         {
             divList.Visible = true;
             divDetailsView.Visible = false;
+            divPurchaseOrderCreate.Visible = false;
         }
 
         protected void btnPurchaseOrderCreateBack_Click(object sender, EventArgs e)
@@ -294,6 +296,22 @@ namespace DealerManagementSystem.ViewProcurement
         {
             divList.Visible = true;
             divDetailsView.Visible = false;
+        }
+
+        protected void btnCreatePO_Click(object sender, EventArgs e)
+        {
+            divList.Visible = false;
+            divPurchaseOrderCreate.Visible = true;
+            lblMessage.Text = "";
+            Button BtnView = (Button)sender;
+            UC_PurchaseOrderCreate.FillMaster();
+        }
+
+        [WebMethod]
+        public static string GetMaterial(string Material, string MaterialType)
+        {
+            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null);
+            return JsonConvert.SerializeObject(Materials);
         }
     }
 }

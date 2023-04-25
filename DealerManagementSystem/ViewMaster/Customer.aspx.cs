@@ -113,7 +113,11 @@ namespace DealerManagementSystem.ViewMaster
 
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
             int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
-            int? DistrictID = ddlDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDistrict.SelectedValue);
+            int? DistrictID = null;
+            if (StateID != null)
+            {
+                DistrictID = ddlDistrict.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDistrict.SelectedValue);
+            }
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             PApiResult Result = new BDMS_Customer().GetCustomerN(CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, DistrictID, DealerID, PageIndex, gvCustomer.PageSize);
 

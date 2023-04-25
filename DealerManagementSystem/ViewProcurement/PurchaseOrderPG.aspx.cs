@@ -12,6 +12,7 @@ namespace DealerManagementSystem.ViewProcurement
 {
     public partial class PurchaseOrderPG : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrderPG; } }
         public List<PDMS_PurchaseOrder> SDMS_PurchaseOrder
         {
             get

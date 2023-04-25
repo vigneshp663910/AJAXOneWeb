@@ -381,6 +381,8 @@
     <Content Include="ViewActivity\UserControls\AddActivity.ascx" />
     <Content Include="ViewActivity\UserControls\ViewActivity.ascx" />
     <Content Include="ViewAdmin\DealerCustomerMapping.aspx" />
+    <Content Include="ViewAdmin\DealerSalesConfiguration.aspx" />
+    <Content Include="ViewAdmin\DealerServiceConfiguration.aspx" />
     <Content Include="ViewAdmin\DealerStateMapping.aspx" />
     <Content Include="ViewAdmin\DealerwisePermissionList.aspx" />
     <Content Include="ViewAdmin\DefaultUserModule.aspx" />
@@ -417,6 +419,7 @@
     <Content Include="ViewEquipment\EquipmentMissing.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReport.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReportForAE.aspx" />
+    <Content Include="ViewEquipment\NepiDueReport.aspx" />
     <Content Include="ViewEquipment\UserControls\EquipmentView.ascx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
@@ -542,6 +545,7 @@
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderPG.aspx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderCreate.ascx" />
+    <Content Include="ViewProcurement\UserControls\PurchaseOrderItem.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderView.ascx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
     <Content Include="ViewSales\SalesCommissionClaim.aspx" />
@@ -994,6 +998,20 @@
     <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewAdmin\DealerSalesConfiguration.aspx.cs">
+      <DependentUpon>DealerSalesConfiguration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerSalesConfiguration.aspx.designer.cs">
+      <DependentUpon>DealerSalesConfiguration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerServiceConfiguration.aspx.cs">
+      <DependentUpon>DealerServiceConfiguration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerServiceConfiguration.aspx.designer.cs">
+      <DependentUpon>DealerServiceConfiguration.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewAdmin\DealerStateMapping.aspx.cs">
       <DependentUpon>DealerStateMapping.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1245,6 +1263,13 @@
     </Compile>
     <Compile Include="ViewEquipment\EquipmentPopulationReportForAE.aspx.designer.cs">
       <DependentUpon>EquipmentPopulationReportForAE.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\NepiDueReport.aspx.cs">
+      <DependentUpon>NepiDueReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\NepiDueReport.aspx.designer.cs">
+      <DependentUpon>NepiDueReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.cs">
       <DependentUpon>EquipmentView.ascx</DependentUpon>
@@ -1955,6 +1980,13 @@
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderCreate.ascx.designer.cs">
       <DependentUpon>PurchaseOrderCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\PurchaseOrderItem.ascx.cs">
+      <DependentUpon>PurchaseOrderItem.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\PurchaseOrderItem.ascx.designer.cs">
+      <DependentUpon>PurchaseOrderItem.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderView.ascx.cs">
       <DependentUpon>PurchaseOrderView.ascx</DependentUpon>

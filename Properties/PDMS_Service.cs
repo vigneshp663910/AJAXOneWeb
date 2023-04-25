@@ -227,6 +227,7 @@ namespace Properties
     public class PDMS_ServiceTechnician
     {
         public long ServiceTechnicianID { get; set; }
+        public long ICTicketID { get; set; }
         public int UserID { get; set; }
         public String UserName { get; set; }
         public String ContactName { get; set; }
@@ -247,6 +248,7 @@ namespace Properties
     public class PDMS_ServiceTechnicianWorkedDate
     {
         public long ServiceTechnicianWorkDateID { get; set; }
+        public long ICTicketID { get; set; }
         public string UserName_ContactName { get; set; }
         public int UserID { get; set; }
         public DateTime WorkedDate { get; set; }
