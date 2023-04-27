@@ -116,7 +116,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
             if (DTSalesIncentiveUpload.Rows.Count > 0)
             {
                 List<PDMS_DealerEmployee> Employee = new List<PDMS_DealerEmployee>();
-                Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, true, 1, null);
+                Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, null, 1, null);
                 foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
                 {
                     bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[6].ToString() && item.DealerEmployeeRole.Dealer.DealerCode == dr[3].ToString());
@@ -172,7 +172,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                             }
                         }
                         List<PDMS_DealerEmployee> Employee = new List<PDMS_DealerEmployee>();
-                        Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, true, 1, null);
+                        Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, null, 1, null);
                         foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
                         {
                             bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[6].ToString() && item.DealerEmployeeRole.Dealer.DealerCode == dr[3].ToString());
