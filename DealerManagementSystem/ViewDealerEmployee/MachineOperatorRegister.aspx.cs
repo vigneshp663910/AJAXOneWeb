@@ -881,7 +881,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 if (chkProductType.Checked == true)
                 {
                     productCount += 1;
-                    if (lblProductType.Text == "SLCM" || lblProductType.Text == "Transit Mixer" || lblProductType.Text == "Boom Pump" || lblProductType.Text == "Placing Equipment")
+                    if (lblProductTypeID.Text == "1" || lblProductTypeID.Text == "4" || lblProductTypeID.Text == "5" || lblProductTypeID.Text == "8")
                     {
                         if (string.IsNullOrEmpty(txtDLNumber.Text))
                         {
@@ -1165,7 +1165,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 Label lblProductTypeID = (Label)item.FindControl("lblProductTypeID");
                 if (chkProductType.Checked == true)
                 {
-                    if (lblProductType.Text == "SLCM" || lblProductType.Text == "Transit Mixer" || lblProductType.Text == "Boom Pump" || lblProductType.Text == "Placing Equipment")
+                    if (lblProductTypeID.Text == "1" || lblProductTypeID.Text == "4" || lblProductTypeID.Text == "5" || lblProductTypeID.Text == "8")
                     {
                         DivDLInfo.Visible = true;
                     }
