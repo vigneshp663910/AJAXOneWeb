@@ -119,10 +119,10 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, true, 1, null);
                 foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
                 {
-                    bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[7].ToString() && item.DealerEmployeeRole.Dealer.DealerCode == dr[4].ToString() && item.DealerEmployeeRole.IsActive == true);
+                    bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[6].ToString() && item.DealerEmployeeRole.Dealer.DealerCode == dr[3].ToString());
                     if (!containsItem)
                     {
-                        lblMessage.Text = "Please Check Aadhaar Card No and DealerCode : " + dr[7].ToString() + " Not Available in the Role...!";
+                        lblMessage.Text = "Please Check Aadhaar Card No and DealerCode : " + dr[6].ToString() + " Not Available in the Role...!";
                         lblMessage.ForeColor = Color.Red;
                         Success = false;
                         return Success;
@@ -175,10 +175,10 @@ namespace DealerManagementSystem.ViewDealerEmployee
                         Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, true, 1, null);
                         foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
                         {
-                            bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[7].ToString() && item.DealerEmployeeRole.Dealer.DealerCode == dr[4].ToString() && item.DealerEmployeeRole.IsActive == true);
+                            bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[6].ToString() && item.DealerEmployeeRole.Dealer.DealerCode == dr[3].ToString());
                             if (!containsItem)
                             {
-                                lblMessage.Text = "Please Check Aadhaar Card No and DealerCode : " + dr[7].ToString() + " Not Available in the Role...!";
+                                lblMessage.Text = "Please Check Aadhaar Card No and DealerCode : " + dr[6].ToString() + " Not Available in the Role...!";
                                 lblMessage.ForeColor = Color.Red;
                                 Success = false;
                                 return Success;
