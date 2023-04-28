@@ -32,13 +32,13 @@ namespace Business
                         {
                             DbParameter SalesIncentiveIDP = provider.CreateParameter("SalesIncentiveID", DBNull.Value, DbType.Int32);
                             DbParameter DateP = provider.CreateParameter("Date", "01-" + dr[0].ToString(), DbType.String);
-                            DbParameter InvoiceNoP = provider.CreateParameter("InvoiceNo", dr[2].ToString(), DbType.String);
-                            DbParameter InvoiceDateP = provider.CreateParameter("InvoiceDate", Convert.ToDateTime(dr[3].ToString()), DbType.DateTime);
-                            DbParameter DealerCodeP = provider.CreateParameter("DealerCode", dr[4].ToString(), DbType.String);
-                            DbParameter AadhaarNoP = provider.CreateParameter("AadhaarNo", dr[7].ToString(), DbType.String);
-                            DbParameter SalesLevelP = provider.CreateParameter("SalesLevel", dr[6].ToString(), DbType.Int32);
-                            DbParameter ModelP = provider.CreateParameter("Model", dr[10].ToString(), DbType.String);
-                            DbParameter IncentiveAmountP = provider.CreateParameter("IncentiveAmount", Convert.ToDecimal(dr[11].ToString()), DbType.Decimal);
+                            DbParameter InvoiceNoP = provider.CreateParameter("InvoiceNo", dr[1].ToString(), DbType.String);
+                            DbParameter InvoiceDateP = provider.CreateParameter("InvoiceDate", Convert.ToDateTime(dr[2].ToString()), DbType.DateTime);
+                            DbParameter DealerCodeP = provider.CreateParameter("DealerCode", dr[3].ToString(), DbType.String);
+                            DbParameter AadhaarNoP = provider.CreateParameter("AadhaarNo", dr[6].ToString(), DbType.String);
+                            DbParameter SalesLevelP = provider.CreateParameter("SalesLevel", dr[5].ToString(), DbType.Int32);
+                            DbParameter ModelP = provider.CreateParameter("Model", dr[9].ToString(), DbType.String);
+                            DbParameter IncentiveAmountP = provider.CreateParameter("IncentiveAmount", Convert.ToDecimal(dr[10].ToString()), DbType.Decimal);
 
                             DbParameter[] Params = new DbParameter[9] { SalesIncentiveIDP, DateP, InvoiceNoP, InvoiceDateP, DealerCodeP, AadhaarNoP, SalesLevelP, ModelP, IncentiveAmountP };
                             provider.Insert("InsertOrUpdateTSalesIncentive_ForExcelUpload", Params);
