@@ -473,9 +473,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 GridViewRow row = (GridViewRow)(lnkBtnDistrictDelete.NamingContainer);
                 int CountryID = Convert.ToInt32(((Label)row.FindControl("lblGDCountryID")).Text.Trim());
                 int StateID = Convert.ToInt32(((Label)row.FindControl("lblGDStateID")).Text.Trim());
-                int SalesOfficeID = Convert.ToInt32(((Label)row.FindControl("lblGDSalesOfficeID")).Text.Trim());
-                int DealerID = Convert.ToInt32(((Label)row.FindControl("lblGDDealerID")).Text.Trim());
-                int SalesEngineerUserID = Convert.ToInt32(((Label)row.FindControl("lblGDSalesEngineerUserID")).Text.Trim());
+                Label lblGDSalesOfficeID = (Label)row.FindControl("lblGDSalesOfficeID");
+                Label lblGDDealerID = (Label)row.FindControl("lblGDDealerID");
+                Label lblGDSalesEngineerUserID =(Label)row.FindControl("lblGDSalesEngineerUserID");
+                int? SalesOfficeID = string.IsNullOrEmpty(lblGDSalesOfficeID.Text) ? (int?)null : Convert.ToInt32(lblGDSalesOfficeID.Text);
+                int? DealerID = string.IsNullOrEmpty(lblGDDealerID.Text) ? (int?)null : Convert.ToInt32(lblGDDealerID.Text); 
+                int? SalesEngineerUserID = string.IsNullOrEmpty(lblGDSalesEngineerUserID.Text) ? (int?)null : Convert.ToInt32(lblGDSalesEngineerUserID.Text);  
+               
                 string District = ((Label)row.FindControl("lblGDDistrict")).Text.Trim();
 
                 success = new BDMS_Address().InsertOrUpdateAddressDistrict(DistrictID, CountryID, StateID, SalesOfficeID, DealerID, SalesEngineerUserID, District, null, false, PSession.User.UserID);

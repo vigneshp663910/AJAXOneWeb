@@ -192,7 +192,14 @@ namespace DealerManagementSystem.ViewService.UserControls
             txtServiceStartedDate.Text = SDMS_ICTicket.ServiceStartedDate == null ? "" : ((DateTime)SDMS_ICTicket.ServiceStartedDate).ToShortDateString();
             txtServiceEndedDate.Text = SDMS_ICTicket.ServiceEndedDate == null ? "" : ((DateTime)SDMS_ICTicket.ServiceEndedDate).ToShortDateString();
 
-
+            if (SDMS_ICTicket.Dealer.DealerCode == "9005")
+            {
+                cbCess.Visible = true;
+            }
+            else
+            {
+                cbCess.Visible = false;
+            }
         }
 
         private void FillGetServiceType(int IsWarranty)

@@ -694,6 +694,7 @@
     <Content Include="View\Project.aspx" />
     <Content Include="View\UserControls\AddProject.ascx" />
     <Content Include="View\UserControls\ProjectView.ascx" />
+    <Content Include="View\ViewUserManual.aspx" />
     <Content Include="VoiceText.aspx" />
     <Content Include="VoiceText1.aspx" />
     <Content Include="Web.config" />
@@ -2756,6 +2757,13 @@
     </Compile>
     <Compile Include="View\UserControls\ProjectView.ascx.designer.cs">
       <DependentUpon>ProjectView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="View\ViewUserManual.aspx.cs">
+      <DependentUpon>ViewUserManual.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\ViewUserManual.aspx.designer.cs">
+      <DependentUpon>ViewUserManual.aspx</DependentUpon>
     </Compile>
     <Compile Include="VoiceText.aspx.cs">
       <DependentUpon>VoiceText.aspx</DependentUpon>

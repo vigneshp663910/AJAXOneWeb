@@ -188,7 +188,7 @@ namespace Business
             { }
         }
        
-        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int CountryID, int StateID, int SalesOfficeID, int DealerID, int? SalesEngineerUserID, string District, string DistrictSAP,Boolean IsActive, int UserID)
+        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int CountryID, int StateID, int? SalesOfficeID, int? DealerID, int? SalesEngineerUserID, string District, string DistrictSAP,Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
             DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);

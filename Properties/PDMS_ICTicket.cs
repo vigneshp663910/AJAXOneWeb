@@ -130,8 +130,9 @@ namespace Properties
     public class PICTicket_Create
     {
         public long ICTicketID { get; set; }
-        public long? CustomerID { get; set; }
-        public long? EquipmentHeaderID { get; set; }
+        public long CustomerID { get; set; }
+        public string CustomerCode { get; set; }
+        public long EquipmentHeaderID { get; set; }
         public string Location { get; set; }
         public string PresentContactNumber { get; set; }
         public string ContactPerson { get; set; }

@@ -124,6 +124,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillSupportDocument();
             ActionControlMange();
             fillShipTo();
+            GetEquipmentHeader();
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -1391,6 +1392,23 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtExpectedDateOfSale.Text = ""; 
             txtCustomerFeedback.Text = "";
             txtRemarks.Text = "";
+        }
+        void GetEquipmentHeader()
+        {
+            try
+            {
+                TraceLogger.Log(DateTime.Now);
+                int RowCount = 0;
+                gvEquipment.PageIndex = 0;
+                gvEquipment.DataSource = new BDMS_Equipment().GetEquipmentHeader(null, null, Customer.CustomerCode, null, null, null, null, null, PSession.User.UserID, null, null, out RowCount);
+                gvEquipment.DataBind();
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessage("Equipment", "fillClaim", e1);
+                throw e1;
+            }
         }
     }
 }

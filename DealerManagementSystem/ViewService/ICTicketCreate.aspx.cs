@@ -101,6 +101,7 @@ namespace DealerManagementSystem.ViewService
             lblMessage.ForeColor = Color.Red;
             Label lblEquipmentHeaderID = null;
             Label lblCustomerID = null;
+            Label lblCustomerCode = null;
             for (int i = 0; i < gvEquipment.Rows.Count; i++)
             {
                 RadioButton rbCheck = (RadioButton)gvEquipment.Rows[i].FindControl("rbCheck"); 
@@ -108,6 +109,7 @@ namespace DealerManagementSystem.ViewService
                 {
                     lblEquipmentHeaderID = (Label)gvEquipment.Rows[i].FindControl("lblEquipmentHeaderID");
                     lblCustomerID = (Label)gvEquipment.Rows[i].FindControl("lblCustomerID");
+                    lblCustomerCode = (Label)gvEquipment.Rows[i].FindControl("lblCustomerCode");
                     break;
                 }
             }
@@ -136,6 +138,7 @@ namespace DealerManagementSystem.ViewService
 
             IC.EquipmentHeaderID = Convert.ToInt64(lblEquipmentHeaderID.Text) ;
             IC.CustomerID = Convert.ToInt64(lblCustomerID.Text) ;
+            IC.CustomerCode = lblCustomerCode.Text;
             IC.CountryID = Convert.ToInt32(ddlCountry.SelectedValue);
             IC.StateID = Convert.ToInt32(ddlState.SelectedValue);
             IC.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
