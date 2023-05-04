@@ -39,8 +39,9 @@ namespace Business
                             DbParameter SalesLevelP = provider.CreateParameter("SalesLevel", dr[5].ToString(), DbType.Int32);
                             DbParameter ModelP = provider.CreateParameter("Model", dr[9].ToString(), DbType.String);
                             DbParameter IncentiveAmountP = provider.CreateParameter("IncentiveAmount", Convert.ToDecimal(dr[10].ToString()), DbType.Decimal);
+                            DbParameter DealerDesignationP = provider.CreateParameter("DealerDesignation", dr[8].ToString(), DbType.String);
 
-                            DbParameter[] Params = new DbParameter[9] { SalesIncentiveIDP, DateP, InvoiceNoP, InvoiceDateP, DealerCodeP, AadhaarNoP, SalesLevelP, ModelP, IncentiveAmountP };
+                            DbParameter[] Params = new DbParameter[10] { SalesIncentiveIDP, DateP, InvoiceNoP, InvoiceDateP, DealerCodeP, AadhaarNoP, SalesLevelP, ModelP, IncentiveAmountP, DealerDesignationP };
                             provider.Insert("InsertOrUpdateTSalesIncentive_ForExcelUpload", Params);
                         }
                     }
