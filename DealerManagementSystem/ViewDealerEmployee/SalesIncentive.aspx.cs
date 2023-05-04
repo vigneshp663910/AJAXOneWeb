@@ -115,19 +115,19 @@ namespace DealerManagementSystem.ViewDealerEmployee
             Boolean Success = true;
             if (DTSalesIncentiveUpload.Rows.Count > 0)
             {
-                //List<PDMS_DealerEmployee> Employee = new List<PDMS_DealerEmployee>();
-                //Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, null, 1, null);
-                //foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
-                //{
-                //    bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[6].ToString() && item.DealerEmployeeRole.Dealer.DealerCode == dr[3].ToString());
-                //    if (!containsItem)
-                //    {
-                //        lblMessage.Text = "Please Check Aadhaar Card No and DealerCode : " + dr[6].ToString() + " Not Available in the Role...!";
-                //        lblMessage.ForeColor = Color.Red;
-                //        Success = false;
-                //        return Success;
-                //    }
-                //}
+                List<PDMS_DealerEmployee> Employee = new List<PDMS_DealerEmployee>();
+                Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, null, 1, null);
+                foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
+                {
+                    bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[6].ToString());
+                    if (!containsItem)
+                    {
+                        lblMessage.Text = "Please Check Aadhaar Card No : " + dr[6].ToString() + " Not Available in the Employee List...!";
+                        lblMessage.ForeColor = Color.Red;
+                        Success = false;
+                        return Success;
+                    }
+                }
                 if (DTSalesIncentiveUpload.Rows.Count > 0)
                 {
                     GVUpload.DataSource = DTSalesIncentiveUpload;
@@ -152,14 +152,14 @@ namespace DealerManagementSystem.ViewDealerEmployee
                         {
                             sno += 1;
                             //Use the first row to add columns to DataTable.
-                            if (sno == 3)
+                            if (sno == 1)
                             {
                                 foreach (IXLCell cell in row.Cells())
                                 {
                                     DTSalesIncentiveUpload.Columns.Add(cell.Value.ToString());
                                 }
                             }
-                            else if (sno > 3)
+                            else if (sno > 1)
                             {
                                 //Add rows to DataTable.
                                 DTSalesIncentiveUpload.Rows.Add();
@@ -171,19 +171,19 @@ namespace DealerManagementSystem.ViewDealerEmployee
                                 }
                             }
                         }
-                        //List<PDMS_DealerEmployee> Employee = new List<PDMS_DealerEmployee>();
-                        //Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, null, null, null);
-                        //foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
-                        //{
-                        //    bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[6].ToString() && item.DealerEmployeeRole.Dealer.DealerCode == dr[3].ToString());
-                        //    if (!containsItem)
-                        //    {
-                        //        lblMessage.Text = "Please Check Aadhaar Card No and DealerCode : " + dr[6].ToString() + " Not Available in the Role...!";
-                        //        lblMessage.ForeColor = Color.Red;
-                        //        Success = false;
-                        //        return Success;
-                        //    }
-                        //}
+                        List<PDMS_DealerEmployee> Employee = new List<PDMS_DealerEmployee>();
+                        Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, null, 1, null);
+                        foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
+                        {
+                            bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[6].ToString());
+                            if (!containsItem)
+                            {
+                                lblMessage.Text = "Please Check Aadhaar Card No : " + dr[6].ToString() + " Not Available in the Employee List...!";
+                                lblMessage.ForeColor = Color.Red;
+                                Success = false;
+                                return Success;
+                            }
+                        }
                         if (DTSalesIncentiveUpload.Rows.Count > 0)
                         {
                             GVUpload.DataSource = DTSalesIncentiveUpload;
