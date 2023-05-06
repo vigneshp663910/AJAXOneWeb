@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -241,55 +242,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        protected void BtnUpload_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Boolean Success = false;
-                if (BtnUpload.Text == "Submit")
-                {
-                    if (fileUpload.PostedFile != null)
-                    {
-                        try
-                        {
-                            if (DTSalesIncentiveUpload.Rows.Count > 0)
-                            {
-                                Success = new BSalesIncentive().InsertOrUpdateTSalesIncentive_ForExcelUpload(DTSalesIncentiveUpload);
-                            }
-                            if (Success)
-                            {
-                                lblMessage.Text = "Sales Incentive Was Uploaded Successfully...";
-                                lblMessage.ForeColor = Color.Green;
-                                DTSalesIncentiveUpload = null;
-                            }
-                            else
-                            {
-                                lblMessage.Text = "Sales Incentive Not Uploaded Successfully...!";
-                                lblMessage.ForeColor = Color.Red;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            lblMessage.Text = ex.ToString();
-                            lblMessage.ForeColor = System.Drawing.Color.Red;
-                        }
-                    }
-                    BtnUpload.Text = "Upload";
-                }
-                else
-                {
-                    Boolean Result = false;
-                    Result = FillUpload();
-                    if (Result)
-                        BtnUpload.Text = "Submit";
-                }
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-            }
-        }
+        
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             try
@@ -408,18 +361,96 @@ namespace DealerManagementSystem.ViewDealerEmployee
         }
         protected void BtnFUpload_Click(object sender, EventArgs e)
         {
-            FldSearch.Visible = false;
-            DivReport.Visible = false;
-            FldUpload.Visible = true;
-            BtnUpload.Text = "Upload";
-            GVUpload.DataSource = null;
+            DTSalesIncentiveUpload = new DataTable();
+            GVUpload.DataSource = DTSalesIncentiveUpload;
             GVUpload.DataBind();
+            divSalesIncentiveList.Visible = false;
+            divSalesIncentiveView.Visible = false;
+            divSalesIncentiveUpload.Visible = true;
         }
         protected void BtnFBack_Click(object sender, EventArgs e)
         {
-            FldSearch.Visible = true;
-            DivReport.Visible = true;
-            FldUpload.Visible = false;
+            DTSalesIncentiveUpload = new DataTable();
+            GVUpload.DataSource = DTSalesIncentiveUpload;
+            GVUpload.DataBind();
+            divSalesIncentiveList.Visible = true;
+            divSalesIncentiveView.Visible = false;
+            divSalesIncentiveUpload.Visible = false;
+        }
+
+        protected void btnView_Click1(object sender, EventArgs e)
+        {
+            DTSalesIncentiveUpload = new DataTable();
+            GVUpload.DataSource = DTSalesIncentiveUpload;
+            GVUpload.DataBind();
+            if (IsPostBack && fileUpload.PostedFile != null)
+            {
+                if (fileUpload.PostedFile.FileName.Length > 0)
+                {
+                    FillUpload();
+                }
+            }
+        }
+
+        protected void BtnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Boolean Success = false;
+
+                if (fileUpload.PostedFile != null)
+                {
+                    try
+                    {
+                        if (DTSalesIncentiveUpload.Rows.Count > 0)
+                        {
+                            Success = new BSalesIncentive().InsertOrUpdateTSalesIncentive_ForExcelUpload(DTSalesIncentiveUpload);
+                        }
+                        if (Success)
+                        {
+                            lblMessage.Text = "Sales Incentive Was Uploaded Successfully...";
+                            lblMessage.ForeColor = Color.Green;
+                            DTSalesIncentiveUpload = null;
+                        }
+                        else
+                        {
+                            lblMessage.Text = "Sales Incentive Not Uploaded Successfully...!";
+                            lblMessage.ForeColor = Color.Red;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        lblMessage.Text = ex.ToString();
+                        lblMessage.ForeColor = System.Drawing.Color.Red;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+
+        protected void btnDownload_Click(object sender, EventArgs e)
+        {
+            string Path = Server.MapPath("Templates\\Sales Incentive-Templates.xlsx");
+            WebClient req = new WebClient();
+            HttpResponse response = HttpContext.Current.Response;
+            response.Clear();
+            response.ClearContent();
+            response.ClearHeaders();
+            response.Buffer = true;
+            response.AddHeader("Content-Disposition", "attachment;filename=\"Sales Incentive-Templates.xlsx\"");
+            byte[] data = req.DownloadData(Path);
+            response.BinaryWrite(data);
+            // Append cookie
+            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+            cookie.Value = "Flag";
+            cookie.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.AppendCookie(cookie);
+            // end
+            response.End();
         }
     }
 }
