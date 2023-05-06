@@ -113,29 +113,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
         private Boolean FillUpload()
         {
             Boolean Success = true;
-            if (DTSalesIncentiveUpload.Rows.Count > 0)
-            {
-                List<PDMS_DealerEmployee> Employee = new List<PDMS_DealerEmployee>();
-                Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, null, null, null, 1, null);
-                foreach (DataRow dr in DTSalesIncentiveUpload.Rows)
-                {
-                    bool containsItem = Employee.Any(item => item.AadhaarCardNo == dr[6].ToString());
-                    if (!containsItem)
-                    {
-                        lblMessage.Text = "Please Check Aadhaar Card No : " + dr[6].ToString() + " Not Available in the Employee List...!";
-                        lblMessage.ForeColor = Color.Red;
-                        Success = false;
-                        return Success;
-                    }
-                }
-                if (DTSalesIncentiveUpload.Rows.Count > 0)
-                {
-                    GVUpload.DataSource = DTSalesIncentiveUpload;
-                    GVUpload.DataBind();
-                }
-            }
-            else
-            {
                 if (fileUpload.HasFile == true)
                 {
                     using (XLWorkbook workBook = new XLWorkbook(fileUpload.PostedFile.InputStream))
@@ -198,7 +175,6 @@ namespace DealerManagementSystem.ViewDealerEmployee
                     Success = false;
                     return Success;
                 }
-            }
             return Success;
         }
         private void FillGrid()
@@ -435,6 +411,9 @@ namespace DealerManagementSystem.ViewDealerEmployee
             FldSearch.Visible = false;
             DivReport.Visible = false;
             FldUpload.Visible = true;
+            BtnUpload.Text = "Upload";
+            GVUpload.DataSource = null;
+            GVUpload.DataBind();
         }
         protected void BtnFBack_Click(object sender, EventArgs e)
         {
