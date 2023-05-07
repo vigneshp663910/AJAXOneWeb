@@ -36,29 +36,11 @@
                             <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" />
                             <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="110px" />
                             <asp:Button ID="BtnFUpload" runat="server" Text="Upload" CssClass="btn Save" OnClick="BtnFUpload_Click" />
+                            <asp:Button ID="btnDownload" runat="server" Text="Download Template" CssClass="btn Search" OnClick="btnDownload_Click" Width="150px"/>
                         </div>
                     </div>
                 </fieldset>
-                <fieldset class="fieldset-border" id="FldUpload" runat="server" visible="false">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Upload File</legend>
-                    <div class="col-md-12">
-                        <div class="col-md-2 col-sm-12" id="DivUpload" runat="server">
-                            <asp:FileUpload ID="fileUpload" runat="server" />
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <asp:Button ID="BtnUpload" runat="server" Text="Upload" CssClass="btn Save" OnClick="BtnUpload_Click" Width="100px" />
-                            <asp:Button ID="BtnFBack" runat="server" Text="Back" CssClass="btn Back" OnClick="BtnFBack_Click" />
-                        </div>
-                    </div>
-                    <asp:GridView ID="GVUpload" CssClass="table table-bordered table-condensed Grid" runat="server" ShowHeaderWhenEmpty="true"
-                        EmptyDataText="No Data Found" AutoGenerateColumns="true" Width="100%">
-                        <AlternatingRowStyle BackColor="#ffffff" />
-                        <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                    </asp:GridView>
-                </fieldset>
+
             </div>
             <div class="col-md-12" id="DivReport" runat="server">
                 <div class="col-md-12 Report">
@@ -131,6 +113,29 @@
                     </fieldset>
                 </div>
             </div>
+        </div>
+        <div class="col-md-12" id="divSalesIncentiveUpload" runat="server" visible="false">
+            <fieldset class="fieldset-border" id="FldUpload" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Upload File</legend>
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12" id="Div1" runat="server">
+                        <asp:FileUpload ID="fileUpload" runat="server" />
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <asp:Button ID="btnView" runat="server" Text="View" CssClass="btn Save" OnClick="btnView_Click1" Width="100px" />
+                        <asp:Button ID="BtnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="BtnSave_Click" Width="100px" />
+                        <asp:Button ID="BtnFBack" runat="server" Text="Back" CssClass="btn Back" OnClick="BtnFBack_Click" />
+                    </div>
+                </div>
+                <asp:GridView ID="GVUpload" CssClass="table table-bordered table-condensed Grid" runat="server" ShowHeaderWhenEmpty="true"
+                    EmptyDataText="No Data Found" AutoGenerateColumns="true" Width="100%">
+                    <AlternatingRowStyle BackColor="#ffffff" />
+                    <FooterStyle ForeColor="White" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                </asp:GridView>
+            </fieldset>
         </div>
         <div class="col-md-12" id="divSalesIncentiveView" runat="server" visible="false">
             <div class="" id="boxHere"></div>
