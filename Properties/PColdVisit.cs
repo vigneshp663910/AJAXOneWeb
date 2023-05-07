@@ -17,6 +17,7 @@ namespace Properties
         public PPreSaleStatus Status { get; set; }
         public PDMS_Customer Customer { get; set; }
         public string Remark { get; set; }
+        public PCustomerRelation PersonMet { get; set; }
         public string Location { get; set; }
         public PUser CreatedBy { get; set; }
         public long? ReferenceTableID { get; set; }
@@ -33,6 +34,7 @@ namespace Properties
         public PImportance Importance { get; set; }
         public PDMS_Customer_Insert Customer { get; set; }
         public string Remark { get; set; }
+        public long? PersonMet { get; set; }
         public string Location { get; set; }
         public long? ReferenceTableID { get; set; }
         public long? ReferenceID { get; set; }

@@ -44,8 +44,8 @@
                     <asp:LinkButton ID="lbEditCustomer" runat="server" OnClick="lbActions_Click">Edit Customer</asp:LinkButton>
                     <asp:LinkButton ID="lbAddAttribute" runat="server" OnClick="lbActions_Click">Add Attribute</asp:LinkButton>
                     <asp:LinkButton ID="lbAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
-                    <asp:LinkButton ID="lbAddRelation" runat="server" OnClick="lbActions_Click">Add Relation</asp:LinkButton>
-                    <asp:LinkButton ID="lbAddFleet" runat="server" OnClick="lbActions_Click">Add Fleet</asp:LinkButton>
+                    <asp:LinkButton ID="lbAddCustomerTeam" runat="server" OnClick="lbActions_Click">Add Customer Team</asp:LinkButton>
+                    <asp:LinkButton ID="lbAddGroupOfCompanies" runat="server" OnClick="lbActions_Click">Add Group of Companies</asp:LinkButton>
                     <asp:LinkButton ID="lbAddResponsibleEmployee" runat="server" OnClick="lbActions_Click">Add Responsible Employee</asp:LinkButton>
                     <asp:LinkButton ID="lbtnVerifiedCustomer" runat="server" OnClick="lbActions_Click">Verified Customer</asp:LinkButton>
                     <asp:LinkButton ID="lbtnDeactivateCustomer" runat="server" OnClick="lbActions_Click">Deactivate Customer</asp:LinkButton>
@@ -278,7 +278,7 @@
                 </div>
             </ContentTemplate>
         </asp1:TabPanel>
-        <asp1:TabPanel ID="tpnlRelations" runat="server" HeaderText="Relations">
+        <asp1:TabPanel ID="tpnlRelations" runat="server" HeaderText="Customer Team">
             <ContentTemplate>
                 <div class="col-md-12">
                     <div class="col-md-12 Report">
@@ -302,6 +302,11 @@
                                             <asp:Label ID="lblMobile" runat="server">
                                             <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Mobile")%></a>
                                             </asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Designation">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "Designation.Designation")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Relation">
@@ -608,6 +613,16 @@
                                             </asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Person Met">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblPersonMetContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.ContactName")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Person Designation">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblPersonMetDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.Designation.Designation")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
@@ -837,7 +852,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblEquipmentSerialNo" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentSerialNo")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField> 
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="District">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
@@ -849,7 +864,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblState" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.State.State")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField> 
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Dispatched On">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
@@ -1014,6 +1029,10 @@
                     <div class="col-md-12 col-sm-12">
                         <label class="modal-label">Relation</label>
                         <asp:DropDownList ID="ddlRelation" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine" />
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Designation</label>
+                        <asp:DropDownList ID="ddlCustomerEmployeeDesignation" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine" />
                     </div>
                 </div>
             </fieldset>

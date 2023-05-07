@@ -730,6 +730,16 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
 
         }
+        public PApiResult GetSalesQuotationExcel(long? SalesQuotationID, string QuotationNo, string QuotationDateFrom, string QuotationDateTo
+           , long? LeadID, string LeadNumber, int? StatusID, int? UserStatusID, int? ProductTypeID, int? ProductID, int? DealerID, int? SalesEngineerID, string CustomerCode)
+        {
+            string endPoint = "SalesQuotation/SalesQuotationExcel?SalesQuotationID=" + SalesQuotationID + "&QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom + "&QuotationDateTo=" + QuotationDateTo
+                + "&LeadID=" + LeadID + "&LeadNumber=" + LeadNumber
+                + "&StatusID=" + StatusID + "&UserStatusID=" + UserStatusID + "&ProductTypeID=" + ProductTypeID + "&ProductID=" + ProductID
+                + "&DealerID=" + DealerID + "&SalesEngineerID=" + SalesEngineerID            + "&CustomerCode=" + CustomerCode ;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+
+        }
         public PSalesQuotation GetSalesQuotationByID(long SalesQuotationID)
         {
             string endPoint = "SalesQuotation/SalesQuotationByID?SalesQuotationID=" + SalesQuotationID;

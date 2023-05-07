@@ -4,26 +4,26 @@
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
 <%@ Register Src="~/ViewPreSale/UserControls/ColdVisitsView.ascx" TagPrefix="UC" TagName="UC_ColdVisitsView" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerView.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server"> 
-     
-     <script type="text/javascript">
-         $(document).ready(function () {
-             var hdfCustomerID = document.getElementById('MainContent_UC_Customer_hdfCustomerID');
-             if (hdfCustomerID.value != "") {
-                 document.getElementById('divCustomerViewID').style.display = "block";
-                 document.getElementById('divCustomerCreateID').style.display = "none";
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-                 document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_UC_Customer_hdfCustomerName').value;
-                 document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_UC_Customer_hdfContactPerson').value;
-                 document.getElementById('lblMobile').innerText = document.getElementById('MainContent_UC_Customer_hdfMobile').value;
-                  
-             }
-         });
-          
-     </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var hdfCustomerID = document.getElementById('MainContent_UC_Customer_hdfCustomerID');
+            if (hdfCustomerID.value != "") {
+                document.getElementById('divCustomerViewID').style.display = "block";
+                document.getElementById('divCustomerCreateID').style.display = "none";
+
+                document.getElementById('lblCustomerName').innerText = document.getElementById('MainContent_UC_Customer_hdfCustomerName').value;
+                document.getElementById('lblContactPerson').innerText = document.getElementById('MainContent_UC_Customer_hdfContactPerson').value;
+                document.getElementById('lblMobile').innerText = document.getElementById('MainContent_UC_Customer_hdfMobile').value;
+
+            }
+        });
+
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-   
+    <asp:HiddenField ID="hfPersonMet" runat="server" />
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
@@ -161,13 +161,9 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblMobile" runat="server">
                                                 <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Customer.Mobile")%></a>
-                                            </asp:Label><br />
-                                            <asp:Label ID="lblEMail" runat="server">
+                                            </asp:Label><br /><asp:Label ID="lblEMail" runat="server">
                                                 <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%>'><%# DataBinder.Eval(Container.DataItem, "Customer.EMail")%></a>
-                                            </asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Status">
+                                            </asp:Label></ItemTemplate></asp:TemplateField><asp:TemplateField HeaderText="Status">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
@@ -182,8 +178,8 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblLatitude" Text='<%# DataBinder.Eval(Container.DataItem, "Latitude")%>' runat="server" />
-                                             <asp:Label ID="Label1" Text="," runat="server" /> 
-                                             <asp:Label ID="lblLongitude" Text='<%# DataBinder.Eval(Container.DataItem, "Longitude")%>' runat="server" />
+                                            <asp:Label ID="Label1" Text="," runat="server" />
+                                            <asp:Label ID="lblLongitude" Text='<%# DataBinder.Eval(Container.DataItem, "Longitude")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Track" SortExpression="Action">
@@ -205,10 +201,7 @@
                         </div>
                     </fieldset>
 
-                </div>
-            </div>
-        </div>
-        <div>
+                 </div></div></div><div>
             <div class="" id="boxHere"></div>
             <div class="back-buttton coldvisit" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" Visible="false" />
@@ -228,8 +221,7 @@
 
     <asp:Panel ID="pnlCustomer" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
-            <span id="PopupDialogue">Add Customer Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+            <span id="PopupDialogue">Add Customer Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">
             <div style="display: none">
@@ -239,38 +231,32 @@
             </div>
             <div class="model-scroll">
                 <asp:Label ID="lblMessageColdVisit" runat="server" Text="" CssClass="message" Visible="false" />
-              
-            <%--    <div id="divCustomerCreateID">--%>
-                    <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
-               <%-- </div>--%>
+
+                <%--    <div id="divCustomerCreateID">--%>
+                <UC:UC_CustomerCreate ID="UC_Customer" runat="server"></UC:UC_CustomerCreate>
+                <%-- </div>--%>
 
                 <fieldset class="fieldset-border">
                     <div class="col-md-12">
 
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Visit Date</label>
-                            <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                            <label class="modal-label">Visit Date</label> <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox></div><div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Action Type</label> <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Action Type</label>
-                            <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Importance</label> <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Importance</label>
-                            <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Person Met</label> <select id="selectPersonMet" onchange="SetPersonMetInHiddenField()" class="form-control">
+                                <option value="0">Select</option>
+                            </select> </div><div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Location</label> <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox></div><div class="col-md-12 col-sm-12">
+                            <label class="modal-label">Remark</label> <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox></div><div class="col-md-6 col-sm-12">
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Location</label>
-                            <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        </div>
-                        <div class="col-md-12 col-sm-12">
-                            <label class="modal-label">Remark</label>
-                            <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
-                        </div>
+
                     </div>
                 </fieldset>
-            </div>
-            <div class="col-md-12 text-center">
+             </div><div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
             </div>
         </div>
@@ -280,8 +266,7 @@
 
     <asp:Panel ID="pnlTrackActivity" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
-            <span id="PopupDialogueTrackActivity">Track Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+            <span id="PopupDialogueTrackActivity">Track Activity</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"> <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">
             <div class="model-scroll">
@@ -346,12 +331,14 @@
 
     </script>
 
-  
+
 
 
     <script type="text/javascript">
 
-        function GetCustomerAuto() { 
+
+
+        function GetCustomerAuto() {
             $("#MainContent_UC_Customer_hdfCustomerID").val('');
             var param = { Cust: $('#MainContent_UC_Customer_txtCustomerName').val() }
             var Customers = [];
@@ -374,9 +361,18 @@
                                 Address: DataList[i].Address1
                             };
                         }
+                      <%-- ddlPersonMet = document.getElementById("<%=ddlPersonMet.ClientID %>");
+                        ddlPersonMet.options.length == 0;
+                        var opt = new Option("Select Year", "0");
+                        ddlPersonMet.options.add(opt);
+                        var opt = new Option("Select Year1", "1");
+                        ddlPersonMet.options.add(opt);--%>
+
+
                         $('#MainContent_UC_Customer_txtCustomerName').autocomplete({
                             source: function (request, response) { response(Customers) },
                             select: function (e, u) {
+                                debugger;
                                 $("#MainContent_UC_Customer_hdfCustomerID").val(u.item.value1);
                                 document.getElementById('divCustomerViewID').style.display = "block";
                                 document.getElementById('divCustomerCreateID').style.display = "none";
@@ -389,6 +385,7 @@
                                 document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
                                 document.getElementById('lblMobile').innerText = u.item.Mobile;
 
+                                GetStudentDetails(u.item.value1);
                             },
                             open: function (event, ui) {
                                 $(this).autocomplete("widget").css({
@@ -419,7 +416,40 @@
                     }
                 });
             }
-        } 
+        }
+    </script>
+
+    <script type="text/javascript">    
+        var ddlPersonMet;
+        function GetStudentDetails(custID) {
+            debugger;
+            ddlPersonMet = document.getElementById("selectPersonMet");
+            var userContext = { custID: custID };
+            //  PageMethods.GetStudentDetails(OnSuccess, failedHandler, userContext);
+            PageMethods.GetStudentDetails(custID, OnSuccess, OnError);
+        }
+        //window.onload = GetStudentDetails;
+        function OnError(error) {
+            alert(error);
+        }
+        function OnSuccess(response) {
+            ddlPersonMet.options.length = 0;
+            AddOption("Select", "0");
+            for (var i in response) {
+                AddOption(response[i].Name, response[i].Id);
+            }
+        }
+        function AddOption(text, value) {
+            var option = document.createElement('option');
+            option.value = value;
+            option.innerHTML = text;
+            ddlPersonMet.options.add(option);
+        }
+
+        function SetPersonMetInHiddenField() {
+            ddlPersonMet = document.getElementById("selectPersonMet");
+            document.getElementById('MainContent_hfPersonMet').value = ddlPersonMet.value;
+        }
     </script>
 </asp:Content>
 

@@ -606,14 +606,22 @@
                                     <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            
+                            <asp:TemplateField  HeaderText="Person Met">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.ContactName")%>' runat="server" /> 
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                             <asp:TemplateField  HeaderText="Person Designation">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.Designation.Designation")%>' runat="server" /> 
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remark">
                                 <ItemTemplate>
                                     <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
                                 </ItemTemplate>
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField>
-                            <asp:TemplateField>
-                                <ItemTemplate><%-- <asp:Button ID="btnViewColdVisit" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewColdVisit_Click" Width="50px" Height="33px" />--%></ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
                         <FooterStyle ForeColor="White" />
@@ -1005,10 +1013,15 @@
                         <label class="modal-label">Location</label>
                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Person Met</label>
+                        <asp:DropDownList ID="ddlPersonMet" runat="server" CssClass="form-control" />
+                    </div>
                     <div class="col-md-12 col-sm-12">
                         <label class="modal-label">Remark</label>
                         <asp:TextBox ID="txtVisitRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
                     </div>
+                    
                 </div>
             </fieldset>
         </div>

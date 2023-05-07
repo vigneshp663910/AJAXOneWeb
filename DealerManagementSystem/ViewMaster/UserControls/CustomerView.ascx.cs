@@ -149,12 +149,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
                     MPE_Product.Show();
                 }
-                else if (lbActions.Text == "Add Relation")
+                else if (lbActions.Text == "Add Customer Team")
                 {
+                     
+                    new DDLBind(ddlCustomerEmployeeDesignation, new BDMS_Customer().GetCustomerEmployeeDesignation(null, null), "Designation", "DesignationID");
                     new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
                     MPE_Relation.Show();
                 }
-                else if (lbActions.Text == "Add Fleet")
+                else if (lbActions.Text == "Add Group of Companies")
                 {
                     // new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
                     MPE_Fleed.Show();
@@ -513,6 +515,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.ContactName = txtPersonName.Text.Trim();
             Relation.Mobile = txtMobile.Text.Trim();
             Relation.Relation = new PRelation() { RelationID = Convert.ToInt32(ddlRelation.SelectedValue) };
+            Relation.Designation = new PCustomerEmployeeDesignation() { DesignationID = Convert.ToInt32(ddlCustomerEmployeeDesignation.SelectedValue) };
             Relation.DOB = string.IsNullOrEmpty(txtBirthDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtBirthDate.Text.Trim());
             Relation.DOAnniversary = string.IsNullOrEmpty(txtAnniversaryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAnniversaryDate.Text.Trim());
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
@@ -744,6 +747,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.CustomerRelationID = Convert.ToInt64(lblCustomerRelationID.Text);
             Relation.CustomerID = Customer.CustomerID;
             Relation.Relation = new PRelation() { RelationID = 0 };
+            Relation.Designation = new PCustomerEmployeeDesignation() { DesignationID = 0 };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation));
             lblMessage.Visible = true;
@@ -1053,8 +1057,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lbEditCustomer.Visible = true;
             lbAddAttribute.Visible = true;
             lbAddProduct.Visible = true;
-            lbAddRelation.Visible = true;
-            lbAddFleet.Visible = true;
+            lbAddCustomerTeam.Visible = true;
+            lbAddGroupOfCompanies.Visible = true;
             lbAddResponsibleEmployee.Visible = true;
             lbtnVerifiedCustomer.Visible = true;
             lbtnSyncToSap.Visible = true;
@@ -1077,8 +1081,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lbEditCustomer.Visible = false;
                 lbAddAttribute.Visible = false;
                 lbAddProduct.Visible = false;
-                lbAddRelation.Visible = false;
-                lbAddFleet.Visible = false;
+                lbAddCustomerTeam.Visible = false;
+                lbAddGroupOfCompanies.Visible = false;
                 lbAddResponsibleEmployee.Visible = false;
                 lbtnVerifiedCustomer.Visible = false;
                 lbtnSyncToSap.Visible = false;
@@ -1396,12 +1400,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         void GetEquipmentHeader()
         {
             try
-            {
+            { 
                 TraceLogger.Log(DateTime.Now);
                 int RowCount = 0;
-                gvEquipment.PageIndex = 0;
-                gvEquipment.DataSource = new BDMS_Equipment().GetEquipmentHeader(null, null, Customer.CustomerCode, null, null, null, null, null, PSession.User.UserID, null, null, out RowCount);
-                gvEquipment.DataBind();
+                if (!string.IsNullOrEmpty(Customer.CustomerCode))
+                {
+                    gvEquipment.PageIndex = 0;
+                    gvEquipment.DataSource = new BDMS_Equipment().GetEquipmentHeader(null, null, Customer.CustomerCode, null, null, null, null, null, PSession.User.UserID, null, null, out RowCount);
+                    gvEquipment.DataBind();
+                }
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)
@@ -1410,5 +1417,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 throw e1;
             }
         }
+    
+    
     }
 }

@@ -314,4 +314,85 @@
             }
         }
     </script>
+     <script type="text/javascript">
+
+         function GetProjectAuto(id) {
+             debugger;
+             var parentIDC = "";
+             var parentID = "";
+
+
+             parentIDC = "#MainContent_UC_EnquiryView_UC_AddLead_";
+             parentID = "MainContent_UC_EnquiryView_UC_AddLead_";
+
+             var param = { Pro: $(parentIDC + 'txtProject').val() }
+             var Customers = [];
+             if ($(parentIDC + 'txtProject').val().trim().length >= 3) {
+                 $.ajax({
+                     url: "LeadN.aspx/GetProject",
+                     contentType: "application/json; charset=utf-8",
+                     type: 'POST',
+                     data: JSON.stringify(param),
+                     dataType: 'JSON',
+                     success: function (data) {
+                         var DataList = JSON.parse(data.d);
+                         for (i = 0; i < DataList.length; i++) {
+                             Customers[i] = {
+                                 value: DataList[i].ProjectName,
+                                 ProjectID: DataList[i].ProjectID,
+                                 TenderNumber: DataList[i].TenderNumber,
+                                 State: DataList[i].State.State,
+                                 District: DataList[i].District.District,
+                                 ProjectValue: DataList[i].Value,
+                                 ContractAwardDate: DataList[i].ContractAwardDate,
+                                 ContractEndDate: DataList[i].ContractEndDate
+                             };
+                         }
+                         $(parentIDC + 'txtProject').autocomplete({
+                             source: function (request, response) { response(Customers) },
+                             select: function (e, u) {
+                                 debugger;
+
+                                 $(parentIDC + "hdfProjectID").val(u.item.ProjectID);
+                                 document.getElementById(parentID + "txtProject").disabled = true;
+                                 //document.getElementById('divCustomerViewID').style.display = "block";
+                                 //document.getElementById('divCustomerCreateID').style.display = "none";
+
+                                 //document.getElementById('lblCustomerName').innerText = u.item.value;
+                                 //document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
+                                 //document.getElementById('lblMobile').innerText = u.item.Mobile;
+
+                             },
+                             open: function (event, ui) {
+                                 $(this).autocomplete("widget").css({
+                                     "max-width":
+                                         $(parentIDC + 'txtProject').width() + 48,
+                                 });
+                                 $(this).autocomplete("widget").scrollTop(0);
+                             }
+                         }).focus(function (e) {
+                             $(this).autocomplete("search");
+                         }).click(function () {
+                             $(this).autocomplete("search");
+                         }).data('ui-autocomplete')._renderItem = function (ul, item) {
+
+                             var inner_html = FormatAutocompleteList(item);
+                             return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                                 .data('item.autocomplete', item)
+                                 .append(inner_html)
+                                 .appendTo(ul);
+                         };
+
+                     }
+                 });
+             }
+             else {
+                 $(parentIDC + 'txtProject').autocomplete({
+                     source: function (request, response) {
+                         response($.ui.autocomplete.filter(Customers, ""))
+                     }
+                 });
+             }
+         }
+     </script>
 </asp:Content>

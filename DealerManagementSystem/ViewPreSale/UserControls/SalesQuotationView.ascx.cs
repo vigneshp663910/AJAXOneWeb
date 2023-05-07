@@ -244,6 +244,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 MPE_Visit.Show();
                 new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
+                new DDLBind(ddlPersonMet, new BDMS_Customer().GetCustomerRelation(Quotation.Lead.Customer.CustomerID, null), "ContactName", "CustomerRelationID");
             }
 
             //else if (lbActions.Text == "Generate Commission Claim")
@@ -3012,7 +3013,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected void btnSaveVisit_Click(object sender, EventArgs e)
         {
             MPE_Visit.Show();
-            PColdVisit ColdVisitList = new PColdVisit();
+            PColdVisit_Insert ColdVisitList = new PColdVisit_Insert();
             lblMessageColdVisit.ForeColor = Color.Red;
             lblMessageColdVisit.Visible = true;
             string Message = "";
@@ -3023,15 +3024,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageColdVisit.Text = Message;
                 return;
             }
-            ColdVisitList.Customer = new PDMS_Customer() { CustomerID = Quotation.Lead.Customer.CustomerID };
+            ColdVisitList.Customer = new PDMS_Customer_Insert() { CustomerID = Quotation.Lead.Customer.CustomerID };
             ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
             ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
+            ColdVisitList.PersonMet = ddlPersonMet.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlPersonMet.SelectedValue);
             ColdVisitList.Remark = txtVisitRemark.Text.Trim();
             ColdVisitList.Location = txtLocation.Text.Trim();
             ColdVisitList.ReferenceID = Quotation.QuotationID;
             ColdVisitList.ReferenceTableID = 2;
-            ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
+            //ColdVisitList.CreatedBy = new PUser { UserID = PSession.User.UserID };
 
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ColdVisit", ColdVisitList));
             if (Results.Status == PApplication.Failure)

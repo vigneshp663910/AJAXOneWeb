@@ -105,6 +105,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             string Location = ColdVisit.Customer.Address1 + ", " + ColdVisit.Customer.Address2 + ", " + ColdVisit.Customer.District.District + ", " + ColdVisit.Customer.State.State;
             lblAddress.Text = Location;
             lblRemarks.Text = ColdVisit.Remark;
+
+            lblPersonMet.Text = ColdVisit.PersonMet.ContactName;
+            lblPersonDesignation.Text = ColdVisit.PersonMet.Designation.Designation;
             //fillEffort();
             //fillExpense();
             FillActivity();

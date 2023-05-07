@@ -2375,7 +2375,7 @@
 
         <div id="myOverlay" class="w3-overlay w3-hide-large my-overlay" onclick="w3_close()" style="cursor: pointer" title="Close Side Menu"></div>
 
-        <asp:ScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:ScriptManager ID="ToolkitScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
 
         <div id="w3mainclass" class="w3-main" style="margin-left: 250px; margin-top: 60px">
 

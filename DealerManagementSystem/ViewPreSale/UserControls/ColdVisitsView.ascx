@@ -70,6 +70,10 @@
                     <label>Remarks : </label>
                     <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>PersonMet : </label>
+                    <asp:Label ID="lblPersonMet" runat="server" CssClass="label"></asp:Label>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
@@ -87,6 +91,10 @@
                 <div class="col-md-12">
                     <label>Email : </label>
                     <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
+                </div>
+                 <div class="col-md-12">
+                    <label>Person Designation : </label>
+                    <asp:Label ID="lblPersonDesignation" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
@@ -106,6 +114,7 @@
                     <label>Location : </label>
                     <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
                 </div>
+                
             </div>
         </div>
     </fieldset>

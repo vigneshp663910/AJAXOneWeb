@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -310,6 +311,34 @@ namespace DealerManagementSystem.ViewPreSale
         protected void ddlProductType_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null,Convert.ToInt32(ddlProductType.SelectedValue),null), "Product", "ProductID");
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Search();
+                Search();
+                //List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
+                PApiResult Result = new BSalesQuotation().GetSalesQuotationExcel(SalesQuotationID, QuotationNo, QuotationDateFrom, QuotationDateTo
+                   , LeadID, LeadNumber, StatusID, UserStatusID, ProductTypeID, ProductID, DealerID, SalesEngineerID, CustomerCode);
+                 
+                try
+                {
+                    new BXcel().ExporttoExcel(JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data)), "Quotation Report");
+                }
+                catch
+                {
+                }
+                finally
+                {
+                }
+                // SalesCommisionClaimExportExcel();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
         }
     }
 }
