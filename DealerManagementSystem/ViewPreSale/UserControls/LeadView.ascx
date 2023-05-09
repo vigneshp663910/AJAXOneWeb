@@ -19,16 +19,16 @@
                 <asp:LinkButton ID="lbtnEditLead" runat="server" OnClick="lbActions_Click">Edit Lead</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAssign" runat="server" OnClick="lbActions_Click">Assign</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddFollowUp" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
-               <%-- <asp:LinkButton ID="lbtnCustomerConversation" runat="server" OnClick="lbActions_Click">Customer Conversation</asp:LinkButton>--%> 
-               <%-- <asp:LinkButton ID="lbtnAddFinancialInfo" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>--%>
-                <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton> 
+                <%-- <asp:LinkButton ID="lbtnCustomerConversation" runat="server" OnClick="lbActions_Click">Customer Conversation</asp:LinkButton>--%>
+                <%-- <asp:LinkButton ID="lbtnAddFinancialInfo" runat="server" OnClick="lbActions_Click">Financial Info</asp:LinkButton>--%>
+                <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
                 <asp:LinkButton ID="lbtAddQuestionaries" runat="server" OnClick="lbActions_Click">Add Questionaries</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
                 <asp:LinkButton ID="lbtnLostLead" runat="server" OnClick="lbActions_Click">Lost Lead</asp:LinkButton>
                 <asp:LinkButton ID="lbtnCancelLead" runat="server" OnClick="lbActions_Click">Cancel Lead</asp:LinkButton>
 
 
-                 <%-- <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
+                <%-- <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>--%>
                 <%--<asp:LinkButton ID="lbtnAddQuotation" runat="server" OnClick="lbActions_Click">Convert to Quotation</asp:LinkButton>--%>
             </div>
@@ -115,7 +115,7 @@
                 <asp:Label ID="lblFinancialInfo" runat="server" CssClass="label"></asp:Label>
             </div>
 
-           <%-- <div class="col-md-4">
+            <%-- <div class="col-md-4">
                 <label>Total Effort : </label>
                 <asp:Label ID="lblTotalEffort" runat="server" CssClass="label"></asp:Label>
             </div>
@@ -209,17 +209,23 @@
                                     <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
+                             <asp:TemplateField  HeaderText="Person Met">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.ContactName")%>' runat="server" /> 
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                             <asp:TemplateField  HeaderText="Person Designation">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.Designation.Designation")%>' runat="server" /> 
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remark">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                    <%-- <asp:Button ID="btnViewColdVisit" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewColdVisit_Click" Width="50px" Height="33px" />--%>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                           
                         </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
@@ -232,7 +238,7 @@
             <%--   </div>--%>
         </ContentTemplate>
     </asp1:TabPanel>
-   <%-- <asp1:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort">
+    <%-- <asp1:TabPanel ID="tpnlEffort" runat="server" HeaderText="Effort">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -429,7 +435,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-   <%-- <asp1:TabPanel ID="tpnlExpense" runat="server" HeaderText="Expense">
+    <%-- <asp1:TabPanel ID="tpnlExpense" runat="server" HeaderText="Expense">
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -515,31 +521,31 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                             <asp:TemplateField HeaderText="Ref Quotation">
+                            <asp:TemplateField HeaderText="Ref Quotation">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRefQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.RefQuotationNo")%>' runat="server" />
                                     <br />
-                                     <asp:Label ID="lblRefQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.RefQuotationDate")%>' runat="server" />
+                                    <asp:Label ID="lblRefQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.RefQuotationDate")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                             
+
                             <asp:TemplateField HeaderText="Sap Quotation">
                                 <ItemTemplate>
                                     <asp:Label ID="lblSapQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.SapQuotationNo")%>' runat="server" />
                                     <br />
-                                     <asp:Label ID="lblSapQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.SapQuotationDate")%>' runat="server" />
+                                    <asp:Label ID="lblSapQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.SapQuotationDate")%>' runat="server" />
                                 </ItemTemplate>
-                            </asp:TemplateField> 
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Parts Quotation">
                                 <ItemTemplate>
                                     <asp:Label ID="lblPgQuotationNo" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.PgQuotationNo")%>' runat="server" />
-                                     <br />
+                                    <br />
                                     <asp:Label ID="lblPgQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "SalesQuotation.PgQuotationDate")%>' runat="server" />
                                 </ItemTemplate>
-                            </asp:TemplateField> 
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Update Status">
-                                <ItemTemplate> 
-                                    <asp:LinkButton ID="lbtnAddQuotation" runat="server" OnClick="lbActions_Click">Convert to Quotation</asp:LinkButton> 
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lbtnAddQuotation" runat="server" OnClick="lbActions_Click">Convert to Quotation</asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -967,10 +973,15 @@
                         <label class="modal-label">Location</label>
                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Person Met</label>
+                        <asp:DropDownList ID="ddlPersonMet" runat="server" CssClass="form-control" />
+                    </div>
                     <div class="col-md-12 col-sm-12">
                         <label class="modal-label">Remark</label>
                         <asp:TextBox ID="txtVisitRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
                     </div>
+                    
                 </div>
             </fieldset>
         </div>
@@ -1150,3 +1161,82 @@
         }
     });
 </script>
+
+
+ <script type="text/javascript">
+
+     function GetProjectAuto() {
+         debugger;
+         var parentElement = window.parent.document.getElementById("myElement");
+         alert(window.parent.document);
+         $("#MainContent_UC_LeadView_UC_AddLead_hdfProjectID").val('');
+         var param = { Pro: $('#MainContent_UC_LeadView_UC_AddLead_txtProject').val() }
+         var Customers = [];
+         if ($('#MainContent_UC_LeadView_UC_AddLead_txtProject').val().trim().length >= 3) {
+             $.ajax({
+                 url: "LeadN.aspx/GetProject",
+                 contentType: "application/json; charset=utf-8",
+                 type: 'POST',
+                 data: JSON.stringify(param),
+                 dataType: 'JSON',
+                 success: function (data) {
+                     var DataList = JSON.parse(data.d);
+                     for (i = 0; i < DataList.length; i++) {
+                         Customers[i] = {
+                             value: DataList[i].ProjectName,
+                             ProjectID: DataList[i].ProjectID,
+                             TenderNumber: DataList[i].TenderNumber,
+                             State: DataList[i].State.State,
+                             District: DataList[i].District.District,
+                             ProjectValue: DataList[i].Value,
+                             ContractAwardDate: DataList[i].ContractAwardDate,
+                             ContractEndDate: DataList[i].ContractEndDate
+                         };
+                     }
+                     $('#MainContent_UC_LeadView_UC_AddLead_txtProject').autocomplete({
+                         source: function (request, response) { response(Customers) },
+                         select: function (e, u) {
+                             
+
+                             $("#MainContent_UC_LeadView_UC_AddLead_hdfProjectID").val(u.item.ProjectID);
+                             document.getElementById("MainContent_UC_LeadView_UC_AddLead_txtProject").disabled = true;
+                             //document.getElementById('divCustomerViewID').style.display = "block";
+                             //document.getElementById('divCustomerCreateID').style.display = "none";
+
+                             //document.getElementById('lblCustomerName').innerText = u.item.value;
+                             //document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
+                             //document.getElementById('lblMobile').innerText = u.item.Mobile;
+
+                         },
+                         open: function (event, ui) {
+                             $(this).autocomplete("widget").css({
+                                 "max-width":
+                                     $('#MainContent_UC_LeadView_UC_AddLead_txtProject').width() + 48,
+                             });
+                             $(this).autocomplete("widget").scrollTop(0);
+                         }
+                     }).focus(function (e) {
+                         $(this).autocomplete("search");
+                     }).click(function () {
+                         $(this).autocomplete("search");
+                     }).data('ui-autocomplete')._renderItem = function (ul, item) {
+
+                         var inner_html = FormatAutocompleteList(item);
+                         return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                             .data('item.autocomplete', item)
+                             .append(inner_html)
+                             .appendTo(ul);
+                     };
+
+                 }
+             });
+         }
+         else {
+             $('#MainContent_UC_LeadView_UC_AddLead_txtProject').autocomplete({
+                 source: function (request, response) {
+                     response($.ui.autocomplete.filter(Customers, ""))
+                 }
+             });
+         }
+     }
+ </script>  

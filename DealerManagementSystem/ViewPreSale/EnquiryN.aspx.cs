@@ -295,7 +295,21 @@ namespace DealerManagementSystem.ViewPreSale
         {
             try
             {
-                SalesCommisionClaimExportExcel();
+                Search();
+                PApiResult Result = new BEnquiry().GetEnquiryExcel(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, StatusID);
+                DataTable Enquirys = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
+
+                try
+                {
+                    new BXcel().ExporttoExcel(Enquirys, "Enquiry Report");
+                }
+                catch
+                { 
+                }
+                finally
+                {
+                }
+                // SalesCommisionClaimExportExcel();
             }
             catch (Exception ex)
             {
@@ -326,72 +340,59 @@ namespace DealerManagementSystem.ViewPreSale
             dt.Columns.Add("District");
             dt.Columns.Add("Product");
             dt.Columns.Add("Source");
-            dt.Columns.Add("Remarks"); 
-            dt.Columns.Add("Rejected Remark"); 
-            dt.Columns.Add("Product Type"); 
+            dt.Columns.Add("Remarks");
+            dt.Columns.Add("Rejected Remark");
+            dt.Columns.Add("Product Type");
             dt.Columns.Add("Sales Teritory Manager");
 
             Search();
 
 
 
+            PApiResult Result = new BEnquiry().GetEnquiryExcel(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, StatusID);
 
-            int i = 0;
-            int Index = 0;
-            int Rowcount = 200;
-            int CRowcount = Rowcount;
-            while (Rowcount == CRowcount)
-            {
-                Index = Index + 1;
-               
-                PApiResult Result = new BEnquiry().GetEnquiry(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, StatusID, Index, Rowcount);
-                 
-                List<PEnquiry> Enquirys = JsonConvert.DeserializeObject<List<PEnquiry>>(JsonConvert.SerializeObject(Result.Data));
-                CRowcount = Enquirys.Count; 
-                foreach (PEnquiry Enquiry in Enquirys)
-                {
-                    i = i + 1;
-                    dt.Rows.Add(
-                         i
-                        , Enquiry.CreatedBy.ContactName
-                        , Enquiry.State.Region.Region
-                        , Enquiry.Dealer.DealerCode
-                        , Enquiry.Dealer.DealerName
-                        , Enquiry.EnquiryNumber
-                        , (Enquiry.EnquiryDate == null) ? "" : Enquiry.EnquiryDate.ToString()
-                        , Enquiry.Status.Status
-                        , Enquiry.CustomerName
-                        , Enquiry.PersonName
-                        , Enquiry.Mail
-                        , Enquiry.Mobile
-                        , Enquiry.Address
-                        , Enquiry.Address2
-                        , Enquiry.Address3
-                        , Enquiry.Country.Country
-                        , Enquiry.State.State
-                        , Enquiry.District.District
-                        , Enquiry.Product
-                        , Enquiry.Source.Source
-                        , Enquiry.Remarks
-                        , Enquiry.RejectReason
-                        , Enquiry.ProductType.ProductType 
-                        ,Enquiry.STM.ContactName
-                        );
-                }
-            }
+            DataTable Enquirys = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
+
+            //        dt.Rows.Add(
+            //             i
+            //            , Enquiry.CreatedBy.ContactName
+            //            , Enquiry.State.Region.Region
+            //            , Enquiry.Dealer.DealerCode
+            //            , Enquiry.Dealer.DealerName
+            //            , Enquiry.EnquiryNumber
+            //            , (Enquiry.EnquiryDate == null) ? "" : Enquiry.EnquiryDate.ToString()
+            //            , Enquiry.Status.Status
+            //            , Enquiry.CustomerName
+            //            , Enquiry.PersonName
+            //            , Enquiry.Mail
+            //            , Enquiry.Mobile
+            //            , Enquiry.Address
+            //            , Enquiry.Address2
+            //            , Enquiry.Address3
+            //            , Enquiry.Country.Country
+            //            , Enquiry.State.State
+            //            , Enquiry.District.District
+            //            , Enquiry.Product
+            //            , Enquiry.Source.Source
+            //            , Enquiry.Remarks
+            //            , Enquiry.RejectReason
+            //            , Enquiry.ProductType.ProductType 
+            //            ,Enquiry.STM.ContactName
+            //            );
+            //    }
+            //}
             try
             {
-                new BXcel().ExporttoExcel(dt, "Enquiry Report");
+                new BXcel().ExporttoExcel(Enquirys, "Enquiry Report");
             }
             catch
             {
 
             }
             finally
-            { 
+            {
             }
         }
-
         void Search()
         {
             DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);

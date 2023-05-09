@@ -323,6 +323,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.CustomerRelationID = Convert.ToInt64(lblCustomerRelationID.Text);
             Relation.CustomerID = Customer.CustomerID;
             Relation.Relation = new PRelation() { RelationID = 0 };
+            Relation.Designation = new PCustomerEmployeeDesignation() { DesignationID = 0 };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation));
             lblMessage.Visible = true;

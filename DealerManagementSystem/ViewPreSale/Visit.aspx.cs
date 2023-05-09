@@ -171,6 +171,7 @@ namespace DealerManagementSystem.ViewPreSale
             ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
             ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
+            ColdVisitList.PersonMet = hfPersonMet.Value =="0"? (long?)null: Convert.ToInt64(hfPersonMet.Value) ;
             ColdVisitList.Remark = txtRemark.Text.Trim();
             ColdVisitList.Location = txtLocation.Text.Trim();
 
@@ -450,5 +451,27 @@ namespace DealerManagementSystem.ViewPreSale
             List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(Cust, 1);
             return JsonConvert.SerializeObject(Customer);
         }
+        public class StudentDetails
+        {
+            public long Id { get; set; }
+            public string Name { get; set; }
+        }
+
+        [WebMethod]
+        public static List<StudentDetails> GetStudentDetails(string custID)
+        {
+            StudentDetails studentDetails = null;
+            List<PCustomerRelation> Relations = new BDMS_Customer().GetCustomerRelation(Convert.ToInt64(custID), null);
+            List<StudentDetails> lstStudentDetails = new List<StudentDetails>();
+            foreach(PCustomerRelation Relation in Relations)
+            {
+                studentDetails = new StudentDetails();
+                studentDetails.Id = Relation.CustomerRelationID;
+                studentDetails.Name = Relation.ContactName;
+                lstStudentDetails.Add(studentDetails);
+            } 
+            return lstStudentDetails;
+        }
+
     }
 }

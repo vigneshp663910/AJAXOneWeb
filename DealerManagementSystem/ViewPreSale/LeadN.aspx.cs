@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Web.Services;
 using System.Web.UI;
@@ -223,27 +224,7 @@ namespace DealerManagementSystem.ViewPreSale
             UC_Customer.FindControl("txtLatitude");
             UC_Customer.FindControl("txtDOB");
         }
-        [WebMethod]
-        public static List<string> GetCustomer(string CustS)
-        {
-            List<string> Emp = new List<string>();
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 1);
-            int i = 0;
-            foreach (PDMS_Customer cust in Customer)
-            {
-                i = i + 1;
-
-                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-                    + "<p><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label><span>" + cust.CustomerType + "</span></p>"
-
-                    + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
-                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
-                Emp.Add(div);
-
-               
-            }
-            return Emp;
-        }
+       
 
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
@@ -271,6 +252,71 @@ namespace DealerManagementSystem.ViewPreSale
         {
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+        }
+
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PLeadSearch S = new PLeadSearch();
+                S.LeadNumber = txtLeadNumber.Text.Trim();
+                S.StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue);
+                S.QualificationID = ddlSQualification.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSQualification.SelectedValue);
+                S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
+                S.ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
+                S.CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
+                S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
+
+                S.CustomerCode = txtCustomer.Text.Trim();
+                S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateFrom.Text.Trim());
+                S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim());
+
+                S.DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+                S.SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+                 
+                try
+                {
+                    new BXcel().ExporttoExcel(new BLead().GetLeadExcel(S), "Lead Report");
+                }
+                catch
+                {
+                }
+                finally
+                {
+                } 
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        [WebMethod]
+        public static List<string> GetCustomer(string CustS)
+        {
+            List<string> Emp = new List<string>();
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 1);
+            int i = 0;
+            foreach (PDMS_Customer cust in Customer)
+            {
+                i = i + 1;
+
+                string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
+                    + "<p><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label><span>" + cust.CustomerType + "</span></p>"
+
+                    + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
+                    + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
+                Emp.Add(div);
+
+
+            }
+            return Emp;
+        }
+        [WebMethod]
+        public static string GetProject(string Pro)
+        {
+            List<PProject> Project = new BProject().GetProjectAutocomplete(Pro);
+            return JsonConvert.SerializeObject(Project);
         }
     }
 }

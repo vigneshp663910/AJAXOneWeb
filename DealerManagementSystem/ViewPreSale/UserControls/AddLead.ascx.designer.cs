@@ -42,13 +42,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlSource;
 
         /// <summary>
-        /// ddlProject control.
+        /// hdfProjectID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProject;
+        protected global::System.Web.UI.WebControls.HiddenField hdfProjectID;
+
+        /// <summary>
+        /// txtProject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtProject;
 
         /// <summary>
         /// txtExpectedDateOfSale control.

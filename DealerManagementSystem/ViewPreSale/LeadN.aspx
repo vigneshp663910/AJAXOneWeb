@@ -72,7 +72,7 @@
                         <label>State</label>
                         <asp:DropDownList ID="ddlSState" runat="server" CssClass="form-control" />
                     </div>
-                     <div class="col-md-2 text-left">
+                    <div class="col-md-2 text-left">
                         <label>Product Type</label>
                         <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
                     </div>
@@ -80,6 +80,7 @@
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         <asp:Button ID="btnAddLead" runat="server" CssClass="btn Save" Text="Add Lead" OnClick="btnAddLead_Click" Width="150px"></asp:Button>
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
                     </div>
                 </div>
             </fieldset>
@@ -276,6 +277,93 @@
             }
             else {
                 $('#MainContent_UC_Customer_txtCustomerName').autocomplete({
+                    source: function (request, response) {
+                        response($.ui.autocomplete.filter(Customers, ""))
+                    }
+                });
+            }
+        }
+    </script>
+    <script type="text/javascript">
+
+        function GetProjectAuto(id) {
+            debugger;
+            var parentIDC = "";
+            var parentID = "";
+            if ($('#MainContent_UC_AddLead_txtProject').val().trim().length >= 3) {
+                parentIDC = "#MainContent_UC_AddLead_"
+                parentID = "MainContent_UC_AddLead_"
+            }
+            else if ($('#MainContent_UC_LeadView_UC_AddLead_txtProject').val().trim().length >= 3) {
+                parentIDC = "#MainContent_UC_LeadView_UC_AddLead_"
+                parentID = "MainContent_UC_LeadView_UC_AddLead_"
+            }
+            else {
+                return;
+            } 
+            var param = { Pro: $(parentIDC+'txtProject').val() }
+            var Customers = [];
+            if ($(parentIDC +'txtProject').val().trim().length >= 3) {
+                $.ajax({
+                    url: "LeadN.aspx/GetProject",
+                    contentType: "application/json; charset=utf-8",
+                    type: 'POST',
+                    data: JSON.stringify(param),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        var DataList = JSON.parse(data.d);
+                        for (i = 0; i < DataList.length; i++) {
+                            Customers[i] = {
+                                value: DataList[i].ProjectName,
+                                ProjectID: DataList[i].ProjectID,
+                                TenderNumber: DataList[i].TenderNumber,
+                                State: DataList[i].State.State,
+                                District: DataList[i].District.District,
+                                ProjectValue: DataList[i].Value,
+                                ContractAwardDate: DataList[i].ContractAwardDate,
+                                ContractEndDate: DataList[i].ContractEndDate
+                            };
+                        }
+                        $(parentIDC +'txtProject').autocomplete({
+                            source: function (request, response) { response(Customers) },
+                            select: function (e, u) {
+                                debugger;
+                               
+                                $(parentIDC +"hdfProjectID").val(u.item.ProjectID);
+                                document.getElementById(parentID+"txtProject").disabled = true;
+                                //document.getElementById('divCustomerViewID').style.display = "block";
+                                //document.getElementById('divCustomerCreateID').style.display = "none";
+
+                                //document.getElementById('lblCustomerName').innerText = u.item.value;
+                                //document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
+                                //document.getElementById('lblMobile').innerText = u.item.Mobile;
+
+                            },
+                            open: function (event, ui) {
+                                $(this).autocomplete("widget").css({
+                                    "max-width":
+                                        $(parentIDC +'txtProject').width() + 48,
+                                });
+                                $(this).autocomplete("widget").scrollTop(0);
+                            }
+                        }).focus(function (e) {
+                            $(this).autocomplete("search");
+                        }).click(function () {
+                            $(this).autocomplete("search");
+                        }).data('ui-autocomplete')._renderItem = function (ul, item) {
+
+                            var inner_html = FormatAutocompleteList(item);
+                            return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                                .data('item.autocomplete', item)
+                                .append(inner_html)
+                                .appendTo(ul);
+                        };
+
+                    }
+                });
+            }
+            else {
+                $(parentIDC +'txtProject').autocomplete({
                     source: function (request, response) {
                         response($.ui.autocomplete.filter(Customers, ""))
                     }

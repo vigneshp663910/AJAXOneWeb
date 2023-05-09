@@ -688,6 +688,7 @@
     <Content Include="ViewSupportTicket\SupportTicketView.aspx" />
     <Content Include="ViewSupportTicket\Task_DashboardMonthwise.aspx" />
     <Content Include="ViewSupportTicket\UserControls\SupportTicketView.ascx" />
+    <Content Include="ViewSupportTicket\WaitingForApprovalSupportTicket.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="View\Appointment.aspx" />
     <Content Include="View\Attendance.aspx" />
@@ -2716,6 +2717,13 @@
     <Compile Include="ViewSupportTicket\UserControls\SupportTicketView.ascx.designer.cs">
       <DependentUpon>SupportTicketView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSupportTicket\WaitingForApprovalSupportTicket.aspx.cs">
+      <DependentUpon>WaitingForApprovalSupportTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\WaitingForApprovalSupportTicket.aspx.designer.cs">
+      <DependentUpon>WaitingForApprovalSupportTicket.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2791,6 +2799,7 @@
     <Content Include="Scripts\Voice\jquery-3.3.1.min.map" />
     <Content Include="Scripts\Voice\jquery-3.3.1.slim.min.map" />
     <Content Include="Site.Mobile.Master" />
+    <Content Include="ViewDealerEmployee\Templates\Sales Incentive-Templates.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

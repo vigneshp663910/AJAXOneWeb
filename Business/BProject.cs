@@ -150,5 +150,51 @@ namespace Business
             }
             return true;
         }
+        public List<PProject> GetProjectAutocomplete(string Project)
+        {
+            List<PProject> projects = new List<PProject>();
+            try
+            {
+                
+                DbParameter ProjectP = provider.CreateParameter("Project", Project, DbType.String); 
+                DbParameter[] Params = new DbParameter[1] { ProjectP };
+
+                using (DataSet DataSet = provider.Select("GetProjectAutocomplete", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            projects.Add(new PProject()
+                            {
+                                ProjectID = Convert.ToInt64(dr["ProjectID"]),
+                                ProjectName = Convert.ToString(dr["ProjectName"]),
+                                ProjectNumber = Convert.ToString(dr["ProjectNumber"]),
+                                EmailDate = Convert.ToDateTime(dr["EmailDate"]),
+                                TenderNumber = Convert.ToString(dr["TenderNumber"]),
+                                State = new PDMS_State() { State = Convert.ToString(dr["State"]) },
+                                District = new PDMS_District() { District = Convert.ToString(dr["District"])},
+                                Value = DBNull.Value == dr["Value"] ? 0 : Convert.ToDecimal(dr["Value"]),
+                                L1ContractorName = Convert.ToString(dr["L1ContractorName"]),
+                                L2Bidder = Convert.ToString(dr["L2Bidder"]),
+                                L3Bidder = Convert.ToString(dr["L3Bidder"]),
+                                ContractAwardDate = Convert.ToDateTime(dr["ContractAwardDate"]),
+                                ContractEndDate = Convert.ToDateTime(dr["ContractEndDate"])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return projects;
+        }
+
     }
 }

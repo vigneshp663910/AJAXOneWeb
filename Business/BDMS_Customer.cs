@@ -701,5 +701,11 @@ namespace Business
                 throw ex;
             }
         }
+
+        public List<PCustomerEmployeeDesignation> GetCustomerEmployeeDesignation(int? DesignationID, string Designation)
+        {
+            string endPoint = "Customer/CustomerEmployeeDesignation?DesignationID=" + DesignationID + "&Designation=" + Designation;
+            return JsonConvert.DeserializeObject<List<PCustomerEmployeeDesignation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

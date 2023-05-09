@@ -228,6 +228,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 MPE_Visit.Show(); 
                 new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
+                new DDLBind(ddlPersonMet, new BDMS_Customer().GetCustomerRelation(Lead.Customer.CustomerID, null), "ContactName", "CustomerRelationID");
             }
         }  
         protected void btnSaveEffort_Click(object sender, EventArgs e)
@@ -809,6 +810,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
             ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
+            ColdVisitList.PersonMet = ddlPersonMet.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlPersonMet.SelectedValue);
             ColdVisitList.Remark = txtVisitRemark.Text.Trim();
             ColdVisitList.Location = txtLocation.Text.Trim();
             ColdVisitList.ReferenceID = Lead.LeadID;

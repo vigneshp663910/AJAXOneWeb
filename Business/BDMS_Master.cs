@@ -123,6 +123,7 @@ namespace Business
             string endPoint = "Master/Relation?RelationID=" + RelationID + "&Relation=" + Relation;
             return JsonConvert.DeserializeObject<List<PRelation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
         public List<PImportance> GetImportance(int? ImportanceID, string Importance)
         {
             string endPoint = "Master/Importance?ImportanceID=" + ImportanceID + "&Importance=" + Importance;
