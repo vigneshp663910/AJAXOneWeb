@@ -30,6 +30,10 @@
                             <asp:ListItem Value="0">InActive</asp:ListItem>
                          </asp:DropDownList>
                     </div>
+                     <div class="col-md-2 text-left">
+                        <label>Username</label>
+                        <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
                     <div class="col-md-2">
                         <br />
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
@@ -64,7 +68,7 @@
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
                                     <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvUser_PageIndexChanging" EmptyDataText="No Data Found">
+                                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvUser_PageIndexChanging" EmptyDataText="No Data Found" OnRowDataBound="gvUser_RowDataBound">
                                         <Columns>
                                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
                                                 <ItemTemplate>
@@ -149,7 +153,8 @@
                                             <asp:TemplateField>
                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                 <ItemTemplate>
-                                                    <asp:LinkButton ID="lblDeactivate" runat="server" OnClick="lblDeactivate_Click">Deactivate</asp:LinkButton>
+                                                    <%--<asp:LinkButton ID="lblDeactivate" runat="server" OnClick="lblDeactivate_Click">Deactivate</asp:LinkButton>--%>
+                                                    <asp:LinkButton ID="lblActiveOrIncative" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "IsActive")%>' OnClick="lblActiveOrIncative_Click"></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
