@@ -265,11 +265,18 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 PAttachedFile FileT = null;
                 if (!string.IsNullOrEmpty(PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName)) && PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName) != "0")
                 {
-                    FileT = new BMachineOperator().GetAttachedFileCustomerForDownload(PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName));
+                    if (PHFile.AttachedFileID != 0)
+                    {
+                        FileT = new BMachineOperator().GetAttachedFileCustomerForDownload(PHFile.AttachedFileID + Path.GetExtension(PHFile.FileName));
+                    }
                 }
-                if (FileT.AttachedFile != null)
+                if (FileT != null)
                 {
                     File.WriteAllBytes(filePath, FileT.AttachedFile);
+                }
+                else
+                {
+                    File.WriteAllBytes(filePath, PHFile.AttachedFile);
                 }
             }
             catch (Exception ex)
