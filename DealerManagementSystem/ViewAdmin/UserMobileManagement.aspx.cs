@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -25,6 +26,8 @@ namespace DealerManagementSystem.ViewAdmin
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
+            lblMessage.Text = string.Empty;
+            lblMessage.Visible = false;
             fillUser();
         }
 
@@ -85,7 +88,7 @@ namespace DealerManagementSystem.ViewAdmin
                 //gvUser.DataSource = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
                 //gvUser.DataBind();
 
-                UserLst = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(),Convert.ToBoolean(Convert.ToInt32(ddlStatus.SelectedValue)));
+                UserLst = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(),Convert.ToBoolean(Convert.ToInt32(ddlStatus.SelectedValue)), txtUsername.Text.Trim());
                 gvUser.DataSource = UserLst;
                 gvUser.DataBind();
 
@@ -130,6 +133,59 @@ namespace DealerManagementSystem.ViewAdmin
             if (Results.Status == PApplication.Failure)
             { 
                 
+            }
+        }
+
+        protected void lblActiveOrIncative_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblUserMobileID = (Label)gvRow.FindControl("lblUserMobileID");
+            LinkButton lblActiveOrIncative = (LinkButton)gvRow.FindControl("lblActiveOrIncative");
+
+            Boolean IsActive = false; 
+            if(lblActiveOrIncative.Text == "Activate")
+            {
+                IsActive = true;
+            }
+            string endPoint = "User/UserMobileActiveOrInActive?UserMobileID= " + Convert.ToInt32(lblUserMobileID.Text) + "&IsActive=" + IsActive;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            lblMessage.Visible = true;
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.Text = "Your request not processed.";
+                lblMessage.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblMessage.Text = "Your request successfully processed.";
+                lblMessage.ForeColor = Color.Green;
+                fillUser();
+            }
+        }
+
+        protected void gvUser_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    LinkButton lblActiveOrIncative = (LinkButton)e.Row.FindControl("lblActiveOrIncative");              
+
+                    if (lblActiveOrIncative.Text == "True")
+                    {
+                        lblActiveOrIncative.Text = "Deactivate";
+                    }
+                    else
+                    {
+                        lblActiveOrIncative.Text = "Activate";
+                    }
+                }
+                TraceLogger.Log(traceStartTime);
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

@@ -1545,9 +1545,9 @@ namespace Business
         //        throw new LMSException(ErrorCode.GENE, ex);
         //    }
         //}
-        public List<PUserMobile> GetUserMobileManage(int? DealerID,string  FromDate, string ToDate,Boolean isActive)
+        public List<PUserMobile> GetUserMobileManage(int? DealerID,string  FromDate, string ToDate,Boolean isActive, string UserName)
         {
-            string endPoint = "User/UserMobileManage?DealerID=" + DealerID+ "&FromDate="+ FromDate + "&ToDate=" + ToDate + "&isActive=" + isActive;
+            string endPoint = "User/UserMobileManage?DealerID=" + DealerID+ "&FromDate="+ FromDate + "&ToDate=" + ToDate + "&isActive=" + isActive + "&UserName=" + UserName;
             return JsonConvert.DeserializeObject<List<PUserMobile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }

@@ -495,5 +495,118 @@ namespace Business
             { }
             return MML;
         }
+        public Boolean UpdateDealerSalesDistrict(int DistrictID, int DealerID, int SalesOfficeID, int? SalesEngineerUserID, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+            DbParameter SalesOfficeIDP = provider.CreateParameter("SalesOfficeID", SalesOfficeID, DbType.Int32);
+            DbParameter SalesEngineerUserIDP = provider.CreateParameter("SalesEngineerUserID", SalesEngineerUserID, DbType.Int32);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[5] { DistrictIDP, DealerIDP, SalesOfficeIDP, SalesEngineerUserIDP, UserIDP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("UpdateDealerSalesDistrict", Params);
+                    scope.Complete();
+                }
+                return true;
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Address", "UpdateDealerSalesDistrict", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Address", " UpdateDealerSalesDistrict", ex);
+            }
+            TraceLogger.Log(DateTime.Now);
+            return false;
+        }
+        public List<PDMS_District> GetDealerServiceDistrict(int? CountryID, int? RegionID, int? StateID, int? DistrictID, int? ServiceDealerID)
+        {
+            List<PDMS_District> MML = new List<PDMS_District>();
+            try
+            {
+                DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
+                DbParameter RegionIDP = provider.CreateParameter("RegionID", RegionID, DbType.Int32);
+                DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
+                DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+                DbParameter ServiceDealerIDP = provider.CreateParameter("ServiceDealerID", ServiceDealerID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[5] { CountryIDP, RegionIDP, StateIDP, DistrictIDP, ServiceDealerIDP };
+
+                using (DataSet DataSet = provider.Select("GetDealerServiceDistrict", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            MML.Add(new PDMS_District()
+                            {
+                                DistrictID = Convert.ToInt32(dr["DistrictID"]),
+                                District = Convert.ToString(dr["District"]),
+                                Dealer = dr["ServiceDealerID"] == DBNull.Value ? null : new PDMS_Dealer
+                                {
+                                    DealerID = Convert.ToInt32(dr["ServiceDealerID"]),
+                                    DealerCode = Convert.ToString(dr["ServiceDealerCode"]),
+                                },
+                                State = new PDMS_State()
+                                {
+                                    StateID = Convert.ToInt32(dr["StateID"]),
+                                    State = Convert.ToString(dr["State"]),
+                                    Region = new PDMS_Region()
+                                    {
+                                        RegionID = Convert.ToInt32(dr["RegionID"]),
+                                        Region = Convert.ToString(dr["Region"]),
+                                    }
+                                },
+                                Country = new PDMS_Country()
+                                {
+                                    CountryID = Convert.ToInt32(dr["CountryID"]),
+                                    Country = Convert.ToString(dr["Country"])
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return MML;
+        }
+        public Boolean UpdateDealerServiceDistrict(int DistrictID, int ServiceDealerID, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+            DbParameter ServiceDealerIDP = provider.CreateParameter("ServiceDealerID", ServiceDealerID, DbType.Int32);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+            DbParameter[] Params = new DbParameter[3] { DistrictIDP, ServiceDealerIDP, UserIDP };
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("UpdateDealerServiceDistrict", Params);
+                    scope.Complete();
+                }
+                return true;
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Address", "UpdateDealerServiceDistrict", sqlEx);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Address", " UpdateDealerServiceDistrict", ex);
+            }
+            TraceLogger.Log(DateTime.Now);
+            return false;
+        }
     }
 }
