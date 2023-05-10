@@ -240,6 +240,38 @@ namespace DealerManagementSystem.ViewService.UserControls
             } 
             lblMessageTSIR.Text = Message;
             return Ret;
-        } 
+        }
+
+        public void Write(PDMS_ICTicketTSIR Tsir)
+        {
+
+            // ddlServiceChargeID.SelectedValue
+
+
+            // long ServiceChargeID = Convert.ToInt64();
+            //if (ICTicketTSIR.TsirID == 0)
+            //{
+            //    foreach (PDMS_ICTicketTSIR TSIR in ICTicketTSIRs)
+            //    {
+            //        if ((TSIR.ServiceCharge.Material.MaterialCode == ddlServiceChargeID.SelectedItem.Text) && (TSIR.Status.StatusID != (short)TSIRStatus.Canceled))
+            //        {
+            //            lblMessageTSIR.Text = "TSIR already Created for " + ddlServiceChargeID.SelectedItem.Text + " Service Code";
+            //            lblMessageTSIR.ForeColor = Color.Red;
+            //            return ICTicketTSIR;
+            //        }
+            //    }
+            //}  
+            //ICTicketTSIR.ServiceChargeID = ServiceChargeID;
+            ddlServiceChargeID.Items.Insert(0, new ListItem(Tsir.ServiceCharge.Material.MaterialCode, Tsir.ServiceCharge.ServiceChargeID.ToString()));
+            
+            txtNatureOfFailures.Text = Tsir.NatureOfFailures;
+            txtProblemNoticedBy.Text = Tsir.ProblemNoticedBy;
+            txtUnderWhatConditionFailureTaken.Text = Tsir.UnderWhatConditionFailureTaken;
+            txtFailureDetails.Text = Tsir.FailureDetails;
+            txtPointsChecked.Text = Tsir.PointsChecked;
+            txtPossibleRootCauses.Text = Tsir.PossibleRootCauses;
+            txtSpecificPointsNoticed.Text = Tsir.SpecificPointsNoticed;
+            txtPartsInvoiceNumber.Text = Tsir.PartsInvoiceNumber;
+        }
     }
 }

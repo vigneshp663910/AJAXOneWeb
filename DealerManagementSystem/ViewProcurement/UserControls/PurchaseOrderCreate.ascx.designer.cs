@@ -51,15 +51,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
-        /// ddlPurchaseOrderType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPurchaseOrderType;
-
-        /// <summary>
         /// ddlOrderTo control.
         /// </summary>
         /// <remarks>
@@ -76,6 +67,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlVendor;
+
+        /// <summary>
+        /// ddlPurchaseOrderType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPurchaseOrderType;
 
         /// <summary>
         /// ddlDivision control.
@@ -150,13 +150,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.GridView gvPOItem;
 
         /// <summary>
-        /// pnlAddMaterialCharges control.
+        /// pnlAddMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAddMaterialCharges;
+        protected global::System.Web.UI.WebControls.Panel pnlAddMaterial;
 
         /// <summary>
         /// Button7 control.

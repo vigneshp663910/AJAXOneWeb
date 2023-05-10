@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ICTicketTSIRView.ascx.cs" Inherits="DealerManagementSystem.ViewService.UserControls.ICTicketTSIRView" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<%--<%@ Register Src="~/ViewService/UserControls/AddTSIR.ascx" TagPrefix="UC" TagName="UC_AddTSIR" %>--%>
+<%@ Register Src="~/ViewService/UserControls/AddTSIR.ascx" TagPrefix="UC" TagName="UC_AddTSIR" %>
 
 <div class="col-md-12">
     <div class="action-btn">
@@ -286,6 +286,23 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_SaleApprove" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSaleApprove" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+<asp:Panel ID="pnlAddTSIR" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add TSIR</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageAddTSIR" runat="server" Text="" CssClass="message" Visible="false" />
+            <UC:UC_AddTSIR ID="UC_AddTSIR" runat="server"></UC:UC_AddTSIR>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnAddTSIR" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddTSIR_Click" />
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AddTSIR" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddTSIR" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <div style="display: none">

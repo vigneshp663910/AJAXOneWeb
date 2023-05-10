@@ -376,7 +376,7 @@
     }
     function FormatAutocompleteList(item) {
         var inner_html = '<a>';
-        inner_html += '<p style="margin:0;">eferdfed<strong>' + item.value + '</strong></p>';
+        inner_html += '<p style="margin:0;"><strong>' + item.value + '</strong></p>';
         inner_html += '</a>';
         return inner_html;
     } 

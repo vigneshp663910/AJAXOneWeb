@@ -20,21 +20,23 @@
             <label class="modal-label">Dealer</label>
             <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
         </div>
-        <div class="col-md-5 col-sm-12">
-            <label class="modal-label">Order Type<samp style="color: red">*</samp></label>
-            <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" />
-        </div>
+        
         <div class="col-md-5 col-sm-12">
             <label class="modal-label">Order To<samp style="color: red">*</samp></label>
-            <asp:DropDownList ID="ddlOrderTo" runat="server" CssClass="form-control">
+            <asp:DropDownList ID="ddlOrderTo" runat="server" CssClass="form-control"  OnSelectedIndexChanged="ddlOrderTo_SelectedIndexChanged" AutoPostBack="true" >
                 <asp:ListItem Value="1">OE</asp:ListItem>
                 <asp:ListItem Value="2">Co-Dealer</asp:ListItem>
             </asp:DropDownList>
         </div>
-        <div class="col-md-5 col-sm-12">
+         <div class="col-md-5 col-sm-12">
             <label class="modal-label">Vendor<samp style="color: red">*</samp></label>
             <asp:DropDownList ID="ddlVendor" runat="server" CssClass="form-control" />
         </div>
+        <div class="col-md-5 col-sm-12">
+            <label class="modal-label">Order Type<samp style="color: red">*</samp></label>
+            <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPurchaseOrderType_SelectedIndexChanged" AutoPostBack="true" />
+        </div>
+       
         <div class="col-md-5 col-sm-12">
             <label class="modal-label">Division<samp style="color: red">*</samp></label>
             <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
@@ -165,7 +167,8 @@
     </div>
 </div>
 
-<asp:Panel ID="pnlAddMaterialCharges" runat="server" CssClass="Popup" Style="display: none">
+
+<asp:Panel ID="pnlAddMaterial" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">AddMaterial</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" /></a>

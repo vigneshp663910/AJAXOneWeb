@@ -28,6 +28,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PurchaseOrderCreateItem"] = value;
             }
         }
+        public PPurchaseOrder_Insert PO_Insert
+        {
+            get
+            {
+                if (ViewState["PPurchaseOrder_Insert"] == null)
+                {
+                    ViewState["PPurchaseOrder_Insert"] = new PPurchaseOrder_Insert();
+                }
+                return (PPurchaseOrder_Insert)ViewState["PPurchaseOrder_Insert"];
+            }
+            set
+            {
+                ViewState["PPurchaseOrder_Insert"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -35,13 +50,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         public void FillMaster()
         {
             fillDealer();
-            new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
+             new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
             fillVendor();
             // new DDLBind(ddlVendor, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
-            new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID");
+           // new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID");
             //ddlDealerOffice
             Clear();
             fillItem();
+            fillPurchaseOrderType();
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -89,34 +105,19 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             //txtNextFollowUpDate.Text = string.Empty;
         }
-        public PPurchaseOrder Read()
+        public PPurchaseOrder_Insert Read()
         {
-            PPurchaseOrder enquiry = new PPurchaseOrder();
-            //enquiry.CustomerName = txtCustomerName.Text.Trim();
-            //enquiry.EnquiryNextFollowUpDate = Convert.ToDateTime(txtNextFollowUpDate.Text.Trim());
-            //enquiry.PersonName = txtPersonName.Text.Trim();
-            //enquiry.Mobile = txtMobile.Text.Trim();
-            //enquiry.Mail = txtMail.Text.Trim();
-            //enquiry.ProductType = new PProductType();
-            //enquiry.ProductType.ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue);
-
-            //enquiry.Source = new PLeadSource();
-            //enquiry.Source.SourceID = Convert.ToInt32(ddlSource.SelectedValue);
-            //enquiry.Status = new PPreSaleStatus();
-            //enquiry.Status.StatusID = 1;
-            //enquiry.Country = new PDMS_Country();
-            //enquiry.Country.CountryID = Convert.ToInt32(ddlCountry.SelectedValue);
-            //enquiry.State = new PDMS_State();
-            //enquiry.State.StateID = Convert.ToInt32(ddlState.SelectedValue);
-            //enquiry.District = new PDMS_District();
-            //enquiry.District.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
-            //enquiry.Address = txtAddress.Text.Trim();
-            //enquiry.Address2 = txtAddress2.Text.Trim();
-            //enquiry.Address3 = txtAddress3.Text.Trim();
-            //enquiry.Product = txtProduct.Text.Trim();
-            //enquiry.Remarks = txtRemarks.Text.Trim();
-            //enquiry.CreatedBy = new PUser();
-            return enquiry;
+            PPurchaseOrder_Insert PO = new PPurchaseOrder_Insert();
+            PO.DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+            PO.DealerOfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            PO.OrderToID = Convert.ToInt32(ddlOrderTo.SelectedValue);
+            PO.VendorID = Convert.ToInt32(ddlVendor.SelectedValue);
+            PO.PurchaseOrderTypeID = Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);
+            PO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
+            PO.ReferenceNo = txtReferenceNo.Text.Trim();
+            PO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
+            PO.Remarks = txtRemarks.Text.Trim(); 
+            return PO;
         }
         public void Write(PPurchaseOrder enquiry)
         {
@@ -238,7 +239,97 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
+            MPE_AddMaterial.Show();
+            string Message = UC_PurchaseOrderItem.Validation();
+            lblMessageMaterial.ForeColor = Color.Red;
+            lblMessageMaterial.Visible = true;
 
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageMaterial.Text = Message;
+                return;
+            }
+            if (PO_Insert.PurchaseOrderItems == null)
+            {
+                PO_Insert.PurchaseOrderItems = new List<PPurchaseOrderItem_Insert>();
+            }
+
+            PPurchaseOrderItem_Insert PoI = UC_PurchaseOrderItem.Read();
+            PO_Insert.PurchaseOrderItems.Add(PoI);
+
+            string Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+            string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
+            string OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
+            string Material = PoI.MaterialCode;
+            string IV_SEC_SALES = "";
+            //string PriceDate = DateTime.Now.ToShortDateString();
+            string PriceDate = "";
+            string IsWarrenty = "false";
+
+            new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, PoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+            MPE_AddMaterial.Show();
+        }
+
+        protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlDivision.Items.Clear();
+            ddlDivision.DataTextField = "DivisionDescription";
+            ddlDivision.DataValueField = "DivisionID";
+            ddlDivision.Items.Insert(0, new ListItem("Select", "0"));
+
+            string OrderType = ddlPurchaseOrderType.SelectedValue;
+
+            if ((OrderType == "1") || (OrderType == "2") || (OrderType == "7"))
+            {
+                ddlDivision.Items.Insert(1, new ListItem("Parts", "15")); 
+            }
+            else if (ddlPurchaseOrderType.SelectedValue == "5")
+            {
+                ddlDivision.Items.Insert(1, new ListItem("Batching Plant", "1"));
+                ddlDivision.Items.Insert(2, new ListItem("Concrete Mixer", "2"));
+                ddlDivision.Items.Insert(3, new ListItem("Concrete Pump", "3"));
+                ddlDivision.Items.Insert(4, new ListItem("Dumper", "4"));
+                ddlDivision.Items.Insert(5, new ListItem("Transit Mixer", "11"));
+                ddlDivision.Items.Insert(6, new ListItem("Mobile Concrete Equipment", "14"));
+                ddlDivision.Items.Insert(7, new ListItem("Placing Equipment", "19"));
+            }
+            else if (ddlPurchaseOrderType.SelectedValue == "6")
+            {
+                ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
+                ddlDivision.Items.Insert(2, new ListItem("Batching Plant", "1"));
+                ddlDivision.Items.Insert(3, new ListItem("Concrete Mixer", "2"));
+                ddlDivision.Items.Insert(4, new ListItem("Concrete Pump", "3"));
+                ddlDivision.Items.Insert(5, new ListItem("Dumper", "4"));
+                ddlDivision.Items.Insert(6, new ListItem("Transit Mixer", "11"));
+                ddlDivision.Items.Insert(7, new ListItem("Mobile Concrete Equipment", "14"));
+                ddlDivision.Items.Insert(8, new ListItem("Placing Equipment", "19"));
+            } 
+        }
+
+        protected void ddlOrderTo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fillPurchaseOrderType();
+        }
+
+        void fillPurchaseOrderType()
+        {
+            ddlPurchaseOrderType.Items.Clear();
+            ddlPurchaseOrderType.DataTextField = "PurchaseOrderType";
+            ddlPurchaseOrderType.DataValueField = "PurchaseOrderTypeID";
+            ddlPurchaseOrderType.Items.Insert(0, new ListItem("Select", "0"));
+
+            if (ddlOrderTo.SelectedValue == "1")
+            {
+                ddlPurchaseOrderType.Items.Insert(1, new ListItem("Stock Order", "1"));
+                ddlPurchaseOrderType.Items.Insert(2, new ListItem("Emergency Order", "2"));
+                ddlPurchaseOrderType.Items.Insert(3, new ListItem("Break Down Order", "7"));
+                ddlPurchaseOrderType.Items.Insert(4, new ListItem("Machine Order", "5"));
+
+            }
+            else
+            {
+                ddlPurchaseOrderType.Items.Insert(1, new ListItem("Intra-Dealer Order", "6"));
+            }
         }
     }
 }

@@ -61,6 +61,7 @@ namespace Properties
         public Boolean DebuggingStatus { get; set; }
         public Int32? DaysSince { get; set; }
         public Int32? LoginCount { get; set; }
+        public Boolean IsDisabledService { get; set; }
         #endregion
     }
     [Serializable]

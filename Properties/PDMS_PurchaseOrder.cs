@@ -307,9 +307,10 @@ namespace Properties
     [Serializable]
     public class PPurchaseOrderType
     {
-        public long PurchaseOrderTypeID { get; set; }
-        public string PurchaseOrderType { get; set; }
+        public int PurchaseOrderTypeID { get; set; }
         public string Code { get; set; }
+        public string PurchaseOrderType { get; set; }
+        public string SapOrderType { get; set; }
     }
     [Serializable]
     public class PPurchaseOrderStatus
@@ -368,6 +369,50 @@ namespace Properties
         //public decimal PackingAndForwarding { get; set; }
 
        
+    }
+
+    [Serializable]
+    public class PPurchaseOrder_Insert
+    {
+        public long PurchaseOrderID { get; set; }
+        public int DealerID { get; set; }
+        public int DealerOfficeID { get; set; }
+        public int OrderToID { get; set; }
+        public int VendorID { get; set; }
+        public int PurchaseOrderTypeID { get; set; }
+        public int DivisionID { get; set; }
+        
+        public string ReferenceNo { get; set; }
+        public DateTime ExpectedDeliveryDate { get; set; }
+        public string Remarks { get; set; }
+        
+        
+        public List<PPurchaseOrderItem_Insert> PurchaseOrderItems { get; set; }
+        
+    }
+
+    [Serializable]
+    public class PPurchaseOrderItem_Insert
+    {
+        public string PurchaseOrderID { get; set; }
+        public int Item { get; set; }
+        public int MaterialID { get; set; }
+        public string MaterialCode { get; set; }
+        public decimal Quantity { get; set; }
+        public string UOM { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal DiscountAmount { get; set; }
+        public decimal TaxableAmount { get; set; }
+
+        public decimal SGST { get; set; }
+        public decimal CGST { get; set; }
+        public decimal IGST { get; set; }
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
+        public decimal TaxAmount { get; set; }
+        public decimal NetAmount { get; set; }
+        public decimal ShipedQuantity { get; set; }  
     }
     [Serializable]
     public class PAsn

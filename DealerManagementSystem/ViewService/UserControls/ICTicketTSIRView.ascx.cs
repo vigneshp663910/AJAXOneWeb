@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -45,8 +46,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.Text == "Edit TSIR")
             {
-                //MPE_AddTechnician.Show();
-                //UC_ICTicketAddTechnician.FillMaster(SDMS_ICTicket.Dealer.DealerID);
+                MPE_AddTSIR.Show();
+                UC_AddTSIR.Write(Tsir);
             }
             else if (lbActions.Text == "TSIR Check")
             {
@@ -381,14 +382,14 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (Tsir.Status.StatusID == (short)TSIRStatus.Checked)
             {
-                lbtnEdit.Visible = false;
+              //  lbtnEdit.Visible = false;
                 lbtnCheck.Visible = false;
 
                 lbtnSalesApproveL1.Visible = false;
                 lbtnSalesApproveL2.Visible = false;
                 lbtnSalesReject.Visible = false; 
             }
-            else if (Tsir.Status.StatusID == (short)TSIRStatus.Approved || (Tsir.Status.StatusID == (short)TSIRStatus.SalesApproved) || Tsir.Status.StatusID == (short)TSIRStatus.SendBack || Tsir.Status.StatusID == (short)TSIRStatus.SalesRejected)
+            else if (Tsir.Status.StatusID == (short)TSIRStatus.Approved || (Tsir.Status.StatusID == (short)TSIRStatus.SalesApproved) || Tsir.Status.StatusID == (short)TSIRStatus.SalesRejected)
             {
                 lbtnEdit.Visible = false;
                 lbtnCheck.Visible = false;
@@ -399,6 +400,15 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnSendBack.Visible = false;
                 lbtnReject.Visible = false;
                 lbtnCancel.Visible = false; 
+            }
+            else if ( Tsir.Status.StatusID == (short)TSIRStatus.SendBack)
+            { 
+                lbtnApprove.Visible = false;
+                lbtnSalesApproveL1.Visible = false;
+                lbtnSalesApproveL2.Visible = false;
+                lbtnSalesReject.Visible = false;
+                lbtnSendBack.Visible = false;
+                lbtnReject.Visible = false; 
             }
             else if (Tsir.Status.StatusID == (short)TSIRStatus.SalesApprovedLevel1)
             {
@@ -431,8 +441,39 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnSalesReject.Visible = false;
             }
         }
-         
 
+        protected void btnAddTSIR_Click(object sender, EventArgs e)
+        {
+            MPE_AddTSIR.Show();
+            string Message = "";
+            //Message = UC_ICTicketUpdateCallInformation.ValidationReached(SDMS_ICTicket);
+            lblMessageAddTSIR.ForeColor = Color.Red;
+            lblMessageAddTSIR.Visible = true;
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAddTSIR.Text = Message;
+                return;
+            }
+            PDMS_ICTicketTSIR_API TistUpdate = UC_AddTSIR.Read();
+            TistUpdate.ICTicketID = Tsir.ICTicket.ICTicketID;
+            TistUpdate.TsirID = Tsir.TsirID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicketTsir/InsertOrUpdateICTicketTSIR", TistUpdate));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageAddTSIR.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_AddTSIR.Hide();
+            FillTsir(Tsir.TsirID);
+        }
+
+        void ShowMessage(PApiResult Results)
+        {
+            lblMessage.Text = Results.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+        }
         //protected void btnSave_Click(object sender, EventArgs e)
         //{
         //    if (!Validation())

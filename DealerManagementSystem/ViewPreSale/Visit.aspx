@@ -23,7 +23,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:HiddenField ID="hfPersonMet" runat="server" />
+    <asp:HiddenField ID="hfPersonMet" runat="server" Value="0" />
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
@@ -201,7 +201,7 @@
                         </div>
                     </fieldset>
 
-                 </div></div></div><div>
+                  </div></div></div><div>
             <div class="" id="boxHere"></div>
             <div class="back-buttton coldvisit" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" Visible="false" />
@@ -256,7 +256,7 @@
 
                     </div>
                 </fieldset>
-             </div><div class="col-md-12 text-center">
+              </div><div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
             </div>
         </div>

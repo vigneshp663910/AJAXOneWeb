@@ -485,7 +485,7 @@ namespace DealerManagementSystem.ViewAdmin
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
             CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
             CheckBox cbAjaxOne = (CheckBox)gvUser.Rows[index].FindControl("cbAjaxOne");
-
+            CheckBox cbIsDisabledService = (CheckBox)gvUser.Rows[index].FindControl("cbIsDisabledService");
 
             //lblPassWord.Visible = false;
             lblUserName.Visible = false;
@@ -505,6 +505,7 @@ namespace DealerManagementSystem.ViewAdmin
             cbIsLocked.Enabled = true;
             cbIsEnabled.Enabled = true;
             cbAjaxOne.Enabled = true;
+            cbIsDisabledService.Enabled = true;
 
         }
 
@@ -537,6 +538,7 @@ namespace DealerManagementSystem.ViewAdmin
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
             CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
             CheckBox cbAjaxOne = (CheckBox)gvUser.Rows[index].FindControl("cbAjaxOne");
+            CheckBox cbIsDisabledService = (CheckBox)gvUser.Rows[index].FindControl("cbIsDisabledService");
 
             //lblPassWord.Visible = true;
             lblUserName.Visible = true;
@@ -556,6 +558,7 @@ namespace DealerManagementSystem.ViewAdmin
             cbIsLocked.Enabled = false;
             cbIsEnabled.Enabled = false;
             cbAjaxOne.Enabled = false;
+            cbIsDisabledService.Enabled = false;
         }
 
         protected void GvbtnUpdate_Click(object sender, EventArgs e)
@@ -590,6 +593,7 @@ namespace DealerManagementSystem.ViewAdmin
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
             CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
             CheckBox cbAjaxOne = (CheckBox)gvUser.Rows[index].FindControl("cbAjaxOne");
+            CheckBox cbIsDisabledService = (CheckBox)gvUser.Rows[index].FindControl("cbIsDisabledService");
 
             //if (string.IsNullOrEmpty(txtState.Text.Trim()))
             //{
@@ -610,7 +614,7 @@ namespace DealerManagementSystem.ViewAdmin
             userDAO.IsLocked = cbIsLocked.Checked;
             userDAO.IsEnabled = cbIsEnabled.Checked;
             userDAO.ajaxOne = cbAjaxOne.Checked;
-
+            userDAO.IsDisabledService = cbIsDisabledService.Checked;
             userDAO.UpdatedBy = PSession.User.UserID;
             userDAO.UpdatedOn = DateTime.Now;
 
@@ -641,7 +645,7 @@ namespace DealerManagementSystem.ViewAdmin
                 cbIsLocked.Enabled = false;
                 cbIsEnabled.Enabled = false;
                 cbAjaxOne.Enabled = false;
-
+                cbIsDisabledService.Enabled = false;
                 //lblPassWord.Text = txtPassWord.Text.Trim();
                 lblContactName.Text = txtContactName.Text.Trim();
                 lblMail.Text = txtMail.Text.Trim();
