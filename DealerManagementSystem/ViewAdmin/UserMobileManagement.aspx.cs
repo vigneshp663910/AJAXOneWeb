@@ -20,23 +20,43 @@ namespace DealerManagementSystem.ViewAdmin
 
             if (!IsPostBack)
             {
-                fillDealer();
+                //fillDealer();
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
+                new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
             }
         }
-
+        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, DealerID, true, null, Convert.ToInt32(ddlDepartment.SelectedValue), null);
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+        }
+        protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, DealerID, true, null, Convert.ToInt32(ddlDepartment.SelectedValue), Convert.ToInt32(ddlDesignation.SelectedValue));
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+        }
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+            int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, DepartmentID, DesignationID);
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+        }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             lblMessage.Text = string.Empty;
             lblMessage.Visible = false;
             fillUser();
         }
-
         protected void gvUser_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvUser.PageIndex = e.NewPageIndex;
             fillUser();
         }
-
         public List<PUserMobile> UserLst
         {
             get
@@ -52,8 +72,6 @@ namespace DealerManagementSystem.ViewAdmin
                 Session["PUser"] = value;
             }
         }
-
-
         protected void ibtnUserArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvUser.PageIndex > 0)
@@ -70,25 +88,24 @@ namespace DealerManagementSystem.ViewAdmin
                 UserBind(gvUser, lblRowCount, UserLst);
             }
         }
-
         void UserBind(GridView gv, Label lbl, List<PUserMobile> UserLst)
         {
             gv.DataSource = UserLst;
             gv.DataBind();
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + UserLst.Count;
         }
-
-
-
         void fillUser()
         {
             try
             {
-                int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
+                int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
                 //gvUser.DataSource = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
                 //gvUser.DataBind();
 
-                UserLst = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(),Convert.ToBoolean(Convert.ToInt32(ddlStatus.SelectedValue)), txtUsername.Text.Trim());
+                int? DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+                int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+                int? EngineerUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+                UserLst = new BUser().GetUserMobileManage(DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(),Convert.ToBoolean(Convert.ToInt32(ddlStatus.SelectedValue)), DepartmentID, DesignationID, EngineerUserID);
                 gvUser.DataSource = UserLst;
                 gvUser.DataBind();
 
@@ -120,22 +137,20 @@ namespace DealerManagementSystem.ViewAdmin
 
             ddlDealer.Items.Insert(0, new ListItem("All", "0"));
         }
-
-        protected void lblDeactivate_Click(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblUserMobileID = (Label)gvRow.FindControl("lblUserMobileID");
+        //protected void lblDeactivate_Click(object sender, EventArgs e)
+        //{
+        //    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //    Label lblUserMobileID = (Label)gvRow.FindControl("lblUserMobileID");
 
             
 
-            string endPoint = "User/UserMobileInActive?UserMobileID=" + lblUserMobileID.Text;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-            if (Results.Status == PApplication.Failure)
-            { 
+        //    string endPoint = "User/UserMobileInActive?UserMobileID=" + lblUserMobileID.Text;
+        //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        //    if (Results.Status == PApplication.Failure)
+        //    { 
                 
-            }
-        }
-
+        //    }
+        //}
         protected void lblActiveOrIncative_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -162,7 +177,6 @@ namespace DealerManagementSystem.ViewAdmin
                 fillUser();
             }
         }
-
         protected void gvUser_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             DateTime traceStartTime = DateTime.Now;
