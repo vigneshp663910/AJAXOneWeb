@@ -9,7 +9,7 @@ namespace DealerManagementSystem.ViewSupportTicket
 {
     public partial class WaitingForApprovalSupportTicket : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewSupportTicket_ApproveSupportTicket; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewSupportTicket_WaitingForApprovalSupportTicket; } }
         private int PageCount
         {
             get
