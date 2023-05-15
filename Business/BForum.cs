@@ -17,7 +17,7 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public int GetMessageViewStatusCound(int HeaderID, int UserID)
+        public int GetMessageViewStatusCound(int HeaderID, int? UserID)
         {
             DbParameter HeaderIDP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int32);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);

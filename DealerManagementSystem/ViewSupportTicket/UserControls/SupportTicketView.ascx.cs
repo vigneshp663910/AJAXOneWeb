@@ -175,6 +175,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             ddlCategory.DataValueField = "CategoryID";
             ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
             ddlCategory.DataBind();
+
+            ddlEditCategory.DataTextField = "Category";
+            ddlEditCategory.DataValueField = "CategoryID";
+            ddlEditCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
+            ddlEditCategory.DataBind();
         }
         void FillSubCategory()
         {
@@ -184,6 +189,22 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             ddlSubcategory.DataBind();
             ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
         }
+        void FillEditSubCategory()
+        {
+            ddlEditSubCategory.DataTextField = "SubCategory";
+            ddlEditSubCategory.DataValueField = "SubCategoryID";
+            ddlEditSubCategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, (ddlEditCategory.SelectedValue == "0") ? (Int32?)null : Convert.ToInt32(ddlEditCategory.SelectedValue));
+            ddlEditSubCategory.DataBind();
+            ddlEditSubCategory.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        void FillTicketType()
+        {
+            ddlEditTicketType.DataTextField = "Type";
+            ddlEditTicketType.DataValueField = "TypeID";
+            ddlEditTicketType.DataSource = new BTicketType().getTicketType(null, null);
+            ddlEditTicketType.DataBind();
+            ddlEditTicketType.Items.Insert(0, new ListItem("Select", "0"));
+        }
         void FillTicketSeverity()
         {
             ddlSeverity.DataTextField = "Severity";
@@ -192,6 +213,13 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             ddlSeverity.DataBind();
             ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
             ddlSeverity.SelectedValue = "3";
+
+            ddlEditSeverity.DataTextField = "Severity";
+            ddlEditSeverity.DataValueField = "SeverityID";
+            ddlEditSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
+            ddlEditSeverity.DataBind();
+            ddlEditSeverity.Items.Insert(0, new ListItem("Select", "0"));
+            ddlEditSeverity.SelectedValue = "3";
         }
         void FillAssignTo()
         {
@@ -256,6 +284,40 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     lblMessageAssignTo.Text = "Please Select The Assigned To";
                     return false;
                 }
+            }
+            return true;
+        }
+        Boolean validationHeaderEditInfo()
+        {
+            if (ddlEditCategory.SelectedValue == "0")
+            {
+                lblMessageHeaderEdit.Text = "Please Select The Category";
+                return false;
+            }
+            if (ddlEditSubCategory.SelectedValue == "0")
+            {
+                lblMessageHeaderEdit.Text = "Please Select The Subcategory";
+                return false;
+            }
+            if(ddlEditTicketType.SelectedValue=="0")
+            {
+                lblMessageHeaderEdit.Text = "Please Select The TicketType";
+                return false;
+            }
+            if (ddlEditSeverity.SelectedValue == "0")
+            {
+                lblMessageHeaderEdit.Text = "Please Select The Severity";
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtEditSubject.Text))
+            {
+                lblMessageHeaderEdit.Text = "Please Enter The Subject";
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtEditDescription.Text))
+            {
+                lblMessageHeaderEdit.Text = "Please Enter The Description";
+                return false;
             }
             return true;
         }
@@ -401,6 +463,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
             gvchar.DataSource = PMessages;
             gvchar.DataBind();
+            tbpTaskView.ActiveTabIndex = 0;
             if (LastMessageID != 0)
                 new BForum().UdateMessageViewStatus(TicketNO, PSession.User.UserID, LastMessageID);
         }
@@ -455,11 +518,22 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Message")
+            if (lbActions.Text == "Edit Header Info")
+            {
+                FillCategory();
+                FillEditSubCategory();
+                FillTicketType();
+                FillTicketSeverity();
+                FillEditInfo(Convert.ToInt32(ViewState["TicketNo"]));
+                btnUpdateHeaderInfo.Visible = true;
+                MPE_EditHeaderInfo.Show();
+            }
+            else if (lbActions.Text == "Message")
             {
                 txtMessage.Text = "";
                 txtMessage.Visible = true;
                 divMailNotification.Visible = true;
+                ddlMailNotification.SelectedValue = "-1";
                 FileUpload.Visible = false;
                 btnSend.Text = "Send";
                 btnSend.Visible = true;
@@ -474,6 +548,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 txtMessage.Visible = false;
                 FileUpload.Visible = true;
                 divMailNotification.Visible = true;
+                ddlMailNotification.SelectedValue = "-1";
                 btnSend.Text = "Upload File";
                 btnSend.Visible = true;
                 btnSend.Focus();
@@ -501,6 +576,17 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             else if (lbActions.Text == "Assign To")
             {
                 btnAssign.Visible = true;
+                btnAssign.Text = "Assign";
+                FillCategory();
+                FillTicketSeverity();
+                FillAssignTo();
+                FillAllFields(Convert.ToInt32(ViewState["TicketNo"]));
+                MPE_AssignTo.Show();
+            }
+            else if (lbActions.Text == "Reassign")
+            {
+                btnAssign.Visible = true;
+                btnAssign.Text = "Reassign";
                 FillCategory();
                 FillTicketSeverity();
                 FillAssignTo();
@@ -534,6 +620,27 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 btnSend.Focus();
                 MPE_Conversation.Show();
                 Label2.Text = "Force Close";
+            }
+            else if (lbActions.Text == "Reopen")
+            {
+                Reopen();
+            }
+            else if (lbActions.Text == "Reject")
+            {
+                txtMessage.Text = "";
+                txtMessage.Visible = true;
+                FileUpload.Visible = false;
+                divMailNotification.Visible = false;
+                btnSend.Text = "Send";
+                btnSend.Focus();
+                MPE_Conversation.Show();
+                Label2.Text = "Reject";
+            }
+            else if (lbActions.Text == "Resend Approval")
+            {
+                FillApproval();
+                btnSendForApproval.Visible = true;
+                MPE_SendApproval.Show();
             }
             tpnlTicketHistory.Visible = true;
         }
@@ -578,6 +685,10 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             if (Label2.Text == "Approve")
             {
                 new BTickets().UpdateTicketStatusApprove(Convert.ToInt32(ViewState["TicketNo"]), PSession.User.UserID, Forum.Message);
+            }
+            if (Label2.Text == "Reject")
+            {
+                new BTickets().UpdateTicketRejectStatus(Convert.ToInt32(ViewState["TicketNo"]), PSession.User.UserID, Forum.Message);
             }
 
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
@@ -635,7 +746,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             FillTickets(Forum.HeaderID);
             FillChatTemp(Forum.HeaderID);
             FillChat(Forum.HeaderID);
-            
+
             if (AttchedFile.Count > 0)
                 AttchedFile.RemoveAt(0);
         }
@@ -739,6 +850,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 MPE_AssignTo.Show();
                 return;
             }
+
             string result = new BAPI().ApiPut("Task/TaskItem", TaskItem);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
@@ -779,7 +891,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
             messageBody = messageBody.Replace("@@Justification", txtAssignerRemark.Text);
             messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-            new EmailManager().MailSend(userAssignedTo.Mail+","+userCreatedBy.Mail, Subject, messageBody, TaskItem.HeaderID);
+            new EmailManager().MailSend(userAssignedTo.Mail + "," + userCreatedBy.Mail, Subject, messageBody, TaskItem.HeaderID);
             ClearField();
             btnAssign.Visible = false;
             MPE_AssignTo.Hide();
@@ -856,7 +968,8 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
 
                 messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
-                new EmailManager().MailSend(UserApproval.Mail, "New Ticket " + Convert.ToInt32(ViewState["TicketNo"]).ToString(), messageBody, Convert.ToInt32(ViewState["TicketNo"]));
+                PUser user = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                new EmailManager().MailSend(UserApproval.Mail + "," + user.Mail, "New Ticket " + Convert.ToInt32(ViewState["TicketNo"]).ToString(), messageBody, Convert.ToInt32(ViewState["TicketNo"]));
             }
         }
         void InProgress()
@@ -865,7 +978,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
 
             foreach (PTicketItem ticketItem in Ticket[0].TicketItems)
             {
-                if (ticketItem.ItemStatus.Status == "Assigned" && ticketItem.AssignedTo.UserID == PSession.User.UserID)
+                if (ticketItem.ItemStatus.Status == "Assigned" && ticketItem.AssignedTo.UserID == PSession.User.UserID && ticketItem.InActive == false)
                 {
                     TaskItem.HeaderID = ticketItem.HeaderID;
                     TaskItem.ItemID = ticketItem.ItemID;
@@ -889,7 +1002,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             PTaskItem_Insert TaskItem = new PTaskItem_Insert();
             foreach (PTicketItem ticketItem in Ticket[0].TicketItems)
             {
-                if ((ticketItem.ItemStatus.Status == "Assigned" || ticketItem.ItemStatus.Status == "In Progress") && ticketItem.AssignedTo.UserID == PSession.User.UserID)
+                if ((ticketItem.ItemStatus.Status == "Assigned" || ticketItem.ItemStatus.Status == "In Progress") && ticketItem.AssignedTo.UserID == PSession.User.UserID && ticketItem.InActive == false)
                 {
                     TaskItem.HeaderID = ticketItem.HeaderID;
                     TaskItem.ItemID = ticketItem.ItemID;
@@ -912,6 +1025,23 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             if (Ticket[0].Status.StatusID == 4)
             {
                 int Success = new BTickets().UpdateTicketClosedStatus(Ticket[0].HeaderID, PSession.User.UserID);
+                if (Success != 0)
+                {
+                    lblMessage.Text = "Ticket No " + Ticket[0].HeaderID + " is successfully updated.";
+                    lblMessage.ForeColor = Color.Green;
+                    lblMessage.Visible = true;
+                    int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
+                    FillTickets(TicketNo);
+                    FillChat(TicketNo);
+                    FillChatTemp(TicketNo);
+                }
+            }
+        }
+        void Reopen()
+        {
+            if (Ticket[0].Status.StatusID == 5)
+            {
+                int Success = new BTickets().UpdateTicketReopenStatus(Ticket[0].HeaderID, PSession.User.UserID);
                 if (Success != 0)
                 {
                     lblMessage.Text = "Ticket No " + Ticket[0].HeaderID + " is successfully updated.";
@@ -1039,71 +1169,94 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 }
                 fileIndex = fileIndex + 1;
             }
-
             gvResolveNewFileAttached.DataSource = AttchedFile;
             gvResolveNewFileAttached.DataBind();
         }
         void ActionControlMange()
         {
+            lbtnEditHeaderInfo.Visible = true;
             lbtnMessage.Visible = true;
             lbtnUploadFile.Visible = true;
             lbtnSendApproval.Visible = true;
+            lbtnResendApproval.Visible = true;
             lbtnApprove.Visible = true;
             lbtnAssignTo.Visible = true;
+            lbtnReassign.Visible = true;
             lbtnInProgress.Visible = true;
             lbtnResolve.Visible = true;
             lbtnCancel.Visible = true;
             lbtnForceclose.Visible = true;
             lbtnClose.Visible = true;
+            lbtnReopen.Visible = true;
+            lbtnReject.Visible = true;
+
+            if (PSession.User.Department.DealerDepartmentID != 7)
+            {
+                lbtnEditHeaderInfo.Visible = false;
+            }
+
             if (Ticket[0].Status.StatusID == 1)
             {
                 lbtnClose.Visible = false;
                 lbtnCancel.Visible = false;
                 lbtnResolve.Visible = false;
+                lbtnReassign.Visible = false;
                 lbtnInProgress.Visible = false;
                 lbtnApprove.Visible = false;
+                lbtnReopen.Visible = false;
+                lbtnReject.Visible = false;
+                lbtnResendApproval.Visible = false;
             }
             if ((Ticket[0].Status.StatusID == 2) || (Ticket[0].Status.StatusID == 8))
             {
                 lbtnApprove.Visible = false;
-                if (Ticket[0].TicketItems.Any(item => item.ItemStatus.StatusID == 2 && item.AssignedTo.UserID == PSession.User.UserID))
+                if (Ticket[0].TicketItems.Any(item => item.ItemStatus.StatusID == 2 && item.AssignedTo.UserID == PSession.User.UserID && item.InActive == false))
                 {
                     lbtnClose.Visible = false;
                     //lbtnCancel.Visible = false;
                     lbtnResolve.Visible = false;
                     //lbtnInProgress.Visible = false;
+                    lbtnReopen.Visible = false;
                 }
-                else if (Ticket[0].TicketItems.Any(item => item.ItemStatus.StatusID == 3 && item.AssignedTo.UserID == PSession.User.UserID))
+                else if (Ticket[0].TicketItems.Any(item => item.ItemStatus.StatusID == 3 && item.AssignedTo.UserID == PSession.User.UserID && item.InActive == false))
                 {
                     lbtnClose.Visible = false;
                     lbtnCancel.Visible = false;
                     //lbtnResolve.Visible = false;
+                    lbtnReassign.Visible = false;
                     lbtnInProgress.Visible = false;
+                    lbtnReopen.Visible = false;
                 }
                 else
                 {
                     lbtnClose.Visible = false;
                     lbtnCancel.Visible = false;
                     lbtnResolve.Visible = false;
+                    lbtnReassign.Visible = false;
                     lbtnInProgress.Visible = false;
+                    lbtnReopen.Visible = false;
                 }
             }
             if (Ticket[0].Status.StatusID == 3)
             {
                 lbtnApprove.Visible = false;
-                if (Ticket[0].TicketItems.Any(item => item.ItemStatus.StatusID == 3 && item.AssignedTo.UserID == PSession.User.UserID))
+                if (Ticket[0].TicketItems.Any(item => item.ItemStatus.StatusID == 3 && item.AssignedTo.UserID == PSession.User.UserID && item.InActive == false))
                 {
                     lbtnClose.Visible = false;
                     //lbtnCancel.Visible = false;
                     //lbtnResolve.Visible = false;
+                    lbtnReassign.Visible = false;
                     lbtnInProgress.Visible = false;
+                    lbtnReopen.Visible = false;
                 }
                 else
                 {
                     lbtnClose.Visible = false;
                     lbtnCancel.Visible = false;
                     lbtnResolve.Visible = false;
+                    lbtnReassign.Visible = false;
                     lbtnInProgress.Visible = false;
+                    lbtnReopen.Visible = false;
                 }
             }
             if (Ticket[0].Status.StatusID == 4)
@@ -1111,6 +1264,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lbtnApprove.Visible = false;
                 lbtnCancel.Visible = false;
                 lbtnResolve.Visible = false;
+                lbtnReassign.Visible = false;
                 lbtnInProgress.Visible = false;
                 lbtnForceclose.Visible = false;
                 lbtnSendApproval.Visible = false;
@@ -1118,6 +1272,9 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 {
                     lbtnClose.Visible = false;
                 }
+                lbtnReopen.Visible = false;
+                lbtnReject.Visible = false;
+                lbtnResendApproval.Visible = false;
             }
 
             if (Ticket[0].Status.StatusID == 6)
@@ -1125,13 +1282,17 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lbtnAssignTo.Visible = false;
                 lbtnCancel.Visible = false;
                 lbtnResolve.Visible = false;
+                lbtnReassign.Visible = false;
                 lbtnInProgress.Visible = false;
                 lbtnClose.Visible = false;
 
-                if (!Ticket[0].ApprovalDetails.Any(item => item.IsAppoved != true && item.Approver.ContactName == PSession.User.ContactName))
+                if (!Ticket[0].ApprovalDetails.Any(item => item.IsAppoved != true && item.Approver.ContactName == PSession.User.ContactName && item.InActive == false))
                 {
                     lbtnApprove.Visible = false;
+                    lbtnReject.Visible = false;
+                    lbtnResendApproval.Visible = false;
                 }
+                lbtnReopen.Visible = false;
             }
             bool containsItemHideAll = Ticket.Any(item => item.Status.StatusID == 5 || item.Status.StatusID == 11);
             if (containsItemHideAll)
@@ -1139,15 +1300,51 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lbtnSendApproval.Visible = false;
                 lbtnApprove.Visible = false;
                 lbtnAssignTo.Visible = false;
+                lbtnReassign.Visible = false;
                 lbtnInProgress.Visible = false;
                 lbtnResolve.Visible = false;
                 lbtnCancel.Visible = false;
                 lbtnForceclose.Visible = false;
                 lbtnClose.Visible = false;
+                if (Ticket[0].CreatedBy.UserID != PSession.User.UserID)
+                {
+                    lbtnReopen.Visible = false;
+                }
+                lbtnReject.Visible = false;
+                lbtnResendApproval.Visible = false;
+            }
+            if ((Ticket[0].Status.StatusID != 6) || (Ticket[0].ApprovalDetails.Any(item => item.Approver.ContactName != PSession.User.ContactName && item.InActive == false) && Ticket[0].ApprovalDetails.Any(item => item.IsAppoved == true && (item.RejectedBy != null) ? (item.RejectedBy.ContactName == PSession.User.ContactName) : (item.Approver.ContactName == PSession.User.ContactName))))
+            {
+                lbtnReject.Visible = false;
+                lbtnApprove.Visible = false;
+                lbtnResendApproval.Visible = false;
+            }
+            if (Ticket[0].Status.StatusID == 12)
+            {
+                lbtnSendApproval.Visible = false;
+                lbtnApprove.Visible = false;
+                lbtnAssignTo.Visible = false;
+                lbtnReassign.Visible = false;
+                lbtnInProgress.Visible = false;
+                lbtnResolve.Visible = false;
+                lbtnCancel.Visible = false;
+                lbtnForceclose.Visible = false;
+                lbtnClose.Visible = false;
+                lbtnReopen.Visible = false;
+                lbtnReject.Visible = false;
+                lbtnResendApproval.Visible = false;
+            }
+            if (Ticket[0].TicketItems.Count > 0 && Ticket[0].Status.StatusID != 1)
+            {
+                lbtnAssignTo.Visible = false;
+            }
+            if (Ticket[0].ApprovalDetails.Count > 0 && Ticket[0].Status.StatusID != 1)
+            {
+                lbtnSendApproval.Visible = false;
             }
 
             if (PSession.User.UserID == 1 || PSession.User.UserID == 382 || PSession.User.UserID == 491
-               || PSession.User.UserID == 383 || PSession.User.UserID == 2954)
+       || PSession.User.UserID == 383 || PSession.User.UserID == 2954)
             {
 
             }
@@ -1155,16 +1352,71 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             {
                 lbtnAssignTo.Visible = false;
                 lbtnSendApproval.Visible = false;
-              
             }
-            if (PSession.User.UserID == 1 )
+            if (PSession.User.UserID == 1)
             {
 
             }
             else
-            { 
+            {
                 lbtnForceclose.Visible = false;
             }
+        }
+
+        protected void btnUpdateHeaderInfo_Click(object sender, EventArgs e)
+        {
+            if (!validationHeaderEditInfo())
+            {
+                lblMessageHeaderEdit.ForeColor = Color.Red;
+                lblMessageHeaderEdit.Visible = true;
+                MPE_EditHeaderInfo.Show();
+                return;
+            }
+            PTask_Insert TaskHeader = new PTask_Insert();
+            TaskHeader.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
+            TaskHeader.CategoryID = Convert.ToInt32(ddlEditCategory.SelectedValue);
+            TaskHeader.SubCategoryID = Convert.ToInt32(ddlEditSubCategory.SelectedValue);
+            TaskHeader.TicketTypeID = Convert.ToInt32(ddlEditTicketType.SelectedValue);
+            TaskHeader.SeverityID = Convert.ToInt32(ddlEditSeverity.SelectedValue);
+            TaskHeader.Subject = txtEditSubject.Text.Trim();
+            TaskHeader.Description = txtEditDescription.Text.Trim();
+            long success = new BTickets().UpdateHeaderInfo(TaskHeader, Convert.ToInt32(PSession.User.UserID));
+            if (success==0)
+            {
+                lblMessageHeaderEdit.Text = "Ticket Not Updated successfully.";
+                lblMessageHeaderEdit.ForeColor = Color.Red;
+                lblMessageHeaderEdit.Visible = true;
+                MPE_EditHeaderInfo.Show();
+                return;
+            }
+            lblMessage.Text = "Ticket No " + Convert.ToInt32(ViewState["TicketNo"]) + " is successfully updated.";
+            lblMessage.ForeColor = Color.Green;
+            lblMessage.Visible = true;
+        }
+
+        protected void ddlEditCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillEditSubCategory();
+            MPE_EditHeaderInfo.Show();
+        }
+        void FillEditInfo(int TicketNo)
+        {
+            ddlEditCategory.SelectedValue = Convert.ToString(Ticket[0].Category.CategoryID);
+            FillEditSubCategory();
+            if (Ticket[0].SubCategory != null)
+            {
+                ddlEditSubCategory.SelectedValue = Convert.ToString(Ticket[0].SubCategory.SubCategoryID);
+            }
+            if (Ticket[0].Type != null)
+            {
+                ddlEditTicketType.SelectedValue = Convert.ToString(Ticket[0].Type.TypeID);
+            }
+            if (Ticket[0].Severity != null)
+            {
+                ddlEditSeverity.SelectedValue = Convert.ToString(Ticket[0].Severity.SeverityID);
+            }
+            txtEditSubject.Text = Ticket[0].Subject.ToString();
+            txtEditDescription.Text = Ticket[0].Description.ToString();
         }
     }
     class PMessage

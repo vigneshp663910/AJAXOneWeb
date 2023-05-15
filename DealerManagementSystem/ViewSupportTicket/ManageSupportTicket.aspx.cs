@@ -67,21 +67,38 @@ namespace DealerManagementSystem.ViewSupportTicket
                 //  new FillDropDownt().Department(ddlDepartment); 
                 //FillTickets();
                 List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
-                new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");                
+                new DDLBind(ddlCreatedBy, DealerUser, "ContactName", "UserID");
+                new DDLBind(ddlAssignedTo, DealerUser, "ContactName", "UserID");
+                new DDLBind(ddlApprovalTo, DealerUser, "ContactName", "UserID");
+                string Status = string.Empty;
                 if (Session["DashboardTaskStatus"] != null)
-                {                    
+                {
                     foreach (ListItem li in lbStatus.Items)
                     {
-                        if(Session["DashboardTaskStatus"].ToString().Contains(li.Text))
+                        if (Session["DashboardTaskStatus"].ToString().Contains(li.Text))
                         {
                             li.Selected = true;
+                            Status = li.Text;
                         }
                     }
                 }
                 if (Session["DashboardTaskUserID"] != null)
                 {
-                    ddlEmployee.SelectedValue = Session["DashboardTaskUserID"].ToString();
+                    //ddlCreatedBy.SelectedValue = Session["DashboardTaskUserID"].ToString();
+                    if (Status == "In Progress" || Status == "Assigned" || Status == "Resolved" || Status == "Closed" || Status == "Cancel" || Status == "Foreclose")
+                    {
+                        ddlAssignedTo.SelectedValue = Session["DashboardTaskUserID"].ToString();
+                    }
+                    if (Status == "Waiting for Approval" || Status == "Approved" || Status == "Reject")
+                    {
+                        ddlApprovalTo.SelectedValue = Session["DashboardTaskUserID"].ToString();
+                    }
+                    if (Status == "Open")
+                    {
+                        ddlCreatedBy.SelectedValue = Session["DashboardTaskUserID"].ToString();
+                    }
                 }
+
                 PageIndex = 1;
                 FillTickets();
             }
@@ -117,6 +134,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                     TicketStatus = TicketStatus + "," + li.Text;
                 }
             }
+            TicketStatus = TicketStatus.Replace(",Select", "");
             DateTime? TicketFrom = null;
             if (!string.IsNullOrEmpty(txtTicketFrom.Text))
             {
@@ -129,9 +147,18 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
             PUser User = PSession.User;
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            int UserID = (ddlEmployee.SelectedValue == "0") ? PSession.User.UserID : Convert.ToInt32(ddlEmployee.SelectedValue);
+            int? UserID = null;
+            if (Session["DashboardTaskUserID"] == null)
+            {
+                UserID = PSession.User.UserID;
+            }
+            int? CreatedBy = null, AssignedTo = null, ApprovalTo = null;
+            CreatedBy = (ddlCreatedBy.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlCreatedBy.SelectedValue);
+            AssignedTo = (ddlAssignedTo.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlAssignedTo.SelectedValue);
+            ApprovalTo = (ddlApprovalTo.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlApprovalTo.SelectedValue);
             int RowCount = 0;
-            TicketHeader = new BTickets().GetTicketDetailsSupport(TicketNO, null, CategoryID, SubCategoryID, SeverityID, TypeId, null, null, UserID, TicketStatus, TicketFrom, TicketTo, PageIndex, gvTickets.PageSize, out RowCount);
+
+            TicketHeader = new BTickets().GetTicketDetailsSupport(TicketNO, null, CategoryID, SubCategoryID, SeverityID, TypeId, CreatedBy, AssignedTo, ApprovalTo, UserID, TicketStatus, TicketFrom, TicketTo, PageIndex, gvTickets.PageSize, out RowCount);
 
             if (RowCount == 0)
             {
@@ -156,8 +183,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
                 ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
-
-                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), UserID);
+                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), (UserID == null) ? Convert.ToInt32(Session["DashboardTaskUserID"]) : UserID);
                 if (count == 0)
                 {
                     ibMessage.ImageUrl = "~/Images/Message.jpg";
@@ -186,7 +212,8 @@ namespace DealerManagementSystem.ViewSupportTicket
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? SubCategoryID = null;
             int? TypeId = ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
-            int UserID = (ddlEmployee.SelectedValue == "0") ? PSession.User.UserID : Convert.ToInt32(ddlEmployee.SelectedValue);
+            //int UserID = (ddlEmployee.SelectedValue == "0") ? PSession.User.UserID : Convert.ToInt32(ddlEmployee.SelectedValue);
+            int UserID = PSession.User.UserID;
             string TicketStatus = "";
             DataTable dt = new DataTable(); ;
             foreach (ListItem li in lbStatus.Items)
@@ -207,7 +234,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 dt.Merge(dtTickets);
                 CRowcount = dtTickets.Rows.Count;
             }
-            
+
             new BXcel().ExporttoExcel(dt, "TicketReport");
 
         }
@@ -215,7 +242,8 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            int UserID = (ddlEmployee.SelectedValue == "0") ? PSession.User.UserID : Convert.ToInt32(ddlEmployee.SelectedValue);
+            //int UserID = (ddlEmployee.SelectedValue == "0") ? PSession.User.UserID : Convert.ToInt32(ddlEmployee.SelectedValue);
+            int UserID = PSession.User.UserID;
             int RowCount = 0;
             PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null, null, null, PageIndex, gvTickets.PageSize, out RowCount)[0];
 

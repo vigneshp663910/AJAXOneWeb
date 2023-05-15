@@ -78,11 +78,6 @@ namespace DealerManagementSystem.ViewSupportTicket
                 FillTicketSeverity();
                 FillTicketType();
                 //FillResolutionType();
-                if (Session["DashboardTaskUserID"] != null)
-                {
-                    ViewState["DashboardTaskUserID"] = Session["DashboardTaskUserID"];
-                    Session["DashboardTaskUserID"] = null;
-                }
                 FillTickets();
                 //if (PSession.User.UserTypeID == (short)UserTypes.Manager || PSession.User.UserTypeID == (short)UserTypes.Admin)
                 //{
@@ -143,7 +138,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
             int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
             int? TicketType = ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
-            int UserID = (ViewState["DashboardTaskUserID"] == null) ? PSession.User.UserID : Convert.ToInt32(ViewState["DashboardTaskUserID"]);
+            int UserID = PSession.User.UserID;
             string AssignedTo = PSession.User.UserName;
             int RowCount = 0;
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();

@@ -31,8 +31,18 @@ namespace DealerManagementSystem.ViewDashboard
             {
                 new FillDropDownt().Category(ddlCategory, null, null);
                 ddlCategory_SelectedIndexChanged(null, null);
-                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, 7, null);
+                //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, 7, null);
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
                 new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
+                if(PSession.User.Department.DealerDepartmentID!=7)
+                {
+                    ddlEmployee.SelectedValue = PSession.User.UserID.ToString();
+                    ddlEmployee.Enabled = false;
+                }
+                else
+                {
+                    ddlEmployee.Enabled = true;
+                }
                 var today = DateTime.Now;
                 txtTicketFrom.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("yyyy-MM-dd");
                 txtTicketTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -47,7 +57,7 @@ namespace DealerManagementSystem.ViewDashboard
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            Session["DashboardTaskUserID"] = (ddlEmployee.SelectedValue == "0") ? null : ddlEmployee.SelectedValue;
+            Session["DashboardTaskUserID"] = ddlEmployee.SelectedValue;
             if (lbActions.Text == "Created")
             {
                 Session["DashboardTaskStatus"] = "";
@@ -60,16 +70,26 @@ namespace DealerManagementSystem.ViewDashboard
             else if (lbActions.Text == "Assigned")
             {
                 Session["DashboardTaskStatus"] = ",Assigned";
-                Response.Redirect("../ViewSupportTicket/AssignedSupportTicket.aspx");
+                Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
             }
-            else if (lbActions.Text == "In Progress")
+            else if (lbActions.Text == "InProgress")
             {
                 Session["DashboardTaskStatus"] = ",In Progress";
-                Response.Redirect("../ViewSupportTicket/InProgressSupportTicket.aspx");
+                Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
+            }
+            else if (lbActions.Text == "Approved")
+            {
+                Session["DashboardTaskStatus"] = ",Approved";
+                Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
+            }
+            else if (lbActions.Text == "Reject")
+            {
+                Session["DashboardTaskStatus"] = ",Reject";
+                Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
             }
             else if (lbActions.Text == "Resolved")
             {
-                Session["DashboardTaskStatus"] = ",Resolved,Closed";
+                Session["DashboardTaskStatus"] = ",Resolved,Closed,Cancel,Foreclose";
                 Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
             }
             else if (lbActions.Text == "Approval")
@@ -115,6 +135,8 @@ namespace DealerManagementSystem.ViewDashboard
                 lblWaitingForApproval.Text = ds.Tables[0].Compute("Sum(WaitingForApproval)", "").ToString();
                 lblAssigned.Text = ds.Tables[0].Compute("Sum(Assigned)", "").ToString();
                 lblInProgress.Text = ds.Tables[0].Compute("Sum(InProgress)", "").ToString();
+                lblApproved.Text = ds.Tables[0].Compute("Sum(Approved)", "").ToString();
+                lblReject.Text = ds.Tables[0].Compute("Sum(Reject)", "").ToString();
                 //lblResolved.Text = ds.Tables[0].Compute("Sum(Resolved)", "").ToString();
                 //lblClosed.Text = ds.Tables[0].Compute("Sum(Closed)", "").ToString();
                 lblClosed.Text = (Convert.ToDouble(ds.Tables[0].Compute("Sum(Resolved)", "")) + Convert.ToDouble(ds.Tables[0].Compute("Sum(Closed)", ""))).ToString();
@@ -144,18 +166,26 @@ namespace DealerManagementSystem.ViewDashboard
                 gvTickets.FooterRow.Cells[6].Text = ds.Tables[0].Compute("SUM(WaitingForApproval)", "").ToString();
                 gvTickets.FooterRow.Cells[6].HorizontalAlign = HorizontalAlign.Right;
                 gvTickets.FooterRow.Cells[6].BackColor = Color.Firebrick;
-                gvTickets.FooterRow.Cells[6].ForeColor = Color.White;
-                gvTickets.FooterRow.Cells[7].Text = ds.Tables[0].Compute("SUM(Resolved)", "").ToString();
+                gvTickets.FooterRow.Cells[6].ForeColor = Color.White;                
+                gvTickets.FooterRow.Cells[7].Text = ds.Tables[0].Compute("SUM(Approved)", "").ToString();
                 gvTickets.FooterRow.Cells[7].HorizontalAlign = HorizontalAlign.Right;
-                gvTickets.FooterRow.Cells[7].BackColor = Color.DarkOliveGreen;
+                gvTickets.FooterRow.Cells[7].BackColor = Color.Firebrick;
                 gvTickets.FooterRow.Cells[7].ForeColor = Color.White;
-                gvTickets.FooterRow.Cells[8].Text = ds.Tables[0].Compute("SUM(Closed)", "").ToString();
+                gvTickets.FooterRow.Cells[8].Text = ds.Tables[0].Compute("SUM(Reject)", "").ToString();
                 gvTickets.FooterRow.Cells[8].HorizontalAlign = HorizontalAlign.Right;
                 gvTickets.FooterRow.Cells[8].BackColor = Color.DarkOliveGreen;
                 gvTickets.FooterRow.Cells[8].ForeColor = Color.White;
-                double Average = ((Convert.ToDouble(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(WaitingForApproval)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(InProgress)", ""))) / Convert.ToDouble(ds.Tables[0].Compute("SUM(TotalCreated)", ""))) * 100;
-                gvTickets.FooterRow.Cells[9].Text = Average.ToString("N2");
+                gvTickets.FooterRow.Cells[9].Text = ds.Tables[0].Compute("SUM(Resolved)", "").ToString();
                 gvTickets.FooterRow.Cells[9].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[9].BackColor = Color.DarkOliveGreen;
+                gvTickets.FooterRow.Cells[9].ForeColor = Color.White;
+                gvTickets.FooterRow.Cells[10].Text = ds.Tables[0].Compute("SUM(Closed)", "").ToString();
+                gvTickets.FooterRow.Cells[10].HorizontalAlign = HorizontalAlign.Right;
+                gvTickets.FooterRow.Cells[10].BackColor = Color.DarkOliveGreen;
+                gvTickets.FooterRow.Cells[10].ForeColor = Color.White;
+                double Average = ((Convert.ToDouble(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(WaitingForApproval)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(InProgress)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Approved)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Reject)", ""))) / Convert.ToDouble(ds.Tables[0].Compute("SUM(TotalCreated)", ""))) * 100;
+                gvTickets.FooterRow.Cells[11].Text = Average.ToString("N2");
+                gvTickets.FooterRow.Cells[11].HorizontalAlign = HorizontalAlign.Right;
 
                 GridViewRow footer = gvTickets.FooterRow;
                 int numCells = footer.Cells.Count;
@@ -169,10 +199,10 @@ namespace DealerManagementSystem.ViewDashboard
                 newRow.Cells[1].Text = "Average";
                 newRow.Cells[2].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(TotalCreated)", ""))/ Convert.ToInt32(ds.Tables[0].Rows.Count)).ToString();
                 newRow.Cells[2].ForeColor = Color.FromArgb(135, 117, 167);
-                newRow.Cells[6].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(InProgress)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(WaitingForApproval)", ""))).ToString();
-                newRow.Cells[6].ForeColor = Color.Firebrick;
-                newRow.Cells[8].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(Resolved)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Closed)", ""))).ToString();
-                newRow.Cells[8].ForeColor = Color.DarkOliveGreen;
+                newRow.Cells[7].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(InProgress)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(WaitingForApproval)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Approved)", ""))).ToString();
+                newRow.Cells[7].ForeColor = Color.Firebrick;
+                newRow.Cells[10].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(Resolved)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Closed)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Reject)", ""))).ToString();
+                newRow.Cells[10].ForeColor = Color.DarkOliveGreen;
                 gvTickets.Controls[0].Controls.Add(newRow);
 
 

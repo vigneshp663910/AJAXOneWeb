@@ -8,11 +8,13 @@ namespace Properties
 {
     public class PTask_Insert
     {
+        public int HeaderID { get; set; }
         public int CategoryID { get; set; }
         public int? SubCategoryID { get; set; }
         public string Subject { get; set; }
         public Boolean Repeat { get; set; }
         public int TicketTypeID { get; set; }
+        public int SeverityID { get; set; }
         public string Description { get; set; }
         public int? ActualCreater { get; set; }
         public string MobileNo { get; set; }
@@ -76,6 +78,7 @@ namespace Properties
 
         public DateTime? UATOn { get; set; }
         public string UATRemark { get; set; }
+        public string SLA { get; set; }
     }
     public class PTicketItem
     {
@@ -103,6 +106,7 @@ namespace Properties
 
         public DateTime? InProgressOn { get; set; }
         public DateTime? ResolvedOn { get; set; }
+        public Boolean InActive { get; set; }
     }
     public class PForum
     {
@@ -129,5 +133,8 @@ namespace Properties
         public DateTime RequestedOn { get; set; }
         public string RequestedRemark { get; set; }
         public string ApproverRemark { get; set; }
+        public PUser RejectedBy { get; set; }
+        public DateTime? RejectedOn { get; set; }
+        public Boolean InActive { get; set; }
     }
 }

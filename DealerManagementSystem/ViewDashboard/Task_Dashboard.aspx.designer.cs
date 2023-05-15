@@ -159,6 +159,42 @@ namespace DealerManagementSystem.ViewDashboard
         protected global::System.Web.UI.WebControls.LinkButton lbtnWaitingForApproval;
 
         /// <summary>
+        /// lblApproved control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApproved;
+
+        /// <summary>
+        /// lbtnApproved control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnApproved;
+
+        /// <summary>
+        /// lblReject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReject;
+
+        /// <summary>
+        /// lbtnReject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnReject;
+
+        /// <summary>
         /// lblClosed control.
         /// </summary>
         /// <remarks>

@@ -12,6 +12,7 @@ namespace DealerManagementSystem.ViewAdmin
 {
     public partial class DealerSalesConfiguration : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewAdmin_DealerSalesConfiguration; } }
         public List<PDMS_District> DealerSalesDistrict
         {
             get
@@ -29,10 +30,12 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            Session["previousUrl"] = "DealerSalesConfiguration.aspx";
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
+            this.Page.MasterPageFile = "~/Dealer.master";
         }
         protected void Page_Load(object sender, EventArgs e)
         {
