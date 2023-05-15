@@ -25,15 +25,15 @@ namespace DealerManagementSystem.ViewAdmin
         {
             get
             {
-                if (Session["PModuleAccess"] == null)
+                if (ViewState["PModuleAccess"] == null)
                 {
-                    Session["PModuleAccess"] = new List<PModuleAccess>();
+                    ViewState["PModuleAccess"] = new List<PModuleAccess>();
                 }
-                return (List<PModuleAccess>)Session["PModuleAccess"];
+                return (List<PModuleAccess>)ViewState["PModuleAccess"];
             }
             set
             {
-                Session["PModuleAccess"] = value;
+                ViewState["PModuleAccess"] = value;
             }
         }
 
@@ -41,15 +41,15 @@ namespace DealerManagementSystem.ViewAdmin
         {
             get
             {
-                if (Session["SubModuleChile"] == null)
+                if (ViewState["SubModuleChile"] == null)
                 {
-                    Session["SubModuleChile"] = new List<PSubModuleChild>();
+                    ViewState["SubModuleChile"] = new List<PSubModuleChild>();
                 }
-                return (List<PSubModuleChild>)Session["SubModuleChile"];
+                return (List<PSubModuleChild>)ViewState["SubModuleChile"];
             }
             set
             {
-                Session["SubModuleChile"] = value;
+                ViewState["SubModuleChile"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -61,13 +61,9 @@ namespace DealerManagementSystem.ViewAdmin
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
                 new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
-
-                FillUser();
-              
-                
+                FillUser();                             
             }
         }
-
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
             new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
@@ -76,18 +72,17 @@ namespace DealerManagementSystem.ViewAdmin
         {
             get
             {
-                if (Session["PUser"] == null)
+                if (ViewState["PUser"] == null)
                 {
-                    Session["PUser"] = new List<PUser>();
+                    ViewState["PUser"] = new List<PUser>();
                 }
-                return (List<PUser>)Session["PUser"];
+                return (List<PUser>)ViewState["PUser"];
             }
             set
             {
-                Session["PUser"] = value;
+                ViewState["PUser"] = value;
             }
         }
-
         protected void ibtnUserArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvUser.PageIndex > 0)
@@ -104,15 +99,12 @@ namespace DealerManagementSystem.ViewAdmin
                 UserBind(gvUser, lblRowCount, UserLst);
             }
         }
-
         void UserBind(GridView gv, Label lbl, List<PUser> UserLst)
         {
             gv.DataSource = UserLst;
             gv.DataBind();
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + UserLst.Count;
         }
-
-
         void FillUser()
         {
             //int? EmpId = null;
@@ -169,7 +161,7 @@ namespace DealerManagementSystem.ViewAdmin
             pnlUser.Visible = false;
             pnlModule.Visible = true;
             pnlDealer.Visible = false;
-            btnUpdate.Visible = true;
+            //btnUpdate.Visible = true;
             btnBack.Visible = true;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
@@ -253,7 +245,6 @@ namespace DealerManagementSystem.ViewAdmin
                 }
             }
         }
-
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             List<int> AccessM = new List<int>();
@@ -313,7 +304,6 @@ namespace DealerManagementSystem.ViewAdmin
                 }
             }
 
-
             if (new BUser().UpdateUserPermition(Convert.ToInt64(ViewState["EId"]), AccessM, AccessSCM, AccessD, AccessDB, MobileFeature, PSession.User.UserID))
             {
                 //List<PModuleAccess> AccessModule = new BUser().GetDMSModuleAll();
@@ -321,7 +311,7 @@ namespace DealerManagementSystem.ViewAdmin
                 //gvModule.DataSource = AccessModule;
                 //gvModule.DataBind();
                 //fillDealer();
-                btnUpdate.Visible = false;
+                //btnUpdate.Visible = false;
                 btnBack.Visible = false;
                 pnlDealer.Visible = false;
                 pnlModule.Visible = false;
@@ -339,7 +329,6 @@ namespace DealerManagementSystem.ViewAdmin
             lblMessage.Visible = true;
 
         }
-
         protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             DateTime traceStartTime = DateTime.Now;
@@ -367,7 +356,6 @@ namespace DealerManagementSystem.ViewAdmin
                 throw ex;
             }
         }
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             FillUser();
@@ -376,9 +364,7 @@ namespace DealerManagementSystem.ViewAdmin
         {
             gvUser.PageIndex = e.NewPageIndex;
             FillUser();
-
         }
-
         void fillDealer()
         {
             List<PDealer> dealer = new BDealer().GetDealerList(null, "", "");
@@ -394,7 +380,6 @@ namespace DealerManagementSystem.ViewAdmin
         //    ddlDealer.DataBind();
         //    ddlDealer.Items.Insert(0, new ListItem("All", "0"));
         //}
-
         protected void cbAllDealer_CheckedChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < dlDealer.Items.Count; i++)
@@ -406,7 +391,6 @@ namespace DealerManagementSystem.ViewAdmin
                     cbSMId.Checked = false;
             }
         }
-
         protected void cbAll_CheckedChanged(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -421,18 +405,16 @@ namespace DealerManagementSystem.ViewAdmin
                     cbSMId.Checked = false;
             }
         }
-
         protected void btnBack_Click(object sender, EventArgs e)
         {
             divList.Visible = true;
-            btnUpdate.Visible = false;
+            //btnUpdate.Visible = false;
             btnBack.Visible = false;
             pnlDealer.Visible = false;
             pnlModule.Visible = false;
             pnlUser.Visible = true;
 
         }
-
         protected void cbAllDashboard_CheckedChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < dlDashboard.Items.Count; i++)
@@ -444,7 +426,6 @@ namespace DealerManagementSystem.ViewAdmin
                     cbSMId.Checked = false;
             }
         }
-
         void fillDashboard()
         {
             List<PDMS_Dashboard> Dashboard = new BDMS_Dashboard().GetDashboardAll(null);
@@ -454,8 +435,6 @@ namespace DealerManagementSystem.ViewAdmin
             dlMobileFeatureAccess.DataSource = new BUser().GetUserMobileFeature();
             dlMobileFeatureAccess.DataBind();
         }
-
-
         protected void btnEdit_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -506,9 +485,7 @@ namespace DealerManagementSystem.ViewAdmin
             cbIsEnabled.Enabled = true;
             cbAjaxOne.Enabled = true;
             cbIsDisabledService.Enabled = true;
-
         }
-
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -560,7 +537,6 @@ namespace DealerManagementSystem.ViewAdmin
             cbAjaxOne.Enabled = false;
             cbIsDisabledService.Enabled = false;
         }
-
         protected void GvbtnUpdate_Click(object sender, EventArgs e)
         {
             lblMessage.Visible = true;
@@ -656,22 +632,16 @@ namespace DealerManagementSystem.ViewAdmin
                 lblMessage.Text = "State is not Updated Successfully";
                 lblMessage.ForeColor = Color.Red;
             }
-
-        }
-         
+        }         
         protected void gvSubModuleChild_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 
         }
-
         protected void dlModule_DataBinding(object sender, EventArgs e)
         {
             DateTime traceStartTime = DateTime.Now;
             try
-            {
-                 
-
-
+            {                
                 TraceLogger.Log(traceStartTime);
             }
             catch (Exception ex)
@@ -680,7 +650,6 @@ namespace DealerManagementSystem.ViewAdmin
                 throw ex;
             }
         }
-
         protected void dlModule_ItemDataBound(object sender, DataListItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -704,7 +673,6 @@ namespace DealerManagementSystem.ViewAdmin
                 }
             }
         }
-
         protected void btnUserResetPassword_Click(object sender, EventArgs e)
         {
             lblMessage.Visible = true;

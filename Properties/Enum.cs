@@ -478,6 +478,7 @@ namespace Properties
         ViewSupportTicket_WaitingForApprovalSupportTicket = 233,
         ViewAdmin_DealerSalesConfiguration = 234,
         ViewAdmin_DealerServiceConfiguration = 235,
+        ViewAdmin_UserAccessManagement = 236,
     }
     public enum SubModuleChildMaster
     {
