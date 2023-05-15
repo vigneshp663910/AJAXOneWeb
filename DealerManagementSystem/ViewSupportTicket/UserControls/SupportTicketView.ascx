@@ -6,16 +6,21 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                <asp:LinkButton ID="lbtnEditHeaderInfo" runat="server" OnClick="lbActions_Click">Edit Header Info</asp:LinkButton>
                 <asp:LinkButton ID="lbtnMessage" runat="server" OnClick="lbActions_Click">Message</asp:LinkButton>
                 <asp:LinkButton ID="lbtnUploadFile" runat="server" OnClick="lbActions_Click">Upload File</asp:LinkButton>
                 <asp:LinkButton ID="lbtnSendApproval" runat="server" OnClick="lbActions_Click">Request For Approval</asp:LinkButton>
+                <asp:LinkButton ID="lbtnResendApproval" runat="server" OnClick="lbActions_Click">Resend Approval</asp:LinkButton>
                 <asp:LinkButton ID="lbtnApprove" runat="server" OnClick="lbActions_Click">Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAssignTo" runat="server" OnClick="lbActions_Click">Assign To</asp:LinkButton>
+                <asp:LinkButton ID="lbtnReassign" runat="server" OnClick="lbActions_Click">Reassign</asp:LinkButton>
                 <asp:LinkButton ID="lbtnInProgress" runat="server" OnClick="lbActions_Click">In Progress</asp:LinkButton>
                 <asp:LinkButton ID="lbtnResolve" runat="server" OnClick="lbActions_Click">Resolve</asp:LinkButton>
                 <asp:LinkButton ID="lbtnCancel" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
                 <asp:LinkButton ID="lbtnForceclose" runat="server" OnClick="lbActions_Click">Force Close</asp:LinkButton>
                 <asp:LinkButton ID="lbtnClose" runat="server" OnClick="lbActions_Click">Close</asp:LinkButton>
+                <asp:LinkButton ID="lbtnReopen" runat="server" OnClick="lbActions_Click">Reopen</asp:LinkButton>
+                <asp:LinkButton ID="lbtnReject" runat="server" OnClick="lbActions_Click">Reject</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -84,7 +89,44 @@
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
-<asp:TabContainer ID="tbpTaskView" runat="server" ToolTip="Assigned Status..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="10">
+<asp:TabContainer ID="tbpTaskView" runat="server" ToolTip="Assigned Status..." Font-Bold="True" Font-Size="Medium">    
+    <asp:TabPanel ID="tpnlTicketHistory" runat="server" HeaderText="Ticket History" Font-Bold="True" ToolTip="Ticket Conversations...">
+        <ContentTemplate>
+            <div class="col-md-12" id="Div1" runat="server">
+                <div class="col-md-12 Report">
+                    <asp:GridView ID="gvchar" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Message" HeaderStyle-Width="10px">
+                                <ItemStyle VerticalAlign="Middle" BackColor="White" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblID" Text='<%# DataBinder.Eval(Container.  DataItem, "ID")%>' runat="server" Visible="false" />
+                                    <asp:Label ID="Label1" Text='<%# DataBinder.Eval(Container.  DataItem, "Name")%>' runat="server" />
+                                    <asp:Label ID="lblTicketType" Text='<%# DataBinder.Eval(Container.  DataItem, "Message")%>' runat="server" Visible='<%# DataBinder.Eval(Container.  DataItem, "MessageVisible")%>' />
+                                    <div id="divFile" runat="server" class='<%# DataBinder.Eval(Container.  DataItem, "CssClass")%>' visible='<%# DataBinder.Eval(Container.  DataItem, "FileTypeVisible")%>'>
+                                        <asp:ImageButton ID="ibDownload" runat="server" ImageUrl='<%# DataBinder.Eval(Container.  DataItem, "FileType")%>' Width="30px" OnClick="ibDownload_Click" />
+                                        <asp:LinkButton ID="lnkDownload" Text='<%# DataBinder.Eval(Container.  DataItem, "Message")%>' runat="server" OnClick="lnkDownload_Click" />
+                                    </div>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                </div>
+                <%--<div class="col-md-12">
+                    <div class="col-md-2">
+                        <asp:RadioButton ID="rbMessage" runat="server" Text="Message" OnCheckedChanged="rbMessage_CheckedChanged" GroupName="File" Checked="true" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-2">
+                        <asp:RadioButton ID="rbMFile" runat="server" Text="Upload File" OnCheckedChanged="rbMessage_CheckedChanged" GroupName="File" AutoPostBack="true" />
+                    </div>
+                </div>--%>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
     <asp:TabPanel ID="tpnlAssigned" runat="server" HeaderText="Assigned" Font-Bold="True" ToolTip="Assigned Status...">
         <ContentTemplate>
             <div class="col-md-12 Report">
@@ -127,6 +169,12 @@
                                     <asp:Label ID="lblResolution" Text='<%# DataBinder.Eval(Container.DataItem, "Resolution")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Resolved On">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblResolvedOn" Text='<%# DataBinder.Eval(Container.DataItem, "ResolvedOn")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Expectation (H)">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
@@ -151,33 +199,10 @@
                                     <asp:Label ID="lblAssignedByContactNumber" Text='<%# DataBinder.Eval(Container.DataItem, "AssignedBy.ContactNumber")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                        </Columns>
-                        <AlternatingRowStyle BackColor="#ffffff" />
-                        <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                    </asp:GridView>
-                </div>
-            </div>
-        </ContentTemplate>
-    </asp:TabPanel>
-    <asp:TabPanel ID="tpnlTicketHistory" runat="server" HeaderText="Ticket History" Font-Bold="True" ToolTip="Ticket Conversations...">
-        <ContentTemplate>
-            <div class="col-md-12" id="Div1" runat="server">
-                <div class="col-md-12 Report">
-                    <asp:GridView ID="gvchar" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid">
-                        <Columns>
-                            <asp:TemplateField HeaderText="Message" HeaderStyle-Width="10px">
-                                <ItemStyle VerticalAlign="Middle" BackColor="White" />
+                            <asp:TemplateField HeaderText="InActive">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblID" Text='<%# DataBinder.Eval(Container.  DataItem, "ID")%>' runat="server" Visible="false" />
-                                    <asp:Label ID="Label1" Text='<%# DataBinder.Eval(Container.  DataItem, "Name")%>' runat="server" />
-                                    <asp:Label ID="lblTicketType" Text='<%# DataBinder.Eval(Container.  DataItem, "Message")%>' runat="server" Visible='<%# DataBinder.Eval(Container.  DataItem, "MessageVisible")%>' />
-                                    <div id="divFile" runat="server" class='<%# DataBinder.Eval(Container.  DataItem, "CssClass")%>' visible='<%# DataBinder.Eval(Container.  DataItem, "FileTypeVisible")%>'>
-                                        <asp:ImageButton ID="ibDownload" runat="server" ImageUrl='<%# DataBinder.Eval(Container.  DataItem, "FileType")%>' Width="30px" OnClick="ibDownload_Click" />
-                                        <asp:LinkButton ID="lnkDownload" Text='<%# DataBinder.Eval(Container.  DataItem, "Message")%>' runat="server" OnClick="lnkDownload_Click" />
-                                    </div>
+                                    <asp:Label ID="lblInActive" Text='<%# DataBinder.Eval(Container.DataItem, "InActive")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -188,14 +213,6 @@
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
-                <%--<div class="col-md-12">
-                    <div class="col-md-2">
-                        <asp:RadioButton ID="rbMessage" runat="server" Text="Message" OnCheckedChanged="rbMessage_CheckedChanged" GroupName="File" Checked="true" AutoPostBack="true" />
-                    </div>
-                    <div class="col-md-2">
-                        <asp:RadioButton ID="rbMFile" runat="server" Text="Upload File" OnCheckedChanged="rbMessage_CheckedChanged" GroupName="File" AutoPostBack="true" />
-                    </div>
-                </div>--%>
             </div>
         </ContentTemplate>
     </asp:TabPanel>
@@ -253,6 +270,12 @@
                                     <asp:Label ID="lblRequestedOn" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedOn")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="InActive">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblInActive" Text='<%# DataBinder.Eval(Container.DataItem, "InActive")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
@@ -265,6 +288,50 @@
         </ContentTemplate>
     </asp:TabPanel>
 </asp:TabContainer>
+
+<asp:Panel ID="pnlEditHeaderInfo" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">
+            <asp:Label ID="Label9" runat="server" Text="Ticket Header Edit"></asp:Label></span><a href="#" role="button">
+                <asp:Button ID="Button4" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <asp:Label ID="lblMessageHeaderEdit" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <fieldset class="fieldset-border" id="Fieldset4" runat="server">
+            <div class="col-md-12">
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblEditCategory" runat="server" Text="Category" CssClass="label"></asp:Label>
+                    <asp:DropDownList ID="ddlEditCategory" runat="server" CssClass="TextBox form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlEditCategory_SelectedIndexChanged"></asp:DropDownList>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblEditSubCategory" runat="server" Text="Subcategory" CssClass="label"></asp:Label>
+                    <asp:DropDownList ID="ddlEditSubCategory" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblEditTicketType" runat="server" Text="TicketType" CssClass="label"></asp:Label>
+                    <asp:DropDownList ID="ddlEditTicketType" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblEditSeverity" runat="server" Text="Severity" CssClass="label"></asp:Label>
+                    <asp:DropDownList ID="ddlEditSeverity" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblEditSubject" runat="server" Text="Subject" CssClass="label"></asp:Label><%--<span style="color: red">*</span>--%>
+                    <asp:TextBox ID="txtEditSubject" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-12 col-sm-6">
+                    <asp:Label ID="lblEditDescription" runat="server" Text="Description" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtEditDescription" runat="server" TextMode="MultiLine" CssClass="TextBox form-control"></asp:TextBox>
+                </div>
+            </div>
+        </fieldset>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnUpdateHeaderInfo" runat="server" Text="Update Header Info" CssClass="InputButton btn Save" OnClick="btnUpdateHeaderInfo_Click" width="150px"/>
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditHeaderInfo" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditHeaderInfo" BackgroundCssClass="modalBackground" CancelControlID="btnCancel"/>
+
 <asp:Panel ID="pnlConversation" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">

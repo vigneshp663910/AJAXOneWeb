@@ -349,6 +349,13 @@
             border: 1px solid #dee2e6;
             width: 50px;
         }
+
+        .lead-static .portlet #divLeadStatistics .thumbnail.wide_thumbnail {
+            width: 11%;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-right: 35px !important;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -398,7 +405,7 @@
                                 <div id="divLeadStatistics" class="row no-margin" style="font-size: medium; text-align: right;">
                                     <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; margin-left: 15px; background-color: #8775a7;">
                                         <div class="dashboard-stat dashboard-stat-v2 purple-intense" href="javascript:void(0);" onclick="VisitMyEnquiries('Created');">
-                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <%--<div class="visual"><i class="fa fa-ticket"></i></div>--%>
                                             <div class="details" style="color: white;">
                                                 <asp:Label ID="lblCreated" runat="server" Text="0"></asp:Label>
                                                 <div class="desc">
@@ -409,7 +416,7 @@
                                     </div>
                                     <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #CC6E2A">
                                         <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Open');">
-                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <%--<div class="visual"><i class="fa fa-ticket"></i></div>--%>
                                             <div class="details" style="color: white;">
                                                 <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
                                                 <asp:Label ID="lblOpen" runat="server" Text="0"></asp:Label>
@@ -420,20 +427,10 @@
                                         </div>
                                     </div>
 
-                                    <%--<div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 1px; background-color: #CC6E2A;">
-                            <div class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Approved');">
-                                <div class="visual"><i class="fa fa-ticket"></i></div>
-                                <div class="details" style="color: white;">
-                                    <asp:Label ID="lblApproved" runat="server" Text="0"></asp:Label>
-                                    <div class="desc">
-                                        <asp:LinkButton ID="lbtnApproved" runat="server" Style="color: white;" OnClick="lbActions_Click">Approved</asp:LinkButton>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>--%>
+
                                     <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #bf9020;">
                                         <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('Assigned');">
-                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <%--<div class="visual"><i class="fa fa-ticket"></i></div>--%>
                                             <div class="details" style="color: white;">
                                                 <asp:Label ID="lblAssigned" runat="server" Text="0"></asp:Label>
                                                 <div class="desc">
@@ -444,11 +441,11 @@
                                     </div>
                                     <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #3598dc;">
                                         <div class="dashboard-stat dashboard-stat-v2 green-jungle" href="javascript:void(0);" onclick="VisitMyEnquiries('InProgress');">
-                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <%--<div class="visual"><i class="fa fa-ticket"></i></div>--%>
                                             <div class="details" style="color: white;">
                                                 <asp:Label ID="lblInProgress" runat="server" Text="0"></asp:Label>
                                                 <div class="desc">
-                                                    <asp:LinkButton ID="lbtnInProgress" runat="server" Style="color: white;" OnClick="lbActions_Click">In Progress</asp:LinkButton>
+                                                    <asp:LinkButton ID="lbtnInProgress" runat="server" Style="color: white;" OnClick="lbActions_Click">InProgress</asp:LinkButton>
                                                 </div>
                                             </div>
                                         </div>
@@ -489,7 +486,7 @@
 
                                     <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #d05454">
                                         <div class="dashboard-stat dashboard-stat-v2 blue" href="javascript:void(0);" onclick="VisitMyEnquiries('WaitingForApproval');">
-                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <%--<div class="visual"><i class="fa fa-ticket"></i></div>--%>
                                             <div class="details" style="color: white;">
                                                 <%--<div class="number"><span data-counter="counterup" data-value="0" class="counter1">0</span></div>--%>
                                                 <asp:Label ID="lblWaitingForApproval" runat="server" Text="0"></asp:Label>
@@ -498,10 +495,32 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>                                    
+                                    <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #039487;">
+                                        <div class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Approved');">
+                                            <%--<div class="visual"><i class="fa fa-ticket"></i></div>--%>
+                                            <div class="details" style="color: white;">
+                                                <asp:Label ID="lblApproved" runat="server" Text="0"></asp:Label>
+                                                <div class="desc">
+                                                    <asp:LinkButton ID="lbtnApproved" runat="server" Style="color: white;" OnClick="lbActions_Click">Approved</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #C1997D;">
+                                        <div class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Reject');">
+                                            <%--<div class="visual"><i class="fa fa-ticket"></i></div>--%>
+                                            <div class="details" style="color: white;">
+                                                <asp:Label ID="lblReject" runat="server" Text="0"></asp:Label>
+                                                <div class="desc">
+                                                    <asp:LinkButton ID="lbtnReject" runat="server" Style="color: white;" OnClick="lbActions_Click">Reject</asp:LinkButton>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: darkolivegreen;">
                                         <div class="dashboard-stat dashboard-stat-v2 red-thunderbird" href="javascript:void(0);" onclick="VisitMyEnquiries('Closed');">
-                                            <div class="visual"><i class="fa fa-ticket"></i></div>
+                                            <%--<div class="visual"><i class="fa fa-ticket"></i></div>--%>
                                             <div class="details" style="color: white;">
                                                 <asp:Label ID="lblClosed" runat="server" Text="0"></asp:Label>
                                                 <div class="desc">
@@ -579,6 +598,18 @@
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
                                                         <asp:Label ID="lnkWaitingForApproval" Text='<%# DataBinder.Eval(Container.DataItem, "WaitingForApproval")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>                                                
+                                                <asp:TemplateField HeaderText="Approved">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkApproved" Text='<%# DataBinder.Eval(Container.DataItem, "Approved")%>' runat="server"></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Reject">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lnkReject" Text='<%# DataBinder.Eval(Container.DataItem, "Reject")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Resolved">

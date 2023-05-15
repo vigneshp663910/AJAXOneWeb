@@ -475,6 +475,7 @@ namespace Properties
         ViewDealerEmployee_MachineOperatorManage = 230,
        ViewProcurement_PurchaseOrder = 231,
         ViewEquipment_NepiDueReport = 232,
+        ViewSupportTicket_ApproveSupportTicket = 233,
     }
     public enum SubModuleChildMaster
     {
