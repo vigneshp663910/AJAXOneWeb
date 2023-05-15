@@ -50,7 +50,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             return "";
         }
 
-        public void FillPoItem(List<PurchaseOrderItem> Items)
+        public void FillPoItem(List<PPurchaseOrderItem_Insert> Items)
         {
             gvPOItem.DataSource = Items;
             gvPOItem.DataBind();

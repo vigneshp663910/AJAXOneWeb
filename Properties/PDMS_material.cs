@@ -101,6 +101,83 @@ namespace Properties
         public bool IsActive { get; set; }
     }
     [Serializable]
+    public class PMaterial
+    {
+        public long MaterialID { get; set; }
+        public string MaterialCode { get; set; }
+        public string MaterialCodeWithZero
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(MaterialCode))
+                    return "";
+                long n;
+                if (long.TryParse(MaterialCode, out n))
+                {
+                    return MaterialCode.PadLeft(18, '0');
+                }
+                return MaterialCode;
+            }
+            set
+            {
+                MaterialCode = value;
+            }
+        }
+        public string MaterialCodeWithOutZero
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(MaterialCode))
+                    return "";
+                long n;
+                if (long.TryParse(MaterialCode, out n))
+                {
+                    return MaterialCode.TrimStart('0');
+                }
+                return MaterialCode;
+            }
+            set
+            {
+                MaterialCode = value;
+            }
+        }
+        public string MaterialDescription { get; set; }
+        public string MaterialCode_MaterialDescription
+        {
+            get
+            {
+                return MaterialCode + " " + MaterialDescription;
+            }
+        }
+        public string BaseUnit { get; set; }
+        public string MaterialType { get; set; }
+        public string MaterialGroup { get; set; }
+        public decimal GrossWeight { get; set; }
+        public decimal NetWeight { get; set; }
+        public string WeightUnit { get; set; }
+        public string MaterialDivision { get; set; }
+        public string HSN { get; set; }
+
+        public decimal CurrentPrice { get; set; }
+        public decimal Discount { get; set; }
+        public decimal TaxablePrice { get; set; }
+        public decimal CGST { get; set; }
+        public decimal SGST { get; set; }
+        public decimal IGST { get; set; }
+
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
+
+        public Boolean IsMainServiceMaterial { get; set; }
+        public string Product { get; set; }
+        public string ProductGroup { get; set; }
+        public DateTime ValidFrom { get; set; }
+        public DateTime ValidTo { get; set; }
+        public PDMS_Model Model { get; set; }
+        public bool IsActive { get; set; }
+    }
+    [Serializable]
     public class PSupersede
     {
         public string Material { get; set; }

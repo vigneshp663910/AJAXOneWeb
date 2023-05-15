@@ -12,6 +12,91 @@
 <%@ Register Src="~/ViewService/UserControls/ICTicketAddTechnicianWork.ascx" TagPrefix="UC" TagName="UC_ICTicketAddTechnicianWork" %>
 <%@ Register Src="~/ViewService/UserControls/ICTicketUpdateRestore.ascx" TagPrefix="UC" TagName="UC_ICTicketUpdateRestore" %>
 <%@ Register Src="~/ViewService/UserControls/AddICTicketCustomerFeedback.ascx" TagPrefix="UC" TagName="UC_ICTicketCustomerFeedback" %>
+
+<script type="text/javascript">
+    function ConfirmDeclineApprove() {
+        var x = confirm("Are you sure you want to decline the IC Ticket?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmDeclineReject() {
+        var x = confirm("Are you sure you want to reopen the IC Ticket?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmServiceClaim() {
+        var x = confirm("Are you sure you want to request for Service Claim?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmServiceQuotation() {
+        var x = confirm("Are you sure you want to generate Service Quotation?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmServiceProfarmaInvoice() {
+        var x = confirm("Are you sure you want to generate Service Profarma Invoice?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmServiceInvoice() {
+        var x = confirm("Are you sure you want to generate Service Invoice?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmMaterialClaim() {
+        var x = confirm("Are you sure you want to request for Material Claim?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmMaterialQuotation() {
+        var x = confirm("Are you sure you want to generate Material Quotation?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmUnlockTicket() {
+        var x = confirm("Are you sure you want to unlock the IC Ticket?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmUnblockTicket() {
+        var x = confirm("Are you sure you want to unblock the IC Ticket?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+</script>
+
+
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -26,27 +111,24 @@
                 <asp:LinkButton ID="lbtnAddServiceCharges" runat="server" OnClick="lbActions_Click">Add Service Charges</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddTSIR" runat="server" OnClick="lbActions_Click">Add TSIR</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddMaterialCharges" runat="server" OnClick="lbActions_Click">Add Material Charges</asp:LinkButton>
-                <asp:LinkButton ID="lbtnMaterialQuotation" runat="server" OnClick="lbActions_Click">Material Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnMaterialQuotation" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmMaterialQuotation();">Material Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddNotes" runat="server" OnClick="lbActions_Click">Add Notes</asp:LinkButton>
                 <asp:LinkButton ID="lbtAddTechnicianWork" runat="server" OnClick="lbActions_Click">Add Technician Work</asp:LinkButton>
                 <asp:LinkButton ID="lbtnRestore" runat="server" OnClick="lbActions_Click">Restore</asp:LinkButton>
                 <asp:LinkButton ID="lbtnCustomerFeedback" runat="server" OnClick="lbActions_Click">Customer Feedback</asp:LinkButton>
-                <asp:LinkButton ID="lbtnServiceClaim" runat="server" OnClick="lbActions_Click">Service Claim</asp:LinkButton>
-                <asp:LinkButton ID="lbtnServiceQuotation" runat="server" OnClick="lbActions_Click">Service Quotation</asp:LinkButton>
-                <asp:LinkButton ID="lbtnServiceProfarmaInvoice" runat="server" OnClick="lbActions_Click">Service Profarma Invoice</asp:LinkButton>
-                <asp:LinkButton ID="lbtnServiceInvoice" runat="server" OnClick="lbActions_Click">Service Invoice</asp:LinkButton>
-                <asp:LinkButton ID="lbtnMaterialClaim" runat="server" OnClick="lbActions_Click">Material Claim</asp:LinkButton>
-                <asp:LinkButton ID="lbtnUnlockTicket" runat="server" OnClick="lbActions_Click">Unlock Ticket</asp:LinkButton>
-                 <asp:LinkButton ID="lbtnUnblockTicket" runat="server" OnClick="lbActions_Click">Unblock Ticket</asp:LinkButton>
+                <asp:LinkButton ID="lbtnServiceClaim" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceClaim()">Service Claim</asp:LinkButton>
+                <asp:LinkButton ID="lbtnServiceQuotation" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceQuotation();">Service Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnServiceProfarmaInvoice" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceProfarmaInvoice();">Service Profarma Invoice</asp:LinkButton>
+                <asp:LinkButton ID="lbtnServiceInvoice" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceInvoice();">Service Invoice</asp:LinkButton>
+                <asp:LinkButton ID="lbtnMaterialClaim" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmMaterialClaim()">Material Claim</asp:LinkButton>
+                <asp:LinkButton ID="lbtnUnlockTicket" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmUnlockTicket();">Unlock Ticket</asp:LinkButton>
+                 <asp:LinkButton ID="lbtnUnblockTicket" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmUnblockTicket();">Unblock Ticket</asp:LinkButton>
 
                 <asp:LinkButton ID="lbtnRequestForDecline" runat="server" OnClick="lbActions_Click">Request for Decline</asp:LinkButton>
-                <asp:LinkButton ID="lbtnDeclineApprove" runat="server" OnClick="lbActions_Click">Decline Approve</asp:LinkButton>
-                <asp:LinkButton ID="lbtnDeclineReject" runat="server" OnClick="lbActions_Click">Decline Reject</asp:LinkButton>
+                <asp:LinkButton ID="lbtnDeclineApprove" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmDeclineApprove();">Decline Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbtnDeclineReject" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmDeclineReject();">Decline Reject</asp:LinkButton>
                 <asp:LinkButton ID="lbtnMarginWarrantyChange" runat="server" OnClick="lbActions_Click">Margin Warranty Change</asp:LinkButton>
-                <asp:LinkButton ID="lbtnRequestDateChange" runat="server" OnClick="lbActions_Click">Request Date Change</asp:LinkButton>
-                <%--<asp:LinkButton ID="lbtnDeviatedICTicketRequest60Days" runat="server" OnClick="lbActions_Click">Deviated IC Ticket Request for 60 Days</asp:LinkButton>
-                <asp:LinkButton ID="lbtnDeviatedICTicketRequestCommissioning" runat="server" OnClick="lbActions_Click">Deviated IC Ticket Request for Commissioning</asp:LinkButton>
- --%>
+                <asp:LinkButton ID="lbtnRequestDateChange" runat="server" OnClick="lbActions_Click">Request Date Change</asp:LinkButton> 
             </div>
         </div>
     </div>
@@ -588,12 +670,12 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceCharge.Material.MaterialDescription")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                              <%--  </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lblCancelTSIR" runat="server" OnClick="lblCancelTSIR_Click">Cancel</asp:LinkButton>
+                                    <asp:LinkButton ID="lblCancelTSIR" runat="server" OnClick="lblCancelTSIR_Click">Cancel</asp:LinkButton>--%>
                                     <tr>
                                         <td colspan="100%" style="padding-left: 96px">
                                             <div id="TsirID-<%# Eval("TsirID") %>" style="display: none; position: relative;">

@@ -154,13 +154,13 @@
                                 <HeaderStyle Width="147px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Signature">
+                         <%--   <asp:TemplateField HeaderText="Signature">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lbUpdateSignature" runat="server" OnClick="lbUpdateSignature_Click">Update Signature </asp:LinkButton>
                                 </ItemTemplate>
                                 <HeaderStyle Width="147px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
                             <asp:TemplateField HeaderText="FSR-PDF">
                                 <ItemTemplate>
                                     <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="../Images/pdf_dload.png" OnClick="ibPDF_Click" Style="height: 50px; width: 60px;" />

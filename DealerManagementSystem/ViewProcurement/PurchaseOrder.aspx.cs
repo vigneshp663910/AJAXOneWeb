@@ -142,10 +142,10 @@ namespace DealerManagementSystem.ViewProcurement
                 TraceLogger.Log(DateTime.Now);
                 Search();
                 PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderHeader(DealerID, VendorID, PurchaseOrderNo, PurchaseOrderDateF
-                    , PurchaseOrderDateT, PurchaseOrderStatusID,  PurchaseOrderTypeID, PageIndex, gvICTickets.PageSize); 
-                 
+                    , PurchaseOrderDateT, PurchaseOrderStatusID,  PurchaseOrderTypeID, PageIndex, gvICTickets.PageSize);
+                List<PPurchaseOrder> PO = JsonConvert.DeserializeObject<List<PPurchaseOrder>>(JsonConvert.SerializeObject(Result.Data));
                 gvICTickets.PageIndex = 0;
-                gvICTickets.DataSource = JsonConvert.DeserializeObject<List<PDMS_PurchaseOrder>>(JsonConvert.SerializeObject(Result.Data)); ;
+                gvICTickets.DataSource = PO;
                 gvICTickets.DataBind();
                 if (Result.RowCount == 0)
                 {
@@ -270,15 +270,15 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
          
-        protected void BtnView_Click(object sender, EventArgs e)
-        {
-            divList.Visible = false;
-            divDetailsView.Visible = true; 
-            lblMessage.Text = "";
-            Button BtnView = (Button)sender;
-            ViewState["EnquiryID"] = Convert.ToInt64(BtnView.CommandArgument);
-            UC_PurchaseOrderView.fillViewEnquiry(Convert.ToInt64(BtnView.CommandArgument));
-        }
+        //protected void BtnView_Click(object sender, EventArgs e)
+        //{
+        //    divList.Visible = false;
+        //    divDetailsView.Visible = true; 
+        //    lblMessage.Text = "";
+        //    Button BtnView = (Button)sender;
+        //    ViewState["EnquiryID"] = Convert.ToInt64(BtnView.CommandArgument);
+        //    UC_PurchaseOrderView.fillViewEnquiry(Convert.ToInt64(BtnView.CommandArgument));
+        //}
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
             divList.Visible = true;
@@ -312,6 +312,15 @@ namespace DealerManagementSystem.ViewProcurement
         {
             List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null);
             return JsonConvert.SerializeObject(Materials);
+        }
+
+        protected void btnViewPO_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblPurchaseOrderID = (Label)gvRow.FindControl("lblPurchaseOrderID"); 
+            divList.Visible = false;
+            divDetailsView.Visible = true;
+            UC_PurchaseOrderView.fillViewPO(Convert.ToInt64(lblPurchaseOrderID.Text));
         }
     }
 }

@@ -15,15 +15,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
     {
 
         /// <summary>
-        /// lbAddMaterial control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbAddMaterial;
-
-        /// <summary>
         /// lbAddProduct control.
         /// </summary>
         /// <remarks>
@@ -31,6 +22,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbAddProduct;
+
+        /// <summary>
+        /// lbSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbSave;
 
         /// <summary>
         /// lblMessage control.
@@ -141,49 +141,58 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
 
         /// <summary>
-        /// gvPOItem control.
+        /// Fieldset1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPOItem;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
 
         /// <summary>
-        /// pnlAddMaterial control.
+        /// cbSupersedeYN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAddMaterial;
+        protected global::System.Web.UI.WebControls.CheckBox cbSupersedeYN;
 
         /// <summary>
-        /// Button7 control.
+        /// hdfMaterialID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button7;
+        protected global::System.Web.UI.WebControls.HiddenField hdfMaterialID;
 
         /// <summary>
-        /// lblMessageMaterial control.
+        /// hdfMaterialCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessageMaterial;
+        protected global::System.Web.UI.WebControls.HiddenField hdfMaterialCode;
 
         /// <summary>
-        /// UC_PurchaseOrderItem control.
+        /// txtMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewProcurement.UserControls.PurchaseOrderItem UC_PurchaseOrderItem;
+        protected global::System.Web.UI.WebControls.TextBox txtMaterial;
+
+        /// <summary>
+        /// txtQty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtQty;
 
         /// <summary>
         /// btnAddMaterial control.
@@ -195,13 +204,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Button btnAddMaterial;
 
         /// <summary>
-        /// MPE_AddMaterial control.
+        /// Button2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MPE_AddMaterial;
+        protected global::System.Web.UI.WebControls.Button Button2;
+
+        /// <summary>
+        /// gvPOItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvPOItem;
 
         /// <summary>
         /// lnkMPE control.

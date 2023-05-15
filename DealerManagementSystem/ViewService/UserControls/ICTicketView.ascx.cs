@@ -6,6 +6,7 @@ using SapIntegration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -1997,7 +1998,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnServiceProfarmaInvoice.Visible = false;
                 lbtnServiceInvoice.Visible = false;
                 lbtnMaterialClaim.Visible = false;
-                lbtnMaterialQuotation.Visible = false;
+                //lbtnMaterialQuotation.Visible = false;
                 lbtnRequestForDecline.Visible = false;
             }
             else if (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Restored)
@@ -2008,10 +2009,10 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnEditCallInformation.Visible = false;
                 lbtnEditFSR.Visible = false;
                 lbtnAddServiceCharges.Visible = false;
-                lbtnAddTSIR.Visible = false;
+                // lbtnAddTSIR.Visible = false;
                 lbtnAddMaterialCharges.Visible = false;
-                lbtAddTechnicianWork.Visible = false; 
-
+                lbtAddTechnicianWork.Visible = false;
+                lbtnRestore.Visible = false;
                 lbtnRequestForDecline.Visible = false;
                 lbtnMarginWarrantyChange.Visible = false;
                 lbtnRequestDateChange.Visible = false;
@@ -2165,18 +2166,22 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnAddOtherMachine.Visible = false;
                 lbtnAddServiceCharges.Visible = false;
                 lbtnAddTSIR.Visible = false;
-                lbtnAddMaterialCharges.Visible = false; 
+                lbtnAddMaterialCharges.Visible = false;
+                lbtnMaterialQuotation.Visible = false;
                 lbtAddTechnicianWork.Visible = false;
                 lbtnRestore.Visible = false;
 
 
                 lbtnCustomerFeedback.Visible = false;
             }
-            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DeviatedICTicketRequestForApproval).Count() == 0)
-            //{
-            //    lbtnDeviatedICTicketRequest60Days.Visible = false;
-            //    lbtnDeviatedICTicketRequestCommissioning.Visible = false;
-            //}
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.RequstForClaimAndInvoice).Count() == 0)
+            {
+                lbtnServiceClaim.Visible = false;
+                lbtnMaterialClaim.Visible = false;
+                lbtnServiceQuotation.Visible = false;
+                lbtnServiceProfarmaInvoice.Visible = false;
+                lbtnServiceInvoice.Visible = false;
+            }
 
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ICTicketUnlock).Count() == 0)
             {
@@ -2195,6 +2200,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
           
             HttpContext.Current.Session["ServiceTypeID"] =   SDMS_ICTicket.ServiceType.ServiceTypeID;
+
+            ControlBaseOn60Days();
         }
 
         protected void lnkFSRDownload_Click(object sender, EventArgs e)
@@ -2361,6 +2368,30 @@ namespace DealerManagementSystem.ViewService.UserControls
             ShowMessage(Results);
             MPE_RequestDateChange.Hide();
             FillICTicket(SDMS_ICTicket.ICTicketID);
+        }
+        void ControlBaseOn60Days()
+        {
+            try
+            { 
+                int Days = Convert.ToInt32(ConfigurationManager.AppSettings["ICTicketLockDate"]);
+                if (SDMS_ICTicket.ICTicketDate.AddDays(Days) < DateTime.Now)
+                {
+                    DataTable ICTicketDT = new BDMS_ICTicket().GetDeviatedICTicketReport(SDMS_ICTicket.Dealer.DealerID, SDMS_ICTicket.ICTicketNumber, 1, null, null, PSession.User.UserID);
+                    if (ICTicketDT.Rows.Count != 0)
+                    {
+                        Boolean c = ICTicketDT.Rows[0]["Approved"] == DBNull.Value ? false : Convert.ToBoolean(ICTicketDT.Rows[0]["Approved"]);
+                        if (c)
+                        {
+                            return;
+                        }
+                    }
+                    lbtnServiceClaim.Visible = false;
+                    lbtnMaterialClaim.Visible = false; 
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

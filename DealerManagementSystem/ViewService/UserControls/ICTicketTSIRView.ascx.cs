@@ -341,33 +341,32 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirCheck).Count() == 0)
-            {
-                lbtnEdit.Visible = false;
+            { 
                 lbtnCheck.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirApprove).Count() == 0)
-            {
+            { 
                 lbtnApprove.Visible = false;
                 lbtnReject.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirSalesApproveL1).Count() == 0)
-            {
+            { 
                 lbtnSalesApproveL1.Visible = false;
                 lbtnSalesReject.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirSalesApproveL2).Count() == 0)
-            {
+            { 
                 lbtnSalesApproveL2.Visible = false;
                 lbtnSalesReject.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirCancel).Count() == 0)
-            {
+            { 
                 lbtnCancel.Visible = false;
             }
-            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TaxQuotationPrint).Count() == 0)
-            //{
-            //    lbtnReject.Visible = false;
-            //}
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirEdit).Count() == 0)
+            {
+                lbtnEdit.Visible = false;
+            }
 
 
 
@@ -378,16 +377,16 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnSalesApproveL1.Visible = false;
                 lbtnSalesApproveL2.Visible = false;
                 lbtnSalesReject.Visible = false;
-                lbtnSendBack.Visible = false; 
+                lbtnSendBack.Visible = false;
             }
             else if (Tsir.Status.StatusID == (short)TSIRStatus.Checked)
             {
-              //  lbtnEdit.Visible = false;
+                // lbtnEdit.Visible = false;
                 lbtnCheck.Visible = false;
 
                 lbtnSalesApproveL1.Visible = false;
                 lbtnSalesApproveL2.Visible = false;
-                lbtnSalesReject.Visible = false; 
+                lbtnSalesReject.Visible = false;
             }
             else if (Tsir.Status.StatusID == (short)TSIRStatus.Approved || (Tsir.Status.StatusID == (short)TSIRStatus.SalesApproved) || Tsir.Status.StatusID == (short)TSIRStatus.SalesRejected)
             {
@@ -399,23 +398,23 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnSalesReject.Visible = false;
                 lbtnSendBack.Visible = false;
                 lbtnReject.Visible = false;
-                lbtnCancel.Visible = false; 
+                lbtnCancel.Visible = false;
             }
-            else if ( Tsir.Status.StatusID == (short)TSIRStatus.SendBack)
-            { 
+            else if (Tsir.Status.StatusID == (short)TSIRStatus.SendBack)
+            {
                 lbtnApprove.Visible = false;
                 lbtnSalesApproveL1.Visible = false;
                 lbtnSalesApproveL2.Visible = false;
                 lbtnSalesReject.Visible = false;
                 lbtnSendBack.Visible = false;
-                lbtnReject.Visible = false; 
+                lbtnReject.Visible = false;
             }
             else if (Tsir.Status.StatusID == (short)TSIRStatus.SalesApprovedLevel1)
             {
                 lbtnEdit.Visible = false;
                 lbtnCheck.Visible = false;
                 lbtnApprove.Visible = false;
-                lbtnSalesApproveL1.Visible = false; 
+                lbtnSalesApproveL1.Visible = false;
                 lbtnSendBack.Visible = false;
                 lbtnReject.Visible = false;
             }
@@ -424,14 +423,11 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnEdit.Visible = false;
                 lbtnCheck.Visible = false;
                 lbtnApprove.Visible = false;
-                lbtnReject.Visible = false;
-
-              //  lbtnSalesApproveL1.Visible = false;
+                lbtnReject.Visible = false; 
+                //  lbtnSalesApproveL1.Visible = false;
                 lbtnSalesApproveL2.Visible = false;
-                //lbtnSalesReject.Visible = false;
-
+                //lbtnSalesReject.Visible = false; 
                 lbtnSendBack.Visible = false;
-                
             }
 
             if ((Tsir.ICTicket.ServiceType.ServiceTypeID != (short)DMS_ServiceType.GoodwillWarranty))

@@ -473,8 +473,11 @@ namespace Properties
         ViewDealerEmployee_MachineOperatorRegister = 228,
         ViewDealerEmployee_MachineOperatorApproval = 229,
         ViewDealerEmployee_MachineOperatorManage = 230,
-       ViewProcurement_PurchaseOrder = 231,
+        ViewProcurement_PurchaseOrder = 231,
         ViewEquipment_NepiDueReport = 232,
+        ViewSupportTicket_WaitingForApprovalSupportTicket = 233,
+        ViewAdmin_DealerSalesConfiguration = 234,
+        ViewAdmin_DealerServiceConfiguration = 235,
     }
     public enum SubModuleChildMaster
     {
@@ -487,7 +490,7 @@ namespace Properties
         ClaimCancel,
         SalesCommClaimApproval1,
         SalesCommClaimApproval2,
-        SalesCommClaimApproval3 = 10,
+        TsirEdit = 10,
         EmployeeEdit,
         EditLead,
         AssignLead,

@@ -315,60 +315,66 @@ namespace Properties
     [Serializable]
     public class PPurchaseOrderStatus
     {
-        public long StatusID { get; set; }
+        public int PurchaseOrderStatusID { get; set; }
         public string Code { get; set; }
-        public string Status { get; set; }
+        public string PurchaseOrderStatus { get; set; }
     }
-
+    [Serializable]
+    public class PPurchaseOrderTo
+    {
+        public int PurchaseOrderToID { get; set; }
+        public string PurchaseOrderTo { get; set; } 
+    }
     [Serializable]
     public class PPurchaseOrder
     {
-        public string PurchaseOrderID { get; set; }
+        public long PurchaseOrderID { get; set; }
+        public string PurchaseOrderNumber { get; set; }
         public DateTime PurchaseOrderDate { get; set; }
-        public PPurchaseOrderType POType { get; set; }
-        public PPurchaseOrderStatus Status { get; set; }
-        public string Location { get; set; }
-        public string Currency { get; set; }
-        public string BillTo { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
+        public PDMS_DealerOffice Location { get; set; }
+        public PPurchaseOrderTo PurchaseOrderTo { get; set; }
+        public PDMS_Dealer Vendor { get; set; }
+        public PPurchaseOrderType PurchaseOrderType { get; set; }
+        public PPurchaseOrderStatus PurchaseOrderStatus { get; set; }
+        public PDMS_Division Division { get; set; }
+
+        public DateTime ExpectedDeliveryDate { get; set; }
+        public string ReferenceNo { get; set; }
+        public string Remarks { get; set; }
+
         public string Insurance { get; set; }
         public decimal TaxAmount { get; set; }
-        public string SoldTo { get; set; }
         public decimal NetAmount { get; set; }
         public decimal GrossAmount { get; set; }
         public decimal DiscountAmount { get; set; }
-        public PDMS_Division Division { get; set; }
         public PPurchaseOrderItem PurchaseOrderItem { get; set; }
         public List<PPurchaseOrderItem> PurchaseOrderItems { get; set; }
-        public PDMS_Dealer Dealer { get; set; }
+
+        public string SaleOrderNumber { get; set; }
     }
 
     [Serializable]
     public class PPurchaseOrderItem
     {
-        public string PurchaseOrderID { get; set; }
-        public int Item { get; set; }
-        public PDMS_Material Material { get; set; }
+        public long PurchaseOrderID { get; set; }
+        public long PurchaseOrderItemID { get; set; }
+        public int POItem { get; set; }
+        public PMaterial Material { get; set; }
         public decimal Quantity { get; set; }
-        public string UOM { get; set; }
-        public decimal UnitPrice { get; set; }
-        public decimal DiscountAmount { get; set; }
-        public decimal TaxableAmount { get; set; }
-
-        public decimal SGST { get; set; }
-        public decimal CGST { get; set; }
-        public decimal IGST { get; set; }
-        public decimal CGSTValue { get; set; }
-        public decimal SGSTValue { get; set; }
-        public decimal IGSTValue { get; set; }
-        public decimal TaxAmount { get; set; }       
-        public decimal NetAmount { get; set; } 
-        public decimal ShipedQuantity { get; set; } 
-
+        public decimal Price { get; set; }
+        public decimal Discount { get; set; }
+        public decimal TaxableValue { get; set; }
+        public PPurchaseOrderStatus PurchaseOrderStatus { get; set; }
+        public decimal Tax { get { return Material.CGST + Material.SGST + Material.IGST; } }
+        public decimal TaxValue { get { return Material.CGSTValue + Material.SGSTValue + Material.IGSTValue; } }
+        //public decimal NetAmount { get; set; }
+        //public decimal GrossAmount { get; set; }
+        //public decimal ShipedQuantity { get; set; } 
+        //public decimal ApprovedQuantity { get; set; }
         //public decimal Fright { get; set; }
         //public decimal Insurance { get; set; }
-        //public decimal PackingAndForwarding { get; set; }
-
-       
+        //public decimal PackingAndForwarding { get; set; } 
     }
 
     [Serializable]
@@ -377,16 +383,13 @@ namespace Properties
         public long PurchaseOrderID { get; set; }
         public int DealerID { get; set; }
         public int DealerOfficeID { get; set; }
-        public int OrderToID { get; set; }
+        public int PurchaseOrderToID { get; set; }
         public int VendorID { get; set; }
-        public int PurchaseOrderTypeID { get; set; }
+        public int PurchaseOrderTypeID { get; set; } 
         public int DivisionID { get; set; }
-        
-        public string ReferenceNo { get; set; }
         public DateTime ExpectedDeliveryDate { get; set; }
+        public string ReferenceNo { get; set; }        
         public string Remarks { get; set; }
-        
-        
         public List<PPurchaseOrderItem_Insert> PurchaseOrderItems { get; set; }
         
     }
@@ -398,9 +401,10 @@ namespace Properties
         public int Item { get; set; }
         public int MaterialID { get; set; }
         public string MaterialCode { get; set; }
+        public string MaterialDescription { get; set; }
         public decimal Quantity { get; set; }
         public string UOM { get; set; }
-        public decimal UnitPrice { get; set; }
+        public decimal Price { get; set; }
         public decimal DiscountAmount { get; set; }
         public decimal TaxableAmount { get; set; }
 
@@ -409,10 +413,7 @@ namespace Properties
         public decimal IGST { get; set; }
         public decimal CGSTValue { get; set; }
         public decimal SGSTValue { get; set; }
-        public decimal IGSTValue { get; set; }
-        public decimal TaxAmount { get; set; }
-        public decimal NetAmount { get; set; }
-        public decimal ShipedQuantity { get; set; }  
+        public decimal IGSTValue { get; set; } 
     }
     [Serializable]
     public class PAsn

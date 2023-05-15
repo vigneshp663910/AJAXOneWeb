@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -34,47 +35,39 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.Text = "";
              
         }
-        public void fillViewEnquiry(long EnquiryID)
+        public void fillViewPO(long PurchaseOrderID)
         {
-            // ViewState["EnquiryID"] = EnquiryID;
-           // Enquiry = new BEnquiry().GetEnquiryByID(EnquiryID);
-            
-
-            
-
-            fillEnquiryStatusHistory();
+            PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrderByID(PurchaseOrderID);
+            gvPOItem.DataSource = PurchaseOrder.PurchaseOrderItems;
+            gvPOItem.DataBind(); 
             ActionControlMange();
         }
         
         protected void lbActions_Click(object sender, EventArgs e)
         {
-            //LinkButton lbActions = ((LinkButton)sender);
-            //if (lbActions.Text == "Edit Enquiry")
-            //{
-            //    MPE_Enquiry.Show();
-            //    UC_AddEnquiry.FillMaster();
-            //    UC_AddEnquiry.Write(Enquiry);
-            //}
-            //if (lbActions.Text == "Convert To Lead")
-            //{
-            //    MPE_CustomerSelect.Show();
-            //    gvCustomer.DataSource = new BDMS_Customer().GetCustomerForEnquiryToLead(Enquiry.CustomerName, Enquiry.Mobile, Enquiry.State.StateID);
-            //    gvCustomer.DataBind();
-            //}
-            //if (lbActions.Text == "Reject")
-            //{
-            //    MPE_EnquiryReject.Show();
-            //    new DDLBind(ddlEnquiryRejectRemarks, new BEnquiry().GetEnquiryRemark(null, null, null, null, null, true), "Remark", "EnquiryRemarkID");
-            //}
-            //else if (lbActions.Text == "InProgress")
-            //{
-            //    lblInProgressQueryID.Text = Enquiry.EnquiryNumber;
-            //    new DDLBind(ddlInprogressRemarks, new BEnquiry().GetEnquiryRemark(null, null, null, null, true, null), "Remark", "EnquiryRemarkID");
-            //    txtInprogressEnquiryReason.Text = string.Empty;
-            //    MPE_InprogressEnquiry.Show();
-            //    lblInprogressEnquiryMessage.Text = string.Empty;
-            //    lblInprogressEnquiryMessage.Visible = false;
-            //}
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.Text == "Release PO")
+            {
+
+            }
+            else if (lbActions.Text == "Edit PO")
+            {
+
+            }
+            else if (lbActions.Text == "Cancel PO")
+            {
+                lblMessage.Visible = true;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelPurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblMessage.Text = "Updated Successfully";
+                lblMessage.ForeColor = Color.Green;
+                fillViewPO(PurchaseOrder.PurchaseOrderID);
+            }
         }
  
        
@@ -90,21 +83,27 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
              
         }
 
-        protected void btnInprogressEnquiry_Click(object sender, EventArgs e)
-        {
-            try
-            {
-               
-            }
-            catch (Exception ex)
-            {
-                
-            }
-        }
-
+        
         public void fillEnquiryStatusHistory()
         {
             
+        }
+
+        protected void btnCancelPoItem_Click(object sender, EventArgs e)
+        {
+            lblMessage.Visible = true;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblPurchaseOrderItemID = (Label)gvRow.FindControl("lblPurchaseOrderItemID"); 
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelPurchaseOrderItem?PurchaseOrderItemID=" + lblPurchaseOrderItemID.Text));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            lblMessage.Text = "Updated Successfully";
+            lblMessage.ForeColor = Color.Green;
+            fillViewPO(PurchaseOrder.PurchaseOrderID);
         }
     }
 }

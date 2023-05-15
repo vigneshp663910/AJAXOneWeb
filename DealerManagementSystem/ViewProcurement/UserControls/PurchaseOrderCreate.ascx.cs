@@ -13,19 +13,19 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 {
     public partial class PurchaseOrderCreate : System.Web.UI.UserControl
     {
-        public List<PPurchaseOrderItem> PurchaseOrderItem
+        public List<PPurchaseOrderItem_Insert> PurchaseOrderItem_Insert
         {
             get
             {
-                if (ViewState["PurchaseOrderCreateItem"] == null)
+                if (ViewState["PurchaseOrderItem_Insert"] == null)
                 {
-                    ViewState["PurchaseOrderCreateItem"] = new List<PPurchaseOrderItem>();
+                    ViewState["PurchaseOrderItem_Insert"] = new List<PPurchaseOrderItem_Insert>();
                 }
-                return (List<PPurchaseOrderItem>)ViewState["PurchaseOrderCreateItem"];
+                return (List<PPurchaseOrderItem_Insert>)ViewState["PurchaseOrderItem_Insert"];
             }
             set
             {
-                ViewState["PurchaseOrderCreateItem"] = value;
+                ViewState["PurchaseOrderItem_Insert"] = value;
             }
         }
         public PPurchaseOrder_Insert PO_Insert
@@ -64,13 +64,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             try
             {
                 LinkButton lbActions = ((LinkButton)sender);
-                if (lbActions.Text == "Add Material")
+                if (lbActions.Text == "Upload Material")
                 {
-                    MPE_AddMaterial.Show(); 
-                } 
-                else if (lbActions.Text == "Upload Material")
+                }
+                else if (lbActions.Text == "Save")
                 {
-                     
+                    Save();
                 }
             }
             catch (Exception ex)
@@ -110,7 +109,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PPurchaseOrder_Insert PO = new PPurchaseOrder_Insert();
             PO.DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
             PO.DealerOfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
-            PO.OrderToID = Convert.ToInt32(ddlOrderTo.SelectedValue);
+            PO.PurchaseOrderToID = Convert.ToInt32(ddlOrderTo.SelectedValue);
             PO.VendorID = Convert.ToInt32(ddlVendor.SelectedValue);
             PO.PurchaseOrderTypeID = Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);
             PO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
@@ -143,60 +142,47 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         public string Validation()
         {
-            //txtCustomerName.BorderColor = Color.Silver; 
-            //txtMobile.BorderColor = Color.Silver;
-            //ddlProductType.BorderColor = Color.Silver;
-            //ddlSource.BorderColor = Color.Silver;
-            //ddlCountry.BorderColor = Color.Silver;
-            //ddlState.BorderColor = Color.Silver;
-            //ddlDistrict.BorderColor = Color.Silver;
-            //txtNextFollowUpDate.BorderColor = Color.Silver;
+            
+            ddlDealer.BorderColor = Color.Silver;
+            ddlVendor.BorderColor = Color.Silver;
+            ddlPurchaseOrderType.BorderColor = Color.Silver;
+            ddlDivision.BorderColor = Color.Silver;
+            ddlDealerOffice.BorderColor = Color.Silver;
+            txtExpectedDeliveryDate.BorderColor = Color.Silver;
             string Message = "";
-            //if (string.IsNullOrEmpty(txtCustomerName.Text.Trim()))
-            //{
-            //    txtCustomerName.BorderColor = Color.Red;
-            //    return "Please enter the Customer Name...!";
-            //}
-            //if (string.IsNullOrEmpty(txtNextFollowUpDate.Text.Trim()))
-            //{
-            //    txtNextFollowUpDate.BorderColor = Color.Red;
-            //    return "Please select the Next FollowUp Date.!";
-            //}
-            //if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
-            //{
-            //    txtMobile.BorderColor = Color.Red;
-            //    return "Please Enter the Mobile...!";
-            //}
-            //if (txtMobile.Text.Trim().Length != 10)
-            //{
-            //    txtMobile.BorderColor = Color.Red;
-            //    return "Mobile Length should be 10 digit";
-            //}
-            //if (ddlProductType.SelectedValue == "0")
-            //{
-            //    ddlProductType.BorderColor = Color.Red;
-            //    return "Please select the Product Type";
-            //}
-            //if (ddlSource.SelectedValue == "0")
-            //{
-            //    ddlSource.BorderColor = Color.Red;
-            //    return "Please select the Source";
-            //}
-            //if (ddlCountry.SelectedValue == "0")
-            //{
-            //    ddlCountry.BorderColor = Color.Red;
-            //    return "Please select the Country";
-            //}
-            //if (ddlState.SelectedValue == "0")
-            //{
-            //    ddlState.BorderColor = Color.Red;
-            //    return "Please select the State";
-            //}
-            //if (ddlDistrict.SelectedValue == "0")
-            //{
-            //    ddlDistrict.BorderColor = Color.Red;
-            //    return "Please select the District";
-            //}
+
+            if (ddlDealer.SelectedValue == "0")
+            {
+                ddlDealer.BorderColor = Color.Red;
+                return "Please select the Dealer";
+            }
+            if (ddlVendor.SelectedValue == "0")
+            {
+                ddlVendor.BorderColor = Color.Red;
+                return "Please select the Vendor";
+            }
+            if (ddlPurchaseOrderType.SelectedValue == "0")
+            {
+                ddlPurchaseOrderType.BorderColor = Color.Red;
+                return "Please select the Purchase Order Type";
+            }
+            if (ddlDivision.SelectedValue == "0")
+            {
+                ddlDivision.BorderColor = Color.Red;
+                return "Please select the Division";
+            }
+            if (ddlDealerOffice.SelectedValue == "0")
+            {
+                ddlDealerOffice.BorderColor = Color.Red;
+                return "Please select the Dealer Office";
+            }
+            if (string.IsNullOrEmpty(txtExpectedDeliveryDate.Text.Trim()))
+            {
+                txtExpectedDeliveryDate.BorderColor = Color.Red;
+                return "Please Enter the Expected Delivery Date";
+            }
+             
+
             return Message;
         }
         void fillDealer()
@@ -216,12 +202,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlVendor.Items.Insert(0, new ListItem("All", "0"));
         }
         void fillItem()
-        { 
-            if(PurchaseOrderItem.Count==0)
-            {
-                PurchaseOrderItem.Add(new PPurchaseOrderItem());
-            }
-            gvPOItem.DataSource = PurchaseOrderItem;
+        {  
+            gvPOItem.DataSource = PurchaseOrderItem_Insert;
             gvPOItem.DataBind(); 
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
@@ -238,15 +220,20 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
 
         protected void btnAddMaterial_Click(object sender, EventArgs e)
-        {
-            MPE_AddMaterial.Show();
-            string Message = UC_PurchaseOrderItem.Validation();
-            lblMessageMaterial.ForeColor = Color.Red;
-            lblMessageMaterial.Visible = true;
-
+        { 
+           
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            string Message = Validation();
             if (!string.IsNullOrEmpty(Message))
             {
-                lblMessageMaterial.Text = Message;
+                lblMessage.Text = Message;
+                return;
+            }
+            Message = ValidationItem();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessage.Text = Message;
                 return;
             }
             if (PO_Insert.PurchaseOrderItems == null)
@@ -254,7 +241,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 PO_Insert.PurchaseOrderItems = new List<PPurchaseOrderItem_Insert>();
             }
 
-            PPurchaseOrderItem_Insert PoI = UC_PurchaseOrderItem.Read();
+            PPurchaseOrderItem_Insert PoI = ReadItem();
             PO_Insert.PurchaseOrderItems.Add(PoI);
 
             string Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
@@ -266,8 +253,20 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             string PriceDate = "";
             string IsWarrenty = "false";
 
-            new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, PoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
-            MPE_AddMaterial.Show();
+            PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, PoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+            PoI.Price = Mat.CurrentPrice;
+            PoI.DiscountAmount = Mat.Discount;
+            PoI.TaxableAmount = Mat.TaxablePrice;
+            PoI.SGST = Mat.SGST;
+            PoI.SGSTValue = Mat.SGSTValue;
+            PoI.CGST = Mat.CGST;
+            PoI.CGSTValue = Mat.CGSTValue;
+            PoI.CGST = Mat.CGST;
+            PoI.IGSTValue = Mat.IGSTValue;
+
+            PurchaseOrderItem_Insert.Add(PoI);
+            fillItem();
+            ClearItem();
         }
 
         protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
@@ -330,6 +329,59 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 ddlPurchaseOrderType.Items.Insert(1, new ListItem("Intra-Dealer Order", "6"));
             }
+        }
+
+
+        void ClearItem()
+        {
+            hdfMaterialID.Value = "";
+            hdfMaterialCode.Value = "";
+            txtMaterial.Text = "";
+            txtQty.Text = "";
+        }
+        public PPurchaseOrderItem_Insert ReadItem()
+        {
+            PPurchaseOrderItem_Insert SM = new PPurchaseOrderItem_Insert();
+            SM.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
+            SM.MaterialCode = hdfMaterialCode.Value;
+            // SM.SupersedeYN = cbSupersedeYN.Checked;
+            SM.Quantity = Convert.ToInt32(txtQty.Text.Trim());
+            return SM;
+        }
+        public string ValidationItem()
+        {
+            if (string.IsNullOrEmpty(hdfMaterialID.Value))
+            {
+                return "Please select the Material";
+            }
+
+            if (string.IsNullOrEmpty(txtQty.Text.Trim()))
+            {
+                return "Please enter the Qty";
+            }
+            decimal value;
+            if (!decimal.TryParse(txtQty.Text, out value))
+            {
+                return "Please enter correct format in Qty";
+            }
+            return "";
+        }
+
+        public void Save()
+        {
+            PO_Insert = Read(); 
+            PO_Insert.PurchaseOrderItems = PurchaseOrderItem_Insert;
+            string result = new BAPI().ApiPut("PurchaseOrder", PO_Insert);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Result.Message;
+                return;
+            }
+            lblMessage.Text = Result.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
         }
     }
 }

@@ -74,10 +74,10 @@ namespace DealerManagementSystem.ViewSales
                 {
                     lblStatus.Text = "L2 Approve";
                 }
-                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval3).Count() != 0)
-                {
-                    lblStatus.Text = "L3 Approve";
-                } 
+                //else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval3).Count() != 0)
+                //{
+                //    lblStatus.Text = "L3 Approve";
+                //} 
                 else
                 {
                     lblStatus.Text = "You have no permission to approve";
@@ -127,10 +127,10 @@ namespace DealerManagementSystem.ViewSales
                 {
                     StatusID = 2;
                 }
-                else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval3).Count() != 0)
-                {
-                    StatusID = 3;
-                }
+                //else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval3).Count() != 0)
+                //{
+                //    StatusID = 3;
+                //}
                 SDMS_WarrantyClaimHeader = new BSalesCommissionClaim().GetSalesCommissionClaimApproval(DealerID, ClaimNumber, ClaimDateFrom, ClaimDateTo, StatusID);
                 gvICTickets.PageIndex = 0;
                 ClaimBind();
@@ -402,10 +402,10 @@ namespace DealerManagementSystem.ViewSales
             {
                 StatusID = 2;
             }
-            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval3).Count() != 0)
-            {
-                StatusID = 3;
-            }
+            //else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SalesCommClaimApproval3).Count() != 0)
+            //{
+            //    StatusID = 3;
+            //}
 
             gvICTickets.DataSource = SDMS_WarrantyClaimHeader;
             gvICTickets.DataBind(); 
