@@ -39,7 +39,8 @@ namespace Business
             {
                 string query = "SELECT  * from pr_getsalesorderBasedOnInvoice(" + filter + ")";
 
-                DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                //   DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                DataTable dt = new BPG().OutputDataTable(query);
                 PDMS_SalesOrder SOI = new PDMS_SalesOrder();
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -793,7 +794,8 @@ namespace Business
 
                 string query = PQuery.GetSalesOrder + filter;
 
-                DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                //DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                DataTable dt = new BPG().OutputDataTable(query);
                 PDMS_SalesOrderItems SOI = new PDMS_SalesOrderItems();
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -878,7 +880,8 @@ namespace Business
  + " left join af_m_materials mm on mm.p_material = Qti.f_material_id where Qt.s_object_type = 208 " + filter + " order by inv.f_customer_id, so.p_so_Id desc";
 
                 //  string query ="SELECT  * from pr_get_sales_order_perfomance(" + filter + ")";
-                DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                // DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                DataTable dt = new BPG().OutputDataTable(query);
                 PDMS_SalesOrder1 SO = new PDMS_SalesOrder1();
                 PDMS_SalesOrderItems1 SOi = null;
                 foreach (DataRow dr in dt.Rows)
@@ -995,7 +998,8 @@ namespace Business
 
                 //   string query = "SELECT  * from pr_get_sales_order_perfomance_parts(" + filter + ")";
 
-                DataTable dt = new NpgsqlServer().ExecuteReader(query);
+              //  DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                DataTable dt = new BPG().OutputDataTable(query);
                 PDMS_SalesOrder1 SO = new PDMS_SalesOrder1();
                 PDMS_SalesOrderItems1 SOi = null;
                 foreach (DataRow dr in dt.Rows)
@@ -1087,7 +1091,8 @@ namespace Business
 
                 string query = PQuery.GetSalesInvoiceDealerAndMaterialWise.Replace("@@Filter", filter);
 
-                DataTable dt = new NpgsqlServer().ExecuteReader(query);
+             //   DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                DataTable dt = new BPG().OutputDataTable(query);
                 PDMS_SalesInvoice SOI = new PDMS_SalesInvoice();
                 int i = 0;
                 foreach (DataRow dr in dt.Rows)
@@ -1130,7 +1135,8 @@ namespace Business
 
                 string query = PQuery.GetSalesInvoiceDealerCustomerAndMaterialWise.Replace("@@Filter", filter);
 
-                DataTable dt = new NpgsqlServer().ExecuteReader(query);
+               // DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                DataTable dt = new BPG().OutputDataTable(query);
                 PDMS_SalesInvoice SOI = new PDMS_SalesInvoice();
                 int i = 0;
                 foreach (DataRow dr in dt.Rows)

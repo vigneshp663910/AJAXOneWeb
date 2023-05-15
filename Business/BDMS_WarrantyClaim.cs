@@ -1019,35 +1019,35 @@ namespace Business
             return Status;
         }
         
-        public List<PDMS_WarrantyAttachment> GetAttachment(string filter)
-        {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_WarrantyAttachment> Attachment = new List<PDMS_WarrantyAttachment>();
-            try
-            {
-                //string query = "SELECT  * from pr_get_attachment(" + filter + ")";
-                string query = "select  r_description,r_url,p_object_key,p_filename FROM  dfatr_attachment WHERE p_object_key like concat(" + filter + ",'%')   and s_tenant_id <> 20 group by r_description,r_url,p_object_key,p_filename";
-                DataTable dt = new NpgsqlServer().ExecuteReader(query);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    Attachment.Add(new PDMS_WarrantyAttachment()
-                    {
-                        AttachmentID = 1,
-                        fileName = Convert.ToString(dr["r_description"]),
-                        PscID = Convert.ToString(dr["p_object_key"]),
-                        Url = "OpenInNewTab('" + Convert.ToString(dr["r_url"]) + "'); return false;"
-                    });
-                }
-                return Attachment;
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_MTTR", "GetMttr", ex);
-                throw ex;
-            }
-            return Attachment;
-        }
+        //public List<PDMS_WarrantyAttachment> GetAttachment(string filter)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    List<PDMS_WarrantyAttachment> Attachment = new List<PDMS_WarrantyAttachment>();
+        //    try
+        //    {
+        //        //string query = "SELECT  * from pr_get_attachment(" + filter + ")";
+        //        string query = "select  r_description,r_url,p_object_key,p_filename FROM  dfatr_attachment WHERE p_object_key like concat(" + filter + ",'%')   and s_tenant_id <> 20 group by r_description,r_url,p_object_key,p_filename";
+        //        DataTable dt = new NpgsqlServer().ExecuteReader(query);
+        //        foreach (DataRow dr in dt.Rows)
+        //        {
+        //            Attachment.Add(new PDMS_WarrantyAttachment()
+        //            {
+        //                AttachmentID = 1,
+        //                fileName = Convert.ToString(dr["r_description"]),
+        //                PscID = Convert.ToString(dr["p_object_key"]),
+        //                Url = "OpenInNewTab('" + Convert.ToString(dr["r_url"]) + "'); return false;"
+        //            });
+        //        }
+        //        return Attachment;
+        //        TraceLogger.Log(DateTime.Now);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_MTTR", "GetMttr", ex);
+        //        throw ex;
+        //    }
+        //    return Attachment;
+        //}
 
       
         public List<PDMS_WarrantyInvoiceHeader> GetWarrantyClaimForGenerateInvoiceAbove50k(string DealerCode, int? Year, int? Month, string ClaimNumber)
@@ -1164,8 +1164,12 @@ namespace Business
                 {
                     if (!string.IsNullOrEmpty(Item.DeliveryNumber))
                     {
-                        string f_office = new NpgsqlServer().ExecuteScalar("select  f_office from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
-                        string p_location = new NpgsqlServer().ExecuteScalar("select  f_location from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
+                         
+                       // string f_office = new NpgsqlServer().ExecuteScalar("select  f_office from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
+                      //  string p_location = new NpgsqlServer().ExecuteScalar("select  f_location from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
+
+                        string f_office = new BPG().outputSingle("select  f_office from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
+                        string p_location = new BPG().outputSingle("select  f_location from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
 
                         querys.Add("INSERT INTO public.af_stock_ledger_icticket(" +
                           "s_establishment, s_tenant_id, p_location, p_office, p_material, p_stock_type,  p_batch, r_document_type, r_document_id, r_posting_date, f_ref_id1, r_opening_qty, r_inward_qty, r_outward_qty, r_closing_qty, r_current_stock, nes_flag, s_status, created_by, created_on)"
@@ -1173,7 +1177,8 @@ namespace Business
                     }
                 }
 
-                if (!new NpgsqlServer().UpdateTransactions(querys))
+                // if (!new NpgsqlServer().UpdateTransactions(querys))
+                if (!new BPG().UpdateTransactions(querys))
                 {
                     using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                     {

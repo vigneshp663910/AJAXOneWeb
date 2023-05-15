@@ -14,6 +14,7 @@ using Microsoft.Reporting.WebForms;
 using System.Web;
 using System.Web.UI;
 using System.Configuration;
+using Newtonsoft.Json;
 
 namespace Business
 {
@@ -24,36 +25,138 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public List<PDMS_DeliveryHeader> getDelivery(string DealerCode, string DeliveryNumber, DateTime? DeliveryDateFrom, DateTime? DeliveryDateTo, int? DeliveryTypeID, string DealerStateCode)
+        //public List<PDMS_DeliveryHeader> getDelivery(string DealerCode, string DeliveryNumber, DateTime? DeliveryDateFrom, DateTime? DeliveryDateTo, int? DeliveryTypeID, string DealerStateCode)
+        //{
+        //     List<PDMS_DeliveryHeader> Ws = new List<PDMS_DeliveryHeader>();
+        //    PDMS_DeliveryHeader W = null;
+
+        //    string Query = " select  f_so_id,del.p_del_id,r_del_date,del.s_tenant_id,f_customer_id,d_org_nick_name,deli.f_material_id,deli.d_material_desc,m.r_hsn_id,m.tax_percentage,r_order_qty,r_unit_price,r_discount_amt ,deli.f_office, del.f_address_id "
+        //        + " from dsder_delv_hdr del inner join dsder_delv_item deli on deli.p_del_id = del.p_del_id  inner join dssor_sales_order_item sali on sali.p_so_item = deli.f_so_item and sali.p_so_id=  deli.f_so_id "
+        //        + "left join af_m_materials m on m.p_material = deli.f_material_id where 1 =1 ";
+
+        //    try
+        //    {
+
+        //        Query = string.IsNullOrEmpty(DealerCode) ? Query : Query + " and del.s_tenant_id = " + DealerCode;
+        //        Query = string.IsNullOrEmpty(DeliveryNumber) ? Query : Query + " and del.p_del_id = '" + DeliveryNumber + "'";
+        //        if (DeliveryDateFrom != null)
+        //        {
+        //            string dateFrom = ((DateTime)DeliveryDateFrom).ToShortDateString();
+        //            Query = Query + " and del.r_del_date >= '" + dateFrom.Split('/')[1] + "/" + dateFrom.Split('/')[0] + "/" + dateFrom.Split('/')[2] + "'";               
+        //        }
+        //        if (DeliveryDateTo != null)
+        //        {
+        //            string dateTo = ((DateTime)DeliveryDateTo).ToShortDateString();
+        //            Query = Query + " and del.r_del_date <= '" + dateTo.Split('/')[1] + "/" + dateTo.Split('/')[0] + "/" + dateTo.Split('/')[2] + "'";
+        //        }
+
+        //        Query = Query + " order by del.p_del_id";
+
+        //        DataTable dt = new NpgsqlServer().ExecuteReader(Query);
+        //        PDMS_WarrantyInvoiceHeader SOI = new PDMS_WarrantyInvoiceHeader();
+
+        //        string ID = "";
+        //        foreach (DataRow dr in dt.Rows)
+        //        {
+
+        //            if (ID != Convert.ToString(dr["p_del_id"]))
+        //            {
+        //                W = new PDMS_DeliveryHeader();
+        //                Ws.Add(W);
+
+        //                W.DeliveryNumber = Convert.ToString(dr["p_del_id"]);
+        //                W.DeliveryDate = Convert.ToDateTime(dr["r_del_date"]);
+        //                W.SoNumber = Convert.ToString(dr["f_so_id"]);
+        //                W.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["s_tenant_id"]) };
+        //                W.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["f_customer_id"]), CustomerName = Convert.ToString(dr["d_org_nick_name"]) };
+        //                W.DeliveryItems = new List<PDMS_DeliveryItem>();
+        //                W.Dealer.DealerOffice = new PDMS_DealerOffice() { OfficeCode = Convert.ToString(dr["f_office"]) };
+        //                W.AddressID = Convert.ToString(dr["f_address_id"]);
+        //                ID = W.DeliveryNumber;
+        //            }
+        //            W.DeliveryItems.Add(new PDMS_DeliveryItem()
+        //            {
+
+        //                Material = Convert.ToString(dr["f_material_id"]),
+        //                MaterialDesc = Convert.ToString(dr["d_material_desc"]),
+        //                HSNCode = Convert.ToString(dr["r_hsn_id"]),
+        //                Qty = Convert.ToInt32(dr["r_order_qty"]),
+        //                Rate = Math.Round(Convert.ToDecimal(dr["r_unit_price"]),2),
+        //                Discount =Math.Round(Convert.ToDecimal(dr["r_discount_amt"]),2) ,
+        //                TaxPercentage = DBNull.Value==dr["tax_percentage"]?0: Math.Round(Convert.ToDecimal(dr["tax_percentage"]),2)
+        //            });
+        //        }
+        //        decimal GrandTotal = 0;
+        //        foreach (PDMS_DeliveryHeader Header in Ws)
+        //        {
+        //            foreach (PDMS_DeliveryItem Item in Header.DeliveryItems)
+        //            {
+        //                Item.Value = Item.Qty * Item.Rate;
+        //                Item.TaxableValue = Item.Value - Item.Discount;
+        //                if (DealerStateCode == "29")
+        //                {
+        //                    Item.CGST = Convert.ToInt32(Item.TaxPercentage);
+        //                    Item.CGSTValue = Math.Round(Item.CGST * Item.TaxableValue / 100,2);
+        //                    Item.SGST = Item.CGST;
+        //                    Item.SGSTValue = Item.CGSTValue;
+        //                    GrandTotal = GrandTotal + Item.TaxableValue + Item.CGSTValue + Item.SGSTValue;
+        //                }
+        //                else
+        //                {
+        //                    Item.IGST = Convert.ToInt32(Item.TaxPercentage) * 2;
+        //                    Item.IGSTValue =Math.Round(Item.IGST * Item.TaxableValue / 100, 2) ;
+        //                    GrandTotal = GrandTotal + Item.TaxableValue + Item.IGSTValue;
+        //                }
+        //            }
+        //            Header.GrandTotal = (int)Math.Round(GrandTotal);
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    { }
+        //    catch (Exception ex)
+        //    { }
+        //    return Ws;
+        //}
+
+
+        //public List<PDMS_DeliveryHeader> getDelivery(string DealerCode, string DeliveryNumber, string DeliveryDateFrom, string DeliveryDateTo, int? DeliveryTypeID, string DealerStateCode)
+        //{
+        //    string endPoint = "ICTicket/getDelivery?DealerCode=" + DealerCode + "&DeliveryNumber=" + DeliveryNumber + "&DeliveryDateFrom=" + DeliveryDateFrom + "&DeliveryDateTo="
+        //      + DeliveryDateTo + "&DeliveryTypeID=" + DeliveryTypeID + "&DealerStateCode=" + DealerStateCode;
+        //    return JsonConvert.DeserializeObject<List<PDMS_DeliveryHeader>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        //}
+
+        public List<PDMS_DeliveryHeader> getDelivery(string DealerCode, string DeliveryNumber, string DeliveryDateFrom, string DeliveryDateTo, int? DeliveryTypeID, string DealerStateCode)
         {
-             List<PDMS_DeliveryHeader> Ws = new List<PDMS_DeliveryHeader>();
+            List<PDMS_DeliveryHeader> Ws = new List<PDMS_DeliveryHeader>();
             PDMS_DeliveryHeader W = null;
 
             string Query = " select  f_so_id,del.p_del_id,r_del_date,del.s_tenant_id,f_customer_id,d_org_nick_name,deli.f_material_id,deli.d_material_desc,m.r_hsn_id,m.tax_percentage,r_order_qty,r_unit_price,r_discount_amt ,deli.f_office, del.f_address_id "
                 + " from dsder_delv_hdr del inner join dsder_delv_item deli on deli.p_del_id = del.p_del_id  inner join dssor_sales_order_item sali on sali.p_so_item = deli.f_so_item and sali.p_so_id=  deli.f_so_id "
                 + "left join af_m_materials m on m.p_material = deli.f_material_id where 1 =1 ";
-               
+
             try
             {
-                
+
                 Query = string.IsNullOrEmpty(DealerCode) ? Query : Query + " and del.s_tenant_id = " + DealerCode;
                 Query = string.IsNullOrEmpty(DeliveryNumber) ? Query : Query + " and del.p_del_id = '" + DeliveryNumber + "'";
-                if (DeliveryDateFrom != null)
+                if (!string.IsNullOrEmpty(DeliveryDateFrom))
                 {
-                    string dateFrom = ((DateTime)DeliveryDateFrom).ToShortDateString();
-                    Query = Query + " and del.r_del_date >= '" + dateFrom.Split('/')[1] + "/" + dateFrom.Split('/')[0] + "/" + dateFrom.Split('/')[2] + "'";               
+                    Query = Query + " and del.r_del_date >= '" + DeliveryDateFrom.Split('/')[1] + "/" + DeliveryDateFrom.Split('/')[0] + "/" + DeliveryDateFrom.Split('/')[2] + "'";
                 }
-                if (DeliveryDateTo != null)
+                if (!string.IsNullOrEmpty(DeliveryDateTo))
                 {
-                    string dateTo = ((DateTime)DeliveryDateTo).ToShortDateString();
-                    Query = Query + " and del.r_del_date <= '" + dateTo.Split('/')[1] + "/" + dateTo.Split('/')[0] + "/" + dateTo.Split('/')[2] + "'";
+                    Query = Query + " and del.r_del_date <= '" + DeliveryDateTo.Split('/')[1] + "/" + DeliveryDateTo.Split('/')[0] + "/" + DeliveryDateTo.Split('/')[2] + "'";
                 }
 
                 Query = Query + " order by del.p_del_id";
-                 
-                DataTable dt = new NpgsqlServer().ExecuteReader(Query);
+
+                //  DataTable dt = new NpgsqlServer().ExecuteReader(Query);
+                DataTable dt = new BPG().OutputDataTable(Query);
+
+
                 PDMS_WarrantyInvoiceHeader SOI = new PDMS_WarrantyInvoiceHeader();
-            
+
                 string ID = "";
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -75,14 +178,14 @@ namespace Business
                     }
                     W.DeliveryItems.Add(new PDMS_DeliveryItem()
                     {
-                       
+
                         Material = Convert.ToString(dr["f_material_id"]),
                         MaterialDesc = Convert.ToString(dr["d_material_desc"]),
                         HSNCode = Convert.ToString(dr["r_hsn_id"]),
                         Qty = Convert.ToInt32(dr["r_order_qty"]),
-                        Rate = Math.Round(Convert.ToDecimal(dr["r_unit_price"]),2),
-                        Discount =Math.Round(Convert.ToDecimal(dr["r_discount_amt"]),2) ,
-                        TaxPercentage = DBNull.Value==dr["tax_percentage"]?0: Math.Round(Convert.ToDecimal(dr["tax_percentage"]),2)
+                        Rate = Math.Round(Convert.ToDecimal(dr["r_unit_price"]), 2),
+                        Discount = Math.Round(Convert.ToDecimal(dr["r_discount_amt"]), 2),
+                        TaxPercentage = DBNull.Value == dr["tax_percentage"] ? 0 : Math.Round(Convert.ToDecimal(dr["tax_percentage"]), 2)
                     });
                 }
                 decimal GrandTotal = 0;
@@ -95,7 +198,7 @@ namespace Business
                         if (DealerStateCode == "29")
                         {
                             Item.CGST = Convert.ToInt32(Item.TaxPercentage);
-                            Item.CGSTValue = Math.Round(Item.CGST * Item.TaxableValue / 100,2);
+                            Item.CGSTValue = Math.Round(Item.CGST * Item.TaxableValue / 100, 2);
                             Item.SGST = Item.CGST;
                             Item.SGSTValue = Item.CGSTValue;
                             GrandTotal = GrandTotal + Item.TaxableValue + Item.CGSTValue + Item.SGSTValue;
@@ -103,7 +206,7 @@ namespace Business
                         else
                         {
                             Item.IGST = Convert.ToInt32(Item.TaxPercentage) * 2;
-                            Item.IGSTValue =Math.Round(Item.IGST * Item.TaxableValue / 100, 2) ;
+                            Item.IGSTValue = Math.Round(Item.IGST * Item.TaxableValue / 100, 2);
                             GrandTotal = GrandTotal + Item.TaxableValue + Item.IGSTValue;
                         }
                     }
@@ -254,7 +357,10 @@ namespace Business
                     + " left JOIN dohr_cust_equip_detail ceq ON( ceq.k_equipment_id = psc.f_equipment_id  AND ceq.s_tenant_id = psc.s_tenant_id )  	"
                     + "  where invi.f_del_Id = '" + Delivery.DeliveryNumber + "'"
                     + "  group by  psc.f_ic_ticket_id, psc.f_ic_ticket_date,f_del_Id, psc.r_equipment_ser_no,p_sc_id,psc.r_tsir_no, psc.r_fsr_no_date,ceq.r_description";
-                    DataTable dt = new NpgsqlServer().ExecuteReader(Query);
+
+                    DataTable dt = new BPG().OutputDataTable(Query);
+
+                    //DataTable dt = new NpgsqlServer().ExecuteReader(Query);
 
                     foreach (DataRow dr in dt.Rows)
                     {

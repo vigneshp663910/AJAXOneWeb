@@ -531,10 +531,10 @@ namespace DealerManagementSystem.ViewService
                     string supplierPOID = Convert.ToString(gvClaimByTicket.DataKeys[e.Row.RowIndex].Value);
                     GridView supplierPOLinesGrid = (GridView)e.Row.FindControl("gvICTicketItems");
 
-                    Label lblPscID = (Label)e.Row.FindControl("lblPscID");
-                    GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
-                    gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
-                    gvFileAttached.DataBind();
+                    //Label lblPscID = (Label)e.Row.FindControl("lblPscID");
+                    //GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
+                    //gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
+                    //gvFileAttached.DataBind();
 
 
                     List<PDMS_WarrantyInvoiceHeader> supplierPurchaseOrderLines = new List<PDMS_WarrantyInvoiceHeader>();

@@ -30,10 +30,18 @@ namespace Business
             PDMS_Customer Customer = new PDMS_Customer();
             try
             {
-                DataTable dt = new NpgsqlServer().ExecuteReader("select   bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value as  GSTIN ,bpsPan.r_value as  PAN from doohr_bp bp "
+                string Query = "select   bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value as  GSTIN ,bpsPan.r_value as  PAN from doohr_bp bp "
 + " left Join  doohr_bp_statutory bps on bps.p_bp_id =bp.p_bp_id and bps.r_statutory_type='GSTIN' left Join  doohr_bp_statutory bpsPan on bpsPan.p_bp_id =bp.p_bp_id and bpsPan.r_statutory_type='PAN' "
 + " left join doohr_bp_address bpa on bpa.p_bp_id= bp.p_bp_id and bp.s_tenant_id = bpa.s_tenant_id and bp.s_tenant_id <> 20 where  p_office_type_id='ST' and bp.p_bp_id = '" + CustomerCode + "' and  bp.s_tenant_id = " + DealerCode
-+ "group by  bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value  ,bpsPan.r_value ");
++ "group by  bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value  ,bpsPan.r_value ";
+
+                DataTable dt = new BPG().OutputDataTable(Query);
+                
+
+               //  DataTable dt = new NpgsqlServer().ExecuteReader("select   bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value as  GSTIN ,bpsPan.r_value as  PAN from doohr_bp bp "
+//+ " left Join  doohr_bp_statutory bps on bps.p_bp_id =bp.p_bp_id and bps.r_statutory_type='GSTIN' left Join  doohr_bp_statutory bpsPan on bpsPan.p_bp_id =bp.p_bp_id and bpsPan.r_statutory_type='PAN' "
+//+ " left join doohr_bp_address bpa on bpa.p_bp_id= bp.p_bp_id and bp.s_tenant_id = bpa.s_tenant_id and bp.s_tenant_id <> 20 where  p_office_type_id='ST' and bp.p_bp_id = '" + CustomerCode + "' and  bp.s_tenant_id = " + DealerCode
+//+ "group by  bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value  ,bpsPan.r_value ");
                 foreach (DataRow dr in dt.Rows)
                 {
                     Customer = new PDMS_Customer();
@@ -69,10 +77,17 @@ namespace Business
             PDMS_Customer Customer = new PDMS_Customer();
             try
             {
-                DataTable dt = new NpgsqlServer().ExecuteReader("select   bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value as  GSTIN ,bpsPan.r_value as  PAN from doohr_bp bp "
+                string Query = "select bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value as GSTIN ,bpsPan.r_value as PAN from doohr_bp bp "
 + " left Join  doohr_bp_statutory bps on bps.p_bp_id =bp.p_bp_id and bps.r_statutory_type='GSTIN' left Join  doohr_bp_statutory bpsPan on bpsPan.p_bp_id =bp.p_bp_id and bpsPan.r_statutory_type='PAN' "
 + " left join doohr_bp_address bpa on bpa.p_bp_id= bp.p_bp_id and bp.s_tenant_id = bpa.s_tenant_id and bp.s_tenant_id <> 20 where    p_office_id = '" + p_office_id + "' and bp.p_bp_id = '" + CustomerCode + "' and  bp.s_tenant_id = " + DealerCode
-+ " group by  bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value  ,bpsPan.r_value ");
++ " group by  bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value  ,bpsPan.r_value ";
+
+                DataTable dt = new BPG().OutputDataTable(Query);
+
+                //                DataTable dt = new NpgsqlServer().ExecuteReader("select   bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value as  GSTIN ,bpsPan.r_value as  PAN from doohr_bp bp "
+                //+ " left Join  doohr_bp_statutory bps on bps.p_bp_id =bp.p_bp_id and bps.r_statutory_type='GSTIN' left Join  doohr_bp_statutory bpsPan on bpsPan.p_bp_id =bp.p_bp_id and bpsPan.r_statutory_type='PAN' "
+                //+ " left join doohr_bp_address bpa on bpa.p_bp_id= bp.p_bp_id and bp.s_tenant_id = bpa.s_tenant_id and bp.s_tenant_id <> 20 where    p_office_id = '" + p_office_id + "' and bp.p_bp_id = '" + CustomerCode + "' and  bp.s_tenant_id = " + DealerCode
+                //+ " group by  bp.p_bp_id, bp.r_org_name,r_address1,r_address2,r_city,r_state,r_postal_code,bps.r_value  ,bpsPan.r_value ");
                 foreach (DataRow dr in dt.Rows)
                 {
                     Customer = new PDMS_Customer();

@@ -147,50 +147,60 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "TSIR Cancel")
             {
-                List<string> querys = new List<string>();
-                lblMessage.Visible = true;
-                List<PDMS_ServiceCharge> SS_ServiceCharge = new BDMS_Service().GetServiceCharges(Tsir.ICTicket.ICTicketID, null, "", false);
-                 foreach (PDMS_ServiceCharge SC in SS_ServiceCharge)
+
+                string endPoint = "ICTicketTsir/CancelICTicketTSIR?TsirID=" + Tsir.TsirID + "&ICTicketID=" + Tsir.ICTicket.ICTicketID;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
                 {
-                    if (!string.IsNullOrEmpty(SC.ClaimNumber))
-                    {
-                        lblMessage.Text = "Service claim generated. Please cancel the Claim";
-                        lblMessage.ForeColor = Color.Red;
-                        return;
-                    }
+                    lblMessage.Text = Results.Message;
+                    return;
                 }
-                List<PDMS_ServiceMaterial> SS_ServiceMaterial = new BDMS_Service().GetServiceMaterials(Tsir.ICTicket.ICTicketID, null, null, "", false, "");
-                foreach (PDMS_ServiceMaterial SM in SS_ServiceMaterial)
-                {
-                    if (SM.TSIR.TsirID == Tsir.TsirID)
-                    {
-                        new BDMS_Service().UpdateSaleOrderNumberFromPostgres();
-                        if (!string.IsNullOrEmpty(SM.ClaimNumber))
-                        {
-                            lblMessage.Text = "claim generated for Material " + SM.Material.MaterialCode;
-                            lblMessage.ForeColor = Color.Red;
-                            return;
-                        }
-                        if (!string.IsNullOrEmpty(SM.DeliveryNumber))
-                        {
-                            lblMessage.Text = "Delivery Completed for Material " + SM.Material.MaterialCode;
-                            lblMessage.ForeColor = Color.Red;
-                            return;
-                        }
-                    }
-                }
-                Boolean ID = new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(Tsir.TsirID, (short)TSIRStatus.Canceled, PSession.User.UserID, 0);
-                if (ID)
-                {
-                    lblMessage.Text = "TSIR is Canceled successfully";
-                    lblMessage.ForeColor = Color.Green;
-                    FillTsir(Tsir.TsirID);
-                }
-                else
-                {
-                    lblMessage.Text = "TSIR is not Canceled successfully";
-                    lblMessage.ForeColor = Color.Red;
-                }
+                ShowMessage(Results);
+
+                //List<string> querys = new List<string>();
+                //lblMessage.Visible = true;
+                //List<PDMS_ServiceCharge> SS_ServiceCharge = new BDMS_Service().GetServiceCharges(Tsir.ICTicket.ICTicketID, null, "", false);
+                // foreach (PDMS_ServiceCharge SC in SS_ServiceCharge)
+                //{
+                //    if (!string.IsNullOrEmpty(SC.ClaimNumber))
+                //    {
+                //        lblMessage.Text = "Service claim generated. Please cancel the Claim";
+                //        lblMessage.ForeColor = Color.Red;
+                //        return;
+                //    }
+                //}
+                //List<PDMS_ServiceMaterial> SS_ServiceMaterial = new BDMS_Service().GetServiceMaterials(Tsir.ICTicket.ICTicketID, null, null, "", false, "");
+                //foreach (PDMS_ServiceMaterial SM in SS_ServiceMaterial)
+                //{
+                //    if (SM.TSIR.TsirID == Tsir.TsirID)
+                //    {
+                //        new BDMS_Service().UpdateSaleOrderNumberFromPostgres();
+                //        if (!string.IsNullOrEmpty(SM.ClaimNumber))
+                //        {
+                //            lblMessage.Text = "claim generated for Material " + SM.Material.MaterialCode;
+                //            lblMessage.ForeColor = Color.Red;
+                //            return;
+                //        }
+                //        if (!string.IsNullOrEmpty(SM.DeliveryNumber))
+                //        {
+                //            lblMessage.Text = "Delivery Completed for Material " + SM.Material.MaterialCode;
+                //            lblMessage.ForeColor = Color.Red;
+                //            return;
+                //        }
+                //    }
+                //}
+                //Boolean ID = new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(Tsir.TsirID, (short)TSIRStatus.Canceled, PSession.User.UserID, 0);
+                //if (ID)
+                //{
+                //    lblMessage.Text = "TSIR is Canceled successfully";
+                //    lblMessage.ForeColor = Color.Green;
+                //    FillTsir(Tsir.TsirID);
+                //}
+                //else
+                //{
+                //    lblMessage.Text = "TSIR is not Canceled successfully";
+                //    lblMessage.ForeColor = Color.Red;
+                //}
             }
         }
         public void FillTsir(long TsirID)

@@ -13,7 +13,7 @@ namespace DataAccess
         #region Class Variables
         private string providerType;
         public IDataAccess provider;
-        public IDataAccessNP providerNP;
+     //   public IDataAccessNP providerNP;
         private readonly string sqlProvider;
         private readonly string npgsqlProvider;
         #endregion
@@ -34,8 +34,8 @@ namespace DataAccess
             if (providerType.Equals(sqlProvider))
                 provider = new SQLServer();
 
-            if (providerType.Equals(npgsqlProvider))
-                providerNP = new NpgsqlServer();
+            //if (providerType.Equals(npgsqlProvider))
+            //    providerNP = new NpgsqlServer();
 
             return provider;
         }

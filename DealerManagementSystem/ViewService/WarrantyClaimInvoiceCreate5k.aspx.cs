@@ -169,13 +169,13 @@ namespace DealerManagementSystem.ViewService
                     string supplierPOID = Convert.ToString(gvClaimByClaimID.DataKeys[e.Row.RowIndex].Value);
                     GridView supplierPOLinesGrid = (GridView)e.Row.FindControl("gvICTicketItems");
 
-                    Label lblPscID = (Label)e.Row.FindControl("lblPscID");
-                    if (!string.IsNullOrEmpty(lblPscID.Text))
-                    {
-                        GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
-                        gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
-                        gvFileAttached.DataBind();
-                    }
+                    //Label lblPscID = (Label)e.Row.FindControl("lblPscID");
+                    //if (!string.IsNullOrEmpty(lblPscID.Text))
+                    //{
+                    //    GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
+                    //    gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
+                    //    gvFileAttached.DataBind();
+                    //}
                     List<PDMS_WarrantyInvoiceItem> supplierPurchaseOrderLines = new List<PDMS_WarrantyInvoiceItem>();
                     supplierPurchaseOrderLines = SDMS_WarrantyClaimHeader.Find(s => s.InvoiceNumber == supplierPOID).InvoiceItems;
 

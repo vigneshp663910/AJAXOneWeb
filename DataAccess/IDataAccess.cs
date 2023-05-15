@@ -21,9 +21,5 @@ namespace DataAccess
         Int32 Delete(String storedProcedureName, DbParameter[] parameters, Boolean outputValueRequired = false);
         Object GetScalar(String storedProcedureName, DbParameter[] parameters);
         Object GetScalar(String storedProcedureName);
-    }
-    public interface IDataAccessNP
-    {
-        DataTable ExecuteReader(String storedProcedureName);
-    }
+    } 
 }

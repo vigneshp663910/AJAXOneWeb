@@ -14,8 +14,7 @@ namespace DealerManagementSystem.ViewService
     {
      //   public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicketManage; } }
         protected void Page_PreInit(object sender, EventArgs e)
-        {            
-            Session["previousUrl"] = "DMS_ICTicketManage.aspx";
+        {             
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -256,10 +255,10 @@ namespace DealerManagementSystem.ViewService
 
                     GridView supplierPOLinesGrid = (GridView)e.Row.FindControl("gvICTicketItems");
 
-                    Label lblPscID = (Label)e.Row.FindControl("lblPscID");
-                    GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
-                    gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
-                    gvFileAttached.DataBind();
+                    //Label lblPscID = (Label)e.Row.FindControl("lblPscID");
+                    //GridView gvFileAttached = (GridView)e.Row.FindControl("gvFileAttached");
+                    //gvFileAttached.DataSource = new BDMS_WarrantyClaim().GetAttachment("'" + lblPscID.Text.Trim() + "'");
+                    //gvFileAttached.DataBind();
 
 
                     List<PDMS_WarrantyInvoiceItem> supplierPurchaseOrderLines = new List<PDMS_WarrantyInvoiceItem>();
@@ -314,22 +313,7 @@ namespace DealerManagementSystem.ViewService
             ddlServiceType.DataBind();
             ddlServiceType.Items.Insert(0, new ListItem("Select", "0"));
         }
-        protected void btnCancel_Click(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblInvoiceNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceNumber");
-            if (new BDMS_WarrantyClaim().CancelWarrantyClaims(lblInvoiceNumber.Text, PSession.User.UserID))
-            {
-                lblMessage.Text = "Claime number " + lblInvoiceNumber.Text + " is canceled";
-                lblMessage.ForeColor = Color.Green;
-            }
-            else
-            {
-                lblMessage.Text = "Claime number " + lblInvoiceNumber.Text + " is not canceled";
-                lblMessage.ForeColor = Color.Red;
-            }
-            lblMessage.Visible = true;
-        }
+       
 
         protected void lbICTicket_Click(object sender, EventArgs e)
         {

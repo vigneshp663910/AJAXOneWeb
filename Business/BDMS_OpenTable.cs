@@ -22,7 +22,7 @@ namespace Business
             try
             {
                 string query = "SELECT " + GetDataFieldTable(TableName) + " from " + TableName + " Group by " + GetDataFieldTable(TableName);
-                dt = new NpgsqlServer().ExecuteReader(query);
+                dt = new BPG().OutputDataTable(query);
               
                 return dt;
                 TraceLogger.Log(DateTime.Now);
@@ -44,7 +44,7 @@ namespace Business
             try
             {
                 string query = "select column_name   from information_schema.columns  where table_name = '" + TableName + "' and data_type  not in ( 'date','Boolean')  ;";
-                dt = new NpgsqlServer().ExecuteReader(query);
+                dt = new BPG().OutputDataTable(query);
                 foreach (DataRow dr in dt.Rows)
                 {
                     field = field + ", " + Convert.ToString(dr["column_name"]);

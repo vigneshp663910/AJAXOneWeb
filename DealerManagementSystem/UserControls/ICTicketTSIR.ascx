@@ -123,12 +123,12 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceCharge.Material.MaterialDescription")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
+                                    <%--</ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                         <asp:LinkButton ID="lblCancelTSIR" runat="server" OnClick="lblCancelTSIR_Click">Cancel</asp:LinkButton>
+                                         <asp:LinkButton ID="lblCancelTSIR" runat="server" OnClick="lblCancelTSIR_Click">Cancel</asp:LinkButton>--%>
                                         <tr>
                                             <td colspan="100%" style="padding-left: 96px">
                                                 <div id="TsirID-<%# Eval("TsirID") %>" style="display: none; position: relative;">

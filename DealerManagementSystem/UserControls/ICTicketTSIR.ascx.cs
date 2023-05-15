@@ -516,52 +516,52 @@ namespace DealerManagementSystem.UserControls
             }
         }
 
-        protected void lblCancelTSIR_Click(object sender, EventArgs e)
-        {
-            List<string> querys = new List<string>();
-            lblMessageTSIR.Visible = true;
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            long TsirID = Convert.ToInt64(gvTSIR.DataKeys[gvRow.RowIndex].Value);
-            foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
-            {
-                if (!string.IsNullOrEmpty(SC.ClaimNumber))
-                {
-                    lblMessageTSIR.Text = "Service claim generated. Please cancel the Claim";
-                    lblMessageTSIR.ForeColor = Color.Red;
-                    return;
-                }
-            }
-            foreach (PDMS_ServiceMaterial SM in SS_ServiceMaterial)
-            {
-                if (SM.TSIR.TsirID == TsirID)
-                {
-                    new BDMS_Service().UpdateSaleOrderNumberFromPostgres();
-                    if (!string.IsNullOrEmpty(SM.ClaimNumber))
-                    {
-                        lblMessageTSIR.Text = "claim generated for Material " + SM.Material.MaterialCode;
-                        lblMessageTSIR.ForeColor = Color.Red;
-                        return;
-                    }
-                    if (!string.IsNullOrEmpty(SM.DeliveryNumber))
-                    {
-                        lblMessageTSIR.Text = "Delivery Completed for Material " + SM.Material.MaterialCode;
-                        lblMessageTSIR.ForeColor = Color.Red;
-                        return;
-                    }
-                }
-            }
-            Boolean ID = new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(TsirID, (short)TSIRStatus.Canceled, PSession.User.UserID, 0);
-            if (ID)
-            {
-                lblMessageTSIR.Text = "TSIR is Canceled successfully";
-                lblMessageTSIR.ForeColor = Color.Green;
-                FillTSIRDetails();
-            }
-            else
-            {
-                lblMessageTSIR.Text = "TSIR is not Canceled successfully";
-                lblMessageTSIR.ForeColor = Color.Red;
-            }
-        }
+        //protected void lblCancelTSIR_Click(object sender, EventArgs e)
+        //{
+        //    List<string> querys = new List<string>();
+        //    lblMessageTSIR.Visible = true;
+        //    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //    long TsirID = Convert.ToInt64(gvTSIR.DataKeys[gvRow.RowIndex].Value);
+        //    foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
+        //    {
+        //        if (!string.IsNullOrEmpty(SC.ClaimNumber))
+        //        {
+        //            lblMessageTSIR.Text = "Service claim generated. Please cancel the Claim";
+        //            lblMessageTSIR.ForeColor = Color.Red;
+        //            return;
+        //        }
+        //    }
+        //    foreach (PDMS_ServiceMaterial SM in SS_ServiceMaterial)
+        //    {
+        //        if (SM.TSIR.TsirID == TsirID)
+        //        {
+        //            new BDMS_Service().UpdateSaleOrderNumberFromPostgres();
+        //            if (!string.IsNullOrEmpty(SM.ClaimNumber))
+        //            {
+        //                lblMessageTSIR.Text = "claim generated for Material " + SM.Material.MaterialCode;
+        //                lblMessageTSIR.ForeColor = Color.Red;
+        //                return;
+        //            }
+        //            if (!string.IsNullOrEmpty(SM.DeliveryNumber))
+        //            {
+        //                lblMessageTSIR.Text = "Delivery Completed for Material " + SM.Material.MaterialCode;
+        //                lblMessageTSIR.ForeColor = Color.Red;
+        //                return;
+        //            }
+        //        }
+        //    }
+        //    Boolean ID = new BDMS_ICTicketTSIR().UpdateICTicketTSIRStatus(TsirID, (short)TSIRStatus.Canceled, PSession.User.UserID, 0);
+        //    if (ID)
+        //    {
+        //        lblMessageTSIR.Text = "TSIR is Canceled successfully";
+        //        lblMessageTSIR.ForeColor = Color.Green;
+        //        FillTSIRDetails();
+        //    }
+        //    else
+        //    {
+        //        lblMessageTSIR.Text = "TSIR is not Canceled successfully";
+        //        lblMessageTSIR.ForeColor = Color.Red;
+        //    }
+        //}
     }
 }

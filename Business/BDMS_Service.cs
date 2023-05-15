@@ -1677,68 +1677,68 @@ namespace Business
             return null;
         }
 
-        public void UpdateSaleOrderNumberFromPostgres()
-        {
-            try
-            {
-                DataTable dt = new NpgsqlServer().ExecuteReader("select p_so_id from dssor_sales_order_hdr where r_ref_obj_name in ( 'dsprr_psc_hdr','Ser-Center-Quotation','Policy Warranty','Parts Warranty','Goodwil Warranty','Pre Commission') and s_sync_status is null and s_status in ( 'ORDER_PLACED','COMPLETED','PARTIAL_DELV') limit 10000");
-                foreach (DataRow dr in dt.Rows)
-                {
-                    DbParameter SaleOrderNumberP = provider.CreateParameter("SaleOrderNumber", Convert.ToString(dr["p_so_id"]), DbType.String);
-                    DbParameter[] Params = new DbParameter[1] { SaleOrderNumberP };
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                    {
-                        provider.Insert("ZDMS_UpdateSaleOrderNumberFromPostgres", Params);
-                        scope.Complete();
-                    }
-                    new NpgsqlServer().ExecuteNonQuery("update dssor_sales_order_hdr set s_sync_status = 'R' where p_so_id = '" + Convert.ToString(dr["p_so_id"]) + "' ");
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Service", "InsertServiceQuotationOrProformaOrInvoice", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Service", " InsertServiceQuotationOrProformaOrInvoice", ex);
-            }
-            UpdateDeliveryNumberFromPostgres();
-        }
+        //public void UpdateSaleOrderNumberFromPostgres()
+        //{
+        //    try
+        //    {
+        //        DataTable dt = new NpgsqlServer().ExecuteReader("select p_so_id from dssor_sales_order_hdr where r_ref_obj_name in ( 'dsprr_psc_hdr','Ser-Center-Quotation','Policy Warranty','Parts Warranty','Goodwil Warranty','Pre Commission') and s_sync_status is null and s_status in ( 'ORDER_PLACED','COMPLETED','PARTIAL_DELV') limit 10000");
+        //        foreach (DataRow dr in dt.Rows)
+        //        {
+        //            DbParameter SaleOrderNumberP = provider.CreateParameter("SaleOrderNumber", Convert.ToString(dr["p_so_id"]), DbType.String);
+        //            DbParameter[] Params = new DbParameter[1] { SaleOrderNumberP };
+        //            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //            {
+        //                provider.Insert("ZDMS_UpdateSaleOrderNumberFromPostgres", Params);
+        //                scope.Complete();
+        //            }
+        //            new NpgsqlServer().ExecuteNonQuery("update dssor_sales_order_hdr set s_sync_status = 'R' where p_so_id = '" + Convert.ToString(dr["p_so_id"]) + "' ");
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_Service", "InsertServiceQuotationOrProformaOrInvoice", sqlEx);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_Service", " InsertServiceQuotationOrProformaOrInvoice", ex);
+        //    }
+        //    UpdateDeliveryNumberFromPostgres();
+        //}
 
-        void UpdateDeliveryNumberFromPostgres()
-        {
-            try
-            {
-                DataTable dt1 = new NpgsqlServer().ExecuteReader("select p_so_id,d.p_del_id,r_del_date,f_material_id from dssor_sales_order_hdr so inner join dsder_delv_item di on di.f_so_id = so.p_so_id inner join dsder_delv_hdr d on d.p_del_id = di.p_del_id where so.r_ref_obj_name in ( 'dsprr_psc_hdr','Ser-Center-Quotation','Policy Warranty','Parts Warranty','Goodwil Warranty','Pre Commission') and di.s_sync_status is null limit 10000");
-                // DataTable dt1 = new NpgsqlServer().ExecuteReader("select p_so_id,d.p_del_id,r_del_date,f_material_id from dssor_sales_order_hdr so inner join dsder_delv_item di on di.f_so_id = so.p_so_id inner join dsder_delv_hdr d on d.p_del_id = di.p_del_id where so.r_ref_obj_name = 'dsprr_psc_hdr' and  p_so_id='5017006953'  limit 10000");
+        //void UpdateDeliveryNumberFromPostgres()
+        //{
+        //    try
+        //    {
+        //        DataTable dt1 = new NpgsqlServer().ExecuteReader("select p_so_id,d.p_del_id,r_del_date,f_material_id from dssor_sales_order_hdr so inner join dsder_delv_item di on di.f_so_id = so.p_so_id inner join dsder_delv_hdr d on d.p_del_id = di.p_del_id where so.r_ref_obj_name in ( 'dsprr_psc_hdr','Ser-Center-Quotation','Policy Warranty','Parts Warranty','Goodwil Warranty','Pre Commission') and di.s_sync_status is null limit 10000");
+        //        // DataTable dt1 = new NpgsqlServer().ExecuteReader("select p_so_id,d.p_del_id,r_del_date,f_material_id from dssor_sales_order_hdr so inner join dsder_delv_item di on di.f_so_id = so.p_so_id inner join dsder_delv_hdr d on d.p_del_id = di.p_del_id where so.r_ref_obj_name = 'dsprr_psc_hdr' and  p_so_id='5017006953'  limit 10000");
 
-                foreach (DataRow dr in dt1.Rows)
-                {
-                    DbParameter SaleOrderNumberP = provider.CreateParameter("SaleOrderNumber", Convert.ToString(dr["p_so_id"]), DbType.String);
-                    DbParameter DeliveryNumberP = provider.CreateParameter("DeliveryNumber", Convert.ToString(dr["p_del_id"]), DbType.String);
-                    string Sdate = Convert.ToString(dr["r_del_date"]);
-                    //  DateTime Dt = Convert.ToDateTime(Sdate.Substring(8, 2) + "/" + Sdate.Substring(5, 2) + "/" + Sdate.Substring(0, 4));
-                    DateTime Dt = Convert.ToDateTime(Sdate);
-                    DbParameter DeliveryDateP = provider.CreateParameter("DeliveryDate", Dt, DbType.DateTime);
-                    DbParameter MaterialP = provider.CreateParameter("Material", Convert.ToString(dr["f_material_id"]), DbType.String);
-                    DbParameter[] Params = new DbParameter[4] { SaleOrderNumberP, DeliveryNumberP, DeliveryDateP, MaterialP };
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                    {
-                        provider.Insert("ZDMS_UpdateDeliveryNumberFromPostgres", Params);
-                        scope.Complete();
-                    }
-                    new NpgsqlServer().ExecuteNonQuery("update dsder_delv_item set s_sync_status = 'R' where f_so_id ='" + Convert.ToString(dr["p_so_id"]) + "' and p_del_id ='" + Convert.ToString(dr["p_del_id"]) + "' and f_material_id ='" + Convert.ToString(dr["f_material_id"]) + "'");
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Service", "InsertServiceQuotationOrProformaOrInvoice", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Service", " InsertServiceQuotationOrProformaOrInvoice", ex);
-            }
-        }
+        //        foreach (DataRow dr in dt1.Rows)
+        //        {
+        //            DbParameter SaleOrderNumberP = provider.CreateParameter("SaleOrderNumber", Convert.ToString(dr["p_so_id"]), DbType.String);
+        //            DbParameter DeliveryNumberP = provider.CreateParameter("DeliveryNumber", Convert.ToString(dr["p_del_id"]), DbType.String);
+        //            string Sdate = Convert.ToString(dr["r_del_date"]);
+        //            //  DateTime Dt = Convert.ToDateTime(Sdate.Substring(8, 2) + "/" + Sdate.Substring(5, 2) + "/" + Sdate.Substring(0, 4));
+        //            DateTime Dt = Convert.ToDateTime(Sdate);
+        //            DbParameter DeliveryDateP = provider.CreateParameter("DeliveryDate", Dt, DbType.DateTime);
+        //            DbParameter MaterialP = provider.CreateParameter("Material", Convert.ToString(dr["f_material_id"]), DbType.String);
+        //            DbParameter[] Params = new DbParameter[4] { SaleOrderNumberP, DeliveryNumberP, DeliveryDateP, MaterialP };
+        //            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //            {
+        //                provider.Insert("ZDMS_UpdateDeliveryNumberFromPostgres", Params);
+        //                scope.Complete();
+        //            }
+        //            new NpgsqlServer().ExecuteNonQuery("update dsder_delv_item set s_sync_status = 'R' where f_so_id ='" + Convert.ToString(dr["p_so_id"]) + "' and p_del_id ='" + Convert.ToString(dr["p_del_id"]) + "' and f_material_id ='" + Convert.ToString(dr["f_material_id"]) + "'");
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_Service", "InsertServiceQuotationOrProformaOrInvoice", sqlEx);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_Service", " InsertServiceQuotationOrProformaOrInvoice", ex);
+        //    }
+        //}
 
         public List<PDMS_PaidServiceHeader> GetPaidServiceReport(string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? DealerID, string CustomerCode, int? ServiceStatusID, int? ServiceTypeID)
         {

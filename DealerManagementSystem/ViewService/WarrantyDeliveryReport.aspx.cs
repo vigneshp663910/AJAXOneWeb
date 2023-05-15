@@ -90,23 +90,23 @@ namespace DealerManagementSystem.ViewService
                 TraceLogger.Log(DateTime.Now);
                 string DealerCode = ddlDealerCode.SelectedValue;
                 string DeliveryNumber = txtDeliveryNumber.Text.Trim();
-                DateTime? DeliveryDateFrom = null;
-                DateTime? DeliveryDateTo = null;
+                //DateTime? DeliveryDateFrom = null;
+                //DateTime? DeliveryDateTo = null;
                 int? DeliveryTypeID = null;
                 string DealerStateCode = "";
 
-                if (!string.IsNullOrEmpty(txtDeliveryDateFrom.Text.Trim()))
-                {
-                    DeliveryDateFrom = Convert.ToDateTime(txtDeliveryDateFrom.Text.Trim());
-                }
-                if (!string.IsNullOrEmpty(txtDeliveryDateTo.Text.Trim()))
-                {
-                    DeliveryDateTo = Convert.ToDateTime(txtDeliveryDateTo.Text.Trim());
-                }
+                //if (!string.IsNullOrEmpty(txtDeliveryDateFrom.Text.Trim()))
+                //{
+                //    DeliveryDateFrom = Convert.ToDateTime(txtDeliveryDateFrom.Text.Trim());
+                //}
+                //if (!string.IsNullOrEmpty(txtDeliveryDateTo.Text.Trim()))
+                //{
+                //    DeliveryDateTo = Convert.ToDateTime(txtDeliveryDateTo.Text.Trim());
+                //}
                 PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
 
                 DealerStateCode = Dealer.State.StateCode;
-                List<PDMS_DeliveryHeader> SOIs = new BDMS_Delivery().getDelivery(DealerCode, DeliveryNumber, DeliveryDateFrom, DeliveryDateTo, DeliveryTypeID, DealerStateCode);
+                List<PDMS_DeliveryHeader> SOIs = new BDMS_Delivery().getDelivery(DealerCode, DeliveryNumber, txtDeliveryDateFrom.Text.Trim(), txtDeliveryDateTo.Text.Trim(), DeliveryTypeID, DealerStateCode);
 
                 SDMS_WarrantyClaimHeader = SOIs;
 
