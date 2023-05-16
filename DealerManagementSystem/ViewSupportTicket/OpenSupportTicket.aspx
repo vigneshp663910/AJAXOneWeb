@@ -102,7 +102,7 @@
                             <asp:TextBox ID="txtRequestedDateTo" runat="server" CssClass="TextBox form-control" TextMode="Date" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Requested User ID</label>
+                            <label class="modal-label">Requested By</label>
                             <asp:DropDownList ID="ddlCreatedBy" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
                         </div>
                         <div class="col-md-2 col-sm-12">
