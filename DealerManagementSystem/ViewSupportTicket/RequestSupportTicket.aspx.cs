@@ -231,6 +231,10 @@ namespace DealerManagementSystem.ViewSupportTicket
                 if (file1.FileName == file.Text)
                 {
                     AttchedFile.RemoveAt(fileIndex); 
+                    if(AttchedFile.Count==0)
+                    {
+                        break;
+                    }
                 }
                 fileIndex = fileIndex + 1;
             }  
