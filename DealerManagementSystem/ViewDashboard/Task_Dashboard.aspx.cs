@@ -87,7 +87,7 @@ namespace DealerManagementSystem.ViewDashboard
                 Session["DashboardTaskStatus"] = ",Reject";
                 Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
             }
-            else if (lbActions.Text == "Resolved")
+            else if (lbActions.Text == "Resolved+")
             {
                 Session["DashboardTaskStatus"] = ",Resolved,Closed,Cancel,Foreclose";
                 Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
