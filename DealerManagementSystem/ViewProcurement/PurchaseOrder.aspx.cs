@@ -14,6 +14,7 @@ namespace DealerManagementSystem.ViewProcurement
 {
     public partial class PurchaseOrder : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrder; } }
         int? DealerID = null;
         string VendorID = null;
         string PurchaseOrderNo = null;
