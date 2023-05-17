@@ -1209,7 +1209,10 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
             if ((Ticket[0].Status.StatusID == 2) || (Ticket[0].Status.StatusID == 8))
             {
-                lbtnApprove.Visible = false;
+                if (!Ticket[0].ApprovalDetails.Any(item => item.Approver.ContactName == PSession.User.ContactName && item.InActive == false && item.RejectedBy == null && item.IsAppoved == null))
+                {
+                    lbtnApprove.Visible = false;
+                }
                 if (Ticket[0].TicketItems.Any(item => item.ItemStatus.StatusID == 2 && item.AssignedTo.UserID == PSession.User.UserID && item.InActive == false))
                 {
                     lbtnClose.Visible = false;
@@ -1315,9 +1318,12 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
             if ((Ticket[0].Status.StatusID != 6) || (Ticket[0].ApprovalDetails.Any(item => item.Approver.ContactName != PSession.User.ContactName && item.InActive == false) && Ticket[0].ApprovalDetails.Any(item => item.IsAppoved == true && (item.RejectedBy != null) ? (item.RejectedBy.ContactName == PSession.User.ContactName) : (item.Approver.ContactName == PSession.User.ContactName))))
             {
-                lbtnReject.Visible = false;
-                lbtnApprove.Visible = false;
-                lbtnResendApproval.Visible = false;
+                if (!Ticket[0].ApprovalDetails.Any(item => item.Approver.ContactName == PSession.User.ContactName && item.InActive == false && item.RejectedBy == null && item.IsAppoved == null))
+                {
+                    lbtnReject.Visible = false;
+                    lbtnApprove.Visible = false;
+                    lbtnResendApproval.Visible = false;
+                }
             }
             if (Ticket[0].Status.StatusID == 12)
             {

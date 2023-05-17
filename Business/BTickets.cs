@@ -278,58 +278,61 @@ namespace Business
                 {
                     if (TicketTypeDataSet != null)
                     {
-                        foreach (DataRow TicketTypeRow in TicketTypeDataSet.Tables[0].Rows)
+                        if (TicketTypeDataSet.Tables.Count > 0)
                         {
+                            foreach (DataRow TicketTypeRow in TicketTypeDataSet.Tables[0].Rows)
+                            {
 
-                            pTickets = new PTicketHeader();
-                            pTickets.CreatedBy = new PUser()
-                            {
-                                UserID = Convert.ToInt32(TicketTypeRow["CreatedBy"]),
-                                ContactName = Convert.ToString(TicketTypeRow["CreatedByEmployeeName"])
-                            };
-                            pTickets.CreatedOn = Convert.ToDateTime(TicketTypeRow["CreatedOn"]);
-                            //  pTickets.Justification = Convert.ToString(TicketTypeRow["Justification"]);
-                            pTickets.Repeat = Convert.ToBoolean(TicketTypeRow["Repeat"]);
-                            pTickets.Subject = Convert.ToString(TicketTypeRow["Subject"]);
-                            pTickets.Description = Convert.ToString(TicketTypeRow["Description"]);
-                            pTickets.HeaderID = Convert.ToInt32(TicketTypeRow["HeaderID"]);
+                                pTickets = new PTicketHeader();
+                                pTickets.CreatedBy = new PUser()
+                                {
+                                    UserID = Convert.ToInt32(TicketTypeRow["CreatedBy"]),
+                                    ContactName = Convert.ToString(TicketTypeRow["CreatedByEmployeeName"])
+                                };
+                                pTickets.CreatedOn = Convert.ToDateTime(TicketTypeRow["CreatedOn"]);
+                                //  pTickets.Justification = Convert.ToString(TicketTypeRow["Justification"]);
+                                pTickets.Repeat = Convert.ToBoolean(TicketTypeRow["Repeat"]);
+                                pTickets.Subject = Convert.ToString(TicketTypeRow["Subject"]);
+                                pTickets.Description = Convert.ToString(TicketTypeRow["Description"]);
+                                pTickets.HeaderID = Convert.ToInt32(TicketTypeRow["HeaderID"]);
 
-                            pTickets.Severity = TicketTypeRow["SeverityID"] == DBNull.Value ? null :
-                            new PSeverity
-                            {
-                                SeverityID = Convert.ToInt32(TicketTypeRow["SeverityID"]),
-                                Severity = Convert.ToString(TicketTypeRow["Severity"])
-                            };
-                            pTickets.Status = TicketTypeRow["StatusID"] == DBNull.Value ? null :
-                            new PStatus
-                            {
-                                StatusID = Convert.ToInt32(TicketTypeRow["StatusID"]),
-                                Status = Convert.ToString(TicketTypeRow["Status"])
-                            };
-                            pTickets.Category = TicketTypeRow["CategoryID"] == DBNull.Value ? null :
-                            new PCategory
-                            {
-                                Category = Convert.ToString(TicketTypeRow["Category"]),
-                                CategoryID = Convert.ToInt32(TicketTypeRow["CategoryID"])
-                            };
-                            pTickets.SubCategory = TicketTypeRow["SubCategoryID"] == DBNull.Value ? null :
-                            new PSubCategory
-                            {
-                                CategoryId = Convert.ToInt32(TicketTypeRow["CategoryId"]),
-                                SubCategory = Convert.ToString(TicketTypeRow["SubCategory"]),
-                                SubCategoryID = Convert.ToInt32(TicketTypeRow["SubCategoryID"])
-                            };
-                            pTickets.Type = TicketTypeRow["TypeID"] == DBNull.Value ? null :
-                            new PType
-                            {
-                                TypeID = Convert.ToInt32(TicketTypeRow["TypeID"]),
-                                Type = Convert.ToString(TicketTypeRow["Type"])
-                            };
-                            pTickets.MobileNo = Convert.ToString(TicketTypeRow["MobileNo"]);
-                            pTickets.ContactName = Convert.ToString(TicketTypeRow["ContactName"]);
-                            pTickets.age = Convert.ToInt32(TicketTypeRow["Age"]);
-                            TicketsList.Add(pTickets);
-                            RowCount = Convert.ToInt32(TicketTypeRow["RowCount"]);
+                                pTickets.Severity = TicketTypeRow["SeverityID"] == DBNull.Value ? null :
+                                new PSeverity
+                                {
+                                    SeverityID = Convert.ToInt32(TicketTypeRow["SeverityID"]),
+                                    Severity = Convert.ToString(TicketTypeRow["Severity"])
+                                };
+                                pTickets.Status = TicketTypeRow["StatusID"] == DBNull.Value ? null :
+                                new PStatus
+                                {
+                                    StatusID = Convert.ToInt32(TicketTypeRow["StatusID"]),
+                                    Status = Convert.ToString(TicketTypeRow["Status"])
+                                };
+                                pTickets.Category = TicketTypeRow["CategoryID"] == DBNull.Value ? null :
+                                new PCategory
+                                {
+                                    Category = Convert.ToString(TicketTypeRow["Category"]),
+                                    CategoryID = Convert.ToInt32(TicketTypeRow["CategoryID"])
+                                };
+                                pTickets.SubCategory = TicketTypeRow["SubCategoryID"] == DBNull.Value ? null :
+                                new PSubCategory
+                                {
+                                    CategoryId = Convert.ToInt32(TicketTypeRow["CategoryId"]),
+                                    SubCategory = Convert.ToString(TicketTypeRow["SubCategory"]),
+                                    SubCategoryID = Convert.ToInt32(TicketTypeRow["SubCategoryID"])
+                                };
+                                pTickets.Type = TicketTypeRow["TypeID"] == DBNull.Value ? null :
+                                new PType
+                                {
+                                    TypeID = Convert.ToInt32(TicketTypeRow["TypeID"]),
+                                    Type = Convert.ToString(TicketTypeRow["Type"])
+                                };
+                                pTickets.MobileNo = Convert.ToString(TicketTypeRow["MobileNo"]);
+                                pTickets.ContactName = Convert.ToString(TicketTypeRow["ContactName"]);
+                                pTickets.age = Convert.ToInt32(TicketTypeRow["Age"]);
+                                TicketsList.Add(pTickets);
+                                RowCount = Convert.ToInt32(TicketTypeRow["RowCount"]);
+                            }
                         }
                     }
                 }
@@ -2251,22 +2254,6 @@ namespace Business
             catch (Exception ex)
             { }
             return Header;
-        }
-        public DataSet GetTicketDetailsMonthwiseCountByStatus1(int? DealerEmployeeUserID, string Year, string Month)
-        {
-            try
-            {
-                DbParameter DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
-                DbParameter YearP = provider.CreateParameter("Year", Year, DbType.String);
-                DbParameter MonthP = provider.CreateParameter("Month", Month, DbType.String);
-                DbParameter[] TicketTypeParams = new DbParameter[3] { DealerEmployeeUserIDP, YearP, MonthP };
-                return provider.Select("GetTicketDetailsMonthwiseCountByStatus1", TicketTypeParams);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BTickets", "GetTicketDetailsMonthwiseCountByStatus1", ex);
-                throw ex;
-            }
         }
         public DataSet GetTicketDetailsMonthwiseCountByStatus(int? DealerEmployeeUserID, DateTime? DateFrom, DateTime? DateTo)
         {

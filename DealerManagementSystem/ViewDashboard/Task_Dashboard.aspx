@@ -524,7 +524,7 @@
                                             <div class="details" style="color: white;">
                                                 <asp:Label ID="lblClosed" runat="server" Text="0"></asp:Label>
                                                 <div class="desc">
-                                                    <asp:LinkButton ID="lbtnClosed" runat="server" Style="color: white;" OnClick="lbActions_Click">Resolved</asp:LinkButton>
+                                                    <asp:LinkButton ID="lbtnClosed" runat="server" Style="color: white;" OnClick="lbActions_Click">Resolved+</asp:LinkButton>
                                                 </div>
                                             </div>
                                         </div>
