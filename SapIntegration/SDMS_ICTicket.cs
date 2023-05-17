@@ -8,43 +8,7 @@ using System.Text;
 namespace SapIntegration
 {
     public class SDMS_ICTicket
-    {
-        public List<PDMS_ICTicket> getCustomerAddress(string CustomerCode)
-        {
-            List<PDMS_ICTicket> ICTickets = new List<PDMS_ICTicket>();
-            PDMS_ICTicket ICTicket = null;
-            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZBAPI_GET_CUST_ADD_FOR_DMSR");
-            tagListBapi.SetValue("V_KUNNR", CustomerCode.PadLeft(10, '0'));
-            tagListBapi.Invoke(SAP.RfcDes());
-            IRfcTable tagTable = tagListBapi.GetTable("It_MARA");
-            for (int i = 0; i < tagTable.RowCount; i++)
-            {
-                ICTicket = new PDMS_ICTicket();
-                ICTickets.Add(ICTicket);
-                ICTicket.ICTicketNumber = tagListBapi.GetString("ICTicketNumber");
-                ICTicket.ICTicketDate = Convert.ToDateTime(tagListBapi.GetString("ADD1"));
-                ICTicket.PresentContactNumber = tagListBapi.GetString("PresentContactNumber");
-                ICTicket.ContactPerson = tagListBapi.GetString("ContactPerson");
-
-                ICTicket.ComplaintCode = tagListBapi.GetString("ComplaintCode");
-                ICTicket.ComplaintDescription = tagListBapi.GetString("ComplaintDescription");
-                ICTicket.Information = tagListBapi.GetString("Information");
-                ICTicket.ReasonForCloser = tagListBapi.GetString("ReasonForCloser");
-                ICTicket.OldICTicketNumber = tagListBapi.GetString("OldICTicketNumber");
-                ICTicket.ContactPerson = tagListBapi.GetString("ContactPerson");
-                ICTicket.ContactPerson = tagListBapi.GetString("ContactPerson");
-                ICTicket.ContactPerson = tagListBapi.GetString("ContactPerson");
-                ICTicket.ContactPerson = tagListBapi.GetString("ContactPerson");
-                ICTicket.ContactPerson = tagListBapi.GetString("ContactPerson");
-                ICTicket.ContactPerson = tagListBapi.GetString("ContactPerson");
-                ICTicket.ContactPerson = tagListBapi.GetString("ContactPerson");
-                ICTicket.ContactPerson = tagListBapi.GetString("ContactPerson");
-
-            }
-            return ICTickets;
-        }
-       
-         
+    { 
         public List<string> getModelByProductID(string ProductID)
         {
             long n;
