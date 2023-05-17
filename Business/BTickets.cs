@@ -2255,22 +2255,6 @@ namespace Business
             { }
             return Header;
         }
-        public DataSet GetTicketDetailsMonthwiseCountByStatus1(int? DealerEmployeeUserID, string Year, string Month)
-        {
-            try
-            {
-                DbParameter DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
-                DbParameter YearP = provider.CreateParameter("Year", Year, DbType.String);
-                DbParameter MonthP = provider.CreateParameter("Month", Month, DbType.String);
-                DbParameter[] TicketTypeParams = new DbParameter[3] { DealerEmployeeUserIDP, YearP, MonthP };
-                return provider.Select("GetTicketDetailsMonthwiseCountByStatus1", TicketTypeParams);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BTickets", "GetTicketDetailsMonthwiseCountByStatus1", ex);
-                throw ex;
-            }
-        }
         public DataSet GetTicketDetailsMonthwiseCountByStatus(int? DealerEmployeeUserID, DateTime? DateFrom, DateTime? DateTo)
         {
             try
