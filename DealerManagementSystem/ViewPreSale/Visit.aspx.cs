@@ -168,7 +168,7 @@ namespace DealerManagementSystem.ViewPreSale
                 return;
             }
 
-            ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
+            ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtVisitDate.Text.Trim());
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
             ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
             ColdVisitList.PersonMet = hfPersonMet.Value =="0"? (long?)null: Convert.ToInt64(hfPersonMet.Value) ;
@@ -199,18 +199,23 @@ namespace DealerManagementSystem.ViewPreSale
         public string ValidationColdVisit()
         {
             string Message = "";
-            txtColdVisitDate.BorderColor = Color.Silver;
+            txtVisitDate.BorderColor = Color.Silver;
             txtRemark.BorderColor = Color.Silver;
             ddlActionType.BorderColor = Color.Silver;
-            if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
+            if (string.IsNullOrEmpty(txtVisitDate.Text.Trim()))
             {
-                txtColdVisitDate.BorderColor = Color.Red;
+                txtVisitDate.BorderColor = Color.Red;
                 return "Please enter the Visit Date";
             }
-            if (Convert.ToDateTime(txtColdVisitDate.Text.Trim()) > DateTime.Now)
+            if (Convert.ToDateTime(txtVisitDate.Text.Trim()) > DateTime.Now)
             {
-                txtColdVisitDate.BorderColor = Color.Red;
+                txtVisitDate.BorderColor = Color.Red;
                 return "You cannot select future Visit Date";
+            }
+            if (Convert.ToDateTime(txtVisitDate.Text.Trim()) < DateTime.Now.Date.AddDays(-2))
+            {
+                txtVisitDate.BorderColor = Color.Red;
+                return "You cannot select Visit Date more than 2 date back ";
             }
             if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
             {
@@ -257,6 +262,8 @@ namespace DealerManagementSystem.ViewPreSale
         {
             MPE_Customer.Show();
             UC_Customer.FillMaster();
+            ceVisitDate.StartDate = DateTime.Now.AddDays(-2);
+            ceVisitDate.EndDate = DateTime.Now;
             new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
             new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
         } 

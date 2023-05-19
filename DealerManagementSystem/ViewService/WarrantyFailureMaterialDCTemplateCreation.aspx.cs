@@ -12,15 +12,13 @@ namespace DealerManagementSystem.ViewService
 {
     public partial class WarrantyFailureMaterialDCTemplateCreation : BasePage
     {
-      //  public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyFailureMaterialDCTemplateCreation; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyFailureMaterialDCTemplateCreation; } }
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            Session["previousUrl"] = "DMS_FailedMaterialReturn.aspx";
+        { 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
 
         public long[,] GridSelected

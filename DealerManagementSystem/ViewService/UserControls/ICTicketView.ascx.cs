@@ -1022,15 +1022,15 @@ namespace DealerManagementSystem.ViewService.UserControls
             ICTicketTSIRs = new BDMS_ICTicketTSIR().GetICTicketTSIRBasicDetails(SDMS_ICTicket.ICTicketID);
             gvTSIR.DataSource = ICTicketTSIRs;
             gvTSIR.DataBind();
-            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirCancel).Count() == 1)
-            {
-                for (int i = 0; i < gvTSIR.Rows.Count; i++)
-                {
-                    LinkButton lblCancelTSIR = (LinkButton)gvTSIR.Rows[i].FindControl("lblCancelTSIR");
-                    lblCancelTSIR.Visible = true;
-                }
-            }           
+            //List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirCancel).Count() == 1)
+            //{
+            //    for (int i = 0; i < gvTSIR.Rows.Count; i++)
+            //    {
+            //        LinkButton lblCancelTSIR = (LinkButton)gvTSIR.Rows[i].FindControl("lblCancelTSIR");
+            //        lblCancelTSIR.Visible = true;
+            //    }
+            //}           
         }
 
         protected void cbCheck_CheckedChanged(object sender, EventArgs e)
@@ -1644,7 +1644,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             CheckBox cbQuotationParts = (CheckBox)gvMaterial.Rows[gvRow.RowIndex].FindControl("cbQuotationParts");
             DropDownList ddlMaterialSource = (DropDownList)gvMaterial.Rows[gvRow.RowIndex].FindControl("ddlMaterialSource");
             DropDownList ddlTSIRNumber = (DropDownList)gvMaterial.Rows[gvRow.RowIndex].FindControl("ddlTSIRNumber");
-
+            Label lblPONumber = (Label)gvMaterial.Rows[gvRow.RowIndex].FindControl("lblPONumber");
 
             ServiceMaterial.ServiceMaterialID = ServiceMaterialID;
             ServiceMaterial.ICTicketID = SDMS_ICTicket.ICTicketID;
@@ -1655,8 +1655,10 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             ServiceMaterial.IsRecomenedParts = cbRecomenedParts.Checked;
             ServiceMaterial.IsQuotationParts = cbQuotationParts.Checked;
+
             ServiceMaterial.MaterialSource = ddlMaterialSource.SelectedValue == "0" ? null : new PDMS_MaterialSource() { MaterialSourceID = Convert.ToInt32(ddlMaterialSource.SelectedValue) };
              ;
+            ServiceMaterial.PONumber = lblPONumber.Text;
             if (ddlTSIRNumber.SelectedValue != "0")
             {
                 ServiceMaterial.TsirID = Convert.ToInt64(ddlTSIRNumber.SelectedValue) ;

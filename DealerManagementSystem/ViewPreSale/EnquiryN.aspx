@@ -376,7 +376,7 @@
                              $(this).autocomplete("search");
                          }).data('ui-autocomplete')._renderItem = function (ul, item) {
 
-                             var inner_html = FormatAutocompleteList(item);
+                             var inner_html = FormatAutocompleteProject(item);
                              return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
                                  .data('item.autocomplete', item)
                                  .append(inner_html)

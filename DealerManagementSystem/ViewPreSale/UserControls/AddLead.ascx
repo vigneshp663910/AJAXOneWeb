@@ -64,7 +64,7 @@
 </fieldset>
 <script type="text/javascript">
 
-    function FormatAutocompleteList(item) {
+    function FormatAutocompleteProject(item) {
 
         var inner_html = '<a class="customer">';
         inner_html += '<p class="customer-name-info"><label>' + item.value + '</label></p>';
