@@ -422,6 +422,7 @@ namespace Properties
         public string AsnNumber { get; set; }
         public DateTime AsnDate { get; set; }
         public PDMS_Dealer Dealer { get; set; }
+        public PPurchaseOrderASNStatus AsnStatus { get; set; }
         public string DeliveryNumber { get; set; }
         public string SapDeliveryNumber { get; set; }
         public DateTime? DeliveryDate { get; set; }
@@ -472,6 +473,12 @@ namespace Properties
         public decimal DamagedQty { get; set; }
         public decimal ReturnedQty { get; set; }
         public string GrRemarks { get; set; }
+    }
+    [Serializable]
+    public class PPurchaseOrderASNStatus
+    {
+        public long AsnStatusID { get; set; }
+        public string AsnStatus { get; set; }
     }
 
 }

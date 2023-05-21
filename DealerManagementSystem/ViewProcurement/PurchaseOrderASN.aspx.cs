@@ -1,6 +1,9 @@
-﻿using Properties;
+﻿using Business;
+using Newtonsoft.Json;
+using Properties;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,10 +13,241 @@ namespace DealerManagementSystem.ViewProcurement
 {
     public partial class PurchaseOrderASN : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrderASN; } }
+        //public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrderASN; } }
+        int? DealerID = null;
+        string VendorID = null;
+        string AsnNumber = null;
+        DateTime? AsnDateF = null;
+        DateTime? AsnDateT = null;
+        int? AsnStatusID = null;
+        public List<PAsn> PAsnHeader
+        {
+            get
+            {
+                if (Session["PAsnHeader"] == null)
+                {
+                    Session["PAsnHeader"] = new List<PAsn>();
+                }
+                return (List<PAsn>)Session["PAsnHeader"];
+            }
+            set
+            {
+                Session["PAsnHeader"] = value;
+            }
+        }
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] = 0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            Session["previousUrl"] = "PurchaseOrderASN.aspx";
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Order ASN');</script>");
+            lblMessage.Visible = false;
 
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+            if (!IsPostBack)
+            {
+                PageCount = 0;
+                PageIndex = 1;
+                // fillMTTR();
+                // FillPageNo(1);
+                txtAsnDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
+                txtAsnDateTo.Text = DateTime.Now.ToShortDateString();
+
+                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
+                {
+                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
+                    ddlDealerCode.Enabled = false;
+                }
+                else
+                {
+                    ddlDealerCode.Enabled = true;
+                    fillDealer();
+                }
+                lblRowCount.Visible = false;
+                ibtnArrowLeft.Visible = false;
+                ibtnArrowRight.Visible = false;
+            }
         }
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                fillPurchaseOrderASN();
+            }
+            catch (Exception e1)
+            {
+                lblMessage.Text = e1.ToString();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            }
+        }
+        void Search()
+        {
+            DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            //   VendorID = null; 
+            AsnDateF = null;
+            AsnDateF = string.IsNullOrEmpty(txtAsnDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAsnDateFrom.Text.Trim());
+            AsnDateT = string.IsNullOrEmpty(txtAsnDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAsnDateTo.Text.Trim());
+            AsnStatusID = ddlAsnStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlAsnStatus.SelectedValue);
+            AsnNumber = txtAsnNumber.Text.Trim();
+        }
+        void fillPurchaseOrderASN()
+        {
+            try
+            {
+                TraceLogger.Log(DateTime.Now);
+                Search();
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnHeader(DealerID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PageIndex, gvPAsn.PageSize);
+                PAsnHeader = JsonConvert.DeserializeObject<List<PAsn>>(JsonConvert.SerializeObject(Result.Data));
+                gvPAsn.PageIndex = 0;
+                gvPAsn.DataSource = PAsnHeader;
+                gvPAsn.DataBind();
+                if (Result.RowCount == 0)
+                {
+                    lblRowCount.Visible = false;
+                    ibtnArrowLeft.Visible = false;
+                    ibtnArrowRight.Visible = false;
+                }
+                else
+                {
+                    PageCount = (Result.RowCount + gvPAsn.PageSize - 1) / gvPAsn.PageSize;
+                    lblRowCount.Visible = true;
+                    ibtnArrowLeft.Visible = true;
+                    ibtnArrowRight.Visible = true;
+                    lblRowCount.Text = (((PageIndex - 1) * gvPAsn.PageSize) + 1) + " - " + (((PageIndex - 1) * gvPAsn.PageSize) + gvPAsn.Rows.Count) + " of " + Result.RowCount;
+                }
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessage("PurchaseOrderAsn", "fillPurchaseOrderASN", e1);
+                throw e1;
+            }
+        }
+        protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageIndex > 1)
+            {
+                PageIndex = PageIndex - 1;
+                fillPurchaseOrderASN();
+            }
+        }
+
+        protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageCount > PageIndex)
+            {
+                PageIndex = PageIndex + 1;
+                fillPurchaseOrderASN();
+            }
+        }
+        protected void gvPAsn_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvPAsn.PageIndex = e.NewPageIndex;
+            gvPAsn.DataSource = PAsnHeader;
+            gvPAsn.DataBind();
+            lblRowCount.Text = (((gvPAsn.PageIndex) * gvPAsn.PageSize) + 1) + " - " + (((gvPAsn.PageIndex) * gvPAsn.PageSize) + gvPAsn.Rows.Count) + " of " + PAsnHeader.Count;
+        }
+        void fillDealer()
+        {
+            ddlDealerCode.DataTextField = "CodeWithName";
+            ddlDealerCode.DataValueField = "DID";
+            ddlDealerCode.DataSource = PSession.User.Dealer;
+            ddlDealerCode.DataBind();
+            ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
+        }
+        protected void btnPurchaseOrderViewBack_Click(object sender, EventArgs e)
+        {
+            divList.Visible = true;
+            divDetailsView.Visible = false;
+        }
+        protected void btnViewPO_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblAsnID = (Label)gvRow.FindControl("lblAsnID");
+            divList.Visible = false;
+            divDetailsView.Visible = true;
+            UC_PurchaseOrderView.fillViewPOAsn(Convert.ToInt64(lblAsnID.Text));
+        }
+
+
+
+
+
+
+
+
+
+
+        //protected void btnBackToList_Click(object sender, EventArgs e)
+        //{
+        //    divList.Visible = true;
+        //    divDetailsView.Visible = false;
+        //    divPurchaseOrderCreate.Visible = false;
+        //}
+
+        //protected void btnPurchaseOrderCreateBack_Click(object sender, EventArgs e)
+        //{
+        //    divList.Visible = true;
+        //    divPurchaseOrderCreate.Visible = false;
+        //}
+
+        
+
+        //protected void btnCreatePO_Click(object sender, EventArgs e)
+        //{
+        //    divList.Visible = false;
+        //    divPurchaseOrderCreate.Visible = true;
+        //    lblMessage.Text = "";
+        //    Button BtnView = (Button)sender;
+        //    UC_PurchaseOrderCreate.FillMaster();
+        //}
+
+        //[WebMethod]
+        //public static string GetMaterial(string Material, string MaterialType)
+        //{
+        //    List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null);
+        //    return JsonConvert.SerializeObject(Materials);
+        //}
+
+        
     }
 }

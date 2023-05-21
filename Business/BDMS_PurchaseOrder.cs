@@ -54,11 +54,11 @@ namespace Business
         {
             string endPoint = "PurchaseOrder/PurchaseOrder?Filter=" + filter;
             return JsonConvert.DeserializeObject<List<PDMS_PurchaseOrder>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
- 
-        } 
+
+        }
         public List<PDMS_PurchaseOrder> GetPurchaseOrderPerformanceLinq(string filter1, string filter2)
         {
-            string endPoint = "PurchaseOrder/PurchaseOrderPerformanceLinq?filter1=" + filter1+ "&filter2=" + filter2;
+            string endPoint = "PurchaseOrder/PurchaseOrderPerformanceLinq?filter1=" + filter1 + "&filter2=" + filter2;
             return JsonConvert.DeserializeObject<List<PDMS_PurchaseOrder>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }
@@ -69,10 +69,10 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PDMS_PurchaseOrder>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }
-          
-        public DataTable GetPurchaseOrderReport(int? DealerID, string CustomerCode, string PurchaseOrderNo, DateTime? PurchaseOrderDateF, DateTime? PurchaseOrderDateT, string PurchaseOrderStatusID, string MaterialCode, int? PurchaseOrderTypeID,long UserID)
+
+        public DataTable GetPurchaseOrderReport(int? DealerID, string CustomerCode, string PurchaseOrderNo, DateTime? PurchaseOrderDateF, DateTime? PurchaseOrderDateT, string PurchaseOrderStatusID, string MaterialCode, int? PurchaseOrderTypeID, long UserID)
         {
-            TraceLogger.Log(DateTime.Now);           
+            TraceLogger.Log(DateTime.Now);
             try
             {
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
@@ -189,6 +189,21 @@ namespace Business
             }
             return null;
         }
-       
+        public PApiResult GetPurchaseOrderAsnHeader(int? DealerID, string VendorID, string AsnNumber, DateTime? AsnDateF, DateTime? AsnDateT
+            , int? AsnStatusID, int? PageIndex = null, int? PageSize = null)
+        {
+            //string endPoint = "PurchaseOrder/PurchaseOrderHeader?DealerID=" + DealerID + "&VendorID=" + VendorID  + "&PurchaseOrderNo=" + PurchaseOrderNo
+            //    + "&PurchaseOrderDateF=" + PurchaseOrderDateF + "&PurchaseOrderDateT=" + PurchaseOrderDateT + "&PurchaseOrderStatusID=" + PurchaseOrderStatusID 
+            //    + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+
+            string endPoint = "PurchaseOrder/PurchaseOrderAsnHeader?DealerID=" + DealerID + "&VendorID=" + VendorID + "&AsnNumber=" + AsnNumber
+                + "&AsnDateF=" + AsnDateF + "&AsnDateT=" + AsnDateT + "&AsnStatusID=" + AsnStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PAsn GetPurchaseOrderAsnByID(long AsnID)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderAsnByID?AsnID=" + AsnID;
+            return JsonConvert.DeserializeObject<PAsn>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }
