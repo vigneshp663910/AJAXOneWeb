@@ -386,6 +386,20 @@ namespace DealerManagementSystem.ViewDealerEmployee
             txtDLIssuingOffice.Text = Emp.DLIssueingOffice;
             txtDLExpiryDate.Text = Emp.DLExpiryDate.ToString();
             txtDLFor.Text = Emp.DLFor;
+            DivDLInfo.Visible = false;
+            foreach (ListViewItem item in ListViewProductType.Items)
+            {
+                CheckBox chkProductType = (CheckBox)item.FindControl("chkProductType");
+                Label lblProductType = (Label)item.FindControl("lblProductType");
+                Label lblProductTypeID = (Label)item.FindControl("lblProductTypeID");
+                if (chkProductType.Checked == true)
+                {
+                    if (lblProductTypeID.Text == "1" || lblProductTypeID.Text == "4" || lblProductTypeID.Text == "5" || lblProductTypeID.Text == "8")
+                    {
+                        DivDLInfo.Visible = true;
+                    }
+                }
+            }
         }
         protected void ViewPhoto()
         {
