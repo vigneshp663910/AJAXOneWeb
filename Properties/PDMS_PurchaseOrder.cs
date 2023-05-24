@@ -421,7 +421,10 @@ namespace Properties
         public long AsnID { get; set; }
         public string AsnNumber { get; set; }
         public DateTime AsnDate { get; set; }
+        public string PurchaseOrderNumber { get; set; }
+        public DateTime PurchaseOrderDate { get; set; }
         public PDMS_Dealer Dealer { get; set; }
+        public PDMS_Dealer Vendor { get; set; }
         public PPurchaseOrderASNStatus AsnStatus { get; set; }
         public string DeliveryNumber { get; set; }
         public string SapDeliveryNumber { get; set; }
