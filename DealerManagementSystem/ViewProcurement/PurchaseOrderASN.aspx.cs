@@ -127,7 +127,7 @@ namespace DealerManagementSystem.ViewProcurement
             AsnDateF = string.IsNullOrEmpty(txtAsnDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAsnDateFrom.Text.Trim());
             AsnDateT = string.IsNullOrEmpty(txtAsnDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAsnDateTo.Text.Trim());
             AsnStatusID = ddlAsnStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlAsnStatus.SelectedValue);
-            AsnNumber = txtAsnNumber.Text.Trim();
+            AsnNumber = string.IsNullOrEmpty(txtAsnNumber.Text)?null:txtAsnNumber.Text.Trim();
         }
         void fillPurchaseOrderASN()
         {

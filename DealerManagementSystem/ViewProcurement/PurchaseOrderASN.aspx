@@ -132,18 +132,6 @@
                                         <asp:Label ID="lblLRNo" Text='<%# DataBinder.Eval(Container.DataItem, "LRNo")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Gr Number">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblGrNumber" Text='<%# DataBinder.Eval(Container.DataItem, "GrNumber")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Gr Date">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblGrDate" Text='<%# DataBinder.Eval(Container.DataItem, "GrDate","{0:d}")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Asn Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
@@ -172,23 +160,13 @@
                 </fieldset>
             </div>
         </div>
-        <div class="col-md-12" id="divDetailsView" runat="server" visible="false" style="padding: 5px 15px">
-            <div class="col-md-12 lead-back-btn">
-                <div class="" id="boxHere"></div>
-                <div class="back-buttton" id="backBtn">
-                    <asp:Button ID="btnPurchaseOrderViewBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnPurchaseOrderViewBack_Click" />
-                </div>
+    </div>
+    <div class="col-md-12" id="divDetailsView" runat="server" visible="false">
+        <div class="col-md-12">
+            <div class="back-buttton" id="backBtn" style="text-align:right">
+                <asp:Button ID="btnPurchaseOrderViewBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnPurchaseOrderViewBack_Click" />
             </div>
-            <UC:UC_PurchaseOrderASNView ID="UC_PurchaseOrderView" runat="server"></UC:UC_PurchaseOrderASNView>
         </div>
-        <%--<div class="col-md-12" id="divPurchaseOrderCreate" runat="server" visible="false">
-            <div class="col-md-12 lead-back-btn">
-                <div class="" id="boxHere"></div>
-                <div class="back-buttton" id="backBtn">
-                    <asp:Button ID="btnPurchaseOrderCreateBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnPurchaseOrderCreateBack_Click" />
-                </div>
-            </div>
-            <UC:UC_PurchaseOrderCreate ID="UC_PurchaseOrderCreate" runat="server"></UC:UC_PurchaseOrderCreate>
-        </div>--%>
+        <UC:UC_PurchaseOrderASNView ID="UC_PurchaseOrderView" runat="server"></UC:UC_PurchaseOrderASNView>
     </div>
 </asp:Content>

@@ -41,8 +41,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblDeliveryDate.Text = PAsnView.DeliveryDate.ToString();
             lblAsnStatus.Text = PAsnView.AsnStatus.AsnStatus;
             lblLRNo.Text = PAsnView.LRNo;
-            lblGrNumber.Text = PAsnView.GrNumber;
-            lblGrDate.Text = PAsnView.GrDate.ToString();
             lblRemarks.Text = PAsnView.Remarks;
 
             gvPOAsnItem.DataSource = PAsnView.AsnItemS;

@@ -442,7 +442,7 @@ namespace Properties
         public List<PAsnItem> AsnItemS { get; set; }
 
         public string GrNumber { get; set; }
-        public DateTime GrDate { get; set; }
+        public DateTime? GrDate { get; set; }
         public string GrStatus { get; set; }
 
     }
