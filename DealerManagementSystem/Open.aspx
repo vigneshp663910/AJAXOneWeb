@@ -204,7 +204,13 @@
                     <asp:Button ID="Button1" runat="server" Text="Sales Quotation Flow From Sap" OnClick="Button1_Click" />
                 </td>
             </tr>
-
+              <tr>
+                <td>
+                    <br />
+                    <asp:Label ID="Label12" runat="server" Text="Update Service Delivery number"></asp:Label>
+                    <asp:Button ID="btnUpdateServiceDeliveryNumber" runat="server" Text="Update Service Delivery number" OnClick="btnUpdateServiceDeliveryNumber_Click" />
+                </td>
+            </tr>
         </table>
 
         <div id="chart" style="width: 100%; height: 500px;"></div>

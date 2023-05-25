@@ -422,6 +422,12 @@
     <Content Include="ViewEquipment\EquipmentPopulationReportForAE.aspx" />
     <Content Include="ViewEquipment\NepiDueReport.aspx" />
     <Content Include="ViewEquipment\UserControls\EquipmentView.ascx" />
+    <Content Include="ViewInventory\InitialStock.aspx" />
+    <Content Include="ViewInventory\MaterialStockAnalysis.aspx" />
+    <Content Include="ViewInventory\StockAdjustment.aspx" />
+    <Content Include="ViewInventory\StockForPostingDate.aspx" />
+    <Content Include="ViewInventory\StockInTransit.aspx" />
+    <Content Include="ViewInventory\WarehouseStockOnHand.aspx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
@@ -445,7 +451,6 @@
     <Content Include="ViewMaster\Equipment.aspx" />
     <Content Include="ViewMaster\MaterialSync.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerVerification.ascx" />
-    <Content Include="ViewMaster\UserControls\EquipmentView.ascx" />
     <Content Include="ViewMaster\UserControls\LocationDistrict.ascx" />
     <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
@@ -1299,6 +1304,48 @@
     <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.designer.cs">
       <DependentUpon>EquipmentView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewInventory\InitialStock.aspx.cs">
+      <DependentUpon>InitialStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\InitialStock.aspx.designer.cs">
+      <DependentUpon>InitialStock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\MaterialStockAnalysis.aspx.cs">
+      <DependentUpon>MaterialStockAnalysis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\MaterialStockAnalysis.aspx.designer.cs">
+      <DependentUpon>MaterialStockAnalysis.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\StockAdjustment.aspx.cs">
+      <DependentUpon>StockAdjustment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\StockAdjustment.aspx.designer.cs">
+      <DependentUpon>StockAdjustment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\StockForPostingDate.aspx.cs">
+      <DependentUpon>StockForPostingDate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\StockForPostingDate.aspx.designer.cs">
+      <DependentUpon>StockForPostingDate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\StockInTransit.aspx.cs">
+      <DependentUpon>StockInTransit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\StockInTransit.aspx.designer.cs">
+      <DependentUpon>StockInTransit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\WarehouseStockOnHand.aspx.cs">
+      <DependentUpon>WarehouseStockOnHand.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\WarehouseStockOnHand.aspx.designer.cs">
+      <DependentUpon>WarehouseStockOnHand.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewMarketing\ABPModelWise.aspx.cs">
       <DependentUpon>ABPModelWise.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1459,13 +1506,6 @@
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerVerification.ascx.designer.cs">
       <DependentUpon>CustomerVerification.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewMaster\UserControls\EquipmentView.ascx.cs">
-      <DependentUpon>EquipmentView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewMaster\UserControls\EquipmentView.ascx.designer.cs">
-      <DependentUpon>EquipmentView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\LocationDistrict.ascx.cs">
       <DependentUpon>LocationDistrict.ascx</DependentUpon>

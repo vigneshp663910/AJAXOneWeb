@@ -159,13 +159,13 @@
                             <label class="modal-label">MC Serial No</label>
                             <asp:TextBox ID="txtMachineSerialNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                        <div class="col-md-2 col-sm-12">
+                      <%--  <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Report Type</label>
                             <asp:DropDownList ID="ddlReoprt" runat="server" CssClass="form-control" BorderColor="Silver">
                                 <asp:ListItem Value="0">By Claim</asp:ListItem>
                                 <asp:ListItem Value="1">By ICTicket</asp:ListItem>
                             </asp:DropDownList>
-                        </div>
+                        </div>--%>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Is Above 50K</label>
                             <asp:CheckBox ID="cbIsAbove50K" runat="server" CssClass="form-control" BorderColor="Silver" />

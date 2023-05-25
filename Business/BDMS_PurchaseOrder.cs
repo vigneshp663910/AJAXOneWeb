@@ -86,8 +86,7 @@ namespace Business
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
                 DbParameter[] Params = new DbParameter[9] { DealerIDP, CustomerCodeP, PurchaseOrderNoP, PurchaseOrderDateFP, PurchaseOrderDateTP, PurchaseOrderStatusIDP, MaterialCodeP, PurchaseOrderTypeIDP, UserIDP };
 
-
-                PDMS_PurchaseOrderN SOI = new PDMS_PurchaseOrderN();
+                 
                 using (DataSet DataSet = provider.Select("ZDMS_GetPurchaseOrderReport", Params))
                 {
                     if (DataSet != null)
@@ -129,8 +128,7 @@ namespace Business
                 DbParameter[] Params = new DbParameter[12] { DealerIDP, CustomerCodeP, MaterialCodeP, AsnNumberP, AsnDateFP, AsnDateTP, PurchaseOrderAsnStatusIDP
                     , PurchaseOrderNoP, PurchaseOrderDateFP, PurchaseOrderDateTP, PurchaseOrderTypeIDP,UserIDP };
 
-
-                PDMS_PurchaseOrderN SOI = new PDMS_PurchaseOrderN();
+                 
                 using (DataSet DataSet = provider.Select("ZDMS_GetPurchaseOrderAsnReport", Params))
                 {
                     if (DataSet != null)
@@ -169,9 +167,7 @@ namespace Business
                 DbParameter PurchaseOrderTypeIDP = provider.CreateParameter("PurchaseOrderTypeID", PurchaseOrderTypeID, DbType.Int32);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
                 DbParameter[] Params = new DbParameter[11] { DealerIDP, CustomerCodeP, InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, PurchaseOrderNoP, PurchaseOrderDateFP, PurchaseOrderDateTP, PurchaseOrderTypeIDP, MaterialCodeP, UserIDP };
-
-
-                PDMS_PurchaseOrderN SOI = new PDMS_PurchaseOrderN();
+                 
                 using (DataSet DataSet = provider.Select("ZDMS_GetPurchaseOrderInvoiceReport", Params))
                 {
                     if (DataSet != null)

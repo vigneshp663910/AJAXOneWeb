@@ -68,16 +68,17 @@ namespace DealerManagementSystem.ViewService
             if (!IsPostBack)
             {
                 //new BDMS_WarrantyClaim().insertWarrantyClaim();
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
+                //{
+                //    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
+                //    ddlDealerCode.Enabled = false;
+                //}
+                //else
+                //{
+                //    ddlDealerCode.Enabled = true;
+                //    fillDealer();
+                //}
+                fillDealer();
                 txtClaimDateF.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtClaimDateT.Text = DateTime.Now.ToShortDateString();
                 lblRowCount.Visible = false;
@@ -107,82 +108,81 @@ namespace DealerManagementSystem.ViewService
             try
             {
                 TraceLogger.Log(DateTime.Now);
-                string DealerCode = ddlDealerCode.SelectedValue == "0" ? "" : ddlDealerCode.SelectedValue;
+                int? DealerCode = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
                 DateTime? ICTicketDateF = string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateFrom.Text.Trim());
                 DateTime? ICTicketDateT = string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateTo.Text.Trim()); ;
 
                 DateTime? ClaimDateF = string.IsNullOrEmpty(txtClaimDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateF.Text.Trim());
                 DateTime? ClaimDateT = string.IsNullOrEmpty(txtClaimDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateT.Text.Trim());
-                int? StatusID = null;
 
                 DateTime? ApprovedDateF = string.IsNullOrEmpty(txtApprovedDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateF.Text.Trim());
                 DateTime? ApprovedDateT = string.IsNullOrEmpty(txtApprovedDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateT.Text.Trim());
 
 
-                StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
-                
+                int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+
                 GridView gv = null;
-                if (ddlReoprt.SelectedValue == "0")
+                //if (ddlReoprt.SelectedValue == "0")
+                //{
+                SDMS_WarrantyClaimHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport_New(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimNumber.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, ApprovedDateF, ApprovedDateT, txtTSIRNumber.Text.Trim(), txtCustomerCode.Text.Trim(), txtMachineSerialNumber.Text.Trim(), cbIsAbove50K.Checked, PSession.User.UserID);
+
+                gv = gvClaimByClaimID;
+                gvClaimByClaimID.Visible = true;
+                gvClaimByTicket.Visible = false;
+                gv.PageIndex = 0;
+                gv.DataSource = SDMS_WarrantyClaimHeader;
+                gv.DataBind();
+                if (SDMS_WarrantyClaimHeader.Count == 0)
                 {
-                    SDMS_WarrantyClaimHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport_New(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimNumber.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, ApprovedDateF, ApprovedDateT, txtTSIRNumber.Text.Trim(), txtCustomerCode.Text.Trim(), txtMachineSerialNumber.Text.Trim(), cbIsAbove50K.Checked, PSession.User.UserID);
-                      
-                    gv = gvClaimByClaimID;
-                    gvClaimByClaimID.Visible = true;
-                    gvClaimByTicket.Visible = false;
-                    gv.PageIndex = 0;
-                    gv.DataSource = SDMS_WarrantyClaimHeader;
-                    gv.DataBind();
-                    if (SDMS_WarrantyClaimHeader.Count == 0)
-                    {
-                        lblRowCount.Visible = false;
-                        ibtnArrowLeft.Visible = false;
-                        ibtnArrowRight.Visible = false;
-                    }
-                    else
-                    {
-                        lblRowCount.Visible = true;
-                        ibtnArrowLeft.Visible = true;
-                        ibtnArrowRight.Visible = true;
-                        lblRowCount.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
-                    }
+                    lblRowCount.Visible = false;
+                    ibtnArrowLeft.Visible = false;
+                    ibtnArrowRight.Visible = false;
                 }
                 else
                 {
-                    SDMS_WarrantyClaimHeaderByTicket = new BDMS_WarrantyClaim().GetWarrantyClaimReportByICTicket1(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimNumber.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, txtTSIRNumber.Text.Trim(), PSession.User.UserID);
-                    if (ddlDealerCode.SelectedValue == "0")
-                    {
-                        var SOIs1 = (from S in SDMS_WarrantyClaimHeaderByTicket
-                                     join D in PSession.User.Dealer on S.DealerCode equals D.UserName
-                                     select new
-                                     {
-                                         S
-                                     }).ToList();
-                        SDMS_WarrantyClaimHeaderByTicket.Clear();
-                        foreach (var w in SOIs1)
-                        {
-                            SDMS_WarrantyClaimHeaderByTicket.Add(w.S);
-                        }
-                    }
-                    gv = gvClaimByTicket;
-                    gvClaimByClaimID.Visible = false;
-                    gvClaimByTicket.Visible = true;
-                    gv.PageIndex = 0;
-                    gv.DataSource = SDMS_WarrantyClaimHeaderByTicket;
-                    gv.DataBind();
-                    if (SDMS_WarrantyClaimHeaderByTicket.Count == 0)
-                    {
-                        lblRowCount.Visible = false;
-                        ibtnArrowLeft.Visible = false;
-                        ibtnArrowRight.Visible = false;
-                    }
-                    else
-                    {
-                        lblRowCount.Visible = true;
-                        ibtnArrowLeft.Visible = true;
-                        ibtnArrowRight.Visible = true;
-                        lblRowCount.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
-                    }
+                    lblRowCount.Visible = true;
+                    ibtnArrowLeft.Visible = true;
+                    ibtnArrowRight.Visible = true;
+                    lblRowCount.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
                 }
+                //}
+                //else
+                //{
+                 //   SDMS_WarrantyClaimHeaderByTicket = new BDMS_WarrantyClaim().GetWarrantyClaimReportByICTicket1(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimNumber.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, txtTSIRNumber.Text.Trim(), PSession.User.UserID);
+                //    if (ddlDealerCode.SelectedValue == "0")
+                //    {
+                //        var SOIs1 = (from S in SDMS_WarrantyClaimHeaderByTicket
+                //                     join D in PSession.User.Dealer on S.DealerCode equals D.UserName
+                //                     select new
+                //                     {
+                //                         S
+                //                     }).ToList();
+                //        SDMS_WarrantyClaimHeaderByTicket.Clear();
+                //        foreach (var w in SOIs1)
+                //        {
+                //            SDMS_WarrantyClaimHeaderByTicket.Add(w.S);
+                //        }
+                //    }
+                //    gv = gvClaimByTicket;
+                //    gvClaimByClaimID.Visible = false;
+                //    gvClaimByTicket.Visible = true;
+                //    gv.PageIndex = 0;
+                //    gv.DataSource = SDMS_WarrantyClaimHeaderByTicket;
+                //    gv.DataBind();
+                //    if (SDMS_WarrantyClaimHeaderByTicket.Count == 0)
+                //    {
+                //        lblRowCount.Visible = false;
+                //        ibtnArrowLeft.Visible = false;
+                //        ibtnArrowRight.Visible = false;
+                //    }
+                //    else
+                //    {
+                //        lblRowCount.Visible = true;
+                //        ibtnArrowLeft.Visible = true;
+                //        ibtnArrowRight.Visible = true;
+                //        lblRowCount.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
+                //    }
+                //}
 
                 TraceLogger.Log(DateTime.Now);
             }
@@ -196,16 +196,16 @@ namespace DealerManagementSystem.ViewService
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             GridView gv = null;
-            if (ddlReoprt.SelectedValue == "0")
-            {
+            //if (ddlReoprt.SelectedValue == "0")
+            //{
                 gv = gvClaimByClaimID;
                 gv.DataSource = SDMS_WarrantyClaimHeader;
-            }
-            else
-            {
-                gv = gvClaimByTicket;
-                gv.DataSource = SDMS_WarrantyClaimHeaderByTicket;
-            }
+            //}
+            //else
+            //{
+            //    gv = gvClaimByTicket;
+            //    gv.DataSource = SDMS_WarrantyClaimHeaderByTicket;
+            //}
 
             if (gv.PageIndex > 0)
             {
@@ -218,16 +218,16 @@ namespace DealerManagementSystem.ViewService
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             GridView gv = null;
-            if (ddlReoprt.SelectedValue == "0")
-            {
+            //if (ddlReoprt.SelectedValue == "0")
+            //{
                 gv = gvClaimByClaimID;
                 gv.DataSource = SDMS_WarrantyClaimHeader;
-            }
-            else
-            {
-                gv = gvClaimByTicket;
-                gv.DataSource = SDMS_WarrantyClaimHeaderByTicket;
-            }
+            //}
+            //else
+            //{
+            //    gv = gvClaimByTicket;
+            //    gv.DataSource = SDMS_WarrantyClaimHeaderByTicket;
+            //}
 
             if (gv.PageCount > gv.PageIndex)
             {
@@ -364,16 +364,16 @@ namespace DealerManagementSystem.ViewService
         protected void gvICTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView gv = null;
-            if (ddlReoprt.SelectedValue == "0")
-            {
+            //if (ddlReoprt.SelectedValue == "0")
+            //{
                 gv = gvClaimByClaimID;
                 gv.DataSource = SDMS_WarrantyClaimHeader;
-            }
-            else
-            {
-                gv = gvClaimByTicket;
-                gv.DataSource = SDMS_WarrantyClaimHeaderByTicket;
-            }
+            //}
+            //else
+            //{
+            //    gv = gvClaimByTicket;
+            //    gv.DataSource = SDMS_WarrantyClaimHeaderByTicket;
+            //}
 
             gv.PageIndex = e.NewPageIndex;
             gv.DataBind();
@@ -514,10 +514,9 @@ namespace DealerManagementSystem.ViewService
         void fillDealer()
         {
             ddlDealerCode.DataTextField = "CodeWithName";
-            ddlDealerCode.DataValueField = "UserName";
+            ddlDealerCode.DataValueField = "DID";
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
-
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
 

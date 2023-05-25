@@ -26,17 +26,6 @@ namespace SapIntegration
             Model.Add(Convert.ToString(tagListBapi.GetValue("P_SERNR")));
             return Model;
         }
-
-        //public void UpdateICTicketRequestedDateToSAP(string ICTicket, DateTime Date)
-        //{
-
-        //    IRfcFunction tagListBapi = SSAP_CRM.CRM_RfcRep().CreateFunction("ZCRM_SER_ORDER_REQ_DATE_UPD");
-        //    IRfcStructure IS_REQ_DATE = tagListBapi.GetStructure("IS_REQ_DATE");
-        //    IS_REQ_DATE.SetValue("IC_TICKET_NO", ICTicket);
-        //    IS_REQ_DATE.SetValue("REQUEST_DATE", Date.ToShortDateString());
-        //    IS_REQ_DATE.SetValue("REQUEST_TIME", Date.ToShortTimeString());
-        //    tagListBapi.Invoke(SSAP_CRM.CRM_RfcDes());
-        //}
          
     }
 }

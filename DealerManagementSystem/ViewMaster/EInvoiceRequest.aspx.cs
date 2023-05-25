@@ -149,7 +149,7 @@ namespace DealerManagementSystem.ViewMaster
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_WarrantyClaimInvoiceReport", "fillWarrantyInvoice", e1);
+                new FileLogger().LogMessage("EInvoiceRequest", "fillWarrantyInvoice", e1);
                 throw e1;
             }
         }

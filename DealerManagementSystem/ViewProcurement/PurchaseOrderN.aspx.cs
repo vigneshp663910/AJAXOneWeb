@@ -6,22 +6,7 @@ using System.Collections.Generic;
 namespace DealerManagementSystem.ViewProcurement
 {
     public partial class PurchaseOrderN : BasePage
-    {
-        public List<PDMS_PurchaseOrderN> SDMS_SalesInvoice
-        {
-            get
-            {
-                if (Session["DMS_SaleOrderInvoiceMcReport"] == null)
-                {
-                    Session["DMS_SaleOrderInvoiceMcReport"] = new List<PDMS_PurchaseOrderN>();
-                }
-                return (List<PDMS_PurchaseOrderN>)Session["DMS_SaleOrderInvoiceMcReport"];
-            }
-            set
-            {
-                Session["DMS_SaleOrderInvoiceMcReport"] = value;
-            }
-        }
+    { 
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)

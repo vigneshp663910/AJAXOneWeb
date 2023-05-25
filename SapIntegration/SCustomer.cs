@@ -35,33 +35,7 @@ namespace SapIntegration
             Cust.ContactPerson = tagListBapi.GetString("CON_NAME");
             return Cust;
         }
-
-        public List<PDMS_Address> getCustomerShipToAddress(string CustomerCode)
-        {
-            List<PDMS_Address> Custs = new List<PDMS_Address>();
-
-            PDMS_Address Cust = null;
-
-            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_SHIPMENT_DETAILS");
-            tagListBapi.SetValue("CUSTOMER", CustomerCode.PadLeft(10, '0'));
-            tagListBapi.Invoke(SAP.RfcDes());
-
-            IRfcTable IT_DET = tagListBapi.GetTable("IT_DET");
-            for (int i = 0; i < IT_DET.RowCount; i++)
-            {
-                IT_DET.CurrentIndex = i;
-                Cust = new PDMS_Address();
-                Custs.Add(Cust);
-                Cust.Code = IT_DET.GetString("KUNNR").Trim();
-                Cust.Address1 = IT_DET.GetString("NAME1").Trim();
-                Cust.Address2 = IT_DET.GetString("STREET").Trim();
-                Cust.City = IT_DET.GetString("CITY").Trim();
-                Cust.State = new PDMS_State() { State = IT_DET.GetString("BEZEI").Trim() };
-                Cust.District = new PDMS_District() { District = IT_DET.GetString("DISTRICT").Trim() };
-                Cust.PostalCode = IT_DET.GetString("POST_CODE1").Trim();
-            }
-            return Custs;
-        }
+         
         public DataTable CreateCustomerInSAP(PDMS_Customer Customer, Boolean IsShipTo)
         { 
              

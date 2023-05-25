@@ -326,7 +326,7 @@ namespace Business
 
 
         public List<PDMS_WarrantyInvoiceHeader_New> GetWarrantyClaimReport_New(string ICTicketID, DateTime? ICTicketDateF, DateTime? ICTicketDateT, string InvoiceNumber,
-      DateTime? InvoiceDateF, DateTime? InvoiceDateT, string DealerCode, int? StatusID,
+      DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, int? StatusID,
         DateTime? AnnexureF, DateTime? AnnexureT, string TSIRNumber, string CustomerCode, string MachineSerialNumber, Boolean IsAbove50K, int? UserID)
         {
             List<PDMS_WarrantyInvoiceHeader_New> Ws = new List<PDMS_WarrantyInvoiceHeader_New>();
@@ -339,7 +339,7 @@ namespace Business
             DbParameter InvoiceDateFP = provider.CreateParameter("InvoiceDateF", InvoiceDateF, DbType.DateTime);
             DbParameter InvoiceDateTP = provider.CreateParameter("InvoiceDateT", InvoiceDateT, DbType.DateTime);
 
-            DbParameter DealerCodeP = provider.CreateParameter("DealerID", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.String);
+            DbParameter DealerCodeP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
 
 

@@ -107,7 +107,7 @@ namespace DealerManagementSystem.ViewSales
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_WarrantyClaimInvoiceReport", "fillWarrantyInvoice", e1);
+                new FileLogger().LogMessage("SalesCommissionClaimInvoiceVerify", "fillWarrantyInvoice", e1);
                 throw e1;
             }
         }
@@ -258,7 +258,7 @@ namespace DealerManagementSystem.ViewSales
             }
             catch (Exception ex)
             {
-                new FileLogger().LogMessage("DMS_WarrantyClaimInvoiceReport", "btnExportExcelForSAP_Click", ex);
+                new FileLogger().LogMessage("SalesCommissionClaimInvoiceVerify", "btnExportExcelForSAP_Click", ex);
             }
             new BXcel().ExporttoExcel(dt, "Claim Invoice Report");
         }

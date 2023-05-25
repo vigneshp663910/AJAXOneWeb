@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -141,11 +142,11 @@ namespace Business
                     //    new BDMS_WarrantyClaimInvoice().UpdateSAPDocumentNumber();
                     //    new FileLogger().LogMessageService("Ended", "SAP Document For Warranty Invoice From SAP", null);
                     //    break;
-                    //case Jobs.SaleOrderNumberForSrviceQuatationFromSAP:
-                    //    new FileLogger().LogMessageService("Started", "SaleOrder Number For Srvice Quatation From SAP", null);
-                    //    new BDMS_Service().UpdateSaleOrderNumberFromPostgres();
-                    //    new FileLogger().LogMessageService("Ended", "Sale Order Number For Srvice Quatation From SAP Total Record" + C.ToString(), null);
-                    //    break;
+                    case Jobs.SaleOrderNumberForSrviceQuatationFromSAP:
+                        new FileLogger().LogMessageService("Started", "SaleOrder Number For Srvice Quatation From SAP", null);
+                         new BAPI().ApiGetWithOutToken("ICTicket/UpdateSaleOrderNumberFromPostgres");
+                        new FileLogger().LogMessageService("Ended", "Sale Order Number For Srvice Quatation From SAP Total Record" + C.ToString(), null);
+                        break;
 
                     //case Jobs.TechnicianIntegrationFromSAP:
                     //    new FileLogger().LogMessageService("Started", "Technician Integration From SAP", null);

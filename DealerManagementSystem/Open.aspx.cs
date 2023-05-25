@@ -182,5 +182,10 @@ namespace DealerManagementSystem
         {
             new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow");
         }
+
+        protected void btnUpdateServiceDeliveryNumber_Click(object sender, EventArgs e)
+        {
+            new BAPI().ApiGetWithOutToken("ICTicket/UpdateSaleOrderNumberFromPostgres");
+        }
     }
 }

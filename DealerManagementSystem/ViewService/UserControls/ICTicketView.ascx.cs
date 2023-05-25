@@ -664,6 +664,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                     return;
                 }
                 ShowMessage(Results);
+                FillICTicket(SDMS_ICTicket.ICTicketID);
             }
             else if (lbActions.Text == "Service Quotation")
             {
@@ -726,6 +727,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                     return;
                 }
                 ShowMessage(Results);
+                FillICTicket(SDMS_ICTicket.ICTicketID);
             }
             else if (lbActions.Text == "Material Quotation")
             {
@@ -739,6 +741,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                     return;
                 }
                 ShowMessage(Results);
+                FillICTicket(SDMS_ICTicket.ICTicketID);
             }
             else if (lbActions.Text == "Request for Decline")
             { 
