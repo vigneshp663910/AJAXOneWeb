@@ -282,6 +282,10 @@ namespace Properties
         public PGrItem GrItem { get; set; }
         public PPurchaseOrderAsnGrStatus Status { get; set; }
         public string Remarks { get; set; }
+        public PUser PostedBy { get; set; }
+        public DateTime? PostedOn { get; set; }
+        public PUser CancelledBy { get; set; }
+        public DateTime? CancelledOn { get; set; }
     }
     [Serializable]
     public class PGrItem
