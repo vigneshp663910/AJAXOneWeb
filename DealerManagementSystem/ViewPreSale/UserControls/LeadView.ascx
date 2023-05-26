@@ -209,14 +209,14 @@
                                     <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                             <asp:TemplateField  HeaderText="Person Met">
+                            <asp:TemplateField HeaderText="Person Met">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.ContactName")%>' runat="server" /> 
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.ContactName")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                             <asp:TemplateField  HeaderText="Person Designation">
+                            <asp:TemplateField HeaderText="Person Designation">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.Designation.Designation")%>' runat="server" /> 
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.Designation.Designation")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remark">
@@ -225,7 +225,7 @@
                                     <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "Remark")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                           
+
                         </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />
@@ -959,7 +959,9 @@
 
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Cold Visit Date</label>
-                        <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                        <asp:TextBox ID="txtVisitDate" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <asp1:CalendarExtender ID="ceVisitDate" runat="server" TargetControlID="txtVisitDate" PopupButtonID="txtVisitDate" Format="dd/MM/yyyy"></asp1:CalendarExtender>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtVisitDate" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Action Type</label>
@@ -981,7 +983,7 @@
                         <label class="modal-label">Remark</label>
                         <asp:TextBox ID="txtVisitRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
                     </div>
-                    
+
                 </div>
             </fieldset>
         </div>
@@ -1163,80 +1165,80 @@
 </script>
 
 
- <script type="text/javascript">
+<script type="text/javascript">
 
-     function GetProjectAuto() {
-         debugger;
-         var parentElement = window.parent.document.getElementById("myElement");
-         alert(window.parent.document);
-         $("#MainContent_UC_LeadView_UC_AddLead_hdfProjectID").val('');
-         var param = { Pro: $('#MainContent_UC_LeadView_UC_AddLead_txtProject').val() }
-         var Customers = [];
-         if ($('#MainContent_UC_LeadView_UC_AddLead_txtProject').val().trim().length >= 3) {
-             $.ajax({
-                 url: "LeadN.aspx/GetProject",
-                 contentType: "application/json; charset=utf-8",
-                 type: 'POST',
-                 data: JSON.stringify(param),
-                 dataType: 'JSON',
-                 success: function (data) {
-                     var DataList = JSON.parse(data.d);
-                     for (i = 0; i < DataList.length; i++) {
-                         Customers[i] = {
-                             value: DataList[i].ProjectName,
-                             ProjectID: DataList[i].ProjectID,
-                             TenderNumber: DataList[i].TenderNumber,
-                             State: DataList[i].State.State,
-                             District: DataList[i].District.District,
-                             ProjectValue: DataList[i].Value,
-                             ContractAwardDate: DataList[i].ContractAwardDate,
-                             ContractEndDate: DataList[i].ContractEndDate
-                         };
-                     }
-                     $('#MainContent_UC_LeadView_UC_AddLead_txtProject').autocomplete({
-                         source: function (request, response) { response(Customers) },
-                         select: function (e, u) {
-                             
+    function GetProjectAuto() {
+        debugger;
+        var parentElement = window.parent.document.getElementById("myElement");
+        alert(window.parent.document);
+        $("#MainContent_UC_LeadView_UC_AddLead_hdfProjectID").val('');
+        var param = { Pro: $('#MainContent_UC_LeadView_UC_AddLead_txtProject').val() }
+        var Customers = [];
+        if ($('#MainContent_UC_LeadView_UC_AddLead_txtProject').val().trim().length >= 3) {
+            $.ajax({
+                url: "LeadN.aspx/GetProject",
+                contentType: "application/json; charset=utf-8",
+                type: 'POST',
+                data: JSON.stringify(param),
+                dataType: 'JSON',
+                success: function (data) {
+                    var DataList = JSON.parse(data.d);
+                    for (i = 0; i < DataList.length; i++) {
+                        Customers[i] = {
+                            value: DataList[i].ProjectName,
+                            ProjectID: DataList[i].ProjectID,
+                            TenderNumber: DataList[i].TenderNumber,
+                            State: DataList[i].State.State,
+                            District: DataList[i].District.District,
+                            ProjectValue: DataList[i].Value,
+                            ContractAwardDate: DataList[i].ContractAwardDate,
+                            ContractEndDate: DataList[i].ContractEndDate
+                        };
+                    }
+                    $('#MainContent_UC_LeadView_UC_AddLead_txtProject').autocomplete({
+                        source: function (request, response) { response(Customers) },
+                        select: function (e, u) {
 
-                             $("#MainContent_UC_LeadView_UC_AddLead_hdfProjectID").val(u.item.ProjectID);
-                             document.getElementById("MainContent_UC_LeadView_UC_AddLead_txtProject").disabled = true;
-                             //document.getElementById('divCustomerViewID').style.display = "block";
-                             //document.getElementById('divCustomerCreateID').style.display = "none";
 
-                             //document.getElementById('lblCustomerName').innerText = u.item.value;
-                             //document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
-                             //document.getElementById('lblMobile').innerText = u.item.Mobile;
+                            $("#MainContent_UC_LeadView_UC_AddLead_hdfProjectID").val(u.item.ProjectID);
+                            document.getElementById("MainContent_UC_LeadView_UC_AddLead_txtProject").disabled = true;
+                            //document.getElementById('divCustomerViewID').style.display = "block";
+                            //document.getElementById('divCustomerCreateID').style.display = "none";
 
-                         },
-                         open: function (event, ui) {
-                             $(this).autocomplete("widget").css({
-                                 "max-width":
-                                     $('#MainContent_UC_LeadView_UC_AddLead_txtProject').width() + 48,
-                             });
-                             $(this).autocomplete("widget").scrollTop(0);
-                         }
-                     }).focus(function (e) {
-                         $(this).autocomplete("search");
-                     }).click(function () {
-                         $(this).autocomplete("search");
-                     }).data('ui-autocomplete')._renderItem = function (ul, item) {
+                            //document.getElementById('lblCustomerName').innerText = u.item.value;
+                            //document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
+                            //document.getElementById('lblMobile').innerText = u.item.Mobile;
 
-                         var inner_html = FormatAutocompleteList(item);
-                         return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
-                             .data('item.autocomplete', item)
-                             .append(inner_html)
-                             .appendTo(ul);
-                     };
+                        },
+                        open: function (event, ui) {
+                            $(this).autocomplete("widget").css({
+                                "max-width":
+                                    $('#MainContent_UC_LeadView_UC_AddLead_txtProject').width() + 48,
+                            });
+                            $(this).autocomplete("widget").scrollTop(0);
+                        }
+                    }).focus(function (e) {
+                        $(this).autocomplete("search");
+                    }).click(function () {
+                        $(this).autocomplete("search");
+                    }).data('ui-autocomplete')._renderItem = function (ul, item) {
 
-                 }
-             });
-         }
-         else {
-             $('#MainContent_UC_LeadView_UC_AddLead_txtProject').autocomplete({
-                 source: function (request, response) {
-                     response($.ui.autocomplete.filter(Customers, ""))
-                 }
-             });
-         }
-     }
- </script>  
+                        var inner_html = FormatAutocompleteList(item);
+                        return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                            .data('item.autocomplete', item)
+                            .append(inner_html)
+                            .appendTo(ul);
+                    };
+
+                }
+            });
+        }
+        else {
+            $('#MainContent_UC_LeadView_UC_AddLead_txtProject').autocomplete({
+                source: function (request, response) {
+                    response($.ui.autocomplete.filter(Customers, ""))
+                }
+            });
+        }
+    }
+</script>

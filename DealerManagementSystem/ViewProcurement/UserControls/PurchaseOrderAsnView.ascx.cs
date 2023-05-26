@@ -38,9 +38,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblAsnDate.Text = PAsnView.AsnDate.ToString();
             lblDealer.Text = PAsnView.Dealer.DealerName;
 
-            lblPoNumber.Text = PAsnView.PurchaseOrderNumber;
-            lblPoDate.Text = PAsnView.PurchaseOrderDate.ToString();
-            lblVendor.Text = PAsnView.Vendor.DealerName;
+            //lblPoNumber.Text = PAsnView.PurchaseOrderNumber;
+            //lblPoDate.Text = PAsnView.PurchaseOrderDate.ToString();
+            //lblVendor.Text = PAsnView.Vendor.DealerName;
 
             lblDeliveryNumber.Text = PAsnView.DeliveryNumber;
             lblDeliveryDate.Text = PAsnView.DeliveryDate.ToString();

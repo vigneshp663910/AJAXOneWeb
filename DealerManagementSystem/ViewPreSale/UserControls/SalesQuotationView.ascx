@@ -999,7 +999,9 @@
 
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Cold Visit Date</label>
-                        <asp:TextBox ID="txtColdVisitDate" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                        <asp:TextBox ID="txtVisitDate" runat="server" CssClass="form-control" BorderColor="Silver"  ></asp:TextBox> 
+                            <asp:CalendarExtender ID="ceVisitDate" runat="server" TargetControlID="txtVisitDate" PopupButtonID="txtVisitDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtVisitDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Action Type</label>

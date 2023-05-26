@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
 using System.IO;
+using System.Configuration;
 
 namespace DealerManagementSystem.ViewPreSale.UserControls
 {
@@ -225,7 +226,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Add Visit")
             {
-                MPE_Visit.Show(); 
+                MPE_Visit.Show();
+                int VisitMaxDay = Convert.ToInt32(ConfigurationManager.AppSettings["VisitMaxDay"]);
+                ceVisitDate.StartDate = DateTime.Now.AddDays(-1 * VisitMaxDay);
+                ceVisitDate.EndDate = DateTime.Now;
                 new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
                 new DDLBind(ddlPersonMet, new BDMS_Customer().GetCustomerRelation(Lead.Customer.CustomerID, null), "ContactName", "CustomerRelationID");
@@ -807,7 +811,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return;
             } 
             ColdVisitList.Customer = new PDMS_Customer_Insert() { CustomerID = Lead.Customer.CustomerID };
-            ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtColdVisitDate.Text.Trim());
+            ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtVisitDate.Text.Trim());
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
             ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
             ColdVisitList.PersonMet = ddlPersonMet.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlPersonMet.SelectedValue);
@@ -838,29 +842,35 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public string ValidationColdVisit()
         {
             string Message = "";
-            txtColdVisitDate.BorderColor = Color.Silver;
+            txtVisitDate.BorderColor = Color.Silver;
             txtVisitRemark.BorderColor = Color.Silver;
             ddlActionType.BorderColor = Color.Silver;
-            if (string.IsNullOrEmpty(txtColdVisitDate.Text.Trim()))
+            if (string.IsNullOrEmpty(txtVisitDate.Text.Trim()))
             {
-                Message = "Please enter the Cold Visit Date";
-                txtColdVisitDate.BorderColor = Color.Red;
+                txtVisitDate.BorderColor = Color.Red;
+                return "Please enter the Cold Visit Date";
             }
-            else if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            int VisitMaxDay = Convert.ToInt32(ConfigurationManager.AppSettings["VisitMaxDay"]);
+            if (Convert.ToDateTime(txtVisitDate.Text.Trim()) < DateTime.Now.Date.AddDays(VisitMaxDay * -1))
             {
-                Message = Message + "Please enter the Location";
+                txtVisitDate.BorderColor = Color.Red;
+                return "You cannot select Visit Date more than 2 date back ";
+            }
+            if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            {
                 txtLocation.BorderColor = Color.Red;
+                return "Please enter the Location";
             }
-            else if (string.IsNullOrEmpty(txtVisitRemark.Text.Trim()))
+            if (string.IsNullOrEmpty(txtVisitRemark.Text.Trim()))
             {
-                Message = Message + "Please enter the Remark";
                 txtVisitRemark.BorderColor = Color.Red;
+                return "Please enter the Remark";
             }
 
-            else if (ddlActionType.SelectedValue == "0")
+            if (ddlActionType.SelectedValue == "0")
             {
-                Message = Message + "Please select the Action Type";
                 ddlActionType.BorderColor = Color.Red;
+                return "Please select the Action Type";
             }
             return Message;
         }

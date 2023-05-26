@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -212,10 +213,11 @@ namespace DealerManagementSystem.ViewPreSale
                 txtVisitDate.BorderColor = Color.Red;
                 return "You cannot select future Visit Date";
             }
-            if (Convert.ToDateTime(txtVisitDate.Text.Trim()) < DateTime.Now.Date.AddDays(-2))
+            int VisitMaxDay = Convert.ToInt32(ConfigurationManager.AppSettings["VisitMaxDay"]);
+            if (Convert.ToDateTime(txtVisitDate.Text.Trim()) < DateTime.Now.Date.AddDays(VisitMaxDay*-1))
             {
                 txtVisitDate.BorderColor = Color.Red;
-                return "You cannot select Visit Date more than 2 date back ";
+                return "You cannot select Visit Date more than " + VisitMaxDay + " date back ";
             }
             if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
             {
@@ -262,7 +264,8 @@ namespace DealerManagementSystem.ViewPreSale
         {
             MPE_Customer.Show();
             UC_Customer.FillMaster();
-            ceVisitDate.StartDate = DateTime.Now.AddDays(-2);
+            int VisitMaxDay = Convert.ToInt32(ConfigurationManager.AppSettings["VisitMaxDay"]);
+            ceVisitDate.StartDate = DateTime.Now.AddDays(-1 * VisitMaxDay);
             ceVisitDate.EndDate = DateTime.Now;
             new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
             new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
