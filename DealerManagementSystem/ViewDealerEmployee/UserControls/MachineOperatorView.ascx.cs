@@ -247,7 +247,7 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
             lbProductTypes.DataValueField = "ProductTypeID";
             lbProductTypes.DataSource = PT;
             lbProductTypes.DataBind();
-
+            lblDLInfo.Text = (Emp.DLInfo == true) ? "Yes" : "No";
             lblDLNumber.Text = Emp.DLNumber;
             lblDLIssueDate.Text = Emp.DLIssueDate.ToString();
             lblDLIssueingOffice.Text = Emp.DLIssueingOffice;

@@ -101,14 +101,14 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Machine Operator Input</legend>
                 <div class="col-md-12">
                     <div class="col-md-3 text-right">
-                        <label>Aadhaar Card No</label>
+                        <label>Aadhaar Card No<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" MaxLength="14" onkeydown="return isNumber(event);" onkeyUp="AadhaarCardNo(event)" OnTextChanged="txtAadhaarCardNo_TextChanged" AutoPostBack="true"></asp:TextBox>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtAadhaarCardNo" WatermarkText="XXXX-XXXX-XXXX"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Adhaar Card Copy Front Side</label>
+                        <label>Adhaar Card Copy Front Side<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:FileUpload ID="fuAdhaarCardCopyFrontSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
@@ -117,28 +117,28 @@
                         <asp:LinkButton ID="lbAdhaarCardCopyFrontSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyFrontSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Adhaar Card Copy Back Side</label>
+                        <label>Adhaar Card Copy Back Side<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:FileUpload ID="fuAdhaarCardCopyBackSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
                         <asp:Label ID="lblAdhaarCardCopyBackSideFileName" runat="server" Text=""></asp:Label>
                         <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileRemove" runat="server" OnClick="lbAdhaarCardCopyBackSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
                         <asp:LinkButton ID="lbAdhaarCardCopyBackSideFileDownload" runat="server" OnClick="lbAdhaarCardCopyBackSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
-                    </div>                    
+                    </div>
                     <div class="col-md-3 text-right">
-                        <label>Name</label>
+                        <label>Name<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:TextBox ID="txtName" runat="server" CssClass="uppercase form-control" AutoComplete="Off" onkeydown="return validateChar(event);"></asp:TextBox>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Father Name</label>
+                        <label>Father Name<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:TextBox ID="txtFatherName" runat="server" CssClass="uppercase form-control" AutoComplete="SP" onkeydown="return validateChar(event);"></asp:TextBox>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Photo</label>
+                        <label>Photo<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:FileUpload ID="fuPhoto" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
@@ -148,7 +148,7 @@
                         <asp:ImageButton ID="ibtnPhoto" runat="server" OnClick="ibtnPhoto_Click" Width="65px" Height="75px" Visible="false" />
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>DOB</label>
+                        <label>DOB<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:TextBox ID="txtDOB" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDOB');"></asp:TextBox>
@@ -156,7 +156,7 @@
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtDOB" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Contact No 1</label>
+                        <label>Contact No 1<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-control" AutoComplete="SP" MaxLength="10" onkeydown="return isNumber(event);"></asp:TextBox>
@@ -168,37 +168,37 @@
                         <asp:TextBox ID="txtContactNumber1" runat="server" CssClass="form-control" AutoComplete="SP" MaxLength="10" onkeydown="return isNumber(event);"></asp:TextBox>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Email</label>
+                        <label>Email<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Equcational Qualification</label>
+                        <label>Equcational Qualification<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:DropDownList ID="ddlEqucationalQualification" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Total Experience (Years)</label>
+                        <label>Total Experience (Years)<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:TextBox ID="txtTotalExperience" runat="server" CssClass="form-control" onkeydown="return isNumberDigit(event);"></asp:TextBox>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Address</label>
+                        <label>Address<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:TextBox ID="txtAddress" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine"></asp:TextBox>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>State</label>
+                        <label>State<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" />
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>District</label>
+                        <label>District<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" />
@@ -216,7 +216,7 @@
                         <asp:TextBox ID="txtVillage" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
                     </div>
                     <div class="col-md-3 text-right">
-                        <label>Location</label>
+                        <label>Location<samp style="color: red">*</samp></label>
                     </div>
                     <div class="col-md-3">
                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
@@ -281,74 +281,83 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Operator For</legend>
                 <div class="col-md-3 text-right">
-                    <label>Select Operator</label>
+                    <label>Select Operator<samp style="color: red">*</samp></label>
                 </div>
                 <div class="col-md-9">
                     <asp:ListView ID="ListViewProductType" runat="server" DataKeyNames="ProductTypeID">
                         <ItemTemplate>
                             <div class="col-md-3 col-sm-12">
-                                <asp:CheckBox ID="chkProductType" runat="server" AutoPostBack="true" OnCheckedChanged="chkProductType_CheckedChanged"/>
+                                <asp:CheckBox ID="chkProductType" runat="server" />
                                 <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType")%>' runat="server" />
                                 <asp:Label ID="lblProductTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ProductTypeID")%>' runat="server" Visible="false" />
                             </div>
                         </ItemTemplate>
                     </asp:ListView>
-                </div>
-                <div class="col-md-12" runat="server" id="DivDLInfo" visible="false">
-                    <div class="col-md-3 text-right">
-                        <label>DL Number</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtDLNumber" runat="server" CssClass="uppercase form-control" AutoComplete="off" MaxLength="20"></asp:TextBox>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>DL Issue Date</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtDLIssueDate" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDLIssueDate');"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDLIssueDate" PopupButtonID="txtDLIssueDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDLIssueDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>DL Issuing Office</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtDLIssuingOffice" runat="server" CssClass="uppercase form-control" AutoComplete="off"></asp:TextBox>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>DL Expiry Date</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtDLExpiryDate" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDLExpiryDate');"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtDLExpiryDate" PopupButtonID="txtDLExpiryDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtDLExpiryDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>DL Copy Front Side</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:FileUpload ID="fuDLCopyFrontSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
-                        <asp:Label ID="lblDLCopyFrontSideFileName" runat="server" Text=""></asp:Label>
-                        <asp:LinkButton ID="lbDLCopyFrontSideFileRemove" runat="server" OnClick="lbDLCopyFrontSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
-                        <asp:LinkButton ID="lbDLCopyFrontSideFileDownload" runat="server" OnClick="lbDLCopyFrontSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>DL Copy Back Side</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:FileUpload ID="fuDLCopyBackSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
-                        <asp:Label ID="lblDLCopyBackSideFileName" runat="server" Text=""></asp:Label>
-                        <asp:LinkButton ID="lbDLCopyBackSideFileRemove" runat="server" OnClick="lbDLCopyBackSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
-                        <asp:LinkButton ID="lbDLCopyBackSideFileDownload" runat="server" OnClick="lbDLCopyBackSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <label>DL For</label>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:TextBox ID="txtDLFor" runat="server" CssClass="uppercase form-control" AutoComplete="off"></asp:TextBox>
-                    </div>
-                </div>
+                </div>                
             </fieldset>
+            <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">DL Info</legend>
+                    <div class="col-md-3 text-right">
+                        <label>DL Info</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:CheckBox ID="chkDLInfo" runat="server" AutoPostBack="true" OnCheckedChanged="chkDLInfo_CheckedChanged" />
+                    </div>
+                    <div class="col-md-12" runat="server" id="DivDLInfo" visible="false">
+                        <div class="col-md-3 text-right">
+                            <label>DL Number</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:TextBox ID="txtDLNumber" runat="server" CssClass="uppercase form-control" AutoComplete="off" MaxLength="20"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>DL Issue Date</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:TextBox ID="txtDLIssueDate" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDLIssueDate');"></asp:TextBox>
+                            <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDLIssueDate" PopupButtonID="txtDLIssueDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDLIssueDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>DL Issuing Office</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:TextBox ID="txtDLIssuingOffice" runat="server" CssClass="uppercase form-control" AutoComplete="off"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>DL Expiry Date</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:TextBox ID="txtDLExpiryDate" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDLExpiryDate');"></asp:TextBox>
+                            <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtDLExpiryDate" PopupButtonID="txtDLExpiryDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtDLExpiryDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>DL Copy Front Side</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:FileUpload ID="fuDLCopyFrontSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
+                            <asp:Label ID="lblDLCopyFrontSideFileName" runat="server" Text=""></asp:Label>
+                            <asp:LinkButton ID="lbDLCopyFrontSideFileRemove" runat="server" OnClick="lbDLCopyFrontSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
+                            <asp:LinkButton ID="lbDLCopyFrontSideFileDownload" runat="server" OnClick="lbDLCopyFrontSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>DL Copy Back Side</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:FileUpload ID="fuDLCopyBackSide" runat="server" CssClass="form-control custom-file" ViewStateMode="Inherit" onchange="UploadFile(this)" />
+                            <asp:Label ID="lblDLCopyBackSideFileName" runat="server" Text=""></asp:Label>
+                            <asp:LinkButton ID="lbDLCopyBackSideFileRemove" runat="server" OnClick="lbDLCopyBackSideFileRemove_Click" CssClass="btn lRemove" Visible="false">Remove</asp:LinkButton>
+                            <asp:LinkButton ID="lbDLCopyBackSideFileDownload" runat="server" OnClick="lbDLCopyBackSideFileDownload_Click" CssClass="btn lDownload" Visible="false">Download</asp:LinkButton>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <label>DL For</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:TextBox ID="txtDLFor" runat="server" CssClass="uppercase form-control" AutoComplete="off"></asp:TextBox>
+                        </div>
+                    </div>
+                </fieldset>
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
                 <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton btn Back" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnBack_Click" Visible="false" />
