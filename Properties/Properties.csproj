@@ -44,12 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSetting.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Enum.cs" />
-    <Compile Include="PAccessoriesPurchase.cs" />
-    <Compile Include="PAccessoriesScrap.cs" />
-    <Compile Include="PAccessoriesStock.cs" />
-    <Compile Include="PAccessoriesType.cs" />
+    <Compile Include="PInventory.cs" />
     <Compile Include="PActivity.cs" />
     <Compile Include="PApplicationSetting.cs" />
     <Compile Include="PAttachedFile.cs" />
@@ -112,12 +108,7 @@
     <Compile Include="PSalesQuotation.cs" />
     <Compile Include="PSAPDocumentNumber.cs" />
     <Compile Include="PSession.cs" />
-    <Compile Include="PTicketResolutionType.cs" />
     <Compile Include="PTickets.cs" />
-    <Compile Include="PTicketSeverity.cs" />
-    <Compile Include="PTicketStatus.cs" />
-    <Compile Include="PTicketSubCategory.cs" />
-    <Compile Include="PTicketType.cs" />
     <Compile Include="PTR.cs" />
     <Compile Include="PUser.cs" />
     <Compile Include="PUserPermission.cs" />

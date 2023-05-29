@@ -46,18 +46,14 @@ namespace Properties
         public decimal UnitPrice { get; set; }
         public decimal TaxableAmount { get; set; }
         public decimal ApprovedQuantity { get; set; }
-
         public decimal Fright { get; set; }
         public decimal Insurance { get; set; }
         public decimal PackingAndForwarding { get; set; }
-
         public decimal SGST { get; set; }
         public decimal CGST { get; set; }
         public decimal IGST { get; set; }
-
         public DateTime? ASNDate { get; set; }
         public decimal? ASNQuantity { get; set; }
-
         public string GRNumber { get; set; }
         public DateTime? GRDate { get; set; }
         public decimal? GRQuantity { get; set; }
@@ -66,8 +62,6 @@ namespace Properties
         public Boolean ISWrongSupplied { get; set; }
         public decimal? WrongSupplyQuantity { get; set; }
         public string GRStatus { get; set; }
-
-
         public decimal? POMinusAsnQuantity { get; set; }
         public int? AsnMinusPODate { get; set; }
         public decimal? POMinusGrQuantity { get; set; }
@@ -75,9 +69,7 @@ namespace Properties
         public decimal CumulativeAsnQuantity { get; set; }
         public decimal CumulativeGrQuantity { get; set; }
         public DateTime? LatestGrDate { get; set; }
-
     }
-
 
     [Serializable]
     public class PDMS_PurchaseOrderType
@@ -93,8 +85,6 @@ namespace Properties
         public string Code { get; set; }
         public string Description { get; set; }
     }
-
-
 
     [Serializable]
     public class PPurchaseOrderType

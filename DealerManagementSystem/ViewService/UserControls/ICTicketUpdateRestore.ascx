@@ -5,7 +5,7 @@
     <ContentTemplate>
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
             <div class="col-md-12">
-                <div class="col-md-6 col-sm-12">
+                <%-- <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Restore Date and Time</label>
                     <asp:TextBox ID="txtRestoreDate" runat="server" CssClass="form-control" AutoComplete="Off" onkeyup="return removeText('MainContent_txtRestoreDate');" Enabled="false"></asp:TextBox>
                     <asp:CalendarExtender ID="ceRestoreDate" runat="server" TargetControlID="txtRestoreDate" PopupButtonID="txtRestoreDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
@@ -52,12 +52,16 @@
                         <asp:ListItem>50</asp:ListItem>
                         <asp:ListItem>55</asp:ListItem>
                     </asp:DropDownList>
+                </div>--%>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Customer Satisfaction Level</label>
+                    <asp:DropDownList ID="ddlCustomerSatisfactionLevel" runat="server" CssClass="form-control" />
                 </div>
-             <%--   <div class="col-md-12 col-sm-12">
+                <div class="col-md-12 col-sm-12">
                     <label class="modal-label">Customer Remarks</label>
                     <asp:TextBox ID="txtCustomerRemarks" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
-                </div>--%>
-               
+                </div>
+
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Arrival Back Date and Time</label>
                     <asp:TextBox ID="txtArrivalBackDate" runat="server" CssClass="form-control" AutoComplete="Off" onkeyup="return removeText('MainContent_txtRestoreDate');"></asp:TextBox><asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtArrivalBackDate" PopupButtonID="txtArrivalBackDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
@@ -105,13 +109,13 @@
                         <asp:ListItem>55</asp:ListItem>
                     </asp:DropDownList>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <%--<div class="col-md-6 col-sm-12">
                     <label class="modal-label">Complaint Status</label>
                     <asp:DropDownList ID="ddlComplaintStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlComplaintStatus_SelectedIndexChanged" AutoPostBack="true">
                         <asp:ListItem>Open</asp:ListItem>
                         <asp:ListItem>Close</asp:ListItem>
                     </asp:DropDownList>
-                </div>
+                </div>--%>
 
             </div>
         </fieldset>

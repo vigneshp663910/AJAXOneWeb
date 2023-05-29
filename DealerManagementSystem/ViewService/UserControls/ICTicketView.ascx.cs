@@ -221,7 +221,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillRestore();
 
            
-            FillCustomerFeedBack();
+            //FillCustomerFeedBack();
 
             ActionControlMange();
 
@@ -1847,25 +1847,25 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblRestoreDate.Text = SDMS_ICTicket.RestoreDate == null ? "" : ((DateTime)SDMS_ICTicket.RestoreDate).ToString();
             lblArrivalBackDate.Text = SDMS_ICTicket.ArrivalBack == null ? "" : ((DateTime)SDMS_ICTicket.ArrivalBack).ToString();
 
-            //if (SDMS_ICTicket.CustomerSatisfactionLevel != null)
-            //    lblCustomerSatisfactionLevel.Text = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevelID.ToString();
+            if (SDMS_ICTicket.CustomerSatisfactionLevel != null)
+                lblCustomerSatisfactionLevel.Text = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevelID.ToString();
 
-            //lblCustomerRemarks.Text = SDMS_ICTicketFSR.CustomerRemarks;
+            lblCustomerRemarks.Text = SDMS_ICTicketFSR.CustomerRemarks;
 
             lblComplaintStatus.Text = SDMS_ICTicketFSR.ComplaintStatus;
         }
 
-        private void FillCustomerFeedBack()
-        {
-            if (CustomerFeedback != null)
-            {
-                if (CustomerFeedback.CustomerSatisfactionLevel != null)
-                    lblCustomerSatisfactionLevel.Text = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel;
-                lblCustomerRemarks.Text = SDMS_ICTicketFSR.CustomerRemarks;
-                lbtnPhoto.Text = CustomerFeedback.Photo == null ? "" : CustomerFeedback.Photo.FileName;
-                lbtnSignature.Text = CustomerFeedback.Signature == null ? "" : CustomerFeedback.Signature.FileName;
-            }
-        }
+        //private void FillCustomerFeedBack()
+        //{
+        //    if (CustomerFeedback != null)
+        //    {
+        //        if (CustomerFeedback.CustomerSatisfactionLevel != null)
+        //            lblCustomerSatisfactionLevel.Text = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel;
+        //        lblCustomerRemarks.Text = SDMS_ICTicketFSR.CustomerRemarks;
+        //        lbtnPhoto.Text = CustomerFeedback.Photo == null ? "" : CustomerFeedback.Photo.FileName;
+        //        lbtnSignature.Text = CustomerFeedback.Signature == null ? "" : CustomerFeedback.Signature.FileName;
+        //    }
+        //}
         void ShowMessage(PApiResult Results)
         {
             lblMessage.Text = Results.Message;
@@ -1891,7 +1891,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             lbtnRestore.Visible = true;
 
 
-            lbtnCustomerFeedback.Visible = true;
+            //lbtnCustomerFeedback.Visible = true;
             lbtnServiceClaim.Visible = true;
             lbtnServiceQuotation.Visible = true;
             lbtnServiceProfarmaInvoice.Visible = true;
@@ -1923,7 +1923,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtAddTechnicianWork.Visible = false;
                 lbtnRestore.Visible = false; 
 
-                lbtnCustomerFeedback.Visible = false;
+                //lbtnCustomerFeedback.Visible = false;
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
@@ -1969,7 +1969,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtAddTechnicianWork.Visible = false;
                 lbtnRestore.Visible = false;
 
-                lbtnCustomerFeedback.Visible = false;
+                //lbtnCustomerFeedback.Visible = false;
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
@@ -1986,7 +1986,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtAddTechnicianWork.Visible = false;
                 lbtnRestore.Visible = false;
 
-                lbtnCustomerFeedback.Visible = false;
+                //lbtnCustomerFeedback.Visible = false;
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
@@ -1997,7 +1997,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Reached)
             {  
-                lbtnCustomerFeedback.Visible = false;
+                //lbtnCustomerFeedback.Visible = false;
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
@@ -2036,7 +2036,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtAddTechnicianWork.Visible = false;
                 lbtnRestore.Visible = false;
 
-                lbtnCustomerFeedback.Visible = false;
+                //lbtnCustomerFeedback.Visible = false;
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
@@ -2177,7 +2177,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnRestore.Visible = false;
 
 
-                lbtnCustomerFeedback.Visible = false;
+                //lbtnCustomerFeedback.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.RequstForClaimAndInvoice).Count() == 0)
             {
@@ -2272,27 +2272,27 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillTSIRDetails();
         }
 
-        protected void lbtnPhoto_Click(object sender, EventArgs e)
-        {  
+        //protected void lbtnPhoto_Click(object sender, EventArgs e)
+        //{  
 
-            Response.AddHeader("Content-type", "image/jpeg");
-            Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnPhoto.Text + ".jpg");
-            HttpContext.Current.Response.Charset = "utf-16";
-            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
-            Response.BinaryWrite(CustomerFeedback.Photo.AttachedFile);
-            Response.Flush();
-            Response.End();
-        } 
-        protected void lbtnSignature_Click(object sender, EventArgs e)
-        {
-            Response.AddHeader("Content-type", "image/jpeg");
-            Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnSignature.Text+".jpg");
-            HttpContext.Current.Response.Charset = "utf-16";
-            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
-            Response.BinaryWrite(CustomerFeedback.Signature.AttachedFile);
-            Response.Flush();
-            Response.End();
-        }
+        //    Response.AddHeader("Content-type", "image/jpeg");
+        //    Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnPhoto.Text + ".jpg");
+        //    HttpContext.Current.Response.Charset = "utf-16";
+        //    HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+        //    Response.BinaryWrite(CustomerFeedback.Photo.AttachedFile);
+        //    Response.Flush();
+        //    Response.End();
+        //} 
+        //protected void lbtnSignature_Click(object sender, EventArgs e)
+        //{
+        //    Response.AddHeader("Content-type", "image/jpeg");
+        //    Response.AddHeader("Content-Disposition", "attachment; filename=" + lbtnSignature.Text+".jpg");
+        //    HttpContext.Current.Response.Charset = "utf-16";
+        //    HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+        //    Response.BinaryWrite(CustomerFeedback.Signature.AttachedFile);
+        //    Response.Flush();
+        //    Response.End();
+        //}
 
         protected void btnSaveRequestForDecline_Click(object sender, EventArgs e)
         {

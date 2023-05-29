@@ -526,6 +526,7 @@
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerSearch.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerView.ascx" />
+    <Content Include="ViewPreSale\PreSalesSummeryReport.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewPreSale\Quotation.aspx" />
     <Content Include="ViewPreSale\SalesPipelineReport.aspx" />
@@ -547,6 +548,7 @@
     <Content Include="ViewPreSale\UserControls\SalesQuotationView.ascx" />
     <Content Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx" />
     <Content Include="ViewPreSale\Visit.aspx" />
+    <Content Include="ViewPreSale\VisitCoverageReport.aspx" />
     <Content Include="ViewPreSale\VisitReport.aspx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderASN.aspx" />
@@ -1867,6 +1869,13 @@
     <Compile Include="ViewMaster\UserControls\CustomerView.ascx.designer.cs">
       <DependentUpon>CustomerView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\PreSalesSummeryReport.aspx.cs">
+      <DependentUpon>PreSalesSummeryReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\PreSalesSummeryReport.aspx.designer.cs">
+      <DependentUpon>PreSalesSummeryReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2013,6 +2022,13 @@
     </Compile>
     <Compile Include="ViewPreSale\Visit.aspx.designer.cs">
       <DependentUpon>Visit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\VisitCoverageReport.aspx.cs">
+      <DependentUpon>VisitCoverageReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\VisitCoverageReport.aspx.designer.cs">
+      <DependentUpon>VisitCoverageReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\VisitReport.aspx.cs">
       <DependentUpon>VisitReport.aspx</DependentUpon>

@@ -32,25 +32,25 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         public void FillMaster(PDMS_ICTicket SDMS_ICTicket, PDMS_ICTicketFSR ICTicketFSR)
         {
-            EnableOrDesableBasedOnServiceCharges();
-           
+            //EnableOrDesableBasedOnServiceCharges();
 
-            txtRestoreDate.Text = SDMS_ICTicket.RestoreDate == null ? "" : ((DateTime)SDMS_ICTicket.RestoreDate).ToShortDateString();
-            ddlRestoreHH.SelectedValue = SDMS_ICTicket.RestoreDate == null ? "-1" : ((DateTime)SDMS_ICTicket.RestoreDate).Hour.ToString();
-            if (SDMS_ICTicket.RestoreDate != null)
-            {
-                int RestoreMMMinute = ((DateTime)SDMS_ICTicket.RestoreDate).Minute;
-                int adjustment = RestoreMMMinute % 5;
-                if (adjustment != 0)
-                {
-                    RestoreMMMinute = (RestoreMMMinute - adjustment) + 5;
-                }
-                ddlRestoreMM.SelectedValue = RestoreMMMinute.ToString().PadLeft(2, '0');
-            }
-            else
-            {
-                ddlRestoreMM.SelectedValue = "0";
-            }
+
+            //txtRestoreDate.Text = SDMS_ICTicket.RestoreDate == null ? "" : ((DateTime)SDMS_ICTicket.RestoreDate).ToShortDateString();
+            //ddlRestoreHH.SelectedValue = SDMS_ICTicket.RestoreDate == null ? "-1" : ((DateTime)SDMS_ICTicket.RestoreDate).Hour.ToString();
+            //if (SDMS_ICTicket.RestoreDate != null)
+            //{
+            //    int RestoreMMMinute = ((DateTime)SDMS_ICTicket.RestoreDate).Minute;
+            //    int adjustment = RestoreMMMinute % 5;
+            //    if (adjustment != 0)
+            //    {
+            //        RestoreMMMinute = (RestoreMMMinute - adjustment) + 5;
+            //    }
+            //    ddlRestoreMM.SelectedValue = RestoreMMMinute.ToString().PadLeft(2, '0');
+            //}
+            //else
+            //{
+            //    ddlRestoreMM.SelectedValue = "0";
+            //}
             txtArrivalBackDate.Text = SDMS_ICTicket.ArrivalBack == null ? "" : ((DateTime)SDMS_ICTicket.ArrivalBack).ToShortDateString();
             ddlArrivalBackHH.SelectedValue = SDMS_ICTicket.ArrivalBack == null ? "-1" : ((DateTime)SDMS_ICTicket.ArrivalBack).Hour.ToString();
             if (SDMS_ICTicket.ArrivalBack != null)
@@ -68,27 +68,32 @@ namespace DealerManagementSystem.ViewService.UserControls
                 ddlArrivalBackMM.SelectedValue = "0";
             }
 
-           
+
 
           //  txtCustomerRemarks.Text = ICTicketFSR.CustomerRemarks;
 
-            if (SDMS_ICTicket.CustomerSatisfactionLevel != null)
-                ddlComplaintStatus.SelectedValue = ICTicketFSR.ComplaintStatus;
+            //if (SDMS_ICTicket.CustomerSatisfactionLevel != null)
+            //    ddlComplaintStatus.SelectedValue = ICTicketFSR.ComplaintStatus;
+
+            FillCustomerSatisfactionLevel();
+
+            //if (SDMS_ICTicket.CustomerSatisfactionLevel != null)
+            //    ddlCustomerSatisfactionLevel.SelectedValue = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevelID.ToString();
         }
         public void EnableOrDesableBasedOnServiceCharges()
         {
-            if (SDMS_ICTicket.ServiceCharges.Count != 0)
-            {
-                txtRestoreDate.Enabled = true;
-                ddlRestoreHH.Enabled = true;
-                ddlRestoreMM.Enabled = true;
-            }
-            else
-            {
-                txtRestoreDate.Enabled = false;
-                ddlRestoreHH.Enabled = false;
-                ddlRestoreMM.Enabled = false;
-            }
+            //if (SDMS_ICTicket.ServiceCharges.Count != 0)
+            //{
+            //    txtRestoreDate.Enabled = true;
+            //    ddlRestoreHH.Enabled = true;
+            //    ddlRestoreMM.Enabled = true;
+            //}
+            //else
+            //{
+            //    txtRestoreDate.Enabled = false;
+            //    ddlRestoreHH.Enabled = false;
+            //    ddlRestoreMM.Enabled = false;
+            //}
         }
         void Clear()
         {
@@ -98,42 +103,66 @@ namespace DealerManagementSystem.ViewService.UserControls
         public string Read()
         {  
 
-            DateTime? RestoreDate = string.IsNullOrEmpty(txtRestoreDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRestoreDate.Text.Trim() + " " + ddlRestoreHH.SelectedValue + ":" + ddlRestoreMM.SelectedValue);
+          //  DateTime? RestoreDate = string.IsNullOrEmpty(txtRestoreDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRestoreDate.Text.Trim() + " " + ddlRestoreHH.SelectedValue + ":" + ddlRestoreMM.SelectedValue);
             DateTime? ArrivalBack = string.IsNullOrEmpty(txtArrivalBackDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtArrivalBackDate.Text.Trim() + " " + ddlArrivalBackHH.SelectedValue + ":" + ddlArrivalBackMM.SelectedValue);
 
 
-            return "&RestoreDate=" + RestoreDate + "&ArrivalBack=" + ArrivalBack + "&ComplaintStatus=" + ddlComplaintStatus.SelectedValue; 
+            // return "&RestoreDate=" + RestoreDate + "&ArrivalBack=" + ArrivalBack + "&ComplaintStatus=" + ddlComplaintStatus.SelectedValue; 
+            return "&RestoreDate="+DateTime.Now + "&ArrivalBack=" + ArrivalBack + "&ComplaintStatus=Close"
+                + "&CustomerSatisfactionLevelID=" + ddlCustomerSatisfactionLevel.SelectedValue + "&CustomerRemarks=" + txtCustomerRemarks.Text.Trim();
         }
         public string Validation(PDMS_ICTicket SDMS_ICTicket)
         {
             string Message = "";
-            DateTime? RestoreDate = string.IsNullOrEmpty(txtRestoreDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRestoreDate.Text.Trim() + " " + ddlRestoreHH.SelectedValue + ":" + ddlRestoreMM.SelectedValue);
+            //DateTime? RestoreDate = string.IsNullOrEmpty(txtRestoreDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRestoreDate.Text.Trim() + " " + ddlRestoreHH.SelectedValue + ":" + ddlRestoreMM.SelectedValue);
 
-            if (SDMS_ICTicket.ReachedDate > RestoreDate)
+            //if (SDMS_ICTicket.ReachedDate > RestoreDate)
+            //{
+                
+            //    return "Restore date should not be less than Reached date.";
+                
+            //}
+            if (ddlCustomerSatisfactionLevel.SelectedValue =="0")
             {
-                
-                return "Restore date should not be less than Reached date.";
-                
+                return "Please enter the Customer Satisfaction Level";
+            }
+            if (string.IsNullOrEmpty(txtCustomerRemarks.Text))
+            {
+                return "Please enter the Customer Remarks";
+            }
+
+            DateTime? ArrivalBack = string.IsNullOrEmpty(txtArrivalBackDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtArrivalBackDate.Text.Trim() + " " + ddlArrivalBackHH.SelectedValue + ":" + ddlArrivalBackMM.SelectedValue);
+
+            if (DateTime.Now > ArrivalBack)
+            { 
+                return "Arrival Back date should not be less than Current Date & Time."; 
             }
             return Message;
         }
 
         protected void ddlComplaintStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlComplaintStatus.SelectedValue == "Close")
-            {
-                txtRestoreDate.Enabled = true;
-                ddlRestoreHH.Enabled = true;
-                ddlRestoreMM.Enabled = true;
-            }
-            else
-            {
-                txtRestoreDate.Enabled = false;
-                ddlRestoreHH.Enabled = false;
-                ddlRestoreMM.Enabled = false;
-                txtRestoreDate.Text = "";
-            }
+            //if (ddlComplaintStatus.SelectedValue == "Close")
+            //{
+            //    txtRestoreDate.Enabled = true;
+            //    ddlRestoreHH.Enabled = true;
+            //    ddlRestoreMM.Enabled = true;
+            //}
+            //else
+            //{
+            //    txtRestoreDate.Enabled = false;
+            //    ddlRestoreHH.Enabled = false;
+            //    ddlRestoreMM.Enabled = false;
+            //    txtRestoreDate.Text = "";
+            //}
         }
-        
+        private void FillCustomerSatisfactionLevel()
+        {
+            ddlCustomerSatisfactionLevel.DataTextField = "CustomerSatisfactionLevel";
+            ddlCustomerSatisfactionLevel.DataValueField = "CustomerSatisfactionLevelID";
+            ddlCustomerSatisfactionLevel.DataSource = new BDMS_Service().GetCustomerSatisfactionLevel(null, null);
+            ddlCustomerSatisfactionLevel.DataBind();
+            ddlCustomerSatisfactionLevel.Items.Insert(0, new ListItem("Select", "0"));
+        }
     }
 }

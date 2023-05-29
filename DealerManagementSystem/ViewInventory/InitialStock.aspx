@@ -5,206 +5,225 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
-    <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
-    <div class="col-md-12"> 
-        <div class="col-md-12">
+    <div class="col-md-12">
+        <div class="col-md-12 Report" id="divList" runat="server">
             <div class="col-md-12">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
-                    <div class="col-md-12">
+                <div class="col-md-12">
+                    <fieldset class="fieldset-border">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                        <div class="col-md-12">
+                            <div class="col-md-2 col-sm-12">
+                                <label class="modal-label">Dealer</label>
+                                <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+                            </div>
+                            <div class="col-md-2 text-left">
+                                <label>Division</label>
+                                <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true"></asp:DropDownList>
+                            </div>
+                            <div class="col-md-2 text-left">
+                                <label>Material Model</label>
+                                <asp:DropDownList ID="ddlMaterialModel" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true"></asp:DropDownList>
+                            </div>
+                            <div class="col-md-2 text-left">
+                                <label>Material Code</label>
+                                <asp:TextBox ID="txtMaterialCode" runat="server" placeholder="Material Code" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="col-md-1 text-right">
+                                <br />
+                                <asp:Button ID="btnMaterialSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSearch_Click" OnClientClick="return dateValidation();" />
+                                <%-- &nbsp;<asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" Width="125px" />--%>
+                            </div>
 
-                        <div class="col-md-2 text-left">
-                            <label>Division</label>
-                            <asp:DropDownList ID="ddlDivisionMC" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true"></asp:DropDownList>
+                            <div class="col-md-1 text-left">
+                                <br />
+                                <asp:Button ID="btnMaterialUpload" runat="server" Text="Material Upload" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialUpload_Click" Width="125px" />
+                            </div>
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label>Material Model</label>
-                            <asp:DropDownList ID="ddlMaterialModel" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true"></asp:DropDownList>
-                        </div>
-                        <div class="col-md-2 text-left">
-                            <label>Material Status</label>
-                            <%--<asp:CheckBox ID="cbActive" runat="server" Checked="true" />--%>
-                            <asp:DropDownList ID="ddlMaterialStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true">
-                                <asp:ListItem Value=""> Select</asp:ListItem>
-                                <asp:ListItem Value="1"> Active</asp:ListItem>
-                                <asp:ListItem Value="0"> Inactive</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                        <div class="col-md-2 text-left">
-                            <label>Material Code</label>
-                            <asp:TextBox ID="txtMaterialCode" runat="server" placeholder="Material Code" CssClass="form-control"></asp:TextBox>
-                        </div>
-                        <div class="col-md-1 text-right">
-                            <br />
-                            <asp:Button ID="btnMaterialSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialSearch_Click" OnClientClick="return dateValidation();" />
-                            <%-- &nbsp;<asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" Width="125px" />--%>
-                        </div>
-
-                        <div class="col-md-1 text-left">
-                            <br />
-                            <asp:Button ID="btnMaterialExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnMaterialExportExcel_Click" Width="125px" />
-                        </div>
-                    </div>
-                </fieldset>
+                    </fieldset>
+                </div>
             </div>
-        </div>
-        <div class="col-md-12">
-            <div class="col-md-12 Report">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
-                    <div class="col-md-12 Report">
-                        <tr>
-                            <td>
-                                <span id="txnHistory3:refreshDataGroup">
-                                    <div class="boxHead">
-                                        <div class="logheading">
-                                            <div style="float: left">
-                                                <table>
-                                                    <tr>
-                                                        <td>Material(s):</td>
-
-                                                        <td>
-                                                            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
-                                                        <td>
-                                                            <asp:ImageButton ID="ibtnMaterialArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnMaterialArrowLeft_Click" /></td>
-                                                        <td>
-                                                            <asp:ImageButton ID="ibtnMaterialArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnMaterialArrowRight_Click" /></td>
-                                                    </tr>
-                                                </table>
+            <div class="col-md-12">
+                <div class="col-md-12 Report">
+                    <fieldset class="fieldset-border">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                        <div class="col-md-12 Report">
+                            <tr>
+                                <td>
+                                    <span id="txnHistory3:refreshDataGroup">
+                                        <div class="boxHead">
+                                            <div class="logheading">
+                                                <div style="float: left">
+                                                    <table>
+                                                        <tr>
+                                                            <td>Material(s):</td>
+                                                            <td>
+                                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                            <td>
+                                                                <asp:ImageButton ID="ibtnMaterialArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnMaterialArrowLeft_Click" /></td>
+                                                            <td>
+                                                                <asp:ImageButton ID="ibtnMaterialArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnMaterialArrowRight_Click" /></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div style="background-color: white">
+                                        <div style="background-color: white">
 
-                                        <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
-                                            OnPageIndexChanging="gvMaterial_PageIndexChanging" Width="100%">
-                                            <Columns>
-                                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Material" HeaderStyle-Width="120px">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
+                                            <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
+                                                OnPageIndexChanging="gvMaterial_PageIndexChanging"
+                                                Width="100%">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Material" HeaderStyle-Width="120px">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderText="Material Desc">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="<%$ Resources:Reso, BaseUnit%>">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "BaseUnit")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="<%$ Resources:Reso, MaterialType%>">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblMaterialType" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialType")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Material Desc">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, BaseUnit%>">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "BaseUnit")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, MaterialType%>">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblMaterialType" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialType")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderText="Division Code">
-                                                    <%--<ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                    <asp:TemplateField HeaderText="Division Code">
+                                                        <%--<ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblMaterialGroup" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialGroup")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>--%>
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblDivisionCode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Division.DivisionCode")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Mode Code">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblModeCode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.ModelCode")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Mode">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblMode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Model")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Model Description">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblModelDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Model.ModelDescription")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="<%$ Resources:Reso, GrossWeight%>">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblGrossWeight" Text='<%# DataBinder.Eval(Container.DataItem, "GrossWeight","{0:n}")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="<%$ Resources:Reso, NetWeight%>">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblNetWeight" Text='<%# DataBinder.Eval(Container.DataItem, "NetWeight","{0:n}")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblDivisionCode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Division.DivisionCode")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Mode Code">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblModeCode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.ModelCode")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Mode">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblMode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Model")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Model Description">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblModelDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Model.ModelDescription")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, GrossWeight%>">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblGrossWeight" Text='<%# DataBinder.Eval(Container.DataItem, "GrossWeight","{0:n}")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, NetWeight%>">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblNetWeight" Text='<%# DataBinder.Eval(Container.DataItem, "NetWeight","{0:n}")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderText="<%$ Resources:Reso, WeightUnit%>">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblWeightUnit" Text='<%# DataBinder.Eval(Container.DataItem, "WeightUnit")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, WeightUnit%>">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblWeightUnit" Text='<%# DataBinder.Eval(Container.DataItem, "WeightUnit")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderText="<%$ Resources:Reso, MaterialDivision%>">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblMaterialDivision" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDivision")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="HSN">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "HSN")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, MaterialDivision%>">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblMaterialDivision" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDivision")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="HSN">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "HSN")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderText="CST %">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "CST","{0:n}")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="SST %">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "SST","{0:n}")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="CST %">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "CST","{0:n}")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="SST %">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "SST","{0:n}")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderText="GST %">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "GST","{0:n}")%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                            <AlternatingRowStyle BackColor="#ffffff" />
-                                            <FooterStyle ForeColor="White" />
-                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                        </asp:GridView>
+                                                    <asp:TemplateField HeaderText="GST %">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "GST","{0:n}")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                                <AlternatingRowStyle BackColor="#ffffff" />
+                                                <FooterStyle ForeColor="White" />
+                                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                            </asp:GridView>
 
-                                    </div>
-                                </span>
-                            </td>
-                        </tr>
-                    </div>
-                </fieldset>
+                                        </div>
+                                    </span>
+                                </td>
+                            </tr>
+                        </div>
+                    </fieldset>
+                </div>
             </div>
-        </div> 
+        </div>
+        <div class="col-md-12 Report" id="divUpload" runat="server" visible="false">
+            <fieldset class="fieldset-border" id="FldUpload" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Upload File</legend>
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12" id="Div1" runat="server">
+                        <asp:FileUpload ID="fileUpload" runat="server" />
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <asp:Button ID="btnView" runat="server" Text="View" CssClass="btn Save" OnClick="btnView_Click" Width="100px" />
+                        <asp:Button ID="BtnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="BtnSave_Click" Width="100px" />
+                        <asp:Button ID="BtnBack" runat="server" Text="Back" CssClass="btn Back" OnClick="BtnBack_Click" />
+                        <asp:Button ID="btnDownload" runat="server" Text="Download Template" CssClass="btn Search" OnClick="btnDownload_Click" Width="150px" />
+                    </div>
+                </div>
+                <asp:GridView ID="GVUpload" CssClass="table table-bordered table-condensed Grid" runat="server" ShowHeaderWhenEmpty="true"
+                    EmptyDataText="No Data Found" AutoGenerateColumns="true" Width="100%">
+                    <AlternatingRowStyle BackColor="#ffffff" />
+                    <FooterStyle ForeColor="White" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                </asp:GridView>
+            </fieldset>
+        </div>
     </div>
 </asp:Content>

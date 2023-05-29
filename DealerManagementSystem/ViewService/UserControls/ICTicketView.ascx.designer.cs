@@ -123,15 +123,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnRestore;
 
         /// <summary>
-        /// lbtnCustomerFeedback control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnCustomerFeedback;
-
-        /// <summary>
         /// lbtnServiceClaim control.
         /// </summary>
         /// <remarks>
@@ -1005,15 +996,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Label lblComplaintStatus;
 
         /// <summary>
-        /// tpnlCustomerFeedback control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpnlCustomerFeedback;
-
-        /// <summary>
         /// lblCustomerRemarks control.
         /// </summary>
         /// <remarks>
@@ -1030,24 +1012,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomerSatisfactionLevel;
-
-        /// <summary>
-        /// lbtnPhoto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnPhoto;
-
-        /// <summary>
-        /// lbtnSignature control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnSignature;
 
         /// <summary>
         /// pnlAddTechnician control.

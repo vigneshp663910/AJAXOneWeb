@@ -137,4 +137,32 @@ namespace Properties
         public DateTime? RejectedOn { get; set; }
         public Boolean InActive { get; set; }
     }
+    public class PType
+    {
+        public int TypeID { get; set; }
+        public string Type { get; set; }
+    }
+    public class PSubCategory
+    {
+        public int SubCategoryID { get; set; }
+        public int CategoryId { get; set; }
+        public string SubCategory { get; set; }
+        public int SeverityID { get; set; }
+    }
+    public class PStatus
+    {
+        public int StatusID { get; set; }
+        public string Status { get; set; }
+    }
+    public class PSeverity
+    {
+        public int SeverityID { get; set; }
+        public string Severity { get; set; }
+    }
+    [Serializable]
+    public class PResolutionType
+    {
+        public int ResolutionTypeID { get; set; }
+        public string ResolutionType { get; set; }
+    }
 }

@@ -115,7 +115,7 @@
                 <asp:LinkButton ID="lbtnAddNotes" runat="server" OnClick="lbActions_Click">Add Notes</asp:LinkButton>
                 <asp:LinkButton ID="lbtAddTechnicianWork" runat="server" OnClick="lbActions_Click">Add Technician Work</asp:LinkButton>
                 <asp:LinkButton ID="lbtnRestore" runat="server" OnClick="lbActions_Click">Restore</asp:LinkButton>
-                <asp:LinkButton ID="lbtnCustomerFeedback" runat="server" OnClick="lbActions_Click">Customer Feedback</asp:LinkButton>
+               <%-- <asp:LinkButton ID="lbtnCustomerFeedback" runat="server" OnClick="lbActions_Click">Customer Feedback</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnServiceClaim" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceClaim()">Service Claim</asp:LinkButton>
                 <asp:LinkButton ID="lbtnServiceQuotation" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceQuotation();">Service Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnServiceProfarmaInvoice" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceProfarmaInvoice();">Service Profarma Invoice</asp:LinkButton>
@@ -1043,13 +1043,6 @@
                     <label>Complaint Status : </label>
                     <asp:Label ID="lblComplaintStatus" runat="server" CssClass="label"></asp:Label>
                 </div>
-            </div>
-        </ContentTemplate>
-    </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlCustomerFeedback" runat="server" HeaderText="Customer Feedback" Font-Bold="True" ToolTip="">
-        <ContentTemplate>
-            <br />
-            <div class="col-md-12 View">
                 <div class="col-md-4">
                     <label>Customer Remarks : </label>
                     <asp:Label ID="lblCustomerRemarks" runat="server" CssClass="label"></asp:Label>
@@ -1058,6 +1051,14 @@
                     <label>Customer Satisfaction Level : </label>
                     <asp:Label ID="lblCustomerSatisfactionLevel" runat="server" CssClass="label"></asp:Label>
                 </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <%--<asp1:TabPanel ID="tpnlCustomerFeedback" runat="server" HeaderText="Customer Feedback" Font-Bold="True" ToolTip="">
+        <ContentTemplate>
+            <br />
+            <div class="col-md-12 View">
+                
                 <div class="col-md-4">
                     <label>Photo</label>
                     <asp:LinkButton ID="lbtnPhoto" runat="server" OnClick="lbtnPhoto_Click" Text=""></asp:LinkButton>
@@ -1068,7 +1069,7 @@
                 </div>
             </div>
         </ContentTemplate>
-    </asp1:TabPanel>
+    </asp1:TabPanel>--%>
 </asp1:TabContainer>
 <asp:Panel ID="pnlAddTechnician" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">

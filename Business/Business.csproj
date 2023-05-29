@@ -167,6 +167,7 @@
     <Compile Include="BForum.cs" />
     <Compile Include="BHelp.cs" />
     <Compile Include="BIntegration.cs" />
+    <Compile Include="BInventory.cs" />
     <Compile Include="BMachineOperator.cs" />
     <Compile Include="BNotification.cs" />
     <Compile Include="BOrganization.cs" />

@@ -1,9 +1,12 @@
 ﻿using Business;
+using ClosedXML.Excel;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -13,24 +16,41 @@ namespace DealerManagementSystem.ViewInventory
     public partial class InitialStock : BasePage
     {
         public override SubModule SubModuleName { get { return SubModule.ViewInventory_InitialStock; } }
-        public List<PDMS_Material> Mat
+        public DataTable Mat
         {
             get
             {
                 if (ViewState["Material"] == null)
                 {
-                    ViewState["Material"] = new List<PDMS_Material>();
+                    ViewState["Material"] = new DataTable();
                 }
-                return (List<PDMS_Material>)ViewState["Material"];
+                return (DataTable)ViewState["Material"];
             }
             set
             {
                 ViewState["Material"] = value;
             }
         }
+        public List<PInitialStock_Post> MaterialUpload
+        {
+            get
+            {
+                if (ViewState["MaterialUpload"] == null)
+                {
+                    ViewState["MaterialUpload"] = new List<PInitialStock_Post>();
+                }
+                return (List<PInitialStock_Post>)ViewState["MaterialUpload"];
+            }
+            set
+            {
+                ViewState["MaterialUpload"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
+            new DDLBind(ddlMaterialModel, new BDMS_Model().GetModel(null, null, null), "ModelDescription", "ModelID", true, "Select Model");
+            new DDLBind().FillDealerAndEngneer(ddlDealer, null);
         }
         protected void btnMaterialSearch_Click(object sender, EventArgs e)
         {
@@ -40,16 +60,15 @@ namespace DealerManagementSystem.ViewInventory
         {
             try
             {
-                int? DivisionID = ddlDivisionMC.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivisionMC.SelectedValue);
+                int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+                int? DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
                 int? ModelID = ddlMaterialModel.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMaterialModel.SelectedValue);
-
-                // Boolean? IsActive = ddlMaterialStatus.SelectedValue==""? (Boolean?)null: Convert.ToBoolean(ddlMaterialStatus.SelectedValue) ;
-                Mat = new BDMS_Material().GetMaterialListSQL(null, txtMaterialCode.Text.Trim(), DivisionID, ModelID, ddlMaterialStatus.SelectedValue);
+                Mat = new BInventory().GetInitialStock(DealerID, DivisionID, ModelID, txtMaterialCode.Text.Trim());
                 gvMaterial.PageIndex = 0;
                 gvMaterial.DataSource = Mat;
                 gvMaterial.DataBind();
 
-                if (Mat.Count == 0)
+                if (Mat.Rows.Count == 0)
                 {
                     lblRowCount.Visible = false;
                     ibtnMaterialArrowLeft.Visible = false;
@@ -60,7 +79,7 @@ namespace DealerManagementSystem.ViewInventory
                     lblRowCount.Visible = true;
                     ibtnMaterialArrowLeft.Visible = true;
                     ibtnMaterialArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvMaterial.PageIndex) * gvMaterial.PageSize) + 1) + " - " + (((gvMaterial.PageIndex) * gvMaterial.PageSize) + gvMaterial.Rows.Count) + " of " + Mat.Count;
+                    lblRowCount.Text = (((gvMaterial.PageIndex) * gvMaterial.PageSize) + 1) + " - " + (((gvMaterial.PageIndex) * gvMaterial.PageSize) + gvMaterial.Rows.Count) + " of " + Mat.Rows.Count;
                 }
             }
             catch (Exception e1)
@@ -86,6 +105,136 @@ namespace DealerManagementSystem.ViewInventory
             lblMessage.Text = Message;
             lblMessage.ForeColor = Color.Green;
             lblMessage.Visible = true;
+        }
+
+        protected void btnMaterialUpload_Click(object sender, EventArgs e)
+        {
+            divList.Visible = false;
+            divUpload.Visible = true;
+        }
+
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            MaterialUpload.Clear();
+            GVUpload.DataSource = MaterialUpload;
+            GVUpload.DataBind();
+            if (IsPostBack && fileUpload.PostedFile != null)
+            {
+                if (fileUpload.PostedFile.FileName.Length > 0)
+                {
+                    FillUpload();
+                }
+            }
+        }
+
+        protected void BtnSave_Click(object sender, EventArgs e)
+        {
+            PApiResult Result = new BInventory().InsertInitialStock(MaterialUpload);
+
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Result.Message;
+                return;
+            }
+            lblMessage.Text = Result.Message;
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+
+
+           // FillMaterial();
+        }
+
+        protected void BtnBack_Click(object sender, EventArgs e)
+        {
+
+        }
+        private Boolean FillUpload()
+        {
+            Boolean Success = true;
+            if (fileUpload.HasFile == true)
+            {
+                using (XLWorkbook workBook = new XLWorkbook(fileUpload.PostedFile.InputStream))
+                {
+                    //Read the first Sheet from Excel file.
+                    IXLWorksheet workSheet = workBook.Worksheet(1);                     
+
+                    //Loop through the Worksheet rows.
+                    int sno = 0;
+                    foreach (IXLRow row in workSheet.Rows())
+                    {
+                        sno += 1;
+                        if (sno > 1)
+                        {
+                            MaterialUpload.Add(new PInitialStock_Post()
+                            {
+                                DealerCode = row.Cells("DealerCode").ToString(),
+                                MaterialCode = row.Cells("DealerCode").ToString(),
+                                Quantity = Convert.ToDecimal(row.Cells("Quantity"))
+                            });
+                        }
+                    }
+                    List<PDMS_Material> Employee = new BDMS_Material().GetMaterialListSQL(null, null, null, null, null);
+                    foreach (PInitialStock_Post dr in MaterialUpload)
+                    {
+                        bool containsItem = Employee.Any(item => item.MaterialCode == dr.MaterialCode);
+                        if (!containsItem)
+                        {
+                            lblMessage.Text = "Please Check Material Code : " + dr.MaterialCode + " Not Available...!";
+                            lblMessage.ForeColor = Color.Red;
+                            Success = false;
+                            return Success;
+                        }
+                    }
+                    if (MaterialUpload.Count > 0)
+                    {
+                        GVUpload.DataSource = MaterialUpload;
+                        GVUpload.DataBind();
+                    }
+                }
+            }
+            else
+            {
+                lblMessage.Text = "Please Upload the File...!";
+                lblMessage.ForeColor = Color.Red;
+                Success = false;
+                return Success;
+            }
+            return Success;
+        }
+        protected void btnDownload_Click(object sender, EventArgs e)
+        {
+            string Path = Server.MapPath("Templates\\Sales Incentive-Templates.xlsx");
+            WebClient req = new WebClient();
+            HttpResponse response = HttpContext.Current.Response;
+            response.Clear();
+            response.ClearContent();
+            response.ClearHeaders();
+            response.Buffer = true;
+            response.AddHeader("Content-Disposition", "attachment;filename=\"Sales Incentive-Templates.xlsx\"");
+            byte[] data = req.DownloadData(Path);
+            response.BinaryWrite(data);
+            // Append cookie
+            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+            cookie.Value = "Flag";
+            cookie.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.AppendCookie(cookie);
+            // end
+            response.End();
+        }
+
+        protected void gvMaterial_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
+        }
+
+        protected void ibtnMaterialArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void ibtnMaterialArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+
         }
     }
 }
