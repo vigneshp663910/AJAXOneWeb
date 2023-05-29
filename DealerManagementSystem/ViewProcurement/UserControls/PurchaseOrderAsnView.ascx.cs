@@ -26,6 +26,38 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PAsnView"] = value;
             }
         }
+
+        public List<PAsnItem> PAsnItemView
+        {
+            get
+            {
+                if (ViewState["PAsnItemView"] == null)
+                {
+                    Session["PAsnItemView"] = new List<PAsnItem>();
+                }
+                return (List<PAsnItem>)ViewState["PAsnItemView"];
+            }
+            set
+            {
+                ViewState["PAsnItemView"] = value;
+            }
+        }
+
+        public List<PGr> GrList
+        {
+            get
+            {
+                if (ViewState["GrList"] == null)
+                {
+                    Session["GrList"] = new PAsn();
+                }
+                return (List<PGr>)ViewState["GrList"];
+            }
+            set
+            {
+                ViewState["GrList"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
@@ -36,34 +68,54 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             lblAsnNumber.Text = PAsnView.AsnNumber;
             lblAsnDate.Text = PAsnView.AsnDate.ToString();
-            lblDealer.Text = PAsnView.Dealer.DealerName;
+            lblDealer.Text = PAsnView.PurchaseOrder.Dealer.DealerName;
 
-            //lblPoNumber.Text = PAsnView.PurchaseOrderNumber;
-            //lblPoDate.Text = PAsnView.PurchaseOrderDate.ToString();
-            //lblVendor.Text = PAsnView.Vendor.DealerName;
+            lblPoNumber.Text = PAsnView.PurchaseOrder.PurchaseOrderNumber;
+            lblPoDate.Text = PAsnView.PurchaseOrder.PurchaseOrderDate.ToString();
+            lblVendor.Text = PAsnView.PurchaseOrder.Vendor.DealerName;
 
             lblDeliveryNumber.Text = PAsnView.DeliveryNumber;
             lblDeliveryDate.Text = PAsnView.DeliveryDate.ToString();
             lblAsnStatus.Text = PAsnView.AsnStatus.AsnStatus;
 
+            lblGrNumber.Text = PAsnView.Gr.GrNumber;
+            lblGrDate.Text = PAsnView.Gr.GrDate.ToString();
             lblLRNo.Text = PAsnView.LRNo;
+
             lblRemarks.Text = PAsnView.Remarks;
 
-            gvPOAsnItem.DataSource = PAsnView.AsnItemS;
+            gvPOAsnItem.DataSource = null;
             gvPOAsnItem.DataBind();
+            PAsnItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnItemByID(AsnID);
+            gvPOAsnItem.DataSource = PAsnItemView;
+            gvPOAsnItem.DataBind();
+
+            GVGr.DataSource = null;
+            GVGr.DataBind();
+            GrList = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrDetByID(AsnID);
+            GVGr.DataSource = GrList;
+            GVGr.DataBind();
+
             ActionControlMange();
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            //if (lbActions.Text == "Release PO")
-            //{
-
-            //}
+            if (lbActions.Text == "Gr Creation")
+            {
+                MPE_GrCreate.Show();
+                UC_GrCreate.FillMaster(PAsnView);
+            }
         }
         void ActionControlMange()
         {
 
         }
+
+        protected void btnGrCreate_Click(object sender, EventArgs e)
+        {
+
+        }
+        
     }
 }

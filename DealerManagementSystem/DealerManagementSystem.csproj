@@ -553,6 +553,7 @@
     <Content Include="ViewProcurement\PurchaseOrderPG.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderReturn.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderReturnInvoice.aspx" />
+    <Content Include="ViewProcurement\UserControls\GrCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderAsnView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnCreate.ascx" />
@@ -2055,6 +2056,13 @@
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderReturnInvoice.aspx.designer.cs">
       <DependentUpon>PurchaseOrderReturnInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\GrCreate.ascx.cs">
+      <DependentUpon>GrCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\GrCreate.ascx.designer.cs">
+      <DependentUpon>GrCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderAsnView.ascx.cs">
       <DependentUpon>PurchaseOrderAsnView.ascx</DependentUpon>
