@@ -157,7 +157,7 @@
                     <asp:LinkButton ID="lbChequeCopyFileName" runat="server" OnClick="lbChequeCopy_Click" Visible="false">
                         <asp:Label ID="lblChequeCopyFileName" runat="server" CssClass="label" Text=""></asp:Label>
                     </asp:LinkButton>
-                </div>                
+                </div>
                 <div class="col-md-3 text-right">
                     <label>Emergency Contact</label>
                 </div>
@@ -180,6 +180,18 @@
                 </div>
                 <div class="col-md-3">
                     <asp:ListBox ID="lbProductTypes" runat="server" CssClass="TextBox form-control" Enabled="false"></asp:ListBox>
+                </div>
+
+            </div>
+        </fieldset>
+        <fieldset class="fieldset-border">
+            <legend style="background: none; color: #007bff; font-size: 17px;">DL Info</legend>
+            <div class="col-md-12">
+                <div class="col-md-3 text-right">
+                    <label>DL Info</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblDLInfo" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-3 text-right">
                     <label>DL Number</label>

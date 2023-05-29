@@ -381,24 +381,30 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 ViewState["MO_DLCopyBackSideAttachedFileID"] = Emp.DLBackSide.AttachedFileID;
                 DLCopyBackSideFile = new BMachineOperator().GetMachineOperatorAttachedFile(Emp.DLBackSide.AttachedFileID);
             }
+            chkDLInfo.Checked = Emp.DLInfo == true;
             txtDLNumber.Text = Emp.DLNumber;
             txtDLIssueDate.Text = Emp.DLIssueDate.ToString();
             txtDLIssuingOffice.Text = Emp.DLIssueingOffice;
             txtDLExpiryDate.Text = Emp.DLExpiryDate.ToString();
             txtDLFor.Text = Emp.DLFor;
+            //DivDLInfo.Visible = false;
+            //foreach (ListViewItem item in ListViewProductType.Items)
+            //{
+            //    CheckBox chkProductType = (CheckBox)item.FindControl("chkProductType");
+            //    Label lblProductType = (Label)item.FindControl("lblProductType");
+            //    Label lblProductTypeID = (Label)item.FindControl("lblProductTypeID");
+            //    if (chkProductType.Checked == true)
+            //    {
+            //        if (lblProductTypeID.Text == "1" || lblProductTypeID.Text == "4" || lblProductTypeID.Text == "5" || lblProductTypeID.Text == "8")
+            //        {
+            //            DivDLInfo.Visible = true;
+            //        }
+            //    }
+            //}
             DivDLInfo.Visible = false;
-            foreach (ListViewItem item in ListViewProductType.Items)
+            if (chkDLInfo.Checked == true)
             {
-                CheckBox chkProductType = (CheckBox)item.FindControl("chkProductType");
-                Label lblProductType = (Label)item.FindControl("lblProductType");
-                Label lblProductTypeID = (Label)item.FindControl("lblProductTypeID");
-                if (chkProductType.Checked == true)
-                {
-                    if (lblProductTypeID.Text == "1" || lblProductTypeID.Text == "4" || lblProductTypeID.Text == "5" || lblProductTypeID.Text == "8")
-                    {
-                        DivDLInfo.Visible = true;
-                    }
-                }
+                DivDLInfo.Visible = true;
             }
         }
         protected void ViewPhoto()
@@ -654,6 +660,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 p.IsActive = chkProductType.Checked;
                 Emp.ProductTypes.Add(p);
             }
+            Emp.DLInfo = chkDLInfo.Checked;
             if (ddlBloodGroup.SelectedValue != "0")
             {
                 Emp.BloodGroupID = Convert.ToInt32(ddlBloodGroup.SelectedValue);
@@ -902,57 +909,58 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 if (chkProductType.Checked == true)
                 {
                     productCount += 1;
-                    if (lblProductTypeID.Text == "1" || lblProductTypeID.Text == "4" || lblProductTypeID.Text == "5" || lblProductTypeID.Text == "8")
-                    {
-                        if (string.IsNullOrEmpty(txtDLNumber.Text))
-                        {
-                            Message = Message + "<br/> Please Enter DL Number";
-                            Ret = false;
-                            txtDLNumber.BorderColor = Color.Red;
-                        }
-                        if (string.IsNullOrEmpty(txtDLIssueDate.Text))
-                        {
-                            Message = Message + "<br/> Please Enter DL Issue Date";
-                            Ret = false;
-                            txtDLIssueDate.BorderColor = Color.Red;
-                        }
-                        if (string.IsNullOrEmpty(txtDLIssuingOffice.Text))
-                        {
-                            Message = Message + "<br/> Please Enter DL Issueing Office";
-                            Ret = false;
-                            txtDLIssuingOffice.BorderColor = Color.Red;
-                        }
-                        if (string.IsNullOrEmpty(txtDLExpiryDate.Text))
-                        {
-                            Message = Message + "<br/> Please Enter DL Expiry Date";
-                            Ret = false;
-                            txtDLExpiryDate.BorderColor = Color.Red;
-                        }
-                        if (string.IsNullOrEmpty(txtDLFor.Text))
-                        {
-                            Message = Message + "<br/> Please Enter DL For";
-                            Ret = false;
-                            txtDLFor.BorderColor = Color.Red;
-                        }
-                        if (DLCopyFrontSideFile.FileName == null)
-                        {
-                            Message = Message + "<br/> Please attach the DL Copy Front Side";
-                            Ret = false;
-                            fuDLCopyFrontSide.BorderColor = Color.Red;
-                        }
-                        if (DLCopyBackSideFile.FileName == null)
-                        {
-                            Message = Message + "<br/> Please attach the DL Copy Back Side";
-                            Ret = false;
-                            fuDLCopyBackSide.BorderColor = Color.Red;
-                        }
-                    }
                 }
             }
             if (productCount == 0)
             {
                 Message = Message + "<br/>Please select the Operator";
                 Ret = false;
+            }
+
+            if (chkDLInfo.Checked == true)
+            {
+                if (string.IsNullOrEmpty(txtDLNumber.Text))
+                {
+                    Message = Message + "<br/> Please Enter DL Number";
+                    Ret = false;
+                    txtDLNumber.BorderColor = Color.Red;
+                }
+                if (string.IsNullOrEmpty(txtDLIssueDate.Text))
+                {
+                    Message = Message + "<br/> Please Enter DL Issue Date";
+                    Ret = false;
+                    txtDLIssueDate.BorderColor = Color.Red;
+                }
+                if (string.IsNullOrEmpty(txtDLIssuingOffice.Text))
+                {
+                    Message = Message + "<br/> Please Enter DL Issueing Office";
+                    Ret = false;
+                    txtDLIssuingOffice.BorderColor = Color.Red;
+                }
+                if (string.IsNullOrEmpty(txtDLExpiryDate.Text))
+                {
+                    Message = Message + "<br/> Please Enter DL Expiry Date";
+                    Ret = false;
+                    txtDLExpiryDate.BorderColor = Color.Red;
+                }
+                if (string.IsNullOrEmpty(txtDLFor.Text))
+                {
+                    Message = Message + "<br/> Please Enter DL For";
+                    Ret = false;
+                    txtDLFor.BorderColor = Color.Red;
+                }
+                if (DLCopyFrontSideFile.FileName == null)
+                {
+                    Message = Message + "<br/> Please attach the DL Copy Front Side";
+                    Ret = false;
+                    fuDLCopyFrontSide.BorderColor = Color.Red;
+                }
+                if (DLCopyBackSideFile.FileName == null)
+                {
+                    Message = Message + "<br/> Please attach the DL Copy Back Side";
+                    Ret = false;
+                    fuDLCopyBackSide.BorderColor = Color.Red;
+                }
             }
 
             //if (string.IsNullOrEmpty(txtPANNo.Text.Trim()))
@@ -1176,21 +1184,29 @@ namespace DealerManagementSystem.ViewDealerEmployee
             Response.Redirect(url);
         }
 
-        protected void chkProductType_CheckedChanged(object sender, EventArgs e)
+        //protected void chkProductType_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    DivDLInfo.Visible = false;
+        //    foreach (ListViewItem item in ListViewProductType.Items)
+        //    {
+        //        CheckBox chkProductType = (CheckBox)item.FindControl("chkProductType");
+        //        Label lblProductType = (Label)item.FindControl("lblProductType");
+        //        Label lblProductTypeID = (Label)item.FindControl("lblProductTypeID");
+        //        if (chkProductType.Checked == true)
+        //        {
+        //            if (lblProductTypeID.Text == "1" || lblProductTypeID.Text == "4" || lblProductTypeID.Text == "5" || lblProductTypeID.Text == "8")
+        //            {
+        //                DivDLInfo.Visible = true;
+        //            }
+        //        }
+        //    }
+        //}
+        protected void chkDLInfo_CheckedChanged(object sender, EventArgs e)
         {
             DivDLInfo.Visible = false;
-            foreach (ListViewItem item in ListViewProductType.Items)
+            if (chkDLInfo.Checked == true)
             {
-                CheckBox chkProductType = (CheckBox)item.FindControl("chkProductType");
-                Label lblProductType = (Label)item.FindControl("lblProductType");
-                Label lblProductTypeID = (Label)item.FindControl("lblProductTypeID");
-                if (chkProductType.Checked == true)
-                {
-                    if (lblProductTypeID.Text == "1" || lblProductTypeID.Text == "4" || lblProductTypeID.Text == "5" || lblProductTypeID.Text == "8")
-                    {
-                        DivDLInfo.Visible = true;
-                    }
-                }
+                DivDLInfo.Visible = true;
             }
         }
     }

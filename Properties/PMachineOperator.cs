@@ -45,6 +45,7 @@ namespace Properties
         public PUser CreatedBy { get; set; }
         public string EmergencyContactNumber { get; set; }
         public PDMS_BloodGroup BloodGroup { get; set; }
+        public Boolean DLInfo { get; set; }
         public Boolean IsActive { get; set; }
         public Int32 UserID { get; set; }
         public List<PMachineOperatorProductTypes> ProductTypes { get; set; }
@@ -92,6 +93,7 @@ namespace Properties
         public DateTime? DLExpiryDate { get; set; }
         public string DLFor { get; set; }
         public string EmergencyContactNumber { get; set; }
+        public Boolean DLInfo { get; set; }
         public Int32 UserID { get; set; }
         public int StateID { get; set; }
         public int DistrictID { get; set; }

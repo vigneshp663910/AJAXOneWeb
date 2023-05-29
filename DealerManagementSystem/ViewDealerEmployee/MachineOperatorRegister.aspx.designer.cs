@@ -447,6 +447,15 @@ namespace DealerManagementSystem.ViewDealerEmployee
         protected global::System.Web.UI.WebControls.ListView ListViewProductType;
 
         /// <summary>
+        /// chkDLInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkDLInfo;
+
+        /// <summary>
         /// DivDLInfo control.
         /// </summary>
         /// <remarks>
