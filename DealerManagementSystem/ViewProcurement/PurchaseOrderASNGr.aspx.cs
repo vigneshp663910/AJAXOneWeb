@@ -11,28 +11,28 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewProcurement
 {
-    public partial class PurchaseOrderASN : BasePage
+    public partial class PurchaseOrderASNGr : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrderASN; } }
+        //public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrderASN; } }
         int? DealerID = null;
         string VendorID = null;
-        string AsnNumber = null;
-        DateTime? AsnDateF = null;
-        DateTime? AsnDateT = null;
-        int? AsnStatusID = null;
-        public List<PAsn> PAsnHeader
+        string GrNumber = null;
+        DateTime? GrDateF = null;
+        DateTime? GrDateT = null;
+        int? GrStatusID = null;
+        public List<PGr> GrHeader
         {
             get
             {
-                if (Session["PAsnHeader"] == null)
+                if (Session["GrHeader"] == null)
                 {
-                    Session["PAsnHeader"] = new List<PAsn>();
+                    Session["GrHeader"] = new List<PAsn>();
                 }
-                return (List<PAsn>)Session["PAsnHeader"];
+                return (List<PGr>)Session["GrHeader"];
             }
             set
             {
-                Session["PAsnHeader"] = value;
+                Session["GrHeader"] = value;
             }
         }
         private int PageCount
@@ -67,7 +67,7 @@ namespace DealerManagementSystem.ViewProcurement
         }
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            Session["previousUrl"] = "PurchaseOrderASN.aspx";
+            Session["previousUrl"] = "PurchaseOrderASNGr.aspx";
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -75,7 +75,7 @@ namespace DealerManagementSystem.ViewProcurement
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Order ASN');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Order ASN GR');</script>");
             lblMessage.Visible = false;
 
             if (PSession.User == null)
@@ -86,9 +86,9 @@ namespace DealerManagementSystem.ViewProcurement
             {
                 PageCount = 0;
                 PageIndex = 1;
-                txtAsnDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
-                txtAsnDateTo.Text = DateTime.Now.ToShortDateString();
-                new DDLBind(ddlAsnStatus, new BDMS_PurchaseOrder().GetAsnStatus(null, null), "AsnStatus", "AsnStatusID");
+                txtGrDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
+                txtGrDateTo.Text = DateTime.Now.ToShortDateString();
+                new DDLBind(ddlGrStatus, new BDMS_PurchaseOrder().GetGrStatus(null, null), "GrStatus", "GrStatusID");
                 if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
                 {
                     ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
@@ -108,7 +108,7 @@ namespace DealerManagementSystem.ViewProcurement
         {
             try
             {
-                fillPurchaseOrderASN();
+                fillPurchaseOrderASNGr();
             }
             catch (Exception e1)
             {
@@ -121,23 +121,23 @@ namespace DealerManagementSystem.ViewProcurement
         {
             DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
             //   VendorID = null; 
-            AsnDateF = null;
-            AsnDateF = string.IsNullOrEmpty(txtAsnDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAsnDateFrom.Text.Trim());
-            AsnDateT = string.IsNullOrEmpty(txtAsnDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAsnDateTo.Text.Trim());
-            AsnStatusID = ddlAsnStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlAsnStatus.SelectedValue);
-            AsnNumber = string.IsNullOrEmpty(txtAsnNumber.Text)?null:txtAsnNumber.Text.Trim();
+            GrDateF = null;
+            GrDateF = string.IsNullOrEmpty(txtGrDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtGrDateFrom.Text.Trim());
+            GrDateT = string.IsNullOrEmpty(txtGrDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtGrDateTo.Text.Trim());
+            GrStatusID = ddlGrStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlGrStatus.SelectedValue);
+            GrNumber = string.IsNullOrEmpty(txtGrNumber.Text) ? null : txtGrNumber.Text.Trim();
         }
-        void fillPurchaseOrderASN()
+        void fillPurchaseOrderASNGr()
         {
             try
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnHeader(DealerID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PageIndex, gvPAsn.PageSize);
-                PAsnHeader = JsonConvert.DeserializeObject<List<PAsn>>(JsonConvert.SerializeObject(Result.Data));
-                gvPAsn.PageIndex = 0;
-                gvPAsn.DataSource = PAsnHeader;
-                gvPAsn.DataBind();
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrHeader(DealerID, VendorID, GrNumber, GrDateF, GrDateT, GrStatusID, PageIndex, gvAsnGr.PageSize);
+                GrHeader = JsonConvert.DeserializeObject<List<PGr>>(JsonConvert.SerializeObject(Result.Data));
+                gvAsnGr.PageIndex = 0;
+                gvAsnGr.DataSource = GrHeader;
+                gvAsnGr.DataBind();
                 if (Result.RowCount == 0)
                 {
                     lblRowCount.Visible = false;
@@ -146,17 +146,17 @@ namespace DealerManagementSystem.ViewProcurement
                 }
                 else
                 {
-                    PageCount = (Result.RowCount + gvPAsn.PageSize - 1) / gvPAsn.PageSize;
+                    PageCount = (Result.RowCount + gvAsnGr.PageSize - 1) / gvAsnGr.PageSize;
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((PageIndex - 1) * gvPAsn.PageSize) + 1) + " - " + (((PageIndex - 1) * gvPAsn.PageSize) + gvPAsn.Rows.Count) + " of " + Result.RowCount;
+                    lblRowCount.Text = (((PageIndex - 1) * gvAsnGr.PageSize) + 1) + " - " + (((PageIndex - 1) * gvAsnGr.PageSize) + gvAsnGr.Rows.Count) + " of " + Result.RowCount;
                 }
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("PurchaseOrderAsn", "fillPurchaseOrderASN", e1);
+                new FileLogger().LogMessage("PurchaseOrderAsn", "fillPurchaseOrderASNGr", e1);
                 throw e1;
             }
         }
@@ -165,23 +165,24 @@ namespace DealerManagementSystem.ViewProcurement
             if (PageIndex > 1)
             {
                 PageIndex = PageIndex - 1;
-                fillPurchaseOrderASN();
+                fillPurchaseOrderASNGr();
             }
         }
+
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (PageCount > PageIndex)
             {
                 PageIndex = PageIndex + 1;
-                fillPurchaseOrderASN();
+                fillPurchaseOrderASNGr();
             }
         }
-        protected void gvPAsn_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void gvAsnGr_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvPAsn.PageIndex = e.NewPageIndex;
-            gvPAsn.DataSource = PAsnHeader;
-            gvPAsn.DataBind();
-            lblRowCount.Text = (((gvPAsn.PageIndex) * gvPAsn.PageSize) + 1) + " - " + (((gvPAsn.PageIndex) * gvPAsn.PageSize) + gvPAsn.Rows.Count) + " of " + PAsnHeader.Count;
+            gvAsnGr.PageIndex = e.NewPageIndex;
+            gvAsnGr.DataSource = GrHeader;
+            gvAsnGr.DataBind();
+            lblRowCount.Text = (((gvAsnGr.PageIndex) * gvAsnGr.PageSize) + 1) + " - " + (((gvAsnGr.PageIndex) * gvAsnGr.PageSize) + gvAsnGr.Rows.Count) + " of " + GrHeader.Count;
         }
         void fillDealer()
         {
@@ -191,7 +192,7 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
-        protected void btnPurchaseOrderViewBack_Click(object sender, EventArgs e)
+        protected void btnPurchaseOrderASNGrViewBack_Click(object sender, EventArgs e)
         {
             divList.Visible = true;
             divDetailsView.Visible = false;
@@ -199,10 +200,10 @@ namespace DealerManagementSystem.ViewProcurement
         protected void btnViewPO_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblAsnID = (Label)gvRow.FindControl("lblAsnID");
+            Label lblGrID = (Label)gvRow.FindControl("lblGrID");
             divList.Visible = false;
             divDetailsView.Visible = true;
-            UC_PurchaseOrderASNView.fillViewPOAsn(Convert.ToInt64(lblAsnID.Text));
+            UC_PurchaseOrderASNGrView.fillViewPOAsn(Convert.ToInt64(lblGrID.Text));
         }
     }
 }

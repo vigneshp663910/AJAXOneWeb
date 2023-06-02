@@ -1,24 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PurchaseOrderASN.aspx.cs" Inherits="DealerManagementSystem.ViewProcurement.PurchaseOrderASN" %>
-
-<%@ Register Src="~/ViewProcurement/UserControls/PurchaseOrderAsnView.ascx" TagPrefix="UC" TagName="UC_PurchaseOrderASNView" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PurchaseOrderASNGr.aspx.cs" Inherits="DealerManagementSystem.ViewProcurement.PurchaseOrderASNGr" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
-    <%--<script type="text/javascript">
-        function collapseExpand(obj) {
-            var gvObject = document.getElementById("MainContent_pnlFilterContent");
-            var imageID = document.getElementById("MainContent_imageID");
-            if (gvObject.style.display == "none") {
-                gvObject.style.display = "inline";
-                imageID.src = "Images/grid_collapse.png";
-            }
-            else {
-                gvObject.style.display = "none";
-                imageID.src = "Images/grid_expand.png";
-            }
-        }
-    </script>--%>
+<%@ Register Src="~/ViewProcurement/UserControls/PurchaseOrderASNGrView.ascx" TagPrefix="UC" TagName="UC_PurchaseOrderASNGrView" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
@@ -31,24 +16,24 @@
                             <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Asn Number</label>
-                            <asp:TextBox ID="txtAsnNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                            <label class="modal-label">Gr Number</label>
+                            <asp:TextBox ID="txtGrNumber" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Asn Date From</label>
-                            <asp:TextBox ID="txtAsnDateFrom" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
-                            <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAsnDateFrom" PopupButtonID="txtPoDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtAsnDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                            <label class="modal-label">Gr Date From</label>
+                            <asp:TextBox ID="txtGrDateFrom" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                            <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtGrDateFrom" PopupButtonID="txtPoDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtGrDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Asn Date To</label>
-                            <asp:TextBox ID="txtAsnDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
-                            <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtAsnDateTo" PopupButtonID="txtPoDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtAsnDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                            <label class="modal-label">Gr Date To</label>
+                            <asp:TextBox ID="txtGrDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                            <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtGrDateTo" PopupButtonID="txtPoDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtGrDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Asn Status</label>
-                            <asp:DropDownList ID="ddlAsnStatus" runat="server" CssClass="form-control">
+                            <label class="modal-label">Gr Status</label>
+                            <asp:DropDownList ID="ddlGrStatus" runat="server" CssClass="form-control">
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-2 text-left">
@@ -62,7 +47,7 @@
             </div>
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Asn Report</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Gr Report</legend>
                     <div class="col-md-12 Report">
                         <div class="boxHead">
                             <div class="logheading">
@@ -80,68 +65,54 @@
                                 </div>
                             </div>
                         </div>
-                        <asp:GridView ID="gvPAsn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"
-                            OnPageIndexChanging="gvPAsn_PageIndexChanging">
+                        <asp:GridView ID="gvAsnGr" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"
+                            OnPageIndexChanging="gvAsnGr_PageIndexChanging">
                             <Columns>
+                                <asp:TemplateField HeaderText="Gr Number">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblGrID" Text='<%# DataBinder.Eval(Container.DataItem, "GrID")%>' runat="server" Visible="false" />
+                                        <asp:Label ID="lblGrNumber" Text='<%# DataBinder.Eval(Container.DataItem, "GrNumber")%>' runat="server" />
+                                        <br />
+                                        <asp:Label ID="lblGrDate" Text='<%# DataBinder.Eval(Container.DataItem, "GrDate","{0:d}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Asn Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblAsnID" Text='<%# DataBinder.Eval(Container.DataItem, "AsnID")%>' runat="server" Visible="false" />
-                                        <asp:Label ID="lblAsnNumber" Text='<%# DataBinder.Eval(Container.DataItem, "AsnNumber")%>' runat="server" />
+                                        <asp:Label ID="lblASNNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.AsnNumber")%>' runat="server" />
                                         <br />
-                                        <asp:Label ID="lblAsnDate" Text='<%# DataBinder.Eval(Container.DataItem, "AsnDate","{0:d}")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblAsnDate" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.AsnDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="PO Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblPurchaseOrderNumber" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.PurchaseOrderNumber")%>' runat="server" />
+                                        <asp:Label ID="lblPurchaseOrderNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.PurchaseOrderNumber")%>' runat="server" />
                                         <br />
-                                        <asp:Label ID="lblPurchaseOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.PurchaseOrderDate","{0:d}")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Gr Number">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblGrNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Gr.GrNumber")%>' runat="server" />
-                                        <br />
-                                        <asp:Label ID="lblGrDate" Text='<%# DataBinder.Eval(Container.DataItem, "Gr.GrDate","{0:d}")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Delivery Number">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblDeliveryNumber" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryNumber")%>' runat="server" />
-                                        <br />
-                                        <asp:Label ID="lblDeliveryDate" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryDate","{0:d}")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblPurchaseOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.PurchaseOrderDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Dealer.DealerCode")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.Dealer.DealerCode")%>' runat="server"></asp:Label>
                                         <br />
-                                        <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Dealer.DealerName")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.Dealer.DealerName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Vendor">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblVendorCode" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Vendor.DealerCode")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblVendorCode" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.Vendor.DealerCode")%>' runat="server"></asp:Label>
                                         <br />
-                                        <asp:Label ID="lblVendorName" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Vendor.DealerName")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblVendorName" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.Vendor.DealerName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="LR Number">
+                                <asp:TemplateField HeaderText="Gr Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblLRNo" Text='<%# DataBinder.Eval(Container.DataItem, "LRNo")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Asn Status">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblAsnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "AsnStatus.AsnStatus")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblAsnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.GrStatus")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Remarks">
@@ -170,10 +141,10 @@
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
                 <div class="back-buttton" id="backBtn" style="text-align:right">
-                    <asp:Button ID="btnPurchaseOrderViewBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnPurchaseOrderViewBack_Click" />
+                    <asp:Button ID="btnPurchaseOrderASNGrViewBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnPurchaseOrderASNGrViewBack_Click" />
                 </div>
             </div>
-            <UC:UC_PurchaseOrderASNView ID="UC_PurchaseOrderASNView" runat="server"></UC:UC_PurchaseOrderASNView>
+            <UC:UC_PurchaseOrderASNGrView ID="UC_PurchaseOrderASNGrView" runat="server"></UC:UC_PurchaseOrderASNGrView>
         </div>
     </div>
 </asp:Content>

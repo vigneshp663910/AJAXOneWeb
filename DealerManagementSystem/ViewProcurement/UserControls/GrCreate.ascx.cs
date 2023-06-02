@@ -55,7 +55,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             if (!IsPostBack)
             {
-                
+
             }
         }
         public void FillMaster(PAsn PAsnView)
@@ -70,53 +70,66 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvPOAsnItem.DataSource = PAsnItemView;
             gvPOAsnItem.DataBind();
         }
-        protected void btnGrItemAdd_Click(object sender, EventArgs e)
+        public List<PGr_Insert> Read()
         {
-            //lblMessage.ForeColor = Color.Red;
-            //lblMessage.Visible = true;
-            //string Message = Validation();
-            //if (!string.IsNullOrEmpty(Message))
-            //{
-            //    lblMessage.Text = Message;
-            //    return;
-            //}
-            //Message = ValidationItem();
-            //if (!string.IsNullOrEmpty(Message))
-            //{
-            //    lblMessage.Text = Message;
-            //    return;
-            //}
-            //if (PO_Insert.PurchaseOrderItems == null)
-            //{
-            //    PO_Insert.PurchaseOrderItems = new List<PPurchaseOrderItem_Insert>();
-            //}
+            List<PGr_Insert> GrList = new List<PGr_Insert>();
+            foreach (GridViewRow row in gvPOAsnItem.Rows)
+            {
+                Label lblAsnID = (Label)row.FindControl("lblAsnID");
+                Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
+                TextBox txtDeliveredQty = (TextBox)row.FindControl("txtDeliveredQty");
+                TextBox txtReceivedQty = (TextBox)row.FindControl("txtReceivedQty");
+                TextBox txtDamagedQty = (TextBox)row.FindControl("txtDamagedQty");
+                TextBox txtMissingQty = (TextBox)row.FindControl("txtMissingQty");
 
-            //PPurchaseOrderItem_Insert PoI = ReadItem();
-            //PO_Insert.PurchaseOrderItems.Add(PoI);
+                GrList.Add(new PGr_Insert()
+                {
+                    AsnItemID = lblAsnItemID.Text.Trim(),
+                    AsnID = Convert.ToInt64(lblAsnID.Text),
+                    DeliveredQty = Convert.ToDecimal("0" + txtDeliveredQty.Text),
+                    ReceivedQty = Convert.ToDecimal("0" + txtReceivedQty.Text),
+                    DamagedQty = Convert.ToDecimal("0" + txtDamagedQty.Text),
+                    MissingQty = Convert.ToDecimal("0" + txtMissingQty.Text),
+                    GrRemarks = txtRemarks.Text
+                });
+            }
+            return GrList;
+        }
+        public Boolean ValidationItem()
+        {
+            Boolean Result = false;
+            foreach (GridViewRow row in gvPOAsnItem.Rows)
+            {
+                Label lblAsnID = (Label)row.FindControl("lblAsnID");
+                Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
+                Label lblQty = (Label)row.FindControl("lblQty");
+                TextBox txtDeliveredQty = (TextBox)row.FindControl("txtDeliveredQty");
+                TextBox txtReceivedQty = (TextBox)row.FindControl("txtReceivedQty");
+                TextBox txtDamagedQty = (TextBox)row.FindControl("txtDamagedQty");
+                TextBox txtMissingQty = (TextBox)row.FindControl("txtMissingQty");
 
-            //string Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-            //string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
-            //string OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
-            //string Material = PoI.MaterialCode;
-            //string IV_SEC_SALES = "";
-            ////string PriceDate = DateTime.Now.ToShortDateString();
-            //string PriceDate = "";
-            //string IsWarrenty = "false";
+                decimal DeliveredQty = 0, ReceivedQty = 0, DamagedQty = 0, MissingQty = 0;
+                decimal.TryParse(txtDeliveredQty.Text, out DeliveredQty);
+                decimal.TryParse(txtReceivedQty.Text, out ReceivedQty);
+                decimal.TryParse(txtDamagedQty.Text, out DamagedQty);
+                decimal.TryParse(txtMissingQty.Text, out MissingQty);
 
-            //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, PoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
-            //PoI.Price = Mat.CurrentPrice;
-            //PoI.DiscountAmount = Mat.Discount;
-            //PoI.TaxableAmount = Mat.TaxablePrice;
-            //PoI.SGST = Mat.SGST;
-            //PoI.SGSTValue = Mat.SGSTValue;
-            //PoI.CGST = Mat.CGST;
-            //PoI.CGSTValue = Mat.CGSTValue;
-            //PoI.CGST = Mat.CGST;
-            //PoI.IGSTValue = Mat.IGSTValue;
-
-            //PurchaseOrderItem_Insert.Add(PoI);
-            //fillItem();
-            //ClearItem();
+                if (Convert.ToDecimal("0" + lblQty.Text) != (ReceivedQty + DamagedQty + MissingQty))
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = "Please Equal To AsnQty with Received,Damage and Missing Qty";
+                    lblMessage.Visible = true;
+                    Result = true;
+                }
+                if (Convert.ToDecimal("0" + lblQty.Text) != (DeliveredQty + MissingQty))
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = "Please Equal To AsnQty with Delivered and Missing Qty";
+                    lblMessage.Visible = true;
+                    Result = true;
+                }
+            }
+            return Result;
         }
     }
 }
