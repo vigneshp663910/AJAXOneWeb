@@ -108,7 +108,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
 
             // return "&RestoreDate=" + RestoreDate + "&ArrivalBack=" + ArrivalBack + "&ComplaintStatus=" + ddlComplaintStatus.SelectedValue; 
-            return "&RestoreDate="+DateTime.Now + "&ArrivalBack=" + ArrivalBack + "&ComplaintStatus=Close"
+            return "&ArrivalBack=" + ArrivalBack + "&ComplaintStatus=Close"
                 + "&CustomerSatisfactionLevelID=" + ddlCustomerSatisfactionLevel.SelectedValue + "&CustomerRemarks=" + txtCustomerRemarks.Text.Trim();
         }
         public string Validation(PDMS_ICTicket SDMS_ICTicket)

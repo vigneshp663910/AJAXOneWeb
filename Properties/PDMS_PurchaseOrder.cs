@@ -276,6 +276,7 @@ namespace Properties
         public DateTime? PostedOn { get; set; }
         public PUser CancelledBy { get; set; }
         public DateTime? CancelledOn { get; set; }
+        public string CancelledReason { get; set; }
     }
     [Serializable]
     public class PGrItem

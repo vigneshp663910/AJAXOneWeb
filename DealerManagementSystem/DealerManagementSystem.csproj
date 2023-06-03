@@ -375,7 +375,6 @@
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
     <Content Include="UserControls\ICTicketButton.ascx" />
     <Content Include="UserControls\ICTicketTSIR.ascx" />
-    <Content Include="UserControls\ICTicketTSIRView.ascx" />
     <Content Include="UserControls\MultiSelectDropDown.ascx" />
     <Content Include="ViewActivity\Activity.aspx" />
     <Content Include="ViewActivity\UserControls\AddActivity.ascx" />
@@ -977,13 +976,6 @@
     </Compile>
     <Compile Include="UserControls\ICTicketTSIR.ascx.designer.cs">
       <DependentUpon>ICTicketTSIR.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketTSIRView.ascx.cs">
-      <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketTSIRView.ascx.designer.cs">
-      <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MultiSelectDropDown.ascx.cs">
       <DependentUpon>MultiSelectDropDown.ascx</DependentUpon>

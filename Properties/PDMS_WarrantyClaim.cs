@@ -306,6 +306,7 @@ namespace Properties
         public int? HMR { get; set; }
         public Boolean? MarginWarranty { get; set; }
         public string MachineSerialNumber { get; set; }
+        public long? EquipmentHeaderID { get; set; }
         public string Model { get; set; }
         public string InvoiceStatus { get; set; }
         public string ClaimStatus { get; set; }
@@ -452,7 +453,8 @@ namespace Properties
         public string AnnexureNumber { get; set; }
         public PDMS_WarrantyMaterialReturnStatus WarrantyMaterialReturnStatus { get; set; }
         public PDMS_WarrantyFailureMaterial FailureMaterial { get; set; }
-        public string TSIRNumber { get; set; } 
+        public string TSIRNumber { get; set; }
+        public string TsirID { get; set; }
     }
 
     [Serializable]

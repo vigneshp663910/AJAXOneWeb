@@ -17,15 +17,15 @@ namespace DealerManagementSystem.ViewAdmin
         {
             get
             {
-                if (Session["PDMS_District_Sales"] == null)
+                if (ViewState["PDMS_District_Sales"] == null)
                 {
-                    Session["PDMS_District_Sales"] = new List<PDMS_District>();
+                    ViewState["PDMS_District_Sales"] = new List<PDMS_District>();
                 }
-                return (List<PDMS_District>)Session["PDMS_District_Sales"];
+                return (List<PDMS_District>)ViewState["PDMS_District_Sales"];
             }
             set
             {
-                Session["PDMS_District_Sales"] = value;
+                ViewState["PDMS_District_Sales"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)

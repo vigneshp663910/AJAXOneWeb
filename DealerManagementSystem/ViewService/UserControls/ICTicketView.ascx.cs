@@ -2013,7 +2013,17 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnAddTechnician.Visible = false;
                 lbtnEditCallInformation.Visible = false;
                 lbtnEditFSR.Visible = false;
-                lbtnAddServiceCharges.Visible = false;
+                if (
+                    (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
+              || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
+              ) 
+                {
+
+                }
+                else
+                {
+                    lbtnAddServiceCharges.Visible = false;
+                }
                 // lbtnAddTSIR.Visible = false;
                 lbtnAddMaterialCharges.Visible = false;
                 lbtAddTechnicianWork.Visible = false;
@@ -2093,8 +2103,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
                     lbtnAddTechnician.Visible = false;
                     lbtnEditCallInformation.Visible = false;
-                    lbtnEditFSR.Visible = false;
-                    lbtnAddServiceCharges.Visible = false;
+                    lbtnEditFSR.Visible = false; 
                     lbtnAddTSIR.Visible = false;
                     lbtnAddMaterialCharges.Visible = false;
                     lbtAddTechnicianWork.Visible = false;

@@ -603,23 +603,42 @@ namespace DealerManagementSystem.ViewService
 
         protected void lnkMachineSerialNumber_Click(object sender, EventArgs e)
         {
-            LinkButton lnkEquipmentSerialNo = (LinkButton)sender;
-            Session["SerEquipmentSerialNo"] = lnkEquipmentSerialNo.Text;
-            PlaceHolder phDashboard = (PlaceHolder)tblDashboard.FindControl("ph_usercontrols_1");
-            EquipmentView ucEquipmentView = (EquipmentView)this.LoadControl("~/UserControls/EquipmentView.ascx");
-            ucEquipmentView.ID = "ucEquipmentView";
-            phDashboard.Controls.Add(ucEquipmentView);
-            mp1.Show();
+            divEquipmentView.Visible = true;
+            divClaimList.Visible = false;
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblEquipmentHeaderID = (Label)gvRow.FindControl("lblEquipmentHeaderID");
+            if (!string.IsNullOrEmpty(lblEquipmentHeaderID.Text))
+            {
+                UC_EquipmentView.fillEquipment(Convert.ToInt64(lblEquipmentHeaderID.Text));
+            }
+            //LinkButton lnkEquipmentSerialNo = (LinkButton)sender;
+            //Session["SerEquipmentSerialNo"] = lnkEquipmentSerialNo.Text;
+            //PlaceHolder phDashboard = (PlaceHolder)tblDashboard.FindControl("ph_usercontrols_1");
+            //EquipmentView ucEquipmentView = (EquipmentView)this.LoadControl("~/UserControls/EquipmentView.ascx");
+            //ucEquipmentView.ID = "ucEquipmentView";
+            //phDashboard.Controls.Add(ucEquipmentView);
+            //mp1.Show();
         }
         protected void lnkTSIR_Click(object sender, EventArgs e)
         {
-            LinkButton lnkTSIR = (LinkButton)sender;
-            Session["TSIRNumber"] = lnkTSIR.Text;
-            PlaceHolder phDashboard = (PlaceHolder)tblDashboard.FindControl("ph_usercontrols_2");
-            ICTicketTSIRView ucICTicketTSIRView = (ICTicketTSIRView)this.LoadControl("~/UserControls/ICTicketTSIRView.ascx");
-            ucICTicketTSIRView.ID = "ucICTicketTSIRView";
-            phDashboard.Controls.Add(ucICTicketTSIRView);
-            mpTSIR.Show();
+            divTSIRView.Visible = true;
+            divClaimList.Visible = false;
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblTsirID = (Label)gvRow.FindControl("lblTsirID");
+            if (!string.IsNullOrEmpty(lblTsirID.Text))
+            {
+                UC_TSIRView.FillTsir(Convert.ToInt64(lblTsirID.Text));
+            }
+
+            //LinkButton lnkTSIR = (LinkButton)sender;
+            //Session["TSIRNumber"] = lnkTSIR.Text;
+            //PlaceHolder phDashboard = (PlaceHolder)tblDashboard.FindControl("ph_usercontrols_2");
+            //ICTicketTSIRView ucICTicketTSIRView = (ICTicketTSIRView)this.LoadControl("~/UserControls/ICTicketTSIRView.ascx");
+            //ucICTicketTSIRView.ID = "ucICTicketTSIRView";
+            //phDashboard.Controls.Add(ucICTicketTSIRView);
+            //mpTSIR.Show();
         }
         protected void lnkFSRDownload_Click(object sender, EventArgs e)
         {
@@ -665,6 +684,18 @@ namespace DealerManagementSystem.ViewService
             catch (Exception ex)
             {
             }
+        }
+
+        protected void btnTSIRViewBack_Click(object sender, EventArgs e)
+        {
+            divClaimList.Visible = true;
+            divTSIRView.Visible = false;
+        }
+
+        protected void btnEquipmentViewBack_Click(object sender, EventArgs e)
+        {
+            divClaimList.Visible = true;
+            divEquipmentView.Visible = false;
         }
     }
 }

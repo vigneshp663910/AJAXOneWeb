@@ -119,7 +119,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null,2);
         }
 
         private PDMS_DealerEmployeeAttachedFile CreateUploadedFile(HttpPostedFile file)

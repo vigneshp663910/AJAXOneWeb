@@ -106,13 +106,13 @@ namespace DealerManagementSystem.ViewAdmin
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillDealerDesignation();
-            new BDMS_Dealer().GetDealerDesignation(Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+            new BDMS_Dealer().GetDealerDesignation(Convert.ToInt32(ddlDepartment.SelectedValue), null, null, null);
         }
 
         void FillDealerDesignation()
         {
             int? DealerDepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
-            DealerDesignation = new BDMS_Dealer().GetDealerDesignation(DealerDepartmentID, null, null);
+            DealerDesignation = new BDMS_Dealer().GetDealerDesignation(DealerDepartmentID, null, null, null);
              
             gvDealerDesignation.DataSource = DealerDesignation;
             gvDealerDesignation.DataBind();
@@ -176,7 +176,7 @@ namespace DealerManagementSystem.ViewAdmin
                     }
                 }
             }
-            PDMS_DealerDesignation DDesignation = new BDMS_Dealer().GetDealerDesignation(null,DealerDesignationID,null)[0];
+            PDMS_DealerDesignation DDesignation = new BDMS_Dealer().GetDealerDesignation(null,DealerDesignationID,null, null)[0];
             lblDepartment.Text = DDesignation.Department.DealerDepartment;
              lblDesignation.Text = DDesignation.DealerDesignation;
 

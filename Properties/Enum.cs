@@ -741,4 +741,10 @@ namespace Properties
         South2 = 5,
         West = 6
     }
+    public enum DealerType
+    {
+        OEM = 1,
+        DealerShip = 2,
+        CallCenter = 3
+    }
 }

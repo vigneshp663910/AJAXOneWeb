@@ -416,6 +416,7 @@ namespace Business
                                 W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
                                 W.MarginWarranty = DBNull.Value == dr["MarginWarranty"] ? (Boolean?)null : Convert.ToBoolean(dr["MarginWarranty"]);
                                 W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
+                                W.EquipmentHeaderID = DBNull.Value == dr["EquipmentHeaderID"] ? (long?)null : Convert.ToInt64(dr["EquipmentHeaderID"]);
                                 W.Model = Convert.ToString(dr["Model"]);
                                 W.PscID = Convert.ToString(dr["PscID"]);
                                 //  W.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
@@ -471,6 +472,7 @@ namespace Business
                                 item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatus = Convert.ToString(dr["WarrantyMaterialReturnStatus"]);
                             }
                             item.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
+                            item.TsirID = Convert.ToString(dr["TsirID"]);
                             //  item.TSIRDate = DBNull.Value == dr["TSIRDate"] ? (DateTime?)null : Convert.ToDateTime(dr["TSIRDate"]);
                             W.InvoiceItems.Add(item);
                         }
@@ -667,6 +669,7 @@ namespace Business
                                 W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
                                 W.MarginWarranty = DBNull.Value == dr["MarginWarranty"] ? (Boolean?)null : Convert.ToBoolean(dr["MarginWarranty"]);
                                 W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
+                                W.EquipmentHeaderID = DBNull.Value == dr["EquipmentHeaderID"] ? (long?)null : Convert.ToInt64(dr["EquipmentHeaderID"]);
                                 W.Model = Convert.ToString(dr["Model"]);
                                 W.PscID = Convert.ToString(dr["PscID"]);
                                 
@@ -711,6 +714,7 @@ namespace Business
                                 item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatus = Convert.ToString(dr["WarrantyMaterialReturnStatus"]);
                             }
                             item.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
+                            item.TsirID = Convert.ToString(dr["TsirID"]);
                             W.InvoiceItems.Add(item);
                         }
                     }

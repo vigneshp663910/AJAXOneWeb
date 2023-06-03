@@ -24,13 +24,13 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// divList control.
+        /// divClaimList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClaimList;
 
         /// <summary>
         /// ddlDealerCode control.
@@ -339,94 +339,49 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.GridView gvClaimByTicket;
 
         /// <summary>
-        /// lnkDummy control.
+        /// divTSIRView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDummy;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTSIRView;
 
         /// <summary>
-        /// mp1 control.
+        /// btnTSIRViewBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender mp1;
+        protected global::System.Web.UI.WebControls.Button btnTSIRViewBack;
 
         /// <summary>
-        /// Panel1 control.
+        /// UC_TSIRView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::DealerManagementSystem.ViewService.UserControls.ICTicketTSIRView UC_TSIRView;
 
         /// <summary>
-        /// tblDashboard control.
+        /// divEquipmentView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tblDashboard;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divEquipmentView;
 
         /// <summary>
-        /// Div1 control.
+        /// btnEquipmentViewBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
-
-        /// <summary>
-        /// ph_usercontrols_1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ph_usercontrols_1;
-
-        /// <summary>
-        /// btnClose control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClose;
-
-        /// <summary>
-        /// lnkDummyTSIR control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkDummyTSIR;
-
-        /// <summary>
-        /// mpTSIR control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender mpTSIR;
-
-        /// <summary>
-        /// pnlTSIR control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlTSIR;
+        protected global::System.Web.UI.WebControls.Button btnEquipmentViewBack;
 
         /// <summary>
         /// Div2 control.
@@ -438,30 +393,12 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div2;
 
         /// <summary>
-        /// Div3 control.
+        /// UC_EquipmentView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div3;
-
-        /// <summary>
-        /// ph_usercontrols_2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ph_usercontrols_2;
-
-        /// <summary>
-        /// btnCloseTSIR control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCloseTSIR;
+        protected global::DealerManagementSystem.ViewEquipment.UserControls.EquipmentView UC_EquipmentView;
     }
 }

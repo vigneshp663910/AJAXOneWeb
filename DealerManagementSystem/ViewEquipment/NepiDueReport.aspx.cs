@@ -50,8 +50,7 @@ namespace DealerManagementSystem.ViewEquipment
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
                 // txtWarrantyStart.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
-                // txtWarrantyEnd.Text = DateTime.Now.ToShortDateString();
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer) { } else { }
+                // txtWarrantyEnd.Text = DateTime.Now.ToShortDateString(); 
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;

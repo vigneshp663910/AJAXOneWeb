@@ -1,14 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyClaim.aspx.cs" Inherits="DealerManagementSystem.ViewService.WarrantyClaim" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+<%@ Register Src="~/ViewService/UserControls/ICTicketTSIRView.ascx" TagPrefix="UC" TagName="UC_TSIRView" %>
+<%@ Register Src="~/ViewEquipment/UserControls/EquipmentView.ascx" TagPrefix="UC" TagName="UC_EquipmentView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <%--<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="YDMS/YDMSStyles.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src="YDMS/YDMS_Scripts.js"></script>--%>
     <style type="text/css">
         .modalBackground {
             background-color: Black;
@@ -89,7 +85,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
-        <div class="col-md-12" id="divList" runat="server">
+        <div class="col-md-12" id="divClaimList" runat="server">
             <div class="col-md-12">
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
@@ -159,7 +155,7 @@
                             <label class="modal-label">MC Serial No</label>
                             <asp:TextBox ID="txtMachineSerialNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                      <%--  <div class="col-md-2 col-sm-12">
+                        <%--  <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Report Type</label>
                             <asp:DropDownList ID="ddlReoprt" runat="server" CssClass="form-control" BorderColor="Silver">
                                 <asp:ListItem Value="0">By Claim</asp:ListItem>
@@ -228,7 +224,8 @@
                                 <asp:TemplateField HeaderText="IC Ticket" HeaderStyle-Width="55px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblICTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketID")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketNumber")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblICTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketID")%>' runat="server" Visible="false"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="IC Ticket Dt" HeaderStyle-Width="75px">
@@ -284,6 +281,7 @@
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkMachineSerialNumber" Text='<%# DataBinder.Eval(Container.DataItem, "MachineSerialNumber")%>' OnClick="lnkMachineSerialNumber_Click" runat="server"></asp:LinkButton>
                                         <asp:Label ID="lblMachineSerialNumber" Text='<%# DataBinder.Eval(Container.DataItem, "MachineSerialNumber")%>' runat="server" Visible="false"></asp:Label>
+                                        <asp:Label ID="lblEquipmentHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentHeaderID")%>' runat="server" Visible="false" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Model">
@@ -536,6 +534,7 @@
                                                                 <ItemTemplate>
                                                                     <asp:LinkButton ID="lnkTSIR" Text='<%# DataBinder.Eval(Container.DataItem, "TSIRNumber")%>' OnClick="lnkTSIR_Click" runat="server"></asp:LinkButton>
                                                                     <asp:Label ID="lblTSIRNumber" Text='<%# DataBinder.Eval(Container.DataItem, "TSIRNumber")%>' runat="server" Visible="false"></asp:Label>
+                                                                    <asp:Label ID="lblTsirID" Text='<%# DataBinder.Eval(Container.DataItem, "TsirID")%>' runat="server" Visible="false"></asp:Label>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="SAP Doc" HeaderStyle-Width="150px">
@@ -846,8 +845,27 @@
                 </fieldset>
             </div>
         </div>
+          <div class="col-md-12" id="divTSIRView" runat="server" visible="false">
+            <div class="col-md-12 lead-back-btn">
+                <div class="" id="boxHere"></div>
+                <div class="back-buttton" id="backBtn">
+                    <asp:Button ID="btnTSIRViewBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnTSIRViewBack_Click" />
+                </div>
+            </div>
+
+            <uc:uc_tsirview ID="UC_TSIRView" runat="server"></uc:uc_tsirview>
+        </div>
+        <div class="col-md-12" id="divEquipmentView" runat="server" visible="false">
+            <div class="" id="boxHere"></div>
+            <div class="back-buttton" id="backBtn">
+                <asp:Button ID="btnEquipmentViewBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnEquipmentViewBack_Click" />
+            </div>
+            <div class="col-md-12" runat="server" id="Div2">
+                <uc:uc_equipmentview ID="UC_EquipmentView" runat="server"></uc:uc_equipmentview>
+            </div>
+        </div>
     </div>
-    <asp:LinkButton ID="lnkDummy" runat="server"></asp:LinkButton>
+   <%-- <asp:LinkButton ID="lnkDummy" runat="server"></asp:LinkButton>
     <asp:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panel1" TargetControlID="lnkDummy"
         CancelControlID="btnClose" BackgroundCssClass="modalBackground">
     </asp:ModalPopupExtender>
@@ -869,5 +887,5 @@
             </div>
         </div>
         <asp:Button ID="btnCloseTSIR" runat="server" Text="Close" CssClass="btn Back" />
-    </asp:Panel>
+    </asp:Panel>--%>
 </asp:Content>

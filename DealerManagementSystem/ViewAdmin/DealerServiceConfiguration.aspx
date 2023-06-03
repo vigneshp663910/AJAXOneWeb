@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label>District</label>
-                        <asp:DropDownList ID="ddlDServiceDistrict" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDServiceDistrict_SelectedIndexChanged"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlDServiceDistrict" runat="server" CssClass="form-control" AutoPostBack="true"  ></asp:DropDownList>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label>Dealer Code</label>
@@ -62,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <asp:GridView ID="gvDealerServiceDistrict" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found" OnPageIndexChanging="gvDealerServiceDistrict_PageIndexChanging" OnRowDataBound="gvDealerServiceDistrict_RowDataBound">
+                    <asp:GridView ID="gvDealerServiceDistrict" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found" OnPageIndexChanging="gvDealerServiceDistrict_PageIndexChanging"  >
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Right">
                                 <ItemTemplate>
@@ -131,40 +131,6 @@
                     </asp:GridView>
                 </div>
             </fieldset>
-        </div>
-        <%--</ContentTemplate>--%>
-        <%--</asp1:TabPanel>--%>
-        <%--</asp1:TabContainer>--%>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            GridRowDisable('MainContent_gvDealerServiceDistrict', 'MainContent_gvDealerServiceDistrict_lblGDServiceCountry_')
-            //var gvCountry = document.getElementById('MainContent_tbpLocation_tbpnlCountry_gvCountry');
-
-            //if (gvCountry != null) {
-            //    for (var i = 0; i < gvCountry.rows.length - 1; i++) {
-            //        var lblGCCountry = document.getElementById('MainContent_tbpLocation_tbpnlCountry_gvCountry_lblGCCountry_' + i);
-            //        if (lblGCCountry != null) {
-            //            if (lblGCCountry.innerHTML == "") {
-            //                lblGCCountry.parentNode.parentNode.style.display = "none";
-            //            }
-            //        }
-            //    }
-            //}
-        });
-
-        function GridRowDisable(gv, lbl) {
-            var gvDealerServiceDistrict = document.getElementById(gv);
-            if (gvDealerServiceDistrict != null) {
-                for (var i = 0; i < gvDealerServiceDistrict.rows.length - 1; i++) {
-                    var lblGCountry = document.getElementById(lbl + i);
-                    if (lblGCountry != null) {
-                        if (lblGCountry.innerHTML == "") {
-                            lblGCountry.parentNode.parentNode.style.display = "none";
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+        </div> 
+    </div> 
 </asp:Content>

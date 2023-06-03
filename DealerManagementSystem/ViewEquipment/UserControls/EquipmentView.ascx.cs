@@ -257,7 +257,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                     txtCommissioningDate.Text = "";
                     MPE_UpdateCommiDate.Show();
                 }
-                if (lbActions.Text == "Warranty Type Change Request")
+                else if (lbActions.Text == "Warranty Type Change Request")
                 {
                     lblMessageWarrantyTypeChangeReq.Text = "";
                     lblMessageWarrantyTypeChangeReq.Visible = false;
@@ -275,7 +275,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                     lblEquipmentSerialNoP.Text = EquipmentViewDet.EquipmentSerialNo;
                     MPE_WarrantyTypeChangeReq.Show();
                 }
-                if (lbActions.Text == "Ownership Change Request")
+                else if (lbActions.Text == "Ownership Change Request")
                 {
                     lblMessageOwnershipChangeReq.Text = "";
                     lblMessageOwnershipChangeReq.Visible = false;
@@ -289,7 +289,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                     lblEquipmentSerialNoOwnership.Text = EquipmentViewDet.EquipmentSerialNo;
                     MPE_OwnershipChangeReq.Show();
                 }
-                if (lbActions.Text == "Expiry Date Change Request")
+                else if (lbActions.Text == "Expiry Date Change Request")
                 {
                     lblMessageWarrantyExpiryDateChangeReq.Text = "";
                     lblMessageWarrantyExpiryDateChangeReq.Visible = false;
@@ -322,7 +322,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 //    lblWarrantyExpiryDateP.Text = EquipmentViewDet.WarrantyExpiryDate == null ? "" : ((DateTime)EquipmentViewDet.WarrantyExpiryDate).ToLongDateString();
                 //    MPE_ApprDeclineWarrantyExpiryDateChangeReq.Show();
                 //}
-                if (lbActions.Text == "Approve Warranty Type Change")
+                else if (lbActions.Text == "Approve Warranty Type Change")
                 {
                     if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrrantyTypeChange(Convert.ToInt64(lblWarrantyTypeChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
                     {
@@ -336,9 +336,9 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblMessage.ForeColor = Color.Red;
                     }
                 }
-                if (lbActions.Text == "Reject Warranty Type Change")
+                else if (lbActions.Text == "Reject Warranty Type Change")
                 {
-                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrantyExpiryDateChange(Convert.ToInt64(lblWarrantyTypeChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
+                    if (new BDMS_Equipment().ApproveOrRejectEquipmentWarrrantyTypeChange(Convert.ToInt64(lblWarrantyTypeChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
                     {
                         lblMessage.Text = "Equipment Warrranty Type Change rejected.";
                         lblMessage.ForeColor = Color.Green;
@@ -350,7 +350,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblMessage.ForeColor = Color.Red;
                     }
                 }
-                if (lbActions.Text == "Approve Ownership Change")
+                else if (lbActions.Text == "Approve Ownership Change")
                 {
                     if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(lblOwnershipChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, true))
                     {
@@ -364,7 +364,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblMessage.ForeColor = Color.Red;
                     }
                 }
-                if (lbActions.Text == "Reject Ownership Change")
+                else if (lbActions.Text == "Reject Ownership Change")
                 {
                     if (new BDMS_Equipment().ApproveOrRejectEquipmentOwnershipChange(Convert.ToInt64(lblOwnershipChangeID.Text), EquipmentViewDet.EquipmentHeaderID, PSession.User.UserID, false))
                     {
@@ -377,7 +377,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblMessage.Text = "Equipment Ownership Change not rejected.";
                         lblMessage.ForeColor = Color.Red;
                     }
-                } 
+                }
             }
             catch (Exception ex)
             {
