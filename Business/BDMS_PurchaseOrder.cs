@@ -188,10 +188,6 @@ namespace Business
         public PApiResult GetPurchaseOrderAsnHeader(int? DealerID, string VendorID, string AsnNumber, DateTime? AsnDateF, DateTime? AsnDateT
             , int? AsnStatusID, int? PageIndex = null, int? PageSize = null)
         {
-            //string endPoint = "PurchaseOrder/PurchaseOrderHeader?DealerID=" + DealerID + "&VendorID=" + VendorID  + "&PurchaseOrderNo=" + PurchaseOrderNo
-            //    + "&PurchaseOrderDateF=" + PurchaseOrderDateF + "&PurchaseOrderDateT=" + PurchaseOrderDateT + "&PurchaseOrderStatusID=" + PurchaseOrderStatusID 
-            //    + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
-
             string endPoint = "PurchaseOrder/PurchaseOrderAsnHeader?DealerID=" + DealerID + "&VendorID=" + VendorID + "&AsnNumber=" + AsnNumber
                 + "&AsnDateF=" + AsnDateF + "&AsnDateT=" + AsnDateT + "&AsnStatusID=" + AsnStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
@@ -203,12 +199,44 @@ namespace Business
         }
         public List<PGr> GetPurchaseOrderAsnGrDetByID(long AsnID)
         {
-            string endPoint = "PurchaseOrder/GetPurchaseOrderAsnGrDetByID?AsnID=" + AsnID;
+            string endPoint = "PurchaseOrder/PurchaseOrderAsnGrDetByID?AsnID=" + AsnID;
             return JsonConvert.DeserializeObject<List<PGr>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PAsnItem> GetPurchaseOrderAsnItemByID(long AsnID)
         {
-            string endPoint = "PurchaseOrder/GetPurchaseOrderAsnItemByID?AsnID=" + AsnID;
+            string endPoint = "PurchaseOrder/PurchaseOrderAsnItemByID?AsnID=" + AsnID;
+            return JsonConvert.DeserializeObject<List<PAsnItem>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PApiResult GetPurchaseOrderAsnGrHeader(int? DealerID, string VendorID, string GrNumber, DateTime? GrDateF, DateTime? GrDateT
+            , int? GrStatusID, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderAsnGrHeader?DealerID=" + DealerID + "&VendorID=" + VendorID + "&GrNumber=" + GrNumber
+                + "&GrDateF=" + GrDateF + "&GrDateT=" + GrDateT + "&GrStatusID=" + GrStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PGr GetPurchaseOrderAsnGrByID(long GrID)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderAsnGrByID?GrID=" + GrID;
+            return JsonConvert.DeserializeObject<PGr>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PGrItem> GetPurchaseOrderAsnGrByIDPOItem(long GrID)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderAsnGrByIDPOItem?GrID=" + GrID;
+            return JsonConvert.DeserializeObject<List<PGrItem>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PPurchaseOrderAsnStatus> GetAsnStatus(int? AsnStatusID, string AsnStatus)
+        {
+            string endPoint = "PurchaseOrder/AsnStatus?AsnStatusID=" + AsnStatusID + "&AsnStatus=" + AsnStatus;
+            return JsonConvert.DeserializeObject<List<PPurchaseOrderAsnStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PPurchaseOrderAsnGrStatus> GetGrStatus(int? AsnGrStatusID, string AsnGrStatus)
+        {
+            string endPoint = "PurchaseOrder/GrStatus?AsnGrStatusID=" + AsnGrStatusID + "&AsnGrStatus=" + AsnGrStatus;
+            return JsonConvert.DeserializeObject<List<PPurchaseOrderAsnGrStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PAsnItem> GetPurchaseOrderAsnByIDPOItem(long AsnID)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderAsnByIDPOItem?AsnID=" + AsnID;
             return JsonConvert.DeserializeObject<List<PAsnItem>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }

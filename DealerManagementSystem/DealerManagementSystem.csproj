@@ -551,10 +551,12 @@
     <Content Include="ViewPreSale\VisitReport.aspx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderASN.aspx" />
+    <Content Include="ViewProcurement\PurchaseOrderASNGr.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderPG.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderReturn.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderReturnInvoice.aspx" />
     <Content Include="ViewProcurement\UserControls\GrCreate.ascx" />
+    <Content Include="ViewProcurement\UserControls\PurchaseOrderASNGrView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderAsnView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnCreate.ascx" />
@@ -2044,6 +2046,13 @@
     <Compile Include="ViewProcurement\PurchaseOrderASN.aspx.designer.cs">
       <DependentUpon>PurchaseOrderASN.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewProcurement\PurchaseOrderASNGr.aspx.cs">
+      <DependentUpon>PurchaseOrderASNGr.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\PurchaseOrderASNGr.aspx.designer.cs">
+      <DependentUpon>PurchaseOrderASNGr.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderPG.aspx.cs">
       <DependentUpon>PurchaseOrderPG.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2071,6 +2080,13 @@
     </Compile>
     <Compile Include="ViewProcurement\UserControls\GrCreate.ascx.designer.cs">
       <DependentUpon>GrCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\PurchaseOrderASNGrView.ascx.cs">
+      <DependentUpon>PurchaseOrderASNGrView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\PurchaseOrderASNGrView.ascx.designer.cs">
+      <DependentUpon>PurchaseOrderASNGrView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderAsnView.ascx.cs">
       <DependentUpon>PurchaseOrderAsnView.ascx</DependentUpon>

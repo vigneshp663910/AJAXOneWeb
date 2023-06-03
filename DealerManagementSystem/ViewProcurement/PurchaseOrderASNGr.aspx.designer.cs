@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewProcurement
 {
 
 
-    public partial class PurchaseOrderASN
+    public partial class PurchaseOrderASNGr
     {
 
         /// <summary>
@@ -42,22 +42,22 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::System.Web.UI.WebControls.DropDownList ddlDealerCode;
 
         /// <summary>
-        /// txtAsnNumber control.
+        /// txtGrNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAsnNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtGrNumber;
 
         /// <summary>
-        /// txtAsnDateFrom control.
+        /// txtGrDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAsnDateFrom;
+        protected global::System.Web.UI.WebControls.TextBox txtGrDateFrom;
 
         /// <summary>
         /// CalendarExtender1 control.
@@ -78,13 +78,13 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
 
         /// <summary>
-        /// txtAsnDateTo control.
+        /// txtGrDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAsnDateTo;
+        protected global::System.Web.UI.WebControls.TextBox txtGrDateTo;
 
         /// <summary>
         /// CalendarExtender2 control.
@@ -105,13 +105,13 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
 
         /// <summary>
-        /// ddlAsnStatus control.
+        /// ddlGrStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAsnStatus;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGrStatus;
 
         /// <summary>
         /// btnSearch control.
@@ -150,13 +150,13 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
 
         /// <summary>
-        /// gvPAsn control.
+        /// gvAsnGr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPAsn;
+        protected global::System.Web.UI.WebControls.GridView gvAsnGr;
 
         /// <summary>
         /// divDetailsView control.
@@ -168,21 +168,21 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDetailsView;
 
         /// <summary>
-        /// btnPurchaseOrderViewBack control.
+        /// btnPurchaseOrderASNGrViewBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPurchaseOrderViewBack;
+        protected global::System.Web.UI.WebControls.Button btnPurchaseOrderASNGrViewBack;
 
         /// <summary>
-        /// UC_PurchaseOrderASNView control.
+        /// UC_PurchaseOrderASNGrView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewProcurement.UserControls.PurchaseOrderAsnView UC_PurchaseOrderASNView;
+        protected global::DealerManagementSystem.ViewProcurement.UserControls.PurchaseOrderASNGrView UC_PurchaseOrderASNGrView;
     }
 }

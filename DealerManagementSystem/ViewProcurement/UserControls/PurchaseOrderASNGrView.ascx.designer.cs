@@ -11,17 +11,26 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 {
 
 
-    public partial class PurchaseOrderAsnView
+    public partial class PurchaseOrderASNGrView
     {
 
         /// <summary>
-        /// lbGrCreation control.
+        /// lbGrCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbGrCreation;
+        protected global::System.Web.UI.WebControls.LinkButton lbGrCancel;
+
+        /// <summary>
+        /// lblGrNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGrNumber;
 
         /// <summary>
         /// lblAsnNumber control.
@@ -42,24 +51,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblPoNumber;
 
         /// <summary>
-        /// lblDeliveryNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDeliveryNumber;
-
-        /// <summary>
-        /// lblGrNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGrNumber;
-
-        /// <summary>
         /// lblRemarks control.
         /// </summary>
         /// <remarks>
@@ -67,6 +58,24 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRemarks;
+
+        /// <summary>
+        /// lblCancelledBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCancelledBy;
+
+        /// <summary>
+        /// lblGrDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGrDate;
 
         /// <summary>
         /// lblAsnDate control.
@@ -87,22 +96,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblPoDate;
 
         /// <summary>
-        /// lblDeliveryDate control.
+        /// lblPostedBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDeliveryDate;
+        protected global::System.Web.UI.WebControls.Label lblPostedBy;
 
         /// <summary>
-        /// lblGrDate control.
+        /// lblCancelledOn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGrDate;
+        protected global::System.Web.UI.WebControls.Label lblCancelledOn;
 
         /// <summary>
         /// lblDealer control.
@@ -132,13 +141,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblAsnStatus;
 
         /// <summary>
-        /// lblLRNo control.
+        /// lblPostedOn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLRNo;
+        protected global::System.Web.UI.WebControls.Label lblPostedOn;
 
         /// <summary>
         /// lblMessage control.
@@ -150,40 +159,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// tbpAsn control.
+        /// tbpGr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tbpAsn;
+        protected global::AjaxControlToolkit.TabContainer tbpGr;
 
         /// <summary>
-        /// tpnlAsnItem control.
+        /// tpnlGrItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpnlAsnItem;
-
-        /// <summary>
-        /// gvPOAsnItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPOAsnItem;
-
-        /// <summary>
-        /// tpnlGrDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpnlGrDetails;
+        protected global::AjaxControlToolkit.TabPanel tpnlGrItem;
 
         /// <summary>
         /// GVGr control.
@@ -195,13 +186,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.GridView GVGr;
 
         /// <summary>
-        /// tpnlPO control.
+        /// tpnlGrPOItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpnlPO;
+        protected global::AjaxControlToolkit.TabPanel tpnlGrPOItem;
 
         /// <summary>
         /// lblPurchaseOrderNumber control.
@@ -303,22 +294,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblExpectedDeliveryDate;
 
         /// <summary>
-        /// GVAsnPO control.
+        /// GVGrPO control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVAsnPO;
+        protected global::System.Web.UI.WebControls.GridView GVGrPO;
 
         /// <summary>
-        /// pnlGrCreate control.
+        /// pnlGrCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlGrCreate;
+        protected global::System.Web.UI.WebControls.Panel pnlGrCancel;
 
         /// <summary>
         /// PopupClose control.
@@ -330,40 +321,40 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Button PopupClose;
 
         /// <summary>
-        /// lblMessageAssignEngineer control.
+        /// lblMessageGrCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessageAssignEngineer;
+        protected global::System.Web.UI.WebControls.Label lblMessageGrCancel;
 
         /// <summary>
-        /// UC_GrCreate control.
+        /// txtRemarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewProcurement.UserControls.GrCreate UC_GrCreate;
+        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
 
         /// <summary>
-        /// btnGrCreate control.
+        /// btnGrCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGrCreate;
+        protected global::System.Web.UI.WebControls.Button btnGrCancel;
 
         /// <summary>
-        /// MPE_GrCreate control.
+        /// MPE_GrCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MPE_GrCreate;
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_GrCancel;
 
         /// <summary>
         /// lnkMPE control.
