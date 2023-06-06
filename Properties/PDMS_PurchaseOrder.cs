@@ -281,7 +281,8 @@ namespace Properties
     [Serializable]
     public class PGrItem
     {
-        public long GRID { get; set; }
+        public long GrID { get; set; }
+        public long GrItemID { get; set; }
         public PAsnItem AsnItem { get; set; }
         public decimal DeliveredQty { get; set; }
         public decimal ReceivedQty { get; set; }
@@ -355,5 +356,42 @@ namespace Properties
         public decimal DamagedQty { get; set; }
         public decimal MissingQty { get; set; }
         public string GrRemarks { get; set; }
+        public string ItemRemarks { get; set; }
+    }
+
+
+
+
+    public class PPurchaseOrderReturnItem_Insert
+    {
+        public long GrID { get; set; }
+        public long GrItemID { get; set; }
+        public string Remarks { get; set; }
+    }
+    public class PPurchaseOrderReturnStatus
+    {
+        public int PurchaseOrderReturnStatusID { get; set; }
+        public string PurchaseOrderReturnStatusCode { get; set; }
+        public string PurchaseOrderReturnStatusDescription { get; set; }
+    }
+    public class PPurchaseOrderReturn
+    {
+        public long PurchaseOrderReturnID { get; set; }
+        public string PurchaseOrderReturnNumber { get; set; }
+        public DateTime PurchaseOrderReturnDate { get; set; }
+        public PPurchaseOrderReturnStatus PurchaseOrderReturnStatus { get; set; }
+        public string Remarks { get; set; }
+        public PPurchaseOrderReturnItem PurchaseOrderReturnItem { get; set; }
+        public List<PPurchaseOrderReturnItem> PurchaseOrderReturnItems { get; set; }
+    }
+    public class PPurchaseOrderReturnItem
+    {
+        public long PurchaseOrderReturnID { get; set; }
+        public long PurchaseOrderReturnItemID { get; set; }
+        public int Item { get; set; }
+        public PGrItem GrItem { get; set; }
+        public PAsnItem AsnItem { get; set; }
+        public PGr Gr { get; set; } 
+        public PAsn Asn { get; set; } 
     }
 }
