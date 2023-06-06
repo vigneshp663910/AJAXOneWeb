@@ -479,7 +479,7 @@ namespace Properties
         ViewAdmin_DealerSalesConfiguration = 234,
         ViewAdmin_DealerServiceConfiguration = 235,
         ViewAdmin_UserAccessManagement = 236,
-        
+        ViewMaster_DealerBinLocation = 237,
     }
     public enum SubModuleChildMaster
     {

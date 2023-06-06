@@ -89,7 +89,7 @@ namespace Properties
 
         public PSupersede Supersede { get; set; }
         public PRoqDoq RoqDoq { get; set; }
-        public PBin Bin { get; set; }
+        public PDealerBinLocation Bin { get; set; }
 
         public string Product { get; set; }
         public string ProductGroup { get; set; }
@@ -98,7 +98,7 @@ namespace Properties
         public PDMS_Model Model { get; set; }
         public string SubCategory { get; set; }
         public string SerialProfile { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } 
     }
     [Serializable]
     public class PMaterial
@@ -206,17 +206,7 @@ namespace Properties
         public decimal RoqQty { get; set; }
 
     }
-    [Serializable]
-    public class PBin
-    {
-        public PDMS_Dealer Dealer { get; set; }
-        public string Office { get; set; }
-        public string Location { get; set; }
-        public string BinID { get; set; }
-
-    }
-
-
+     
     [Serializable]
     public class PMainModel
     {

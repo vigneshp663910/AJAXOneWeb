@@ -445,6 +445,7 @@
     <Content Include="ViewMaster\Customer.aspx" />
     <Content Include="ViewMaster\CustomerChangeForApproval.aspx" />
     <Content Include="ViewMaster\Dealer.aspx" />
+    <Content Include="ViewMaster\DealerBinLocation.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewMaster\EInvoiceRequest.aspx" />
     <Content Include="ViewMaster\Equipment.aspx" />
@@ -1468,6 +1469,13 @@
     </Compile>
     <Compile Include="ViewMaster\Dealer.aspx.designer.cs">
       <DependentUpon>Dealer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\DealerBinLocation.aspx.cs">
+      <DependentUpon>DealerBinLocation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\DealerBinLocation.aspx.designer.cs">
+      <DependentUpon>DealerBinLocation.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>

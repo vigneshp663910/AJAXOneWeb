@@ -292,4 +292,15 @@ namespace Properties
         public string SubModuleName { get; set; }
         public string ChildName { get; set; }
     }
+
+    [Serializable]
+    public class PDealerBinLocation
+    {
+        public int DealerBinLocationMaterialMappingID { get; set; }
+        public int DealerBinLocationID { get; set; }
+        public string BinName { get; set; }
+        public PDealer Dealer { get; set; }
+        public PDMS_DealerOffice DealerOffice { get; set; }
+        public PDMS_Material Material { get; set; }
+    }
 }
