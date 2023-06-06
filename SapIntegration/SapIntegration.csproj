@@ -60,6 +60,7 @@
     <Compile Include="SDMS_Equipment.cs" />
     <Compile Include="SDMS_ICTicket.cs" />
     <Compile Include="SDMS_WarrantyClaimAnnexure.cs" />
+    <Compile Include="SPurchaseOrder.cs" />
     <Compile Include="SQuotation.cs" />
     <Compile Include="SSAPDocumentNumber.cs" />
   </ItemGroup>

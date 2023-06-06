@@ -210,6 +210,10 @@ namespace DealerManagementSystem
              
         }
 
+        protected void btnAsnDetailsFromSap_Click(object sender, EventArgs e)
+        {
+            new BDMS_PurchaseOrder().InsertOrUpdatePurchaseOrderAsn(txtInvoiceNumber.Text);
+        }
     }
     [Serializable]
     public class PICTicketFSRSignature_Insert

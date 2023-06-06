@@ -126,7 +126,7 @@
                     <asp:Button ID="BtnSalesQuotationDetails" runat="server" Text="SalesQuotationDocumentDetails" OnClick="BtnSalesQuotationDetails_Click" />
                 </td>
             </tr>
-        <%--    <tr>
+            <%--    <tr>
                 <td>
                     <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
                     <asp1:CalendarExtender ID="calendarextender2" runat="server" TargetControlID="txtFromDate" PopupButtonID="txtFromDate" Format="dd/MM/yyyy" />
@@ -189,7 +189,7 @@
                     <asp:Button ID="btnIntegrationEquipmentFromSAP" runat="server" Text="IntegrationEquipmentFromSAP" OnClick="btnIntegrationEquipmentFromSAP_Click" />
                 </td>
             </tr>
-             <tr>
+            <tr>
                 <td>
                     <br />
                     <asp:Label ID="Label10" runat="server" Text="Integration Equipment From SAP New"></asp:Label>
@@ -197,18 +197,25 @@
                 </td>
             </tr>
 
-             <tr>
+            <tr>
                 <td>
                     <br />
                     <asp:Label ID="Label11" runat="server" Text="Sales Quotation Flow From Sap"></asp:Label>
                     <asp:Button ID="Button1" runat="server" Text="Sales Quotation Flow From Sap" OnClick="Button1_Click" />
                 </td>
             </tr>
-              <tr>
+            <tr>
                 <td>
                     <br />
                     <asp:Label ID="Label12" runat="server" Text="Update Service Delivery number"></asp:Label>
                     <asp:Button ID="btnUpdateServiceDeliveryNumber" runat="server" Text="Update Service Delivery number" OnClick="btnUpdateServiceDeliveryNumber_Click" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Label ID="Label13" runat="server" Text="Invoice No"></asp:Label>
+                    <asp:TextBox ID="txtInvoiceNumber" runat="server"></asp:TextBox>
+                    <asp:Button ID="btnAsnDetailsFromSap" runat="server" Text="Create Asn Details" OnClick="btnAsnDetailsFromSap_Click" />
                 </td>
             </tr>
         </table>
