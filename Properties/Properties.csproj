@@ -62,7 +62,6 @@
     <Compile Include="PDMS_Campign.cs" />
     <Compile Include="PDMS_Customer.cs" />
     <Compile Include="PDMS_Dashboard.cs" />
-    <Compile Include="PDMS_Dealer.cs" />
     <Compile Include="PDMS_Delivery.cs" />
     <Compile Include="PDMS_DiscountType.cs" />
     <Compile Include="PDMS_EInvoice.cs" />
@@ -109,7 +108,6 @@
     <Compile Include="PSAPDocumentNumber.cs" />
     <Compile Include="PSession.cs" />
     <Compile Include="PTickets.cs" />
-    <Compile Include="PTR.cs" />
     <Compile Include="PUser.cs" />
     <Compile Include="PUserPermission.cs" />
     <Compile Include="YDMS\PDMS_Activity.cs" />

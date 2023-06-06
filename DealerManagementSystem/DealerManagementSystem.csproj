@@ -525,7 +525,7 @@
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerSearch.ascx" />
     <Content Include="ViewMaster\UserControls\CustomerView.ascx" />
-    <Content Include="ViewPreSale\PreSalesSummeryReport.aspx" />
+    <Content Include="ViewPreSale\PreSalesSummaryReport.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewPreSale\Quotation.aspx" />
     <Content Include="ViewPreSale\SalesPipelineReport.aspx" />
@@ -551,7 +551,7 @@
     <Content Include="ViewPreSale\VisitReport.aspx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderASN.aspx" />
-    <Content Include="ViewProcurement\PurchaseOrderASNGr.aspx" />
+    <Content Include="ViewProcurement\PurchaseOrderAsnGR.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderPG.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderReturn.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderReturnInvoice.aspx" />
@@ -1864,12 +1864,12 @@
     <Compile Include="ViewMaster\UserControls\CustomerView.ascx.designer.cs">
       <DependentUpon>CustomerView.ascx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\PreSalesSummeryReport.aspx.cs">
-      <DependentUpon>PreSalesSummeryReport.aspx</DependentUpon>
+    <Compile Include="ViewPreSale\PreSalesSummaryReport.aspx.cs">
+      <DependentUpon>PreSalesSummaryReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\PreSalesSummeryReport.aspx.designer.cs">
-      <DependentUpon>PreSalesSummeryReport.aspx</DependentUpon>
+    <Compile Include="ViewPreSale\PreSalesSummaryReport.aspx.designer.cs">
+      <DependentUpon>PreSalesSummaryReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
@@ -2046,12 +2046,12 @@
     <Compile Include="ViewProcurement\PurchaseOrderASN.aspx.designer.cs">
       <DependentUpon>PurchaseOrderASN.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewProcurement\PurchaseOrderASNGr.aspx.cs">
-      <DependentUpon>PurchaseOrderASNGr.aspx</DependentUpon>
+    <Compile Include="ViewProcurement\PurchaseOrderAsnGR.aspx.cs">
+      <DependentUpon>PurchaseOrderAsnGR.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewProcurement\PurchaseOrderASNGr.aspx.designer.cs">
-      <DependentUpon>PurchaseOrderASNGr.aspx</DependentUpon>
+    <Compile Include="ViewProcurement\PurchaseOrderAsnGR.aspx.designer.cs">
+      <DependentUpon>PurchaseOrderAsnGR.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderPG.aspx.cs">
       <DependentUpon>PurchaseOrderPG.aspx</DependentUpon>

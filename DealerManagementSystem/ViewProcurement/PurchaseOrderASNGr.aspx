@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PurchaseOrderASNGr.aspx.cs" Inherits="DealerManagementSystem.ViewProcurement.PurchaseOrderASNGr" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PurchaseOrderAsnGR.aspx.cs" Inherits="DealerManagementSystem.ViewProcurement.PurchaseOrderAsnGR" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewProcurement/UserControls/PurchaseOrderASNGrView.ascx" TagPrefix="UC" TagName="UC_PurchaseOrderASNGrView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

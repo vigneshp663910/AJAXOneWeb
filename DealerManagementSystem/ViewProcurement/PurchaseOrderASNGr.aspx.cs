@@ -11,9 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewProcurement
 {
-    public partial class PurchaseOrderASNGr : BasePage
+    public partial class PurchaseOrderAsnGR : BasePage
     {
-        //public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrderASN; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrderAsnGR; } }
         int? DealerID = null;
         string VendorID = null;
         string GrNumber = null;
@@ -24,15 +24,15 @@ namespace DealerManagementSystem.ViewProcurement
         {
             get
             {
-                if (Session["GrHeader"] == null)
+                if (ViewState["GrHeader"] == null)
                 {
-                    Session["GrHeader"] = new List<PAsn>();
+                    ViewState["GrHeader"] = new List<PGr>();
                 }
-                return (List<PGr>)Session["GrHeader"];
+                return (List<PGr>)ViewState["GrHeader"];
             }
             set
             {
-                Session["GrHeader"] = value;
+                ViewState["GrHeader"] = value;
             }
         }
         private int PageCount
@@ -66,8 +66,7 @@ namespace DealerManagementSystem.ViewProcurement
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            Session["previousUrl"] = "PurchaseOrderASNGr.aspx";
+        { 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);

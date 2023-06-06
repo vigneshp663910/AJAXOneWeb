@@ -797,93 +797,6 @@ namespace Business
             }
             return Header;
         }
-        public int UpdateTicketResolvedStatus(int HeaderId, int ItemId, decimal Effort, int? ResolutionType, string Resolution, string SupportType, long UserId, Boolean NewTR, PTR TR, List<string> AttchedFile)
-        {
-            DbParameter ItemIdP;
-            DbParameter EffortParam;
-            DbParameter ResolutionTypeParam;
-            DbParameter ResolutionParam;
-            DbParameter SupportTypeP = provider.CreateParameter("SupportType", SupportType, DbType.String);
-            int success = 0;
-            ItemIdP = provider.CreateParameter("ItemId", ItemId, DbType.Int32);
-            EffortParam = provider.CreateParameter("Effort", Effort, DbType.Decimal);
-
-            if (ResolutionType != null)
-            {
-                ResolutionTypeParam = provider.CreateParameter("ResolutionType", ResolutionType, DbType.Int32);
-            }
-            else
-            {
-                ResolutionTypeParam = provider.CreateParameter("ResolutionType", DBNull.Value, DbType.Int32);
-            }
-
-            if (!string.IsNullOrEmpty(Resolution))
-                ResolutionParam = provider.CreateParameter("Resolution", Resolution, DbType.String);
-            else
-                ResolutionParam = provider.CreateParameter("Resolution", DBNull.Value, DbType.String);
-
-
-            DbParameter NewTRParam = provider.CreateParameter("NewTR", NewTR, DbType.Boolean);
-            //if (!string.IsNullOrEmpty(TRNumber))
-            //{
-            //    TRNumberParam = provider.CreateParameter("TRNumber", TRNumber, DbType.String);
-            //}
-            //else
-            //{
-            //    TRNumberParam = provider.CreateParameter("TRNumber", DBNull.Value, DbType.String);
-            //}
-            DbParameter[] TicketTypeParams = new DbParameter[6] { ItemIdP,EffortParam,
-                ResolutionTypeParam,ResolutionParam,NewTRParam,SupportTypeP };
-
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    success = provider.Insert("UpdateTicketResolvedStatus", TicketTypeParams);
-                    if (success != 0)
-                    {
-                        if (NewTR)
-                        {
-                            DbParameter HeaderIdP = provider.CreateParameter("HeaderId", TR.TicketId, DbType.Int32);
-                            DbParameter SubCategoryIDP = provider.CreateParameter("SubCategoryID", TR.SubCategory.SubCategoryID, DbType.Int32);
-                            DbParameter TRNumberP = provider.CreateParameter("TRNumber", TR.TRNumber, DbType.String);
-                            DbParameter PurposeP = provider.CreateParameter("Purpose", TR.Purpose, DbType.String);
-                            DbParameter MailNoteP = provider.CreateParameter("MailNote", TR.MailNote, DbType.String);
-                            DbParameter CreatedByP = provider.CreateParameter("CreatedBy", TR.CreatedBy.UserID, DbType.Int32);
-
-                            DbParameter ChangeApprovedBy = provider.CreateParameter("ChangeApprovedBy", TR.ChangeApprovedBy == null ? (int?)null : TR.ChangeApprovedBy.UserID, DbType.Int32);
-                            DbParameter ChangeApprovedOn = provider.CreateParameter("ChangeApprovedOn", TR.ChangeApprovedOn, DbType.DateTime);
-                            DbParameter UATBy = provider.CreateParameter("UATBy", TR.UATBy == null ? (int?)null : TR.UATBy.UserID, DbType.Int32);
-                            DbParameter UATOn = provider.CreateParameter("UATOn", TR.UATOn, DbType.DateTime);
-
-
-                            DbParameter[] Params = new DbParameter[10] { HeaderIdP, TRNumberP, PurposeP, MailNoteP, CreatedByP, SubCategoryIDP, ChangeApprovedBy, ChangeApprovedOn, UATBy, UATOn };
-                            success = provider.Insert("InsertTR", Params);
-                        }
-                        //  insertTicketFile(HeaderId, AttchedFile, SourceFileName, DestFileName);
-                        if (!string.IsNullOrEmpty(Resolution))
-                            insertForum(HeaderId, UserId, Resolution, "");
-                        foreach (string filename in AttchedFile)
-                        {
-                            insertForum(HeaderId, UserId, filename, filename);
-                        }
-                    }
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                success = 0;
-                new FileLogger().LogMessage("BTickets", "UpdateTicketResolvedStatus", sqlEx);
-
-            }
-            catch (Exception ex)
-            {
-                success = 0;
-                new FileLogger().LogMessage("BTickets", "UpdateTicketResolvedStatus", ex);
-            }
-            return success;
-        }
         public List<PTicketHeader> GetTicketDetails(int? HeaderId, int? ItemId, int? CategoryID, int? SubCategoryID, int? Severity, int? Type, int? AssignedBy, int? AssignedTo, int? UserId, string HeaderStatus, DateTime? TicketFrom, DateTime? TicketTo, int? PageIndex, int? PageSize, out int RowCount)
         {
             DbParameter HeaderIdP;
@@ -1220,15 +1133,7 @@ namespace Business
             return null;
         }
 
-        public int InsertTicketResolvedStatus1(int HeaderId, int SubCategoryID, int Severity, string AssignerRemark, int AssignedTo, decimal ActualDuration, string SupportType, int UserId, List<string> AttchedFile, int? ResolutionType, string Resolution, Boolean NewTR, PTR TR)
-        {
-            int ItemId = 0;
-            ItemId = new BTickets().InsertTicketItem(HeaderId, SubCategoryID, Severity, AssignerRemark, AssignedTo, ActualDuration, UserId, AttchedFile, SupportType);
-            new BTickets().UpdateTicketStatus(ItemId, 3);
-            AttchedFile = new List<string>();
-            new BTickets().UpdateTicketResolvedStatus(HeaderId, ItemId, ActualDuration, ResolutionType, Resolution, SupportType, PSession.User.UserID, NewTR, TR, AttchedFile);
-            return ItemId;
-        }
+        
         public List<PForum> GetForumDetails(int HeaderId)
         {
             DbParameter HeaderIdP = provider.CreateParameter("HeaderId", HeaderId, DbType.Int32);

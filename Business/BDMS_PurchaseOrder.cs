@@ -226,12 +226,12 @@ namespace Business
         }
         public List<PPurchaseOrderAsnStatus> GetAsnStatus(int? AsnStatusID, string AsnStatus)
         {
-            string endPoint = "PurchaseOrder/AsnStatus?AsnStatusID=" + AsnStatusID + "&AsnStatus=" + AsnStatus;
+            string endPoint = "ProcurementMasters/AsnStatus?AsnStatusID=" + AsnStatusID + "&AsnStatus=" + AsnStatus;
             return JsonConvert.DeserializeObject<List<PPurchaseOrderAsnStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PPurchaseOrderAsnGrStatus> GetGrStatus(int? AsnGrStatusID, string AsnGrStatus)
         {
-            string endPoint = "PurchaseOrder/GrStatus?AsnGrStatusID=" + AsnGrStatusID + "&AsnGrStatus=" + AsnGrStatus;
+            string endPoint = "ProcurementMasters/GrStatus?AsnGrStatusID=" + AsnGrStatusID + "&AsnGrStatus=" + AsnGrStatus;
             return JsonConvert.DeserializeObject<List<PPurchaseOrderAsnGrStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PAsnItem> GetPurchaseOrderAsnByIDPOItem(long AsnID)

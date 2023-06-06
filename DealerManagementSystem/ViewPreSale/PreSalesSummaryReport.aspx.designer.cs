@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewPreSale
 {
 
 
-    public partial class PreSalesSummeryReport
+    public partial class PreSalesSummaryReport
     {
 
         /// <summary>

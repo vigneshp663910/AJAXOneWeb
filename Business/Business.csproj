@@ -188,7 +188,6 @@
     <Compile Include="BTicketStatus.cs" />
     <Compile Include="BTicketSubCategory.cs" />
     <Compile Include="BTicketType.cs" />
-    <Compile Include="BTR.cs" />
     <Compile Include="BUser.cs" />
     <Compile Include="BUserType.cs" />
     <Compile Include="BXcel.cs">

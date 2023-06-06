@@ -256,7 +256,7 @@ namespace Properties
         ViewProcurement_PurchaseOrderASN = 11,
         ViewProcurement_PurchaseOrderReturn =  12,
         ViewProcurement_PurchaseOrderReturnInvoice =  13,
-        //   UnderCons = 14,
+        ViewProcurement_PurchaseOrderAsnGR = 14,
         ViewProcurement_PurchaseOrderPerformance = 15,
         ViewSales_SaleOrderInvoicePartsReport = 16,
         ViewSales_SalesOrder = 17,

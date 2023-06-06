@@ -40,7 +40,7 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Performance');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Visit Coverage Report');</script>");
 
             lblMessage.Text = "";
 
@@ -63,19 +63,19 @@ namespace DealerManagementSystem.ViewPreSale
 
         protected void ibtnLeadArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvLead.PageIndex > 0)
-            {
-                gvLead.PageIndex = gvLead.PageIndex - 1;
-                LeadBind(gvLead, lblRowCount);
-            }
+            //if (gvLead.PageIndex > 0)
+            //{
+            //    gvLead.PageIndex = gvLead.PageIndex - 1;
+            //    LeadBind(gvLead, lblRowCount);
+            //}
         }
         protected void ibtnLeadArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvLead.PageCount > gvLead.PageIndex)
-            {
-                gvLead.PageIndex = gvLead.PageIndex + 1;
-                LeadBind(gvLead, lblRowCount);
-            }
+            //if (gvLead.PageCount > gvLead.PageIndex)
+            //{
+            //    gvLead.PageIndex = gvLead.PageIndex + 1;
+            //    LeadBind(gvLead, lblRowCount);
+            //}
         }
 
         void LeadBind(GridView gv, Label lbl)
@@ -103,24 +103,38 @@ namespace DealerManagementSystem.ViewPreSale
                     return;
                 }
                 CoverageReport = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(result.Data));
-                gvLead.DataSource = CoverageReport.Tables[0];
-                gvLead.DataBind();
-                gvRegionCoverage.DataSource = CoverageReport.Tables[1];
-                gvRegionCoverage.DataBind();
+               
+                gvAll.DataSource = CoverageReport.Tables[0];
+                gvAll.DataBind();
 
-                if (CoverageReport.Tables[0].Rows.Count == 0)
-                {
-                    lblRowCount.Visible = false;
-                    ibtnLeadArrowLeft.Visible = false;
-                    ibtnLeadArrowRight.Visible = false;
-                }
-                else
-                {
-                    lblRowCount.Visible = true;
-                    ibtnLeadArrowLeft.Visible = true;
-                    ibtnLeadArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + CoverageReport.Tables[0].Rows.Count;
-                }
+                gvRegion.DataSource = CoverageReport.Tables[1];
+                gvRegion.DataBind();
+
+                gvState.DataSource = CoverageReport.Tables[2];
+                gvState.DataBind();
+
+                gvDealer.DataSource = CoverageReport.Tables[3];
+                gvDealer.DataBind();
+
+                gvEngg.DataSource = CoverageReport.Tables[4];
+                gvEngg.DataBind();
+
+                gvDetails.DataSource = CoverageReport.Tables[5];
+                gvDetails.DataBind();
+
+                //if (CoverageReport.Tables[0].Rows.Count == 0)
+                //{
+                //    lblRowCount.Visible = false;
+                //    ibtnLeadArrowLeft.Visible = false;
+                //    ibtnLeadArrowRight.Visible = false;
+                //}
+                //else
+                //{
+                //    lblRowCount.Visible = true;
+                //    ibtnLeadArrowLeft.Visible = true;
+                //    ibtnLeadArrowRight.Visible = true;
+                //    lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + CoverageReport.Tables[0].Rows.Count;
+                //}
             }
             catch (Exception e)
             {
@@ -134,8 +148,8 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvLead.PageIndex = e.NewPageIndex;
-            FillClodVisit();
+            //gvLead.PageIndex = e.NewPageIndex;
+           // FillClodVisit();
         }
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {  

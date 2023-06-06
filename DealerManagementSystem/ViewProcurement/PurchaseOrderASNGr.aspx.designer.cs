@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewProcurement
 {
 
 
-    public partial class PurchaseOrderASNGr
+    public partial class PurchaseOrderAsnGR
     {
 
         /// <summary>
