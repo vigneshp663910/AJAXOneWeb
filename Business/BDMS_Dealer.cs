@@ -1515,36 +1515,6 @@ namespace Business
             catch (Exception ex) { throw ex; }
             return DealerBinLocationList;
         }
-        public List<PDMS_Material> GetDealerBinMaterial(int? DealerBinLocationID, int? MaterialID)
-        {
-            List<PDMS_Material> Material = new List<PDMS_Material>();
-            try
-            {
-                DbParameter DealerBinLocationIDP = provider.CreateParameter("DealerBinLocationID", DealerBinLocationID, DbType.Int32);
-                DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
-
-                DbParameter[] Params = new DbParameter[2] { DealerBinLocationIDP, MaterialIDP };
-
-                using (DataSet DataSet = provider.Select("GetDealerBinMaterial", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Material.Add(new PDMS_Material()
-                            {
-                                MaterialID = Convert.ToInt32(dr["MaterialID"]),
-                                MaterialCode = Convert.ToString(dr["MaterialCode"]),
-                                MaterialDescription = Convert.ToString(dr["MaterialDescription"])
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx) { throw sqlEx; }
-            catch (Exception ex) { throw ex; }
-            return Material;
-        }
         public Boolean InsertOrUpdateDealerBinLocation(PDealerBinLocation pDealerBin, Boolean IsActive, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
