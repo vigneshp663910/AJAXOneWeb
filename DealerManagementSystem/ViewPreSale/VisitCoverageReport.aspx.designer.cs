@@ -69,22 +69,40 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
-        /// txtDateFrom control.
+        /// txtLeadDateFrom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDateFrom;
+        protected global::System.Web.UI.WebControls.TextBox txtLeadDateFrom;
 
         /// <summary>
-        /// txtDateTo control.
+        /// txtLeadDateTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDateTo;
+        protected global::System.Web.UI.WebControls.TextBox txtLeadDateTo;
+
+        /// <summary>
+        /// txtVisitDateFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtVisitDateFrom;
+
+        /// <summary>
+        /// txtVisitDateTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtVisitDateTo;
 
         /// <summary>
         /// BtnSearch control.
@@ -94,15 +112,6 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearch;
-
-        /// <summary>
-        /// btnExportExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportExcel;
 
         /// <summary>
         /// tbpCust control.
@@ -123,31 +132,13 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::AjaxControlToolkit.TabPanel tpnlSalesEngineer;
 
         /// <summary>
-        /// lblRowCount control.
+        /// btnExcelOverAll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRowCount;
-
-        /// <summary>
-        /// ibtnLeadArrowLeft control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnLeadArrowLeft;
-
-        /// <summary>
-        /// ibtnLeadArrowRight control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnLeadArrowRight;
+        protected global::System.Web.UI.WebControls.Button btnExcelOverAll;
 
         /// <summary>
         /// gvAll control.
@@ -168,6 +159,15 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::AjaxControlToolkit.TabPanel TabVisit;
 
         /// <summary>
+        /// btnExcelRegion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExcelRegion;
+
+        /// <summary>
         /// gvRegion control.
         /// </summary>
         /// <remarks>
@@ -184,6 +184,24 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanel1;
+
+        /// <summary>
+        /// lblState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblState;
+
+        /// <summary>
+        /// btnExcelState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExcelState;
 
         /// <summary>
         /// gvState control.
@@ -204,6 +222,24 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::AjaxControlToolkit.TabPanel TabPanel2;
 
         /// <summary>
+        /// lblDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDealer;
+
+        /// <summary>
+        /// btnExcelDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExcelDealer;
+
+        /// <summary>
         /// gvDealer control.
         /// </summary>
         /// <remarks>
@@ -222,6 +258,24 @@ namespace DealerManagementSystem.ViewPreSale
         protected global::AjaxControlToolkit.TabPanel TabPanel3;
 
         /// <summary>
+        /// lblEngineer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEngineer;
+
+        /// <summary>
+        /// btnExcelEngineer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExcelEngineer;
+
+        /// <summary>
         /// gvEngg control.
         /// </summary>
         /// <remarks>
@@ -238,6 +292,24 @@ namespace DealerManagementSystem.ViewPreSale
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanel4;
+
+        /// <summary>
+        /// lblDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDetails;
+
+        /// <summary>
+        /// btnExcelDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExcelDetails;
 
         /// <summary>
         /// gvDetails control.

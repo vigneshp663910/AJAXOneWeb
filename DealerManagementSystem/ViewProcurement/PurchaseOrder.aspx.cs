@@ -27,15 +27,15 @@ namespace DealerManagementSystem.ViewProcurement
         {
             get
             {
-                if (Session["PDMS_PurchaseOrder"] == null)
+                if (ViewState["PDMS_PurchaseOrder"] == null)
                 {
-                    Session["PDMS_PurchaseOrder"] = new List<PDMS_PurchaseOrder>();
+                    ViewState["PDMS_PurchaseOrder"] = new List<PDMS_PurchaseOrder>();
                 }
-                return (List<PDMS_PurchaseOrder>)Session["PDMS_PurchaseOrder"];
+                return (List<PDMS_PurchaseOrder>)ViewState["PDMS_PurchaseOrder"];
             }
             set
             {
-                Session["PDMS_PurchaseOrder"] = value;
+                ViewState["PDMS_PurchaseOrder"] = value;
             }
         }
 
@@ -70,8 +70,7 @@ namespace DealerManagementSystem.ViewProcurement
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            Session["previousUrl"] = "DMS_PurchaseOrder.aspx";
+        { 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -80,12 +79,7 @@ namespace DealerManagementSystem.ViewProcurement
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Orders');</script>");
-            lblMessage.Visible = false;
-
-            if (PSession.User == null)
-            {
-                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
+            lblMessage.Visible = false; 
             if (!IsPostBack)
             {
                 PageCount = 0;

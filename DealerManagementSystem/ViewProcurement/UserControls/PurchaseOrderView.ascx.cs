@@ -19,7 +19,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 if (ViewState["PPurchaseOrder"] == null)
                 {
-                    Session["PPurchaseOrder"] = new PPurchaseOrder();
+                    ViewState["PPurchaseOrder"] = new PPurchaseOrder();
                 }
                 return (PPurchaseOrder)ViewState["PPurchaseOrder"];
             }
@@ -48,11 +48,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.Text == "Release PO")
             {
-
+                lblMessage.Visible = true;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/ReleasePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblMessage.Text = "Updated Successfully";
+                lblMessage.ForeColor = Color.Green;
+                fillViewPO(PurchaseOrder.PurchaseOrderID);
             }
             else if (lbActions.Text == "Edit PO")
             {
-
+              
             }
             else if (lbActions.Text == "Cancel PO")
             {

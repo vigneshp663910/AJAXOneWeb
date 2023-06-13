@@ -241,7 +241,7 @@ namespace DealerManagementSystem.ViewService
         {
             DataTable dt = new DataTable();
 
-            dt.Columns.Add("IC Ticket ID");
+            dt.Columns.Add("IC Ticket");
             dt.Columns.Add("IC Ticket Date");
             dt.Columns.Add("Restore Date");
             dt.Columns.Add("Service Type");
@@ -304,7 +304,7 @@ namespace DealerManagementSystem.ViewService
                 {
                     dt.Rows.Add(
 
-                          M.ICTicketID
+                          M.ICTicketNumber
                         , M.ICTicketDate == null ? "" : ((DateTime)M.ICTicketDate).ToShortDateString()
                         , M.RestoreDate == null ? "" : ((DateTime)M.RestoreDate).ToShortDateString()
                         , M.ICTicket.ServiceType.ServiceType
@@ -493,7 +493,7 @@ namespace DealerManagementSystem.ViewService
                         , Item.BaseTax
                         , M.CustomerCode
                         , M.CustomerName
-                        , M.ICTicketID
+                        , M.ICTicketNumber
                         , M.MachineSerialNumber
                         , Item.HSNCode
                         , ""

@@ -156,7 +156,6 @@
     <Compile Include="BDMS_WarrantyClaimDebitNote.cs" />
     <Compile Include="BDMS_WarrantyClaimInvoice.cs" />
     <Compile Include="BDMS_WarrantyFailureMaterial.cs" />
-    <Compile Include="BDMS_WebQuotation.cs" />
     <Compile Include="BDocumentation.cs" />
     <Compile Include="BDropDownListBind.cs" />
     <Compile Include="BEmployees.cs">

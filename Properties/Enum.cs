@@ -377,7 +377,7 @@ namespace Properties
         ViewAdmin_DefaultUserModule = 132,
         Account_LoginAs = 133,
         ViewAdmin_UserList = 134,
-        ViewPreSale_PreSalesSummeryReport = 135,
+        ViewPreSale_PreSalesSummaryReport = 135,
         ViewPreSale_VisitCoverageReport = 136, 
         //**** Menu Level-2 ****************************** =  137,
         Help_HelpOld = 138,

@@ -29,21 +29,29 @@
                         </div>
 
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Date From</label>
-                            <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                            <label class="modal-label">Lead Date From</label>
+                            <asp:TextBox ID="txtLeadDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Date To</label>
-                            <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                            <label class="modal-label">Lead Date To</label>
+                            <asp:TextBox ID="txtLeadDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Visit Date From</label>
+                            <asp:TextBox ID="txtVisitDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Visit Date To</label>
+                            <asp:TextBox ID="txtVisitDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                            <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                            <%--<asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
                         </div>
                     </div>
                 </fieldset>
             </div>
-            <asp1:TabContainer ID="tbpCust" runat="server"  Font-Bold="True" Font-Size="Medium">
+            <asp1:TabContainer ID="tbpCust" runat="server" Font-Bold="True" Font-Size="Medium">
                 <asp1:TabPanel ID="tpnlSalesEngineer" runat="server" HeaderText="Over All" Font-Bold="True" ToolTip="">
                     <ContentTemplate>
                         <div class="col-md-12">
@@ -56,20 +64,16 @@
                                                 <div style="float: left">
                                                     <table>
                                                         <tr>
-                                                            <td>Pre Sales Report(s):</td>
-                                                            <td>
-                                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
-                                                            <td>
-                                                                <asp:ImageButton ID="ibtnLeadArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnLeadArrowLeft_Click" /></td>
-                                                            <td>
-                                                                <asp:ImageButton ID="ibtnLeadArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnLeadArrowRight_Click" /></td>
+                                                            <td>Over All Report(s):</td>
+                                                            <td><asp:Button ID="btnExcelOverAll" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExcelOverAll_Click" Width="120px" /></td>
                                                         </tr>
                                                     </table>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <asp:GridView ID="gvAll" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
+                                        <asp:GridView ID="gvAll" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
 
                                             <AlternatingRowStyle BackColor="#ffffff" />
                                             <FooterStyle ForeColor="White" />
@@ -88,21 +92,23 @@
                         <div class="col-md-12">
                             <div class="col-md-12 Report">
                                 <fieldset class="fieldset-border">
-                                    <legend style="background: none; color: #007bff; font-size: 17px;">Region List</legend>
+                                    <legend style="background: none; color: #007bff; font-size: 17px;">Region</legend>
                                     <div class="col-md-12 Report">
                                         <div class="boxHead">
                                             <div class="logheading">
                                                 <div style="float: left">
                                                     <table>
                                                         <tr>
-                                                            <td>Pre Sales Report(s):</td>
+                                                            <td>Region Report(s):</td>
+                                                            <td><asp:Button ID="btnExcelRegion" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExcelRegion_Click" Width="120px" /></td>
                                                         </tr>
                                                     </table>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <asp:GridView ID="gvRegion" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
+                                        <asp:GridView ID="gvRegion" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
 
                                             <AlternatingRowStyle BackColor="#ffffff" />
                                             <FooterStyle ForeColor="White" />
@@ -121,21 +127,25 @@
                         <div class="col-md-12">
                             <div class="col-md-12 Report">
                                 <fieldset class="fieldset-border">
-                                    <legend style="background: none; color: #007bff; font-size: 17px;">State List</legend>
+                                    <legend style="background: none; color: #007bff; font-size: 17px;">State</legend>
                                     <div class="col-md-12 Report">
                                         <div class="boxHead">
                                             <div class="logheading">
                                                 <div style="float: left">
                                                     <table>
                                                         <tr>
-                                                            <td>Pre Sales Report(s):</td>
+                                                            <td>State Report(s):</td>
+                                                            <td>
+                                                                <asp:Label ID="lblState" runat="server" CssClass="label"></asp:Label>
+                                                            </td>
+                                                            <td><asp:Button ID="btnExcelState" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExcelState_Click" Width="120px" /></td>
                                                         </tr>
                                                     </table>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <asp:GridView ID="gvState" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
+                                        <asp:GridView ID="gvState" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="15" AllowPaging="true" OnPageIndexChanging="gvState_PageIndexChanging">
 
                                             <AlternatingRowStyle BackColor="#ffffff" />
                                             <FooterStyle ForeColor="White" />
@@ -154,21 +164,26 @@
                         <div class="col-md-12">
                             <div class="col-md-12 Report">
                                 <fieldset class="fieldset-border">
-                                    <legend style="background: none; color: #007bff; font-size: 17px;">Dealer List </legend>
+                                    <legend style="background: none; color: #007bff; font-size: 17px;">Dealer </legend>
                                     <div class="col-md-12 Report">
                                         <div class="boxHead">
                                             <div class="logheading">
                                                 <div style="float: left">
                                                     <table>
                                                         <tr>
-                                                            <td>Pre Sales Report(s):</td>
+                                                            <td>Dealer Report(s):</td>
+                                                            <td>
+                                                                <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
+                                                            </td>
+                                                            <td><asp:Button ID="btnExcelDealer" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExcelDealer_Click" Width="120px" /></td>
                                                         </tr>
                                                     </table>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <asp:GridView ID="gvDealer" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
+                                        <asp:GridView ID="gvDealer" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealer_PageIndexChanging">
 
                                             <AlternatingRowStyle BackColor="#ffffff" />
                                             <FooterStyle ForeColor="White" />
@@ -187,21 +202,26 @@
                         <div class="col-md-12">
                             <div class="col-md-12 Report">
                                 <fieldset class="fieldset-border">
-                                    <legend style="background: none; color: #007bff; font-size: 17px;">List Engg</legend>
+                                    <legend style="background: none; color: #007bff; font-size: 17px;">Engineer</legend>
                                     <div class="col-md-12 Report">
                                         <div class="boxHead">
                                             <div class="logheading">
                                                 <div style="float: left">
                                                     <table>
                                                         <tr>
-                                                            <td>Pre Sales Report(s):</td>
+                                                            <td>Engineer Report(s):</td>
+                                                            <td>
+                                                                <asp:Label ID="lblEngineer" runat="server" CssClass="label"></asp:Label>
+                                                            </td>
+                                                            <td><asp:Button ID="btnExcelEngineer" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExcelEngineer_Click" Width="120px" /></td>
                                                         </tr>
                                                     </table>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <asp:GridView ID="gvEngg" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
+                                        <asp:GridView ID="gvEngg" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvEngg_PageIndexChanging">
 
                                             <AlternatingRowStyle BackColor="#ffffff" />
                                             <FooterStyle ForeColor="White" />
@@ -220,22 +240,27 @@
                         <div class="col-md-12">
                             <div class="col-md-12 Report">
                                 <fieldset class="fieldset-border">
-                                    <legend style="background: none; color: #007bff; font-size: 17px;">List Engg</legend>
+                                    <legend style="background: none; color: #007bff; font-size: 17px;">Details</legend>
                                     <div class="col-md-12 Report">
                                         <div class="boxHead">
                                             <div class="logheading">
                                                 <div style="float: left">
                                                     <table>
                                                         <tr>
-                                                            <td>Pre Sales Report(s):</td>
+                                                            <td>Details Report(s):</td>
+                                                            <td>
+                                                                <asp:Label ID="lblDetails" runat="server" CssClass="label"></asp:Label>
+                                                            </td>
+                                                            <td><asp:Button ID="btnExcelDetails" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExcelDetails_Click" Width="120px" /></td>
                                                         </tr>
                                                     </table>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <asp:GridView ID="gvDetails" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
-
+                                        <asp:GridView ID="gvDetails" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDetails_PageIndexChanging">
+                                             
                                             <AlternatingRowStyle BackColor="#ffffff" />
                                             <FooterStyle ForeColor="White" />
                                             <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />

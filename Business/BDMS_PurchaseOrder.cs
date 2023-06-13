@@ -255,5 +255,29 @@ namespace Business
 
             return AsnList;
         }
+        public List<PPurchaseOrderReturnStatus> GetPurchaseOrderReturnStatus(int? PurchaseOrderReturnStatusID, string PurchaseOrderReturnStatusCode)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderReturnStatus?PurchaseOrderReturnStatusID=" + PurchaseOrderReturnStatusID + "&PurchaseOrderReturnStatusCode=" + PurchaseOrderReturnStatusCode;
+            return JsonConvert.DeserializeObject<List<PPurchaseOrderReturnStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PApiResult GetPurchaseOrderAsnGrForPoReturnCreation(int DealerID, int VendorID, int LocationID, int? DivisionID)
+        {
+            string endPoint = "PurchaseOrder/GetPurchaseOrderAsnGrForPoReturnCreation?DealerID=" + DealerID + "&VendorID=" + VendorID
+                + "&LocationID=" + LocationID + "&DivisionID=" + DivisionID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetPurchaseOrderReturnHeader(int? DealerID, string PurchaseOrderReturnNo, DateTime? PurchaseOrderReturnDateF, DateTime? PurchaseOrderReturnDateT
+            , int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderReturnHeader?DealerID=" + DealerID + "&PurchaseOrderReturnNo=" + PurchaseOrderReturnNo
+                 + "&PurchaseOrderReturnDateF=" + PurchaseOrderReturnDateF + "&PurchaseOrderReturnDateT=" + PurchaseOrderReturnDateT
+                 + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PPurchaseOrderReturn GetPurchaseOrderReturnByID(long PurchaseOrderReturnID)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderReturnByID?PurchaseOrderReturnID=" + PurchaseOrderReturnID;
+            return JsonConvert.DeserializeObject<PPurchaseOrderReturn>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        } 
     }
 }

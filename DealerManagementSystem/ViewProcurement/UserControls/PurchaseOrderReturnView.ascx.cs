@@ -33,7 +33,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         public void fillViewPoReturn(long PurchaseOrderReturnID)
         {
-            PoReturn = new BPurchaseOrderReturn().GetPurchaseOrderReturnByID(PurchaseOrderReturnID);
+            PoReturn = new BDMS_PurchaseOrder().GetPurchaseOrderReturnByID(PurchaseOrderReturnID);
 
             lblPurchaseOrderReturnNumber.Text = PoReturn.PurchaseOrderReturnNumber;
             lblPurchaseOrderReturnDate.Text = PoReturn.PurchaseOrderReturnDate.ToString();

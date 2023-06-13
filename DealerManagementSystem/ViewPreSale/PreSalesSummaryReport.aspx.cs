@@ -15,7 +15,7 @@ namespace DealerManagementSystem.ViewPreSale
 {
     public partial class PreSalesSummaryReport : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_PreSalesSummeryReport; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_PreSalesSummaryReport; } }
         public DataTable SummeryReport
         {
             get
@@ -52,10 +52,8 @@ namespace DealerManagementSystem.ViewPreSale
                 new DDLBind(ddlRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID");
                 List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, null);
                 new DDLBind(ddlState, State, "State", "StateID");
-                //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
 
-                new DDLBind(ddlQualification, new BLead().GetLeadQualification(null, null), "Qualification", "QualificationID");
             }
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
@@ -63,7 +61,7 @@ namespace DealerManagementSystem.ViewPreSale
             FillClodVisit();
         }
 
-       
+
 
         protected void ibtnLeadArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
@@ -99,8 +97,8 @@ namespace DealerManagementSystem.ViewPreSale
                 int? RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
                 int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
                 int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-               
-                result = new BPreSale().GetPreSalesSummeryReport(CountryID, RegionID, StateID, DealerID);
+
+                result = new BPreSale().GetPreSalesSummeryReport(CountryID, RegionID, StateID, DealerID, txtDateFrom.Text, txtDateTo.Text);
                 if (result.Status == PApplication.Failure)
                 {
                     lblMessage.Text = result.Message.ToString();
@@ -138,7 +136,7 @@ namespace DealerManagementSystem.ViewPreSale
         protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvLead.PageIndex = e.NewPageIndex;
-            FillClodVisit();
+            LeadBind(gvLead, lblRowCount);
         }
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {

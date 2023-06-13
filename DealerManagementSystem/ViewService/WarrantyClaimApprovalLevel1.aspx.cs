@@ -287,7 +287,7 @@ namespace DealerManagementSystem.ViewService
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("IC Ticket ID");
+            dt.Columns.Add("IC Ticket");
             dt.Columns.Add("IC Ticket Date");
             dt.Columns.Add("Cust. Code");
             dt.Columns.Add("Cust. Name");
@@ -328,7 +328,7 @@ namespace DealerManagementSystem.ViewService
                 foreach (PDMS_WarrantyInvoiceItem Item in M.InvoiceItems)
                 {
                     dt.Rows.Add(
-                          M.ICTicketID
+                          M.ICTicketNumber
                         , M.ICTicketDate == null ? "" : ((DateTime)M.ICTicketDate).ToShortDateString()
                         , M.CustomerCode
                         , M.CustomerName

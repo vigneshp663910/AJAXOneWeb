@@ -53,7 +53,7 @@ namespace DealerManagementSystem.ViewPreSale
                 List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, null);
                 new DDLBind(ddlState, State, "State", "StateID");
                 //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
-                new DDLBind().FillDealerAndEngneer(ddlDealer, null); 
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
             }
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
@@ -78,12 +78,6 @@ namespace DealerManagementSystem.ViewPreSale
             //}
         }
 
-        void LeadBind(GridView gv, Label lbl)
-        {
-            gv.DataSource = CoverageReport;
-            gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + CoverageReport.Tables[0].Rows.Count;
-        }
 
         void FillClodVisit()
         {
@@ -95,7 +89,7 @@ namespace DealerManagementSystem.ViewPreSale
                 int? RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
                 int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
                 int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-                result = new BPreSale().GetVisitCoverageReport(CountryID, RegionID, StateID, DealerID, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim());
+                result = new BPreSale().GetVisitCoverageReport(CountryID, RegionID, StateID, DealerID, txtLeadDateFrom.Text.Trim(), txtLeadDateTo.Text.Trim(), txtVisitDateFrom.Text.Trim(), txtVisitDateTo.Text.Trim());
                 if (result.Status == PApplication.Failure)
                 {
                     lblMessage.Text = result.Message.ToString();
@@ -103,7 +97,7 @@ namespace DealerManagementSystem.ViewPreSale
                     return;
                 }
                 CoverageReport = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(result.Data));
-               
+
                 gvAll.DataSource = CoverageReport.Tables[0];
                 gvAll.DataBind();
 
@@ -112,29 +106,19 @@ namespace DealerManagementSystem.ViewPreSale
 
                 gvState.DataSource = CoverageReport.Tables[2];
                 gvState.DataBind();
+                lblState.Text = "" + CoverageReport.Tables[2].Rows.Count;
 
                 gvDealer.DataSource = CoverageReport.Tables[3];
                 gvDealer.DataBind();
+                lblDealer.Text = "" + CoverageReport.Tables[3].Rows.Count;
 
                 gvEngg.DataSource = CoverageReport.Tables[4];
                 gvEngg.DataBind();
+                lblEngineer.Text = "" + CoverageReport.Tables[4].Rows.Count;
 
                 gvDetails.DataSource = CoverageReport.Tables[5];
                 gvDetails.DataBind();
-
-                //if (CoverageReport.Tables[0].Rows.Count == 0)
-                //{
-                //    lblRowCount.Visible = false;
-                //    ibtnLeadArrowLeft.Visible = false;
-                //    ibtnLeadArrowRight.Visible = false;
-                //}
-                //else
-                //{
-                //    lblRowCount.Visible = true;
-                //    ibtnLeadArrowLeft.Visible = true;
-                //    ibtnLeadArrowRight.Visible = true;
-                //    lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + CoverageReport.Tables[0].Rows.Count;
-                //}
+                lblDetails.Text = "" + CoverageReport.Tables[5].Rows.Count;
             }
             catch (Exception e)
             {
@@ -149,11 +133,70 @@ namespace DealerManagementSystem.ViewPreSale
         protected void gvLead_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             //gvLead.PageIndex = e.NewPageIndex;
-           // FillClodVisit();
+            // FillClodVisit();
         }
         protected void btnExportExcel_Click(object sender, EventArgs e)
-        {  
-             new BXcel().ExporttoExcelMultipleTable(CoverageReport, "Coverage Report");
-        } 
+        {
+            new BXcel().ExporttoExcelMultipleTable(CoverageReport, "Coverage Report");
+        }
+
+        protected void gvState_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvState.PageIndex = e.NewPageIndex;
+            gvState.DataSource = CoverageReport.Tables[2];
+            gvState.DataBind();
+        }
+
+        protected void gvDealer_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvDealer.PageIndex = e.NewPageIndex;
+            gvDealer.DataSource = CoverageReport.Tables[3];
+            gvDealer.DataBind();
+        }
+
+        protected void gvEngg_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvEngg.PageIndex = e.NewPageIndex;
+            gvEngg.DataSource = CoverageReport.Tables[4];
+            gvEngg.DataBind();
+
+        }
+        protected void gvDetails_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvDetails.PageIndex = e.NewPageIndex;
+            gvDetails.DataSource = CoverageReport.Tables[5];
+            gvDetails.DataBind();
+
+        }
+
+        protected void btnExcelDetails_Click(object sender, EventArgs e)
+        {
+            new BXcel().ExporttoExcel(CoverageReport.Tables[5], "Visit Coverage Report Details");
+        }
+
+        protected void btnExcelEngineer_Click(object sender, EventArgs e)
+        {
+            new BXcel().ExporttoExcel(CoverageReport.Tables[4], "Visit Coverage Report Engineer");
+        }
+
+        protected void btnExcelDealer_Click(object sender, EventArgs e)
+        {
+            new BXcel().ExporttoExcel(CoverageReport.Tables[3], "Visit Coverage Report Dealer");
+        }
+
+        protected void btnExcelState_Click(object sender, EventArgs e)
+        {
+            new BXcel().ExporttoExcel(CoverageReport.Tables[2], "Visit Coverage Report State");
+        }
+
+        protected void btnExcelRegion_Click(object sender, EventArgs e)
+        {
+            new BXcel().ExporttoExcel(CoverageReport.Tables[1], "Visit Coverage Report Region");
+        }
+
+        protected void btnExcelOverAll_Click(object sender, EventArgs e)
+        {
+            new BXcel().ExporttoExcel(CoverageReport.Tables[0], "Visit Coverage Report OverAll");
+        }
     }
 }

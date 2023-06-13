@@ -998,7 +998,7 @@ namespace Business
 
                 //   string query = "SELECT  * from pr_get_sales_order_perfomance_parts(" + filter + ")";
 
-              //  DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                //  DataTable dt = new NpgsqlServer().ExecuteReader(query);
                 DataTable dt = new BPG().OutputDataTable(query);
                 PDMS_SalesOrder1 SO = new PDMS_SalesOrder1();
                 PDMS_SalesOrderItems1 SOi = null;
@@ -1091,7 +1091,7 @@ namespace Business
 
                 string query = PQuery.GetSalesInvoiceDealerAndMaterialWise.Replace("@@Filter", filter);
 
-             //   DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                //   DataTable dt = new NpgsqlServer().ExecuteReader(query);
                 DataTable dt = new BPG().OutputDataTable(query);
                 PDMS_SalesInvoice SOI = new PDMS_SalesInvoice();
                 int i = 0;
@@ -1135,7 +1135,7 @@ namespace Business
 
                 string query = PQuery.GetSalesInvoiceDealerCustomerAndMaterialWise.Replace("@@Filter", filter);
 
-               // DataTable dt = new NpgsqlServer().ExecuteReader(query);
+                // DataTable dt = new NpgsqlServer().ExecuteReader(query);
                 DataTable dt = new BPG().OutputDataTable(query);
                 PDMS_SalesInvoice SOI = new PDMS_SalesInvoice();
                 int i = 0;
@@ -1172,18 +1172,16 @@ namespace Business
             }
             return SOIs;
         }
-        public string dssor_sales_order_hdr = " insert into dssor_sales_order_hdr ( s_establishment,p_so_id,s_tenant_id,f_customer_id,f_location,f_currency,f_bill_to,s_modified_by "
-                 + ",r_insurance_p,r_discount_amt_additional,s_status,r_tax_amt,s_created_on,r_net_amt,f_ship_to"
-                 + ",r_contact_no,r_gross_amt,r_contact_prsn,r_discount_amt,s_created_by,s_modified_on,f_office,f_order_type,s_object_type,r_remarks,r_exp_del_date"
-                 + ",r_frieght_p,r_order_date,channel,f_division,r_auto,r_ref_obj_name,r_ref_obj_type,r_price_grp,r_model,r_model_no,s_last_request_index,r_insurance_amt,r_packing_chrgs,r_freight_amt ) values ";
-        public string dssor_sales_order_item = "insert into dssor_sales_order_item (s_establishment,p_so_item, p_so_id,s_tenant_id,f_location,s_modified_by,f_uom,r_tax_amt,f_division"
-    + ",s_status,f_office,r_exp_del_date,f_material_id,s_last_request_index,r_order_qty,r_add_discount_amt"
-    + ",s_created_on,r_net_amt,d_material_desc,r_resvered_qty,r_gross_amt,r_cancel_qty"
-    + ",r_shiped_qty,r_discount_amt,s_created_by,r_unit_price,r_pending_qty,s_modified_on"
-    + ",s_object_type,r_approved_qty,s_channel) values ";
-        public string dssor_sales_order_cond = "insert into dssor_sales_order_cond (s_establishment,p_so_item,p_so_id,s_tenant_id,p_condition_type,f_currency,"
-       + "r_cond_amt,r_order_qty,r_pric_date,s_created_by,s_created_on,d_cond_desc,r_cond_cls,f_percentage,channel) values ";
-
-
+        //    public string dssor_sales_order_hdr = " insert into dssor_sales_order_hdr ( s_establishment,p_so_id,s_tenant_id,f_customer_id,f_location,f_currency,f_bill_to,s_modified_by "
+        //             + ",r_insurance_p,r_discount_amt_additional,s_status,r_tax_amt,s_created_on,r_net_amt,f_ship_to"
+        //             + ",r_contact_no,r_gross_amt,r_contact_prsn,r_discount_amt,s_created_by,s_modified_on,f_office,f_order_type,s_object_type,r_remarks,r_exp_del_date"
+        //             + ",r_frieght_p,r_order_date,channel,f_division,r_auto,r_ref_obj_name,r_ref_obj_type,r_price_grp,r_model,r_model_no,s_last_request_index,r_insurance_amt,r_packing_chrgs,r_freight_amt ) values ";
+        //    public string dssor_sales_order_item = "insert into dssor_sales_order_item (s_establishment,p_so_item, p_so_id,s_tenant_id,f_location,s_modified_by,f_uom,r_tax_amt,f_division"
+        //+ ",s_status,f_office,r_exp_del_date,f_material_id,s_last_request_index,r_order_qty,r_add_discount_amt"
+        //+ ",s_created_on,r_net_amt,d_material_desc,r_resvered_qty,r_gross_amt,r_cancel_qty"
+        //+ ",r_shiped_qty,r_discount_amt,s_created_by,r_unit_price,r_pending_qty,s_modified_on"
+        //+ ",s_object_type,r_approved_qty,s_channel) values ";
+        //    public string dssor_sales_order_cond = "insert into dssor_sales_order_cond (s_establishment,p_so_item,p_so_id,s_tenant_id,p_condition_type,f_currency,"
+        //   + "r_cond_amt,r_order_qty,r_pric_date,s_created_by,s_created_on,d_cond_desc,r_cond_cls,f_percentage,channel) values ";
     }
 }

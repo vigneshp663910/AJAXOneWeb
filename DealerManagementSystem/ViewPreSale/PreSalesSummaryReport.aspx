@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PreSalesSummaryReport.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.PreSalesSummaryReport" %>
-
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -29,17 +28,13 @@
                         </div>
                        
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Expected Date Sale  From</label>
-                            <asp:TextBox ID="txtExpectedDateSaleFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                            <label class="modal-label">Date  From</label>
+                            <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Expected Date Sale To</label>
-                            <asp:TextBox ID="txtExpectedDateSaleTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
-                        </div>
-                          <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Qualification</label>
-                            <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-control" />
-                        </div>
+                            <label class="modal-label">Date To</label>
+                            <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
+                        </div> 
   
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
