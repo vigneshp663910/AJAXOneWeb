@@ -460,7 +460,7 @@ namespace Business
         }
 
         public List<PDMS_DealerEmployee> GetDealerEmployeeManage(int? DealerID, string AadhaarCardNo, int? StateID, int? DistrictID
-            , string Name, string SAPEmpCode, Boolean? StatusID,int? DealerDepartmentID, int? DealerDesignationID)
+            , string Name, string SAPEmpCode, Boolean? StatusID, int? DealerDepartmentID, int? DealerDesignationID)
         {
             List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
             try
@@ -740,7 +740,7 @@ namespace Business
             ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
 
-        public List<PDMS_DealerDesignation> GetDealerDesignation(int? DealerDepartmentID, int? DealerDesignationID, string DealerDesignation,int? DealerTypeID)
+        public List<PDMS_DealerDesignation> GetDealerDesignation(int? DealerDepartmentID, int? DealerDesignationID, string DealerDesignation, int? DealerTypeID)
         {
             string endPoint = "Dealer/Designation?DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID
                 + "&DealerDesignation=" + DealerDesignation + "&DealerTypeID=" + DealerTypeID;
@@ -788,7 +788,7 @@ namespace Business
 
         public void GetDealerEmployeeDDL(DropDownList ddl, int? DealerID)
         {
-            List<PDMS_DealerEmployee> Employee = GetDealerEmployeeManage(DealerID, null, null, null, null, null, true,null,null);
+            List<PDMS_DealerEmployee> Employee = GetDealerEmployeeManage(DealerID, null, null, null, null, null, true, null, null);
             ddl.DataValueField = "DealerEmployeeID";
             ddl.DataTextField = "Name";
             ddl.DataSource = Employee;
@@ -1147,7 +1147,7 @@ namespace Business
         {
             ddl.DataValueField = "DID";
             //ddl.DataTextField = "CodeWithName";
-            ddl.DataTextField = "CodeWithDisplayName" ;
+            ddl.DataTextField = "CodeWithDisplayName";
             ddl.DataSource = PSession.User.Dealer;
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "0"));
@@ -1350,7 +1350,7 @@ namespace Business
                                 DealerEmployeeRole = new PDMS_DealerEmployeeRole()
                                 {
                                     DealerDepartment = new PDMS_DealerDepartment() { DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
-                                    DealerDesignation = new PDMS_DealerDesignation() { DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },                                    
+                                    DealerDesignation = new PDMS_DealerDesignation() { DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
                                 }
                             });
                         }
@@ -1384,6 +1384,198 @@ namespace Business
                 return false;
             }
             return true;
+        }
+        public List<PDealerBinLocation> GetDealerBin(int? DealerID, int? OfficeCodeID)
+        {
+            List<PDealerBinLocation> DealerBinLocationList = new List<PDealerBinLocation>();
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter OfficeCodeIDP = provider.CreateParameter("OfficeCodeID", OfficeCodeID, DbType.Int32);
+
+                DbParameter[] Params = new DbParameter[2] { DealerIDP, OfficeCodeIDP };
+
+                using (DataSet DataSet = provider.Select("GetDealerBin", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            DealerBinLocationList.Add(new PDealerBinLocation()
+                            {
+                                DealerBinLocationID = Convert.ToInt32(dr["DealerBinLocationID"]),
+                                BinName = Convert.ToString(dr["BinName"])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
+            return DealerBinLocationList;
+        }
+        public List<PDealerBinLocation> GetDealerBinLocation(int? DealerID, int? OfficeCodeID, int UserID, int? PageIndex, int? PageSize, out int RowCount)
+        {
+            List<PDealerBinLocation> DealerBinLocationList = new List<PDealerBinLocation>();
+            RowCount = 0;
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter OfficeCodeIDP = provider.CreateParameter("OfficeCodeID", OfficeCodeID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
+                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
+
+                DbParameter[] Params = new DbParameter[5] { DealerIDP, OfficeCodeIDP, UserIDP, PageIndexP, PageSizeP };
+
+                using (DataSet DataSet = provider.Select("GetDealerBinLocationHeader", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            DealerBinLocationList.Add(new PDealerBinLocation()
+                            {
+                                DealerBinLocationID = Convert.ToInt32(dr["DealerBinLocationID"]),
+                                BinName = Convert.ToString(dr["BinName"]),
+                                Dealer = new PDealer()
+                                {
+                                    DealerID = Convert.ToInt32(dr["DealerID"]),
+                                    DealerCode = Convert.ToString(dr["DealerCode"]),
+                                    DealerName = Convert.ToString(dr["DisplayName"])
+                                },
+                                DealerOffice = new PDMS_DealerOffice()
+                                {
+                                    OfficeID = Convert.ToInt32(dr["OfficeCodeID"]),
+                                    OfficeCode = Convert.ToString(dr["OfficeCode"]),
+                                    OfficeName = Convert.ToString(dr["OfficeName"])
+                                }
+                            });
+                            RowCount = Convert.ToInt32(dr["RowCount"]);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
+            return DealerBinLocationList;
+        }
+        public List<PDealerBinLocation> GetDealerBinLocationMaterialMappingHeader(int? DealerID, int? OfficeCodeID, int? DealerBinLocationID, string MaterialCode, int UserID, int? PageIndex, int? PageSize, out int RowCount)
+        {
+            List<PDealerBinLocation> DealerBinLocationList = new List<PDealerBinLocation>();
+            RowCount = 0;
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter OfficeCodeIDP = provider.CreateParameter("OfficeCodeID", OfficeCodeID, DbType.Int32);
+                DbParameter DealerBinLocationIDP = provider.CreateParameter("DealerBinLocationID", DealerBinLocationID, DbType.Int32);
+                DbParameter MaterialCodeP = provider.CreateParameter("MaterialCode", MaterialCode, DbType.String);
+                //DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
+                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
+
+                DbParameter[] Params = new DbParameter[7] { DealerIDP, OfficeCodeIDP, DealerBinLocationIDP, MaterialCodeP, UserIDP, PageIndexP, PageSizeP };
+
+                using (DataSet DataSet = provider.Select("GetDealerBinLocationMaterialMappingHeader", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            DealerBinLocationList.Add(new PDealerBinLocation()
+                            {
+                                DealerBinLocationMaterialMappingID = Convert.ToInt32(dr["DealerBinLocationMaterialMappingID"]),
+                                DealerBinLocationID = Convert.ToInt32(dr["DealerBinLocationID"]),
+                                BinName = Convert.ToString(dr["BinName"]),
+                                Dealer = new PDealer()
+                                {
+                                    DealerID = Convert.ToInt32(dr["DealerID"]),
+                                    DealerCode = Convert.ToString(dr["DealerCode"]),
+                                    DealerName = Convert.ToString(dr["DisplayName"])
+                                },
+                                DealerOffice = new PDMS_DealerOffice()
+                                {
+                                    OfficeID = Convert.ToInt32(dr["OfficeCodeID"]),
+                                    OfficeCode = Convert.ToString(dr["OfficeCode"]),
+                                    OfficeName = Convert.ToString(dr["OfficeName"])
+                                },
+                                Material = new PDMS_Material()
+                                {
+                                    MaterialID = Convert.ToInt32(dr["MaterialID"]),
+                                    MaterialCode = Convert.ToString(dr["MaterialCode"]),
+                                    MaterialDescription = Convert.ToString(dr["MaterialDescription"])
+                                }
+                            });
+                            RowCount = Convert.ToInt32(dr["RowCount"]);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx) { throw sqlEx; }
+            catch (Exception ex) { throw ex; }
+            return DealerBinLocationList;
+        }
+        public Boolean InsertOrUpdateDealerBinLocation(PDealerBinLocation pDealerBin, Boolean IsActive, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            Boolean success = false;
+            long DealerBinLocationID = 0;
+            try
+            {
+                DbParameter DealerBinLocationIDP = provider.CreateParameter("DealerBinLocationID", pDealerBin.DealerBinLocationID, DbType.Int32);
+                DbParameter BinNameP = provider.CreateParameter("BinName", pDealerBin.BinName, DbType.String);
+                DbParameter OfficeCodeIDP = provider.CreateParameter("OfficeCodeID", pDealerBin.DealerOffice.OfficeID, DbType.Int32);
+                DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
+                DbParameter[] Params = new DbParameter[6] { DealerBinLocationIDP, BinNameP, OfficeCodeIDP, IsActiveP, UserIDP, OutValue };
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("InsertOrUpdateDealerBinLocation", Params);
+                    scope.Complete();
+                }
+                success = true;
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessage("BDMS_Dealer", "InsertOrUpdateDealerBinLocation", e1);
+                throw e1;
+            }
+            TraceLogger.Log(DateTime.Now);
+            return success;
+        }
+        public Boolean InsertOrUpdateDealerBinLocationMaterialMapping(PDealerBinLocation pDealerBin, Boolean IsActive, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            Boolean success = false;
+            long DealerBinLocationMaterialMappingID = 0;
+            try
+            {
+                DbParameter DealerBinLocationMaterialMappingIDP = provider.CreateParameter("DealerBinLocationMaterialMappingID", pDealerBin.DealerBinLocationMaterialMappingID, DbType.Int64);
+                DbParameter DealerBinLocationIDP = provider.CreateParameter("DealerBinLocationID", pDealerBin.DealerBinLocationID, DbType.Int32);
+                DbParameter OfficeIDP = provider.CreateParameter("OfficeID", pDealerBin.DealerOffice.OfficeID, DbType.Int32);
+                DbParameter MaterialIDP = provider.CreateParameter("MaterialID", pDealerBin.Material.MaterialID, DbType.Int32);
+                DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
+                DbParameter[] Params = new DbParameter[7] { DealerBinLocationMaterialMappingIDP, DealerBinLocationIDP, OfficeIDP, MaterialIDP, IsActiveP, UserIDP, OutValue };
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("InsertOrUpdateDealerBinLocationMaterialMapping", Params);
+                    scope.Complete();
+                }
+                success = true;
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessage("BDMS_Dealer", "InsertOrUpdateDealerBinLocationMaterialMapping", e1);
+                throw e1;
+            }
+            TraceLogger.Log(DateTime.Now);
+            return success;
         }
         public List<PDealer> GetDealerAll(int? DealerID, string DealerCode, int? RegionID, int? DealerTypeID)
         {
