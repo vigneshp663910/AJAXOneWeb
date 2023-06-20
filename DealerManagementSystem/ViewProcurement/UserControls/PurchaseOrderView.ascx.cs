@@ -38,6 +38,23 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         public void fillViewPO(long PurchaseOrderID)
         {
             PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrderByID(PurchaseOrderID);
+
+
+            lblPurchaseOrderNumber.Text = PurchaseOrder.PurchaseOrderNumber;
+            //lblOrderTo.Text = PurchaseOrder.PurchaseOrderTo;
+            lblDivision.Text = PurchaseOrder.Division.DivisionCode;
+            lblRefNo.Text = PurchaseOrder.ReferenceNo;
+
+            lblPurchaseOrderDate.Text = PurchaseOrder.PurchaseOrderDate.ToString();
+            lblOrderType.Text = PurchaseOrder.PurchaseOrderType.PurchaseOrderType;
+            lblReceivingLocation.Text = PurchaseOrder.Location.OfficeName;
+            lblPORemarks.Text = PurchaseOrder.Remarks;
+
+            lblPODealer.Text = PurchaseOrder.Dealer.DealerName;
+            lblPOVendor.Text = PurchaseOrder.Vendor.DealerName;
+            lblExpectedDeliveryDate.Text = PurchaseOrder.ExpectedDeliveryDate.ToString();
+
+
             gvPOItem.DataSource = PurchaseOrder.PurchaseOrderItems;
             gvPOItem.DataBind(); 
             ActionControlMange();
@@ -90,7 +107,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         void ActionControlMange()
         {
-             
+            lbReleasePO.Visible = true;
+            lbEditPO.Visible = true;
+            lbCancelPO.Visible = true;
+
+            int StatusID = PurchaseOrder.PurchaseOrderStatus.PurchaseOrderStatusID;
+            if ((StatusID == 2) || (StatusID == 3))
+            {
+                lbReleasePO.Visible = false;
+                lbEditPO.Visible = false;
+            }
+            else if ((StatusID == 4) || (StatusID == 5) || (StatusID == 6))
+            {
+                lbReleasePO.Visible = false;
+                lbEditPO.Visible = false;
+                lbCancelPO.Visible = false;
+            } 
         }
 
         

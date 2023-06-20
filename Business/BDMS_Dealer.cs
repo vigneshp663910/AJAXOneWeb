@@ -29,6 +29,7 @@ namespace Business
             DbParameter DealerCodeP = provider.CreateParameter("DealerCode", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.String);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
             DbParameter RegionIDP = provider.CreateParameter("RegionID", RegionID, DbType.Int32);
+
             DbParameter[] Params = new DbParameter[4] { DealerIDP, DealerCodeP, UserIDP, RegionIDP };
             try
             {
@@ -1384,6 +1385,10 @@ namespace Business
             }
             return true;
         }
-
+        public List<PDealer> GetDealerAll(int? DealerID, string DealerCode, int? RegionID, int? DealerTypeID)
+        {
+            string endPoint = "Dealer/GetDealerAll?DealerID=" + DealerID + "&DealerCode=" + DealerCode + "&RegionID=" + RegionID + "&DealerTypeID=" + DealerTypeID;
+            return JsonConvert.DeserializeObject<List<PDealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

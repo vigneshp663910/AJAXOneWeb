@@ -3,11 +3,8 @@
 <%@ Register Src="~/ViewPreSale/UserControls/AddEnquiry.ascx" TagPrefix="UC" TagName="UC_AddEnquiry" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
 <%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
-
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
-<%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
-
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+<%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %> 
 
 <div class="col-md-12">
     <div class="action-btn">
@@ -17,11 +14,12 @@
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbReleasePO" runat="server" OnClick="lbActions_Click">Release PO</asp:LinkButton>
                 <asp:LinkButton ID="lbEditPO" runat="server" OnClick="lbActions_Click">Edit PO</asp:LinkButton>
-                <asp:LinkButton ID="lbCancelPO" runat="server" OnClick="lbActions_Click">Cancel PO</asp:LinkButton> 
+                <asp:LinkButton ID="lbCancelPO" runat="server" OnClick="lbActions_Click">Cancel PO</asp:LinkButton>
             </div>
         </div>
     </div>
 </div>
+
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Enquiry Details</legend>
@@ -29,22 +27,58 @@
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>PO Number : </label>
-                    <asp:Label ID="lblPONumber" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblPurchaseOrderNumber" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>PO Date : </label>
-                    <asp:Label ID="lblPODate" runat="server" CssClass="label"></asp:Label>
+                    <label>Order To : </label>
+                    <asp:Label ID="lblOrderTo" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Division : </label>
+                    <asp:Label ID="lblDivision" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Ref No : </label>
+                    <asp:Label ID="lblRefNo" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>PO Date : </label>
+                    <asp:Label ID="lblPurchaseOrderDate" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Order Type : </label>
+                    <asp:Label ID="lblOrderType" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Receiving Location : </label>
+                    <asp:Label ID="lblReceivingLocation" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Remarks : </label>
+                    <asp:Label ID="lblPORemarks" runat="server" CssClass="label"></asp:Label>
+                </div>
             </div>
             <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Dealer : </label>
+                    <asp:Label ID="lblPODealer" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Vendor : </label>
+                    <asp:Label ID="lblPOVendor" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Expected Delivery Date : </label>
+                    <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="label"></asp:Label>
+                </div>
             </div>
         </div>
     </fieldset>
 </div>
 
-<asp:Label ID="Label1" runat="server" Text="" CssClass="message" />
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <asp1:TabContainer ID="tbpEnquiry" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
     <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="PO Item" Font-Bold="True" ToolTip="">
         <ContentTemplate>
@@ -136,7 +170,7 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Status">
                                         <ItemTemplate>
-                                            <asp:Button ID="btnCancelPoItem" runat="server" Text="Cancel" CssClass="btn Back" OnClick="btnCancelPoItem_Click"   Width="75px" Height="25px" />
+                                            <asp:Button ID="btnCancelPoItem" runat="server" Text="Cancel" CssClass="btn Back" OnClick="btnCancelPoItem_Click" Width="75px" Height="25px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>

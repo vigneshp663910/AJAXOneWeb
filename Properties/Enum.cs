@@ -480,6 +480,8 @@ namespace Properties
         ViewAdmin_DealerServiceConfiguration = 235,
         ViewAdmin_UserAccessManagement = 236,
         ViewMaster_DealerBinLocation = 237,
+        ViewService_ICTicketMarginWarrantyReport = 238,
+        ViewService_ICTicketMarginWarrantyApproval = 239
     }
     public enum SubModuleChildMaster
     {

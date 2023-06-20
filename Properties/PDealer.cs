@@ -216,6 +216,7 @@ namespace Properties
         public string ApiPassword { get; set; }
 
         public PEInvUserAPI EInvUserAPI { get; set; }
+        public PDealerType DealerType { get; set; }
     }
     [Serializable] 
     public class PDealerStateMappingID
@@ -302,5 +303,11 @@ namespace Properties
         public PDealer Dealer { get; set; }
         public PDMS_DealerOffice DealerOffice { get; set; }
         public PDMS_Material Material { get; set; }
+    }
+    [Serializable]
+    public class PDealerType
+    {
+        public int DealerTypeID { get; set; } 
+        public string DealerType { get; set; } 
     }
 }

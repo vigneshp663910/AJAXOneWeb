@@ -607,7 +607,9 @@
     <Content Include="ViewService\ICTicketCreate.aspx" />
     <Content Include="ViewService\ICTicketFSRManage.aspx" />
     <Content Include="ViewService\ICTicketManage.aspx" />
+    <Content Include="ViewService\ICTicketMarginWarrantyApproval.aspx" />
     <Content Include="ViewService\ICTicketMarginWarrantyChange.aspx" />
+    <Content Include="ViewService\ICTicketMarginWarrantyReport.aspx" />
     <Content Include="ViewService\ICTicketReachedDateChange.aspx" />
     <Content Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx" />
     <Content Include="ViewService\ICTicketStatusReport.aspx" />
@@ -2439,12 +2441,26 @@
     <Compile Include="ViewService\ICTicketManage.aspx.designer.cs">
       <DependentUpon>ICTicketManage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewService\ICTicketMarginWarrantyApproval.aspx.cs">
+      <DependentUpon>ICTicketMarginWarrantyApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\ICTicketMarginWarrantyApproval.aspx.designer.cs">
+      <DependentUpon>ICTicketMarginWarrantyApproval.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewService\ICTicketMarginWarrantyChange.aspx.cs">
       <DependentUpon>ICTicketMarginWarrantyChange.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketMarginWarrantyChange.aspx.designer.cs">
       <DependentUpon>ICTicketMarginWarrantyChange.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\ICTicketMarginWarrantyReport.aspx.cs">
+      <DependentUpon>ICTicketMarginWarrantyReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\ICTicketMarginWarrantyReport.aspx.designer.cs">
+      <DependentUpon>ICTicketMarginWarrantyReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketReachedDateChange.aspx.cs">
       <DependentUpon>ICTicketReachedDateChange.aspx</DependentUpon>

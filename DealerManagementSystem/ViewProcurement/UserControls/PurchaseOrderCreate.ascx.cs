@@ -45,19 +45,19 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblMessage.Text = string.Empty;
         }
         public void FillMaster()
         {
             fillDealer();
-             new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
-            fillVendor();
+            new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
+            fillVendor(ddlOrderTo.SelectedValue);
+            fillPurchaseOrderType(ddlOrderTo.SelectedValue);
             // new DDLBind(ddlVendor, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
-           // new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID");
+            // new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID");
             //ddlDealerOffice
             Clear();
             fillItem();
-            fillPurchaseOrderType();
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -107,12 +107,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         public PPurchaseOrder_Insert Read()
         {
             PPurchaseOrder_Insert PO = new PPurchaseOrder_Insert();
-            PO.DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-            PO.DealerOfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
-            PO.PurchaseOrderToID = Convert.ToInt32(ddlOrderTo.SelectedValue);
-            PO.VendorID = Convert.ToInt32(ddlVendor.SelectedValue);
-            PO.PurchaseOrderTypeID = Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);
-            PO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
+            PO.DealerID = Convert.ToInt32(ddlDealer.SelectedValue);       
+            PO.DealerOfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);            PO.PurchaseOrderToID = Convert.ToInt32(ddlOrderTo.SelectedValue);
+            PO.VendorID = Convert.ToInt32(ddlVendor.SelectedValue);            PO.PurchaseOrderTypeID = Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);            PO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
             PO.ReferenceNo = txtReferenceNo.Text.Trim();
             PO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
             PO.Remarks = txtRemarks.Text.Trim(); 
@@ -187,19 +184,19 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         void fillDealer()
         {
-            ddlDealer.DataTextField = "CodeWithName";
+            ddlDealer.DataTextField = "CodeWithDisplayName";
             ddlDealer.DataValueField = "DID";
-            ddlDealer.DataSource = PSession.User.Dealer;
+            ddlDealer.DataSource = PSession.User.Dealer.Where(m => m.DealerType.DealerTypeID == 2);
             ddlDealer.DataBind();
-            ddlDealer.Items.Insert(0, new ListItem("All", "0"));
+            //ddlDealer.Items.Insert(0, new ListItem("All", "0"));
         }
-        void fillVendor()
+        void fillVendor(string OrderTo)
         {
-            ddlVendor.DataTextField = "CodeWithName";
-            ddlVendor.DataValueField = "DID";
-            ddlVendor.DataSource = PSession.User.Dealer;
+            ddlVendor.DataTextField = "CodeWithDisplayName";
+            ddlVendor.DataValueField = "DealerID";
+            ddlVendor.DataSource = new BDMS_Dealer().GetDealerAll(null, null, null, OrderTo == "1" ? 1 : 2);
             ddlVendor.DataBind();
-            ddlVendor.Items.Insert(0, new ListItem("All", "0"));
+            ddlVendor.Items.Insert(0, new ListItem("Select", "0"));
         }
         void fillItem()
         {  
@@ -220,8 +217,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
 
         protected void btnAddMaterial_Click(object sender, EventArgs e)
-        { 
-           
+        {
+            //if (PO_Insert.PurchaseOrderItems == null)
+            //{
+            //    PO_Insert.PurchaseOrderItems = new List<PPurchaseOrderItem_Insert>();
+            //}
+
             lblMessage.ForeColor = Color.Red;
             lblMessage.Visible = true;
             string Message = Validation();
@@ -236,13 +237,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.Text = Message;
                 return;
             }
-            if (PO_Insert.PurchaseOrderItems == null)
-            {
-                PO_Insert.PurchaseOrderItems = new List<PPurchaseOrderItem_Insert>();
-            }
+           
 
             PPurchaseOrderItem_Insert PoI = ReadItem();
-            PO_Insert.PurchaseOrderItems.Add(PoI);
+      
+            //PO_Insert.PurchaseOrderItems.Add(PoI);
 
             string Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
             string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
@@ -265,6 +264,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PoI.IGSTValue = Mat.IGSTValue;
 
             PurchaseOrderItem_Insert.Add(PoI);
+            PoI.Item = PurchaseOrderItem_Insert.Count * 10;
             fillItem();
             ClearItem();
         }
@@ -307,17 +307,18 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void ddlOrderTo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            fillPurchaseOrderType();
+            fillVendor(ddlOrderTo.SelectedValue);
+            fillPurchaseOrderType(ddlOrderTo.SelectedValue); 
         }
 
-        void fillPurchaseOrderType()
+        void fillPurchaseOrderType(string OrderTo)
         {
             ddlPurchaseOrderType.Items.Clear();
             ddlPurchaseOrderType.DataTextField = "PurchaseOrderType";
             ddlPurchaseOrderType.DataValueField = "PurchaseOrderTypeID";
             ddlPurchaseOrderType.Items.Insert(0, new ListItem("Select", "0"));
 
-            if (ddlOrderTo.SelectedValue == "1")
+            if (OrderTo == "1")
             {
                 ddlPurchaseOrderType.Items.Insert(1, new ListItem("Stock Order", "1"));
                 ddlPurchaseOrderType.Items.Insert(2, new ListItem("Emergency Order", "2"));
@@ -359,11 +360,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 return "Please enter the Qty";
             }
+
+            foreach(PPurchaseOrderItem_Insert Item in PurchaseOrderItem_Insert)
+            {
+                if(Item.MaterialID == Convert.ToInt32(hdfMaterialID.Value))
+                {
+                    return "Material already available.";
+                }
+            }
+
             decimal value;
             if (!decimal.TryParse(txtQty.Text, out value))
             {
                 return "Please enter correct format in Qty";
             }
+
             return "";
         }
 
@@ -382,6 +393,43 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.Text = Result.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
+        }
+
+        protected void lnkBtnPoItemDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblMessage.Visible = true;
+                LinkButton lnkBtnCountryDelete = (LinkButton)sender;
+                GridViewRow row = (GridViewRow)(lnkBtnCountryDelete.NamingContainer);
+                string Material = ((Label)row.FindControl("lblMaterial")).Text.Trim();
+
+                int i = 0;
+                foreach (PPurchaseOrderItem_Insert Item in PurchaseOrderItem_Insert)
+                {
+                    if (Item.MaterialCode == Material)
+                    {
+                        PurchaseOrderItem_Insert.RemoveAt(i);
+                        lblMessage.Text = "Material Removed successfully";
+                        lblMessage.ForeColor = Color.Green;
+                        int ItemNo = 0;
+                        foreach (PPurchaseOrderItem_Insert ItemN in PurchaseOrderItem_Insert)
+                        {
+                            ItemNo = ItemNo + 10;
+                            ItemN.Item = ItemNo;
+                        }
+                        fillItem();
+                        return;
+                    }
+                    i = i + 1;
+                } 
+                lblMessage.Text = "Please Contact admin."; 
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString(); 
+            }
+            lblMessage.ForeColor = Color.Red;
         }
     }
 }
