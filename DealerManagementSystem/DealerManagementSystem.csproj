@@ -296,6 +296,7 @@
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="ProcessFlow\DMM_Process.aspx" />
     <Content Include="ProcessFlow\DMM_Process.png" />
+    <Content Include="ProcessFlow\NewIT_Project.png" />
     <Content Include="ProcessFlow\Parts_Org1.png" />
     <Content Include="ProcessFlow\Pre_Sales.aspx" />
     <Content Include="ProcessFlow\Pre_Sales1.png" />

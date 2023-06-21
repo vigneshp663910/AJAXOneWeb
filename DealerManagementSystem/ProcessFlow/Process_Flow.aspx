@@ -125,6 +125,14 @@
             </ContentTemplate>
         </asp1:TabPanel>
 
+        <asp1:TabPanel ID="tpNewITProject" runat="server" HeaderText="Pre IT Project">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:Image ID="Image13" runat="server" ImageUrl="~/ProcessFlow/NewIT_Project.png" />
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+
 
     </asp1:TabContainer>
     <%--    </div>--%>
