@@ -44,7 +44,7 @@
                         </div>
                     </div>
                 </div>
-                <asp:GridView ID="gvGr" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" AllowPaging="true" PageSize="2" EmptyDataText="No Data Found"
+                <asp:GridView ID="gvGr" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" AllowPaging="true" PageSize="10" EmptyDataText="No Data Found"
                     DataKeyNmes="GRItem.GrItemID" OnPageIndexChanging="gvGr_PageIndexChanging">
                     <Columns>
                         <asp:TemplateField HeaderText="Select GR">

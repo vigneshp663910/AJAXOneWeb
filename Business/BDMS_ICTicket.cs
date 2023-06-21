@@ -1563,5 +1563,117 @@ namespace Business
             string endPoint = "ICTicket/CustomerFeedback?ICTicketID=" + ICTicketID;
             return JsonConvert.DeserializeObject<PICTicketCustomerFeedback>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public DataTable GetMarginWarrantyChange(int? DealerID, DateTime? MarginWarrantyChangeRequestedFrom, DateTime? MarginWarrantyChangeRequestedTo, string ICTicketNumber, bool? IsApproved, int UserID, int? PageIndex, int? PageSize, out int RowCount)
+        {
+            TraceLogger.Log(DateTime.Now);
+            RowCount = 0;
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter MarginWarrantyChangeRequestedFromP = provider.CreateParameter("MarginWarrantyChangeRequestedFrom", MarginWarrantyChangeRequestedFrom, DbType.DateTime);
+                DbParameter MarginWarrantyChangeRequestedToP = provider.CreateParameter("MarginWarrantyChangeRequestedTo", MarginWarrantyChangeRequestedTo, DbType.DateTime);
+
+                DbParameter ICTicketNumberP;
+                if (!string.IsNullOrEmpty(ICTicketNumber))
+                    ICTicketNumberP = provider.CreateParameter("ICTicketNumber", ICTicketNumber, DbType.String);
+                else
+                    ICTicketNumberP = provider.CreateParameter("ICTicketNumber", null, DbType.String);
+                DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Boolean);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
+                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
+
+                DbParameter[] Params = new DbParameter[8] { DealerIDP, MarginWarrantyChangeRequestedFromP, MarginWarrantyChangeRequestedToP, ICTicketNumberP, IsApprovedP, UserIDP, PageIndexP, PageSizeP };
+
+
+                using (DataSet DataSet = provider.Select("GetMarginWarrantyChange", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        if (DataSet.Tables[0].Rows.Count > 0)
+                        {
+                            RowCount = Convert.ToInt32(DataSet.Tables[0].Rows[0]["RowCount"]);
+                        }
+                        return DataSet.Tables[0];
+                    }
+                }
+                return null;
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
+        }
+        public DataTable GetMarginWarrantyChangeForApproval(int? DealerID, DateTime? MarginWarrantyChangeRequestedFrom, DateTime? MarginWarrantyChangeRequestedTo, string ICTicketNumber, int UserID, int? PageIndex, int? PageSize, out int RowCount)
+        {
+            TraceLogger.Log(DateTime.Now);
+            RowCount = 0;
+            try
+            {
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter MarginWarrantyChangeRequestedFromP = provider.CreateParameter("MarginWarrantyChangeRequestedFrom", MarginWarrantyChangeRequestedFrom, DbType.DateTime);
+                DbParameter MarginWarrantyChangeRequestedToP = provider.CreateParameter("MarginWarrantyChangeRequestedTo", MarginWarrantyChangeRequestedTo, DbType.DateTime);
+
+                DbParameter ICTicketNumberP;
+                if (!string.IsNullOrEmpty(ICTicketNumber))
+                    ICTicketNumberP = provider.CreateParameter("ICTicketNumber", ICTicketNumber, DbType.String);
+                else
+                    ICTicketNumberP = provider.CreateParameter("ICTicketNumber", null, DbType.String);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
+                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
+
+                DbParameter[] Params = new DbParameter[7] { DealerIDP, MarginWarrantyChangeRequestedFromP, MarginWarrantyChangeRequestedToP, ICTicketNumberP, UserIDP, PageIndexP, PageSizeP };
+
+
+                using (DataSet DataSet = provider.Select("GetMarginWarrantyChangeForApproval", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        if (DataSet.Tables[0].Rows.Count > 0)
+                        {
+                            RowCount = Convert.ToInt32(DataSet.Tables[0].Rows[0]["RowCount"]);
+                        }
+                        return DataSet.Tables[0];
+                    }
+                }
+                return null;
+                TraceLogger.Log(DateTime.Now);
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return null;
+        }
+        public Boolean ApproveOrRejectMarginWarrantyChange(long MarginWarrantyChangeID, long ICTicketID, int ApprovedBy, Boolean IsApproved)
+        {
+            try
+            {
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    DbParameter MarginWarrantyChangeIDP = provider.CreateParameter("MarginWarrantyChangeID", MarginWarrantyChangeID, DbType.Int64);
+                    DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
+                    DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Boolean);
+                    DbParameter ApprovedByP = provider.CreateParameter("ApprovedBy", ApprovedBy, DbType.Int32);
+                    DbParameter[] Paramss = new DbParameter[4] { MarginWarrantyChangeIDP, ICTicketIDP, IsApprovedP, ApprovedByP };
+                    provider.Insert("ApproveOrRejectMarginWarrantyChange", Paramss);
+                    scope.Complete();
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", "ApproveOrRejectMarginWarrantyChange", sqlEx);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", " ApproveOrRejectMarginWarrantyChange", ex);
+                return false;
+            }
+            return true;
+        }
     }
 }

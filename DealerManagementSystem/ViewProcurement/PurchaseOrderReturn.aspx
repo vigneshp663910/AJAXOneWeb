@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <asp:GridView ID="gvPoReturn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="1" EmptyDataText="No Data Found">
+                        <asp:GridView ID="gvPoReturn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found">
                             <Columns>
                                 <asp:TemplateField HeaderText="PO Return Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />

@@ -207,7 +207,7 @@ namespace DealerManagementSystem.ViewProcurement
                 return;
             }
             List<PPurchaseOrderReturnItem_Insert> pGrItem = UC_PurchaseOrderReturnCreate.Read(); 
-            string result = new BAPI().ApiPut("Sne", pGrItem);
+            string result = new BAPI().ApiPut("PurchaseOrder/PurchaseOrderRetureCreate", pGrItem);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
             if (Result.Status == PApplication.Failure)
