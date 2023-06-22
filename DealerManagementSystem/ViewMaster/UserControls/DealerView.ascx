@@ -103,20 +103,20 @@
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Dealer Code :</label>
-                    <asp:Label ID="lblDealerCode" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDealerCode" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Email : </label>
-                    <asp:Label ID="lblEmail" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblEmail" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
 
                 <div class="col-md-12">
                     <label>State : </label>
-                    <asp:Label ID="lblDealerState" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDealerState" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>IFSC Code : </label>
-                    <asp:Label ID="lblIFSCCode" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblIFSCCode" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
 
                 <%--<div class="col-md-12">
@@ -127,20 +127,20 @@
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Dealer Name : </label>
-                    <asp:Label ID="lblDealerName" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDealerName" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
 
                 <div class="col-md-12">
                     <label>Country : </label>
-                    <asp:Label ID="lblDealerCountry" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDealerCountry" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Bank : </label>
-                    <asp:Label ID="lblDealerBank" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDealerBank" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Account Number : </label>
-                    <asp:Label ID="lblAccountNo" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblAccountNo" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
 
                 <%--<div class="col-md-12">
@@ -151,15 +151,15 @@
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Mobile : </label>
-                    <asp:Label ID="lblMobile" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblMobile" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Region : </label>
-                    <asp:Label ID="lblDealerRegion" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDealerRegion" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Branch : </label>
-                    <asp:Label ID="lblDealerBankBranch" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDealerBankBranch" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Active : </label>

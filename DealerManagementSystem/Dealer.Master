@@ -123,7 +123,15 @@
         }
     </style>
 
-
+    <style>
+        .LabelValue {
+            color: blue;
+            font-weight: bold;
+            padding-left: 5px;
+            font-family: ui-sans-serif;
+            font-size: 17px;
+        }
+    </style>
 
     <style>
         .col-md-12 {

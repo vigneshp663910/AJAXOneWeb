@@ -361,19 +361,21 @@ namespace Properties
 
 
 
-
+    [Serializable]
     public class PPurchaseOrderReturnItem_Insert
     {
         public long GrID { get; set; }
         public long GrItemID { get; set; }
         public string Remarks { get; set; }
     }
+    [Serializable]    
     public class PPurchaseOrderReturnStatus
     {
         public int PurchaseOrderReturnStatusID { get; set; }
         public string PurchaseOrderReturnStatusCode { get; set; }
         public string PurchaseOrderReturnStatusDescription { get; set; }
     }
+    [Serializable]
     public class PPurchaseOrderReturn
     {
         public long PurchaseOrderReturnID { get; set; }
@@ -384,6 +386,7 @@ namespace Properties
         public PPurchaseOrderReturnItem PurchaseOrderReturnItem { get; set; }
         public List<PPurchaseOrderReturnItem> PurchaseOrderReturnItems { get; set; }
     }
+    [Serializable]
     public class PPurchaseOrderReturnItem
     {
         public long PurchaseOrderReturnID { get; set; }

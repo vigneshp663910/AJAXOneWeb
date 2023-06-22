@@ -204,6 +204,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             gvTechnician.DataSource = SDMS_ICTicket.Technicians;
             gvTechnician.DataBind();
             // FillTechnicians();
+            FillReached();
             FillCallInformation();
             FillFSR();
             fillICTicketAttachedFile();
@@ -226,6 +227,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             ActionControlMange();
 
         }
+       
         public void FillBasicInformation()
         {
             lblICTicket.Text = SDMS_ICTicket.ICTicketNumber + " - " + SDMS_ICTicket.ICTicketDate;
@@ -256,16 +258,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         //    gvTechnician.DataSource = SDMS_Technicians;
         //    gvTechnician.DataBind();
         //}
-        private void FillCallInformation()
+
+        private void FillReached()
         {
             lblLocation.Text = SDMS_ICTicket.Location;
             if (SDMS_ICTicket.DealerOffice != null)
-                lblDealerOffice.Text = SDMS_ICTicket.DealerOffice.OfficeName_OfficeCode;
-
-
-            lblDepartureDate.Text = SDMS_ICTicket.DepartureDate == null ? "" : ((DateTime)SDMS_ICTicket.DepartureDate).ToString();
-
-
+                lblDealerOffice.Text = SDMS_ICTicket.DealerOffice.OfficeName_OfficeCode; 
+            lblDepartureDate.Text = SDMS_ICTicket.DepartureDate == null ? "" : ((DateTime)SDMS_ICTicket.DepartureDate).ToString(); 
             lblReachedDate.Text = SDMS_ICTicket.ReachedDate == null ? "" : ((DateTime)SDMS_ICTicket.ReachedDate).ToString();
 
             if (SDMS_ICTicket.ServiceType != null)
@@ -296,8 +295,10 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblServicePriority.Text = SDMS_ICTicket.ServicePriority.ServicePriority;
             lblHMRValue.Text = "Current HMR Value" + " ( " + SDMS_ICTicket.Equipment.EquipmentModel.Division.UOM + " ) ";
             lblHMRDate.Text = SDMS_ICTicket.CurrentHMRDate == null ? "" : ((DateTime)SDMS_ICTicket.CurrentHMRDate).ToShortDateString();
-            lblHMRValue.Text = Convert.ToString(SDMS_ICTicket.CurrentHMRValue);
-
+            lblHMRValue.Text = Convert.ToString(SDMS_ICTicket.CurrentHMRValue); 
+        }
+        private void FillCallInformation()
+        {  
             if (SDMS_ICTicket.MainApplication != null)
             {
                 lblMainApplication.Text = SDMS_ICTicket.MainApplication.MainApplication;
@@ -785,6 +786,44 @@ namespace DealerManagementSystem.ViewService.UserControls
                 ShowMessage(Results);
                 FillICTicket(SDMS_ICTicket.ICTicketID);
             }
+            else if (lbActions.Text == "Margin Warranty Request")
+            {
+                lblMessageMarginWarrantyChange.Text = "";
+                lblMessageMarginWarrantyChange.Visible = false;
+                txtMarginRemark.Text = "";
+                MPE_MarginWarrantyChange.Show();
+
+            }
+
+            else if (lbActions.Text == "Margin Warranty Approve")
+            {
+                if (new BDMS_ICTicket().ApproveOrRejectMarginWarrantyChange( SDMS_ICTicket.ICTicketID, PSession.User.UserID, true,""))
+                {
+                    lblMessage.Text = "Margin Warrranty approved.";
+                    lblMessage.ForeColor = Color.Green;
+                    FillICTicket(SDMS_ICTicket.ICTicketID);
+                }
+                else
+                {
+                    lblMessage.Text = "Margin Warrranty not approved.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+            }
+            else if (lbActions.Text == "Margin Warranty Reject")
+            {
+                if (new BDMS_ICTicket().ApproveOrRejectMarginWarrantyChange(SDMS_ICTicket.ICTicketID, PSession.User.UserID, false, ""))
+                {
+                    lblMessage.Text = "Margin Warrranty rejected.";
+                    lblMessage.ForeColor = Color.Green;
+                    FillICTicket(SDMS_ICTicket.ICTicketID);
+                }
+                else
+                {
+                    lblMessage.Text = "Margin Warrranty not rejected.";
+                    lblMessage.ForeColor = Color.Red;
+                }
+            }
+
         }
         protected void btnSaveAssignSE_Click(object sender, EventArgs e)
         {
@@ -1848,7 +1887,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblArrivalBackDate.Text = SDMS_ICTicket.ArrivalBack == null ? "" : ((DateTime)SDMS_ICTicket.ArrivalBack).ToString();
 
             if (SDMS_ICTicket.CustomerSatisfactionLevel != null)
-                lblCustomerSatisfactionLevel.Text = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevelID.ToString();
+                lblCustomerSatisfactionLevel.Text = SDMS_ICTicket.CustomerSatisfactionLevel.CustomerSatisfactionLevel;
 
             lblCustomerRemarks.Text = SDMS_ICTicketFSR.CustomerRemarks;
 
@@ -1904,7 +1943,10 @@ namespace DealerManagementSystem.ViewService.UserControls
             lbtnDeclineApprove.Visible = true;
             lbtnDeclineReject.Visible = true;
 
-            lbtnMarginWarrantyChange.Visible = true;
+            lbtnMarginWarrantyRequest.Visible = true;
+            lbtnMarginWarrantyApprove.Visible = true;
+            lbtnMarginWarrantyReject.Visible = true;
+
             lbtnRequestDateChange.Visible = true;
             // lbtnDeviatedICTicketRequest60Days.Visible = true;
             //   lbtnDeviatedICTicketRequestCommissioning.Visible = true;
@@ -1931,7 +1973,10 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnMaterialClaim.Visible = false;
                 lbtnMaterialQuotation.Visible = false;
 
-                lbtnMarginWarrantyChange.Visible = false;
+                lbtnMarginWarrantyRequest.Visible = false;
+                lbtnMarginWarrantyApprove.Visible = false;
+                lbtnMarginWarrantyReject.Visible = false;
+
                 lbtnRequestDateChange.Visible = false;
                 lbtnAddNotes.Visible = false;
             }
@@ -1948,7 +1993,9 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             if (SDMS_ICTicket.IsMarginWarranty) 
             {
-                lbtnMarginWarrantyChange.Visible = false;
+                lbtnMarginWarrantyRequest.Visible = false;
+                lbtnMarginWarrantyApprove.Visible = false;
+                lbtnMarginWarrantyReject.Visible = false;
             }
 
             if (!SDMS_ICTicket.ServiceType.IsMaterialRequired)
@@ -2029,7 +2076,11 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtAddTechnicianWork.Visible = false;
                 lbtnRestore.Visible = false;
                 lbtnRequestForDecline.Visible = false;
-                lbtnMarginWarrantyChange.Visible = false;
+
+                lbtnMarginWarrantyRequest.Visible = false;
+                lbtnMarginWarrantyApprove.Visible = false;
+                lbtnMarginWarrantyReject.Visible = false;
+
                 lbtnRequestDateChange.Visible = false;
             }
             else if ((SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Declined) || (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.ReqDeclined))
@@ -2054,7 +2105,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnMaterialClaim.Visible = false;
                 lbtnMaterialQuotation.Visible = false;
                 lbtnRequestForDecline.Visible = false;
-                lbtnMarginWarrantyChange.Visible = false;
+                lbtnMarginWarrantyRequest.Visible = false;
+                lbtnMarginWarrantyApprove.Visible = false;
+                lbtnMarginWarrantyReject.Visible = false;
                 lbtnRequestDateChange.Visible = false;
             }
 
@@ -2110,7 +2163,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lbtnRestore.Visible = false;
 
                     lbtnRequestForDecline.Visible = false;
-                    lbtnMarginWarrantyChange.Visible = false;
+                    lbtnMarginWarrantyRequest.Visible = false;
+                    lbtnMarginWarrantyApprove.Visible = false;
+                    lbtnMarginWarrantyReject.Visible = false;
                     lbtnRequestDateChange.Visible = false;
                 }
                 if (!string.IsNullOrEmpty(SC.QuotationNumber))
@@ -2141,7 +2196,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lbtnRestore.Visible = false;
 
                     lbtnRequestForDecline.Visible = false;
-                    lbtnMarginWarrantyChange.Visible = false;
+                    lbtnMarginWarrantyRequest.Visible = false;
+                    lbtnMarginWarrantyApprove.Visible = false;
+                    lbtnMarginWarrantyReject.Visible = false;
                     lbtnRequestDateChange.Visible = false;
 
                 }
@@ -2159,10 +2216,13 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 lbtnRequestForDecline.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.MarginWarrantyChange).Count() == 0)
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.MarginWarrantyRequest).Count() == 0)
             {
-                lbtnMarginWarrantyChange.Visible = false;
+                lbtnMarginWarrantyRequest.Visible = false;
             }
+
+  
+
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.RequestDateChange).Count() == 0)
             {
                 lbtnRequestDateChange.Visible = false;
@@ -2214,6 +2274,23 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
           
             HttpContext.Current.Session["ServiceTypeID"] =   SDMS_ICTicket.ServiceType.ServiceTypeID;
+
+
+            // Validation Based on Sub Module Permission
+            if ((PSession.User.DMSModules.Where(m => m.ModuleMasterID == (short)DMS_MenuMain.Service).Count() != 0))
+            {
+                List<PSubModuleAccess> sub = PSession.User.DMSModules.Find(m => m.ModuleMasterID == (short)DMS_MenuMain.Service).SubModuleAccess;
+                if ((sub.Where(m => m.SubModuleMasterID == (short)SubModule.ViewService_ICTicketMarginWarrantyApproval).Count() == 0))
+                {
+                    lbtnMarginWarrantyApprove.Visible = false;
+                    lbtnMarginWarrantyReject.Visible = false;
+                }
+            }
+            else
+            {
+                lbtnMarginWarrantyApprove.Visible = false;
+                lbtnMarginWarrantyReject.Visible = false;
+            }
 
             ControlBaseOn60Days();
         }

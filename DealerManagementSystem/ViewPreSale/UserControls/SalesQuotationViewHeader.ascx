@@ -5,59 +5,59 @@
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Ref Quotation No : </label>
-                    <asp:Label ID="lblRefQuotationNo" runat="server"></asp:Label>
+                    <asp:Label ID="lblRefQuotationNo" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Ref Quotation Date : </label>
-                    <asp:Label ID="lblRefQuotationDate" runat="server"></asp:Label>
+                    <asp:Label ID="lblRefQuotationDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Sap Quotation Number : </label>
-                    <asp:Label ID="lblSapQuotationNumber" runat="server"></asp:Label>
+                    <asp:Label ID="lblSapQuotationNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Sap Quotation Date : </label>
-                    <asp:Label ID="lblSapQuotationDate" runat="server"></asp:Label>
+                    <asp:Label ID="lblSapQuotationDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Parts Quotation Number : </label>
-                    <asp:Label ID="lblPgQuotationNumber" runat="server"></asp:Label>
+                    <asp:Label ID="lblPgQuotationNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Parts Quotation Date : </label>
-                    <asp:Label ID="lblPgQuotationDate" runat="server"></asp:Label>
+                    <asp:Label ID="lblPgQuotationDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Quotation Type : </label>
-                    <asp:Label ID="lblQuotationType" runat="server"></asp:Label>
+                    <asp:Label ID="lblQuotationType" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Quotation Status : </label>
-                    <asp:Label ID="lblQuotationStatus" runat="server"></asp:Label>
+                    <asp:Label ID="lblQuotationStatus" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Valid From : </label>
-                    <asp:Label ID="lblValidFrom" runat="server"></asp:Label>
+                    <asp:Label ID="lblValidFrom" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Valid To : </label>
-                    <asp:Label ID="lblValidTo" runat="server"></asp:Label>
+                    <asp:Label ID="lblValidTo" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Pricing Date : </label>
-                    <asp:Label ID="lblPricingDate" runat="server"></asp:Label>
+                    <asp:Label ID="lblPricingDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Price Group : </label>
-                    <asp:Label ID="lblPriceGroup" runat="server"></asp:Label>
+                    <asp:Label ID="lblPriceGroup" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>User Status : </label>
-                    <asp:Label ID="lblUserStatus" runat="server"></asp:Label>
+                    <asp:Label ID="lblUserStatus" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
            <%-- <div class="col-md-4">

@@ -1648,17 +1648,17 @@ namespace Business
             { }
             return null;
         }
-        public Boolean ApproveOrRejectMarginWarrantyChange(long MarginWarrantyChangeID, long ICTicketID, int ApprovedBy, Boolean IsApproved)
+        public Boolean ApproveOrRejectMarginWarrantyChange(  long ICTicketID, int ApprovedBy, Boolean IsApproved,string ApproverRemarks)
         {
             try
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    DbParameter MarginWarrantyChangeIDP = provider.CreateParameter("MarginWarrantyChangeID", MarginWarrantyChangeID, DbType.Int64);
+                { 
                     DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
                     DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Boolean);
                     DbParameter ApprovedByP = provider.CreateParameter("ApprovedBy", ApprovedBy, DbType.Int32);
-                    DbParameter[] Paramss = new DbParameter[4] { MarginWarrantyChangeIDP, ICTicketIDP, IsApprovedP, ApprovedByP };
+                    DbParameter ApproverRemarksP = provider.CreateParameter("ApproverRemarks", ApproverRemarks, DbType.String);
+                    DbParameter[] Paramss = new DbParameter[4] { ICTicketIDP, IsApprovedP, ApprovedByP, ApproverRemarksP };
                     provider.Insert("ApproveOrRejectMarginWarrantyChange", Paramss);
                     scope.Complete();
                 }

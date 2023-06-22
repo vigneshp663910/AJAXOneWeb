@@ -527,7 +527,7 @@ namespace Properties
         ApproveExpiryDateChange,
         LeadAjax,
         RequestForDecline = 42,
-        MarginWarrantyChange,
+        MarginWarrantyRequest,
         RequestDateChange,
         ICTicketUnlock,
         AddServiceEngineer,
@@ -551,7 +551,7 @@ namespace Properties
         ICTicketUnblock,
         DealerNotificationAdd,
         DealerBankDetailsEdit,
-        DealerResponsibleUserEdit,
+        DealerResponsibleUserEdit, 
     }
     public enum DMS_WarrantyClaimStatus
     {

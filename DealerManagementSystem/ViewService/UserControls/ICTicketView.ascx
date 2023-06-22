@@ -94,6 +94,27 @@
         else
             return false;
     }
+
+
+
+
+    function ConfirmApprMarginWarrantyChg() {
+        var x = confirm("Are you sure you want to approve the Margin Warranty Change?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmRejMarginWarrantyChg() {
+        var x = confirm("Are you sure you want to reject the Margin Warranty Change?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+
 </script>
 
 
@@ -115,20 +136,28 @@
                 <asp:LinkButton ID="lbtnAddNotes" runat="server" OnClick="lbActions_Click">Add Notes</asp:LinkButton>
                 <asp:LinkButton ID="lbtAddTechnicianWork" runat="server" OnClick="lbActions_Click">Add Technician Work</asp:LinkButton>
                 <asp:LinkButton ID="lbtnRestore" runat="server" OnClick="lbActions_Click">Restore</asp:LinkButton>
-               <%-- <asp:LinkButton ID="lbtnCustomerFeedback" runat="server" OnClick="lbActions_Click">Customer Feedback</asp:LinkButton>--%>
+                <%-- <asp:LinkButton ID="lbtnCustomerFeedback" runat="server" OnClick="lbActions_Click">Customer Feedback</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnServiceClaim" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceClaim()">Service Claim</asp:LinkButton>
                 <asp:LinkButton ID="lbtnServiceQuotation" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceQuotation();">Service Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnServiceProfarmaInvoice" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceProfarmaInvoice();">Service Profarma Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbtnServiceInvoice" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmServiceInvoice();">Service Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbtnMaterialClaim" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmMaterialClaim()">Material Claim</asp:LinkButton>
                 <asp:LinkButton ID="lbtnUnlockTicket" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmUnlockTicket();">Unlock Ticket</asp:LinkButton>
-                 <asp:LinkButton ID="lbtnUnblockTicket" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmUnblockTicket();">Unblock Ticket</asp:LinkButton>
+                <asp:LinkButton ID="lbtnUnblockTicket" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmUnblockTicket();">Unblock Ticket</asp:LinkButton>
 
                 <asp:LinkButton ID="lbtnRequestForDecline" runat="server" OnClick="lbActions_Click">Request for Decline</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDeclineApprove" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmDeclineApprove();">Decline Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDeclineReject" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmDeclineReject();">Decline Reject</asp:LinkButton>
-                <asp:LinkButton ID="lbtnMarginWarrantyChange" runat="server" OnClick="lbActions_Click">Margin Warranty Change</asp:LinkButton>
+               
+                <asp:LinkButton ID="lbtnMarginWarrantyRequest" runat="server" OnClick="lbActions_Click">Margin Warranty Request</asp:LinkButton>                
+                <asp:LinkButton ID="lbtnMarginWarrantyApprove" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmApprMarginWarrantyChg();">Margin Warranty Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbtnMarginWarrantyReject" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmRejMarginWarrantyChg();">Margin Warranty Reject</asp:LinkButton>
+               
                 <asp:LinkButton ID="lbtnRequestDateChange" runat="server" OnClick="lbActions_Click">Request Date Change</asp:LinkButton> 
+               
+            </div>
+
+
             </div>
         </div>
     </div>
@@ -140,47 +169,47 @@
         <div class="col-md-12 View">
             <div class="col-md-4">
                 <label>IC Ticket : </label>
-                <asp:Label ID="lblICTicket" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblICTicket" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Requested Date : </label>
-                <asp:Label ID="lblRequestedDate" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblRequestedDate" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>District : </label>
-                <asp:Label ID="lblDistrict" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblDistrict" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Complaint Description : </label>
-                <asp:Label ID="lblComplaintDescription" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblComplaintDescription" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Status : </label>
-                <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <%--<div class="col-md-4">
                 <label>Information : </label>
-                <asp:Label ID="lblInformation" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblInformation" runat="server" CssClass="LabelValue"></asp:Label>
             </div>--%>
             <div class="col-md-4">
                 <label>Dealer : </label>
-                <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblDealer" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Customer : </label>
-                <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblCustomer" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Customer Category : </label>
-                <asp:Label ID="lblCustomerCategory" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblCustomerCategory" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Contact Person Name & No : </label>
-                <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblContactPerson" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Old IC Ticket Number : </label>
-                <asp:Label ID="lblOldICTicketNumber" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblOldICTicketNumber" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Warranty : </label>
@@ -192,33 +221,33 @@
             </div>
             <div class="col-md-4">
                 <label>Equipment : </label>
-                <asp:Label ID="lblEquipment" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblEquipment" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Model : </label>
-                <asp:Label ID="lblModel" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblModel" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Warranty Expiry : </label>
-                <asp:Label ID="lblWarrantyExpiry" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblWarrantyExpiry" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Last HMR Date & Value : </label>
-                <asp:Label ID="lblLastHMRValue" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblLastHMRValue" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Refurbished Expiry : </label>
-                <asp:Label ID="lblRFWarrantyExpiryDate" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblRFWarrantyExpiryDate" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>AMC Expiry : </label>
-                <asp:Label ID="lblAMCExpiryDate" runat="server" CssClass="label"></asp:Label>
+                <asp:Label ID="lblAMCExpiryDate" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
         </div>
     </fieldset>
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
-<asp1:TabContainer ID="tbpCust" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium">
+<asp1:TabContainer ID="tbpCust" runat="server" Font-Bold="True" Font-Size="Medium">
     <asp1:TabPanel ID="tpnlTechnician" runat="server" HeaderText="Technician" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12 Report">
@@ -257,84 +286,89 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlCallInformation" runat="server" HeaderText="Call Info">
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Call Info">
         <ContentTemplate>
             <br />
             <div class="col-md-12 View">
                 <div class="col-md-4">
                     <label>Departure Date and Time : </label>
-                    <asp:Label ID="lblDepartureDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDepartureDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Reached Date and Time : </label>
-                    <asp:Label ID="lblReachedDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblReachedDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Location : </label>
-                    <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblLocation" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Service Type : </label>
-                    <asp:Label ID="lblServiceType" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblServiceType" runat="server" CssClass="LabelValue"></asp:Label>
                     <asp:DropDownList ID="ddlServiceTypeOverhaul" runat="server" CssClass="TextBox" Visible="false" DataTextField="ServiceTypeOverhaul" DataValueField="ServiceTypeOverhaulID" />
                     <asp:DropDownList ID="ddlServiceSubType" runat="server" CssClass="TextBox" Visible="false" DataTextField="ServiceSubType" DataValueField="ServiceSubTypeID" />
 
                 </div>
                 <div class="col-md-4">
                     <label>Service Priority : </label>
-                    <asp:Label ID="lblServicePriority" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblServicePriority" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Delivery Location : </label>
-                    <asp:Label ID="lblDealerOffice" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDealerOffice" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Current HMR Value : </label>
-                    <asp:Label ID="lblHMRValue" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblHMRValue" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Current HMR Date : </label>
-                    <asp:Label ID="lblHMRDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblHMRDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+            </div>
+
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlCallInformation" runat="server" HeaderText="Call Info">
+        <ContentTemplate>
+            <br />
+            <div class="col-md-12 View">
                 <div class="col-md-4">
                     <label>Cess : </label>
                     <asp:CheckBox ID="cbCess" runat="server" />
                 </div>
                 <div class="col-md-4">
                     <label>Type Of Warranty : </label>
-                    <asp:Label ID="lblTypeOfWarranty" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblTypeOfWarranty" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Main Application : </label>
-                    <asp:Label ID="lblMainApplication" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblMainApplication" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Sub Application Manual : </label>
-                    <asp:Label ID="lblSubApplication" runat="server" CssClass="label"></asp:Label>
-                    <asp:Label ID="lblSubApplicationEntry" runat="server" CssClass="label" Visible="false"></asp:Label>
+                    <asp:Label ID="lblSubApplication" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:Label ID="lblSubApplicationEntry" runat="server" CssClass="LabelValue" Visible="false"></asp:Label>
                 </div>
-                 
-                    
-                 
                 <div class="col-md-4">
                     <label>Site Contact Person’s Name : </label>
-                    <asp:Label ID="lblOperatorName" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblOperatorName" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Site Contact Person’s Number : </label>
-                    <asp:Label ID="lblSiteContactPersonNumber" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblSiteContactPersonNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Site Contact Person’s Number 2 : </label>
-                    <asp:Label ID="lblSiteContactPersonNumber2" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblSiteContactPersonNumber2" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Designation : </label>
-                    <asp:Label ID="lblDesignation" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDesignation" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Scope of Work : </label>
-                    <asp:Label ID="lblScopeOfWork" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblScopeOfWork" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>No Claim : </label>
@@ -342,36 +376,35 @@
                 </div>
                 <div class="col-md-4">
                     <label>No Claim Reason : </label>
-                    <asp:Label ID="lblNoClaimReason" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblNoClaimReason" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Mc Entered Service Date : </label>
-                    <asp:Label ID="lblMcEnteredServiceDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblMcEnteredServiceDate" runat="server" CssClass="LabelValue"></asp:Label>
 
                 </div>
                 <div class="col-md-4">
                     <label>Service Started Date : </label>
-                    <asp:Label ID="lblServiceStartedDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblServiceStartedDate" runat="server" CssClass="LabelValue"></asp:Label>
 
                 </div>
                 <div class="col-md-4">
                     <label>Service Ended Date : </label>
-                    <asp:Label ID="lblServiceEndedDate" runat="server" CssClass="label" Text=""></asp:Label>
+                    <asp:Label ID="lblServiceEndedDate" runat="server" CssClass="LabelValue" Text=""></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Kind Attn : </label>
-                    <asp:Label ID="lblKindAttn" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblKindAttn" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Remarks : </label>
-                    <asp:Label ID="lblRemarks" runat="server" CssClass="label" Text=""></asp:Label>
+                    <asp:Label ID="lblRemarks" runat="server" CssClass="LabelValue" Text=""></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Is Machine Active: </label>
                     <asp:CheckBox ID="cbIsMachineActive" runat="server" Checked="true" />
                 </div>
             </div>
-
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlFSR" runat="server" HeaderText="FSR">
@@ -382,19 +415,19 @@
             <div class="col-md-12 View">
                 <div class="col-md-4">
                     <label>Mode Of Payment : </label>
-                    <asp:Label ID="lblModeOfPayment" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblModeOfPayment" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Operator Name : </label>
-                    <asp:Label ID="lblOperatorNameFSR" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblOperatorNameFSR" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Operator Contact No : </label>
-                    <asp:Label ID="lblOperatorNumber" runat="server" CssClass="label"></asp:Label> 
+                    <asp:Label ID="lblOperatorNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Machine Maintenance Level : </label>
-                    <asp:Label ID="lblMachineMaintenanceLevel" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblMachineMaintenanceLevel" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>SIs Rental : </label>
@@ -402,27 +435,27 @@
                 </div>
                 <div class="col-md-4">
                     <label>Rental Contractor Name : </label>
-                    <asp:Label ID="lblRentalName" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblRentalName" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Rental Contractor Contact No : </label>
-                    <asp:Label ID="lblRentalNumber" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblRentalNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Nature Of Complaint : </label>
-                    <asp:Label ID="lblNatureOfComplaint" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblNatureOfComplaint" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Observation : </label>
-                    <asp:Label ID="lblObservation" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblObservation" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Work Carried Out : </label>
-                    <asp:Label ID="lblWorkCarriedOut" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblWorkCarriedOut" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>SE Suggestion : </label>
-                    <asp:Label ID="lblReport" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblReport" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
             <%--</fieldset>--%>
@@ -670,7 +703,7 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "ServiceCharge.Material.MaterialDescription")%>' runat="server"></asp:Label>
-                              <%--  </ItemTemplate>
+                                    <%--  </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -1033,23 +1066,23 @@
             <div class="col-md-12 View">
                 <div class="col-md-4">
                     <label>Restore Date and Time : </label>
-                    <asp:Label ID="lblRestoreDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblRestoreDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Arrival Back Date and Time : </label>
-                    <asp:Label ID="lblArrivalBackDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblArrivalBackDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Complaint Status : </label>
-                    <asp:Label ID="lblComplaintStatus" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblComplaintStatus" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Customer Remarks : </label>
-                    <asp:Label ID="lblCustomerRemarks" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblCustomerRemarks" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Customer Satisfaction Level : </label>
-                    <asp:Label ID="lblCustomerSatisfactionLevel" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblCustomerSatisfactionLevel" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
         </ContentTemplate>
@@ -1302,18 +1335,18 @@
         <span id="PopupDialogue">Request for Decline</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button11" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <div class="col-md-12"> 
-            <div class="col-md-12">
-                 <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
-                <div class="col-md-2 col-sm-12">
-                    <label class="modal-label">Reason For Decline</label>
-                    <asp:TextBox ID="txtDeclineReason" runat="server" TextMode="MultiLine" Width="700px" Height="300px" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                </div>
-                <div class="col-md-19 text-center">
-                    <asp:Button ID="btnSaveRequestForDecline" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnSaveRequestForDecline_Click" />  
-                </div>
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
+            <div class="col-md-2 col-sm-12">
+                <label class="modal-label">Reason For Decline</label>
+                <asp:TextBox ID="txtDeclineReason" runat="server" TextMode="MultiLine" Width="700px" Height="300px" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
             </div>
-       
+            <div class="col-md-19 text-center">
+                <asp:Button ID="btnSaveRequestForDecline" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnSaveRequestForDecline_Click" />
+            </div>
+        </div>
+
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_RequestForDecline" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestForDecline" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
@@ -1323,21 +1356,21 @@
         <span id="PopupDialogue">Margin Warranty Change</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button13" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <div class="col-md-12"> 
-          <asp:Label ID="lblMessageMarginWarrantyChange" runat="server" Text="" CssClass="message" Visible="false" />
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Change</legend>
-                <div class="col-md-12">
-                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Margin Remark</label>
-                        <asp:TextBox ID="txtMarginRemark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 text-left">
-                        <label class="modal-label">-</label>
-                        <asp:Button ID="btnSaveMarginWarrantyChange" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnSaveMarginWarrantyChange_Click" OnClientClick="return dateValidation();" />
-                    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageMarginWarrantyChange" runat="server" Text="" CssClass="message" Visible="false" />
+        <fieldset class="fieldset-border">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Change</legend>
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Margin Remark</label>
+                    <asp:TextBox ID="txtMarginRemark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                 </div>
-            </fieldset> 
+                <div class="col-md-6 text-left">
+                    <label class="modal-label">-</label>
+                    <asp:Button ID="btnSaveMarginWarrantyChange" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnSaveMarginWarrantyChange_Click" OnClientClick="return dateValidation();" />
+                </div>
+            </div>
+        </fieldset>
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_MarginWarrantyChange" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMarginWarrantyChange" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
@@ -1347,76 +1380,101 @@
         <span id="PopupDialogue">Request Date Change</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button12" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageRequestDateChange" runat="server" Text="" CssClass="message" Visible="false" />
+        <fieldset class="fieldset-border">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Request Date Change</legend>
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Requested Date</label>
+                    <asp:TextBox ID="txtRequestedDate" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtRequestedDate');"></asp:TextBox>
+                    <asp1:CalendarExtender ID="ceRequestedDate" runat="server" TargetControlID="txtRequestedDate" PopupButtonID="txtRequestedDate" Format="dd/MM/yyyy"></asp1:CalendarExtender>
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtRequestedDate" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
+                </div>
+                <div class="col-md-1 col-sm-12">
+                    <label class="modal-label">-</label>
+                    <asp:DropDownList ID="ddlRequestedHH" runat="server" CssClass="form-control" Width="70px">
+                        <asp:ListItem Value="-1">HH</asp:ListItem>
+                        <asp:ListItem>0</asp:ListItem>
+                        <asp:ListItem>1</asp:ListItem>
+                        <asp:ListItem>2</asp:ListItem>
+                        <asp:ListItem>3</asp:ListItem>
+                        <asp:ListItem>4</asp:ListItem>
+                        <asp:ListItem>5</asp:ListItem>
+                        <asp:ListItem>6</asp:ListItem>
+                        <asp:ListItem>7</asp:ListItem>
+                        <asp:ListItem>8</asp:ListItem>
+                        <asp:ListItem>9</asp:ListItem>
+                        <asp:ListItem>10</asp:ListItem>
+                        <asp:ListItem>11</asp:ListItem>
+                        <asp:ListItem>12</asp:ListItem>
+                        <asp:ListItem>13</asp:ListItem>
+                        <asp:ListItem>14</asp:ListItem>
+                        <asp:ListItem>15</asp:ListItem>
+                        <asp:ListItem>16</asp:ListItem>
+                        <asp:ListItem>17</asp:ListItem>
+                        <asp:ListItem>18</asp:ListItem>
+                        <asp:ListItem>19</asp:ListItem>
+                        <asp:ListItem>20</asp:ListItem>
+                        <asp:ListItem>21</asp:ListItem>
+                        <asp:ListItem>22</asp:ListItem>
+                        <asp:ListItem>23</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-md-1 col-sm-12">
+                    <label class="modal-label">-</label>
+                    <asp:DropDownList ID="ddlRequestedMM" runat="server" CssClass="form-control" Width="75px">
+                        <asp:ListItem Value="0">MM</asp:ListItem>
+                        <asp:ListItem>00</asp:ListItem>
+                        <asp:ListItem>05</asp:ListItem>
+                        <asp:ListItem>10</asp:ListItem>
+                        <asp:ListItem>15</asp:ListItem>
+                        <asp:ListItem>20</asp:ListItem>
+                        <asp:ListItem>25</asp:ListItem>
+                        <asp:ListItem>30</asp:ListItem>
+                        <asp:ListItem>35</asp:ListItem>
+                        <asp:ListItem>40</asp:ListItem>
+                        <asp:ListItem>45</asp:ListItem>
+                        <asp:ListItem>50</asp:ListItem>
+                        <asp:ListItem>55</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-md-6 text-left">
+                    <label class="modal-label">-</label>
+                    <asp:Button ID="btnSaveRequestDateChange" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnSaveRequestDateChange_Click" OnClientClick="return dateValidation();" />
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_RequestDateChange" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestDateChange" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="Panel1" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Margin Warranty Change Request</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button14" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
     <div class="col-md-12"> 
-          <asp:Label ID="lblMessageRequestDateChange" runat="server" Text="" CssClass="message" Visible="false" />
+          <asp:Label ID="Label2" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Request Date Change</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Change Request</legend>
                 <div class="col-md-12">
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Requested Date</label>
-                        <asp:TextBox ID="txtRequestedDate" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtRequestedDate');"  ></asp:TextBox>
-                        <asp1:CalendarExtender ID="ceRequestedDate" runat="server" TargetControlID="txtRequestedDate" PopupButtonID="txtRequestedDate" Format="dd/MM/yyyy"></asp1:CalendarExtender>
-                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtRequestedDate" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
-                    </div>
-                    <div class="col-md-1 col-sm-12">
-                        <label class="modal-label">-</label>
-                        <asp:DropDownList ID="ddlRequestedHH" runat="server" CssClass="form-control" Width="70px">
-                            <asp:ListItem Value="-1">HH</asp:ListItem>
-                            <asp:ListItem>0</asp:ListItem>
-                            <asp:ListItem>1</asp:ListItem>
-                            <asp:ListItem>2</asp:ListItem>
-                            <asp:ListItem>3</asp:ListItem>
-                            <asp:ListItem>4</asp:ListItem>
-                            <asp:ListItem>5</asp:ListItem>
-                            <asp:ListItem>6</asp:ListItem>
-                            <asp:ListItem>7</asp:ListItem>
-                            <asp:ListItem>8</asp:ListItem>
-                            <asp:ListItem>9</asp:ListItem>
-                            <asp:ListItem>10</asp:ListItem>
-                            <asp:ListItem>11</asp:ListItem>
-                            <asp:ListItem>12</asp:ListItem>
-                            <asp:ListItem>13</asp:ListItem>
-                            <asp:ListItem>14</asp:ListItem>
-                            <asp:ListItem>15</asp:ListItem>
-                            <asp:ListItem>16</asp:ListItem>
-                            <asp:ListItem>17</asp:ListItem>
-                            <asp:ListItem>18</asp:ListItem>
-                            <asp:ListItem>19</asp:ListItem>
-                            <asp:ListItem>20</asp:ListItem>
-                            <asp:ListItem>21</asp:ListItem>
-                            <asp:ListItem>22</asp:ListItem>
-                            <asp:ListItem>23</asp:ListItem>
-                        </asp:DropDownList>
-                    </div>
-                    <div class="col-md-1 col-sm-12">
-                        <label class="modal-label">-</label>
-                        <asp:DropDownList ID="ddlRequestedMM" runat="server" CssClass="form-control" Width="75px">
-                            <asp:ListItem Value="0">MM</asp:ListItem>
-                            <asp:ListItem>00</asp:ListItem>
-                            <asp:ListItem>05</asp:ListItem>
-                            <asp:ListItem>10</asp:ListItem>
-                            <asp:ListItem>15</asp:ListItem>
-                            <asp:ListItem>20</asp:ListItem>
-                            <asp:ListItem>25</asp:ListItem>
-                            <asp:ListItem>30</asp:ListItem>
-                            <asp:ListItem>35</asp:ListItem>
-                            <asp:ListItem>40</asp:ListItem>
-                            <asp:ListItem>45</asp:ListItem>
-                            <asp:ListItem>50</asp:ListItem>
-                            <asp:ListItem>55</asp:ListItem>
-                        </asp:DropDownList>
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Margin Remark</label>
+                        <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                     </div>
                     <div class="col-md-6 text-left">
                         <label class="modal-label">-</label>
-                        <asp:Button ID="btnSaveRequestDateChange" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnSaveRequestDateChange_Click" OnClientClick="return dateValidation();" />
+                        <asp:Button ID="btnReqMarginWarrantyChange" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnReqMarginWarrantyChange_Click" OnClientClick="return dateValidation();" />
                     </div>
                 </div>
             </fieldset> 
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_RequestDateChange" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestDateChange" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestDateChange" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
- 
+
+
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
