@@ -1743,60 +1743,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_RequestForDecline;
 
         /// <summary>
-        /// pnlMarginWarrantyChange control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlMarginWarrantyChange;
-
-        /// <summary>
-        /// Button13 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button13;
-
-        /// <summary>
-        /// lblMessageMarginWarrantyChange control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessageMarginWarrantyChange;
-
-        /// <summary>
-        /// txtMarginRemark control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMarginRemark;
-
-        /// <summary>
-        /// btnSaveMarginWarrantyChange control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveMarginWarrantyChange;
-
-        /// <summary>
-        /// MPE_MarginWarrantyChange control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MPE_MarginWarrantyChange;
-
-        /// <summary>
         /// pnlRequestDateChange control.
         /// </summary>
         /// <remarks>
@@ -1887,13 +1833,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_RequestDateChange;
 
         /// <summary>
-        /// Panel1 control.
+        /// pnlMarginWarrantyRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.Panel pnlMarginWarrantyRequest;
 
         /// <summary>
         /// Button14 control.
@@ -1905,22 +1851,22 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button Button14;
 
         /// <summary>
-        /// Label2 control.
+        /// lblMessageMarginWarrantyRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblMessageMarginWarrantyRequest;
 
         /// <summary>
-        /// TextBox1 control.
+        /// txtMarginRemarkRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtMarginRemarkRequest;
 
         /// <summary>
         /// btnReqMarginWarrantyChange control.
@@ -1932,13 +1878,67 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Button btnReqMarginWarrantyChange;
 
         /// <summary>
-        /// ModalPopupExtender1 control.
+        /// MPE_MarginWarrantyRequest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupExtender1;
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_MarginWarrantyRequest;
+
+        /// <summary>
+        /// pnlMarginWarrantyReject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMarginWarrantyReject;
+
+        /// <summary>
+        /// Button15 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button15;
+
+        /// <summary>
+        /// lblMessageMarginWarrantyReject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageMarginWarrantyReject;
+
+        /// <summary>
+        /// txtRejectRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtRejectRemarks;
+
+        /// <summary>
+        /// btnMarginWarrantyReject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMarginWarrantyReject;
+
+        /// <summary>
+        /// MPE_MarginWarrantyReject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_MarginWarrantyReject;
 
         /// <summary>
         /// lnkMPE control.

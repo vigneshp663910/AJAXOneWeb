@@ -750,10 +750,10 @@ namespace DealerManagementSystem.ViewService.UserControls
                 txtDeclineReason.Text = "";
                // FillICTicket(SDMS_ICTicket.ICTicketID);
             }
-            else if (lbActions.Text == "Margin Warranty Change")
-            { 
-                MPE_MarginWarrantyChange.Show(); 
-            }
+            //else if (lbActions.Text == "Margin Warranty Change")
+            //{ 
+            //    MPE_MarginWarrantyChange.Show(); 
+            //}
             else if (lbActions.Text == "Request Date Change")
             { 
                 MPE_RequestDateChange.Show();
@@ -788,16 +788,15 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Margin Warranty Request")
             {
-                lblMessageMarginWarrantyChange.Text = "";
-                lblMessageMarginWarrantyChange.Visible = false;
-                txtMarginRemark.Text = "";
-                MPE_MarginWarrantyChange.Show();
-
+                lblMessageMarginWarrantyRequest.Text = "";
+                lblMessageMarginWarrantyRequest.Visible = false;
+                txtMarginRemarkRequest.Text = "";
+                MPE_MarginWarrantyRequest.Show();
             }
 
             else if (lbActions.Text == "Margin Warranty Approve")
             {
-                if (new BDMS_ICTicket().ApproveOrRejectMarginWarrantyChange( SDMS_ICTicket.ICTicketID, PSession.User.UserID, true,""))
+                if (new BDMS_ICTicket().ApproveOrRejectMarginWarrantyChange( SDMS_ICTicket.ICTicketID, PSession.User.UserID, true, null))
                 {
                     lblMessage.Text = "Margin Warrranty approved.";
                     lblMessage.ForeColor = Color.Green;
@@ -811,17 +810,21 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Margin Warranty Reject")
             {
-                if (new BDMS_ICTicket().ApproveOrRejectMarginWarrantyChange(SDMS_ICTicket.ICTicketID, PSession.User.UserID, false, ""))
-                {
-                    lblMessage.Text = "Margin Warrranty rejected.";
-                    lblMessage.ForeColor = Color.Green;
-                    FillICTicket(SDMS_ICTicket.ICTicketID);
-                }
-                else
-                {
-                    lblMessage.Text = "Margin Warrranty not rejected.";
-                    lblMessage.ForeColor = Color.Red;
-                }
+                //if (new BDMS_ICTicket().ApproveOrRejectMarginWarrantyChange(SDMS_ICTicket.ICTicketID, PSession.User.UserID, false, ""))
+                //{
+                //    lblMessage.Text = "Margin Warrranty rejected.";
+                //    lblMessage.ForeColor = Color.Green;
+                //    FillICTicket(SDMS_ICTicket.ICTicketID);
+                //}
+                //else
+                //{
+                //    lblMessage.Text = "Margin Warrranty not rejected.";
+                //    lblMessage.ForeColor = Color.Red;
+                //}
+                lblMessageMarginWarrantyReject.Text = "";
+                lblMessageMarginWarrantyReject.Visible = false;
+                txtRejectRemarks.Text = "";
+                MPE_MarginWarrantyReject.Show();
             }
 
         }
@@ -2404,27 +2407,27 @@ namespace DealerManagementSystem.ViewService.UserControls
             MPE_RequestForDecline.Hide();
         }
 
-        protected void btnSaveMarginWarrantyChange_Click(object sender, EventArgs e)
-        {
-            MPE_MarginWarrantyChange.Show();
-            //if (cbIsMarginWarranty.Checked == SDMS_ICTicket.IsMarginWarranty)
-            //{
-            //    lblMessage.Text = "Please change Margin Warranty";
-            //    lblMessage.ForeColor = Color.Red;
-            //    return;
-            //}
+        //protected void btnSaveMarginWarrantyChange_Click(object sender, EventArgs e)
+        //{
+        //    MPE_MarginWarrantyChange.Show();
+        //    //if (cbIsMarginWarranty.Checked == SDMS_ICTicket.IsMarginWarranty)
+        //    //{
+        //    //    lblMessage.Text = "Please change Margin Warranty";
+        //    //    lblMessage.ForeColor = Color.Red;
+        //    //    return;
+        //    //}
 
-            string endPoint = "ICTicket/UpdateICTicketMarginWarranty?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&MarginRemark=" + txtMarginRemark.Text.Trim();
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-            if (Results.Status == PApplication.Failure)
-            {
-                lblMessageMarginWarrantyChange.Text = Results.Message;
-                return;
-            }
-            ShowMessage(Results);
-            MPE_MarginWarrantyChange.Hide();
-            FillICTicket(SDMS_ICTicket.ICTicketID);
-        }
+        //    string endPoint = "ICTicket/UpdateICTicketMarginWarranty?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&MarginRemark=" + txtMarginRemark.Text.Trim();
+        //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        //    if (Results.Status == PApplication.Failure)
+        //    {
+        //        lblMessageMarginWarrantyChange.Text = Results.Message;
+        //        return;
+        //    }
+        //    ShowMessage(Results);
+        //    MPE_MarginWarrantyChange.Hide();
+        //    FillICTicket(SDMS_ICTicket.ICTicketID);
+        //}
 
         protected void btnSaveRequestDateChange_Click(object sender, EventArgs e)
         {
@@ -2482,6 +2485,45 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             catch (Exception ex)
             {
+            }
+        }
+        protected void btnReqMarginWarrantyChange_Click(object sender, EventArgs e)
+        {
+            MPE_MarginWarrantyRequest.Show();
+            string endPoint = "ICTicket/InsertMarginWarrantyChangeRequest?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&MarginRemark=" + txtMarginRemarkRequest.Text.Trim();
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+
+            lblMessage.Text = Results.Message;
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageMarginWarrantyRequest.Text = Results.Message;
+                lblMessageMarginWarrantyRequest.Visible = true;
+                lblMessageMarginWarrantyRequest.ForeColor = Color.Red;
+                return;
+            }
+            ShowMessage(Results);
+            MPE_MarginWarrantyRequest.Hide();
+            FillICTicket(SDMS_ICTicket.ICTicketID);
+        }
+        protected void btnMarginWarrantyReject_Click(object sender, EventArgs e)
+        {
+            if(string.IsNullOrEmpty(txtRejectRemarks.Text.Trim()))
+            {
+                lblMessageMarginWarrantyReject.Text = "";
+                lblMessageMarginWarrantyReject.ForeColor = Color.Red;
+                lblMessageMarginWarrantyReject.Visible = true;
+                return;
+            }
+            if (new BDMS_ICTicket().ApproveOrRejectMarginWarrantyChange(SDMS_ICTicket.ICTicketID, PSession.User.UserID, false, txtRejectRemarks.Text.Trim()))
+            {
+                lblMessage.Text = "Margin Warrranty rejected.";
+                lblMessage.ForeColor = Color.Green;
+                FillICTicket(SDMS_ICTicket.ICTicketID);
+            }
+            else
+            {
+                lblMessage.Text = "Margin Warrranty not rejected.";
+                lblMessage.ForeColor = Color.Red;
             }
         }
     }

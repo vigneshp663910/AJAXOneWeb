@@ -98,16 +98,16 @@
 
 
 
-    function ConfirmApprMarginWarrantyChg() {
-        var x = confirm("Are you sure you want to approve the Margin Warranty Change?");
+    function ConfirmMarginWarrantyApprove() {
+        var x = confirm("Are you sure you want to approve the Margin Warranty?");
         if (x) {
             return true;
         }
         else
             return false;
     }
-    function ConfirmRejMarginWarrantyChg() {
-        var x = confirm("Are you sure you want to reject the Margin Warranty Change?");
+    function ConfirmMarginWarrantyReject() {
+        var x = confirm("Are you sure you want to reject the Margin Warranty?");
         if (x) {
             return true;
         }
@@ -150,8 +150,8 @@
                 <asp:LinkButton ID="lbtnDeclineReject" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmDeclineReject();">Decline Reject</asp:LinkButton>
                
                 <asp:LinkButton ID="lbtnMarginWarrantyRequest" runat="server" OnClick="lbActions_Click">Margin Warranty Request</asp:LinkButton>                
-                <asp:LinkButton ID="lbtnMarginWarrantyApprove" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmApprMarginWarrantyChg();">Margin Warranty Approve</asp:LinkButton>
-                <asp:LinkButton ID="lbtnMarginWarrantyReject" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmRejMarginWarrantyChg();">Margin Warranty Reject</asp:LinkButton>
+                <asp:LinkButton ID="lbtnMarginWarrantyApprove" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmMarginWarrantyApprove();">Margin Warranty Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbtnMarginWarrantyReject" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmMarginWarrantyReject();">Margin Warranty Reject</asp:LinkButton>
                
                 <asp:LinkButton ID="lbtnRequestDateChange" runat="server" OnClick="lbActions_Click">Request Date Change</asp:LinkButton> 
                
@@ -1350,31 +1350,7 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_RequestForDecline" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestForDecline" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-
-<asp:Panel ID="pnlMarginWarrantyChange" runat="server" CssClass="Popup" Style="display: none">
-    <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Margin Warranty Change</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-            <asp:Button ID="Button13" runat="server" Text="X" CssClass="PopupClose" /></a>
-    </div>
-    <div class="col-md-12">
-        <asp:Label ID="lblMessageMarginWarrantyChange" runat="server" Text="" CssClass="message" Visible="false" />
-        <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Change</legend>
-            <div class="col-md-12">
-                <div class="col-md-2 col-sm-12">
-                    <label class="modal-label">Margin Remark</label>
-                    <asp:TextBox ID="txtMarginRemark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
-                </div>
-                <div class="col-md-6 text-left">
-                    <label class="modal-label">-</label>
-                    <asp:Button ID="btnSaveMarginWarrantyChange" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnSaveMarginWarrantyChange_Click" OnClientClick="return dateValidation();" />
-                </div>
-            </div>
-        </fieldset>
-    </div>
-</asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_MarginWarrantyChange" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMarginWarrantyChange" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-
+ 
 <asp:Panel ID="pnlRequestDateChange" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Request Date Change</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
@@ -1449,19 +1425,19 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_RequestDateChange" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestDateChange" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-<asp:Panel ID="Panel1" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnlMarginWarrantyRequest" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Margin Warranty Change Request</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Margin Warranty Request</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button14" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12"> 
-          <asp:Label ID="Label2" runat="server" Text="" CssClass="message" Visible="false" />
+          <asp:Label ID="lblMessageMarginWarrantyRequest" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Change Request</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Request</legend>
                 <div class="col-md-12">
                      <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Margin Remark</label>
-                        <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                        <asp:TextBox ID="txtMarginRemarkRequest" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                     </div>
                     <div class="col-md-6 text-left">
                         <label class="modal-label">-</label>
@@ -1471,7 +1447,31 @@
             </fieldset> 
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestDateChange" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_MarginWarrantyRequest" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMarginWarrantyRequest" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlMarginWarrantyReject" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueMarginWarrantyReject">Margin Warranty Reject</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button15" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12"> 
+          <asp:Label ID="lblMessageMarginWarrantyReject" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Reject</legend>
+                <div class="col-md-12">
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Remarks</label>
+                        <asp:TextBox ID="txtRejectRemarks" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 text-left">
+                        <label class="modal-label">-</label>
+                        <asp:Button ID="btnMarginWarrantyReject" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnMarginWarrantyReject_Click" OnClientClick="return dateValidation();" />
+                    </div>
+                </div>
+            </fieldset> 
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_MarginWarrantyReject" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMarginWarrantyReject" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 
