@@ -49,6 +49,7 @@ namespace Properties
     public class PTicketHeader
     {
         public int HeaderID { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
         public PCategory Category { get; set; }
         public PSubCategory SubCategory { get; set; }
         public string Subject { get; set; }
@@ -60,9 +61,11 @@ namespace Properties
         public PStatus Status { get; set; }
         public PUser CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
+        public PUser UpdatedBy { get; set; }
+        public DateTime? UpdatedOn { get; set; }
         public PUser ActualCreater { get; set; }
         public int age { get; set; }
-        public DateTime? ClosedBy { get; set; }
+        public PUser ClosedBy { get; set; }
         public DateTime? ClosedOn { get; set; }
         public PTicketItem TicketItem { get; set; }
         public List<PTicketItem> TicketItems { get; set; }

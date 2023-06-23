@@ -62,10 +62,11 @@ namespace DealerManagementSystem.ViewSupportTicket
             int? DealerEmployeeUserID = (ddlEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlEmployee.SelectedValue);
             string Year = (ddlYear.SelectedValue == "0") ? (string)null : ddlYear.SelectedValue;
             string Month = (ddlMonth.SelectedValue == "0") ? (string)null : ddlMonth.SelectedValue;
+            int? DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             var lastDayOfMonth = DateTime.DaysInMonth(Convert.ToInt32(Year), Convert.ToInt32(Month));
             DateTime DateFrom = Convert.ToDateTime("01-" + Month + "-" + Year);
             DateTime DateTo = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
-            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DateFrom, DateTo);
+            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, DateFrom, DateTo);
             gvTicketsMonthwise.DataSource = null;
             gvTicketsMonthwise.DataBind();
             DataTable dtMonthwise = new DataTable();

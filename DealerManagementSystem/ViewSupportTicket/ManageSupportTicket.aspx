@@ -185,6 +185,10 @@
                             <asp:TextBox ID="txtTicketTo" runat="server" CssClass="TextBox form-control" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Created By</label>
                             <asp:DropDownList ID="ddlCreatedBy" runat="server" CssClass="form-control" />
                         </div>
