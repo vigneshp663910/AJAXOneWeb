@@ -17,9 +17,9 @@ namespace Properties
         public string VideoLink { get; set; }
         public int OrderNo { get; set; }
         public Boolean IsDeleted { get; set; }
-        public int CreatedBy { get; set; }
+        public PUser CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
-        public int ModifiedBy { get; set; }
-        public DateTime ModifiedOn { get; set; }
+        public PUser ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
     }
 }

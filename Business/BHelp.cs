@@ -84,7 +84,7 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public Boolean InsertOrUpdateDocumentAttachment(PHelp help)
+        public Boolean InsertOrUpdateDocumentAttachment(PHelp help, int UserID)
         {
 
             int success = 0;
@@ -98,7 +98,7 @@ namespace Business
             DbParameter VideoLink = provider.CreateParameter("VideoLink", help.VideoLink, DbType.String);
             DbParameter OrderNo = provider.CreateParameter("OrderNo", help.OrderNo, DbType.Int32);
             DbParameter IsDeleted = provider.CreateParameter("IsDeleted", help.IsDeleted, DbType.Boolean);
-            DbParameter UserIDP = provider.CreateParameter("UserID", help.CreatedBy, DbType.Int32);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
             DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
             DbParameter[] Params = new DbParameter[10] { DocumentAttachmentID, Sno, Description, PDFAttachment, PPSAttachment, VideoLink, OrderNo, IsDeleted, UserIDP, OutValue };
             try
@@ -143,7 +143,19 @@ namespace Business
                                 PDFAttachment = Convert.ToString(dr["PDFAttachment"]),
                                 PPSAttachment = Convert.ToString(dr["PPSAttachment"]),
                                 VideoLink = Convert.ToString(dr["VideoLink"]),
-                                OrderNo = Convert.ToInt32(dr["OrderNo"])
+                                OrderNo = Convert.ToInt32(dr["OrderNo"]),
+                                CreatedBy = (dr["CreatedBy"] == DBNull.Value) ? null : new PUser()
+                                {
+                                    UserID = Convert.ToInt32(dr["CreatedBy"]),
+                                    ContactName = Convert.ToString(dr["CreatedByName"])
+                                },
+                                CreatedOn = Convert.ToDateTime(dr["CreatedOn"]),
+                                ModifiedBy = (dr["ModifiedBy"] == DBNull.Value) ? null : new PUser()
+                                {
+                                    UserID = Convert.ToInt32(dr["ModifiedBy"]),
+                                    ContactName = Convert.ToString(dr["ModifiedByName"])
+                                },
+                                ModifiedOn = (dr["ModifiedOn"] == DBNull.Value) ? (DateTime?)null : Convert.ToDateTime(dr["ModifiedOn"])
                             });
                         }
                 }
