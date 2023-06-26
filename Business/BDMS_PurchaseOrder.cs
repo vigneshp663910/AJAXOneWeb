@@ -278,6 +278,21 @@ namespace Business
         {
             string endPoint = "PurchaseOrder/PurchaseOrderReturnByID?PurchaseOrderReturnID=" + PurchaseOrderReturnID;
             return JsonConvert.DeserializeObject<PPurchaseOrderReturn>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        } 
+        }
+        public PApiResult GetPurchaseOrderReturnItemForDeliveryCreation(long PurchaseOrderReturnID)
+        {
+            string endPoint = "PurchaseOrder/GetPurchaseOrderReturnItemForDeliveryCreation?PurchaseOrderReturnID=" + PurchaseOrderReturnID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public List<PPurchaseOrderReturnDelivery> GetPurchaseOrderReturnDeliveryByPoReturnID(long PurchaseOrderReturnID)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderReturnDeliveryByPoReturnID?PurchaseOrderReturnID=" + PurchaseOrderReturnID;
+            return JsonConvert.DeserializeObject<List<PPurchaseOrderReturnDelivery>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PPurchaseOrderReturnDelivery GetPurchaseOrderReturnDeliveryByID(long PoReturnDeliveryID)
+        {
+            string endPoint = "PurchaseOrder/PurchaseOrderReturnDeliveryByID?PoReturnDeliveryID=" + PoReturnDeliveryID;
+            return JsonConvert.DeserializeObject<PPurchaseOrderReturnDelivery>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

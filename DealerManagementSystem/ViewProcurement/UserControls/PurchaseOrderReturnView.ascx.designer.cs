@@ -15,6 +15,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
     {
 
         /// <summary>
+        /// PnlPurchaseOrderReturnView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlPurchaseOrderReturnView;
+
+        /// <summary>
         /// lbPoReturnCancel control.
         /// </summary>
         /// <remarks>
@@ -22,6 +31,24 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbPoReturnCancel;
+
+        /// <summary>
+        /// lbPoReturnDeliveryCreate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbPoReturnDeliveryCreate;
+
+        /// <summary>
+        /// divPoReturnView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPoReturnView;
 
         /// <summary>
         /// lblPurchaseOrderReturnNumber control.
@@ -69,6 +96,24 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblMessagePoReturn;
 
         /// <summary>
+        /// tbpPoReturn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabContainer tbpPoReturn;
+
+        /// <summary>
+        /// tpnlPoReturnItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlPoReturnItem;
+
+        /// <summary>
         /// gvPOReturnItem control.
         /// </summary>
         /// <remarks>
@@ -76,6 +121,60 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvPOReturnItem;
+
+        /// <summary>
+        /// tpnlPoReturnDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlPoReturnDelivery;
+
+        /// <summary>
+        /// gvPoReturnDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvPoReturnDelivery;
+
+        /// <summary>
+        /// PnlPurchaseOrderReturnDeliveryCreate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlPurchaseOrderReturnDeliveryCreate;
+
+        /// <summary>
+        /// btnPurchaseOrderReturnDeliveryCreateBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPurchaseOrderReturnDeliveryCreateBack;
+
+        /// <summary>
+        /// lblMessagePoReturnDeliveryCreate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessagePoReturnDeliveryCreate;
+
+        /// <summary>
+        /// UC_PurchaseOrderReturnDeliveryCreate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewProcurement.UserControls.PurchaseOrderReturnDeliveryCreate UC_PurchaseOrderReturnDeliveryCreate;
 
         /// <summary>
         /// pnlPoReturnCancel control.

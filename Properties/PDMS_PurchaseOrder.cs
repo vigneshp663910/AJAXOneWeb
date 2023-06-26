@@ -381,6 +381,9 @@ namespace Properties
         public long PurchaseOrderReturnID { get; set; }
         public string PurchaseOrderReturnNumber { get; set; }
         public DateTime PurchaseOrderReturnDate { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
+        public PDMS_DealerOffice Location { get; set; }
+        public PDMS_Dealer Vendor { get; set; }
         public PPurchaseOrderReturnStatus PurchaseOrderReturnStatus { get; set; }
         public string Remarks { get; set; }
         public PPurchaseOrderReturnItem PurchaseOrderReturnItem { get; set; }
@@ -391,10 +394,51 @@ namespace Properties
     {
         public long PurchaseOrderReturnID { get; set; }
         public long PurchaseOrderReturnItemID { get; set; }
+        public PPurchaseOrder PurchaseOrder { get; set; }
         public int Item { get; set; }
         public PGrItem GrItem { get; set; }
-        public PAsnItem AsnItem { get; set; }
-        public PGr Gr { get; set; } 
-        public PAsn Asn { get; set; } 
+        //  public PAsnItem AsnItem { get; set; }
+        public PGr Gr { get; set; }
+        public PAsn Asn { get; set; }
+
+        public PMaterial Material { get; set; }
+        public decimal Quantity { get; set; }
+    }
+    [Serializable]
+    public class PPurchaseOrderReturnDelivery
+    {
+        public long PoReturnDeliveryID { get; set; }
+        public PPurchaseOrderReturn PurchaseOrderReturn { get; set; }
+        public string DeliveryNumber { get; set; }
+        public DateTime DeliveryDate { get; set; }
+        public decimal? NetWeight { get; set; }
+        public string TrackID { get; set; }
+        public string CourierID { get; set; }
+        public DateTime? CourierDate { get; set; }
+        public string LRNo { get; set; }
+        public string Remarks { get; set; }
+        public PPurchaseOrderReturnDeliveryItem PurchaseOrderReturnDeliveryItem { get; set; }
+        public List<PPurchaseOrderReturnDeliveryItem> PurchaseOrderReturnDeliveryItemS { get; set; }
+    }
+    [Serializable]
+    public class PPurchaseOrderReturnDeliveryItem
+    {
+        public long PoReturnDeliveryItemID { get; set; }
+        public long PoReturnDeliveryID { get; set; }
+        public PPurchaseOrderReturnItem PurchaseOrderReturnItem { get; set; }
+        public decimal DeliveryQty { get; set; }
+        public decimal NetWeight { get; set; }
+        public string UomWeight { get; set; }
+        public decimal PackCount { get; set; }
+        public string UomPackCount { get; set; }
+        public string Remarks { get; set; }
+    }
+    [Serializable]
+    public class PPurchaseOrderReturnDeliveryItem_Insert
+    {
+        public long PurchaseOrderReturnID { get; set; }
+        public long PurchaseOrderReturnItemID { get; set; }
+        public decimal DeliveryQty { get; set; }
+        public string Remarks { get; set; }
     }
 }

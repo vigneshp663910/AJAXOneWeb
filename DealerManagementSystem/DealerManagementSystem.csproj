@@ -562,6 +562,7 @@
     <Content Include="ViewProcurement\UserControls\PurchaseOrderAsnView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnCreate.ascx" />
+    <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnDeliveryCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderView.ascx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
@@ -2119,6 +2120,13 @@
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderReturnCreate.ascx.designer.cs">
       <DependentUpon>PurchaseOrderReturnCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\PurchaseOrderReturnDeliveryCreate.ascx.cs">
+      <DependentUpon>PurchaseOrderReturnDeliveryCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\PurchaseOrderReturnDeliveryCreate.ascx.designer.cs">
+      <DependentUpon>PurchaseOrderReturnDeliveryCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderReturnView.ascx.cs">
       <DependentUpon>PurchaseOrderReturnView.ascx</DependentUpon>
