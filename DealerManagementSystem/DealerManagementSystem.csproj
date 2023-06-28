@@ -367,6 +367,18 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="SignIn.aspx" />
+    <Content Include="SignJS\1.8.3\jquery.min.js" />
+    <Content Include="SignJS\1.8.3\~BROMIUM\jquery.min.js" />
+    <Content Include="SignJS\app.js" />
+    <Content Include="SignJS\ie9.css" />
+    <Content Include="SignJS\signature-pad.css" />
+    <Content Include="SignJS\signature_pad.js" />
+    <Content Include="SignJS\WebCam.js" />
+    <Content Include="SignJS\~BROMIUM\app.js" />
+    <Content Include="SignJS\~BROMIUM\ie9.css" />
+    <Content Include="SignJS\~BROMIUM\signature-pad.css" />
+    <Content Include="SignJS\~BROMIUM\signature_pad.js" />
+    <Content Include="SignJS\~BROMIUM\WebCam.js" />
     <Content Include="Test.aspx" />
     <Content Include="TestDrop.aspx" />
     <Content Include="testDropWithMasteMain.aspx" />
@@ -628,6 +640,7 @@
     <Content Include="ViewService\TicketTracking.aspx" />
     <Content Include="ViewService\UserControls\AddFSR.ascx" />
     <Content Include="ViewService\UserControls\AddFSRAttachments.ascx" />
+    <Content Include="ViewService\UserControls\AddFsrSignature.ascx" />
     <Content Include="ViewService\UserControls\AddICTicketCustomerFeedback.ascx" />
     <Content Include="ViewService\UserControls\AddTsirAttachments.ascx" />
     <Content Include="ViewService\UserControls\AvailabilityOfOtherMachine.ascx" />
@@ -2581,6 +2594,13 @@
     </Compile>
     <Compile Include="ViewService\UserControls\AddFSRAttachments.ascx.designer.cs">
       <DependentUpon>AddFSRAttachments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\UserControls\AddFsrSignature.ascx.cs">
+      <DependentUpon>AddFsrSignature.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\UserControls\AddFsrSignature.ascx.designer.cs">
+      <DependentUpon>AddFsrSignature.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\AddICTicketCustomerFeedback.ascx.cs">
       <DependentUpon>AddICTicketCustomerFeedback.ascx</DependentUpon>

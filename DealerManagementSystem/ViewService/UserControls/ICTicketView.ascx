@@ -13,6 +13,7 @@
 <%@ Register Src="~/ViewService/UserControls/ICTicketUpdateRestore.ascx" TagPrefix="UC" TagName="UC_ICTicketUpdateRestore" %>
 <%@ Register Src="~/ViewService/UserControls/AddICTicketCustomerFeedback.ascx" TagPrefix="UC" TagName="UC_ICTicketCustomerFeedback" %>
 
+<%@ Register Src="~/ViewService/UserControls/AddFsrSignature.ascx" TagPrefix="UC" TagName="UC_FsrSignature" %>
 <script type="text/javascript">
     function ConfirmDeclineApprove() {
         var x = confirm("Are you sure you want to decline the IC Ticket?");
@@ -148,17 +149,22 @@
                 <asp:LinkButton ID="lbtnRequestForDecline" runat="server" OnClick="lbActions_Click">Request for Decline</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDeclineApprove" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmDeclineApprove();">Decline Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDeclineReject" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmDeclineReject();">Decline Reject</asp:LinkButton>
-               
-                <asp:LinkButton ID="lbtnMarginWarrantyRequest" runat="server" OnClick="lbActions_Click">Margin Warranty Request</asp:LinkButton>                
+
+                <asp:LinkButton ID="lbtnMarginWarrantyRequest" runat="server" OnClick="lbActions_Click">Margin Warranty Request</asp:LinkButton>
                 <asp:LinkButton ID="lbtnMarginWarrantyApprove" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmMarginWarrantyApprove();">Margin Warranty Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbtnMarginWarrantyReject" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmMarginWarrantyReject();">Margin Warranty Reject</asp:LinkButton>
-               
-                <asp:LinkButton ID="lbtnRequestDateChange" runat="server" OnClick="lbActions_Click">Request Date Change</asp:LinkButton> 
-               
+
+                <asp:LinkButton ID="lbtnRequestDateChange" runat="server" OnClick="lbActions_Click">Request Date Change</asp:LinkButton>
+
+                <asp:LinkButton ID="lbtnFsrSignature" runat="server" OnClick="lbActions_Click">FSR Signature</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnRemoveRestoreDate" runat="server" OnClick="lbActions_Click">Remove Restore Date</asp:LinkButton>
+
+                <asp:LinkButton ID="lbtnDepartureToSite" runat="server" OnClick="lbActions_Click">Departure To Site</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnReachedInSite" runat="server" OnClick="lbActions_Click">Reached in Site</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnArrivalBack" runat="server" OnClick="lbActions_Click">Arrival Back</asp:LinkButton> 
             </div>
 
 
-            </div>
         </div>
     </div>
 </div>
@@ -286,7 +292,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Call Info">
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Reached Info">
         <ContentTemplate>
             <br />
             <div class="col-md-12 View">
@@ -1087,6 +1093,42 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
+    <asp1:TabPanel ID="TabPanel3" runat="server" HeaderText="Signature" Font-Bold="True" ToolTip="">
+        <ContentTemplate>
+            <br />
+            <div class="col-md-12 View">
+                 <div class="col-md-4">
+                    <label>Technician Name : </label>
+                    <asp:Label ID="lblTName" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Technician Photo : </label>
+                    <asp:Label ID="lblTPhoto" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:LinkButton ID="lbtnTPhoto" runat="server" OnClick="lbtnFsrSignatureDownload_Click">Technician Photo</asp:LinkButton>
+                </div>
+                <div class="col-md-4">
+                    <label>Technician Sign : </label>
+                    <asp:Label ID="lblTSignature" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:LinkButton ID="lbtnTSignature" runat="server" OnClick="lbtnFsrSignatureDownload_Click">Technician Sign</asp:LinkButton>
+                </div>
+               <div class="col-md-4">
+                    <label>Customer Name : </label>
+                    <asp:Label ID="lblCName" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label>Customer Photo : </label>
+                    <asp:Label ID="lblCPhoto" runat="server" CssClass="LabelValue"></asp:Label>
+                     <asp:LinkButton ID="lbtnCPhoto" runat="server" OnClick="lbtnFsrSignatureDownload_Click">Customer Photo</asp:LinkButton>
+                </div>
+                <div class="col-md-4">
+                    <label>Customer Sign : </label>
+                    <asp:Label ID="lblCSignature" runat="server" CssClass="LabelValue"></asp:Label>
+                     <asp:LinkButton ID="lbtnCSignature" runat="server" OnClick="lbtnFsrSignatureDownload_Click">Customer Sign</asp:LinkButton>
+                </div>
+                
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
     <%--<asp1:TabPanel ID="tpnlCustomerFeedback" runat="server" HeaderText="Customer Feedback" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <br />
@@ -1350,7 +1392,7 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_RequestForDecline" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRequestForDecline" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
- 
+
 <asp:Panel ID="pnlRequestDateChange" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Request Date Change</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
@@ -1430,21 +1472,21 @@
         <span id="PopupDialogue">Margin Warranty Request</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button14" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <div class="col-md-12"> 
-          <asp:Label ID="lblMessageMarginWarrantyRequest" runat="server" Text="" CssClass="message" Visible="false" />
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Request</legend>
-                <div class="col-md-12">
-                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Margin Remark</label>
-                        <asp:TextBox ID="txtMarginRemarkRequest" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 text-left">
-                        <label class="modal-label">-</label>
-                        <asp:Button ID="btnReqMarginWarrantyChange" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnReqMarginWarrantyChange_Click" OnClientClick="return dateValidation();" />
-                    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageMarginWarrantyRequest" runat="server" Text="" CssClass="message" Visible="false" />
+        <fieldset class="fieldset-border">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Request</legend>
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Margin Remark</label>
+                    <asp:TextBox ID="txtMarginRemarkRequest" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                 </div>
-            </fieldset> 
+                <div class="col-md-6 text-left">
+                    <label class="modal-label">-</label>
+                    <asp:Button ID="btnReqMarginWarrantyChange" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnReqMarginWarrantyChange_Click" OnClientClick="return dateValidation();" />
+                </div>
+            </div>
+        </fieldset>
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_MarginWarrantyRequest" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMarginWarrantyRequest" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
@@ -1454,25 +1496,44 @@
         <span id="PopupDialogueMarginWarrantyReject">Margin Warranty Reject</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button15" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <div class="col-md-12"> 
-          <asp:Label ID="lblMessageMarginWarrantyReject" runat="server" Text="" CssClass="message" Visible="false" />
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Reject</legend>
-                <div class="col-md-12">
-                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Remarks</label>
-                        <asp:TextBox ID="txtRejectRemarks" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
-                    </div>
-                    <div class="col-md-6 text-left">
-                        <label class="modal-label">-</label>
-                        <asp:Button ID="btnMarginWarrantyReject" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnMarginWarrantyReject_Click" OnClientClick="return dateValidation();" />
-                    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageMarginWarrantyReject" runat="server" Text="" CssClass="message" Visible="false" />
+        <fieldset class="fieldset-border">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Reject</legend>
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Remarks</label>
+                    <asp:TextBox ID="txtRejectRemarks" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                 </div>
-            </fieldset> 
+                <div class="col-md-6 text-left">
+                    <label class="modal-label">-</label>
+                    <asp:Button ID="btnMarginWarrantyReject" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnMarginWarrantyReject_Click" OnClientClick="return dateValidation();" />
+                </div>
+            </div>
+        </fieldset>
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_MarginWarrantyReject" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMarginWarrantyReject" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+
+<asp:Panel ID="pnlFsrSignature" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueMarginWarrantyReject">FSR Signature</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button13" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageFsrSignature" runat="server" Text="" CssClass="message" Visible="false" />
+          <%--  <asp:Panel ID="pnlDynamicControl" runat="server">
+            </asp:Panel>--%>
+             <UC:UC_FsrSignature ID="UC_FsrSignature" runat="server"></UC:UC_FsrSignature>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSignSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSignSave_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_FsrSignature" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFsrSignature" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <div style="display: none">
@@ -1491,5 +1552,31 @@
             gvObject.style.display = "none";
             imageID.src = "Images/grid_expand.png";
         }
+    }
+</script>
+
+
+  
+
+<asp:HiddenField ID="hfLatitude" runat="server" />
+<asp:HiddenField ID="hfLongitude" runat="server" />
+<script> 
+    function success(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        document.getElementById('MainContent_UC_ICTicketView_hfLatitude').value = latitude;
+        document.getElementById('MainContent_UC_ICTicketView_hfLongitude').value = longitude;
+        status.textContent = '';
+    }
+    function error() {
+        status.textContent = 'Unable to retrieve your location';
+    }
+
+    if (!navigator.geolocation) {
+        status.textContent = 'Geolocation is not supported by your browser';
+
+    } else {
+        status.textContent = 'Locating…';
+        navigator.geolocation.getCurrentPosition(success, error);
     }
 </script>

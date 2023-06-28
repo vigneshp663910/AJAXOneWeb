@@ -239,7 +239,7 @@ namespace DealerManagementSystem.ViewService
                 //  PDMS_WarrantyClaimInvoice ClaimInvoice = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(WarrantyClaimInvoiceID, "", null, null, null, 4, "")[0];
 
 
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DebitNote.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(DebitNote.Dealer.DealerCode);
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
                 CommissionDT.Columns.Add("Material");

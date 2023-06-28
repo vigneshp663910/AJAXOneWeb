@@ -422,7 +422,7 @@ namespace DealerManagementSystem.ViewService
                         FailureCode = SC.Material.MaterialCode;
                     }
                 }
-                PDMS_Customer Customer = new SCustomer().getCustomerAddress(TSIR.ICTicket.Customer.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(TSIR.ICTicket.Customer.CustomerCode);
                 string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.State.State + " - " + Customer.Pincode;
                 CustomerAddress = CustomerAddress.Replace(", ,", ",").Replace(",,", ",");
                 CustomerAddress = CustomerAddress.Trim(',', ' ');

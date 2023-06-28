@@ -363,6 +363,23 @@ namespace Properties
         public PUser CModifiedBy { get; set; }
 
     }
+
+    [Serializable]
+    public class PICTicketFSRSignature
+    {
+        public long FSRSignatureID { get; set; }
+        public long FsrID { get; set; }
+        public PAttachedFileS TPhoto { get; set; }
+        public PAttachedFileS TSignature { get; set; }
+        public PAttachedFileS CPhoto { get; set; }
+        public PAttachedFileS CSignature { get; set; }
+        public DateTime SignatureOn { get; set; }
+        public string CName { get; set; }
+        public string TName { get; set; }
+        public PUser TCreatedBy { get; set; }
+        public string FileType { get; set; }
+    }
+
     [Serializable]
     public class PDMS_ModeOfPayment
     {

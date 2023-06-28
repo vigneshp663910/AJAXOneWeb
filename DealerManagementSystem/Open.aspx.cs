@@ -17,7 +17,7 @@ namespace DealerManagementSystem
         protected void Page_Load(object sender, EventArgs e)
         {
             new BTest().getSalesByYearAndMonth();
-            FSRSignatur();
+            // FSRSignatur();
         }
 
         protected void btnAPITest_Click(object sender, EventArgs e)
@@ -191,7 +191,7 @@ namespace DealerManagementSystem
             new BAPI().ApiGetWithOutToken("ICTicket/UpdateSaleOrderNumberFromPostgres");
         }
    
-    void FSRSignatur()
+       void FSRSignatur()
         {
             PICTicketFSRSignature_Insert FSr = new PICTicketFSRSignature_Insert();
             FSr.FsrID = 68531;
@@ -205,9 +205,7 @@ namespace DealerManagementSystem
             FSr.Latitude = 1;
             FSr.Longitude = 1;
             string result = new BAPI().ApiPut("ICTicketFSR/UpdateTicketFSRSignature", FSr);
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
-             
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result); 
         }
 
         protected void btnAsnDetailsFromSap_Click(object sender, EventArgs e)

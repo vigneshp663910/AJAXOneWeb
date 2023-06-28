@@ -333,11 +333,11 @@ namespace DealerManagementSystem.ViewService
         {
             try
             {
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(FSR.ICTicket.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(FSR.ICTicket.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
-                PDMS_Customer Customer = new SCustomer().getCustomerAddress(FSR.ICTicket.Customer.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(FSR.ICTicket.Customer.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
@@ -372,15 +372,55 @@ namespace DealerManagementSystem.ViewService
                 string CustomerSignatureFilePath = "";
 
                 Boolean Signatured = false;
-                PDMS_ICTicketFSRSignature FSRSignature = new BDMS_ICTicketFSR().GetICTicketFSRSignatureByFsrID(FSR.FsrID);
-                if (FSRSignature.FsrID != 0)
+                PICTicketFSRSignature FSRSignature = new BDMS_ICTicketFSR().GetICTicketFSRSignatureByFsrIDDownload(FSR.FsrID);
+                if (FSRSignature.FSRSignatureID != 0)
                 {
+                    Path = "ICTickrtFSR_Files/Signature/" + FSRSignature.FSRSignatureID;
                     Signatured = true;
-                    TechnicianFilePath = string.IsNullOrEmpty(FSRSignature.TPhoto) ? "" : new Uri(UrlValueToImagePath(FSRSignature.TPhoto, "Tech" + FSR.FSRNumber)).AbsoluteUri;
-                    CustomerFilePath = string.IsNullOrEmpty(FSRSignature.CPhoto) ? "" : new Uri(UrlValueToImagePath(FSRSignature.CPhoto, "Cust" + FSR.FSRNumber)).AbsoluteUri;
-                    TechnicianSignatureFilePath = string.IsNullOrEmpty(FSRSignature.TSignature) ? "" : new Uri(UrlValueToImagePath(FSRSignature.TSignature, "TechSing" + FSR.FSRNumber)).AbsoluteUri;
-                    CustomerSignatureFilePath = string.IsNullOrEmpty(FSRSignature.CSignature) ? "" : new Uri(UrlValueToImagePath(FSRSignature.CSignature, "CustSing" + FSR.FSRNumber)).AbsoluteUri;
+                    if (!Directory.Exists(Server.MapPath("~/ICTickrtFSR_Files/Signature")))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/ICTickrtFSR_Files/Signature"));
+                    }
+
+                     
+
+                    if (File.Exists(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)))
+                    {
+                        File.Delete(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType));
+                    } 
+                    File.WriteAllBytes(Server.MapPath("~/" + Path+ "TPhoto"+"."+ FSRSignature.FileType), FSRSignature.TPhoto.AttachedFile); 
+                    TechnicianFilePath = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
+
+                    if (File.Exists(Server.MapPath("~/" + Path + "CPhoto" + "." + FSRSignature.FileType)))
+                    {
+                        File.Delete(Server.MapPath("~/" + Path + "CPhoto" + "." + FSRSignature.FileType));
+                    }
+                    File.WriteAllBytes(Server.MapPath("~/" + Path + "CPhoto" + "." + FSRSignature.FileType), FSRSignature.CPhoto.AttachedFile);
+                    CustomerFilePath = new Uri(Server.MapPath("~/" + Path + "CPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
+
+
+                    if (File.Exists(Server.MapPath("~/" + Path + "TSignature" + "." + FSRSignature.FileType)))
+                    {
+                        File.Delete(Server.MapPath("~/" + Path + "TSignature" + "." + FSRSignature.FileType));
+                    }
+                    File.WriteAllBytes(Server.MapPath("~/" + Path + "TSignature" + "." + FSRSignature.FileType), FSRSignature.TSignature.AttachedFile);
+                    TechnicianSignatureFilePath = new Uri(Server.MapPath("~/" + Path + "TSignature" + "." + FSRSignature.FileType)).AbsoluteUri;
+
+                    if (File.Exists(Server.MapPath("~/" + Path + "CSignature" + "." + FSRSignature.FileType)))
+                    {
+                        File.Delete(Server.MapPath("~/" + Path + "CSignature" + "." + FSRSignature.FileType));
+                    }
+                    File.WriteAllBytes(Server.MapPath("~/" + Path + "CSignature" + "." + FSRSignature.FileType), FSRSignature.CSignature.AttachedFile);
+                    CustomerSignatureFilePath = new Uri(Server.MapPath("~/" + Path + "CSignature" + "." + FSRSignature.FileType)).AbsoluteUri; 
                 }
+                //if (FSRSignature.FsrID != 0)
+                //{
+                //    Signatured = true;
+                //    TechnicianFilePath = string.IsNullOrEmpty(FSRSignature.TPhoto) ? "" : new Uri(UrlValueToImagePath(FSRSignature.TPhoto, "Tech" + FSR.FSRNumber)).AbsoluteUri;
+                //    CustomerFilePath = string.IsNullOrEmpty(FSRSignature.CPhoto) ? "" : new Uri(UrlValueToImagePath(FSRSignature.CPhoto, "Cust" + FSR.FSRNumber)).AbsoluteUri;
+                //    TechnicianSignatureFilePath = string.IsNullOrEmpty(FSRSignature.TSignature) ? "" : new Uri(UrlValueToImagePath(FSRSignature.TSignature, "TechSing" + FSR.FSRNumber)).AbsoluteUri;
+                //    CustomerSignatureFilePath = string.IsNullOrEmpty(FSRSignature.CSignature) ? "" : new Uri(UrlValueToImagePath(FSRSignature.CSignature, "CustSing" + FSR.FSRNumber)).AbsoluteUri;
+                //}
 
                 List<PDMS_FSRAttachedFile> FSRFile = new List<PDMS_FSRAttachedFile>();
                 List<PDMS_FSRAttachedFile> FSRFileAll = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileDetails(FSR.ICTicket.ICTicketID, null);
@@ -641,7 +681,7 @@ namespace DealerManagementSystem.ViewService
             }
             string FSRNumber = FSR.ICTicket.Dealer.DealerCode + "/" + FSR.ICTicket.ICTicketNumber + "/" + FSR.ICTicket.Technician.UserName + "/" + Year;
 
-            PDMS_Customer Customer = new SCustomer().getCustomerAddress(FSR.ICTicket.Customer.CustomerCode);
+            PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(FSR.ICTicket.Customer.CustomerCode);
 
             string[] saAllowedCharacters = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
             string sRandomOTP = GenerateRandomOTP(4, saAllowedCharacters);

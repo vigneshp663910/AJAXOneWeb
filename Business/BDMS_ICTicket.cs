@@ -1675,5 +1675,22 @@ namespace Business
             }
             return true;
         }
+
+
+        public PApiResult InsertICTicketDepartureDate(long ICTicketID, decimal Latitude, decimal Longitude)
+        {
+            string endPoint = "ICTicket/InsertICTicketDepartureDate?ICTicketID=" + ICTicketID + "&Latitude=" + Latitude + "&Longitude=" + Longitude;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult InsertICTicketSeReached(long ICTicketID, string Location, decimal Latitude, decimal Longitude)
+        {
+            string endPoint = "ICTicket/InsertICTicketSeReached?ICTicketID=" + ICTicketID + "&Location=" + Location + "&Latitude=" + Latitude + "&Longitude=" + Longitude;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult InsertICTicketArrivalBackDate(long ICTicketID, decimal Latitude, decimal Longitude)
+        {
+            string endPoint = "ICTicket/InsertICTicketArrivalBackDate?ICTicketID=" + ICTicketID + "&Latitude=" + Latitude + "&Longitude=" + Longitude;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

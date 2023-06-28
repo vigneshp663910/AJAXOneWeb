@@ -11,7 +11,7 @@ namespace SapIntegration
 {
     public class SQuotation
     {
-         public PSalesQuotationItem getMaterialTaxForQuotation(PSalesQuotation Quotation, string MaterialCode, Boolean IsWarrenty, decimal qty)
+        public PSalesQuotationItem getMaterialTaxForQuotation(PSalesQuotation Quotation, string MaterialCode, Boolean IsWarrenty, decimal qty)
         {
 
             PSalesQuotationItem Material = new PSalesQuotationItem();
@@ -158,6 +158,6 @@ namespace SapIntegration
 
             return dtRet;
         }
-      
+
     }
 }

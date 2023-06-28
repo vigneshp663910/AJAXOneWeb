@@ -444,7 +444,7 @@ namespace DealerManagementSystem.ViewService
             {
                 PDMS_WarrantyFailureMaterial FM = new BDMS_WarrantyFailureMaterial().GetWarrantyFailedMaterialDeliveryChallan(DeliveryChallanID, "", null, null, "", null, null, null)[0];
 
-                PDMS_Customer DealerAD = new SCustomer().getCustomerAddress(FM.Dealer.DealerCode);
+                PDMS_Customer DealerAD = new BDMS_Customer().getCustomerAddressFromSAP(FM.Dealer.DealerCode);
                 string DealerAddress1 = (DealerAD.Address1 + (string.IsNullOrEmpty(DealerAD.Address2) ? "" : "," + DealerAD.Address2) + (string.IsNullOrEmpty(DealerAD.Address3) ? "" : "," + DealerAD.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (DealerAD.City + (string.IsNullOrEmpty(DealerAD.State.State) ? "" : "," + DealerAD.State.State) + (string.IsNullOrEmpty(DealerAD.Pincode) ? "" : "-" + DealerAD.Pincode)).Trim(',', ' ');
 

@@ -261,12 +261,16 @@ namespace Business
             try
             {
 
-                   PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
+                //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(DealerCode);
+
                 PDMS_DeliveryHeader Delivery = getDelivery("", DeliveryNumber, null, null, null, Dealer.State.StateCode)[0];
 
 
                  PDMS_DealerOffice DealerOffice = new BDMS_Dealer().GetDealerOffice(null, null, Delivery.Dealer.DealerOffice.OfficeCode)[0];
-                PDMS_Customer DealerAD = new SCustomer().getCustomerAddress(DealerOffice.SapLocationCode.Trim());
+                //PDMS_Customer DealerAD = new SCustomer().getCustomerAddress(DealerOffice.SapLocationCode.Trim());
+                PDMS_Customer DealerAD = new BDMS_Customer().getCustomerAddressFromSAP(DealerOffice.SapLocationCode.Trim());
+
                 string DealerAddress1 = (DealerAD.Address1 + (string.IsNullOrEmpty(DealerAD.Address2) ? "" : "," + DealerAD.Address2) + (string.IsNullOrEmpty(DealerAD.Address3) ? "" : "," + DealerAD.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (DealerAD.City + (string.IsNullOrEmpty(DealerAD.State.State) ? "" : "," + DealerAD.State.State) + (string.IsNullOrEmpty(DealerAD.Pincode) ? "" : "-" + DealerAD.Pincode)).Trim(',', ' ');
 

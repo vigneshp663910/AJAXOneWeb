@@ -352,7 +352,7 @@ namespace DealerManagementSystem.ViewService
             Inv.Month = Convert.ToInt32(Month);
             long WarrantyClaimInvoiceID = 0;
 
-            PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Inv.Dealer.DealerCode);
+            PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(Inv.Dealer.DealerCode);
             PDMS_Customer CustomerAE = new BDMS_Customer().GetCustomerAE();
 
 

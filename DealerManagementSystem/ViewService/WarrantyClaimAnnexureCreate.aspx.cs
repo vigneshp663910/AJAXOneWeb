@@ -278,7 +278,7 @@ namespace DealerManagementSystem.ViewService
                     SDMS_ClaimAnnexure.PeriodTo = SDMS_ClaimAnnexure.PeriodTo.AddDays(-1);
                 }
 
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(DealerCode);
                 SDMS_ClaimAnnexure.Address1 = Dealer.Address2 + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3) + (string.IsNullOrEmpty(Dealer.Address1) ? "" : "," + Dealer.Address1);
                 SDMS_ClaimAnnexure.Address2 = Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode);
                 SDMS_ClaimAnnexure.Address1 = SDMS_ClaimAnnexure.Address1.Trim(',', ' ');

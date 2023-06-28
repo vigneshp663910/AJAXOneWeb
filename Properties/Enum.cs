@@ -551,7 +551,8 @@ namespace Properties
         ICTicketUnblock,
         DealerNotificationAdd,
         DealerBankDetailsEdit,
-        DealerResponsibleUserEdit, 
+        DealerResponsibleUserEdit,
+        ICTicketRemoveRestoreDate
     }
     public enum DMS_WarrantyClaimStatus
     {
