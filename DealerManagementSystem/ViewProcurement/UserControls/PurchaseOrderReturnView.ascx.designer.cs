@@ -141,22 +141,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.GridView gvPoReturnDelivery;
 
         /// <summary>
-        /// PnlPurchaseOrderReturnDeliveryCreate control.
+        /// pnlPoReturnDeliveryCreate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PnlPurchaseOrderReturnDeliveryCreate;
+        protected global::System.Web.UI.WebControls.Panel pnlPoReturnDeliveryCreate;
 
         /// <summary>
-        /// btnPurchaseOrderReturnDeliveryCreateBack control.
+        /// btnPoReturnDeliveryCreatePopupClose control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPurchaseOrderReturnDeliveryCreateBack;
+        protected global::System.Web.UI.WebControls.Button btnPoReturnDeliveryCreatePopupClose;
 
         /// <summary>
         /// lblMessagePoReturnDeliveryCreate control.
@@ -175,6 +175,51 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DealerManagementSystem.ViewProcurement.UserControls.PurchaseOrderReturnDeliveryCreate UC_PurchaseOrderReturnDeliveryCreate;
+
+        /// <summary>
+        /// divProceeedDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divProceeedDelivery;
+
+        /// <summary>
+        /// btnProceedDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnProceedDelivery;
+
+        /// <summary>
+        /// divSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSave;
+
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
+
+        /// <summary>
+        /// MPE_PoReturnDeliveryCreate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_PoReturnDeliveryCreate;
 
         /// <summary>
         /// pnlPoReturnCancel control.

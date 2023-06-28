@@ -84,12 +84,17 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             if(lbActions.Text == "Create Delivery")
             {
-                Panel pnlPoReturnDeliveryCreate = (Panel)UC_PurchaseOrderReturnDeliveryCreate.FindControl("pnlPoReturnDeliveryCreate");
-                pnlPoReturnDeliveryCreate.Visible = true;
-                
-                PnlPurchaseOrderReturnView.Visible = false;
-                PnlPurchaseOrderReturnDeliveryCreate.Visible = true;
+                Clear();
+                lblMessagePoReturnDeliveryCreate.Text = "";
+                lblMessagePoReturnDeliveryCreate.Visible = false;
+                divProceeedDelivery.Visible = false;
+                MPE_PoReturnDeliveryCreate.Show();
                 UC_PurchaseOrderReturnDeliveryCreate.fillPOReturnItem(PoReturn.PurchaseOrderReturnID);
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderReturnItemForDeliveryCreation(PoReturn.PurchaseOrderReturnID);
+                if(JsonConvert.DeserializeObject<List<PPurchaseOrderReturn>>(JsonConvert.SerializeObject(Result.Data)).Count>0)
+                {
+                    divProceeedDelivery.Visible = true;
+                }
             }
         }
         protected void btnPoReturnCancel_Click(object sender, EventArgs e)
@@ -107,41 +112,56 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 return;
             }
             fillViewPoReturn(PurchaseOrderReturnID);
-        }
-        //protected void btnSave_Click(object sender, EventArgs e)
-        //{
-        //    string message = UC_PurchaseOrderReturnDeliveryCreate.Validation();
-        //    if (!string.IsNullOrEmpty(message))
-        //    {
-        //        lblMessagePoReturnDeliveryCreate.Text = message;
-        //        lblMessagePoReturnDeliveryCreate.Visible = true;
-        //        lblMessagePoReturnDeliveryCreate.ForeColor = Color.Red;
-        //        return;
-        //    }
-        //    List<PPurchaseOrderReturnDeliveryItem_Insert> poReturnDelivery = UC_PurchaseOrderReturnDeliveryCreate.Read();
-        //    string result = new BAPI().ApiPut("PurchaseOrder/PurchaseOrderReturnDeliveryCreate", poReturnDelivery);
-        //    PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
-        //    if (Result.Status == PApplication.Failure)
-        //    {
-        //        lblMessagePoReturnDeliveryCreate.Text = Result.Message;
-        //        return;
-        //    }
-        //    //divList.Visible = false;
-        //    //divPoReturnDetailsView.Visible = true;
-        //    //divPurchaseOrderReturnDeliveryCreate.Visible = false;
-        //    //Label lblMessagePOReturn = (Label)UC_PurchaseOrderReturnView.FindControl("lblMessagePOReturn");
-        //    //lblMessagePOReturn.Text = Result.Message;
-        //    //lblMessagePOReturn.Visible = true;
-        //    //lblMessagePOReturn.ForeColor = Color.Green;
-        //    //UC_PurchaseOrderReturnView.fillViewPoReturn(Convert.ToInt64(Result.Data));
-        //}
+        }        
         protected void btnPurchaseOrderReturnDeliveryCreateBack_Click(object sender, EventArgs e)
         {
             PnlPurchaseOrderReturnView.Visible = true;
             Panel pnlPoReturnDeliveryCreate = (Panel)UC_PurchaseOrderReturnDeliveryCreate.FindControl("pnlPoReturnDeliveryCreate");
             pnlPoReturnDeliveryCreate.Visible = false;
-            PnlPurchaseOrderReturnDeliveryCreate.Visible = false;
+            pnlPoReturnDeliveryCreate.Visible = false;
+        }
+        protected void btnProceedDelivery_Click(object sender, EventArgs e)
+        {
+            lblMessagePoReturnDeliveryCreate.Text = "";
+            UC_PurchaseOrderReturnDeliveryCreate.ReadPoReturnItem();
+            divSave.Visible = true;
+            divProceeedDelivery.Visible = false;
+            MPE_PoReturnDeliveryCreate.Show();
+        }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            lblMessagePoReturnDeliveryCreate.Visible = true;
+            lblMessagePoReturnDeliveryCreate.ForeColor = Color.Red;
+            MPE_PoReturnDeliveryCreate.Show();
+            string message = UC_PurchaseOrderReturnDeliveryCreate.RValidateReturnDelivery();
+            if (!string.IsNullOrEmpty(message))
+            {
+                lblMessagePoReturnDeliveryCreate.Text = message;
+                return;
+            }
+
+            List<PPurchaseOrderReturnDeliveryItem_Insert> poReturnDelivery = UC_PurchaseOrderReturnDeliveryCreate.ReadPoReturnDelivery();
+            string result = new BAPI().ApiPut("PurchaseOrder/PurchaseOrderReturnDeliveryCreate", poReturnDelivery);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessagePoReturnDeliveryCreate.Text = Result.Message;
+                return;
+            }
+            
+            lblMessagePoReturn.Text = Result.Message;
+            lblMessagePoReturn.Visible = true;
+            lblMessagePoReturn.ForeColor = Color.Green;
+            fillViewPoReturn(PoReturn.PurchaseOrderReturnID);
+            tbpPoReturn.ActiveTabIndex = 1;
+            Clear();
+            MPE_PoReturnDeliveryCreate.Hide();
+        }
+        void Clear()
+        {
+            divSave.Visible = false;
+            UC_PurchaseOrderReturnDeliveryCreate.Clear();
         }
     }
 }
