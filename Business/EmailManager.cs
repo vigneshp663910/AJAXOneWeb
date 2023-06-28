@@ -130,6 +130,101 @@ namespace Business
                 new FileLogger().LogMessage("EmailManager", "MailSend", ex);
             }
         }
+        public void MailSend(string mailTo, string CC, string Subject, string messageBody, long TicketID)
+        {
+            try
+            {
+                DbParameter TicketIDP = provider.CreateParameter("TicketID", TicketID, DbType.Int64);
+                DbParameter UserIDP = provider.CreateParameter("UserID", PSession.User.UserID, DbType.Int64);
+                DbParameter mailToP = provider.CreateParameter("MailTo", mailTo, DbType.String);
+                DbParameter SubjectP = provider.CreateParameter("Subject", Subject, DbType.String);
+                DbParameter messageBodyP = provider.CreateParameter("MessageBody", messageBody, DbType.String);
+
+                DbParameter[] Params = new DbParameter[5] { TicketIDP, UserIDP, mailToP, SubjectP, messageBodyP };
+                try
+                {
+                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                    {
+                        provider.Insert("insertMailSendInfo", Params);
+                        scope.Complete();
+                    }
+                    MailSend(mailTo, CC, Subject, messageBody);
+                }
+                catch (SqlException sqlEx)
+                {
+                    new FileLogger().LogMessage("EmailManager", "MailSend", sqlEx);
+
+                }
+                catch (Exception ex)
+                {
+                    new FileLogger().LogMessage("EmailManager", " MailSend", ex);
+
+                }
+
+                ////   new FileLogger().LogTrack("MailSend", "Start");
+                //MailMessage mailMessage = new MailMessage();
+                //string fromMail = Convert.ToString(ConfigurationManager.AppSettings["MailFrom"]);
+
+                //string mailPwd = Convert.ToString(ConfigurationManager.AppSettings["Mailpwd"]);
+                //string smtpHost = Convert.ToString(ConfigurationManager.AppSettings["SmtpHost"]);
+
+                //NetworkCredential networkCredential = new NetworkCredential(fromMail, mailPwd);
+                //mailMessage.From = new MailAddress(fromMail);
+                //mailMessage.Subject = Subject;
+                //mailMessage.To.Add(mailTo);
+                //mailMessage.Body = messageBody;
+                //SmtpClient smtpClient = new SmtpClient();
+                //smtpClient.Host = smtpHost;
+                //smtpClient.Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
+                //smtpClient.UseDefaultCredentials = false;
+                //smtpClient.Credentials = networkCredential;
+                //mailMessage.IsBodyHtml = true;
+                ////      smtpClient.EnableSsl = true;
+                //smtpClient.Send(mailMessage);
+
+                //// new FileLogger().LogTrack("MailSend", "End");
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("EmailManager", "MailSend", ex);
+            }
+        }
+        public void MailSend(string mailTo, string CC, string BCC, string Subject, string messageBody, long TicketID)
+        {
+            try
+            {
+                DbParameter TicketIDP = provider.CreateParameter("TicketID", TicketID, DbType.Int64);
+                DbParameter UserIDP = provider.CreateParameter("UserID", PSession.User.UserID, DbType.Int64);
+                DbParameter mailToP = provider.CreateParameter("MailTo", mailTo, DbType.String);
+                DbParameter SubjectP = provider.CreateParameter("Subject", Subject, DbType.String);
+                DbParameter messageBodyP = provider.CreateParameter("MessageBody", messageBody, DbType.String);
+
+                DbParameter[] Params = new DbParameter[5] { TicketIDP, UserIDP, mailToP, SubjectP, messageBodyP };
+                try
+                {
+                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                    {
+                        provider.Insert("insertMailSendInfo", Params);
+                        scope.Complete();
+                    }
+                    MailSend(mailTo, CC, BCC, Subject, messageBody);
+                }
+                catch (SqlException sqlEx)
+                {
+                    new FileLogger().LogMessage("EmailManager", "MailSend", sqlEx);
+
+                }
+                catch (Exception ex)
+                {
+                    new FileLogger().LogMessage("EmailManager", " MailSend", ex);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("EmailManager", "MailSend", ex);
+            }
+        }
         public string GetFileContent(string FilePath)
         {
             string msg = string.Empty;
@@ -375,6 +470,62 @@ namespace Business
                     {
                         if (!string.IsNullOrEmpty(MailCC))
                             mailMessage.CC.Add(MailCC);
+                    }
+                }
+
+                mailMessage.Body = messageBody;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
+                                      | SecurityProtocolType.Tls11
+                                      | SecurityProtocolType.Tls12;
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.Host = smtpHost;
+                smtpClient.Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = networkCredential;
+                mailMessage.IsBodyHtml = true;
+                smtpClient.EnableSsl = true;
+                smtpClient.Send(mailMessage);
+                // new FileLogger().LogTrack("MailSend", "End");
+                success = true;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("EmailManager", "MailSend", ex);
+            }
+            return success;
+        }
+        public Boolean MailSend(string mailTo, string CC, string BCC, string Subject, string messageBody)
+        {
+            Boolean success = false;
+            try
+            {
+                MailMessage mailMessage = new MailMessage();
+                string fromMail = Convert.ToString(ConfigurationManager.AppSettings["MailFrom"]);
+                string mailPwd = Convert.ToString(ConfigurationManager.AppSettings["Mailpwd"]);
+                string smtpHost = Convert.ToString(ConfigurationManager.AppSettings["SmtpHost"]);
+
+                NetworkCredential networkCredential = new NetworkCredential(fromMail, mailPwd);
+                mailMessage.From = new MailAddress(fromMail);
+                mailMessage.Subject = Subject;
+                mailMessage.To.Add(mailTo);
+
+                string[] MailCcS = CC.Split(',');
+                if (MailCcS != null)
+                {
+                    foreach (string MailCC in MailCcS)
+                    {
+                        if (!string.IsNullOrEmpty(MailCC))
+                            mailMessage.CC.Add(MailCC);
+                    }
+                }
+
+                string[] MailBCcS = BCC.Split(',');
+                if (MailBCcS != null)
+                {
+                    foreach (string MailBCC in MailBCcS)
+                    {
+                        if (!string.IsNullOrEmpty(MailBCC))
+                            mailMessage.Bcc.Add(MailBCC);
                     }
                 }
 

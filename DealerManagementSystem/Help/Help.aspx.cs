@@ -110,9 +110,8 @@ namespace DealerManagementSystem.Help
                 help.VideoLink = HyperLinklink.NavigateUrl;
                 help.OrderNo = Convert.ToInt32(lblOrderNo.Text.Trim());
                 help.IsDeleted = true;
-                help.CreatedBy = PSession.User.UserID;
 
-                Success = new BHelp().InsertOrUpdateDocumentAttachment(help);
+                Success = new BHelp().InsertOrUpdateDocumentAttachment(help, PSession.User.UserID);
                 if (Success == true)
                 {
                     lblMessage.Text = "Document is deleted successfully";
@@ -126,7 +125,6 @@ namespace DealerManagementSystem.Help
                 lblMessage.ForeColor = Color.Red;
             }
         }
-
         protected void BtnAdd_Click(object sender, EventArgs e)
         {
             try
@@ -156,7 +154,6 @@ namespace DealerManagementSystem.Help
                 help.VideoLink = txtVideoLink;
                 help.OrderNo = Convert.ToInt32(txtOrderNo);
                 help.IsDeleted = false;
-                help.CreatedBy = PSession.User.UserID;
 
                 if (BtnAdd.Text == "Add")
                 {
@@ -180,7 +177,7 @@ namespace DealerManagementSystem.Help
                         }
                         fileUploadPPS.PostedFile.SaveAs(Server.MapPath("~/Help/Files/") + fileName);
                     }
-                    Success = new BHelp().InsertOrUpdateDocumentAttachment(help);
+                    Success = new BHelp().InsertOrUpdateDocumentAttachment(help, PSession.User.UserID);
                     if (Success == true)
                     {
                         lblMessage.Text = "Document is saved successfully";
@@ -218,7 +215,7 @@ namespace DealerManagementSystem.Help
                         fileUploadPPS.PostedFile.SaveAs(Server.MapPath("~/Help/Files/") + fileName);
                     }
 
-                    Success = new BHelp().InsertOrUpdateDocumentAttachment(help);
+                    Success = new BHelp().InsertOrUpdateDocumentAttachment(help, PSession.User.UserID);
                     if (Success == true)
                     {
                         lblMessage.Text = "Document is updated successfully";
@@ -238,7 +235,6 @@ namespace DealerManagementSystem.Help
                 lblMessage.ForeColor = Color.Red;
             }
         }
-
         protected void ibedit_Click(object sender, ImageClickEventArgs e)
         {
             try

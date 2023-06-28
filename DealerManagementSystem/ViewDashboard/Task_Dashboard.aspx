@@ -379,9 +379,17 @@
                     <asp:DropDownList ID="ddlSubcategory" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
                 </div>
                 <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Dealer</label>
+                    <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged"/>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Employee</label>
+                    <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true" />
+                </div>
+                <%--<div class="col-md-2 col-sm-12">
                     <label class="modal-label">Employee</label>
                     <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
-                </div>
+                </div>--%>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                 </div>
@@ -495,7 +503,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div class="thumbnail wide_thumbnail" style="margin-bottom: 2px; padding-left: 10px; padding-right: 10px; margin-right: 5px; background-color: #039487;">
                                         <div class="dashboard-stat dashboard-stat-v2 red-soft" href="javascript:void(0);" onclick="VisitMyEnquiries('Approved');">
                                             <%--<div class="visual"><i class="fa fa-ticket"></i></div>--%>
@@ -599,7 +607,7 @@
                                                     <ItemTemplate>
                                                         <asp:Label ID="lnkWaitingForApproval" Text='<%# DataBinder.Eval(Container.DataItem, "WaitingForApproval")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
-                                                </asp:TemplateField>                                                
+                                                </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Approved">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
@@ -709,7 +717,8 @@
                 //, Subcategory: $('#MainContent_ddlSubcategory').val()
                 DateFrom: $('#MainContent_txtTicketFrom').val()
                 , DateTo: $('#MainContent_txtTicketTo').val()
-                , DealerEmployeeUser: $('#MainContent_ddlEmployee').val()
+                , DealerEmployeeUser: $('#MainContent_ddlDealerEmployee').val()
+                , Dealer: $('#MainContent_ddlDealer').val()
             }
             $.ajax({
                 type: "POST",
@@ -751,7 +760,8 @@
             var param = {
                 DateFrom: $('#MainContent_txtTicketFrom').val()
                 , DateTo: $('#MainContent_txtTicketTo').val()
-                , DealerEmployeeUser: $('#MainContent_ddlEmployee').val()
+                , DealerEmployeeUser: $('#MainContent_ddlDealerEmployee').val()
+                , Dealer: $('#MainContent_ddlDealer').val()
             }
             $.ajax({
                 type: "POST",

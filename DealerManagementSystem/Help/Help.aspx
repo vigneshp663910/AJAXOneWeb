@@ -1,15 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Help.aspx.cs" Inherits="DealerManagementSystem.Help.Help" %>
-
-
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
-
-
-
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
@@ -99,6 +94,18 @@
                                             <asp:TextBox ID="txtOrderNo" runat="server" placeholder="OrderBy" CssClass="form-control"></asp:TextBox>
                                         </FooterTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Updated By">
+                                        <ItemStyle VerticalAlign="Middle"  Font-Size="Medium" Font-Bold="True" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblUpdatedBy" ForeColor="#0066FF" Text='<%# DataBinder.Eval(Container.DataItem, "ModifiedBy.ContactName")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Updated On">
+                                        <ItemStyle VerticalAlign="Middle"  Font-Size="Medium" Font-Bold="True" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblUpdatedOn" ForeColor="#0066FF" Text='<%# DataBinder.Eval(Container.DataItem, "ModifiedOn")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Action">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
@@ -123,12 +130,6 @@
                     </fieldset>
                 </div>
             </div>
-
-
-
-
-
-
         </div>
     </div>
 

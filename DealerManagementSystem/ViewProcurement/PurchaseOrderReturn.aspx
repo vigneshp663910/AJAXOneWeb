@@ -87,23 +87,23 @@
                                 <asp:TemplateField HeaderText="Dealer">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnItem.Gr.ASN.PurchaseOrder.Dealer.DealerCode")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label>
                                         <br />
-                                        <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnItem.Gr.ASN.PurchaseOrder.Dealer.DealerName")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Location">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnItem.Gr.ASN.PurchaseOrder.Location.OfficeName")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location.OfficeName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Vendor">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblVendorCode" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnItem.Gr.ASN.PurchaseOrder.Vendor.DealerCode")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblVendorCode" Text='<%# DataBinder.Eval(Container.DataItem, "Vendor.DealerCode")%>' runat="server"></asp:Label>
                                         <br />
-                                        <asp:Label ID="lblVendorName" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnItem.Gr.ASN.PurchaseOrder.Vendor.DealerName")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblVendorName" Text='<%# DataBinder.Eval(Container.DataItem, "Vendor.DealerName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="PO Return Status">

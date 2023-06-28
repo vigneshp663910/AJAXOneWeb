@@ -66,12 +66,15 @@ namespace DealerManagementSystem.ViewSupportTicket
                 //  new FillDropDownt().Employee(ddlCreatedBy, null, null, "", "", "");
                 //  new FillDropDownt().Department(ddlDepartment); 
                 //FillTickets();
-                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
-                new DDLBind(ddlCreatedBy, DealerUser, "ContactName", "UserID");
-                new DDLBind(ddlAssignedTo, DealerUser, "ContactName", "UserID");
-                new DDLBind(ddlApprovalTo, DealerUser, "ContactName", "UserID");
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlCreatedBy);
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlAssignedTo);
+                new DDLBind().FillDealerAndEngneer(ddlDealer, ddlApprovalTo);
+                //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
+                //new DDLBind(ddlCreatedBy, DealerUser, "ContactName", "UserID");
+                //new DDLBind(ddlAssignedTo, DealerUser, "ContactName", "UserID");
+                //new DDLBind(ddlApprovalTo, DealerUser, "ContactName", "UserID");
                 string Status = string.Empty;
-                if (Session["DashboardTaskStatus"] != null)
+                if (Session["DashboardTaskStatus"] != null && Session["DashboardTaskStatus"] != "Created")
                 {
                     foreach (ListItem li in lbStatus.Items)
                     {
@@ -82,8 +85,10 @@ namespace DealerManagementSystem.ViewSupportTicket
                         }
                     }
                 }
-                if (Session["DashboardTaskUserID"] != null)
+                if (Session["DashboardTaskUserID"] != null && Session["DashboardTaskDealerID"] != null)
                 {
+                    ddlDealer.SelectedValue = Session["DashboardTaskDealerID"].ToString();
+                    ddlDealer_SelectedIndexChanged(null, null);
                     //ddlCreatedBy.SelectedValue = Session["DashboardTaskUserID"].ToString();
                     if (Status == "In Progress" || Status == "Assigned" || Status == "Resolved" || Status == "Closed" || Status == "Cancel" || Status == "Foreclose")
                     {
@@ -97,11 +102,22 @@ namespace DealerManagementSystem.ViewSupportTicket
                     {
                         ddlCreatedBy.SelectedValue = Session["DashboardTaskUserID"].ToString();
                     }
+                    if (Status == "")
+                    {
+                        ddlCreatedBy.SelectedValue = Session["DashboardTaskUserID"].ToString();
+                    }
                 }
 
                 PageIndex = 1;
                 FillTickets();
             }
+        }
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+            new DDLBind(ddlAssignedTo, DealerUser, "ContactName", "UserID");
+            new DDLBind(ddlApprovalTo, DealerUser, "ContactName", "UserID");
+            new DDLBind(ddlCreatedBy, DealerUser, "ContactName", "UserID");
         }
         void FillStatus()
         {
@@ -152,13 +168,14 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 UserID = PSession.User.UserID;
             }
-            int? CreatedBy = null, AssignedTo = null, ApprovalTo = null;
+            int? CreatedBy = null, AssignedTo = null, ApprovalTo = null, DealerID = null;
             CreatedBy = (ddlCreatedBy.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlCreatedBy.SelectedValue);
             AssignedTo = (ddlAssignedTo.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlAssignedTo.SelectedValue);
             ApprovalTo = (ddlApprovalTo.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlApprovalTo.SelectedValue);
+            DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int RowCount = 0;
 
-            TicketHeader = new BTickets().GetTicketDetailsSupport(TicketNO, null, CategoryID, SubCategoryID, SeverityID, TypeId, CreatedBy, AssignedTo, ApprovalTo, UserID, TicketStatus, TicketFrom, TicketTo, PageIndex, gvTickets.PageSize, out RowCount);
+            TicketHeader = new BTickets().GetTicketDetailsSupport(DealerID, TicketNO, null, CategoryID, SubCategoryID, SeverityID, TypeId, CreatedBy, AssignedTo, ApprovalTo, UserID, TicketStatus, TicketFrom, TicketTo, PageIndex, gvTickets.PageSize, out RowCount);
 
             if (RowCount == 0)
             {
@@ -194,6 +211,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 }
             }
             Session["DashboardTaskUserID"] = null;
+            Session["DashboardTaskDealerID"] = null;
             Session["DashboardTaskStatus"] = null;
         }
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)

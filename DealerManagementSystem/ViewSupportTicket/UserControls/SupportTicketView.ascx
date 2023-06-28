@@ -36,26 +36,34 @@
                     <asp:Label ID="lblTicketID" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Severity : </label>
-                    <asp:Label ID="lblSeverity" runat="server" CssClass="label"></asp:Label>
+                    <label>Category : </label>
+                    <asp:Label ID="lblCategory" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Description: </label>
-                    <asp:Label ID="lblDescription" runat="server" CssClass="label"></asp:Label>
+                    <label>Severity : </label>
+                    <asp:Label ID="lblSeverity" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>CreatedBy : </label>
                     <asp:Label ID="lblCreatedBy" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>UpdatedBy : </label>
+                    <asp:Label ID="lblUpdatedBy" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Description: </label>
+                    <asp:Label ID="lblDescription" runat="server" CssClass="label"></asp:Label>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Category : </label>
-                    <asp:Label ID="lblCategory" runat="server" CssClass="label"></asp:Label>
+                    <label>Dealer Code :</label>
+                    <asp:Label ID="lblDealerCode" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Ticket Type : </label>
-                    <asp:Label ID="lblTicketType" runat="server" CssClass="label"></asp:Label>
+                    <label>Sub Category : </label>
+                    <asp:Label ID="lblSubCategory" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Age : </label>
@@ -65,23 +73,39 @@
                     <label>CreatedBy Contact : </label>
                     <asp:Label ID="lblCreatedByContactNumber" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>UpdatedBy Contact : </label>
+                    <asp:Label ID="lblUpdatedByContactNumber" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>ClosedBy : </label>
+                    <asp:Label ID="lblClosedBy" runat="server" CssClass="label"></asp:Label>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Sub Category : </label>
-                    <asp:Label ID="lblSubCategory" runat="server" CssClass="label"></asp:Label>
+                    <label>Dealer Name : </label>
+                    <asp:Label ID="lblDealerName" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Ticket Type : </label>
+                    <asp:Label ID="lblTicketType" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Status : </label>
                     <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Closed On : </label>
-                    <asp:Label ID="lblClosedOn" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
                     <label>Created On : </label>
                     <asp:Label ID="lblCreatedOn" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Updated On : </label>
+                    <asp:Label ID="lblUpdatedOn" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Closed On : </label>
+                    <asp:Label ID="lblClosedOn" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
         </div>
@@ -89,7 +113,7 @@
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
-<asp:TabContainer ID="tbpTaskView" runat="server" ToolTip="Assigned Status..." Font-Bold="True" Font-Size="Medium">    
+<asp:TabContainer ID="tbpTaskView" runat="server" ToolTip="Assigned Status..." Font-Bold="True" Font-Size="Medium">
     <asp:TabPanel ID="tpnlTicketHistory" runat="server" HeaderText="Ticket History" Font-Bold="True" ToolTip="Ticket Conversations...">
         <ContentTemplate>
             <div class="col-md-12" id="Div1" runat="server">
@@ -199,10 +223,10 @@
                                     <asp:Label ID="lblAssignedByContactNumber" Text='<%# DataBinder.Eval(Container.DataItem, "AssignedBy.ContactNumber")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="InActive">
+                            <asp:TemplateField HeaderText="Active">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblInActive" Text='<%# DataBinder.Eval(Container.DataItem, "InActive")%>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblInActive" Text='<%# Eval("InActive").ToString() == "True" ? "False" : "True" %>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -270,10 +294,10 @@
                                     <asp:Label ID="lblRequestedOn" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedOn")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="InActive">
+                            <asp:TemplateField HeaderText="Active">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblInActive" Text='<%# DataBinder.Eval(Container.DataItem, "InActive")%>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblInActive" Text='<%# Eval("InActive").ToString() == "True" ? "False" : "True" %>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -326,11 +350,11 @@
             </div>
         </fieldset>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnUpdateHeaderInfo" runat="server" Text="Update Header Info" CssClass="InputButton btn Save" OnClick="btnUpdateHeaderInfo_Click" width="150px"/>
+            <asp:Button ID="btnUpdateHeaderInfo" runat="server" Text="Update Header Info" CssClass="InputButton btn Save" OnClick="btnUpdateHeaderInfo_Click" Width="150px" />
         </div>
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_EditHeaderInfo" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditHeaderInfo" BackgroundCssClass="modalBackground" CancelControlID="btnCancel"/>
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditHeaderInfo" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditHeaderInfo" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlConversation" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
