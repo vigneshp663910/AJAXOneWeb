@@ -24,15 +24,15 @@ namespace DealerManagementSystem.ViewProcurement
         {
             get
             {
-                if (Session["PAsnHeader"] == null)
+                if (ViewState["PAsnHeader"] == null)
                 {
-                    Session["PAsnHeader"] = new List<PAsn>();
+                    ViewState["PAsnHeader"] = new List<PAsn>();
                 }
-                return (List<PAsn>)Session["PAsnHeader"];
+                return (List<PAsn>)ViewState["PAsnHeader"];
             }
             set
             {
-                Session["PAsnHeader"] = value;
+                ViewState["PAsnHeader"] = value;
             }
         }
         private int PageCount

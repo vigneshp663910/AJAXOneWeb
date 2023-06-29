@@ -224,7 +224,7 @@ namespace Properties
         public DateTime SoDate { get; set; }
         public string DeliveryNumber { get; set; }
         public DateTime DeliveryDate { get; set; }
-
+        public string InvoiceNumber { get; set; }
         public DateTime? PickupDate { get; set; }
         public DateTime? LoadingDate { get; set; }
         public decimal? NetWeight { get; set; }
