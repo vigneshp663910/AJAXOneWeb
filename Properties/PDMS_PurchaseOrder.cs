@@ -403,6 +403,7 @@ namespace Properties
 
         public PMaterial Material { get; set; }
         public decimal Quantity { get; set; }
+        public decimal DeliveredQty { get; set; }
     }
     [Serializable]
     public class PPurchaseOrderReturnDelivery

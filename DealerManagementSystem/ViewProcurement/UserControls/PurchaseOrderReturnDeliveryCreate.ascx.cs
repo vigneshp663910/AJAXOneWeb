@@ -58,7 +58,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PurchaseOrderReturnDeliveryItem_Insert"] = value;
             }
         }
-
         public PPurchaseOrderReturnDelivery PoRDelivery
         {
             get
@@ -87,14 +86,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvPoReturnItem.DataBind();
             fillPendingDelivery();
         }
-        void Clear()
+        public void Clear()
         {
             gvPoReturnItem.DataSource = null;
             gvPoReturnItem.DataBind();
             gvPoReturnItemSelected.Clear();
+            divDeliveryEntry.Visible = false;
+            divPOReturnItem.Visible = true;
             lblMessagePoReturnDeliveryCreate.Visible = false;
             lblMessagePoReturnDeliveryCreate.Text = "";
-            lblMessagePoReturnDeliveryCreate.Visible = false;
         }
         public void fillPendingDelivery()
         {
@@ -124,31 +124,17 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvPoReturnItem.PageIndex = e.NewPageIndex;
             selectedGv();
             fillPendingDelivery();
-        }
-        protected void btnProceedDelivery_Click(object sender, EventArgs e)
-        {
-            lblMessagePoReturnDeliveryCreate.Text = "";
-            List<PPurchaseOrderReturnItem> poReturnItem = ReadPoReturnItem();
-            if (poReturnItem != null)
-            {
-                if (poReturnItem.Count > 0)
-                {
-                    gvPoReturnItemForDelivery.DataSource = poReturnItem;
-                    gvPoReturnItemForDelivery.DataBind();
-                    divDeliveryEntry.Visible = true;
-                }
-            }
-        }
-        public List<PPurchaseOrderReturnItem> ReadPoReturnItem()
+        }        
+        public void ReadPoReturnItem() //List<PPurchaseOrderReturnItem>
         {
             List<PPurchaseOrderReturnItem> PurchaseOrderReturnItem = new List<PPurchaseOrderReturnItem>();
             selectedGv();
             if (gvPoReturnItemSelected.Count == 0)
             {
                 lblMessagePoReturnDeliveryCreate.Visible = true;
-                lblMessagePoReturnDeliveryCreate.Text = "Please select the PO Item.";
+                lblMessagePoReturnDeliveryCreate.Text = "Please select the PO Return Item.";
                 lblMessagePoReturnDeliveryCreate.ForeColor = Color.Red;
-                return PurchaseOrderReturnItem;
+                return;
             }
 
             foreach (int Item in gvPoReturnItemSelected)
@@ -174,7 +160,17 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     }
                 }
             }
-            return PurchaseOrderReturnItem;
+            
+            if (PurchaseOrderReturnItem != null)
+            {
+                if (PurchaseOrderReturnItem.Count > 0)
+                {
+                    gvPoReturnItemForDelivery.DataSource = PurchaseOrderReturnItem;
+                    gvPoReturnItemForDelivery.DataBind();
+                    divPOReturnItem.Visible = false;
+                    divDeliveryEntry.Visible = true;
+                }
+            }
         }
         void selectedGv()
         {
@@ -182,7 +178,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 CheckBox cbIsChecked = (CheckBox)row.FindControl("cbIsChecked");
                 Label lblPurchaseOrderReturnItemID = (Label)row.FindControl("lblPurchaseOrderReturnItemID");
-
 
                 long PurchaseOrderReturnItemID = Convert.ToInt64(lblPurchaseOrderReturnItemID.Text);
                 if (cbIsChecked.Checked)
@@ -203,39 +198,44 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            List<PPurchaseOrderReturnDeliveryItem_Insert> poReturnDelivery = ReadPoReturnDeliveryItem();
+            lblMessagePoReturnDeliveryCreate.Visible = true;
+            lblMessagePoReturnDeliveryCreate.ForeColor = Color.Red;
+            List<PPurchaseOrderReturnDeliveryItem_Insert> poReturnDelivery = new List<PPurchaseOrderReturnDeliveryItem_Insert>();
 
             foreach (GridViewRow row in gvPoReturnItemForDelivery.Rows)
             {
-                if (poReturnDelivery.Count != gvPoReturnItemForDelivery.Rows.Count)
-                {
-                    lblMessagePoReturnDeliveryCreate.Visible = true;
-                    lblMessagePoReturnDeliveryCreate.Text = "Please enter the Delivery Quantity for all selected Items.";
-                    lblMessagePoReturnDeliveryCreate.ForeColor = Color.Red;
+
+                TextBox txtDeliveredQty = (TextBox)row.FindControl("txtDeliveredQty");
+                if (string.IsNullOrEmpty(txtDeliveredQty.Text))
+                { 
+                    lblMessagePoReturnDeliveryCreate.Text = "Please enter the Delivery Quantity for all selected Items."; 
                     return;
                 }
-                
+                decimal DeliveryQty = Convert.ToDecimal(((TextBox)row.FindControl("txtDeliveredQty")).Text);
+                if (DeliveryQty == 0)
+                { 
+                    lblMessagePoReturnDeliveryCreate.Text = "Please enter Delivery Quantity."; 
+                    return;
+                }
+                else if (DeliveryQty > (Convert.ToDecimal(((Label)row.FindControl("lblQty")).Text)))
+                { 
+                    lblMessagePoReturnDeliveryCreate.Text = "Please enter valid Delivery Quantity."; 
+                    return;
+                }
+                long PurchaseOrderReturnID = Convert.ToInt64(((Label)row.FindControl("lblPurchaseOrderReturnID")).Text);
+                long PurchaseOrderReturnItemID = Convert.ToInt64(((Label)row.FindControl("lblPurchaseOrderReturnItemID")).Text);
+                string ItemRemarks = Convert.ToString(((TextBox)row.FindControl("txtRemarks")).Text.Trim());
 
-                foreach (PPurchaseOrderReturnDeliveryItem_Insert PoReItemDelivery in poReturnDelivery)
+                poReturnDelivery.Add(new PPurchaseOrderReturnDeliveryItem_Insert()
                 {
-                    if (PoReItemDelivery.DeliveryQty == 0)
-                        {
-                            lblMessagePoReturnDeliveryCreate.Visible = true;
-                            lblMessagePoReturnDeliveryCreate.Text = "Please enter Delivery Quantity.";
-                            lblMessagePoReturnDeliveryCreate.ForeColor = Color.Red;
-                            return;
-                        }
+                    PurchaseOrderReturnID = PurchaseOrderReturnID,
+                    PurchaseOrderReturnItemID = PurchaseOrderReturnItemID,
+                    DeliveryQty = DeliveryQty,
+                    Remarks = ItemRemarks,
+                });
 
-                        else if (PoReItemDelivery.DeliveryQty > (Convert.ToDecimal(((Label)row.FindControl("lblQty")).Text)))
-                        {
-                            lblMessagePoReturnDeliveryCreate.Visible = true;
-                            lblMessagePoReturnDeliveryCreate.Text = "Please enter valid Delivery Quantity.";
-                            lblMessagePoReturnDeliveryCreate.ForeColor = Color.Red;
-                            return;
-                        }
-                    }
             }
-
+           
             string result = new BAPI().ApiPut("PurchaseOrder/PurchaseOrderReturnDeliveryCreate", poReturnDelivery);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
             
@@ -244,31 +244,71 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessagePoReturnDeliveryCreate.Text = Result.Message;
                 return;
             }
-            
-            PoRDelivery = new BDMS_PurchaseOrder().GetPurchaseOrderReturnDeliveryByID(Convert.ToInt64(Result.Data));
-            
-            gvPoReturnDeliveryItem.DataSource = PoRDelivery.PurchaseOrderReturnDeliveryItemS;
-            gvPoReturnDeliveryItem.DataBind();
-
-        }        
-        public List<PPurchaseOrderReturnDeliveryItem_Insert> ReadPoReturnDeliveryItem()
+        }
+        public string RValidateReturnDelivery()
         {
+            lblMessagePoReturnDeliveryCreate.Visible = true;
+            lblMessagePoReturnDeliveryCreate.ForeColor = Color.Red;
             List<PPurchaseOrderReturnDeliveryItem_Insert> poReturnDelivery = new List<PPurchaseOrderReturnDeliveryItem_Insert>();
 
             foreach (GridViewRow row in gvPoReturnItemForDelivery.Rows)
             {
-                if (!string.IsNullOrEmpty(((TextBox)row.FindControl("txtDeliveredQty")).Text))
+                TextBox txtDeliveredQty = (TextBox)row.FindControl("txtDeliveredQty");
+                if (string.IsNullOrEmpty(txtDeliveredQty.Text))
                 {
-                    poReturnDelivery.Add(new PPurchaseOrderReturnDeliveryItem_Insert()
-                    {
-                        PurchaseOrderReturnID = Convert.ToInt64(((Label)row.FindControl("lblPurchaseOrderReturnID")).Text),
-                        PurchaseOrderReturnItemID = Convert.ToInt64(((Label)row.FindControl("lblPurchaseOrderReturnItemID")).Text),
-                        DeliveryQty = Convert.ToInt64(((TextBox)row.FindControl("txtDeliveredQty")).Text),
-                        Remarks = txtRemarks.Text.Trim(),
-                    });
+                    return "Please enter the Delivery Quantity for all selected Items.";
+                }
+                decimal DeliveryQty = Convert.ToDecimal(((TextBox)row.FindControl("txtDeliveredQty")).Text);
+                if (DeliveryQty == 0)
+                {
+                    return "Please enter Delivery Quantity.";
+                }
+                else if (DeliveryQty > (Convert.ToDecimal(((Label)row.FindControl("lblQty")).Text)))
+                {
+                    return "Please enter valid Delivery Quantity.";
                 }
             }
+            return "";
+        }
+        public List<PPurchaseOrderReturnDeliveryItem_Insert> ReadPoReturnDelivery()
+        {
+            lblMessagePoReturnDeliveryCreate.Visible = true;
+            lblMessagePoReturnDeliveryCreate.ForeColor = Color.Red;
+            List<PPurchaseOrderReturnDeliveryItem_Insert> poReturnDelivery = new List<PPurchaseOrderReturnDeliveryItem_Insert>();
+
+            foreach (GridViewRow row in gvPoReturnItemForDelivery.Rows)
+            {
+                TextBox txtDeliveredQty = (TextBox)row.FindControl("txtDeliveredQty");
+                if (string.IsNullOrEmpty(txtDeliveredQty.Text))
+                {
+                    lblMessagePoReturnDeliveryCreate.Text = "Please enter the Delivery Quantity for all selected Items.";
+                    return poReturnDelivery;
+                }
+                decimal DeliveryQty = Convert.ToDecimal(((TextBox)row.FindControl("txtDeliveredQty")).Text);
+                if (DeliveryQty == 0)
+                {
+                    lblMessagePoReturnDeliveryCreate.Text = "Please enter Delivery Quantity.";
+                    return poReturnDelivery;
+                }
+                else if (DeliveryQty > (Convert.ToDecimal(((Label)row.FindControl("lblQty")).Text)))
+                {
+                    lblMessagePoReturnDeliveryCreate.Text = "Please enter valid Delivery Quantity.";
+                    return poReturnDelivery;
+                }
+                
+                long PurchaseOrderReturnID = Convert.ToInt64(((Label)row.FindControl("lblPurchaseOrderReturnID")).Text);
+                long PurchaseOrderReturnItemID = Convert.ToInt64(((Label)row.FindControl("lblPurchaseOrderReturnItemID")).Text);
+                string ItemRemarks = Convert.ToString(((TextBox)row.FindControl("txtRemarks")).Text.Trim());
+
+                poReturnDelivery.Add(new PPurchaseOrderReturnDeliveryItem_Insert()
+                {
+                    PurchaseOrderReturnID = PurchaseOrderReturnID,
+                    PurchaseOrderReturnItemID = PurchaseOrderReturnItemID,
+                    DeliveryQty = DeliveryQty,
+                    Remarks = ItemRemarks,
+                });
+            }
             return poReturnDelivery;
-        }                        
+        }
     }
 }
