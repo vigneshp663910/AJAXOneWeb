@@ -207,9 +207,7 @@ namespace Properties
         public decimal TotalAmt { get; set; }
         public string CalType { get; set; }   
     }
-
-   
-   
+     
 
     [Serializable]
     public class PDMS_SalesType
@@ -219,27 +217,24 @@ namespace Properties
         public int SalesTypeCode { get; set; }
             
     }
-
-
+     
 
     [Serializable]
-    public class PSalesOrder
+    public class PSaleOrder
     {
-        public long SalesOrderID { get; set; }
-        public string SalesOrderNumber { get; set; }
-        public DateTime SalesOrderDate { get; set; }
+        public long SaleOrderID { get; set; }
+        public string SaleOrderNumber { get; set; }
+        public DateTime SaleOrderDate { get; set; }
         public PDMS_Dealer Dealer { get; set; }
-        public PDMS_Customer Customer { get; set; }
-        public string InvoiceNumber { get; set; }
-        public DateTime? InvoiceDate { get; set; }
-        public string SalesOrderStatus { get; set; }
-        public PDMS_SalesOrderItems SalesOrderItem { get; set; }
-        public List<PDMS_SalesOrderItems> SalesOrderItems { get; set; }
+        public PDMS_Customer Customer { get; set; } 
+        public string SaleOrderStatus { get; set; }
+        public PSaleOrderItem SaleOrderItem { get; set; }
+        public List<PSaleOrderItem> SaleOrderItems { get; set; }
     }
     [Serializable]
-    public class PSalesOrderItems
+    public class PSaleOrderItem
     {
-        public long SalesOrderItemID { get; set; }  
+        public long SaleOrderItemID { get; set; }  
         public PDMS_Material Material { get; set; } 
         public decimal Qty { get; set; }
         public decimal Value { get; set; }
@@ -251,67 +246,46 @@ namespace Properties
         public decimal TotalAmt { get; set; } 
     }
 
-    //[Serializable]
-    //public class PDMS_SalesInvoiceReturn
-    //{
-    //    public long InvoiceReturnID { get; set; }
-    //    public long HeaderCount { get; set; }
-    //    public PDMS_Dealer Dealer { get; set; }
-    //    public PDMS_Customer Customer { get; set; }
-    //    public string GSTNo { get; set; }
-    //    public string InvoiceNumber { get; set; }
-    //    public DateTime? InvoiceDate { get; set; }
-    //    public string Status { get; set; }
-    //    public PDMS_SalesType SalesType { get; set; }
 
-    //    public string Division { get; set; }
-    //    public string Location { get; set; }
-    //    public string ContactPerson { get; set; }
-    //    public string ContactNumber { get; set; }
-    //    public string SaleOrderNumber { get; set; }
-    //    public DateTime? SaleOrderDate { get; set; }
-    //    public PDMS_SalesInvoiceReturnItem InvoiceItem { get; set; }
-    //    public List<PDMS_SalesInvoiceReturnItem> InvoiceItems { get; set; }
+    [Serializable]
+    public class PSaleOrderDelivery
+    {
+        public long SaleOrderDeliveryID { get; set; }
+        public string DeliveryNumber { get; set; }
+        public DateTime DeliveryDate { get; set; }
+        public PSaleOrder SaleOrder { get; set; }
+        public string InvoiceNumber { get; set; }
+        public DateTime? InvoiceDate { get; set; }
+        public PSaleOrderDeliveryItem SaleOrderDeliveryItem { get; set; }
+        public List<PSaleOrderDeliveryItem> SaleOrderDeliveryItems { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrderDeliveryItem
+    {
+        public long SaleOrderDeliveryItemID { get; set; }
+        public PSaleOrderItem SaleOrderItem { get; set; } 
+        public decimal Qty { get; set; }
+        
+    }
 
-    //    public string Reference { get; set; }
-    //    public DateTime? ReferenceDate { get; set; }
-    //    public string McMode { get; set; }
-    //    public string MachineSlNo { get; set; }
-    //    public string PaymentTerms { get; set; }
-    //    public string CreditDays { get; set; }
-    //    public string Remarks { get; set; }
+    [Serializable]
+    public class PSaleOrderDeliveryReturn
+    {
+        public long SaleOrderDeliveryID { get; set; }
+        public string DeliveryNumber { get; set; }
+        public DateTime DeliveryDate { get; set; }
+        public PSaleOrder SaleOrder { get; set; }
+        public string InvoiceNumber { get; set; }
+        public DateTime? InvoiceDate { get; set; }
+        public PSaleOrderDeliveryItem SaleOrderDeliveryItem { get; set; }
+        public List<PSaleOrderDeliveryItem> SaleOrderDeliveryItems { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrderDeliveryItemReturn
+    {
+        public long SaleOrderDeliveryItemID { get; set; }
+        public PSaleOrderItem SaleOrderItem { get; set; }
+        public decimal Qty { get; set; }
 
-    //}
-    //[Serializable]
-    //public class PDMS_SalesInvoiceReturnItem
-    //{
-    //    public long InvoiceReturnItemID { get; set; }
-    //    public long ItemCount { get; set; }
-    //    public int ItemNo { get; set; }
-    //    public PDMS_Material Material { get; set; }
-    //    public decimal UnitBasicPrice { get; set; }
-    //    public decimal Qty { get; set; }
-    //    public decimal ReturnQty { get; set; }
-    //    public decimal ReceivedQty { get; set; }
-    //    public decimal ApprovedQty { get; set; }
-    //    public decimal TotalQty { get; set; }
-    //    public decimal Value { get; set; }
-    //    public decimal Discount { get; set; }
-    //    public decimal DiscountedPrice { get; set; }
-    //    public decimal FreightAmount { get; set; }
-    //    public decimal TaxableAmount { get; set; }
-
-    //    public decimal NetAmount { get; set; }
-    //    public decimal GrossAmount { get; set; }
-
-    //    public decimal? SGST { get; set; }
-    //    public decimal SGSTAmt { get; set; }
-    //    public decimal? CGST { get; set; }
-    //    public decimal CGSTAmt { get; set; }
-    //    public decimal? IGST { get; set; }
-    //    public decimal IGSTAmt { get; set; }
-    //    public decimal Tax { get; set; }
-    //    public decimal TaxP { get; set; }
-    //    public decimal TotalAmt { get; set; }
-    //}
+    }
 }

@@ -579,7 +579,10 @@
     <Content Include="ViewProcurement\UserControls\PurchaseOrderView.ascx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
     <Content Include="ViewSales\SaleInvoicePending.aspx" />
+    <Content Include="ViewSales\SaleOrder.aspx" />
+    <Content Include="ViewSales\SaleOrderDelivery.aspx" />
     <Content Include="ViewSales\SaleOrderDeliveryPending.aspx" />
+    <Content Include="ViewSales\SaleOrderReturn.aspx" />
     <Content Include="ViewSales\SalesCommissionClaim.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimApprove.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimCreate.aspx" />
@@ -604,7 +607,6 @@
     <Content Include="ViewSales\SaleOrderInvoiceReport.aspx" />
     <Content Include="ViewSales\SaleOrderInvoiceWarrantyReport.aspx" />
     <Content Include="ViewSales\SalesInvoice.aspx" />
-    <Content Include="ViewSales\SalesOrder.aspx" />
     <Content Include="ViewSales\SalesOrderItems.aspx" />
     <Content Include="ViewSales\SalesOrderPerformance.aspx" />
     <Content Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx" />
@@ -2169,12 +2171,33 @@
     <Compile Include="ViewSales\SaleInvoicePending.aspx.designer.cs">
       <DependentUpon>SaleInvoicePending.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSales\SaleOrder.aspx.cs">
+      <DependentUpon>SaleOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrder.aspx.designer.cs">
+      <DependentUpon>SaleOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderDelivery.aspx.cs">
+      <DependentUpon>SaleOrderDelivery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderDelivery.aspx.designer.cs">
+      <DependentUpon>SaleOrderDelivery.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSales\SaleOrderDeliveryPending.aspx.cs">
       <DependentUpon>SaleOrderDeliveryPending.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleOrderDeliveryPending.aspx.designer.cs">
       <DependentUpon>SaleOrderDeliveryPending.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderReturn.aspx.cs">
+      <DependentUpon>SaleOrderReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderReturn.aspx.designer.cs">
+      <DependentUpon>SaleOrderReturn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaim.aspx.cs">
       <DependentUpon>SalesCommissionClaim.aspx</DependentUpon>
@@ -2343,13 +2366,6 @@
     </Compile>
     <Compile Include="ViewSales\SalesInvoice.aspx.designer.cs">
       <DependentUpon>SalesInvoice.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewSales\SalesOrder.aspx.cs">
-      <DependentUpon>SalesOrder.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewSales\SalesOrder.aspx.designer.cs">
-      <DependentUpon>SalesOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesOrderItems.aspx.cs">
       <DependentUpon>SalesOrderItems.aspx</DependentUpon>

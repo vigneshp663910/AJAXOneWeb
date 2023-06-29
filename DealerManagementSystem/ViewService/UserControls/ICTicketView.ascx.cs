@@ -2110,61 +2110,61 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnUnblockTicket.Visible = false;
             }
 
-            if (SDMS_ICTicket.DepartureDate == null)
-            {
-                lbtnAddTechnician.Visible = false;
-                lbtnEditCallInformation.Visible = false;
-                lbtnEditFSR.Visible = false;
-                lbtnAddFSRAttachments.Visible = false;
-                lbtnAddOtherMachine.Visible = false;
-                lbtnAddServiceCharges.Visible = false;
-                lbtnAddTSIR.Visible = false;
-                lbtnAddMaterialCharges.Visible = false;
-                lbtnAddNotes.Visible = false;
-                lbtAddTechnicianWork.Visible = false;
-                lbtnRestore.Visible = false;
+            //if (SDMS_ICTicket.DepartureDate == null)
+            //{
+            //    lbtnAddTechnician.Visible = false;
+            //    lbtnEditCallInformation.Visible = false;
+            //    lbtnEditFSR.Visible = false;
+            //    lbtnAddFSRAttachments.Visible = false;
+            //    lbtnAddOtherMachine.Visible = false;
+            //    lbtnAddServiceCharges.Visible = false;
+            //    lbtnAddTSIR.Visible = false;
+            //    lbtnAddMaterialCharges.Visible = false;
+            //    lbtnAddNotes.Visible = false;
+            //    lbtAddTechnicianWork.Visible = false;
+            //    lbtnRestore.Visible = false;
                  
-                lbtnServiceClaim.Visible = false;
-                lbtnServiceQuotation.Visible = false;
-                lbtnServiceProfarmaInvoice.Visible = false;
-                lbtnServiceInvoice.Visible = false;
-                lbtnMaterialClaim.Visible = false;
-                lbtnMaterialQuotation.Visible = false;
-                lbtnUnlockTicket.Visible = false;
+            //    lbtnServiceClaim.Visible = false;
+            //    lbtnServiceQuotation.Visible = false;
+            //    lbtnServiceProfarmaInvoice.Visible = false;
+            //    lbtnServiceInvoice.Visible = false;
+            //    lbtnMaterialClaim.Visible = false;
+            //    lbtnMaterialQuotation.Visible = false;
+            //    lbtnUnlockTicket.Visible = false;
 
-                lbtnRequestForDecline.Visible = false;
-                lbtnDeclineApprove.Visible = false;
-                lbtnDeclineReject.Visible = false;
+            //    lbtnRequestForDecline.Visible = false;
+            //    lbtnDeclineApprove.Visible = false;
+            //    lbtnDeclineReject.Visible = false;
 
-                lbtnMarginWarrantyRequest.Visible = false;
-                lbtnMarginWarrantyApprove.Visible = false;
-                lbtnMarginWarrantyReject.Visible = false;
+            //    lbtnMarginWarrantyRequest.Visible = false;
+            //    lbtnMarginWarrantyApprove.Visible = false;
+            //    lbtnMarginWarrantyReject.Visible = false;
 
-                lbtnRequestDateChange.Visible = false;
-                lbtnRemoveRestoreDate.Visible = false;
+            //    lbtnRequestDateChange.Visible = false;
+            //    lbtnRemoveRestoreDate.Visible = false;
 
-                lbtnFsrSignature.Visible = false;
+            //    lbtnFsrSignature.Visible = false;
                  
-                lbtnReachedInSite.Visible = false;
-                lbtnArrivalBack.Visible = false;
-            }
-            else
-            {
-                lbtnDepartureToSite.Visible = false;
-            }
+            //    lbtnReachedInSite.Visible = false;
+            //    lbtnArrivalBack.Visible = false;
+            //}
+            //else
+            //{
+            //    lbtnDepartureToSite.Visible = false;
+            //}
 
-            if (SDMS_ICTicket.ReachedDate != null)
-            {
-                lbtnReachedInSite.Visible = false;
-            }
-            if (SDMS_ICTicket.RestoreDate != null)
-            {
-                lbtnRestore.Visible = false;
-            }
-            if (SDMS_ICTicket.ArrivalBack != null)
-            { 
-                lbtnArrivalBack.Visible = false; 
-            } 
+            //if (SDMS_ICTicket.ReachedDate != null)
+            //{
+            //    lbtnReachedInSite.Visible = false;
+            //}
+            //if (SDMS_ICTicket.RestoreDate != null)
+            //{
+            //    lbtnRestore.Visible = false;
+            //}
+            //if (SDMS_ICTicket.ArrivalBack != null)
+            //{ 
+            //    lbtnArrivalBack.Visible = false; 
+            //} 
 
 
             if (SDMS_ICTicket.IsMarginWarranty) 
