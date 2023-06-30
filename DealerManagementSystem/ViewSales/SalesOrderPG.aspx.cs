@@ -12,7 +12,7 @@ namespace DealerManagementSystem.ViewSales
 {
     public partial class SalesOrderPG : BasePage
     {
-         public override SubModule SubModuleName { get { return SubModule.ViewSales_SalesOrder; } }
+         public override SubModule SubModuleName { get { return SubModule.ViewSales_SalesOrderPG; } }
         public List<PDMS_SalesOrder> SDMS_SalesOrder
         {
             get
