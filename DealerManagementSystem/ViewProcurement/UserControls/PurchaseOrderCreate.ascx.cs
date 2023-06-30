@@ -50,7 +50,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         public void FillMaster()
         {
             fillDealer();
-            FillGetDealerOffice();
             new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
             fillVendor(ddlOrderTo.SelectedValue);
             fillPurchaseOrderType(ddlOrderTo.SelectedValue);
@@ -254,11 +253,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             string IsWarrenty = "false";
 
             PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, PoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
-            if (Mat== null)
-            {
-                lblMessage.Text = "Please check the material";
-                return;
-            }
             PoI.Price = Mat.CurrentPrice;
             PoI.DiscountAmount = Mat.Discount;
             PoI.TaxableAmount = Mat.TaxablePrice;
