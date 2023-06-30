@@ -36,30 +36,30 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             get
             {
-                if (Session["SDMS_ICTicket"] == null)
+                if (ViewState["SDMS_ICTicket"] == null)
                 {
-                    Session["SDMS_ICTicket"] = new PDMS_ICTicket();
+                    ViewState["SDMS_ICTicket"] = new PDMS_ICTicket();
                 }
-                return (PDMS_ICTicket)Session["SDMS_ICTicket"];
+                return (PDMS_ICTicket)ViewState["SDMS_ICTicket"];
             }
             set
             {
-                Session["SDMS_ICTicket"] = value;
+                ViewState["SDMS_ICTicket"] = value;
             }
         }
         public PDMS_ICTicketFSR SDMS_ICTicketFSR
         {
             get
             {
-                if (Session["PDMS_ICTicketFSR"] == null)
+                if (ViewState["PDMS_ICTicketFSR"] == null)
                 {
-                    Session["PDMS_ICTicketFSR"] = new PDMS_ICTicketFSR();
+                    ViewState["PDMS_ICTicketFSR"] = new PDMS_ICTicketFSR();
                 }
-                return (PDMS_ICTicketFSR)Session["PDMS_ICTicketFSR"];
+                return (PDMS_ICTicketFSR)ViewState["PDMS_ICTicketFSR"];
             }
             set
             {
-                Session["PDMS_ICTicketFSR"] = value;
+                ViewState["PDMS_ICTicketFSR"] = value;
             }
         }
 
@@ -67,45 +67,45 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             get
             {
-                if (Session["ServiceMaterialAllICTicketProcess"] == null)
+                if (ViewState["ServiceMaterialAllICTicketProcess"] == null)
                 {
-                    Session["ServiceMaterialAllICTicketProcess"] = new List<PDMS_ServiceMaterial>();
+                    ViewState["ServiceMaterialAllICTicketProcess"] = new List<PDMS_ServiceMaterial>();
                 }
-                return (List<PDMS_ServiceMaterial>)Session["ServiceMaterialAllICTicketProcess"];
+                return (List<PDMS_ServiceMaterial>)ViewState["ServiceMaterialAllICTicketProcess"];
             }
             set
             {
-                Session["ServiceMaterialAllICTicketProcess"] = value;
+                ViewState["ServiceMaterialAllICTicketProcess"] = value;
             }
         }
         public List<PDMS_ServiceMaterial> SS_ServiceMaterial
         {
             get
             {
-                if (Session["ServiceMaterialICTicketProcess"] == null)
+                if (ViewState["ServiceMaterialICTicketProcess"] == null)
                 {
-                    Session["ServiceMaterialICTicketProcess"] = new List<PDMS_ServiceMaterial>();
+                    ViewState["ServiceMaterialICTicketProcess"] = new List<PDMS_ServiceMaterial>();
                 }
-                return (List<PDMS_ServiceMaterial>)Session["ServiceMaterialICTicketProcess"];
+                return (List<PDMS_ServiceMaterial>)ViewState["ServiceMaterialICTicketProcess"];
             }
             set
             {
-                Session["ServiceMaterialICTicketProcess"] = value;
+                ViewState["ServiceMaterialICTicketProcess"] = value;
             }
         }
         public List<PDMS_ICTicketTSIR> ICTicketTSIRs
         {
             get
             {
-                if (Session["PDMS_ICTicketTSIRs"] == null)
+                if (ViewState["PDMS_ICTicketTSIRs"] == null)
                 {
-                    Session["PDMS_ICTicketTSIRs"] = new List<PDMS_ICTicketTSIR>();
+                    ViewState["PDMS_ICTicketTSIRs"] = new List<PDMS_ICTicketTSIR>();
                 }
-                return (List<PDMS_ICTicketTSIR>)Session["PDMS_ICTicketTSIRs"];
+                return (List<PDMS_ICTicketTSIR>)ViewState["PDMS_ICTicketTSIRs"];
             }
             set
             {
-                Session["PDMS_ICTicketTSIRs"] = value;
+                ViewState["PDMS_ICTicketTSIRs"] = value;
             }
         }
         public PDMS_ICTicketTSIR ICTicketTSIR
@@ -123,22 +123,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 ViewState["PDMS_ICTicketTSIR"] = value;
             }
         }
-        public List<Int16> RefreshList
-        {
-            get
-            {
-                if (Session["DMS_RefreshList"] == null)
-                {
-                    Session["DMS_RefreshList"] = new List<Int16>();
-                }
-                return (List<Int16>)Session["DMS_RefreshList"];
-            }
-            set
-            {
-                Session["DMS_RefreshList"] = value;
-            }
-        }
-
+        
         public List<PDMS_ServiceTechnician> SDMS_TechniciansWD
         {
             get
@@ -154,22 +139,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 Session["DMS_ICTicketTechnicianAssignWD"] = value;
             }
         }
-        public List<PDMS_ServiceTechnician> SDMS_Technicians
-        {
-            get
-            {
-                if (Session["DMS_ICTicketTechnicianAssign"] == null)
-                {
-                    Session["DMS_ICTicketTechnicianAssign"] = new List<PDMS_ServiceTechnician>();
-                }
-                return (List<PDMS_ServiceTechnician>)Session["DMS_ICTicketTechnicianAssign"];
-            }
-            set
-            {
-                Session["DMS_ICTicketTechnicianAssign"] = value;
-            }
-        }
-
+         
         public  PICTicketCustomerFeedback  CustomerFeedback
         {
             get
@@ -198,7 +168,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblServiceChargeSessage.Visible = false;
             lblMessageAddTSIR.Visible = true;
             lblMessageMaterialCharges.Visible = true;
-           
+            lblReachedSiteMessage.Visible = true;
             if (!IsPostBack)
             {
 
@@ -671,12 +641,12 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Add Technician Work")
             {
-                UC_ICTicketAddTechnicianWork.FillMaster(SDMS_TechniciansWD);
+                UC_ICTicketAddTechnicianWork.FillMaster(SDMS_TechniciansWD, SDMS_ICTicket);
                 MPE_AddTechnicianWork.Show();
             }
             else if (lbActions.Text == "Restore")
             {
-                UC_ICTicketUpdateRestore.FillMaster(SDMS_ICTicket, SDMS_ICTicketFSR);
+                UC_ICTicketUpdateRestore.FillMaster();
                 MPE_UpdateRestore.Show();
             }
             else if (lbActions.Text == "Customer Feedback")
@@ -900,23 +870,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Reached in Site")
             {
-                if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
-                {
-                    lblMessage.Text = "Please Enable GeoLocation...!";
-                    lblMessage.ForeColor = Color.Red;
-                    lblMessage.Visible = true;
-                    return;
-                }
-                PApiResult Results = new BDMS_ICTicket().InsertICTicketSeReached(SDMS_ICTicket.ICTicketID,"", Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value));
-                if (Results.Status == PApplication.Failure)
-                {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-                ShowMessage(Results);
-                FillICTicket(SDMS_ICTicket.ICTicketID);
+                MPE_ReachedSite.Show();
+                
 
             }
             else if (lbActions.Text == "Arrival Back")
@@ -2810,6 +2765,34 @@ namespace DealerManagementSystem.ViewService.UserControls
             HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250"); 
             Response.Flush();
             Response.End();
+        }
+
+        protected void btnReachedSite_Click(object sender, EventArgs e)
+        {
+            MPE_ReachedSite.Show();
+            lblReachedSiteMessage.ForeColor = Color.Red;
+            lblReachedSiteMessage.Visible = true;
+            if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+            {
+                lblReachedSiteMessage.Text = "Please Enable GeoLocation...!"; 
+                return;
+            }
+            if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            {
+                lblMessage.Text = "Please Enter Location...!"; 
+                return;
+            }
+            PApiResult Results = new BDMS_ICTicket().InsertICTicketSeReached(SDMS_ICTicket.ICTicketID, txtLocation.Text.Trim(), Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Results.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            ShowMessage(Results);
+            FillICTicket(SDMS_ICTicket.ICTicketID);
+            MPE_ReachedSite.Hide();
         }
     }
 }

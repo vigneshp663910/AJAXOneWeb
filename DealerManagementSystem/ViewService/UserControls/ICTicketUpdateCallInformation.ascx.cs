@@ -16,15 +16,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             get
             {
-                if (Session["SDMS_ICTicket"] == null)
+                if (ViewState["SDMS_ICTicket"] == null)
                 {
-                    Session["SDMS_ICTicket"] = new PDMS_ICTicket();
+                    ViewState["SDMS_ICTicket"] = new PDMS_ICTicket();
                 }
-                return (PDMS_ICTicket)Session["SDMS_ICTicket"];
+                return (PDMS_ICTicket)ViewState["SDMS_ICTicket"];
             }
             set
             {
-                Session["SDMS_ICTicket"] = value;
+                ViewState["SDMS_ICTicket"] = value;
             }
         }
        
@@ -47,8 +47,9 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
 
         }
-        public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
+        public void FillMaster(PDMS_ICTicket ICTicket)
         {
+            SDMS_ICTicket = ICTicket;
             Clear();
             if ((SDMS_ICTicket.Equipment.IsRefurbished == true) && (SDMS_ICTicket.Equipment.RefurbishedBy == SDMS_ICTicket.Dealer.DealerID) && (SDMS_ICTicket.Equipment.RFWarrantyExpiryDate >= SDMS_ICTicket.ICTicketDate))
             {
@@ -70,40 +71,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             if (SDMS_ICTicket.DealerOffice != null)
                 ddlDealerOffice.SelectedValue = SDMS_ICTicket.DealerOffice.OfficeID.ToString();
 
-
-            txtDepartureDate.Text = SDMS_ICTicket.DepartureDate == null ? "" : ((DateTime)SDMS_ICTicket.DepartureDate).ToShortDateString();
-            ddlDepartureHH.SelectedValue = SDMS_ICTicket.DepartureDate == null ? "-1" : ((DateTime)SDMS_ICTicket.DepartureDate).Hour.ToString();
-            if (SDMS_ICTicket.DepartureDate != null)
-            {
-                int DepartureMMMinute = ((DateTime)SDMS_ICTicket.DepartureDate).Minute;
-                int adjustment = DepartureMMMinute % 5;
-                if (adjustment != 0)
-                {
-                    DepartureMMMinute = (DepartureMMMinute - adjustment) + 5;
-                }
-                ddlDepartureMM.SelectedValue = DepartureMMMinute.ToString().PadLeft(2, '0');
-            }
-            else
-            {
-                ddlDepartureMM.SelectedValue = "0";
-            }
-
-            txtReachedDate.Text = SDMS_ICTicket.ReachedDate == null ? "" : ((DateTime)SDMS_ICTicket.ReachedDate).ToShortDateString();
-            ddlReachedHH.SelectedValue = SDMS_ICTicket.ReachedDate == null ? "-1" : ((DateTime)SDMS_ICTicket.ReachedDate).Hour.ToString();
-            if (SDMS_ICTicket.ReachedDate != null)
-            {
-                int ReachedMMMinute = ((DateTime)SDMS_ICTicket.ReachedDate).Minute;
-                int adjustment = ReachedMMMinute % 5;
-                if (adjustment != 0)
-                {
-                    ReachedMMMinute = (ReachedMMMinute - adjustment) + 5;
-                }
-                ddlReachedMM.SelectedValue = ReachedMMMinute.ToString().PadLeft(2, '0');
-            }
-            else
-            {
-                ddlReachedMM.SelectedValue = "0";
-            }
+           
 
             if (SDMS_ICTicket.ServiceType != null)
             {
@@ -132,8 +100,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             if (SDMS_ICTicket.ServicePriority != null)
                 ddlServicePriority.SelectedValue = SDMS_ICTicket.ServicePriority.ServicePriorityID.ToString();
-            //  lblHMRValue.Text = "Current HMR Value" + " ( " + SDMS_ICTicket.Equipment.EquipmentModel.Division.UOM + " ) ";
-            txtHMRDate.Text = SDMS_ICTicket.CurrentHMRDate == null ? "" : ((DateTime)SDMS_ICTicket.CurrentHMRDate).ToShortDateString();
+          
             txtHMRValue.Text = Convert.ToString(SDMS_ICTicket.CurrentHMRValue);
 
 
@@ -258,7 +225,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         public string ValidationReached(PDMS_ICTicket SDMS_ICTicket)
         {
             string Message = "";
-            txtReachedDate.BorderColor = Color.Silver;
+           
             txtLocation.BorderColor = Color.Silver;
 
             if((SDMS_ICTicket.Equipment.WarrantyExpiryDate == null)|| (SDMS_ICTicket.Equipment.CommissioningOn == null))
@@ -272,41 +239,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 {
                     return "Warranty Date and Commissioning On is not available so please select Pre -Commission or Commission ";
                 }
-            }
-            if (string.IsNullOrEmpty(txtDepartureDate.Text.Trim()))
-            {
-                return "Please Enter the Departure Date";
-            }
-            if (ddlDepartureHH.SelectedValue == "-1")
-            {
-                return "Please Enter the Departure Hour";
-            }
-            if (ddlDepartureMM.SelectedValue == "0")
-            {
-                return "Please Enter the Departure Minute";
-            }
-
-
-            if (string.IsNullOrEmpty(txtReachedDate.Text.Trim()))
-            {
-                txtReachedDate.BorderColor = Color.Red;
-                return "Please enter the Reached Date";
-                
-            }
-            else
-            {
-                if (ddlReachedHH.SelectedValue == "-1")
-                {
-                    ddlReachedHH.BorderColor = Color.Red;
-                    return "Please select the Reached Hour"; 
-                }
-
-                if (ddlReachedMM.SelectedValue == "0")
-                {
-                    ddlReachedMM.BorderColor = Color.Red;
-                    return "Please select the Reached Minute"; 
-                } 
-            }
+            } 
 
             if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
             {
@@ -334,16 +267,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                     return "HMR value should not be less than last HMR value.";
                     
                 }
-            }
-
-            if (!string.IsNullOrEmpty(txtHMRDate.Text.Trim()))
-            {
-                if (Convert.ToDateTime(txtReachedDate.Text.Trim()) > Convert.ToDateTime(txtHMRDate.Text.Trim()))
-                {
-                    txtHMRDate.BorderColor = Color.Red;
-                    return "HMR date should not be less than Reached date."; 
-                }
-            }
+            } 
             return Message;
         }
 
@@ -351,10 +275,8 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             ddlServiceType.BorderColor = Color.Silver;
             ddlServicePriority.BorderColor = Color.Silver;
-            ddlDealerOffice.BorderColor = Color.Silver;
-            txtHMRDate.BorderColor = Color.Silver;
-            txtHMRValue.BorderColor = Color.Silver;
-
+            ddlDealerOffice.BorderColor = Color.Silver; 
+            txtHMRValue.BorderColor = Color.Silver; 
 
             ddlMainApplication.BorderColor = Color.Silver;
             ddlSubApplication.BorderColor = Color.Silver;
@@ -378,19 +300,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
 
 
-            if (string.IsNullOrEmpty(txtHMRDate.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the HMR Date";
-                txtHMRDate.BorderColor = Color.Red;
-            }
-            else
-            {
-                if (Convert.ToDateTime(txtReachedDate.Text.Trim()) > Convert.ToDateTime(txtHMRDate.Text.Trim()))
-                {
-                    Message = Message + "<br/>HMR date should not be less than Reached date.";
-                    txtHMRDate.BorderColor = Color.Red;
-                }
-            }
+             
             int value;
             if (string.IsNullOrEmpty(txtHMRValue.Text.Trim()))
             {
@@ -442,21 +352,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             WarrantyCalculation();
         }
         void ValidateReachedDate()
-        {
-            if (string.IsNullOrEmpty(txtReachedDate.Text.Trim()))
-            {
-
-                txtHMRDate.Text = "";
-                txtHMRDate.Enabled = false;
-                return;
-            }
-            ceHMRDate.StartDate = Convert.ToDateTime(txtReachedDate.Text);
-            ceHMRDate.EndDate = DateTime.Now;
-
-            if (SDMS_ICTicket.ServiceCharges.Count + SS_ServiceMaterial.Count == 0)
-            {
-                txtHMRDate.Enabled = true;
-            }
+        { 
         }
         public void EnableOrDesableBasedOnServiceCharges()
         {
@@ -479,21 +375,13 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             if (string.IsNullOrEmpty(QuotationNumber))
             {
-                ddlDealerOffice.Enabled = true;
-                txtHMRDate.Enabled = true;
-                txtHMRValue.Enabled = true;
-                txtReachedDate.Enabled = true;
-                ddlReachedHH.Enabled = true;
-                ddlReachedMM.Enabled = true;
+                ddlDealerOffice.Enabled = true; 
+                txtHMRValue.Enabled = true; 
             }
             else
             {
-                ddlDealerOffice.Enabled = false;
-                txtHMRDate.Enabled = false;
-                txtHMRValue.Enabled = false;
-                txtReachedDate.Enabled = false;
-                ddlReachedHH.Enabled = false;
-                ddlReachedMM.Enabled = false;
+                ddlDealerOffice.Enabled = false; 
+                txtHMRValue.Enabled = false; 
             }
 
             //UC_BasicInformation.SDMS_ICTicket = SDMS_ICTicket;
@@ -610,24 +498,20 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         public PICTicketServiceConfirmation_Post Read(PDMS_ICTicket ICTicket)
         {
-            PICTicketServiceConfirmation_Post IC = new PICTicketServiceConfirmation_Post();
-            IC.RequestedDate = ICTicket.RequestedDate;
+            PICTicketServiceConfirmation_Post IC = new PICTicketServiceConfirmation_Post(); 
            // IC.DealerCode = ICTicket.Dealer.DealerCode;
           //  IC.CustomerCode = ICTicket.Customer.CustomerCode;
             IC.ICTicketID = ICTicket.ICTicketID;
          //   IC.EquipmentSerialNo = ICTicket.Equipment.EquipmentSerialNo;
             IC.Location = txtLocation.Text.Trim();
             IC.OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
-            IC.DepartureDate = string.IsNullOrEmpty(txtDepartureDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDepartureDate.Text.Trim() + " " + ddlDepartureHH.SelectedValue + ":" + ddlDepartureMM.SelectedValue);
-            IC.ReachedDate = string.IsNullOrEmpty(txtReachedDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtReachedDate.Text.Trim() + " " + ddlReachedHH.SelectedValue + ":" + ddlReachedMM.SelectedValue);
-
+            
             IC.ServiceTypeID = ddlServiceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceType.SelectedValue);
             IC.ServiceSubTypeID = ddlServiceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceSubType.SelectedValue);
 
             IC.ServiceTypeOverhaulID = ddlServiceTypeOverhaul.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceTypeOverhaul.SelectedValue);
             IC.ServicePriorityID = ddlServicePriority.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServicePriority.SelectedValue);
-
-            IC.CurrentHMRDate = string.IsNullOrEmpty(txtHMRDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtHMRDate.Text.Trim());
+             
             IC.CurrentHMRValue = string.IsNullOrEmpty(txtHMRValue.Text.Trim()) ? (int?)null : Convert.ToInt32(txtHMRValue.Text.Trim());
 
            // IC.IsWarranty = ICTicket.IsWarranty;
@@ -668,25 +552,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
 
         void Clear()
-        { 
+        {
             txtLocation.Text = "";
-            txtDepartureDate.Text = "";
-            txtReachedDate.Text = "";
-            //  ddlDealerOffice.SelectedValue = SDMS_ICTicket.DealerOffice.OfficeID.ToString();  
-            // ddlDepartureHH.SelectedValue = SDMS_ICTicket.DepartureDate == null ? "-1" : ((DateTime)SDMS_ICTicket.DepartureDate).Hour.ToString();
-            //  ddlDepartureMM.SelectedValue = DepartureMMMinute.ToString().PadLeft(2, '0');
-              // ddlReachedHH.SelectedValue = SDMS_ICTicket.ReachedDate == null ? "-1" : ((DateTime)SDMS_ICTicket.ReachedDate).Hour.ToString();
-            // ddlReachedMM.SelectedValue = ReachedMMMinute.ToString().PadLeft(2, '0');
-
-            ddlReachedMM.SelectedValue = "0";
-
 
             //  ddlServiceType.SelectedValue = SDMS_ICTicket.ServiceType.ServiceTypeID.ToString(); 
             //  ddlServiceTypeOverhaul.SelectedValue = SDMS_ICTicket.ServiceTypeOverhaul.ServiceTypeOverhaulID.ToString(); 
             //  ddlServiceSubType.SelectedValue = SDMS_ICTicket.ServiceSubType.ServiceSubTypeID.ToString(); 
             //  ddlServicePriority.SelectedValue = SDMS_ICTicket.ServicePriority.ServicePriorityID.ToString();
 
-            txtHMRDate.Text = "";
+
             txtHMRValue.Text = "";
 
             //  ddlMainApplication.SelectedValue = SDMS_ICTicket.MainApplication.MainApplicationID.ToString();
@@ -695,12 +569,12 @@ namespace DealerManagementSystem.ViewService.UserControls
 
 
 
-            txtScopeOfWork.Text = ""; 
+            txtScopeOfWork.Text = "";
             txtKindAttn.Text = "";
-            txtRemarks.Text = ""; 
+            txtRemarks.Text = "";
             txtOperatorName.Text = "";
             txtSiteContactPersonNumber.Text = "";
-            txtSiteContactPersonNumber2.Text = ""; 
+            txtSiteContactPersonNumber2.Text = "";
             // EnableOrDesableBasedOnServiceCharges(); 
             // ddlDesignation.SelectedValue = SDMS_ICTicket.SiteContactPersonDesignation.DesignationID.ToString(); 
             // ddlTypeOfWarranty.SelectedValue = SDMS_ICTicket.TypeOfWarranty.TypeOfWarrantyID.ToString();

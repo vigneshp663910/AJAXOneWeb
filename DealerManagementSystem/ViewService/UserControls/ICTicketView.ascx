@@ -1536,6 +1536,33 @@
 <ajaxToolkit:ModalPopupExtender ID="MPE_FsrSignature" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlFsrSignature" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
+
+<asp:Panel ID="pnlReachedSite" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueReachedSite">Reached in Site</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button16" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblReachedSiteMessage" runat="server" Text="" CssClass="message" Visible="false" />
+        <fieldset class="fieldset-border">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Reject</legend>
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Remarks</label>
+                    <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control"  ></asp:TextBox>
+                </div>
+                <div class="col-md-6 text-left">
+                    <label class="modal-label">-</label>
+                    <asp:Button ID="btnReachedSite" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnReachedSite_Click"   />
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_ReachedSite" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlReachedSite" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>

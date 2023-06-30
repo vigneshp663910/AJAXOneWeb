@@ -194,14 +194,11 @@ namespace Properties
         //public string DealerCode { get; set; }
         //public string CustomerCode { get; set; }
         public string Location { get; set; }
-        public int? OfficeID { get; set; }
-        public DateTime? DepartureDate { get; set; }
-        public DateTime? ReachedDate { get; set; }
+        public int? OfficeID { get; set; } 
         public int? ServiceTypeID { get; set; }
         public int? ServiceSubTypeID { get; set; }
         public int? ServiceTypeOverhaulID { get; set; }
-        public int? ServicePriorityID { get; set; }
-        public DateTime? CurrentHMRDate { get; set; }
+        public int? ServicePriorityID { get; set; } 
         public int? CurrentHMRValue { get; set; }
         //public Boolean IsWarranty { get; set; }
         public int? TypeOfWarrantyID { get; set; }
@@ -221,8 +218,7 @@ namespace Properties
         public string NoClaimReason { get; set; }
         public DateTime? McEnteredServiceDate { get; set; }
         public DateTime? ServiceStartedDate { get; set; }
-        public DateTime? ServiceEndedDate { get; set; }
-        public DateTime? RequestedDate { get; set; }
+        public DateTime? ServiceEndedDate { get; set; } 
     }
     [Serializable]
     public class PDMS_ServiceType
