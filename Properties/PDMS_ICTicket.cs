@@ -48,8 +48,7 @@ namespace Properties
         public string MarginRemark { get; set; }        
 
         public DateTime? TechnicianAssignedDate { get; set; }
-
-        public DateTime? RequestedEndDate { get; set; }
+         
         public DateTime? RestoreDate { get; set; }
         public DateTime? DepartureDate { get; set; }
         public DateTime? ArrivalBack { get; set; }
