@@ -224,17 +224,17 @@ namespace DealerManagementSystem.ViewService
                 //    gvICTickets.Columns[18].Visible = false;
                 //}
 
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                {
-                    gvICTickets.Columns[16].Visible = false;
-                }
+                //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
+                //{
+                //    gvICTickets.Columns[16].Visible = false;
+                //}
 
 
-                string[] MailToSupplier = ConfigurationManager.AppSettings["MailToSupplier"].Split(',');
-                if (MailToSupplier.Contains(PSession.User.UserID.ToString()))
-                {
-                    gvICTickets.Columns[19].Visible = true;
-                }
+                //string[] MailToSupplier = ConfigurationManager.AppSettings["MailToSupplier"].Split(',');
+                //if (MailToSupplier.Contains(PSession.User.UserID.ToString()))
+                //{
+                //    gvICTickets.Columns[19].Visible = true;
+                //}
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)
