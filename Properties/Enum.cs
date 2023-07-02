@@ -554,7 +554,7 @@ namespace Properties
         DealerResponsibleUserEdit,
         ICTicketRemoveRestoreDate,
         ClaimApprove4=69,
-        ClaimApprove5=70 
+        ClaimApprove5=70,
         MarginWarrantyApproval,
     }
     public enum DMS_WarrantyClaimStatus
