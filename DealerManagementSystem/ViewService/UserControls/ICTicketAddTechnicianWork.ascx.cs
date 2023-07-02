@@ -11,38 +11,41 @@ namespace DealerManagementSystem.ViewService.UserControls
 {
     public partial class ICTicketAddTechnicianWork : System.Web.UI.UserControl
     {
-        public PDMS_ICTicket SDMS_ICTicket
-        {
-            get
-            {
-                if (Session["SDMS_ICTicket"] == null)
-                {
-                    Session["SDMS_ICTicket"] = new PDMS_ICTicket();
-                }
-                return (PDMS_ICTicket)Session["SDMS_ICTicket"];
-            }
-            set
-            {
-                Session["SDMS_ICTicket"] = value;
-            }
-        }
+        //public PDMS_ICTicket SDMS_ICTicket
+        //{
+        //    get
+        //    {
+        //        if (ViewState["SDMS_ICTicket"] == null)
+        //        {
+        //            ViewState["SDMS_ICTicket"] = new PDMS_ICTicket();
+        //        }
+        //        return (PDMS_ICTicket)ViewState["SDMS_ICTicket"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["SDMS_ICTicket"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-        public void FillMaster(List<PDMS_ServiceTechnician> SDMS_TechniciansWD)
-        { 
+        public void FillMaster(List<PDMS_ServiceTechnician> SDMS_TechniciansWD, PDMS_ICTicket ICTicket)
+        {
+          //  SDMS_ICTicket = ICTicket;
             ddlTechnician.DataTextField = "ContactName";
             ddlTechnician.DataValueField = "UserID";
             ddlTechnician.DataSource = SDMS_TechniciansWD;
             ddlTechnician.DataBind();
             ddlTechnician.Items.Insert(0, new ListItem("Select", "0"));
+
+
+            if (ICTicket.ReachedDate != null)
+                ceWorkedDate.StartDate = ICTicket.ReachedDate;
+            if (ICTicket.RestoreDate != null)
+                ceWorkedDate.EndDate = ICTicket.RestoreDate;
         } 
-        void Clear()
-        {
-
-
-        }
+     
         public string Read()
         {   
             return "&TechnicianID=" + ddlTechnician.SelectedValue+ "&WorkedDay="+ txtWorkedDate.Text + "&WorkedHours=" + txtWorkedHours.Text;
@@ -90,10 +93,10 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             txtWorkedDate.Text = "";
 
-            if (SDMS_ICTicket.ReachedDate != null)
-                ceWorkedDate.StartDate = SDMS_ICTicket.ReachedDate;
-            if (SDMS_ICTicket.RestoreDate != null)
-                ceWorkedDate.EndDate = SDMS_ICTicket.RestoreDate;
+            //if (SDMS_ICTicket.ReachedDate != null)
+            //    ceWorkedDate.StartDate = SDMS_ICTicket.ReachedDate;
+            //if (SDMS_ICTicket.RestoreDate != null)
+            //    ceWorkedDate.EndDate = SDMS_ICTicket.RestoreDate;
         }
     }
 }

@@ -3,103 +3,7 @@
 <asp:UpdatePanel ID="updatepnl" runat="server">
     <ContentTemplate>
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-            <div class="col-md-12">
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Departure Date and Time</label>
-                    <asp:TextBox ID="txtDepartureDate" runat="server" CssClass="form-control" AutoComplete="Off" onkeyup="return removeText('MainContent_txtDepartureDate');" BorderColor="Silver"></asp:TextBox>
-                    <asp:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="txtDepartureDate" PopupButtonID="txtDepartureDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtDepartureDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                    <asp:DropDownList ID="ddlDepartureHH" runat="server" CssClass="TextBox" Width="60px">
-                        <asp:ListItem Value="-1">HH</asp:ListItem>
-                        <asp:ListItem>0</asp:ListItem>
-                        <asp:ListItem>1</asp:ListItem>
-                        <asp:ListItem>2</asp:ListItem>
-                        <asp:ListItem>3</asp:ListItem>
-                        <asp:ListItem>4</asp:ListItem>
-                        <asp:ListItem>5</asp:ListItem>
-                        <asp:ListItem>6</asp:ListItem>
-                        <asp:ListItem>7</asp:ListItem>
-                        <asp:ListItem>8</asp:ListItem>
-                        <asp:ListItem>9</asp:ListItem>
-                        <asp:ListItem>10</asp:ListItem>
-                        <asp:ListItem>11</asp:ListItem>
-                        <asp:ListItem>12</asp:ListItem>
-                        <asp:ListItem>13</asp:ListItem>
-                        <asp:ListItem>14</asp:ListItem>
-                        <asp:ListItem>15</asp:ListItem>
-                        <asp:ListItem>16</asp:ListItem>
-                        <asp:ListItem>17</asp:ListItem>
-                        <asp:ListItem>18</asp:ListItem>
-                        <asp:ListItem>19</asp:ListItem>
-                        <asp:ListItem>20</asp:ListItem>
-                        <asp:ListItem>21</asp:ListItem>
-                        <asp:ListItem>22</asp:ListItem>
-                        <asp:ListItem>23</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:DropDownList ID="ddlDepartureMM" runat="server" CssClass="TextBox" Width="65px">
-                        <asp:ListItem Value="0">MM</asp:ListItem>
-                        <asp:ListItem>00</asp:ListItem>
-                        <asp:ListItem>05</asp:ListItem>
-                        <asp:ListItem>10</asp:ListItem>
-                        <asp:ListItem>15</asp:ListItem>
-                        <asp:ListItem>20</asp:ListItem>
-                        <asp:ListItem>25</asp:ListItem>
-                        <asp:ListItem>30</asp:ListItem>
-                        <asp:ListItem>35</asp:ListItem>
-                        <asp:ListItem>40</asp:ListItem>
-                        <asp:ListItem>45</asp:ListItem>
-                        <asp:ListItem>50</asp:ListItem>
-                        <asp:ListItem>55</asp:ListItem>
-                    </asp:DropDownList>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Reached Date and Time</label>
-                    <asp:TextBox ID="txtReachedDate" runat="server" CssClass="form-control" AutoComplete="Off" onkeyup="return removeText('MainContent_txtReachedDate');" OnTextChanged="txtReachedDate_TextChanged" AutoPostBack="true" BorderColor="Silver"></asp:TextBox>
-                    <asp:CalendarExtender ID="ceReachedDate" runat="server" TargetControlID="txtReachedDate" PopupButtonID="txtReachedDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtReachedDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                    <asp:DropDownList ID="ddlReachedHH" runat="server" CssClass="TextBox" Width="60px">
-                        <asp:ListItem Value="-1">HH</asp:ListItem>
-                        <asp:ListItem>0</asp:ListItem>
-                        <asp:ListItem>1</asp:ListItem>
-                        <asp:ListItem>2</asp:ListItem>
-                        <asp:ListItem>3</asp:ListItem>
-                        <asp:ListItem>4</asp:ListItem>
-                        <asp:ListItem>5</asp:ListItem>
-                        <asp:ListItem>6</asp:ListItem>
-                        <asp:ListItem>7</asp:ListItem>
-                        <asp:ListItem>8</asp:ListItem>
-                        <asp:ListItem>9</asp:ListItem>
-                        <asp:ListItem>10</asp:ListItem>
-                        <asp:ListItem>11</asp:ListItem>
-                        <asp:ListItem>12</asp:ListItem>
-                        <asp:ListItem>13</asp:ListItem>
-                        <asp:ListItem>14</asp:ListItem>
-                        <asp:ListItem>15</asp:ListItem>
-                        <asp:ListItem>16</asp:ListItem>
-                        <asp:ListItem>17</asp:ListItem>
-                        <asp:ListItem>18</asp:ListItem>
-                        <asp:ListItem>19</asp:ListItem>
-                        <asp:ListItem>20</asp:ListItem>
-                        <asp:ListItem>21</asp:ListItem>
-                        <asp:ListItem>22</asp:ListItem>
-                        <asp:ListItem>23</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:DropDownList ID="ddlReachedMM" runat="server" CssClass="TextBox" Width="65px">
-                        <asp:ListItem Value="0">MM</asp:ListItem>
-                        <asp:ListItem>00</asp:ListItem>
-                        <asp:ListItem>05</asp:ListItem>
-                        <asp:ListItem>10</asp:ListItem>
-                        <asp:ListItem>15</asp:ListItem>
-                        <asp:ListItem>20</asp:ListItem>
-                        <asp:ListItem>25</asp:ListItem>
-                        <asp:ListItem>30</asp:ListItem>
-                        <asp:ListItem>35</asp:ListItem>
-                        <asp:ListItem>40</asp:ListItem>
-                        <asp:ListItem>45</asp:ListItem>
-                        <asp:ListItem>50</asp:ListItem>
-                        <asp:ListItem>55</asp:ListItem>
-                    </asp:DropDownList>
-                </div>
+            <div class="col-md-12"> 
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Location</label>
                     <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
@@ -122,14 +26,7 @@
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Current HMR Value</label>
                     <asp:TextBox ID="txtHMRValue" runat="server" CssClass="form-control" AutoComplete="SP" OnTextChanged="txtHMRValue_TextChanged" AutoPostBack="true"></asp:TextBox>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Current HMR Date</label>
-                    <asp:TextBox ID="txtHMRDate" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtHMRDate');"></asp:TextBox>
-                    <asp:CalendarExtender ID="ceHMRDate" runat="server" TargetControlID="txtHMRDate" PopupButtonID="txtHMRDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                    <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtHMRDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                </div>
-
+                </div> 
             </div>
             <div class="col-md-12">
                 <div class="col-md-6 col-sm-12">
@@ -213,8 +110,7 @@
                     <asp:CheckBox ID="cbCess" runat="server" />
                 </div>
             </div>
-        </fieldset>
-
+        </fieldset> 
     </ContentTemplate>
 </asp:UpdatePanel>
 
