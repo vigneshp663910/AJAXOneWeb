@@ -128,15 +128,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             get
             {
-                if (Session["DMS_ICTicketTechnicianAssignWD"] == null)
+                if (ViewState["DMS_ICTicketTechnicianAssignWD"] == null)
                 {
-                    Session["DMS_ICTicketTechnicianAssignWD"] = new List<PDMS_ServiceTechnician>();
+                    ViewState["DMS_ICTicketTechnicianAssignWD"] = new List<PDMS_ServiceTechnician>();
                 }
-                return (List<PDMS_ServiceTechnician>)Session["DMS_ICTicketTechnicianAssignWD"];
+                return (List<PDMS_ServiceTechnician>)ViewState["DMS_ICTicketTechnicianAssignWD"];
             }
             set
             {
-                Session["DMS_ICTicketTechnicianAssignWD"] = value;
+                ViewState["DMS_ICTicketTechnicianAssignWD"] = value;
             }
         }
          
@@ -144,18 +144,33 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             get
             {
-                if (Session["DMS_PICTicketCustomerFeedback"] == null)
+                if (ViewState["DMS_PICTicketCustomerFeedback"] == null)
                 {
-                    Session["DMS_PICTicketCustomerFeedback"] = new  PICTicketCustomerFeedback ();
+                    ViewState["DMS_PICTicketCustomerFeedback"] = new  PICTicketCustomerFeedback ();
                 }
-                return ( PICTicketCustomerFeedback )Session["DMS_PICTicketCustomerFeedback"];
+                return ( PICTicketCustomerFeedback )ViewState["DMS_PICTicketCustomerFeedback"];
             }
             set
             {
-                Session["DMS_PICTicketCustomerFeedback"] = value;
+                ViewState["DMS_PICTicketCustomerFeedback"] = value;
             }
         }
 
+        public DataTable MarginWarrantyReq
+        {
+            get
+            {
+                if (ViewState["MarginWarrantyReq"] == null)
+                {
+                    ViewState["MarginWarrantyReq"] = new DataTable();
+                }
+                return (DataTable)ViewState["MarginWarrantyReq"];
+            }
+            set
+            {
+                ViewState["MarginWarrantyReq"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -207,7 +222,9 @@ namespace DealerManagementSystem.ViewService.UserControls
             FillTechniciansByTicketID();
             FillRestore();
 
-           
+            int RowCount = 0;
+            MarginWarrantyReq = new BDMS_ICTicket().GetMarginWarrantyChangeForApproval(null, null, null, SDMS_ICTicket.ICTicketNumber, PSession.User.UserID, null, null, out RowCount);
+
             //FillCustomerFeedBack();
 
             ActionControlMange();
@@ -2066,25 +2083,21 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
 
             if (SDMS_ICTicket.DepartureDate == null)
-            {
-                lbtnAddTechnician.Visible = false;
+            { 
                 lbtnEditCallInformation.Visible = false;
                 lbtnEditFSR.Visible = false;
                 lbtnAddFSRAttachments.Visible = false;
                 lbtnAddOtherMachine.Visible = false;
                 lbtnAddServiceCharges.Visible = false;
                 lbtnAddTSIR.Visible = false;
-                lbtnAddMaterialCharges.Visible = false;
-                lbtnAddNotes.Visible = false;
+                lbtnAddMaterialCharges.Visible = false; 
                 lbtAddTechnicianWork.Visible = false;
                 lbtnRestore.Visible = false;
                  
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
-                lbtnServiceInvoice.Visible = false;
-                lbtnMaterialClaim.Visible = false;
-                lbtnMaterialQuotation.Visible = false;
+                lbtnServiceInvoice.Visible = false; 
                 lbtnUnlockTicket.Visible = false;
 
                 lbtnRequestForDecline.Visible = false;
@@ -2116,9 +2129,9 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 lbtnRestore.Visible = false;
             }
-            if (SDMS_ICTicket.ArrivalBack != null)
-            { 
-                lbtnArrivalBack.Visible = false; 
+            if ((SDMS_ICTicket.ArrivalBack != null) || (SDMS_ICTicket.ServiceStatus.ServiceStatusID != (short)DMS_ServiceStatus.Restored))
+            {
+                lbtnArrivalBack.Visible = false;
             } 
 
 
@@ -2151,10 +2164,8 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
-                lbtnServiceInvoice.Visible = false;
-                lbtnMaterialClaim.Visible = false;
-                lbtnMaterialQuotation.Visible = false;
-
+                lbtnServiceInvoice.Visible = false; 
+                lbtnDepartureToSite.Visible = false;
             }
             else if (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.TechnicianAssigned)
             {    
@@ -2168,9 +2179,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
-                lbtnServiceInvoice.Visible = false;
-                lbtnMaterialClaim.Visible = false;
-                lbtnMaterialQuotation.Visible = false;
+                lbtnServiceInvoice.Visible = false; 
                 lbtnRequestForDecline.Visible = false;
                  
                 lbtnEditCallInformation.Visible = false;
@@ -2197,9 +2206,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
-                lbtnServiceInvoice.Visible = false;
-                lbtnMaterialClaim.Visible = false;
-                //lbtnMaterialQuotation.Visible = false;
+                lbtnServiceInvoice.Visible = false; 
                 lbtnRequestForDecline.Visible = false;
             }
             else if (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Restored)
@@ -2247,20 +2254,21 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnAddMaterialCharges.Visible = false;
                 //lbtnAddNotes.Visible = true; 
                 lbtAddTechnicianWork.Visible = false;
+                lbtnDepartureToSite.Visible = false;
                 lbtnRestore.Visible = false;
 
                 //lbtnCustomerFeedback.Visible = false;
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
-                lbtnServiceInvoice.Visible = false;
-                lbtnMaterialClaim.Visible = false;
-                lbtnMaterialQuotation.Visible = false;
+                lbtnServiceInvoice.Visible = false; 
                 lbtnRequestForDecline.Visible = false;
                 lbtnMarginWarrantyRequest.Visible = false;
                 lbtnMarginWarrantyApprove.Visible = false;
                 lbtnMarginWarrantyReject.Visible = false;
                 lbtnRequestDateChange.Visible = false;
+
+
             }
 
             if (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
@@ -2270,9 +2278,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             if ((ServiceTypeID == (short)DMS_ServiceType.NEPI) || (ServiceTypeID == (short)DMS_ServiceType.Commission) || (ServiceTypeID == (short)DMS_ServiceType.PreCommission))
             {
-                lbtnAddMaterialCharges.Visible = false;
-                lbtnMaterialClaim.Visible = false;
-                lbtnMaterialQuotation.Visible = false;
+                lbtnAddMaterialCharges.Visible = false; 
             }
 
             if ((SDMS_ICTicket.ServiceType == null) || (SDMS_ICTicket.DealerOffice == null) || (SDMS_ICTicket.CurrentHMRDate == null) || (SDMS_ICTicket.CurrentHMRValue == null))
@@ -2287,13 +2293,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             if ((ServiceTypeID == (short)DMS_ServiceType.Paid1) || (ServiceTypeID == (short)DMS_ServiceType.Others)
               || (ServiceTypeID == (short)DMS_ServiceType.OverhaulService))
             {
-                lbtnServiceClaim.Visible = false;
-                lbtnMaterialClaim.Visible = false;
-                lbtnMaterialQuotation.Visible = false;
+                lbtnAddMaterialCharges.Visible = false;
+                lbtnServiceClaim.Visible = false;  
             }
             else
-            {
-
+            { 
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
                 lbtnServiceInvoice.Visible = false; 
@@ -2430,9 +2434,45 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnRemoveRestoreDate.Visible = false; 
             }
 
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.MarginWarrantyApproval).Count() == 0)
+            {
+                lbtnMarginWarrantyApprove.Visible = false;
+                lbtnMarginWarrantyReject.Visible = false;
+            }
 
+            Boolean MaterialQuotation = true;
+            Boolean MaterialClaim = true;
+            foreach (PDMS_ServiceMaterial mm in SS_ServiceMaterial)
+            {
+                if(string.IsNullOrEmpty( mm.QuotationNumber) && mm.IsQuotationParts ==true)
+                {
+                    MaterialQuotation = false;
+                }
+                if (string.IsNullOrEmpty(mm.ClaimNumber) && mm.IsQuotationParts == true)
+                {
+                    MaterialClaim = false;
+                }
+            } 
+            if (MaterialQuotation)
+            {
+                lbtnMaterialClaim.Visible = false;
+            }
+            if (MaterialClaim)
+            {
+                lbtnMaterialQuotation.Visible = false;
+            }
+
+            if (MarginWarrantyReq.Rows.Count ==0)
+            {
+                lbtnMarginWarrantyApprove.Visible = false;
+                lbtnMarginWarrantyReject.Visible = false;
+            }
             HttpContext.Current.Session["ServiceTypeID"] =   SDMS_ICTicket.ServiceType.ServiceTypeID;
 
+            if ((SDMS_ICTicket.ServiceStatus.ServiceStatusID != (short)DMS_ServiceStatus.Restored))
+            {
+                lbtnRemoveRestoreDate.Visible = false;
+            }
 
             // Validation Based on Sub Module Permission
             if ((PSession.User.DMSModules.Where(m => m.ModuleMasterID == (short)DMS_MenuMain.Service).Count() != 0))
@@ -2459,6 +2499,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             { 
                 lbtnFsrSignature.Visible = false;
             }
+
+            
             ControlBaseOn60Days();
 
             if(PSession.User.UserID != 1)
@@ -2699,17 +2741,19 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
 
         protected void btnSignSave_Click(object sender, EventArgs e)
-        { 
-
+        {
+            MPE_FsrSignature.Show();
             PApiResult Results = UC_FsrSignature.SaveSign(SDMS_ICTicketFSR.FsrID);
-            lblMessage.Text = Results.Message;
+            lblMessageFsrSignature.Text = Results.Message;
             if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Red;
+                lblMessageFsrSignature.Visible = true;
+                lblMessageFsrSignature.ForeColor = Color.Red;
+                UC_FsrSignature.FillMaster();
                 return;
             }
             ShowMessage(Results);
+            MPE_FsrSignature.Hide();
         }
 
         protected void lbtnFsrSignatureDownload_Click(object sender, EventArgs e)
@@ -2779,15 +2823,15 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
             {
-                lblMessage.Text = "Please Enter Location...!"; 
+                lblReachedSiteMessage.Text = "Please Enter Location...!"; 
                 return;
             }
             PApiResult Results = new BDMS_ICTicket().InsertICTicketSeReached(SDMS_ICTicket.ICTicketID, txtLocation.Text.Trim(), Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = Results.Message;
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Red;
+                lblReachedSiteMessage.Text = Results.Message;
+                lblReachedSiteMessage.Visible = true;
+                lblReachedSiteMessage.ForeColor = Color.Red;
                 return;
             }
             ShowMessage(Results);

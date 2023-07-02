@@ -1545,14 +1545,13 @@
     <div class="col-md-12">
         <asp:Label ID="lblReachedSiteMessage" runat="server" Text="" CssClass="message" Visible="false" />
         <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Margin Warranty Reject</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">Reached Site"</legend>
             <div class="col-md-12">
                 <div class="col-md-2 col-sm-12">
-                    <label class="modal-label">Remarks</label>
-                    <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control"  ></asp:TextBox>
+                    <label class="modal-label">Location</label>
+                    <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" ></asp:TextBox>
                 </div>
-                <div class="col-md-6 text-left">
-                    <label class="modal-label">-</label>
+                <div class="col-md-12 text-center"> 
                     <asp:Button ID="btnReachedSite" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnReachedSite_Click"   />
                 </div>
             </div>
@@ -1607,3 +1606,5 @@
         navigator.geolocation.getCurrentPosition(success, error);
     }
 </script>
+<script src="../../SignJS/signature_pad.js"></script>
+<script src="../../SignJS/app.js"></script>

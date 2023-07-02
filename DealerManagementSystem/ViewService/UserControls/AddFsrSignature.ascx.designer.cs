@@ -33,6 +33,42 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
 
         /// <summary>
+        /// chVEngineerPhoto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chVEngineerPhoto;
+
+        /// <summary>
+        /// chVEngineerSign control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chVEngineerSign;
+
+        /// <summary>
+        /// chVCustomerPhoto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chVCustomerPhoto;
+
+        /// <summary>
+        /// chVCustomerSign control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chVCustomerSign;
+
+        /// <summary>
         /// lblProcessName control.
         /// </summary>
         /// <remarks>

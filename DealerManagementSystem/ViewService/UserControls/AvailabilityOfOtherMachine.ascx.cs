@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             TextBox txtQuantity = (TextBox)gvAvailabilityOfOtherMachine.FooterRow.FindControl("txtQuantity");
             if (ddlTypeOfMachine.SelectedValue == "0")
             {
-                lblMessage.Text = "Please select the Note Type";
+                lblMessage.Text = "Please select the Type Of Machine";
                 lblMessage.ForeColor = Color.Red;
                 return;
             }

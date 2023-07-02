@@ -1,5 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddFsrSignature.ascx.cs" Inherits="DealerManagementSystem.ViewService.UserControls.AddFsrSignature" %>
 
+<style>
+    .col-md-3   modalV
+    {
+        margin-top: -16px;
+        margin-bottom: -14px;
+    }
+    input[type=checkbox], input[type=radio] {
+    height: initial;
+    margin: 0px;
+}
+</style>
 
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" Font-Bold="true" Font-Size="24px" />
 <%--  <meta charset="utf-8"> 
@@ -60,7 +71,23 @@
 --%>
 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
     <div class="col-md-12">
-        <div class="col-md-4">
+         <div class="col-md-3">
+            <label class="modal-label"> Engineer Photo : 
+            <asp:CheckBox ID="chVEngineerPhoto" runat="server" CssClass="LabelValue" Enabled ="false"></asp:CheckBox>  </label>
+        </div>
+         <div class="col-md-3">
+            <label class="modal-label">Engineer Sign  : 
+            <asp:CheckBox ID="chVEngineerSign" runat="server" CssClass="LabelValue" Enabled ="false"></asp:CheckBox></label>  
+        </div>
+         <div class="col-md-3">
+            <label class="modal-label"> Customer Photo :  
+            <asp:CheckBox ID="chVCustomerPhoto" runat="server" CssClass="LabelValue" Enabled ="false"></asp:CheckBox>  </label>
+        </div>
+         <div class="col-md-3">
+            <label class="modal-label"> Customer Sign :  
+            <asp:CheckBox ID="chVCustomerSign" runat="server" CssClass="LabelValue" Enabled ="false"></asp:CheckBox>  </label>
+        </div> 
+        <div class="col-md-12">
             <label></label>
             <asp:Label ID="lblProcessName" runat="server" CssClass="LabelValue"></asp:Label>
             <div style="display: none">
@@ -173,6 +200,7 @@
                     document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_hfTPhotoCapture").value = data_uri;
                     document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_lblProcessID").innerHTML = "2";
                     document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_lblProcessName").innerHTML = "Signature Of Engineer";
+                    document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_chVEngineerPhoto").checked  = true;
                 }
                 else if (lblProcessID == 3) {
                     document.getElementById("divWeb").style.display = "None";
@@ -180,6 +208,7 @@
                     document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_hfCPhotoCapture").value = data_uri;
                     document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_lblProcessID").innerHTML = "4";
                     document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_lblProcessName").innerHTML = "Signature Of Customer";
+                    document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_chVCustomerPhoto").checked = true;
                 }
             });
         });
@@ -188,6 +217,7 @@
             document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_lblProcessName").innerHTML = "Photo Of Customer";
             document.getElementById("divWeb").style.display = "block";
             document.getElementById("divTSign").style.display = "None";
+            document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_chVEngineerSign").checked = true;
         });
         $("#btnCSign").click(function () {
 
@@ -197,6 +227,7 @@
             document.getElementById("divWeb").style.display = "None";
             document.getElementById("divCSign").style.display = "None";
             document.getElementById("divNameOfSignature").style.display = "block";
+            document.getElementById("MainContent_UC_ICTicketView_UC_FsrSignature_chVCustomerSign").checked = true;
         });
     });
 

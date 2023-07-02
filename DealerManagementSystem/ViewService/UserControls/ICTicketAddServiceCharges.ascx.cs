@@ -76,6 +76,35 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 return "Please select the Service Date";
             }
+            if (txtWorkedHours.Visible == true)
+            {
+                if (string.IsNullOrEmpty(txtWorkedHours.Text.Trim()))
+                {
+                    return "Please enter the Worked Hours";
+                }
+                if (string.IsNullOrEmpty(txtBasePrice.Text.Trim()))
+                {
+                    return "Please enter the Base Price";
+                }
+                if (string.IsNullOrEmpty(txtDiscount.Text.Trim()))
+                {
+                    return "Please enter the Discount";
+                }
+
+                decimal value;
+                if (!decimal.TryParse(txtWorkedHours.Text, out value))
+                {
+                    return "Please enter correct format in Worked Hours";
+                }
+                if (!decimal.TryParse(txtBasePrice.Text, out value))
+                {
+                    return "Please enter correct format in Base Price";
+                }
+                if (!decimal.TryParse(txtDiscount.Text, out value))
+                {
+                    return "Please enter correct format in Discount";
+                }   
+            }
             return "";
         }
     }
