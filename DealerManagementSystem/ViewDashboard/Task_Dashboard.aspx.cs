@@ -133,6 +133,7 @@ namespace DealerManagementSystem.ViewDashboard
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillStatusCount();
+
         }
         void FillStatusCount()
         {
