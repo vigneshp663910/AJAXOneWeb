@@ -290,6 +290,7 @@ namespace DealerManagementSystem.ViewDashboard
             }
             return chartData;
         }
+
         void DaywiseReport()
         {
             int? DealerEmployeeUserID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
