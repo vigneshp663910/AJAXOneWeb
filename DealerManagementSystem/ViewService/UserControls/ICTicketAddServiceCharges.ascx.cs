@@ -48,10 +48,10 @@ namespace DealerManagementSystem.ViewService.UserControls
 
 
         }
-        public PDMS_ServiceCharge_API Read()
+        public PDMS_ServiceCharge_API Read(long ServiceChargeID)
         {
             PDMS_ServiceCharge_API OM = new PDMS_ServiceCharge_API();
-            OM.ServiceChargeID = 0; 
+            OM.ServiceChargeID = ServiceChargeID; 
             OM.IsDeleted = false; 
             //  PDMS_Material MaterialsDescription = new BDMS_Material().GetMaterialServiceByMaterialAndDescription(txtServiceMaterial.Text.Trim()); 
             OM.MaterialID = Convert.ToInt32(hdfMaterialID.Value); 
@@ -63,7 +63,6 @@ namespace DealerManagementSystem.ViewService.UserControls
                 OM.BasePrice = Convert.ToDecimal(txtBasePrice.Text.Trim());
                 OM.Discount = Convert.ToDecimal(txtDiscount.Text.Trim());
             }
-             
             return OM;
         }
         public string Validation()
@@ -106,6 +105,20 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }   
             }
             return "";
+        }
+
+        public void Write(long ServiceChargeID, long ICTicketID)
+        {
+            PDMS_ServiceCharge OM = new BDMS_Service().GetServiceCharges(ICTicketID, ServiceChargeID, "", false)[0];
+            hdfMaterialID.Value = OM.Material.MaterialID.ToString();
+            txtServiceMaterial.Text = OM.Material.MaterialCode_MaterialDescription;
+            txtServiceDate.Text = Convert.ToString(OM.Date);
+            if (txtWorkedHours.Visible == true)
+            {
+                txtWorkedHours.Text = Convert.ToString(OM.WorkedHours);
+                txtBasePrice.Text = Convert.ToString(OM.BasePrice);
+                txtDiscount.Text = Convert.ToString(OM.Discount);
+            }
         }
     }
 }

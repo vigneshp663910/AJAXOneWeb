@@ -1128,7 +1128,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblServiceChargeSessage.Text = Message;
                 return;
             }
-            PDMS_ServiceCharge_API OM = UC_ICTicketAddServiceCharges.Read();
+            PDMS_ServiceCharge_API OM = UC_ICTicketAddServiceCharges.Read(0);
             OM.ICTicketID = SDMS_ICTicket.ICTicketID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/ICTicketServiceChargesAdd", OM));
             if (Results.Status == PApplication.Failure)
@@ -2837,6 +2837,16 @@ namespace DealerManagementSystem.ViewService.UserControls
             ShowMessage(Results);
             FillICTicket(SDMS_ICTicket.ICTicketID);
             MPE_ReachedSite.Hide();
+        }
+
+        protected void lblServiceEdit_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            long ServiceChargeID = Convert.ToInt64(gvServiceCharges.DataKeys[gvRow.RowIndex].Value);
+
+            UC_ICTicketAddServiceCharges.FillMaster(SDMS_ICTicket);
+            UC_ICTicketAddServiceCharges.Write(ServiceChargeID, SDMS_ICTicket.ICTicketID);
+            MPE_ICTicketAddServiceCharges.Show();
         }
     }
 }
