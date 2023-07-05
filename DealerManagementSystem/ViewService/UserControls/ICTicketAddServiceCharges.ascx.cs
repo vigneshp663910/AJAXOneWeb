@@ -11,13 +11,29 @@ namespace DealerManagementSystem.ViewService.UserControls
 {
     public partial class ICTicketAddServiceCharges : System.Web.UI.UserControl
     {
+        public long ServiceChargeID
+        {
+            get
+            {
+                if (ViewState["ServiceChargeID"] == null)
+                {
+                    ViewState["ServiceChargeID"] = Convert.ToInt64("0");
+                }
+                return (long)ViewState["ServiceChargeID"];
+            }
+            set
+            {
+                ViewState["ServiceChargeID"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblMessage.Text = "";
 
         }
         public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
-        { 
-           
+        {
+            Clear();
             //if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
             //  || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
             //  || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService)
@@ -45,11 +61,17 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         void Clear()
         {
+            txtWorkedHours.Text = "";
+            txtBasePrice.Text = "";
+            txtDiscount.Text = "0";
 
+            txtServiceDate.Text = "";
+            txtServiceMaterial.Text = "";
+            hdfMaterialID.Value = "0";
 
         }
-        public PDMS_ServiceCharge_API Read(long ServiceChargeID)
-        {
+        public PDMS_ServiceCharge_API Read()
+        { 
             PDMS_ServiceCharge_API OM = new PDMS_ServiceCharge_API();
             OM.ServiceChargeID = ServiceChargeID; 
             OM.IsDeleted = false; 
@@ -107,8 +129,9 @@ namespace DealerManagementSystem.ViewService.UserControls
             return "";
         }
 
-        public void Write(long ServiceChargeID, long ICTicketID)
+        public void Write(long ServiceChargeID_, long ICTicketID)
         {
+            ServiceChargeID = ServiceChargeID_;
             PDMS_ServiceCharge OM = new BDMS_Service().GetServiceCharges(ICTicketID, ServiceChargeID, "", false)[0];
             hdfMaterialID.Value = OM.Material.MaterialID.ToString();
             txtServiceMaterial.Text = OM.Material.MaterialCode_MaterialDescription;

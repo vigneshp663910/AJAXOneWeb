@@ -1128,7 +1128,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblServiceChargeSessage.Text = Message;
                 return;
             }
-            PDMS_ServiceCharge_API OM = UC_ICTicketAddServiceCharges.Read(0);
+            PDMS_ServiceCharge_API OM = UC_ICTicketAddServiceCharges.Read();
             OM.ICTicketID = SDMS_ICTicket.ICTicketID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/ICTicketServiceChargesAdd", OM));
             if (Results.Status == PApplication.Failure)
@@ -2847,6 +2847,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             UC_ICTicketAddServiceCharges.FillMaster(SDMS_ICTicket);
             UC_ICTicketAddServiceCharges.Write(ServiceChargeID, SDMS_ICTicket.ICTicketID);
             MPE_ICTicketAddServiceCharges.Show();
+        }
+
+        public void ClearAll()
+        {
+
         }
     }
 }
