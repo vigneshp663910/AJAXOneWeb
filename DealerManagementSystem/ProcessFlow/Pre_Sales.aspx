@@ -10,8 +10,14 @@
         <title></title>
     </head>
     <body>
-        <asp:Image ID="Image1" runat="server" ImageUrl="~/ProcessFlow/Pre_Sales1.png" />
-       
+        <div class="col-md-12">
+            <div class="col-md-11">
+                <asp:Image ID="Image1" runat="server" ImageUrl="~/ProcessFlow/Pre_Sales1.png" />
+            </div>
+            <div class="col-md-1" style="text-align:right;vertical-align:top">
+                <asp:Button ID="btnSOP" runat="server" CssClass="btn Save" Text="SOP" OnClick="btnSOP_Click" Width="80px"></asp:Button>
+            </div>
+        </div>
     </body>
     </html>
 </asp:Content>
