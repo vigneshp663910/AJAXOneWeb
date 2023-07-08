@@ -649,7 +649,7 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblServiceRemove" runat="server" OnClick="lblServiceRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
-                                    <asp:LinkButton ID="lblServiceEdit" runat="server" OnClick="lblServiceEdit_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                    <asp:LinkButton ID="lblServiceEdit" runat="server" OnClick="lblServiceEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"  ></i></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

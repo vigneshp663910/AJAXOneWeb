@@ -34,6 +34,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         public void FillMaster(PDMS_ICTicket SDMS_ICTicket)
         {
             Clear();
+            ServiceChargeID = 0;
             //if ((SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
             //  || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Others)
             //  || (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.OverhaulService)
@@ -129,10 +130,10 @@ namespace DealerManagementSystem.ViewService.UserControls
             return "";
         }
 
-        public void Write(long ServiceChargeID_, long ICTicketID)
+        public void Write(PDMS_ServiceCharge OM)
         {
-            ServiceChargeID = ServiceChargeID_;
-            PDMS_ServiceCharge OM = new BDMS_Service().GetServiceCharges(ICTicketID, ServiceChargeID, "", false)[0];
+            ServiceChargeID = OM.ServiceChargeID;
+            
             hdfMaterialID.Value = OM.Material.MaterialID.ToString();
             txtServiceMaterial.Text = OM.Material.MaterialCode_MaterialDescription;
             txtServiceDate.Text = Convert.ToString(OM.Date);
@@ -141,6 +142,10 @@ namespace DealerManagementSystem.ViewService.UserControls
                 txtWorkedHours.Text = Convert.ToString(OM.WorkedHours);
                 txtBasePrice.Text = Convert.ToString(OM.BasePrice);
                 txtDiscount.Text = Convert.ToString(OM.Discount);
+            }
+            if (OM.Material.IsMainServiceMaterial)
+            {
+                throw new Exception("You cannot edit main Service Material (" + OM.Material.MaterialCode + ").");
             }
         }
     }

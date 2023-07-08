@@ -334,8 +334,9 @@ namespace DealerManagementSystem.ViewService
             ViewState["ICTicketID"] = gvICTickets.DataKeys[index].Value.ToString(); 
             divList.Visible = false;
             divDetailsView.Visible = true;
-            UC_ICTicketView.FillICTicket( Convert.ToInt64(ViewState["ICTicketID"]));
             UC_ICTicketView.ClearAll();
+            UC_ICTicketView.FillICTicket( Convert.ToInt64(ViewState["ICTicketID"]));
+
         }
           
 
