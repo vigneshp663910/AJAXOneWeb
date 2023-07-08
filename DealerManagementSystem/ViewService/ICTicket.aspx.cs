@@ -335,7 +335,7 @@ namespace DealerManagementSystem.ViewService
             divList.Visible = false;
             divDetailsView.Visible = true;
             UC_ICTicketView.FillICTicket( Convert.ToInt64(ViewState["ICTicketID"]));
-            UC_ICTicketView.ClearAll()
+            UC_ICTicketView.ClearAll();
         }
           
 

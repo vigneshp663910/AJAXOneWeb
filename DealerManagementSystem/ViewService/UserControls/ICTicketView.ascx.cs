@@ -887,9 +887,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Reached in Site")
             {
-                MPE_ReachedSite.Show();
-                
-
+                new BDMS_SiteContactPersonDesignation().GetSiteContactPersonDesignationDDL(ddlDesignation, null, null);
+                MPE_ReachedSite.Show(); 
             }
             else if (lbActions.Text == "Arrival Back")
             {
@@ -2826,7 +2825,13 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lblReachedSiteMessage.Text = "Please Enter Location...!"; 
                 return;
             }
-            PApiResult Results = new BDMS_ICTicket().InsertICTicketSeReached(SDMS_ICTicket.ICTicketID, txtLocation.Text.Trim(), Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value));
+
+            int? HMRValue = string.IsNullOrEmpty(txtHMRValue.Text.Trim())?(int?) null: Convert.ToInt32(txtHMRValue.Text.Trim());
+            int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+
+
+            PApiResult Results = new BDMS_ICTicket().InsertICTicketSeReached(SDMS_ICTicket.ICTicketID, txtLocation.Text.Trim(), HMRValue, txtOperatorName.Text.Trim()
+                , txtSiteContactPersonNumber.Text.Trim(), DesignationID, Convert.ToDecimal(hfLatitude.Value), Convert.ToDecimal(hfLongitude.Value));
             if (Results.Status == PApplication.Failure)
             {
                 lblReachedSiteMessage.Text = Results.Message;
