@@ -63,7 +63,7 @@ namespace DealerManagementSystem.ViewDashboard
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            Session["DashboardTaskUserID"] = (ddlDealerEmployee.SelectedValue=="0")?PSession.User.UserID.ToString() : ddlDealerEmployee.SelectedValue;
+            Session["DashboardTaskUserID"] = (ddlDealerEmployee.SelectedValue == "0") ? PSession.User.UserID.ToString() : ddlDealerEmployee.SelectedValue;
             Session["DashboardTaskDealerID"] = ddlDealer.SelectedValue;
             if (lbActions.Text == "Created")
             {
@@ -111,7 +111,10 @@ namespace DealerManagementSystem.ViewDashboard
             else if (lbActions.Text == "Reject")
             {
                 Session["DashboardTaskStatus"] = ",Reject";
-                Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
+                if (ddlDealerEmployee.SelectedValue != "0")
+                {
+                    Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
+                }
             }
             else if (lbActions.Text == "Resolved+")
             {
@@ -161,9 +164,10 @@ namespace DealerManagementSystem.ViewDashboard
             int? DealerEmployeeUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             DealerEmployeeUserID = (DealerEmployeeUserID == null) ? PSession.User.UserID : DealerEmployeeUserID;
+            Boolean Dealerwise = ((DealerID != null && ddlDealerEmployee.SelectedValue == "0")|| (DealerID == null && ddlDealerEmployee.SelectedValue == "0")) ? true : false;
             gvTickets.DataSource = null;
             gvTickets.DataBind();
-            DataSet ds = new BTickets().GetTicketDetailsCountByStatus(DealerID, DealerEmployeeUserID, null, null);
+            DataSet ds = new BTickets().GetTicketDetailsCountByStatus(DealerID, DealerEmployeeUserID, Dealerwise, null, null);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 lblCreated.Text = ds.Tables[0].Compute("Sum(TotalCreated)", "").ToString();
@@ -265,11 +269,12 @@ namespace DealerManagementSystem.ViewDashboard
             int? DealerEmployeeUserID = DealerEmployeeUser == "0" ? (int?)null : Convert.ToInt32(DealerEmployeeUser);
             int? DealerID = Dealer == "0" ? (int?)null : Convert.ToInt32(Dealer);
             DealerEmployeeUserID = (DealerEmployeeUserID == null) ? PSession.User.UserID : DealerEmployeeUserID;
+            Boolean Dealerwise = ((DealerID != null && DealerEmployeeUser == "0") || (DealerID == null && DealerEmployeeUser == "0")) ? true : false;
             DateTime? From = string.IsNullOrEmpty(DateFrom) ? (DateTime?)null : Convert.ToDateTime(DateFrom);
             DateTime? To = string.IsNullOrEmpty(DateTo) ? (DateTime?)null : Convert.ToDateTime(DateTo);
 
             //DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(CategoryID, SubcategoryID, PSession.User.UserID, From, To);
-            DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(DealerEmployeeUserID, DealerID, null, null);
+            DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(DealerEmployeeUserID, DealerID, Dealerwise, null, null);
 
             if (ds != null)
             {
@@ -301,6 +306,7 @@ namespace DealerManagementSystem.ViewDashboard
             From = Convert.ToDateTime("01-" + Month + "-" + Year);
             To = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
             DealerEmployeeUserID = (DealerEmployeeUserID == null) ? PSession.User.UserID : DealerEmployeeUserID;
+            Boolean Dealerwise = ((DealerID != null && ddlDealerEmployee.SelectedValue == "0") || (DealerID == null && ddlDealerEmployee.SelectedValue == "0")) ? true : false;
             if (DateTime.Now < To)
             {
                 if (DateTime.Now.Month == Convert.ToDateTime(To).Month)
@@ -313,7 +319,7 @@ namespace DealerManagementSystem.ViewDashboard
                 }
             }
 
-            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, From, To);
+            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
             if (ds != null)
             {
                 if (ds.Tables[0].Rows.Count > 0)
@@ -408,6 +414,7 @@ namespace DealerManagementSystem.ViewDashboard
             DateTime? From = Convert.ToDateTime("01-" + Month + "-" + Year);
             DateTime? To = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
             DealerEmployeeUserID = (DealerEmployeeUserID == null) ? PSession.User.UserID : DealerEmployeeUserID;
+            Boolean Dealerwise = ((DealerID != null && DealerEmployeeUser == "0") || (DealerID == null && DealerEmployeeUser == "0")) ? true : false;
             if (DateTime.Now < To)
             {
                 if (DateTime.Now.Month == Convert.ToDateTime(To).Month)
@@ -421,7 +428,7 @@ namespace DealerManagementSystem.ViewDashboard
                 }
             }
 
-            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, From, To);
+            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
 
             if (ds != null)
             {
