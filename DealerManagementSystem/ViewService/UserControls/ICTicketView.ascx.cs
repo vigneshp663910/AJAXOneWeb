@@ -2027,7 +2027,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             lbtnAddMaterialCharges.Visible = true;
             lbtnAddNotes.Visible = true; 
             lbtAddTechnicianWork.Visible = true;
-            lbtnRestore.Visible = true;
+            
 
             //lbtnCustomerFeedback.Visible = true;
             lbtnServiceClaim.Visible = true;
@@ -2052,12 +2052,20 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             lbtnDepartureToSite.Visible = true;
             lbtnReachedInSite.Visible = true;
+            lbtnRestore.Visible = true;
             lbtnArrivalBack.Visible = true;
 
             // lbtnDeviatedICTicketRequest60Days.Visible = true;
             // lbtnDeviatedICTicketRequestCommissioning.Visible = true;
 
-             
+
+            if (SDMS_ICTicket.Technicians.Where(A => A.UserID == PSession.User.UserID).Count() == 0)
+            {
+                lbtnDepartureToSite.Visible = false;
+                lbtnReachedInSite.Visible = false;
+                lbtnRestore.Visible = false;
+                lbtnArrivalBack.Visible = false;
+            }
 
             if ((Boolean)SDMS_ICTicket.IsLocked)
             {
@@ -2086,8 +2094,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
                 lbtnRequestDateChange.Visible = false;
                 lbtnAddNotes.Visible = false;
-                lbtnFsrSignature.Visible = false;
-                DisableAllGridEditDelete();
+                lbtnFsrSignature.Visible = false; 
             }
             else
             {
@@ -2227,8 +2234,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnRequestForDecline.Visible = false;
             }
             else if (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Restored)
-            {
-                DisableAllGridEditDelete();
+            { 
                 lbtnRequestForDecline.Visible = false;
 
                 lbtnAddTechnician.Visible = false;
@@ -2519,6 +2525,8 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             
             ControlBaseOn60Days();
+
+            DisableAllGridEditDelete();
         }
 
         protected void lnkFSRDownload_Click(object sender, EventArgs e)
@@ -2985,36 +2993,72 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         private void DisableAllGridEditDelete()
         {
-            for (int i = 0; i < gvTechnician.Rows.Count; i++)
+            if (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Restored) 
             {
-               ((LinkButton)gvTechnician.Rows[i].FindControl("lbTechnicianRemove")).Enabled = false;
+                for (int i = 0; i < gvTechnician.Rows.Count; i++)
+                {
+                    ((LinkButton)gvTechnician.Rows[i].FindControl("lbTechnicianRemove")).Enabled = false;
+                }
+                for (int i = 0; i < gvAttachedFile.Rows.Count; i++)
+                {
+                    ((LinkButton)gvAttachedFile.Rows[i].FindControl("lblAttachedFileRemove")).Enabled = false;
+                }
+                for (int i = 0; i < gvAvailabilityOfOtherMachine.Rows.Count; i++)
+                {
+                    ((LinkButton)gvAvailabilityOfOtherMachine.Rows[i].FindControl("lbAvailabilityOfOtherMachineRemove")).Enabled = false;
+                }
+                //for (int i = 0; i < gvServiceCharges.Rows.Count; i++)
+                //{
+                //    ((LinkButton)gvServiceCharges.Rows[i].FindControl("lblServiceRemove")).Enabled = false;
+                //    ((LinkButton)gvServiceCharges.Rows[i].FindControl("lblServiceEdit")).Enabled = false;
+                //}
+                for (int i = 0; i < gvMaterial.Rows.Count; i++)
+                {
+                    ((LinkButton)gvMaterial.Rows[i].FindControl("lblMaterialRemove")).Enabled = false;
+                    ((CheckBox)gvMaterial.Rows[i].FindControl("cbEdit")).Enabled = false;
+                }
+                for (int i = 0; i < gvNotes.Rows.Count; i++)
+                {
+                    ((LinkButton)gvNotes.Rows[i].FindControl("lblNoteRemove")).Enabled = false;
+                }
+                for (int i = 0; i < gvTechnicianWorkDays.Rows.Count; i++)
+                {
+                    ((LinkButton)gvTechnicianWorkDays.Rows[i].FindControl("lbWorkedDayRemove")).Enabled = false;
+                }
             }
-            for (int i = 0; i < gvAttachedFile.Rows.Count; i++)
+            if ((Boolean)SDMS_ICTicket.IsLocked || (Boolean)SDMS_ICTicket.SyncBlock)
             {
-                ((LinkButton)gvAttachedFile.Rows[i].FindControl("lblAttachedFileRemove")).Enabled = false;
-            }
-            for (int i = 0; i < gvAvailabilityOfOtherMachine.Rows.Count; i++)
-            {
-                ((LinkButton)gvAvailabilityOfOtherMachine.Rows[i].FindControl("lbAvailabilityOfOtherMachineRemove")).Enabled = false;
-            }
-            //for (int i = 0; i < gvServiceCharges.Rows.Count; i++)
-            //{
-            //    ((LinkButton)gvServiceCharges.Rows[i].FindControl("lblServiceRemove")).Enabled = false;
-            //    ((LinkButton)gvServiceCharges.Rows[i].FindControl("lblServiceEdit")).Enabled = false;
-            //}
-            for (int i = 0; i < gvMaterial.Rows.Count; i++)
-            {
-                ((LinkButton)gvMaterial.Rows[i].FindControl("lblMaterialRemove")).Enabled = false;
-                ((CheckBox)gvMaterial.Rows[i].FindControl("cbEdit")).Enabled = false;
-            }
-            for (int i = 0; i < gvNotes.Rows.Count; i++)
-            {
-                ((LinkButton)gvNotes.Rows[i].FindControl("lblNoteRemove")).Enabled = false;
-            }
-            for (int i = 0; i < gvTechnicianWorkDays.Rows.Count; i++)
-            {
-                ((LinkButton)gvTechnicianWorkDays.Rows[i].FindControl("lbWorkedDayRemove")).Enabled = false;
-            }
+                for (int i = 0; i < gvTechnician.Rows.Count; i++)
+                {
+                    ((LinkButton)gvTechnician.Rows[i].FindControl("lbTechnicianRemove")).Enabled = false;
+                }
+                for (int i = 0; i < gvAttachedFile.Rows.Count; i++)
+                {
+                    ((LinkButton)gvAttachedFile.Rows[i].FindControl("lblAttachedFileRemove")).Enabled = false;
+                }
+                for (int i = 0; i < gvAvailabilityOfOtherMachine.Rows.Count; i++)
+                {
+                    ((LinkButton)gvAvailabilityOfOtherMachine.Rows[i].FindControl("lbAvailabilityOfOtherMachineRemove")).Enabled = false;
+                }
+                for (int i = 0; i < gvServiceCharges.Rows.Count; i++)
+                {
+                    ((LinkButton)gvServiceCharges.Rows[i].FindControl("lblServiceRemove")).Enabled = false;
+                    ((LinkButton)gvServiceCharges.Rows[i].FindControl("lblServiceEdit")).Enabled = false;
+                }
+                for (int i = 0; i < gvMaterial.Rows.Count; i++)
+                {
+                    ((LinkButton)gvMaterial.Rows[i].FindControl("lblMaterialRemove")).Enabled = false;
+                    ((CheckBox)gvMaterial.Rows[i].FindControl("cbEdit")).Enabled = false;
+                }
+                for (int i = 0; i < gvNotes.Rows.Count; i++)
+                {
+                    ((LinkButton)gvNotes.Rows[i].FindControl("lblNoteRemove")).Enabled = false;
+                }
+                for (int i = 0; i < gvTechnicianWorkDays.Rows.Count; i++)
+                {
+                    ((LinkButton)gvTechnicianWorkDays.Rows[i].FindControl("lbWorkedDayRemove")).Enabled = false;
+                }
+            } 
         }
     }
 }
