@@ -550,6 +550,7 @@
     <Content Include="ViewPreSale\UserControls\AddLead.ascx" />
     <Content Include="ViewPreSale\UserControls\AddLeadProduct.ascx" />
     <Content Include="ViewPreSale\UserControls\AddQuotation.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddVariant.ascx" />
     <Content Include="ViewPreSale\UserControls\AssignSE.ascx" />
     <Content Include="ViewPreSale\UserControls\ColdVisitsView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
@@ -1967,6 +1968,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddQuotation.ascx.designer.cs">
       <DependentUpon>AddQuotation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddVariant.ascx.cs">
+      <DependentUpon>AddVariant.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddVariant.ascx.designer.cs">
+      <DependentUpon>AddVariant.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AssignSE.ascx.cs">
       <DependentUpon>AssignSE.ascx</DependentUpon>
