@@ -326,6 +326,10 @@
     <Content Include="Help\Files\Getting Started.pps" />
     <Content Include="DealerDashboard.Master" />
     <None Include="packages.config" />
+    <Content Include="ProcessFlow\SOP\DealerEmployee.pdf" />
+    <Content Include="ProcessFlow\SOP\PreSales.pdf" />
+    <Content Include="ProcessFlow\SOP\Service.pdf" />
+    <Content Include="ProcessFlow\SOP\Task.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="SalesOrderTemp.aspx" />
     <Content Include="Scripts\bootstrap.js" />
