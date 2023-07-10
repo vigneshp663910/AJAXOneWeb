@@ -219,9 +219,9 @@ namespace Properties
     }
 
     [Serializable]
-    public class PMaterialVariantMapping
+    public class PMaterialVariantTypeMapping
     {
-        public long MaterialVariantMappingID { get; set; }
+        public long MaterialVariantTypeMappingID { get; set; }
         public PProduct Product { get; set; }
         public PMaterialVariantType VariantType { get; set; }
         public PDMS_Material Material { get; set; }  

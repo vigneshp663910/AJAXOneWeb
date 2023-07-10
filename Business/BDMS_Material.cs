@@ -215,5 +215,42 @@ namespace Business
                 + "&Material=" + Material + "&Quantity=" + Quantity + "&IV_SEC_SALES=" + IV_SEC_SALES + "&PriceDate=" + PriceDate + "&IsWarrenty=" + IsWarrenty;
             return JsonConvert.DeserializeObject<PMaterial>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public List<PMaterialVariantType> GetMaterialVariantType(int? ProductTypeID)
+        {
+            try
+            {
+                string endPoint = "Material/GetMaterialVariantType?ProductTypeID=" + ProductTypeID;
+                return JsonConvert.DeserializeObject<List<PMaterialVariantType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantType", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantType", ex);
+                throw ex;
+            } 
+        }
+        public List<PMaterialVariantTypeMapping> GetMaterialVariantTypeMappingProductID(int ProductID)
+        { 
+            try
+            {
+                string endPoint = "Material/GetMaterialVariantTypeMappingProductID?ProductID=" + ProductID;
+                return JsonConvert.DeserializeObject<List<PMaterialVariantTypeMapping>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantTypeMappingProductID", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantTypeMappingProductID", ex);
+                throw ex;
+            } 
+        }
     }
 }
