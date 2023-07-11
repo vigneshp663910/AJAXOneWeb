@@ -245,8 +245,6 @@ namespace Properties
         public decimal Tax { get; set; }
         public decimal TotalAmt { get; set; } 
     }
-
-
     [Serializable]
     public class PSaleOrderDelivery
     {
@@ -267,7 +265,6 @@ namespace Properties
         public decimal Qty { get; set; }
         
     }
-
     [Serializable]
     public class PSaleOrderReturn
     {
