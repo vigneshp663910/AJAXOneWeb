@@ -910,5 +910,53 @@ namespace Business
         //    }
         //    return SalesQuotationDocumentDetails.Count();
         //}
+
+
+
+        public PSalesQuotationItem getMaterialTaxForQuotation(PSalesQuotation Quotation, string MaterialCode, Boolean IsWarrenty, decimal qty)
+        {
+            PSalesQuotation_sap_MaterialTax Tax = new PSalesQuotation_sap_MaterialTax();
+            Tax.CustomerCode = Quotation.Lead.Customer.CustomerCode;
+            Tax.CustomerStateCode = Quotation.Lead.Customer.State.StateCode;
+            Tax.DealerStateCode = Quotation.Lead.Dealer.StateCode;
+            Tax.MaterialCode = MaterialCode;
+            Tax.IsWarrenty = IsWarrenty;
+            Tax.qty = qty;
+            Tax.QuotationItems = new List<PSalesQuotationItem_sap_MaterialTax>();
+            foreach (PSalesQuotationItem item in Quotation.QuotationItems)
+            {
+                Tax.QuotationItems.Add(new PSalesQuotationItem_sap_MaterialTax()
+                {
+                    MaterialCode = item.Material.MaterialCode,
+                    Qty = item.Qty
+                });
+            }
+            return JsonConvert.DeserializeObject<PSalesQuotationItem>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/getMaterialTaxForQuotation", Tax)).Data));
+        }
+        public DataTable getMaterialTextForQuotation(string MaterialCode)
+        {
+            string endPoint = "SalesQuotation/getMaterialTextForQuotation?MaterialCode=" + MaterialCode;
+
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            
+        }
+    }
+    [Serializable]
+    public class PSalesQuotation_sap_MaterialTax
+    {
+        public List<PSalesQuotationItem_sap_MaterialTax> QuotationItems { get; set; }
+        public string CustomerCode { get; set; }
+        public string CustomerStateCode { get; set; }
+        public string DealerStateCode { get; set; }
+
+        public string MaterialCode { get; set; }
+        public Boolean IsWarrenty { get; set; }
+        public decimal qty { get; set; }
+    }
+    [Serializable]
+    public class PSalesQuotationItem_sap_MaterialTax
+    {
+        public string MaterialCode { get; set; }
+        public int Qty { get; set; }
     }
 }

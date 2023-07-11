@@ -224,17 +224,17 @@ namespace DealerManagementSystem.ViewService
                 //    gvICTickets.Columns[18].Visible = false;
                 //}
 
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                {
-                    gvICTickets.Columns[16].Visible = false;
-                }
+                //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
+                //{
+                //    gvICTickets.Columns[16].Visible = false;
+                //}
 
 
-                string[] MailToSupplier = ConfigurationManager.AppSettings["MailToSupplier"].Split(',');
-                if (MailToSupplier.Contains(PSession.User.UserID.ToString()))
-                {
-                    gvICTickets.Columns[19].Visible = true;
-                }
+                //string[] MailToSupplier = ConfigurationManager.AppSettings["MailToSupplier"].Split(',');
+                //if (MailToSupplier.Contains(PSession.User.UserID.ToString()))
+                //{
+                //    gvICTickets.Columns[19].Visible = true;
+                //}
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)
@@ -422,7 +422,7 @@ namespace DealerManagementSystem.ViewService
                         FailureCode = SC.Material.MaterialCode;
                     }
                 }
-                PDMS_Customer Customer = new SCustomer().getCustomerAddress(TSIR.ICTicket.Customer.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(TSIR.ICTicket.Customer.CustomerCode);
                 string CustomerAddress = Customer.Address1 + ", " + Customer.Address1 + ", " + Customer.Address3 + ", " + Customer.City + ", " + Customer.State.State + " - " + Customer.Pincode;
                 CustomerAddress = CustomerAddress.Replace(", ,", ",").Replace(",,", ",");
                 CustomerAddress = CustomerAddress.Trim(',', ' ');

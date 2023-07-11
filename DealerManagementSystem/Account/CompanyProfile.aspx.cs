@@ -69,7 +69,7 @@ namespace DealerManagementSystem.Account
             }
             else 
             {
-                Dealer = new SCustomer().getCustomerAddress(Role[0].Dealer.DealerCode);
+                Dealer = new BDMS_Customer().getCustomerAddressFromSAP(Role[0].Dealer.DealerCode);
             }
 
             

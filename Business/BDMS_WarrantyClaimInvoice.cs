@@ -533,13 +533,15 @@ namespace Business
             try
             {
                 PDMS_WarrantyClaimInvoice ClaimInvoice = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(WarrantyClaimInvoiceID, "", null, null, null, 3, "")[0];
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(ClaimInvoice.Dealer.DealerCode);
+                //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(ClaimInvoice.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(ClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
                 PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "","","", false, 1)[0];
 
-                PDMS_Customer Customer = new SCustomer().getCustomerAddress(WarrantyInvoiceHeader.CustomerCode);
+                //PDMS_Customer Customer = new SCustomer().getCustomerAddress(WarrantyInvoiceHeader.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(WarrantyInvoiceHeader.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
@@ -681,7 +683,7 @@ namespace Business
 
                 //      List<PDMS_WarrantyClaimInvoice> ClaimInvoice = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(null, DealerCode, Convert.ToInt32(Year), Convert.ToInt32(Month), Convert.ToInt32(MonthRange), Convert.ToInt32(InvoiceTypeID), "");              
 
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(ClaimInvoice.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(ClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
@@ -809,7 +811,7 @@ namespace Business
             {
                 PDMS_WarrantyClaimInvoice ClaimInvoice = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(WarrantyClaimInvoiceID, "", null, null, null, 2, "")[0];
 
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(ClaimInvoice.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(ClaimInvoice.Dealer.DealerCode);
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
                 CommissionDT.Columns.Add("Material");
@@ -959,7 +961,7 @@ namespace Business
             {
                 PDMS_WarrantyClaimInvoice ClaimInvoice = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(WarrantyClaimInvoiceID, "", null, null, null, 5, "")[0];
 
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(ClaimInvoice.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(ClaimInvoice.Dealer.DealerCode);
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
                 CommissionDT.Columns.Add("Material");
@@ -1084,13 +1086,13 @@ namespace Business
             try
             {
                 PDMS_WarrantyClaimInvoice ClaimInvoice = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(WarrantyClaimInvoiceID, "", null, null, null, 6, "")[0];
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(ClaimInvoice.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(ClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
                 PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "", "", "", false, 1)[0];
 
-                PDMS_Customer Customer = new SCustomer().getCustomerAddress(WarrantyInvoiceHeader.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(WarrantyInvoiceHeader.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 

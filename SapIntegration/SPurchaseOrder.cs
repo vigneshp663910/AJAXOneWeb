@@ -18,13 +18,14 @@ namespace SapIntegration
             PAsnItem Item;
 
             IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_ASN_DETAILS");
-            tagListBapi.SetValue("P_INV", InvoiceNo);
+            tagListBapi.SetValue("P_INV", string.IsNullOrEmpty(InvoiceNo)? InvoiceNo : Convert.ToInt32(InvoiceNo).ToString("0000000000"));
             tagListBapi.Invoke(SAP.RfcDes());
             IRfcTable IT_DET = tagListBapi.GetTable("IT_DET");
 
             string SONumber = "";            
             for (int i = 0; i < IT_DET.RowCount; i++)
             {
+                IT_DET.CurrentIndex = i;
                 if (SONumber != IT_DET.CurrentRow.GetString("VGBEL").Trim())
                 {
                     Asn = new PAsn();
@@ -39,6 +40,7 @@ namespace SapIntegration
                     Asn.SoDate = DateTime.Now;
                     Asn.DeliveryNumber = IT_DET.CurrentRow.GetString("VBELN").Trim();
                     Asn.DeliveryDate = Convert.ToDateTime(IT_DET.CurrentRow.GetString("LFDAT").Trim());
+                    Asn.InvoiceNumber = IT_DET.CurrentRow.GetString("INV").Trim();
                     Asn.NetWeight = Convert.ToDecimal(IT_DET.CurrentRow.GetString("NTGEW").Trim());
                     Asn.CourierID = "";
                     Asn.CourierDate = null;
@@ -53,7 +55,7 @@ namespace SapIntegration
                     Item.Qty = Convert.ToDecimal(IT_DET.CurrentRow.GetString("LFIMG").Trim());
                     Item.Material = new PDMS_Material()
                     {
-                        MaterialCode = IT_DET.CurrentRow.GetString("MATNR"),
+                        MaterialCodeWithZero = IT_DET.CurrentRow.GetString("MATNR"),
                     };
                     Item.AsnItem = Convert.ToInt32(IT_DET.CurrentRow.GetString("POSNR"));
                     Item.NetWeight = Convert.ToDecimal(IT_DET.CurrentRow.GetString("NTGEW").Trim());
@@ -68,10 +70,23 @@ namespace SapIntegration
                 }
                 if (!AsnList.Exists(s => s.SoNumber == SONumber))
                     AsnList.Add(Asn);
-
             }
-
             return AsnList;
+        }
+        public void setPurchaseOrderAsnDetails(List<PAsn> pAsns)
+        {
+            IRfcFunction tagListBapi = SAP.RfcRep().CreateFunction("ZSD_ASN_UPDATE");
+            IRfcTable IT_UPD = tagListBapi.GetTable("IT_UPD");
+            foreach(PAsn pAsn in pAsns)
+            {
+                foreach(PAsnItem pAsnItem in pAsn.AsnItemS)
+                {
+                    IT_UPD.Append();
+                    IT_UPD.SetValue("VBELN", pAsn.InvoiceNumber);
+                    IT_UPD.SetValue("POSNR", pAsnItem.AsnItem.ToString("000000"));
+                }
+            }
+            tagListBapi.Invoke(SAP.RfcDes());
         }
     }
 }

@@ -19,7 +19,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 if (ViewState["PAsnView"] == null)
                 {
-                    Session["PAsnView"] = new PAsn();
+                    ViewState["PAsnView"] = new PAsn();
                 }
                 return (PAsn)ViewState["PAsnView"];
             }
@@ -34,7 +34,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 if (ViewState["PAsnItemView"] == null)
                 {
-                    Session["PAsnItemView"] = new List<PAsnItem>();
+                    ViewState["PAsnItemView"] = new List<PAsnItem>();
                 }
                 return (List<PAsnItem>)ViewState["PAsnItemView"];
             }
@@ -49,7 +49,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 if (ViewState["GrList"] == null)
                 {
-                    Session["GrList"] = new PAsn();
+                    ViewState["GrList"] = new PAsn();
                 }
                 return (List<PGr>)ViewState["GrList"];
             }
@@ -62,15 +62,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             get
             {
-                if (Session["AsnPOItemView"] == null)
+                if (ViewState["AsnPOItemView"] == null)
                 {
-                    Session["AsnPOItemView"] = new PGr();
+                    ViewState["AsnPOItemView"] = new PGr();
                 }
-                return (List<PAsnItem>)Session["AsnPOItemView"];
+                return (List<PAsnItem>)ViewState["AsnPOItemView"];
             }
             set
             {
-                Session["AsnPOItemView"] = value;
+                ViewState["AsnPOItemView"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)

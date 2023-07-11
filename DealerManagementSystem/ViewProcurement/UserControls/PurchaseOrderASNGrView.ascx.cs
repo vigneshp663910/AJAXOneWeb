@@ -16,30 +16,30 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             get
             {
-                if (Session["GrView"] == null)
+                if (ViewState["GrView"] == null)
                 {
-                    Session["GrView"] = new PGr();
+                    ViewState["GrView"] = new PGr();
                 }
-                return (PGr)Session["GrView"];
+                return (PGr)ViewState["GrView"];
             }
             set
             {
-                Session["GrView"] = value;
+                ViewState["GrView"] = value;
             }
         }
         public List<PGrItem> GrPOItemView
         {
             get
             {
-                if (Session["GrPOItemView"] == null)
+                if (ViewState["GrPOItemView"] == null)
                 {
-                    Session["GrPOItemView"] = new PGr();
+                    ViewState["GrPOItemView"] = new PGr();
                 }
-                return (List<PGrItem>)Session["GrPOItemView"];
+                return (List<PGrItem>)ViewState["GrPOItemView"];
             }
             set
             {
-                Session["GrPOItemView"] = value;
+                ViewState["GrPOItemView"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)

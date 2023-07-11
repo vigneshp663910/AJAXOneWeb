@@ -229,22 +229,22 @@ namespace DealerManagementSystem.ViewMarketing
                 //int ApprovalLevel = Convert.ToInt32(ViewState["ApprovalLevel"]);
 
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-                if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalLevel1).Count() == 0)
-                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalMarketingLevel1).Count() == 0)
-                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalServiceLevel1).Count() == 0)
-                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSparesLevel1).Count() == 0)
-                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSalesLevel1).Count() == 0)
-                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalTrainingLevel1).Count() == 0)
+                if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalLevel1).Count() 
+                    + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalMarketingLevel1).Count()
+                    + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalServiceLevel1).Count()
+                    + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSparesLevel1).Count()
+                    + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSalesLevel1).Count()
+                    + SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalTrainingLevel1).Count()) != 0
                     )
                 {
                     ApprovalLevel = 1;
                 }
-                else if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalLevel2).Count() == 0)
-                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalMarketingLevel2).Count() == 0)
-                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalServiceLevel2).Count() == 0)
-                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSparesLevel2).Count() == 0)
-                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSalesLevel2).Count() == 0)
-                    || (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalTrainingLevel2).Count() == 0)
+                else if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalLevel2).Count() 
+                      +SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalMarketingLevel2).Count() 
+                    +SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalServiceLevel2).Count() 
+                    +SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSparesLevel2).Count()  
+                    +SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalSalesLevel2).Count()  
+                    +SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ActivityClaimApprovalTrainingLevel2).Count()) != 0
                     )
                 {
                     ApprovalLevel = 2;

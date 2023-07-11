@@ -224,7 +224,7 @@ namespace Properties
         public DateTime SoDate { get; set; }
         public string DeliveryNumber { get; set; }
         public DateTime DeliveryDate { get; set; }
-
+        public string InvoiceNumber { get; set; }
         public DateTime? PickupDate { get; set; }
         public DateTime? LoadingDate { get; set; }
         public decimal? NetWeight { get; set; }
@@ -403,6 +403,7 @@ namespace Properties
 
         public PMaterial Material { get; set; }
         public decimal Quantity { get; set; }
+        public decimal DeliveredQty { get; set; }
     }
     [Serializable]
     public class PPurchaseOrderReturnDelivery

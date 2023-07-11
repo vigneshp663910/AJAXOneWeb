@@ -14,15 +14,15 @@ namespace DealerManagementSystem.ViewProcurement
         {
             get
             {
-                if (Session["DMS_PurchaseOrderASNReport"] == null)
+                if (ViewState["DMS_PurchaseOrderASNReport"] == null)
                 {
-                    Session["DMS_PurchaseOrderASNReport"] = new DataTable();
+                    ViewState["DMS_PurchaseOrderASNReport"] = new DataTable();
                 }
-                return (DataTable)Session["DMS_PurchaseOrderASNReport"];
+                return (DataTable)ViewState["DMS_PurchaseOrderASNReport"];
             }
             set
             {
-                Session["DMS_PurchaseOrderASNReport"] = value;
+                ViewState["DMS_PurchaseOrderASNReport"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)

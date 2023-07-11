@@ -221,7 +221,7 @@ namespace Business
             int CustomerID = 0;
             try
             {
-                PDMS_Customer cust = new SCustomer().getCustomerAddress(CustomerCode);
+                PDMS_Customer cust = new BDMS_Customer().getCustomerAddressFromSAP(CustomerCode);
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
                     DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", cust.CustomerCode, DbType.String);
@@ -504,7 +504,11 @@ namespace Business
             {
                 if (string.IsNullOrEmpty(Customer.CustomerCode))
                 {
-                    DataTable DtResult = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer, IsShipTo);
+                    // DataTable DtResult = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer, IsShipTo);
+                    string endPoint = "Customer/CreateCustomerInSAP?CustomerID=" + Customer.CustomerID + "&IsShipTo=" + IsShipTo;
+                    DataTable DtResult = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+                   
                     foreach (DataRow dr in DtResult.Rows)
                     {
                         if (dr["MSGTYP"].ToString() == "S")
@@ -541,7 +545,10 @@ namespace Business
                 }
                 else
                 {
-                    DataTable DtResult = new SapIntegration.SCustomer().ChangeCustomerInSAP(Customer, IsShipTo);
+                    // DataTable DtResult = new SapIntegration.SCustomer().ChangeCustomerInSAP(Customer, IsShipTo);
+                    string endPoint = "Customer/ChangeCustomerInSAP?CustomerID=" + Customer.CustomerID + "&IsShipTo=" + IsShipTo;
+                    DataTable DtResult = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
                     foreach (DataRow dr in DtResult.Rows)
                     {
                         if (dr["MSGTYP"].ToString() == "S")
@@ -721,6 +728,11 @@ namespace Business
         {
             string endPoint = "Customer/CustomerEmployeeDesignation?DesignationID=" + DesignationID + "&Designation=" + Designation;
             return JsonConvert.DeserializeObject<List<PCustomerEmployeeDesignation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PDMS_Customer getCustomerAddressFromSAP(string CustomerCode)
+        {
+            string endPoint = "Customer/getCustomerAddressFromSAP?CustomerCode=" + CustomerCode;
+            return JsonConvert.DeserializeObject<PDMS_Customer>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
         }
     }
 }

@@ -368,6 +368,18 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="SignIn.aspx" />
+    <Content Include="SignJS\1.8.3\jquery.min.js" />
+    <Content Include="SignJS\1.8.3\~BROMIUM\jquery.min.js" />
+    <Content Include="SignJS\app.js" />
+    <Content Include="SignJS\ie9.css" />
+    <Content Include="SignJS\signature-pad.css" />
+    <Content Include="SignJS\signature_pad.js" />
+    <Content Include="SignJS\WebCam.js" />
+    <Content Include="SignJS\~BROMIUM\app.js" />
+    <Content Include="SignJS\~BROMIUM\ie9.css" />
+    <Content Include="SignJS\~BROMIUM\signature-pad.css" />
+    <Content Include="SignJS\~BROMIUM\signature_pad.js" />
+    <Content Include="SignJS\~BROMIUM\WebCam.js" />
     <Content Include="Test.aspx" />
     <Content Include="TestDrop.aspx" />
     <Content Include="testDropWithMasteMain.aspx" />
@@ -568,7 +580,10 @@
     <Content Include="ViewProcurement\UserControls\PurchaseOrderView.ascx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
     <Content Include="ViewSales\SaleInvoicePending.aspx" />
+    <Content Include="ViewSales\SaleOrder.aspx" />
+    <Content Include="ViewSales\SaleOrderDelivery.aspx" />
     <Content Include="ViewSales\SaleOrderDeliveryPending.aspx" />
+    <Content Include="ViewSales\SaleOrderReturn.aspx" />
     <Content Include="ViewSales\SalesCommissionClaim.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimApprove.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimCreate.aspx" />
@@ -593,7 +608,6 @@
     <Content Include="ViewSales\SaleOrderInvoiceReport.aspx" />
     <Content Include="ViewSales\SaleOrderInvoiceWarrantyReport.aspx" />
     <Content Include="ViewSales\SalesInvoice.aspx" />
-    <Content Include="ViewSales\SalesOrder.aspx" />
     <Content Include="ViewSales\SalesOrderItems.aspx" />
     <Content Include="ViewSales\SalesOrderPerformance.aspx" />
     <Content Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx" />
@@ -630,6 +644,7 @@
     <Content Include="ViewService\TicketTracking.aspx" />
     <Content Include="ViewService\UserControls\AddFSR.ascx" />
     <Content Include="ViewService\UserControls\AddFSRAttachments.ascx" />
+    <Content Include="ViewService\UserControls\AddFsrSignature.ascx" />
     <Content Include="ViewService\UserControls\AddICTicketCustomerFeedback.ascx" />
     <Content Include="ViewService\UserControls\AddTsirAttachments.ascx" />
     <Content Include="ViewService\UserControls\AvailabilityOfOtherMachine.ascx" />
@@ -2157,12 +2172,33 @@
     <Compile Include="ViewSales\SaleInvoicePending.aspx.designer.cs">
       <DependentUpon>SaleInvoicePending.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSales\SaleOrder.aspx.cs">
+      <DependentUpon>SaleOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrder.aspx.designer.cs">
+      <DependentUpon>SaleOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderDelivery.aspx.cs">
+      <DependentUpon>SaleOrderDelivery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderDelivery.aspx.designer.cs">
+      <DependentUpon>SaleOrderDelivery.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSales\SaleOrderDeliveryPending.aspx.cs">
       <DependentUpon>SaleOrderDeliveryPending.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleOrderDeliveryPending.aspx.designer.cs">
       <DependentUpon>SaleOrderDeliveryPending.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderReturn.aspx.cs">
+      <DependentUpon>SaleOrderReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SaleOrderReturn.aspx.designer.cs">
+      <DependentUpon>SaleOrderReturn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaim.aspx.cs">
       <DependentUpon>SalesCommissionClaim.aspx</DependentUpon>
@@ -2331,13 +2367,6 @@
     </Compile>
     <Compile Include="ViewSales\SalesInvoice.aspx.designer.cs">
       <DependentUpon>SalesInvoice.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewSales\SalesOrder.aspx.cs">
-      <DependentUpon>SalesOrder.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewSales\SalesOrder.aspx.designer.cs">
-      <DependentUpon>SalesOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesOrderItems.aspx.cs">
       <DependentUpon>SalesOrderItems.aspx</DependentUpon>
@@ -2590,6 +2619,13 @@
     </Compile>
     <Compile Include="ViewService\UserControls\AddFSRAttachments.ascx.designer.cs">
       <DependentUpon>AddFSRAttachments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\UserControls\AddFsrSignature.ascx.cs">
+      <DependentUpon>AddFsrSignature.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\UserControls\AddFsrSignature.ascx.designer.cs">
+      <DependentUpon>AddFsrSignature.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\AddICTicketCustomerFeedback.ascx.cs">
       <DependentUpon>AddICTicketCustomerFeedback.ascx</DependentUpon>
@@ -2992,6 +3028,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ProcessFlow\SOP\" />
     <Folder Include="ViewDealerEmployee\MachineOpPhotos\" />
     <Folder Include="ViewFinance\" />
     <Folder Include="ViewStock\" />

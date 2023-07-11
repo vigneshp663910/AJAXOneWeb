@@ -113,240 +113,8 @@ namespace Business
             { }
             return Ws;
         }
-
-        public long InsertOrUpdateICTicketFSR(long? FsrID, long ICTicketID, Boolean IsWarranty, DateTime? DepartureDate, DateTime? ReachedDate, string Location
-            , int? ServiceTypeID, int? DealerOffice, int? ServicePriorityID, DateTime? CurrentHMRDate, int? CurrentHMRValue, DateTime? RestoreDate, DateTime? ArrivalBack, Boolean IsRental
-            , int? Category1ID, int? Category2ID, int? Category3ID, int? Category4ID, int? Category5ID
-            , string SiteContactPersonName, string SiteContactPersonNumber, string Designation, string OperatorName, string OperatorNumber, string RentalName
-            , int? MachineMaintenanceLevelID, string ComplaintStatus, string CustomerRemarks, int? ModeOfPaymentID, int? MainApplicationID
-            , int? SubApplicationID, int? CustomerSatisfactionLevelID, string Complaint, string Report, string RentalNumber
-            , string NatureOfComplaint, string Observation, string WorkCarriedOut, string Advice
-            , PDMS_MachineAttachedFile MachineBeforeFile, PDMS_MachineAttachedFile MachineAfterFile
-            , int UserID)
-        {
-            int success = 0;
-            long ClaimDebitID = 0;
-
-            DbParameter FsrIDP = provider.CreateParameter("FsrID", FsrID, DbType.Int64);
-            DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int32);
-            DbParameter IsWarrantyP = provider.CreateParameter("IsWarranty", IsWarranty, DbType.Boolean);
-
-            DbParameter DepartureDateP = provider.CreateParameter("DepartureDate", DepartureDate, DbType.DateTime);
-            DbParameter ReachedDateP = provider.CreateParameter("ReachedDate", ReachedDate, DbType.DateTime);
-            DbParameter LocationP = provider.CreateParameter("Location", Location, DbType.String);
-            DbParameter ServiceTypeIDP = provider.CreateParameter("ServiceTypeID", ServiceTypeID, DbType.Int32);
-            DbParameter DealerOfficeP = provider.CreateParameter("DealerOffice", DealerOffice, DbType.Int32);
-            DbParameter ServicePriorityIDP = provider.CreateParameter("ServicePriorityID", ServicePriorityID, DbType.Int32);
-            DbParameter CurrentHMRValueP = provider.CreateParameter("CurrentHMRValue", CurrentHMRValue, DbType.Int32);
-            DbParameter CurrentHMRDateP = provider.CreateParameter("CurrentHMRDate", CurrentHMRDate, DbType.DateTime);
-            DbParameter RestoreDateP = provider.CreateParameter("RestoreDate", RestoreDate, DbType.DateTime);
-            DbParameter ArrivalBackP = provider.CreateParameter("ArrivalBack", ArrivalBack, DbType.DateTime);
-            DbParameter IsRentalP = provider.CreateParameter("IsRental", IsRental, DbType.Boolean);
-
-            DbParameter Category1P = provider.CreateParameter("Category1ID", Category1ID, DbType.Int32);
-            DbParameter Category2P = provider.CreateParameter("Category2ID", Category2ID, DbType.Int32);
-            DbParameter Category3P = provider.CreateParameter("Category3ID", Category3ID, DbType.Int32);
-            DbParameter Category4P = provider.CreateParameter("Category4ID", Category4ID, DbType.Int32);
-            DbParameter Category5P = provider.CreateParameter("Category5ID", Category5ID, DbType.Int32);
-            DbParameter SiteContactPersonNameP = provider.CreateParameter("SiteContactPersonName", SiteContactPersonName, DbType.String);
-            DbParameter SiteContactPersonNumberP = provider.CreateParameter("SiteContactPersonNumber", SiteContactPersonNumber, DbType.String);
-            DbParameter DesignationP = provider.CreateParameter("Designation", Designation, DbType.String);
-            DbParameter OperatorNameP = provider.CreateParameter("OperatorName", OperatorName, DbType.String);
-            DbParameter OperatorNumberP = provider.CreateParameter("OperatorNumber", OperatorNumber, DbType.String);
-            DbParameter RentalNameP = provider.CreateParameter("RentalName", RentalName, DbType.String);
-
-
-            DbParameter MachineMaintenanceLevelIDP = provider.CreateParameter("MachineMaintenanceLevelID", MachineMaintenanceLevelID, DbType.Int32);
-            DbParameter ComplaintStatusP = provider.CreateParameter("ComplaintStatus", ComplaintStatus, DbType.String);
-            DbParameter CustomerRemarksP = provider.CreateParameter("CustomerRemarks", CustomerRemarks, DbType.String);
-            DbParameter ModeOfPaymentIDP = provider.CreateParameter("ModeOfPaymentID", ModeOfPaymentID, DbType.Int32);
-            DbParameter MainApplicationIDP = provider.CreateParameter("MainApplicationID", MainApplicationID, DbType.Int32);
-            DbParameter SubApplicationIDP = provider.CreateParameter("SubApplicationID", SubApplicationID, DbType.Int32);
-            DbParameter CustomerSatisfactionLevelIDP = provider.CreateParameter("CustomerSatisfactionLevelID", CustomerSatisfactionLevelID, DbType.Int32);
-            DbParameter ComplaintP = provider.CreateParameter("Complaint", Complaint, DbType.String);
-            DbParameter ReportP = provider.CreateParameter("Report", Report, DbType.String);
-            DbParameter RentalNumberP = provider.CreateParameter("RentalNumber", RentalNumber, DbType.String);
-
-            //DbParameter ContactNumberAP = provider.CreateParameter("ContactNumberA", PresentContactNumberA, DbType.String);           
-
-            DbParameter NatureOfComplaintP = provider.CreateParameter("NatureOfComplaint", NatureOfComplaint, DbType.String);
-            DbParameter ObservationP = provider.CreateParameter("Observation", Observation, DbType.String);
-            DbParameter WorkCarriedOutP = provider.CreateParameter("WorkCarriedOut", WorkCarriedOut, DbType.String);
-            DbParameter AdviceP = provider.CreateParameter("Advice", Advice, DbType.String);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-
-
-            DbParameter MBAttachedFileID = provider.CreateParameter("MBAttachedFileID", MachineBeforeFile.FileSize == 0 ? (Int64?)null : MachineBeforeFile.AttachedFileID, DbType.Int64);
-            DbParameter MBAttachedFile;
-            if (MachineBeforeFile.FileSize != 0)
-            {
-                MBAttachedFile = provider.CreateParameter("MBAttachedFile", MachineBeforeFile.AttachedFile, DbType.Binary);
-            }
-            else
-            {
-                MBAttachedFile = provider.CreateParameter("MBAttachedFile", DBNull.Value, DbType.Binary);
-            }
-            DbParameter MBContentType = provider.CreateParameter("MBContentType", MachineBeforeFile.FileSize == 0 ? null : MachineBeforeFile.FileType, DbType.String);
-            DbParameter MBFileName = provider.CreateParameter("MBFileName", MachineBeforeFile.FileSize == 0 ? null : MachineBeforeFile.FileName, DbType.String);
-            DbParameter MBFileSize = provider.CreateParameter("MBFileSize", MachineBeforeFile.FileSize == 0 ? (Int64?)null : MachineBeforeFile.FileSize, DbType.Int64);
-            DbParameter MBIsDeleted = provider.CreateParameter("MBIsDeleted", MachineBeforeFile.FileSize == 0 ? (Boolean?)null : MachineBeforeFile.IsDeleted, DbType.Boolean);
-
-            DbParameter MAAttachedFileID = provider.CreateParameter("MAAttachedFileID", MachineAfterFile.FileSize == 0 ? (Int64?)null : MachineAfterFile.AttachedFileID, DbType.Int64);
-            DbParameter MAAttachedFile;
-            if (MachineBeforeFile.FileSize != 0)
-            {
-                MAAttachedFile = provider.CreateParameter("MAAttachedFile", MachineAfterFile.AttachedFile, DbType.Binary);
-            }
-            else
-            {
-                MAAttachedFile = provider.CreateParameter("MAAttachedFile", DBNull.Value, DbType.Binary);
-            }
-
-            DbParameter MAContentType = provider.CreateParameter("MAContentType", MachineAfterFile.FileSize == 0 ? null : MachineAfterFile.FileType, DbType.String);
-            DbParameter MAFileName = provider.CreateParameter("MAFileName", MachineAfterFile.FileSize == 0 ? null : MachineAfterFile.FileName, DbType.String);
-            DbParameter MAFileSize = provider.CreateParameter("MAFileSize", MachineAfterFile.FileSize == 0 ? (Int64?)null : MachineAfterFile.FileSize, DbType.Int64);
-            DbParameter MAIsDeleted = provider.CreateParameter("MAIsDeleted", MachineAfterFile.FileSize == 0 ? (Boolean?)null : MachineAfterFile.IsDeleted, DbType.Boolean);
-
-
-            DbParameter WarrantyIDP = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-            DbParameter[] Params = new DbParameter[52] { FsrIDP, ICTicketIDP,IsWarrantyP,DepartureDateP, ReachedDateP, LocationP, ServiceTypeIDP, DealerOfficeP, ServicePriorityIDP, CurrentHMRValueP, CurrentHMRDateP, RestoreDateP, ArrivalBackP, IsRentalP
-                 ,Category1P,Category2P,Category3P,Category4P,SiteContactPersonNameP,SiteContactPersonNumberP,DesignationP,OperatorNameP,OperatorNumberP,RentalNameP
-                 ,MachineMaintenanceLevelIDP,ComplaintStatusP,CustomerRemarksP,ModeOfPaymentIDP,MainApplicationIDP,SubApplicationIDP,CustomerSatisfactionLevelIDP,ComplaintP,ReportP,RentalNumberP, UserIDP, WarrantyIDP
-             ,NatureOfComplaintP,ObservationP,WorkCarriedOutP,AdviceP
-             ,MBAttachedFileID,MBAttachedFile,MBContentType,MBFileName,MBFileSize,MBIsDeleted,MAAttachedFileID,MAAttachedFile,MAContentType,MAFileName,MAFileSize,MAIsDeleted};
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    success = provider.Insert("ZDMS_InsertOrUpdateICTicketFSR", Params);
-                    ClaimDebitID = Convert.ToInt64(WarrantyIDP.Value);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicketFSR", "InsertOrUpdateICTicketFSR", sqlEx);
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicketFSR", " InsertOrUpdateICTicketFSR", ex);
-                return 0;
-            }
-            return ClaimDebitID;
-        }
-
-        public long InsertOrUpdateICTicketFSR_New(long? FsrID, long ICTicketID, Boolean IsRental
-            , string OperatorName, string OperatorNumber, string RentalName, int? MachineMaintenanceLevelID,    int? ModeOfPaymentID
-         , string Report, string RentalNumber, string NatureOfComplaint, string Observation, string WorkCarriedOut, string SERecommendedParts
-           ,   int UserID)
-        {
-            int success = 0;
-            long ClaimDebitID = 0;
-
-            DbParameter FsrIDP = provider.CreateParameter("FsrID", FsrID, DbType.Int64);
-            DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int32);
-
-            
-           
-            DbParameter IsRentalP = provider.CreateParameter("IsRental", IsRental, DbType.Boolean);
-
-           
-            DbParameter OperatorNameP = provider.CreateParameter("OperatorName", OperatorName, DbType.String);
-            DbParameter OperatorNumberP = provider.CreateParameter("OperatorNumber", OperatorNumber, DbType.String);
-            DbParameter RentalNameP = provider.CreateParameter("RentalName", RentalName, DbType.String);
-
-
-            DbParameter MachineMaintenanceLevelIDP = provider.CreateParameter("MachineMaintenanceLevelID", MachineMaintenanceLevelID, DbType.Int32);
-          //  DbParameter ComplaintStatusP = provider.CreateParameter("ComplaintStatus", ComplaintStatus, DbType.String);
-          //  DbParameter CustomerRemarksP = provider.CreateParameter("CustomerRemarks", CustomerRemarks, DbType.String);
-            DbParameter ModeOfPaymentIDP = provider.CreateParameter("ModeOfPaymentID", ModeOfPaymentID, DbType.Int32);
-          //  DbParameter ComplaintP = provider.CreateParameter("Complaint", Complaint, DbType.String);
-            DbParameter ReportP = provider.CreateParameter("Report", Report, DbType.String);
-            DbParameter RentalNumberP = provider.CreateParameter("RentalNumber", RentalNumber, DbType.String);
-
-            //DbParameter ContactNumberAP = provider.CreateParameter("ContactNumberA", PresentContactNumberA, DbType.String);           
-
-            DbParameter NatureOfComplaintP = provider.CreateParameter("NatureOfComplaint", NatureOfComplaint, DbType.String);
-            DbParameter ObservationP = provider.CreateParameter("Observation", Observation, DbType.String);
-            DbParameter WorkCarriedOutP = provider.CreateParameter("WorkCarriedOut", WorkCarriedOut, DbType.String);
-            DbParameter AdviceP = provider.CreateParameter("SERecommendedParts", SERecommendedParts, DbType.String);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-
-           // DbParameter MBAttachedFileID = provider.CreateParameter("MBAttachedFileID", MachineBeforeFile.AttachedFileID == 0 ? (Int64?)null : MachineBeforeFile.AttachedFileID, DbType.Int64);
-
-
-            //   DbParameter MBAttachedFileID = provider.CreateParameter("MBAttachedFileID", MachineBeforeFile.FileSize == 0 ? (Int64?)null : MachineBeforeFile.AttachedFileID, DbType.Int64);
-            //DbParameter MBAttachedFile;
-            //if (MachineBeforeFile.AttachedFileID != 0)
-            //{
-            //    MBAttachedFile = provider.CreateParameter("MBAttachedFile", DBNull.Value, DbType.Binary);
-            //}
-            //else if (MachineBeforeFile.FileSize != 0)
-            //{
-
-            //    MBAttachedFile = provider.CreateParameter("MBAttachedFile", MachineBeforeFile.AttachedFile, DbType.Binary);
-            //}
-            //else
-            //{
-            //    MBAttachedFile = provider.CreateParameter("MBAttachedFile", DBNull.Value, DbType.Binary);
-            //}
-            //DbParameter MBContentType = provider.CreateParameter("MBContentType", MachineBeforeFile.FileSize == 0 ? null : MachineBeforeFile.FileType, DbType.String);
-            //DbParameter MBFileName = provider.CreateParameter("MBFileName", MachineBeforeFile.FileSize == 0 ? null : MachineBeforeFile.FileName, DbType.String);
-            //DbParameter MBFileSize = provider.CreateParameter("MBFileSize", MachineBeforeFile.FileSize == 0 ? (Int64?)null : MachineBeforeFile.FileSize, DbType.Int64);
-            //DbParameter MBIsDeleted = provider.CreateParameter("MBIsDeleted", MachineBeforeFile.FileSize == 0 ? (Boolean?)null : MachineBeforeFile.IsDeleted, DbType.Boolean);
-
-            //DbParameter MAAttachedFileID = provider.CreateParameter("MAAttachedFileID", MachineAfterFile.AttachedFileID == 0 ? (Int64?)null : MachineAfterFile.AttachedFileID, DbType.Int64);
-
-            // DbParameter MAAttachedFile;
-            //if (MachineAfterFile.AttachedFileID != 0)
-            //{
-            //    MAAttachedFile = provider.CreateParameter("MAAttachedFile", DBNull.Value, DbType.Binary);
-            //}
-            //else if (MachineBeforeFile.FileSize != 0)
-            //{
-            //    MAAttachedFile = provider.CreateParameter("MAAttachedFile", MachineAfterFile.AttachedFile, DbType.Binary);
-            //}
-            //else
-            //{
-            //    MAAttachedFile = provider.CreateParameter("MAAttachedFile", DBNull.Value, DbType.Binary);
-            //}
-
-            //DbParameter MAContentType = provider.CreateParameter("MAContentType", MachineAfterFile.FileSize == 0 ? null : MachineAfterFile.FileType, DbType.String);
-            //DbParameter MAFileName = provider.CreateParameter("MAFileName", MachineAfterFile.FileSize == 0 ? null : MachineAfterFile.FileName, DbType.String);
-            //DbParameter MAFileSize = provider.CreateParameter("MAFileSize", MachineAfterFile.FileSize == 0 ? (Int64?)null : MachineAfterFile.FileSize, DbType.Int64);
-            //DbParameter MAIsDeleted = provider.CreateParameter("MAIsDeleted", MachineAfterFile.FileSize == 0 ? (Boolean?)null : MachineAfterFile.IsDeleted, DbType.Boolean);
-
-
-            DbParameter WarrantyIDP = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-            DbParameter[] Params = new DbParameter[16] { FsrIDP, ICTicketIDP,  IsRentalP
-                 ,OperatorNameP,OperatorNumberP,RentalNameP
-                 ,MachineMaintenanceLevelIDP,ModeOfPaymentIDP,ReportP,RentalNumberP, UserIDP, WarrantyIDP
-             ,NatureOfComplaintP,ObservationP,WorkCarriedOutP,AdviceP
-            // ,MBAttachedFileID,MBAttachedFile,MBContentType,MBFileName,MBFileSize,MBIsDeleted,MAAttachedFileID,MAAttachedFile,MAContentType,MAFileName,MAFileSize,MAIsDeleted
-            };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    success = provider.Insert("ZDMS_InsertOrUpdateICTicketFSR", Params);
-                    ClaimDebitID = Convert.ToInt64(WarrantyIDP.Value);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicketFSR", "InsertOrUpdateICTicketFSR", sqlEx);
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicketFSR", " InsertOrUpdateICTicketFSR", ex);
-                return 0;
-            }
-            return ClaimDebitID;
-        }
-
+ 
+         
         public PDMS_ICTicketFSR GetICTicketFSRByFsrID(long? FsrID,long? ICTicketID, int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID)
         {
             PDMS_ICTicketFSR W = new PDMS_ICTicketFSR();
@@ -491,6 +259,7 @@ namespace Business
                     {
                         foreach (DataRow dr in DataSet.Tables[0].Rows)
                         {
+                            W.FSRSignatureID = Convert.ToInt64(dr["FSRSignatureID"]);
                             W.FsrID = Convert.ToInt64(dr["FsrID"]);
 
                             W.TPhoto = Convert.ToString(dr["TPhoto"]);
@@ -774,6 +543,13 @@ namespace Business
             catch (Exception ex)
             { }
             return FSRAttached;
+        }
+
+        public PICTicketFSRSignature GetICTicketFSRSignatureByFsrIDDownload(long FsrID)
+        {
+            string endPoint = "ICTicketFSR/TicketFSRSignature?FsrID=" + FsrID; 
+            return JsonConvert.DeserializeObject<PICTicketFSRSignature>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
         }
     }
 }

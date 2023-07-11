@@ -15,13 +15,11 @@ namespace DealerManagementSystem.ViewService
     {
         public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyDeliveryReport; } }
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            Session["previousUrl"] = "DMS_DeliveryReport.aspx";
+        { 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
         public List<PDMS_DeliveryHeader> SDMS_WarrantyClaimHeader
         {
@@ -43,11 +41,7 @@ namespace DealerManagementSystem.ViewService
         {
             lblMessage.Visible = false;
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Service » Warranty » Delivery Report');</script>");
-
-            if (PSession.User == null)
-            {
-                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
+             
             if (!IsPostBack)
             {
 
@@ -103,7 +97,7 @@ namespace DealerManagementSystem.ViewService
                 //{
                 //    DeliveryDateTo = Convert.ToDateTime(txtDeliveryDateTo.Text.Trim());
                 //}
-                PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(DealerCode);
 
                 DealerStateCode = Dealer.State.StateCode;
                 List<PDMS_DeliveryHeader> SOIs = new BDMS_Delivery().getDelivery(DealerCode, DeliveryNumber, txtDeliveryDateFrom.Text.Trim(), txtDeliveryDateTo.Text.Trim(), DeliveryTypeID, DealerStateCode);

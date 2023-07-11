@@ -9,8 +9,6 @@ namespace DealerManagementSystem.ProcessFlow
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Process Flow');</script>");
-        
-
         }
     }
 }

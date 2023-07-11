@@ -69,7 +69,7 @@ namespace DealerManagementSystem.ViewMarketing
                                 }
                             }
                         }
-                        PDMS_Customer Customer = new SCustomer().getCustomerAddress(dr["DealerCode"].ToString());
+                        PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(dr["DealerCode"].ToString());
                         lblDealerCode.Text = "Authorized Dealer :   Code :" + dr["DealerCode"].ToString();
                         lblDealerNameHdr.Text = dr["DealerName"].ToString();
                         lblDealerName.Text = dr["DealerName"].ToString();

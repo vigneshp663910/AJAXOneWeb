@@ -259,7 +259,7 @@ namespace Properties
         ViewProcurement_PurchaseOrderAsnGR = 14,
         ViewProcurement_PurchaseOrderPerformance = 15,
         ViewSales_SaleOrderInvoicePartsReport = 16,
-        ViewSales_SalesOrder = 17,
+        ViewSales_SaleOrder = 17,
         ViewSales_SalesOrderPG = 18,
         ViewSales_SalesReturn = 19,
         //**** Menu Level-2 ****************************** =  20, 
@@ -551,7 +551,11 @@ namespace Properties
         ICTicketUnblock,
         DealerNotificationAdd,
         DealerBankDetailsEdit,
-        DealerResponsibleUserEdit, 
+        DealerResponsibleUserEdit,
+        ICTicketRemoveRestoreDate,
+        ClaimApprove4=69,
+        ClaimApprove5=70,
+        MarginWarrantyApproval,
     }
     public enum DMS_WarrantyClaimStatus
     {

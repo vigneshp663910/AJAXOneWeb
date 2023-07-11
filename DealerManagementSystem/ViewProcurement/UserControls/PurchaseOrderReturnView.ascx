@@ -51,9 +51,6 @@
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
                             <div class="table-responsive">
-                                <%--<fieldset class="fieldset-border">--%>
-                                <%--<legend style="background: none; color: #007bff; font-size: 17px;">PO Return Item</legend>--%>
-                                <%--<div class="col-md-12 Report">--%>
                                 <asp:GridView ID="gvPOReturnItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                                     <Columns>
                                         <asp:TemplateField HeaderText="ASN Number Date">
@@ -99,10 +96,16 @@
                                                 <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.AsnItem.PurchaseOrderItem.Material.MaterialDescription")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Qty">
+                                        <asp:TemplateField HeaderText="Return Qty">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.ReturnedQty")%>' runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Delivered Qty">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveredQty")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="UOM">
@@ -166,8 +169,6 @@
                                     <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                     <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                                 </asp:GridView>
-                                <%--</div>--%>
-                                <%--</fieldset>--%>
                             </div>
                         </div>
                     </div>
@@ -212,6 +213,12 @@
                                                 <asp:Label ID="lblUOM" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnDeliveryItem.PurchaseOrderReturnItem.Material.BaseUnit")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Remarks">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnDeliveryItem.Remarks")%>' runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                     </Columns>
                                     <AlternatingRowStyle BackColor="White" />
                                     <FooterStyle ForeColor="White" />
@@ -227,42 +234,29 @@
         </asp1:TabContainer>
     </div>
 </asp:Panel>
-<asp:Panel ID="PnlPurchaseOrderReturnDeliveryCreate" runat="server" class="col-md-12" Visible="false">
-    <div class="col-md-12 lead-back-btn">
-        <div class="" id="PoReturnDeliveryCreateboxHere"></div>
-        <div class="back-buttton" id="PoReturnDeliveryCreateBackBtn" style="text-align: right">
-            <asp:Button ID="btnPurchaseOrderReturnDeliveryCreateBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnPurchaseOrderReturnDeliveryCreateBack_Click" />
-        </div>
+
+<asp:Panel ID="pnlPoReturnDeliveryCreate" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Create Delivery</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnPoReturnDeliveryCreatePopupClose" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
     </div>
-    <asp:Label ID="lblMessagePoReturnDeliveryCreate" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
-        <fieldset class="fieldset-border">
-            <UC:UC_PurchaseOrderReturnDeliveryCreate ID="UC_PurchaseOrderReturnDeliveryCreate" runat="server"></UC:UC_PurchaseOrderReturnDeliveryCreate>
-            <%--<div class="col-md-12 text-center">
-                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Search" OnClick="btnSave_Click" Width="150px" />
-            </div>--%>
-        </fieldset>
+        <div class="model-scroll">
+            <asp:Label ID="lblMessagePoReturnDeliveryCreate" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <UC:UC_PurchaseOrderReturnDeliveryCreate ID="UC_PurchaseOrderReturnDeliveryCreate" runat="server"></UC:UC_PurchaseOrderReturnDeliveryCreate>
+                <div class="col-md-12 text-center" id="divProceeedDelivery" runat="server" visible="false">
+                    <asp:Button ID="btnProceedDelivery" runat="server" Text="Proceed Delivery" CssClass="btn Search" OnClick="btnProceedDelivery_Click" Width="150px" />
+                </div>
+                <div class="col-md-12 text-center" id="divSave" runat="server" visible="false">
+                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
+                </div>
+            </fieldset>
+        </div>
     </div>
 </asp:Panel>
-<%--<ajaxToolkit:ModalPopupExtender ID="MPE_PoReturnDeliveryCreate" runat="server" TargetControlID="lnkMPE" PopupControlID="PnlPurchaseOrderReturnDeliveryCreate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />--%>
-
-<%--<div class="col-md-12" id="divPurchaseOrderReturnDeliveryCreate" runat="server" visible="false">
-    <div class="col-md-12 lead-back-btn">
-        <div class="" id="PoReturnDeliveryCreateboxHere"></div>
-        <div class="back-buttton" id="PoReturnDeliveryCreateBackBtn" style="text-align: right">
-            <asp:Button ID="btnPurchaseOrderReturnDeliveryCreateBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnPurchaseOrderReturnDeliveryCreateBack_Click" />
-        </div>
-    </div>
-    <asp:Label ID="lblMessagePoReturnDeliveryCreate" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12">
-        <fieldset class="fieldset-border">
-            <UC:UC_PurchaseOrderReturnDeliveryCreate ID="UC_PurchaseOrderReturnDeliveryCreate" runat="server"></UC:UC_PurchaseOrderReturnDeliveryCreate>
-            <div class="col-md-12 text-center">
-                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Search" OnClick="btnSave_Click" Width="150px" />
-            </div>
-        </fieldset>
-    </div>
-</div>--%>
+<ajaxToolkit:ModalPopupExtender ID="MPE_PoReturnDeliveryCreate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlPoReturnDeliveryCreate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlPoReturnCancel" runat="server" CssClass="Popup" Style="display: none;">
     <div class="PopupHeader clearfix">

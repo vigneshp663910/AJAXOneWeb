@@ -167,8 +167,7 @@ namespace Business
                             W.ICTicket.IsMarginWarranty = Convert.ToBoolean(dr["IsMarginWarranty"]);
 
                             W.ICTicket.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
-                            W.ICTicket.ReachedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
-                            W.ICTicket.RequestedEndDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
+                            W.ICTicket.ReachedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]); 
                             W.ICTicket.ServiceRecord = Convert.ToString(dr["ServiceRecord"]);
                             W.ICTicket.RegisteredBy = new PUser();
                             if (dr["RegisteredByID"] != DBNull.Value)

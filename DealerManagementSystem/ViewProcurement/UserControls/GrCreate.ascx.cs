@@ -27,7 +27,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 if (ViewState["PAsnView"] == null)
                 {
-                    Session["PAsnView"] = new PAsn();
+                    ViewState["PAsnView"] = new PAsn();
                 }
                 return (PAsn)ViewState["PAsnView"];
             }
@@ -42,7 +42,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 if (ViewState["PAsnItemView"] == null)
                 {
-                    Session["PAsnItemView"] = new List<PAsnItem>();
+                    ViewState["PAsnItemView"] = new List<PAsnItem>();
                 }
                 return (List<PAsnItem>)ViewState["PAsnItemView"];
             }
