@@ -269,22 +269,20 @@ namespace Properties
     }
 
     [Serializable]
-    public class PSaleOrderDeliveryReturn
+    public class PSaleOrderReturn
     {
-        public long SaleOrderDeliveryID { get; set; }
-        public string DeliveryNumber { get; set; }
-        public DateTime DeliveryDate { get; set; }
-        public PSaleOrder SaleOrder { get; set; }
-        public string InvoiceNumber { get; set; }
-        public DateTime? InvoiceDate { get; set; }
-        public PSaleOrderDeliveryItem SaleOrderDeliveryItem { get; set; }
-        public List<PSaleOrderDeliveryItem> SaleOrderDeliveryItems { get; set; }
+        public long SaleOrderReturnID { get; set; }
+        public string SaleOrderReturnNumber { get; set; }
+        public DateTime SaleOrderReturnDate { get; set; }
+        public PSaleOrderDelivery SaleOrderDelivery { get; set; } 
+        public PSaleOrderReturnItem SaleOrderReturnItem { get; set; }
+        public List<PSaleOrderReturnItem> SaleOrderReturnItems { get; set; }
     }
     [Serializable]
-    public class PSaleOrderDeliveryItemReturn
+    public class PSaleOrderReturnItem
     {
-        public long SaleOrderDeliveryItemID { get; set; }
-        public PSaleOrderItem SaleOrderItem { get; set; }
+        public long SaleOrderReturnItemID { get; set; }
+        public PSaleOrderDeliveryItem SaleOrderDeliveryItem { get; set; }
         public decimal Qty { get; set; }
 
     }
