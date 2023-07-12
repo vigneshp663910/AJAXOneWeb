@@ -252,5 +252,83 @@ namespace Business
                 throw ex;
             } 
         }
+        public Boolean InsertOrUpdateMaterialVariantType(PMaterialVariantType MVT, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            Boolean success = false;
+            try
+            {
+                DbParameter VariantTypeIDP = provider.CreateParameter("VariantTypeID", MVT.VariantTypeID, DbType.Int32);
+                DbParameter VariantNameP = provider.CreateParameter("VariantName", MVT.VariantName, DbType.String);
+                DbParameter ProductTypeID = provider.CreateParameter("ProductTypeID", MVT.ProductType.ProductTypeID, DbType.Int32);
+                DbParameter MaxToSelect = provider.CreateParameter("MaxToSelect", MVT.MaxToSelect, DbType.Int32);
+                DbParameter IsActiveP = provider.CreateParameter("IsActive", MVT.IsActive, DbType.Boolean);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
+                DbParameter[] Params = new DbParameter[7] { VariantTypeIDP, VariantNameP, ProductTypeID, MaxToSelect, IsActiveP, UserIDP, OutValue };
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("InsertOrUpdateMaterialVariantType", Params);
+                    scope.Complete();
+                }
+                success = true;
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "InsertOrUpdateMaterialVariantType", e1);
+                throw e1;
+            }
+            TraceLogger.Log(DateTime.Now);
+            return success;
+        }
+        public List<PMaterialVariantTypeMapping> GetMaterialVariantTypeMapping(int? ProductTypeID, int? ProductID, int? VariantTypeID, string MaterialCode)
+        {
+            try
+            {
+                string endPoint = "Material/GetMaterialVariantTypeMapping?ProductTypeID=" + ProductTypeID + "&ProductID=" + ProductID + "&VariantTypeID=" + VariantTypeID + "&MaterialCode=" + MaterialCode;
+                return JsonConvert.DeserializeObject<List<PMaterialVariantTypeMapping>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantTypeMapping", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantTypeMapping", ex);
+                throw ex;
+            }
+        }
+        public Boolean InsertOrUpdateMaterialVariantTypeMapping(PMaterialVariantTypeMapping MVTM, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            Boolean success = false;
+            try
+            {
+                DbParameter MaterialVariantTypeMappingIDP = provider.CreateParameter("MaterialVariantTypeMappingID", MVTM.MaterialVariantTypeMappingID, DbType.Int32);
+                DbParameter ProductIDP = provider.CreateParameter("ProductID", MVTM.Product.ProductID, DbType.Int32);
+                DbParameter VariantTypeIDP = provider.CreateParameter("VariantTypeID", MVTM.VariantType.VariantTypeID, DbType.Int32);
+                DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MVTM.Material.MaterialID, DbType.Int32);
+                DbParameter IsActiveP = provider.CreateParameter("IsActive", MVTM.IsActive, DbType.Boolean);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
+                DbParameter[] Params = new DbParameter[7] { MaterialVariantTypeMappingIDP, ProductIDP, VariantTypeIDP, MaterialIDP, IsActiveP, UserIDP, OutValue };
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("InsertOrUpdateMaterialVariantTypeMapping", Params);
+                    scope.Complete();
+                }
+                success = true;
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "InsertOrUpdateMaterialVariantTypeMapping", e1);
+                throw e1;
+            }
+            TraceLogger.Log(DateTime.Now);
+            return success;
+        }
     }
 }
