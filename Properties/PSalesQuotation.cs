@@ -144,7 +144,7 @@ namespace Properties
         //public Decimal TaxPersent { get; set; }
         //public Decimal TaxValue { get; set; }
         public Decimal NetValue { get; set; }
-        public PPlant Plant { get; set; }
+      //  public PPlant Plant { get; set; }
         public PSaleQuotationRejectionReason RejectionReason { get; set; }
         public PUser CreatedBy { get; set; }
         public string SapFlag { get; set; }

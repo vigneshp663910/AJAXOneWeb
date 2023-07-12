@@ -787,19 +787,7 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        private PUserPlantMapping PlantVOtoUserPlantMappingDAO(PPlant plant, PUser user)
-        {
-            return new PUserPlantMapping()
-            {
-                PlantID = plant.PlantID,
-                UserID = user.UserID,
-                IsActive = plant.IsActive,
-                CreatedBy = user.CreatedBy,
-                CreatedOn = user.CreatedOn,
-                UpdatedBy = user.UpdatedBy,
-                UpdatedOn = user.UpdatedOn
-            };
-        }
+     
         public Boolean InsertOrUpdateUser(PUser userDAO)
         {
             Boolean Success = false;
@@ -926,22 +914,7 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        private PUserPlantMapping PlantVOtoUserPlantMapping(PPlant plant, PUser user)
-        {
-            return new PUserPlantMapping()
-            {
-                PlantID = plant.PlantID,
-                UserID = user.UserID,
-                IsActive = plant.IsActive,
-                CreatedBy = user.CreatedBy,
-                CreatedOn = user.CreatedOn,
-                UpdatedBy = user.UpdatedBy,
-                UpdatedOn = user.UpdatedOn
-            };
-        }
-
-
-
+        
         public void InsertUpdateUserAudit(PUserAudit userAudit)
         {
             DateTime traceStartTime = DateTime.Now;

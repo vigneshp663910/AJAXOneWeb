@@ -7,6 +7,7 @@
 
 <%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
 <%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
+<%@ Register Src="~/ViewPreSale/UserControls/AddVariant.ascx" TagPrefix="UC" TagName="UC_AddVariant" %>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -26,9 +27,10 @@
                 <asp:LinkButton ID="lbtnViewMachineQuotation" runat="server" OnClick="lbActions_Click">View Machine Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDownloadMachineQuotation" runat="server" OnClick="lbActions_Click">Download Machine Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnViewTaxQuotation" runat="server" OnClick="lbActions_Click">View Tax Quotation</asp:LinkButton>
-                <asp:LinkButton ID="lbtnDownloadTaxQuotation" runat="server" OnClick="lbActions_Click">Download Tax Quotation</asp:LinkButton>  
-                <asp:LinkButton ID="lbtnDownloadConsolidatedTaxQuotation" runat="server" OnClick="lbActions_Click">Download Consolidated Tax Quotation</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnDownloadTaxQuotation" runat="server" OnClick="lbActions_Click">Download Tax Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnDownloadConsolidatedTaxQuotation" runat="server" OnClick="lbActions_Click">Download Consolidated Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddVariant" runat="server" OnClick="lbActions_Click">Add Variant</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -174,12 +176,12 @@
                                     <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Plant">
+                            <%--<asp:TemplateField HeaderText="Plant">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblPlantCode" Text='<%# DataBinder.Eval(Container.DataItem, "Plant.PlantCode")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
                             <asp:TemplateField HeaderText="Unit">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
@@ -606,15 +608,15 @@
                                     <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            
-                            <asp:TemplateField  HeaderText="Person Met">
+
+                            <asp:TemplateField HeaderText="Person Met">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.ContactName")%>' runat="server" /> 
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.ContactName")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                             <asp:TemplateField  HeaderText="Person Designation">
+                            <asp:TemplateField HeaderText="Person Designation">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.Designation.Designation")%>' runat="server" /> 
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.Designation.Designation")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remark">
@@ -682,7 +684,7 @@
                                     <asp:Label ID="lblApproved2On" Text='<%# DataBinder.Eval(Container.DataItem, "Approved1On")%>' runat="server" />
                                 </ItemTemplate>
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField> 
+                            </asp:TemplateField>
                         </Columns>
                         <FooterStyle ForeColor="White" />
                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
@@ -758,8 +760,8 @@
                                         <asp:Label ID="lblApproved2Remarks" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Remarks")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                
-                                 
+
+
                             </Columns>
                             <FooterStyle ForeColor="White" />
                             <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
@@ -832,10 +834,10 @@
     <div class="col-md-12">
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
             <div class="col-md-12">
-                <div class="col-md-6 col-sm-12">
+                <%--<div class="col-md-6 col-sm-12">
                     <label class="modal-label">Plant</label>
                     <asp:DropDownList ID="ddlPlant" runat="server" CssClass="form-control" />
-                </div>
+                </div>--%>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Material</label>
                     <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
@@ -999,9 +1001,9 @@
 
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Cold Visit Date</label>
-                        <asp:TextBox ID="txtVisitDate" runat="server" CssClass="form-control" BorderColor="Silver"  ></asp:TextBox> 
-                            <asp:CalendarExtender ID="ceVisitDate" runat="server" TargetControlID="txtVisitDate" PopupButtonID="txtVisitDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtVisitDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        <asp:TextBox ID="txtVisitDate" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <asp:CalendarExtender ID="ceVisitDate" runat="server" TargetControlID="txtVisitDate" PopupButtonID="txtVisitDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtVisitDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Action Type</label>
@@ -1023,7 +1025,7 @@
                         <label class="modal-label">Remark</label>
                         <asp:TextBox ID="txtVisitRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
                     </div>
-                    
+
                 </div>
             </fieldset>
         </div>
@@ -1033,6 +1035,27 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Visit" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlVisit" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlAddVariant" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button9" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageVariant" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <UC:UC_AddVariant ID="UC_AddVariant" runat="server"></UC:UC_AddVariant>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveVariant" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveVariant_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Variant" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddVariant" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 
 <%--<fieldset class="fieldset-border" id="Fieldset4" runat="server">
     <div class="col-md-12">

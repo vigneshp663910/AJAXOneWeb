@@ -234,11 +234,11 @@ namespace Business
                 throw ex;
             } 
         }
-        public List<PMaterialVariantTypeMapping> GetMaterialVariantTypeMappingProductID(int ProductID)
+        public List<PMaterialVariantTypeMapping> GetMaterialVariantTypeMappingProductID(int ProductID,int VariantTypeID)
         { 
             try
             {
-                string endPoint = "Material/GetMaterialVariantTypeMappingProductID?ProductID=" + ProductID;
+                string endPoint = "Material/GetMaterialVariantTypeMappingProductID?ProductID=" + ProductID + "&VariantTypeID=" + VariantTypeID;
                 return JsonConvert.DeserializeObject<List<PMaterialVariantTypeMapping>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             }
             catch (SqlException sqlEx)

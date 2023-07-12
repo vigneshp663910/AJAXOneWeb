@@ -125,9 +125,7 @@ namespace Properties
     [Serializable]
     public class PSalesCommissionClaimPrice
     {
-        public long SalesCommissionClaimPriceID { get; set; }
-        public PPlant PlantCode { get; set; }
-        public PPlant PlantName { get; set; }
+        public long SalesCommissionClaimPriceID { get; set; } 
         public PDMS_Material Materail { get; set; }
         public PDMS_Material MaterailCode { get; set; }
         public decimal? Percentage { get; set; }

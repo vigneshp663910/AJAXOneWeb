@@ -109,7 +109,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Add Product")
             {
-                new DDLBind(ddlPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID");
+               // new DDLBind(ddlPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID");
                 MPE_Product.Show();
             }
             else if (lbActions.Text == "Add Competitor")
@@ -251,7 +251,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
                 new DDLBind(ddlPersonMet, new BDMS_Customer().GetCustomerRelation(Quotation.Lead.Customer.CustomerID, null), "ContactName", "CustomerRelationID");
             }
-
+            else if (lbActions.ID == "lbtnAddVariant")
+            {
+                UC_AddVariant.FillMaster(Quotation.Lead.ProductType.ProductTypeID, Quotation);
+                MPE_Variant.Show();
+            }
             //else if (lbActions.Text == "Generate Commission Claim")
             //{ 
             //    lblMessage.Visible = true;
@@ -384,7 +388,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 MaterialTax.Material.MaterialID = MM.MaterialID;
                 //Item.Material.MaterialDescription = MM.MaterialDescription;
 
-                MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
+                //MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
                 MaterialTax.Qty = Convert.ToInt32(txtQty.Text);
                 //MaterialTax.Rate = MaterialTax.Rate;
                 decimal P = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));
@@ -896,11 +900,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public string ValidationProduct()
         {
             string Message = "";
-            if (ddlPlant.SelectedValue == "0")
-            {
-                Message = "Please select the Plant";
-            }
-            else if (string.IsNullOrEmpty(txtMaterial.Text.Trim()))
+            //if (ddlPlant.SelectedValue == "0")
+            //{
+            //    Message = "Please select the Plant";
+            //}
+            //else
+            if (string.IsNullOrEmpty(txtMaterial.Text.Trim()))
             {
                 Message = "Please enter the note Material";
             }
@@ -3138,5 +3143,32 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             return Message;
         }
 
+        protected void btnSaveVariant_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                MPE_Variant.Show();
+                List<PSalesQuotationItem> MaterialTax = UC_AddVariant.ReadMaterial(); 
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItems", MaterialTax));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessageProduct.Text = Results.Message;
+                    return;
+                }
+                MPE_Variant.Hide();
+                tbpSaleQuotation.ActiveTabIndex = 1;
+                fillViewQuotation(Quotation.QuotationID);
+                lblMessage.Text = "Updated Successfully";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+            }
+            catch (Exception ex)
+            {
+                lblMessageProduct.Text = ex.Message.ToString();
+                lblMessageProduct.ForeColor = Color.Red;
+                return;
+            }
+        }
     }
 }

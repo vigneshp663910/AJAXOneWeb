@@ -39,7 +39,7 @@ namespace Properties
         public PUserType UserType { get; set; }
         public string EnableDisableReason { get; set; }
         public bool IsUpdate { get; set; }
-        public List<PPlant> UserPlants { get; set; }
+        //public List<PPlant> UserPlants { get; set; }
         public bool IsNatesanGroupUser { get; set; }
         public string Mail { get; set; }
         public string ContactNumber { get; set; }
@@ -216,8 +216,7 @@ namespace Properties
         public long UpdatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public List<int> ManagerID { get; set; }
-        public List<PPlant> Plants { get; set; }
+        public List<int> ManagerID { get; set; } 
     }
     [Serializable]
     public class PUserPlantMapping
