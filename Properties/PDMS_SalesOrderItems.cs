@@ -226,6 +226,7 @@ namespace Properties
         public string SaleOrderNumber { get; set; }
         public DateTime SaleOrderDate { get; set; }
         public PDMS_Dealer Dealer { get; set; }
+        public PDMS_DealerOffice DealerOffice { get; set; }
         public PDMS_Customer Customer { get; set; } 
         public string SaleOrderStatus { get; set; }
         public PSaleOrderItem SaleOrderItem { get; set; }
