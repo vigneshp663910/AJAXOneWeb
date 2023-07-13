@@ -755,6 +755,10 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         {
                             CC = TicketSelectedUsers.Mail;
                         }
+                        if ((UserCreatedBy.Mail != PSession.User.Mail) && TicketSelectedUsers.Mail != PSession.User.Mail)
+                        {
+                            CC += (CC == "") ? PSession.User.Mail : "," + PSession.User.Mail;
+                        }
                         string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketMessage.htm");
                         messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
                         messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
@@ -1159,6 +1163,8 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             TaskItem.Resolution = txtResolution.Text;
             TaskItem.SupportType = ddlResSupportType.SelectedValue;
 
+
+
             string result = new BAPI().ApiPut("Task/UpdateTicketResolvedStatus", TaskItem);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
@@ -1167,6 +1173,24 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lblMessage.Text = Result.Message;
                 return;
             }
+            else
+            {
+                if (fuResolve.PostedFile != null)
+                {
+                    if (AttchedFile.Count == 1)
+                    {
+                        PForum_Insert Forum = new PForum_Insert();
+                        Forum.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
+                        Forum.Message = AttchedFile[0].FileName;
+                        Forum.AttchedFile = AttchedFile[0];
+                        new BAPI().ApiPut("Task/Forum", Forum);
+                        PApiResult Result1 = JsonConvert.DeserializeObject<PApiResult>(result);
+                    }
+                }
+            }
+
+
+
 
 
             lblMessage.Text = "Ticket No " + TaskItem.HeaderID + " is successfully updated.";
@@ -1242,6 +1266,8 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             ddlResolutionType.SelectedValue = "0";
             gvResolveNewFileAttached.DataSource = null;
             gvResolveNewFileAttached.DataBind();
+            if (AttchedFile.Count > 0)
+                AttchedFile.RemoveAt(0);
         }
         void FillResolutionType()
         {
