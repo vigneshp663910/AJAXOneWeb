@@ -121,6 +121,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Text = Message;
             }
             string Material = MM.MaterialCode;
+
+            if (Items != null)
+            {
+                foreach (PSalesQuotationItem Item in Items)
+                {
+                    if (Item.Material.MaterialCode == MM.MaterialCode)
+                    {
+                        lblMessage.Text = "Material " + Material + " already available";
+                        return;
+                    }
+                }
+            } 
             if (Quotation.QuotationItems != null)
             {
                 foreach (PSalesQuotationItem Item in Quotation.QuotationItems)
@@ -134,7 +146,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             decimal Qty = Convert.ToDecimal(txtQty.Text);
             PSalesQuotationItem MaterialTax = new BSalesQuotation().getMaterialTaxForQuotation(Quotation, Material, false, Qty);
-
+            if (MaterialTax == null)
+            {
+                lblMessage.Text = "Please maintain the price for Material " + Material + " in SAP";
+                return;
+            }
             if (MaterialTax.Rate <= 0)
             {
                 lblMessage.Text = "Please maintain the price for Material " + Material + " in SAP" ;

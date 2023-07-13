@@ -374,7 +374,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Quotation, Material, IsWarrenty, Qty);
 
                 PSalesQuotationItem MaterialTax = new BSalesQuotation().getMaterialTaxForQuotation(Quotation, Material, IsWarrenty, Qty);
-                
+
+                if (MaterialTax == null)
+                {
+                    lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
+                    return;
+                }
                 if (MaterialTax.Rate <= 0)
                 {
                     lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
@@ -3153,7 +3158,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItems", MaterialTax));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessageProduct.Text = Results.Message;
+                    lblMessageVariant.Text = Results.Message;
                     return;
                 }
                 MPE_Variant.Hide();
@@ -3165,8 +3170,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             catch (Exception ex)
             {
-                lblMessageProduct.Text = ex.Message.ToString();
-                lblMessageProduct.ForeColor = Color.Red;
+                lblMessageVariant.Text = ex.Message.ToString();
+                lblMessageVariant.ForeColor = Color.Red;
                 return;
             }
         }
