@@ -228,7 +228,7 @@ namespace Properties
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerOffice DealerOffice { get; set; }
         public PDMS_Customer Customer { get; set; } 
-        public string SaleOrderStatus { get; set; }
+        public PSaleOrderStatus SaleOrderStatus { get; set; }
         public PSaleOrderItem SaleOrderItem { get; set; }
         public List<PSaleOrderItem> SaleOrderItems { get; set; }
     }
@@ -283,5 +283,17 @@ namespace Properties
         public PSaleOrderDeliveryItem SaleOrderDeliveryItem { get; set; }
         public decimal Qty { get; set; }
 
+    }
+    [Serializable]
+    public class PSaleOrderStatus
+    {
+        public int StatusID { get; set; }
+        public string Status { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrderReturnStatus
+    {
+        public int StatusID { get; set; }
+        public string Status { get; set; }
     }
 }
