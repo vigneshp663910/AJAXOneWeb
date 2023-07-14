@@ -1554,7 +1554,7 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Current HMR Value</label>
-                    <asp:TextBox ID="txtHMRValue" runat="server" CssClass="form-control" AutoComplete="SP" OnTextChanged="txtHMRValue_TextChanged" AutoPostBack="true"></asp:TextBox>
+                    <asp:TextBox ID="txtHMRValue" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
                 </div> 
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Site Contact Person’s Name</label>
