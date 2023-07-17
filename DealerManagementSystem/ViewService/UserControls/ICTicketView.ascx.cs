@@ -1382,10 +1382,10 @@ namespace DealerManagementSystem.ViewService.UserControls
                     GridView gvAttachedFile = (GridView)e.Row.FindControl("gvAttachedFile");
                     Label lblStatusID = (Label)e.Row.FindControl("lblStatusID");
                     LinkButton lblCancelTSIR = (LinkButton)e.Row.FindControl("lblCancelTSIR");
-                    if (Convert.ToInt32(lblStatusID.Text) == (short)TSIRStatus.Canceled)
-                    {
-                        lblCancelTSIR.Visible = false;
-                    }
+                    //if (Convert.ToInt32(lblStatusID.Text) == (short)TSIRStatus.Canceled)
+                    //{
+                    //    lblCancelTSIR.Visible = false;
+                    //}
                     List<PDMS_TSIRAttachedFile> UploadedFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(SDMS_ICTicket.ICTicketID, Convert.ToInt64(TsirID), null);
                     gvAttachedFile.DataSource = UploadedFile;
                     gvAttachedFile.DataBind();
