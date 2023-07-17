@@ -84,6 +84,13 @@ namespace Properties
                 return TaxPercentage * 2;
             }
         }
+        public decimal CGST { get; set; }
+        public decimal SGST { get; set; }
+        public decimal IGST { get; set; }
+
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
         public decimal CurrentPrice { get; set; }
         public Boolean IsMainServiceMaterial { get; set; }
 
