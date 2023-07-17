@@ -227,10 +227,23 @@ namespace Properties
         public DateTime SaleOrderDate { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerOffice DealerOffice { get; set; }
-        public PDMS_Customer Customer { get; set; } 
+        public PDMS_Customer Customer { get; set; }
         public PSaleOrderStatus SaleOrderStatus { get; set; }
         public PSaleOrderItem SaleOrderItem { get; set; }
         public List<PSaleOrderItem> SaleOrderItems { get; set; }
+        public string ContactPerson { get; set; }
+        public string ContactPersonNumber { get; set; }
+        public PDMS_Division Division { get; set; }
+        public string Remarks { get; set; }
+        public DateTime ExpectedDeliveryDate { get; set; }
+        public string RefNumber { get; set; }
+        public DateTime? RefDate { get; set; }
+        public string InsurancePaidBy { get; set; }
+        public string FrieghtPaidBy { get; set; }
+        public string Attn { get; set; }
+        public PProduct Product { get; set; }
+        public string EquipmentSerialNo { get; set; }
+        public string SelectTax { get; set; }
     }
     [Serializable]
     public class PSaleOrderItem
