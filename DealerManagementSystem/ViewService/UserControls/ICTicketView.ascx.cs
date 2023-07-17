@@ -646,6 +646,20 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Add Service Charges")
             {
+                PDMS_ServiceCharge ServiceCharge = new BDMS_Service().GetServiceCharges(SDMS_ICTicket.ICTicketID, null, "", false)[0];
+
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                if (SDMS_ICTicket.ServiceCharges.Count != 0)
+                {
+                    string Message = ServiceChargeActionControl(ServiceCharge);
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessage.Text = Message;
+                        return;
+                    }
+                }
+
                 UC_ICTicketAddServiceCharges.FillMaster(SDMS_ICTicket);
                 MPE_ICTicketAddServiceCharges.Show();
             }
@@ -2251,7 +2265,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
                 else
                 {
-                    lbtnAddServiceCharges.Visible = false;
+                   // lbtnAddServiceCharges.Visible = false;
                 }
                 // lbtnAddTSIR.Visible = false;
                 lbtnAddMaterialCharges.Visible = false;
@@ -2879,26 +2893,14 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lblMessage.Text = "You cannot edit main Service Material (" + ServiceCharge.Material.MaterialCode + ").";
                     return ;
                 }
-                else if (!string.IsNullOrEmpty(ServiceCharge.QuotationNumber))
+                string Message = ServiceChargeActionControl(ServiceCharge);
+                if(!string.IsNullOrEmpty(Message))
                 {
-                    lblMessage.Text = "Quotation already created. You cannot edit Service Material (" + ServiceCharge.Material.MaterialCode + ").";
+                    lblMessage.Text = Message;
                     return;
                 }
-                else if (!string.IsNullOrEmpty(ServiceCharge.ProformaInvoiceNumber))
-                {
-                    lblMessage.Text = "Proforma Invoice already created. You cannot edit main Service Material (" + ServiceCharge.Material.MaterialCode + ").";
-                    return;
-                }
-                else if (!string.IsNullOrEmpty(ServiceCharge.InvoiceNumber))
-                {
-                    lblMessage.Text = "Invoice already created. You cannot edit Service Material (" + ServiceCharge.Material.MaterialCode + ").";
-                    return;
-                }
-                else if (!string.IsNullOrEmpty(ServiceCharge.ClaimNumber))
-                {
-                    lblMessage.Text = "Claim already created. You cannot edit Service Material (" + ServiceCharge.Material.MaterialCode + ").";
-                    return;
-                } 
+
+
                 UC_ICTicketAddServiceCharges.FillMaster(SDMS_ICTicket);
                 UC_ICTicketAddServiceCharges.Write(ServiceCharge);
                 MPE_ICTicketAddServiceCharges.Show();
@@ -2989,6 +2991,28 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblCName.Text = "";
             lblCPhoto.Text = "";
             lblCSignature.Text = "";
+        }
+
+        public string ServiceChargeActionControl(PDMS_ServiceCharge ServiceCharge)
+        {
+            if (!string.IsNullOrEmpty(ServiceCharge.QuotationNumber))
+            {
+                return "Quotation already created. You cannot edit Service Material (" + ServiceCharge.Material.MaterialCode + ").";
+                 
+            }
+            else if (!string.IsNullOrEmpty(ServiceCharge.ProformaInvoiceNumber))
+            {
+                return "Proforma Invoice already created. You cannot edit main Service Material (" + ServiceCharge.Material.MaterialCode + ")."; 
+            }
+            else if (!string.IsNullOrEmpty(ServiceCharge.InvoiceNumber))
+            {
+                return "Invoice already created. You cannot edit Service Material (" + ServiceCharge.Material.MaterialCode + ")."; 
+            }
+            else if (!string.IsNullOrEmpty(ServiceCharge.ClaimNumber))
+            {
+                return "Claim already created. You cannot edit Service Material (" + ServiceCharge.Material.MaterialCode + ")."; 
+            }
+            return "";
         }
 
         private void DisableAllGridEditDelete()
