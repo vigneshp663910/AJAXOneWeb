@@ -244,6 +244,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CSS\jquery-ui.css" />
     <Content Include="CSS\StyleSheet1.css" />
+    <Content Include="ErrorPages.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="ForbidAccess.aspx" />
     <Content Include="Geolocation.aspx" />
@@ -818,6 +819,13 @@
     </Compile>
     <Compile Include="DealerDashboard.Master.designer.cs">
       <DependentUpon>DealerDashboard.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages.aspx.cs">
+      <DependentUpon>ErrorPages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages.aspx.designer.cs">
+      <DependentUpon>ErrorPages.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForbidAccess.aspx.cs">
       <DependentUpon>ForbidAccess.aspx</DependentUpon>
