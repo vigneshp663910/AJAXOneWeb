@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -1183,5 +1184,21 @@ namespace Business
         //+ ",s_object_type,r_approved_qty,s_channel) values ";
         //    public string dssor_sales_order_cond = "insert into dssor_sales_order_cond (s_establishment,p_so_item,p_so_id,s_tenant_id,p_condition_type,f_currency,"
         //   + "r_cond_amt,r_order_qty,r_pric_date,s_created_by,s_created_on,d_cond_desc,r_cond_cls,f_percentage,channel) values ";
+        public List<PSaleOrderStatus> GetSaleOrderStatus(int? SaleOrderStatusID, string SaleOrderStatus)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderStatus?SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderStatus=" + SaleOrderStatus;
+            return JsonConvert.DeserializeObject<List<PSaleOrderStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PApiResult GetSaleOrderHeader(long? SaleOrderID, string DateFrom, string DateTo, string SaleOrderNumber, int? DealerID, string CustomerCode, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderHeader?DealerID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SaleOrderNumber=" + SaleOrderNumber + "&DealerID=" + DealerID
+                + "&CustomerCode=" + CustomerCode + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PSaleOrder GetSaleOrderByID(long SaleOrderID)
+        {
+            string endPoint = "SaleOrder/SaleOrderByID?SaleOrderID=" + SaleOrderID;
+            return JsonConvert.DeserializeObject<PSaleOrder>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }
