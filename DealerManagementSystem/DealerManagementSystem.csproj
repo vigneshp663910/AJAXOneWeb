@@ -303,6 +303,7 @@
     <Content Include="ProcessFlow\Pre_Sales1.png" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\Sales_Org1.png" />
+    <Content Include="ProcessFlow\Service_Calls.png" />
     <Content Include="ProcessFlow\Service_Org1.png" />
     <Content Include="ProcessFlow\Ticketing.aspx" />
     <Content Include="ProcessFlow\V0_DMPM.png" />
