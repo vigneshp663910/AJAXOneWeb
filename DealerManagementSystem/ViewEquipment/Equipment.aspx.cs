@@ -176,7 +176,8 @@ namespace DealerManagementSystem.ViewEquipment
             dt.Columns.Add("District");
             dt.Columns.Add("State");
             dt.Columns.Add("DispatchedOn");
-            dt.Columns.Add("WarrantyExpiryDate"); 
+            dt.Columns.Add("WarrantyExpiryDate");
+            //dt.Columns.Add("Client");
             Search();
             int Index = 0;
             int Rowcount = 1000;
@@ -199,7 +200,8 @@ namespace DealerManagementSystem.ViewEquipment
                                                , M.Customer.District.District
                                                , M.Customer.State.State
                                                , M.DispatchedOn
-                                                 , M.WarrantyExpiryDate
+                                               , M.WarrantyExpiryDate
+                                               //, M.EquipmentClient.Client
                                                 );
                 }
             }
