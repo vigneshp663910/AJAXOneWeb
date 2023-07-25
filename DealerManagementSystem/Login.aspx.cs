@@ -27,8 +27,12 @@ namespace DealerManagementSystem
                 string DeviceID = Convert.ToString(Request.QueryString["deviceID"]);
                 string ApplicationKey = Convert.ToString(Request.QueryString["appID"]);
                 // PUserMobile UserMobile = new BUser().GetUserIDByIMEI(DeviceID);
-                txtUsername.Text = "2000ITH0001";
-                txtPassword.Text = "Kml@1234";
+
+
+                //txtUsername.Text = "2000ITH0001";
+                //txtPassword.Text = "Kml@1234";
+
+
                 loginMobile(ApplicationKey, DeviceID);
 
 
