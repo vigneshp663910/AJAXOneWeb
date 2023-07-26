@@ -81,16 +81,7 @@ namespace DealerManagementSystem.ViewService
             }
             if (!IsPostBack)
             { 
-                //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                //{
-                //    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                //    ddlDealerCode.Enabled = false;
-                //}
-                //else
-                //{
-                //    ddlDealerCode.Enabled = true;
-                //    fillDealer();
-                //}
+                
 
                 new DDLBind().FillDealerAndEngneer(ddlDealerCode, null);
 

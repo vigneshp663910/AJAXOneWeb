@@ -44,18 +44,8 @@ namespace DealerManagementSystem.ViewProcurement
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
             if (!IsPostBack)
-            {
-
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+            { 
+                fillDealer();
                 txtPoDateFrom.Text = DateTime.Now.AddMonths(-1).ToShortDateString();
                 txtPoDateTo.Text = DateTime.Now.ToShortDateString();
                 lblRowCount.Visible = false;

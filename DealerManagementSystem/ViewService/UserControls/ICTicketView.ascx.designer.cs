@@ -2175,6 +2175,42 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtLocation;
 
         /// <summary>
+        /// txtHMRValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHMRValue;
+
+        /// <summary>
+        /// txtOperatorName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOperatorName;
+
+        /// <summary>
+        /// txtSiteContactPersonNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSiteContactPersonNumber;
+
+        /// <summary>
+        /// ddlDesignation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
+
+        /// <summary>
         /// btnReachedSite control.
         /// </summary>
         /// <remarks>

@@ -452,7 +452,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             MPE_AddTSIR.Show();
             string Message = "";
-            //Message = UC_ICTicketUpdateCallInformation.ValidationReached(SDMS_ICTicket);
+             Message = UC_AddTSIR.Validation();
             lblMessageAddTSIR.ForeColor = Color.Red;
             lblMessageAddTSIR.Visible = true;
             if (!string.IsNullOrEmpty(Message))
