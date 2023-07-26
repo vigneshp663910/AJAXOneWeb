@@ -41,40 +41,12 @@ namespace DealerManagementSystem.ViewService
                 if (!IsPostBack)
                 {
                     txtRequestedDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
-                    txtRequestedDateTo.Text = DateTime.Now.ToShortDateString();
-
-                    if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                    {
-                        ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                        ddlDealerCode.Enabled = false;
-
-
-                        PDealer DealerF = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
-                        ddlDealerF.Items.Add(new ListItem(PSession.User.ExternalReferenceID, DealerF.DID.ToString()));
-                        ddlDealerF.Enabled = false;
-                    }
-                    else
-                    {
-                        ddlDealerCode.Enabled = true;
-                        ddlDealerF.Enabled = true;
-                        fillDealer();
-                    }
+                    txtRequestedDateTo.Text = DateTime.Now.ToShortDateString(); 
+                    fillDealer(); 
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
                     ibtnArrowRight.Visible = false;
-
-                }
-
-                //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                //{
-                //    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                //    ddlDealerCode.Enabled = false;
-                //}
-                //else
-                //{
-                //    ddlDealerCode.Enabled = true;
-                //    fillDealer();
-                //}
+                } 
             }
         }
 

@@ -45,17 +45,8 @@ namespace DealerManagementSystem.ViewService
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
             if (!IsPostBack)
-            {
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+            { 
+                fillDealer();
                 txtClaimDate.Text = DateTime.Now.ToShortDateString();
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;

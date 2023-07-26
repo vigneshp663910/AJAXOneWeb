@@ -57,17 +57,7 @@ namespace DealerManagementSystem.ViewService
             {
 
                 fillServiceStatus();
-
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                fillDealer();
 
                 if (Session["ICTicketNumber"] != null)
                 {
