@@ -2100,7 +2100,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnServiceInvoice.Visible = false; 
                 lbtnUnlockTicket.Visible = false;
 
-                lbtnRequestForDecline.Visible = false;
+               // lbtnRequestForDecline.Visible = false;
                 lbtnDeclineApprove.Visible = false;
                 lbtnDeclineReject.Visible = false;
 
@@ -2179,8 +2179,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnServiceClaim.Visible = false;
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
-                lbtnServiceInvoice.Visible = false; 
-                lbtnRequestForDecline.Visible = false;
+                lbtnServiceInvoice.Visible = false;  
                  
                 lbtnEditCallInformation.Visible = false;
                 lbtnEditFSR.Visible = false;
