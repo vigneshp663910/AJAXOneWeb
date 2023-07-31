@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -36,7 +37,6 @@ namespace DealerManagementSystem.ViewSales
                 ViewState["PDMS_SalesOrder"] = value;
             }
         }
-
         private int PageCount
         {
             get
@@ -97,9 +97,6 @@ namespace DealerManagementSystem.ViewSales
                 }
                 new DDLBind(ddlSOStatus, new BDMS_SalesOrder().GetSaleOrderStatus(null, null), "Status", "StatusID");
                 fillSalesOrder();
-                lblRowCount.Visible = false;
-                ibtnArrowLeft.Visible = false;
-                ibtnArrowRight.Visible = false;
             }
         }
         void fillDealer()
@@ -140,7 +137,7 @@ namespace DealerManagementSystem.ViewSales
                 TraceLogger.Log(DateTime.Now);
                 Search();
                 long? SaleOrderID = null;
-                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderHeader(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), SaleOrderNo, DealerID, CustomerCode, PageIndex, gvSaleOrder.PageSize);
+                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderHeader(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), SaleOrderNo, DealerID, CustomerCode, SaleOrderStatusID, PageIndex, gvSaleOrder.PageSize);
                 SalesOrder = JsonConvert.DeserializeObject<List<PSaleOrder>>(JsonConvert.SerializeObject(Result.Data));
 
                 gvSaleOrder.PageIndex = 0;
@@ -173,13 +170,8 @@ namespace DealerManagementSystem.ViewSales
             divList.Visible = false;
             divDetailsView.Visible = false;
             divSaleOrderCreate.Visible = true;
-        }
-
-        protected void btnExportExcel_Click(object sender, EventArgs e)
-        {
-
-        }
-
+            UC_SalesOrderCreate.FillMaster();
+        }        
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (PageIndex > 1)
@@ -188,7 +180,6 @@ namespace DealerManagementSystem.ViewSales
                 fillSalesOrder();
             }
         }
-
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (PageCount > PageIndex)
@@ -197,7 +188,6 @@ namespace DealerManagementSystem.ViewSales
                 fillSalesOrder();
             }
         }
-
         protected void gvSaleOrder_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvSaleOrder.PageIndex = e.NewPageIndex;
@@ -205,7 +195,6 @@ namespace DealerManagementSystem.ViewSales
             gvSaleOrder.DataBind();
             lblRowCount.Text = (((gvSaleOrder.PageIndex) * gvSaleOrder.PageSize) + 1) + " - " + (((gvSaleOrder.PageIndex) * gvSaleOrder.PageSize) + gvSaleOrder.Rows.Count) + " of " + SalesOrder.Count;
         }
-
         protected void btnViewSO_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -215,25 +204,40 @@ namespace DealerManagementSystem.ViewSales
             divDetailsView.Visible = true;
             UC_SalesOrderView.fillViewSO(Convert.ToInt64(lblSaleOrderID.Text));
         }
-
         protected void btnSaleOrderViewBack_Click(object sender, EventArgs e)
         {
             divList.Visible = true;
             divSaleOrderCreate.Visible = false;
             divDetailsView.Visible = false;
         }
-
         protected void btnSaleOrderCreateBack_Click(object sender, EventArgs e)
         {
             divList.Visible = true;
             divSaleOrderCreate.Visible = false;
             divDetailsView.Visible = false;
         }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            TraceLogger.Log(DateTime.Now);
+            Search();
+            long? SaleOrderID = null;
+            DataTable dt = new DataTable();
+            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderReport(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), SaleOrderNo, DealerID, CustomerCode, SaleOrderStatusID);
+            dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
+
+            new BXcel().ExporttoExcel(dt, "Sales Order Report");
+        }
         [WebMethod]
         public static string GetCustomer(string CustS)
         {
             List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 0);
             return JsonConvert.SerializeObject(Customer);
+        }
+        [WebMethod]
+        public static string GetMaterial(string Material, string MaterialType, string Division)
+        {
+            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null);
+            return JsonConvert.SerializeObject(Materials);
         }
     }
 }

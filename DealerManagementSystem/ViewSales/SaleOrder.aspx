@@ -9,8 +9,12 @@
             float: right;
             margin-right: 10px;
         }
+        
+        .Popup{
+            transition:initial;
+        }
     </style>
-    <script type="text/javascript"> 
+    <script>
         function GetCustomers() {
             $("#MainContent_UC_SalesOrderCreate_hdfCustomerId").val('');
             var param = { CustS: $('#MainContent_UC_SalesOrderCreate_txtCustomer').val() };
@@ -29,22 +33,18 @@
                                 Customers[i] = {
                                     value: DataList[i].CustomerName,
                                     value1: DataList[i].CustomerID,
-                                    //  value2: DataList[i].CustomerName + ',' + DataList[i].CustomerName
-                                    // value3: data.list[i].CustomerType, value4: data.list[i].MobileNumber,
-                                    //  value5: data.list[i].CustomerCode
+                                    ContactPerson: DataList[i].ContactPerson,
+                                    Mobile: DataList[i].Mobile,
+                                    CustomerType: DataList[i].CustomerType,
+                                    Address: DataList[i].Address1
                                 };
                             }
                         }
-
-                        //for (i = 0; i < 10; i++) {
-                        //    Customers[i] = { value: 'Customer ' + i };
-                        //}
-                        // alert(JSON.stringify(Customers));
                         $('#MainContent_UC_SalesOrderCreate_txtCustomer').autocomplete({
                             source: function (request, response) {
                                 response(Customers)
                             },
-                            select: function (e, u) {
+                            select: function (e, u) {                                
                                 $("#MainContent_UC_SalesOrderCreate_hdfCustomerId").val(u.item.value1);
                             },
                             open: function (event, ui) {
@@ -70,12 +70,94 @@
                 });
             }
             else {
-                $('#MainContent_txtCustomer').autocomplete({
+                $('#MainContent_UC_SalesOrderCreate_txtCustomer').autocomplete({
                     source: function (request, response) {
                         response($.ui.autocomplete.filter(Customers, ""))
                     }
                 });
             }
+        }
+
+        function FormatAutocompleteList(item) {
+
+            var inner_html = '<a class="customer">';
+            inner_html += '<p class="customer-name-info"><label>' + item.value + '</label></p>';
+            inner_html += '<div class=customer-info><label class="contact-number">Contact :' + item.ContactPerson + '(' + item.Mobile + ') </label>';
+            inner_html += '<label class="customer-type">' + item.CustomerType + '</label></div>';
+            inner_html += '<p class="customer-address"><label>' + item.Address + '</label></p>';
+            inner_html += '</a>';
+            return inner_html;
+        }
+
+
+    </script>
+    
+    <script type="text/javascript">
+
+        function GetMaterial() {
+            $("#MainContent_UC_SalesOrderCreate_hdfMaterialID").val('');
+            $("#MainContent_UC_SalesOrderCreate_hdfMaterialCode").val('');
+            var param = { Material: $('#MainContent_UC_SalesOrderCreate_txtMaterial').val(), MaterialType: '', Division: $('#MainContent_UC_SalesOrderCreate_ddlDivision').val() }
+            var Customers = [];
+            if ($('#MainContent_UC_SalesOrderCreate_txtMaterial').val().trim().length >= 3) {
+                $.ajax({
+                    url: 'SaleOrder.aspx/GetMaterial',
+                    contentType: "application/json; charset=utf-8",
+                    type: 'POST',
+                    data: JSON.stringify(param),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        var DataList = JSON.parse(data.d);
+                        for (i = 0; i < DataList.length; i++) {
+                            Customers[i] = {
+                                value: DataList[i].MaterialCode + ' ' + DataList[i].MaterialDescription,
+                                value1: DataList[i].MaterialID,
+                                MaterialCode: DataList[i].MaterialCode
+                            };
+                        }
+                        $('#MainContent_UC_SalesOrderCreate_txtMaterial').autocomplete({
+                            source: function (request, response) { response(Customers) },
+                            select: function (e, u) {
+                                $("#MainContent_UC_SalesOrderCreate_hdfMaterialID").val(u.item.value1);
+                                $("#MainContent_UC_SalesOrderCreate_hdfMaterialCode").val(u.item.MaterialCode);
+                            },
+                            open: function (event, ui) {
+                                $(this).autocomplete("widget").css({
+                                    "max-width":
+                                        $('#MainContent_UC_SalesOrderCreate_txtMaterial').width() + 48,
+                                });
+                                $(this).autocomplete("widget").scrollTop(0);
+                            }
+                        }).focus(function (e) {
+                            $(this).autocomplete("search");
+                        }).click(function () {
+                            $(this).autocomplete("search");
+                        }).data('ui-autocomplete')._renderItem = function (ul, item) {
+
+                            var inner_html = FormatAutocompleteListMaterial(item);
+                            return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                                .data('item.autocomplete', item)
+                                .append(inner_html)
+                                .appendTo(ul);
+                        };
+
+                    }
+                });
+            }
+            else {
+                $('#MainContent_UC_SalesOrderCreate_txtMaterial').autocomplete({
+                    source: function (request, response) {
+                        response($.ui.autocomplete.filter(Customers, ""))
+                    }
+                });
+            }
+        }
+
+        function FormatAutocompleteListMaterial(item) {
+            var inner_html = '<a>';
+            inner_html += '<p style="margin:0;"><strong>' + item.value + '</strong></p>';
+            inner_html += '</a>';
+            return inner_html;
         }
     </script>
 </asp:Content>
@@ -86,7 +168,6 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
-
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Date From</label>
                         <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
@@ -111,10 +192,10 @@
                     </div>
 
                     <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Customer Code</label>
-                            <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
-                        </div>
+                        <label class="modal-label">Customer Code</label>
+                        <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
 
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Sale Oder Status</label>
@@ -223,12 +304,12 @@
         <div class="col-md-12" id="divSaleOrderCreate" runat="server" visible="false">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere1"></div>
-                <div class="back-buttton" id="backBtn" style="text-align:right">
+                <div class="back-buttton" id="backBtn" style="text-align: right">
                     <asp:Button ID="btnSaleOrderCreateBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnSaleOrderCreateBack_Click" />
                 </div>
             </div>
             <UC:UC_SalesOrderCreate ID="UC_SalesOrderCreate" runat="server"></UC:UC_SalesOrderCreate>
         </div>
     </div>
-    
+
 </asp:Content>

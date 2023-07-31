@@ -309,4 +309,50 @@ namespace Properties
         public int StatusID { get; set; }
         public string Status { get; set; }
     }
+    [Serializable]
+    public class PSaleOrder_Insert
+    {
+        public long SaleOrderID { get; set; }
+        public string SaleOrderNumber { get; set; }
+        public DateTime SaleOrderDate { get; set; }
+        public int DealerID { get; set; }
+        public int OfficeID { get; set; }
+        public long CustomerID { get; set; }
+        public int StatusID { get; set; }
+        public string ContactPerson { get; set; }
+        public string ContactPersonNumber { get; set; }
+        public int DivisionID { get; set; }
+        public string Remarks { get; set; }
+        public DateTime ExpectedDeliveryDate { get; set; }
+        public string RefNumber { get; set; }
+        public DateTime? RefDate { get; set; }
+        public string InsurancePaidBy { get; set; }
+        public string FrieghtPaidBy { get; set; }
+        public string Attn { get; set; }
+        public int ProductID { get; set; }
+        public string EquipmentSerialNo { get; set; }
+        public string SelectTax { get; set; }
+        public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrderItem_Insert
+    {
+        public long SaleOrderItemID { get; set; }
+        public long MaterialID { get; set; }
+        public string MaterialCode { get; set; }
+        public decimal UnitPrice { get; set; }        
+        public decimal Qty { get; set; }
+        public decimal Value { get; set; }
+        public decimal Discount { get; set; }
+        public decimal DiscountedPrice { get; set; }
+        public decimal FreightAmount { get; set; }
+        public decimal TaxableAmount { get; set; }
+        public decimal SGST { get; set; }
+        public decimal CGST { get; set; }
+        public decimal IGST { get; set; }
+        public decimal CGSTAmt { get; set; }
+        public decimal SGSTAmt { get; set; }
+        public decimal IGSTAmt { get; set; }
+        public decimal Tax { get; set; }
+    }
 }
