@@ -2251,7 +2251,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnRequestForDecline.Visible = false;
 
                 lbtnAddTechnician.Visible = false;
-                lbtnEditCallInformation.Visible = false;
+                // lbtnEditCallInformation.Visible = false;
                 lbtnEditFSR.Visible = false;
                 if (
                     (SDMS_ICTicket.ServiceType.ServiceTypeID == (short)DMS_ServiceType.Paid1)
@@ -2267,7 +2267,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                    // lbtnAddServiceCharges.Visible = false;
                 }
                 // lbtnAddTSIR.Visible = false;
-                lbtnAddMaterialCharges.Visible = false;
+                //lbtnAddMaterialCharges.Visible = false;
                 lbtAddTechnicianWork.Visible = false;
                 lbtnRestore.Visible = false;
                 lbtnRequestForDecline.Visible = false;
@@ -2342,13 +2342,17 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
             {
+                if (!SC.Material.IsMainServiceMaterial)
+                {
+                    lbtnEditCallInformation.Visible = false;
+                }
                 if (!string.IsNullOrEmpty(SC.ClaimNumber))
                 {
                     lbtnServiceClaim.Visible = false;
                     lbtnAddServiceCharges.Visible = false;
 
                     lbtnAddTechnician.Visible = false;
-                    lbtnEditCallInformation.Visible = false;
+                    
                     lbtnEditFSR.Visible = false; 
                     lbtnAddTSIR.Visible = false;
                     lbtnAddMaterialCharges.Visible = false;
@@ -2379,8 +2383,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lbtnServiceInvoice.Visible = false;
                     lbtnAddServiceCharges.Visible = false;
 
-                    lbtnAddTechnician.Visible = false;
-                    lbtnEditCallInformation.Visible = false;
+                    lbtnAddTechnician.Visible = false; 
                     lbtnEditFSR.Visible = false;
                     lbtnAddServiceCharges.Visible = false;
                     lbtnAddTSIR.Visible = false;
@@ -2395,6 +2398,11 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lbtnRequestDateChange.Visible = false;
 
                 }
+            }
+
+            foreach (PDMS_ServiceMaterial M in SS_ServiceMaterial)
+            {
+                lbtnEditCallInformation.Visible = false;
             }
 
 
