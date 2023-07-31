@@ -328,6 +328,7 @@
     <Content Include="Help\Files\Getting Started.pps" />
     <Content Include="DealerDashboard.Master" />
     <None Include="packages.config" />
+    <Content Include="ProcessFlow\SOP\SOP 06 - CUSTOMER COMPLAINT.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="SalesOrderTemp.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -430,6 +431,7 @@
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
     <Content Include="ViewEquipment\EquipmentChangeApproval.aspx" />
+    <Content Include="ViewEquipment\EquipmentClient.aspx" />
     <Content Include="ViewEquipment\EquipmentHistory.aspx" />
     <Content Include="ViewEquipment\EquipmentMissing.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReport.aspx" />
@@ -1287,6 +1289,13 @@
     </Compile>
     <Compile Include="ViewEquipment\EquipmentChangeApproval.aspx.designer.cs">
       <DependentUpon>EquipmentChangeApproval.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentClient.aspx.cs">
+      <DependentUpon>EquipmentClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentClient.aspx.designer.cs">
+      <DependentUpon>EquipmentClient.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentHistory.aspx.cs">
       <DependentUpon>EquipmentHistory.aspx</DependentUpon>

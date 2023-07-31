@@ -378,6 +378,14 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                         lblMessage.ForeColor = Color.Red;
                     }
                 }
+                else if (lbActions.Text == "Update Client")
+                {
+                    lblMessageUpdateClient.Text = "";
+                    lblMessageUpdateClient.Visible = false;
+                    int RowCount = 0;
+                    new DDLBind(ddlClient, new BDMS_Equipment().GetEquipmentClient(null, null, true,1,1000000,out RowCount), "Client", "EquipmentClientID");
+                    MPE_UpdateClient.Show();
+                }
             }
             catch (Exception ex)
             {
@@ -391,15 +399,15 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lnkBtnUpdateCommDate.Visible = true;
 
             lnkBtnReqWarrantyTypeChange.Visible = true;
-            lnkBtnReqOwnershipChange.Visible = true; 
+            lnkBtnReqOwnershipChange.Visible = true;
 
             lnkBtnApprWarrantyTypeChangeReq.Visible = false;
             lnkBtnRejWarrantyTypeChangeReq.Visible = false;
             lnkBtnApprOwnershipChangeReq.Visible = false;
-            lnkBtnRejOwnershipChangeReq.Visible = false;  
+            lnkBtnRejOwnershipChangeReq.Visible = false;
 
             divWarrantyTypeApproval.Visible = false;
-            divOwnershipApproval.Visible = false; 
+            divOwnershipApproval.Visible = false;
 
             DataTable Equip = new BDMS_Equipment().GetEquipmentChangeForApproval(null, null, EquipmentViewDet.EquipmentSerialNo);
 
@@ -437,7 +445,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                     List<PEquipmentAttachedFile> OwnershipChangeAttachedFile = new BDMS_Equipment().GetEquipmentAttachedFileDetails(EquipmentViewDet.EquipmentHeaderID, null, Convert.ToInt64(dr["ChangeID"]));
                     gvOwnershipChangeAttachedFile.DataSource = OwnershipChangeAttachedFile;
                     gvOwnershipChangeAttachedFile.DataBind();
-                } 
+                }
             }
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
@@ -454,7 +462,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             {
                 lnkBtnReqOwnershipChange.Visible = false;
             }
-            
+
 
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ApproveWarrantyTypeChange).Count() == 0)
             {
@@ -468,7 +476,10 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 lnkBtnRejOwnershipChangeReq.Visible = false;
                 divOwnershipApproval.Visible = false;
             }
-            
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EquipmentClientUpdate).Count() == 0)
+            {
+                lnkBtnUpdateClient.Visible = false;
+            }
         }
         protected void btnUpdateCommiDate_Click(object sender, EventArgs e)
         {
@@ -685,10 +696,10 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
 
                 Label AttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
                 //Label lblFileName = (Label)gvRow.FindControl("lblFileName");
-                
+
 
                 PEquipmentAttachedFile UploadedFile = new BDMS_Equipment().GetEquipmentAttachedFileByID(AttachedFileID.Text + Path.GetExtension(lnkDownload.Text));
-                
+
                 Response.AddHeader("Content-type", UploadedFile.ReferenceName);
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + lnkDownload.Text);
                 HttpContext.Current.Response.Charset = "utf-16";
@@ -716,7 +727,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             gvWarrantyTypeSupportDocument.DataBind();
             MPE_WarrantyTypeChangeReq.Show();
         }
-        
+
         protected void btnAddFileOwnershipChange_Click(object sender, EventArgs e)
         {
             MPE_OwnershipChangeReq.Show();
@@ -919,7 +930,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             WT.NewExpiryDate = Convert.ToDateTime(txtWarrantyExpiryDate.Text.Trim());
             WT.AttachedFile = new List<PEquipmentAttachedFilee_Insert>();
             WT.AttachedFile = AttachedFileTemp;
-            
+
             PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Equipment/InsertEquipmentWarrantyExpiryDateChangeRequest", WT));
             if (result.Status == PApplication.Failure)
             {
@@ -1073,6 +1084,38 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             {
                 Response.End();
             }
+        }
+
+        protected void btnUpdateClientReq_Click(object sender, EventArgs e)
+        {
+            lblMessageUpdateClient.Text = "";
+            lblMessageUpdateClient.Visible = false;
+            if (ddlClient.SelectedValue == "0")
+            {
+                lblMessageUpdateClient.Text = "Please Select Client Name...!";
+                lblMessageUpdateClient.ForeColor = Color.Red;
+                lblMessageUpdateClient.Visible = true;
+                MPE_UpdateClient.Show();
+                return;
+            }
+            PEquipmentWarranty_Insert EH = new PEquipmentWarranty_Insert();
+            EH.EquipmentHeaderID = EquipmentViewDet.EquipmentHeaderID;
+            EH.EquipmentClientID = Convert.ToInt32(ddlClient.SelectedValue);
+            PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Equipment/UpdateEquipmentHeaderClientReq", EH));
+            if (result.Status == PApplication.Failure)
+            {
+                lblMessageUpdateClient.Text = result.Message;
+                lblMessageUpdateClient.Visible = true;
+                lblMessageUpdateClient.ForeColor = Color.Red;
+                MPE_UpdateClient.Show();
+                return;
+            }
+            lblMessage.Text = "Client update request is successfully updated...";
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+            fillEquipment(EquipmentViewDet.EquipmentHeaderID);
+            int RowCount = 0;
+            new DDLBind(ddlClient, new BDMS_Equipment().GetEquipmentClient(null, null, true, 1, 1000000, out RowCount), "Client", "EquipmentClientID");
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Properties
         public DateTime? CurrentHMRDate { get; set; }
         public int? CurrentHMRValue { get; set; }
         public long EquipmentHeaderID { get; set; }
+        public PEquipmentClient EquipmentClient { get; set; }
         public PDMS_Customer Customer { get; set; }
         public PDMS_Model EquipmentModel { get; set; }
         public string EquipmentSerialNo { get; set; }
@@ -142,6 +143,7 @@ namespace Properties
     public class PEquipmentWarranty_Insert
     {
         public long EquipmentHeaderID { get; set; }
+        public int EquipmentClientID { get; set; }
         public int EquipmentWarrantyTypeID { get; set; }
         public long CustomerID { get; set; }
         public DateTime OldExpiryDate { get; set; }
@@ -156,5 +158,16 @@ namespace Properties
     {
         public string FileName { get; set; }
         public byte[] AttachedFile { get; set; }
+    }
+    [Serializable]
+    public class PEquipmentClient
+    {
+        public int EquipmentClientID { get; set; }
+        public string Client { get; set; }
+        public bool IsActive { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public PUser ModifiedBy { get; set; }
+        public DateTime ModifiedOn { get; set; }
     }
 }
