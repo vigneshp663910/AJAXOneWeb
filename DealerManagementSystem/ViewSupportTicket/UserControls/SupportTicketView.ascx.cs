@@ -357,8 +357,8 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
 
             lblTicketID.Text = Ticket[0].HeaderID.ToString();
-            lblDealerCode.Text = Ticket[0].Dealer.DealerCode;
-            lblDealerName.Text = Ticket[0].Dealer.DealerName;
+            lblDealer.Text = Ticket[0].Dealer.DealerCode + " " + Ticket[0].Dealer.DealerName;
+            lblSubject.Text = Ticket[0].Subject;
 
             lblCategory.Text = Ticket[0].Category.Category;
             lblSubCategory.Text = (Ticket[0].SubCategory == null) ? "" : Ticket[0].SubCategory.SubCategory;

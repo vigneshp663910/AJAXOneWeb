@@ -58,8 +58,8 @@
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Dealer Code :</label>
-                    <asp:Label ID="lblDealerCode" runat="server" CssClass="label"></asp:Label>
+                    <label>Dealer :</label>
+                    <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Sub Category : </label>
@@ -84,8 +84,8 @@
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Dealer Name : </label>
-                    <asp:Label ID="lblDealerName" runat="server" CssClass="label"></asp:Label>
+                    <label>Subject : </label>
+                    <asp:Label ID="lblSubject" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Ticket Type : </label>
