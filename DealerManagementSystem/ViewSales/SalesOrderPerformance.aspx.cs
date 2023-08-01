@@ -48,16 +48,8 @@ namespace DealerManagementSystem.ViewSales
             if (!IsPostBack)
             {
 
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                
+                    fillDealer(); 
                 txtSODateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtSODateTo.Text = DateTime.Now.ToShortDateString();
                 lblRowCount.Visible = false;

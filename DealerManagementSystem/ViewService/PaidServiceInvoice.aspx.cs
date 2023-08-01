@@ -53,18 +53,9 @@ namespace DealerManagementSystem.ViewService
                 txtInvoiceDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtInvoiceDateTo.Text = DateTime.Now.ToShortDateString();
 
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
+                 
+                    fillDealer(); 
 
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0].DID.ToString()));
-                    //  ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;

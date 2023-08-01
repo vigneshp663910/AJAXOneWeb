@@ -142,10 +142,10 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             lblMessageTSIR.Visible = true;
             PDMS_ICTicketTSIR_API ICTicketTSIR = new PDMS_ICTicketTSIR_API();
-            if (!Validation())
-            {
-                return ICTicketTSIR;
-            }
+            //if (!Validation())
+            //{
+            //    return ICTicketTSIR;
+            //}
            
             ICTicketTSIR.TsirID = ViewState["TsirID"] == null ? 0 : (long)ViewState["TsirID"];
             long ServiceChargeID = Convert.ToInt64(ddlServiceChargeID.SelectedValue);
@@ -195,51 +195,38 @@ namespace DealerManagementSystem.ViewService.UserControls
              
         }
 
-        Boolean Validation()
-        {
-            lblMessageTSIR.Visible = true;
-            string Message = "";
-            Boolean Ret = true;
-            
-
+        public string Validation()
+        { 
             if (string.IsNullOrEmpty(txtNatureOfFailures.Text.Trim()))
             {
-                Message = Message + "<br/>Please Enter the NatureOfFailures";
-                Ret = false;
+                 return "Please Enter the NatureOfFailures"; 
             }
             if (string.IsNullOrEmpty(txtProblemNoticedBy.Text.Trim()))
             {
-                Message = Message + "<br/>Please Enter the How Was Problem Noticed / Who  / When";
-                Ret = false;
+                return "Please Enter the How Was Problem Noticed / Who  / When"; 
             }
             if (string.IsNullOrEmpty(txtUnderWhatConditionFailureTaken.Text.Trim()))
             {
-                Message = Message + "<br/>Please Enter the Under What Condition Failure Taken";
-                Ret = false;
+                return "Please Enter the Under What Condition Failure Taken"; 
             }
             if (string.IsNullOrEmpty(txtFailureDetails.Text.Trim()))
             {
-                Message = Message + "<br/>Please Enter the Failure Details";
-                Ret = false;
+                return "Please Enter the Failure Details"; 
             }
             if (string.IsNullOrEmpty(txtPointsChecked.Text.Trim()))
             {
-                Message = Message + "<br/>Please Enter the Points Checked";
-                Ret = false;
+                return "Please Enter the Points Checked"; 
             }
 
             if (string.IsNullOrEmpty(txtPossibleRootCauses.Text.Trim()))
             {
-                Message = Message + "<br/>Please Enter the Possible Root Causes";
-                Ret = false;
+                return "Please Enter the Possible Root Causes"; 
             }
             if (string.IsNullOrEmpty(txtSpecificPointsNoticed.Text.Trim()))
             {
-                Message = Message + "<br/>Please Enter the SpecificPoints Noticed";
-                Ret = false;
-            } 
-            lblMessageTSIR.Text = Message;
-            return Ret;
+                return "Please Enter the SpecificPoints Noticed"; 
+            }  
+            return "";
         }
 
         public void Write(PDMS_ICTicketTSIR Tsir)

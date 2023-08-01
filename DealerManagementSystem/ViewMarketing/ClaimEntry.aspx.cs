@@ -217,6 +217,11 @@ namespace DealerManagementSystem.ViewMarketing
                 string Location = txtLocation.Text;
                 string Remarks = txtRemarks.Text;
                 double dblExpenses = Convert.ToDouble(txtExpenses.Text);
+                if (Convert.ToDateTime(ToDate) < DateTime.Now.AddMonths(-1))
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "key1", "alert('Please check ToDate!');Clear();", true);
+                    return;
+                }
                 Session["ActDocs"] = null;
 
                 BDMS_Activity oActivity = new BDMS_Activity();

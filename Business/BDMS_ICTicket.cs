@@ -1100,9 +1100,10 @@ namespace Business
             string endPoint = "ICTicket/InsertICTicketDepartureDate?ICTicketID=" + ICTicketID + "&Latitude=" + Latitude + "&Longitude=" + Longitude;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult InsertICTicketSeReached(long ICTicketID, string Location, decimal Latitude, decimal Longitude)
+        public PApiResult InsertICTicketSeReached(long ICTicketID, string Location, int? HMRValue, string SiteContactPersonName, string SiteContactPersonNumber, int? DesignationID, decimal Latitude, decimal Longitude)
         {
-            string endPoint = "ICTicket/InsertICTicketSeReached?ICTicketID=" + ICTicketID + "&Location=" + Location + "&Latitude=" + Latitude + "&Longitude=" + Longitude;
+            string endPoint = "ICTicket/InsertICTicketSeReached?ICTicketID=" + ICTicketID + "&Location=" + Location+ "&HMRValue=" + HMRValue 
+                + "&SiteContactPersonName=" + SiteContactPersonName + "&SiteContactPersonNumber=" + SiteContactPersonNumber + "&DesignationID=" + DesignationID + "&Latitude=" + Latitude + "&Longitude=" + Longitude;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult InsertICTicketArrivalBackDate(long ICTicketID, decimal Latitude, decimal Longitude)

@@ -72,17 +72,7 @@ namespace DealerManagementSystem.ViewService
                 {
                     txtICLoginDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                     txtICLoginDateTo.Text = DateTime.Now.ToShortDateString();
-                }
-                //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                //{
-                //    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                //    ddlDealerCode.Enabled = false;
-                //}
-                //else
-                //{
-                //    ddlDealerCode.Enabled = true;
-                //    fillDealer();
-                //}
+                } 
                 fillDealer();
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
@@ -334,7 +324,9 @@ namespace DealerManagementSystem.ViewService
             ViewState["ICTicketID"] = gvICTickets.DataKeys[index].Value.ToString(); 
             divList.Visible = false;
             divDetailsView.Visible = true;
+            UC_ICTicketView.ClearAll();
             UC_ICTicketView.FillICTicket( Convert.ToInt64(ViewState["ICTicketID"]));
+
         }
           
 

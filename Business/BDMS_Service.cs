@@ -461,6 +461,7 @@ namespace Business
                                 Item = Convert.ToInt32(dr["Item"]),
                                 Material = new PDMS_Material()
                                 {
+                                    MaterialID = Convert.ToInt64(dr["MaterialID"]),
                                     MaterialCode = Convert.ToString(dr["MaterialCode"]),
                                     MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
                                     IsMainServiceMaterial = dr["IsMainServiceMaterial"] == DBNull.Value ? false : Convert.ToBoolean(dr["IsMainServiceMaterial"]),

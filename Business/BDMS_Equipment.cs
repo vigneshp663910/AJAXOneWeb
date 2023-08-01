@@ -1206,6 +1206,69 @@ namespace Business
                 + "&RegionID=" + RegionID + "&StateID=" + StateID + "&OverDueID=" + OverDueID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public List<PEquipmentClient> GetEquipmentClient(int? EquipmentClientID, string Client, bool IsActive, int? PageIndex, int? PageSize, out int RowCount)
+        {
+            List<PEquipmentClient> AF = new List<PEquipmentClient>();
+            RowCount = 0;
+            try
+            {
+                DbParameter EquipmentClientIDP = provider.CreateParameter("EquipmentClientID", EquipmentClientID, DbType.Int32);
+                DbParameter ClientP = provider.CreateParameter("Client", Client, DbType.String);
+                DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
+                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
+                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
+                DbParameter[] Params = new DbParameter[5] { EquipmentClientIDP, ClientP, IsActiveP, PageIndexP, PageSizeP };
+                using (DataSet DS = provider.Select("GetEquipmentClient", Params))
+                {
+                    if (DS != null)
+                    {
+                        foreach (DataRow dr in DS.Tables[0].Rows)
+                        {
+                            AF.Add(new PEquipmentClient()
+                            {
+                                EquipmentClientID = Convert.ToInt32(dr["EquipmentClientID"]),
+                                Client = Convert.ToString(dr["Client"])
+                            });
+                            RowCount = Convert.ToInt32(dr["RowCount"]);
+                        }
+                    }
+                }
+                return AF;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentClient", ex);
+                return null;
+            }
+        }
+        public Boolean InsertOrUpdateEquipmentClient(PEquipmentClient EquipmentClient, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            Boolean success = false;
+            try
+            {
+                DbParameter EquipmentClientIDP = provider.CreateParameter("EquipmentClientID", EquipmentClient.EquipmentClientID, DbType.Int32);
+                DbParameter ClientP = provider.CreateParameter("Client", EquipmentClient.Client, DbType.String);
+                DbParameter IsActiveP = provider.CreateParameter("IsActive", EquipmentClient.IsActive, DbType.Boolean);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
+                DbParameter[] Params = new DbParameter[5] { EquipmentClientIDP, ClientP, IsActiveP, UserIDP, OutValue };
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("InsertOrUpdateEquipmentClient", Params);
+                    scope.Complete();
+                }
+                success = true;
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "InsertOrUpdateEquipmentClient", e1);
+                throw e1;
+            }
+            TraceLogger.Log(DateTime.Now);
+            return success;
+        }
     }
 }
 

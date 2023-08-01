@@ -53,16 +53,8 @@ namespace DealerManagementSystem.ViewService
                 ddlYear.SelectedValue = DateTime.Now.Year.ToString();
                 ddlMonth.SelectedValue = DateTime.Now.Month.ToString();
                 //   FillInvoiceType();
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+
+                fillDealer();
             }
         }
 

@@ -649,6 +649,7 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblServiceRemove" runat="server" OnClick="lblServiceRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                    <asp:LinkButton ID="lblServiceEdit" runat="server" OnClick="lblServiceEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"  ></i></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -1550,6 +1551,22 @@
                 <div class="col-md-2 col-sm-12">
                     <label class="modal-label">Location</label>
                     <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" ></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Current HMR Value</label>
+                    <asp:TextBox ID="txtHMRValue" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
+                </div> 
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Site Contact Person’s Name</label>
+                    <asp:TextBox ID="txtOperatorName" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Site Contact Person’s Number</label>
+                    <asp:TextBox ID="txtSiteContactPersonNumber" runat="server" CssClass="form-control" MaxLength="10"></asp:TextBox>
+                </div> 
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Designation</label>
+                    <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
                 </div>
                 <div class="col-md-12 text-center"> 
                     <asp:Button ID="btnReachedSite" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnReachedSite_Click"   />
