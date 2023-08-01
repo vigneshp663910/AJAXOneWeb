@@ -60,7 +60,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
-                fillSaleOrderType(ddlOrderTo.SelectedValue);
+                //fillSaleOrderType(ddlOrderTo.SelectedValue);
                 cxExpectedDeliveryDate.StartDate = DateTime.Now;
             }
             else
@@ -75,7 +75,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
-                fillSaleOrderType(ddlOrderTo.SelectedValue);
+                //fillSaleOrderType(ddlOrderTo.SelectedValue);
                 cxExpectedDeliveryDate.StartDate = DateTime.Now;
             }
         }        
@@ -88,65 +88,65 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
         }
-        protected void ddlOrderTo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            fillSaleOrderType(ddlOrderTo.SelectedValue);
-        }
-        void fillSaleOrderType(string OrderTo)
-        {
-            ddlOrderType.Items.Clear();
-            ddlOrderType.DataTextField = "PurchaseOrderType";
-            ddlOrderType.DataValueField = "PurchaseOrderTypeID";
-            ddlOrderType.Items.Insert(0, new ListItem("Select", "0"));
+        //protected void ddlOrderTo_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    fillSaleOrderType(ddlOrderTo.SelectedValue);
+        //}
+        //void fillSaleOrderType(string OrderTo)
+        //{
+        //    ddlOrderType.Items.Clear();
+        //    ddlOrderType.DataTextField = "PurchaseOrderType";
+        //    ddlOrderType.DataValueField = "PurchaseOrderTypeID";
+        //    ddlOrderType.Items.Insert(0, new ListItem("Select", "0"));
 
-            if (OrderTo == "1")
-            {
-                ddlOrderType.Items.Insert(1, new ListItem("Stock Order", "1"));
-                ddlOrderType.Items.Insert(2, new ListItem("Emergency Order", "2"));
-                ddlOrderType.Items.Insert(3, new ListItem("Break Down Order", "7"));
-                ddlOrderType.Items.Insert(4, new ListItem("Machine Order", "5"));
+        //    if (OrderTo == "1")
+        //    {
+        //        ddlOrderType.Items.Insert(1, new ListItem("Stock Order", "1"));
+        //        ddlOrderType.Items.Insert(2, new ListItem("Emergency Order", "2"));
+        //        ddlOrderType.Items.Insert(3, new ListItem("Break Down Order", "7"));
+        //        ddlOrderType.Items.Insert(4, new ListItem("Machine Order", "5"));
 
-            }
-            else
-            {
-                ddlOrderType.Items.Insert(1, new ListItem("Intra-Dealer Order", "6"));
-            }
-        }
-        protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ddlDivision.Items.Clear();
-            ddlDivision.DataTextField = "DivisionDescription";
-            ddlDivision.DataValueField = "DivisionID";
-            ddlDivision.Items.Insert(0, new ListItem("Select", "0"));
+        //    }
+        //    else
+        //    {
+        //        ddlOrderType.Items.Insert(1, new ListItem("Intra-Dealer Order", "6"));
+        //    }
+        //}
+        //protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    ddlDivision.Items.Clear();
+        //    ddlDivision.DataTextField = "DivisionDescription";
+        //    ddlDivision.DataValueField = "DivisionID";
+        //    ddlDivision.Items.Insert(0, new ListItem("Select", "0"));
 
-            string OrderType = ddlOrderType.SelectedValue;
+        //    string OrderType = ddlOrderType.SelectedValue;
 
-            if ((OrderType == "1") || (OrderType == "2") || (OrderType == "7"))
-            {
-                ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
-            }
-            else if (ddlOrderType.SelectedValue == "5")
-            {
-                ddlDivision.Items.Insert(1, new ListItem("Batching Plant", "1"));
-                ddlDivision.Items.Insert(2, new ListItem("Concrete Mixer", "2"));
-                ddlDivision.Items.Insert(3, new ListItem("Concrete Pump", "3"));
-                ddlDivision.Items.Insert(4, new ListItem("Dumper", "4"));
-                ddlDivision.Items.Insert(5, new ListItem("Transit Mixer", "11"));
-                ddlDivision.Items.Insert(6, new ListItem("Mobile Concrete Equipment", "14"));
-                ddlDivision.Items.Insert(7, new ListItem("Placing Equipment", "19"));
-            }
-            else if (ddlOrderType.SelectedValue == "6")
-            {
-                ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
-                ddlDivision.Items.Insert(2, new ListItem("Batching Plant", "1"));
-                ddlDivision.Items.Insert(3, new ListItem("Concrete Mixer", "2"));
-                ddlDivision.Items.Insert(4, new ListItem("Concrete Pump", "3"));
-                ddlDivision.Items.Insert(5, new ListItem("Dumper", "4"));
-                ddlDivision.Items.Insert(6, new ListItem("Transit Mixer", "11"));
-                ddlDivision.Items.Insert(7, new ListItem("Mobile Concrete Equipment", "14"));
-                ddlDivision.Items.Insert(8, new ListItem("Placing Equipment", "19"));
-            }
-        }
+        //    if ((OrderType == "1") || (OrderType == "2") || (OrderType == "7"))
+        //    {
+        //        ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
+        //    }
+        //    else if (ddlOrderType.SelectedValue == "5")
+        //    {
+        //        ddlDivision.Items.Insert(1, new ListItem("Batching Plant", "1"));
+        //        ddlDivision.Items.Insert(2, new ListItem("Concrete Mixer", "2"));
+        //        ddlDivision.Items.Insert(3, new ListItem("Concrete Pump", "3"));
+        //        ddlDivision.Items.Insert(4, new ListItem("Dumper", "4"));
+        //        ddlDivision.Items.Insert(5, new ListItem("Transit Mixer", "11"));
+        //        ddlDivision.Items.Insert(6, new ListItem("Mobile Concrete Equipment", "14"));
+        //        ddlDivision.Items.Insert(7, new ListItem("Placing Equipment", "19"));
+        //    }
+        //    else if (ddlOrderType.SelectedValue == "6")
+        //    {
+        //        ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
+        //        ddlDivision.Items.Insert(2, new ListItem("Batching Plant", "1"));
+        //        ddlDivision.Items.Insert(3, new ListItem("Concrete Mixer", "2"));
+        //        ddlDivision.Items.Insert(4, new ListItem("Concrete Pump", "3"));
+        //        ddlDivision.Items.Insert(5, new ListItem("Dumper", "4"));
+        //        ddlDivision.Items.Insert(6, new ListItem("Transit Mixer", "11"));
+        //        ddlDivision.Items.Insert(7, new ListItem("Mobile Concrete Equipment", "14"));
+        //        ddlDivision.Items.Insert(8, new ListItem("Placing Equipment", "19"));
+        //    }
+        //}
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
             lblMessage.ForeColor = Color.Red;
@@ -174,8 +174,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 string PriceDate = "";
                 string IsWarrenty = "false";
                 PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, null, 1, Material, SoI.Qty, IV_SEC_SALES, PriceDate, IsWarrenty);
+                SoI.UnitPrice = Mat.CurrentPrice / SoI.Qty;
                 SoI.Value = Mat.CurrentPrice;
-                SoI.DiscountedPrice = Mat.Discount;
+                SoI.Discount = Mat.Discount;
                 SoI.TaxableAmount = Mat.TaxablePrice;
                 SoI.SGST = Mat.SGST;
                 SoI.SGSTAmt = Mat.SGSTValue;
@@ -183,7 +184,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.CGSTAmt = Mat.CGSTValue;
                 SoI.CGST = Mat.CGST;
                 SoI.IGSTAmt = Mat.IGSTValue;
-                SoI.Tax = 1;
                 SOItem_Insert.Add(SoI);
                 fillItem();
                 ClearItem();
@@ -198,10 +198,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             try
             {
                 LinkButton lbActions = ((LinkButton)sender);
-                if (lbActions.Text == "Save")
-                {
-                    Save();
-                }
+                //if (lbActions.Text == "Save")
+                //{
+                //    Save();
+                //}
             }
             catch (Exception ex)
             {
@@ -210,44 +210,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        public void Save()
-        {
-            lblMessage.Text = "";
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Red;
-            try
-            {
-                string Message = Validation();
-                if (!string.IsNullOrEmpty(Message))
-                {
-                    lblMessage.Text = Message;
-                    return;
-                }
-                if (SOItem_Insert.Count == 0)
-                {
-                    lblMessage.Text = "Please Add Material";
-                    return;
-                }
-                SO_Insert = Read();
-                SO_Insert.SaleOrderItems = SOItem_Insert;
-                string result = new BAPI().ApiPut("SaleOrder", SO_Insert);
-                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
-                if (Result.Status == PApplication.Failure)
-                {
-                    lblMessage.Text = Result.Message;
-                    return;
-                }
-                lblMessage.Text = Result.Message;
-                lblMessage.ForeColor = Color.Green;
-                ClearHeader();
-                ClearItem();
-            }
-            catch(Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-            }
-        }                
         public string Validation()
         {
             ddlDealer.BorderColor = Color.Silver;
@@ -408,6 +370,45 @@ namespace DealerManagementSystem.ViewSales.UserControls
             hdfMaterialCode.Value = "";
             txtMaterial.Text = "";
             txtQty.Text = "";
+        }
+
+        protected void btnSaveSOItem_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "";
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red;
+            try
+            {
+                string Message = Validation();
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    return;
+                }
+                if (SOItem_Insert.Count == 0)
+                {
+                    lblMessage.Text = "Please Add Material";
+                    return;
+                }
+                SO_Insert = Read();
+                SO_Insert.SaleOrderItems = SOItem_Insert;
+                string result = new BAPI().ApiPut("SaleOrder", SO_Insert);
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Result.Message;
+                    return;
+                }
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Green;
+                ClearHeader();
+                ClearItem();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
         }
     }
 }

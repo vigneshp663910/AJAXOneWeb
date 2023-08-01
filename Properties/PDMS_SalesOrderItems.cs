@@ -251,6 +251,7 @@ namespace Properties
         public long SaleOrderItemID { get; set; }  
         public PDMS_Material Material { get; set; } 
         public decimal Qty { get; set; }
+        public decimal UnitPrice { get; set; }
         public decimal Value { get; set; }
         public decimal Discount { get; set; }
         public decimal DiscountedPrice { get; set; }

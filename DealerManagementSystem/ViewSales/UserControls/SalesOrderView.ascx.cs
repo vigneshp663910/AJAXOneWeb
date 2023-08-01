@@ -353,8 +353,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.MaterialID = Item.Material.MaterialID;
                 SoI.MaterialCode = Item.Material.MaterialCode;
                 SoI.Qty = Item.Qty;
+                SoI.UnitPrice = Item.UnitPrice;
                 SoI.Value = Item.Value;
-                SoI.DiscountedPrice = Item.DiscountedPrice;
+                SoI.Discount = Item.Discount;
                 SoI.TaxableAmount = Item.TaxableAmount;
                 SoI.SGST = Item.Material.SGST;
                 SoI.SGSTAmt = Item.Material.SGSTValue;
@@ -362,7 +363,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.CGSTAmt = Item.Material.CGSTValue;
                 SoI.CGST = Item.Material.CGST;
                 SoI.IGSTAmt = Item.Material.IGSTValue;
-                SoI.Tax = 1;
 
                 PSaleOrder_Insert SO = new PSaleOrder_Insert();
                 SO.SaleOrderID = Convert.ToInt64(SaleOrderByID.SaleOrderID);
@@ -439,8 +439,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             string PriceDate = "";
             string IsWarrenty = "false";
             PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, null, 1, Material, SoI.Qty, IV_SEC_SALES, PriceDate, IsWarrenty);
+            SoI.UnitPrice = Mat.CurrentPrice / SoI.Qty;
             SoI.Value = Mat.CurrentPrice;
-            SoI.DiscountedPrice = Mat.Discount;
+            SoI.Discount = Mat.Discount;
             SoI.TaxableAmount = Mat.TaxablePrice;
             SoI.SGST = Mat.SGST;
             SoI.SGSTAmt = Mat.SGSTValue;
@@ -448,8 +449,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SoI.CGSTAmt = Mat.CGSTValue;
             SoI.CGST = Mat.CGST;
             SoI.IGSTAmt = Mat.IGSTValue;
-            SoI.Tax = 1;
-
             return SoI;
         }
         public string Validation()

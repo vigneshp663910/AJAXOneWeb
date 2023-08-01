@@ -6,7 +6,7 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                <asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click">Save</asp:LinkButton>
+                <%--<asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click">Save</asp:LinkButton>--%>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                     onKeyUp="GetCustomers()"></asp:TextBox>
                 <asp:HiddenField ID="hdfCustomerId" runat="server" />
             </div>
-            <div class="col-md-6 col-sm-12">
+            <%--<div class="col-md-6 col-sm-12">
                 <label class="modal-label">Order To<samp style="color: red">*</samp></label>
                 <asp:DropDownList ID="ddlOrderTo" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlOrderTo_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem Value="1">OE</asp:ListItem>
@@ -40,7 +40,7 @@
             <div class="col-md-6 col-sm-12">
                 <label class="modal-label">Order Type<samp style="color: red">*</samp></label>
                 <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlOrderType_SelectedIndexChanged" AutoPostBack="true" />
-            </div>
+            </div>--%>
             <div class="col-md-6 col-sm-12">
                 <label class="modal-label">Contact Person</label>
                 <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="35"></asp:TextBox>
@@ -187,6 +187,10 @@
                         </asp:GridView>
                     </div>
                 </fieldset>
+            </div>
+
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnSaveSOItem" runat="server" CssClass="btn Save" Text="Save" OnClick="btnSaveSOItem_Click" Width="100px"></asp:Button>
             </div>
         </div>
     </fieldset>
