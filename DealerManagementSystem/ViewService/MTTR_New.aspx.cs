@@ -1075,7 +1075,7 @@ namespace DealerManagementSystem.ViewService
             List<PDMS_ServiceTechnician> Technicians = new BDMS_Service().GetTechniciansByTicketID(ICTicketID);
             foreach (PDMS_ServiceTechnician t in Technicians)
             {
-                if (t.ServiceTechnicianWorkedDate != null)
+                if (t.ServiceTechnicianWorkedDate.Count != 0)
                 {
                     foreach (PDMS_ServiceTechnicianWorkedDate tw in t.ServiceTechnicianWorkedDate)
                     {

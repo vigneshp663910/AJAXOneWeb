@@ -3043,19 +3043,19 @@ namespace DealerManagementSystem.ViewService.UserControls
                 //    ((LinkButton)gvServiceCharges.Rows[i].FindControl("lblServiceRemove")).Enabled = false;
                 //    ((LinkButton)gvServiceCharges.Rows[i].FindControl("lblServiceEdit")).Enabled = false;
                 //}
-                for (int i = 0; i < gvMaterial.Rows.Count; i++)
-                {
-                    ((LinkButton)gvMaterial.Rows[i].FindControl("lblMaterialRemove")).Enabled = false;
-                    ((CheckBox)gvMaterial.Rows[i].FindControl("cbEdit")).Enabled = false;
-                }
+                //for (int i = 0; i < gvMaterial.Rows.Count; i++)
+                //{
+                //    ((LinkButton)gvMaterial.Rows[i].FindControl("lblMaterialRemove")).Enabled = false;
+                //    ((CheckBox)gvMaterial.Rows[i].FindControl("cbEdit")).Enabled = false;
+                //}
                 for (int i = 0; i < gvNotes.Rows.Count; i++)
                 {
                     ((LinkButton)gvNotes.Rows[i].FindControl("lblNoteRemove")).Enabled = false;
                 }
-                for (int i = 0; i < gvTechnicianWorkDays.Rows.Count; i++)
-                {
-                    ((LinkButton)gvTechnicianWorkDays.Rows[i].FindControl("lbWorkedDayRemove")).Enabled = false;
-                }
+                //for (int i = 0; i < gvTechnicianWorkDays.Rows.Count; i++)
+                //{
+                //    ((LinkButton)gvTechnicianWorkDays.Rows[i].FindControl("lbWorkedDayRemove")).Enabled = false;
+                //}
             }
             if ((Boolean)SDMS_ICTicket.IsLocked || (Boolean)SDMS_ICTicket.SyncBlock)
             {
