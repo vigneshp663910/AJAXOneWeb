@@ -2138,15 +2138,15 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnServiceInvoice.Visible = false; 
                 lbtnUnlockTicket.Visible = false;
 
-               // lbtnRequestForDecline.Visible = false;
-                lbtnDeclineApprove.Visible = false;
-                lbtnDeclineReject.Visible = false;
+                //lbtnRequestForDecline.Visible = false;
+                //lbtnDeclineApprove.Visible = false;
+                //lbtnDeclineReject.Visible = false;
 
-                lbtnMarginWarrantyRequest.Visible = false;
-                lbtnMarginWarrantyApprove.Visible = false;
-                lbtnMarginWarrantyReject.Visible = false;
+               // lbtnMarginWarrantyRequest.Visible = false;
+               // lbtnMarginWarrantyApprove.Visible = false;
+               // lbtnMarginWarrantyReject.Visible = false;
 
-                lbtnRequestDateChange.Visible = false;
+               // lbtnRequestDateChange.Visible = false;
                 lbtnRemoveRestoreDate.Visible = false;
 
                 lbtnFsrSignature.Visible = false;
@@ -2500,10 +2500,12 @@ namespace DealerManagementSystem.ViewService.UserControls
             } 
             if (MaterialQuotation)
             {
-                lbtnMaterialClaim.Visible = false;
+                lbtnMaterialQuotation.Visible = false;
+                
             }
             if (MaterialClaim)
             {
+                lbtnMaterialClaim.Visible = false;
                 lbtnMaterialQuotation.Visible = false;
             }
 
