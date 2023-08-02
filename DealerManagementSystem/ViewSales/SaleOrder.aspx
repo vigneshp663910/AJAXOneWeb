@@ -169,38 +169,34 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Date From</label>
-                        <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateFrom" PopupButtonID="txtDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtDateFrom" WatermarkText="Date From"></asp:TextBoxWatermarkExtender>
-                    </div>
-
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Date To</label>
-                        <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateTo" PopupButtonID="txtDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateTo" WatermarkText="Date To"></asp:TextBoxWatermarkExtender>
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Sale Order Number</label>
-                        <asp:TextBox ID="txtSONumber" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-
-                    <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Code</label>
                         <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
                     </div>
-
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Customer Code</label>
                         <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
                     </div>
-
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Sale Order Number</label>
+                        <asp:TextBox ID="txtSONumber" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Sale Oder Status</label>
                         <asp:DropDownList ID="ddlSOStatus" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Date From</label>
+                        <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateFrom" PopupButtonID="txtDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtDateFrom" WatermarkText="Date From"></asp:TextBoxWatermarkExtender>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Date To</label>
+                        <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateTo" PopupButtonID="txtDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateTo" WatermarkText="Date To"></asp:TextBoxWatermarkExtender>
+                    </div>                    
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
                         <asp:Button ID="btnCreateSO" runat="server" CssClass="btn Save" Text="Create Sale Order" OnClick="btnCreateSO_Click" Width="150px"></asp:Button>

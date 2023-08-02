@@ -119,16 +119,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             gvSOItem.DataSource = SaleOrderByID.SaleOrderItems;
             gvSOItem.DataBind();
+            SaleOrderByID.Customer = new BDMS_Customer().GetCustomerByID(SaleOrderByID.Customer.CustomerID);
+            UC_CustomerView.fillCustomer(SaleOrderByID.Customer);
             ActionControlMange();
         }
         void ActionControlMange()
         {
+            lbEditSaleOrder.Visible = true;
             lbCancelSaleOrder.Visible = true;
-
+            lbAddSaleOrderItem.Visible = true;
             int StatusID = SaleOrderByID.SaleOrderStatus.StatusID;
             if (StatusID == 2)
             {
                 lbCancelSaleOrder.Visible = false;
+                lbEditSaleOrder.Visible = false;
+                lbAddSaleOrderItem.Visible = false;
             }
         }
         protected void lbActions_Click(object sender, EventArgs e)
@@ -182,6 +187,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SO.EquipmentSerialNo = SaleOrderByID.EquipmentSerialNo.Trim();
                 SO.SelectTax = SaleOrderByID.SelectTax.Trim();
                 SO.SaleOrderItems = new List<PSaleOrderItem_Insert>();
+                foreach (PSaleOrderItem item in SaleOrderByID.SaleOrderItems)
+                {
+                    PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
+                    SoI.SaleOrderItemID = item.SaleOrderItemID;
+                    SoI.StatusID = 2;
+                    SO.SaleOrderItems.Add(SoI);
+                }
                 string result = new BAPI().ApiPut("SaleOrder", SO);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
@@ -361,8 +373,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.SGSTAmt = Item.Material.SGSTValue;
                 SoI.CGST = Item.Material.CGST;
                 SoI.CGSTAmt = Item.Material.CGSTValue;
-                SoI.CGST = Item.Material.CGST;
+                SoI.IGST = Item.Material.IGST;
                 SoI.IGSTAmt = Item.Material.IGSTValue;
+                SoI.StatusID = 2;
 
                 PSaleOrder_Insert SO = new PSaleOrder_Insert();
                 SO.SaleOrderID = Convert.ToInt64(SaleOrderByID.SaleOrderID);
@@ -438,7 +451,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             string IV_SEC_SALES = "";
             string PriceDate = "";
             string IsWarrenty = "false";
-            PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, null, 1, Material, SoI.Qty, IV_SEC_SALES, PriceDate, IsWarrenty);
+            PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DPPOR_PURC_ORDER_HDR", 1, Material, SoI.Qty, IV_SEC_SALES, PriceDate, IsWarrenty);
             SoI.UnitPrice = Mat.CurrentPrice / SoI.Qty;
             SoI.Value = Mat.CurrentPrice;
             SoI.Discount = Mat.Discount;
@@ -447,8 +460,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SoI.SGSTAmt = Mat.SGSTValue;
             SoI.CGST = Mat.CGST;
             SoI.CGSTAmt = Mat.CGSTValue;
-            SoI.CGST = Mat.CGST;
+            SoI.IGST = Mat.IGST;
             SoI.IGSTAmt = Mat.IGSTValue;
+            SoI.StatusID = 1;
             return SoI;
         }
         public string Validation()

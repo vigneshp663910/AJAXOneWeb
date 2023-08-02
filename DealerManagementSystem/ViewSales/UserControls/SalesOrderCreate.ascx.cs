@@ -60,8 +60,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
-                //fillSaleOrderType(ddlOrderTo.SelectedValue);
                 cxExpectedDeliveryDate.StartDate = DateTime.Now;
+                ddlDivision.SelectedValue = "15"; ddlDivision.Enabled = false;
             }
             else
             {
@@ -75,8 +75,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
-                //fillSaleOrderType(ddlOrderTo.SelectedValue);
                 cxExpectedDeliveryDate.StartDate = DateTime.Now;
+                ddlDivision.SelectedValue = "15"; ddlDivision.Enabled = false;
             }
         }        
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
@@ -88,65 +88,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
         }
-        //protected void ddlOrderTo_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    fillSaleOrderType(ddlOrderTo.SelectedValue);
-        //}
-        //void fillSaleOrderType(string OrderTo)
-        //{
-        //    ddlOrderType.Items.Clear();
-        //    ddlOrderType.DataTextField = "PurchaseOrderType";
-        //    ddlOrderType.DataValueField = "PurchaseOrderTypeID";
-        //    ddlOrderType.Items.Insert(0, new ListItem("Select", "0"));
-
-        //    if (OrderTo == "1")
-        //    {
-        //        ddlOrderType.Items.Insert(1, new ListItem("Stock Order", "1"));
-        //        ddlOrderType.Items.Insert(2, new ListItem("Emergency Order", "2"));
-        //        ddlOrderType.Items.Insert(3, new ListItem("Break Down Order", "7"));
-        //        ddlOrderType.Items.Insert(4, new ListItem("Machine Order", "5"));
-
-        //    }
-        //    else
-        //    {
-        //        ddlOrderType.Items.Insert(1, new ListItem("Intra-Dealer Order", "6"));
-        //    }
-        //}
-        //protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    ddlDivision.Items.Clear();
-        //    ddlDivision.DataTextField = "DivisionDescription";
-        //    ddlDivision.DataValueField = "DivisionID";
-        //    ddlDivision.Items.Insert(0, new ListItem("Select", "0"));
-
-        //    string OrderType = ddlOrderType.SelectedValue;
-
-        //    if ((OrderType == "1") || (OrderType == "2") || (OrderType == "7"))
-        //    {
-        //        ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
-        //    }
-        //    else if (ddlOrderType.SelectedValue == "5")
-        //    {
-        //        ddlDivision.Items.Insert(1, new ListItem("Batching Plant", "1"));
-        //        ddlDivision.Items.Insert(2, new ListItem("Concrete Mixer", "2"));
-        //        ddlDivision.Items.Insert(3, new ListItem("Concrete Pump", "3"));
-        //        ddlDivision.Items.Insert(4, new ListItem("Dumper", "4"));
-        //        ddlDivision.Items.Insert(5, new ListItem("Transit Mixer", "11"));
-        //        ddlDivision.Items.Insert(6, new ListItem("Mobile Concrete Equipment", "14"));
-        //        ddlDivision.Items.Insert(7, new ListItem("Placing Equipment", "19"));
-        //    }
-        //    else if (ddlOrderType.SelectedValue == "6")
-        //    {
-        //        ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
-        //        ddlDivision.Items.Insert(2, new ListItem("Batching Plant", "1"));
-        //        ddlDivision.Items.Insert(3, new ListItem("Concrete Mixer", "2"));
-        //        ddlDivision.Items.Insert(4, new ListItem("Concrete Pump", "3"));
-        //        ddlDivision.Items.Insert(5, new ListItem("Dumper", "4"));
-        //        ddlDivision.Items.Insert(6, new ListItem("Transit Mixer", "11"));
-        //        ddlDivision.Items.Insert(7, new ListItem("Mobile Concrete Equipment", "14"));
-        //        ddlDivision.Items.Insert(8, new ListItem("Placing Equipment", "19"));
-        //    }
-        //}
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
             lblMessage.ForeColor = Color.Red;
@@ -173,7 +114,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 string IV_SEC_SALES = "";
                 string PriceDate = "";
                 string IsWarrenty = "false";
-                PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, null, 1, Material, SoI.Qty, IV_SEC_SALES, PriceDate, IsWarrenty);
+                PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DSSOR_SALES_ORDER_HDR", 1, Material, SoI.Qty, IV_SEC_SALES, PriceDate, IsWarrenty);
                 SoI.UnitPrice = Mat.CurrentPrice / SoI.Qty;
                 SoI.Value = Mat.CurrentPrice;
                 SoI.Discount = Mat.Discount;
@@ -182,8 +123,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.SGSTAmt = Mat.SGSTValue;
                 SoI.CGST = Mat.CGST;
                 SoI.CGSTAmt = Mat.CGSTValue;
-                SoI.CGST = Mat.CGST;
+                SoI.IGST = Mat.IGST;
                 SoI.IGSTAmt = Mat.IGSTValue;
+                SoI.StatusID = 1;
                 SOItem_Insert.Add(SoI);
                 fillItem();
                 ClearItem();
@@ -191,23 +133,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
             catch(Exception ex)
             {
                 lblMessage.Text = ex.Message;
-            }
-        }
-        protected void lbActions_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                LinkButton lbActions = ((LinkButton)sender);
-                //if (lbActions.Text == "Save")
-                //{
-                //    Save();
-                //}
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Red;
             }
         }
         public string Validation()
@@ -258,12 +183,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 return "Please select the Material";
             }
-
             if (string.IsNullOrEmpty(txtQty.Text.Trim()))
             {
                 return "Please enter the Qty";
             }
-
             foreach (PSaleOrderItem_Insert Item in SOItem_Insert)
             {
                 if (Item.MaterialID == Convert.ToInt32(hdfMaterialID.Value))
@@ -271,13 +194,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     return "Material already available.";
                 }
             }
-
             decimal value;
             if (!decimal.TryParse(txtQty.Text, out value))
             {
                 return "Please enter correct format in Qty";
             }
-
             return "";
         }
         public PSaleOrder_Insert Read()
@@ -371,7 +292,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
             txtMaterial.Text = "";
             txtQty.Text = "";
         }
-
         protected void btnSaveSOItem_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "";

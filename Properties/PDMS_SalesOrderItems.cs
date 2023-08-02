@@ -345,7 +345,6 @@ namespace Properties
         public decimal Qty { get; set; }
         public decimal Value { get; set; }
         public decimal Discount { get; set; }
-        public decimal DiscountedPrice { get; set; }
         public decimal FreightAmount { get; set; }
         public decimal TaxableAmount { get; set; }
         public decimal SGST { get; set; }
@@ -354,6 +353,6 @@ namespace Properties
         public decimal CGSTAmt { get; set; }
         public decimal SGSTAmt { get; set; }
         public decimal IGSTAmt { get; set; }
-        public decimal Tax { get; set; }
+        public int StatusID { get; set; }
     }
 }

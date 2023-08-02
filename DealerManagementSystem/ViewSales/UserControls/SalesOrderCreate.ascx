@@ -1,16 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SalesOrderCreate.ascx.cs" Inherits="DealerManagementSystem.ViewSales.UserControls.SalesOrderCreate" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<div class="col-md-12">
-    <div class="action-btn">
-        <div class="" id="boxHere"></div>
-        <div class="dropdown btnactions" id="customerAction">
-            <div class="btn Approval">Actions</div>
-            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                <%--<asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click">Save</asp:LinkButton>--%>
-            </div>
-        </div>
-    </div>
-</div>
+
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="true" />
 <div class="col-md-12">
     <fieldset class="fieldset-border" runat="server">
@@ -30,17 +20,6 @@
                     onKeyUp="GetCustomers()"></asp:TextBox>
                 <asp:HiddenField ID="hdfCustomerId" runat="server" />
             </div>
-            <%--<div class="col-md-6 col-sm-12">
-                <label class="modal-label">Order To<samp style="color: red">*</samp></label>
-                <asp:DropDownList ID="ddlOrderTo" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlOrderTo_SelectedIndexChanged" AutoPostBack="true">
-                    <asp:ListItem Value="1">OE</asp:ListItem>
-                    <asp:ListItem Value="2">Co-Dealer</asp:ListItem>
-                </asp:DropDownList>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <label class="modal-label">Order Type<samp style="color: red">*</samp></label>
-                <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlOrderType_SelectedIndexChanged" AutoPostBack="true" />
-            </div>--%>
             <div class="col-md-6 col-sm-12">
                 <label class="modal-label">Contact Person</label>
                 <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="35"></asp:TextBox>
@@ -188,7 +167,6 @@
                     </div>
                 </fieldset>
             </div>
-
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnSaveSOItem" runat="server" CssClass="btn Save" Text="Save" OnClick="btnSaveSOItem_Click" Width="100px"></asp:Button>
             </div>

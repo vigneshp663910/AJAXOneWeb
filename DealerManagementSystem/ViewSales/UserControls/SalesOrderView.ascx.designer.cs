@@ -249,6 +249,24 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.GridView gvSOItem;
 
         /// <summary>
+        /// TabCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabCustomer;
+
+        /// <summary>
+        /// UC_CustomerView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerViewHeader UC_CustomerView;
+
+        /// <summary>
         /// pnlSaleOrderEdit control.
         /// </summary>
         /// <remarks>

@@ -2,6 +2,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewSales/UserControls/SalesOrderCreate.ascx" TagPrefix="UC" TagName="UC_SalesOrderEdit" %>
+<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
 <style>
     .portlet.box.green {
         border: 1px solid #5cd1db;
@@ -365,6 +366,12 @@
                                             <asp:Label ID="lblIGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "Material.IGSTValue")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="UnitPrice">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "UnitPrice","{0:n}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Value">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
@@ -436,6 +443,13 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
+    <asp:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
+        <ContentTemplate>
+            <div class="col-md-12 field-margin-top">
+                <UC:UC_CustomerView ID="UC_CustomerView" runat="server"></UC:UC_CustomerView>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
 </asp1:TabContainer>
 
 <asp:Panel ID="pnlSaleOrderEdit" runat="server" CssClass="Popup" Style="display: none;">
