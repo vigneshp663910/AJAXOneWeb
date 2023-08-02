@@ -122,6 +122,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lblProductionStatus.Text = EquipmentViewDet.ProductionStatus;
             lblVariantsFittingDate.Text = EquipmentViewDet.VariantsFittingDate == null ? "" : ((DateTime)EquipmentViewDet.VariantsFittingDate).ToShortDateString();
             lblManufacturingDate.Text = Convert.ToString(EquipmentViewDet.ManufacturingDate);
+            lblEquipmentClient.Text = EquipmentViewDet.EquipmentClient.Client;
             if (EquipmentViewDet.Ibase != null)
             {
                 lblInstalledBaseNo.Text = EquipmentViewDet.Ibase.InstalledBaseNo;
@@ -382,8 +383,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 {
                     lblMessageUpdateClient.Text = "";
                     lblMessageUpdateClient.Visible = false;
-                    int RowCount = 0;
-                    new DDLBind(ddlClient, new BDMS_Equipment().GetEquipmentClient(null, null, true,1,1000000,out RowCount), "Client", "EquipmentClientID");
+                    new DDLBind(ddlClient, (new BDMS_Equipment().GetEquipmentClient(null, null, true,null,null)).Data, "Client", "EquipmentClientID");
                     MPE_UpdateClient.Show();
                 }
             }
@@ -1114,8 +1114,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
             fillEquipment(EquipmentViewDet.EquipmentHeaderID);
-            int RowCount = 0;
-            new DDLBind(ddlClient, new BDMS_Equipment().GetEquipmentClient(null, null, true, 1, 1000000, out RowCount), "Client", "EquipmentClientID");
+            new DDLBind(ddlClient, (new BDMS_Equipment().GetEquipmentClient(null, null, true, null, null)).Data, "Client", "EquipmentClientID");
         }
     }
 }

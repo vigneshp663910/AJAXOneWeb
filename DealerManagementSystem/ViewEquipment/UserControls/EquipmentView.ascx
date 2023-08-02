@@ -269,6 +269,10 @@
                     <label>Manufacturing Date : </label>
                     <asp:Label ID="lblManufacturingDate" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Equipment Client : </label>
+                    <asp:Label ID="lblEquipmentClient" runat="server" CssClass="label"></asp:Label>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">

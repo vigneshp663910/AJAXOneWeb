@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,7 @@ namespace DealerManagementSystem.ViewEquipment
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Dealer Bin Location');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Equipment » Equipment Client');</script>");
             lblMessage.Visible = false;
 
             if (PSession.User == null)
@@ -103,13 +104,13 @@ namespace DealerManagementSystem.ViewEquipment
             try
             {
                 TraceLogger.Log(DateTime.Now);
-                int RowCount = 0;
-                Client = new BDMS_Equipment().GetEquipmentClient(null, txtSClient.Text.Trim(), true, PageIndex, gvClient.PageSize, out RowCount);
+                PApiResult Result = new BDMS_Equipment().GetEquipmentClient(null, txtSClient.Text.Trim(), true, PageIndex, gvClient.PageSize);
+                Client = JsonConvert.DeserializeObject<List<PEquipmentClient>>(JsonConvert.SerializeObject(Result.Data));
                 gvClient.PageIndex = 0;
                 gvClient.DataSource = Client;
                 gvClient.DataBind();
 
-                if (RowCount == 0)
+                if (Result.RowCount == 0)
                 {
                     PEquipmentClient pEquipmentClient = new PEquipmentClient();
                     Client.Add(pEquipmentClient);
@@ -124,11 +125,11 @@ namespace DealerManagementSystem.ViewEquipment
                     gvClient.DataSource = Client;
                     gvClient.DataBind();
                     
-                    PageCount = (RowCount + gvClient.PageSize - 1) / gvClient.PageSize;
+                    PageCount = (Result.RowCount + gvClient.PageSize - 1) / gvClient.PageSize;
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((PageIndex - 1) * gvClient.PageSize) + 1) + " - " + (((PageIndex - 1) * gvClient.PageSize) + gvClient.Rows.Count) + " of " + RowCount;
+                    lblRowCount.Text = (((PageIndex - 1) * gvClient.PageSize) + 1) + " - " + (((PageIndex - 1) * gvClient.PageSize) + gvClient.Rows.Count) + " of " + Result.RowCount;
 
                     List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
                     if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EquipmentClientAddEditDelete).Count() == 0)
@@ -193,21 +194,34 @@ namespace DealerManagementSystem.ViewEquipment
                 EquipmentClient.Client = lblClient;
                 EquipmentClient.IsActive = false;
 
-                Boolean Result = new BDMS_Equipment().InsertOrUpdateEquipmentClient(EquipmentClient, PSession.User.UserID);
-                if (Result)
+                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Equipment/InsertOrUpdateEquipmentClient", EquipmentClient));
+
+                if (result.Status == PApplication.Failure)
                 {
-                    lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "Client is Deleted Successfully...";
+                    lblMessage.Text = result.Message;
                     lblMessage.Visible = true;
-                    fillEquipmentClient();
-                }
-                else
-                {
                     lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "Client is Not Deleted..!";
-                    lblMessage.Visible = true;
                     return;
                 }
+                lblMessage.Text = result.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+                fillEquipmentClient();
+                //Boolean Result = new BDMS_Equipment().InsertOrUpdateEquipmentClient(EquipmentClient, PSession.User.UserID);
+                //if (Result)
+                //{
+                //    lblMessage.ForeColor = Color.Green;
+                //    lblMessage.Text = "Client is Deleted Successfully...";
+                //    lblMessage.Visible = true;
+                //    fillEquipmentClient();
+                //}
+                //else
+                //{
+                //    lblMessage.ForeColor = Color.Red;
+                //    lblMessage.Text = "Client is Not Deleted..!";
+                //    lblMessage.Visible = true;
+                //    return;
+                //}
             }
             catch (Exception ex)
             {
@@ -242,21 +256,19 @@ namespace DealerManagementSystem.ViewEquipment
                 EquipmentClient.Client = txtClient;
                 EquipmentClient.IsActive = true;
 
-                Boolean Result = new BDMS_Equipment().InsertOrUpdateEquipmentClient(EquipmentClient, PSession.User.UserID);
-                if (Result)
+                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Equipment/InsertOrUpdateEquipmentClient", EquipmentClient));
+
+                if (result.Status == PApplication.Failure)
                 {
-                    lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "Client is Created Successfully..";
+                    lblMessage.Text = result.Message;
                     lblMessage.Visible = true;
-                    fillEquipmentClient();
-                }
-                else
-                {
                     lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "Client is Not Created Successfully..!";
-                    lblMessage.Visible = true;
                     return;
                 }
+                lblMessage.Text = result.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+                fillEquipmentClient();
             }
             catch (Exception ex)
             {
