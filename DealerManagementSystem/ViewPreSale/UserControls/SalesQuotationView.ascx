@@ -31,6 +31,7 @@
                 <asp:LinkButton ID="lbtnDownloadConsolidatedTaxQuotation" runat="server" OnClick="lbActions_Click">Download Consolidated Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVariant" runat="server" OnClick="lbActions_Click">Add Variant</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddDiscount" runat="server" OnClick="lbActions_Click">Add Discount</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -1055,6 +1056,32 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Variant" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddVariant" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlDiscount" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button10" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageDiscount" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+               <div class="col-md-12">
+               
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Discount Amount</label>
+                    <asp:TextBox ID="txtHeaderDiscount" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                </div>
+                 
+            </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnHeaderDiscount" runat="server" Text="Save" CssClass="btn Save" OnClick="btnHeaderDiscount_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_HeaderDiscount" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDiscount" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <%--<fieldset class="fieldset-border" id="Fieldset4" runat="server">

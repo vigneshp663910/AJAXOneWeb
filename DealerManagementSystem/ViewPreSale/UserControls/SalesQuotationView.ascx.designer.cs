@@ -150,6 +150,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnAddVariant;
 
         /// <summary>
+        /// lbtnAddDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddDiscount;
+
+        /// <summary>
         /// lblRefQuotationNo control.
         /// </summary>
         /// <remarks>
@@ -1390,6 +1399,60 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_Variant;
+
+        /// <summary>
+        /// pnlDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDiscount;
+
+        /// <summary>
+        /// Button10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button10;
+
+        /// <summary>
+        /// lblMessageDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageDiscount;
+
+        /// <summary>
+        /// txtHeaderDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHeaderDiscount;
+
+        /// <summary>
+        /// btnHeaderDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnHeaderDiscount;
+
+        /// <summary>
+        /// MPE_HeaderDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_HeaderDiscount;
 
         /// <summary>
         /// lnkMPE control.

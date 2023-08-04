@@ -2936,7 +2936,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnSaleOrderConfirmation.Visible = true;
 
             lbtnAddVisit.Visible = true;
-
+            lbtnAddVariant.Visible = true;
+            lbtnAddDiscount.Visible = true;
 
             if (Quotation.CommissionAgent)
             {
@@ -2967,6 +2968,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnDownloadMachineQuotation.Visible = false;
                 lbtnSaleOrderConfirmation.Visible = false;
                 lbtnAddVisit.Visible = false;
+            }
+
+            if ((short)ProductType.BatchingPlant != Quotation.Lead.ProductType.ProductTypeID)
+            {
+                lbtnAddVariant.Visible = false;
+                lbtnAddDiscount.Visible = false;
+            }
+            if ((short)ProductType.BatchingPlant == Quotation.Lead.ProductType.ProductTypeID)
+            {
+                lbtnAddProduct.Visible = false;
             }
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
@@ -3149,8 +3160,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
 
         protected void btnSaveVariant_Click(object sender, EventArgs e)
-        {
-
+        { 
             try
             {
                 MPE_Variant.Show();
@@ -3174,6 +3184,37 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageVariant.ForeColor = Color.Red;
                 return;
             }
+        }
+
+        protected void btnHeaderDiscount_Click(object sender, EventArgs e)
+        {
+            MPE_HeaderDiscount.Show();
+            lblMessageVariant.Visible = true;
+            lblMessageVariant.ForeColor = Color.Red;
+            txtHeaderDiscount.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtHeaderDiscount.Text.Trim()))
+            {
+                txtHeaderDiscount.BorderColor = Color.Red;
+                lblMessageVariant.Text = "Please enter the Discount";
+            }
+            decimal decimalValue;
+            if (decimal.TryParse(txtHeaderDiscount.Text.Trim(), out decimalValue))
+            {
+                txtHeaderDiscount.BorderColor = Color.Red;
+                lblMessageVariant.Text = "Please enter the Correct Discount Value";
+            }
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SalesQuotation/UpdateSalesQuotationHeaderDiscount?SalesQuotationID=" + Quotation.QuotationID + "&HeaderDiscount=" + txtHeaderDiscount.Text));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageVariant.Text = Results.Message;
+                return;
+            }
+            MPE_HeaderDiscount.Hide();
+            tbpSaleQuotation.ActiveTabIndex = 1;
+            fillViewQuotation(Quotation.QuotationID);
+            lblMessage.Text = "Updated Successfully";
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
         }
     }
 }

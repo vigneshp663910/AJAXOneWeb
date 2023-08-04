@@ -62,6 +62,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             foreach(GridViewRow gv in gvMaterial.Rows)
             {
                 TextBox txtQty = (TextBox)gv.FindControl("txtQty");
+
+                if(string.IsNullOrEmpty(txtQty.Text.Trim()))
+                {
+                    continue;
+                } 
+                int value;
+                if (int.TryParse(txtQty.Text.Trim(), out value))
+                {
+                    txtQty.BorderColor = Color.Red;
+                    throw new Exception("Please enter the Correct Quantity Value");
+                }
+
                 Label lblMaterialCode = (Label)gv.FindControl("lblMaterialCode");
                 Label lblMaterialID = (Label)gv.FindControl("lblMaterialID");
                 if (Quotation.QuotationItems != null)
@@ -70,8 +82,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     {
                         if (Item.Material.MaterialCode == lblMaterialCode.Text)
                         {
-                            lblMessage.Text = "Material " + lblMaterialCode.Text + " already available";
-                            return null;
+                            throw new Exception("Material " + lblMaterialCode.Text + " already available"); 
                         }
                     }
                 }
@@ -79,13 +90,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 PSalesQuotationItem MaterialTax = new BSalesQuotation().getMaterialTaxForQuotation(Quotation, lblMaterialCode.Text, false, Qty);
                 if (MaterialTax == null)
                 {
-                    lblMessage.Text = "Please maintain the price for Material " + lblMaterialCode.Text + " in SAP";
-                    return null;
+                    throw new Exception("Please maintain the price for Material " + lblMaterialCode.Text + " in SAP"); 
                 }
                 if (MaterialTax.Rate <= 0)
                 {
-                    lblMessage.Text = "Please maintain the price for Material " + lblMaterialCode.Text + " in SAP";
-                    return null;
+                    throw new Exception("Please maintain the price for Material " + lblMaterialCode.Text + " in SAP"); 
                 }
                 MaterialTax.SalesQuotationID = Quotation.QuotationID;
                 MaterialTax.Material = new PDMS_Material();
@@ -113,70 +122,63 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
                 if (MaterialTax.SGSTValue == 0 && MaterialTax.IGSTValue == 0)
                 {
-                    lblMessage.Text = "GST Tax value not found this material..!";
-                    return null;
+                    throw new Exception("GST Tax value not found this material..!"); 
                 }
                 MaterialTax.CreatedBy = new PUser() { UserID = PSession.User.UserID };
                 Items.Add(MaterialTax);
 
             }
             lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Red;
-            
-
-            string Message = ValidationProduct();
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessage.Text = Message;
-            } 
-            Clear();
+            lblMessage.ForeColor = Color.Red; 
+           // Clear();
 
             return Items;
         }
 
-        public string ValidationProduct()
-        { 
-            //ddlMaterial.BorderColor = Color.Silver;
-            ////ddlProduct.BorderColor = Color.Silver;
-            // txtQty.BorderColor = Color.Silver;
-            // txtDiscount.BorderColor = Color.Silver;
+        
+        //public string ValidationProduct()
+        //{ 
+        //    //ddlMaterial.BorderColor = Color.Silver;
+        //    ////ddlProduct.BorderColor = Color.Silver;
+        //    // txtQty.BorderColor = Color.Silver;
+        //    // txtDiscount.BorderColor = Color.Silver;
 
-            //if (ddlMaterial.SelectedValue == "0")
-            //{ 
-            //    ddlMaterial.BorderColor = Color.Red;
-            //    return "Please select the Material";
-            //}
-            ////if (ddlProduct.SelectedValue == "0")
-            ////{
-            ////    Message = Message + "<br/>Please select the Product";
-            ////    ddlProduct.BorderColor = Color.Red;
-            ////}
-            //if (string.IsNullOrEmpty(txtQty.Text.Trim()))
-            //{
-            //    txtQty.BorderColor = Color.Red;
-            //    return "Please enter the Quantity"; 
-            //}
-            //int value;
-            //if (int.TryParse(txtQty.Text.Trim(), out value))
-            //{
-            //    txtQty.BorderColor = Color.Red;
-            //    return "Please enter the Correct Quantity Value";
-            //}
+        //    //if (ddlMaterial.SelectedValue == "0")
+        //    //{ 
+        //    //    ddlMaterial.BorderColor = Color.Red;
+        //    //    return "Please select the Material";
+        //    //}
+        //    ////if (ddlProduct.SelectedValue == "0")
+        //    ////{
+        //    ////    Message = Message + "<br/>Please select the Product";
+        //    ////    ddlProduct.BorderColor = Color.Red;
+        //    ////}
+        //    //if (string.IsNullOrEmpty(txtQty.Text.Trim()))
+        //    //{
+        //    //    txtQty.BorderColor = Color.Red;
+        //    //    return "Please enter the Quantity"; 
+        //    //}
+        //    //int value;
+        //    //if (int.TryParse(txtQty.Text.Trim(), out value))
+        //    //{
+        //    //    txtQty.BorderColor = Color.Red;
+        //    //    return "Please enter the Correct Quantity Value";
+        //    //}
 
-            //if (string.IsNullOrEmpty(txtDiscount.Text.Trim()))
-            //{
-            //    txtDiscount.BorderColor = Color.Red;
-            //    return "Please enter the Discount"; 
-            //} 
-            //decimal decimalValue;
-            //if (decimal.TryParse(txtQty.Text.Trim(), out decimalValue))
-            //{
-            //    txtDiscount.BorderColor = Color.Red;
-            //    return "Please enter the Correct Discount Value";
-            //}
-            return "";
-        }
-         
+        //    //if (string.IsNullOrEmpty(txtDiscount.Text.Trim()))
+        //    //{
+        //    //    txtDiscount.BorderColor = Color.Red;
+        //    //    return "Please enter the Discount"; 
+        //    //} 
+        //    //decimal decimalValue;
+        //    //if (decimal.TryParse(txtQty.Text.Trim(), out decimalValue))
+        //    //{
+        //    //    txtDiscount.BorderColor = Color.Red;
+        //    //    return "Please enter the Correct Discount Value";
+        //    //}
+        //    return "";
+        //}
+
         protected void ddlVariantType_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillMaterial();
