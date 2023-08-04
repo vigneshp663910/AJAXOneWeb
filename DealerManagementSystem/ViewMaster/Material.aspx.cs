@@ -113,7 +113,7 @@ namespace DealerManagementSystem.ViewMaster
 
                     new DDLBind(ddlSProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID", true, "Select ProductType");
                     new DDLBind(ddlSMProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID", true, "Select ProductType");
-                    new DDLBind(ddlSMProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select Product");
+                    new DDLBind(ddlSMProduct, new BDMS_Master().GetProduct(null, 1,Convert.ToInt32(ddlSMProductType.SelectedValue), null), "Product", "ProductID", true, "Select Product");
                     new DDLBind(ddlSMVariantName, new BDMS_Material().GetMaterialVariantType(null), "VariantName", "VariantTypeID", true, "Select VariantName");
 
                     GetDivision();
@@ -981,6 +981,11 @@ namespace DealerManagementSystem.ViewMaster
         {
             divMaterialView.Visible = false;
             divList.Visible = true;
+        }
+
+        protected void ddlSMProductType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlSMProduct, new BDMS_Master().GetProduct(null, 1, Convert.ToInt32(ddlSMProductType.SelectedValue), null), "Product", "ProductID", true, "Select Product");
         }
     }
 }

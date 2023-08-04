@@ -420,15 +420,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.DropDownList ddlSMProductType;
 
         /// <summary>
-        /// ddlSMVariantName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSMVariantName;
-
-        /// <summary>
         /// ddlSMProduct control.
         /// </summary>
         /// <remarks>
@@ -436,6 +427,15 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSMProduct;
+
+        /// <summary>
+        /// ddlSMVariantName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSMVariantName;
 
         /// <summary>
         /// txtSMMaterial control.

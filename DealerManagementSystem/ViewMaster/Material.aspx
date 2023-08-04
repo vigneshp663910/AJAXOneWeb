@@ -750,16 +750,16 @@
                                 <div class="col-md-12">
                                     <div class="col-md-2 col-sm-12">
                                         <label>Product Type</label>
-                                        <asp:DropDownList ID="ddlSMProductType" runat="server" CssClass="form-control"></asp:DropDownList>
-                                    </div>
-                                    <div class="col-md-2 col-sm-12">
-                                        <label>Variant Name</label>
-                                        <asp:DropDownList ID="ddlSMVariantName" runat="server" CssClass="form-control"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlSMProductType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlSMProductType_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2 col-sm-12">
                                         <label>Product</label>
                                         <asp:DropDownList ID="ddlSMProduct" runat="server" CssClass="form-control"></asp:DropDownList>
                                     </div>
+                                    <div class="col-md-2 col-sm-12">
+                                        <label>Variant Name</label>
+                                        <asp:DropDownList ID="ddlSMVariantName" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    </div> 
                                     <div class="col-md-2 col-sm-12">
                                         <label class="modal-label">Material Code</label>
                                         <asp:TextBox ID="txtSMMaterial" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
