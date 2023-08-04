@@ -281,16 +281,17 @@ namespace DealerManagementSystem.ViewSales
                     UploadedFile = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceFile(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
                 }
 
-                //Response.Buffer = true;
-                //Response.Clear();
-                //Response.ContentType = UploadedFile.FileType;
-                //Response.AddHeader("content-disposition", "attachment; filename=" + UploadedFile.FileName+".pdf");
-                //Response.BinaryWrite(UploadedFile.AttachedFile); // create the file
-                //Response.Flush(); // send it to the client to download
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = UploadedFile.FileType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + UploadedFile.FileName + ".pdf");
+                Response.BinaryWrite(UploadedFile.AttachedFile); // create the file
+                new BXcel().PdfDowload();
+                Response.Flush(); // send it to the client to download
                 //var uploadPath = Server.MapPath("~/Backup");
                 //var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(UploadedFile.FileName + ".pdf"));
                 //File.WriteAllBytes(tempfilenameandlocation, UploadedFile.AttachedFile);
-                Response.Redirect("../PDF.aspx?FileName=" + UploadedFile.FileName + ".pdf" + "&Title=Sales » Sales Commision » Claim Invoice", false);
+                //Response.Redirect("../PDF.aspx?FileName=" + UploadedFile.FileName + ".pdf" + "&Title=Sales » Sales Commision » Claim Invoice", false);
             }
             catch (Exception ex)
             {
