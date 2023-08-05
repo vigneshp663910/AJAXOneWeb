@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="UserAccessManagement.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.UserAccessManagement" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <script type="text/javascript">
@@ -56,11 +57,11 @@
                     </div>
 
                     <div class="col-md-2 text-left">
-                        <label>Department</label> 
+                        <label>Department</label>
                         <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
                     </div>
                     <div class="col-md-2 text-left">
-                        <label>Designation</label> 
+                        <label>Designation</label>
                         <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-12 text-center">
@@ -142,7 +143,7 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblUserID" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "UserID")%>' Visible="false"></asp:Label>
                                         <asp:LinkButton ID="lbUserID" runat="server" OnClick="lbEmpId_Click">
-                                            <asp:Label ID="lblUserName" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "UserName")%>'></asp:Label> 
+                                            <asp:Label ID="lblUserName" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "UserName")%>'></asp:Label>
                                         </asp:LinkButton>
                                         <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "UserName")%>' Visible="false"></asp:TextBox>
                                     </ItemTemplate>
@@ -262,7 +263,7 @@
                                         <asp:Label ID="lblLastLoginDate" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "LastLoginDate")%>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                
+
 
 
                             </Columns>
@@ -345,7 +346,7 @@
                                                 </div>
                                                 <div style="padding-left: 50px">
                                                     <asp:Label ID="lblSubModuleMasterID" runat="server" Text='<%# Eval("SubModuleMasterID") %>' Font-Bold="true" Font-Size="15px" Visible="false"></asp:Label>
-                                                    <asp:DataList ID="dlChildModule" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="1" CellSpacing="10" DataKeyField="SubModuleChildID">
+                                                    <asp:DataList ID="dlChildModule" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="3" CellSpacing="10" DataKeyField="SubModuleChildID">
                                                         <ItemTemplate>
                                                             <div class="item">
                                                                 <span>
@@ -463,7 +464,7 @@
             </tr>
         </table>
         <asp:CheckBox ID="cbAllDealer" runat="server" Text="Select All Dealer" OnCheckedChanged="cbAllDealer_CheckedChanged" AutoPostBack="true" />
-        <asp:DataList ID="dlDealer" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="10" CellSpacing="10" DataKeyField="DID">
+        <asp:DataList ID="dlDealer" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="6" CellSpacing="10" DataKeyField="DID">
             <ItemTemplate>
                 <div class="item">
                     <span>
@@ -471,13 +472,13 @@
                             <asp:CheckBox ID="cbSMId" runat="server" />
                         </strong>
                     </span>
-                    <span><%# Eval("UserName") %></span>
+                    <span><%# Eval("CodeWithDisplayName") %></span>
                 </div>
             </ItemTemplate>
         </asp:DataList>
-  
 
-     
+
+
         <table>
             <tr>
                 <td colspan="5">
@@ -488,7 +489,7 @@
                     </div>
                 </td>
             </tr>
-        </table> 
+        </table>
         <asp:DataList ID="dlMobileFeatureAccess" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="3" CellSpacing="10" DataKeyField="UserMobileFeatureID">
             <ItemTemplate>
                 <div class="item">
@@ -500,8 +501,8 @@
                     <span><%# Eval("FeatureName") %></span>
                 </div>
             </ItemTemplate>
-        </asp:DataList> 
-          </asp:Panel>
+        </asp:DataList>
+    </asp:Panel>
     <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="InputButton" OnClick="btnUpdate_Click" Visible="false" />
     <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton" OnClick="btnBack_Click" Visible="false" />
 </asp:Content>

@@ -626,6 +626,22 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Edit Call Information")
             {
+                foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
+                {
+                    if (!SC.Material.IsMainServiceMaterial)
+                    {
+                        lblMessage.Visible = true;
+                        lblMessage.Text = "Remove Service Charge then save the call information.";
+                        return;
+                    }
+                } 
+                foreach (PDMS_ServiceMaterial M in SS_ServiceMaterial)
+                {
+                    lblMessage.Visible = true;
+                    lblMessage.Text = "Remove Material Charge then save the call information.";
+                    return;
+                }
+                 
                 UC_ICTicketUpdateCallInformation.FillMaster(SDMS_ICTicket);
                 MPE_CallInformation.Show();
             }
@@ -2073,7 +2089,9 @@ namespace DealerManagementSystem.ViewService.UserControls
             // lbtnDeviatedICTicketRequestCommissioning.Visible = true;
 
 
-            if (SDMS_ICTicket.Technicians.Where(A => A.UserID == PSession.User.UserID).Count() == 0)
+            if ((SDMS_ICTicket.Technicians.Where(A => A.UserID == PSession.User.UserID).Count() == 0)
+                && !(PSession.User.Designation.DealerDesignationID==(short)DealerDesignation.BusinessSystemManager)
+                && !(PSession.User.Designation.DealerDesignationID == (short)DealerDesignation.BusinessSystemExecutive))
             {
                 lbtnDepartureToSite.Visible = false;
                 lbtnReachedInSite.Visible = false;
@@ -2342,10 +2360,10 @@ namespace DealerManagementSystem.ViewService.UserControls
 
             foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
             {
-                if (!SC.Material.IsMainServiceMaterial)
-                {
-                    lbtnEditCallInformation.Visible = false;
-                }
+                //if (!SC.Material.IsMainServiceMaterial)
+                //{
+                //    lbtnEditCallInformation.Visible = false;
+                //}
                 if (!string.IsNullOrEmpty(SC.ClaimNumber))
                 {
                     lbtnServiceClaim.Visible = false;
@@ -2400,10 +2418,10 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
             }
 
-            foreach (PDMS_ServiceMaterial M in SS_ServiceMaterial)
-            {
-                lbtnEditCallInformation.Visible = false;
-            }
+            //foreach (PDMS_ServiceMaterial M in SS_ServiceMaterial)
+            //{
+            //    lbtnEditCallInformation.Visible = false;
+            //}
 
 
             if ((SDMS_ICTicket.ServiceStatus.ServiceStatusID != (short)DMS_ServiceStatus.ReqDeclined))

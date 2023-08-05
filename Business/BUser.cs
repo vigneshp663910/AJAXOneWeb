@@ -1607,7 +1607,7 @@ namespace Business
             string endPoint = "User/SubModuleChileByDealerDesignationID?DealerDesignationID=" + DealerDesignationID;
             return JsonConvert.DeserializeObject<List<PSubModuleChild>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public Boolean InsertOrUpdateDefaultUserPermition(int DealerDesignationID, List<int> AccessModule, List<int> AccessModuleC, List<int> Dashboard, long CreatedBy)
+        public Boolean InsertOrUpdateDefaultUserPermition(int DealerDesignationID, List<int> AccessModule, List<int> AccessModuleC, List<int> Dashboard, List<int> MobileFeature, long CreatedBy)
         {
             List<PUser> users = new List<PUser>();
             DateTime traceStartTime = DateTime.Now;
@@ -1646,6 +1646,15 @@ namespace Business
                         DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
                         DbParameter[] DParams = new DbParameter[3] { DealerDesignationIDDP, DashboardIDP, CreatedByDP };
                         provider.Insert("InsertOrUpdateDefaultUserDashboardAccess", DParams, false);
+                    }
+
+                    foreach (int ID in MobileFeature)
+                    {
+                        DbParameter DealerDesignationIDDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
+                        DbParameter UserMobileFeatureIDP = provider.CreateParameter("UserMobileFeatureID", ID, DbType.Int32);
+                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] DParams = new DbParameter[3] { DealerDesignationIDDP, UserMobileFeatureIDP, CreatedByDP };
+                        provider.Insert("InsertOrUpdateDefaultUserMobileAccess", DParams, false);
                     }
 
                     scope.Complete();
@@ -1980,6 +1989,44 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
             return false;
+        }
+
+        public List<PUserMobileFeature> GetMobileFeatureByDealerDesignationID(Int32 DealerDesignationID)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            List<PUserMobileFeature> MAs = new List<PUserMobileFeature>();
+            int ID = 0;
+            PUserMobileFeature MA = null;
+            try
+            {
+                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
+                DbParameter[] Params = new DbParameter[1] { DealerDesignationIDP };
+
+                using (DataSet ds = provider.Select("GetMobileFeatureByDealerDesignationID", Params))
+                {
+                    if (ds != null)
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+
+                            MA = new PUserMobileFeature();
+                            MAs.Add(MA);
+                            MA.UserMobileFeatureID = Convert.ToInt32(dr["UserMobileFeatureID"]);
+                            MA.FeatureName = Convert.ToString(dr["FeatureName"]);
+                        }
+                }
+                // This call is for track the status and loged into the trace logeer
+                TraceLogger.Log(traceStartTime);
+                return MAs;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
         }
     }
 }
