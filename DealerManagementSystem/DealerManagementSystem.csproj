@@ -724,6 +724,7 @@
     <Content Include="ViewSupportTicket\AssignedSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\AssignSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ClosedSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\DeviationProcessReport.aspx" />
     <Content Include="ViewSupportTicket\InProgressSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ManageSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\OpenSupportTicket.aspx" />
@@ -2908,6 +2909,13 @@
     <Compile Include="ViewSupportTicket\ClosedSupportTicket.aspx.designer.cs">
       <DependentUpon>ClosedSupportTicket.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSupportTicket\DeviationProcessReport.aspx.cs">
+      <DependentUpon>DeviationProcessReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\DeviationProcessReport.aspx.designer.cs">
+      <DependentUpon>DeviationProcessReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSupportTicket\InProgressSupportTicket.aspx.cs">
       <DependentUpon>InProgressSupportTicket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3045,7 +3053,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ProcessFlow\SOP\" />
     <Folder Include="ViewDealerEmployee\MachineOpPhotos\" />
     <Folder Include="ViewFinance\" />
     <Folder Include="ViewStock\" />
