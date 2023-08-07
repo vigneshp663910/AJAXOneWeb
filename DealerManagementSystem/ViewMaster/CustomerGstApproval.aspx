@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="CustomerChangeForApproval.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.CustomerChangeForApproval" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="CustomerGstApproval.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.CustomerGstApproval" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

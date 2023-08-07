@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewMaster
 {
 
 
-    public partial class CustomerChangeForApproval
+    public partial class CustomerGstApproval
     {
 
         /// <summary>

@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewMaster
 {
-    public partial class CustomerChangeForApproval : BasePage
+    public partial class CustomerGstApproval : BasePage
     {
        // public override SubModule SubModuleName { get { return SubModule.ViewMaster_CustomerChangeForApproval; } }
         private int PageCount
