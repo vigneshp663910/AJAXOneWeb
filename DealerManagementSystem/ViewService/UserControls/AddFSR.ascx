@@ -66,7 +66,7 @@
                 source: function (request, response) {
                     var param = { input: $('#MainContent_UC_ICTicketView_UC_AddFSR_txtNatureOfComplaint').val() };
                     $.ajax({
-                        url: "DMS_ICTicketProcess.aspx/SearchMaterialNatureOfComplaint",
+                        url: "ICTicket.aspx/SearchMaterialNatureOfComplaint",
                         data: JSON.stringify(param),
                         dataType: "json",
                         type: "POST",
@@ -95,7 +95,7 @@
             source: function (request, response) {
                 var param = { input: $('#MainContent_UC_ICTicketView_UC_AddFSR_txtNatureOfComplaint').val() };
                 $.ajax({
-                    url: "DMS_ICTicketProcess.aspx/SearchMaterialNatureOfComplaint",
+                    url: "ICTicket.aspx/SearchMaterialNatureOfComplaint",
                     data: JSON.stringify(param),
                     dataType: "json",
                     type: "POST",
