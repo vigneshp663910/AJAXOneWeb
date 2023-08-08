@@ -261,10 +261,10 @@ namespace Properties
         ViewSales_SaleOrderInvoicePartsReport = 16,
         ViewSales_SaleOrder = 17,
         ViewSales_SalesOrderPG = 18,
-        ViewSales_SalesReturn = 19,
+        ViewSales_SaleOrderReturn = 19,
         //**** Menu Level-2 ****************************** =  20, 
         //1 =  21,
-        ViewSales_SalesOrderDeliveryPending = 22,
+        ViewSales_SaleOrderDeliveryPending = 22,
         ViewSales_SaleInvoicePending = 23,
         ViewSales_SalesOrderPerformance = 24,
         ViewService_MTTR_Report = 25,
@@ -481,7 +481,8 @@ namespace Properties
         ViewAdmin_UserAccessManagement = 236,
         ViewMaster_DealerBinLocation = 237,
         ViewService_ICTicketMarginWarrantyReport = 238,
-        ViewService_ICTicketMarginWarrantyApproval = 239
+        ViewService_ICTicketMarginWarrantyApproval = 239,
+        ViewSales_SaleOrderDelivery = 242,
     }
     public enum SubModuleChildMaster
     {
