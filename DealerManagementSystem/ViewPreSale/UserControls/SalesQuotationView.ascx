@@ -17,10 +17,11 @@
                 <asp:LinkButton ID="lbtnEditQuotation" runat="server" OnClick="lbActions_Click">Edit Quotation Basic Info</asp:LinkButton>
                 <asp:LinkButton ID="lbtnEditFinancier" runat="server" OnClick="lbActions_Click">Edit Financier Info</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
+              <%--  <asp:LinkButton ID="lbtnAddVariant" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnAddCompetitor" runat="server" OnClick="lbActions_Click">Add Competitor</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddQuotationNote" runat="server" OnClick="lbActions_Click">Add Quotation Note</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddFollowUp" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
-                <%--                <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
+                <%--<asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnSaleOrderConfirmation" runat="server" OnClick="lbActions_Click">Sale Order Confirmation</asp:LinkButton>
@@ -30,7 +31,7 @@
                 <asp:LinkButton ID="lbtnDownloadTaxQuotation" runat="server" OnClick="lbActions_Click">Download Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDownloadConsolidatedTaxQuotation" runat="server" OnClick="lbActions_Click">Download Consolidated Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
-                <asp:LinkButton ID="lbtnAddVariant" runat="server" OnClick="lbActions_Click">Add Variant</asp:LinkButton>
+
                 <asp:LinkButton ID="lbtnAddDiscount" runat="server" OnClick="lbActions_Click">Add Discount</asp:LinkButton>
             </div>
         </div>
@@ -1066,14 +1067,14 @@
         <div class="model-scroll">
             <asp:Label ID="lblMessageDiscount" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border">
-               <div class="col-md-12">
-               
-                <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">Discount Amount</label>
-                    <asp:TextBox ID="txtHeaderDiscount" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                <div class="col-md-12">
+
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Discount Amount</label>
+                        <asp:TextBox ID="txtHeaderDiscount" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                    </div>
+
                 </div>
-                 
-            </div>
             </fieldset>
         </div>
         <div class="col-md-12 text-center">

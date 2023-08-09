@@ -79,6 +79,10 @@
                     <label class="modal-label">Ship To Party</label>
                     <asp:DropDownList ID="ddlShipParty" runat="server" CssClass="form-control" />
                 </div>
+                 <div class="col-md-6 col-sm-12" id="divStandardProduct" runat="server">
+                    <label class="modal-label">Standard Product</label>
+                     <asp:CheckBox ID="cbIsStandard" runat="server" />
+                </div>
                 <div class="col-md-12 col-sm-12">
                     <label class="modal-label">Commission Agent (Tick , If AJAX to be Invoiced to Customer-Commission Claim by Dealer)</label>
                     <asp:CheckBox ID="cbCommissionAgent" runat="server" />
