@@ -253,9 +253,9 @@ namespace Properties
     }
     
     [Serializable]
-    public class PDMS_CustomerChangeForApproval
+    public class P_CustomerGSTApproval
     {
-        public long CustomerChangeForApprovalID { get; set; }
+        public long CustomerGSTApprovalID { get; set; }
         public int CustomerID { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
@@ -265,6 +265,7 @@ namespace Properties
         public Boolean? IsApproved { get; set; }
         public PUser ApprovedBy { get; set; }
         public DateTime? ApprovedOn { get; set; }
+        public string ApproverRemark { get; set; }
         public int? SendSAP { get; set; }
         public int? Success { get; set; }
         public PUser CreatedBy { get; set; }

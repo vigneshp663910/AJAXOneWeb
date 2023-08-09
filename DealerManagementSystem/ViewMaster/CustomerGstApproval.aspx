@@ -11,6 +11,22 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">From</label>
+                            <asp:TextBox ID="txtFrom" runat="server" CssClass="TextBox form-control" TextMode="Date"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">To</label>
+                            <asp:TextBox ID="txtTo" runat="server" CssClass="TextBox form-control" TextMode="Date"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Status</label>
+                            <asp:DropDownList ID="ddlIsApproved" runat="server" CssClass="form-control">
+                                <asp:ListItem Value="0">All</asp:ListItem>
+                                <asp:ListItem Value="1">Approved</asp:ListItem>
+                                <asp:ListItem Value="2">Rejected</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Customer Code</label>
                             <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
@@ -30,7 +46,7 @@
                                     <div style="float: left">
                                         <table>
                                             <tr>
-                                                <td>Customer Change Approval(s):</td>
+                                                <td>Customer GST Approval(s):</td>
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
@@ -42,8 +58,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <asp:GridView ID="gvCustomerChangeForApproval" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvCustomerChangeForApproval_PageIndexChanging">
+                            <asp:GridView ID="gvCustomerGSTApproval" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                                EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvCustomerGSTApproval_PageIndexChanging">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -68,7 +84,7 @@
                                     <asp:BoundField HeaderText="Success" DataField="Success"></asp:BoundField>
                                     <asp:TemplateField>
                                         <ItemTemplate>
-                                            <asp:Button ID="btnView" runat="server" Text="View" CssClass="btn Back" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "CustomerChangeForApprovalID")%>' OnClick="btnView_Click" Width="75px" Height="25px" />
+                                            <asp:Button ID="btnView" runat="server" Text="View" CssClass="btn Back" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "CustomerGSTApprovalID")%>' OnClick="btnView_Click" Width="75px" Height="25px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -95,13 +111,15 @@
                         <div class="dropdown btnactions" id="customerAction">
                             <div class="btn Approval">Actions</div>
                             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                                <asp:LinkButton ID="lbApproveCustomerGST" runat="server" OnClick="lbActions_Click">Approve</asp:LinkButton>
+                                <asp:LinkButton ID="lbRejectCustomerGST" runat="server" OnClick="lbActions_Click">Reject</asp:LinkButton>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12 field-margin-top">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Customer Change For Approval</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">Customer GST Approval</legend>
                         <div class="col-md-12 View">
                             <div class="col-md-4">
                                 <div class="col-md-12">
@@ -111,11 +129,11 @@
                                 <div class="col-md-12">
                                     <label>Unregistered : </label>
                                     <asp:Label ID="lblUnregistered" runat="server" CssClass="label"></asp:Label>
-                                </div>                                
+                                </div>
                                 <div class="col-md-12">
                                     <label>IsApproved : </label>
                                     <asp:Label ID="lblIsApproved" runat="server" CssClass="label"></asp:Label>
-                                </div>                                
+                                </div>
                                 <div class="col-md-12">
                                     <label>CreatedBy : </label>
                                     <asp:Label ID="lblCreatedBy" runat="server" CssClass="label"></asp:Label>
@@ -157,6 +175,35 @@
                     </fieldset>
                 </div>
             </div>
+        </div>
+
+        <asp:Panel ID="pnlApproveCustomerGST" runat="server" CssClass="Popup" Style="display: none">
+            <div class="PopupHeader clearfix">
+                <span id="PopupDialogue">Approve Customer GST</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                    <asp:Button ID="Button10" runat="server" Text="X" CssClass="PopupClose" />
+                </a>
+            </div>
+            <div class="col-md-12">
+                <div class="model-scroll">
+                    <asp:Label ID="lblMessageApproveCustomerGST" runat="server" Text="" CssClass="message" Visible="false" />
+                    <fieldset class="fieldset-border" id="fldCountry" runat="server">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">Approve Customer GST</legend>
+                        <div class="col-md-12">
+                            <div class="col-md-12 col-sm-12">
+                                <label>Approver Remarks</label>
+                                <asp:TextBox ID="txtApproverRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnApproveCustomerGST" runat="server" Text="Approve" CssClass="btn Save" OnClick="btnApproveCustomerGST_Click" />
+                </div>
+            </div>
+        </asp:Panel>
+        <ajaxToolkit:ModalPopupExtender ID="MPE_ApproveCustomerGST" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlApproveCustomerGST" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+        <div style="display: none">
+            <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
         </div>
     </div>
 </asp:Content>

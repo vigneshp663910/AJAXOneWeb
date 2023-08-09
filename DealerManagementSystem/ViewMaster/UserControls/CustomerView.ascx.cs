@@ -11,6 +11,7 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -19,7 +20,7 @@ using System.Web.UI.WebControls;
 namespace DealerManagementSystem.ViewMaster.UserControls
 {
     public partial class CustomerView : System.Web.UI.UserControl
-    { 
+    {
         //public long CustomerID
         //{
         //    get
@@ -42,7 +43,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 if (ViewState["CustomerView"] == null)
                 {
-                    ViewState["CustomerView"] =  new PDMS_Customer();
+                    ViewState["CustomerView"] = new PDMS_Customer();
                 }
                 return (PDMS_Customer)ViewState["CustomerView"];
             }
@@ -76,10 +77,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         public void fillCustomer(long CustomerID)
         {
             // this.CustomerID = CustomerID; ;
-          //  ViewState["CustomerID"] = CustomerID;
+            //  ViewState["CustomerID"] = CustomerID;
             Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
             lblCustomer.Text = Customer.CustomerFullName;
-             lblContactPerson.Text = Customer.ContactPerson;
+            lblContactPerson.Text = Customer.ContactPerson;
             lblMobile.Text = "<a href='tel:" + Customer.Mobile + "'>" + Customer.Mobile + "</a>";
             lblAlternativeMobile.Text = "<a href='tel:" + Customer.AlternativeMobile + "'>" + Customer.AlternativeMobile + "</a>";
             lblEmail.Text = "<a href='mailto:" + Customer.Email + "'>" + Customer.Email + "</a>";
@@ -87,7 +88,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblPAN.Text = Customer.PAN;
 
             string Address = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
-            
+
             lblAddress1.Text = Customer.Address1;
             lblAddress2.Text = Customer.Address2;
             lblAddress3.Text = Customer.Address3;
@@ -104,7 +105,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             cbBillingBlock.Checked = Customer.BillingBlock;
 
             lbtnVerifiedCustomer.Visible = true;
-            if(Customer.IsVerified)
+            if (Customer.IsVerified)
             {
                 lbtnVerifiedCustomer.Visible = false;
             }
@@ -151,7 +152,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 else if (lbActions.Text == "Add Customer Team")
                 {
-                     
+
                     new DDLBind(ddlCustomerEmployeeDesignation, new BDMS_Customer().GetCustomerEmployeeDesignation(null, null), "Designation", "DesignationID");
                     new DDLBind(ddlRelation, new BDMS_Master().GetRelation(null, null), "Relation", "RelationID");
                     MPE_Relation.Show();
@@ -169,7 +170,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 else if (lbActions.Text == "Verified Customer")
                 {
-                    
+
                     Panel pnlVerification = (Panel)UC_CustomerVerification.FindControl("pnlVerification");
                     pnlVerification.Visible = true;
 
@@ -228,7 +229,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 else if (lbActions.Text == "Sync to Sap")
                 {
 
-                    if(!Customer.IsVerified)
+                    if (!Customer.IsVerified)
                     {
                         lblMessage.Text = "Please Verify Customer then Sync to Sap";
                         lblMessage.Visible = true;
@@ -364,18 +365,22 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     lblMessage.ForeColor = Color.Green;
                 }
                 else if (lbActions.Text == "Add Lead Ajax")
-                { 
-                    List<PLeadQualification> Qualification = new BLead().GetLeadQualification(null, null); 
+                {
+                    List<PLeadQualification> Qualification = new BLead().GetLeadQualification(null, null);
                     List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
-                    new DDLBind(ddlSource, Source, "Source", "SourceID"); 
+                    new DDLBind(ddlSource, Source, "Source", "SourceID");
                     List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
-                    new DDLBind(ddlProductTypeLead, ProductType, "ProductType", "ProductTypeID"); 
+                    new DDLBind(ddlProductTypeLead, ProductType, "ProductType", "ProductTypeID");
                     new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID");
                     new DDLBind(ddlProject, new BProject().GetProject(null, null, null, null, null, null, null), "ProjectName_state", "ProjectID");
                     MPE_LeadAjax.Show();
                 }
+                else if (lbActions.Text == "Update GST")
+                {
+                    MPE_UpdateGst.Show();
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
                 lblMessage.Visible = true;
@@ -384,15 +389,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         public void fillLead()
         {
-            PLeadSearch S = new PLeadSearch(); 
-            S.CustomerID = Customer.CustomerID; 
+            PLeadSearch S = new PLeadSearch();
+            S.CustomerID = Customer.CustomerID;
             List<PLead> Leads = new BLead().GetLead(S);
             gvLead.DataSource = Leads;
-            gvLead.DataBind(); 
+            gvLead.DataBind();
         }
         public void fillVisit()
-        {  
-            gvColdVisit.DataSource = new BColdVisit().GetColdVisit(null, null, null, null, Customer.CustomerID, null, null, null, null, null, null,null,null,null, null);
+        {
+            gvColdVisit.DataSource = new BColdVisit().GetColdVisit(null, null, null, null, Customer.CustomerID, null, null, null, null, null, null, null, null, null, null);
             gvColdVisit.DataBind();
         }
 
@@ -413,7 +418,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 Label lblAttributeSubID = (Label)gvAttribute.Rows[i].FindControl("lblAttributeSubID");
                 if (ddlAttributeSub.SelectedValue == lblAttributeSubID.Text)
                 {
-                    lblMessageAttribute.Text = "Already "+ ddlAttributeSub.SelectedItem.Text + " added";
+                    lblMessageAttribute.Text = "Already " + ddlAttributeSub.SelectedItem.Text + " added";
                     return;
                 }
             }
@@ -483,8 +488,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 lblMessageProduct.Text = Results.Message;
                 return;
-            } 
-             
+            }
+
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
@@ -519,7 +524,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.DOB = string.IsNullOrEmpty(txtBirthDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtBirthDate.Text.Trim());
             Relation.DOAnniversary = string.IsNullOrEmpty(txtAnniversaryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAnniversaryDate.Text.Trim());
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation));
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Relation", Relation));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageRelation.Text = Results.Message;
@@ -554,7 +559,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.CustomerID = Customer.CustomerID;
             Relation.Employee = new PDMS_DealerEmployee() { DealerEmployeeID = Convert.ToInt32(ddlEmployee.SelectedValue) };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation));
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageResponsible.Text = Results.Message;
@@ -564,7 +569,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
 
-            ddlEmployee.Items.Clear(); 
+            ddlEmployee.Items.Clear();
             tbpCust.ActiveTabIndex = 3;
             MPE_ResponsibleEmp.Hide();
             fillResponsible();
@@ -581,7 +586,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 return;
             }
 
-            for(int i=0; i<gvFleet.Rows.Count;i++)
+            for (int i = 0; i < gvFleet.Rows.Count; i++)
             {
                 Label lblCustomerID = (Label)gvFleet.Rows[i].FindControl("lblCustomerID");
                 //if(txtFleetID.Text == lblCustomerID.Text)
@@ -606,7 +611,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             // Fleet.Fleet =new PDMS_Customer() { CustomerID = Convert.ToInt64(txtFleetID.Text) };
             Fleet.Fleet = new PDMS_Customer() { CustomerID = Convert.ToInt64(hdfCustomerID.Value) };
             Fleet.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-            PApiResult Results =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet));
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/Fleet", Fleet));
             if (Results.Status == PApplication.Failure)
             {
                 lblMessageFleet.Text = Results.Message;
@@ -622,7 +627,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             fillFleet();
         }
-         
+
         void fillAttribute()
         {
             gvAttribute.DataSource = new BDMS_Customer().GetCustomerAttribute(Customer.CustomerID, null);
@@ -639,8 +644,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             gvRelation.DataBind();
         }
         void fillResponsible()
-        { 
-            gvEmployee.DataSource = new BDMS_Customer().GetCustomerResponsibleEmployee( null, Customer.CustomerID);
+        {
+            gvEmployee.DataSource = new BDMS_Customer().GetCustomerResponsibleEmployee(null, Customer.CustomerID);
             gvEmployee.DataBind();
         }
         void fillFleet()
@@ -653,7 +658,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             gvSupportDocument.DataSource = new BDMS_Customer().GetAttachedFileCustomer(Customer.CustomerID);
             gvSupportDocument.DataBind();
         }
-          
+
         protected void btnUpdateCustomer_Click(object sender, EventArgs e)
         {
             string Message = UC_Customer.ValidationCustomer();
@@ -666,12 +671,12 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 return;
             }
             PDMS_Customer_Insert CustomerU = UC_Customer.ReadCustomer();
-            CustomerU.CustomerID = Customer.CustomerID;  
+            CustomerU.CustomerID = Customer.CustomerID;
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer", CustomerU));
 
             if (Result.Status == PApplication.Failure)
             {
-                lblMessageCustomerEdit.Text = Result.Message; 
+                lblMessageCustomerEdit.Text = Result.Message;
                 return;
             }
             lblMessage.Text = Result.Message;
@@ -679,19 +684,19 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblMessage.ForeColor = Color.Green;
             MPE_Customer.Hide();
             fillCustomer(Customer.CustomerID);
-        } 
-         
+        }
+
         protected void lbMarketSegmentDelete_Click(object sender, EventArgs e)
         {
-            
+
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblCustomerAttributeID = (Label)gvRow.FindControl("lblCustomerAttributeID");
             PCustomerAttribute Attribute = new PCustomerAttribute();
             Attribute.CustomerAttributeID = Convert.ToInt64(lblCustomerAttributeID.Text);
-            Attribute.CustomerID = Customer.CustomerID;  
-             
+            Attribute.CustomerID = Customer.CustomerID;
+
             Attribute.AttributeMain = new PCustomerAttributeMain() { AttributeMainID = 0 };
-            Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = 0};
+            Attribute.AttributeSub = new PCustomerAttributeSub() { AttributeSubID = 0 };
             Attribute.Remark = txtRemark.Text.Trim();
             Attribute.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
@@ -705,7 +710,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
-            lblMessage.Text = Result.Message; 
+            lblMessage.Text = Result.Message;
             lblMessage.ForeColor = Color.Green;
 
             fillAttribute();
@@ -740,7 +745,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
 
         protected void lbRelationDelete_Click(object sender, EventArgs e)
-        { 
+        {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblCustomerRelationID = (Label)gvRow.FindControl("lblCustomerRelationID");
             PCustomerRelation Relation = new PCustomerRelation();
@@ -770,9 +775,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Relation.CustomerID = Customer.CustomerID;
             Relation.Employee = new PDMS_DealerEmployee() { DealerEmployeeID = 0 };
             Relation.CreatedBy = new PUser() { UserID = PSession.User.UserID };
-           // PApiResult s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation)).Data);
+            // PApiResult s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation)).Data);
 
-            PApiResult Result =  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation));
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/ResponsibleEmployee", Relation));
 
             lblMessage.Visible = true;
             if (Result.Status == PApplication.Failure)
@@ -789,7 +794,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected void lbFleetDelete_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblCustomerFleetID = (Label)gvRow.FindControl("lblCustomerFleetID"); 
+            Label lblCustomerFleetID = (Label)gvRow.FindControl("lblCustomerFleetID");
             PCustomerFleet Fleet = new PCustomerFleet();
             Fleet.CustomerFleetID = Convert.ToInt64(lblCustomerFleetID.Text);
             Fleet.CustomerID = Customer.CustomerID;
@@ -807,10 +812,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblMessage.ForeColor = Color.Green;
             fillFleet();
         }
-         
+
         protected void ddlAttributeMain_SelectedIndexChanged(object sender, EventArgs e)
-        { 
-            new DDLBind(ddlAttributeSub, new BDMS_Customer().GetCustomerAttributeSub(null,Convert.ToInt32(ddlAttributeMain.SelectedValue), null), "AttributeSub", "AttributeSubID");
+        {
+            new DDLBind(ddlAttributeSub, new BDMS_Customer().GetCustomerAttributeSub(null, Convert.ToInt32(ddlAttributeMain.SelectedValue), null), "AttributeSub", "AttributeSubID");
             MPE_Attribute.Show();
         }
 
@@ -850,7 +855,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 Message = Message + "<br/>Please select the Make";
                 ddlMake.BorderColor = Color.Red;
-            } 
+            }
             else if (ddlProductType.SelectedValue == "0")
             {
                 Message = Message + "<br/>Please select the Product Type";
@@ -877,27 +882,27 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             long longCheck;
             string Message = "";
-            txtPersonName.BorderColor = Color.Silver; 
+            txtPersonName.BorderColor = Color.Silver;
             txtMobile.BorderColor = Color.Silver;
-          
+
             if (string.IsNullOrEmpty(txtPersonName.Text.Trim()))
             {
-                
+
                 txtPersonName.BorderColor = Color.Red;
                 return "Please enter the Person Name";
-            } 
-              if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
-            { 
+            }
+            if (string.IsNullOrEmpty(txtMobile.Text.Trim()))
+            {
                 txtMobile.BorderColor = Color.Red;
                 return "Please enter the Mobile";
             }
-              if (txtMobile.Text.Trim().Length != 10)
-            { 
+            if (txtMobile.Text.Trim().Length != 10)
+            {
                 txtMobile.BorderColor = Color.Red;
                 return "Mobile Length should be 10 digit";
             }
-              if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
-            { 
+            if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+            {
                 txtMobile.BorderColor = Color.Red;
                 return "Mobile should be 10 digit";
             }
@@ -910,19 +915,19 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             return Message;
         }
         public string ValidationEmployee()
-        { 
+        {
             string Message = "";
-            ddlEmployee.BorderColor = Color.Silver; 
+            ddlEmployee.BorderColor = Color.Silver;
             if ((ddlEmployee.SelectedValue == "0") || (ddlEmployee.SelectedValue == ""))
             {
                 Message = Message + "<br/>Please select the Employee";
                 ddlEmployee.BorderColor = Color.Red;
             }
-            
+
             return Message;
         }
         public string ValidationFleet()
-        { 
+        {
             string Message = "";
             txtFleet.BorderColor = Color.Silver;
 
@@ -938,11 +943,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //}
             return Message;
         }
-       
+
 
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlEmployee, new BDMS_Dealer().GetDealerEmployeeByDealerID(Convert.ToInt32(ddlDealer.SelectedValue),null,null,"",""), "Name", "DealerEmployeeID");
+            new DDLBind(ddlEmployee, new BDMS_Dealer().GetDealerEmployeeByDealerID(Convert.ToInt32(ddlDealer.SelectedValue), null, null, "", ""), "Name", "DealerEmployeeID");
             MPE_ResponsibleEmp.Show();
         }
 
@@ -956,24 +961,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 return;
             }
             byte[] buffer = new byte[100];
-            Stream stream = new MemoryStream(buffer); 
+            Stream stream = new MemoryStream(buffer);
             HttpPostedFile file = fileUpload.PostedFile;
-            PAttachedFile F = new PAttachedFile();           
+            PAttachedFile F = new PAttachedFile();
             int size = file.ContentLength;
             string name = file.FileName;
             int position = name.LastIndexOf("\\");
             name = name.Substring(position + 1);
 
             byte[] fileData = new byte[size];
-            file.InputStream.Read(fileData, 0, size); 
+            file.InputStream.Read(fileData, 0, size);
 
             F.FileName = name;
             F.AttachedFile = fileData;
-            F.FileType = file.ContentType;             
+            F.FileType = file.ContentType;
             F.FileSize = size;
             F.AttachedFileID = 0;
             F.ReferenceID = Customer.CustomerID;
-            F.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
+            F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
 
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/AttachedFile", F)).Data);
             if (Convert.ToBoolean(s) == true)
@@ -987,7 +992,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.Text = "Something went wrong try again.";
                 lblMessage.ForeColor = Color.Red;
             }
-            lblMessage.Visible = true; 
+            lblMessage.Visible = true;
         }
 
         protected void lbSupportDocumentDownload_Click(object sender, EventArgs e)
@@ -1001,7 +1006,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 GridViewRow gvRow = (GridViewRow)lnkDownload.NamingContainer;
 
                 Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
-                long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text); 
+                long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
                 Label lblFileName = (Label)gvRow.FindControl("lblFileName");
                 Label lblFileType = (Label)gvRow.FindControl("lblFileType");
 
@@ -1033,7 +1038,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             PAttachedFile F = new PAttachedFile();
             F.AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
             F.ReferenceID = Customer.CustomerID;
-            F.CreatedBy = new PUser() { UserID = PSession.User.UserID }; 
+            F.CreatedBy = new PUser() { UserID = PSession.User.UserID };
             string s = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/AttachedFile", F)).Data);
             lblMessage.Visible = true;
             if (Convert.ToBoolean(s) == true)
@@ -1046,7 +1051,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 lblMessage.Text = "Something went wrong try again.";
                 lblMessage.ForeColor = Color.Red;
-            } 
+            }
         }
 
         void ActionControlMange()
@@ -1064,14 +1069,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lbtnSyncToSap.Visible = true;
             lbtnSyncToParts.Visible = true;
             lbtnAddLeadAjax.Visible = true;
+            lbtnUpdateGst.Visible = true;
 
             if (Customer.IsVerified)
             {
                 lbtnVerifiedCustomer.Visible = false;
             }
-            if(Customer.IsActive)
+            if (Customer.IsActive)
             {
-               
+
             }
             else
             {
@@ -1103,12 +1109,16 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 lbtnAddLeadAjax.Visible = false;
             }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerGstChange).Count() == 0)
+            {
+                lbtnUpdateGst.Visible = false;
+            }
         }
 
         protected void FillProduct(object sender, EventArgs e)
         {
             MPE_Product.Show();
-             
+
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, Convert.ToInt32(ddlMake.SelectedValue), Convert.ToInt32(ddlProductType.SelectedValue), null), "Product", "ProductID");
         }
 
@@ -1134,24 +1144,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             lblMessage.Text = Results.Message;
             lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Green; 
+            lblMessage.ForeColor = Color.Green;
             fillShipTo();
             FillClean();
             MPE_ShipTo.Hide();
         }
-        public string ValidationShipTo() 
+        public string ValidationShipTo()
         {
-            long longCheck; 
-            string Message = ""; 
+            long longCheck;
+            string Message = "";
             txtContactPerson.BorderColor = Color.Silver;
-            txtMobileShipTo.BorderColor = Color.Silver; 
+            txtMobileShipTo.BorderColor = Color.Silver;
             txtAddress1.BorderColor = Color.Silver;
             txtPincode.BorderColor = Color.Silver;
 
             ddlCountry.BorderColor = Color.Silver;
             ddlState.BorderColor = Color.Silver;
             ddlDistrict.BorderColor = Color.Silver;
-              
+
             if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Contact Person";
@@ -1171,12 +1181,12 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 Message = Message + "<br/>Mobile should be 10 digit";
                 txtMobileShipTo.BorderColor = Color.Red;
-            } 
+            }
             else if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Address1";
                 txtAddress1.BorderColor = Color.Red;
-            } 
+            }
             else if (ddlCountry.SelectedValue == "0")
             {
                 Message = Message + "<br/>Please select the Country";
@@ -1206,31 +1216,31 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         void fillShipTo()
         {
-            gvShipTo.DataSource = new BDMS_Customer().GetCustomerShopTo(null,Customer.CustomerID);
+            gvShipTo.DataSource = new BDMS_Customer().GetCustomerShopTo(null, Customer.CustomerID);
             gvShipTo.DataBind();
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             MPE_ShipTo.Show();
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
-            
-        } 
+
+        }
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
             MPE_ShipTo.Show();
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
-         } 
+        }
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlCountry.SelectedValue == "1") { txtPincode.MaxLength = 6; } else { txtPincode.MaxLength = 10; }
             MPE_ShipTo.Show();
-            List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null); 
+            List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
             new DDLBind(ddlTehsil, Tehsil, "Tehsil", "TehsilID");
         }
 
         public PDMS_CustomerShipTo ReadShipTo()
         {
-            PDMS_CustomerShipTo ShipTo = new PDMS_CustomerShipTo(); 
+            PDMS_CustomerShipTo ShipTo = new PDMS_CustomerShipTo();
             ShipTo.CustomerID = Customer.CustomerID;
             ShipTo.ContactPerson = txtContactPerson.Text.Trim();
             ShipTo.Mobile = txtMobileShipTo.Text.Trim();
@@ -1252,9 +1262,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             return ShipTo;
         }
         public void FillCustomerShipToEdit(PDMS_CustomerShipTo Customer)
-        {  
+        {
             txtContactPerson.Text = Customer.ContactPerson;
-            txtMobileShipTo.Text = Customer.Mobile; 
+            txtMobileShipTo.Text = Customer.Mobile;
             txtEmail.Text = Customer.Email;
             txtAddress1.Text = Customer.Address1;
             txtAddress2.Text = Customer.Address2;
@@ -1267,7 +1277,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             ddlState.SelectedValue = Convert.ToString(Customer.State.StateID);
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
-            
+
 
             ddlDistrict.SelectedValue = Convert.ToString(Customer.District.DistrictID);
             List<PDMS_Tehsil> Tehsil = new BDMS_Address().GetTehsil(null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
@@ -1275,13 +1285,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             if (Customer.Tehsil != null)
             {
                 ddlTehsil.SelectedValue = Convert.ToString(Customer.Tehsil.TehsilID);
-            } 
+            }
         }
         public void FillClean()
         {
-            
+
             txtContactPerson.Text = "";
-            txtMobile.Text = ""; 
+            txtMobile.Text = "";
             txtEmail.Text = "";
             txtAddress1.Text = "";
             txtAddress2.Text = "";
@@ -1305,9 +1315,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
             PLead_Insert Lead = new PLead_Insert();
             Lead.Customer = new PDMS_Customer_Insert() { CustomerID = Customer.CustomerID };
-            Lead.ProductTypeID = Convert.ToInt32(ddlProductTypeLead.SelectedValue); 
+            Lead.ProductTypeID = Convert.ToInt32(ddlProductTypeLead.SelectedValue);
             Lead.SourceID = ddlSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSource.SelectedValue);
-            Lead.ProjectID = ddlProject.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProject.SelectedValue); 
+            Lead.ProjectID = ddlProject.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProject.SelectedValue);
             Lead.ExpectedDateOfSale = Convert.ToDateTime(txtExpectedDateOfSale.Text.Trim());
             Lead.MainApplicationID = ddlApplication.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlApplication.SelectedValue);
             Lead.CustomerFeedback = txtCustomerFeedback.Text.Trim();
@@ -1326,7 +1336,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblMessage.ForeColor = Color.Green;
             fillLead();
             ClearLeadAjaxSave();
-            MPE_LeadAjax.Hide(); 
+            MPE_LeadAjax.Hide();
         }
         public string ValidationLeadAjax()
         {
@@ -1339,7 +1349,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //ddlSource.BorderColor = Color.Silver;
             //ddlLeadType.BorderColor = Color.Silver;
             //txtRemarks.BorderColor = Color.Silver;
-            
+
             if (ddlProductTypeLead.SelectedValue == "0")
             {
                 ddlProductTypeLead.BorderColor = Color.Red;
@@ -1393,14 +1403,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         void ClearLeadAjaxSave()
         {
-            txtExpectedDateOfSale.Text = ""; 
+            txtExpectedDateOfSale.Text = "";
             txtCustomerFeedback.Text = "";
             txtRemarks.Text = "";
         }
         void GetEquipmentHeader()
         {
             try
-            { 
+            {
                 TraceLogger.Log(DateTime.Now);
                 int RowCount = 0;
                 if (!string.IsNullOrEmpty(Customer.CustomerCode))
@@ -1417,7 +1427,82 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 throw e1;
             }
         }
-    
-    
+
+        protected void btnUpdateGst_Click(object sender, EventArgs e)
+        {
+            lblMessageUpdateGst.Text = "";
+            lblMessageUpdateGst.Visible = true;
+            lblMessageUpdateGst.ForeColor = Color.Red;
+            lblMessage.Text = "";
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red;
+
+            if (string.IsNullOrEmpty(txtGSTIN.Text))
+            {
+                lblMessageUpdateGst.Text = "Please Enter GST...!";
+                MPE_UpdateGst.Show();
+                return;
+            }
+            if (txtGSTIN.Text != "URD")
+            {
+                if (string.IsNullOrEmpty(txtPAN.Text))
+                {
+                    lblMessageUpdateGst.Text = "Please Enter PAN...!";
+                    MPE_UpdateGst.Show();
+                    return;
+                }
+            }
+            if (txtGSTIN.Text != "URD")
+            {
+                if (!isValidGSTNo(txtGSTIN.Text))
+                {
+                    lblMessageUpdateGst.Text = "Incorrect GST...!";
+                    MPE_UpdateGst.Show();
+                    return;
+                }
+            }
+            if (txtPAN.Text != "URD" && txtGSTIN.Text != "URD")
+            {
+                if (!isValidPanCardNo(txtPAN.Text))
+                {
+                    lblMessageUpdateGst.Text = "Incorrect PAN...!";
+                    MPE_UpdateGst.Show();
+                    return;
+                }
+            }
+            P_CustomerGSTApproval Gst = new P_CustomerGSTApproval();
+            Gst.CustomerID = Convert.ToInt32(Customer.CustomerID);
+            Gst.CustomerName = Customer.CustomerFullName;
+            Gst.GSTIN = txtGSTIN.Text.Trim();
+            Gst.PAN = txtPAN.Text.Trim();
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Customer/InsertCustomerGstApproval", Gst));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageUpdateGst.Text = Results.Message;
+                MPE_UpdateGst.Show();
+                return;
+            }
+            lblMessage.Text = Results.Message;
+            lblMessage.ForeColor = Color.Green;
+            fillCustomer(Customer.CustomerID);
+        }
+        public bool isValidGSTNo(string str)
+        {
+            string strRegex = @"^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$";
+            Regex re = new Regex(strRegex);
+            if (re.IsMatch(str))
+                return (true);
+            else
+                return (false);
+        }
+        public bool isValidPanCardNo(string str)
+        {
+            string strRegex = @"[A-Z]{5}[0-9]{4}[A-Z]{1}$";
+            Regex re = new Regex(strRegex);
+            if (re.IsMatch(str))
+                return (true);
+            else
+                return (false);
+        }
     }
 }

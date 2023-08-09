@@ -483,7 +483,8 @@ namespace Properties
         ViewService_ICTicketMarginWarrantyReport = 238,
         ViewService_ICTicketMarginWarrantyApproval = 239,
         ViewEquipment_EquipmentClient = 240,
-        ViewSupportTicket_DeviationProcessReport = 241
+        ViewSupportTicket_DeviationProcessReport = 241,
+        ViewMaster_CustomerGSTApproval = 243,
     }
     public enum SubModuleChildMaster
     {
@@ -560,6 +561,7 @@ namespace Properties
         MarginWarrantyApproval,
         EquipmentClientUpdate = 72,
         EquipmentClientAddEditDelete,
+        CustomerGstChange = 74,
     }
     public enum DMS_WarrantyClaimStatus
     {
