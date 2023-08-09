@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="CustomerGstApproval.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.CustomerGstApproval" %>
 
+<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -100,83 +102,93 @@
             </div>
         </div>
         <div class="col-md-12" id="divView" runat="server" visible="false">
-            <div class="" id="boxHere"></div>
-            <div class="back-buttton" id="backBtn">
-                <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
-            </div>
             <div class="col-md-12">
+                <div class="" id="boxHere"></div>
+                <div class="back-buttton" id="backBtn">
+                    <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+                </div>
                 <div class="col-md-12">
-                    <div class="action-btn">
-                        <div class="" id="boxHere"></div>
-                        <div class="dropdown btnactions" id="customerAction">
-                            <div class="btn Approval">Actions</div>
-                            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                                <asp:LinkButton ID="lbApproveCustomerGST" runat="server" OnClick="lbActions_Click">Approve</asp:LinkButton>
-                                <asp:LinkButton ID="lbRejectCustomerGST" runat="server" OnClick="lbActions_Click">Reject</asp:LinkButton>
+                    <div class="col-md-12">
+                        <div class="action-btn">
+                            <div class="" id="boxHere"></div>
+                            <div class="dropdown btnactions" id="customerAction">
+                                <div class="btn Approval">Actions</div>
+                                <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                                    <asp:LinkButton ID="lbApproveCustomerGST" runat="server" OnClick="lbActions_Click">Approve</asp:LinkButton>
+                                    <asp:LinkButton ID="lbRejectCustomerGST" runat="server" OnClick="lbActions_Click">Reject</asp:LinkButton>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12 field-margin-top">
-                    <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Customer GST Approval</legend>
-                        <div class="col-md-12 View">
-                            <div class="col-md-4">
-                                <div class="col-md-12">
-                                    <label>Customer Name : </label>
-                                    <asp:Label ID="lblCustomerName" runat="server" CssClass="label"></asp:Label>
+                    <div class="col-md-12 field-margin-top">
+                        <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Customer GST Approval</legend>
+                            <div class="col-md-12 View">
+                                <div class="col-md-4">
+                                    <div class="col-md-12">
+                                        <label>Customer Name : </label>
+                                        <asp:Label ID="lblCustomerName" runat="server" CssClass="label"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Unregistered : </label>
+                                        <asp:Label ID="lblUnregistered" runat="server" CssClass="label"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>IsApproved : </label>
+                                        <asp:Label ID="lblIsApproved" runat="server" CssClass="label"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>CreatedBy : </label>
+                                        <asp:Label ID="lblCreatedBy" runat="server" CssClass="label"></asp:Label>
+                                    </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <label>Unregistered : </label>
-                                    <asp:Label ID="lblUnregistered" runat="server" CssClass="label"></asp:Label>
+                                <div class="col-md-4">
+                                    <div class="col-md-12">
+                                        <label>SendSAP : </label>
+                                        <asp:Label ID="lblSendSAP" runat="server" CssClass="label"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>GSTIN : </label>
+                                        <asp:Label ID="lblGSTIN" runat="server" CssClass="label"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>ApprovedBy : </label>
+                                        <asp:Label ID="lblApprovedBy" runat="server" CssClass="label"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>CreatedOn : </label>
+                                        <asp:Label ID="lblCreatedOn" runat="server" CssClass="label"></asp:Label>
+                                    </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <label>IsApproved : </label>
-                                    <asp:Label ID="lblIsApproved" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>CreatedBy : </label>
-                                    <asp:Label ID="lblCreatedBy" runat="server" CssClass="label"></asp:Label>
+                                <div class="col-md-4">
+                                    <div class="col-md-12">
+                                        <label>Success : </label>
+                                        <asp:Label ID="lblSuccess" runat="server" CssClass="label"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>PAN : </label>
+                                        <asp:Label ID="lblPAN" runat="server" CssClass="label"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>ApprovedOn : </label>
+                                        <asp:Label ID="lblApprovedOn" runat="server" CssClass="label"></asp:Label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="col-md-12">
-                                    <label>SendSAP : </label>
-                                    <asp:Label ID="lblSendSAP" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>GSTIN : </label>
-                                    <asp:Label ID="lblGSTIN" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>ApprovedBy : </label>
-                                    <asp:Label ID="lblApprovedBy" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>CreatedOn : </label>
-                                    <asp:Label ID="lblCreatedOn" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="col-md-12">
-                                    <label>Success : </label>
-                                    <asp:Label ID="lblSuccess" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>PAN : </label>
-                                    <asp:Label ID="lblPAN" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>ApprovedOn : </label>
-                                    <asp:Label ID="lblApprovedOn" runat="server" CssClass="label"></asp:Label>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
+                        </fieldset>
+                    </div>
                 </div>
             </div>
+            <asp1:tabcontainer id="tbpContainer" runat="server" font-bold="True" font-size="Medium" activetabindex="0">
+                <asp1:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
+                    <contenttemplate>
+                        <div class="col-md-12 field-margin-top">
+                            <UC:UC_CustomerView ID="UC_CustomerView" runat="server"></UC:UC_CustomerView>
+                        </div>
+                    </contenttemplate>
+                </asp1:TabPanel>
+            </asp1:tabcontainer>
         </div>
-
         <asp:Panel ID="pnlApproveCustomerGST" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">
                 <span id="PopupDialogue">Approve Customer GST</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">

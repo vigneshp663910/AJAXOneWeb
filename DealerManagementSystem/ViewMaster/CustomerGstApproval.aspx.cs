@@ -220,6 +220,8 @@ namespace DealerManagementSystem.ViewMaster
                 lblCreatedBy.Text = (CustomerGSTApprovalByID.CreatedBy == null) ? "" : CustomerGSTApprovalByID.CreatedBy.ContactName;
                 lblCreatedOn.Text = CustomerGSTApprovalByID.CreatedOn.ToString();
             }
+            PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(CustomerGSTApprovalByID.CustomerID);
+            UC_CustomerView.fillCustomer(Customer);
             ActionControlMange();
         }
         protected void btnBackToList_Click(object sender, EventArgs e)
