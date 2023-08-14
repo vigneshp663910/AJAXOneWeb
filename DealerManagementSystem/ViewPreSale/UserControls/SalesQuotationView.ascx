@@ -104,6 +104,10 @@
                     <label>User Status : </label>
                     <asp:Label ID="lblUserStatus" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                 <div class="col-md-12">
+                    <label>Product : </label>
+                    <asp:Label ID="lblProduct" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <%--  <div class="col-md-4">
                 <label>Total Effort : </label>

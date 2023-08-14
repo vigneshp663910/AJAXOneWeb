@@ -801,9 +801,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
-
-           // lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
-           // lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
+            lblProduct.Text = Quotation.LeadProduct.Product.Product;
+            // lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
+            // lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
             cbCommissionAgent.Checked = Quotation.CommissionAgent;
             fillFinancier();
             fillProduct();
