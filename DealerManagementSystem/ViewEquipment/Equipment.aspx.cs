@@ -91,11 +91,9 @@ namespace DealerManagementSystem.ViewEquipment
                 PageCount = 0;
                 PageIndex = 1;
                 new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
-                txtWarrantyStart.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
-                txtWarrantyEnd.Text = DateTime.Now.ToShortDateString();
-
-                 
-                    fillDealer(); 
+                //txtWarrantyStart.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
+                //txtWarrantyEnd.Text = DateTime.Now.ToShortDateString(); 
+                fillDealer();
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
