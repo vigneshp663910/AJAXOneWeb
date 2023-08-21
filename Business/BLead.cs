@@ -225,5 +225,13 @@ namespace Business
         { 
             return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadFollowUpReport", Lead)).Data));
         }
+        public DataTable GetLeadReportForDefinedPeriod(PLeadSearch Lead)
+        {
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadReportForDefinedPeriod", Lead)).Data));
+        }
+        public DataTable GetLeadReportForDefinedPeriodDetails(PLeadSearch Lead)
+        {
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadReportForDefinedPeriodDetails", Lead)).Data));
+        }
     }
 }

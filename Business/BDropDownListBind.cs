@@ -44,7 +44,7 @@ namespace Business
             } 
         }
 
-        public void FillDealerAndEngneer(DropDownList ddlDealer, DropDownList ddlEngneer)
+        public void FillDealerAndEngneer(DropDownList ddlDealer, DropDownList ddlEngneer,int? DealerDesignationID =null)
         {
             int DesignationID = PSession.User.Designation.DealerDesignationID;
             if ((DesignationID == (short)DealerDesignation.SalesExecutive) || (DesignationID == (short)DealerDesignation.ServiceTechnician))
@@ -62,7 +62,7 @@ namespace Business
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID");
                 if (ddlEngneer != null)
                 {
-                    List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null); 
+                    List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, DealerDesignationID); 
                     new DDLBind(ddlEngneer, DealerUser, "ContactName", "UserID");
                 }
             }

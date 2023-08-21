@@ -483,7 +483,8 @@ namespace Properties
         ViewService_ICTicketMarginWarrantyReport = 238,
         ViewService_ICTicketMarginWarrantyApproval = 239,
         ViewEquipment_EquipmentClient = 240,
-        ViewSupportTicket_DeviationProcessReport = 241
+        ViewSupportTicket_DeviationProcessReport = 241,
+        ViewPreSale_LeadReportForDefinedPeriod = 244
     }
     public enum SubModuleChildMaster
     {

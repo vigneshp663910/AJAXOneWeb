@@ -328,7 +328,6 @@
     <Content Include="Help\Files\Getting Started.pps" />
     <Content Include="DealerDashboard.Master" />
     <None Include="packages.config" />
-    <Content Include="ProcessFlow\SOP\SOP 06 - CUSTOMER COMPLAINT.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="SalesOrderTemp.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -538,6 +537,7 @@
     <Content Include="ViewPreSale\EnquiryTimeLineReport.aspx" />
     <Content Include="ViewPreSale\LeadFoloowUpReport.aspx" />
     <Content Include="ViewPreSale\LeadN.aspx" />
+    <Content Include="ViewPreSale\LeadReportForDefinedPeriod.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\PreSalesReport.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
@@ -1875,6 +1875,13 @@
     <Compile Include="ViewPreSale\LeadN.aspx.designer.cs">
       <DependentUpon>LeadN.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\LeadReportForDefinedPeriod.aspx.cs">
+      <DependentUpon>LeadReportForDefinedPeriod.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadReportForDefinedPeriod.aspx.designer.cs">
+      <DependentUpon>LeadReportForDefinedPeriod.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3053,6 +3060,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ProcessFlow\SOP\" />
     <Folder Include="ViewDealerEmployee\MachineOpPhotos\" />
     <Folder Include="ViewFinance\" />
     <Folder Include="ViewStock\" />
