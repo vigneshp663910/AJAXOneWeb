@@ -4,6 +4,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -51,30 +52,30 @@ namespace DealerManagementSystem.ViewMaster
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
         }
-        public List<P_CustomerGSTApproval> CustomerGSTApprovalReport
+        public List<PCustomerGSTApproval> CustomerGSTApprovalReport
         {
             get
             {
                 if (ViewState["CustomerGSTApproval"] == null)
                 {
-                    ViewState["CustomerGSTApproval"] = new List<P_CustomerGSTApproval>();
+                    ViewState["CustomerGSTApproval"] = new List<PCustomerGSTApproval>();
                 }
-                return (List<P_CustomerGSTApproval>)ViewState["CustomerGSTApproval"];
+                return (List<PCustomerGSTApproval>)ViewState["CustomerGSTApproval"];
             }
             set
             {
                 ViewState["CustomerGSTApproval"] = value;
             }
         }
-        public P_CustomerGSTApproval CustomerGSTApprovalByID
+        public PCustomerGSTApproval CustomerGSTApprovalByID
         {
             get
             {
                 if (ViewState["CustomerGSTApprovalByID"] == null)
                 {
-                    ViewState["CustomerGSTApprovalByID"] = new P_CustomerGSTApproval();
+                    ViewState["CustomerGSTApprovalByID"] = new PCustomerGSTApproval();
                 }
-                return (P_CustomerGSTApproval)ViewState["CustomerGSTApprovalByID"];
+                return (PCustomerGSTApproval)ViewState["CustomerGSTApprovalByID"];
             }
             set
             {
@@ -107,24 +108,25 @@ namespace DealerManagementSystem.ViewMaster
             try
             {
                 string CustomerCode = null;
-                DateTime? From = null, To = null;
+                string From = null, To = null;
                 bool? IsApproved = null;
                 if(ddlIsApproved.SelectedValue!="0")
                 {
-                    IsApproved = (ddlIsApproved.SelectedValue == "1") ? true : false;
+                    IsApproved = (ddlIsApproved.SelectedValue == "1") ? true : (ddlIsApproved.SelectedValue == "2") ? false : (bool?)null;
                 }
                 if (!string.IsNullOrEmpty(txtFrom.Text))
                 {
-                    From = Convert.ToDateTime(txtFrom.Text);
+                    From = Convert.ToDateTime(txtFrom.Text.Trim()).ToString();
                 }
                 if (!string.IsNullOrEmpty(txtTo.Text))
                 {
-                    To = Convert.ToDateTime(txtTo.Text);
+                    To = Convert.ToDateTime(txtTo.Text.Trim()).ToString();
                 }
                 CustomerCode = (string.IsNullOrEmpty(txtCustomerCode.Text)) ? null : txtCustomerCode.Text;
-                
-                PApiResult Result = new BDMS_Customer().GetCustomerGstApproval(CustomerCode, Convert.ToDateTime(From), Convert.ToDateTime(To), IsApproved, PageIndex, gvCustomerGSTApproval.PageSize);
-                CustomerGSTApprovalReport = JsonConvert.DeserializeObject<List<P_CustomerGSTApproval>>(JsonConvert.SerializeObject(Result.Data));
+                //int RowCount = 0;
+                //CustomerGSTApprovalReport = new BDMS_Customer().GetCustomerGstApproval(CustomerCode, Convert.ToDateTime(From), Convert.ToDateTime(To), IsApproved, PageIndex, gvCustomerGSTApproval.PageSize, out RowCount);
+                PApiResult Result = new BDMS_Customer().GetCustomerGstApproval(CustomerCode, From, To, IsApproved, PageIndex, gvCustomerGSTApproval.PageSize);
+                CustomerGSTApprovalReport = JsonConvert.DeserializeObject<List<PCustomerGSTApproval>>(JsonConvert.SerializeObject(Result.Data));
                 int RowCount = Result.RowCount;
                 gvCustomerGSTApproval.DataSource = CustomerGSTApprovalReport;
                 gvCustomerGSTApproval.DataBind();
@@ -162,7 +164,6 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
             }
         }
-
         protected void gvCustomerGSTApproval_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             try
@@ -192,7 +193,6 @@ namespace DealerManagementSystem.ViewMaster
                 FillGrid();
             }
         }
-
         protected void btnView_Click(object sender, EventArgs e)
         {
             Button btnView = (sender as Button);
@@ -204,24 +204,25 @@ namespace DealerManagementSystem.ViewMaster
         void GetCustomerGstApprovalByID(long CustomerGSTApprovalID)
         {
             PApiResult Result = new BDMS_Customer().GetCustomerGstApprovalByID(CustomerGSTApprovalID);
-            CustomerGSTApprovalByID = JsonConvert.DeserializeObject<P_CustomerGSTApproval>(JsonConvert.SerializeObject(Result.Data));
+            CustomerGSTApprovalByID = JsonConvert.DeserializeObject<PCustomerGSTApproval>(JsonConvert.SerializeObject(Result.Data));
 
             if (CustomerGSTApprovalByID != null)
             {
                 lblCustomerName.Text = CustomerGSTApprovalByID.CustomerName;
-                lblSendSAP.Text = CustomerGSTApprovalByID.SendSAP.ToString();
-                lblSuccess.Text = CustomerGSTApprovalByID.Success.ToString();
-                lblUnregistered.Text = (CustomerGSTApprovalByID.Unregistered == true) ? CustomerGSTApprovalByID.Unregistered.ToString() : false.ToString();
+                lblOldGst.Text = CustomerGSTApprovalByID.OldGSTIN.ToString();
+                lblOldPan.Text = CustomerGSTApprovalByID.OldPAN.ToString();
                 lblGSTIN.Text = CustomerGSTApprovalByID.GSTIN;
                 lblPAN.Text = CustomerGSTApprovalByID.PAN;
-                lblIsApproved.Text = (CustomerGSTApprovalByID.IsApproved == true) ? CustomerGSTApprovalByID.IsApproved.ToString() : false.ToString();
+                lblIsApproved.Text = (CustomerGSTApprovalByID.IsApproved == true) ? "Approved" : (CustomerGSTApprovalByID.IsApproved == false) ? "Rejected" : "";
                 lblApprovedBy.Text = (CustomerGSTApprovalByID.ApprovedBy == null) ? "" : CustomerGSTApprovalByID.ApprovedBy.ContactName;
                 lblApprovedOn.Text = CustomerGSTApprovalByID.ApprovedOn.ToString();
+                lblApprovedRemark.Text = CustomerGSTApprovalByID.ApproverRemark;
                 lblCreatedBy.Text = (CustomerGSTApprovalByID.CreatedBy == null) ? "" : CustomerGSTApprovalByID.CreatedBy.ContactName;
                 lblCreatedOn.Text = CustomerGSTApprovalByID.CreatedOn.ToString();
             }
             PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(CustomerGSTApprovalByID.CustomerID);
             UC_CustomerView.fillCustomer(Customer);
+            fillSupportDocument();
             ActionControlMange();
         }
         protected void btnBackToList_Click(object sender, EventArgs e)
@@ -265,10 +266,12 @@ namespace DealerManagementSystem.ViewMaster
                 if (string.IsNullOrEmpty(txtApproverRemarks.Text))
                 {
                     lblMessageApproveCustomerGST.Text = "Please Enter Remarks...!";
+                    MPE_ApproveCustomerGST.Show();
                     return;
                 }
-                P_CustomerGSTApproval Gst = new P_CustomerGSTApproval();
+                PCustomerGSTApproval Gst = new PCustomerGSTApproval();
                 Gst.CustomerGSTApprovalID = CustomerGSTApprovalByID.CustomerGSTApprovalID;
+                Gst.CustomerID = CustomerGSTApprovalByID.CustomerID;
                 if (btnApproveCustomerGST.Text == "Approve")
                 {
                     Gst.IsApproved = true;
@@ -279,22 +282,6 @@ namespace DealerManagementSystem.ViewMaster
                 {
                     lblMessageApproveCustomerGST.Text = Results.Message;
                     return;
-                }
-
-                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(CustomerGSTApprovalByID.CustomerID);
-                if (!Customer.IsVerified)
-                {                    
-                    long C = new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Customer, false);
-                    if (C != 0)
-                    {
-                        lblMessage.Text = "Updated successfully";
-                        lblMessage.ForeColor = Color.Green;
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Something went wrong try again.";
-                        lblMessage.ForeColor = Color.Red;
-                    }
                 }
 
                 lblMessage.Text = Results.Message;
@@ -319,6 +306,46 @@ namespace DealerManagementSystem.ViewMaster
                 lbApproveCustomerGST.Visible = false;
                 lbRejectCustomerGST.Visible = false;
             }
+        }
+        protected void lbSupportDocumentDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // LinkButton lnkDownload = (LinkButton)sender;
+                //GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+
+                LinkButton lnkDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkDownload.NamingContainer;
+
+                Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
+                long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
+                Label lblFileName = (Label)gvRow.FindControl("lblFileName");
+                Label lblFileType = (Label)gvRow.FindControl("lblFileType");
+
+                PAttachedFile UploadedFile = new BDMS_Customer().GetAttachedFileCustomerForDownload(AttachedFileID + Path.GetExtension(lblFileName.Text));
+
+                Response.AddHeader("Content-type", lblFileType.Text);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblFileName.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Response.End();
+            }
+        }
+        void fillSupportDocument()
+        {
+            gvSupportDocument.DataSource = new BDMS_Customer().GetAttachedFileCustomer(CustomerGSTApprovalByID.CustomerID);
+            gvSupportDocument.DataBind();
         }
     }
 }

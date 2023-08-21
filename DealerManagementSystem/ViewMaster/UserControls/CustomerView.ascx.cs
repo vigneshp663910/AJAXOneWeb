@@ -80,6 +80,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //  ViewState["CustomerID"] = CustomerID;
             Customer = new BDMS_Customer().GetCustomerByID(CustomerID);
             lblCustomer.Text = Customer.CustomerFullName;
+            lblCustomerV.Text = Customer.CustomerFullName;
             lblContactPerson.Text = Customer.ContactPerson;
             lblMobile.Text = "<a href='tel:" + Customer.Mobile + "'>" + Customer.Mobile + "</a>";
             lblAlternativeMobile.Text = "<a href='tel:" + Customer.AlternativeMobile + "'>" + Customer.AlternativeMobile + "</a>";
@@ -1109,7 +1110,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 lbtnAddLeadAjax.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerGstChange).Count() == 0)
+            if ((SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerGstChange).Count() == 0) || string.IsNullOrEmpty(Customer.CustomerCode))
             {
                 lbtnUpdateGst.Visible = false;
             }
@@ -1470,7 +1471,16 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     return;
                 }
             }
-            P_CustomerGSTApproval Gst = new P_CustomerGSTApproval();
+
+            List<PAttachedFile> files = new BDMS_Customer().GetAttachedFileCustomer(Customer.CustomerID);
+            if (!files.Any(item => item.CreatedOn.ToString("dd-MM-yyyy") == DateTime.Now.ToString("dd-MM-yyyy")))
+            {
+                lblMessageUpdateGst.Text = "Please Attach Support Document...!";
+                MPE_UpdateGst.Show();
+                return;
+            }
+
+            PCustomerGSTApproval Gst = new PCustomerGSTApproval();
             Gst.CustomerID = Convert.ToInt32(Customer.CustomerID);
             Gst.CustomerName = Customer.CustomerFullName;
             Gst.GSTIN = txtGSTIN.Text.Trim();

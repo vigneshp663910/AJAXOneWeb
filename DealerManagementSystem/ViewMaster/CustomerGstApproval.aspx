@@ -77,7 +77,13 @@
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="GST" DataField="GSTIN"></asp:BoundField>
                                     <asp:BoundField HeaderText="PAN" DataField="PAN"></asp:BoundField>
-                                    <asp:BoundField HeaderText="IsApproved" DataField="IsApproved"></asp:BoundField>
+                                    <asp:TemplateField HeaderText="Approved">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblApproved" Text='<%# Eval("IsApproved") == null ? "" : Eval("IsApproved").ToString() == "False" ? "Rejected" : "Approved" %>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <%--<asp:BoundField HeaderText="IsApproved" DataField="IsApproved"></asp:BoundField>--%>
                                     <asp:BoundField HeaderText="ApprovedBy" DataField="ApprovedBy.ContactName"></asp:BoundField>
                                     <asp:BoundField HeaderText="ApprovedOn" DataField="ApprovedOn"></asp:BoundField>
                                     <asp:BoundField HeaderText="CreatedBy" DataField="CreatedBy.ContactName"></asp:BoundField>
@@ -130,12 +136,12 @@
                                         <asp:Label ID="lblCustomerName" runat="server" CssClass="label"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
-                                        <label>Unregistered : </label>
-                                        <asp:Label ID="lblUnregistered" runat="server" CssClass="label"></asp:Label>
-                                    </div>
+                                        <label>GSTIN : </label>
+                                        <asp:Label ID="lblGSTIN" runat="server" CssClass="label"></asp:Label>
+                                    </div>                                    
                                     <div class="col-md-12">
-                                        <label>IsApproved : </label>
-                                        <asp:Label ID="lblIsApproved" runat="server" CssClass="label"></asp:Label>
+                                        <label>ApprovedBy : </label>
+                                        <asp:Label ID="lblApprovedBy" runat="server" CssClass="label"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
                                         <label>CreatedBy : </label>
@@ -144,16 +150,16 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
-                                        <label>SendSAP : </label>
-                                        <asp:Label ID="lblSendSAP" runat="server" CssClass="label"></asp:Label>
+                                        <label>OldGSTIN : </label>
+                                        <asp:Label ID="lblOldGst" runat="server" CssClass="label"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
-                                        <label>GSTIN : </label>
-                                        <asp:Label ID="lblGSTIN" runat="server" CssClass="label"></asp:Label>
-                                    </div>
+                                        <label>PAN : </label>
+                                        <asp:Label ID="lblPAN" runat="server" CssClass="label"></asp:Label>
+                                    </div>                                    
                                     <div class="col-md-12">
-                                        <label>ApprovedBy : </label>
-                                        <asp:Label ID="lblApprovedBy" runat="server" CssClass="label"></asp:Label>
+                                        <label>ApprovedOn : </label>
+                                        <asp:Label ID="lblApprovedOn" runat="server" CssClass="label"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
                                         <label>CreatedOn : </label>
@@ -162,16 +168,16 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
-                                        <label>Success : </label>
-                                        <asp:Label ID="lblSuccess" runat="server" CssClass="label"></asp:Label>
+                                        <label>OldPAN : </label>
+                                        <asp:Label ID="lblOldPan" runat="server" CssClass="label"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
-                                        <label>PAN : </label>
-                                        <asp:Label ID="lblPAN" runat="server" CssClass="label"></asp:Label>
+                                        <label>IsApproved : </label>
+                                        <asp:Label ID="lblIsApproved" runat="server" CssClass="label"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
-                                        <label>ApprovedOn : </label>
-                                        <asp:Label ID="lblApprovedOn" runat="server" CssClass="label"></asp:Label>
+                                        <label>ApprovedRemark : </label>
+                                        <asp:Label ID="lblApprovedRemark" runat="server" CssClass="label"></asp:Label>
                                     </div>
                                 </div>
                             </div>
@@ -179,15 +185,66 @@
                     </div>
                 </div>
             </div>
-            <asp1:tabcontainer id="tbpContainer" runat="server" font-bold="True" font-size="Medium" activetabindex="0">
-                <asp1:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
-                    <contenttemplate>
+            <asp1:TabContainer ID="tbpContainer" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
+                <asp1:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer Info">
+                    <ContentTemplate>
                         <div class="col-md-12 field-margin-top">
                             <UC:UC_CustomerView ID="UC_CustomerView" runat="server"></UC:UC_CustomerView>
                         </div>
-                    </contenttemplate>
+                    </ContentTemplate>
                 </asp1:TabPanel>
-            </asp1:tabcontainer>
+                <asp1:TabPanel ID="tpnlSupportDocument" runat="server" HeaderText="Support Document">
+                    <ContentTemplate>
+                        <div class="col-md-12">
+                            <div class="col-md-12 Report">
+                                <div class="table-responsive">
+                                    <asp:GridView ID="gvSupportDocument" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="File Name">
+                                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server" />
+                                                    <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false" />
+                                                    <asp:Label ID="lblFileType" Text='<%# DataBinder.Eval(Container.DataItem, "FileType")%>' runat="server" Visible="false" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Date">
+                                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Created By">
+                                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Download">
+                                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="lbSupportDocumentDownload" runat="server" OnClick="lbSupportDocumentDownload_Click">Download </asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                        <AlternatingRowStyle BackColor="#ffffff" />
+                                        <FooterStyle ForeColor="White" />
+                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                    </asp:GridView>
+                                </div>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp1:TabPanel>
+            </asp1:TabContainer>
         </div>
         <asp:Panel ID="pnlApproveCustomerGST" runat="server" CssClass="Popup" Style="display: none">
             <div class="PopupHeader clearfix">

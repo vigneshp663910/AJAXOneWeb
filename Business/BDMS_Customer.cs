@@ -631,7 +631,7 @@ namespace Business
             string endPoint = "Customer/getCustomerAddressFromSAP?CustomerCode=" + CustomerCode;
             return JsonConvert.DeserializeObject<PDMS_Customer>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
         }
-        public PApiResult GetCustomerGstApproval(string CustomerCode, DateTime? From, DateTime? To, bool? IsApproved, int? PageIndex, int? PageSize)
+        public PApiResult GetCustomerGstApproval(string CustomerCode, string From, string To, bool? IsApproved, int? PageIndex, int? PageSize)
         {
             string endPoint = "Customer/GetCustomerGstApproval?CustomerCode=" + CustomerCode + "&From=" + From + "&To=" + To + "&IsApproved=" + IsApproved + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));

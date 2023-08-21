@@ -1257,6 +1257,9 @@
             <fieldset class="fieldset-border" id="Fieldset7" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Update GST</legend>
                 <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
+                        <b>Customer Code : </b><asp:Label ID="lblCustomerV" runat="server" Text=""></asp:Label>                        
+                    </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">GSTIN<samp style="color: red">*</samp></label>
                         <asp:TextBox ID="txtGSTIN" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>

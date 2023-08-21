@@ -159,42 +159,6 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblCustomerName;
 
         /// <summary>
-        /// lblUnregistered control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUnregistered;
-
-        /// <summary>
-        /// lblIsApproved control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIsApproved;
-
-        /// <summary>
-        /// lblCreatedBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreatedBy;
-
-        /// <summary>
-        /// lblSendSAP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSendSAP;
-
-        /// <summary>
         /// lblGSTIN control.
         /// </summary>
         /// <remarks>
@@ -213,22 +177,22 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.Label lblApprovedBy;
 
         /// <summary>
-        /// lblCreatedOn control.
+        /// lblCreatedBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreatedOn;
+        protected global::System.Web.UI.WebControls.Label lblCreatedBy;
 
         /// <summary>
-        /// lblSuccess control.
+        /// lblOldGst control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSuccess;
+        protected global::System.Web.UI.WebControls.Label lblOldGst;
 
         /// <summary>
         /// lblPAN control.
@@ -247,6 +211,42 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblApprovedOn;
+
+        /// <summary>
+        /// lblCreatedOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreatedOn;
+
+        /// <summary>
+        /// lblOldPan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOldPan;
+
+        /// <summary>
+        /// lblIsApproved control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIsApproved;
+
+        /// <summary>
+        /// lblApprovedRemark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApprovedRemark;
 
         /// <summary>
         /// tbpContainer control.
@@ -274,6 +274,24 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DealerManagementSystem.ViewMaster.UserControls.CustomerViewHeader UC_CustomerView;
+
+        /// <summary>
+        /// tpnlSupportDocument control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlSupportDocument;
+
+        /// <summary>
+        /// gvSupportDocument control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvSupportDocument;
 
         /// <summary>
         /// pnlApproveCustomerGST control.

@@ -253,12 +253,14 @@ namespace Properties
     }
     
     [Serializable]
-    public class P_CustomerGSTApproval
+    public class PCustomerGSTApproval
     {
         public long CustomerGSTApprovalID { get; set; }
         public int CustomerID { get; set; }
         public string CustomerCode { get; set; }
         public string CustomerName { get; set; }
+        public string OldGSTIN { get; set; }
+        public string OldPAN { get; set; }
         public Boolean Unregistered { get; set; }
         public string GSTIN { get; set; }
         public string PAN { get; set; }
