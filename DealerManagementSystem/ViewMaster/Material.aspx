@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Material.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.Material" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="Material.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.Material" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewMaster/UserControls/MaterialView.ascx" TagPrefix="UC" TagName="UC_MaterialView" %>
@@ -634,7 +634,7 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-            <asp:TabPanel ID="tblPnlMaterialVariant" runat="server" HeaderText="Material Variant Type" Font-Bold="True" ToolTip="Material Variant Type...">
+            <asp:TabPanel ID="tblPnlMaterialVariant" runat="server" HeaderText="Material Category Type" Font-Bold="True" ToolTip="Material Category...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
@@ -665,7 +665,7 @@
                                                     <div style="float: left">
                                                         <table>
                                                             <tr>
-                                                                <td>Material Variant Type(s) :</td>
+                                                                <td>Material Category(s) :</td>
 
                                                                 <td>
                                                                     <asp:Label ID="lblMatVariantTypeRowCount" runat="server" CssClass="label"></asp:Label></td>
@@ -696,13 +696,13 @@
                                                                 <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control"></asp:DropDownList>
                                                             </FooterTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Variant Name">
+                                                        <asp:TemplateField HeaderText="Material Category">
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblVariantName" Text='<%# DataBinder.Eval(Container.DataItem, "VariantName")%>' runat="server" />
                                                                 <asp:Label ID="lblVariantTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "VariantTypeID")%>' runat="server" Visible="false" />
                                                             </ItemTemplate>
                                                             <FooterTemplate>
-                                                                <asp:TextBox ID="txtVariantName" runat="server" placeholder="Variant Name" CssClass="form-control"></asp:TextBox>
+                                                                <asp:TextBox ID="txtVariantName" runat="server" placeholder="Material Category" CssClass="form-control"></asp:TextBox>
                                                             </FooterTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Max To Select">
@@ -741,7 +741,7 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
-            <asp:TabPanel ID="tblPnlMaterialVariantTypeMapping" runat="server" HeaderText="Variant Type Mapping" Font-Bold="True" ToolTip="Material Variant Type Mapping...">
+            <asp:TabPanel ID="tblPnlMaterialVariantTypeMapping" runat="server" HeaderText="Material Category Mapping" Font-Bold="True" ToolTip="Material Category Mapping...">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12">
@@ -757,7 +757,7 @@
                                         <asp:DropDownList ID="ddlSMProduct" runat="server" CssClass="form-control"></asp:DropDownList>
                                     </div>
                                     <div class="col-md-2 col-sm-12">
-                                        <label>Variant Name</label>
+                                        <label>Material Category</label>
                                         <asp:DropDownList ID="ddlSMVariantName" runat="server" CssClass="form-control"></asp:DropDownList>
                                     </div> 
                                     <div class="col-md-2 col-sm-12">
@@ -785,7 +785,7 @@
                                                     <div style="float: left">
                                                         <table>
                                                             <tr>
-                                                                <td>Material Variant Type Mapping(s) :</td>
+                                                                <td>Material Category Mapping(s) :</td>
 
                                                                 <td>
                                                                     <asp:Label ID="lblMatVariantTypeMappingRowCount" runat="server" CssClass="label"></asp:Label></td>
@@ -816,7 +816,7 @@
                                                                 <asp:DropDownList ID="ddlAddProductType" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlAddProductType_SelectedIndexChanged"></asp:DropDownList>
                                                             </FooterTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Variant Name">
+                                                        <asp:TemplateField HeaderText="Material Category">
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblVariantName" Text='<%# DataBinder.Eval(Container.DataItem, "VariantType.VariantName")%>' runat="server" />
                                                                 <asp:Label ID="lblVariantTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "VariantType.VariantTypeID")%>' runat="server" Visible="false" />
@@ -827,8 +827,8 @@
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Product">
                                                             <ItemTemplate>
-                                                                <asp:Label ID="lblProduct" Text='<%# DataBinder.Eval(Container.DataItem, "Product.Product")%>' runat="server" />
-                                                                <asp:Label ID="lblProductID" Text='<%# DataBinder.Eval(Container.DataItem, "Product.ProductID")%>' runat="server" Visible="false" />
+                                                                <asp:Label ID="lblProduct" Text='<%# DataBinder.Eval(Container.DataItem,"Product") == null ? "ALL" : DataBinder.Eval(Container.DataItem,"Product.Product") %>' runat="server" />
+                                                                <asp:Label ID="lblProductID" Text='<%# DataBinder.Eval(Container.DataItem,"Product") == null ? null : DataBinder.Eval(Container.DataItem,"Product.ProductID") %>' runat="server" Visible="false" />
                                                             </ItemTemplate>
                                                             <FooterTemplate>
                                                                 <asp:DropDownList ID="ddlAddProduct" runat="server" CssClass="form-control"></asp:DropDownList>
@@ -913,7 +913,7 @@
             });
         });
         function ConfirmDeleteMaterialVariantType() {
-            var x = confirm("Are you sure you want to Delete Material Variant Type?");
+            var x = confirm("Are you sure you want to Delete Material Category?");
             if (x) {
                 return true;
             }
@@ -921,7 +921,7 @@
                 return false;
         }
         function ConfirmDeleteMaterialVariantTypeMapping() {
-            var x = confirm("Are you sure you want to Delete Material Variant Type Mapping?");
+            var x = confirm("Are you sure you want to Delete Material Category Mapping?");
             if (x) {
                 return true;
             }

@@ -113,8 +113,8 @@ namespace DealerManagementSystem.ViewMaster
 
                     new DDLBind(ddlSProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID", true, "Select ProductType");
                     new DDLBind(ddlSMProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID", true, "Select ProductType");
-                    new DDLBind(ddlSMProduct, new BDMS_Master().GetProduct(null, 1,Convert.ToInt32(ddlSMProductType.SelectedValue), null), "Product", "ProductID", true, "Select Product");
-                    new DDLBind(ddlSMVariantName, new BDMS_Material().GetMaterialVariantType(null), "VariantName", "VariantTypeID", true, "Select VariantName");
+                    new DDLBind(ddlSMProduct, new BDMS_Master().GetProduct(null, 1, Convert.ToInt32(ddlSMProductType.SelectedValue), null), "Product", "ProductID", true, "Select Product");
+                    new DDLBind(ddlSMVariantName, new BDMS_Material().GetMaterialVariantType(null), "VariantName", "VariantTypeID", true, "Select Material Category");
 
                     GetDivision();
                     GetMaterailModel();
@@ -588,14 +588,14 @@ namespace DealerManagementSystem.ViewMaster
                 if (Result)
                 {
                     lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "VariantType is Deleted Successfully..";
+                    lblMessage.Text = "Material Category is Deleted Successfully..";
                     lblMessage.Visible = true;
                     fillMaterialVariantType();
                 }
                 else
                 {
                     lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "VariantType is Not Deleted Successfully..!";
+                    lblMessage.Text = "Material Category is Not Deleted Successfully..!";
                     lblMessage.Visible = true;
                     return;
                 }
@@ -624,7 +624,7 @@ namespace DealerManagementSystem.ViewMaster
 
                 if (string.IsNullOrEmpty(txtVariantName.Text))
                 {
-                    lblMessage.Text = "Please Enter Variant Name...!";
+                    lblMessage.Text = "Please Enter Material Category...!";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -657,14 +657,14 @@ namespace DealerManagementSystem.ViewMaster
                 if (Result)
                 {
                     lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "VariantType is Created Successfully..";
+                    lblMessage.Text = "Material Category is Created Successfully..";
                     lblMessage.Visible = true;
                     fillMaterialVariantType();
                 }
                 else
                 {
                     lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "VariantType is Not Created Successfully..!";
+                    lblMessage.Text = "Material Category is Not Created Successfully..!";
                     lblMessage.Visible = true;
                     return;
                 }
@@ -743,7 +743,7 @@ namespace DealerManagementSystem.ViewMaster
                 new DDLBind(ddlAddProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID", true, "Select");
 
                 DropDownList ddlAddProduct = GVMatVariantTypeMapping.FooterRow.FindControl("ddlAddProduct") as DropDownList;
-                new DDLBind(ddlAddProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
+                new DDLBind(ddlAddProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "ALL");
 
                 DropDownList ddlAddVariantType = GVMatVariantTypeMapping.FooterRow.FindControl("ddlAddVariantType") as DropDownList;
                 new DDLBind(ddlAddVariantType, new BDMS_Material().GetMaterialVariantType(null), "VariantName", "VariantTypeID", true, "Select");
@@ -811,7 +811,7 @@ namespace DealerManagementSystem.ViewMaster
                 ddlAddProductType.SelectedValue = lblMappingProductTypeID;
                 ddlAddProductType_SelectedIndexChanged(null, null);
                 ddlAddVariantType.SelectedValue = lblVariantTypeID;
-                ddlAddProduct.SelectedValue = lblProductID;
+                ddlAddProduct.SelectedValue = string.IsNullOrEmpty(lblProductID) ? "0" : lblProductID;
                 txtAddMaterial.Text = lblMaterial;
 
                 HidMatVariantTypeMapping.Value = Convert.ToString(lblMatVariantTypeMappingEdit.CommandArgument);
@@ -842,9 +842,9 @@ namespace DealerManagementSystem.ViewMaster
                 HidMatVariantTypeMapping.Value = Convert.ToString(lblMatVariantTypeMappingDelete.CommandArgument);
 
                 PMaterialVariantTypeMapping MVTM = new PMaterialVariantTypeMapping();
-                MVTM.MaterialVariantTypeMappingID= Convert.ToInt32(HidMatVariantTypeMapping.Value);
+                MVTM.MaterialVariantTypeMappingID = Convert.ToInt32(HidMatVariantTypeMapping.Value);
                 MVTM.VariantType = new PMaterialVariantType() { VariantTypeID = Convert.ToInt32(lblVariantTypeID) };
-                MVTM.Product = new PProduct() { ProductID = Convert.ToInt32(lblProductID) };
+                MVTM.Product = new PProduct() { ProductID = string.IsNullOrEmpty(lblProductID)?0:Convert.ToInt32(lblProductID) };
                 MVTM.Material = new PDMS_Material() { MaterialID = Convert.ToInt32(lblMaterialID) };
                 MVTM.IsActive = false;
 
@@ -852,14 +852,14 @@ namespace DealerManagementSystem.ViewMaster
                 if (Result)
                 {
                     lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "VariantType Mapping is Deleted Successfully..";
+                    lblMessage.Text = "Material Category Mapping is Deleted Successfully..";
                     lblMessage.Visible = true;
                     fillMaterialVariantTypeMapping();
                 }
                 else
                 {
                     lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "VariantType Mapping is Not Deleted Successfully..!";
+                    lblMessage.Text = "Material Category Mapping is Not Deleted Successfully..!";
                     lblMessage.Visible = true;
                     return;
                 }
@@ -894,16 +894,16 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 if (ddlAddVariantType.SelectedValue == "0")
                 {
-                    lblMessage.Text = "Please Select Variant Type...!";
+                    lblMessage.Text = "Please Select Material Category...!";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                if (ddlAddProduct.SelectedValue == "0")
-                {
-                    lblMessage.Text = "Please Select Product...!";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
+                //if (ddlAddProduct.SelectedValue == "0")
+                //{
+                //    lblMessage.Text = "Please Select Product...!";
+                //    lblMessage.ForeColor = Color.Red;
+                //    return;
+                //}
                 string Material = txtAddMaterial.Text.Trim();
                 Material = Material.Split(' ')[0];
                 PDMS_Material MM = new BDMS_Material().GetMaterialListSQL(null, Material, null, null, null)[0];
@@ -928,14 +928,14 @@ namespace DealerManagementSystem.ViewMaster
                 if (Result)
                 {
                     lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "VariantType Mapping is Created Successfully..";
+                    lblMessage.Text = "Material Category Mapping is Created Successfully..";
                     lblMessage.Visible = true;
                     fillMaterialVariantTypeMapping();
                 }
                 else
                 {
                     lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "VariantType Mapping is Not Created Successfully..!";
+                    lblMessage.Text = "Material Category Mapping is Not Created Successfully..!";
                     lblMessage.Visible = true;
                     return;
                 }
@@ -964,7 +964,7 @@ namespace DealerManagementSystem.ViewMaster
                 DropDownList ddlAddProduct = (DropDownList)GVMatVariantTypeMapping.FooterRow.FindControl("ddlAddProduct");
                 DropDownList ddlAddVariantType = (DropDownList)GVMatVariantTypeMapping.FooterRow.FindControl("ddlAddVariantType");
                 new DDLBind(ddlAddVariantType, new BDMS_Material().GetMaterialVariantType(ProductTypeID), "VariantName", "VariantTypeID", true, "Select");
-                new DDLBind(ddlAddProduct, new BDMS_Master().GetProduct(null, null, ProductTypeID, null), "Product", "ProductID", true, "Select");
+                new DDLBind(ddlAddProduct, new BDMS_Master().GetProduct(null, null, ProductTypeID, null), "Product", "ProductID", true, "ALL");
             }
         }
 

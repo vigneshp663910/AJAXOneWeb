@@ -20,14 +20,14 @@ namespace Business
         public BDMS_Material()
         {
             provider = new ProviderFactory().GetProvider();
-        } 
-        
+        }
 
-        public List<string> GetMaterialAutocomplete(string Material, string MaterialType,int? DivisionID)
+
+        public List<string> GetMaterialAutocomplete(string Material, string MaterialType, int? DivisionID)
         {
             List<string> Materials = new List<string>();
             try
-            { 
+            {
                 DbParameter MaterialP;
                 DbParameter MaterialTypeP;
 
@@ -72,7 +72,7 @@ namespace Business
             {
                 endPoint = "Material/MaterialFinishedGoodsAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID;
             }
-            else  
+            else
             {
                 endPoint = "Material/MaterialAccessoriesAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID;
             }
@@ -160,14 +160,14 @@ namespace Business
             return Materials;
         }
 
-        public List<PDMS_Material> GetMaterialListSQL(int? MaterialID, string MaterialCode,int? DivisionID,int? ModelID,string IsActive)
+        public List<PDMS_Material> GetMaterialListSQL(int? MaterialID, string MaterialCode, int? DivisionID, int? ModelID, string IsActive)
         {
-            string endPoint = "Material/Material?MaterialID=" + MaterialID + "&MaterialCode=" + MaterialCode 
+            string endPoint = "Material/Material?MaterialID=" + MaterialID + "&MaterialCode=" + MaterialCode
                 + "&DivisionID=" + DivisionID + "&ModelID=" + ModelID + "&IsActive=" + IsActive;
             return JsonConvert.DeserializeObject<List<PDMS_Material>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-             
+
         }
- 
+
         public List<PDMS_Material> GetMaterialSupersede(int? MaterialID, string MaterialCode)
         {
             TraceLogger.Log(DateTime.Now);
@@ -232,10 +232,10 @@ namespace Business
             {
                 new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantType", ex);
                 throw ex;
-            } 
+            }
         }
-        public List<PMaterialVariantTypeMapping> GetMaterialVariantTypeMappingProductID(int ProductID,int VariantTypeID)
-        { 
+        public List<PMaterialVariantTypeMapping> GetMaterialVariantTypeMappingProductID(int ProductID, int VariantTypeID)
+        {
             try
             {
                 string endPoint = "Material/GetMaterialVariantTypeMappingProductID?ProductID=" + ProductID + "&VariantTypeID=" + VariantTypeID;
@@ -250,7 +250,7 @@ namespace Business
             {
                 new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantTypeMappingProductID", ex);
                 throw ex;
-            } 
+            }
         }
         public Boolean InsertOrUpdateMaterialVariantType(PMaterialVariantType MVT, int UserID)
         {
@@ -307,13 +307,12 @@ namespace Business
             try
             {
                 DbParameter MaterialVariantTypeMappingIDP = provider.CreateParameter("MaterialVariantTypeMappingID", MVTM.MaterialVariantTypeMappingID, DbType.Int32);
-                DbParameter ProductIDP = provider.CreateParameter("ProductID", MVTM.Product.ProductID, DbType.Int32);
+                DbParameter ProductIDP = provider.CreateParameter("ProductID", (MVTM.Product.ProductID == 0) ? (Int32?)null : MVTM.Product.ProductID, DbType.Int32);
                 DbParameter VariantTypeIDP = provider.CreateParameter("VariantTypeID", MVTM.VariantType.VariantTypeID, DbType.Int32);
                 DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MVTM.Material.MaterialID, DbType.Int32);
                 DbParameter IsActiveP = provider.CreateParameter("IsActive", MVTM.IsActive, DbType.Boolean);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-                DbParameter[] Params = new DbParameter[7] { MaterialVariantTypeMappingIDP, ProductIDP, VariantTypeIDP, MaterialIDP, IsActiveP, UserIDP, OutValue };
+                DbParameter[] Params = new DbParameter[6] { MaterialVariantTypeMappingIDP, ProductIDP, VariantTypeIDP, MaterialIDP, IsActiveP, UserIDP };
 
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
