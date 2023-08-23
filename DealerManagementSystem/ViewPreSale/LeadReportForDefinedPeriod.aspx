@@ -1,7 +1,20 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="LeadReportForDefinedPeriod.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.LeadReportForDefinedPeriod" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true"  CodeBehind="LeadReportForDefinedPeriod.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.LeadReportForDefinedPeriod" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .Popup {
+            width: 95%;
+            height: 95%;
+            top: 128px;
+            left: 283px;
+        }
+
+            .Popup .model-scroll {
+                height: 80vh;
+                overflow: auto;
+            }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -228,44 +241,44 @@
 
                             <asp:TemplateField HeaderText="Hot">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblClosingHot" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Hot")%>' runat="server" /> 
+                                     <asp:LinkButton ID="lblClosingHot" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Hot")%>' runat="server" OnClick="lblLinkButton_Click" /> 
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Warm">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblClosingWarm" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Warm")%>' runat="server" />
+                                     <asp:LinkButton ID="lblClosingWarm" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Warm")%>' runat="server" OnClick="lblLinkButton_Click" /> 
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Cold">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblClosingCold" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Cold")%>' runat="server" />
+                                    <asp:LinkButton ID="lblClosingCold" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Cold")%>' runat="server" OnClick="lblLinkButton_Click" />  
                                 </ItemTemplate>
                             </asp:TemplateField>
 
 
                             <asp:TemplateField HeaderText="0-30">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblAge30" Text='<%# DataBinder.Eval(Container.DataItem, "Age 0 - 30")%>' runat="server" />
+                                    <asp:LinkButton ID="lblAge30" Text='<%# DataBinder.Eval(Container.DataItem, "Age 0 - 30")%>' runat="server" OnClick="lblLinkButton_Click" />  
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="31-60">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblAge60" Text='<%# DataBinder.Eval(Container.DataItem, "Age 31 - 60")%>' runat="server" />
+                                    <asp:LinkButton ID="lblAge60" Text='<%# DataBinder.Eval(Container.DataItem, "Age 31 - 60")%>' runat="server" OnClick="lblLinkButton_Click" />  
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="61-90">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblAge90" Text='<%# DataBinder.Eval(Container.DataItem, "Age 61 - 90")%>' runat="server" />
+                                    <asp:LinkButton ID="lblAge90" Text='<%# DataBinder.Eval(Container.DataItem, "Age 61 - 90")%>' runat="server" OnClick="lblLinkButton_Click" /> 
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="91-180">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblAge180" Text='<%# DataBinder.Eval(Container.DataItem, "Age 91 - 180")%>' runat="server" />
+                                    <asp:LinkButton ID="lblAge180" Text='<%# DataBinder.Eval(Container.DataItem, "Age 91 - 180")%>' runat="server" OnClick="lblLinkButton_Click" />  
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="> 180">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblAgeA180" Text='<%# DataBinder.Eval(Container.DataItem, "Age > 180")%>' runat="server" />
+                                    <asp:LinkButton ID="lblAgeA180" Text='<%# DataBinder.Eval(Container.DataItem, "Age > 180")%>' runat="server" OnClick="lblLinkButton_Click" /> 
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -291,12 +304,20 @@
                 <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
         </div>
         <div class="col-md-12">
-            <div class="model-scroll">
-                 <asp:Button ID="btnExcelDetails" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExcelDetails_Click" Width="100px" />
-                        
+            <asp:Button ID="btnExcelDetails" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExcelDetails_Click" Width="100px" />
+
+            <div class="model-scroll"> 
                 <asp:GridView ID="gvLeadDetails" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid"
                     EmptyDataText="No Data Found">
+                    <Columns>
+                         <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center"> 
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
 
+                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                    </Columns>
                     <AlternatingRowStyle BackColor="#ffffff" />
                     <FooterStyle ForeColor="White" />
                     <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />

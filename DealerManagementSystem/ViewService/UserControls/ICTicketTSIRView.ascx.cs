@@ -152,6 +152,8 @@ namespace DealerManagementSystem.ViewService.UserControls
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Visible = true;
                     lblMessage.Text = Results.Message;
                     return;
                 }

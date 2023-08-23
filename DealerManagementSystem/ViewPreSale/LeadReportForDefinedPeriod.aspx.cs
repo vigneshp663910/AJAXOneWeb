@@ -233,8 +233,47 @@ namespace DealerManagementSystem.ViewPreSale
                 S.LeadID = 5;
                 S.QualificationID = 1;
             }
+            else if (lbActions.ID == "lblClosingHot")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 3;
+            }
+            else if (lbActions.ID == "lblClosingWarm")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 2;
+            }
+            else if (lbActions.ID == "lblClosingCold")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 1;
+            }
+            else if (lbActions.ID == "lblAge30")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 1;
+            }
+            else if (lbActions.ID == "lblAge60")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 2;
+            }
+            else if (lbActions.ID == "lblAge90")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 3;
+            }
+            else if (lbActions.ID == "lblAge180")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 4;
+            }
+            else if (lbActions.ID == "lblAgeA180")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 5;
+            }
 
-            
             S.CountryID = ddlCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCountry.SelectedValue);
             S.StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
             S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateFrom.Text.Trim());

@@ -626,23 +626,23 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Edit Call Information")
             {
-                foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
-                {
-                    if (!SC.Material.IsMainServiceMaterial)
-                    {
-                        lblMessage.Visible = true;
-                        lblMessage.Text = "Remove Service Charge then save the call information.";
-                        return;
-                    }
-                } 
-                foreach (PDMS_ServiceMaterial M in SS_ServiceMaterial)
-                {
-                    lblMessage.Visible = true;
-                    lblMessage.Text = "Remove Material Charge then save the call information.";
-                    return;
-                }
+                //foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
+                //{
+                //    if (!SC.Material.IsMainServiceMaterial)
+                //    {
+                //        lblMessage.Visible = true;
+                //        lblMessage.Text = "Remove Service Charge then save the call information.";
+                //        return;
+                //    }
+                //} 
+                //foreach (PDMS_ServiceMaterial M in SS_ServiceMaterial)
+                //{
+                //    lblMessage.Visible = true;
+                //    lblMessage.Text = "Remove Material Charge then save the call information.";
+                //    return;
+                //}
                  
-                UC_ICTicketUpdateCallInformation.FillMaster(SDMS_ICTicket);
+                UC_ICTicketUpdateCallInformation.FillMaster(SDMS_ICTicket, SS_ServiceMaterial);
                 MPE_CallInformation.Show();
             }
             else if (lbActions.Text == "Edit FSR")
