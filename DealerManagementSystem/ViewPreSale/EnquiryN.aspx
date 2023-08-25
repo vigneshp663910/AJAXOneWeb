@@ -136,7 +136,7 @@
                             </div>
                             <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
                             <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
-                                AutoGenerateColumns="false" Width="100%">
+                                AutoGenerateColumns="false" Width="100%" >
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -169,7 +169,7 @@
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                     <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Address">
-                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemStyle VerticalAlign="Middle" Font-Size="Small" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address")%>' runat="server" />
                                             <br />
@@ -184,7 +184,7 @@
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
                                     <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Created">
-                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemStyle VerticalAlign="Middle" Font-Size="Small"/>
                                         <ItemTemplate>
                                             <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
                                             <br />
