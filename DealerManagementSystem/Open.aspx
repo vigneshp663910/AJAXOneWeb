@@ -61,7 +61,7 @@
                     <asp:Button ID="btnAPITest" runat="server" Text="API Test" OnClick="btnAPITest_Click" />
                 </td>
                 <td>
-                    <asp:Button ID="BtnMaterial" runat="server" Text="Material" OnClick="BtnMaterial_Click" />
+                   
                 </td>
                 <td>
                     <asp:Button ID="BtnMaterialSupersede" runat="server" Text="MaterialSupersede" OnClick="BtnMaterialSupersede_Click" />
@@ -216,6 +216,14 @@
                     <asp:Label ID="Label13" runat="server" Text="Invoice No"></asp:Label>
                     <asp:TextBox ID="txtInvoiceNumber" runat="server"></asp:TextBox>
                     <asp:Button ID="btnAsnDetailsFromSap" runat="server" Text="Create Asn Details" OnClick="btnAsnDetailsFromSap_Click" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <asp:Label ID="Label14" runat="server" Text="MaterialCode"></asp:Label>
+                    <asp:TextBox ID="txtMaterialCode" runat="server"></asp:TextBox>
+                    <asp:Button ID="BtnMaterial" runat="server" Text="Material From SAP" OnClick="BtnMaterial_Click" />
                 </td>
             </tr>
         </table>

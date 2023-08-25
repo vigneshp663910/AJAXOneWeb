@@ -3094,9 +3094,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
+    <EmbeddedResource Include="Print\SalesMachineQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\SalesMachineQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_L.900.508.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_101030080000.rdlc" />
+    <EmbeddedResource Include="Print\SalesTaxQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\SalesTaxQuotation.rdlc" />
   </ItemGroup>
   <ItemGroup>
