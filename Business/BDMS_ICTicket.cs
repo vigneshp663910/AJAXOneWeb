@@ -42,7 +42,7 @@ namespace Business
         public List<PDMS_ICTicket> GetICTicket(int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, int? TechnicianID)
         {
 
-            string endPoint = "Service/ICTicket?DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF="
+            string endPoint = "Service/ICTicketManage?DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF="
                 + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&StatusID=" + StatusID + "&TechnicianID=" + TechnicianID;
             return JsonConvert.DeserializeObject<List<PDMS_ICTicket>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
              

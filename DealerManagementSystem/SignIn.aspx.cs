@@ -148,10 +148,10 @@ namespace DealerManagementSystem
                     return;
                 }
                 PSession.User = JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(ResultToken.Data)); 
-                if (txtPassword.Text.ToUpper().Contains("AJAX@123"))
-                { 
-                    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + PSession.User.UserID + "", true);
-                } 
+                //if (txtPassword.Text.ToUpper().Contains("AJAX@123"))
+                //{ 
+                //    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + PSession.User.UserID + "", true);
+                //} 
                 if ((!PSession.User.ajaxOne) || (!PSession.User.ajaxOneDealer))
                 {
                     lblMessage.ForeColor =  Color.Red;
@@ -228,10 +228,10 @@ namespace DealerManagementSystem
                 userDetails = JsonConvert.DeserializeObject<PUser>(JsonConvert.SerializeObject(ResultToken.Data));
 
                 PSession.User = userDetails;
-                if (txtPassword.Text.ToUpper().Contains("AJAX@123"))
-                {
-                    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + PSession.User.UserID + "", true);
-                }
+                //if (txtPassword.Text.ToUpper().Contains("AJAX@123"))
+                //{
+                //    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + PSession.User.UserID + "", true);
+                //}
                 if ((!userDetails.ajaxOne) || (!userDetails.ajaxOneDealer))
                 {
                     lblMessage.ForeColor = Color.Red;

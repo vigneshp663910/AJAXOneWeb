@@ -328,7 +328,6 @@
     <Content Include="Help\Files\Getting Started.pps" />
     <Content Include="DealerDashboard.Master" />
     <None Include="packages.config" />
-    <Content Include="ProcessFlow\SOP\SOP 06 - CUSTOMER COMPLAINT.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="SalesOrderTemp.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -538,6 +537,7 @@
     <Content Include="ViewPreSale\EnquiryTimeLineReport.aspx" />
     <Content Include="ViewPreSale\LeadFoloowUpReport.aspx" />
     <Content Include="ViewPreSale\LeadN.aspx" />
+    <Content Include="ViewPreSale\LeadReportForDefinedPeriod.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\PreSalesReport.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
@@ -724,6 +724,7 @@
     <Content Include="ViewSupportTicket\AssignedSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\AssignSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ClosedSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\DeviationProcessReport.aspx" />
     <Content Include="ViewSupportTicket\InProgressSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ManageSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\OpenSupportTicket.aspx" />
@@ -1874,6 +1875,13 @@
     <Compile Include="ViewPreSale\LeadN.aspx.designer.cs">
       <DependentUpon>LeadN.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\LeadReportForDefinedPeriod.aspx.cs">
+      <DependentUpon>LeadReportForDefinedPeriod.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadReportForDefinedPeriod.aspx.designer.cs">
+      <DependentUpon>LeadReportForDefinedPeriod.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2907,6 +2915,13 @@
     </Compile>
     <Compile Include="ViewSupportTicket\ClosedSupportTicket.aspx.designer.cs">
       <DependentUpon>ClosedSupportTicket.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\DeviationProcessReport.aspx.cs">
+      <DependentUpon>DeviationProcessReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\DeviationProcessReport.aspx.designer.cs">
+      <DependentUpon>DeviationProcessReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\InProgressSupportTicket.aspx.cs">
       <DependentUpon>InProgressSupportTicket.aspx</DependentUpon>

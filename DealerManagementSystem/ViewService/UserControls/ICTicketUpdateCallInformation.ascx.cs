@@ -32,24 +32,25 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             get
             {
-                if (Session["ServiceMaterialICTicketProcess"] == null)
+                if (ViewState["ServiceMaterialICTicketProcess"] == null)
                 {
-                    Session["ServiceMaterialICTicketProcess"] = new List<PDMS_ServiceMaterial>();
+                    ViewState["ServiceMaterialICTicketProcess"] = new List<PDMS_ServiceMaterial>();
                 }
-                return (List<PDMS_ServiceMaterial>)Session["ServiceMaterialICTicketProcess"];
+                return (List<PDMS_ServiceMaterial>)ViewState["ServiceMaterialICTicketProcess"];
             }
             set
             {
-                Session["ServiceMaterialICTicketProcess"] = value;
+                ViewState["ServiceMaterialICTicketProcess"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-        public void FillMaster(PDMS_ICTicket ICTicket)
+        public void FillMaster(PDMS_ICTicket ICTicket, List<PDMS_ServiceMaterial> ServiceMaterial)
         {
             SDMS_ICTicket = ICTicket;
+            SS_ServiceMaterial = ServiceMaterial;
             Clear();
             if ((SDMS_ICTicket.Equipment.IsRefurbished == true) && (SDMS_ICTicket.Equipment.RefurbishedBy == SDMS_ICTicket.Dealer.DealerID) && (SDMS_ICTicket.Equipment.RFWarrantyExpiryDate >= SDMS_ICTicket.ICTicketDate))
             {
@@ -357,32 +358,68 @@ namespace DealerManagementSystem.ViewService.UserControls
         public void EnableOrDesableBasedOnServiceCharges()
         {
 
-            string ClaimNumber = "";
+            string Number = "";
+            Boolean ChectUpdate = false;
+
             if (SDMS_ICTicket.ServiceCharges.Count != 0)
-            { ClaimNumber = SDMS_ICTicket.ServiceCharges[0].ClaimNumber; }
-
-            if (string.IsNullOrEmpty(ClaimNumber)) { ddlServiceType.Enabled = true; }
-            else { ddlServiceType.Enabled = false; }
-
-            string QuotationNumber = "";
+            {
+                Number = SDMS_ICTicket.ServiceCharges[0].ClaimNumber
+               + SDMS_ICTicket.ServiceCharges[0].QuotationNumber
+               + SDMS_ICTicket.ServiceCharges[0].ProformaInvoiceNumber
+               + SDMS_ICTicket.ServiceCharges[0].InvoiceNumber;
+            }
             if (SS_ServiceMaterial.Count != 0)
             {
                 foreach (PDMS_ServiceMaterial ServiceMaterial in SS_ServiceMaterial)
                 {
-                    QuotationNumber = ServiceMaterial.QuotationNumber;
-                    if (!string.IsNullOrEmpty(QuotationNumber)) { break; }
+                    Number = Number + ServiceMaterial.QuotationNumber;
+                    if (!string.IsNullOrEmpty(Number)) { break; }
                 }
             }
-            if (string.IsNullOrEmpty(QuotationNumber))
+
+
+            if (!string.IsNullOrEmpty(Number))
             {
-                ddlDealerOffice.Enabled = true; 
-                txtHMRValue.Enabled = true; 
+                ChectUpdate = true;
             }
-            else
+
+            if (ChectUpdate == true)
             {
-                ddlDealerOffice.Enabled = false; 
-                txtHMRValue.Enabled = false; 
+                txtLocation.Enabled = false;
+                ddlServiceType.Enabled = false;
+                ddlServiceSubType.Enabled = false;
+                ddlServiceTypeOverhaul.Enabled = false;
+                ddlDealerOffice.Enabled = false;
+                txtHMRValue.Enabled = false;
             }
+
+
+            //string ClaimNumber = "";
+            //if (SDMS_ICTicket.ServiceCharges.Count != 0)
+            //{ ClaimNumber = SDMS_ICTicket.ServiceCharges[0].ClaimNumber; }
+
+            //if (string.IsNullOrEmpty(ClaimNumber)) { ddlServiceType.Enabled = true; }
+            //else { ddlServiceType.Enabled = false; }
+
+            //string QuotationNumber = "";
+            //if (SS_ServiceMaterial.Count != 0)
+            //{
+            //    foreach (PDMS_ServiceMaterial ServiceMaterial in SS_ServiceMaterial)
+            //    {
+            //        QuotationNumber = ServiceMaterial.QuotationNumber;
+            //        if (!string.IsNullOrEmpty(QuotationNumber)) { break; }
+            //    }
+            //}
+            //if (string.IsNullOrEmpty(QuotationNumber))
+            //{
+            //    ddlDealerOffice.Enabled = true; 
+            //    txtHMRValue.Enabled = true; 
+            //}
+            //else
+            //{
+            //    ddlDealerOffice.Enabled = false; 
+            //    txtHMRValue.Enabled = false; 
+            //}
 
             //UC_BasicInformation.SDMS_ICTicket = SDMS_ICTicket;
             //UC_BasicInformation.FillBasicInformation();
@@ -498,23 +535,53 @@ namespace DealerManagementSystem.ViewService.UserControls
 
         public PICTicketServiceConfirmation_Post Read(PDMS_ICTicket ICTicket)
         {
-            PICTicketServiceConfirmation_Post IC = new PICTicketServiceConfirmation_Post(); 
-           // IC.DealerCode = ICTicket.Dealer.DealerCode;
-          //  IC.CustomerCode = ICTicket.Customer.CustomerCode;
+            PICTicketServiceConfirmation_Post IC = new PICTicketServiceConfirmation_Post();
             IC.ICTicketID = ICTicket.ICTicketID;
-         //   IC.EquipmentSerialNo = ICTicket.Equipment.EquipmentSerialNo;
-            IC.Location = txtLocation.Text.Trim();
-            IC.OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
-            
-            IC.ServiceTypeID = ddlServiceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceType.SelectedValue);
-            IC.ServiceSubTypeID = ddlServiceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceSubType.SelectedValue);
 
-            IC.ServiceTypeOverhaulID = ddlServiceTypeOverhaul.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceTypeOverhaul.SelectedValue);
+
+            string Number = "";
+            Boolean ChectUpdate = false;
+
+            if (SDMS_ICTicket.ServiceCharges.Count != 0)
+            {
+                Number = SDMS_ICTicket.ServiceCharges[0].ClaimNumber
+               + SDMS_ICTicket.ServiceCharges[0].QuotationNumber
+               + SDMS_ICTicket.ServiceCharges[0].ProformaInvoiceNumber
+               + SDMS_ICTicket.ServiceCharges[0].InvoiceNumber;
+            }
+            if (SS_ServiceMaterial.Count != 0)
+            {
+                foreach (PDMS_ServiceMaterial ServiceMaterial in SS_ServiceMaterial)
+                {
+                    Number = Number + ServiceMaterial.QuotationNumber;
+                    if (!string.IsNullOrEmpty(Number)) { break; }
+                }
+            }
+            if (!string.IsNullOrEmpty(Number))
+            {
+                ChectUpdate = true;
+            }
+            if  (ChectUpdate == true)
+            {
+                IC.Location = ICTicket.Location;
+                IC.OfficeID = ICTicket.DealerOffice.OfficeID;
+                IC.ServiceTypeID = ICTicket.ServiceType.ServiceTypeID;
+                IC.ServiceSubTypeID = ICTicket.ServiceSubType.ServiceSubTypeID;
+                IC.ServiceTypeOverhaulID = ICTicket.ServiceTypeOverhaul == null? (int?)null : ICTicket.ServiceTypeOverhaul.ServiceTypeOverhaulID; 
+                IC.CurrentHMRValue = ICTicket.CurrentHMRValue; 
+            }
+            else
+            {
+                IC.Location = txtLocation.Text.Trim();
+                IC.OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
+                IC.ServiceTypeID = ddlServiceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceType.SelectedValue);
+                IC.ServiceSubTypeID = ddlServiceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceSubType.SelectedValue);
+                IC.ServiceTypeOverhaulID = ddlServiceTypeOverhaul.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceTypeOverhaul.SelectedValue);
+                IC.CurrentHMRValue = string.IsNullOrEmpty(txtHMRValue.Text.Trim()) ? (int?)null : Convert.ToInt32(txtHMRValue.Text.Trim());
+
+            }
             IC.ServicePriorityID = ddlServicePriority.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServicePriority.SelectedValue);
-             
-            IC.CurrentHMRValue = string.IsNullOrEmpty(txtHMRValue.Text.Trim()) ? (int?)null : Convert.ToInt32(txtHMRValue.Text.Trim());
-
-           // IC.IsWarranty = ICTicket.IsWarranty;
+            // IC.IsWarranty = ICTicket.IsWarranty;
 
             IC.TypeOfWarrantyID = ddlTypeOfWarranty.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTypeOfWarranty.SelectedValue);
 

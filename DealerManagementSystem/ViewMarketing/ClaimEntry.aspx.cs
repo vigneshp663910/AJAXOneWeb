@@ -256,6 +256,10 @@ namespace DealerManagementSystem.ViewMarketing
                 {
                     string sFileName = DateTime.Now.ToString("ddmmyhhmmsstt") + "_" + PSession.User.UserID.ToString() + "_" + postedFile.FileName;
                     string pathaname = HttpContext.Current.Server.MapPath("~/YDMS/Temp/") + @"\" + sFileName;
+                    if(!Directory.Exists(HttpContext.Current.Server.MapPath("~/YDMS/Temp/")))
+                    {
+                        Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/YDMS/Temp/"));
+                    }
                     if (postedFile.ContentType.ToUpper().Contains("IMAGE"))
                     {
                         BDMS_ImageCompress imgCompress = BDMS_ImageCompress.GetImageCompressObject;
