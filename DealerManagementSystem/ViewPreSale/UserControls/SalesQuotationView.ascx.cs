@@ -1190,6 +1190,161 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             return mybytes;
         }
+
+        Byte[] MachineQuotationStdRdlc(out string mimeType)
+        { 
+            PSalesQuotation Q = Quotation;
+            var CC = CultureInfo.CurrentCulture;
+            Random r = new Random();
+            string extension;
+            string encoding; 
+            string[] streams;
+            Warning[] warnings;
+            LocalReport report = new LocalReport();
+            report.EnableExternalImages = true;
+
+            PDMS_Customer Customer = Q.Lead.Customer;
+            string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : ", " + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : ", " + Customer.Address3)).Trim(',', ' ');
+            string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : ", " + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : ", " + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
+            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+
+            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+            string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
+            string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
+
+            PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(Q.Lead.Dealer.DealerCode);
+            string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
+            string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+
+            List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+
+            string Reference = "", KindAttention = "", QNote = "" //, Hypothecation = "", TermsOfPayment = ""
+                                                                  , Delivery = ""//, Validity = "", Foc = "", MarginMoney = "", Subject = ""
+                , Name = "", Designation = "", PhoneNumber = "";
+            foreach (PSalesQuotationNote Note in Q.Notes)
+            {
+                if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Reference) { Reference = Note.Remark; }
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.KindAttention) { KindAttention = Note.Remark; }
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Note) { QNote = Note.Remark; } 
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Delivery) { Delivery = Note.Remark; } 
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Name) { Name = Note.Remark; }
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Designation) { Designation = Note.Remark; }
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.PhoneNumber) { PhoneNumber = Note.Remark; }
+            }
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red;
+
+
+
+            ReportParameter[] P = new ReportParameter[38];
+            P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
+            P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
+            P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
+            P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName/* Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2*/, false);
+            P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
+            P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
+            P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
+            P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
+            P[8] = new ReportParameter("Attention", KindAttention, false);
+            P[9] = new ReportParameter("Subject", Q.QuotationItems[0].Material.MaterialDescription, false);
+            P[10] = new ReportParameter("Reference", Reference, false);
+            P[11] = new ReportParameter("Annexure", "A-I", false);
+            P[12] = new ReportParameter("AnnexureRef", Q.SapQuotationNo, false);
+            P[13] = new ReportParameter("AnnexureDate", Q.SapQuotationDate.ToString(), false);
+            P[14] = new ReportParameter("TCSTax", "TCSTax Persent", false);
+            P[15] = new ReportParameter("Delivery", Delivery, false);
+            P[18] = new ReportParameter("Note", QNote, false);
+            P[19] = new ReportParameter("WarrantyDeliveryHours", Q.QuotationItems[0].Material.Model.Division.WarrantyDeliveryHours, false);//2000 
+            P[20] = new ReportParameter("ConcernName", Name, false);
+            P[21] = new ReportParameter("ConcernDesignation", Designation, false);
+            P[22] = new ReportParameter("ConcernMobile", PhoneNumber, false);
+
+
+            DataTable dtItem = new DataTable();
+            dtItem.Columns.Add("TechnicalSpecification");
+            dtItem.Columns.Add("Units");
+            dtItem.Columns.Add("UnitPriceINR");
+            dtItem.Columns.Add("AmountINR"); 
+            decimal GrandTotal = 0;
+
+            
+            for (int i = 0; i < Q.QuotationItems.Count(); i++)
+            { 
+                P[23] = new ReportParameter("MaterialText", "", false);
+
+
+                dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty + " " + Q.QuotationItems[i].Material.BaseUnit, String.Format("{0:n}", Q.QuotationItems[i].Rate - Q.QuotationItems[i].Discount), String.Format("{0:n}", (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Q.QuotationItems[i].Discount));
+                GrandTotal += (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Convert.ToDecimal(Q.QuotationItems[i].Discount);
+
+                P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
+
+            }
+
+
+            if ((Q.Lead.ProductType.Division.DivisionCode == "CM") || (Q.Lead.ProductType.Division.DivisionCode == "DP"))
+            {
+                P[24] = new ReportParameter("TCSTaxTerms", "If TCS is applicable, it will be calculated on sale consideration Plus GST.", false);
+            }
+            else
+            {
+                P[24] = new ReportParameter("TCSTaxTerms", "", false);
+            }
+            if (Q.Lead.ProductType.Division.DivisionCode == "BP")
+            {
+                P[25] = new ReportParameter("ErectionCommissoningHead", "ERECTION AND COMMISSONING :", false);
+                P[26] = new ReportParameter("ErectionCommissoning", "Erection and Commissioning will be in customer scope. Ajax shall be deputing service engineer for supervision of Erection and commissioning of the machine, on receipt of your confirmation of receipt of equipment and readiness of your site.The standard time for erection and commissioning is 1 day and additional 1 day for trail run &Training to your operation staff.The period of stay shall be restricted to 2 working days beyond that the services shall be on chargeable basis.Customer shall provide him all lodging, boarding & local conveyance facility.Customer shall provide all pulling tools, tackles, crane, skilled / unskilled labour, consumables like oil, welding machine, electrod etc., ", false);
+            }
+            else
+            {
+                P[25] = new ReportParameter("ErectionCommissoningHead", "", false);
+                P[26] = new ReportParameter("ErectionCommissoning", "", false);
+            }
+
+
+            if (Quotation.CommissionAgent)
+            {
+                P[27] = new ReportParameter("CompanyName", Ajax.CustomerName.ToUpper(), false);
+                P[28] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
+                P[29] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
+                P[30] = new ReportParameter("CompanyCINandGST", "CIN : " + Ajax.CIN + ", GST : " + Ajax.GSTIN);
+                P[31] = new ReportParameter("CompanyPAN", "PAN : " + Ajax.PAN + ", T : " + Ajax.Mobile);
+                P[32] = new ReportParameter("CompanyTelephoneandEmail", "Email : " + Ajax.Email + ", Web : " + Ajax.Web);
+            }
+            else
+            {
+                P[27] = new ReportParameter("CompanyName", Dealer.CustomerFullName, false);
+                P[28] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
+                P[29] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
+                P[30] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Dealer.GSTIN);
+                P[31] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.PAN);
+                P[32] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
+            }
+            //string   BatchingPlantImage1 = new Uri(Server.MapPath("~/d/TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
+            //string BatchingPlantImage2 = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
+            //string BatchingPlantTechSpec = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
+
+            string BatchingPlantImage1 = new Uri(Server.MapPath("~/Drawing/Product/Picture1.png")).AbsoluteUri;
+            string BatchingPlantImage2 = new Uri(Server.MapPath("~/Drawing/Product/Picture2.png")).AbsoluteUri;
+            string BatchingPlantTechSpec = new Uri(Server.MapPath("~/Drawing/Product/Picture3.png")).AbsoluteUri;
+
+            P[33] = new ReportParameter("BatchingPlantImage1", BatchingPlantImage1);
+            P[34] = new ReportParameter("BatchingPlantImage1Spec", "Elivation Image of CRB-20 CP");
+            P[35] = new ReportParameter("BatchingPlantImage2", BatchingPlantImage2);
+            P[36] = new ReportParameter("BatchingPlantImage2Spec", "Isometric Image of CRB-20 CP");
+            P[37] = new ReportParameter("BatchingPlantTechSpec", BatchingPlantTechSpec);     
+
+            report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotationStd.rdlc");
+            report.SetParameters(P);
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
+            rds.Value = dtItem;
+            report.DataSources.Add(rds); ;
+            Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+            return mybytes;
+        }
         void ViewMachineQuotation()
         {
             try
@@ -1206,7 +1361,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
                 string mimeType = string.Empty;
-                Byte[] mybytes = MachineQuotationRdlc(out mimeType);
+                Byte[] mybytes = null;
+                if (Quotation.IsStandard)
+                {
+                      mybytes = MachineQuotationStdRdlc(out mimeType);
+                }
+                else
+                {
+                      mybytes = MachineQuotationRdlc(out mimeType);
+                }
                 // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
                 string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
 
@@ -1252,7 +1415,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
                 string mimeType;
-                Byte[] mybytes = MachineQuotationRdlc(out mimeType);
+                Byte[] mybytes = null;
+                if (Quotation.IsStandard)
+                {
+                      mybytes = MachineQuotationStdRdlc(out mimeType);
+                }
+                else
+                {
+                     mybytes = MachineQuotationRdlc(out mimeType);
+                }
                 
                 Response.Buffer = true;
                 Response.Clear();
@@ -1660,8 +1831,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
             }
 
-
-            report.ReportPath = Server.MapPath("~/Print/SalesTaxQuotation.rdlc");
+            if (Quotation.IsStandard)
+            {
+                report.ReportPath = Server.MapPath("~/Print/SalesTaxQuotationStd.rdlc");
+            }
+            else
+            {
+                report.ReportPath = Server.MapPath("~/Print/SalesTaxQuotation.rdlc");
+            }
             report.SetParameters(P);
 
             ReportDataSource rds = new ReportDataSource();
@@ -2013,6 +2190,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lblMessageVariant.Text = ex.Message.ToString();
                 lblMessageVariant.ForeColor = Color.Red;
+                lblMessageVariant.Visible = true;
                 return;
             }
         }

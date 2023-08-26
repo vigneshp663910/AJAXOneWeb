@@ -68,7 +68,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     continue;
                 } 
                 int value;
-                if (int.TryParse(txtQty.Text.Trim(), out value))
+                if (!int.TryParse(txtQty.Text.Trim(), out value))
                 {
                     txtQty.BorderColor = Color.Red;
                     throw new Exception("Please enter the Correct Quantity Value");
@@ -279,7 +279,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         void FillMaterial()
         {
 
-            List<PMaterialVariantTypeMapping> mm = new BDMS_Material().GetMaterialVariantTypeMappingProductID(Quotation.LeadProduct.Product.ProductID, Convert.ToInt32(ddlVariantType.SelectedValue));
+            List<PMaterialVariantTypeMapping> mm = new BDMS_Material().GetMaterialByProductIDAndMaterialCategoryID(Quotation.LeadProduct.Product.ProductID, Convert.ToInt32(ddlVariantType.SelectedValue));
             //ddlMaterial.Items.Clear();
             //ddlMaterial.Items.Insert(0, new ListItem("Select", "0"));
             //int i = 0;
