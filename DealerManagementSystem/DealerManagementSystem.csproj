@@ -466,6 +466,7 @@
     <Content Include="ViewMaster\UserControls\CustomerVerification.ascx" />
     <Content Include="ViewMaster\UserControls\LocationDistrict.ascx" />
     <Content Include="ViewMaster\UserControls\MaterialView.ascx" />
+    <Content Include="ViewMaster\UserControls\ModelView.ascx" />
     <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
     <Content Include="ViewMaster\LocationMap.aspx" />
@@ -1546,6 +1547,13 @@
     </Compile>
     <Compile Include="ViewMaster\UserControls\MaterialView.ascx.designer.cs">
       <DependentUpon>MaterialView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\ModelView.ascx.cs">
+      <DependentUpon>ModelView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\ModelView.ascx.designer.cs">
+      <DependentUpon>ModelView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserLocationTrackMap.aspx.cs">
       <DependentUpon>UserLocationTrackMap.aspx</DependentUpon>

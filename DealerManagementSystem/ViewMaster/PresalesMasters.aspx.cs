@@ -1792,6 +1792,7 @@ namespace DealerManagementSystem.ViewMaster
                 }
                 int MakeID = Convert.ToInt32(ddlGProductMake.SelectedValue);
                 int ProductTypeID = Convert.ToInt32(ddlGProductType.SelectedValue);
+
                 if (BtnAddOrUpdateProduct.Text == "Add")
                 {
                     success = new BPresalesMasters().InsertOrUpdateProduct(null, MakeID, ProductTypeID, Product, true, PSession.User.UserID);
@@ -1815,30 +1816,30 @@ namespace DealerManagementSystem.ViewMaster
                         return;
                     }
                 }
-                else
-                {
-                    success = new BPresalesMasters().InsertOrUpdateProduct(Convert.ToInt32(HiddenID.Value), MakeID, ProductTypeID, Product, true, PSession.User.UserID);
-                    if (success == 1)
-                    {
-                        HiddenID.Value = null;
-                        GetProduct();
-                        lblMessage.Text = "Product updated successfully...!";
-                        lblMessage.ForeColor = Color.Green;
-                        return;
-                    }
-                    else if (success == 2)
-                    {
-                        lblMessage.Text = "Product already found";
-                        lblMessage.ForeColor = Color.Red;
-                        return;
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Product not updated successfully...!";
-                        lblMessage.ForeColor = Color.Red;
-                        return;
-                    }
-                }
+                //else
+                //{
+                //    success = new BPresalesMasters().InsertOrUpdateProduct(Convert.ToInt32(HiddenID.Value), MakeID, ProductTypeID, Product, true, PSession.User.UserID);
+                //    if (success == 1)
+                //    {
+                //        HiddenID.Value = null;
+                //        GetProduct();
+                //        lblMessage.Text = "Product updated successfully...!";
+                //        lblMessage.ForeColor = Color.Green;
+                //        return;
+                //    }
+                //    else if (success == 2)
+                //    {
+                //        lblMessage.Text = "Product already found";
+                //        lblMessage.ForeColor = Color.Red;
+                //        return;
+                //    }
+                //    else
+                //    {
+                //        lblMessage.Text = "Product not updated successfully...!";
+                //        lblMessage.ForeColor = Color.Red;
+                //        return;
+                //    }
+                //}
             }
             catch (Exception ex)
             {
@@ -1848,36 +1849,36 @@ namespace DealerManagementSystem.ViewMaster
             }
         }
 
-        protected void lnkBtnProductEdit_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                lblMessage.Text = string.Empty;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-                LinkButton lnkBtnProductEdit = (LinkButton)sender;
-                DropDownList ddlProductMakeF = (DropDownList)gvProduct.FooterRow.FindControl("ddlProductMakeF");
-                DropDownList ddlProductTypeF = (DropDownList)gvProduct.FooterRow.FindControl("ddlProductTypeF");
-                TextBox txtProduct = (TextBox)gvProduct.FooterRow.FindControl("txtProduct");
-                Button BtnAddOrUpdateProduct = (Button)gvProduct.FooterRow.FindControl("BtnAddOrUpdateProduct");
-                GridViewRow row = (GridViewRow)(lnkBtnProductEdit.NamingContainer);
-                Label lblProductMakeID = (Label)row.FindControl("lblProductMakeID");
-                ddlProductMakeF.SelectedValue = (lblProductMakeID.Text=="") ? "0" : lblProductMakeID.Text;
-                Label lblProductTypeID = (Label)row.FindControl("lblProductTypeID");
-                ddlProductTypeF.SelectedValue = (lblProductTypeID.Text=="") ? "0" : lblProductTypeID.Text;
+        //protected void lnkBtnProductEdit_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        lblMessage.Text = string.Empty;
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //        LinkButton lnkBtnProductEdit = (LinkButton)sender;
+        //        DropDownList ddlProductMakeF = (DropDownList)gvProduct.FooterRow.FindControl("ddlProductMakeF");
+        //        DropDownList ddlProductTypeF = (DropDownList)gvProduct.FooterRow.FindControl("ddlProductTypeF");
+        //        TextBox txtProduct = (TextBox)gvProduct.FooterRow.FindControl("txtProduct");
+        //        Button BtnAddOrUpdateProduct = (Button)gvProduct.FooterRow.FindControl("BtnAddOrUpdateProduct");
+        //        GridViewRow row = (GridViewRow)(lnkBtnProductEdit.NamingContainer);
+        //        Label lblProductMakeID = (Label)row.FindControl("lblProductMakeID");
+        //        ddlProductMakeF.SelectedValue = (lblProductMakeID.Text=="") ? "0" : lblProductMakeID.Text;
+        //        Label lblProductTypeID = (Label)row.FindControl("lblProductTypeID");
+        //        ddlProductTypeF.SelectedValue = (lblProductTypeID.Text=="") ? "0" : lblProductTypeID.Text;
 
-                string Product = ((Label)row.FindControl("lblProduct")).Text.Trim();
-                txtProduct.Text = Product;
-                HiddenID.Value = Convert.ToString(lnkBtnProductEdit.CommandArgument);
-                BtnAddOrUpdateProduct.Text = "Update";
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message.ToString();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-        }
+        //        string Product = ((Label)row.FindControl("lblProduct")).Text.Trim();
+        //        txtProduct.Text = Product;
+        //        HiddenID.Value = Convert.ToString(lnkBtnProductEdit.CommandArgument);
+        //        BtnAddOrUpdateProduct.Text = "Update";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblMessage.Text = ex.Message.ToString();
+        //        lblMessage.ForeColor = Color.Red;
+        //        lblMessage.Visible = true;
+        //    }
+        //}
 
         protected void lnkBtnProductDelete_Click(object sender, EventArgs e)
         {
@@ -1895,10 +1896,8 @@ namespace DealerManagementSystem.ViewMaster
                 int ProductTypeID = Convert.ToInt32(((Label)row.FindControl("lblProductTypeID")).Text.Trim());
                 string Product = ((Label)row.FindControl("lblProduct")).Text.Trim();
 
-
-
                 success = new BPresalesMasters().InsertOrUpdateProduct(ProductID, ProductMakeID, ProductTypeID, Product, false, PSession.User.UserID);
-                if (success == 1)
+                if (success == 1 || success == 2)
                 {
                     HiddenID.Value = null;
                     GetProduct();
@@ -1918,6 +1917,22 @@ namespace DealerManagementSystem.ViewMaster
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }
+        }
+
+        protected void btnViewModel_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "";
+            divModelView.Visible = true;
+            divList.Visible = false;
+            Button btnViewMaterial = (Button)(sender as Control);
+
+            UC_ModelView.fillModelByID(Convert.ToInt32(btnViewMaterial.CommandArgument));
+        }
+
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divModelView.Visible = false;
+            divList.Visible = true;
         }
     }
 }

@@ -1,12 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PresalesMasters.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.PresalesMasters" %>
-
+﻿<%@ Page Title="" Language="C#" MaintainScrollPositionOnPostback="true" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PresalesMasters.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.PresalesMasters" %>
+<%@ Register Src="~/ViewMaster/UserControls/ModelView.ascx" TagPrefix="UC" TagName="UC_ModelView" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
-    <div class="col-md-12">
+    <div class="col-md-12" id="divList" runat="server">
         <asp:TabContainer ID="tbpPresalesMasters" runat="server" ToolTip="Presales Masters..." Font-Bold="True" Font-Size="Medium">
             <asp:TabPanel ID="tpnlSourceOfEnquiry" runat="server" HeaderText="Source Of Lead" Font-Bold="True" ToolTip="Source Of Enquiry...">
                 <ContentTemplate>
@@ -254,69 +254,69 @@
                                 <div class="col-md-12 Report">
 
                                     <span id="txnHistory2z:refreshDataGroup">
-                                                <div class="boxHead">
-                                                    <div class="logheading">
-                                                        <div style="float: left">
-                                                            <table>
-                                                                <tr>
-                                                                    <td>Customer Attribute Sub:</td>
+                                        <div class="boxHead">
+                                            <div class="logheading">
+                                                <div style="float: left">
+                                                    <table>
+                                                        <tr>
+                                                            <td>Customer Attribute Sub:</td>
 
-                                                                    <td>
-                                                                        <asp:Label ID="lblRowCountS" runat="server" CssClass="label"></asp:Label></td>
-                                                                    <td>
-                                                                        <asp:ImageButton ID="ibtnCASArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnCASArrowLeft_Click" /></td>
-                                                                    <td>
-                                                                        <asp:ImageButton ID="ibtnCASArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnCASArrowRight_Click" /></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
+                                                            <td>
+                                                                <asp:Label ID="lblRowCountS" runat="server" CssClass="label"></asp:Label></td>
+                                                            <td>
+                                                                <asp:ImageButton ID="ibtnCASArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnCASArrowLeft_Click" /></td>
+                                                            <td>
+                                                                <asp:ImageButton ID="ibtnCASArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnCASArrowRight_Click" /></td>
+                                                        </tr>
+                                                    </table>
                                                 </div>
+                                            </div>
+                                        </div>
 
 
-                                    <asp:GridView ID="gvCustomerAttributeSub" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                        EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvCustomerAttributeSub_PageIndexChanging" OnDataBound="gvCustomerAttributeSub_DataBound">
-                                        <Columns>
-                                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="AttributeMain" SortExpression="AttributeMain">
-                                                <ItemStyle VerticalAlign="Middle" />
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblAttributeMain" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeMain.AttributeMain")%>' runat="server" />
-                                                    <asp:Label ID="lblAttributeMainID" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeMain.AttributeMainID")%>' runat="server" Visible="false" />
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:DropDownList ID="ddlGAttributeMain" runat="server" CssClass="form-control"></asp:DropDownList>
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="AttributeSub" SortExpression="AttributeSub">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblAttributeSub" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeSub")%>' runat="server" />
-                                                    <asp:Label ID="lblAttributeSubID" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeSubID")%>' runat="server" Visible="false" />
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:TextBox ID="txtAttributeSub" runat="server" placeholder="AttributeSub" CssClass="form-control"></asp:TextBox>
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lblCustomerAttributeSubEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "AttributeSubID")%>' OnClick="lblCustomerAttributeSubEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
-                                                    <asp:LinkButton ID="lblCustomerAttributeSubDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "AttributeSubID")%>' OnClick="lblCustomerAttributeSubDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:Button ID="BtnAddCustomerAttributeSub" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddCustomerAttributeSub_Click" Width="70px" Height="33px" />
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                        <AlternatingRowStyle BackColor="#ffffff" />
-                                        <FooterStyle ForeColor="White" />
-                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                    </asp:GridView>
+                                        <asp:GridView ID="gvCustomerAttributeSub" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                                            EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvCustomerAttributeSub_PageIndexChanging" OnDataBound="gvCustomerAttributeSub_DataBound">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="AttributeMain" SortExpression="AttributeMain">
+                                                    <ItemStyle VerticalAlign="Middle" />
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblAttributeMain" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeMain.AttributeMain")%>' runat="server" />
+                                                        <asp:Label ID="lblAttributeMainID" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeMain.AttributeMainID")%>' runat="server" Visible="false" />
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        <asp:DropDownList ID="ddlGAttributeMain" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                    </FooterTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="AttributeSub" SortExpression="AttributeSub">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblAttributeSub" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeSub")%>' runat="server" />
+                                                        <asp:Label ID="lblAttributeSubID" Text='<%# DataBinder.Eval(Container.DataItem, "AttributeSubID")%>' runat="server" Visible="false" />
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        <asp:TextBox ID="txtAttributeSub" runat="server" placeholder="AttributeSub" CssClass="form-control"></asp:TextBox>
+                                                    </FooterTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lblCustomerAttributeSubEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "AttributeSubID")%>' OnClick="lblCustomerAttributeSubEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                        <asp:LinkButton ID="lblCustomerAttributeSubDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "AttributeSubID")%>' OnClick="lblCustomerAttributeSubDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        <asp:Button ID="BtnAddCustomerAttributeSub" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddCustomerAttributeSub_Click" Width="70px" Height="33px" />
+                                                    </FooterTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <AlternatingRowStyle BackColor="#ffffff" />
+                                            <FooterStyle ForeColor="White" />
+                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                        </asp:GridView>
                                 </div>
                             </fieldset>
                         </div>
@@ -408,58 +408,58 @@
                                 <div class="col-md-12 Report">
 
                                     <span id="txnHistory2p:refreshDataGroup">
-                                                <div class="boxHead">
-                                                    <div class="logheading">
-                                                        <div style="float: left">
-                                                            <table>
-                                                                <tr>
-                                                                    <td>Expense Type(s):</td>
+                                        <div class="boxHead">
+                                            <div class="logheading">
+                                                <div style="float: left">
+                                                    <table>
+                                                        <tr>
+                                                            <td>Expense Type(s):</td>
 
-                                                                    <td>
-                                                                        <asp:Label ID="lblRowCountEx" runat="server" CssClass="label"></asp:Label></td>
-                                                                    <td>
-                                                                        <asp:ImageButton ID="ibtnExpenseArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnExpenseArrowLeft_Click" /></td>
-                                                                    <td>
-                                                                        <asp:ImageButton ID="ibtnExpenseArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnExpenseArrowRight_Click" /></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
+                                                            <td>
+                                                                <asp:Label ID="lblRowCountEx" runat="server" CssClass="label"></asp:Label></td>
+                                                            <td>
+                                                                <asp:ImageButton ID="ibtnExpenseArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnExpenseArrowLeft_Click" /></td>
+                                                            <td>
+                                                                <asp:ImageButton ID="ibtnExpenseArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnExpenseArrowRight_Click" /></td>
+                                                        </tr>
+                                                    </table>
                                                 </div>
+                                            </div>
+                                        </div>
 
-                                    <asp:GridView ID="gvExpenseType" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                        EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvExpenseType_PageIndexChanging">
-                                        <Columns>
-                                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="ExpenseType" SortExpression="ExpenseType">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblExpenseType" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseType")%>' runat="server" />
-                                                    <asp:Label ID="lblExpenseTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseTypeID")%>' runat="server" Visible="false" />
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:TextBox ID="txtExpenseType" runat="server" placeholder="Expense Type" CssClass="form-control"></asp:TextBox>
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lblExpenseTypeEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ExpenseTypeID")%>' OnClick="lblExpenseTypeEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
-                                                    <asp:LinkButton ID="lblExpenseTypeDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ExpenseTypeID")%>' OnClick="lblExpenseTypeDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:Button ID="BtnAddExpenseType" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddExpenseType_Click" Width="70px" Height="33px" />
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                        <AlternatingRowStyle BackColor="#ffffff" />
-                                        <FooterStyle ForeColor="White" />
-                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                    </asp:GridView>
+                                        <asp:GridView ID="gvExpenseType" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                                            EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvExpenseType_PageIndexChanging">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="ExpenseType" SortExpression="ExpenseType">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblExpenseType" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseType")%>' runat="server" />
+                                                        <asp:Label ID="lblExpenseTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ExpenseTypeID")%>' runat="server" Visible="false" />
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        <asp:TextBox ID="txtExpenseType" runat="server" placeholder="Expense Type" CssClass="form-control"></asp:TextBox>
+                                                    </FooterTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lblExpenseTypeEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ExpenseTypeID")%>' OnClick="lblExpenseTypeEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                        <asp:LinkButton ID="lblExpenseTypeDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ExpenseTypeID")%>' OnClick="lblExpenseTypeDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        <asp:Button ID="BtnAddExpenseType" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddExpenseType_Click" Width="70px" Height="33px" />
+                                                    </FooterTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <AlternatingRowStyle BackColor="#ffffff" />
+                                            <FooterStyle ForeColor="White" />
+                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                        </asp:GridView>
                                 </div>
                             </fieldset>
                         </div>
@@ -474,58 +474,58 @@
                                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                                 <div class="col-md-12 Report">
 
-                                     <span id="txnHistory3z:refreshDataGroup">
-                                                <div class="boxHead">
-                                                    <div class="logheading">
-                                                        <div style="float: left">
-                                                            <table>
-                                                                <tr>
-                                                                    <td>Make(s):</td>
+                                    <span id="txnHistory3z:refreshDataGroup">
+                                        <div class="boxHead">
+                                            <div class="logheading">
+                                                <div style="float: left">
+                                                    <table>
+                                                        <tr>
+                                                            <td>Make(s):</td>
 
-                                                                    <td>
-                                                                        <asp:Label ID="lblRowCountMk" runat="server" CssClass="label"></asp:Label></td>
-                                                                    <td>
-                                                                        <asp:ImageButton ID="ibtnMakeArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnMakeArrowLeft_Click" /></td>
-                                                                    <td>
-                                                                        <asp:ImageButton ID="ibtnMakeArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnMakeArrowRight_Click" /></td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
+                                                            <td>
+                                                                <asp:Label ID="lblRowCountMk" runat="server" CssClass="label"></asp:Label></td>
+                                                            <td>
+                                                                <asp:ImageButton ID="ibtnMakeArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnMakeArrowLeft_Click" /></td>
+                                                            <td>
+                                                                <asp:ImageButton ID="ibtnMakeArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnMakeArrowRight_Click" /></td>
+                                                        </tr>
+                                                    </table>
                                                 </div>
+                                            </div>
+                                        </div>
 
-                                    <asp:GridView ID="gvMake" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                        EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvMake_PageIndexChanging">
-                                        <Columns>
-                                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Make" SortExpression="Make">
-                                                <ItemTemplate>
-                                                    <asp:Label ID="lblMake" Text='<%# DataBinder.Eval(Container.DataItem, "Make")%>' runat="server" />
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:TextBox ID="txtMake" runat="server" placeholder="Make" CssClass="form-control"></asp:TextBox>
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lnkMakeEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MakeID")%>' OnClick="lnkBtnMakeEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
-                                                    <asp:LinkButton ID="lnkMakeDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MakeID")%>' OnClick="lnkBtnMakeDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
-                                                </ItemTemplate>
-                                                <FooterTemplate>
-                                                    <asp:Button ID="BtnAddOrUpdateMake" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddOrUpdateMake_Click" Width="70px" Height="33px" />
-                                                </FooterTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                        <AlternatingRowStyle BackColor="#ffffff" />
-                                        <FooterStyle ForeColor="White" />
-                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                    </asp:GridView>
+                                        <asp:GridView ID="gvMake" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                                            EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" ShowFooter="true" OnPageIndexChanging="gvMake_PageIndexChanging">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Make" SortExpression="Make">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblMake" Text='<%# DataBinder.Eval(Container.DataItem, "Make")%>' runat="server" />
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        <asp:TextBox ID="txtMake" runat="server" placeholder="Make" CssClass="form-control"></asp:TextBox>
+                                                    </FooterTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lnkMakeEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MakeID")%>' OnClick="lnkBtnMakeEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                        <asp:LinkButton ID="lnkMakeDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MakeID")%>' OnClick="lnkBtnMakeDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        <asp:Button ID="BtnAddOrUpdateMake" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddOrUpdateMake_Click" Width="70px" Height="33px" />
+                                                    </FooterTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <AlternatingRowStyle BackColor="#ffffff" />
+                                            <FooterStyle ForeColor="White" />
+                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                        </asp:GridView>
                                 </div>
                             </fieldset>
                         </div>
@@ -672,10 +672,14 @@
                                                     <asp:TextBox ID="txtProduct" runat="server" placeholder="Product" CssClass="form-control"></asp:TextBox>
                                                 </FooterTemplate>
                                             </asp:TemplateField>
-
+                                            <asp:TemplateField HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <asp:Button ID="btnViewModel" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProductID")%>' Text="View" CssClass="btn Back" OnClick="btnViewModel_Click" Width="75px" Height="25px" />
+                                                </ItemTemplate>                                                
+                                            </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
-                                                    <asp:LinkButton ID="lnkBtnProductEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProductID")%>' OnClick="lnkBtnProductEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                    <%--<asp:LinkButton ID="lnkBtnProductEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProductID")%>' OnClick="lnkBtnProductEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>--%>
                                                     <asp:LinkButton ID="lnkBtnProductDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProductID")%>' OnClick="lnkBtnProductDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                                                 </ItemTemplate>
                                                 <FooterTemplate>
@@ -696,5 +700,15 @@
                 </ContentTemplate>
             </asp:TabPanel>
         </asp:TabContainer>
+    </div>
+    <div class="col-md-12" id="divModelView" runat="server" visible="false">
+        <div class="" id="boxHere"></div>
+        <div class="back-buttton" id="backBtn">
+            <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+        </div>
+        <div class="col-md-12" runat="server" id="tblDashboard">
+            <UC:UC_ModelView ID="UC_ModelView" runat="server"></UC:UC_ModelView>
+            <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>            
+        </div>
     </div>
 </asp:Content>

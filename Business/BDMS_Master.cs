@@ -165,5 +165,20 @@ namespace Business
             string endPoint = "Master/ICTicketCallCategory?CallCategoryID=" + CallCategoryID + "&CallCategory=" + CallCategory;
             return JsonConvert.DeserializeObject<List<PICTicketCallCategory>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public List<PProductDrawingType> GetProductDrawingType(int? ProductDrawingTypeID, string ProductDrawingTypeName)
+        {
+            string endPoint = "Master/ProductDrawingType?ProductDrawingTypeID=" + ProductDrawingTypeID + "&ProductDrawingTypeName=" + ProductDrawingTypeName;
+            return JsonConvert.DeserializeObject<List<PProductDrawingType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PProductDrawing> GetProductDrawing(int? ProductID)
+        {
+            string endPoint = "Master/GetProductDrawing?ProductID=" + ProductID;
+            return JsonConvert.DeserializeObject<List<PProductDrawing>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PAttachedFile GetAttachedFileProductDrawingForDownload(string DocumentName)
+        {
+            string endPoint = "Master/AttachedFileProductDrawingForDownload?DocumentName=" + DocumentName;
+            return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+        }
     }
 } 
