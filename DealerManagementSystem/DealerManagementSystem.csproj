@@ -459,7 +459,7 @@
     <Content Include="ViewMaster\Application.aspx" />
     <Content Include="ViewMaster\CreateAjaxEmployee.aspx" />
     <Content Include="ViewMaster\Customer.aspx" />
-    <Content Include="ViewMaster\CustomerChangeForApproval.aspx" />
+    <Content Include="ViewMaster\CustomerGstApproval.aspx" />
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerBinLocation.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
@@ -1494,12 +1494,12 @@
     <Compile Include="ViewMaster\Customer.aspx.designer.cs">
       <DependentUpon>Customer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewMaster\CustomerChangeForApproval.aspx.cs">
-      <DependentUpon>CustomerChangeForApproval.aspx</DependentUpon>
+    <Compile Include="ViewMaster\CustomerGstApproval.aspx.cs">
+      <DependentUpon>CustomerGstApproval.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewMaster\CustomerChangeForApproval.aspx.designer.cs">
-      <DependentUpon>CustomerChangeForApproval.aspx</DependentUpon>
+    <Compile Include="ViewMaster\CustomerGstApproval.aspx.designer.cs">
+      <DependentUpon>CustomerGstApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Dealer.aspx.cs">
       <DependentUpon>Dealer.aspx</DependentUpon>
