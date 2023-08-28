@@ -308,4 +308,15 @@ namespace Properties
         public DateTime ApprovedDate { get; set; }
         public string Remark { get; set; }
     }
+    [Serializable]
+    public class PSalesQuotationCustomerSinged
+    {
+        public long SalesQuotationCustomerSingedID { get; set; }
+        public long SalesQuotationID { get; set; }
+        public decimal CustomerAgreedPrice { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public bool IsActive { get; set; }
+    }
 }

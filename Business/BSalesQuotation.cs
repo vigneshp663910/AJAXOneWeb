@@ -940,6 +940,20 @@ namespace Business
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             
         }
+
+
+        public PSalesQuotationCustomerSinged GetSalesQuotationCustomerSinged(long SalesQuotationID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "SalesQuotation/GetSalesQuotationCustomerSinged?SalesQuotationID=" + SalesQuotationID ;
+            return JsonConvert.DeserializeObject<PSalesQuotationCustomerSinged>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+        }
+        public PAttachedFile AttachedFileSalesQuotationCustomerSingedForDownload(string DocumentName)
+        {
+            string endPoint = "SalesQuotation/AttachedFileSalesQuotationCustomerSingedForDownload?DocumentName=" + DocumentName;
+            return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+        }
     }
     [Serializable]
     public class PSalesQuotation_sap_MaterialTax
