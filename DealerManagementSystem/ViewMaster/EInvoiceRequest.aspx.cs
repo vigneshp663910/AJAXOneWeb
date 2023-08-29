@@ -56,18 +56,8 @@ namespace DealerManagementSystem.ViewMaster
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
             if (!IsPostBack)
-            {
-                 
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0].DID.ToString()));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                } 
+            { 
+                fillDealer();
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)

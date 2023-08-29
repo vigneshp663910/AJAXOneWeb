@@ -114,46 +114,15 @@ namespace DealerManagementSystem.ViewMaster
         }
         void LoadDropdown()
         {
-            if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-            {
-                ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, PSession.User.Dealer[0].DID.ToString()));
-                ddlDealerCode.Enabled = false;
+            fillDealer();
 
-                ddlCDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, PSession.User.Dealer[0].DID.ToString()));
-                ddlCDealerCode.Enabled = false;
+            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID");
+            new DDLBind(ddlCOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID");
+            new DDLBind(ddlCOffice, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID");
+            new DDLBind(ddlCDealerOfficeConfig, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID");
 
-                ddlCDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID, PSession.User.Dealer[0].DID.ToString()));
-                ddlCDealer.Enabled = false;
-
-                ddlCDealerConfig.Items.Add(new ListItem(PSession.User.ExternalReferenceID, PSession.User.Dealer[0].DID.ToString()));
-                ddlCDealerConfig.Enabled = false;
-                DealerID = PSession.User.Dealer[0].DID;
-                CDealerID = PSession.User.Dealer[0].DID;
-
-                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(DealerID, null, null), "OfficeName", "OfficeID");
-                new DDLBind(ddlCOfficeName, new BDMS_Dealer().GetDealerOffice(DealerID, null, null), "OfficeName", "OfficeID");
-                new DDLBind(ddlCOffice, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID");
-                new DDLBind(ddlCDealerOfficeConfig, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID");
-
-                new DDLBind(ddlCBin, new BDMS_Dealer().GetDealerBin(CDealerID, null), "BinName", "DealerBinLocationID");
-                new DDLBind(ddlCDealerBinConfig, new BDMS_Dealer().GetDealerBin(CDealerID, null), "BinName", "DealerBinLocationID");
-            }
-            else
-            {
-                ddlDealerCode.Enabled = true;
-                ddlCDealerCode.Enabled = true;
-                ddlCDealer.Enabled = true;
-                ddlCDealerConfig.Enabled = true;
-                fillDealer();
-
-                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID");
-                new DDLBind(ddlCOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID");
-                new DDLBind(ddlCOffice, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID");
-                new DDLBind(ddlCDealerOfficeConfig, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID");
-
-                new DDLBind(ddlCBin, new BDMS_Dealer().GetDealerBin(0, null), "BinName", "DealerBinLocationID");
-                new DDLBind(ddlCDealerBinConfig, new BDMS_Dealer().GetDealerBin(0, null), "BinName", "DealerBinLocationID");
-            }
+            new DDLBind(ddlCBin, new BDMS_Dealer().GetDealerBin(0, null), "BinName", "DealerBinLocationID");
+            new DDLBind(ddlCDealerBinConfig, new BDMS_Dealer().GetDealerBin(0, null), "BinName", "DealerBinLocationID");
         }
         void fillDealer()
         {

@@ -267,18 +267,7 @@ namespace DealerManagementSystem.ViewService
 
                     supplierPOLinesGrid.DataSource = supplierPurchaseOrderLines;
                     supplierPOLinesGrid.DataBind();
-
-                    if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                    {
-                        Label lblAnnexureNumber = (Label)e.Row.FindControl("lblAnnexureNumber");
-                        Label lblStatus = (Label)e.Row.FindControl("lblStatus");
-                        if ((string.IsNullOrEmpty(lblAnnexureNumber.Text)) && (lblStatus.Text != "CANCELED"))
-                        {
-                            Button btnCancel = (Button)e.Row.FindControl("btnCancel");
-                            btnCancel.Visible = true;
-                        }
-                    }
-
+                     
                 }
                 TraceLogger.Log(traceStartTime);
             }

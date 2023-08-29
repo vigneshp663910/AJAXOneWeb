@@ -75,18 +75,8 @@ namespace DealerManagementSystem.ViewMaster
                 ViewState["PANCardCopyAttachedFileID"] = null;
                 ViewState["ChequeCopyAttachedFileID"] = null;
 
-                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    PDealer Dealer = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
-                    ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID, Dealer.DID.ToString()));
-                    ddlDealer.Enabled = false;
-                }
-                else
-                {
-                    ddlDealer.Enabled = true;
-                    fillDealer();
-                }
+                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null); 
+                fillDealer();
                 new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, Convert.ToInt32(ddlDealer.SelectedValue));
                 //ddlDistrict.DataSource = new BDMS_Address().GetDistrict(null, null, null, null, null, null);
                 //ddlDistrict.DataTextField = "District";

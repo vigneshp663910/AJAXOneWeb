@@ -1109,23 +1109,27 @@ namespace DealerManagementSystem.ViewService
             {
                 if (t.ServiceTechnicianWorkedDate != null)
                 {
-                    foreach (PDMS_ServiceTechnicianWorkedDate tw in t.ServiceTechnicianWorkedDate)
+                    if (t.ServiceTechnicianWorkedDate.Count != 0)
                     {
-                        tech.Add(new Technician() 
-                        {                            
-                            Name = t.ContactName, 
-                            WorkedDate = tw.WorkedDate, 
-                            WorkedHours = tw.WorkedHours ,
-                            ICTicketID=tw.ICTicketID
-                        });
+                        foreach (PDMS_ServiceTechnicianWorkedDate tw in t.ServiceTechnicianWorkedDate)
+                        {
+                            tech.Add(new Technician()
+                            {
+                                Name = t.ContactName,
+                                WorkedDate = tw.WorkedDate,
+                                WorkedHours = tw.WorkedHours,
+                                ICTicketID = tw.ICTicketID
+                            });
+                        }
+                    }
+                    else
+                    {
+                        tech.Add(new Technician() { ICTicketID = t.ICTicketID, Name = t.ContactName });
                     }
                 }
                 else
                 {
-                    tech.Add(new Technician() {
-                        ICTicketID = t.ICTicketID,
-                        Name = t.ContactName 
-                    });
+                    tech.Add(new Technician() { ICTicketID = t.ICTicketID, Name = t.ContactName });
                 }
             }
             return tech;
