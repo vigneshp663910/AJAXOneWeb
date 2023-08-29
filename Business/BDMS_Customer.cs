@@ -547,7 +547,12 @@ namespace Business
                 {
                     // DataTable DtResult = new SapIntegration.SCustomer().ChangeCustomerInSAP(Customer, IsShipTo);
                     string endPoint = "Customer/ChangeCustomerInSAP?CustomerID=" + Customer.CustomerID + "&IsShipTo=" + IsShipTo;
-                    DataTable DtResult = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+                    PApiResult RE = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                    if(RE.Status == PApplication.Failure)
+                    {
+                        throw new Exception(RE.Message);
+                    }
+                    DataTable DtResult = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(RE.Data));
 
                     foreach (DataRow dr in DtResult.Rows)
                     {
