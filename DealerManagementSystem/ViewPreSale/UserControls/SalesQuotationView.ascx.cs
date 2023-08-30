@@ -95,22 +95,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.ID == "lbtnAddProduct")
             {
-               // new DDLBind(ddlPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID");
-               if(Quotation.IsStandard)
+                // new DDLBind(ddlPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID");
+                if (Quotation.IsStandard)
                 {
                     UC_AddVariant.FillMaster(Quotation.Lead.ProductType.ProductTypeID, Quotation);
                     MPE_Variant.Show();
                 }
-               else
+                else
                 {
                     MPE_Product.Show();
                 }
-
-                
-            }
-            else if (lbActions.ID == "lbtnAddVariant")
-            {
-                
             }
             else if (lbActions.Text == "Add Competitor")
             {
@@ -251,7 +245,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
                 new DDLBind(ddlPersonMet, new BDMS_Customer().GetCustomerRelation(Quotation.Lead.Customer.CustomerID, null), "ContactName", "CustomerRelationID");
             }
-            
+            else if (lbActions.Text == "Add Customer Singed Quotation")
+            {
+                MPE_CustomerSingedCopy.Show();
+            }
             //else if (lbActions.Text == "Generate Commission Claim")
             //{ 
             //    lblMessage.Visible = true;
@@ -820,6 +817,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillShifTo();
             fillVisit();
             fillSalesCommissionClaim();
+            fillCustomerSingedCopy();
         }
         public string ValidationFinancier()
         {
@@ -1191,7 +1189,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             return mybytes;
         }
 
-        Byte[] MachineQuotationStdRdlc(out string mimeType)
+        Byte[] MachineQuotationStdRdlc(List<PProductDrawing> ProductDrawing, out string mimeType)
         { 
             PSalesQuotation Q = Quotation;
             var CC = CultureInfo.CurrentCulture;
@@ -1325,14 +1323,46 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //string BatchingPlantImage2 = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
             //string BatchingPlantTechSpec = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
 
-            string BatchingPlantImage1 = new Uri(Server.MapPath("~/Drawing/Product/Picture1.png")).AbsoluteUri;
-            string BatchingPlantImage2 = new Uri(Server.MapPath("~/Drawing/Product/Picture2.png")).AbsoluteUri;
-            string BatchingPlantTechSpec = new Uri(Server.MapPath("~/Drawing/Product/Picture3.png")).AbsoluteUri;
+            string img1 = "", Image1Spec = "", img2 = "", Image2Spec = "", Spec = "";
+            if (!Directory.Exists(Server.MapPath("~/Drawing/Product")))
+            {
+                Directory.CreateDirectory(Server.MapPath("~/Drawing/Product"));
+            }
+            foreach (PProductDrawing D in ProductDrawing)
+            { 
+                string imgName = D.ProductDrawingID + "." + D.FileName.Split('.')[D.FileName.Split('.').Count() - 1];
+                if (!File.Exists(Server.MapPath("~/Drawing/Product/"+ imgName)))
+                {
+                    PAttachedFile Files = new BDMS_Master().GetAttachedFileProductDrawingForDownload(D.ProductDrawingID + Path.GetExtension(D.FileName));
+                    File.WriteAllBytes(Server.MapPath("~/Drawing/Product/" + imgName), Files.AttachedFile);
+                } 
+                if (D.ProductDrawingType.ProductDrawingTypeID == 1)
+                {
+                    img1 = imgName;
+                    Image1Spec = D.DrawingDescription;
+                }
+                if (D.ProductDrawingType.ProductDrawingTypeID == 2)
+                {
+                    img2 = imgName;
+                    Image2Spec = D.DrawingDescription;
+                }
+                if (D.ProductDrawingType.ProductDrawingTypeID == 3)
+                {
+                    Spec = imgName;
+                }
+            }
 
+
+            string BatchingPlantImage1 = new Uri(Server.MapPath("~/Drawing/Product/"+ img1)).AbsoluteUri;
+            string BatchingPlantImage2 = new Uri(Server.MapPath("~/Drawing/Product/"+ img2)).AbsoluteUri;
+            string BatchingPlantTechSpec = new Uri(Server.MapPath("~/Drawing/Product/"+ Spec)).AbsoluteUri;
+
+            
+            
             P[33] = new ReportParameter("BatchingPlantImage1", BatchingPlantImage1);
-            P[34] = new ReportParameter("BatchingPlantImage1Spec", "Elivation Image of CRB-20 CP");
+            P[34] = new ReportParameter("BatchingPlantImage1Spec", Image1Spec);
             P[35] = new ReportParameter("BatchingPlantImage2", BatchingPlantImage2);
-            P[36] = new ReportParameter("BatchingPlantImage2Spec", "Isometric Image of CRB-20 CP");
+            P[36] = new ReportParameter("BatchingPlantImage2Spec", Image2Spec);
             P[37] = new ReportParameter("BatchingPlantTechSpec", BatchingPlantTechSpec);     
 
             report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotationStd.rdlc");
@@ -1364,7 +1394,17 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Byte[] mybytes = null;
                 if (Quotation.IsStandard)
                 {
-                      mybytes = MachineQuotationStdRdlc(out mimeType);
+                    List<PProductDrawing> ProductDrawing = new BDMS_Master().GetProductDrawing(Q.LeadProduct.Product.ProductID);
+                    if (ProductDrawing.Count != 3)
+                    {
+                        lblMessage.Text = "Drawing is not available";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    
+
+                    mybytes = MachineQuotationStdRdlc(ProductDrawing, out mimeType);
                 }
                 else
                 {
@@ -1418,7 +1458,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 Byte[] mybytes = null;
                 if (Quotation.IsStandard)
                 {
-                      mybytes = MachineQuotationStdRdlc(out mimeType);
+                    List<PProductDrawing> ProductDrawing = new BDMS_Master().GetProductDrawing(Q.LeadProduct.Product.ProductID);
+                    if (ProductDrawing.Count != 3)
+                    {
+                        lblMessage.Text = "Drawing is not available";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    mybytes = MachineQuotationStdRdlc(ProductDrawing,out mimeType);
                 }
                 else
                 {
@@ -2224,6 +2272,96 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Text = "Updated Successfully";
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
+        }
+
+        protected void btnCustomerSingedCopy_Click(object sender, EventArgs e)
+        {
+            MPE_CustomerSingedCopy.Show();
+            lblMessageCustomerSingedCopy.Visible = true;
+            lblMessageCustomerSingedCopy.ForeColor = Color.Red;
+
+            txtCustomerAgreedPrice.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtCustomerAgreedPrice.Text.Trim()))
+            {
+                txtCustomerAgreedPrice.BorderColor = Color.Red;
+                lblMessageCustomerSingedCopy.Text = "Please enter the Discount";
+            }
+            decimal decimalValue;
+            if (decimal.TryParse(txtCustomerAgreedPrice.Text.Trim(), out decimalValue))
+            {
+                txtCustomerAgreedPrice.BorderColor = Color.Red;
+                lblMessageCustomerSingedCopy.Text = "Please enter the Correct Discount Value";
+            }
+            
+
+            if (fuCustomerSinged.PostedFile != null)
+            {
+                if (fuCustomerSinged.PostedFile.FileName.Length > 0)
+                {
+                    if (fuCustomerSinged.PostedFile.FileName.Length == 0)
+                    {
+                        lblMessageCustomerSingedCopy.Text = "Please select the file...!"; 
+                        return;
+                    }
+                }
+            }
+
+            HttpPostedFile file = fuCustomerSinged.PostedFile;
+          //  int size = file.ContentLength;
+            string name = file.FileName;
+            int position = name.LastIndexOf("\\");
+            name = name.Substring(position + 1);
+
+            byte[] fileData = new byte[file.ContentLength];
+            file.InputStream.Read(fileData, 0, file.ContentLength);
+
+            PSalesQuotationCustomerSinged Singed = new PSalesQuotationCustomerSinged();
+            Singed.SalesQuotationID = Quotation.QuotationID;
+            Singed.FileName = name;
+            Singed.FileType = file.ContentType;
+            Singed.AttachedFile = fileData;
+            Singed.IsActive = true;
+            Singed.CustomerAgreedPrice = Convert.ToDecimal(txtCustomerAgreedPrice.Text.Trim());
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/InsertOrUpdateSalesQuotationCustomerSinged" , Singed));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageCustomerSingedCopy.Text = Results.Message;
+                return;
+            }
+            MPE_CustomerSingedCopy.Hide();
+           // tbpSaleQuotation.ActiveTabIndex = 1;
+            fillCustomerSingedCopy();
+            lblMessage.Text = "Updated Successfully";
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+        }
+        void fillCustomerSingedCopy()
+        {
+            PSalesQuotationCustomerSinged Singed = new BSalesQuotation().GetSalesQuotationCustomerSinged(Quotation.QuotationID);
+            lblSalesQuotationCustomerSingedID.Text = Singed.SalesQuotationCustomerSingedID.ToString();
+            lblCustomerAgreedPrice.Text = Convert.ToString(Singed.CustomerAgreedPrice);
+            lbtnCustomerSingedQuotationDownload.Text = Singed.FileName;
+            // gvVisit.DataSource = Visit;
+            // gvVisit.DataBind();
+        }
+
+        protected void lbtnCustomerSingedQuotationDownload_Click(object sender, EventArgs e)
+        {
+            PSalesQuotationCustomerSinged Singed = new BSalesQuotation().GetSalesQuotationCustomerSinged(Quotation.QuotationID);
+            PAttachedFile Att = new BSalesQuotation().AttachedFileSalesQuotationCustomerSingedForDownload(lblSalesQuotationCustomerSingedID.Text + Path.GetExtension(lbtnCustomerSingedQuotationDownload.Text));
+            Response.AddHeader("Content-type", Singed.FileType); 
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + Singed.FileName);
+            HttpContext.Current.Response.Charset = "utf-16";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250"); 
+            Response.BinaryWrite(Att.AttachedFile);
+            // Append cookie
+            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+            cookie.Value = "Flag";
+            cookie.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.AppendCookie(cookie);
+            // end 
+            Response.Flush();
+            Response.End();
         }
     }
 }

@@ -30,9 +30,9 @@
                 <asp:LinkButton ID="lbtnViewTaxQuotation" runat="server" OnClick="lbActions_Click">View Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDownloadTaxQuotation" runat="server" OnClick="lbActions_Click">Download Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDownloadConsolidatedTaxQuotation" runat="server" OnClick="lbActions_Click">Download Consolidated Tax Quotation</asp:LinkButton>
-                <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
-
+                <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton> 
                 <asp:LinkButton ID="lbtnAddDiscount" runat="server" OnClick="lbActions_Click">Add Discount</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Add Customer Singed Quotation</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -779,6 +779,22 @@
             </div>
         </ContentTemplate>
     </asp:TabPanel>
+    <asp:TabPanel ID="TabPanel2" runat="server" HeaderText="Customer Singed Quotation" Font-Bold="True" ToolTip="">
+        <ContentTemplate>
+            <br />
+            <div class="col-md-12 View">
+                 <div class="col-md-4">
+                    <label>Customer Agreed Price : </label>
+                    <asp:Label ID="lblCustomerAgreedPrice" runat="server" CssClass="LabelValue"></asp:Label>
+                     <asp:Label ID="lblSalesQuotationCustomerSingedID" runat="server" CssClass="LabelValue" Visible="false"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label></label> 
+                    <asp:LinkButton ID="lbtnCustomerSingedQuotationDownload" runat="server" OnClick="lbtnCustomerSingedQuotationDownload_Click">Singed Copy</asp:LinkButton>
+                </div> 
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
 </asp:TabContainer>
 
 <asp:Panel ID="pnlFinancier" runat="server" CssClass="Popup" Style="display: none">
@@ -1087,6 +1103,35 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_HeaderDiscount" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDiscount" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="Panel1" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Customer Singed Copy</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button11" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageCustomerSingedCopy" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <div class="col-md-12"> 
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Customer Agreed Price</label>
+                        <asp:TextBox ID="txtCustomerAgreedPrice" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                    </div> 
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Singed  Document</label>
+                         <asp:FileUpload ID="fuCustomerSinged" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
+                    </div> 
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnCustomerSingedCopy" runat="server" Text="Save" CssClass="btn Save" OnClick="btnCustomerSingedCopy_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_CustomerSingedCopy" runat="server" TargetControlID="lnkMPE" PopupControlID="Panel1" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <%--<fieldset class="fieldset-border" id="Fieldset4" runat="server">
