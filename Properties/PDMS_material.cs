@@ -101,6 +101,16 @@ namespace Properties
         public bool IsActive { get; set; } 
     }
     [Serializable]
+    public class PMaterialDrawing
+    {
+        public long MaterialDrawingID { get; set; }
+        public PDMS_Material Material { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public bool IsActive { get; set; }
+    }
+    [Serializable]
     public class PMaterial
     {
         public long MaterialID { get; set; }

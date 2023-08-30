@@ -329,5 +329,15 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return success;
         }
+        public List<PMaterialDrawing> GetMaterialDrawing(long? MaterialID)
+        {
+            string endPoint = "Material/GetMaterialDrawing?MaterialID=" + MaterialID;
+            return JsonConvert.DeserializeObject<List<PMaterialDrawing>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PAttachedFile GetAttachedFileMaterialDrawingForDownload(string DocumentName)
+        {
+            string endPoint = "Material/AttachedFileMaterialDrawingForDownload?DocumentName=" + DocumentName;
+            return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+        }
     }
 }
