@@ -1656,26 +1656,62 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected void btnAddMaterialCharges_Click(object sender, EventArgs e)
         {
             MPE_AddMaterialCharges.Show();
-            string Message = UC_ICTicketAddMaterialCharges.Validation();
             lblMessageMaterialCharges.ForeColor = Color.Red;
             lblMessageMaterialCharges.Visible = true;
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageMaterialCharges.Text = Message;
+            Button lbActions = ((Button)sender);
+            if (lbActions.ID == "btnAddMaterialCharges")
+            {                
+                string Message = UC_ICTicketAddMaterialCharges.Validation();
+                lblMessageMaterialCharges.ForeColor = Color.Red;
+                lblMessageMaterialCharges.Visible = true;
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessageMaterialCharges.Text = Message;
+                    return;
+                }
+                PDMS_ServiceMaterial_API OM = UC_ICTicketAddMaterialCharges.Read();
+                OM.ICTicketID = SDMS_ICTicket.ICTicketID;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/TicketMaterialChargeAdd", OM));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessageMaterialCharges.Text = Results.Message;
+                    return;
+                }
+                ShowMessage(Results);                
+                tbpCust.ActiveTabIndex = 5;
+                FillICTicket(SDMS_ICTicket.ICTicketID);
+            }
+            else if (lbActions.ID == "btnAddMaterialAvailability")
+            { 
+                HiddenField hdfMaterialID = (HiddenField)UC_ICTicketAddMaterialCharges.FindControl("hdfMaterialID");
+                CheckBox cbSupersedeYN = (CheckBox)UC_ICTicketAddMaterialCharges.FindControl("cbSupersedeYN"); 
+                if (string.IsNullOrEmpty(hdfMaterialID.Value))
+                {
+                    lblMessage.Text = "Please enter the material";
+                    return;
+                }
+                string Material = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null)[0].MaterialCode;
+                string endPoint = "ICTicket/GetMateriAlavailablQty?DealerCode=" + SDMS_ICTicket.Dealer.DealerCode + "&OfficeCode=" + SDMS_ICTicket.DealerOffice.OfficeCode + "&Material=" + Material+ "&SupersedeYN=" + cbSupersedeYN.Checked;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessageMaterialCharges.Text = Results.Message; 
+                }
+                else
+                {
+                    if (cbSupersedeYN.Checked)
+                    {
+                        lblMessageMaterialCharges.Text = "Supersede Material  available quantity is "+ Convert.ToString( Results.Data);
+                    }
+                    else
+                    {
+                        lblMessageMaterialCharges.Text = "Material  available quantity is " + Convert.ToString(Results.Data);
+                    }
+                    lblMessageMaterialCharges.ForeColor = Color.Green; 
+                }
                 return;
             }
-            PDMS_ServiceMaterial_API OM = UC_ICTicketAddMaterialCharges.Read();
-            OM.ICTicketID = SDMS_ICTicket.ICTicketID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket/TicketMaterialChargeAdd", OM));
-            if (Results.Status == PApplication.Failure)
-            {
-                lblMessageMaterialCharges.Text = Results.Message;
-                return;
-            }
-            ShowMessage(Results);
             MPE_AddMaterialCharges.Hide();
-            tbpCust.ActiveTabIndex = 5;
-            FillICTicket(SDMS_ICTicket.ICTicketID);
         }
         
         protected void lblMaterialRemove_Click(object sender, EventArgs e)

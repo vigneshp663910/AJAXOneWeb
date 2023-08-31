@@ -1292,6 +1292,7 @@
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnAddMaterialCharges" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddMaterialCharges_Click" />
+            <asp:Button ID="btnAddMaterialAvailability" runat="server" Text="Availability" Width="85px" CssClass="btn Save" OnClick="btnAddMaterialCharges_Click" />
         </div>
 
     </div>
