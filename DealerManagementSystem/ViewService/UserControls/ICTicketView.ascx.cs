@@ -229,9 +229,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
 
             gvServiceCharges.DataSource = SDMS_ICTicket.ServiceCharges;
-            gvServiceCharges.DataBind();
-
-            //FillServiceCharges();
+            gvServiceCharges.DataBind(); 
             FillTSIRDetails();
             FillServiceMaterial();
             FillServiceNotes();
@@ -241,10 +239,35 @@ namespace DealerManagementSystem.ViewService.UserControls
             int RowCount = 0;
             MarginWarrantyReq = new BDMS_ICTicket().GetMarginWarrantyChangeForApproval(null, null, null, SDMS_ICTicket.ICTicketNumber, PSession.User.UserID, null, null, out RowCount);
 
-            //FillCustomerFeedBack();
 
+            if (SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.Declined
+                || SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.ReqDeclined)
+            {
+                tpnlTechnician.Visible = false;
+                TabReached.Visible = false;
+                tpnlCallInformation.Visible = false;
+                tpnlFSR.Visible = false;
+                tpnlAvailabilityOfOtherMachine.Visible = false;
+                tpnlServiceCharges.Visible = false;
+                tpnlTSIR.Visible = false;
+                tpnlMaterialCharges.Visible = false;
+                tpnlNotes.Visible = false;
+                TabechnicianWorkHours.Visible = false;
+                TabRestore.Visible = false;
+                TabSignature.Visible = false;
+                FillDeclinedInfo();
+            }
+            else
+            {
+                tpnlDeclined.Visible = false;
+            } 
             ActionControlMange();
 
+        }
+        void FillDeclinedInfo()
+        {
+            lblDeclinedReson.Text = SDMS_ICTicket.ReqDeclinedReason;
+            lblDeclinedDate.Text = Convert.ToString(SDMS_ICTicket.ReqDeclinedDate);
         }
        
         public void FillBasicInformation()

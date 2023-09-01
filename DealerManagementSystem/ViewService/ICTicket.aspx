@@ -2,7 +2,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewService/UserControls/ICTicketView.ascx" TagPrefix="UC" TagName="UC_ICTicketView" %>
-<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server"> 
+<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
         function collapseExpand(obj) {
             var gvObject = document.getElementById("MainContent_pnlFilterContent");
@@ -95,6 +95,12 @@
                         </div>
                         <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" DataKeyNames="ICTicketID" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging" OnRowDataBound="gvICTickets_RowDataBound1">
                             <Columns>
+                                <asp:TemplateField HeaderText="View">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click">View</asp:LinkButton> 
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="" Visible="false">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" />
                                     <ItemTemplate>
@@ -177,13 +183,7 @@
                                         <asp:CheckBox ID="cbIsMarginWarranty" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsMarginWarranty")%>' Enabled="false" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="View">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click">View </asp:LinkButton>
-                                        <%-- <asp:LinkButton ID="lbReqDecline" runat="server" OnClick="lbReqDecline_Click">Req.Decline </asp:LinkButton>--%>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />
@@ -208,7 +208,7 @@
     </div>
 
 
-    
+
 
 </asp:Content>
 

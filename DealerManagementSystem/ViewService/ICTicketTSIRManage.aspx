@@ -106,10 +106,16 @@
                             </div>
                             <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="TsirID" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging">
                                 <Columns>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnView" runat="server" Text="View" CssClass="btn Back" OnClick="btnView_Click" Width="50px" Height="33px" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Tsir Number">
                                         <ItemTemplate>
                                             <asp:Label ID="lblTsirNumber" Text='<%# DataBinder.Eval(Container.DataItem, "TsirNumber")%>' runat="server" />
                                             <asp:Label ID="lblTsirID" Text='<%# DataBinder.Eval(Container.DataItem, "TsirID")%>' runat="server" Visible="false" />
+                                            <asp:Label ID="lblTsirDate" Text='<%# DataBinder.Eval(Container.DataItem, "TsirDate","{0:d}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle Width="62px" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -118,17 +124,13 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.ICTicketNumber")%>' runat="server" />
                                             <asp:Label ID="lblICTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.ICTicketID")%>' runat="server" Visible="false" />
+                                            <br />
+                                            <asp:Label ID="lblf_call_login_date1" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.ICTicketDate","{0:d}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle Width="62px" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="IC Ticket Date">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblf_call_login_date1" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.ICTicketDate","{0:d}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                        <HeaderStyle Width="92px" />
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    </asp:TemplateField>
+
                                     <%-- <asp:TemplateField HeaderText="FSR">
                                 <ItemTemplate>
                                     <asp:Label ID="lblTsirNumber" Text='<%# DataBinder.Eval(Container.DataItem, "FSRNumber")%>' runat="server" />
@@ -169,12 +171,18 @@
                                         </ItemTemplate>
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Requested Date">
+                                    <%--  <asp:TemplateField HeaderText="Requested Date">
                                         <ItemTemplate>
                                             <asp:Label ID="lblser_res_date" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.RequestedDate","{0:d}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle Width="76px" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    </asp:TemplateField>--%>
+                                    <asp:TemplateField HeaderText="Machine Serial Number">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblEquipmentSerialNo" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.Equipment.EquipmentSerialNo")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Model">
                                         <ItemTemplate>
@@ -197,7 +205,13 @@
                                         <HeaderStyle Width="147px" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
-
+                                    <asp:TemplateField HeaderText="TSIR Status">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblStatusID" Text='<%# DataBinder.Eval(Container.DataItem, "Status.StatusID")%>' runat="server" Visible="false"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <%-- <asp:TemplateField HeaderText="Signature">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lbUpdateSignature" runat="server" OnClick="lbUpdateSignature_Click">Update Signature </asp:LinkButton>
@@ -205,17 +219,19 @@
                                 <HeaderStyle Width="147px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>--%>
-                                    <asp:TemplateField HeaderText="FSR-PDF">
+                                    <asp:TemplateField HeaderText="Type Of Warranty">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTypeOfWarranty" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.TypeOfWarranty.TypeOfWarranty")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="TSIR PDF">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="../Images/pdf_dload.png" OnClick="ibPDF_Click" Style="height: 50px; width: 60px;" />
                                         </ItemTemplate>
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <asp:Button ID="btnView" runat="server" Text="View" CssClass="btn Back" OnClick="btnView_Click" Width="50px" Height="33px" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
