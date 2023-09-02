@@ -132,7 +132,7 @@ namespace DealerManagementSystem.ViewEquipment
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("Equipment", "fillClaim", e1);
+                new FileLogger().LogMessage("Equipment", "GetEquipmentHeader", e1);
                 throw e1;
             }
         }

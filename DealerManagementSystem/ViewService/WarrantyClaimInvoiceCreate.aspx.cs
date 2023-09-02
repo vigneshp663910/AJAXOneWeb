@@ -192,7 +192,7 @@ namespace DealerManagementSystem.ViewService
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_ClaimConsolidationAnnexure", "fillClaim", e1);
+                new FileLogger().LogMessage("WarrantyClaimInvoiceCreate", "fillNEPI_Commission", e1);
                 throw e1;
             }
         }

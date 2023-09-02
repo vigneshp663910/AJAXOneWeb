@@ -1424,7 +1424,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("Equipment", "fillClaim", e1);
+                new FileLogger().LogMessage("CustomerView", "GetEquipmentHeader", e1);
                 throw e1;
             }
         }

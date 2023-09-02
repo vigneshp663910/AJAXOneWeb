@@ -121,7 +121,7 @@ namespace DealerManagementSystem.ViewEquipment
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_WarrantyClaim", "fillClaim", e1);
+                new FileLogger().LogMessage("EquipmentPopulationReport.aspx", "fillEquipmentPopulationReport", e1);
                 throw e1;
             }
         }

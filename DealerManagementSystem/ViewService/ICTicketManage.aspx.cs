@@ -153,7 +153,7 @@ namespace DealerManagementSystem.ViewService
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_WarrantyClaim", "fillClaim", e1);
+                new FileLogger().LogMessage("ICTicketManage", "fillICTicket", e1);
                 throw e1;
             }
         }
