@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
 {
-    public static class UIHelper
+    public static class UIHelper  
     {
         private const String redirectToPasswordChange = "/Account/ChangePassword.aspx";
         //private const String redirectOnSuccessfulLogin = "Home.aspx";
@@ -22,6 +22,9 @@ namespace DealerManagementSystem
         private const String redirectToHomePage = "/Home.aspx";
         private const String redirectToCreateCircularPage = "/PlantCirculars.aspx";
         private const String redirectToViewCircularPage = "/ViewPlantCircular.aspx";
+
+        private const String materialDrawingFolder = "~/Drawing/Material";
+        private const String productDrawingFolder = "~/Drawing/Product";
 
         public static String RedirectToCreateCircularPage
         {
@@ -92,7 +95,20 @@ namespace DealerManagementSystem
                 return redirectToViewCircularPage;
             }
         }
-
+        public static String MaterialDrawingFolder
+        {
+            get
+            {
+                return materialDrawingFolder;
+            }
+        }
+        public static String ProductDrawingFolder
+        {
+            get
+            {
+                return productDrawingFolder;
+            }
+        }
         public static string GetUserStatus(bool status)
         {
             if (status)

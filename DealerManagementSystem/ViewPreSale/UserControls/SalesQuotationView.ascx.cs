@@ -1324,17 +1324,17 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //string BatchingPlantTechSpec = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
 
             string img1 = "", Image1Spec = "", img2 = "", Image2Spec = "", Spec = "";
-            if (!Directory.Exists(Server.MapPath("~/Drawing/Product")))
+            if (!Directory.Exists(Server.MapPath(UIHelper.ProductDrawingFolder)))
             {
-                Directory.CreateDirectory(Server.MapPath("~/Drawing/Product"));
+                Directory.CreateDirectory(Server.MapPath(UIHelper.ProductDrawingFolder));
             }
             foreach (PProductDrawing D in ProductDrawing)
             { 
                 string imgName = D.ProductDrawingID + "." + D.FileName.Split('.')[D.FileName.Split('.').Count() - 1];
-                if (!File.Exists(Server.MapPath("~/Drawing/Product/"+ imgName)))
+                if (!File.Exists(Server.MapPath(UIHelper.ProductDrawingFolder + "/" + imgName)))
                 {
                     PAttachedFile Files = new BDMS_Master().GetAttachedFileProductDrawingForDownload(D.ProductDrawingID + Path.GetExtension(D.FileName));
-                    File.WriteAllBytes(Server.MapPath("~/Drawing/Product/" + imgName), Files.AttachedFile);
+                    File.WriteAllBytes(Server.MapPath(UIHelper.ProductDrawingFolder + "/" + imgName), Files.AttachedFile);
                 } 
                 if (D.ProductDrawingType.ProductDrawingTypeID == 1)
                 {
@@ -1353,9 +1353,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
 
 
-            string BatchingPlantImage1 = new Uri(Server.MapPath("~/Drawing/Product/"+ img1)).AbsoluteUri;
-            string BatchingPlantImage2 = new Uri(Server.MapPath("~/Drawing/Product/"+ img2)).AbsoluteUri;
-            string BatchingPlantTechSpec = new Uri(Server.MapPath("~/Drawing/Product/"+ Spec)).AbsoluteUri;
+            string BatchingPlantImage1 = new Uri(Server.MapPath(UIHelper.ProductDrawingFolder+"/" + img1)).AbsoluteUri;
+            string BatchingPlantImage2 = new Uri(Server.MapPath(UIHelper.ProductDrawingFolder + "/" + img2)).AbsoluteUri;
+            string BatchingPlantTechSpec = new Uri(Server.MapPath(UIHelper.ProductDrawingFolder + "/" + Spec)).AbsoluteUri;
 
             
             

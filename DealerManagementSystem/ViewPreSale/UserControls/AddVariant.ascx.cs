@@ -4,6 +4,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -335,6 +336,42 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             //gvMaterial.DataSource = Materials;
             //gvMaterial.DataBind();
+        }
+
+        protected void gvMaterial_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+
+                    Label lblMaterialID = (Label)e.Row.FindControl("lblMaterialID");
+                    List<PMaterialDrawing> MaterialDrawing = new BDMS_Material().GetMaterialDrawing(Convert.ToInt32(lblMaterialID.Text));
+                    if (MaterialDrawing.Count == 1)
+                    {
+                        string PathName = Server.MapPath(UIHelper.MaterialDrawingFolder+"/" + MaterialDrawing[0].MaterialDrawingID + "." + Path.GetExtension(MaterialDrawing[0].FileName));
+
+                        if (!File.Exists(PathName))
+                        {
+                            if (!Directory.Exists(Server.MapPath(UIHelper.MaterialDrawingFolder)))
+                            {
+                                Directory.CreateDirectory(Server.MapPath(UIHelper.MaterialDrawingFolder));
+                            }
+                            PAttachedFile Files = new BDMS_Material().GetAttachedFileMaterialDrawingForDownload(MaterialDrawing[0].MaterialDrawingID + Path.GetExtension(MaterialDrawing[0].FileName));
+
+                            File.WriteAllBytes(Server.MapPath(UIHelper.MaterialDrawingFolder + "/" + MaterialDrawing[0].MaterialDrawingID + "." + Path.GetExtension(MaterialDrawing[0].FileName)), Files.AttachedFile);
+                        }
+                        System.Web.UI.WebControls.Image lblMaterialImage = (System.Web.UI.WebControls.Image)e.Row.FindControl("lblMaterialImage");
+                        lblMaterialImage.ImageUrl = UIHelper.MaterialDrawingFolder +"/" + MaterialDrawing[0].MaterialDrawingID + "." + Path.GetExtension(MaterialDrawing[0].FileName);
+                    }
+                }
+                TraceLogger.Log(traceStartTime);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

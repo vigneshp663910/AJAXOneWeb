@@ -28,13 +28,13 @@
 
         <div class="col-md-12 Report">
             <div class="table-responsive">
-                <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                <asp:GridView ID="gvMaterial" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnRowDataBound="gvMaterial_RowDataBound">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:TemplateField HeaderText="Image">
                             <ItemTemplate>
                                 <div style="margin:-6px;margin-left: -20px;margin-right: -20px">
-                                    <asp:Image ID="lblMaterialImage" runat="server" Width="75px" Height="75px" ImageUrl="~/Images/Delete1.png"  />
+                                    <asp:Image ID="lblMaterialImage" runat="server" Width="75px" Height="75px"  />
                                 </div>
                             </ItemTemplate>
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
