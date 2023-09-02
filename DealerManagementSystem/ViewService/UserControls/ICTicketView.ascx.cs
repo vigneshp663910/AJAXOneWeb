@@ -244,8 +244,8 @@ namespace DealerManagementSystem.ViewService.UserControls
                 || SDMS_ICTicket.ServiceStatus.ServiceStatusID == (short)DMS_ServiceStatus.ReqDeclined)
             {
                 tpnlTechnician.Visible = false;
-                TabReached.Visible = false;
-                tpnlCallInformation.Visible = false;
+               // TabReached.Visible = false;
+               // tpnlCallInformation.Visible = false;
                 tpnlFSR.Visible = false;
                 tpnlAvailabilityOfOtherMachine.Visible = false;
                 tpnlServiceCharges.Visible = false;
