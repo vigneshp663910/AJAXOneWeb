@@ -156,8 +156,7 @@ namespace DealerManagementSystem.ViewPreSale
             // LinkButton lbActions = (LinkButton)gvRow.FindControl("lblLeadID");
             LinkButton lbActions = ((LinkButton)sender);
             PLeadSearch S = new PLeadSearch();
-            S.DealerID = Convert.ToInt32(lblDealerID.Text);
-            S.SalesEngineerID = Convert.ToInt32(lblEnggUserID.Text);
+            
             if (lbActions.ID == "lblOpenHot")
             {
                 S.LeadID = 1;
@@ -250,27 +249,27 @@ namespace DealerManagementSystem.ViewPreSale
             }
             else if (lbActions.ID == "lblAge30")
             {
-                S.LeadID = 6;
+                S.LeadID = 7;
                 S.QualificationID = 1;
             }
             else if (lbActions.ID == "lblAge60")
             {
-                S.LeadID = 6;
+                S.LeadID = 7;
                 S.QualificationID = 2;
             }
             else if (lbActions.ID == "lblAge90")
             {
-                S.LeadID = 6;
+                S.LeadID = 7;
                 S.QualificationID = 3;
             }
             else if (lbActions.ID == "lblAge180")
             {
-                S.LeadID = 6;
+                S.LeadID = 7;
                 S.QualificationID = 4;
             }
             else if (lbActions.ID == "lblAgeA180")
             {
-                S.LeadID = 6;
+                S.LeadID = 7;
                 S.QualificationID = 5;
             }
 
@@ -279,8 +278,9 @@ namespace DealerManagementSystem.ViewPreSale
             S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateFrom.Text.Trim());
             S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim());
 
-            //S.DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            //S.SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+            S.DealerID = Convert.ToInt32(lblDealerID.Text);
+            S.SalesEngineerID = Convert.ToInt32(lblEnggUserID.Text);
+
             LeadDetails = new BLead().GetLeadReportForDefinedPeriodDetails(S);
 
             gvLeadDetails.DataSource = LeadDetails;

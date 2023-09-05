@@ -146,62 +146,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             lblMessage.Text = Result.Message+" Ticket No : "+ Result.Data;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
-            ClearField();
-
-            // TicketId = new BTickets().insertTicketHeader(      file, , 1, null);
-
-            //if (TicketId == 0)
-            //{
-            //    lblMessage.Text = "Ticket is not successfully generated.";
-            //    lblMessage.ForeColor = Color.Red;
-            //    lblMessage.Visible = true;
-            //}
-            //else
-            //{
-            //    lblMessage.Text = "Ticket No " + TicketId + " is successfully generated.";
-            //    lblMessage.ForeColor = Color.Green;
-            //    lblMessage.Visible = true;
-            //    int L1SupportUser = new BTickets().GetL1SupportUserMapping(PSession.User.UserID, CategoryID);
-            //    string Subject = "New Ticket " + TicketId.ToString();
-            //    string messageBody = "";
-            //    if (L1SupportUser == 0)
-            //    {
-
-            //        //List<PCategory> pTicketCategory = new BTicketCategory().getTicketCategory(Convert.ToInt32(ddlCategory.SelectedValue), null, null);
-            //        //List<PEmployee> EmployeeRe = new BEmployees().GetEmployeeListJohn(null, pTicketCategory[0].EmpId, "", "", "");
-            //        //messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketCreate.htm");
-            //        //messageBody = messageBody.Replace("@@requested", PSession.User.ContactName);
-            //        //messageBody = messageBody.Replace("@@TicketNo ", TicketId.ToString());
-            //        //messageBody = messageBody.Replace("@@ToName", EmployeeRe[0].EmployeeName);
-            //        //messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
-            //        //messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
-            //        //messageBody = messageBody.Replace("@@Description", txtTicketDescription.Text);
-            //        //messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-            //        //messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "AssignTicket.aspx?TicketNo=" + TicketId.ToString());
-            //        //new EmailManager().MailSend(EmployeeRe[0].Mail1, Subject, messageBody, TicketId);
-            //    }
-            //    else
-            //    {
-            //        //PUser AssignedUser = new BUser().GetUserDetails(L1SupportUser);
-            //        //List<PEmployee> pAssignedTo = null;
-            //        //pAssignedTo = new BEmployees().GetEmployeeListJohn(null, Convert.ToInt32(AssignedUser.ExternalReferenceID), "", "", "");
-            //        //messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
-            //        //messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URLAF"] + "AssignedTickets.aspx?TicketNo=" + TicketId);
-            //        //messageBody = messageBody.Replace("@@TicketNo", TicketId.ToString());
-            //        //messageBody = messageBody.Replace("@@ToName", pAssignedTo[0].EmployeeName);
-            //        //messageBody = messageBody.Replace("@@RequestedOn", DateTime.Now.ToString());
-            //        //messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
-            //        //messageBody = messageBody.Replace("@@Subcategory", ddlSubcategory.SelectedItem.Text);
-            //        //messageBody = messageBody.Replace("@@Severity", "");
-            //        //messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
-            //        //messageBody = messageBody.Replace("@@Description", "");
-            //        //messageBody = messageBody.Replace("@@Justification", "");
-            //        //messageBody = messageBody.Replace("@@ActualDuration", "2");
-            //        //messageBody = messageBody.Replace("@@fromName", "");
-            //        //new EmailManager().MailSend(pAssignedTo[0].Mail1, Subject, messageBody, TicketId);
-            //    }
-            //  ClearField();
-            //}
+            ClearField(); 
         }
 
         void ClearField()

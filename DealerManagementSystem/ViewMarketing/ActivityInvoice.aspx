@@ -88,7 +88,7 @@
                                 <td style="width: 40%; padding-left: 10px;">
                                     <p><span><strong>Bill to Party:</strong></span> Ajax Engineering Pvt Ltd</p>
                                     <p>
-                                        (Formerly Ajax Fiori Engineering(I)Pvt Ltd)<br>
+                                         
                                         No.253/1, 11th Main Road, 3rd Phase, Peenya<br>
                                         Industrial Area, Bangalore-560058 KA
                                     </p>
