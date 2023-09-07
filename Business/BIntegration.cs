@@ -197,14 +197,14 @@ namespace Business
                     //    new BDMS_EInvoice().IntegrationEInvoive();
                     //    new FileLogger().LogMessageService("Ended", "BDMS_EInvoice", null);
                     //    break;
-                    //case Jobs.SendMailMttrEscalationMatrix:
-                    //    new FileLogger().LogMessageService("Started", "EscalationMoreThan72Hrs", null);
-                    //    new BDMS_MTTR().SendMailMttrEscalationMatrix();
-                    //    //new BDMS_MTTR().MailEscalationMoreThan72Hrs();
-                    //    //new BDMS_MTTR().MailEscalationMoreThan48Hrs();
-                    //    //new BDMS_MTTR().MailEscalationMoreThan24Hrs();
-                    //    new FileLogger().LogMessageService("Ended", "EscalationMoreThan72Hrs", null);
-                    //    break;
+                    case Jobs.SendMailMttrEscalationMatrix:
+                        new FileLogger().LogMessageService("Started", "Escalation MTTR", null);
+                        new BDMS_MTTR().SendMailMttrEscalationMatrix();
+                        //new BDMS_MTTR().MailEscalationMoreThan72Hrs();
+                        //new BDMS_MTTR().MailEscalationMoreThan48Hrs();
+                        //new BDMS_MTTR().MailEscalationMoreThan24Hrs();
+                        new FileLogger().LogMessageService("Ended", "Escalation MTTR", null);
+                        break;
 
                     case Jobs.IntegrationEquipmentFromSAP:
                         new FileLogger().LogMessageService("Started", "IntegrationEquipmentFromSAP", null);

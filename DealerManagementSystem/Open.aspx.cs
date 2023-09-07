@@ -213,6 +213,11 @@ namespace DealerManagementSystem
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/GetASNFromSAP?InvoiceNo=" + txtInvoiceNumber.Text));
             //new BDMS_PurchaseOrder().InsertOrUpdatePurchaseOrderAsn(txtInvoiceNumber.Text);
         }
+
+        protected void btnMttrEscalation_Click(object sender, EventArgs e)
+        {
+            new BDMS_MTTR().SendMailMttrEscalationMatrix();
+        }
     }
     [Serializable]
     public class PICTicketFSRSignature_Insert
