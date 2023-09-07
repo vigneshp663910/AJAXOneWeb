@@ -24,6 +24,7 @@ namespace DealerManagementSystem.ViewDashboard
         }
         DateTime? From = null;
         DateTime? To = null;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Dashboard');</script>");
@@ -32,18 +33,7 @@ namespace DealerManagementSystem.ViewDashboard
                 new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                 new FillDropDownt().Category(ddlCategory, null, null);
                 ddlCategory_SelectedIndexChanged(null, null);
-                //List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, 7, null);
                 List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
-                //new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
-                //if(PSession.User.Department.DealerDepartmentID!=7)
-                //{
-                //    ddlEmployee.SelectedValue = PSession.User.UserID.ToString();
-                //    ddlEmployee.Enabled = false;
-                //}
-                //else
-                //{
-                //    ddlEmployee.Enabled = true;
-                //}
                 var today = DateTime.Now;
                 txtTicketFrom.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("yyyy-MM-dd");
                 txtTicketTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -62,18 +52,22 @@ namespace DealerManagementSystem.ViewDashboard
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
+            int? Status = null;
             LinkButton lbActions = ((LinkButton)sender);
             Session["DashboardTaskUserID"] = (ddlDealerEmployee.SelectedValue == "0") ? PSession.User.UserID.ToString() : ddlDealerEmployee.SelectedValue;
             Session["DashboardTaskDealerID"] = ddlDealer.SelectedValue;
             if (lbActions.Text == "Created")
             {
                 Session["DashboardTaskStatus"] = "Created";
-                if (ddlDealer.SelectedValue != "53")
+
+                if (ddlDealerEmployee.SelectedValue != "0")
                 {
-                    if (ddlDealerEmployee.SelectedValue != "0")
-                    {
-                        Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
-                    }
+                    Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
+                }
+                else
+                {
+                    GetTicketDetailsDealerwiseReport(null, null, null);
+                    MPE_TktReport.Show();
                 }
             }
             else if (lbActions.Text == "Open")
@@ -83,6 +77,12 @@ namespace DealerManagementSystem.ViewDashboard
                 {
                     Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
                 }
+                else
+                {
+                    GetTicketDetailsDealerwiseReport(null, null, 1);
+                    Status = 1;
+                    MPE_TktReport.Show();
+                }
             }
             else if (lbActions.Text == "Assigned")
             {
@@ -90,6 +90,12 @@ namespace DealerManagementSystem.ViewDashboard
                 if (ddlDealerEmployee.SelectedValue != "0")
                 {
                     Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
+                }
+                else
+                {
+                    GetTicketDetailsDealerwiseReport(null, null, 2);
+                    Status = 2;
+                    MPE_TktReport.Show();
                 }
             }
             else if (lbActions.Text == "InProgress")
@@ -99,6 +105,12 @@ namespace DealerManagementSystem.ViewDashboard
                 {
                     Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
                 }
+                else
+                {
+                    GetTicketDetailsDealerwiseReport(null, null, 3);
+                    Status = 3;
+                    MPE_TktReport.Show();
+                }
             }
             else if (lbActions.Text == "Approved")
             {
@@ -106,6 +118,12 @@ namespace DealerManagementSystem.ViewDashboard
                 if (ddlDealerEmployee.SelectedValue != "0")
                 {
                     Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
+                }
+                else
+                {
+                    GetTicketDetailsDealerwiseReport(null, null, 8);
+                    Status = 8;
+                    MPE_TktReport.Show();
                 }
             }
             else if (lbActions.Text == "Reject")
@@ -115,6 +133,12 @@ namespace DealerManagementSystem.ViewDashboard
                 {
                     Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
                 }
+                else
+                {
+                    GetTicketDetailsDealerwiseReport(null, null, 12);
+                    Status = 12;
+                    MPE_TktReport.Show();
+                }
             }
             else if (lbActions.Text == "Resolved+")
             {
@@ -122,6 +146,12 @@ namespace DealerManagementSystem.ViewDashboard
                 if (ddlDealerEmployee.SelectedValue != "0")
                 {
                     Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
+                }
+                else
+                {
+                    GetTicketDetailsDealerwiseReport(null, null, 4);
+                    Status = 4;
+                    MPE_TktReport.Show();
                 }
             }
             else if (lbActions.Text == "Approval")
@@ -131,12 +161,18 @@ namespace DealerManagementSystem.ViewDashboard
                 {
                     Response.Redirect("../ViewSupportTicket/ManageSupportTicket.aspx");
                 }
+                else
+                {
+                    GetTicketDetailsDealerwiseReport(null, null, 6);
+                    Status = 6;
+                    MPE_TktReport.Show();
+                }
             }
+            ViewState["StatusID"] = Status;
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillStatusCount();
-
         }
         void FillStatusCount()
         {
@@ -163,11 +199,19 @@ namespace DealerManagementSystem.ViewDashboard
             int? SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             int? DealerEmployeeUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            DealerEmployeeUserID = (DealerEmployeeUserID == null) ? PSession.User.UserID : DealerEmployeeUserID;
-            Boolean Dealerwise = ((DealerID != null && ddlDealerEmployee.SelectedValue == "0")|| (DealerID == null && ddlDealerEmployee.SelectedValue == "0")) ? true : false;
+            DealerEmployeeUserID = (DealerEmployeeUserID == null) ? (int?)null : DealerEmployeeUserID;
+            Boolean Dealerwise = ((DealerID != null && ddlDealerEmployee.SelectedValue == "0") || (DealerID == null && ddlDealerEmployee.SelectedValue == "0")) ? true : false;
             gvTickets.DataSource = null;
             gvTickets.DataBind();
-            DataSet ds = new BTickets().GetTicketDetailsCountByStatus(DealerID, DealerEmployeeUserID, Dealerwise, null, null);
+            DataSet ds;
+            if (DealerEmployeeUserID != null)
+            {
+                ds = new BTickets().GetTicketDetailsCountByStatus(DealerID, DealerEmployeeUserID, Dealerwise, null, null);
+            }
+            else
+            {
+                ds = new BTickets().GetTicketDetailsDealerwiseCountByStatus(DealerID, DealerEmployeeUserID, Dealerwise, null, null);
+            }
             if (ds.Tables[0].Rows.Count > 0)
             {
                 lblCreated.Text = ds.Tables[0].Compute("Sum(TotalCreated)", "").ToString();
@@ -241,6 +285,7 @@ namespace DealerManagementSystem.ViewDashboard
                 newRow.Cells[2].ForeColor = Color.FromArgb(135, 117, 167);
                 newRow.Cells[7].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(InProgress)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(WaitingForApproval)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Approved)", ""))).ToString();
                 newRow.Cells[7].ForeColor = Color.Firebrick;
+                HttpContext.Current.Session["PendingTickets"] = Convert.ToInt32(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(InProgress)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(WaitingForApproval)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Approved)", ""));
                 newRow.Cells[10].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(Resolved)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Closed)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Reject)", ""))).ToString();
                 newRow.Cells[10].ForeColor = Color.DarkOliveGreen;
                 gvTickets.Controls[0].Controls.Add(newRow);
@@ -264,17 +309,22 @@ namespace DealerManagementSystem.ViewDashboard
         {
             List<object> chartData = new List<object>();
             chartData.Add(new object[] { "Year&Month", "Created", "Closed", "Progress" });
-            //int? CategoryID = Category == "0" ? (int?)null : Convert.ToInt32(Category);
-            //int? SubcategoryID = Subcategory == "0" ? (int?)null : Convert.ToInt32(Subcategory);
             int? DealerEmployeeUserID = DealerEmployeeUser == "0" ? (int?)null : Convert.ToInt32(DealerEmployeeUser);
             int? DealerID = Dealer == "0" ? (int?)null : Convert.ToInt32(Dealer);
-            DealerEmployeeUserID = (DealerEmployeeUserID == null) ? PSession.User.UserID : DealerEmployeeUserID;
+            DealerEmployeeUserID = (DealerEmployeeUserID == null) ? (int?)null : DealerEmployeeUserID;
             Boolean Dealerwise = ((DealerID != null && DealerEmployeeUser == "0") || (DealerID == null && DealerEmployeeUser == "0")) ? true : false;
             DateTime? From = string.IsNullOrEmpty(DateFrom) ? (DateTime?)null : Convert.ToDateTime(DateFrom);
             DateTime? To = string.IsNullOrEmpty(DateTo) ? (DateTime?)null : Convert.ToDateTime(DateTo);
 
-            //DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(CategoryID, SubcategoryID, PSession.User.UserID, From, To);
-            DataSet ds = new BTickets().GetTicketDetailsCountByStatusForChart(DealerEmployeeUserID, DealerID, Dealerwise, null, null);
+            DataSet ds;
+            if (DealerEmployeeUserID != null)
+            {
+                ds = new BTickets().GetTicketDetailsCountByStatusForChart(DealerID, DealerEmployeeUserID, Dealerwise, null, null);
+            }
+            else
+            {
+                ds = new BTickets().GetTicketDetailsDealerwiseCountByStatusForChart(DealerEmployeeUserID, DealerID, Dealerwise, null, null);
+            }
 
             if (ds != null)
             {
@@ -305,7 +355,7 @@ namespace DealerManagementSystem.ViewDashboard
             var lastDayOfMonth = DateTime.DaysInMonth(Convert.ToInt32(Year), Convert.ToInt32(Month));
             From = Convert.ToDateTime("01-" + Month + "-" + Year);
             To = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
-            DealerEmployeeUserID = (DealerEmployeeUserID == null) ? PSession.User.UserID : DealerEmployeeUserID;
+            DealerEmployeeUserID = (DealerEmployeeUserID == null) ? (int?)null : DealerEmployeeUserID;
             Boolean Dealerwise = ((DealerID != null && ddlDealerEmployee.SelectedValue == "0") || (DealerID == null && ddlDealerEmployee.SelectedValue == "0")) ? true : false;
             if (DateTime.Now < To)
             {
@@ -319,91 +369,111 @@ namespace DealerManagementSystem.ViewDashboard
                 }
             }
 
-            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+            DataSet ds;
+            if (DealerEmployeeUserID != null)
+            {
+                ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+            }
+            else
+            {
+                ds = new BTickets().GetTicketDetailsDealerwiseMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+            }
+            
             if (ds != null)
             {
-                if (ds.Tables[0].Rows.Count > 0)
+                if (ds.Tables[0].Rows.Count == 0)
                 {
-                    DataTable dtMonthwise = new DataTable();
-                    dtMonthwise.Columns.Add("Date", typeof(string));
-                    dtMonthwise.Columns.Add("Opening", typeof(Int32));
-                    dtMonthwise.Columns.Add("Created", typeof(Int32));
-                    dtMonthwise.Columns.Add("Closed", typeof(Int32));
-                    dtMonthwise.Columns.Add("Closing", typeof(Int32));
+                    ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                }
+            }
+            else
+            {
+                DataTable dttemp = new DataTable();
+                dttemp.Columns.Add("OpeningBalance", typeof(Int32));
+                dttemp.Columns.Add("Created", typeof(Int32));
+                dttemp.Columns.Add("Closed", typeof(Int32));
+                dttemp.Columns.Add("ClosingBalance", typeof(Int32));
+                dttemp.Columns.Add("TnDate", typeof(DateTime));
+                dttemp.Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                ds.Tables.Add(dttemp);
+            }
+            DataTable dtMonthwise = new DataTable();
+            dtMonthwise.Columns.Add("Date", typeof(string));
+            dtMonthwise.Columns.Add("Opening", typeof(Int32));
+            dtMonthwise.Columns.Add("Created", typeof(Int32));
+            dtMonthwise.Columns.Add("Closed", typeof(Int32));
+            dtMonthwise.Columns.Add("Closing", typeof(Int32));
 
-                    int OP = Convert.ToInt32(ds.Tables[0].Rows[0]["OpeningBalance"]), CL = 0, Count = 0, CreatedCount = 0, ClosedCount = 0;
-                    for (int i = 1; i <= lastDayOfMonth; i++)
-                    {
-                        var Tickets = from Ticket in ds.Tables[0].AsEnumerable()
-                                      where Ticket.Field<DateTime>("TnDate") == Convert.ToDateTime(i + "-" + Month + "-" + Year)
-                                      select Ticket;
-                        var data = Tickets.ToList();
-                        if (data.Count > 0)
-                        {
-                            Count += 1;
-                            OP = (Count == 1) ? OP : CL;
-                            CL = (OP + Convert.ToInt32(data[0][1].ToString())) - Convert.ToInt32(data[0][2]);
-                            dtMonthwise.Rows.Add(Convert.ToDateTime(data[0][4]).ToString("dd"), OP, Convert.ToInt32(data[0][1]), Convert.ToInt32(data[0][2]), CL);
-                            CreatedCount += Convert.ToInt32(data[0][1]);
-                            ClosedCount += Convert.ToInt32(data[0][2]);
-                            lblDailyReportTitle.Text = (ddlDealerEmployee.SelectedValue == "0") ? "Over All Status" : ((string.IsNullOrEmpty(txtTicketTo.Text)) ? "" : " For The Month Of " + Convert.ToDateTime(txtTicketTo.Text).ToString("MMM-yyyy") + " - " + ddlDealerEmployee.SelectedItem.Text.Trim());
-                        }
-                        else
-                        {
-                            Count += 1;
-                            OP = (Count == 1) ? OP : CL;
-                            CL = OP;
-                            dtMonthwise.Rows.Add(i.ToString("00"), OP, 0, 0, CL);
-                        }
-                    }
+            int OP = Convert.ToInt32(ds.Tables[0].Rows[0]["OpeningBalance"]), CL = 0, Count = 0, CreatedCount = 0, ClosedCount = 0;
+            for (int i = 1; i <= lastDayOfMonth; i++)
+            {
+                var Tickets = from Ticket in ds.Tables[0].AsEnumerable()
+                              where Ticket.Field<DateTime>("TnDate") == Convert.ToDateTime(i + "-" + Month + "-" + Year)
+                              select Ticket;
+                var data = Tickets.ToList();
+                if (data.Count > 0)
+                {
+                    Count += 1;
+                    OP = (Count == 1) ? OP : CL;
+                    CL = (OP + Convert.ToInt32(data[0][1].ToString())) - Convert.ToInt32(data[0][2]);
+                    dtMonthwise.Rows.Add(Convert.ToDateTime(data[0][4]).ToString("dd"), OP, Convert.ToInt32(data[0][1]), Convert.ToInt32(data[0][2]), CL);
+                    CreatedCount += Convert.ToInt32(data[0][1]);
+                    ClosedCount += Convert.ToInt32(data[0][2]);
+                    lblDailyReportTitle.Text = (ddlDealerEmployee.SelectedValue == "0") ? "Over All Status" : ((string.IsNullOrEmpty(txtTicketTo.Text)) ? "" : " For The Month Of " + Convert.ToDateTime(txtTicketTo.Text).ToString("MMM-yyyy") + " - " + ddlDealerEmployee.SelectedItem.Text.Trim());
+                }
+                else
+                {
+                    Count += 1;
+                    OP = (Count == 1) ? OP : CL;
+                    CL = OP;
+                    dtMonthwise.Rows.Add(i.ToString("00"), OP, 0, 0, CL);
+                }
+            }
 
-                    DataTable dt2 = new DataTable();
-                    for (int i = 0; i <= dtMonthwise.Rows.Count; i++)
+            DataTable dt2 = new DataTable();
+            for (int i = 0; i <= dtMonthwise.Rows.Count; i++)
+            {
+                dt2.Columns.Add();
+            }
+            dt2.Columns.Add("Total", typeof(String));
+            for (int i = 0; i < dtMonthwise.Columns.Count; i++)
+            {
+                dt2.Rows.Add();
+                dt2.Rows[i][0] = dtMonthwise.Columns[i].ColumnName;
+            }
+            for (int i = 0; i < dtMonthwise.Columns.Count; i++)
+            {
+                for (int j = 0; j < dtMonthwise.Rows.Count; j++)
+                {
+                    dt2.Rows[i][j + 1] = dtMonthwise.Rows[j][i];
+                }
+            }
+            dt2.Rows[0]["Total"] = "Total";
+            dt2.Rows[1]["Total"] = Convert.ToInt32(ds.Tables[0].Rows[0]["OpeningBalance"]);
+            dt2.Rows[2]["Total"] = CreatedCount;
+            dt2.Rows[3]["Total"] = ClosedCount;
+            dt2.Rows[4]["Total"] = (Convert.ToInt32(ds.Tables[0].Rows[0]["OpeningBalance"]) + CreatedCount) - ClosedCount;
+            dt2.AcceptChanges();
+            gvTicketsMonthwise.DataSource = dt2;
+            gvTicketsMonthwise.DataBind();
+            int rowcount = 0;
+            foreach (GridViewRow row in gvTicketsMonthwise.Rows)
+            {
+                row.Cells[0].CssClass = "Header";
+                rowcount += 1;
+                if (rowcount == 1)
+                {
+                    for (int i = 0; i < row.Cells.Count; i++)
                     {
-                        dt2.Columns.Add();
-                    }
-                    dt2.Columns.Add("Total", typeof(String));
-                    for (int i = 0; i < dtMonthwise.Columns.Count; i++)
-                    {
-                        dt2.Rows.Add();
-                        dt2.Rows[i][0] = dtMonthwise.Columns[i].ColumnName;
-                    }
-                    for (int i = 0; i < dtMonthwise.Columns.Count; i++)
-                    {
-                        for (int j = 0; j < dtMonthwise.Rows.Count; j++)
-                        {
-                            dt2.Rows[i][j + 1] = dtMonthwise.Rows[j][i];
-                        }
-                    }
-                    dt2.Rows[0]["Total"] = "Total";
-                    dt2.Rows[1]["Total"] = Convert.ToInt32(ds.Tables[0].Rows[0]["OpeningBalance"]);
-                    dt2.Rows[2]["Total"] = CreatedCount;
-                    dt2.Rows[3]["Total"] = ClosedCount;
-                    dt2.Rows[4]["Total"] = (Convert.ToInt32(ds.Tables[0].Rows[0]["OpeningBalance"]) + CreatedCount) - ClosedCount;
-                    dt2.AcceptChanges();
-                    gvTicketsMonthwise.DataSource = dt2;
-                    gvTicketsMonthwise.DataBind();
-                    int rowcount = 0;
-                    foreach (GridViewRow row in gvTicketsMonthwise.Rows)
-                    {
-                        row.Cells[0].CssClass = "Header";
-                        rowcount += 1;
-                        if (rowcount == 1)
-                        {
-                            for (int i = 0; i < row.Cells.Count; i++)
-                            {
-                                row.Cells[i].CssClass = "Header";
-                            }
-                        }
+                        row.Cells[i].CssClass = "Header";
                     }
                 }
             }
         }
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public static List<object> DailyTaskStatusChart(string DateFrom, string DateTo, string DealerEmployeeUser, string Dealer)
         {
             List<object> chartData = new List<object>();
-            //chartData.Add(new object[] { "Date", "Opening Balance", "Created", "Closed", "Closing Balance" });
             chartData.Add(new object[] { "Date", "Opening + Created", "Closed" });
             int? DealerEmployeeUserID = DealerEmployeeUser == "0" ? (int?)null : Convert.ToInt32(DealerEmployeeUser);
             int? DealerID = Dealer == "0" ? (int?)null : Convert.ToInt32(Dealer);
@@ -413,7 +483,7 @@ namespace DealerManagementSystem.ViewDashboard
             var lastDayOfMonth = DateTime.DaysInMonth(Convert.ToInt32(Year), Convert.ToInt32(Month));
             DateTime? From = Convert.ToDateTime("01-" + Month + "-" + Year);
             DateTime? To = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
-            DealerEmployeeUserID = (DealerEmployeeUserID == null) ? PSession.User.UserID : DealerEmployeeUserID;
+            DealerEmployeeUserID = (DealerEmployeeUserID == null) ? (int?)null : DealerEmployeeUserID;
             Boolean Dealerwise = ((DealerID != null && DealerEmployeeUser == "0") || (DealerID == null && DealerEmployeeUser == "0")) ? true : false;
             if (DateTime.Now < To)
             {
@@ -427,9 +497,34 @@ namespace DealerManagementSystem.ViewDashboard
                     goto Fail;
                 }
             }
-
-            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
-
+            DataSet ds;
+            if (DealerEmployeeUserID != null)
+            {
+                ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+            }
+            else
+            {
+                ds = new BTickets().GetTicketDetailsDealerwiseMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+            }
+            //DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+            if (ds != null)
+            {
+                if (ds.Tables[0].Rows.Count == 0)
+                {
+                    ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                }
+            }
+            else
+            {
+                DataTable dttemp = new DataTable();
+                dttemp.Columns.Add("OpeningBalance", typeof(Int32));
+                dttemp.Columns.Add("Created", typeof(Int32));
+                dttemp.Columns.Add("Closed", typeof(Int32));
+                dttemp.Columns.Add("ClosingBalance", typeof(Int32));
+                dttemp.Columns.Add("TnDate", typeof(DateTime));
+                dttemp.Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                ds.Tables.Add(dttemp);
+            }
             if (ds != null)
             {
                 if (ds.Tables[0].Rows.Count > 0)
@@ -466,7 +561,6 @@ namespace DealerManagementSystem.ViewDashboard
 
                     foreach (DataRow dr in dtMonthwise.Rows)
                     {
-                        //chartData.Add(new object[] { Convert.ToString(dr["Date"]), Convert.ToInt32(dr["Opening"]), Convert.ToInt32(dr["Created"]), Convert.ToInt32(dr["Closed"]), Convert.ToInt32(dr["Closing"]) });
                         chartData.Add(new object[] { Convert.ToString(dr["Date"]), (Convert.ToInt32(dr["Opening"]) + Convert.ToInt32(dr["Created"])), Convert.ToInt32(dr["Closed"]) });
                     }
                 }
@@ -479,8 +573,30 @@ namespace DealerManagementSystem.ViewDashboard
             {
                 chartData = null;
             }
-        Fail:
+            Fail:
             return chartData;
+        }
+        void GetTicketDetailsDealerwiseReport(int? Year = null, int? Month = null, int? StatusID = null)
+        {
+            int? DealerEmployeeUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            Boolean Dealerwise = ((DealerID != null && ddlDealerEmployee.SelectedValue == "0") || (DealerID == null && ddlDealerEmployee.SelectedValue == "0")) ? true : false;
+            GVReport.DataSource = null;
+            GVReport.DataBind();
+            DataSet ds = new BTickets().GetTicketDetailsDealerwiseReport(DealerID, DealerEmployeeUserID, Dealerwise, null, null, Year, Month, StatusID);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                lblRptCount.Text = "List Count : " + ds.Tables[0].Rows.Count.ToString();
+                GVReport.DataSource = ds;
+                GVReport.DataBind();
+            }
+        }
+
+        protected void GVReport_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GVReport.PageIndex = e.NewPageIndex;
+            GetTicketDetailsDealerwiseReport(null,null,Convert.ToInt32(ViewState["StatusID"]));            
+            MPE_TktReport.Show();
         }
     }
 }

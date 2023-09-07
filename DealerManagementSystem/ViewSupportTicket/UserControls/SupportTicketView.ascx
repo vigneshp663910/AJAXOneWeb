@@ -66,7 +66,7 @@
                     <asp:Label ID="lblSubCategory" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Age : </label>
+                    <label>Age with SLA : </label>
                     <asp:Label ID="lblAge" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">

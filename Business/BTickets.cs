@@ -984,6 +984,7 @@ namespace Business
                                 pHeader.ContactName = Convert.ToString(DR["ContactName"]);
                                 pHeader.MobileNo = Convert.ToString(DR["MobileNo"]);
                                 pHeader.age = Convert.ToInt32(DR["age"]);
+                                pHeader.SLA = Convert.ToString(DR["SLA"]);
                                 pHeader.TicketItems = new List<PTicketItem>();
                                 pHeader.ApprovalDetails = new List<PTicketsApprovalDetails>();
                             }
@@ -2195,6 +2196,24 @@ namespace Business
                 throw ex;
             }
         }
+        public DataSet GetTicketDetailsDealerwiseMonthwiseCountByStatus(int? DealerEmployeeUserID, int? DealerID, bool Dealerwise, DateTime? TicketFrom, DateTime? TicketTo)
+        {
+            try
+            {
+                DbParameter DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
+                DbParameter DateFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
+                DbParameter DateToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter DealerwiseP = provider.CreateParameter("Dealerwise", Dealerwise, DbType.Boolean);
+                DbParameter[] TicketTypeParams = new DbParameter[5] { DealerIDP, DealerEmployeeUserIDP, DateFromP, DateToP, DealerwiseP };
+                return provider.Select("GetTicketDetailsDealerwiseMonthwiseCountByStatus", TicketTypeParams);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BTickets", "GetTicketDetailsDealerwiseMonthwiseCountByStatus", ex);
+                throw ex;
+            }
+        }
         //public DataSet GetTicketDetailsDaywiseCountByStatus(int? DealerEmployeeUserID, DateTime? DateFrom, DateTime? DateTo)
         //{
         //    try
@@ -2244,6 +2263,99 @@ namespace Business
                 success = 0;
             }
             return success;
+        }
+        public DataSet GetTicketDetailsDealerwiseCountByStatus(int? DealerID, int? DealerEmployeeUserID, bool Dealerwise, DateTime? TicketFrom = null, DateTime? TicketTo = null)
+        {
+            DbParameter CategoryIDP;
+            DbParameter SubCategoryIDP;
+            DbParameter DealerEmployeeUserIDP;
+            DbParameter DealerIDP;
+            DataSet ds = new DataSet();
+            try
+            {
+                if (DealerID != null)
+                    DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                else
+                    DealerIDP = provider.CreateParameter("DealerID", DBNull.Value, DbType.Int32);
+
+                if (DealerEmployeeUserID != null)
+                    DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
+                else
+                    DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DBNull.Value, DbType.Int32);
+                DbParameter DealerwiseP = provider.CreateParameter("Dealerwise", Dealerwise, DbType.Boolean);
+                DbParameter TicketFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
+                DbParameter TicketToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
+                DbParameter[] TicketTypeParams = new DbParameter[5] { DealerIDP, DealerEmployeeUserIDP, DealerwiseP, TicketFromP, TicketToP };
+                ds = provider.Select("GetTicketDetailsDealerwiseCountByStatus", TicketTypeParams);
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BTickets", "GetTicketDetailsDealerwiseCountByStatus", ex);
+                throw ex;
+            }
+        }
+        public DataSet GetTicketDetailsDealerwiseReport(int? DealerID, int? DealerEmployeeUserID, bool Dealerwise, DateTime? TicketFrom = null, DateTime? TicketTo = null, int? Year = null, int? Month = null, int? StatusID = null)
+        {
+            DbParameter DealerEmployeeUserIDP;
+            DbParameter DealerIDP;
+            DataSet ds = new DataSet();
+            try
+            {
+                if (DealerID != null)
+                    DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                else
+                    DealerIDP = provider.CreateParameter("DealerID", DBNull.Value, DbType.Int32);
+
+                if (DealerEmployeeUserID != null)
+                    DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
+                else
+                    DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DBNull.Value, DbType.Int32);
+                DbParameter DealerwiseP = provider.CreateParameter("Dealerwise", Dealerwise, DbType.Boolean);
+                DbParameter TicketFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
+                DbParameter TicketToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
+
+                DbParameter YearP = provider.CreateParameter("Year", Year, DbType.Int32);
+                DbParameter MonthP = provider.CreateParameter("Month", Month, DbType.Int32);
+                DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
+
+                DbParameter[] TicketTypeParams = new DbParameter[8] { DealerIDP, DealerEmployeeUserIDP, DealerwiseP, TicketFromP, TicketToP, YearP, MonthP, StatusIDP };
+                ds = provider.Select("GetTicketDetailsDealerwiseReport", TicketTypeParams);
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BTickets", "GetTicketDetailsDealerwiseReport", ex);
+                throw ex;
+            }
+        }
+        public DataSet GetTicketDetailsDealerwiseCountByStatusForChart(int? DealerEmployeeUserID, int? DealerID, bool Dealerwise, DateTime? TicketFrom = null, DateTime? TicketTo = null)
+        {
+            DbParameter CategoryIDP;
+            DbParameter SubCategoryIDP;
+            DbParameter DealerEmployeeUserIDP;
+            DbParameter DealerIDP;
+            try
+            {
+                if (DealerEmployeeUserID != null)
+                    DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DealerEmployeeUserID, DbType.Int32);
+                else
+                    DealerEmployeeUserIDP = provider.CreateParameter("DealerEmployeeUserID", DBNull.Value, DbType.Int32);
+                if (DealerID != null)
+                    DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                else
+                    DealerIDP = provider.CreateParameter("DealerID", DBNull.Value, DbType.Int32);
+                DbParameter DealerwiseP = provider.CreateParameter("Dealerwise", Dealerwise, DbType.Boolean);
+                DbParameter TicketFromP = provider.CreateParameter("TicketFrom", TicketFrom, DbType.DateTime);
+                DbParameter TicketToP = provider.CreateParameter("TicketTo", TicketTo, DbType.DateTime);
+                DbParameter[] TicketTypeParams = new DbParameter[5] { DealerEmployeeUserIDP, DealerIDP, DealerwiseP, TicketFromP, TicketToP };
+                return provider.Select("GetTicketDetailsDealerwiseCountByStatusForChart", TicketTypeParams);
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BTickets", "GetTicketDetailsDealerwiseCountByStatusForChart", ex);
+                throw ex;
+            }
         }
     }
 }
