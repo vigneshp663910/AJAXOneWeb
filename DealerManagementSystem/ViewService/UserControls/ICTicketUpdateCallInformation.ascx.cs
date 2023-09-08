@@ -465,7 +465,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                         }
                     }
 
-                    if ((Convert.ToInt32(txtHMRValue.Text.Trim()) > vHMR) || (SDMS_ICTicket.Equipment.WarrantyExpiryDate < SDMS_ICTicket.ICTicketDate))
+                    if ((Convert.ToInt32(txtHMRValue.Text.Trim()) > vHMR) || (((DateTime)SDMS_ICTicket.Equipment.WarrantyExpiryDate).AddDays(1) < SDMS_ICTicket.ICTicketDate))
                     {
                         // UCcbIsWarranty.Checked = false;
                         SDMS_ICTicket.IsWarranty = false;
