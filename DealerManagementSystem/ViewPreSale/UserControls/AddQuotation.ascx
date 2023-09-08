@@ -80,8 +80,11 @@
                     <asp:DropDownList ID="ddlShipParty" runat="server" CssClass="form-control" />
                 </div>
                  <div class="col-md-6 col-sm-12" id="divStandardProduct" runat="server">
-                    <label class="modal-label">Standard Product</label>
-                     <asp:CheckBox ID="cbIsStandard" runat="server" />
+                    <label class="modal-label">Standard Product Yes</label>
+                     <asp:RadioButton ID="rbIsStandardYes" runat="server" GroupName="Standard" />
+                      <label class="modal-label">Standard Product No</label>
+                     <asp:RadioButton ID="rbIsStandardNo" runat="server"  GroupName="Standard" Checked="true"  />
+                   <%--  <asp:CheckBox ID="cbIsStandard" runat="server" />--%>
                 </div>
                 <div class="col-md-12 col-sm-12">
                     <label class="modal-label">Commission Agent (Tick , If AJAX to be Invoiced to Customer-Commission Claim by Dealer)</label>

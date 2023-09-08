@@ -132,13 +132,22 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divStandardProduct;
 
         /// <summary>
-        /// cbIsStandard control.
+        /// rbIsStandardYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbIsStandard;
+        protected global::System.Web.UI.WebControls.RadioButton rbIsStandardYes;
+
+        /// <summary>
+        /// rbIsStandardNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbIsStandardNo;
 
         /// <summary>
         /// cbCommissionAgent control.

@@ -13,7 +13,7 @@
         <div class="" id="boxHere"></div>
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
-            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px; overflow-x: auto; max-height: 300px">
                 <asp:LinkButton ID="lbtnEditQuotation" runat="server" OnClick="lbActions_Click">Edit Quotation Basic Info</asp:LinkButton>
                 <asp:LinkButton ID="lbtnEditFinancier" runat="server" OnClick="lbActions_Click">Edit Financier Info</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
@@ -32,7 +32,7 @@
                 <asp:LinkButton ID="lbtnDownloadConsolidatedTaxQuotation" runat="server" OnClick="lbActions_Click">Download Consolidated Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton> 
                 <asp:LinkButton ID="lbtnAddDiscount" runat="server" OnClick="lbActions_Click">Add Discount</asp:LinkButton>
-                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbActions_Click">Add Customer Singed Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddCustomerSingedQuotation" runat="server" OnClick="lbActions_Click">Add Customer Singed Quotation</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -790,7 +790,7 @@
                 </div>
                 <div class="col-md-4">
                     <label></label> 
-                    <asp:LinkButton ID="lbtnCustomerSingedQuotationDownload" runat="server" OnClick="lbtnCustomerSingedQuotationDownload_Click">Singed Copy</asp:LinkButton>
+                    <asp:LinkButton ID="lbtnCustomerSingedQuotationDownload" runat="server" OnClick="lbtnCustomerSingedQuotationDownload_Click"></asp:LinkButton>
                 </div> 
             </div>
         </ContentTemplate>

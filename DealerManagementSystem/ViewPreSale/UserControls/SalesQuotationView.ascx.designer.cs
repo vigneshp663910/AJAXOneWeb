@@ -150,13 +150,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbtnAddDiscount;
 
         /// <summary>
-        /// LinkButton1 control.
+        /// lbtnAddCustomerSingedQuotation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton lbtnAddCustomerSingedQuotation;
 
         /// <summary>
         /// lblRefQuotationNo control.
