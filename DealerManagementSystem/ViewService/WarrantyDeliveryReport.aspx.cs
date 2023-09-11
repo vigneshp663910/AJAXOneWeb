@@ -160,34 +160,34 @@ namespace DealerManagementSystem.ViewService
         }
         protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            DateTime traceStartTime = DateTime.Now;
-            try
-            {
-                if (e.Row.RowType == DataControlRowType.DataRow)
+                DateTime traceStartTime = DateTime.Now;
+                try
                 {
-                    string DeliveryNumber = Convert.ToString(gvDelivery.DataKeys[e.Row.RowIndex].Value);
-                    GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvClaimInvoiceItem");
-                    List<PDMS_DeliveryItem> Lines = new List<PDMS_DeliveryItem>();
-                    Lines = SDMS_WarrantyClaimHeader.Find(s => s.DeliveryNumber == DeliveryNumber).DeliveryItems;
+                    if (e.Row.RowType == DataControlRowType.DataRow)
+                    {
+                        string DeliveryNumber = Convert.ToString(gvDelivery.DataKeys[e.Row.RowIndex].Value);
+                        GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvClaimInvoiceItem");
+                        List<PDMS_DeliveryItem> Lines = new List<PDMS_DeliveryItem>();
+                        Lines = SDMS_WarrantyClaimHeader.Find(s => s.DeliveryNumber == DeliveryNumber).DeliveryItems;
 
-                    gvClaimInvoiceItem.DataSource = Lines;
+                        gvClaimInvoiceItem.DataSource = Lines;
 
-                    gvClaimInvoiceItem.DataBind();
+                        gvClaimInvoiceItem.DataBind();
 
-                    TextBox txtTransportationThrough = (TextBox)e.Row.FindControl("txtTransportationThrough");
-                    TextBox txtTransportationDate = (TextBox)e.Row.FindControl("txtTransportationDate");
-                    TextBox txtVehicleNumber = (TextBox)e.Row.FindControl("txtVehicleNumber");
-                    PDMS_DeliveryHeader Transportation = new BDMS_Delivery().GetDeliveryTransportationDetails(DeliveryNumber, null, null)[0];
-                    txtTransportationThrough.Text = Transportation.TransportationThrough;
-                    txtTransportationDate.Text = Transportation.TransportationDate == null ? "" : ((DateTime)Transportation.TransportationDate).ToShortDateString();
-                    txtVehicleNumber.Text = Transportation.VehicleNumber;
+                        TextBox txtTransportationThrough = (TextBox)e.Row.FindControl("txtTransportationThrough");
+                        TextBox txtTransportationDate = (TextBox)e.Row.FindControl("txtTransportationDate");
+                        TextBox txtVehicleNumber = (TextBox)e.Row.FindControl("txtVehicleNumber");
+                        PDMS_DeliveryHeader Transportation = new BDMS_Delivery().GetDeliveryTransportationDetails(DeliveryNumber, null, null)[0];
+                        txtTransportationThrough.Text = Transportation.TransportationThrough;
+                        txtTransportationDate.Text = Transportation.TransportationDate == null ? "" : ((DateTime)Transportation.TransportationDate).ToShortDateString();
+                        txtVehicleNumber.Text = Transportation.VehicleNumber;
+                    }
+                    TraceLogger.Log(traceStartTime);
                 }
-                TraceLogger.Log(traceStartTime);
-            }
-            catch (Exception ex)
-            {
+                catch (Exception ex)
+                {
 
-            }
+                }
         }
         void fillDealer()
         {

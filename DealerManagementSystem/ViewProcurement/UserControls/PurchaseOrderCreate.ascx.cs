@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -43,6 +44,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PPurchaseOrder_Insert"] = value;
             }
         }
+
+        public DataTable MaterialCart
+        {
+            get
+            {
+                if (Session["MaterialCart"] == null)
+                {
+                    Session["MaterialCart"] = new DataTable();
+                }
+                return (DataTable)Session["MaterialCart"];
+            }
+            set
+            {
+                Session["MaterialCart"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = string.Empty;
@@ -64,12 +81,25 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             try
             {
                 LinkButton lbActions = ((LinkButton)sender);
-                if (lbActions.Text == "Upload Material")
+                if (lbActions.ID == "lbUploadMaterial")
                 {
                 }
-                else if (lbActions.Text == "Save")
+                else if (lbActions.ID == "lbSave")
                 {
                     Save();
+                }
+                else if (lbActions.ID == "lbAddMaterialFromCart")
+                {
+                    MaterialCart = new BDMS_PurchaseOrder().GetPurchaseOrderFromCart("9001");
+
+                    DataTable   dt = MaterialCart.AsEnumerable()
+       .GroupBy(r => new { OrderNo = r["OrderNo"], OrderDate = r["OrderDate"], CustomerCode = r["CustomerCode"], DealerCode = r["DealerCode"] })
+       .Select(g => g.OrderBy(r => r["OrderNo"]).First())
+       .CopyToDataTable();
+
+                    gvMaterialFromCart.DataSource = dt;
+                    gvMaterialFromCart.DataBind();
+                    MPE_MaterialFromCart.Show();
                 }
             }
             catch (Exception ex)
@@ -271,6 +301,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ddlPurchaseOrderType.SelectedValue == "1")
+            {
+                PApiResult Result = new BDMS_PurchaseOrder().GetValidateDealerStockOrderControl(Convert.ToInt32(ddlDealer.SelectedValue));
+
+                if (Result.Status == PApplication.Failure)
+                {
+                    Response.Write("<script>alert('" + Result.Message + "');</script>");
+                    //lblMessage.Text = Result.Message;
+                    //lblMessage.Visible = true;
+                    //lblMessage.ForeColor = Color.Red;
+                    ddlPurchaseOrderType.SelectedValue = "0";
+                    return;
+                }
+            }
+
             ddlDivision.Items.Clear();
             ddlDivision.DataTextField = "DivisionDescription";
             ddlDivision.DataValueField = "DivisionID";
@@ -430,6 +475,67 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.Text = ex.Message.ToString(); 
             }
             lblMessage.ForeColor = Color.Red;
+        }
+
+        protected void btnMaterialFromCart_Click(object sender, EventArgs e)
+        {
+
+            for (int i = 0; i < gvMaterialFromCart.Rows.Count; i++)
+            {
+                GridView gvMaterialFromCartItem = (GridView)gvMaterialFromCart.Rows[i].FindControl("gvMaterialFromCartItem");
+                for (int j = 0; j < gvMaterialFromCartItem.Rows.Count; j++)
+                {
+                    CheckBox cbSelectChild = (CheckBox)gvMaterialFromCartItem.Rows[j].FindControl("cbSelectChild");
+
+                    if(cbSelectChild.Checked)
+                    {
+
+                    }
+
+                }
+            }
+
+        }
+
+        protected void gvMaterialFromCart_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                   // string DeliveryNumber = Convert.ToString(gvDelivery.DataKeys[e.Row.RowIndex].Value);
+                    GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvMaterialFromCartItem");
+                    //List<PDMS_DeliveryItem> Lines = new List<PDMS_DeliveryItem>();
+                    //Lines = SDMS_WarrantyClaimHeader.Find(s => s.DeliveryNumber == DeliveryNumber).DeliveryItems;
+
+
+                    Label lblOrderNo =  (Label)e.Row.FindControl("lblOrderNo");
+                    DataTable dt = MaterialCart.AsEnumerable()
+      .Where(r =>  Convert.ToString( r["OrderNo"]) == lblOrderNo.Text)
+      .Select(g => g)
+      .CopyToDataTable();
+
+                    //DataTable dt1 = from customer in MaterialCart.AsEnumerable()
+                    //                where customer.Field<string>("OrderNo") == "8"
+                    //         select new
+                    //                {
+                    //                    PartNo = customer.Field<int>("PartNo"),
+                    //                    PartDescription = customer.Field<string>("PartDescription"),
+                    //                    PartQty = customer.Field<string>("PartQty")
+                    //                };  
+
+                    gvClaimInvoiceItem.DataSource = dt;
+
+                    gvClaimInvoiceItem.DataBind();
+                     
+                }
+                TraceLogger.Log(traceStartTime);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

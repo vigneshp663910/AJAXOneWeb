@@ -15,13 +15,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
     {
 
         /// <summary>
-        /// lbAddProduct control.
+        /// lbUploadMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbAddProduct;
+        protected global::System.Web.UI.WebControls.LinkButton lbUploadMaterial;
+
+        /// <summary>
+        /// lbAddMaterialFromCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbAddMaterialFromCart;
 
         /// <summary>
         /// lbSave control.
@@ -220,6 +229,60 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvPOItem;
+
+        /// <summary>
+        /// pnlMaterialFromCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMaterialFromCart;
+
+        /// <summary>
+        /// Button12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button12;
+
+        /// <summary>
+        /// lblMessageColdVisit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageColdVisit;
+
+        /// <summary>
+        /// gvMaterialFromCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvMaterialFromCart;
+
+        /// <summary>
+        /// btnMaterialFromCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMaterialFromCart;
+
+        /// <summary>
+        /// MPE_MaterialFromCart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_MaterialFromCart;
 
         /// <summary>
         /// lnkMPE control.

@@ -288,6 +288,18 @@ namespace Business
         {
             string endPoint = "PurchaseOrder/PurchaseOrderReturnDeliveryByPoReturnID?PurchaseOrderReturnID=" + PurchaseOrderReturnID;
             return JsonConvert.DeserializeObject<List<PPurchaseOrderReturnDelivery>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }        
+        }
+
+
+        public PApiResult GetValidateDealerStockOrderControl(int DealerID)
+        {
+            string endPoint = "PurchaseOrder/GetValidateDealerStockOrderControl?DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public DataTable GetPurchaseOrderFromCart(string DealerCode)
+        {
+            string endPoint = "PurchaseOrder/GetPurchaseOrderFromCart?DealerCode=" + DealerCode;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }
