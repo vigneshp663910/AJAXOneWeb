@@ -225,22 +225,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         {
             List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, 7, null);
             new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
-            //ddlAssignedTo.DataTextField = "ContactName";
-            //ddlAssignedTo.DataValueField = "UserID";
-            //List<PUser> user = new BUser().GetAllUsers();
-            //ddlAssignedTo.DataSource = user;
-            //ddlAssignedTo.DataBind();
-            //ddlAssignedTo.Items.Insert(0, new ListItem("Select", "0"));
         }
         void FillApproval()
         {
-            List<PUser> user = new BUser().GetAllUsers(null, null);
-            //user.Where(M => M.SystemCategoryID == (short)SystemCategory.AF || M.SystemCategoryID == (short)SystemCategory.Support).ToList();
-            ddlapprovar.DataTextField = "ContactName";
-            ddlapprovar.DataValueField = "UserID";
-            ddlapprovar.DataSource = user;//.Where(M => M.SystemCategoryID == (short)SystemCategory.AF).ToList();
-            ddlapprovar.DataBind();
-            ddlapprovar.Items.Insert(0, new ListItem("Select", "0"));
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
+            new DDLBind(ddlapprovar, user, "ContactName", "UserID");
         }
         void FillAllFields(int TicketNo)
         {
@@ -262,28 +251,25 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         Boolean validatetion()
         {
             decimal parsedValue;
-            if (btnAssign.Text == "Assign")
+            if (ddlCategory.SelectedValue == "0")
             {
-                if (ddlCategory.SelectedValue == "0")
-                {
-                    lblMessageAssignTo.Text = "Please Select The Category";
-                    return false;
-                }
-                if (ddlSubcategory.SelectedValue == "0")
-                {
-                    lblMessageAssignTo.Text = "Please Select The Subcategory";
-                    return false;
-                }
-                if (ddlSeverity.SelectedValue == "0")
-                {
-                    lblMessageAssignTo.Text = "Please Select The Severity";
-                    return false;
-                }
-                if (ddlAssignedTo.SelectedValue == "0")
-                {
-                    lblMessageAssignTo.Text = "Please Select The Assigned To";
-                    return false;
-                }
+                lblMessageAssignTo.Text = "Please Select The Category";
+                return false;
+            }
+            if (ddlSubcategory.SelectedValue == "0")
+            {
+                lblMessageAssignTo.Text = "Please Select The Subcategory";
+                return false;
+            }
+            if (ddlSeverity.SelectedValue == "0")
+            {
+                lblMessageAssignTo.Text = "Please Select The Severity";
+                return false;
+            }
+            if (ddlAssignedTo.SelectedValue == "0")
+            {
+                lblMessageAssignTo.Text = "Please Select The Assigned To";
+                return false;
             }
             return true;
         }
@@ -357,15 +343,15 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
 
             lblTicketID.Text = Ticket[0].HeaderID.ToString();
-            lblDealerCode.Text = Ticket[0].Dealer.DealerCode;
-            lblDealerName.Text = Ticket[0].Dealer.DealerName;
+            lblDealer.Text = Ticket[0].Dealer.DealerCode + " " + Ticket[0].Dealer.DealerName;
+            lblSubject.Text = Ticket[0].Subject;
 
             lblCategory.Text = Ticket[0].Category.Category;
             lblSubCategory.Text = (Ticket[0].SubCategory == null) ? "" : Ticket[0].SubCategory.SubCategory;
             lblTicketType.Text = Ticket[0].Type.Type;
 
             lblSeverity.Text = (Ticket[0].Severity == null) ? "" : Ticket[0].Severity.Severity;
-            lblAge.Text = Ticket[0].age.ToString();
+            lblAge.Text = Ticket[0].age.ToString() + " " + Ticket[0].SLA.ToString();
             lblStatus.Text = Ticket[0].Status.Status;
 
             lblCreatedBy.Text = Ticket[0].CreatedBy.ContactName;
@@ -754,6 +740,10 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         if (UserCreatedBy.Mail != TicketSelectedUsers.Mail)
                         {
                             CC = TicketSelectedUsers.Mail;
+                        }
+                        if ((UserCreatedBy.Mail != PSession.User.Mail) && TicketSelectedUsers.Mail != PSession.User.Mail)
+                        {
+                            CC += (CC == "") ? PSession.User.Mail : "," + PSession.User.Mail;
                         }
                         string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketMessage.htm");
                         messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
@@ -1159,6 +1149,8 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             TaskItem.Resolution = txtResolution.Text;
             TaskItem.SupportType = ddlResSupportType.SelectedValue;
 
+
+
             string result = new BAPI().ApiPut("Task/UpdateTicketResolvedStatus", TaskItem);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
@@ -1167,6 +1159,24 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lblMessage.Text = Result.Message;
                 return;
             }
+            else
+            {
+                if (fuResolve.PostedFile != null)
+                {
+                    if (AttchedFile.Count == 1)
+                    {
+                        PForum_Insert Forum = new PForum_Insert();
+                        Forum.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
+                        Forum.Message = AttchedFile[0].FileName;
+                        Forum.AttchedFile = AttchedFile[0];
+                        new BAPI().ApiPut("Task/Forum", Forum);
+                        PApiResult Result1 = JsonConvert.DeserializeObject<PApiResult>(result);
+                    }
+                }
+            }
+
+
+
 
 
             lblMessage.Text = "Ticket No " + TaskItem.HeaderID + " is successfully updated.";
@@ -1242,6 +1252,8 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             ddlResolutionType.SelectedValue = "0";
             gvResolveNewFileAttached.DataSource = null;
             gvResolveNewFileAttached.DataBind();
+            if (AttchedFile.Count > 0)
+                AttchedFile.RemoveAt(0);
         }
         void FillResolutionType()
         {
@@ -1459,6 +1471,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             else
             {
                 lbtnForceclose.Visible = false;
+            }
+            if (Ticket[0].Status.StatusID != 1)
+            {
+                lbtnSendApproval.Visible = false;
+                lbtnResendApproval.Visible = false;
             }
         }
 

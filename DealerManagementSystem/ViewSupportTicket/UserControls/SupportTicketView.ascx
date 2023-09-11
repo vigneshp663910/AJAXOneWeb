@@ -58,15 +58,15 @@
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Dealer Code :</label>
-                    <asp:Label ID="lblDealerCode" runat="server" CssClass="label"></asp:Label>
+                    <label>Dealer :</label>
+                    <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Sub Category : </label>
                     <asp:Label ID="lblSubCategory" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Age : </label>
+                    <label>Age with SLA : </label>
                     <asp:Label ID="lblAge" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
@@ -84,8 +84,8 @@
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Dealer Name : </label>
-                    <asp:Label ID="lblDealerName" runat="server" CssClass="label"></asp:Label>
+                    <label>Subject : </label>
+                    <asp:Label ID="lblSubject" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Ticket Type : </label>
