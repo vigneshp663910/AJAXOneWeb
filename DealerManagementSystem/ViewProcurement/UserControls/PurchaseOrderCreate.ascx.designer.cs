@@ -249,13 +249,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Button Button12;
 
         /// <summary>
-        /// lblMessageColdVisit control.
+        /// lblMessageMaterialFromCart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessageColdVisit;
+        protected global::System.Web.UI.WebControls.Label lblMessageMaterialFromCart;
 
         /// <summary>
         /// gvMaterialFromCart control.

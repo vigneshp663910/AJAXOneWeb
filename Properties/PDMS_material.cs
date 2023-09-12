@@ -8,7 +8,7 @@ namespace Properties
     [Serializable]
     public class PDMS_Material
     {
-        public long MaterialID { get; set; }
+        public int MaterialID { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialCodeWithZero
         {
@@ -239,5 +239,23 @@ namespace Properties
         public PMaterialVariantType VariantsType { get; set; }
         public PDMS_Material Material { get; set; } 
         public bool IsActive { get; set; }
+    }
+    [Serializable]
+    public class PMaterialTax_Api
+    {
+        public List<PMaterial_Api> Material { get; set; }
+        public string Customer { get; set; }
+        public string Vendor { get; set; }
+        public string OrderType { get; set; }
+        public string PRICEDATE { get; set; }
+        public string IV_SEC_SALES { get; set; }
+        public Boolean IsWarrenty { get; set; }
+    }
+    [Serializable]
+    public class PMaterial_Api
+    { 
+        public int Item { get; set; }
+        public string MaterialCode { get; set; } 
+        public decimal Quantity { get; set; }
     }
 }

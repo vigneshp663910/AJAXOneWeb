@@ -136,7 +136,7 @@ namespace Business
                     {
                         foreach (DataRow dr in DataSet.Tables[0].Rows)
                         {
-                            Materials.MaterialID = Convert.ToInt64(dr["MaterialID"]);
+                            Materials.MaterialID = Convert.ToInt32(dr["MaterialID"]);
                             Materials.MaterialCode = Convert.ToString(dr["MaterialCode"]);
                             Materials.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
                             //Materials.BaseUnit = Convert.ToString(dr["r_base_unit"]);
@@ -214,6 +214,17 @@ namespace Business
             string endPoint = "Material/MaterialPriceFromSap?Customer=" + Customer + "&Vendor=" + Vendor + "&OrderType=" + OrderType + "&Item=" + Item
                 + "&Material=" + Material + "&Quantity=" + Quantity + "&IV_SEC_SALES=" + IV_SEC_SALES + "&PriceDate=" + PriceDate + "&IsWarrenty=" + IsWarrenty;
             return JsonConvert.DeserializeObject<PMaterial>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PMaterial> MaterialPriceFromSapMulti(PMaterialTax_Api MaterialTax_Sap)
+        {
+            string endPoint = "Material/MaterialPriceFromSapMulti";
+
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialTax_Sap));
+            if (Result.Status == PApplication.Failure)
+            {
+                throw new Exception(Result.Message);
+            }
+            return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
         }
     }
 }

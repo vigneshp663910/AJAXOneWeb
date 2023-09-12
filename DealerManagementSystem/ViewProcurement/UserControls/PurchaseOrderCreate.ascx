@@ -106,7 +106,7 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">PO Item</legend>
                 <div class="col-md-12 Report">
-                    <asp:GridView ID="gvPOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="2500px">
+                    <asp:GridView ID="gvPOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                         <Columns>
                             <asp:TemplateField HeaderText="Item">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -213,7 +213,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageColdVisit" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageMaterialFromCart" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border">
                 <div class="col-md-12">
                     <div class="col-md-12 Report">

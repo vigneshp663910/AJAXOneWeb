@@ -531,14 +531,14 @@ namespace Business
                                 },
                                 Material = new PDMS_Material()
                                 {
-                                    MaterialID = Convert.ToInt64(dr["MaterialID"]),
+                                    MaterialID = Convert.ToInt32(dr["MaterialID"]),
                                     MaterialCode = Convert.ToString(dr["MaterialCode"]),
                                     MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
                                     MaterialSerialNumber = Convert.ToString(dr["MaterialSN"]),
                                     MaterialGroup = Convert.ToString(dr["MaterialGroup"])
                                 },
 
-                                DefectiveMaterial = dr["DefectiveMaterialID"] == DBNull.Value ? null : new PDMS_Material() { MaterialID = Convert.ToInt64(dr["DefectiveMaterialID"]), MaterialCode = Convert.ToString(dr["DefectiveMaterialCode"]), MaterialDescription = Convert.ToString(dr["DefectiveMaterialDescription"]), MaterialSerialNumber = Convert.ToString(dr["DefectiveMaterialSN"]) },
+                                DefectiveMaterial = dr["DefectiveMaterialID"] == DBNull.Value ? null : new PDMS_Material() { MaterialID = Convert.ToInt32(dr["DefectiveMaterialID"]), MaterialCode = Convert.ToString(dr["DefectiveMaterialCode"]), MaterialDescription = Convert.ToString(dr["DefectiveMaterialDescription"]), MaterialSerialNumber = Convert.ToString(dr["DefectiveMaterialSN"]) },
 
                                 Qty = Convert.ToInt32(dr["Qty"]),
                                 AvailableQty = Convert.ToInt32(dr["AvailableQty"]),

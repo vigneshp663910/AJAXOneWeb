@@ -90,9 +90,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 }
                 else if (lbActions.ID == "lbAddMaterialFromCart")
                 {
-                    MaterialCart = new BDMS_PurchaseOrder().GetPurchaseOrderFromCart("9001");
+                    string Message = Validation();
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessage.Text = Message;
+                        return;
+                    }
+                    MaterialCart = new BDMS_PurchaseOrder().GetPurchaseOrderFromCart(new BDMS_Dealer().GetDealer(Convert.ToInt32(ddlDealer.SelectedValue), null, null, null)[0].DealerCode);
 
-                    DataTable   dt = MaterialCart.AsEnumerable()
+                    DataTable dt = MaterialCart.AsEnumerable()
        .GroupBy(r => new { OrderNo = r["OrderNo"], OrderDate = r["OrderDate"], CustomerCode = r["CustomerCode"], DealerCode = r["DealerCode"] })
        .Select(g => g.OrderBy(r => r["OrderNo"]).First())
        .CopyToDataTable();
@@ -479,22 +485,87 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void btnMaterialFromCart_Click(object sender, EventArgs e)
         {
-
-            for (int i = 0; i < gvMaterialFromCart.Rows.Count; i++)
+            try
             {
-                GridView gvMaterialFromCartItem = (GridView)gvMaterialFromCart.Rows[i].FindControl("gvMaterialFromCartItem");
-                for (int j = 0; j < gvMaterialFromCartItem.Rows.Count; j++)
+                MPE_MaterialFromCart.Show();
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+               
+                List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
+                PMaterial_Api Material_Sap = new PMaterial_Api();
+                for (int i = 0; i < gvMaterialFromCart.Rows.Count; i++)
                 {
-                    CheckBox cbSelectChild = (CheckBox)gvMaterialFromCartItem.Rows[j].FindControl("cbSelectChild");
-
-                    if(cbSelectChild.Checked)
+                    GridView gvMaterialFromCartItem = (GridView)gvMaterialFromCart.Rows[i].FindControl("gvMaterialFromCartItem");
+                    for (int j = 0; j < gvMaterialFromCartItem.Rows.Count; j++)
                     {
-
+                        CheckBox cbSelectChild = (CheckBox)gvMaterialFromCartItem.Rows[j].FindControl("cbSelectChild");
+                        if (cbSelectChild.Checked)
+                        {
+                            Label lblMaterial = (Label)gvMaterialFromCartItem.Rows[j].FindControl("lblMaterial");
+                            foreach (PPurchaseOrderItem_Insert Item in PurchaseOrderItem_Insert)
+                            {
+                                if (Item.MaterialCode == lblMaterial.Text)
+                                {
+                                    continue;
+                                }
+                            }
+                            Label lblPartQty = (Label)gvMaterialFromCartItem.Rows[j].FindControl("lblPartQty");
+                            Material_Sap = new PMaterial_Api();
+                            Material_Sap.MaterialCode = lblMaterial.Text;
+                            Material_Sap.Quantity = Convert.ToDecimal(lblPartQty.Text);
+                            Material_Sap.Item = (Material_SapS.Count + 1) * 10;
+                            Material_SapS.Add(Material_Sap);
+                        }
                     }
 
                 }
-            }
+                //string Material = PoI.MaterialCode; 
+                PMaterialTax_Api MaterialTax_Sap = new PMaterialTax_Api();
+                MaterialTax_Sap.Material = Material_SapS;
+                MaterialTax_Sap.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+                MaterialTax_Sap.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
+                MaterialTax_Sap.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
+                MaterialTax_Sap.IV_SEC_SALES = "";
+                // MaterialTax_Sap.PriceDate = "";
+                MaterialTax_Sap.IsWarrenty = false;
+                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapMulti(MaterialTax_Sap);
+                foreach (PMaterial Mat in Mats)
+                {
+                    PPurchaseOrderItem_Insert PoI = new PPurchaseOrderItem_Insert();
+                    //PoI.MaterialID = new BDMS_Material().GetMaterialListSQL(null, Mat.MaterialCode, null, null, null)[0].MaterialID;
+                    PoI.MaterialCode = Mat.MaterialCode;
+                    foreach (PMaterial_Api M in Material_SapS)
+                    {
+                        if (Mat.MaterialCode == M.MaterialCode)
+                        {
+                            PoI.Quantity = M.Quantity;
+                        }
+                    }
 
+                    PoI.Price = Mat.CurrentPrice;
+                    PoI.DiscountAmount = Mat.Discount;
+                    PoI.TaxableAmount = Mat.TaxablePrice;
+                    PoI.SGST = Mat.SGST;
+                    PoI.SGSTValue = Mat.SGSTValue;
+                    PoI.CGST = Mat.CGST;
+                    PoI.CGSTValue = Mat.CGSTValue;
+                    PoI.CGST = Mat.CGST;
+                    PoI.IGSTValue = Mat.IGSTValue;
+
+                    PurchaseOrderItem_Insert.Add(PoI);
+                    PoI.Item = PurchaseOrderItem_Insert.Count * 10;
+                }
+                fillItem();
+                ClearItem();
+                MPE_MaterialFromCart.Hide();
+            }
+            catch(Exception e1)
+            {
+                lblMessageMaterialFromCart.Text = e1.Message;
+                lblMessageMaterialFromCart.Visible = true;
+                lblMessageMaterialFromCart.ForeColor = Color.Red;
+                return;
+            }
         }
 
         protected void gvMaterialFromCart_RowDataBound(object sender, GridViewRowEventArgs e)
