@@ -509,12 +509,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                                     continue;
                                 }
                             }
-                            Label lblPartQty = (Label)gvMaterialFromCartItem.Rows[j].FindControl("lblPartQty");
-                            Material_Sap = new PMaterial_Api();
-                            Material_Sap.MaterialCode = lblMaterial.Text;
-                            Material_Sap.Quantity = Convert.ToDecimal(lblPartQty.Text);
-                            Material_Sap.Item = (Material_SapS.Count + 1) * 10;
-                            Material_SapS.Add(Material_Sap);
+                            if (Material_SapS.Where(M => M.MaterialCode == lblMaterial.Text).Count() + (PurchaseOrderItem_Insert.Where(M => M.MaterialCode == lblMaterial.Text).Count()) == 0)
+                            {
+                                Label lblPartQty = (Label)gvMaterialFromCartItem.Rows[j].FindControl("lblPartQty");
+                                Material_Sap = new PMaterial_Api();
+                                Material_Sap.MaterialCode = lblMaterial.Text;
+                                Material_Sap.Quantity = Convert.ToDecimal(lblPartQty.Text);
+                                Material_Sap.Item = (Material_SapS.Count + 1) * 10;
+                                Material_SapS.Add(Material_Sap);
+                            }
                         }
                     }
 
@@ -532,7 +535,10 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 foreach (PMaterial Mat in Mats)
                 {
                     PPurchaseOrderItem_Insert PoI = new PPurchaseOrderItem_Insert();
-                    //PoI.MaterialID = new BDMS_Material().GetMaterialListSQL(null, Mat.MaterialCode, null, null, null)[0].MaterialID;
+                    PDMS_Material MaterialSql = new BDMS_Material().GetMaterialListSQL(null, Mat.MaterialCode, null, null, null)[0];
+                    PoI.MaterialID = MaterialSql.MaterialID;
+                    PoI.UOM = MaterialSql.BaseUnit;
+                    //PoI.
                     PoI.MaterialCode = Mat.MaterialCode;
                     foreach (PMaterial_Api M in Material_SapS)
                     {
