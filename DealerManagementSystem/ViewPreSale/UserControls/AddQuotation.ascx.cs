@@ -148,6 +148,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 divStandardProduct.Visible = false;
             }
+            else
+            {
+                divStandardProduct.Visible = true;
+            }
         }
 
     }
