@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using SapIntegration;
 using System;
@@ -485,6 +486,17 @@ namespace Business
             { }
             return Ws;
         }
+
+        public List<PDMS_WarrantyInvoiceHeader_New> GetWarrantyClaimReport_New1(PWarrantyClaim_Filter Filter)
+        { 
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Warranty/GetWarrantyClaimReport", Filter));
+            if (Results.Status == PApplication.Failure)
+            {
+                throw new Exception(Results.Message);
+            } 
+            return JsonConvert.DeserializeObject<List<PDMS_WarrantyInvoiceHeader_New>>(JsonConvert.SerializeObject(Results.Data)); 
+        }
+
 
 
         public List<PDMS_WarrantyTicket> GetWarrantyClaimReportByICTicket1(string ICTicketID, DateTime? ICTicketDateF, DateTime? ICTicketDateT, string InvoiceNumber,

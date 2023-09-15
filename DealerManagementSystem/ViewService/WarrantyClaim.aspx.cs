@@ -99,23 +99,46 @@ namespace DealerManagementSystem.ViewService
             try
             {
                 TraceLogger.Log(DateTime.Now);
-                int? DealerCode = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
-                DateTime? ICTicketDateF = string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateFrom.Text.Trim());
-                DateTime? ICTicketDateT = string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateTo.Text.Trim()); ;
+                
 
-                DateTime? ClaimDateF = string.IsNullOrEmpty(txtClaimDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateF.Text.Trim());
-                DateTime? ClaimDateT = string.IsNullOrEmpty(txtClaimDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateT.Text.Trim());
+                //int? DealerCode = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+                //DateTime? ICTicketDateF = string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateFrom.Text.Trim());
+                //DateTime? ICTicketDateT = string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateTo.Text.Trim()); ;
 
-                DateTime? ApprovedDateF = string.IsNullOrEmpty(txtApprovedDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateF.Text.Trim());
-                DateTime? ApprovedDateT = string.IsNullOrEmpty(txtApprovedDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateT.Text.Trim());
+                //DateTime? ClaimDateF = string.IsNullOrEmpty(txtClaimDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateF.Text.Trim());
+                //DateTime? ClaimDateT = string.IsNullOrEmpty(txtClaimDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateT.Text.Trim());
+
+                //DateTime? ApprovedDateF = string.IsNullOrEmpty(txtApprovedDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateF.Text.Trim());
+                //DateTime? ApprovedDateT = string.IsNullOrEmpty(txtApprovedDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateT.Text.Trim());
 
 
-                int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+                //int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+
+
+                PWarrantyClaim_Filter Filter = new PWarrantyClaim_Filter();
+
+                Filter.DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+                Filter.ICTicketDateF = string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateFrom.Text.Trim());
+                Filter.ICTicketDateT = string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateTo.Text.Trim()); ;
+
+                Filter.ClaimDateF = string.IsNullOrEmpty(txtClaimDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateF.Text.Trim());
+                Filter.ClaimDateT = string.IsNullOrEmpty(txtClaimDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateT.Text.Trim());
+
+                Filter.ApprovedDateF = string.IsNullOrEmpty(txtApprovedDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateF.Text.Trim());
+                Filter.ApprovedDateT = string.IsNullOrEmpty(txtApprovedDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateT.Text.Trim()); 
+                Filter.StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue); 
+                Filter.ICTicketNumber = txtICServiceTicket.Text.Trim();
+                Filter.ClaimNumber = txtClaimNumber.Text.Trim();
+                Filter.TSIRNumber = txtTSIRNumber.Text.Trim();
+                Filter.CustomerCode = txtCustomerCode.Text.Trim();
+                Filter.MachineSerialNumber = txtMachineSerialNumber.Text.Trim();
+                Filter.IsAbove50K = cbIsAbove50K.Checked;
+                SDMS_WarrantyClaimHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport_New1(Filter);
 
                 GridView gv = null;
                 //if (ddlReoprt.SelectedValue == "0")
                 //{
-                SDMS_WarrantyClaimHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport_New(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimNumber.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, ApprovedDateF, ApprovedDateT, txtTSIRNumber.Text.Trim(), txtCustomerCode.Text.Trim(), txtMachineSerialNumber.Text.Trim(), cbIsAbove50K.Checked, PSession.User.UserID);
+                //SDMS_WarrantyClaimHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport_New(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimNumber.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, ApprovedDateF, ApprovedDateT, txtTSIRNumber.Text.Trim(), txtCustomerCode.Text.Trim(), txtMachineSerialNumber.Text.Trim(), cbIsAbove50K.Checked, PSession.User.UserID);
 
                 gv = gvClaimByClaimID;
                 gvClaimByClaimID.Visible = true;
@@ -135,46 +158,7 @@ namespace DealerManagementSystem.ViewService
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
                     lblRowCount.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
-                }
-                //}
-                //else
-                //{
-                 //   SDMS_WarrantyClaimHeaderByTicket = new BDMS_WarrantyClaim().GetWarrantyClaimReportByICTicket1(txtICServiceTicket.Text.Trim(), ICTicketDateF, ICTicketDateT, txtClaimNumber.Text.Trim(), ClaimDateF, ClaimDateT, DealerCode, StatusID, txtTSIRNumber.Text.Trim(), PSession.User.UserID);
-                //    if (ddlDealerCode.SelectedValue == "0")
-                //    {
-                //        var SOIs1 = (from S in SDMS_WarrantyClaimHeaderByTicket
-                //                     join D in PSession.User.Dealer on S.DealerCode equals D.UserName
-                //                     select new
-                //                     {
-                //                         S
-                //                     }).ToList();
-                //        SDMS_WarrantyClaimHeaderByTicket.Clear();
-                //        foreach (var w in SOIs1)
-                //        {
-                //            SDMS_WarrantyClaimHeaderByTicket.Add(w.S);
-                //        }
-                //    }
-                //    gv = gvClaimByTicket;
-                //    gvClaimByClaimID.Visible = false;
-                //    gvClaimByTicket.Visible = true;
-                //    gv.PageIndex = 0;
-                //    gv.DataSource = SDMS_WarrantyClaimHeaderByTicket;
-                //    gv.DataBind();
-                //    if (SDMS_WarrantyClaimHeaderByTicket.Count == 0)
-                //    {
-                //        lblRowCount.Visible = false;
-                //        ibtnArrowLeft.Visible = false;
-                //        ibtnArrowRight.Visible = false;
-                //    }
-                //    else
-                //    {
-                //        lblRowCount.Visible = true;
-                //        ibtnArrowLeft.Visible = true;
-                //        ibtnArrowRight.Visible = true;
-                //        lblRowCount.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + SDMS_WarrantyClaimHeader.Count;
-                //    }
-                //}
-
+                } 
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)

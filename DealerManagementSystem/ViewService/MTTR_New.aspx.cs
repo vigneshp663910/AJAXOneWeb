@@ -501,7 +501,9 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("MTTR1-Act Resp(Hour)");
             dt.Columns.Add("MTTR2-Actual Restored(Hour)");
 
-
+            dt.Columns.Add("Response (Hours)");
+            dt.Columns.Add("Resolution (Hours)");
+            dt.Columns.Add("Restore (Hours)");
 
             string CallOpenReason = "";
             string CallOpenReasonDetails = "";
@@ -636,6 +638,9 @@ namespace DealerManagementSystem.ViewService
                                                , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortTimeString()
                                                  , M.MTTR1H
                                                , M.MTTR2H
+                                               , M.Response
+                                               , M.Resolution
+                                               , M.Restore
                                                 );
 
                     i++;
@@ -947,6 +952,10 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("MTTR1-Act Resp(Hour)");
             dt.Columns.Add("MTTR2-Actual Restored(Hour)");
 
+            dt.Columns.Add("Response (Hours)");
+            dt.Columns.Add("Resolution (Hours)");
+            dt.Columns.Add("Restore (Hours)");
+
             int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
             int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
             string Division = "";
@@ -1029,6 +1038,9 @@ namespace DealerManagementSystem.ViewService
                         , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortTimeString()
                             , M.MTTR1H
                         , M.MTTR2H
+                        , M.Response
+                                               , M.Resolution
+                                               , M.Restore
                         );
                 }
             }
