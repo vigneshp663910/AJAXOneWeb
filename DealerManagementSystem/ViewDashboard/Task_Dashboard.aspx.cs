@@ -292,7 +292,7 @@ namespace DealerManagementSystem.ViewDashboard
 
 
 
-                lblMonthlyReportTitle.Text = (ddlDealerEmployee.SelectedValue == "0") ? " Over All Status" : " Over All Status - " + ddlDealerEmployee.SelectedItem.Text.Trim();
+                lblMonthlyReportTitle.Text = (ddlDealerEmployee.SelectedValue == "0") ? " Overall Status" : " Overall Status - " + ddlDealerEmployee.SelectedItem.Text.Trim();
             }
             gvTicketsMonthwise.DataSource = null;
             gvTicketsMonthwise.DataBind();
@@ -419,7 +419,7 @@ namespace DealerManagementSystem.ViewDashboard
                     dtMonthwise.Rows.Add(Convert.ToDateTime(data[0][4]).ToString("dd"), OP, Convert.ToInt32(data[0][1]), Convert.ToInt32(data[0][2]), CL);
                     CreatedCount += Convert.ToInt32(data[0][1]);
                     ClosedCount += Convert.ToInt32(data[0][2]);
-                    lblDailyReportTitle.Text = (ddlDealerEmployee.SelectedValue == "0") ? "Over All Status" : ((string.IsNullOrEmpty(txtTicketTo.Text)) ? "" : " For The Month Of " + Convert.ToDateTime(txtTicketTo.Text).ToString("MMM-yyyy") + " - " + ddlDealerEmployee.SelectedItem.Text.Trim());
+                    lblDailyReportTitle.Text = (ddlDealerEmployee.SelectedValue == "0") ? "Overall Status" : ((string.IsNullOrEmpty(txtTicketTo.Text)) ? "" : " For The Month Of " + Convert.ToDateTime(txtTicketTo.Text).ToString("MMM-yyyy") + " - " + ddlDealerEmployee.SelectedItem.Text.Trim());
                 }
                 else
                 {
