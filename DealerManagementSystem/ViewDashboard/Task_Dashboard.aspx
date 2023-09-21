@@ -386,10 +386,10 @@
                     <label class="modal-label">Employee</label>
                     <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true" />
                 </div>
-                <%--<div class="col-md-2 col-sm-12">
-                    <label class="modal-label">Employee</label>
-                    <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
-                </div>--%>
+                <div class="col-md-2 col-sm-12" runat="server" id="divChkIT" visible="false">
+                    <label class="modal-label">-</label>
+                    <asp:CheckBox ID="ChkIT" Text="IT" runat="server" OnCheckedChanged="ChkIT_CheckedChanged" AutoPostBack="true" Font-Bold="true"/>
+                </div>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                 </div>

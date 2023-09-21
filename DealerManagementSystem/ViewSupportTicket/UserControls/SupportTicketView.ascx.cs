@@ -223,7 +223,13 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         }
         void FillAssignTo()
         {
-            List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, 7, null);
+            new DDLBind().FillDealerAndEngneer(ddlAssignDealer, null);
+            PDealer dealer = new BDealer().GetDealerByID(null, PSession.User.ExternalReferenceID);
+            ddlAssignDealer.SelectedValue = dealer.DID.ToString();
+            new BDMS_Dealer().GetDealerDepartmentDDL(ddlAssignDepartment, null, null);
+            ddlAssignDepartment.SelectedValue = PSession.User.Department.DealerDepartmentID.ToString();
+            //Changes Requested from John Sir
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
             new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
         }
         void FillApproval()
@@ -264,6 +270,16 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             if (ddlSeverity.SelectedValue == "0")
             {
                 lblMessageAssignTo.Text = "Please Select The Severity";
+                return false;
+            }
+            if (ddlAssignDealer.SelectedValue == "0")
+            {
+                lblMessageAssignTo.Text = "Please Select The Dealer";
+                return false;
+            }
+            if (ddlAssignDepartment.SelectedValue == "0")
+            {
+                lblMessageAssignTo.Text = "Please Select The Department";
                 return false;
             }
             if (ddlAssignedTo.SelectedValue == "0")
@@ -729,9 +745,9 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         messageBody = messageBody.Replace("@@Message", Forum.Message);
                         messageBody = messageBody.Replace("@@TicketNo", Forum.HeaderID.ToString());
                         messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName);
-                        messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
+                        messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
                         messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
-                        new EmailManager().MailSend(userCreatedBy.Mail, CC, Forum.HeaderID.ToString() + " Request for More Information", messageBody, Forum.HeaderID);
+                        new EmailManager().MailSend(userCreatedBy.Mail, CC, "murugeshan.kn@ajax-engg.com", "AJAXOne-[Ticket No: " + Forum.HeaderID.ToString() + "] Message", messageBody, Forum.HeaderID);
                     }
                     else
                     {
@@ -741,7 +757,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         {
                             CC = TicketSelectedUsers.Mail;
                         }
-                        if ((UserCreatedBy.Mail != PSession.User.Mail) && TicketSelectedUsers.Mail != PSession.User.Mail)
+                        if ((UserCreatedBy.Mail != PSession.User.Mail) && TicketSelectedUsers.Mail != PSession.User.Mail && "murugeshan.kn@ajax-engg.com" != PSession.User.Mail)
                         {
                             CC += (CC == "") ? PSession.User.Mail : "," + PSession.User.Mail;
                         }
@@ -752,13 +768,133 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         messageBody = messageBody.Replace("@@Message", Forum.Message);
                         messageBody = messageBody.Replace("@@TicketNo", Forum.HeaderID.ToString());
                         messageBody = messageBody.Replace("@@ToName", UserCreatedBy.ContactName);
-                        messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
+                        messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
                         messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
-                        new EmailManager().MailSend(UserCreatedBy.Mail, CC, Forum.HeaderID.ToString() + " Request for More Information", messageBody, Forum.HeaderID);
+                        new EmailManager().MailSend(UserCreatedBy.Mail, CC, "murugeshan.kn@ajax-engg.com", "AJAXOne-[Ticket No: " + Forum.HeaderID.ToString() + "] Message", messageBody, Forum.HeaderID);
                     }
                 }
             }
+            else if (Label2.Text == "Approve")
+            {
+                int? RequestedBy = null, Approver = null, CreatedBy = null;
+                DateTime? RequestedOn = null;
+                foreach (PTicketsApprovalDetails Item in Ticket[0].ApprovalDetails)
+                {
+                    if (PSession.User.UserID == Item.Approver.UserID && Item.InActive == false)
+                    {
+                        RequestedBy = Item.RequestedBy.UserID;
+                        RequestedOn = Item.RequestedOn;
+                        Approver = Item.Approver.UserID;
+                    }
+                }
+                CreatedBy = Ticket[0].CreatedBy.UserID;
 
+                string messageBody = "";
+                PUser UserApprovar = new BUser().GetUserDetails(Convert.ToInt64(Approver));
+                PUser userCreatedBy = new BUser().GetUserDetails(Convert.ToInt64(CreatedBy));
+                PUser userRequester = new BUser().GetUserDetails(Convert.ToInt64(RequestedBy));
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketApproved.htm");
+                messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
+                messageBody = messageBody.Replace("@@ApproverName", UserApprovar.ContactName);
+                messageBody = messageBody.Replace("@@RequestedByName", userRequester.ContactName);
+                messageBody = messageBody.Replace("@@CreatedByName", userCreatedBy.ContactName);
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                messageBody = messageBody.Replace("@@ApprovalRequestedDate", RequestedOn.ToString());
+                messageBody = messageBody.Replace("@@ApprovedDate", DateTime.Now.ToString());
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+                new EmailManager().MailSend(userRequester.Mail, userCreatedBy.Mail + "," + UserApprovar.Mail, "murugeshan.kn@ajax-engg.com", "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Approved", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
+            }
+            else if (Label2.Text == "Reject")
+            {
+                int? RequestedBy = null, Approver = null, CreatedBy = null;
+                DateTime? RequestedOn = null;
+                foreach (PTicketsApprovalDetails Item in Ticket[0].ApprovalDetails)
+                {
+                    if (PSession.User.UserID == Item.Approver.UserID && Item.InActive == false)
+                    {
+                        RequestedBy = Item.RequestedBy.UserID;
+                        RequestedOn = Item.RequestedOn;
+                        Approver = Item.Approver.UserID;
+                    }
+                }
+                CreatedBy = Ticket[0].CreatedBy.UserID;
+
+                string messageBody = "";
+                PUser UserApprovar = new BUser().GetUserDetails(Convert.ToInt64(Approver));
+                PUser userCreatedBy = new BUser().GetUserDetails(Convert.ToInt64(CreatedBy));
+                PUser userRequester = new BUser().GetUserDetails(Convert.ToInt64(RequestedBy));
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketRejected.htm");
+                messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
+                messageBody = messageBody.Replace("@@ApproverName", UserApprovar.ContactName);
+                messageBody = messageBody.Replace("@@RequestedByName", userRequester.ContactName);
+                messageBody = messageBody.Replace("@@CreatedByName", userCreatedBy.ContactName);
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                messageBody = messageBody.Replace("@@ApprovalRequestedDate", RequestedOn.ToString());
+                messageBody = messageBody.Replace("@@ApprovedDate", DateTime.Now.ToString());
+                messageBody = messageBody.Replace("@@ReasonForRejection", Forum.Message);                
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+                new EmailManager().MailSend(userRequester.Mail, userCreatedBy.Mail + "," + UserApprovar.Mail, "murugeshan.kn@ajax-engg.com", "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Rejected", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
+            }
+            else if (Label2.Text == "Force Close")
+            {
+                string messageBody = "";
+                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                PUser userForceclosedBy = new BUser().GetUserDetails(Convert.ToInt64(PSession.User.UserID));
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+
+                string CC = "";
+                foreach (PTicketItem TktDet in Ticket[0].TicketItems)
+                {
+                    PUser TicketUsersAssignedTo = new BUser().GetUserDetails(Convert.ToInt32(TktDet.AssignedTo.UserID));
+                    if (!CC.Contains(TicketUsersAssignedTo.Mail))
+                    {
+                        CC = (CC == "") ? TicketUsersAssignedTo.Mail : "," + TicketUsersAssignedTo.Mail;
+                    }
+                    PUser TicketUsersAssignedBy = new BUser().GetUserDetails(Convert.ToInt32(TktDet.AssignedBy.UserID));
+                    if (!CC.Contains(TicketUsersAssignedBy.Mail))
+                    {
+                        CC = (CC == "") ? TicketUsersAssignedBy.Mail : "," + TicketUsersAssignedBy.Mail;
+                    }
+                }
+
+
+                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketForceclose.htm");
+                messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                messageBody = messageBody.Replace("@@ToName", userForceclosedBy.ContactName);
+                messageBody = messageBody.Replace("@@Message", Forum.Message);
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+                new EmailManager().MailSend(userForceclosedBy.Mail, CC, "murugeshan.kn@ajax-engg.com", "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] ForceClosed", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
+            }
             FillTickets(Forum.HeaderID);
             FillChatTemp(Forum.HeaderID);
             FillChat(Forum.HeaderID);
@@ -887,40 +1023,27 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             FillTickets(TicketNo);
             FillChat(TicketNo);
             FillChatTemp(TicketNo);
-            string CC = "";
-            List<string> EmailList = new List<string>();
-            var items = ddlMailNotification.Items;
+
+            string messageBody = "";
             PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
             PUser userAssignTo = new BUser().GetUserDetails(Convert.ToInt32(ddlAssignedTo.SelectedValue));
-            foreach (var item in items.Cast<ListItem>().Where(x => x.Value != "-1" && x.Value != "0"))
-            {
-                PUser TicketUsers = new BUser().GetUserDetails(Convert.ToInt32(item.Value));
-                if (!EmailList.Contains(TicketUsers.Mail))
-                {
-                    if (userCreatedBy.Mail != TicketUsers.Mail && PSession.User.Mail != TicketUsers.Mail && userAssignTo.Mail != TicketUsers.Mail)
-                    {
-                        EmailList.Add(TicketUsers.Mail);
-                        CC = (CC == "") ? TicketUsers.Mail : "," + TicketUsers.Mail;
-                    }
-                }
-            }
-            string messageBody = "";
+            PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
             messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
-            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
             messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
-            messageBody = messageBody.Replace("@@AssignedTo", userAssignTo.ContactName);
-            messageBody = messageBody.Replace("@@AssignedOn", DateTime.Now.ToString());
             messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
-            messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+            messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
             messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
-            messageBody = messageBody.Replace("@@Severity", ddlSeverity.SelectedItem.Text);
-            messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
-            messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
-            messageBody = messageBody.Replace("@@Subcategory", ddlSubcategory.SelectedItem.Text);
+            messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+            messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+            messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
             messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
-            messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName + "," + userAssignTo.ContactName);
-            messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-            new EmailManager().MailSend(userCreatedBy.Mail + "," + userAssignTo.Mail, CC, PSession.User.Mail, "New Ticket Assignment " + TaskItem.HeaderID, messageBody, TaskItem.HeaderID);
+            messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+            messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+            messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName);
+            messageBody = messageBody.Replace("@@AssignedTo", userAssignTo.ContactName);
+            messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+            new EmailManager().MailSend(userCreatedBy.Mail, userAssignTo.Mail, "murugeshan.kn@ajax-engg.com," + PSession.User.Mail, "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] Assigned", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
             ClearField();
             btnAssign.Visible = false;
             MPE_AssignTo.Hide();
@@ -982,23 +1105,30 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 FillTickets(TicketNo);
                 FillChat(TicketNo);
                 FillChatTemp(TicketNo);
-                PUser UserApproval = new BUser().GetUsers(Convert.ToInt32(ddlapprovar.SelectedValue), "", null, "", null, null, null, null, null)[0];
-                //  PEmployee EmployeeApproval = new BEmployees().GetEmployeeListJohn(Convert.ToInt32(ddlapprovar.SelectedValue), null, "", "", "")[0];
 
-                string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketRequestForApproval.htm");
-
-                messageBody = messageBody.Replace("@@RequestedBy", PSession.User.ContactName);
-                messageBody = messageBody.Replace("@@TicketNo", Convert.ToInt32(ViewState["TicketNo"]).ToString());
-                messageBody = messageBody.Replace("@@ToName", UserApproval.ContactName);
+                string messageBody = "";
+                PUser UserApprovar = new BUser().GetUserDetails(Convert.ToInt32(ddlapprovar.SelectedValue));
+                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                PUser userRequester = new BUser().GetUserDetails(PSession.User.UserID);
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketApproval.htm");
+                messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
+                messageBody = messageBody.Replace("@@ApproverName", UserApprovar.ContactName);
+                messageBody = messageBody.Replace("@@CreatedByName", userCreatedBy.ContactName);
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
                 messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
                 messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
-                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
                 messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
-                messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                messageBody = messageBody.Replace("@@ApprovalRequester", userRequester.ContactName);
+                messageBody = messageBody.Replace("@@ApprovalDueDate", DateTime.Now.AddDays(10).ToString());
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
                 messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
-                PUser user = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
-                new EmailManager().MailSend(UserApproval.Mail, user.Mail, "New Ticket " + Convert.ToInt32(ViewState["TicketNo"]).ToString(), messageBody, Convert.ToInt32(ViewState["TicketNo"]));
+                new EmailManager().MailSend(UserApprovar.Mail, userCreatedBy.Mail, "murugeshan.kn@ajax-engg.com," + PSession.User.Mail, "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Request for Approval / Reject", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
             }
         }
         void InProgress()
@@ -1024,6 +1154,27 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 FillTickets(TicketNo);
                 FillChat(TicketNo);
                 FillChatTemp(TicketNo);
+
+                string messageBody = "";
+                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                PUser userAssignTo = new BUser().GetUserDetails(Convert.ToInt64(PSession.User.UserID));
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketInprogress.htm");
+                messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName);
+                messageBody = messageBody.Replace("@@AssignedTo", userAssignTo.ContactName);
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+                new EmailManager().MailSend(userCreatedBy.Mail, userAssignTo.Mail, "murugeshan.kn@ajax-engg.com", "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] is InProgress", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
             }
         }
         void Cancel()
@@ -1047,6 +1198,28 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 FillTickets(TicketNo);
                 FillChat(TicketNo);
                 FillChatTemp(TicketNo);
+
+                string messageBody = "";
+                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                PUser userCancelledBy = new BUser().GetUserDetails(Convert.ToInt64(PSession.User.UserID));
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+
+                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketCancel.htm");
+                messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName);
+                messageBody = messageBody.Replace("@@Message", "This ticket to be Cancelled");
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+                new EmailManager().MailSend(userCreatedBy.Mail, userCancelledBy.Mail, "murugeshan.kn@ajax-engg.com", "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Cancelled", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
             }
         }
         void Close()
@@ -1107,22 +1280,23 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         }
                     }
                     string messageBody = "";
-                    messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
+                    PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                    messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketReopen.htm");
                     messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                     messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
-                    messageBody = messageBody.Replace("@@AssignedTo", userAssignTo.ContactName);
-                    messageBody = messageBody.Replace("@@AssignedOn", DateTime.Now.ToString());
                     messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
-                    messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                    messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
                     messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
-                    messageBody = messageBody.Replace("@@Severity", Ticket[0].Severity.Severity);
-                    messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
                     messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
                     messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                    messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
                     messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
-                    messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName + "," + userAssignTo.ContactName);
+                    messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                    messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                    messageBody = messageBody.Replace("@@ReopenDate", DateTime.Now.ToString());
+                    messageBody = messageBody.Replace("@@AssignedTo", userAssignTo.ContactName);
                     messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-                    new EmailManager().MailSend(userCreatedBy.Mail + "," + userAssignTo.Mail, CC, PSession.User.Mail, "New Ticket Assignment " + Ticket[0].HeaderID, messageBody, Ticket[0].HeaderID);
+                    new EmailManager().MailSend(userCreatedBy.Mail + "," + userAssignTo.Mail, CC, "murugeshan.kn@ajax-engg.com," + PSession.User.Mail, "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Re-Opened", messageBody, Ticket[0].HeaderID);
                 }
             }
         }
@@ -1175,10 +1349,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 }
             }
 
-
-
-
-
             lblMessage.Text = "Ticket No " + TaskItem.HeaderID + " is successfully updated.";
             lblMessage.ForeColor = Color.Green;
             lblMessage.Visible = true;
@@ -1190,32 +1360,25 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
 
             if (Ticket[0].Status.StatusID == 4)
             {
-                string CC = "";
-                List<string> EmailList = new List<string>();
-                var items = ddlMailNotification.Items;
-                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
-                foreach (var item in items.Cast<ListItem>().Where(x => x.Value != "-1" && x.Value != "0"))
-                {
-                    PUser TicketUsers = new BUser().GetUserDetails(Convert.ToInt32(item.Value));
-                    if (!EmailList.Contains(TicketUsers.Mail))
-                    {
-                        if (userCreatedBy.Mail != TicketUsers.Mail && PSession.User.Mail != TicketUsers.Mail)
-                        {
-                            EmailList.Add(TicketUsers.Mail);
-                            CC = (CC == "") ? TicketUsers.Mail : "," + TicketUsers.Mail;
-                        }
-                    }
-                }
                 string messageBody = "";
+                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                PUser userAssignTo = new BUser().GetUserDetails(PSession.User.UserID);
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
                 messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketResolved.htm");
-                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                 messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
-                messageBody = messageBody.Replace("@@ResolvedOn", DateTime.Now.ToString());
-                messageBody = messageBody.Replace("@@ResolvedBy", PSession.User.ContactName);
-                messageBody = messageBody.Replace("@@Resolution", TaskItem.Resolution);
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
                 messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName);
-                messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-                new EmailManager().MailSend(userCreatedBy.Mail, CC, PSession.User.Mail, TaskItem.HeaderID + " Resolution: Ticket Successfully Resolved", messageBody, TaskItem.HeaderID);
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+                new EmailManager().MailSend(userCreatedBy.Mail, userAssignTo.Mail, "murugeshan.kn@ajax-engg.com", "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] Resolved", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
             }
             ClearFieldResolve();
         }
@@ -1537,6 +1700,25 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
             txtEditSubject.Text = Ticket[0].Subject.ToString();
             txtEditDescription.Text = Ticket[0].Description.ToString();
+        }
+
+        protected void ddlAssignDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? DealerID = null;
+            DealerID = (ddlAssignDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlAssignDealer.SelectedValue);
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, null, null);
+            new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
+            MPE_AssignTo.Show();
+        }
+
+        protected void ddlAssignDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? DealerID = null, DepartmentID = null;
+            DealerID = (ddlAssignDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlAssignDealer.SelectedValue);
+            DepartmentID = (ddlAssignDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlAssignDepartment.SelectedValue);
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DepartmentID, null);
+            new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
+            MPE_AssignTo.Show();
         }
     }
     class PMessage

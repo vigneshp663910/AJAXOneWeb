@@ -44,6 +44,8 @@ namespace DealerManagementSystem.ViewDashboard
         {
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+            ChkIT.Checked = false;
+            divChkIT.Visible = (ddlDealer.SelectedValue == "53") ? true : false;
         }
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -597,6 +599,14 @@ namespace DealerManagementSystem.ViewDashboard
             GVReport.PageIndex = e.NewPageIndex;
             GetTicketDetailsDealerwiseReport(null,null,Convert.ToInt32(ViewState["StatusID"]));            
             MPE_TktReport.Show();
+        }
+        protected void ChkIT_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkIT.Checked)
+            {
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, 7, null);
+                new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+            }
         }
     }
 }

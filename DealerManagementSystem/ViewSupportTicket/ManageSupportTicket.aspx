@@ -177,11 +177,11 @@
                             <asp:DropDownList ID="ddlTicketType" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">From</label>
+                            <label class="modal-label">Created From</label>
                             <asp:TextBox ID="txtTicketFrom" runat="server" CssClass="TextBox form-control" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">To</label>
+                            <label class="modal-label">Created To</label>
                             <asp:TextBox ID="txtTicketTo" runat="server" CssClass="TextBox form-control" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
