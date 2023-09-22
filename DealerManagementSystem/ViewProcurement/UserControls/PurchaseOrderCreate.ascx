@@ -242,14 +242,14 @@
                                             <asp:Label ID="lblOrderNo" Text='<%# DataBinder.Eval(Container.DataItem, "OrderNo")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Order No">
+                                    <asp:TemplateField HeaderText="Order No">
                                         <ItemTemplate>
-                                           <asp:Label ID="lblOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "OrderDate")%>' runat="server" /> 
+                                            <asp:Label ID="lblOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "OrderDate")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Order Date">
                                         <ItemTemplate>
-                                            
+
                                             <tr>
                                                 <td colspan="100%" style="padding-left: 96px">
                                                     <div id="OrderNo-<%# Eval("OrderNo") %>" style="display: none; position: relative;">
@@ -272,10 +272,10 @@
                                                                         <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "PartDescription")%>' runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                 <asp:TemplateField HeaderText="Qty">
+                                                                <asp:TemplateField HeaderText="Qty">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                                     <ItemTemplate>
-                                                                       <asp:Label ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "PartQty")%>' runat="server" />
+                                                                        <asp:Label ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "PartQty")%>' runat="server" />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <%-- <asp:TemplateField HeaderText="SAC/HSN Code">
@@ -338,6 +338,81 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_MaterialFromCart" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMaterialFromCart" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlCopyOrder" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Material From Cart</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label2" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <div class="col-md-12"> 
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Po Number</label>
+                         <asp:TextBox ID="txtPoNumber" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                    </div>
+                     <div class="col-md-12 text-center">
+                        <asp:Button ID="btnSearchCopyOrder" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearchCopyOrder_Click" OnClientClick="return dateValidation();" Width="65px" />
+                        </div>
+                </div>
+            </fieldset>
+        </div> 
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <div class="col-md-12">
+                    <div class="col-md-12 Report">
+                        <div class="table-responsive">
+                            <asp:GridView ID="gvMaterialCopyOrder" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Select">
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="cbSelectChild" runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Material">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "PartNo")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Material Desc">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "PartDescription")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Qty">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "PartQty")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="Button3" runat="server" Text="Add" CssClass="btn Save" OnClick="btnMaterialFromCart_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_CopyOrder" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCopyOrder" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
@@ -429,16 +504,16 @@
 
 
     function OnchangeHandler(txtid) {
-        
+
         var index = txtid.parentNode.parentNode.sectionRowIndex; // Get the corresponding index 
         index = (index + 1) / 2;
-        index = index - 1; 
-        var checkBox = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_cbSelect_' + index); 
-        var gvMaterialFromCartItem = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_gvMaterialFromCartItem_' + index); 
+        index = index - 1;
+        var checkBox = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_cbSelect_' + index);
+        var gvMaterialFromCartItem = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_gvMaterialFromCartItem_' + index);
         for (i = 0; i < gvMaterialFromCartItem.rows.length; i++) {
             var cbSelectChild = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_gvMaterialFromCartItem_' + index + '_cbSelectChild_' + i);
             if (checkBox.checked) {
-                cbSelectChild.checked = true; 
+                cbSelectChild.checked = true;
             }
             else {
                 cbSelectChild.checked = false;
@@ -446,9 +521,9 @@
 
         }
         //var grid = txtid.parentNode.parentNode.parentNode;
-       // var checkBox = grid.rows[index].cells[1].getElementsByTagName("INPUT")[0];
-      //  var gvMaterialFromCartItem = grid.rows[index].cells[5].getElementsByTagName("INPUT")[0];
+        // var checkBox = grid.rows[index].cells[1].getElementsByTagName("INPUT")[0];
+        //  var gvMaterialFromCartItem = grid.rows[index].cells[5].getElementsByTagName("INPUT")[0];
 
-         
+
     }
 </script>
