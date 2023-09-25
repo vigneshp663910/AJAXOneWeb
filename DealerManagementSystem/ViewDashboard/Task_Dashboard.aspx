@@ -709,7 +709,7 @@
         </div>
         <br />
     </div>
-    <asp:Panel ID="pnlTktReport" runat="server" CssClass="Popup" Style="display: none" Height="600px" Width="80%">
+    <asp:Panel ID="pnlTktReport" runat="server" CssClass="Popup" Style="display: none" Height="650px" Width="80%">
         <div class="PopupHeader clearfix">
             <span id="PopupDialogue">
                 <asp:Label ID="Label2" runat="server" Text="Report"></asp:Label></span><a href="#" role="button">
@@ -733,7 +733,7 @@
                                 </div>
                             </div>
                         </div>
-                        <asp:GridView ID="GVReport" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10" EmptyDataText="No Data Found" OnPageIndexChanging="GVReport_PageIndexChanging">
+                        <asp:GridView ID="GVReport" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" EmptyDataText="No Data Found" OnPageIndexChanging="GVReport_PageIndexChanging">
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle CssClass="FooterStyle" />
                             <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
