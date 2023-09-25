@@ -136,7 +136,6 @@ namespace DealerManagementSystem.ViewSupportTicket
             Task.AttchedFile = AttchedFile;
             string result = new BAPI().ApiPut("Task", Task);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-            //result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
 
             if (Result.Status == PApplication.Failure)
             {
@@ -146,7 +145,27 @@ namespace DealerManagementSystem.ViewSupportTicket
             lblMessage.Text = Result.Message+" Ticket No : "+ Result.Data;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
-            ClearField(); 
+
+            string CC = "";
+            string messageBody = "";
+            PDealer dealer = new BDealer().GetDealerByID(null, PSession.User.ExternalReferenceID);
+            messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketCreate.htm");
+            messageBody = messageBody.Replace("@@TicketNo", Result.Data.ToString());
+            messageBody = messageBody.Replace("@@RequestedOn", DateTime.Now.ToString());
+            messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+            messageBody = messageBody.Replace("@@TicketType", ddlTicketType.SelectedItem.Text);
+            messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);            
+            messageBody = messageBody.Replace("@@Subcategory", ddlSubcategory.SelectedItem.Text);
+            messageBody = messageBody.Replace("@@Subject", txtSubject.Text);
+            messageBody = messageBody.Replace("@@Description", txtTicketDescription.Text);
+            messageBody = messageBody.Replace("@@ContactName", txtContactName.Text);
+            messageBody = messageBody.Replace("@@MobileNo", txtMobileNo.Text);
+            messageBody = messageBody.Replace("@@ToName", PSession.User.ContactName);
+            messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+            new EmailManager().MailSend(PSession.User.Mail, CC, "murugeshan.kn@ajax-engg.com", "AJAXOne-[Ticket No: " + Result.Data + "] Created", messageBody, Convert.ToInt64(Result.Data));
+
+            ClearField();            
         }
 
         void ClearField()
