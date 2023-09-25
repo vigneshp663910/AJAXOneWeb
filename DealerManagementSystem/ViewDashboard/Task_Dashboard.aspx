@@ -709,7 +709,7 @@
         </div>
         <br />
     </div>
-    <asp:Panel ID="pnlTktReport" runat="server" CssClass="Popup" Style="display: none" Height="800px" Width="80%">
+    <asp:Panel ID="pnlTktReport" runat="server" CssClass="Popup" Style="display: none" Height="600px" Width="80%">
         <div class="PopupHeader clearfix">
             <span id="PopupDialogue">
                 <asp:Label ID="Label2" runat="server" Text="Report"></asp:Label></span><a href="#" role="button">
