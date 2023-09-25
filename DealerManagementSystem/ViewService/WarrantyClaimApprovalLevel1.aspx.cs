@@ -976,8 +976,8 @@ namespace DealerManagementSystem.ViewService
                 Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
 
                 long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
-                PDMS_FSRAttachedFile UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(AttachedFileID);
-
+                //PDMS_FSRAttachedFile UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(AttachedFileID);
+                PAttachedFile UploadedFileFSR  = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(AttachedFileID);
                 Response.AddHeader("Content-type", UploadedFileFSR.FileType);
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFileFSR.FileName);
                 HttpContext.Current.Response.Charset = "utf-16";
@@ -999,7 +999,8 @@ namespace DealerManagementSystem.ViewService
                 Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
 
                 long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
-                PDMS_TSIRAttachedFile UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(AttachedFileID);
+                // PDMS_TSIRAttachedFile UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(AttachedFileID);
+                PAttachedFile UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileForDownload(AttachedFileID);
                 Response.AddHeader("Content-type", UploadedFileTSIR.FileType);
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFileTSIR.FileName);
                 HttpContext.Current.Response.Charset = "utf-16";
