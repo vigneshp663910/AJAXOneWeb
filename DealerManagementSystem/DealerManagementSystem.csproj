@@ -244,6 +244,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CSS\jquery-ui.css" />
     <Content Include="CSS\StyleSheet1.css" />
+    <Content Include="Dashboard\FirstTimeRightForWarrantyService.aspx" />
+    <Content Include="Dashboard\ICTicketEscalationOnBreakdownLevel.ascx" />
+    <Content Include="Dashboard\WarrantyMaterialAnalysis.aspx" />
     <Content Include="ErrorPages.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="ForbidAccess.aspx" />
@@ -625,6 +628,7 @@
     <Content Include="ViewService\ICTicket.aspx" />
     <Content Include="ViewService\ICTicketCommissionMailToReport.aspx" />
     <Content Include="ViewService\ICTicketCreate.aspx" />
+    <Content Include="ViewService\ICTicketEscalationOnBreakdown.aspx" />
     <Content Include="ViewService\ICTicketFSRManage.aspx" />
     <Content Include="ViewService\ICTicketManage.aspx" />
     <Content Include="ViewService\ICTicketMarginWarrantyApproval.aspx" />
@@ -817,6 +821,27 @@
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ChatHub.cs" />
+    <Compile Include="Dashboard\FirstTimeRightForWarrantyService.aspx.cs">
+      <DependentUpon>FirstTimeRightForWarrantyService.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dashboard\FirstTimeRightForWarrantyService.aspx.designer.cs">
+      <DependentUpon>FirstTimeRightForWarrantyService.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\ICTicketEscalationOnBreakdownLevel.ascx.cs">
+      <DependentUpon>ICTicketEscalationOnBreakdownLevel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dashboard\ICTicketEscalationOnBreakdownLevel.ascx.designer.cs">
+      <DependentUpon>ICTicketEscalationOnBreakdownLevel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\WarrantyMaterialAnalysis.aspx.cs">
+      <DependentUpon>WarrantyMaterialAnalysis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dashboard\WarrantyMaterialAnalysis.aspx.designer.cs">
+      <DependentUpon>WarrantyMaterialAnalysis.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DealerDashboard.Master.cs">
       <DependentUpon>DealerDashboard.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2490,6 +2515,13 @@
     </Compile>
     <Compile Include="ViewService\ICTicketCreate.aspx.designer.cs">
       <DependentUpon>ICTicketCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\ICTicketEscalationOnBreakdown.aspx.cs">
+      <DependentUpon>ICTicketEscalationOnBreakdown.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\ICTicketEscalationOnBreakdown.aspx.designer.cs">
+      <DependentUpon>ICTicketEscalationOnBreakdown.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketFSRManage.aspx.cs">
       <DependentUpon>ICTicketFSRManage.aspx</DependentUpon>

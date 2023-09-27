@@ -7,7 +7,7 @@
                 <asp:Label ID="Label1" Text="Escalation report on Break Down More than 8 Hrs" runat="server" />
             </div>
             <div class="details-position">
-                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/DMS_ICTicketEscalationOnBreakdown.aspx">
+                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/ViewService/ICTicketEscalationOnBreakdown.aspx">
                     <asp:Label ID="lblBreakDown8" runat="server" CssClass="sapMNCValueScr" />
                 </asp:HyperLink>
             </div>
@@ -23,7 +23,7 @@
                 <asp:Label ID="Label2" Text="Escalation report on Break Down more than 24 Hrs" runat="server" />
             </div>
             <div class="details-position">
-                <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/DMS_ICTicketEscalationOnBreakdown.aspx">
+                <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/ViewService/ICTicketEscalationOnBreakdown.aspx">
                     <asp:Label ID="lblBreakDown24" runat="server" CssClass="sapMNCValueScr" />
                 </asp:HyperLink>
             </div>
@@ -37,7 +37,7 @@
                 <asp:Label ID="Label4" Text="Escalation report on Break Down More than 48 Hrs" runat="server" />
             </div>
             <div class="details-position">
-                <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/DMS_ICTicketEscalationOnBreakdown.aspx">
+                <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/ViewService/ICTicketEscalationOnBreakdown.aspx">
                     <asp:Label ID="lblBreakDown48" runat="server" CssClass="sapMNCValueScr" />
                 </asp:HyperLink>
             </div>
@@ -51,7 +51,7 @@
                 <asp:Label ID="Label6" Text="Escalation report on Break Down More than 72 Hrs" runat="server" />
             </div>
             <div class="details-position">
-                <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/DMS_ICTicketEscalationOnBreakdown.aspx">
+                <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/ViewService/ICTicketEscalationOnBreakdown.aspx">
                     <asp:Label ID="lblBreakDown72" runat="server"  CssClass="sapMNCValueScr" />
                 </asp:HyperLink> 
             </div>

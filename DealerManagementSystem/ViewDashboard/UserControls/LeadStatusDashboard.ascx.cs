@@ -59,7 +59,7 @@ namespace DealerManagementSystem.ViewDashboard.UserControls
                 Session["leadStatusID"] = 3;
             } 
             Session["leadDateFrom"] = (DateTime?)Session["SerDateFrom"];
-            Response.Redirect("ViewPreSale/lead.aspx"); 
+            Response.Redirect("ViewPreSale/LeadN.aspx"); 
         }
     }
 }
