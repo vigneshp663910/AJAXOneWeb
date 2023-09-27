@@ -23,6 +23,7 @@
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbUploadMaterial" runat="server" OnClick="lbActions_Click">Upload Material</asp:LinkButton>
                 <asp:LinkButton ID="lbAddMaterialFromCart" runat="server" OnClick="lbActions_Click">Add Material From Cart</asp:LinkButton>
+                <asp:LinkButton ID="lbCopyFromPO" runat="server" OnClick="lbActions_Click">Copy From PO</asp:LinkButton>
                 <asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click">Save</asp:LinkButton>
             </div>
         </div>
@@ -346,20 +347,20 @@
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
-        <div class="model-scroll">
-            <asp:Label ID="Label2" runat="server" Text="" CssClass="message" Visible="false" />
-            <fieldset class="fieldset-border">
-                <div class="col-md-12"> 
-                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Po Number</label>
-                         <asp:TextBox ID="txtPoNumber" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
-                    </div>
-                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSearchCopyOrder" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearchCopyOrder_Click" OnClientClick="return dateValidation();" Width="65px" />
-                        </div>
+        <asp:Label ID="Label2" runat="server" Text="" CssClass="message" Visible="false" />
+        <fieldset class="fieldset-border">
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Po Number</label>
+                    <asp:TextBox ID="txtPoNumber" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                 </div>
-            </fieldset>
-        </div> 
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnSearchCopyOrder" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearchCopyOrder_Click" OnClientClick="return dateValidation();" Width="65px" />
+                    <asp:Button ID="btnCopyPoAdd" runat="server" Text="Add" CssClass="btn Save" OnClick="btnCopyPoAdd_Click" />
+                </div>
+            </div>
+        </fieldset>
+
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
@@ -378,19 +379,19 @@
                                     <asp:TemplateField HeaderText="Material">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "PartNo")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Material Desc">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "PartDescription")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "PartQty")%>' runat="server" />
+                                            <asp:Label ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -407,7 +408,6 @@
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="Button3" runat="server" Text="Add" CssClass="btn Save" OnClick="btnMaterialFromCart_Click" />
         </div>
     </div>
 </asp:Panel>

@@ -107,6 +107,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     gvMaterialFromCart.DataBind();
                     MPE_MaterialFromCart.Show();
                 }
+                else if (lbActions.ID == "lbCopyFromPO")
+                {
+                    string Message = Validation();
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessage.Text = Message;
+                        return;
+                    }
+                    MPE_CopyOrder.Show();
+                }
             }
             catch (Exception ex)
             {
@@ -144,8 +154,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             PPurchaseOrder_Insert PO = new PPurchaseOrder_Insert();
             PO.DealerID = Convert.ToInt32(ddlDealer.SelectedValue);       
-            PO.DealerOfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);            PO.PurchaseOrderToID = Convert.ToInt32(ddlOrderTo.SelectedValue);
-            PO.VendorID = Convert.ToInt32(ddlVendor.SelectedValue);            PO.PurchaseOrderTypeID = Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);            PO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
+            PO.DealerOfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);            
+            PO.PurchaseOrderToID = Convert.ToInt32(ddlOrderTo.SelectedValue);
+            PO.VendorID = Convert.ToInt32(ddlVendor.SelectedValue);            
+            PO.PurchaseOrderTypeID = Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);            
+            PO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
             PO.ReferenceNo = txtReferenceNo.Text.Trim();
             PO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
             PO.Remarks = txtRemarks.Text.Trim(); 
@@ -430,8 +443,18 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
 
         public void Save()
-        {
-            PO_Insert = Read(); 
+        { 
+            PO_Insert = Read();
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red;
+            if ((PO_Insert.PurchaseOrderTypeID == 2) || (PO_Insert.PurchaseOrderTypeID == 7))
+            {
+                if (string.IsNullOrEmpty(PO_Insert.ReferenceNo))
+                {
+                    lblMessage.Text = "Please enter the ReferenceNo";
+                    return;
+                }
+            }
             PO_Insert.PurchaseOrderItems = PurchaseOrderItem_Insert;
             string result = new BAPI().ApiPut("PurchaseOrder", PO_Insert);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
@@ -441,8 +464,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.Text = Result.Message;
                 return;
             }
-            lblMessage.Text = Result.Message;
-            lblMessage.Visible = true;
+            lblMessage.Text = Result.Message; 
             lblMessage.ForeColor = Color.Green;
         }
 
@@ -624,6 +646,77 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvMaterialCopyOrder.DataBind();
 
             MPE_CopyOrder.Show();
+        }
+
+        protected void btnCopyPoAdd_Click(object sender, EventArgs e)
+        {
+            List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
+            PMaterial_Api Material_Sap = new PMaterial_Api();
+
+            for (int j = 0; j < gvMaterialCopyOrder.Rows.Count; j++)
+            {
+                CheckBox cbSelectChild = (CheckBox)gvMaterialCopyOrder.Rows[j].FindControl("cbSelectChild");
+                if (cbSelectChild.Checked)
+                {
+                    Label lblMaterial = (Label)gvMaterialCopyOrder.Rows[j].FindControl("lblMaterial");
+                    foreach (PPurchaseOrderItem_Insert Item in PurchaseOrderItem_Insert)
+                    {
+                        if (Item.MaterialCode == lblMaterial.Text)
+                        {
+                            continue;
+                        }
+                    }
+                    if (Material_SapS.Where(M => M.MaterialCode == lblMaterial.Text).Count() + (PurchaseOrderItem_Insert.Where(M => M.MaterialCode == lblMaterial.Text).Count()) == 0)
+                    {
+                        Label lblPartQty = (Label)gvMaterialCopyOrder.Rows[j].FindControl("lblPartQty");
+                        Material_Sap = new PMaterial_Api();
+                        Material_Sap.MaterialCode = lblMaterial.Text;
+                        Material_Sap.Quantity = Convert.ToDecimal(lblPartQty.Text);
+                        Material_Sap.Item = (Material_SapS.Count + 1) * 10;
+                        Material_SapS.Add(Material_Sap);
+                    }
+                }
+            }
+
+            PMaterialTax_Api MaterialTax_Sap = new PMaterialTax_Api();
+            MaterialTax_Sap.Material = Material_SapS;
+            MaterialTax_Sap.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+            MaterialTax_Sap.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
+            MaterialTax_Sap.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
+            MaterialTax_Sap.IV_SEC_SALES = "";
+            // MaterialTax_Sap.PriceDate = "";
+            MaterialTax_Sap.IsWarrenty = false;
+            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapMulti(MaterialTax_Sap);
+            foreach (PMaterial Mat in Mats)
+            {
+                PPurchaseOrderItem_Insert PoI = new PPurchaseOrderItem_Insert();
+                PDMS_Material MaterialSql = new BDMS_Material().GetMaterialListSQL(null, Mat.MaterialCode, null, null, null)[0];
+                PoI.MaterialID = MaterialSql.MaterialID;
+                PoI.UOM = MaterialSql.BaseUnit;
+                //PoI.
+                PoI.MaterialCode = Mat.MaterialCode;
+                foreach (PMaterial_Api M in Material_SapS)
+                {
+                    if (Mat.MaterialCode == M.MaterialCode)
+                    {
+                        PoI.Quantity = M.Quantity;
+                    }
+                }
+
+                PoI.Price = Mat.CurrentPrice;
+                PoI.DiscountAmount = Mat.Discount;
+                PoI.TaxableAmount = Mat.TaxablePrice;
+                PoI.SGST = Mat.SGST;
+                PoI.SGSTValue = Mat.SGSTValue;
+                PoI.CGST = Mat.CGST;
+                PoI.CGSTValue = Mat.CGSTValue;
+                PoI.CGST = Mat.CGST;
+                PoI.IGSTValue = Mat.IGSTValue;
+
+                PurchaseOrderItem_Insert.Add(PoI);
+                PoI.Item = PurchaseOrderItem_Insert.Count * 10;
+            }
+            fillItem();
         }
     }
 }

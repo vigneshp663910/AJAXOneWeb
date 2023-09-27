@@ -33,6 +33,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbAddMaterialFromCart;
 
         /// <summary>
+        /// lbCopyFromPO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbCopyFromPO;
+
+        /// <summary>
         /// lbSave control.
         /// </summary>
         /// <remarks>
@@ -330,6 +339,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Button btnSearchCopyOrder;
 
         /// <summary>
+        /// btnCopyPoAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCopyPoAdd;
+
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -346,15 +364,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvMaterialCopyOrder;
-
-        /// <summary>
-        /// Button3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
 
         /// <summary>
         /// MPE_CopyOrder control.
