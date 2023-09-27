@@ -24,7 +24,7 @@ namespace DealerManagementSystem.ViewDashboard
         }
         DateTime? From = null;
         DateTime? To = null;
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Dashboard');</script>");
@@ -380,7 +380,7 @@ namespace DealerManagementSystem.ViewDashboard
             {
                 ds = new BTickets().GetTicketDetailsDealerwiseMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
             }
-            
+
             if (ds != null)
             {
                 if (ds.Tables[0].Rows.Count == 0)
@@ -582,6 +582,7 @@ namespace DealerManagementSystem.ViewDashboard
         {
             int? DealerEmployeeUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            lblRptCount.Text = "0";
             Boolean Dealerwise = ((DealerID != null && ddlDealerEmployee.SelectedValue == "0") || (DealerID == null && ddlDealerEmployee.SelectedValue == "0")) ? true : false;
             GVReport.DataSource = null;
             GVReport.DataBind();
@@ -597,7 +598,7 @@ namespace DealerManagementSystem.ViewDashboard
         protected void GVReport_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVReport.PageIndex = e.NewPageIndex;
-            GetTicketDetailsDealerwiseReport(null,null,Convert.ToInt32(ViewState["StatusID"]));            
+            GetTicketDetailsDealerwiseReport(null, null, Convert.ToInt32(ViewState["StatusID"]));
             MPE_TktReport.Show();
         }
         protected void ChkIT_CheckedChanged(object sender, EventArgs e)
