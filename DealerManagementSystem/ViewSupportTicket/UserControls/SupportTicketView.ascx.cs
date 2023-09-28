@@ -231,6 +231,9 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             //Changes Requested from John Sir
             List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
             new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
+            ddlAssignDealer.Enabled = false;
+            ddlAssignDepartment.Enabled = false;
+            ddlAssignDepartment_SelectedIndexChanged(null, null);
         }
         void FillApproval()
         {
@@ -726,6 +729,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         List<string> EmailList = new List<string>();
                         var items = ddlMailNotification.Items;
                         PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                        PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
                         foreach (var item in items.Cast<ListItem>().Where(x => x.Value != "-1" && x.Value != "0"))
                         {
                             PUser TicketUsers = new BUser().GetUserDetails(Convert.ToInt32(item.Value));
@@ -739,6 +743,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                             }
                         }
                         string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketMessage.htm");
+                        messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                        messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                        messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                        messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                        messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
                         messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
                         messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
                         messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
@@ -752,6 +761,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     else
                     {
                         PUser UserCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                        PDealer dealer = new BDealer().GetDealerByID(null, UserCreatedBy.ExternalReferenceID);
                         PUser TicketSelectedUsers = new BUser().GetUserDetails(Convert.ToInt32(ddlMailNotification.SelectedValue));
                         if (UserCreatedBy.Mail != TicketSelectedUsers.Mail)
                         {
@@ -762,6 +772,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                             CC += (CC == "") ? PSession.User.Mail : "," + PSession.User.Mail;
                         }
                         string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketMessage.htm");
+                        messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                        messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                        messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                        messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                        messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
                         messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
                         messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
                         messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
@@ -1706,8 +1721,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         {
             int? DealerID = null;
             DealerID = (ddlAssignDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlAssignDealer.SelectedValue);
+            new BDMS_Dealer().GetDealerDepartmentDDL(ddlAssignDepartment, null, null);
+            ddlAssignDepartment.SelectedValue = PSession.User.Department.DealerDepartmentID.ToString();
             List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, null, null);
             new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
+            ddlAssignDepartment_SelectedIndexChanged(null, null);
             MPE_AssignTo.Show();
         }
 
