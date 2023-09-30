@@ -32,51 +32,77 @@
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 <div class="col-md-12">
     <fieldset class="fieldset-border">
-        <div class="col-md-3 col-sm-12">
-            <label class="modal-label">Dealer</label>
-            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
-        </div>
+        <div class="col-md-9">
+            <div class="col-md-3 col-sm-12">
+                <label class="modal-label">Dealer</label>
+                <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+            </div>
 
-        <div class="col-md-3 col-sm-12">
-            <label class="modal-label">Order To<samp style="color: red">*</samp></label>
-            <asp:DropDownList ID="ddlOrderTo" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlOrderTo_SelectedIndexChanged" AutoPostBack="true">
-                <asp:ListItem Value="1">OE</asp:ListItem>
-                <asp:ListItem Value="2">Co-Dealer</asp:ListItem>
-            </asp:DropDownList>
-        </div>
-        <div class="col-md-3 col-sm-12">
-            <label class="modal-label">Vendor<samp style="color: red">*</samp></label>
-            <asp:DropDownList ID="ddlVendor" runat="server" CssClass="form-control" />
-        </div>
-        <div class="col-md-3 col-sm-12">
-            <label class="modal-label">Order Type<samp style="color: red">*</samp></label>
-            <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPurchaseOrderType_SelectedIndexChanged" AutoPostBack="true" />
-        </div>
+            <div class="col-md-3 col-sm-12">
+                <label class="modal-label">Order To<samp style="color: red">*</samp></label>
+                <asp:DropDownList ID="ddlOrderTo" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlOrderTo_SelectedIndexChanged" AutoPostBack="true">
+                    <asp:ListItem Value="1">OE</asp:ListItem>
+                    <asp:ListItem Value="2">Co-Dealer</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <label class="modal-label">Vendor<samp style="color: red">*</samp></label>
+                <asp:DropDownList ID="ddlVendor" runat="server" CssClass="form-control" />
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <label class="modal-label">Order Type<samp style="color: red">*</samp></label>
+                <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPurchaseOrderType_SelectedIndexChanged" AutoPostBack="true" />
+            </div>
 
-        <div class="col-md-3 col-sm-12">
-            <label class="modal-label">Division<samp style="color: red">*</samp></label>
-            <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
-        </div>
-        <div class="col-md-3 col-sm-12">
-            <label class="modal-label">
-                Receiving Location
+            <div class="col-md-3 col-sm-12">
+                <label class="modal-label">Division<samp style="color: red">*</samp></label>
+                <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <label class="modal-label">
+                    Receiving Location
             <samp style="color: red">*</samp></label>
-            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
+                <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <label class="modal-label">Expected Delivery Date<samp style="color: red">*</samp></label>
+                <asp:TextBox ID="txtExpectedDeliveryDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
+                <asp1:CalendarExtender ID="cxExpectedDeliveryDate" runat="server" TargetControlID="txtExpectedDeliveryDate" PopupButtonID="txtExpectedDeliveryDate" Format="dd/MM/yyyy" />
+                <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtExpectedDeliveryDate" WatermarkText="DD/MM/YYYY" />
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <label class="modal-label">Ref. No<samp style="color: red">*</samp></label>
+                <asp:TextBox ID="txtReferenceNo" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <label class="modal-label">Remarks</label>
+                <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+            </div>
         </div>
-        <div class="col-md-3 col-sm-12">
-            <label class="modal-label">Expected Delivery Date<samp style="color: red">*</samp></label>
-            <asp:TextBox ID="txtExpectedDeliveryDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
-            <asp1:CalendarExtender ID="cxExpectedDeliveryDate" runat="server" TargetControlID="txtExpectedDeliveryDate" PopupButtonID="txtExpectedDeliveryDate" Format="dd/MM/yyyy" />
-            <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtExpectedDeliveryDate" WatermarkText="DD/MM/YYYY" />
-        </div>
-        <div class="col-md-3 col-sm-12">
-            <label class="modal-label">Ref. No<samp style="color: red">*</samp></label>
-            <asp:TextBox ID="txtReferenceNo" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
-        </div>
-        <div class="col-md-4 col-sm-12">
-            <label class="modal-label">Remarks</label>
-            <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-        </div>
+          <div class="col-md-3">
+                <div class="col-md-12">
+                    <label>Price : </label>
+                    <asp:Label ID="lblPrice" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Discount : </label>
+                    <asp:Label ID="lblDiscount" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Taxable Amount : </label>
+                    <asp:Label ID="lblTaxableAmount" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Tax Amount : </label>
+                    <asp:Label ID="lblTaxAmount" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Gross Amount : </label>
+                    <asp:Label ID="lblGrossAmount" runat="server" CssClass="label"></asp:Label>
+                </div>
+
+                
+            </div>
     </fieldset>
     <div class="col-md-12">
         <div class="col-md-12 Report">

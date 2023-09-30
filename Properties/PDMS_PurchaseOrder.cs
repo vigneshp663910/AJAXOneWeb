@@ -94,13 +94,22 @@ namespace Properties
         public string PurchaseOrderType { get; set; }
         public string SapOrderType { get; set; }
     }
+
     [Serializable]
-    public class PPurchaseOrderStatus
+    public class PProcurementStatus
     {
-        public int PurchaseOrderStatusID { get; set; }
+        public int ProcurementStatusID { get; set; }
         public string Code { get; set; }
-        public string PurchaseOrderStatus { get; set; }
+        public string ProcurementStatus { get; set; }
     }
+
+    //[Serializable]
+    //public class PPurchaseOrderStatus
+    //{
+    //    public int PurchaseOrderStatusID { get; set; }
+    //    public string Code { get; set; }
+    //    public string PurchaseOrderStatus { get; set; }
+    //}
     [Serializable]
     public class PPurchaseOrderAsnStatus
     {
@@ -130,7 +139,7 @@ namespace Properties
         public PPurchaseOrderTo PurchaseOrderTo { get; set; }
         public PDMS_Dealer Vendor { get; set; }
         public PPurchaseOrderType PurchaseOrderType { get; set; }
-        public PPurchaseOrderStatus PurchaseOrderStatus { get; set; }
+        public PProcurementStatus PurchaseOrderStatus { get; set; }
         public PDMS_Division Division { get; set; }
 
         public DateTime ExpectedDeliveryDate { get; set; }
@@ -159,7 +168,7 @@ namespace Properties
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
         public decimal TaxableValue { get; set; }
-        public PPurchaseOrderStatus PurchaseOrderStatus { get; set; }
+        public PProcurementStatus PurchaseOrderStatus { get; set; }
         public decimal Tax { get { return Material.CGST + Material.SGST + Material.IGST; } }
         public decimal TaxValue { get { return Material.CGSTValue + Material.SGSTValue + Material.IGSTValue; } }
         //public decimal NetAmount { get; set; }

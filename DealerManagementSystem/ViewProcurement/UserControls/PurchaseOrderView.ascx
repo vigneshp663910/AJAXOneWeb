@@ -4,7 +4,7 @@
 <%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
 <%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
-<%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %> 
+<%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
 
 <div class="col-md-12">
     <div class="action-btn">
@@ -13,8 +13,10 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbReleasePO" runat="server" OnClick="lbActions_Click">Release PO</asp:LinkButton>
-                <asp:LinkButton ID="lbEditPO" runat="server" OnClick="lbActions_Click">Edit PO</asp:LinkButton>
+                <asp:LinkButton ID="lbEditPO" runat="server" OnClick="lbActions_Click">Edit PO</asp:LinkButton> 
                 <asp:LinkButton ID="lbCancelPO" runat="server" OnClick="lbActions_Click">Cancel PO</asp:LinkButton>
+                <asp:LinkButton ID="lbReleaseApprove" runat="server" OnClick="lbActions_Click">Release Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbCancelApprove" runat="server" OnClick="lbActions_Click">Cancel Approve</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -24,7 +26,7 @@
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Enquiry Details</legend>
         <div class="col-md-12 View">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="col-md-12">
                     <label>PO Number : </label>
                     <asp:Label ID="lblPurchaseOrderNumber" runat="server" CssClass="label"></asp:Label>
@@ -42,7 +44,7 @@
                     <asp:Label ID="lblRefNo" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="col-md-12">
                     <label>PO Date : </label>
                     <asp:Label ID="lblPurchaseOrderDate" runat="server" CssClass="label"></asp:Label>
@@ -60,7 +62,7 @@
                     <asp:Label ID="lblPORemarks" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="col-md-12">
                     <label>Dealer : </label>
                     <asp:Label ID="lblPODealer" runat="server" CssClass="label"></asp:Label>
@@ -73,6 +75,30 @@
                     <label>Expected Delivery Date : </label>
                     <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="label"></asp:Label>
                 </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <label>Price : </label>
+                    <asp:Label ID="lblPrice" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Discount : </label>
+                    <asp:Label ID="lblDiscount" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Taxable Amount : </label>
+                    <asp:Label ID="lblTaxableAmount" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Tax Amount : </label>
+                    <asp:Label ID="lblTaxAmount" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Gross Amount : </label>
+                    <asp:Label ID="lblGrossAmount" runat="server" CssClass="label"></asp:Label>
+                </div>
+
+                
             </div>
         </div>
     </fieldset>
@@ -162,13 +188,13 @@
                                             <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "TaxValue","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Status">
+                                    <%--<asp:TemplateField HeaderText="Status">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblPurchaseOrderStatus" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderStatus.PurchaseOrderStatus","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Status">
+                                    </asp:TemplateField>--%>
+                                    <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnCancelPoItem" runat="server" Text="Cancel" CssClass="btn Back" OnClick="btnCancelPoItem_Click" Width="75px" Height="25px" />
                                         </ItemTemplate>

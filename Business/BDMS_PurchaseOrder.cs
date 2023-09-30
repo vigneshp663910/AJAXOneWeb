@@ -31,6 +31,13 @@ namespace Business
             }
         }
 
+        public List<PProcurementStatus> GetProcurementStatus(int ProcurementStatusHeaderID)
+        {
+            string endPoint = "ProcurementMasters/GetProcurementStatus?ProcurementStatusHeaderID=" + ProcurementStatusHeaderID;
+            return JsonConvert.DeserializeObject< List<PProcurementStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+            
+
         public PApiResult GetPurchaseOrderHeader(int? DealerID, string VendorID, string PurchaseOrderNo, DateTime? PurchaseOrderDateF, DateTime? PurchaseOrderDateT
             , int? PurchaseOrderStatusID, int? PurchaseOrderTypeID, int? PageIndex = null, int? PageSize = null)
         {

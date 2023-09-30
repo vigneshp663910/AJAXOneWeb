@@ -56,17 +56,82 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
 
             gvPOItem.DataSource = PurchaseOrder.PurchaseOrderItems;
-            gvPOItem.DataBind(); 
+            gvPOItem.DataBind();
+            decimal Price = 0, Discount=0, TaxableAmount=0, TaxAmount=0;
+            foreach(PPurchaseOrderItem Item in PurchaseOrder.PurchaseOrderItems)
+            {
+                Price = Price + Item.Price;
+                Discount = Discount + Item.Discount;
+                TaxableAmount = TaxableAmount + Item.TaxableValue;
+                TaxAmount = TaxAmount + Item.TaxValue; 
+            }
+            lblPrice.Text = Price.ToString();
+            lblDiscount.Text = Discount.ToString();
+            lblTaxableAmount.Text = TaxableAmount.ToString();
+            lblTaxAmount.Text = TaxAmount.ToString();
+            lblGrossAmount.Text = (TaxableAmount + TaxAmount).ToString();
+
+
             ActionControlMange();
+
         }
         
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Release PO")
+            if (lbActions.Text == "lbReleasePO")
             {
                 lblMessage.Visible = true;
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/ReleasePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
+                {
+                    lblMessage.Text = "Waiting For Release Approval";
+                }
+                else
+                {
+                    lblMessage.Text = "Updated Successfully";
+                }
+
+                lblMessage.ForeColor = Color.Green;
+                fillViewPO(PurchaseOrder.PurchaseOrderID);
+            }
+            else if (lbActions.Text == "Edit PO")
+            {
+
+            }
+            else if (lbActions.ID == "lbCancelPO")
+            {
+                lblMessage.Visible = true;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelPurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                int StatusID = PurchaseOrder.PurchaseOrderStatus.ProcurementStatusID;
+                if (StatusID == (short)ProcurementStatus.PoDraft)
+                {
+                    lblMessage.Text = "Updated Successfully";
+                }
+                else
+                {
+                    lblMessage.Text = "Waiting For Cancel Approval";
+                }
+                lblMessage.ForeColor = Color.Green;
+                fillViewPO(PurchaseOrder.PurchaseOrderID);
+            }
+            else if (lbActions.ID == "lbReleaseApprove")
+            {
+
+                lblMessage.Visible = true;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/ReleaseApprovePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
@@ -77,20 +142,17 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.ForeColor = Color.Green;
                 fillViewPO(PurchaseOrder.PurchaseOrderID);
             }
-            else if (lbActions.Text == "Edit PO")
-            {
-              
-            }
-            else if (lbActions.Text == "Cancel PO")
+            else if (lbActions.ID == "lbCancelApprove")
             {
                 lblMessage.Visible = true;
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelPurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelApprovePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
+
                 lblMessage.Text = "Updated Successfully";
                 lblMessage.ForeColor = Color.Green;
                 fillViewPO(PurchaseOrder.PurchaseOrderID);
@@ -110,19 +172,52 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lbReleasePO.Visible = true;
             lbEditPO.Visible = true;
             lbCancelPO.Visible = true;
+            lbReleaseApprove.Visible = true;
+            lbCancelApprove.Visible = true;
 
-            int StatusID = PurchaseOrder.PurchaseOrderStatus.PurchaseOrderStatusID;
-            if ((StatusID == 2) || (StatusID == 3))
+            int StatusID = PurchaseOrder.PurchaseOrderStatus.ProcurementStatusID;
+            if (StatusID == (short)ProcurementStatus.PoDraft)
+            {
+                lbReleaseApprove.Visible = false;
+                lbCancelApprove.Visible = false;
+            }
+            else if (StatusID == (short)ProcurementStatus.PoReleased)
             {
                 lbReleasePO.Visible = false;
                 lbEditPO.Visible = false;
+                lbReleaseApprove.Visible = false;
+                lbCancelApprove.Visible = false;
             }
-            else if ((StatusID == 4) || (StatusID == 5) || (StatusID == 6))
+            else if (StatusID == (short)ProcurementStatus.PoPartialReceived)
+            {
+                lbReleasePO.Visible = false;
+                lbEditPO.Visible = false;
+                lbReleaseApprove.Visible = false;
+                lbCancelApprove.Visible = false;
+            }
+            else if ((StatusID == (short)ProcurementStatus.PoCompleted)
+               || (StatusID == (short)ProcurementStatus.PoForceClosed) || (StatusID == (short)ProcurementStatus.PoCancelld))
             {
                 lbReleasePO.Visible = false;
                 lbEditPO.Visible = false;
                 lbCancelPO.Visible = false;
-            } 
+                lbReleaseApprove.Visible = false;
+                lbCancelApprove.Visible = false;
+            }
+            else if (StatusID == (short)ProcurementStatus.PoWaitingForReleaseApproval)
+            {
+                lbReleasePO.Visible = false;
+                lbEditPO.Visible = false;
+                lbCancelPO.Visible = false;
+                lbCancelApprove.Visible = false;
+            }
+            else if (StatusID == (short)ProcurementStatus.PoWaitingForCancelApproval)
+            {
+                lbReleasePO.Visible = false;
+                lbEditPO.Visible = false;
+                lbCancelPO.Visible = false;
+                lbReleaseApprove.Visible = false;
+            }
         }
 
         

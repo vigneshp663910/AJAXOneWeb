@@ -250,7 +250,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         void fillItem()
         {  
             gvPOItem.DataSource = PurchaseOrderItem_Insert;
-            gvPOItem.DataBind(); 
+            gvPOItem.DataBind();
+
+            decimal Price = 0, Discount = 0, TaxableAmount = 0, TaxAmount = 0;
+            foreach (PPurchaseOrderItem_Insert Item in PurchaseOrderItem_Insert)
+            {
+                Price = Price + Item.Price;
+                Discount = Discount + Item.DiscountAmount;
+                TaxableAmount = TaxableAmount + Item.TaxableAmount;
+                TaxAmount = TaxAmount + Item.CGSTValue + Item.SGSTValue +  Item.IGSTValue;
+            }
+            lblPrice.Text = Price.ToString();
+            lblDiscount.Text = Discount.ToString();
+            lblTaxableAmount.Text = TaxableAmount.ToString();
+            lblTaxAmount.Text = TaxAmount.ToString();
+            lblGrossAmount.Text = (TaxableAmount + TaxAmount).ToString();
+
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {

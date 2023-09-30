@@ -753,4 +753,29 @@ namespace Properties
         DealerShip = 2,
         CallCenter = 3
     }
+    public enum ProcurementStatus
+    {
+        PoDraft = 1,
+        PoReleased = 2,
+        PoPartialReceived = 3,
+        PoCompleted = 4,
+        PoForceClosed = 5,
+        PoCancelld = 6,
+        PoWaitingForReleaseApproval = 7,
+        PoWaitingForCancelApproval = 8,
+        AsnGRPending = 9,
+        AsnGRDone = 10,
+        AsnCancelled = 11,
+        GrCreated = 12,
+        GrCancelled = 13,
+        PoReturnDraft = 14,
+        PoReturnWaitingForApproval = 15,
+        PoReturnApproved = 16,
+        PoReturnRejected = 17,
+        PoReturnDeliveryCreated = 18
+    }
+    public enum PurchaseOrderType
+    {
+        MachineOrder = 5
+    }
 }
