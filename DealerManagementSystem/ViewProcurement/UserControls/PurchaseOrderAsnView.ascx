@@ -20,59 +20,60 @@
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Asn Number : </label>
-                    <asp:Label ID="lblAsnNumber" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblAsnNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
+               <%-- <div class="col-md-12">
                     <label>PO Number : </label>
                     <asp:Label ID="lblPoNumber" runat="server" CssClass="label"></asp:Label>
-                </div>
+                </div>--%>
                 <div class="col-md-12">
                     <label>Delivery Number : </label>
-                    <asp:Label ID="lblDeliveryNumber" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDeliveryNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Gr Number : </label>
-                    <asp:Label ID="lblGrNumber" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblGrNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>Remarks : </label>
-                    <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
-                </div>
+              
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Asn Date : </label>
-                    <asp:Label ID="lblAsnDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblAsnDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
+                <%--<div class="col-md-12">
                     <label>PO Date : </label>
                     <asp:Label ID="lblPoDate" runat="server" CssClass="label"></asp:Label>
-                </div>
+                </div>--%>
                 <div class="col-md-12">
                     <label>Delivery Date : </label>
-                    <asp:Label ID="lblDeliveryDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Gr Date : </label>
-                    <asp:Label ID="lblGrDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblGrDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="col-md-12">
+                <%--<div class="col-md-12">
                     <label>Dealer : </label>
                     <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Vendor : </label>
                     <asp:Label ID="lblVendor" runat="server" CssClass="label"></asp:Label>
-                </div>
+                </div>--%>
                 <div class="col-md-12">
                     <label>Asn Status : </label>
-                    <asp:Label ID="lblAsnStatus" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblAsnStatus" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>LR Number : </label>
-                    <asp:Label ID="lblLRNo" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblLRNo" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                  <div class="col-md-12">
+                    <label>Remarks : </label>
+                    <asp:Label ID="lblRemarks" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
         </div>
@@ -300,51 +301,51 @@
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <label>PO Number : </label>
-                                        <asp:Label ID="lblPurchaseOrderNumber" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblPurchaseOrderNumber" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
                                         <label>Order To : </label>
-                                        <asp:Label ID="lblOrderTo" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblOrderTo" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
                                         <label>Division : </label>
-                                        <asp:Label ID="lblDivision" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblDivision" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
                                         <label>Ref No : </label>
-                                        <asp:Label ID="lblRefNo" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblRefNo" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <label>PO Date : </label>
-                                        <asp:Label ID="lblPurchaseOrderDate" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblPurchaseOrderDate" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
                                         <label>Order Type : </label>
-                                        <asp:Label ID="lblOrderType" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblOrderType" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
                                         <label>Receiving Location : </label>
-                                        <asp:Label ID="lblReceivingLocation" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblReceivingLocation" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
                                         <label>Remarks : </label>
-                                        <asp:Label ID="lblPORemarks" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblPORemarks" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="col-md-12">
                                         <label>Dealer : </label>
-                                        <asp:Label ID="lblPODealer" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblPODealer" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
                                         <label>Vendor : </label>
-                                        <asp:Label ID="lblPOVendor" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblPOVendor" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                     <div class="col-md-12">
                                         <label>Expected Delivery Date : </label>
-                                        <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="label"></asp:Label>
+                                        <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
                                 </div>
                             </div>

@@ -110,18 +110,18 @@ namespace Properties
     //    public string Code { get; set; }
     //    public string PurchaseOrderStatus { get; set; }
     //}
-    [Serializable]
-    public class PPurchaseOrderAsnStatus
-    {
-        public int AsnStatusID { get; set; }
-        public string AsnStatus { get; set; }
-    }
-    [Serializable]
-    public class PPurchaseOrderAsnGrStatus
-    {
-        public int GrStatusID { get; set; }
-        public string GrStatus { get; set; }
-    }
+    //[Serializable]
+    //public class PPurchaseOrderAsnStatus
+    //{
+    //    public int AsnStatusID { get; set; }
+    //    public string AsnStatus { get; set; }
+    //}
+    //[Serializable]
+    //public class PPurchaseOrderAsnGrStatus
+    //{
+    //    public int GrStatusID { get; set; }
+    //    public string GrStatus { get; set; }
+    //}
     [Serializable]
     public class PPurchaseOrderTo
     {
@@ -168,16 +168,19 @@ namespace Properties
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
         public decimal TaxableValue { get; set; }
-        public PProcurementStatus PurchaseOrderStatus { get; set; }
         public decimal Tax { get { return Material.CGST + Material.SGST + Material.IGST; } }
         public decimal TaxValue { get { return Material.CGSTValue + Material.SGSTValue + Material.IGSTValue; } }
+        public decimal TransitQuantity { get; set; }
+        public decimal DeliveredQuantity { get; set; }
+
         //public decimal NetAmount { get; set; }
         //public decimal GrossAmount { get; set; }
         //public decimal ShipedQuantity { get; set; } 
         //public decimal ApprovedQuantity { get; set; }
         //public decimal Fright { get; set; }
         //public decimal Insurance { get; set; }
-        //public decimal PackingAndForwarding { get; set; } 
+        //public decimal PackingAndForwarding { get; set; }  
+        // public PPurchaseOrderStatus PurchaseOrderStatus { get; set; }
     }
 
     [Serializable]
@@ -240,7 +243,7 @@ namespace Properties
         public string TrackID { get; set; }
         public string CourierID { get; set; }
         public DateTime? CourierDate { get; set; }
-        public PPurchaseOrderAsnStatus AsnStatus { get; set; }
+        public PProcurementStatus AsnStatus { get; set; }
         public string ShipingAddress { get; set; }
         public decimal? CourierCharge { get; set; }
         public string LRNo { get; set; }
@@ -279,7 +282,7 @@ namespace Properties
         public PAsn ASN { get; set; }
         public List<PGrItem> GrItemS { get; set; }
         public PGrItem GrItem { get; set; }
-        public PPurchaseOrderAsnGrStatus Status { get; set; }
+        public PProcurementStatus Status { get; set; }
         public string Remarks { get; set; }
         public PUser PostedBy { get; set; }
         public DateTime? PostedOn { get; set; }
@@ -377,13 +380,13 @@ namespace Properties
         public long GrItemID { get; set; }
         public string Remarks { get; set; }
     }
-    [Serializable]    
-    public class PPurchaseOrderReturnStatus
-    {
-        public int PurchaseOrderReturnStatusID { get; set; }
-        public string PurchaseOrderReturnStatusCode { get; set; }
-        public string PurchaseOrderReturnStatusDescription { get; set; }
-    }
+    //[Serializable]    
+    //public class PPurchaseOrderReturnStatus
+    //{
+    //    public int PurchaseOrderReturnStatusID { get; set; }
+    //    public string PurchaseOrderReturnStatusCode { get; set; }
+    //    public string PurchaseOrderReturnStatusDescription { get; set; }
+    //}
     [Serializable]
     public class PPurchaseOrderReturn
     {
@@ -393,7 +396,7 @@ namespace Properties
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerOffice Location { get; set; }
         public PDMS_Dealer Vendor { get; set; }
-        public PPurchaseOrderReturnStatus PurchaseOrderReturnStatus { get; set; }
+        public PProcurementStatus PurchaseOrderReturnStatus { get; set; }
         public string Remarks { get; set; }
         public PPurchaseOrderReturnItem PurchaseOrderReturnItem { get; set; }
         public List<PPurchaseOrderReturnItem> PurchaseOrderReturnItems { get; set; }

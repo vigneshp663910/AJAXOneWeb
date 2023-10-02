@@ -399,15 +399,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             if (OrderTo == "1")
             {
-                ddlPurchaseOrderType.Items.Insert(1, new ListItem("Stock Order", "1"));
-                ddlPurchaseOrderType.Items.Insert(2, new ListItem("Emergency Order", "2"));
-                ddlPurchaseOrderType.Items.Insert(3, new ListItem("Break Down Order", "7"));
-                ddlPurchaseOrderType.Items.Insert(4, new ListItem("Machine Order", "5"));
+                ddlPurchaseOrderType.Items.Insert(1, new ListItem("Stock Order-Within 15 Days", "1"));
+                ddlPurchaseOrderType.Items.Insert(2, new ListItem("Emergency Order-Within 3 Days", "2"));
+                ddlPurchaseOrderType.Items.Insert(3, new ListItem("Break Down Order-Within 3 Days", "7"));
+                ddlPurchaseOrderType.Items.Insert(4, new ListItem("Machine Order-Within 3 Days", "5"));
 
             }
             else
             {
-                ddlPurchaseOrderType.Items.Insert(1, new ListItem("Intra-Dealer Order", "6"));
+                ddlPurchaseOrderType.Items.Insert(1, new ListItem("Intra-Dealer Order-Within 3 Days", "6"));
             }
         }
 

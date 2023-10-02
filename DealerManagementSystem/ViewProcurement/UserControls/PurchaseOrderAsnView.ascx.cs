@@ -19,7 +19,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 if (ViewState["PAsnView"] == null)
                 {
-                    Session["PAsnView"] = new PAsn();
+                    ViewState["PAsnView"] = new PAsn();
                 }
                 return (PAsn)ViewState["PAsnView"];
             }
@@ -28,70 +28,70 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PAsnView"] = value;
             }
         }
-        public List<PAsnItem> PAsnItemView
-        {
-            get
-            {
-                if (ViewState["PAsnItemView"] == null)
-                {
-                    Session["PAsnItemView"] = new List<PAsnItem>();
-                }
-                return (List<PAsnItem>)ViewState["PAsnItemView"];
-            }
-            set
-            {
-                ViewState["PAsnItemView"] = value;
-            }
-        }
-        public List<PGr> GrList
-        {
-            get
-            {
-                if (ViewState["GrList"] == null)
-                {
-                    Session["GrList"] = new PAsn();
-                }
-                return (List<PGr>)ViewState["GrList"];
-            }
-            set
-            {
-                ViewState["GrList"] = value;
-            }
-        }
-        public List<PAsnItem> AsnPOItemView
-        {
-            get
-            {
-                if (Session["AsnPOItemView"] == null)
-                {
-                    Session["AsnPOItemView"] = new PGr();
-                }
-                return (List<PAsnItem>)Session["AsnPOItemView"];
-            }
-            set
-            {
-                Session["AsnPOItemView"] = value;
-            }
-        }
+        //public List<PAsnItem> PAsnItemView
+        //{
+        //    get
+        //    {
+        //        if (ViewState["PAsnItemView"] == null)
+        //        {
+        //            ViewState["PAsnItemView"] = new List<PAsnItem>();
+        //        }
+        //        return (List<PAsnItem>)ViewState["PAsnItemView"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["PAsnItemView"] = value;
+        //    }
+        //}
+        //public List<PGr> GrList
+        //{
+        //    get
+        //    {
+        //        if (ViewState["GrList"] == null)
+        //        {
+        //            ViewState["GrList"] = new PAsn();
+        //        }
+        //        return (List<PGr>)ViewState["GrList"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["GrList"] = value;
+        //    }
+        //}
+        //public List<PAsnItem> AsnPOItemView
+        //{
+        //    get
+        //    {
+        //        if (ViewState["AsnPOItemView"] == null)
+        //        {
+        //            ViewState["AsnPOItemView"] = new PGr();
+        //        }
+        //        return (List<PAsnItem>)ViewState["AsnPOItemView"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["AsnPOItemView"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
         }
         public void fillViewPOAsn(long AsnID)
         {
-            PAsnView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnByID(AsnID);
+            PAsnView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnByID(null,AsnID)[0];
 
             lblAsnNumber.Text = PAsnView.AsnNumber;
             lblAsnDate.Text = PAsnView.AsnDate.ToString();
-            lblDealer.Text = PAsnView.PurchaseOrder.Dealer.DealerName;
+            //lblDealer.Text = PAsnView.PurchaseOrder.Dealer.DealerName;
 
-            lblPoNumber.Text = PAsnView.PurchaseOrder.PurchaseOrderNumber;
-            lblPoDate.Text = PAsnView.PurchaseOrder.PurchaseOrderDate.ToString();
-            lblVendor.Text = PAsnView.PurchaseOrder.Vendor.DealerName;
+            //lblPoNumber.Text = PAsnView.PurchaseOrder.PurchaseOrderNumber;
+            //lblPoDate.Text = PAsnView.PurchaseOrder.PurchaseOrderDate.ToString();
+            //lblVendor.Text = PAsnView.PurchaseOrder.Vendor.DealerName;
 
             lblDeliveryNumber.Text = PAsnView.DeliveryNumber;
             lblDeliveryDate.Text = PAsnView.DeliveryDate.ToString();
-            lblAsnStatus.Text = PAsnView.AsnStatus.AsnStatus;
+            lblAsnStatus.Text = PAsnView.AsnStatus.ProcurementStatus;
 
             lblGrNumber.Text = (PAsnView.Gr == null) ? "" : PAsnView.Gr.GrNumber;
             lblGrDate.Text = (PAsnView.Gr == null) ? "" : PAsnView.Gr.GrDate.ToString();
@@ -101,13 +101,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             gvPOAsnItem.DataSource = null;
             gvPOAsnItem.DataBind();
-            PAsnItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnItemByID(AsnID);
-            gvPOAsnItem.DataSource = PAsnItemView;
+            //List<PAsnItem> PAsnItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnItemByID(AsnID);
+            gvPOAsnItem.DataSource = PAsnView.AsnItemS;
             gvPOAsnItem.DataBind();
 
             GVGr.DataSource = null;
             GVGr.DataBind();
-            GrList = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrDetByID(AsnID);
+            List<PGr> GrList = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrDetByID(AsnID);
             GVGr.DataSource = GrList;
             GVGr.DataBind();
 
@@ -127,7 +127,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             GVAsnPO.DataSource = null;
             GVAsnPO.DataBind();
-            AsnPOItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnByIDPOItem(AsnID);
+            List<PAsnItem> AsnPOItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnByIDPOItem(AsnID);
             GVAsnPO.DataSource = AsnPOItemView;
             GVAsnPO.DataBind();
 
@@ -145,7 +145,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         void ActionControlMange()
         {
             lbGrCreation.Visible = true;
-            if(PAsnView.AsnStatus.AsnStatusID!=1)
+            if(PAsnView.AsnStatus.ProcurementStatusID != (short)ProcurementStatus.AsnGRPending)
             {
                 lbGrCreation.Visible = false;
             }

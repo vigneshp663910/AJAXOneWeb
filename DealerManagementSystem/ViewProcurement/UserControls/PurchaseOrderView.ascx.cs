@@ -28,20 +28,33 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PPurchaseOrder"] = value;
             }
         }
-    
+        public List<PAsn> Asns
+        {
+            get
+            {
+                if (ViewState["Asns"] == null)
+                {
+                    ViewState["Asns"] = new List<PAsn>();
+                }
+                return (List<PAsn>)ViewState["Asns"];
+            }
+            set
+            {
+                ViewState["Asns"] = value;
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessage.Text = "";
-             
+            lblMessage.Text = ""; 
         }
         public void fillViewPO(long PurchaseOrderID)
         {
             PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrderByID(PurchaseOrderID);
-
+            Asns = new BDMS_PurchaseOrder().GetPurchaseOrderAsnByID(PurchaseOrderID,null);
 
             lblPurchaseOrderNumber.Text = PurchaseOrder.PurchaseOrderNumber;
-            //lblOrderTo.Text = PurchaseOrder.PurchaseOrderTo;
+            lblStatus.Text = PurchaseOrder.PurchaseOrderStatus.ProcurementStatus;
             lblDivision.Text = PurchaseOrder.Division.DivisionCode;
             lblRefNo.Text = PurchaseOrder.ReferenceNo;
 
@@ -72,6 +85,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblGrossAmount.Text = (TaxableAmount + TaxAmount).ToString();
 
 
+            gvPAsn.DataSource = Asns;
+            gvPAsn.DataBind();
             ActionControlMange();
 
         }
@@ -79,7 +94,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "lbReleasePO")
+            if (lbActions.ID == "lbReleasePO")
             {
                 lblMessage.Visible = true;
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/ReleasePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
@@ -101,7 +116,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.ForeColor = Color.Green;
                 fillViewPO(PurchaseOrder.PurchaseOrderID);
             }
-            else if (lbActions.Text == "Edit PO")
+            else if (lbActions.ID == "Edit PO")
             {
 
             }
@@ -218,9 +233,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbCancelPO.Visible = false;
                 lbReleaseApprove.Visible = false;
             }
-        }
-
-        
+        } 
         public void fillEnquiryStatusHistory()
         {
             
@@ -242,5 +255,137 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.ForeColor = Color.Green;
             fillViewPO(PurchaseOrder.PurchaseOrderID);
         }
+
+        protected void lnkBtnItemAction_Click(object sender, EventArgs e)
+        {
+            LinkButton lbActions = ((LinkButton)sender);
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            
+
+            LinkButton lnkBtnEdit = (LinkButton)gvRow.FindControl("lnkBtnEdit");
+            LinkButton lnkBtnupdate = (LinkButton)gvRow.FindControl("lnkBtnupdate");
+            LinkButton lnkBtnCancel = (LinkButton)gvRow.FindControl("lnkBtnCancel"); 
+            LinkButton lnkBtnDelete = (LinkButton)gvRow.FindControl("lnkBtnDelete");
+
+            TextBox txtQuantity = (TextBox)gvRow.FindControl("txtQuantity");
+            Label lblQuantity = (Label)gvRow.FindControl("lblQuantity");
+            if (lbActions.ID == "lnkBtnEdit")
+            {
+                lnkBtnEdit.Visible = false;
+                lnkBtnupdate.Visible = true;
+                lnkBtnCancel.Visible = true;
+                lnkBtnDelete.Visible = false;
+
+                txtQuantity.Visible = true;
+                lblQuantity.Visible = false;
+            }
+            else if (lbActions.ID == "lnkBtnupdate")
+            {
+                Label lblPurchaseOrderItemID = (Label)gvRow.FindControl("lblPurchaseOrderItemID");
+                Label lblMaterial = (Label)gvRow.FindControl("lblMaterial");
+
+                
+
+                PPurchaseOrderItem_Insert POi = new PPurchaseOrderItem_Insert();
+                POi.PurchaseOrderItemID = Convert.ToInt64(lblPurchaseOrderItemID.Text);
+                POi.Quantity = Convert.ToDecimal(txtQuantity.Text);
+                POi.MaterialCode = lblMaterial.Text;
+
+                string Customer = PurchaseOrder.Dealer.DealerCode;
+                string Vendor = PurchaseOrder.Vendor.DealerCode;
+                string OrderType = PurchaseOrder.PurchaseOrderType.SapOrderType;
+                string Material = POi.MaterialCode;
+                string IV_SEC_SALES = "";
+                //string PriceDate = DateTime.Now.ToShortDateString();
+                string PriceDate = "";
+                string IsWarrenty = "false";
+
+                PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, POi.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+                POi.Price = Mat.CurrentPrice;
+                POi.DiscountAmount = Mat.Discount;
+                POi.TaxableAmount = Mat.TaxablePrice;
+                POi.SGST = Mat.SGST;
+                POi.SGSTValue = Mat.SGSTValue;
+                POi.CGST = Mat.CGST;
+                POi.CGSTValue = Mat.CGSTValue;
+                POi.CGST = Mat.CGST;
+                POi.IGSTValue = Mat.IGSTValue;
+
+
+                string result = new BAPI().ApiPut("PurchaseOrder/UpdatePurchaseOrderItem", POi);
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Result.Message;
+                    return;
+                }
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Green;
+                fillViewPO(PurchaseOrder.PurchaseOrderID);
+                lnkBtnEdit.Visible = true;
+                lnkBtnupdate.Visible = false;
+                lnkBtnCancel.Visible = false;
+                lnkBtnDelete.Visible = true;
+
+                txtQuantity.Visible = false;
+                lblQuantity.Visible = true;
+
+            }
+            else if (lbActions.ID == "lnkBtnCancel")
+            {
+                lnkBtnEdit.Visible = true;
+                lnkBtnupdate.Visible = false;
+                lnkBtnCancel.Visible = false;
+                lnkBtnDelete.Visible = true;
+                txtQuantity.Visible = false;
+                lblQuantity.Visible = true;
+            }
+            else if (lbActions.ID == "lnkBtnDelete")
+            {
+                lblMessage.Visible = true;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelPurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                int StatusID = PurchaseOrder.PurchaseOrderStatus.ProcurementStatusID;
+                if (StatusID == (short)ProcurementStatus.PoDraft)
+                {
+                    lblMessage.Text = "Updated Successfully";
+                }
+                else
+                {
+                    lblMessage.Text = "Waiting For Cancel Approval";
+                }
+                lblMessage.ForeColor = Color.Green;
+                fillViewPO(PurchaseOrder.PurchaseOrderID);
+            }
+             
+        }
+
+        protected void gvPAsn_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                { 
+                    Label lblAsnID = (Label)e.Row.FindControl("lblAsnID"); 
+                    GridView gvClaimInvoiceItem = (GridView)e.Row.FindControl("gvAsnItem");
+                    List<PAsnItem> Lines = new List<PAsnItem>();
+                    Lines = Asns.Find(s => s.AsnID == Convert.ToInt64(lblAsnID.Text)).AsnItemS; 
+                    gvClaimInvoiceItem.DataSource = Lines;
+                    gvClaimInvoiceItem.DataBind(); 
+                }
+                TraceLogger.Log(traceStartTime);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        } 
     }
 }

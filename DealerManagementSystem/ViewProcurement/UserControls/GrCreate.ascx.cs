@@ -36,21 +36,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PAsnView"] = value;
             }
         }
-        public List<PAsnItem> PAsnItemView
-        {
-            get
-            {
-                if (ViewState["PAsnItemView"] == null)
-                {
-                    Session["PAsnItemView"] = new List<PAsnItem>();
-                }
-                return (List<PAsnItem>)ViewState["PAsnItemView"];
-            }
-            set
-            {
-                ViewState["PAsnItemView"] = value;
-            }
-        }
+        //public List<PAsnItem> PAsnItemView
+        //{
+        //    get
+        //    {
+        //        if (ViewState["PAsnItemView"] == null)
+        //        {
+        //            Session["PAsnItemView"] = new List<PAsnItem>();
+        //        }
+        //        return (List<PAsnItem>)ViewState["PAsnItemView"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["PAsnItemView"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -66,8 +66,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             gvPOAsnItem.DataSource = null;
             gvPOAsnItem.DataBind();
-            PAsnItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnItemByID(PAsnView.AsnID);
-            gvPOAsnItem.DataSource = PAsnItemView;
+           // PAsnItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnItemByID(PAsnView.AsnID);
+            gvPOAsnItem.DataSource = PAsnView.AsnItemS;
             gvPOAsnItem.DataBind();
         }
         public List<PGr_Insert> Read()

@@ -16,32 +16,32 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             get
             {
-                if (Session["GrView"] == null)
+                if (ViewState["GrView"] == null)
                 {
-                    Session["GrView"] = new PGr();
+                    ViewState["GrView"] = new PGr();
                 }
-                return (PGr)Session["GrView"];
+                return (PGr)ViewState["GrView"];
             }
             set
             {
-                Session["GrView"] = value;
+                ViewState["GrView"] = value;
             }
         }
-        public List<PGrItem> GrPOItemView
-        {
-            get
-            {
-                if (Session["GrPOItemView"] == null)
-                {
-                    Session["GrPOItemView"] = new PGr();
-                }
-                return (List<PGrItem>)Session["GrPOItemView"];
-            }
-            set
-            {
-                Session["GrPOItemView"] = value;
-            }
-        }
+        //public List<PGrItem> GrPOItemView
+        //{
+        //    get
+        //    {
+        //        if (Session["GrPOItemView"] == null)
+        //        {
+        //            Session["GrPOItemView"] = new PGr();
+        //        }
+        //        return (List<PGrItem>)Session["GrPOItemView"];
+        //    }
+        //    set
+        //    {
+        //        Session["GrPOItemView"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
@@ -58,7 +58,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblPoDate.Text = GrView.ASN.PurchaseOrder.PurchaseOrderDate.ToString();
             lblVendor.Text = GrView.ASN.PurchaseOrder.Vendor.DealerName;
 
-            lblAsnStatus.Text = GrView.Status.GrStatus;
+            lblAsnStatus.Text = GrView.Status.ProcurementStatus;
 
             lblGrNumber.Text = GrView.GrNumber;
             lblGrDate.Text = GrView.GrDate.ToString();
@@ -90,7 +90,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             GVGrPO.DataSource = null;
             GVGrPO.DataBind();
-            GrPOItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrByIDPOItem(GrID);
+            List<PGrItem> GrPOItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrByIDPOItem(GrID);
             GVGrPO.DataSource = GrPOItemView;
             GVGrPO.DataBind();
 
@@ -107,7 +107,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         void ActionControlMange()
         {
             lbGrCancel.Visible = true;
-            if (GrView.Status.GrStatusID != 1)
+            if (GrView.Status.ProcurementStatusID != (short)ProcurementStatus.GrCreated)
             {
                 lbGrCancel.Visible = false;
             }
