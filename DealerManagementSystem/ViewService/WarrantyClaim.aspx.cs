@@ -94,6 +94,28 @@ namespace DealerManagementSystem.ViewService
             }
         }
 
+        PWarrantyClaim_Filter Search ()
+        {
+            PWarrantyClaim_Filter Filter = new PWarrantyClaim_Filter();
+
+            Filter.DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            Filter.ICTicketDateF = string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateFrom.Text.Trim());
+            Filter.ICTicketDateT = string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateTo.Text.Trim()); ;
+
+            Filter.ClaimDateF = string.IsNullOrEmpty(txtClaimDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateF.Text.Trim());
+            Filter.ClaimDateT = string.IsNullOrEmpty(txtClaimDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateT.Text.Trim());
+
+            Filter.ApprovedDateF = string.IsNullOrEmpty(txtApprovedDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateF.Text.Trim());
+            Filter.ApprovedDateT = string.IsNullOrEmpty(txtApprovedDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateT.Text.Trim());
+            Filter.StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+            Filter.ICTicketNumber = txtICServiceTicket.Text.Trim();
+            Filter.ClaimNumber = txtClaimNumber.Text.Trim();
+            Filter.TSIRNumber = txtTSIRNumber.Text.Trim();
+            Filter.CustomerCode = txtCustomerCode.Text.Trim();
+            Filter.MachineSerialNumber = txtMachineSerialNumber.Text.Trim();
+            Filter.IsAbove50K = cbIsAbove50K.Checked;
+            return Filter;
+        }
         void fillClaim()
         {
             try
@@ -115,25 +137,8 @@ namespace DealerManagementSystem.ViewService
                 //int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
 
 
-                PWarrantyClaim_Filter Filter = new PWarrantyClaim_Filter();
-
-                Filter.DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
-                Filter.ICTicketDateF = string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateFrom.Text.Trim());
-                Filter.ICTicketDateT = string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateTo.Text.Trim()); ;
-
-                Filter.ClaimDateF = string.IsNullOrEmpty(txtClaimDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateF.Text.Trim());
-                Filter.ClaimDateT = string.IsNullOrEmpty(txtClaimDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtClaimDateT.Text.Trim());
-
-                Filter.ApprovedDateF = string.IsNullOrEmpty(txtApprovedDateF.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateF.Text.Trim());
-                Filter.ApprovedDateT = string.IsNullOrEmpty(txtApprovedDateT.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtApprovedDateT.Text.Trim()); 
-                Filter.StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue); 
-                Filter.ICTicketNumber = txtICServiceTicket.Text.Trim();
-                Filter.ClaimNumber = txtClaimNumber.Text.Trim();
-                Filter.TSIRNumber = txtTSIRNumber.Text.Trim();
-                Filter.CustomerCode = txtCustomerCode.Text.Trim();
-                Filter.MachineSerialNumber = txtMachineSerialNumber.Text.Trim();
-                Filter.IsAbove50K = cbIsAbove50K.Checked;
-                SDMS_WarrantyClaimHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport_New1(Filter);
+               
+                SDMS_WarrantyClaimHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport_New1(Search());
 
                 GridView gv = null;
                 //if (ddlReoprt.SelectedValue == "0")
@@ -214,127 +219,130 @@ namespace DealerManagementSystem.ViewService
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
 
-            dt.Columns.Add("IC Ticket");
-            dt.Columns.Add("IC Ticket Date");
-            dt.Columns.Add("Restore Date");
-            dt.Columns.Add("Service Type");
-            dt.Columns.Add("Cust. Code");
-            dt.Columns.Add("Cust. Name");
-            dt.Columns.Add("Dealer Code");
-            dt.Columns.Add("Dealer Name");
-            dt.Columns.Add("HMR");
-            dt.Columns.Add("Margin Warranty");
-            dt.Columns.Add("Machine Serial Number");
-            dt.Columns.Add("Commissioning On");
-            dt.Columns.Add("Nature of Failure");
-            dt.Columns.Add("Status");
-            dt.Columns.Add("Apr.1 By");
-            dt.Columns.Add("Apr.1 On");
-            dt.Columns.Add("Apr.2 By");
-            dt.Columns.Add("Apr.2 On");
-
-            dt.Columns.Add("Apr.3 By");
-            dt.Columns.Add("Apr.3 On");
-
-            dt.Columns.Add("Claim Number");
-            dt.Columns.Add("Claim Date");
-
-            dt.Columns.Add("Model");
-            dt.Columns.Add("SAC / HSN Code");
-            dt.Columns.Add("Material");
-            dt.Columns.Add("Material Desc");
-            dt.Columns.Add("Category");
-            dt.Columns.Add("Qty");
-            dt.Columns.Add("Per");
-            dt.Columns.Add("UOM");
-            dt.Columns.Add("Amount");
-            dt.Columns.Add("BaseTax");
-            // dt.Columns.Add("Material Status");
-            dt.Columns.Add("Failure Mat Remarks 1");
-            dt.Columns.Add("Apr.1 Amt");
-            dt.Columns.Add("Apr.1 Remarks");
-            dt.Columns.Add("Failure Mat Remarks 2");
-            dt.Columns.Add("Apr.2 Amt");
-            dt.Columns.Add("Apr.2 Remarks");
-
-            dt.Columns.Add("Apr.3 Amt");
-            dt.Columns.Add("Apr.3 Remarks");
-
-            dt.Columns.Add("TSIR Number");
-            dt.Columns.Add("SAP Doc");
-            dt.Columns.Add("SAP Posting Date");
-
-            dt.Columns.Add("SAP Invoice Value");
-
-            dt.Columns.Add("Invoice Number");
-            dt.Columns.Add("Invoice Date");
-            dt.Columns.Add("Annexure Number");
-            dt.Columns.Add("Annexure Date");
-
-            foreach (PDMS_WarrantyInvoiceHeader_New M in SDMS_WarrantyClaimHeader)
-            {
-                foreach (PDMS_WarrantyInvoiceItem Item in M.InvoiceItems)
-                {
-                    dt.Rows.Add(
-
-                          M.ICTicketNumber
-                        , M.ICTicketDate == null ? "" : ((DateTime)M.ICTicketDate).ToShortDateString()
-                        , M.RestoreDate == null ? "" : ((DateTime)M.RestoreDate).ToShortDateString()
-                        , M.ICTicket.ServiceType.ServiceType
-                        , M.CustomerCode
-                        , M.CustomerName
-                        , M.DealerCode
-                        , M.DealerName
-                        , M.HMR
-                        , M.MarginWarranty
-                        , M.MachineSerialNumber
-                        , M.ICTicket.Equipment.CommissioningOn
-                         , M.ICTicket.ComplaintDescription
-                        , M.ClaimStatus
-                        , M.Approved1By.ContactName
-                        , M.Approved1On
-                       , M.Approved2By.ContactName
-                        , M.Approved2On
-                        , M.Approved3By.ContactName
-                        , M.Approved3On
-                        , M.InvoiceNumber
-                        , ((DateTime)M.InvoiceDate).ToShortDateString()
-                        //, M.TSIRNumber
-                        , M.Model
-                        , Item.HSNCode
-                        , "'" + Item.Material
-                        , Item.MaterialDesc
-                        , Item.Category
-                        , Item.Qty
-                        , Item.Per
-                        , Item.UnitOM
-                        , Item.Amount
-                        , Item.BaseTax
-                        // , Item.MaterialStatus
-                        , Item.MaterialStatusRemarks1
-                        , Item.Approved1Amount
-                        , Item.Approved1Remarks
-                        , Item.MaterialStatusRemarks2
-                        , Item.Approved2Amount
-                        , Item.Approved2Remarks
-                         , Item.Approved3Amount
-                        , Item.Approved3Remarks
-                        , Item.TSIRNumber
-                        , Item.SAPDoc
-                        , Item.SAPPostingDate
-                         , Item.SAPInvoiceValue
-                          , M.AcInvoiceNumber
-
-                           , M.AcInvoiceDate == null ? "" : ((DateTime)M.AcInvoiceDate).ToShortDateString()
-                            , Item.AnnexureNumber
-                        , M.AnnexureDate == null ? "" : ((DateTime)M.AnnexureDate).ToShortDateString()
-
-                       );
-                }
-            }
+            DataTable dt = new BDMS_WarrantyClaim().GetWarrantyClaimReporExcel(Search());
             new BXcel().ExporttoExcel(dt, "Warranty Claim");
+            //DataTable dt = new DataTable();
+
+            //dt.Columns.Add("IC Ticket");
+            //dt.Columns.Add("IC Ticket Date");
+            //dt.Columns.Add("Restore Date");
+            //dt.Columns.Add("Service Type");
+            //dt.Columns.Add("Cust. Code");
+            //dt.Columns.Add("Cust. Name");
+            //dt.Columns.Add("Dealer Code");
+            //dt.Columns.Add("Dealer Name");
+            //dt.Columns.Add("HMR");
+            //dt.Columns.Add("Margin Warranty");
+            //dt.Columns.Add("Machine Serial Number");
+            //dt.Columns.Add("Commissioning On");
+            //dt.Columns.Add("Nature of Failure");
+            //dt.Columns.Add("Status");
+            //dt.Columns.Add("Apr.1 By");
+            //dt.Columns.Add("Apr.1 On");
+            //dt.Columns.Add("Apr.2 By");
+            //dt.Columns.Add("Apr.2 On");
+
+            //dt.Columns.Add("Apr.3 By");
+            //dt.Columns.Add("Apr.3 On");
+
+            //dt.Columns.Add("Claim Number");
+            //dt.Columns.Add("Claim Date");
+
+            //dt.Columns.Add("Model");
+            //dt.Columns.Add("SAC / HSN Code");
+            //dt.Columns.Add("Material");
+            //dt.Columns.Add("Material Desc");
+            //dt.Columns.Add("Category");
+            //dt.Columns.Add("Qty");
+            //dt.Columns.Add("Per");
+            //dt.Columns.Add("UOM");
+            //dt.Columns.Add("Amount");
+            //dt.Columns.Add("BaseTax");
+            //// dt.Columns.Add("Material Status");
+            //dt.Columns.Add("Failure Mat Remarks 1");
+            //dt.Columns.Add("Apr.1 Amt");
+            //dt.Columns.Add("Apr.1 Remarks");
+            //dt.Columns.Add("Failure Mat Remarks 2");
+            //dt.Columns.Add("Apr.2 Amt");
+            //dt.Columns.Add("Apr.2 Remarks");
+
+            //dt.Columns.Add("Apr.3 Amt");
+            //dt.Columns.Add("Apr.3 Remarks");
+
+            //dt.Columns.Add("TSIR Number");
+            //dt.Columns.Add("SAP Doc");
+            //dt.Columns.Add("SAP Posting Date");
+
+            //dt.Columns.Add("SAP Invoice Value");
+
+            //dt.Columns.Add("Invoice Number");
+            //dt.Columns.Add("Invoice Date");
+            //dt.Columns.Add("Annexure Number");
+            //dt.Columns.Add("Annexure Date");
+
+            //foreach (PDMS_WarrantyInvoiceHeader_New M in SDMS_WarrantyClaimHeader)
+            //{
+            //    foreach (PDMS_WarrantyInvoiceItem Item in M.InvoiceItems)
+            //    {
+            //        dt.Rows.Add(
+
+            //              M.ICTicketNumber
+            //            , M.ICTicketDate == null ? "" : ((DateTime)M.ICTicketDate).ToShortDateString()
+            //            , M.RestoreDate == null ? "" : ((DateTime)M.RestoreDate).ToShortDateString()
+            //            , M.ICTicket.ServiceType.ServiceType
+            //            , M.CustomerCode
+            //            , M.CustomerName
+            //            , M.DealerCode
+            //            , M.DealerName
+            //            , M.HMR
+            //            , M.MarginWarranty
+            //            , M.MachineSerialNumber
+            //            , M.ICTicket.Equipment.CommissioningOn
+            //             , M.ICTicket.ComplaintDescription
+            //            , M.ClaimStatus
+            //            , M.Approved1By.ContactName
+            //            , M.Approved1On
+            //           , M.Approved2By.ContactName
+            //            , M.Approved2On
+            //            , M.Approved3By.ContactName
+            //            , M.Approved3On
+            //            , M.InvoiceNumber
+            //            , ((DateTime)M.InvoiceDate).ToShortDateString()
+            //            //, M.TSIRNumber
+            //            , M.Model
+            //            , Item.HSNCode
+            //            , "'" + Item.Material
+            //            , Item.MaterialDesc
+            //            , Item.Category
+            //            , Item.Qty
+            //            , Item.Per
+            //            , Item.UnitOM
+            //            , Item.Amount
+            //            , Item.BaseTax
+            //            // , Item.MaterialStatus
+            //            , Item.MaterialStatusRemarks1
+            //            , Item.Approved1Amount
+            //            , Item.Approved1Remarks
+            //            , Item.MaterialStatusRemarks2
+            //            , Item.Approved2Amount
+            //            , Item.Approved2Remarks
+            //             , Item.Approved3Amount
+            //            , Item.Approved3Remarks
+            //            , Item.TSIRNumber
+            //            , Item.SAPDoc
+            //            , Item.SAPPostingDate
+            //             , Item.SAPInvoiceValue
+            //              , M.AcInvoiceNumber
+
+            //               , M.AcInvoiceDate == null ? "" : ((DateTime)M.AcInvoiceDate).ToShortDateString()
+            //                , Item.AnnexureNumber
+            //            , M.AnnexureDate == null ? "" : ((DateTime)M.AnnexureDate).ToShortDateString()
+
+            //           );
+            //    }
+            //}
+            //  new BXcel().ExporttoExcel(dt, "Warranty Claim");
         }
         protected void gvICTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

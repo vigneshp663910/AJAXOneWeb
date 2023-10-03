@@ -43,6 +43,28 @@ namespace DealerManagementSystem.ViewPreSale
                 Session["LeadReportForDefinedPeriodLeadDetails"] = value;
             }
         }
+        private string DateFrom
+        {
+            get
+            { 
+                return (string)ViewState["DateFrom"];
+            }
+            set
+            {
+                ViewState["DateFrom"] = value;
+            }
+        }
+        private string DateTo
+        {
+            get
+            { 
+                return (string)ViewState["DateTo"];
+            }
+            set
+            {
+                ViewState["DateTo"] = value;
+            }
+        }
         public override SubModule SubModuleName { get { return SubModule.ViewPreSale_LeadReportForDefinedPeriod; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -67,6 +89,9 @@ namespace DealerManagementSystem.ViewPreSale
                 ddlCountry.SelectedValue = "1";
                 List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, null);
                 new DDLBind(ddlState, State, "State", "StateID");
+
+                txtLeadDateFrom.Text = (Convert.ToDateTime("01/" + DateTime.Now.Month + "/" + DateTime.Now.Year)).ToString("yyyy-MM-dd");
+                txtLeadDateTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
             LeadBind();
             //gvHeader();
@@ -102,6 +127,114 @@ namespace DealerManagementSystem.ViewPreSale
             gvLead.DataSource = LeadReport;
             gvLead.DataBind();
             lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + LeadReport.Rows.Count;
+
+            if (LeadReport.Rows.Count > 0)
+            {
+                decimal HitRatioF = 0, LostRatioF = 0, DropRatioF = 0, OpenHotF = 0, OpenWarmF = 0, OpenColdF = 0,
+                    GeneratedHotF = 0, GeneratedWarmF = 0, GeneratedColdF = 0, WinHotF = 0, WinWarmF = 0, WinColdF = 0,
+                    LostHotF = 0, LostWarmF = 0, LostColdF = 0, DropHotF = 0, DropWarmF = 0, DropColdF = 0,
+                    ClosingHotF = 0, ClosingWarmF = 0, ClosingColdF = 0, Age30F = 0, Age60F = 0, Age90F = 0, Age180F = 0, AgeA180F = 0;
+                foreach (DataRow dr in LeadReport.Rows)
+                {  
+                    OpenHotF = OpenHotF + Convert.ToDecimal(dr["Open Hot"]);
+                    OpenWarmF = OpenWarmF + Convert.ToDecimal(dr["Open Warm"]);
+                    OpenColdF = OpenColdF + Convert.ToDecimal(dr["Open Cold"]);
+
+                    GeneratedHotF = GeneratedHotF + Convert.ToDecimal(dr["Generated Hot"]);
+                    GeneratedWarmF = GeneratedWarmF + Convert.ToDecimal(dr["Generated Warm"]);
+                    GeneratedColdF = GeneratedColdF + Convert.ToDecimal(dr["Generated Cold"]);
+
+                    WinHotF = WinHotF + Convert.ToDecimal(dr["Win Hot"]);
+                    WinWarmF = WinWarmF + Convert.ToDecimal(dr["Win Warm"]);
+                    WinColdF = WinColdF + Convert.ToDecimal(dr["Win Cold"]);
+
+                    LostHotF = LostHotF + Convert.ToDecimal(dr["Lost Hot"]);
+                    LostWarmF = LostWarmF + Convert.ToDecimal(dr["Lost Warm"]);
+                    LostColdF = LostColdF + Convert.ToDecimal(dr["Lost Cold"]);
+
+                    DropHotF = DropHotF + Convert.ToDecimal(dr["Drop Hot"]);
+                    DropWarmF = DropWarmF + Convert.ToDecimal(dr["Drop Warm"]);
+                    DropColdF = DropColdF + Convert.ToDecimal(dr["Drop Cold"]);
+
+                    ClosingHotF = ClosingHotF + Convert.ToDecimal(dr["Closing Hot"]);
+                    ClosingWarmF = ClosingWarmF + Convert.ToDecimal(dr["Closing Warm"]);
+                    ClosingColdF = ClosingColdF + Convert.ToDecimal(dr["Closing Cold"]);
+
+                    Age30F = Age30F + Convert.ToDecimal(dr["Age 0 - 30"]);
+                    Age60F = Age60F + Convert.ToDecimal(dr["Age 31 - 60"]);
+                    Age90F = Age90F + Convert.ToDecimal(dr["Age 61 - 90"]);
+                    Age180F = Age180F + Convert.ToDecimal(dr["Age 91 - 180"]);
+                    AgeA180F = AgeA180F + Convert.ToDecimal(dr["Age > 180"]);
+
+                }
+                decimal Total = (OpenHotF + OpenWarmF + OpenColdF + GeneratedHotF + GeneratedWarmF + GeneratedColdF);
+                if (Total > 0)
+                {
+                    HitRatioF = (WinHotF + WinWarmF + WinColdF) * 100 / Total;
+                    LostRatioF = (LostHotF + LostWarmF + LostColdF) * 100 / Total;
+                    DropRatioF = (DropHotF + DropWarmF + DropColdF) * 100 / Total;
+                }
+                Label lblHitRatioF = (Label)gvLead.FooterRow.FindControl("lblHitRatioF");
+                lblHitRatioF.Text = HitRatioF.ToString("##.##");
+                Label lblLostRatioF = (Label)gvLead.FooterRow.FindControl("lblLostRatioF");
+                lblLostRatioF.Text = LostRatioF.ToString("##.##");
+                Label lblDropRatioF = (Label)gvLead.FooterRow.FindControl("lblDropRatioF");
+                lblDropRatioF.Text = DropRatioF.ToString("##.##");
+
+                Label lblOpenHotF = (Label)gvLead.FooterRow.FindControl("lblOpenHotF");
+                lblOpenHotF.Text = OpenHotF.ToString();
+                Label lblOpenWarmF = (Label)gvLead.FooterRow.FindControl("lblOpenWarmF");
+                lblOpenWarmF.Text = OpenWarmF.ToString();
+                Label lblOpenColdF = (Label)gvLead.FooterRow.FindControl("lblOpenColdF");
+                lblOpenColdF.Text = OpenColdF.ToString();
+
+                Label lblGeneratedHotF = (Label)gvLead.FooterRow.FindControl("lblGeneratedHotF");
+                lblGeneratedHotF.Text = GeneratedHotF.ToString();
+                Label lblGeneratedWarmF = (Label)gvLead.FooterRow.FindControl("lblGeneratedWarmF");
+                lblGeneratedWarmF.Text = GeneratedWarmF.ToString();
+                Label lblGeneratedColdF = (Label)gvLead.FooterRow.FindControl("lblGeneratedColdF");
+                lblGeneratedColdF.Text = GeneratedColdF.ToString();
+
+
+                Label lblWinHotF = (Label)gvLead.FooterRow.FindControl("lblWinHotF");
+                lblWinHotF.Text = WinHotF.ToString();
+                Label lblWinWarmF = (Label)gvLead.FooterRow.FindControl("lblWinWarmF");
+                lblWinWarmF.Text = WinWarmF.ToString();
+                Label lblWinColdF = (Label)gvLead.FooterRow.FindControl("lblWinColdF");
+                lblWinColdF.Text = WinColdF.ToString();
+
+                Label lblLostHotF = (Label)gvLead.FooterRow.FindControl("lblLostHotF");
+                lblLostHotF.Text = LostHotF.ToString();
+                Label lblLostWarmF = (Label)gvLead.FooterRow.FindControl("lblLostWarmF");
+                lblLostWarmF.Text = LostWarmF.ToString();
+                Label lblLostColdF = (Label)gvLead.FooterRow.FindControl("lblLostColdF");
+                lblLostColdF.Text = LostColdF.ToString();
+
+                Label lblDropHotF = (Label)gvLead.FooterRow.FindControl("lblDropHotF");
+                lblDropHotF.Text = DropHotF.ToString();
+                Label lblDropWarmF = (Label)gvLead.FooterRow.FindControl("lblDropWarmF");
+                lblDropWarmF.Text = DropWarmF.ToString();
+                Label lblDropColdF = (Label)gvLead.FooterRow.FindControl("lblDropColdF");
+                lblDropColdF.Text = DropColdF.ToString();
+
+                Label lblClosingHotF = (Label)gvLead.FooterRow.FindControl("lblClosingHotF");
+                lblClosingHotF.Text = ClosingHotF.ToString();
+                Label lblClosingWarmF = (Label)gvLead.FooterRow.FindControl("lblClosingWarmF");
+                lblClosingWarmF.Text = ClosingWarmF.ToString();
+                Label lblClosingColdF = (Label)gvLead.FooterRow.FindControl("lblClosingColdF");
+                lblClosingColdF.Text = ClosingColdF.ToString();
+
+                Label lblAge30F = (Label)gvLead.FooterRow.FindControl("lblAge30F");
+                lblAge30F.Text = Age30F.ToString();
+                Label lblAge60F = (Label)gvLead.FooterRow.FindControl("lblAge60F");
+                lblAge60F.Text = Age60F.ToString();
+                Label lblAge90F = (Label)gvLead.FooterRow.FindControl("lblAge90F");
+                lblAge90F.Text = Age90F.ToString();
+                Label lblAge180F = (Label)gvLead.FooterRow.FindControl("lblAge180F");
+                lblAge180F.Text = Age180F.ToString();
+                Label lblAgeA180F = (Label)gvLead.FooterRow.FindControl("lblAgeA180F");
+                lblAgeA180F.Text = AgeA180F.ToString();
+            }
         }
 
         void FillLead()
@@ -114,6 +247,9 @@ namespace DealerManagementSystem.ViewPreSale
 
             S.DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             S.SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+
+            DateFrom = ((DateTime)S.LeadDateFrom).ToString("dd-MM-yyyy");
+            DateTo = ((DateTime)S.LeadDateTo).ToString("dd-MM-yyyy");
             LeadReport = new BLead().GetLeadReportForDefinedPeriod(S);  
             if (LeadReport.Rows.Count == 0)
             {
@@ -331,7 +467,7 @@ namespace DealerManagementSystem.ViewPreSale
                 
                 try
                 {
-                    new BXcel().ExporttoExcel(LeadReport, "Lead Report For Defined Period");
+                    new BXcel().ExporttoExcelForLeadDefinedPeriod(LeadReport, "Lead Report For Defined Period", "Lead Report for defined period -" + DateFrom + " to " + DateTo);
                 }
                 catch
                 {

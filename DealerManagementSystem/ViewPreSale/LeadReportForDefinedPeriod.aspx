@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true"  CodeBehind="LeadReportForDefinedPeriod.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.LeadReportForDefinedPeriod" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" MaintainScrollPositionOnPostback="true" CodeBehind="LeadReportForDefinedPeriod.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.LeadReportForDefinedPeriod" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -17,6 +17,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+     
 
     <%-- <asp:Panel ID="pnlSpecifyCriteria" runat="server" CssClass="Popup" Style="display: none">
         <div class="PopupHeader clearfix">
@@ -92,7 +93,7 @@
                     </div>
 
                     <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found" OnDataBound="OnDataBound">
+                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found" OnDataBound="OnDataBound" ShowFooter="true">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                 <%-- <HeaderTemplate>
@@ -114,14 +115,15 @@
                                         <th>Salary</th>
                                     </tr>
                                 </HeaderTemplate>--%>
-                                <ItemTemplate>
+                                 <HeaderStyle BackColor="#fce4d6" /> 
+                                <ItemTemplate> 
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-
                                     <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Dealer Code">
+                                <HeaderStyle BackColor="#fce4d6" /> 
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Code")%>' runat="server" />
                                     <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
@@ -129,157 +131,288 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Name">
+                                <HeaderStyle BackColor="#fce4d6" /> 
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Name")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Salesman">
+                                <HeaderStyle BackColor="#fce4d6" /> 
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerSalesman" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Salesman")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
+
                             <asp:TemplateField HeaderText="Hit">
+                                <HeaderStyle BackColor="#c6e0b4" />
+                                <FooterStyle BackColor="#c6e0b4"  />
                                 <ItemTemplate>
                                     <asp:Label ID="lblHitRatio" Text='<%# DataBinder.Eval(Container.DataItem, "Hit Ratio")%>' runat="server" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblHitRatioF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Lost">
+                                <HeaderStyle BackColor="#ddebf7" />
+                                <FooterStyle BackColor="#ddebf7"  />
                                 <ItemTemplate>
                                     <asp:Label ID="lblLostRatio" Text='<%# DataBinder.Eval(Container.DataItem, "Lost Ratio")%>' runat="server" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblLostRatioF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Drop">
+                                <HeaderStyle BackColor="#fce4d6" />
+                                <FooterStyle BackColor="#fce4d6"  />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDropRatio" Text='<%# DataBinder.Eval(Container.DataItem, "Drop Ratio")%>' runat="server" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblDropRatioF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Hot">
+                                <HeaderStyle BackColor="#c6e0b4" />
+                                <FooterStyle BackColor="#c6e0b4"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblOpenHot" Text='<%# DataBinder.Eval(Container.DataItem, "Open Hot")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblOpenHotF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Warm">
+                                <HeaderStyle BackColor="#ddebf7" />
+                                <FooterStyle BackColor="#ddebf7"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblOpenWarm" Text='<%# DataBinder.Eval(Container.DataItem, "Open Warm")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblOpenWarmF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Cold">
+                                <HeaderStyle BackColor="#fce4d6" />
+                                <FooterStyle BackColor="#fce4d6"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblOpenCold" Text='<%# DataBinder.Eval(Container.DataItem, "Open Cold")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblOpenColdF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
 
 
                             <asp:TemplateField HeaderText="Hot">
+                                <HeaderStyle BackColor="#c6e0b4" />
+                                <FooterStyle BackColor="#c6e0b4"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblGeneratedHot" Text='<%# DataBinder.Eval(Container.DataItem, "Generated Hot")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblGeneratedHotF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Warm">
+                                <HeaderStyle BackColor="#ddebf7" />
+                                <FooterStyle BackColor="#ddebf7"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblGeneratedWarm" Text='<%# DataBinder.Eval(Container.DataItem, "Generated Warm")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblGeneratedWarmF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Cold">
+                                <HeaderStyle BackColor="#fce4d6" />
+                                <FooterStyle BackColor="#fce4d6"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblGeneratedCold" Text='<%# DataBinder.Eval(Container.DataItem, "Generated Cold")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblGeneratedColdF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
 
 
                             <asp:TemplateField HeaderText="Hot">
+                                <HeaderStyle BackColor="#c6e0b4" />
+                                <FooterStyle BackColor="#c6e0b4"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblWinHot" Text='<%# DataBinder.Eval(Container.DataItem, "Win Hot")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblWinHotF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Warm">
+                                <HeaderStyle BackColor="#ddebf7" />
+                                <FooterStyle BackColor="#ddebf7"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblWinWarm" Text='<%# DataBinder.Eval(Container.DataItem, "Win Warm")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblWinWarmF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Cold">
+                                <HeaderStyle BackColor="#fce4d6" />
+                                <FooterStyle BackColor="#fce4d6"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblWinCold" Text='<%# DataBinder.Eval(Container.DataItem, "Win Cold")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblWinColdF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
 
 
                             <asp:TemplateField HeaderText="Hot">
+                                <HeaderStyle BackColor="#c6e0b4" />
+                                <FooterStyle BackColor="#c6e0b4"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblLostHot" Text='<%# DataBinder.Eval(Container.DataItem, "Lost Hot")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblLostHotF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Warm">
+                                <HeaderStyle BackColor="#ddebf7" />
+                                <FooterStyle BackColor="#ddebf7"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblLostWarm" Text='<%# DataBinder.Eval(Container.DataItem, "Lost Warm")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblLostWarmF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Cold">
+                                <HeaderStyle BackColor="#fce4d6" />
+                                <FooterStyle BackColor="#fce4d6"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblLostCold" Text='<%# DataBinder.Eval(Container.DataItem, "Lost Cold")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblLostColdF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
 
-
-
                             <asp:TemplateField HeaderText="Hot">
+                                <HeaderStyle BackColor="#c6e0b4" />
+                                <FooterStyle BackColor="#c6e0b4"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblDropHot" Text='<%# DataBinder.Eval(Container.DataItem, "Drop Hot")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblDropHotF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Warm">
+                                <HeaderStyle BackColor="#ddebf7" />
+                                <FooterStyle BackColor="#ddebf7"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblDropWarm" Text='<%# DataBinder.Eval(Container.DataItem, "Drop Warm")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblDropWarmF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Cold">
+                                <HeaderStyle BackColor="#fce4d6" />
+                                <FooterStyle BackColor="#fce4d6"  />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblDropCold" Text='<%# DataBinder.Eval(Container.DataItem, "Drop Cold")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblDropColdF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Hot">
+                                <HeaderStyle BackColor="#c6e0b4" />
+                                <FooterStyle BackColor="#c6e0b4"  />
                                 <ItemTemplate>
-                                     <asp:LinkButton ID="lblClosingHot" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Hot")%>' runat="server" OnClick="lblLinkButton_Click" /> 
+                                    <asp:LinkButton ID="lblClosingHot" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Hot")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblClosingHotF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Warm">
+                                <HeaderStyle BackColor="#ddebf7" />
+                                <FooterStyle BackColor="#ddebf7"  />
                                 <ItemTemplate>
-                                     <asp:LinkButton ID="lblClosingWarm" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Warm")%>' runat="server" OnClick="lblLinkButton_Click" /> 
+                                    <asp:LinkButton ID="lblClosingWarm" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Warm")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblClosingWarmF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Cold">
+                                <HeaderStyle BackColor="#fce4d6" />
+                                <FooterStyle BackColor="#fce4d6"  />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lblClosingCold" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Cold")%>' runat="server" OnClick="lblLinkButton_Click" />  
+                                    <asp:LinkButton ID="lblClosingCold" Text='<%# DataBinder.Eval(Container.DataItem, "Closing Cold")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblClosingColdF" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
 
 
                             <asp:TemplateField HeaderText="0-30">
+                                <HeaderStyle BackColor="#fce4d6" />
+                                <FooterStyle BackColor="#fce4d6"  />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lblAge30" Text='<%# DataBinder.Eval(Container.DataItem, "Age 0 - 30")%>' runat="server" OnClick="lblLinkButton_Click" />  
+                                    <asp:LinkButton ID="lblAge30" Text='<%# DataBinder.Eval(Container.DataItem, "Age 0 - 30")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblAge30F" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="31-60">
+                                <HeaderStyle BackColor="#f8cbad" />
+                                <FooterStyle BackColor="#f8cbad"  />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lblAge60" Text='<%# DataBinder.Eval(Container.DataItem, "Age 31 - 60")%>' runat="server" OnClick="lblLinkButton_Click" />  
+                                    <asp:LinkButton ID="lblAge60" Text='<%# DataBinder.Eval(Container.DataItem, "Age 31 - 60")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblAge60F" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="61-90">
+                                <HeaderStyle BackColor="#f4b084" />
+                                <FooterStyle BackColor="#f4b084"  />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lblAge90" Text='<%# DataBinder.Eval(Container.DataItem, "Age 61 - 90")%>' runat="server" OnClick="lblLinkButton_Click" /> 
+                                    <asp:LinkButton ID="lblAge90" Text='<%# DataBinder.Eval(Container.DataItem, "Age 61 - 90")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblAge90F" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="91-180">
+                                <HeaderStyle BackColor="#f0904e" />
+                                <FooterStyle BackColor="#f0904e"  />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lblAge180" Text='<%# DataBinder.Eval(Container.DataItem, "Age 91 - 180")%>' runat="server" OnClick="lblLinkButton_Click" />  
+                                    <asp:LinkButton ID="lblAge180" Text='<%# DataBinder.Eval(Container.DataItem, "Age 91 - 180")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblAge180F" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="> 180">
+                            <asp:TemplateField HeaderText="> 180" >
+                                <HeaderStyle BackColor="#de6614" />
+                                <FooterStyle BackColor="#de6614"  />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lblAgeA180" Text='<%# DataBinder.Eval(Container.DataItem, "Age > 180")%>' runat="server" OnClick="lblLinkButton_Click" /> 
+                                    <asp:LinkButton ID="lblAgeA180" Text='<%# DataBinder.Eval(Container.DataItem, "Age > 180")%>' runat="server" OnClick="lblLinkButton_Click" />
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label ID="lblAgeA180F" runat="server" ForeColor="Black" Font-Size="Large" />
+                                </FooterTemplate>
                             </asp:TemplateField>
                         </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
@@ -306,17 +439,17 @@
         <div class="col-md-12">
             <asp:Button ID="btnExcelDetails" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExcelDetails_Click" Width="100px" />
 
-            <div class="model-scroll"> 
+            <div class="model-scroll">
                 <asp:GridView ID="gvLeadDetails" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid"
                     EmptyDataText="No Data Found">
                     <Columns>
-                         <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center"> 
-                                <ItemTemplate>
-                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
 
-                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                     <AlternatingRowStyle BackColor="#ffffff" />
                     <FooterStyle ForeColor="White" />

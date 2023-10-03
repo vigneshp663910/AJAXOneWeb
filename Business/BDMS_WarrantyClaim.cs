@@ -497,7 +497,15 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PDMS_WarrantyInvoiceHeader_New>>(JsonConvert.SerializeObject(Results.Data)); 
         }
 
-
+        public DataTable GetWarrantyClaimReporExcel(PWarrantyClaim_Filter Filter)
+        {
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Warranty/GetWarrantyClaimReportExcel", Filter));
+            if (Results.Status == PApplication.Failure)
+            {
+                throw new Exception(Results.Message);
+            }
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Results.Data));
+        }
 
         public List<PDMS_WarrantyTicket> GetWarrantyClaimReportByICTicket1(string ICTicketID, DateTime? ICTicketDateF, DateTime? ICTicketDateT, string InvoiceNumber,
         DateTime? InvoiceDateF, DateTime? InvoiceDateT, string DealerCode, int? StatusID, string TSIRNumber, int UserID)
