@@ -1220,48 +1220,7 @@ namespace Business
             {
             }
             return false;
-        }
-        public void UpdateWarrantyClaimMachineSerialNumberForModel()
-        {
-            List<PDMS_WarrantyInvoiceHeader> Ws = new List<PDMS_WarrantyInvoiceHeader>();
-            PDMS_WarrantyInvoiceHeader W = null;
-            try
-            {
-                using (DataSet EmployeeDataSet = provider.Select("ZDMS_GetWarrantyClaimMachineSerialNumberForModel"))
-                {
-                    if (EmployeeDataSet != null)
-                    {
-                        foreach (DataRow dr in EmployeeDataSet.Tables[0].Rows)
-                        {
-                            W = new PDMS_WarrantyInvoiceHeader();
-                            Ws.Add(W);
-                            W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
-                        }
-                    }
-                }
-                foreach (PDMS_WarrantyInvoiceHeader item in Ws)
-                {
-
-                    List<string> Model = new SDMS_ICTicket().getModelByProductID(item.MachineSerialNumber);
-                    if (!string.IsNullOrEmpty(Model[0]))
-                    {
-                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                        {
-                            DbParameter MachineSerialNumberP = provider.CreateParameter("MachineSerialNumber", item.MachineSerialNumber, DbType.String);
-                            DbParameter ModelP = provider.CreateParameter("Model", Model[0], DbType.String);
-                            DbParameter DivisionP = provider.CreateParameter("Division", Model[1], DbType.String);
-                            DbParameter[] Params = new DbParameter[3] { MachineSerialNumberP, ModelP, DivisionP };
-                            provider.Insert("ZDMS_UpdateWarrantyClaimMachineSerialNumberForModel", Params);
-                            scope.Complete();
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-        }
+        } 
          
         public Boolean InsertDeviatedClaimRequestForApproval(long WarrantyInvoiceHeaderID, int UserID)
         {

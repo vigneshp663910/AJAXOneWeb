@@ -360,6 +360,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             { 
                 lbtnApprove.Visible = false;
                 lbtnReject.Visible = false;
+                lbtnSendBack.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TsirSalesApproveL1).Count() == 0)
             { 

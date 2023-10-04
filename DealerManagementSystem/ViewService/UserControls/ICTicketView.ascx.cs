@@ -2405,10 +2405,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
 
             if ((ServiceTypeID == (short)DMS_ServiceType.Paid1) || (ServiceTypeID == (short)DMS_ServiceType.Others)
-              || (ServiceTypeID == (short)DMS_ServiceType.OverhaulService))
+              || (ServiceTypeID == (short)DMS_ServiceType.OverhaulService) || (ServiceTypeID == (short)DMS_ServiceType.AMC))
             {
                 lbtnAddMaterialCharges.Visible = false;
-                lbtnServiceClaim.Visible = false;  
+                lbtnServiceClaim.Visible = false;
+                lbtnMaterialClaim.Visible = false;
             }
             else
             { 

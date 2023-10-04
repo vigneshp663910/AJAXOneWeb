@@ -1,5 +1,6 @@
 ﻿using Business;
 using Microsoft.Reporting.WebForms;
+using Newtonsoft.Json;
 using Properties;
 using SapIntegration;
 using System;
@@ -19,13 +20,11 @@ namespace DealerManagementSystem.ViewService
     {
         public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicketTSIRManage; } }
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            Session["previousUrl"] = "DMS_ICTicketTSIRManage.aspx";
+        { 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
         public List<PDMS_ICTicketTSIR> ICTicket
         {
@@ -41,35 +40,50 @@ namespace DealerManagementSystem.ViewService
             {
                 Session["DMS_ICTicketTSIRManage"] = value;
             }
-        }
-        public PDMS_ICTicketTSIR ICTicketTSIR
+        } 
+        //public List<PDMS_ICTicketTSIRStatus> ICTicketStatus
+        //{
+        //    get
+        //    {
+        //        if (Session["DMS_ICTicketStatus"] == null)
+        //        {
+        //            Session["DMS_ICTicketStatus"] = new List<PDMS_ICTicketTSIRStatus>();
+        //        }
+        //        return (List<PDMS_ICTicketTSIRStatus>)Session["DMS_ICTicketStatus"];
+        //    }
+        //    set
+        //    {
+        //        Session["DMS_ICTicketStatus"] = value;
+        //    }
+        //}
+        private int PageCount
         {
             get
             {
-                if (Session["ICTicketTSIR"] == null)
+                if (ViewState["PageCount"] == null)
                 {
-                    Session["ICTicketTSIR"] = new PDMS_ICTicketTSIR();
+                    ViewState["PageCount"] = 0;
                 }
-                return (PDMS_ICTicketTSIR)Session["ICTicketTSIR"];
+                return (int)ViewState["PageCount"];
             }
             set
             {
-                Session["ICTicketTSIR"] = value;
+                ViewState["PageCount"] = value;
             }
         }
-        public List<PDMS_ICTicketTSIRStatus> ICTicketStatus
+        private int PageIndex
         {
             get
             {
-                if (Session["DMS_ICTicketStatus"] == null)
+                if (ViewState["PageIndex"] == null)
                 {
-                    Session["DMS_ICTicketStatus"] = new List<PDMS_ICTicketTSIRStatus>();
+                    ViewState["PageIndex"] = 1;
                 }
-                return (List<PDMS_ICTicketTSIRStatus>)Session["DMS_ICTicketStatus"];
+                return (int)ViewState["PageIndex"];
             }
             set
             {
-                Session["DMS_ICTicketStatus"] = value;
+                ViewState["PageIndex"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -94,7 +108,7 @@ namespace DealerManagementSystem.ViewService
                 ibtnArrowRight.Visible = false;
                 new BDMS_TypeOfWarranty().GetTypeOfWarrantyDDL(ddlTypeOfWarranty, null, null);
                 new BDMS_Model().GetTypeOfWarrantyDDL(ddlModelID, null, null, null);
-                ICTicketStatus = new BDMS_ICTicketTSIR().GetTSIRStatus(null, null);
+               // ICTicketStatus = new BDMS_ICTicketTSIR().GetTSIRStatus(null, null);
                 new BDMS_ICTicketTSIR().GetTSIRStatusDDL(ddlTsirStatus, null, null);
             }
         }
@@ -125,7 +139,7 @@ namespace DealerManagementSystem.ViewService
                 DateTime? TSIRDateT = string.IsNullOrEmpty(txtTSIRDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtTSIRDateTo.Text.Trim());
                 //  int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
                 int? TechnicianID = null;
-                List<PDMS_ICTicketTSIR> SOIs = null;
+                
                 if (PSession.User.IsTechnician)
                 {
                     TechnicianID = PSession.User.UserID;
@@ -134,36 +148,40 @@ namespace DealerManagementSystem.ViewService
                 int? TypeOfWarrantyID = ddlTypeOfWarranty.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTypeOfWarranty.SelectedValue);
                 int? ModelID = ddlModelID.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlModelID.SelectedValue);
                 int? TsirStatusID = ddlTsirStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTsirStatus.SelectedValue);
-                SOIs = new BDMS_ICTicketTSIR().GetICTicketTSIR(null, DealerCode, txtCustomerCode.Text.Trim(), txtTSIRNo.Text.Trim(), TSIRDateF, TSIRDateT
-                    , txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, txtSroCode.Text.Trim(), TechnicianID, TypeOfWarrantyID, ModelID, txtMachineSerialNumber.Text.Trim(), TsirStatusID);
 
-                if (ddlDealerCode.SelectedValue == "0")
-                {
-                    var SOIs1 = (from S in SOIs join D in PSession.User.Dealer on S.ICTicket.Dealer.DealerCode equals D.UserName select new { S }).ToList();
-                    SOIs.Clear();
-                    foreach (var w in SOIs1)
-                    {
-                        SOIs.Add(w.S);
-                    }
-                }
+                PApiResult Result = new BDMS_ICTicketTSIR().GetICTicketTSIR(null, DealerCode, txtCustomerCode.Text.Trim(), txtTSIRNo.Text.Trim(), TSIRDateF, TSIRDateT
+                    , txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, txtSroCode.Text.Trim(), TechnicianID, TypeOfWarrantyID, ModelID
+                    , txtMachineSerialNumber.Text.Trim(), TsirStatusID, PageIndex, gvICTickets.PageSize);
+               // List<PDMS_ICTicketTSIR> SOIs = JsonConvert.DeserializeObject<List<PDMS_ICTicketTSIR>>(JsonConvert.SerializeObject(ResultLead.Data));
+               
+                
+                //if (ddlDealerCode.SelectedValue == "0")
+                //{
+                //    var SOIs1 = (from S in SOIs join D in PSession.User.Dealer on S.ICTicket.Dealer.DealerCode equals D.UserName select new { S }).ToList();
+                //    SOIs.Clear();
+                //    foreach (var w in SOIs1)
+                //    {
+                //        SOIs.Add(w.S);
+                //    }
+                //}
 
-                List<PDMS_Division> Division = new BDMS_ICTicketTSIR().GetICTicketTSIRUserDivisionList(PSession.User.UserID);
-                if (Division.Count != 0)
-                {
-                    var SOIs2 = (from S in SOIs join D in Division on S.ICTicket.Equipment.EquipmentModel.Division.DivisionID equals D.DivisionID select new { S }).ToList();
-                    SOIs.Clear();
-                    foreach (var w in SOIs2)
-                    {
-                        SOIs.Add(w.S);
-                    }
-                }
+                 List<PDMS_Division> Division = new BDMS_ICTicketTSIR().GetICTicketTSIRUserDivisionList(PSession.User.UserID);
+                //if (Division.Count != 0)
+                //{
+                //    var SOIs2 = (from S in SOIs join D in Division on S.ICTicket.Equipment.EquipmentModel.Division.DivisionID equals D.DivisionID select new { S }).ToList();
+                //    SOIs.Clear();
+                //    foreach (var w in SOIs2)
+                //    {
+                //        SOIs.Add(w.S);
+                //    }
+                //}
 
-                ICTicket = SOIs;
+                // ICTicket = SOIs;
 
-                gvICTickets.PageIndex = 0;
-                gvICTickets.DataSource = SOIs;
+                //  gvICTickets.PageIndex = 0;
+                gvICTickets.DataSource = JsonConvert.DeserializeObject<List<PDMS_ICTicketTSIR>>(JsonConvert.SerializeObject(Result.Data));
                 gvICTickets.DataBind();
-                if (SOIs.Count == 0)
+                if (Result.RowCount == 0)
                 {
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
@@ -171,10 +189,11 @@ namespace DealerManagementSystem.ViewService
                 }
                 else
                 {
+                    PageCount = (Result.RowCount + gvICTickets.PageSize - 1) / gvICTickets.PageSize;
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
+                    lblRowCount.Text = (((PageIndex - 1) * gvICTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + Result.RowCount;
                 }
 
                 //string[] HOComments1 = ConfigurationManager.AppSettings["HOComments1"].Split(',');
@@ -235,94 +254,131 @@ namespace DealerManagementSystem.ViewService
         }
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvICTickets.PageIndex > 0)
+            if (PageIndex > 1)
             {
-                gvICTickets.DataSource = ICTicket;
-                gvICTickets.PageIndex = gvICTickets.PageIndex - 1;
-
-                gvICTickets.DataBind();
-                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
+                PageIndex = PageIndex - 1;
+                fillICTicket();
             }
+
+            //if (gvICTickets.PageIndex > 0)
+            //{
+            //    gvICTickets.DataSource = ICTicket;
+            //    gvICTickets.PageIndex = gvICTickets.PageIndex - 1;
+
+            //    gvICTickets.DataBind();
+            //    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
+            //}
         }
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvICTickets.PageCount > gvICTickets.PageIndex)
+            if (PageCount > PageIndex)
             {
-                gvICTickets.DataSource = ICTicket;
-                gvICTickets.PageIndex = gvICTickets.PageIndex + 1;
-                gvICTickets.DataBind();
-                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
+                PageIndex = PageIndex + 1;
+                fillICTicket();
             }
+
+            //if (gvICTickets.PageCount > gvICTickets.PageIndex)
+            //{
+            //    gvICTickets.DataSource = ICTicket;
+            //    gvICTickets.PageIndex = gvICTickets.PageIndex + 1;
+            //    gvICTickets.DataBind();
+            //    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
+            //}
         }
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
-            dt.Columns.Add("TSIR");
-            dt.Columns.Add("TSIR Date");
-            dt.Columns.Add("FSR");
-            dt.Columns.Add("FSR Date");
 
-            dt.Columns.Add("Commissioning Date");
-            dt.Columns.Add("M/C Dispatch Date");
-            dt.Columns.Add("Type Of Warranty");
 
-            dt.Columns.Add("Nature of Failure");
-            dt.Columns.Add("Failure Details");
-            dt.Columns.Add("Points checked");
-            dt.Columns.Add("Possible Root Causes / Specific Points Noticed");
+            int? DealerCode = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            DateTime? ICTicketDateF = string.IsNullOrEmpty(txtICLoginDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateFrom.Text.Trim());
+            DateTime? ICTicketDateT = string.IsNullOrEmpty(txtICLoginDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtICLoginDateTo.Text.Trim());
 
-            dt.Columns.Add("IC Ticket");
-            dt.Columns.Add("IC Ticket Date");
-            dt.Columns.Add("Cust. Code");
-            dt.Columns.Add("Cust. Name");
-            dt.Columns.Add("Dealer Code");
-            dt.Columns.Add("Dealer Name");
+            DateTime? TSIRDateF = string.IsNullOrEmpty(txtTSIRDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtTSIRDateFrom.Text.Trim());
+            DateTime? TSIRDateT = string.IsNullOrEmpty(txtTSIRDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtTSIRDateTo.Text.Trim());
+            //  int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+            int? TechnicianID = null;
 
-            dt.Columns.Add("HMR");
-            dt.Columns.Add("Application");
-            dt.Columns.Add("Machine Serial Number");
-            dt.Columns.Add("Machine Model");
-
-            dt.Columns.Add("State");
-            dt.Columns.Add("District");
-            dt.Columns.Add("Location");
-            dt.Columns.Add("TSIR Status");
-            foreach (PDMS_ICTicketTSIR IC in ICTicket)
+            if (PSession.User.IsTechnician)
             {
-                dt.Rows.Add(
-                      IC.TsirNumber
-                      , IC.TsirDate.ToShortDateString()
-                      , IC.ICTicket.FSR == null ? "" : IC.ICTicket.FSR.FSRNumber
-                     , IC.ICTicket.FSR == null ? "" : IC.ICTicket.FSR.FSRDate.ToShortDateString()
-                    , IC.ICTicket.Equipment.CommissioningOn == null ? "" : ((DateTime)IC.ICTicket.Equipment.CommissioningOn).ToShortDateString()
-                     , IC.ICTicket.Equipment.DispatchedOn == null ? "" : ((DateTime)IC.ICTicket.Equipment.DispatchedOn).ToShortDateString()
-                     , IC.ICTicket.TypeOfWarranty == null ? "" : IC.ICTicket.TypeOfWarranty.TypeOfWarranty
-                     , IC.NatureOfFailures
-                     , IC.FailureDetails
-                     , IC.PointsChecked
-                     , IC.PossibleRootCauses
-                    , IC.ICTicket.ICTicketNumber
-                    , IC.ICTicket.ICTicketDate.ToShortDateString()
-                   , IC.ICTicket.Customer.CustomerCode
-                    , IC.ICTicket.Customer.CustomerName
-                    , IC.ICTicket.Dealer.DealerCode
-                    , IC.ICTicket.Dealer.DealerName
-                     , IC.ICTicket.CurrentHMRValue
-                     , IC.ICTicket.MainApplication.MainApplication
-                    , IC.ICTicket.Equipment.EquipmentSerialNo
-                    , IC.ICTicket.Equipment.EquipmentModel.Model
-                   , IC.ICTicket.Address.State.State
-                    , IC.ICTicket.Address.District.District
-                    , IC.ICTicket.Location
-                    , IC.Status.Status
-                    );
+                TechnicianID = PSession.User.UserID;
             }
+
+            int? TypeOfWarrantyID = ddlTypeOfWarranty.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTypeOfWarranty.SelectedValue);
+            int? ModelID = ddlModelID.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlModelID.SelectedValue);
+            int? TsirStatusID = ddlTsirStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTsirStatus.SelectedValue);
+
+            dt = new BDMS_ICTicketTSIR().GetICTicketTSIRExcel(null, DealerCode, txtCustomerCode.Text.Trim(), txtTSIRNo.Text.Trim(), TSIRDateF, TSIRDateT
+                , txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, txtSroCode.Text.Trim(), TechnicianID, TypeOfWarrantyID, ModelID
+                , txtMachineSerialNumber.Text.Trim(), TsirStatusID);
+
+
+            //dt.Columns.Add("TSIR");
+            //dt.Columns.Add("TSIR Date");
+            //dt.Columns.Add("FSR");
+            //dt.Columns.Add("FSR Date");
+
+            //dt.Columns.Add("Commissioning Date");
+            //dt.Columns.Add("M/C Dispatch Date");
+            //dt.Columns.Add("Type Of Warranty");
+
+            //dt.Columns.Add("Nature of Failure");
+            //dt.Columns.Add("Failure Details");
+            //dt.Columns.Add("Points checked");
+            //dt.Columns.Add("Possible Root Causes / Specific Points Noticed");
+
+            //dt.Columns.Add("IC Ticket");
+            //dt.Columns.Add("IC Ticket Date");
+            //dt.Columns.Add("Cust. Code");
+            //dt.Columns.Add("Cust. Name");
+            //dt.Columns.Add("Dealer Code");
+            //dt.Columns.Add("Dealer Name");
+
+            //dt.Columns.Add("HMR");
+            //dt.Columns.Add("Application");
+            //dt.Columns.Add("Machine Serial Number");
+            //dt.Columns.Add("Machine Model");
+
+            //dt.Columns.Add("State");
+            //dt.Columns.Add("District");
+            //dt.Columns.Add("Location");
+            //dt.Columns.Add("TSIR Status");
+            //foreach (PDMS_ICTicketTSIR IC in ICTicket)
+            //{
+            //    dt.Rows.Add(
+            //          IC.TsirNumber
+            //          , IC.TsirDate.ToShortDateString()
+            //          , IC.ICTicket.FSR == null ? "" : IC.ICTicket.FSR.FSRNumber
+            //         , IC.ICTicket.FSR == null ? "" : IC.ICTicket.FSR.FSRDate.ToShortDateString()
+            //        , IC.ICTicket.Equipment.CommissioningOn == null ? "" : ((DateTime)IC.ICTicket.Equipment.CommissioningOn).ToShortDateString()
+            //         , IC.ICTicket.Equipment.DispatchedOn == null ? "" : ((DateTime)IC.ICTicket.Equipment.DispatchedOn).ToShortDateString()
+            //         , IC.ICTicket.TypeOfWarranty == null ? "" : IC.ICTicket.TypeOfWarranty.TypeOfWarranty
+            //         , IC.NatureOfFailures
+            //         , IC.FailureDetails
+            //         , IC.PointsChecked
+            //         , IC.PossibleRootCauses
+            //        , IC.ICTicket.ICTicketNumber
+            //        , IC.ICTicket.ICTicketDate.ToShortDateString()
+            //       , IC.ICTicket.Customer.CustomerCode
+            //        , IC.ICTicket.Customer.CustomerName
+            //        , IC.ICTicket.Dealer.DealerCode
+            //        , IC.ICTicket.Dealer.DealerName
+            //         , IC.ICTicket.CurrentHMRValue
+            //         , IC.ICTicket.MainApplication.MainApplication
+            //        , IC.ICTicket.Equipment.EquipmentSerialNo
+            //        , IC.ICTicket.Equipment.EquipmentModel.Model
+            //       , IC.ICTicket.Address.State.State
+            //        , IC.ICTicket.Address.District.District
+            //        , IC.ICTicket.Location
+            //        , IC.Status.Status
+            //        );
+            //}
             new BXcel().ExporttoExcel(dt, "TSIR Details");
         }
         void fillDealer()
         {
             ddlDealerCode.DataTextField = "CodeWithName";
-            ddlDealerCode.DataValueField = "UserName";
+            ddlDealerCode.DataValueField = "DID";
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
 

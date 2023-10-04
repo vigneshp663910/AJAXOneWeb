@@ -27,16 +27,31 @@ namespace Business
                 new FileLogger().LogMessageService("BDMS_ICTicket", "provider : " + e1.Message, null);
             }
         }
-        public List<PDMS_ICTicketTSIR> GetICTicketTSIR(long? ICTicketID, int? DealerID, string CustomerCode, string TsirNo, DateTime? TsirDateF, DateTime? TsirDateT
-           , string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, String SroCode, int? TechnicianID, int? TypeOfWarrantyID, int? ModelID, String MachineSerialNumber, int? TsirStatusID)
+        public PApiResult GetICTicketTSIR(long? ICTicketID, int? DealerID, string CustomerCode, string TsirNo, DateTime? TsirDateF, DateTime? TsirDateT
+           , string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, String SroCode, int? TechnicianID, int? TypeOfWarrantyID, int? ModelID
+            , String MachineSerialNumber, int? TsirStatusID, int? PageIndex = null, int? PageSize = null)
         {
 
 
             TraceLogger.Log(DateTime.Now);
             string endPoint = "ICTicketTsir/GetICTicketTSIR?ICTicketID=" + ICTicketID + "&DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&TsirNo=" + TsirNo + "&TsirDateF=" + TsirDateF + "&TsirDateT=" + TsirDateT
                 + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF=" + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&SroCode=" + SroCode
-                + "&TechnicianID=" + TechnicianID + "&TypeOfWarrantyID=" + TypeOfWarrantyID + "&ModelID=" + ModelID + "&MachineSerialNumber=" + MachineSerialNumber + "&TsirStatusID=" + TsirStatusID;
-            return JsonConvert.DeserializeObject<List<PDMS_ICTicketTSIR>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+                + "&TechnicianID=" + TechnicianID + "&TypeOfWarrantyID=" + TypeOfWarrantyID + "&ModelID=" + ModelID + "&MachineSerialNumber=" + MachineSerialNumber 
+                + "&TsirStatusID=" + TsirStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)) ;
+        }
+        public DataTable GetICTicketTSIRExcel(long? ICTicketID, int? DealerID, string CustomerCode, string TsirNo, DateTime? TsirDateF, DateTime? TsirDateT
+        , string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, String SroCode, int? TechnicianID, int? TypeOfWarrantyID, int? ModelID
+         , String MachineSerialNumber, int? TsirStatusID)
+        {
+
+
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "ICTicketTsir/GetICTicketTSIRExcel?ICTicketID=" + ICTicketID + "&DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&TsirNo=" + TsirNo + "&TsirDateF=" + TsirDateF + "&TsirDateT=" + TsirDateT
+                + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF=" + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&SroCode=" + SroCode
+                + "&TechnicianID=" + TechnicianID + "&TypeOfWarrantyID=" + TypeOfWarrantyID + "&ModelID=" + ModelID + "&MachineSerialNumber=" + MachineSerialNumber
+                + "&TsirStatusID=" + TsirStatusID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
         public PDMS_ICTicketTSIR GetICTicketTSIRByTsirID(long? TsirID, long? ServiceChargeID)

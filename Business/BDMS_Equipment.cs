@@ -501,133 +501,133 @@ namespace Business
         }
 
 
-        public void IntegrationEquipmentFromSAP()
-        {
-            TraceLogger.Log(DateTime.Now);
-            try
-            {
-                List<PDMS_Equipment> Equipment = new SDMS_Equipment().getEquipmentFromSAP();
-                List<string> DeliveryNos = new List<string>();
-                foreach (PDMS_Equipment Equ in Equipment)
-                {
-                    DbParameter EquipmentSerialNo = provider.CreateParameter("EquipmentSerialNo", Equ.EquipmentSerialNo, DbType.String);
-                    DbParameter EngineSerialNo = provider.CreateParameter("EngineSerialNo", Equ.EngineSerialNo, DbType.String);
-                    DbParameter InstalledBaseNo = provider.CreateParameter("InstalledBaseNo", Equ.Ibase.InstalledBaseNo, DbType.String);
-                    DbParameter IBaseCreatedOn = provider.CreateParameter("IBaseCreatedOn", Equ.Ibase.IBaseCreatedOn, DbType.DateTime);
-                    DbParameter IBaseLocation = provider.CreateParameter("IBaseLocation", Equ.Ibase.IBaseLocation, DbType.String);
-                    DbParameter MajorRegion = provider.CreateParameter("MajorRegion", Equ.Ibase.MajorRegion.Region, DbType.String);
-                    DbParameter Item = provider.CreateParameter("Item", Equ.Ibase.Item, DbType.Int32);
-                    DbParameter DeliveryNo = provider.CreateParameter("DeliveryNo", Equ.Ibase.DeliveryNo, DbType.String);
-                    DbParameter DeliveryDate = provider.CreateParameter("DeliveryDate", Equ.Ibase.DeliveryDate, DbType.DateTime);
-                    DbParameter ProductCode = provider.CreateParameter("ProductCode", Equ.Ibase.ProductCode, DbType.String);
-                    DbParameter MaterialCode = provider.CreateParameter("MaterialCode", Equ.Material.MaterialCodeWithOutZero, DbType.String);
+        //public void IntegrationEquipmentFromSAP()
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    try
+        //    {
+        //        List<PDMS_Equipment> Equipment = new SDMS_Equipment().getEquipmentFromSAP();
+        //        List<string> DeliveryNos = new List<string>();
+        //        foreach (PDMS_Equipment Equ in Equipment)
+        //        {
+        //            DbParameter EquipmentSerialNo = provider.CreateParameter("EquipmentSerialNo", Equ.EquipmentSerialNo, DbType.String);
+        //            DbParameter EngineSerialNo = provider.CreateParameter("EngineSerialNo", Equ.EngineSerialNo, DbType.String);
+        //            DbParameter InstalledBaseNo = provider.CreateParameter("InstalledBaseNo", Equ.Ibase.InstalledBaseNo, DbType.String);
+        //            DbParameter IBaseCreatedOn = provider.CreateParameter("IBaseCreatedOn", Equ.Ibase.IBaseCreatedOn, DbType.DateTime);
+        //            DbParameter IBaseLocation = provider.CreateParameter("IBaseLocation", Equ.Ibase.IBaseLocation, DbType.String);
+        //            DbParameter MajorRegion = provider.CreateParameter("MajorRegion", Equ.Ibase.MajorRegion.Region, DbType.String);
+        //            DbParameter Item = provider.CreateParameter("Item", Equ.Ibase.Item, DbType.Int32);
+        //            DbParameter DeliveryNo = provider.CreateParameter("DeliveryNo", Equ.Ibase.DeliveryNo, DbType.String);
+        //            DbParameter DeliveryDate = provider.CreateParameter("DeliveryDate", Equ.Ibase.DeliveryDate, DbType.DateTime);
+        //            DbParameter ProductCode = provider.CreateParameter("ProductCode", Equ.Ibase.ProductCode, DbType.String);
+        //            DbParameter MaterialCode = provider.CreateParameter("MaterialCode", Equ.Material.MaterialCodeWithOutZero, DbType.String);
 
-                    long? CustomerID = null;
-                    if (!string.IsNullOrEmpty(Equ.Customer.CustomerCodeWithOutZero))
-                    {
-                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Customer.CustomerCodeWithOutZero);
-                        if (Customer.Count == 0)
-                        {
-                            CustomerID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Customer.CustomerCodeWithOutZero);
-                        }
-                        else
-                        {
-                            CustomerID = Customer[0].CustomerID;
-                        }
-                    }
+        //            long? CustomerID = null;
+        //            if (!string.IsNullOrEmpty(Equ.Customer.CustomerCodeWithOutZero))
+        //            {
+        //                List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Customer.CustomerCodeWithOutZero);
+        //                if (Customer.Count == 0)
+        //                {
+        //                    CustomerID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Customer.CustomerCodeWithOutZero);
+        //                }
+        //                else
+        //                {
+        //                    CustomerID = Customer[0].CustomerID;
+        //                }
+        //            }
 
-                    long? ShipToPartyID = null;
-                    if (!string.IsNullOrEmpty(Equ.Ibase.ShipToParty.CustomerCodeWithOutZero))
-                    {
-                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.ShipToParty.CustomerCodeWithOutZero);
-                        if (Customer.Count == 0)
-                        {
-                            ShipToPartyID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Ibase.ShipToParty.CustomerCodeWithOutZero);
-                        }
-                        else
-                        {
-                            ShipToPartyID = Customer[0].CustomerID;
-                        }
-                    }
+        //            long? ShipToPartyID = null;
+        //            if (!string.IsNullOrEmpty(Equ.Ibase.ShipToParty.CustomerCodeWithOutZero))
+        //            {
+        //                List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.ShipToParty.CustomerCodeWithOutZero);
+        //                if (Customer.Count == 0)
+        //                {
+        //                    ShipToPartyID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Ibase.ShipToParty.CustomerCodeWithOutZero);
+        //                }
+        //                else
+        //                {
+        //                    ShipToPartyID = Customer[0].CustomerID;
+        //                }
+        //            }
 
-                    long? Buyer1stID = null;
-                    if (!string.IsNullOrEmpty(Equ.Ibase.Buyer1st.CustomerCodeWithOutZero))
-                    {
-                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.Buyer1st.CustomerCodeWithOutZero);
+        //            long? Buyer1stID = null;
+        //            if (!string.IsNullOrEmpty(Equ.Ibase.Buyer1st.CustomerCodeWithOutZero))
+        //            {
+        //                List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.Buyer1st.CustomerCodeWithOutZero);
 
-                        if (Customer.Count == 0)
-                        {
-                            Buyer1stID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Ibase.Buyer1st.CustomerCodeWithOutZero);
-                        }
-                        else
-                        {
-                            Buyer1stID = Customer[0].CustomerID;
-                        }
-                    }
-                    long? Buyer2ndID = null;
-                    if (!string.IsNullOrEmpty(Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero))
-                    {
-                        List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero);
-                        if (Customer.Count == 0)
-                        {
-                            Buyer2ndID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero);
-                        }
-                        else
-                        {
-                            Buyer2ndID = Customer[0].CustomerID;
-                        }
-                    }
+        //                if (Customer.Count == 0)
+        //                {
+        //                    Buyer1stID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Ibase.Buyer1st.CustomerCodeWithOutZero);
+        //                }
+        //                else
+        //                {
+        //                    Buyer1stID = Customer[0].CustomerID;
+        //                }
+        //            }
+        //            long? Buyer2ndID = null;
+        //            if (!string.IsNullOrEmpty(Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero))
+        //            {
+        //                List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerByCode(null, Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero);
+        //                if (Customer.Count == 0)
+        //                {
+        //                    Buyer2ndID = new BDMS_Customer().InsertOrUpdateCustomerSap(Equ.Ibase.Buyer2nd.CustomerCodeWithOutZero);
+        //                }
+        //                else
+        //                {
+        //                    Buyer2ndID = Customer[0].CustomerID;
+        //                }
+        //            }
 
-                    DbParameter CustomerCode = provider.CreateParameter("CustomerID", CustomerID, DbType.Int32);
-                    DbParameter ShipToParty = provider.CreateParameter("ShipToPartyID", ShipToPartyID, DbType.Int32);
-                    DbParameter ShipToPartyDealer = provider.CreateParameter("ShipToPartyDealer", Equ.Ibase.ShipToPartyDealer.DealerCode, DbType.String);
-                    DbParameter SoleToDealer = provider.CreateParameter("SoleToDealer", Equ.Ibase.SoleToDealer.DealerCode, DbType.String);
-                    DbParameter Buyer1st = provider.CreateParameter("Buyer1stID", Buyer1stID, DbType.Int32);
-                    DbParameter Buyer2nd = provider.CreateParameter("Buyer2ndID", Buyer2ndID, DbType.Int32);
+        //            DbParameter CustomerCode = provider.CreateParameter("CustomerID", CustomerID, DbType.Int32);
+        //            DbParameter ShipToParty = provider.CreateParameter("ShipToPartyID", ShipToPartyID, DbType.Int32);
+        //            DbParameter ShipToPartyDealer = provider.CreateParameter("ShipToPartyDealer", Equ.Ibase.ShipToPartyDealer.DealerCode, DbType.String);
+        //            DbParameter SoleToDealer = provider.CreateParameter("SoleToDealer", Equ.Ibase.SoleToDealer.DealerCode, DbType.String);
+        //            DbParameter Buyer1st = provider.CreateParameter("Buyer1stID", Buyer1stID, DbType.Int32);
+        //            DbParameter Buyer2nd = provider.CreateParameter("Buyer2ndID", Buyer2ndID, DbType.Int32);
 
-                    DbParameter WarrantyStart = provider.CreateParameter("WarrantyStart", Equ.Ibase.WarrantyStart, DbType.DateTime);
-                    DbParameter WarrantyEnd = provider.CreateParameter("WarrantyEnd", Equ.Ibase.WarrantyEnd, DbType.DateTime);
-                    DbParameter FinancialYearOfDispatch = provider.CreateParameter("FinancialYearOfDispatch", Equ.Ibase.FinancialYearOfDispatch, DbType.Int32);
+        //            DbParameter WarrantyStart = provider.CreateParameter("WarrantyStart", Equ.Ibase.WarrantyStart, DbType.DateTime);
+        //            DbParameter WarrantyEnd = provider.CreateParameter("WarrantyEnd", Equ.Ibase.WarrantyEnd, DbType.DateTime);
+        //            DbParameter FinancialYearOfDispatch = provider.CreateParameter("FinancialYearOfDispatch", Equ.Ibase.FinancialYearOfDispatch, DbType.Int32);
 
-                    List<string> Model = new SDMS_ICTicket().getModelByProductID(Equ.EquipmentSerialNo);
-                    DbParameter ModelP = provider.CreateParameter("Model", string.IsNullOrEmpty(Model[0]) ? null : Model[0], DbType.String);
-                    DbParameter DivisionP = provider.CreateParameter("Division", Model[1], DbType.String);
+        //            List<string> Model = new SDMS_ICTicket().getModelByProductID(Equ.EquipmentSerialNo);
+        //            DbParameter ModelP = provider.CreateParameter("Model", string.IsNullOrEmpty(Model[0]) ? null : Model[0], DbType.String);
+        //            DbParameter DivisionP = provider.CreateParameter("Division", Model[1], DbType.String);
 
 
-                    DbParameter UpdateOn = provider.CreateParameter("UpdateOn", Equ.Ibase.UpdateOn, DbType.DateTime);
+        //            DbParameter UpdateOn = provider.CreateParameter("UpdateOn", Equ.Ibase.UpdateOn, DbType.DateTime);
 
-                    DbParameter[] Params = new DbParameter[23] { EquipmentSerialNo,EngineSerialNo,
-                        InstalledBaseNo, IBaseCreatedOn,IBaseLocation,MajorRegion,  DeliveryNo, Item, DeliveryDate, ProductCode,  MaterialCode,
-                    CustomerCode,ShipToParty,ShipToPartyDealer,SoleToDealer,Buyer1st,Buyer2nd,
-                    WarrantyStart,WarrantyEnd,FinancialYearOfDispatch,UpdateOn ,ModelP,DivisionP};
-                    try
-                    {
-                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                        {
-                            provider.Insert("ZDMS_InsertOrUpdateEquipmentFromSAP", Params);
-                            scope.Complete();
-                        }
-                        DeliveryNos.Add(Equ.Ibase.DeliveryNo);
-                    }
-                    catch (SqlException sqlEx)
-                    {
-                        new FileLogger().LogMessageService("BDMS_Equipment", "IntegrationEquipmentFromSAP", sqlEx);
-                    }
-                    catch (Exception ex)
-                    {
-                        new FileLogger().LogMessageService("BDMS_Equipment", " IntegrationEquipmentFromSAP", ex);
-                    }
-                }
-                new SDMS_Equipment().UpdateICTicketRequestedDateToSAP(DeliveryNos);
-            }
-            catch (Exception e11)
-            {
-                new FileLogger().LogMessageService("BDMS_Material", "IntegrationEquipmentFromSAP", e11);
-                throw e11;
-            }
+        //            DbParameter[] Params = new DbParameter[23] { EquipmentSerialNo,EngineSerialNo,
+        //                InstalledBaseNo, IBaseCreatedOn,IBaseLocation,MajorRegion,  DeliveryNo, Item, DeliveryDate, ProductCode,  MaterialCode,
+        //            CustomerCode,ShipToParty,ShipToPartyDealer,SoleToDealer,Buyer1st,Buyer2nd,
+        //            WarrantyStart,WarrantyEnd,FinancialYearOfDispatch,UpdateOn ,ModelP,DivisionP};
+        //            try
+        //            {
+        //                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //                {
+        //                    provider.Insert("ZDMS_InsertOrUpdateEquipmentFromSAP", Params);
+        //                    scope.Complete();
+        //                }
+        //                DeliveryNos.Add(Equ.Ibase.DeliveryNo);
+        //            }
+        //            catch (SqlException sqlEx)
+        //            {
+        //                new FileLogger().LogMessageService("BDMS_Equipment", "IntegrationEquipmentFromSAP", sqlEx);
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                new FileLogger().LogMessageService("BDMS_Equipment", " IntegrationEquipmentFromSAP", ex);
+        //            }
+        //        }
+        //        new SDMS_Equipment().UpdateICTicketRequestedDateToSAP(DeliveryNos);
+        //    }
+        //    catch (Exception e11)
+        //    {
+        //        new FileLogger().LogMessageService("BDMS_Material", "IntegrationEquipmentFromSAP", e11);
+        //        throw e11;
+        //    }
 
-            TraceLogger.Log(DateTime.Now);
-        }
+        //    TraceLogger.Log(DateTime.Now);
+        //}
         public List<PDMS_EquipmentHeader> GetEquipmentForCreateICTicket(long? CustomerID, string EquipmentSerialNo, string Customer)
         {
             string endPoint = "Equipment/EquipmentForCreateICTicket?CustomerID=" + CustomerID + "&EquipmentSerialNo=" + EquipmentSerialNo + "&Customer=" + Customer;

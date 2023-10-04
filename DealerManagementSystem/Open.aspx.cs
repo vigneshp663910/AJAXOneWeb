@@ -173,7 +173,7 @@ namespace DealerManagementSystem
 
         protected void btnIntegrationEquipmentFromSAP_Click(object sender, EventArgs e)
         {
-            new BDMS_Equipment().IntegrationEquipmentFromSAP();
+            //new BDMS_Equipment().IntegrationEquipmentFromSAP();
         }
 
         protected void btnIntegrationEquipmentFromSAP_New_Click(object sender, EventArgs e)

@@ -59,12 +59,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SAP.cs" />
-    <Compile Include="SCustomer.cs" />
-    <Compile Include="SDMS_Equipment.cs" />
-    <Compile Include="SDMS_ICTicket.cs" />
     <Compile Include="SDMS_WarrantyClaimAnnexure.cs" />
-    <Compile Include="SPurchaseOrder.cs" />
-    <Compile Include="SQuotation.cs" />
     <Compile Include="SSAPDocumentNumber.cs" />
   </ItemGroup>
   <ItemGroup>

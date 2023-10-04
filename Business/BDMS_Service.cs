@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Microsoft.Reporting.WebForms;
+using Newtonsoft.Json;
 using Properties;
 using QRCoder;
 using SapIntegration;
@@ -1067,28 +1068,15 @@ namespace Business
             PAttachedFile Files = null;
             try
             {
-                DbParameter[] Params = new DbParameter[1] { ServiceInvoiceIDP };
 
-                using (DataSet DS = provider.Select("ZDMS_GetServiceInvoiceFile", Params))
-                {
-                    if (DS != null)
-                    {
-                        foreach (DataRow dr in DS.Tables[0].Rows)
-                        {
-                            Files = new PAttachedFile()
-                            {
-                                AttachedFile = (Byte[])(dr["InvoiceFiIe"]),
-                                FileType = Convert.ToString(dr["ContentType"]),
-                                FileName = Convert.ToString(dr["FileName"])
-                            };
-                        }
-                    }
-                }
-
-                if (Files == null)
-                {
-                    new BDMS_Service().insertServiceInvoiceFile(ServiceInvoiceID, ServiceInvoicefile(ServiceInvoiceID));
-                }
+                string endPoint = "ICTicket/GetServiceInvoiceFile?ServiceInvoiceID=" + ServiceInvoiceID ;
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                Files   = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
+                  
+                //if (Files == null)
+                //{
+                //    new BDMS_Service().insertServiceInvoiceFile(ServiceInvoiceID, ServiceInvoicefile(ServiceInvoiceID));
+                //}
                 return Files;
             }
             catch (Exception ex)

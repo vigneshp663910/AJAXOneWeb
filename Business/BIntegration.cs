@@ -206,11 +206,11 @@ namespace Business
                         new FileLogger().LogMessageService("Ended", "Escalation MTTR", null);
                         break;
 
-                    case Jobs.IntegrationEquipmentFromSAP:
-                        new FileLogger().LogMessageService("Started", "IntegrationEquipmentFromSAP", null);
-                        new BDMS_Equipment().IntegrationEquipmentFromSAP();
-                        new FileLogger().LogMessageService("Ended", "IntegrationEquipmentFromSAP", null);
-                        break;
+                    //case Jobs.IntegrationEquipmentFromSAP:
+                    //    new FileLogger().LogMessageService("Started", "IntegrationEquipmentFromSAP", null);
+                    //    new BDMS_Equipment().IntegrationEquipmentFromSAP();
+                    //    new FileLogger().LogMessageService("Ended", "IntegrationEquipmentFromSAP", null);
+                    //    break;
                     case Jobs.IntegrationEquipmentFromSAP_New:
                         new FileLogger().LogMessageService("Started", "IntegrationEquipmentFromSAP_New", null);
                         new BAPI().ApiGetWithOutToken("Equipment/IntegrationEquipmentFromSAP_new");
