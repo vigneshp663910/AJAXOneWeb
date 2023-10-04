@@ -162,8 +162,25 @@ namespace DealerManagementSystem.ViewSupportTicket
             messageBody = messageBody.Replace("@@MobileNo", txtMobileNo.Text);
             messageBody = messageBody.Replace("@@ToName", PSession.User.ContactName);
             messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+            messageBody = messageBody.Replace("@@Status", "Open");
             messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
-            new EmailManager().MailSend(PSession.User.Mail, CC, "murugeshan.kn@ajax-engg.com", "AJAXOne-[Ticket No: " + Result.Data + "] Created", messageBody, Convert.ToInt64(Result.Data));
+
+            List<PMessage> PMessages = new List<PMessage>();
+            PMessage Message = null;
+            long LastMessageID = 0;
+            string Msg = "";
+            List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(Result.Data.ToString()));
+            foreach (PForum F in Forums)
+            {
+                Message = new PMessage();
+                Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                Msg += Message.Message;
+
+                PMessages.Add(Message);
+                LastMessageID = F.ID;
+            }
+            messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+            new EmailManager().MailSend(PSession.User.Mail, CC, ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne-[Ticket No: " + Result.Data + "] Created", messageBody, Convert.ToInt64(Result.Data));
 
             ClearField();            
         }

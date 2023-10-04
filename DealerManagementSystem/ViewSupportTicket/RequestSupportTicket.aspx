@@ -111,7 +111,7 @@
                         <asp:TextBox ID="txtTicketDescription" runat="server" TextMode="MultiLine" Height="200px" CssClass="TextBox form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-6">
-                        <label class="modal-label">Attached File<span style="color: red">*</span></label>                        
+                        <label class="modal-label">Attached File</label>                        
                         <asp:FileUpload ID="fu" runat="server" ClientIDMode="Static" onchange="this.form.submit()" Style="position: relative; top: 0px; left: 0px;" CssClass="TextBox file-upload" />
                     </div>
                     <div class="col-md-12">
