@@ -201,6 +201,7 @@
     <Content Include="Account\SignOut.aspx" />
     <Content Include="Account\SignOut.htm" />
     <Content Include="Ajax\Images\Ajax-New-Logo.png" />
+    <Content Include="Ajax\Images\AjaxHeader.jpg" />
     <Content Include="Ajax\Images\AJAXOneB.png" />
     <Content Include="Ajax\Images\AJAXOneW.png" />
     <Content Include="Ajax\Images\AJAXTLogo.png" />
@@ -218,6 +219,7 @@
     <Content Include="Ajax\Images\dms5.jpg" />
     <Content Include="Ajax\Images\dms6.jpg" />
     <Content Include="Ajax\Images\feedback.png" />
+    <Content Include="Ajax\Images\ImageURLLink.jpg" />
     <Content Include="Ajax\Images\Login1.png" />
     <Content Include="Ajax\Images\newicon.gif" />
     <Content Include="Ajax\Images\Operator1.png" />

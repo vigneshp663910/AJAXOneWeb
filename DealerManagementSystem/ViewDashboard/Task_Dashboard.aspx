@@ -152,6 +152,14 @@
             padding-left: 15px;
             margin-bottom: 15px;
         }
+
+        #MainContent_GVReport.table.table-bordered.table-condensed.Grid td {
+            font-size: 9px;
+        }
+
+        #MainContent_GVReport.table.table-bordered.table-condensed.Grid th {
+            font-size: 9px;
+        }
     </style>
     <style>
         #funnel-container {
@@ -388,7 +396,7 @@
                 </div>
                 <div class="col-md-2 col-sm-12" runat="server" id="divChkIT" visible="false">
                     <label class="modal-label">-</label>
-                    <asp:CheckBox ID="ChkIT" Text="IT" runat="server" OnCheckedChanged="ChkIT_CheckedChanged" AutoPostBack="true" Font-Bold="true"/>
+                    <asp:CheckBox ID="ChkIT" Text="IT" runat="server" OnCheckedChanged="ChkIT_CheckedChanged" AutoPostBack="true" Font-Bold="true" />
                 </div>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
