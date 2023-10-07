@@ -1,7 +1,6 @@
 ﻿using DataAccess;
 using Newtonsoft.Json;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -1458,6 +1457,15 @@ namespace Business
             catch (Exception ex)
             { }
             return Ws;
+        }
+        public PSAPDocumentNumber getSAPDocumentNumber(string InvoiceNumber)
+        {
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Warranty/getSAPDocumentNumber?InvoiceNumber =" + InvoiceNumber));
+            if (Results.Status == PApplication.Failure)
+            {
+                throw new Exception(Results.Message);
+            }
+            return JsonConvert.DeserializeObject<PSAPDocumentNumber>(JsonConvert.SerializeObject(Results.Data));
         }
     }
 }

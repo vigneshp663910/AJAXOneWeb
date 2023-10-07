@@ -2,8 +2,7 @@
 using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
 using Properties;
-using QRCoder;
-using SapIntegration;
+using QRCoder; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -1072,11 +1071,11 @@ namespace Business
                 string endPoint = "ICTicket/GetServiceInvoiceFile?ServiceInvoiceID=" + ServiceInvoiceID ;
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 Files   = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
-                  
-                //if (Files == null)
-                //{
-                //    new BDMS_Service().insertServiceInvoiceFile(ServiceInvoiceID, ServiceInvoicefile(ServiceInvoiceID));
-                //}
+
+                if (Files == null)
+                {
+                    new BDMS_Service().insertServiceInvoiceFile(ServiceInvoiceID, ServiceInvoicefile(ServiceInvoiceID));
+                }
                 return Files;
             }
             catch (Exception ex)

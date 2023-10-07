@@ -395,7 +395,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //List<PLead> Leads = new BLead().GetLead(S);
             //gvLead.DataSource = Leads;
             PApiResult ResultLead = new BLead().GetLead(S);
-            gvLead.DataSource = JsonConvert.DeserializeObject<List<PEnquiry>>(JsonConvert.SerializeObject(ResultLead.Data));
+            gvLead.DataSource = JsonConvert.DeserializeObject<List<PLead>>(JsonConvert.SerializeObject(ResultLead.Data));
             gvLead.DataBind();
         }
         public void fillVisit()

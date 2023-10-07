@@ -1,8 +1,7 @@
 ﻿using Business;
 using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Configuration;

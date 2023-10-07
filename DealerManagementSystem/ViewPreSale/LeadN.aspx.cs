@@ -146,7 +146,7 @@ namespace DealerManagementSystem.ViewPreSale
             PLeadSearch S = new PLeadSearch();
             S.LeadID = Convert.ToInt64(Result.Data);
             PApiResult ResultLead = new BLead().GetLead(S);
-            gvLead.DataSource = JsonConvert.DeserializeObject<List<PEnquiry>>(JsonConvert.SerializeObject(ResultLead.Data));
+            gvLead.DataSource = JsonConvert.DeserializeObject<List<PLead>>(JsonConvert.SerializeObject(ResultLead.Data));
             gvLead.DataBind();
 
             if (Result.RowCount == 0)

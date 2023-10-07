@@ -4,8 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using SapIntegration;
+using System.Web.UI.WebControls; 
 
 namespace DealerManagementSystem.ViewMarketing
 {
@@ -68,7 +67,7 @@ namespace DealerManagementSystem.ViewMarketing
                 if (Convert.ToDouble("0" + lblPaymentValue.Text) == 0 || lblPaymentDate.Text == "")
                 {
 
-                    PSAPDocumentNumber SAP = new SSAPDocumentNumber().getSAPDocumentNumber(hdnInvNo.Value);
+                    PSAPDocumentNumber SAP = new BDMS_WarrantyClaim().getSAPDocumentNumber(hdnInvNo.Value);
                     if (SAP.SAPDoc != null)
                     {
                         lblSAPDoc.Text = SAP.SAPDoc;

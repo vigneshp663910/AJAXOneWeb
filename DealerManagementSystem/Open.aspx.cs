@@ -1,7 +1,6 @@
 ﻿using Business;
 using Newtonsoft.Json;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -168,7 +167,7 @@ namespace DealerManagementSystem
 
         protected void btnIntegrationWarrantyClaimAnnexureToSAP_Click(object sender, EventArgs e)
         {
-            new BDMS_WarrantyClaimAnnexure().IntegrationWarrantyClaimAnnexureToSAP();
+            new BAPI().ApiGetWithOutToken("Warranty/CreateWarrantyClaimAnnexureToSAP"); 
         }
 
         protected void btnIntegrationEquipmentFromSAP_Click(object sender, EventArgs e)

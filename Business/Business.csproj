@@ -227,10 +227,6 @@
       <Project>{f7c6cccb-e36e-461f-a844-0546264d53bc}</Project>
       <Name>Properties</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SapIntegration\SapIntegration.csproj">
-      <Project>{87886c5a-4aab-4aa8-84d4-d77321444cb3}</Project>
-      <Name>SapIntegration</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

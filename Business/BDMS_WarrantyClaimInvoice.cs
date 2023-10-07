@@ -1,6 +1,5 @@
 ﻿using DataAccess;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +13,8 @@ using Microsoft.Reporting.WebForms;
 using System.Web;
 using System.Web.UI;
 using System.Configuration;
+using Newtonsoft.Json;
+
 namespace Business
 {
     public class BDMS_WarrantyClaimInvoice
@@ -443,24 +444,11 @@ namespace Business
             PAttachedFile Files = null;
             try
             {
-                DbParameter[] Params = new DbParameter[1] { WarrantyClaimInvoiceIDP };
+                string endPoint = "Warranty/GetWarrantyClaimInvoiceFile?WarrantyClaimInvoiceID=" + WarrantyClaimInvoiceID;
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
 
-                using (DataSet DS = provider.Select("ZDMS_GetWarrantyClaimInvoiceFile", Params))
-                {
-                    if (DS != null)
-                    {
-                        foreach (DataRow dr in DS.Tables[0].Rows)
-                        {
-                            Files = new PAttachedFile()
-                            {
-                                AttachedFile = (Byte[])(dr["InvoiceFiIe"]),
-                                FileType = Convert.ToString(dr["ContentType"]),
-                                FileName = Convert.ToString(dr["FileName"])
-                            };
-                        }
-                    }
-                }
-
+               
                 if (Files == null)
                 {
                     PDMS_WarrantyClaimInvoice SOIs = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(WarrantyClaimInvoiceID, "", null, null, null, null, "")[0];
