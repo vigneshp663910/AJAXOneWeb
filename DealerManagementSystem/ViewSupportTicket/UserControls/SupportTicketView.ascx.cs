@@ -768,7 +768,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         foreach (PForum F in Forums)
                         {
                             Message = new PMessage();
-                            Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                            Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                             Msg += Message.Message;
 
                             PMessages.Add(Message);
@@ -816,7 +816,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         foreach (PForum F in Forums)
                         {
                             Message = new PMessage();
-                            Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                            Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                             Msg += Message.Message;
 
                             PMessages.Add(Message);
@@ -877,7 +877,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 foreach (PForum F in Forums)
                 {
                     Message = new PMessage();
-                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                     Msg += Message.Message;
 
                     PMessages.Add(Message);
@@ -937,7 +937,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 foreach (PForum F in Forums)
                 {
                     Message = new PMessage();
-                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                     Msg += Message.Message;
 
                     PMessages.Add(Message);
@@ -996,7 +996,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 foreach (PForum F in Forums)
                 {
                     Message = new PMessage();
-                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                     Msg += Message.Message;
 
                     PMessages.Add(Message);
@@ -1165,7 +1165,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             foreach (PForum F in Forums)
             {
                 Message = new PMessage();
-                Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                 Msg += Message.Message;
 
                 PMessages.Add(Message);
@@ -1268,7 +1268,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 foreach (PForum F in Forums)
                 {
                     Message = new PMessage();
-                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                     Msg += Message.Message;
 
                     PMessages.Add(Message);
@@ -1332,7 +1332,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 foreach (PForum F in Forums)
                 {
                     Message = new PMessage();
-                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                     Msg += Message.Message;
 
                     PMessages.Add(Message);
@@ -1395,7 +1395,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 foreach (PForum F in Forums)
                 {
                     Message = new PMessage();
-                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                     Msg += Message.Message;
 
                     PMessages.Add(Message);
@@ -1490,7 +1490,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     foreach (PForum F in Forums)
                     {
                         Message = new PMessage();
-                        Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                        Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                         Msg += Message.Message;
 
                         PMessages.Add(Message);
@@ -1590,7 +1590,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 foreach (PForum F in Forums)
                 {
                     Message = new PMessage();
-                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;'>" + F.Message + "</td></tr>";
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
                     Msg += Message.Message;
 
                     PMessages.Add(Message);
