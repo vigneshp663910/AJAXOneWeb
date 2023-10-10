@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SapIntegration;
 using Newtonsoft.Json;
 using System.Globalization;
 using Microsoft.Reporting.WebForms;
@@ -776,7 +775,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                             LastMessageID = F.ID;
                         }
                         messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                        new EmailManager().MailSend(userCreatedBy.Mail, CC, ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne-[Ticket No: " + Forum.HeaderID.ToString() + "] Message", messageBody, Forum.HeaderID);
+                        new EmailManager().MailSend(userCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + CC, "AJAXOne-[Ticket No: " + Forum.HeaderID.ToString() + "] Message", messageBody, Forum.HeaderID);
                     }
                     else
                     {
@@ -824,7 +823,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                             LastMessageID = F.ID;
                         }
                         messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                        new EmailManager().MailSend(UserCreatedBy.Mail, CC, ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne-[Ticket No: " + Forum.HeaderID.ToString() + "] Message", messageBody, Forum.HeaderID);
+                        new EmailManager().MailSend(UserCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + CC, "AJAXOne-[Ticket No: " + Forum.HeaderID.ToString() + "] Message", messageBody, Forum.HeaderID);
                     }
                 }
             }
@@ -885,7 +884,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     LastMessageID = F.ID;
                 }
                 messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                new EmailManager().MailSend(userRequester.Mail, userCreatedBy.Mail + "," + UserApprovar.Mail, ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne-[Ticket No: " + TicketLts[0].HeaderID.ToString() + "] Approved", messageBody, Convert.ToInt64(TicketLts[0].HeaderID.ToString()));
+                new EmailManager().MailSend(userRequester.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userCreatedBy.Mail + "," + UserApprovar.Mail, "AJAXOne-[Ticket No: " + TicketLts[0].HeaderID.ToString() + "] Approved", messageBody, Convert.ToInt64(TicketLts[0].HeaderID.ToString()));
             }
             else if (Label2.Text == "Reject")
             {
@@ -945,7 +944,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     LastMessageID = F.ID;
                 }
                 messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                new EmailManager().MailSend(userRequester.Mail, userCreatedBy.Mail + "," + UserApprovar.Mail, ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne-[Ticket No: " + TicketLts[0].HeaderID.ToString() + "] Rejected", messageBody, Convert.ToInt64(TicketLts[0].HeaderID.ToString()));
+                new EmailManager().MailSend(userRequester.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userCreatedBy.Mail + "," + UserApprovar.Mail, "AJAXOne-[Ticket No: " + TicketLts[0].HeaderID.ToString() + "] Rejected", messageBody, Convert.ToInt64(TicketLts[0].HeaderID.ToString()));
             }
             else if (Label2.Text == "Force Close")
             {
@@ -1004,7 +1003,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     LastMessageID = F.ID;
                 }
                 messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                new EmailManager().MailSend(userForceclosedBy.Mail, CC, ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne-[Ticket No: " + TicketLts[0].HeaderID.ToString() + "] ForceClosed", messageBody, Convert.ToInt64(TicketLts[0].HeaderID.ToString()));
+                new EmailManager().MailSend(userForceclosedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + CC, "AJAXOne-[Ticket No: " + TicketLts[0].HeaderID.ToString() + "] ForceClosed", messageBody, Convert.ToInt64(TicketLts[0].HeaderID.ToString()));
             }
 
             FillTickets(Forum.HeaderID);
@@ -1173,7 +1172,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 LastMessageID = F.ID;
             }
             messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-            new EmailManager().MailSend(userCreatedBy.Mail, userAssignTo.Mail, ConfigurationManager.AppSettings["TaskMailBcc"] + "," + PSession.User.Mail, "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] Assigned", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
+            new EmailManager().MailSend(userCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + PSession.User.Mail + "," + userAssignTo.Mail, "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] Assigned", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
             ClearField();
             btnAssign.Visible = false;
             MPE_AssignTo.Hide();
@@ -1276,7 +1275,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     LastMessageID = F.ID;
                 }
                 messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                new EmailManager().MailSend(UserApprovar.Mail, userCreatedBy.Mail, ConfigurationManager.AppSettings["TaskMailBcc"] + "," + PSession.User.Mail, "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Request for Approval / Reject", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
+                new EmailManager().MailSend(UserApprovar.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + PSession.User.Mail + "," + userCreatedBy.Mail, "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Request for Approval / Reject", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
             }
         }
         void InProgress()
@@ -1340,7 +1339,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     LastMessageID = F.ID;
                 }
                 messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                new EmailManager().MailSend(userCreatedBy.Mail, userAssignTo.Mail, ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] is InProgress", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
+                new EmailManager().MailSend(userCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userAssignTo.Mail, "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] is InProgress", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
             }
         }
         void Cancel()
@@ -1403,7 +1402,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     LastMessageID = F.ID;
                 }
                 messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                new EmailManager().MailSend(userCreatedBy.Mail, userCancelledBy.Mail, ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Cancelled", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
+                new EmailManager().MailSend(userCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userCancelledBy.Mail, "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Cancelled", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
             }
         }
         void Close()
@@ -1498,7 +1497,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         LastMessageID = F.ID;
                     }
                     messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                    new EmailManager().MailSend(userCreatedBy.Mail + "," + userAssignTo.Mail, CC, ConfigurationManager.AppSettings["TaskMailBcc"] + "," + PSession.User.Mail, "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Re-Opened", messageBody, Ticket[0].HeaderID);
+                    new EmailManager().MailSend(userCreatedBy.Mail + "," + userAssignTo.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + PSession.User.Mail + "," + CC, "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Re-Opened", messageBody, Ticket[0].HeaderID);
                 }
             }
         }
@@ -1598,7 +1597,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     LastMessageID = F.ID;
                 }
                 messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                new EmailManager().MailSend(userCreatedBy.Mail, userAssignTo.Mail, ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] Resolved", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
+                new EmailManager().MailSend(userCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userAssignTo.Mail, "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] Resolved", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
             }
             ClearFieldResolve();
         }
