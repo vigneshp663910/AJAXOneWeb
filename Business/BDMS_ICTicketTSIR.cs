@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Transactions;
@@ -940,5 +942,49 @@ namespace Business
             }
             return Ws;
         }
-     }
+
+
+        public void resizeImage2(string SouPath, string DestPath)
+        {
+            System.Drawing.Image imgToResize = System.Drawing.Image.FromFile(SouPath);
+            try
+            {
+                if (File.Exists(DestPath))
+                {
+                    File.Delete(DestPath);
+                }
+
+                int OSizeW = imgToResize.Size.Width;
+                int OSizeH = imgToResize.Size.Height;
+                int DSize = 0;
+                decimal DP = 0;
+                if (OSizeW > 250)
+                {
+                    DSize = OSizeW - 250;
+                    DP = OSizeW / Convert.ToDecimal(DSize);
+                    OSizeW = 250;
+                    OSizeH = Convert.ToInt32(OSizeH - (OSizeH / DP));
+                }
+                if (OSizeH > 250)
+                {
+                    DSize = OSizeH - 250;
+                    DP = OSizeH / Convert.ToDecimal(DSize);
+
+                    OSizeW = Convert.ToInt32(OSizeW - (OSizeW / DP));
+                    OSizeH = 250;
+                }
+
+                //((System.Drawing.Image)(new Bitmap(imgToResize, new Size(imgToResize.Size.Width, imgToResize.Size.Height)))).Save(DestPath);
+                ((System.Drawing.Image)(new Bitmap(imgToResize, new Size(OSizeW, OSizeH)))).Save(DestPath);
+
+            }
+            catch (Exception e1)
+            { }
+            finally
+            {
+                imgToResize.Dispose();
+            }
+
+        }
+    }
 }

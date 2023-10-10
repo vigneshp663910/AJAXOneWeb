@@ -164,7 +164,7 @@ namespace DealerManagementSystem.ViewService
                 //    }
                 //}
 
-                 List<PDMS_Division> Division = new BDMS_ICTicketTSIR().GetICTicketTSIRUserDivisionList(PSession.User.UserID);
+                // List<PDMS_Division> Division = new BDMS_ICTicketTSIR().GetICTicketTSIRUserDivisionList(PSession.User.UserID);
                 //if (Division.Count != 0)
                 //{
                 //    var SOIs2 = (from S in SOIs join D in Division on S.ICTicket.Equipment.EquipmentModel.Division.DivisionID equals D.DivisionID select new { S }).ToList();
@@ -528,7 +528,7 @@ namespace DealerManagementSystem.ViewService
                     File.WriteAllBytes(MapPath(Url1), F1.AttachedFile);
                     string DestPath = "ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
 
-                    resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
+                    new BDMS_ICTicketTSIR().resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
                     Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
                     // FsrFiles.Rows.Add(F1.FSRAttachedName.FSRAttachedName, Path1);
 
@@ -549,7 +549,7 @@ namespace DealerManagementSystem.ViewService
                     File.WriteAllBytes(MapPath(Url1), T1.AttachedFile);
                     string DestPath = "ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
 
-                    resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
+                    new BDMS_ICTicketTSIR().resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
                     Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
                     //  FsrFiles.Rows.Add(T1.FSRAttachedName.FSRAttachedName, Path1);
 
@@ -703,48 +703,7 @@ namespace DealerManagementSystem.ViewService
                 imgToResize.Dispose();
             }
         }
-        public void resizeImage2(string SouPath, string DestPath)
-        {
-            System.Drawing.Image imgToResize = System.Drawing.Image.FromFile(SouPath);
-            try
-            {
-                if (File.Exists(DestPath))
-                {
-                    File.Delete(DestPath);
-                }
-
-                int OSizeW = imgToResize.Size.Width;
-                int OSizeH = imgToResize.Size.Height;
-                int DSize = 0;
-                decimal DP = 0;
-                if (OSizeW > 250)
-                {
-                    DSize = OSizeW - 250;
-                    DP = OSizeW / Convert.ToDecimal(DSize);
-                    OSizeW = 250;
-                    OSizeH = Convert.ToInt32(OSizeH - (OSizeH / DP));
-                }
-                if (OSizeH > 250)
-                {
-                    DSize = OSizeH - 250;
-                    DP = OSizeH / Convert.ToDecimal(DSize);
-
-                    OSizeW = Convert.ToInt32(OSizeW - (OSizeW / DP));
-                    OSizeH = 250;
-                }
-
-                //((System.Drawing.Image)(new Bitmap(imgToResize, new Size(imgToResize.Size.Width, imgToResize.Size.Height)))).Save(DestPath);
-                ((System.Drawing.Image)(new Bitmap(imgToResize, new Size(OSizeW, OSizeH)))).Save(DestPath);
-
-            }
-            catch (Exception e1)
-            { }
-            finally
-            {
-                imgToResize.Dispose();
-            }
-
-        }
+        
 
         //protected void btnQualityCommentsSave_Click(object sender, EventArgs e)
         //{
@@ -913,10 +872,10 @@ namespace DealerManagementSystem.ViewService
         protected void gvICTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
 
-            gvICTickets.PageIndex = e.NewPageIndex;
-            gvICTickets.DataSource = ICTicket;
-            gvICTickets.DataBind();
-            lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
+            //gvICTickets.PageIndex = e.NewPageIndex;
+            //gvICTickets.DataSource = ICTicket;
+            //gvICTickets.DataBind();
+            //lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTicket.Count;
 
         }
         

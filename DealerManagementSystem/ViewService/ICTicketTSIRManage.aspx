@@ -129,22 +129,7 @@
                                         </ItemTemplate>
                                         <HeaderStyle Width="62px" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    </asp:TemplateField>
-
-                                    <%-- <asp:TemplateField HeaderText="FSR">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblTsirNumber" Text='<%# DataBinder.Eval(Container.DataItem, "FSRNumber")%>' runat="server" />
-                                </ItemTemplate>
-                                <HeaderStyle Width="62px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="FSR Date">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblTsirDate" Text='<%# DataBinder.Eval(Container.DataItem, "FSRDate","{0:d}")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                                <HeaderStyle Width="92px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField>--%>
+                                    </asp:TemplateField> 
                                     <asp:TemplateField HeaderText="Dealer">
                                         <ItemTemplate>
                                             <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.Dealer.DealerCode")%>' runat="server"></asp:Label>
@@ -170,14 +155,7 @@
                                             <asp:Label ID="lblser_rec_date" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.Customer.CustomerName" )%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    </asp:TemplateField>
-                                    <%--  <asp:TemplateField HeaderText="Requested Date">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblser_res_date" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.RequestedDate","{0:d}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                        <HeaderStyle Width="76px" />
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    </asp:TemplateField>--%>
+                                    </asp:TemplateField> 
                                     <asp:TemplateField HeaderText="Machine Serial Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
@@ -211,14 +189,7 @@
                                             <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server"></asp:Label>
                                             <asp:Label ID="lblStatusID" Text='<%# DataBinder.Eval(Container.DataItem, "Status.StatusID")%>' runat="server" Visible="false"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%-- <asp:TemplateField HeaderText="Signature">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="lbUpdateSignature" runat="server" OnClick="lbUpdateSignature_Click">Update Signature </asp:LinkButton>
-                                </ItemTemplate>
-                                <HeaderStyle Width="147px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                            </asp:TemplateField>--%>
+                                    </asp:TemplateField> 
                                     <asp:TemplateField HeaderText="Type Of Warranty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
