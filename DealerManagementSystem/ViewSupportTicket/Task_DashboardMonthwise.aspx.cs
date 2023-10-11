@@ -66,7 +66,8 @@ namespace DealerManagementSystem.ViewSupportTicket
             var lastDayOfMonth = DateTime.DaysInMonth(Convert.ToInt32(Year), Convert.ToInt32(Month));
             DateTime DateFrom = Convert.ToDateTime("01-" + Month + "-" + Year);
             DateTime DateTo = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
-            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, DateFrom, DateTo);
+            Boolean Dealerwise = ((DealerID != null && ddlEmployee.SelectedValue == "0") || (DealerID == null && ddlEmployee.SelectedValue == "0")) ? true : false;
+            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, DateFrom, DateTo);
             gvTicketsMonthwise.DataSource = null;
             gvTicketsMonthwise.DataBind();
             DataTable dtMonthwise = new DataTable();

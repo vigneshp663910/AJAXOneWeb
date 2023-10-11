@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Transactions;
@@ -27,16 +29,31 @@ namespace Business
                 new FileLogger().LogMessageService("BDMS_ICTicket", "provider : " + e1.Message, null);
             }
         }
-        public List<PDMS_ICTicketTSIR> GetICTicketTSIR(long? ICTicketID, int? DealerID, string CustomerCode, string TsirNo, DateTime? TsirDateF, DateTime? TsirDateT
-           , string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, String SroCode, int? TechnicianID, int? TypeOfWarrantyID, int? ModelID, String MachineSerialNumber, int? TsirStatusID)
+        public PApiResult GetICTicketTSIR(long? ICTicketID, int? DealerID, string CustomerCode, string TsirNo, DateTime? TsirDateF, DateTime? TsirDateT
+           , string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, String SroCode, int? TechnicianID, int? TypeOfWarrantyID, int? ModelID
+            , String MachineSerialNumber, int? TsirStatusID, int? PageIndex = null, int? PageSize = null)
         {
 
 
             TraceLogger.Log(DateTime.Now);
             string endPoint = "ICTicketTsir/GetICTicketTSIR?ICTicketID=" + ICTicketID + "&DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&TsirNo=" + TsirNo + "&TsirDateF=" + TsirDateF + "&TsirDateT=" + TsirDateT
                 + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF=" + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&SroCode=" + SroCode
-                + "&TechnicianID=" + TechnicianID + "&TypeOfWarrantyID=" + TypeOfWarrantyID + "&ModelID=" + ModelID + "&MachineSerialNumber=" + MachineSerialNumber + "&TsirStatusID=" + TsirStatusID;
-            return JsonConvert.DeserializeObject<List<PDMS_ICTicketTSIR>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+                + "&TechnicianID=" + TechnicianID + "&TypeOfWarrantyID=" + TypeOfWarrantyID + "&ModelID=" + ModelID + "&MachineSerialNumber=" + MachineSerialNumber 
+                + "&TsirStatusID=" + TsirStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)) ;
+        }
+        public DataTable GetICTicketTSIRExcel(long? ICTicketID, int? DealerID, string CustomerCode, string TsirNo, DateTime? TsirDateF, DateTime? TsirDateT
+        , string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, String SroCode, int? TechnicianID, int? TypeOfWarrantyID, int? ModelID
+         , String MachineSerialNumber, int? TsirStatusID)
+        {
+
+
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "ICTicketTsir/GetICTicketTSIRExcel?ICTicketID=" + ICTicketID + "&DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&TsirNo=" + TsirNo + "&TsirDateF=" + TsirDateF + "&TsirDateT=" + TsirDateT
+                + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF=" + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&SroCode=" + SroCode
+                + "&TechnicianID=" + TechnicianID + "&TypeOfWarrantyID=" + TypeOfWarrantyID + "&ModelID=" + ModelID + "&MachineSerialNumber=" + MachineSerialNumber
+                + "&TsirStatusID=" + TsirStatusID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
         public PDMS_ICTicketTSIR GetICTicketTSIRByTsirID(long? TsirID, long? ServiceChargeID)
@@ -925,5 +942,49 @@ namespace Business
             }
             return Ws;
         }
-     }
+
+
+        public void resizeImage2(string SouPath, string DestPath)
+        {
+            System.Drawing.Image imgToResize = System.Drawing.Image.FromFile(SouPath);
+            try
+            {
+                if (File.Exists(DestPath))
+                {
+                    File.Delete(DestPath);
+                }
+
+                int OSizeW = imgToResize.Size.Width;
+                int OSizeH = imgToResize.Size.Height;
+                int DSize = 0;
+                decimal DP = 0;
+                if (OSizeW > 250)
+                {
+                    DSize = OSizeW - 250;
+                    DP = OSizeW / Convert.ToDecimal(DSize);
+                    OSizeW = 250;
+                    OSizeH = Convert.ToInt32(OSizeH - (OSizeH / DP));
+                }
+                if (OSizeH > 250)
+                {
+                    DSize = OSizeH - 250;
+                    DP = OSizeH / Convert.ToDecimal(DSize);
+
+                    OSizeW = Convert.ToInt32(OSizeW - (OSizeW / DP));
+                    OSizeH = 250;
+                }
+
+                //((System.Drawing.Image)(new Bitmap(imgToResize, new Size(imgToResize.Size.Width, imgToResize.Size.Height)))).Save(DestPath);
+                ((System.Drawing.Image)(new Bitmap(imgToResize, new Size(OSizeW, OSizeH)))).Save(DestPath);
+
+            }
+            catch (Exception e1)
+            { }
+            finally
+            {
+                imgToResize.Dispose();
+            }
+
+        }
+    }
 }

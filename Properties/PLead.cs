@@ -206,7 +206,9 @@ namespace Properties
         public long? CustomerID { get; set; }
         public string CustomerCode { get; set; }
         public int? CountryID { get; set; }
-        public int? StateID { get; set; } 
+        public int? StateID { get; set; }
+        public int? PageIndex { get; set; }
+        public int? PageSize { get; set; }
     }
     [Serializable]
     public class PLeadQuestionaries

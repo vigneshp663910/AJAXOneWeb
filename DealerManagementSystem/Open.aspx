@@ -218,6 +218,11 @@
                     <asp:Button ID="btnAsnDetailsFromSap" runat="server" Text="Create Asn Details" OnClick="btnAsnDetailsFromSap_Click" />
                 </td>
             </tr>
+             <tr>
+                <td> 
+                    <asp:Button ID="btnMttrEscalation" runat="server" Text="Create Asn Details" OnClick="btnMttrEscalation_Click" />
+                </td>
+            </tr>
         </table>
 
         <div id="chart" style="width: 100%; height: 500px;"></div>

@@ -1,6 +1,5 @@
 ﻿using Business;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -49,16 +48,8 @@ namespace DealerManagementSystem.ViewService
             if (!IsPostBack)
             {
                 FillYear();
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+
+                fillDealer();
                 lblRowCount.Visible = false;
             }
 
@@ -122,7 +113,7 @@ namespace DealerManagementSystem.ViewService
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_WarrantyClaim", "fillClaim", e1);
+                new FileLogger().LogMessage("WarrantyClaimInvoiceCreate5k", "fillClaim", e1);
                 throw e1;
             }
         }

@@ -14,15 +14,15 @@ namespace DealerManagementSystem.ViewProcurement
         {
             get
             {
-                if (Session["DMS_PurchaseOrderASNReport"] == null)
+                if (ViewState["DMS_PurchaseOrderASNReport"] == null)
                 {
-                    Session["DMS_PurchaseOrderASNReport"] = new DataTable();
+                    ViewState["DMS_PurchaseOrderASNReport"] = new DataTable();
                 }
-                return (DataTable)Session["DMS_PurchaseOrderASNReport"];
+                return (DataTable)ViewState["DMS_PurchaseOrderASNReport"];
             }
             set
             {
-                Session["DMS_PurchaseOrderASNReport"] = value;
+                ViewState["DMS_PurchaseOrderASNReport"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -43,18 +43,8 @@ namespace DealerManagementSystem.ViewProcurement
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
             if (!IsPostBack)
-            {
-
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0].DID.ToString()));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+            { 
+                    fillDealer(); 
                 txtAsnDateF.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtAsnDateT.Text = DateTime.Now.ToShortDateString();
                 lblRowCount.Visible = false;

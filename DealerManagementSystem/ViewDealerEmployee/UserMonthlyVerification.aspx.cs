@@ -131,10 +131,11 @@ namespace DealerManagementSystem.ViewDealerEmployee
         //    Response.Redirect("~/ViewMaster/DealerEmployeeLeaving.aspx", false);
         //}
 
-        protected void lbActions_Click(object sender, EventArgs e)
+       
+        protected void btnActivateUser_Click(object sender, EventArgs e)
         {
-            LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Activate")
+            Button lbActions = ((Button)sender);
+            if (lbActions.ID == "btnActivateUser")
             {
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
                 Label lblUserID = (Label)gvRow.FindControl("lblUserID");
@@ -154,7 +155,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 }
                 fillDealerEmployee();
             }
-            else if (lbActions.Text == "Deactivate")
+            else if (lbActions.ID == "btnDeactivateUser")
             {
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
                 Label lblDealerEmployeeID = (Label)gvRow.FindControl("lblDealerEmployeeID");
@@ -162,5 +163,37 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 Response.Redirect("~/ViewMaster/DealerEmployeeLeaving.aspx", false);
             }
         }
+        //protected void lbActions_Click(object sender, EventArgs e)
+        //{
+        //    LinkButton lbActions = ((LinkButton)sender);
+        //    if (lbActions.Text == "Activate")
+        //    {
+        //        GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //        Label lblUserID = (Label)gvRow.FindControl("lblUserID");
+        //        int VerifiedMonth = DateTime.Now.Month;
+
+        //        if (new BDMS_Dealer().UpdateUserMontlyVerification(Convert.ToInt64(lblUserID.Text), VerifiedMonth, PSession.User.UserID))
+        //        {
+        //            lblMessage.Text = "User is activated.";
+        //            lblMessage.ForeColor = Color.Green;
+        //            lblMessage.Visible = true;
+        //        }
+        //        else
+        //        {
+        //            lblMessage.Text = "User is not activated.";
+        //            lblMessage.ForeColor = Color.Red;
+        //            lblMessage.Visible = true;
+        //        }
+        //        fillDealerEmployee();
+        //    }
+        //    else if (lbActions.Text == "Deactivate")
+        //    {
+        //        GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //        Label lblDealerEmployeeID = (Label)gvRow.FindControl("lblDealerEmployeeID");
+        //        Session["DealerEmployeeIDUserVerify"] = lblDealerEmployeeID.Text.Trim();
+        //        Response.Redirect("~/ViewMaster/DealerEmployeeLeaving.aspx", false);
+        //    }
+        //}
+
     }
 }

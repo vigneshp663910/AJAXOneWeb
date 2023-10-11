@@ -14,15 +14,15 @@ namespace DealerManagementSystem.ViewProcurement
         {
             get
             {
-                if (Session["DMS_PurchaseOrderInvoiceReport"] == null)
+                if (ViewState["DMS_PurchaseOrderInvoiceReport"] == null)
                 {
-                    Session["DMS_PurchaseOrderInvoiceReport"] = new DataTable();
+                    ViewState["DMS_PurchaseOrderInvoiceReport"] = new DataTable();
                 }
-                return (DataTable)Session["DMS_PurchaseOrderInvoiceReport"];
+                return (DataTable)ViewState["DMS_PurchaseOrderInvoiceReport"];
             }
             set
             {
-                Session["DMS_PurchaseOrderInvoiceReport"] = value;
+                ViewState["DMS_PurchaseOrderInvoiceReport"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -45,17 +45,7 @@ namespace DealerManagementSystem.ViewProcurement
             }
             if (!IsPostBack)
             {
-
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0].DID.ToString()));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                fillDealer(); 
                 txtInvoiceDateF.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtInvoiceDateT.Text = DateTime.Now.ToShortDateString();
                 lblRowCount.Visible = false;

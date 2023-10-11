@@ -58,15 +58,15 @@
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Dealer Code :</label>
-                    <asp:Label ID="lblDealerCode" runat="server" CssClass="label"></asp:Label>
+                    <label>Dealer :</label>
+                    <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Sub Category : </label>
                     <asp:Label ID="lblSubCategory" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Age : </label>
+                    <label>Age with SLA : </label>
                     <asp:Label ID="lblAge" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
@@ -84,8 +84,8 @@
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Dealer Name : </label>
-                    <asp:Label ID="lblDealerName" runat="server" CssClass="label"></asp:Label>
+                    <label>Subject : </label>
+                    <asp:Label ID="lblSubject" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Ticket Type : </label>
@@ -408,7 +408,15 @@
                     <asp:DropDownList ID="ddlSeverity" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
                 </div>
                 <div class="col-md-6 col-sm-6">
-                    <asp:Label ID="lblAssignedTo" runat="server" Text="Assigned To" CssClass="label"></asp:Label><span style="color: red">*</span>
+                    <asp:Label ID="lblAssignDealer" runat="server" Text="Dealer" CssClass="label"></asp:Label><span style="color: red">*</span>
+                    <asp:DropDownList ID="ddlAssignDealer" runat="server" CssClass="TextBox form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlAssignDealer_SelectedIndexChanged"></asp:DropDownList>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblAssignDepartment" runat="server" Text="Department" CssClass="label"></asp:Label><span style="color: red">*</span>
+                    <asp:DropDownList ID="ddlAssignDepartment" runat="server" CssClass="TextBox form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlAssignDepartment_SelectedIndexChanged"></asp:DropDownList>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblAssignTo" runat="server" Text="Assigned To" CssClass="label"></asp:Label><span style="color: red">*</span>
                     <asp:DropDownList ID="ddlAssignedTo" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
                 </div>
                 <div class="col-md-6 col-sm-6">

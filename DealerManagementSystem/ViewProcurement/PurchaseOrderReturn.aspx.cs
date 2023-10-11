@@ -75,16 +75,8 @@ namespace DealerManagementSystem.ViewProcurement
                 txtPoReturnDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtPoReturnDateTo.Text = DateTime.Now.ToShortDateString();
                 //new DDLBind(ddlPoReturnStatus, new BDMS_PurchaseOrder().GetPurchaseOrderReturnStatus(null, null), "PurchaseOrderReturnStatusDescription", "PurchaseOrderReturnStatusID");
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                
+                    fillDealer(); 
                 lblRowCountPoReturn.Visible = false;
                 ibtnArrowLeftPoReturn.Visible = false;
                 ibtnArrowRightPoReturn.Visible = false;
@@ -207,7 +199,7 @@ namespace DealerManagementSystem.ViewProcurement
                 return;
             }
             List<PPurchaseOrderReturnItem_Insert> pGrItem = UC_PurchaseOrderReturnCreate.Read(); 
-            string result = new BAPI().ApiPut("PurchaseOrder/PurchaseOrderRetureCreate", pGrItem);
+            string result = new BAPI().ApiPut("PurchaseOrder/PurchaseOrderReturnCreate", pGrItem);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
             if (Result.Status == PApplication.Failure)

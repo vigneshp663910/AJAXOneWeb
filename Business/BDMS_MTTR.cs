@@ -303,12 +303,12 @@ namespace Business
             foreach(MttrEscalationMatrix Em in EMs)
             {
 
-                string Message = Body(Em.EscalationHours, Em.RepresentativeUserID, Em.Description);
+                string Message = Body(Em.EscalationHours, Em.Region, Em.Description);
                 if (string.IsNullOrEmpty(Message))
                 {
                     continue;
                 }
-                new EmailManager().MailSendByService(Em.ToMailID, Em.Subject, Message, Em.CcMailID, Em.BccMailID);
+                new EmailManager().MailSendByService(Em.ToMailID, Em.Subject, Message, Em.CcMailID, Em.BccMailID); 
             }
         }
         private List<MttrEscalationMatrix> GetMttrEscalationMatrix()
@@ -345,20 +345,21 @@ namespace Business
             return Ws;
         }
 
-        private string Body(string EscalationHours, int UserID, string Description)
+        private string Body(string EscalationHours,string DealerCode, string Description)
         {            
             List<PDMS_MTTR_New> MTTRs = new List<PDMS_MTTR_New>();
             string Message = "";
 
-            if (EscalationHours == "74")
-                MTTRs = new BDMS_MTTR().GetMTTRDM(null, null, null, UserID);
-            else if (EscalationHours == "48")
-                MTTRs = new BDMS_MTTR().GetMTTRReginalServiceManagers(null, null, null, UserID);
-            else if (EscalationHours == "24")
-                MTTRs = new BDMS_MTTR().GetMTTRServiceManagers(null, null, null, UserID);
-            else if (EscalationHours == "24 BasedOnModels")
-                MTTRs = new BDMS_MTTR().GetMTTRBasedOnModels();
+            //if (EscalationHours == "74")
+            //    MTTRs = new BDMS_MTTR().GetMTTRDM(null, null, null, UserID);
+            //else if (EscalationHours == "48")
+            //    MTTRs = new BDMS_MTTR().GetMTTRReginalServiceManagers(null, null, null, UserID);
+            //else if (EscalationHours == "24")
+            //    MTTRs = new BDMS_MTTR().GetMTTRServiceManagers(null, null, null, UserID);
+            //else if (EscalationHours == "24 BasedOnModels")
+            //    MTTRs = new BDMS_MTTR().GetMTTRBasedOnModels();
 
+            MTTRs = GetICTicketCrossedMTTR(EscalationHours, DealerCode);
             if (MTTRs.Count == 0)
             {
                 return null;
@@ -468,6 +469,47 @@ namespace Business
             { }
             return Ws;
         }
-         
+        public List<PDMS_MTTR_New> GetICTicketCrossedMTTR(string EscalationHours, string DealerCode)
+        {
+            List<PDMS_MTTR_New> Ws = new List<PDMS_MTTR_New>();
+            PDMS_MTTR_New W = null;
+            try
+            {
+                 DbParameter EscalationHoursP = provider.CreateParameter("EscalationHours", EscalationHours, DbType.String);
+                DbParameter DealerCodeP = provider.CreateParameter("DealerCode", DealerCode, DbType.String);
+
+                DbParameter[] Params = new DbParameter[2] { EscalationHoursP, DealerCodeP };
+                using (DataSet DataSet = provider.Select("GetICTicketCrossedMTTR", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            W = new PDMS_MTTR_New();
+                            Ws.Add(W);
+                            W.ICTicket = new PDMS_ICTicket();
+                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
+                            W.ICTicket.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+                            W.ICTicket.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+                            W.ICTicket.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
+                            W.ICTicket.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
+                            W.ICTicket.ContactPerson = Convert.ToString(dr["ContactPerson"]);
+                            W.ICTicket.PresentContactNumber = Convert.ToString(dr["PresentContactNumber"]);
+                            W.ICTicket.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatus = Convert.ToString(dr["ServiceStatus"]) };
+                            W.ICTicket.Equipment = new PDMS_EquipmentHeader();
+                            W.ICTicket.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["Model"]) };
+                            W.ICTicket.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+                            W.ICTicket.IsWarranty = Convert.ToBoolean(dr["IsWarranty"]);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Ws;
+        }
+
     }
 }

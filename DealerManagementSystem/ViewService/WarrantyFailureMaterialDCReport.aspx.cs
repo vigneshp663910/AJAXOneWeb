@@ -1,7 +1,6 @@
 ﻿using Business;
 using Microsoft.Reporting.WebForms;
 using Properties;
-using SapIntegration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -54,17 +53,8 @@ namespace DealerManagementSystem.ViewService
             if (!IsPostBack)
             {
                 //new BDMS_WarrantyClaim().insertWarrantyClaim();
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                {
-                    PDealer Dealer = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, Dealer.DID.ToString()));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                
+                    fillDealer(); 
 
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;

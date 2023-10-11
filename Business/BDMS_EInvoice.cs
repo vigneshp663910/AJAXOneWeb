@@ -1,8 +1,7 @@
 ﻿using DataAccess;
 using Newtonsoft.Json;
 using Properties;
-using QRCoder;
-using SapIntegration;
+using QRCoder; 
 using System;
 using System.Collections.Generic;
 using System.Configuration;

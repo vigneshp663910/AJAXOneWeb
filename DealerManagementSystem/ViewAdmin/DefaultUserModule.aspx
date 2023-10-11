@@ -243,6 +243,31 @@
                 </div>
             </ItemTemplate>
         </asp:DataList>
+
+
+         <table>
+            <tr>
+                <td colspan="5">
+                    <div>
+                        <br />
+                        <span style="font-size: 12pt; font-family: Arial; text-align: left; color: #3E4095; padding-left: 1px">Mobile Feature Access</span>
+                        <div style="height: 5px; background-color: #0072c6;"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <asp:DataList ID="dlMobileFeatureAccess" runat="server" RepeatDirection="Vertical" RepeatLayout="Table" RepeatColumns="3" CellSpacing="10" DataKeyField="UserMobileFeatureID">
+            <ItemTemplate>
+                <div class="item">
+                    <span>
+                        <strong>
+                            <asp:CheckBox ID="cbSMId" runat="server" />
+                        </strong>
+                    </span>
+                    <span><%# Eval("FeatureName") %></span>
+                </div>
+            </ItemTemplate>
+        </asp:DataList>
     </asp:Panel> 
     
     <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="InputButton" OnClick="btnUpdate_Click" Visible="false" />

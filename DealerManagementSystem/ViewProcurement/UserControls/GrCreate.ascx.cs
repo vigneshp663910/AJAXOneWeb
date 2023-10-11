@@ -27,7 +27,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 if (ViewState["PAsnView"] == null)
                 {
-                    Session["PAsnView"] = new PAsn();
+                    ViewState["PAsnView"] = new PAsn();
                 }
                 return (PAsn)ViewState["PAsnView"];
             }

@@ -10,8 +10,18 @@
         <title></title>
     </head>
     <body>
-        <asp:Image ID="Image1" runat="server" ImageUrl="~/ProcessFlow/Pre_Sales1.png" />
-       
+        <div class="col-md-12">
+            <div class="col-md-11">
+                <div id="ProcessFlowImage" runat="server">
+                    <asp:Image ID="Image1" runat="server" ImageUrl="~/ProcessFlow/Pre_Sales1.png" />
+                </div>
+            </div>
+            <div class="col-md-1" style="text-align: right; vertical-align: top">
+                <asp:HyperLink ID="HyperLinkpdf" runat="server" CssClass="btn Save" NavigateUrl="../Help/HelpDoc.aspx?aFileName=../ProcessFlow/SOP/SOP_PreSales.pdf" style="line-height:1.5 !important" ToolTip="SOP_PreSales.pdf">
+                    SOP
+                </asp:HyperLink>
+            </div>
+        </div>
     </body>
     </html>
 </asp:Content>

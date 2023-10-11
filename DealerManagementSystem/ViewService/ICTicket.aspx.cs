@@ -72,17 +72,7 @@ namespace DealerManagementSystem.ViewService
                 {
                     txtICLoginDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                     txtICLoginDateTo.Text = DateTime.Now.ToShortDateString();
-                }
-                //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                //{
-                //    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                //    ddlDealerCode.Enabled = false;
-                //}
-                //else
-                //{
-                //    ddlDealerCode.Enabled = true;
-                //    fillDealer();
-                //}
+                } 
                 fillDealer();
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
@@ -166,7 +156,7 @@ namespace DealerManagementSystem.ViewService
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_WarrantyClaim", "fillClaim", e1);
+                new FileLogger().LogMessage("ICTicket", "fillICTicket", e1);
                 throw e1;
             }
         }
@@ -270,17 +260,7 @@ namespace DealerManagementSystem.ViewService
                     supplierPOLinesGrid.DataSource = supplierPurchaseOrderLines;
                     supplierPOLinesGrid.DataBind();
 
-                    if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                    {
-                        Label lblAnnexureNumber = (Label)e.Row.FindControl("lblAnnexureNumber");
-                        Label lblStatus = (Label)e.Row.FindControl("lblStatus");
-                        if ((string.IsNullOrEmpty(lblAnnexureNumber.Text)) && (lblStatus.Text != "CANCELED"))
-                        {
-                            Button btnCancel = (Button)e.Row.FindControl("btnCancel");
-                            btnCancel.Visible = true;
-                        }
-                    }
-
+                    
                 }
                 TraceLogger.Log(traceStartTime);
             }
@@ -334,7 +314,9 @@ namespace DealerManagementSystem.ViewService
             ViewState["ICTicketID"] = gvICTickets.DataKeys[index].Value.ToString(); 
             divList.Visible = false;
             divDetailsView.Visible = true;
+            UC_ICTicketView.ClearAll();
             UC_ICTicketView.FillICTicket( Convert.ToInt64(ViewState["ICTicketID"]));
+
         }
           
 

@@ -1,7 +1,6 @@
 ﻿using DataAccess;
 using Newtonsoft.Json;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -236,28 +235,28 @@ namespace Business
             string endPoint = "PurchaseOrder/PurchaseOrderAsnGrByIDPOItem?GrID=" + GrID;
             return JsonConvert.DeserializeObject<List<PGrItem>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        //public List<PPurchaseOrderAsnStatus> GetAsnStatus(int? AsnStatusID, string AsnStatus)
-        //{
-        //    string endPoint = "ProcurementMasters/AsnStatus?AsnStatusID=" + AsnStatusID + "&AsnStatus=" + AsnStatus;
-        //    return JsonConvert.DeserializeObject<List<PPurchaseOrderAsnStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        //}
-        //public List<PPurchaseOrderAsnGrStatus> GetGrStatus(int? AsnGrStatusID, string AsnGrStatus)
-        //{
-        //    string endPoint = "ProcurementMasters/GrStatus?AsnGrStatusID=" + AsnGrStatusID + "&AsnGrStatus=" + AsnGrStatus;
-        //    return JsonConvert.DeserializeObject<List<PPurchaseOrderAsnGrStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        //}
+        public List<PPurchaseOrderAsnStatus> GetAsnStatus(int? AsnStatusID, string AsnStatus)
+        {
+            string endPoint = "ProcurementMasters/AsnStatus?AsnStatusID=" + AsnStatusID + "&AsnStatus=" + AsnStatus;
+            return JsonConvert.DeserializeObject<List<PPurchaseOrderAsnStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PPurchaseOrderAsnGrStatus> GetGrStatus(int? AsnGrStatusID, string AsnGrStatus)
+        {
+            string endPoint = "ProcurementMasters/GrStatus?AsnGrStatusID=" + AsnGrStatusID + "&AsnGrStatus=" + AsnGrStatus;
+            return JsonConvert.DeserializeObject<List<PPurchaseOrderAsnGrStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public List<PAsnItem> GetPurchaseOrderAsnByIDPOItem(long AsnID)
         {
             string endPoint = "PurchaseOrder/PurchaseOrderAsnByIDPOItem?AsnID=" + AsnID;
             return JsonConvert.DeserializeObject<List<PAsnItem>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PAsn> InsertOrUpdatePurchaseOrderAsn(string InvoiceNumber)
-        {
-            List<PAsn> AsnList = new List<PAsn>();
-            AsnList = new SPurchaseOrder().getPurchaseOrderAsnDetails(InvoiceNumber);
+        //public List<PAsn> InsertOrUpdatePurchaseOrderAsn(string InvoiceNumber)
+        //{
+        //    List<PAsn> AsnList = new List<PAsn>();
+        //    AsnList = new SPurchaseOrder().getPurchaseOrderAsnDetails(InvoiceNumber);
 
-            string result = new BAPI().ApiPut("PurchaseOrder/InsertOrUpdatePOAsn", AsnList);
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+        //    string result = new BAPI().ApiPut("PurchaseOrder/InsertOrUpdatePOAsn", AsnList);
+        //    PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
             if (Result.Status == PApplication.Failure)
             {
@@ -267,6 +266,8 @@ namespace Business
 
             return AsnList;
         } 
+            return JsonConvert.DeserializeObject<List<PPurchaseOrderReturnStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public PApiResult GetPurchaseOrderAsnGrForPoReturnCreation(int DealerID, int VendorID, int LocationID, int? DivisionID)
         {
             string endPoint = "PurchaseOrder/GetPurchaseOrderAsnGrForPoReturnCreation?DealerID=" + DealerID + "&VendorID=" + VendorID
@@ -293,8 +294,6 @@ namespace Business
         }
         public List<PPurchaseOrderReturnDelivery> GetPurchaseOrderReturnDeliveryByPoReturnID(long PurchaseOrderReturnID)
         {
-            string endPoint = "PurchaseOrder/PurchaseOrderReturnDeliveryByPoReturnID?PurchaseOrderReturnID=" + PurchaseOrderReturnID;
-            return JsonConvert.DeserializeObject<List<PPurchaseOrderReturnDelivery>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
 
@@ -307,6 +306,8 @@ namespace Business
         {
             string endPoint = "PurchaseOrder/GetPurchaseOrderFromCart?DealerCode=" + DealerCode;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+            return JsonConvert.DeserializeObject<PPurchaseOrderReturnDelivery>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

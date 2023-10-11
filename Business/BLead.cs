@@ -49,9 +49,9 @@ namespace Business
             string endPoint = "Lead/Urgency?UrgencyID=" + UrgencyID + "&Urgency=" + Urgency;
             return JsonConvert.DeserializeObject<List<PLeadUrgency>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PLead> GetLead(PLeadSearch Lead)
+        public PApiResult GetLead(PLeadSearch Lead)
         { 
-            return JsonConvert.DeserializeObject<List<PLead>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLead", Lead)).Data));
+            return  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLead", Lead)); 
         }
         public DataTable GetLeadExcel(PLeadSearch Lead)
         { 
@@ -224,6 +224,14 @@ namespace Business
         public DataSet GetLeadFollowUpReport(PLeadSearch Lead)
         { 
             return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadFollowUpReport", Lead)).Data));
+        }
+        public DataTable GetLeadReportForDefinedPeriod(PLeadSearch Lead)
+        {
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadReportForDefinedPeriod", Lead)).Data));
+        }
+        public DataTable GetLeadReportForDefinedPeriodDetails(PLeadSearch Lead)
+        {
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadReportForDefinedPeriodDetails", Lead)).Data));
         }
     }
 }

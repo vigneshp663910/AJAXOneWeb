@@ -49,16 +49,8 @@ namespace DealerManagementSystem.ViewService
             if (!IsPostBack)
             {
                 //new BDMS_WarrantyClaim().insertWarrantyClaim();
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                 
+                    fillDealer(); 
                 txtICLoginDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtICLoginDateTo.Text = DateTime.Now.ToShortDateString();
                 lblRowCount.Visible = false;

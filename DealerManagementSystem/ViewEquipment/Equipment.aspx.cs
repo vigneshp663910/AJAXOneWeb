@@ -91,19 +91,9 @@ namespace DealerManagementSystem.ViewEquipment
                 PageCount = 0;
                 PageIndex = 1;
                 new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
-                txtWarrantyStart.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
-                txtWarrantyEnd.Text = DateTime.Now.ToShortDateString();
-
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0].DID.ToString()));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                //txtWarrantyStart.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
+                //txtWarrantyEnd.Text = DateTime.Now.ToShortDateString(); 
+                fillDealer();
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
@@ -142,7 +132,7 @@ namespace DealerManagementSystem.ViewEquipment
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("Equipment", "fillClaim", e1);
+                new FileLogger().LogMessage("Equipment", "GetEquipmentHeader", e1);
                 throw e1;
             }
         }
@@ -176,7 +166,8 @@ namespace DealerManagementSystem.ViewEquipment
             dt.Columns.Add("District");
             dt.Columns.Add("State");
             dt.Columns.Add("DispatchedOn");
-            dt.Columns.Add("WarrantyExpiryDate"); 
+            dt.Columns.Add("WarrantyExpiryDate");
+            //dt.Columns.Add("Client");
             Search();
             int Index = 0;
             int Rowcount = 1000;
@@ -199,7 +190,8 @@ namespace DealerManagementSystem.ViewEquipment
                                                , M.Customer.District.District
                                                , M.Customer.State.State
                                                , M.DispatchedOn
-                                                 , M.WarrantyExpiryDate
+                                               , M.WarrantyExpiryDate
+                                               //, M.EquipmentClient.Client
                                                 );
                 }
             }

@@ -106,7 +106,7 @@ namespace DealerManagementSystem.ViewPreSale
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_WarrantyClaim", "fillClaim", e1);
+                new FileLogger().LogMessage("LeadFoloowUpReport", "fillEquipmentPopulationReport", e1);
                 throw e1;
             }
         }

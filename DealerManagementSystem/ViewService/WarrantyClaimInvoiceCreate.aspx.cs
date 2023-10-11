@@ -1,6 +1,5 @@
 ﻿using Business;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -53,16 +52,8 @@ namespace DealerManagementSystem.ViewService
                 ddlYear.SelectedValue = DateTime.Now.Year.ToString();
                 ddlMonth.SelectedValue = DateTime.Now.Month.ToString();
                 //   FillInvoiceType();
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+
+                fillDealer();
             }
         }
 
@@ -200,7 +191,7 @@ namespace DealerManagementSystem.ViewService
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_ClaimConsolidationAnnexure", "fillClaim", e1);
+                new FileLogger().LogMessage("WarrantyClaimInvoiceCreate", "fillNEPI_Commission", e1);
                 throw e1;
             }
         }

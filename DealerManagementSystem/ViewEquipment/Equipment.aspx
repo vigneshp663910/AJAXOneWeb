@@ -80,15 +80,18 @@
 
 
                             <asp:GridView ID="gvEquipment" runat="server" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20" >
-                                <Columns>
+                                <Columns> 
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
+                                    </asp:TemplateField> 
+                                     <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnViewEquipment" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewEquipment_Click" Width="75px" Height="25px" />
+                                        </ItemTemplate>
                                     </asp:TemplateField>
-
-
                                     <asp:TemplateField HeaderText="Model">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
@@ -96,24 +99,24 @@
                                             <asp:Label ID="lblEquipmentHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentHeaderID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Engine SerialNo">
+                                   <%-- <asp:TemplateField HeaderText="Engine SerialNo">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblEngineSerialNo" Text='<%# DataBinder.Eval(Container.DataItem, "EngineSerialNo")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                     <asp:TemplateField HeaderText="Equipment SerialNo">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblEquipmentSerialNo" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentSerialNo")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Model Description">
+                                   <%-- <asp:TemplateField HeaderText="Model Description">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblModelDescription" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentModel.ModelDescription")%>' runat="server" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                     <asp:TemplateField HeaderText="Customer Code">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
@@ -152,11 +155,7 @@
                                             <asp:Label ID="lblWarrantyExpiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyExpiryDate", "{0:d}")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <asp:Button ID="btnViewEquipment" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewEquipment_Click" Width="75px" Height="25px" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                   
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

@@ -207,7 +207,9 @@ namespace Properties
         public decimal TotalAmt { get; set; }
         public string CalType { get; set; }   
     }
-     
+
+   
+   
 
     [Serializable]
     public class PDMS_SalesType
@@ -217,7 +219,8 @@ namespace Properties
         public int SalesTypeCode { get; set; }
             
     }
-     
+
+
 
     [Serializable]
     public class PSaleOrder
@@ -246,9 +249,9 @@ namespace Properties
         public string SelectTax { get; set; }
     }
     [Serializable]
-    public class PSaleOrderItem
+    public class PSalesOrderItems
     {
-        public long SaleOrderItemID { get; set; }  
+        public long SalesOrderItemID { get; set; }  
         public PDMS_Material Material { get; set; } 
         public decimal Qty { get; set; }
         public decimal UnitPrice { get; set; }

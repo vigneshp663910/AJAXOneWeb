@@ -1,8 +1,8 @@
 ﻿using DataAccess;
 using Microsoft.Reporting.WebForms;
+using Newtonsoft.Json;
 using Properties;
-using QRCoder;
-using SapIntegration;
+using QRCoder; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -461,6 +461,7 @@ namespace Business
                                 Item = Convert.ToInt32(dr["Item"]),
                                 Material = new PDMS_Material()
                                 {
+                                    MaterialID = Convert.ToInt64(dr["MaterialID"]),
                                     MaterialCode = Convert.ToString(dr["MaterialCode"]),
                                     MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
                                     IsMainServiceMaterial = dr["IsMainServiceMaterial"] == DBNull.Value ? false : Convert.ToBoolean(dr["IsMainServiceMaterial"]),
@@ -1066,23 +1067,10 @@ namespace Business
             PAttachedFile Files = null;
             try
             {
-                DbParameter[] Params = new DbParameter[1] { ServiceInvoiceIDP };
 
-                using (DataSet DS = provider.Select("ZDMS_GetServiceInvoiceFile", Params))
-                {
-                    if (DS != null)
-                    {
-                        foreach (DataRow dr in DS.Tables[0].Rows)
-                        {
-                            Files = new PAttachedFile()
-                            {
-                                AttachedFile = (Byte[])(dr["InvoiceFiIe"]),
-                                FileType = Convert.ToString(dr["ContentType"]),
-                                FileName = Convert.ToString(dr["FileName"])
-                            };
-                        }
-                    }
-                }
+                string endPoint = "ICTicket/GetServiceInvoiceFile?ServiceInvoiceID=" + ServiceInvoiceID ;
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                Files   = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
 
                 if (Files == null)
                 {

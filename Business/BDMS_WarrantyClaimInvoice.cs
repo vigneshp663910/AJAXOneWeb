@@ -1,6 +1,5 @@
 ﻿using DataAccess;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +13,8 @@ using Microsoft.Reporting.WebForms;
 using System.Web;
 using System.Web.UI;
 using System.Configuration;
+using Newtonsoft.Json;
+
 namespace Business
 {
     public class BDMS_WarrantyClaimInvoice
@@ -443,24 +444,11 @@ namespace Business
             PAttachedFile Files = null;
             try
             {
-                DbParameter[] Params = new DbParameter[1] { WarrantyClaimInvoiceIDP };
+                string endPoint = "Warranty/GetWarrantyClaimInvoiceFile?WarrantyClaimInvoiceID=" + WarrantyClaimInvoiceID;
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
 
-                using (DataSet DS = provider.Select("ZDMS_GetWarrantyClaimInvoiceFile", Params))
-                {
-                    if (DS != null)
-                    {
-                        foreach (DataRow dr in DS.Tables[0].Rows)
-                        {
-                            Files = new PAttachedFile()
-                            {
-                                AttachedFile = (Byte[])(dr["InvoiceFiIe"]),
-                                FileType = Convert.ToString(dr["ContentType"]),
-                                FileName = Convert.ToString(dr["FileName"])
-                            };
-                        }
-                    }
-                }
-
+               
                 if (Files == null)
                 {
                     PDMS_WarrantyClaimInvoice SOIs = new BDMS_WarrantyClaimInvoice().getWarrantyClaimInvoice(WarrantyClaimInvoiceID, "", null, null, null, null, "")[0];
@@ -1225,134 +1213,7 @@ namespace Business
             }
             return null;
         }
-
-        public void UpdateSAPDocumentNumberOld()
-        {
-            List<PDMS_WarrantyClaimInvoice> invs = new List<PDMS_WarrantyClaimInvoice>();
-            try
-            {
-                using (DataSet DS = provider.Select("ZDMS_GetWarrantyClaimInvoiceforSAPDocumentOld"))
-                {
-                    if (DS != null)
-                    {
-                        foreach (DataRow dr in DS.Tables[0].Rows)
-                        {
-                            invs.Add(new PDMS_WarrantyClaimInvoice()
-                            {
-                                InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]),
-                                Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]) }
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessageService("BDMS_WarrantyClaimInvoice", "UpdateSAPDocumentNumberOld", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessageService("BDMS_WarrantyClaimInvoice", " UpdateSAPDocumentNumberOld", ex);
-            }
-            foreach (PDMS_WarrantyClaimInvoice item in invs)
-            {
-                try
-                {
-                    PSAPDocumentNumber SAP = new SSAPDocumentNumber().getSAPDocumentNumber(item.InvoiceNumber);
-                    if (string.IsNullOrEmpty(SAP.InvoiceNumber))
-                    {
-                        continue;
-                    }
-
-                    DbParameter InvoiceNumber = provider.CreateParameter("InvoiceNumber", SAP.InvoiceNumber, DbType.String);
-                    DbParameter SAPDoc = provider.CreateParameter("SAPDoc", SAP.SAPDoc, DbType.String);
-                    DbParameter SAPPostingDate = provider.CreateParameter("SAPPostingDate", SAP.SAPPostingDate, DbType.DateTime);
-                    DbParameter SAPClearingDocument = provider.CreateParameter("SAPClearingDocument", SAP.SAPClearingDocument, DbType.String);
-                    DbParameter SAPClearingDate = provider.CreateParameter("SAPClearingDate", SAP.SAPClearingDate, DbType.DateTime);
-                    DbParameter SAPInvoiceValue = provider.CreateParameter("SAPInvoiceValue", SAP.SAPInvoiceValue, DbType.String);
-                    DbParameter DealerCode = provider.CreateParameter("DealerCode", item.Dealer.DealerCode, DbType.Int32);
-                    DbParameter[] Params = new DbParameter[7] { InvoiceNumber, SAPDoc, SAPPostingDate, SAPClearingDocument, SAPClearingDate, SAPInvoiceValue, DealerCode };
-
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                    {
-                        provider.Insert("ZDMS_UpdateWarrantyClaimInvoiceSAPDocumentOld", Params);
-                        scope.Complete();
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    new FileLogger().LogMessageService("BDMS_WarrantyClaimInvoice", "UpdateSAPDocumentNumberOld", sqlEx);
-                }
-                catch (Exception ex)
-                {
-                    new FileLogger().LogMessageService("BDMS_WarrantyClaimInvoice", " UpdateSAPDocumentNumberOld", ex);
-                }
-            }
-        }
-        public void UpdateSAPDocumentNumber()
-        {
-            List<PDMS_WarrantyClaimInvoice> invs = new List<PDMS_WarrantyClaimInvoice>();
-            try
-            {
-                using (DataSet DS = provider.Select("ZDMS_GetWarrantyClaimInvoiceforSAPDocument"))
-                {
-                    if (DS != null)
-                    {
-                        foreach (DataRow dr in DS.Tables[0].Rows)
-                        {
-                            invs.Add(new PDMS_WarrantyClaimInvoice()
-                            {
-                                InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]),
-                                Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]) }
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessageService("BDMS_WarrantyClaimInvoice", "UpdateSAPDocumentNumber", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessageService("BDMS_WarrantyClaimInvoice", " UpdateSAPDocumentNumber", ex);
-            }
-            foreach (PDMS_WarrantyClaimInvoice item in invs)
-            {
-                try
-                {
-                    PSAPDocumentNumber SAP = new SSAPDocumentNumber().getSAPDocumentNumber(item.InvoiceNumber);
-                    if (string.IsNullOrEmpty(SAP.InvoiceNumber))
-                    {
-                        continue;
-                    }
-
-                    DbParameter InvoiceNumber = provider.CreateParameter("InvoiceNumber", SAP.InvoiceNumber, DbType.String);
-                    DbParameter SAPDoc = provider.CreateParameter("SAPDoc", SAP.SAPDoc, DbType.String);
-                    DbParameter SAPPostingDate = provider.CreateParameter("SAPPostingDate", SAP.SAPPostingDate, DbType.DateTime);
-                    DbParameter SAPClearingDocument = provider.CreateParameter("SAPClearingDocument", SAP.SAPClearingDocument, DbType.String);
-                    DbParameter SAPClearingDate = provider.CreateParameter("SAPClearingDate", SAP.SAPClearingDate, DbType.DateTime);
-                    DbParameter SAPInvoiceValue = provider.CreateParameter("SAPInvoiceValue", SAP.SAPInvoiceValue, DbType.String);
-                    DbParameter SAPInvoiceTDSValue = provider.CreateParameter("SAPInvoiceTDSValue", SAP.SAPInvoiceTDSValue, DbType.String);
-                    DbParameter DealerCode = provider.CreateParameter("DealerCode", item.Dealer.DealerCode, DbType.Int32);
-                    DbParameter[] Params = new DbParameter[8] { InvoiceNumber, SAPDoc, SAPPostingDate, SAPClearingDocument, SAPClearingDate, SAPInvoiceValue, SAPInvoiceTDSValue, DealerCode };
-
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                    {
-                        provider.Insert("ZDMS_UpdateWarrantyClaimInvoiceSAPDocument", Params);
-                        scope.Complete();
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    new FileLogger().LogMessageService("BDMS_WarrantyClaimInvoice", "UpdateSAPDocumentNumber", sqlEx);
-                }
-                catch (Exception ex)
-                {
-                    new FileLogger().LogMessageService("BDMS_WarrantyClaimInvoice", " UpdateSAPDocumentNumber", ex);
-                }
-            }
-        }
+ 
 
         public List<PDMS_WarrantyClaimInvoice> GetWarrantyClaimInvoiceByMonthAndMonthRange(String DealerCode, int? Year, int? Month, int? MonthRange, int? InvoiceTypeID)
         {

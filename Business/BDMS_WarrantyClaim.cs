@@ -1,6 +1,6 @@
 ﻿using DataAccess;
-using Properties;
-using SapIntegration;
+using Newtonsoft.Json;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -486,6 +486,25 @@ namespace Business
             return Ws;
         }
 
+        public List<PDMS_WarrantyInvoiceHeader_New> GetWarrantyClaimReport_New1(PWarrantyClaim_Filter Filter)
+        { 
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Warranty/GetWarrantyClaimReport", Filter));
+            if (Results.Status == PApplication.Failure)
+            {
+                throw new Exception(Results.Message);
+            } 
+            return JsonConvert.DeserializeObject<List<PDMS_WarrantyInvoiceHeader_New>>(JsonConvert.SerializeObject(Results.Data)); 
+        }
+
+        public DataTable GetWarrantyClaimReporExcel(PWarrantyClaim_Filter Filter)
+        {
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Warranty/GetWarrantyClaimReportExcel", Filter));
+            if (Results.Status == PApplication.Failure)
+            {
+                throw new Exception(Results.Message);
+            }
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Results.Data));
+        }
 
         public List<PDMS_WarrantyTicket> GetWarrantyClaimReportByICTicket1(string ICTicketID, DateTime? ICTicketDateF, DateTime? ICTicketDateT, string InvoiceNumber,
         DateTime? InvoiceDateF, DateTime? InvoiceDateT, string DealerCode, int? StatusID, string TSIRNumber, int UserID)
@@ -1200,48 +1219,7 @@ namespace Business
             {
             }
             return false;
-        }
-        public void UpdateWarrantyClaimMachineSerialNumberForModel()
-        {
-            List<PDMS_WarrantyInvoiceHeader> Ws = new List<PDMS_WarrantyInvoiceHeader>();
-            PDMS_WarrantyInvoiceHeader W = null;
-            try
-            {
-                using (DataSet EmployeeDataSet = provider.Select("ZDMS_GetWarrantyClaimMachineSerialNumberForModel"))
-                {
-                    if (EmployeeDataSet != null)
-                    {
-                        foreach (DataRow dr in EmployeeDataSet.Tables[0].Rows)
-                        {
-                            W = new PDMS_WarrantyInvoiceHeader();
-                            Ws.Add(W);
-                            W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
-                        }
-                    }
-                }
-                foreach (PDMS_WarrantyInvoiceHeader item in Ws)
-                {
-
-                    List<string> Model = new SDMS_ICTicket().getModelByProductID(item.MachineSerialNumber);
-                    if (!string.IsNullOrEmpty(Model[0]))
-                    {
-                        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                        {
-                            DbParameter MachineSerialNumberP = provider.CreateParameter("MachineSerialNumber", item.MachineSerialNumber, DbType.String);
-                            DbParameter ModelP = provider.CreateParameter("Model", Model[0], DbType.String);
-                            DbParameter DivisionP = provider.CreateParameter("Division", Model[1], DbType.String);
-                            DbParameter[] Params = new DbParameter[3] { MachineSerialNumberP, ModelP, DivisionP };
-                            provider.Insert("ZDMS_UpdateWarrantyClaimMachineSerialNumberForModel", Params);
-                            scope.Complete();
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-        }
+        } 
          
         public Boolean InsertDeviatedClaimRequestForApproval(long WarrantyInvoiceHeaderID, int UserID)
         {
@@ -1479,6 +1457,15 @@ namespace Business
             catch (Exception ex)
             { }
             return Ws;
+        }
+        public PSAPDocumentNumber getSAPDocumentNumber(string InvoiceNumber)
+        {
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Warranty/getSAPDocumentNumber?InvoiceNumber =" + InvoiceNumber));
+            if (Results.Status == PApplication.Failure)
+            {
+                throw new Exception(Results.Message);
+            }
+            return JsonConvert.DeserializeObject<PSAPDocumentNumber>(JsonConvert.SerializeObject(Results.Data));
         }
     }
 }

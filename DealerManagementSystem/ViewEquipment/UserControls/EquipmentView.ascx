@@ -88,11 +88,12 @@
                 <asp:LinkButton ID="lnkBtnUpdateCommDate" runat="server" OnClick="lnkBtnActions_Click">Update Commissioning Date</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnReqWarrantyTypeChange" runat="server" OnClick="lnkBtnActions_Click">Warranty Type Change Request</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnReqOwnershipChange" runat="server" OnClick="lnkBtnActions_Click">Ownership Change Request</asp:LinkButton>
-               
+
                 <asp:LinkButton ID="lnkBtnApprWarrantyTypeChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmApprWarrantyTypeChg();">Approve Warranty Type Change</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnRejWarrantyTypeChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejWarrantyTypeChg();">Reject Warranty Type Change</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnApprOwnershipChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmApprOwnershipChg();">Approve Ownership Change</asp:LinkButton>
-                <asp:LinkButton ID="lnkBtnRejOwnershipChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejrOwnershipChg();">Reject Ownership Change</asp:LinkButton> 
+                <asp:LinkButton ID="lnkBtnRejOwnershipChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejrOwnershipChg();">Reject Ownership Change</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnUpdateClient" runat="server" OnClick="lnkBtnActions_Click">Update Client</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -123,7 +124,7 @@
                     <asp:Label ID="lblNewWarrantyHMR" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
-           
+
             <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Attached File : </label>
@@ -180,7 +181,7 @@
         </div>
     </fieldset>
 </div>
- 
+
 &nbsp;&nbsp;&nbsp;
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
@@ -267,6 +268,10 @@
                 <div class="col-md-12">
                     <label>Manufacturing Date : </label>
                     <asp:Label ID="lblManufacturingDate" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Equipment Client : </label>
+                    <asp:Label ID="lblEquipmentClient" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
@@ -884,6 +889,32 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_WarrantyExpiryDateChangeReq" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlWarrantyExpiryDateChangeReq" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlUpdateClient" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueUpdateClient">Update Client Request</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnPopupDialogueUpdateClientClose" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageUpdateClient" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset3" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Client</label>
+                        <asp:DropDownList ID="ddlClient" runat="server" CssClass="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnUpdateClientReq" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateClientReq_Click" />
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_UpdateClient" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateClient" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

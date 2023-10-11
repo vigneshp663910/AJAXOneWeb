@@ -1,6 +1,5 @@
 ﻿using DataAccess;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -58,6 +57,7 @@ namespace Business
                             Dealer.DID = Convert.ToInt32(dr["DID"]);
                             Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
                             Dealer.UserName = Convert.ToString(dr["UserName"]);
+                            Dealer.CodeWithDisplayName = Convert.ToString(dr["DealerCode"]) + " " + Convert.ToString(dr["DisplayName"]);
                             Dealer.ContactName = Convert.ToString(dr["ContactName"]);
                             Dealer.MailID1 = Convert.ToString(dr["MailID"]);
                             Dealer.UserTypeID = Convert.ToInt32(dr["UserTypeID"]);

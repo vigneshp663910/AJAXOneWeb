@@ -1,7 +1,6 @@
 ﻿using Business;
 using Newtonsoft.Json;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -168,12 +167,12 @@ namespace DealerManagementSystem
 
         protected void btnIntegrationWarrantyClaimAnnexureToSAP_Click(object sender, EventArgs e)
         {
-            new BDMS_WarrantyClaimAnnexure().IntegrationWarrantyClaimAnnexureToSAP();
+            new BAPI().ApiGetWithOutToken("Warranty/CreateWarrantyClaimAnnexureToSAP"); 
         }
 
         protected void btnIntegrationEquipmentFromSAP_Click(object sender, EventArgs e)
         {
-            new BDMS_Equipment().IntegrationEquipmentFromSAP();
+            //new BDMS_Equipment().IntegrationEquipmentFromSAP();
         }
 
         protected void btnIntegrationEquipmentFromSAP_New_Click(object sender, EventArgs e)
@@ -210,7 +209,13 @@ namespace DealerManagementSystem
 
         protected void btnAsnDetailsFromSap_Click(object sender, EventArgs e)
         {
-            new BDMS_PurchaseOrder().InsertOrUpdatePurchaseOrderAsn(txtInvoiceNumber.Text);
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/GetASNFromSAP?InvoiceNo=" + txtInvoiceNumber.Text));
+            //new BDMS_PurchaseOrder().InsertOrUpdatePurchaseOrderAsn(txtInvoiceNumber.Text);
+        }
+
+        protected void btnMttrEscalation_Click(object sender, EventArgs e)
+        {
+            new BDMS_MTTR().SendMailMttrEscalationMatrix();
         }
     }
     [Serializable]
