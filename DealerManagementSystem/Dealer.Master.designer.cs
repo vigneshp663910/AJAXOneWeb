@@ -105,13 +105,13 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Label lblProjectTitle;
 
         /// <summary>
-        /// lblQuality control.
+        /// lblServer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQuality;
+        protected global::System.Web.UI.WebControls.Label lblServer;
 
         /// <summary>
         /// ICCallsupport control.
