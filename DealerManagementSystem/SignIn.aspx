@@ -360,6 +360,8 @@
                             <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Sign in</legend>
                             <div class="col-md-12">
                                 <div>
+                                    <dev style="float:right;">
+                                    <asp:Label ID="lblServer" runat="server"></asp:Label></dev>
                                     <br />
                                     <label><b>UserID / Email / Mobile</b></label>
                                 </div>

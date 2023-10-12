@@ -34,7 +34,8 @@ namespace DealerManagementSystem
         {
             NoOfAllowedLoginAttempt = Convert.ToInt16(System.Configuration.ConfigurationManager.AppSettings["NoOfAllowedLoginAttempts"]);
             if (!Page.IsPostBack)
-            { 
+            {
+                lblServer.Text = "&nbsp;&nbsp;&nbsp;" + ConfigurationManager.AppSettings["Server"];
                 txtUsername.Focus();
             }
         }
