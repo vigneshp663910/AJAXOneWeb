@@ -249,9 +249,9 @@ namespace Properties
         public string SelectTax { get; set; }
     }
     [Serializable]
-    public class PSalesOrderItems
+    public class PSaleOrderItem
     {
-        public long SalesOrderItemID { get; set; }  
+        public long SaleOrderItemID { get; set; }  
         public PDMS_Material Material { get; set; } 
         public decimal Qty { get; set; }
         public decimal UnitPrice { get; set; }

@@ -87,7 +87,7 @@ namespace DealerManagementSystem.ViewProcurement
                 PageIndex = 1;
                 txtGrDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtGrDateTo.Text = DateTime.Now.ToShortDateString();
-                new DDLBind(ddlGrStatus, new BDMS_PurchaseOrder().GetGrStatus(null, null), "GrStatus", "GrStatusID");
+                new DDLBind(ddlGrStatus, new BDMS_PurchaseOrder().GetProcurementStatus(1), "GrStatus", "GrStatusID");
                  
                     fillDealer(); 
                 lblRowCount.Visible = false;

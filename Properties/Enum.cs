@@ -558,7 +558,12 @@ namespace Properties
         DealerNotificationAdd,
         DealerBankDetailsEdit,
         DealerResponsibleUserEdit,
-        ICTicketRemoveRestoreDate
+        ICTicketRemoveRestoreDate,
+        MarginWarrantyApproval = 71,
+        EquipmentClientUpdate =72,
+        EquipmentClientAddEditDelete=73,
+        CustomerGstChange =74,
+        TsirMailToSupplier = 75
     }
     public enum DMS_WarrantyClaimStatus
     {
