@@ -2410,11 +2410,15 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnServiceClaim.Visible = false;
                 lbtnMaterialClaim.Visible = false;
             }
+            else if(ServiceTypeID == (short)DMS_ServiceType.GoodwillWarranty)
+            {
+                lbtnServiceClaim.Visible = false;
+            }
             else
-            { 
+            {
                 lbtnServiceQuotation.Visible = false;
                 lbtnServiceProfarmaInvoice.Visible = false;
-                lbtnServiceInvoice.Visible = false; 
+                lbtnServiceInvoice.Visible = false;
             }
 
             foreach (PDMS_ServiceCharge SC in SDMS_ICTicket.ServiceCharges)
