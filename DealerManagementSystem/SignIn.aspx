@@ -360,8 +360,7 @@
                             <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Sign in</legend>
                             <div class="col-md-12">
                                 <div>
-                                    <dev style="float:right;">
-                                    <asp:Label ID="lblServer" runat="server"></asp:Label></dev>
+                                    
                                     <br />
                                     <label><b>UserID / Email / Mobile</b></label>
                                 </div>
@@ -394,6 +393,8 @@
                                 <br />
                                 <label>Don't have ajax account?</label>
                                 <input type="submit" value="Create an account" class="btn-danger">--%>
+                                <dev  style="float: right; padding-right: 1em; font-size: medium; color: white; background-color:darkgray ; margin-right:4px;">
+                                    <asp:Label ID="lblServer" runat="server"></asp:Label></dev>
                             </div>
                         </fieldset>
 
