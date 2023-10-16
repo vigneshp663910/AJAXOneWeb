@@ -441,6 +441,7 @@ namespace DealerManagementSystem.ViewService
         {
             try
             {
+                new BDMS_ICTicketFSR().ICTicket_Directorys(Server.MapPath("~"));
                 string FailureCode = "";
                 PDMS_ICTicket ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID(TSIR.ICTicket.ICTicketID);
                 PDMS_ICTicketFSR FSR = new BDMS_ICTicketFSR().GetICTicketFSRByFsrID(null, TSIR.ICTicket.ICTicketID, null, null, null, null, null, null);
@@ -519,7 +520,7 @@ namespace DealerManagementSystem.ViewService
                 for (int i = 0; i < FSRFile.Count(); i++)
                 {
                     PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFile[i].AttachedFileID);
-                    string Url1 = "ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
+                    string Url1 = "~/ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
 
                     if (File.Exists(MapPath(Url1)))
                     {
@@ -540,7 +541,7 @@ namespace DealerManagementSystem.ViewService
                 for (int i = 0; i < TSIRFile.Count(); i++)
                 {
                     PAttachedFile T1 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileForDownload(TSIRFile[i].AttachedFileID);
-                    string Url1 = "ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
+                    string Url1 = "~/ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
                     if (File.Exists(MapPath(Url1)))
                     {
                         File.Delete(MapPath(Url1));

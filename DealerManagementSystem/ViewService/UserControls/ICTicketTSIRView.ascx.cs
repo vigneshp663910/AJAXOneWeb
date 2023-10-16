@@ -543,6 +543,10 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             try
             {
+                new BDMS_ICTicketFSR().ICTicket_Directorys(Server.MapPath("~"));
+
+                 
+
                 string FailureCode = "";
                 PDMS_ICTicket ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID(TSIR.ICTicket.ICTicketID);
                 PDMS_ICTicketFSR FSR = new BDMS_ICTicketFSR().GetICTicketFSRByFsrID(null, TSIR.ICTicket.ICTicketID, null, null, null, null, null, null);
@@ -619,8 +623,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
                 for (int i = 0; i < FSRFile.Count(); i++)
                 {
-                    PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i].AttachedFileID);
-                    string Url1 = "ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
+                    //PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i].AttachedFileID);
+                    PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFile[i].AttachedFileID);
+                    string Url1 = "~/ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
 
                     if (File.Exists(MapPath(Url1)))
                     {
@@ -634,7 +639,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                   new BDMS_ICTicketTSIR().resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
                     Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
                     //  FsrFiles.Rows.Add(F1.FSRAttachedName.FSRAttachedName, Path1);
-                    FileNames.Add(F1.FSRAttachedName.FSRAttachedName);
+                    FileNames.Add(F1.FileName);
                     FiePath.Add(Path1);
                 }
 
@@ -642,7 +647,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 for (int i = 0; i < TSIRFile.Count(); i++)
                 {
                     PDMS_TSIRAttachedFile T1 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(TSIRFile[i].AttachedFileID);
-                    string Url1 = "ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
+                    string Url1 = "~/ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
                     if (File.Exists(MapPath(Url1)))
                     {
                         File.Delete(MapPath(Url1));
