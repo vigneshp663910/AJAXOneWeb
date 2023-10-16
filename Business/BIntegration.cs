@@ -140,7 +140,7 @@ namespace Business
                         break;
                     case Jobs.SaleOrderNumberForSrviceQuatationFromSAP:
                         new FileLogger().LogMessageService("Started", "SaleOrder Number For Srvice Quatation From SAP", null);
-                        new BAPI().ApiGetWithOutToken("ICTicket/UpdateSaleOrderNumberFromPostgres");
+                        UpdateSaleOrderNumberFromPostgres();
                         new FileLogger().LogMessageService("Ended", "Sale Order Number For Srvice Quatation From SAP Total Record" + C.ToString(), null);
                         break;
 
@@ -252,6 +252,11 @@ namespace Business
 
             }
             return activeJobs;
+        }
+
+        public void UpdateSaleOrderNumberFromPostgres()
+        { 
+            new BAPI().ApiGetWithOutToken("ICTicket/UpdateSaleOrderNumberFromPostgres"); 
         }
     }
 }
