@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Transactions;
@@ -446,7 +447,7 @@ namespace Business
                         foreach (DataRow dr in DS.Tables[0].Rows)
                         {
                             FSR_File.AttachedFileID = Convert.ToInt64(dr["AttachedFileID"]);
-                            FSR_File.AttachedFile = (Byte[])(dr["AttachedFile"]);
+                            //FSR_File.AttachedFile = (Byte[])(dr["AttachedFile"]);
                             FSR_File.FileType = Convert.ToString(dr["ContentType"]);
                             FSR_File.FileName = Convert.ToString(dr["FileName"]);
                             FSR_File.FileSize = Convert.ToInt32(dr["FileSize"]);
@@ -550,6 +551,22 @@ namespace Business
             string endPoint = "ICTicketFSR/TicketFSRSignature?FsrID=" + FsrID; 
             return JsonConvert.DeserializeObject<PICTicketFSRSignature>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
+        }
+        public void ICTicket_Directorys(string Path)
+        {
+
+            if (!Directory.Exists(Path + "/ICTickrtFSR_Files/Org"))
+            {
+                Directory.CreateDirectory(Path + "/ICTickrtFSR_Files/Org");
+            }
+            if (!Directory.Exists(Path + "/ICTickrtTSIR_Files/Org"))
+            {
+                Directory.CreateDirectory(Path + "/ICTickrtTSIR_Files/Org");
+            }
+            if (!Directory.Exists(Path + "/ICTickrtFSR_Files/Signature"))
+            {
+                Directory.CreateDirectory(Path + "/ICTickrtFSR_Files/Signature");
+            }
         }
     }
 }

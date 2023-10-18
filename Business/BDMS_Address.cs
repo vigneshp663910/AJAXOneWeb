@@ -170,11 +170,11 @@ namespace Business
             return false;
         }
 
-        public void GetDistrict(DropDownList ddl,int? CountryID,int? RegionID, int? DistrictID, int? StateID, string District, int? DealerID)
+        public void GetDistrict(DropDownList ddl,int? CountryID,int? RegionID, int? DistrictID, int? StateID, string District, int? DealerID, string All = "false")
         {
             try
             {
-                List<PDMS_District> MML = GetDistrict(CountryID, RegionID, StateID, DistrictID, District, DealerID);
+                List<PDMS_District> MML = GetDistrict(CountryID, RegionID, StateID, DistrictID, District, DealerID, All);
                 ddl.DataValueField = "DistrictID";
                 ddl.DataTextField = "District";
                 ddl.DataSource = MML;

@@ -311,6 +311,7 @@ namespace DealerManagementSystem.ViewService
         {
             try
             {
+                new BDMS_ICTicketFSR().ICTicket_Directorys(Server.MapPath("~"));
                 PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(FSR.ICTicket.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
@@ -355,10 +356,7 @@ namespace DealerManagementSystem.ViewService
                 {
                     Path = "ICTickrtFSR_Files/Signature/" + FSRSignature.FSRSignatureID;
                     Signatured = true;
-                    if (!Directory.Exists(Server.MapPath("~/ICTickrtFSR_Files/Signature")))
-                    {
-                        Directory.CreateDirectory(Server.MapPath("~/ICTickrtFSR_Files/Signature"));
-                    }
+                    
 
                     string FileType = string.IsNullOrEmpty(FSRSignature.FileType) ? "png" : FSRSignature.FileType;
 
