@@ -22,7 +22,7 @@ namespace DealerManagementSystem
             Session["PageName"] = "";
             if (!IsPostBack)
             {
-                //lblQuality.Text = ConfigurationManager.AppSettings["IsQuality"];
+                lblServer.Text = "&nbsp;&nbsp;&nbsp;" + ConfigurationManager.AppSettings["Server"];
                 //var retrievedPerson = JSON.parse(localStorage.getItem('person'));
                 //var x = sessionStorage.getItem("test1");
                 //lblProjectTitle.Text = "&nbsp;";

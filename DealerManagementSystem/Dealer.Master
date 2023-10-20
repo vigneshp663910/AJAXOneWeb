@@ -2397,9 +2397,9 @@
 
                     <div id="titlebarico" style="float: right;">
 
-                        <div style="float: right; padding-right: 2em; font-size: medium; color: gold">
-
-                            <asp:Label ID="lblQuality" runat="server"></asp:Label>
+                        <div style="float: right; padding-right: 1em; font-size: medium; color: white; background-color:black ; margin-right:4px;">
+                            
+                            <asp:Label ID="lblServer" runat="server"></asp:Label>
                         </div>
 
                         <div style="float: right; padding-right: 0.3em;">
