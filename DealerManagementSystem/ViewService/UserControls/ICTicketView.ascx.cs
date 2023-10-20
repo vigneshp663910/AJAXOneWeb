@@ -2445,6 +2445,10 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lbtnMarginWarrantyApprove.Visible = false;
                     lbtnMarginWarrantyReject.Visible = false;
                     lbtnRequestDateChange.Visible = false;
+
+                    lbtnServiceQuotation.Visible = false;
+                    lbtnServiceProfarmaInvoice.Visible = false;
+                    lbtnServiceInvoice.Visible = false;
                 }
                 if (!string.IsNullOrEmpty(SC.QuotationNumber))
                 {

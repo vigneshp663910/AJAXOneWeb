@@ -364,30 +364,40 @@ namespace DealerManagementSystem.ViewService
                     {
                         File.Delete(Server.MapPath("~/" + Path + "TPhoto" + "." + FileType));
                     }
-                    File.WriteAllBytes(Server.MapPath("~/" + Path+ "TPhoto"+"."+ FileType), FSRSignature.TPhoto.AttachedFile); 
-                    TechnicianFilePath = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FileType)).AbsoluteUri;
+                    if (FSRSignature.TPhoto.AttachedFile != null)
+                    {
+                        File.WriteAllBytes(Server.MapPath("~/" + Path + "TPhoto" + "." + FileType), FSRSignature.TPhoto.AttachedFile);
+                        TechnicianFilePath = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FileType)).AbsoluteUri;
+                    }
 
                     if (File.Exists(Server.MapPath("~/" + Path + "CPhoto" + "." + FileType)))
                     {
                         File.Delete(Server.MapPath("~/" + Path + "CPhoto" + "." + FileType));
                     }
-                    File.WriteAllBytes(Server.MapPath("~/" + Path + "CPhoto" + "." + FileType), FSRSignature.CPhoto.AttachedFile);
-                    CustomerFilePath = new Uri(Server.MapPath("~/" + Path + "CPhoto" + "." + FileType)).AbsoluteUri;
-
+                    if (FSRSignature.CPhoto.AttachedFile != null)
+                    {
+                        File.WriteAllBytes(Server.MapPath("~/" + Path + "CPhoto" + "." + FileType), FSRSignature.CPhoto.AttachedFile);
+                        CustomerFilePath = new Uri(Server.MapPath("~/" + Path + "CPhoto" + "." + FileType)).AbsoluteUri;
+                    }
 
                     if (File.Exists(Server.MapPath("~/" + Path + "TSignature" + "." + FileType)))
                     {
                         File.Delete(Server.MapPath("~/" + Path + "TSignature" + "." + FileType));
                     }
-                    File.WriteAllBytes(Server.MapPath("~/" + Path + "TSignature" + "." + FileType), FSRSignature.TSignature.AttachedFile);
-                    TechnicianSignatureFilePath = new Uri(Server.MapPath("~/" + Path + "TSignature" + "." + FileType)).AbsoluteUri;
-
+                    if (FSRSignature.TSignature.AttachedFile != null)
+                    {
+                        File.WriteAllBytes(Server.MapPath("~/" + Path + "TSignature" + "." + FileType), FSRSignature.TSignature.AttachedFile);
+                        TechnicianSignatureFilePath = new Uri(Server.MapPath("~/" + Path + "TSignature" + "." + FileType)).AbsoluteUri;
+                    }
                     if (File.Exists(Server.MapPath("~/" + Path + "CSignature" + "." + FileType)))
                     {
                         File.Delete(Server.MapPath("~/" + Path + "CSignature" + "." + FileType));
                     }
-                    File.WriteAllBytes(Server.MapPath("~/" + Path + "CSignature" + "." + FileType), FSRSignature.CSignature.AttachedFile);
-                    CustomerSignatureFilePath = new Uri(Server.MapPath("~/" + Path + "CSignature" + "." + FileType)).AbsoluteUri; 
+                    if (FSRSignature.CSignature.AttachedFile != null)
+                    {
+                        File.WriteAllBytes(Server.MapPath("~/" + Path + "CSignature" + "." + FileType), FSRSignature.CSignature.AttachedFile);
+                        CustomerSignatureFilePath = new Uri(Server.MapPath("~/" + Path + "CSignature" + "." + FileType)).AbsoluteUri;
+                    }
                 }
                 //if (FSRSignature.FsrID != 0)
                 //{

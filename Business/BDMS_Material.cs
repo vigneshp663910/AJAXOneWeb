@@ -135,7 +135,7 @@ namespace Business
                     {
                         foreach (DataRow dr in DataSet.Tables[0].Rows)
                         {
-                            Materials.MaterialID = Convert.ToInt64(dr["MaterialID"]);
+                            Materials.MaterialID = Convert.ToInt32(dr["MaterialID"]);
                             Materials.MaterialCode = Convert.ToString(dr["MaterialCode"]);
                             Materials.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
                             //Materials.BaseUnit = Convert.ToString(dr["r_base_unit"]);
