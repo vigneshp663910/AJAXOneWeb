@@ -168,6 +168,7 @@
     <Compile Include="BIntegration.cs" />
     <Compile Include="BInventory.cs" />
     <Compile Include="BMachineOperator.cs" />
+    <Compile Include="BMessageAnnouncement.cs" />
     <Compile Include="BNotification.cs" />
     <Compile Include="BOrganization.cs" />
     <Compile Include="BPG.cs" />
