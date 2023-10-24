@@ -292,6 +292,7 @@ namespace Properties
         public PSaleOrderDelivery SaleOrderDelivery { get; set; } 
         public PSaleOrderReturnItem SaleOrderReturnItem { get; set; }
         public List<PSaleOrderReturnItem> SaleOrderReturnItems { get; set; }
+        public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
     }
     [Serializable]
     public class PSaleOrderReturnItem
@@ -337,6 +338,7 @@ namespace Properties
         public string EquipmentSerialNo { get; set; }
         public string SelectTax { get; set; }
         public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
+        public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
     }
     [Serializable]
     public class PSaleOrderItem_Insert
@@ -357,5 +359,13 @@ namespace Properties
         public decimal SGSTAmt { get; set; }
         public decimal IGSTAmt { get; set; }
         public int StatusID { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrderReturnItem_Insert
+    {
+        public long SaleOrderDeliveryID { get; set; }
+        public long SaleOrderDeliveryItemID { get; set; }
+        public decimal Qty { get; set; }
+        //public string Remarks { get; set; }
     }
 }
