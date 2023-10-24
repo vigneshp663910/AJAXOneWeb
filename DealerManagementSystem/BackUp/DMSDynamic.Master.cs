@@ -15,7 +15,7 @@ namespace DealerManagementSystem
             lblPageName.Text = (string)Session["PageName"];
             if (!IsPostBack)
             {
-                lblQuality.Text = ConfigurationManager.AppSettings["IsQuality"];
+                lblQuality.Text = ConfigurationManager.AppSettings["Server"];
                 //this.Master.Page.Parent
                 if (PSession.User == null)
                 {

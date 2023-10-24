@@ -1,7 +1,7 @@
 ﻿using Business;
 using DataAccess;
 using Newtonsoft.Json;
-using Properties;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -122,7 +122,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 ViewState["PDMS_ICTicketTSIR"] = value;
             }
         }
-
+        
         public List<PDMS_ServiceTechnician> SDMS_TechniciansWD
         {
             get
@@ -138,16 +138,16 @@ namespace DealerManagementSystem.ViewService.UserControls
                 ViewState["DMS_ICTicketTechnicianAssignWD"] = value;
             }
         }
-
-        public PICTicketCustomerFeedback CustomerFeedback
+         
+        public  PICTicketCustomerFeedback  CustomerFeedback
         {
             get
             {
                 if (ViewState["DMS_PICTicketCustomerFeedback"] == null)
                 {
-                    ViewState["DMS_PICTicketCustomerFeedback"] = new PICTicketCustomerFeedback();
+                    ViewState["DMS_PICTicketCustomerFeedback"] = new  PICTicketCustomerFeedback ();
                 }
-                return (PICTicketCustomerFeedback)ViewState["DMS_PICTicketCustomerFeedback"];
+                return ( PICTicketCustomerFeedback )ViewState["DMS_PICTicketCustomerFeedback"];
             }
             set
             {
@@ -228,7 +228,7 @@ namespace DealerManagementSystem.ViewService.UserControls
 
 
             gvServiceCharges.DataSource = SDMS_ICTicket.ServiceCharges;
-            gvServiceCharges.DataBind();
+            gvServiceCharges.DataBind(); 
             FillTSIRDetails();
             FillServiceMaterial();
             FillServiceNotes();
@@ -2410,7 +2410,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnServiceClaim.Visible = false;
                 lbtnMaterialClaim.Visible = false;
             }
-            else if (ServiceTypeID == (short)DMS_ServiceType.GoodwillWarranty)
+            else if(ServiceTypeID == (short)DMS_ServiceType.GoodwillWarranty)
             {
                 lbtnServiceClaim.Visible = false;
             }
@@ -2445,6 +2445,10 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lbtnMarginWarrantyApprove.Visible = false;
                     lbtnMarginWarrantyReject.Visible = false;
                     lbtnRequestDateChange.Visible = false;
+
+                    lbtnServiceQuotation.Visible = false;
+                    lbtnServiceProfarmaInvoice.Visible = false;
+                    lbtnServiceInvoice.Visible = false;
                 }
                 if (!string.IsNullOrEmpty(SC.QuotationNumber))
                 {

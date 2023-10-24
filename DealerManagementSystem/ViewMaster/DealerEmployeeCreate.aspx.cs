@@ -211,7 +211,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlState.SelectedValue != "0")
-                new BDMS_Address().GetDistrict(ddlDistrict, null, null, null, Convert.ToInt32(ddlState.SelectedValue), null, null);
+                new BDMS_Address().GetDistrict(ddlDistrict, null, null, null, Convert.ToInt32(ddlState.SelectedValue), null, null,"true");
         }
 
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)

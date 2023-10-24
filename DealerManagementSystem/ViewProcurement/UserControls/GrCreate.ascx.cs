@@ -87,9 +87,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     AsnItemID = lblAsnItemID.Text.Trim(),
                     AsnID = Convert.ToInt64(lblAsnID.Text),
                     DeliveredQty = Convert.ToDecimal("0" + txtDeliveredQty.Text),
-                    ReceivedQty = Convert.ToDecimal("0" + txtReceivedQty.Text),
-                    DamagedQty = Convert.ToDecimal("0" + txtDamagedQty.Text),
-                    MissingQty = Convert.ToDecimal("0" + txtMissingQty.Text),
+                    //ReceivedQty = Convert.ToDecimal("0" + txtReceivedQty.Text),
+                    //DamagedQty = Convert.ToDecimal("0" + txtDamagedQty.Text),
+                    //MissingQty = Convert.ToDecimal("0" + txtMissingQty.Text),
                     GrRemarks = txtRemarks.Text
                 });
             }

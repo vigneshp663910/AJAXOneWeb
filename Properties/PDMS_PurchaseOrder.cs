@@ -298,12 +298,20 @@ namespace Properties
         public PAsnItem AsnItem { get; set; }
         public decimal DeliveredQty { get; set; }
         public decimal ReceivedQty { get; set; }
-        public decimal DamagedQty { get; set; }
-        public decimal ReturnedQty { get; set; }
-        public decimal MissingQty { get; set; }
+        public decimal SaleableQty { get; set; }
+        public decimal BlockedQty { get; set; }
+        public decimal ReturnedQty { get; set; } 
         public string Remark { get; set; }
     }
-
+    [Serializable]
+    public class PGrBlocked
+    {
+        public long GrBlockedID { get; set; }
+        public long GrItemID { get; set; } 
+        public decimal Qty { get; set; }
+        public PProcurementStatus GrBlockedStatus { get; set; } 
+        public string Remark { get; set; }
+    }
     [Serializable]
     public class PPurchaseOrderInvoice
     {
@@ -364,13 +372,21 @@ namespace Properties
         public string AsnItemID { get; set; }
         public long AsnID { get; set; }
         public decimal DeliveredQty { get; set; }
-        public decimal ReceivedQty { get; set; }
-        public decimal DamagedQty { get; set; }
-        public decimal MissingQty { get; set; }
+        //public decimal ReceivedQty { get; set; }
+        public decimal SaleableQty { get; set; }
+        public decimal BlockedQty { get; set; }
         public string GrRemarks { get; set; }
         public string ItemRemarks { get; set; }
-    }
+        public List<PGrBlocked_Insert> BlockedList { get; set; }
 
+    }
+    [Serializable]
+    public class PGrBlocked_Insert
+    {
+        public decimal Qty { get; set; }
+        public int statusID { get; set; }
+        public string Remarks { get; set; }
+    }
 
 
     [Serializable]
