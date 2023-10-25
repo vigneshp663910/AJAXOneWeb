@@ -19,28 +19,37 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public List<PMessageAnnouncement> GetAllUsers(string contactName = "", string userName = "")
+        public List<PMessageAnnouncement> GetMessageAnnouncement(long? MessageAnnouncementId, int? DealerID, int? DealerDepartmentID, int? DealerDesignationID, int? DealerEmployeeID)
         {
-            List<PMessageAnnouncement> users = new List<PMessageAnnouncement>();
+            List<PMessageAnnouncement> PMAs = new List<PMessageAnnouncement>();
+            PMessageAnnouncement PMA = null;
             DateTime traceStartTime = DateTime.Now;
             DataTable usersDataTable = new DataTable();
             try
             {
-                DbParameter ContactNameParams, UserNameParams;
-                ContactNameParams = provider.CreateParameter("ContactName", contactName, DbType.String);
-                UserNameParams = provider.CreateParameter("UserName", userName, DbType.String);
-                DbParameter[] userParams = new DbParameter[2] { ContactNameParams, UserNameParams };
+                DbParameter MessageAnnouncementIdP = provider.CreateParameter("MessageAnnouncementId", MessageAnnouncementId, DbType.Int64);
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
+                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int32);
+                DbParameter DealerEmployeeIDP = provider.CreateParameter("DealerEmployeeID", DealerEmployeeID, DbType.Int32);
 
-                using (DataSet usersDataSet = provider.Select("GetAllUsers", userParams))
+                DbParameter[] userParams = new DbParameter[5] { MessageAnnouncementIdP, DealerIDP, DealerDepartmentIDP, DealerDesignationIDP, DealerEmployeeIDP };
+
+                using (DataSet usersDataSet = provider.Select("GetMessageAnnouncement", userParams))
                 {
                     if (usersDataSet != null)
-                        foreach (DataRow usersRow in usersDataSet.Tables[0].Rows)
+                        foreach (DataRow dr in usersDataSet.Tables[0].Rows)
                         {
-
+                            PMA = new PMessageAnnouncement();
+                            PMA.MessageAnnouncementId = Convert.ToInt64(dr["MessageAnnouncementId"]);
+                            PMA.AssignTo = new PUser() { UserID = Convert.ToInt32(dr["AssignTo"]), ContactName = Convert.ToString(dr["AssignToName"]) };
+                            PMA.Message = Convert.ToString(dr["Message"]);
+                            PMA.CreatedBy = new PUser() { UserID = Convert.ToInt32(dr["CreatedBy"]), ContactName = Convert.ToString(dr["CreatedByName"]) };
+                            PMA.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
                         }
                 }
                 TraceLogger.Log(traceStartTime);
-                return users;
+                return PMAs;
             }
             catch (SqlException sqlEx)
             {

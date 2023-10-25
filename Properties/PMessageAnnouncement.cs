@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Properties
 {
+    [Serializable]
     public class PMessageAnnouncement
     {
         public long MessageAnnouncementId { get; set; }

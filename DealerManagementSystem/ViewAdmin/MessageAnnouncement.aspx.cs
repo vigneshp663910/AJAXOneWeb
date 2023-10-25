@@ -9,22 +9,30 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewAdmin
 {
-    public partial class MessageAnnouncement : System.Web.UI.Page
+    public partial class MessageAnnouncement : BasePage
     {
-        public int? DealerID, DealerDepartmentID, DealerDesignationID;
-        public List<PUser> UserLst
+        //public override SubModule SubModuleName { get { return SubModule.ViewAdmin_MessageAnnouncement; } }
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
+        public int? DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID;
+        public List<PMessageAnnouncement> Message
         {
             get
             {
-                if (ViewState["PUser"] == null)
+                if (ViewState["PMessageAnnouncement"] == null)
                 {
-                    ViewState["PUser"] = new List<PUser>();
+                    ViewState["PMessageAnnouncement"] = new List<PMessageAnnouncement>();
                 }
-                return (List<PUser>)ViewState["PUser"];
+                return (List<PMessageAnnouncement>)ViewState["PMessageAnnouncement"];
             }
             set
             {
-                ViewState["PUser"] = value;
+                ViewState["PMessageAnnouncement"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -46,31 +54,29 @@ namespace DealerManagementSystem.ViewAdmin
         }
         void Fill()
         {
-            //DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            //DealerDepartmentID = (ddlDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
-            //DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+            DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            DealerDepartmentID = (ddlDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+            DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+            DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
 
-            //UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, DepartmentID, DesignationID);
+            Message = new BMessageAnnouncement().GetMessageAnnouncement(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID);
 
-            //UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()) && ((m.ajaxOne == ajaxOne) || (ajaxOne == null)) && ((m.IsLocked == IsLocked) || (IsLocked == null)));
-            //gvUser.DataSource = UserLst;
+            gvMessageAnnouncement.DataSource = Message;
+            gvMessageAnnouncement.DataBind();
 
-            ////gvUser.DataSource = u;
-            //gvUser.DataBind();
-
-            //if (UserLst.Count == 0)
-            //{
-            //    lblRowCount.Visible = false;
-            //    ibtnUserArrowLeft.Visible = false;
-            //    ibtnUserArrowRight.Visible = false;
-            //}
-            //else
-            //{
-            //    lblRowCount.Visible = true;
-            //    ibtnUserArrowLeft.Visible = true;
-            //    ibtnUserArrowRight.Visible = true;
-            //    lblRowCount.Text = (((gvUser.PageIndex) * gvUser.PageSize) + 1) + " - " + (((gvUser.PageIndex) * gvUser.PageSize) + gvUser.Rows.Count) + " of " + UserLst.Count;
-            //}
+            if (Message.Count == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnArrowLeft.Visible = false;
+                ibtnArrowRight.Visible = false;
+            }
+            else
+            {
+                lblRowCount.Visible = true;
+                ibtnArrowLeft.Visible = true;
+                ibtnArrowRight.Visible = true;
+                lblRowCount.Text = (((gvMessageAnnouncement.PageIndex) * gvMessageAnnouncement.PageSize) + 1) + " - " + (((gvMessageAnnouncement.PageIndex) * gvMessageAnnouncement.PageSize) + gvMessageAnnouncement.Rows.Count) + " of " + Message.Count;
+            }
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
