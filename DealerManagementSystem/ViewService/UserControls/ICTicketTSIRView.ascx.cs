@@ -646,7 +646,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                 List<PDMS_TSIRAttachedFile> TSIRFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(TSIR.ICTicket.ICTicketID, TSIR.TsirID, null);
                 for (int i = 0; i < TSIRFile.Count(); i++)
                 {
-                    PDMS_TSIRAttachedFile T1 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(TSIRFile[i].AttachedFileID);
+                   // PDMS_TSIRAttachedFile T1 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(TSIRFile[i].AttachedFileID);
+                    PAttachedFile T1 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileForDownload(TSIRFile[i].AttachedFileID);
+
                     string Url1 = "~/ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
                     if (File.Exists(MapPath(Url1)))
                     {
@@ -659,7 +661,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                     Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
 
                     //FsrFiles.Rows.Add(T1.FSRAttachedName.FSRAttachedName, Path1);
-                    FileNames.Add(T1.FSRAttachedName.FSRAttachedName);
+                    FileNames.Add(T1.FileName);
                     FiePath.Add(Path1);
                 }
 
