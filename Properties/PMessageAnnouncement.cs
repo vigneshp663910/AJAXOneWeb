@@ -14,6 +14,9 @@ namespace Properties
         public string Message { get; set; }
         public PUser CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
+        public Boolean MailResponce { get; set; }
+        public PDealer Dealer { get; set; }
+        public long NotificationNumber{get;set;}
     }
 
 }

@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewAdmin
 {
     public partial class MessageAnnouncement : BasePage
     {
-        //public override SubModule SubModuleName { get { return SubModule.ViewAdmin_MessageAnnouncement; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewAdmin_MessageAnnouncement; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -20,6 +20,36 @@ namespace DealerManagementSystem.ViewAdmin
             }
         }
         public int? DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID;
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] = 0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
         public List<PMessageAnnouncement> Message
         {
             get
@@ -49,6 +79,7 @@ namespace DealerManagementSystem.ViewAdmin
                 DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
                 List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
                 new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
+                DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
                 Fill();
             }
         }
@@ -87,6 +118,7 @@ namespace DealerManagementSystem.ViewAdmin
             DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
             List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
             new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
+            DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
         }
 
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
@@ -96,16 +128,40 @@ namespace DealerManagementSystem.ViewAdmin
             DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
             List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
             new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
+            DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
         }
 
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
+            if (PageIndex > 1)
+            {
+                PageIndex = PageIndex - 1;
+                Fill();
+            }
+        }
 
+        protected void btnMessage_Click(object sender, EventArgs e)
+        {
+            divList.Visible = false;
+            divMessageAnnouncementCreate.Visible = true;
+            lblMessage.Text = "";
+            Button BtnView = (Button)sender;
+            UC_MessageAnnouncementCreate.FillMaster();
+        }
+
+        protected void btnBackToList_Click(object sender, EventArgs e)
+        {
+            divList.Visible = true;
+            divMessageAnnouncementCreate.Visible = false;
         }
 
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-
+            if (PageCount > PageIndex)
+            {
+                PageIndex = PageIndex + 1;
+                Fill();
+            }
         }
 
         protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
@@ -113,11 +169,12 @@ namespace DealerManagementSystem.ViewAdmin
             DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
             List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
             new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
+            DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-
+            Fill();
         }
     }
 }

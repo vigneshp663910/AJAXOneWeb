@@ -481,7 +481,8 @@ namespace Properties
         ViewAdmin_UserAccessManagement = 236,
         ViewMaster_DealerBinLocation = 237,
         ViewService_ICTicketMarginWarrantyReport = 238,
-        ViewService_ICTicketMarginWarrantyApproval = 239
+        ViewService_ICTicketMarginWarrantyApproval = 239,
+        ViewAdmin_MessageAnnouncement = 245
     }
     public enum SubModuleChildMaster
     {

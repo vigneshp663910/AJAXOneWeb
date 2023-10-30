@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="MessageAnnouncement.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.MessageAnnouncement" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<%@ Register Src="~/ViewEquipment/UserControls/EquipmentView.ascx" TagPrefix="UC" TagName="UC_EquipmentView" %>
+<%@ Register Src="~/ViewAdmin/UserControls/MessageAnnouncementCreate.ascx" TagPrefix="UC" TagName="UC_MessageAnnouncementCreate" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -26,12 +26,12 @@
                                 <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged" AutoPostBack="true" />
                             </div>
                             <div class="col-md-2 col-sm-12">
-                                <label class="modal-label">Employee</label>
+                                <label>Employee</label>
                                 <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" />
                             </div>
                             <div class="col-md-12 text-center">
                                 <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnSearch_Click" />
-                                <%--<asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" Width="120px" OnClick="btnExportExcel_Click" />--%>
+                                <asp:Button ID="btnMessage" runat="server" Text="Message" CssClass="btn Save" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnMessage_Click" />
                             </div>
                         </div>
                     </fieldset>
@@ -70,11 +70,10 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Message">
-                                        <ItemStyle VerticalAlign="Middle" />
+                                    <asp:TemplateField HeaderText="Notification No">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblMessage" Text='<%# DataBinder.Eval(Container.DataItem, "Message")%>' runat="server" />
-                                            <asp:Label ID="lblMessageAnnouncementId" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementId")%>' runat="server" Visible="false" />
+                                            <asp:Label ID="lblNotificationNo" Text='<%# DataBinder.Eval(Container.DataItem, "NotificationNumber")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="To">
@@ -95,6 +94,13 @@
                                             <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Message">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblMessage" Text='<%# DataBinder.Eval(Container.DataItem, "Message")%>' runat="server" />
+                                            <asp:Label ID="lblMessageAnnouncementId" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementId")%>' runat="server" Visible="false" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
@@ -104,6 +110,18 @@
                             </asp:GridView>
                         </div>
                     </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="divMessageAnnouncementCreate" runat="server" visible="false">
+            <div class="" id="boxHere"></div>
+            <div class="back-buttton" id="backBtn">
+                <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+            </div>
+            <div class="col-md-12" runat="server" id="tblDashboard">
+                <UC:UC_MessageAnnouncementCreate ID="UC_MessageAnnouncementCreate" runat="server"></UC:UC_MessageAnnouncementCreate>
+                <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>
+                <div class="col-md-12 text-center">
                 </div>
             </div>
         </div>
