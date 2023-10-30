@@ -620,32 +620,33 @@ namespace Properties
     {
         SendSMS = 1,
         SendMail = 2,
-        ICTicketIntegrationFromCRM = 3,
+       // ICTicketIntegrationFromCRM = 3,
         MaterialIntegrationFromPostgre = 4,
         SAPDocumentForWarrantyInvoiceFromSAP = 5,
         SaleOrderNumberForSrviceQuatationFromSAP = 6,
-        TechnicianIntegrationFromSAP = 7,
-        UpdateICTicketToSAP = 8,
-        ModelForClaim = 9,
-        Category = 10,
-        ICTicketIntegrationVerification = 11,
-        QuotationForJSN = 12,
-        IntegrationSalesOrder = 13,
+      //  TechnicianIntegrationFromSAP = 7,
+      //  UpdateICTicketToSAP = 8,
+      //  ModelForClaim = 9,
+     //   Category = 10,
+     //   ICTicketIntegrationVerification = 11,
+      //  QuotationForJSN = 12,
+      //  IntegrationSalesOrder = 13,
         IntegrationSalesOrderInvoice = 14,
         IntegrationClaimAnnexure = 15,
         EInvoice = 16,
         SendMailMttrEscalationMatrix = 17,
-        IntegrationEquipmentFromSAP = 18,
-        IntegrationMaterialFromEccSap = 19,
+       // IntegrationEquipmentFromSAP = 18,
+       // IntegrationMaterialFromEccSap = 19,
         GetPurchaseOrderIntegration = 20,
         MaterialIntegrationFromSAP = 21,
-        CustomerIntegration = 22,
+     //   CustomerIntegration = 22,
         //  UpdateSalesQuotationDeliveryDetails = 23 ,
         SalesQuotationFlowFromSap = 24,
-        EnquiryFromCRM = 25,
+     //   EnquiryFromCRM = 25,
         LeadQualificationByExpectedDateOfSale = 26,
         IntegrationEquipmentFromSAP_New = 27,
-        EnquiryIndiamart = 28
+        EnquiryIndiamart = 28,
+        TaskTicketResolvedAutoClose = 29
     }
     public enum DashboardControl
     {
@@ -714,8 +715,11 @@ namespace Properties
     }
     public enum DealerDesignation
     {
+        GmSales = 1,
+        SalesManager=2,
         SalesExecutive = 4,
-        ServiceTechnician = 8,
+        DealerServiceManager = 5,
+        ServiceTechnician = 8,  
         BusinessSystemManager = 31,
         BusinessSystemExecutive = 32,
         BusinessSystemHead = 51

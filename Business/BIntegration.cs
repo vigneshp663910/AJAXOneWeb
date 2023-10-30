@@ -84,12 +84,12 @@ namespace Business
                         new BAPI().ApiGetWithOutToken("Material/MaterialIntegrationFromSap");
                         new FileLogger().LogMessageService("Ended", "MaterialIntegrationFromSAP", null);
                         break;
-                    case Jobs.CustomerIntegration:
-                        new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
-                        new BAPI().ApiGetWithOutToken("Customer/CustomerMiss");
-                        new BAPI().ApiGetWithOutToken("Customer/CustomerShipToMiss");
-                        new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
-                        break;
+                    //case Jobs.CustomerIntegration:
+                    //    new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
+                    //    new BAPI().ApiGetWithOutToken("Customer/CustomerMiss");
+                    //    new BAPI().ApiGetWithOutToken("Customer/CustomerShipToMiss");
+                    //    new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
+                    //    break;
 
                     //case Jobs.UpdateSalesQuotationDeliveryDetails:
                     //    new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
@@ -102,11 +102,11 @@ namespace Business
                         new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow");
                         new FileLogger().LogMessageService("Ended", "SalesQuotationDocumentsFromSap ", null);
                         break;
-                    case Jobs.EnquiryFromCRM:
-                        new FileLogger().LogMessageService("Started", "EnquiryFromCRM", null);
-                        new BAPI().ApiGetWithOutToken("Enquiry/getEnquiryFromSAP");
-                        new FileLogger().LogMessageService("Ended", "EnquiryFromCRM ", null);
-                        break;
+                    //case Jobs.EnquiryFromCRM:
+                    //    new FileLogger().LogMessageService("Started", "EnquiryFromCRM", null);
+                    //    new BAPI().ApiGetWithOutToken("Enquiry/getEnquiryFromSAP");
+                    //    new FileLogger().LogMessageService("Ended", "EnquiryFromCRM ", null);
+                    //    break;
                     case Jobs.EInvoice:
                         new FileLogger().LogMessageService("Started", "EInvoice Integration", null);
                         new BDMS_EInvoice().StartGeneratEInvoice();
@@ -217,6 +217,11 @@ namespace Business
                         new FileLogger().LogMessageService("Started", "IntegrationEquipmentFromSAP_New", null);
                         new BAPI().ApiGetWithOutToken("Enquiry/IntegrationEnquiryIndiamart");
                         new FileLogger().LogMessageService("Ended", "IntegrationEquipmentFromSAP_New", null);
+                        break;
+                    case Jobs.TaskTicketResolvedAutoClose:
+                        new FileLogger().LogMessageService("Started", "TaskTicketResolvedAutoClose", null);
+                        new BAPI().ApiGetWithOutToken("Task/TaskTicketResolvedAutoClose");
+                        new FileLogger().LogMessageService("Ended", "TaskTicketResolvedAutoClose", null);
                         break;
                 }
                 i = true;
