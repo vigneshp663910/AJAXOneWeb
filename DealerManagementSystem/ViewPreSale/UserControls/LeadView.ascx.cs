@@ -41,6 +41,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessageFinancial.Text = "";
             lblMessageProduct.Text = "";
             lblMessageQuotation.Text = "";
+            lblMessageLost.Text = "";
+            lblMessageDrop.Text = "";
             //if (!string.IsNullOrEmpty(Convert.ToString( ViewState["LeadID"])))
             //{
             //    long LeadID = Convert.ToInt64(Convert.ToString(ViewState["LeadID"]));
@@ -113,11 +115,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Lost Lead")
             {
-                MPE_LostReason.Show();
+                MPE_LeadLost.Show();
             }
             else if (lbActions.Text == "Cancel Lead")
             {
-                MPE_RejectedBySales.Show();
+                MPE_LeadDrop.Show();
             }
             else if(lbActions.Text == "Assign")
             {
@@ -633,28 +635,43 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }         
         protected void btnLostReasonUpdate_Click(object sender, EventArgs e)
         {
+            MPE_LeadLost.Show();
+            if (string.IsNullOrEmpty(txtLostReason.Text.Trim()))
+            {
+                lblMessageLost.Text = "Enter the Reason";
+                return;
+            }
+
             string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=5&Reason=" + txtLostReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             ShowMessage(Results); 
             if (Results.Status == PApplication.Failure)
-            { 
-                lblMessage.ForeColor = Color.Red;
+            {
+                lblMessageLost.Text = Results.Message; 
                 return;
             } 
             txtLostReason.Text = "";
+            MPE_LeadLost.Hide();
             fillViewLead(Lead.LeadID);
         }
-        protected void btnRejectedBySalesUpdate_Click(object sender, EventArgs e)
+        protected void btnLeadDropUpdate_Click(object sender, EventArgs e)
         {
+            MPE_LeadDrop.Show();
+            if (string.IsNullOrEmpty(txtRejectedBySalesReason.Text.Trim()))
+            {
+                lblMessageDrop.Text = "Enter the Reason";
+                return;
+            }
             string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=6&Reason=" + txtRejectedBySalesReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             ShowMessage(Results);
             if (Results.Status == PApplication.Failure)
-            { 
-                lblMessage.ForeColor = Color.Red;
+            {
+                lblMessageDrop.Text = Results.Message; 
                 return;
             } 
             txtRejectedBySalesReason.Text = "";
+            MPE_LeadDrop.Hide();
             fillViewLead(Lead.LeadID);
         }
         protected void btnLeadEdit_Click(object sender, EventArgs e)

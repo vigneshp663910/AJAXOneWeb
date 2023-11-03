@@ -824,8 +824,8 @@
         </a>
     </div>
     <div class="col-md-12">
-        <div class="model-scroll">
-            <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
+        <div class="model-scroll"> 
+            <asp:Label ID="lblMessageLost" runat="server" Text="" CssClass="message"  ForeColor ="Red" />
             <div class="col-md-2 text-right">
                 <label>Reason</label>
             </div>
@@ -838,18 +838,18 @@
         </div>
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_LostReason" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLostReason" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_LeadLost" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLostReason" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
-<asp:Panel ID="pnlRejectedBySales" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnlLeadDrop" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Rejected By Sales Reason</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Drop Reason</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button9" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="Label2" runat="server" Text="" CssClass="message" Visible="false" />
+              <asp:Label ID="lblMessageDrop" runat="server" Text="" CssClass="message"  ForeColor ="Red" />
             <div class="col-md-2 text-right">
                 <label>Reason</label>
             </div>
@@ -857,12 +857,12 @@
                 <asp:TextBox ID="txtRejectedBySalesReason" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
             </div>
             <div class="col-md-12 text-center">
-                <asp:Button ID="btnRejectedBySalesUpdate" runat="server" Text="Save" CssClass="btn Save" OnClick="btnRejectedBySalesUpdate_Click" />
+                <asp:Button ID="btnRejectedBySalesUpdate" runat="server" Text="Save" CssClass="btn Save" OnClick="btnLeadDropUpdate_Click" />
             </div>
         </div>
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_RejectedBySales" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlRejectedBySales" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_LeadDrop" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLeadDrop" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlLead" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
