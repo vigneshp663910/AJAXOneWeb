@@ -2806,8 +2806,16 @@ namespace DealerManagementSystem.ViewService.UserControls
         {
             try
             { 
+                if(SDMS_ICTicket.RestoreDate == null)
+                {
+                    lbtnServiceClaim.Visible = false;
+                    lbtnMaterialClaim.Visible = false;
+                    return;
+                }
                 int Days = Convert.ToInt32(ConfigurationManager.AppSettings["ICTicketLockDate"]);
-                if (SDMS_ICTicket.ICTicketDate.AddDays(Days) < DateTime.Now)
+
+                DateTime RestoreDate = (DateTime)SDMS_ICTicket.RestoreDate;
+                if (RestoreDate.AddDays(Days) < DateTime.Now)
                 {
                     DataTable ICTicketDT = new BDMS_ICTicket().GetDeviatedICTicketReport(SDMS_ICTicket.Dealer.DealerID, SDMS_ICTicket.ICTicketNumber, 1, null, null, PSession.User.UserID);
                     if (ICTicketDT.Rows.Count != 0)
@@ -2819,8 +2827,23 @@ namespace DealerManagementSystem.ViewService.UserControls
                         }
                     }
                     lbtnServiceClaim.Visible = false;
-                    lbtnMaterialClaim.Visible = false; 
+                    lbtnMaterialClaim.Visible = false;
                 }
+
+                //if (SDMS_ICTicket.ICTicketDate.AddDays(Days) < DateTime.Now)
+                //{
+                //    DataTable ICTicketDT = new BDMS_ICTicket().GetDeviatedICTicketReport(SDMS_ICTicket.Dealer.DealerID, SDMS_ICTicket.ICTicketNumber, 1, null, null, PSession.User.UserID);
+                //    if (ICTicketDT.Rows.Count != 0)
+                //    {
+                //        Boolean c = ICTicketDT.Rows[0]["Approved"] == DBNull.Value ? false : Convert.ToBoolean(ICTicketDT.Rows[0]["Approved"]);
+                //        if (c)
+                //        {
+                //            return;
+                //        }
+                //    }
+                //    lbtnServiceClaim.Visible = false;
+                //    lbtnMaterialClaim.Visible = false; 
+                //}
             }
             catch (Exception ex)
             {

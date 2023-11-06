@@ -635,7 +635,8 @@ namespace DealerManagementSystem.ViewService
             Label lblInvoiceNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceNumber");
 
             Label lblInvoiceDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceDate");
-            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text))
+            Label lblRestoreDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblRestoreDate");
+            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text,Convert.ToDateTime(lblRestoreDate.Text)))
             {
                 lblMessage.Text = "This claim crossed the date. Please get approval.";
                 lblMessage.Visible = true;
@@ -736,7 +737,8 @@ namespace DealerManagementSystem.ViewService
             //  Label lblClaimID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblClaimID");
             Label lblInvoiceNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceNumber");
             Label lblInvoiceDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceDate");
-            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text))
+            Label lblRestoreDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblRestoreDate");
+            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text, Convert.ToDateTime(lblRestoreDate.Text)))
             {
                 lblMessage.Text = "This claim crossed the date. Please get approval.";
                 lblMessage.Visible = true;
@@ -833,7 +835,8 @@ namespace DealerManagementSystem.ViewService
             //  Label lblClaimID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblClaimID");
             Label lblInvoiceNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceNumber");
             Label lblInvoiceDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceDate");
-            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text))
+            Label lblRestoreDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblRestoreDate");
+            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text, Convert.ToDateTime(lblRestoreDate.Text)))
             {
                 lblMessage.Text = "This claim crossed the date. Please get approval.";
                 lblMessage.Visible = true;
@@ -1033,25 +1036,35 @@ namespace DealerManagementSystem.ViewService
             } 
         }
 
-        Boolean ControlBaseOn60Days(DateTime InvoiceDate, string InvoiceNumber)
+        Boolean ControlBaseOn60Days(DateTime ClaimDate, string InvoiceNumber, DateTime RestoreDate)
         {
             Boolean ch = false;
             try
             {
-                int Days = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDate"]);
-
-                if (InvoiceDate.AddDays(Days) < DateTime.Now)
+                //int Days = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDate"]);
+                int ClaimLockDays1 = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDays1"]);
+                int ClaimLockDays2 = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDays2"]);
+                if (ClaimDate.AddDays(ClaimLockDays1) >= DateTime.Now)
                 {
-                    ch = true;
-                    List<PDMS_WarrantyInvoiceHeader> ICTicketDT = new BDMS_WarrantyClaim().GetDeviatedClaimReport(null, InvoiceNumber, null, null, PSession.User.UserID);
-                    if (ICTicketDT.Count == 1)
+                    return false;
+                }
+                if (RestoreDate.AddDays(ClaimLockDays2) >= DateTime.Now)
+                {
+                    return false;
+                }
+
+
+                ch = true;
+                List<PDMS_WarrantyInvoiceHeader> ICTicketDT = new BDMS_WarrantyClaim().GetDeviatedClaimReport(null, InvoiceNumber, null, null, PSession.User.UserID);
+                if (ICTicketDT.Count == 1)
+                {
+                    if (ICTicketDT[0].DeviatedIsApproved == true)
                     {
-                        if (ICTicketDT[0].DeviatedIsApproved == true)
-                        {
-                            ch = false;
-                        }
+                        ch = false;
                     }
                 }
+
+
             }
             catch (Exception ex)
             {
