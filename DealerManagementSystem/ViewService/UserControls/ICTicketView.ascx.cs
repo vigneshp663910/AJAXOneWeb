@@ -2814,7 +2814,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 }
                 int Days = Convert.ToInt32(ConfigurationManager.AppSettings["ICTicketLockDate"]);
 
-                DateTime RestoreDate = (DateTime)SDMS_ICTicket.RestoreDate;
+                DateTime RestoreDate = ((DateTime)SDMS_ICTicket.RestoreDate).Date;
                 if (RestoreDate.AddDays(Days) < DateTime.Now)
                 {
                     DataTable ICTicketDT = new BDMS_ICTicket().GetDeviatedICTicketReport(SDMS_ICTicket.Dealer.DealerID, SDMS_ICTicket.ICTicketNumber, 1, null, null, PSession.User.UserID);

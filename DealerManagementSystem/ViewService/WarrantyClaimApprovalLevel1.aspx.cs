@@ -1041,6 +1041,7 @@ namespace DealerManagementSystem.ViewService
             Boolean ch = false;
             try
             {
+                ClaimDate = ClaimDate.Date;
                 //int Days = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDate"]);
                 int ClaimLockDays1 = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDays1"]);
                 int ClaimLockDays2 = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDays2"]);
