@@ -13,7 +13,7 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbReleasePO" runat="server" OnClick="lbActions_Click">Release PO</asp:LinkButton>
-                <asp:LinkButton ID="lbEditPO" runat="server" OnClick="lbActions_Click">Edit PO</asp:LinkButton>
+               <%-- <asp:LinkButton ID="lbEditPO" runat="server" OnClick="lbActions_Click">Edit PO</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbCancelPO" runat="server" OnClick="lbActions_Click">Cancel PO</asp:LinkButton>
                 <asp:LinkButton ID="lbReleaseApprove" runat="server" OnClick="lbActions_Click">Release Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbCancelApprove" runat="server" OnClick="lbActions_Click">Cancel Approve</asp:LinkButton>
@@ -32,10 +32,17 @@
                     <asp:Label ID="lblPurchaseOrderNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>PO Date : </label>
+                    <label>O Date : </label>
                     <asp:Label ID="lblPurchaseOrderDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-
+                 <div class="col-md-12">
+                    <label>SO Number : </label>
+                    <asp:Label ID="lblSoNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <%--<div class="col-md-12">
+                    <label>SO Date : </label>
+                    <asp:Label ID="lblSoDate" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>--%>
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
@@ -77,7 +84,7 @@
     </fieldset>
 </div>
 
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <asp1:TabContainer ID="tbpEnquiry" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="PO Details" Font-Bold="True" ToolTip="">
         <ContentTemplate>

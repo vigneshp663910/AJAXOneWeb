@@ -46,19 +46,28 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessage.Text = ""; 
+            lblMessage.Text = "";
+            if (Session["PurchaseOrderID"] != null)
+            {
+                lblMessage.Text = "Purchase Order Created Number : " + PurchaseOrder.PurchaseOrderNumber;
+                Session["PurchaseOrderID"] = null;
+            }
         }
         public void fillViewPO(long PurchaseOrderID)
         {
             PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrderByID(PurchaseOrderID);
+           
             Asns = new BDMS_PurchaseOrder().GetPurchaseOrderAsnByID(PurchaseOrderID,null);
 
             lblPurchaseOrderNumber.Text = PurchaseOrder.PurchaseOrderNumber;
+            lblPurchaseOrderDate.Text = PurchaseOrder.PurchaseOrderDate.ToString();
+            lblSoNumber.Text = PurchaseOrder.SaleOrderNumber;
+           // lblSoDate.Text = PurchaseOrder..ToString();
             lblStatus.Text = PurchaseOrder.PurchaseOrderStatus.ProcurementStatus;
             lblDivision.Text = PurchaseOrder.Division.DivisionCode;
             lblRefNo.Text = PurchaseOrder.ReferenceNo;
 
-            lblPurchaseOrderDate.Text = PurchaseOrder.PurchaseOrderDate.ToString();
+           
             lblOrderType.Text = PurchaseOrder.PurchaseOrderType.PurchaseOrderType;
             lblReceivingLocation.Text = PurchaseOrder.Location.OfficeName;
             lblPORemarks.Text = PurchaseOrder.Remarks;
@@ -185,7 +194,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         void ActionControlMange()
         {
             lbReleasePO.Visible = true;
-            lbEditPO.Visible = true;
+            // lbEditPO.Visible = true;
             lbCancelPO.Visible = true;
             lbReleaseApprove.Visible = true;
             lbCancelApprove.Visible = true;
@@ -199,39 +208,48 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             else if (StatusID == (short)ProcurementStatus.PoReleased)
             {
                 lbReleasePO.Visible = false;
-                lbEditPO.Visible = false;
+                // lbEditPO.Visible = false;
                 lbReleaseApprove.Visible = false;
                 lbCancelApprove.Visible = false;
+                gvPOItem.Columns[13].Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoPartialReceived)
             {
                 lbReleasePO.Visible = false;
-                lbEditPO.Visible = false;
+                // lbEditPO.Visible = false;
                 lbReleaseApprove.Visible = false;
                 lbCancelApprove.Visible = false;
+
+                gvPOItem.Columns[13].Visible = false;
             }
             else if ((StatusID == (short)ProcurementStatus.PoCompleted)
                || (StatusID == (short)ProcurementStatus.PoForceClosed) || (StatusID == (short)ProcurementStatus.PoCancelld))
             {
                 lbReleasePO.Visible = false;
-                lbEditPO.Visible = false;
+                // lbEditPO.Visible = false;
                 lbCancelPO.Visible = false;
                 lbReleaseApprove.Visible = false;
                 lbCancelApprove.Visible = false;
+
+                gvPOItem.Columns[13].Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoWaitingForReleaseApproval)
             {
                 lbReleasePO.Visible = false;
-                lbEditPO.Visible = false;
+                // lbEditPO.Visible = false;
                 lbCancelPO.Visible = false;
                 lbCancelApprove.Visible = false;
+
+                gvPOItem.Columns[13].Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoWaitingForCancelApproval)
             {
                 lbReleasePO.Visible = false;
-                lbEditPO.Visible = false;
+                // lbEditPO.Visible = false;
                 lbCancelPO.Visible = false;
                 lbReleaseApprove.Visible = false;
+
+                gvPOItem.Columns[13].Visible = false;
             }
         } 
         public void fillEnquiryStatusHistory()

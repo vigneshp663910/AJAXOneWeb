@@ -193,7 +193,7 @@ namespace Properties
         public int VendorID { get; set; }
         public int PurchaseOrderTypeID { get; set; }
         public int DivisionID { get; set; }
-        public DateTime ExpectedDeliveryDate { get; set; }
+        //public DateTime ExpectedDeliveryDate { get; set; }
         public string ReferenceNo { get; set; }
         public string Remarks { get; set; }
         public List<PPurchaseOrderItem_Insert> PurchaseOrderItems { get; set; }
@@ -221,6 +221,7 @@ namespace Properties
         public decimal CGSTValue { get; set; }
         public decimal SGSTValue { get; set; }
         public decimal IGSTValue { get; set; }
+        public decimal NetValue { get; set; }
     }
 
     [Serializable]

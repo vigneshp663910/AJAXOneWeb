@@ -160,7 +160,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PO.PurchaseOrderTypeID = Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);            
             PO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
             PO.ReferenceNo = txtReferenceNo.Text.Trim();
-            PO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
+           // PO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
             PO.Remarks = txtRemarks.Text.Trim(); 
             return PO;
         }
@@ -194,7 +194,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlPurchaseOrderType.BorderColor = Color.Silver;
             ddlDivision.BorderColor = Color.Silver;
             ddlDealerOffice.BorderColor = Color.Silver;
-            txtExpectedDeliveryDate.BorderColor = Color.Silver;
+            //txtExpectedDeliveryDate.BorderColor = Color.Silver;
             string Message = "";
 
             if (ddlDealer.SelectedValue == "0")
@@ -222,11 +222,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ddlDealerOffice.BorderColor = Color.Red;
                 return "Please select the Dealer Office";
             }
-            if (string.IsNullOrEmpty(txtExpectedDeliveryDate.Text.Trim()))
-            {
-                txtExpectedDeliveryDate.BorderColor = Color.Red;
-                return "Please Enter the Expected Delivery Date";
-            }
+            //if (string.IsNullOrEmpty(txtExpectedDeliveryDate.Text.Trim()))
+            //{
+            //    txtExpectedDeliveryDate.BorderColor = Color.Red;
+            //    return "Please Enter the Expected Delivery Date";
+            //}
              
 
             return Message;
@@ -259,6 +259,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 Discount = Discount + Item.DiscountAmount;
                 TaxableAmount = TaxableAmount + Item.TaxableAmount;
                 TaxAmount = TaxAmount + Item.CGSTValue + Item.SGSTValue +  Item.IGSTValue;
+
+                Item.NetValue = Item.CGSTValue + Item.SGSTValue + Item.IGSTValue + Item.TaxableAmount;
             }
             lblPrice.Text = Price.ToString();
             lblDiscount.Text = Discount.ToString();
@@ -302,9 +304,25 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 return;
             }
            
-
+           
             PPurchaseOrderItem_Insert PoI = ReadItem();
-      
+            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
+            PoI.MaterialDescription = m.MaterialDescription;
+            PoI.UOM = m.BaseUnit; 
+            if (string.IsNullOrEmpty(m.HSN))
+            {
+                lblMessage.Text = "HSN is Not updated for this material. Please contact Admin.";
+                return;
+            }
+            PO_Insert = Read();
+            if (PO_Insert.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
+            {
+                if ((PurchaseOrderItem_Insert.Count != 0) || (PoI.Quantity != 1))
+                {
+                    lblMessage.Text = "In machine Order you cannot add more material or more quantity.";
+                    return;
+                }
+            }
             //PO_Insert.PurchaseOrderItems.Add(PoI);
 
             string Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
@@ -317,6 +335,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             string IsWarrenty = "false";
 
             PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, PoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+
+            if (Mat.CurrentPrice == 0)
+            {
+                lblMessage.Text = "Price is Not updated for this material. Please contact Admin.";
+                return;
+            }
+           
             PoI.Price = Mat.CurrentPrice;
             PoI.DiscountAmount = Mat.Discount;
             PoI.TaxableAmount = Mat.TaxablePrice;
@@ -326,7 +351,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PoI.CGSTValue = Mat.CGSTValue;
             PoI.CGST = Mat.CGST;
             PoI.IGSTValue = Mat.IGSTValue;
-
+            PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
             PurchaseOrderItem_Insert.Add(PoI);
             PoI.Item = PurchaseOrderItem_Insert.Count * 10;
             fillItem();
@@ -423,7 +448,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             PPurchaseOrderItem_Insert SM = new PPurchaseOrderItem_Insert();
             SM.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
-            SM.MaterialCode = hdfMaterialCode.Value;
+            SM.MaterialCode = hdfMaterialCode.Value;            
             // SM.SupersedeYN = cbSupersedeYN.Checked;
             SM.Quantity = Convert.ToInt32(txtQty.Text.Trim());
             return SM;
@@ -479,6 +504,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.Text = Result.Message;
                 return;
             }
+            Session["PurchaseOrderID"] = Result.Data;
+            Response.Redirect("PurchaseOrder.aspx");
             lblMessage.Text = Result.Message; 
             lblMessage.ForeColor = Color.Green;
         }
