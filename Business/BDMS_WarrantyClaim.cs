@@ -1460,7 +1460,7 @@ namespace Business
         }
         public PSAPDocumentNumber getSAPDocumentNumber(string InvoiceNumber)
         {
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Warranty/getSAPDocumentNumber?InvoiceNumber =" + InvoiceNumber));
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Warranty/getSAPDocumentNumber?InvoiceNumber=" + InvoiceNumber));
             if (Results.Status == PApplication.Failure)
             {
                 throw new Exception(Results.Message);
