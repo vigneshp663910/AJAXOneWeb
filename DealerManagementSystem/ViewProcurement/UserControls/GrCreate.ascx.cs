@@ -131,5 +131,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             return Result;
         }
+
+        protected void btnSetBlockedQty_Click(object sender, EventArgs e)
+        {
+            new DDLBind(ddlStatus, new BDMS_PurchaseOrder().GetProcurementStatus(2), "ProcurementStatus", "ProcurementStatusID");
+            MPE_UpdateBlockedQty.Show();
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

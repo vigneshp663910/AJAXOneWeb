@@ -303,6 +303,7 @@ namespace Properties
         public decimal BlockedQty { get; set; }
         public decimal ReturnedQty { get; set; } 
         public string Remark { get; set; }
+        public List<PGrBlocked> GrBlocked { get; set; }
     }
     [Serializable]
     public class PGrBlocked

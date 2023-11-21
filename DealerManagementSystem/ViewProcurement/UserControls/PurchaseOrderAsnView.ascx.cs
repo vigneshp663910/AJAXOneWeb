@@ -28,67 +28,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PAsnView"] = value;
             }
         }
-        //public List<PAsnItem> PAsnItemView
-        //{
-        //    get
-        //    {
-        //        if (ViewState["PAsnItemView"] == null)
-        //        {
-        //            ViewState["PAsnItemView"] = new List<PAsnItem>();
-        //        }
-        //        return (List<PAsnItem>)ViewState["PAsnItemView"];
-        //    }
-        //    set
-        //    {
-        //        ViewState["PAsnItemView"] = value;
-        //    }
-        //}
-        //public List<PGr> GrList
-        //{
-        //    get
-        //    {
-        //        if (ViewState["GrList"] == null)
-        //        {
-        //            ViewState["GrList"] = new PAsn();
-        //        }
-        //        return (List<PGr>)ViewState["GrList"];
-        //    }
-        //    set
-        //    {
-        //        ViewState["GrList"] = value;
-        //    }
-        //}
-        //public List<PAsnItem> AsnPOItemView
-        //{
-        //    get
-        //    {
-        //        if (ViewState["AsnPOItemView"] == null)
-        //        {
-        //            ViewState["AsnPOItemView"] = new PGr();
-        //        }
-        //        return (List<PAsnItem>)ViewState["AsnPOItemView"];
-        //    }
-        //    set
-        //    {
-        //        ViewState["AsnPOItemView"] = value;
-        //    }
-        //}
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
         }
         public void fillViewPOAsn(long AsnID)
         {
-            PAsnView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnByID(null,AsnID)[0];
+            PAsnView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnByID(null, AsnID)[0];
 
             lblAsnNumber.Text = PAsnView.AsnNumber;
             lblAsnDate.Text = PAsnView.AsnDate.ToString();
-            //lblDealer.Text = PAsnView.PurchaseOrder.Dealer.DealerName;
-
-            //lblPoNumber.Text = PAsnView.PurchaseOrder.PurchaseOrderNumber;
-            //lblPoDate.Text = PAsnView.PurchaseOrder.PurchaseOrderDate.ToString();
-            //lblVendor.Text = PAsnView.PurchaseOrder.Vendor.DealerName;
-
             lblDeliveryNumber.Text = PAsnView.DeliveryNumber;
             lblDeliveryDate.Text = PAsnView.DeliveryDate.ToString();
             lblAsnStatus.Text = PAsnView.AsnStatus.ProcurementStatus;
@@ -139,13 +88,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             if (lbActions.Text == "Gr Creation")
             {
                 MPE_GrCreate.Show();
-                UC_GrCreate.FillMaster(PAsnView);
+                FillGr(PAsnView);
             }
         }
         void ActionControlMange()
         {
             lbGrCreation.Visible = true;
-            if(PAsnView.AsnStatus.ProcurementStatusID != (short)ProcurementStatus.AsnGRPending)
+            if (PAsnView.AsnStatus.ProcurementStatusID != (short)ProcurementStatus.AsnGRPending)
             {
                 lbGrCreation.Visible = false;
             }
@@ -154,13 +103,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             lblMessage.ForeColor = Color.Red;
             lblMessage.Visible = true;
-            Boolean Validation = UC_GrCreate.ValidationItem();
+            lblMessageGrCreation.ForeColor = Color.Red;
+            lblMessageGrCreation.Text = "";
+            lblMessageGrCreation.Visible = true;
+            Boolean Validation = ValidationGrItem();
             if (Validation)
             {
                 MPE_GrCreate.Show();
                 return;
             }
-            List<PGr_Insert> GrList = UC_GrCreate.Read();
+            List<PGr_Insert> GrList = GrRead();
 
             string result = new BAPI().ApiPut("PurchaseOrder/InsertPOAsnGr", GrList);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
@@ -174,6 +126,254 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.Text = Result.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
+        }
+        public void FillGr(PAsn PAsnView)
+        {
+            ViewState["AsnID"] = Convert.ToInt64(PAsnView.AsnID);
+
+            lblGrAsnNumber.Text = PAsnView.AsnNumber;
+            lblGrAsnID.Text = PAsnView.AsnID.ToString();
+
+            gvPOAsnGrItem.DataSource = null;
+            gvPOAsnGrItem.DataBind();
+
+            List<PAsnItem> asnItems = new List<PAsnItem>();
+            if (PAsnView.Gr == null)
+            {
+                foreach (PAsnItem Item in PAsnView.AsnItemS)
+                {
+                    PAsnItem AI = new PAsnItem();
+
+                    if (!asnItems.Any(item => item.AsnItemID == Item.AsnItemID))
+                    {
+                        AI.AsnItemID = Item.AsnItemID;
+                        AI.AsnID = Item.AsnID;
+                        AI.AsnItem = Item.AsnItem;
+
+                        AI.Material = new PDMS_Material()
+                        {
+                            MaterialID = Item.Material.MaterialID,
+                            MaterialCode = Item.Material.MaterialCode,
+                            MaterialDescription = Item.Material.MaterialDescription
+                        };
+
+                        AI.Qty = Item.Qty;
+                        AI.GrItem = new PGrItem()
+                        {
+                            DeliveredQty = Item.Qty,
+                            ReceivedQty = Item.Qty,
+                            SaleableQty = Item.Qty,
+                            BlockedQty = 0,
+                        };
+                        asnItems.Add(AI);
+                    }
+                }
+                gvPOAsnGrItem.DataSource = asnItems;
+                gvPOAsnGrItem.DataBind();
+            }
+            else
+            {
+                gvPOAsnGrItem.DataSource = PAsnView.AsnItemS;
+                gvPOAsnGrItem.DataBind();
+            }
+
+            PAsnView.Gr = new PGr();
+            PAsnView.Gr.GrItemS = new List<PGrItem>();
+
+            //GrInsert = new List<PGr_Insert>();
+
+            foreach (GridViewRow row in gvPOAsnGrItem.Rows)
+            {
+                Label lblAsnID = (Label)row.FindControl("lblAsnID");
+                Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
+                Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
+                Label lblSaleableQty = (Label)row.FindControl("lblSaleableQty");
+                Label lblBlockedQty = (Label)row.FindControl("lblBlockedQty");
+
+                PAsnView.Gr.GrItemS.Add(new PGrItem()
+                {
+                    AsnItem = new PAsnItem() { AsnItemID = Convert.ToInt64(lblAsnItemID.Text.Trim()) },
+                    ReceivedQty = Convert.ToDecimal("0" + lblReceivedQty.Text),
+                    SaleableQty = Convert.ToDecimal("0" + lblSaleableQty.Text),
+                    BlockedQty = Convert.ToDecimal("0" + lblBlockedQty.Text),
+                    GrBlocked = new List<PGrBlocked>()
+                });
+            }
+        }
+        public List<PGr_Insert> GrRead()
+        {
+            List<PGr_Insert> GrList = new List<PGr_Insert>();
+
+            foreach (PAsnItem asnItem in PAsnView.AsnItemS)
+            {
+                PGr_Insert pGr = new PGr_Insert();
+                if (asnItem.GrItem != null)
+                {
+                    pGr.AsnItemID = asnItem.AsnItemID.ToString();
+                    pGr.AsnID = Convert.ToInt64(asnItem.AsnID);
+                    pGr.DeliveredQty = asnItem.GrItem.ReceivedQty;
+                    pGr.SaleableQty = asnItem.GrItem.SaleableQty;
+                    pGr.BlockedQty = asnItem.GrItem.BlockedQty;
+                    pGr.GrRemarks = txtRemarks.Text;
+
+                    pGr.BlockedList = new List<PGrBlocked_Insert>();
+                    foreach (PGrBlocked pgb in asnItem.GrItem.GrBlocked)
+                    {
+                        PGrBlocked_Insert pGrBlocked_ = new PGrBlocked_Insert();
+                        pGrBlocked_.Qty = pgb.Qty;
+                        pGrBlocked_.Remarks = pgb.Remark;
+                        pGrBlocked_.statusID = pgb.GrBlockedStatus.ProcurementStatusID;
+                        pGr.BlockedList.Add(pGrBlocked_);
+                    }
+                }
+                else
+                {
+                    pGr.AsnItemID = asnItem.AsnItemID.ToString();
+                    pGr.AsnID = Convert.ToInt64(asnItem.AsnID);
+                    pGr.DeliveredQty = asnItem.Qty;
+                    pGr.SaleableQty = asnItem.Qty;
+                    pGr.BlockedQty = 0;
+                    pGr.GrRemarks = txtRemarks.Text;
+
+                    pGr.BlockedList = new List<PGrBlocked_Insert>();
+
+                    PGrBlocked_Insert pGrBlocked_ = new PGrBlocked_Insert();
+                    pGrBlocked_.Qty = 0;
+                    pGrBlocked_.Remarks = "";
+                    pGrBlocked_.statusID = 19;
+                    pGr.BlockedList.Add(pGrBlocked_);
+
+                    pGrBlocked_ = new PGrBlocked_Insert();
+                    pGrBlocked_.Qty = 0;
+                    pGrBlocked_.Remarks = "";
+                    pGrBlocked_.statusID = 20;
+                    pGr.BlockedList.Add(pGrBlocked_);
+                }
+                GrList.Add(pGr);
+            }
+            return GrList;
+        }
+        public Boolean ValidationGrItem()
+        {
+            lblMessageGrCreation.ForeColor = Color.Red;
+            lblMessageGrCreation.Visible = true;
+            lblMessageGrCreation.Text = "";
+            Boolean Result = false;
+            foreach (GridViewRow row in gvPOAsnGrItem.Rows)
+            {
+                Label lblAsnID = (Label)row.FindControl("lblAsnID");
+                Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
+                Label lblQty = (Label)row.FindControl("lblQty");
+                Label lblAsnItem = (Label)row.FindControl("lblAsnItem");
+
+                Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
+                Label lblSaleableQty = (Label)row.FindControl("lblSaleableQty");
+                Label lblBlockedQty = (Label)row.FindControl("lblBlockedQty");
+
+                decimal ReceivedQty = 0, SaleableQty = 0, BlockedQty = 0;
+                decimal.TryParse(lblReceivedQty.Text, out ReceivedQty);
+                decimal.TryParse(lblSaleableQty.Text, out SaleableQty);
+                decimal.TryParse(lblBlockedQty.Text, out BlockedQty);
+
+                if (Convert.ToDecimal("0" + lblQty.Text) != ReceivedQty)
+                {
+                    lblMessageGrCreation.Text = "Please Equal To AsnQty with Received Qty From Item No : " + lblAsnItem.Text;
+                    Result = true;
+                }
+                if (ReceivedQty != (SaleableQty + BlockedQty))
+                {
+                    lblMessageGrCreation.Text = "Please Equal To Received Qty with (Saleable + Blocked) From Item No : " + lblAsnItem.Text;
+                    Result = true;
+                }
+            }
+            return Result;
+        }
+        protected void lnkSetBlockedQty_Click(object sender, EventArgs e)
+        {
+            lblMessageGrCreation.Text = string.Empty;
+            lblMessageGrCreation.ForeColor = Color.Red;
+            lblMessageGrCreation.Visible = true;
+            LinkButton lnkSetBlockedQty = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)(lnkSetBlockedQty.NamingContainer);
+
+            Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
+            Label lblAsnID = (Label)row.FindControl("lblAsnID");
+            Label lblAsnItem = (Label)row.FindControl("lblAsnItem");
+            Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
+
+            HidAsnItemID.Value = lblAsnItemID.Text;
+            HidAsnID.Value = lblAsnID.Text;
+            HidAsnItem.Value = lblAsnItem.Text;
+            HidReceivedQty.Value = lblReceivedQty.Text;
+
+            txtSaleableQty.Text = HidReceivedQty.Value;
+            txtDamagedQty.Text = "0";
+            txtMissingQty.Text = "0";
+
+            MPE_UpdateBlockedQty.Show();
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            lblMessageBlockedQty.Text = "";
+            lblMessageBlockedQty.ForeColor = Color.Red;
+            lblMessageBlockedQty.Visible = true;
+            if (string.IsNullOrEmpty(txtSaleableQty.Text))
+            {
+                lblMessageBlockedQty.Text = "Please Saleable Quantity...!";
+                MPE_UpdateBlockedQty.Show();
+                return;
+            }
+            if (string.IsNullOrEmpty(txtMissingQty.Text))
+            {
+                lblMessageBlockedQty.Text = "Please Missing Quantity...!";
+                MPE_UpdateBlockedQty.Show();
+                return;
+            }
+            if (string.IsNullOrEmpty(txtDamagedQty.Text))
+            {
+                lblMessageBlockedQty.Text = "Please Damaged Quantity...!";
+                MPE_UpdateBlockedQty.Show();
+                return;
+            }
+            if (Convert.ToDecimal(HidReceivedQty.Value) != (Convert.ToDecimal(txtSaleableQty.Text) + Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text)))
+            {
+                lblMessageBlockedQty.Text = "Received Qty Not match with (Saleable+Missing+Damage) Quantity...!";
+                MPE_UpdateBlockedQty.Show();
+                return;
+            }
+            foreach (PAsnItem asn in PAsnView.AsnItemS)
+            {
+                if (asn.AsnItemID == Convert.ToInt64(HidAsnItemID.Value))
+                {
+                    asn.GrItem = (asn.GrItem == null) ? new PGrItem() : asn.GrItem;
+                    asn.GrItem.GrBlocked = new List<PGrBlocked>();
+                    PGrBlocked pgrb = new PGrBlocked();
+                    pgrb.GrItemID = Convert.ToInt64(HidAsnItemID.Value);
+                    pgrb.Qty = Convert.ToDecimal(txtMissingQty.Text);
+                    pgrb.GrBlockedStatus = new PProcurementStatus() { ProcurementStatusID = 20 };
+                    pgrb.Remark = txtRemark.Text;
+                    asn.GrItem.GrBlocked.Add(pgrb);
+
+                    pgrb = new PGrBlocked();
+                    pgrb.GrItemID = Convert.ToInt64(HidAsnItemID.Value);
+                    pgrb.Qty = Convert.ToDecimal(txtDamagedQty.Text);
+                    pgrb.GrBlockedStatus = new PProcurementStatus() { ProcurementStatusID = 19 };
+                    pgrb.Remark = txtRemark.Text;
+                    asn.GrItem.GrBlocked.Add(pgrb);
+
+                    asn.GrItem.ReceivedQty = Convert.ToDecimal(HidReceivedQty.Value);
+                    asn.GrItem.SaleableQty = Convert.ToDecimal(txtSaleableQty.Text);
+                    asn.GrItem.BlockedQty = (Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text));
+                }
+            }
+            MPE_GrCreate.Show();
+            MPE_UpdateBlockedQty.Hide();
+            gvPOAsnGrItem.DataSource = null;
+            gvPOAsnGrItem.DataBind();
+
+            gvPOAsnGrItem.DataSource = PAsnView.AsnItemS;
+            gvPOAsnGrItem.DataBind();
         }
     }
 }

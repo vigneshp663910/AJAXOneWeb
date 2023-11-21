@@ -125,22 +125,22 @@
                                             <asp:Label ID="lblReceivedQty" Text='<%# DataBinder.Eval(Container.DataItem, "ReceivedQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Damaged Qty">
+                                    <asp:TemplateField HeaderText="Saleable Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDamagedQty" Text='<%# DataBinder.Eval(Container.DataItem, "DamagedQty")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblSaleableQty" Text='<%# DataBinder.Eval(Container.DataItem, "SaleableQty")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Blocked Qty">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblBlockedQty" Text='<%# DataBinder.Eval(Container.DataItem, "BlockedQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Returned Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblReturnedQty" Text='<%# DataBinder.Eval(Container.DataItem, "ReturnedQty")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Missing Qty">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblMissingQty" Text='<%# DataBinder.Eval(Container.DataItem, "MissingQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Net Weight">
