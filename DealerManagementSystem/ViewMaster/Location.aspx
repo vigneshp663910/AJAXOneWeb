@@ -418,7 +418,7 @@
             </asp1:TabPanel>
             <asp1:TabPanel ID="tbpnlDistrict" runat="server" HeaderText="District">
                 <ContentTemplate>
-                  <UC:UC_LocationDistrict ID="UC_DealerView" runat="server"></UC:UC_LocationDistrict>
+                    <UC:UC_LocationDistrict ID="UC_DealerView" runat="server"></UC:UC_LocationDistrict>
                 </ContentTemplate>
             </asp1:TabPanel>
             <%-- <asp1:TabPanel ID="tbpnlCity" runat="server" HeaderText="Tehsil">

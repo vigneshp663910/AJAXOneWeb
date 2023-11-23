@@ -1049,7 +1049,7 @@ namespace DealerManagementSystem.ViewService
                 {
                     return false;
                 }
-                if (RestoreDate.AddDays(ClaimLockDays2) >= DateTime.Now)
+                if (RestoreDate.Date.AddDays(ClaimLockDays2) >= DateTime.Now)
                 {
                     return false;
                 }

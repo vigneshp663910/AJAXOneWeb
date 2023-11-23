@@ -713,6 +713,22 @@ namespace Properties
         Rejected = 5,
         InProgress = 6
     }
+    public enum DealerDepartment
+    {
+        Sales = 1,
+        Service = 2,
+        SpareParts = 3,
+        Administration = 4,
+        FinanceAccounting = 5,
+        TopManagement = 6,
+        BusinessSystem=7,
+        Quality = 8,
+        Engineering = 9,
+        Marketing=10,
+        Operations=11,
+        TrainingDevelopment = 12,
+        IC = 13
+    }
     public enum DealerDesignation
     {
         GmSales = 1,

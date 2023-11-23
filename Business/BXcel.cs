@@ -264,9 +264,9 @@ namespace Business
             decimal Total = (OpenHotF + OpenWarmF + OpenColdF + GeneratedHotF + GeneratedWarmF + GeneratedColdF);
             if (Total > 0)
             {
-                HitRatioF = (WinHotF + WinWarmF + WinColdF) * 100 / Total;
-                LostRatioF = (LostHotF + LostWarmF + LostColdF) * 100 / Total;
-                DropRatioF = (DropHotF + DropWarmF + DropColdF) * 100 / Total;
+                HitRatioF = Math.Round((WinHotF + WinWarmF + WinColdF) * 100 / Total,2);
+                LostRatioF = Math.Round((LostHotF + LostWarmF + LostColdF) * 100 / Total, 2);
+                DropRatioF = Math.Round((DropHotF + DropWarmF + DropColdF) * 100 / Total, 2);
             }
 
             HttpContext.Current.Response.Write("<TR>");

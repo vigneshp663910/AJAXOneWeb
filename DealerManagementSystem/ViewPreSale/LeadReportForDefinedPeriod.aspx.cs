@@ -181,58 +181,58 @@ namespace DealerManagementSystem.ViewPreSale
                 Label lblDropRatioF = (Label)gvLead.FooterRow.FindControl("lblDropRatioF");
                 lblDropRatioF.Text = DropRatioF.ToString("##.##");
 
-                Label lblOpenHotF = (Label)gvLead.FooterRow.FindControl("lblOpenHotF");
+                LinkButton lblOpenHotF = (LinkButton)gvLead.FooterRow.FindControl("lblOpenHotF");
                 lblOpenHotF.Text = OpenHotF.ToString();
-                Label lblOpenWarmF = (Label)gvLead.FooterRow.FindControl("lblOpenWarmF");
+                LinkButton lblOpenWarmF = (LinkButton)gvLead.FooterRow.FindControl("lblOpenWarmF");
                 lblOpenWarmF.Text = OpenWarmF.ToString();
-                Label lblOpenColdF = (Label)gvLead.FooterRow.FindControl("lblOpenColdF");
+                LinkButton lblOpenColdF = (LinkButton)gvLead.FooterRow.FindControl("lblOpenColdF");
                 lblOpenColdF.Text = OpenColdF.ToString();
 
-                Label lblGeneratedHotF = (Label)gvLead.FooterRow.FindControl("lblGeneratedHotF");
+                LinkButton lblGeneratedHotF = (LinkButton)gvLead.FooterRow.FindControl("lblGeneratedHotF");
                 lblGeneratedHotF.Text = GeneratedHotF.ToString();
-                Label lblGeneratedWarmF = (Label)gvLead.FooterRow.FindControl("lblGeneratedWarmF");
+                LinkButton lblGeneratedWarmF = (LinkButton)gvLead.FooterRow.FindControl("lblGeneratedWarmF");
                 lblGeneratedWarmF.Text = GeneratedWarmF.ToString();
-                Label lblGeneratedColdF = (Label)gvLead.FooterRow.FindControl("lblGeneratedColdF");
+                LinkButton lblGeneratedColdF = (LinkButton)gvLead.FooterRow.FindControl("lblGeneratedColdF");
                 lblGeneratedColdF.Text = GeneratedColdF.ToString();
 
 
-                Label lblWinHotF = (Label)gvLead.FooterRow.FindControl("lblWinHotF");
+                LinkButton lblWinHotF = (LinkButton)gvLead.FooterRow.FindControl("lblWinHotF");
                 lblWinHotF.Text = WinHotF.ToString();
-                Label lblWinWarmF = (Label)gvLead.FooterRow.FindControl("lblWinWarmF");
+                LinkButton lblWinWarmF = (LinkButton)gvLead.FooterRow.FindControl("lblWinWarmF");
                 lblWinWarmF.Text = WinWarmF.ToString();
-                Label lblWinColdF = (Label)gvLead.FooterRow.FindControl("lblWinColdF");
+                LinkButton lblWinColdF = (LinkButton)gvLead.FooterRow.FindControl("lblWinColdF");
                 lblWinColdF.Text = WinColdF.ToString();
 
-                Label lblLostHotF = (Label)gvLead.FooterRow.FindControl("lblLostHotF");
+                LinkButton lblLostHotF = (LinkButton)gvLead.FooterRow.FindControl("lblLostHotF");
                 lblLostHotF.Text = LostHotF.ToString();
-                Label lblLostWarmF = (Label)gvLead.FooterRow.FindControl("lblLostWarmF");
+                LinkButton lblLostWarmF = (LinkButton)gvLead.FooterRow.FindControl("lblLostWarmF");
                 lblLostWarmF.Text = LostWarmF.ToString();
-                Label lblLostColdF = (Label)gvLead.FooterRow.FindControl("lblLostColdF");
+                LinkButton lblLostColdF = (LinkButton)gvLead.FooterRow.FindControl("lblLostColdF");
                 lblLostColdF.Text = LostColdF.ToString();
 
-                Label lblDropHotF = (Label)gvLead.FooterRow.FindControl("lblDropHotF");
+                LinkButton lblDropHotF = (LinkButton)gvLead.FooterRow.FindControl("lblDropHotF");
                 lblDropHotF.Text = DropHotF.ToString();
-                Label lblDropWarmF = (Label)gvLead.FooterRow.FindControl("lblDropWarmF");
+                LinkButton lblDropWarmF = (LinkButton)gvLead.FooterRow.FindControl("lblDropWarmF");
                 lblDropWarmF.Text = DropWarmF.ToString();
-                Label lblDropColdF = (Label)gvLead.FooterRow.FindControl("lblDropColdF");
+                LinkButton lblDropColdF = (LinkButton)gvLead.FooterRow.FindControl("lblDropColdF");
                 lblDropColdF.Text = DropColdF.ToString();
 
-                Label lblClosingHotF = (Label)gvLead.FooterRow.FindControl("lblClosingHotF");
+                LinkButton lblClosingHotF = (LinkButton)gvLead.FooterRow.FindControl("lblClosingHotF");
                 lblClosingHotF.Text = ClosingHotF.ToString();
-                Label lblClosingWarmF = (Label)gvLead.FooterRow.FindControl("lblClosingWarmF");
+                LinkButton lblClosingWarmF = (LinkButton)gvLead.FooterRow.FindControl("lblClosingWarmF");
                 lblClosingWarmF.Text = ClosingWarmF.ToString();
-                Label lblClosingColdF = (Label)gvLead.FooterRow.FindControl("lblClosingColdF");
+                LinkButton lblClosingColdF = (LinkButton)gvLead.FooterRow.FindControl("lblClosingColdF");
                 lblClosingColdF.Text = ClosingColdF.ToString();
 
-                Label lblAge30F = (Label)gvLead.FooterRow.FindControl("lblAge30F");
+                LinkButton lblAge30F = (LinkButton)gvLead.FooterRow.FindControl("lblAge30F");
                 lblAge30F.Text = Age30F.ToString();
-                Label lblAge60F = (Label)gvLead.FooterRow.FindControl("lblAge60F");
+                LinkButton lblAge60F = (LinkButton)gvLead.FooterRow.FindControl("lblAge60F");
                 lblAge60F.Text = Age60F.ToString();
-                Label lblAge90F = (Label)gvLead.FooterRow.FindControl("lblAge90F");
+                LinkButton lblAge90F = (LinkButton)gvLead.FooterRow.FindControl("lblAge90F");
                 lblAge90F.Text = Age90F.ToString();
-                Label lblAge180F = (Label)gvLead.FooterRow.FindControl("lblAge180F");
+                LinkButton lblAge180F = (LinkButton)gvLead.FooterRow.FindControl("lblAge180F");
                 lblAge180F.Text = Age180F.ToString();
-                Label lblAgeA180F = (Label)gvLead.FooterRow.FindControl("lblAgeA180F");
+                LinkButton lblAgeA180F = (LinkButton)gvLead.FooterRow.FindControl("lblAgeA180F");
                 lblAgeA180F.Text = AgeA180F.ToString();
             }
         }
@@ -414,7 +414,7 @@ namespace DealerManagementSystem.ViewPreSale
             S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateFrom.Text.Trim());
             S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim());
 
-            S.DealerID = Convert.ToInt32(lblDealerID.Text);
+            S.DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); //Convert.ToInt32(lblDealerID.Text);
             S.SalesEngineerID = Convert.ToInt32(lblEnggUserID.Text);
 
             LeadDetails = new BLead().GetLeadReportForDefinedPeriodDetails(S);
@@ -423,7 +423,149 @@ namespace DealerManagementSystem.ViewPreSale
             gvLeadDetails.DataBind(); 
             MPE_LeadDetails.Show();
         }
+        protected void lblLinkButtonF_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent; 
+            LinkButton lbActions = ((LinkButton)sender);
+            PLeadSearch S = new PLeadSearch();
 
+            if (lbActions.ID == "lblOpenHotF")
+            {
+                S.LeadID = 1;
+                S.QualificationID = 3;
+            }
+            else if (lbActions.ID == "lblOpenWarmF")
+            {
+                S.LeadID = 1;
+                S.QualificationID = 2;
+            }
+            else if (lbActions.ID == "lblOpenColdF")
+            {
+                S.LeadID = 1;
+                S.QualificationID = 1;
+            }
+            else if (lbActions.ID == "lblGeneratedHotF")
+            {
+                S.LeadID = 2;
+                S.QualificationID = 3;
+            }
+            else if (lbActions.ID == "lblGeneratedWarmF")
+            {
+                S.LeadID = 2;
+                S.QualificationID = 2;
+            }
+            else if (lbActions.ID == "lblGeneratedColdF")
+            {
+                S.LeadID = 2;
+                S.QualificationID = 1;
+            }
+            else if (lbActions.ID == "lblWinHotF")
+            {
+                S.LeadID = 3;
+                S.QualificationID = 3;
+            }
+            else if (lbActions.ID == "lblWinWarmF")
+            {
+                S.LeadID = 3;
+                S.QualificationID = 2;
+            }
+            else if (lbActions.ID == "lblWinColdF")
+            {
+                S.LeadID = 3;
+                S.QualificationID = 1;
+            }
+            else if (lbActions.ID == "lblLostHotF")
+            {
+                S.LeadID = 4;
+                S.QualificationID = 3;
+            }
+            else if (lbActions.ID == "lblLostWarmF")
+            {
+                S.LeadID = 4;
+                S.QualificationID = 2;
+            }
+            else if (lbActions.ID == "lblLostColdF")
+            {
+                S.LeadID = 4;
+                S.QualificationID = 1;
+            }
+            else if (lbActions.ID == "lblDropHotF")
+            {
+                S.LeadID = 5;
+                S.QualificationID = 3;
+            }
+            else if (lbActions.ID == "lblDropWarmF")
+            {
+                S.LeadID = 5;
+                S.QualificationID = 2;
+            }
+            else if (lbActions.ID == "lblDropColdF")
+            {
+                S.LeadID = 5;
+                S.QualificationID = 1;
+            }
+            else if (lbActions.ID == "lblClosingHotF")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 3;
+            }
+            else if (lbActions.ID == "lblClosingWarmF")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 2;
+            }
+            else if (lbActions.ID == "lblClosingColdF")
+            {
+                S.LeadID = 6;
+                S.QualificationID = 1;
+            }
+            else if (lbActions.ID == "lblAge30F")
+            {
+                S.LeadID = 7;
+                S.QualificationID = 1;
+            }
+            else if (lbActions.ID == "lblAge60F")
+            {
+                S.LeadID = 7;
+                S.QualificationID = 2;
+            }
+            else if (lbActions.ID == "lblAge90F")
+            {
+                S.LeadID = 7;
+                S.QualificationID = 3;
+            }
+            else if (lbActions.ID == "lblAge180F")
+            {
+                S.LeadID = 7;
+                S.QualificationID = 4;
+            }
+            else if (lbActions.ID == "lblAgeA180F")
+            {
+                S.LeadID = 7;
+                S.QualificationID = 5;
+            }
+
+            S.CountryID = ddlCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCountry.SelectedValue);
+            S.StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+            S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateFrom.Text.Trim());
+            S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim()); 
+           // S.DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            // S.SalesEngineerID = null;
+            DataTable dt = new DataTable();
+            LeadDetails = new DataTable();
+           foreach (DataRow r in LeadReport.Rows)
+            {
+                S.DealerID = Convert.ToInt32(r["DealerID"]);
+                S.SalesEngineerID = Convert.ToInt32(r["EnggUserID"]);
+                dt = new BLead().GetLeadReportForDefinedPeriodDetails(S);
+                LeadDetails.Merge(dt);
+            }
+           // LeadDetails = new BLead().GetLeadReportForDefinedPeriodDetails(S);
+
+            gvLeadDetails.DataSource = LeadDetails;
+            gvLeadDetails.DataBind();
+            MPE_LeadDetails.Show();
+        }
 
         protected void OnDataBound(object sender, EventArgs e)
         {

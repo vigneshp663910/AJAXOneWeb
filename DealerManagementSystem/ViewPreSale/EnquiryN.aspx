@@ -144,6 +144,11 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                     <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Enquiry">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
@@ -169,7 +174,7 @@
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                     <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Address">
-                                        <ItemStyle VerticalAlign="Middle" Font-Size="Small" />
+                                        <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address")%>' runat="server" />
                                             <br />
@@ -184,18 +189,14 @@
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
                                     <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Created">
-                                        <ItemStyle VerticalAlign="Middle" Font-Size="Small"/>
+                                        <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
                                             <br />
                                             <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                   
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

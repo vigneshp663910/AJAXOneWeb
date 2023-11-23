@@ -334,6 +334,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbReject.Visible = false;
                 lbInProgress.Visible = false;
             }
+
+            lbInProgress.Visible = false;
         }
 
         protected void btnInprogressEnquiry_Click(object sender, EventArgs e)

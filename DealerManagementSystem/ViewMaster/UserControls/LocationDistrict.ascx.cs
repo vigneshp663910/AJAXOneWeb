@@ -247,7 +247,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
                 DropDownList ddlSalesEngineer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlSalesEngineer");
 
-                List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, Convert.ToInt32(ddlGDDealer.SelectedValue), true, null, null, 4);
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, Convert.ToInt32(ddlGDDealer.SelectedValue), true, null,(short)DealerDepartment.Sales,null);
                 new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID", true, "Select Sales Engineer");
 
                 TextBox txtGDDistrict = (TextBox)gvDistrict.FooterRow.FindControl("txtGDDistrict");
