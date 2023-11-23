@@ -137,45 +137,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvPOAsnGrItem.DataSource = null;
             gvPOAsnGrItem.DataBind();
 
-            List<PAsnItem> asnItems = new List<PAsnItem>();
-            if (PAsnView.Gr == null)
-            {
-                foreach (PAsnItem Item in PAsnView.AsnItemS)
-                {
-                    PAsnItem AI = new PAsnItem();
-
-                    if (!asnItems.Any(item => item.AsnItemID == Item.AsnItemID))
-                    {
-                        AI.AsnItemID = Item.AsnItemID;
-                        AI.AsnID = Item.AsnID;
-                        AI.AsnItem = Item.AsnItem;
-
-                        AI.Material = new PDMS_Material()
-                        {
-                            MaterialID = Item.Material.MaterialID,
-                            MaterialCode = Item.Material.MaterialCode,
-                            MaterialDescription = Item.Material.MaterialDescription
-                        };
-
-                        AI.Qty = Item.Qty;
-                        AI.GrItem = new PGrItem()
-                        {
-                            DeliveredQty = Item.Qty,
-                            ReceivedQty = Item.Qty,
-                            SaleableQty = Item.Qty,
-                            BlockedQty = 0,
-                        };
-                        asnItems.Add(AI);
-                    }
-                }
-                gvPOAsnGrItem.DataSource = asnItems;
-                gvPOAsnGrItem.DataBind();
-            }
-            else
-            {
-                gvPOAsnGrItem.DataSource = PAsnView.AsnItemS;
-                gvPOAsnGrItem.DataBind();
-            }
+            gvPOAsnGrItem.DataSource = PAsnView.AsnItemS;
+            gvPOAsnGrItem.DataBind();
 
             PAsnView.Gr = new PGr();
             PAsnView.Gr.GrItemS = new List<PGrItem>();
