@@ -566,7 +566,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="15" ShowFooter="true" EmptyDataText="No Data Found">
+                                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="25" ShowFooter="true" EmptyDataText="No Data Found">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Year">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />

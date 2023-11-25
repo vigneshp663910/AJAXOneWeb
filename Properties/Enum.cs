@@ -485,7 +485,8 @@ namespace Properties
         ViewEquipment_EquipmentClient = 240,
         ViewSupportTicket_DeviationProcessReport = 241,
         ViewMaster_CustomerGSTApproval = 243, 
-        ViewPreSale_LeadReportForDefinedPeriod = 244
+        ViewPreSale_LeadReportForDefinedPeriod = 244,
+        ViewAdmin_MessageAnnouncement = 245,
     }
     public enum SubModuleChildMaster
     {
