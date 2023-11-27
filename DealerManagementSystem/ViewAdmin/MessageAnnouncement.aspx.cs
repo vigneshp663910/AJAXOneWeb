@@ -146,7 +146,7 @@ namespace DealerManagementSystem.ViewAdmin
             divMessageAnnouncementCreate.Visible = true;
             lblMessage.Text = "";
             Button BtnView = (Button)sender;
-            UC_MessageAnnouncementCreate.FillMaster();
+            //UC_MessageAnnouncementCreate.FillMaster();
         }
 
         protected void btnBackToList_Click(object sender, EventArgs e)

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="MessageAnnouncement.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.MessageAnnouncement" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<%@ Register Src="~/ViewAdmin/UserControls/MessageAnnouncementCreate.ascx" TagPrefix="UC" TagName="UC_MessageAnnouncementCreate" %>
+<%--<%@ Register Src="~/ViewAdmin/UserControls/MessageAnnouncementCreate.ascx" TagPrefix="UC" TagName="UC_MessageAnnouncementCreate" %>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -119,7 +119,7 @@
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
             </div>
             <div class="col-md-12" runat="server" id="tblDashboard">
-                <UC:UC_MessageAnnouncementCreate ID="UC_MessageAnnouncementCreate" runat="server"></UC:UC_MessageAnnouncementCreate>
+                <uc:uc_messageannouncementcreate ID="UC_MessageAnnouncementCreate" runat="server"></uc:uc_messageannouncementcreate>
                 <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>
                 <div class="col-md-12 text-center">
                 </div>
