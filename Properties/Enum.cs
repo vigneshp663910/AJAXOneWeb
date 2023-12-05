@@ -487,6 +487,8 @@ namespace Properties
         ViewMaster_CustomerGSTApproval = 243, 
         ViewPreSale_LeadReportForDefinedPeriod = 244,
         ViewAdmin_MessageAnnouncement = 245,
+        ViewDashboard_BIAdmin = 246,
+
     }
     public enum SubModuleChildMaster
     {
