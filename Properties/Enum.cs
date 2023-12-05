@@ -488,7 +488,7 @@ namespace Properties
         ViewPreSale_LeadReportForDefinedPeriod = 244,
         ViewAdmin_MessageAnnouncement = 245,
         ViewDashboard_BIAdmin = 246,
-
+        ViewDashboard_BIService = 247,
     }
     public enum SubModuleChildMaster
     {
