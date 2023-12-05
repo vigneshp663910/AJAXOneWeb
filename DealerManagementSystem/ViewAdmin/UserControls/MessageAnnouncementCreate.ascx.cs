@@ -48,7 +48,14 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         public int? DealerID, DealerDepartmentID, DealerDesignationID, DealerUserID;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
+                new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, DealerDepartmentID, null, null);
+                List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
+                new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
+            }
         }
         public void FillMaster()
         {
