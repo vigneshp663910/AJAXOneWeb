@@ -1042,6 +1042,7 @@ namespace DealerManagementSystem.ViewService
             try
             {
                 ClaimDate = ClaimDate.Date;
+                RestoreDate = RestoreDate.Date;
                 //int Days = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDate"]);
                 int ClaimLockDays1 = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDays1"]);
                 int ClaimLockDays2 = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDays2"]);

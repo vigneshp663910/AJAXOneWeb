@@ -14,7 +14,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
 {
     public partial class DealerMissionPlanningReport : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_DealerMissionPlanningReport; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Reports_DealerMissionPlanningReport; } }
         private DataTable LeadReport
         {
             get

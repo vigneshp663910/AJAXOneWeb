@@ -153,35 +153,35 @@ namespace Business
             string endPoint = "Enquiry/EnquiryByID?EnquiryID=" + EnquiryID ; 
             return JsonConvert.DeserializeObject<PEnquiry>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public Boolean UpdateEnquiryReject(long EnquiryID,string Remark, int UserID)
-        {
-            int success = 0;
-            DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int64);
-            DbParameter RemarkP = provider.CreateParameter("Remarks", Remark, DbType.String); 
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+        //public Boolean UpdateEnquiryReject(long EnquiryID,string Remark, int UserID)
+        //{
+        //    int success = 0;
+        //    DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", EnquiryID, DbType.Int64);
+        //    DbParameter RemarkP = provider.CreateParameter("Remarks", Remark, DbType.String); 
+        //    DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
 
 
-            DbParameter[] Params = new DbParameter[3] { EnquiryIDP, RemarkP,  UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    success = provider.Insert("UpdateEnquiryReject", Params);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BEnquiry", "UpdateEnquiryReject", sqlEx);
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BEnquiry", " UpdateEnquiryReject", ex);
-                throw ex;
-            }
-            return true;
-        }
+        //    DbParameter[] Params = new DbParameter[3] { EnquiryIDP, RemarkP,  UserIDP };
+        //    try
+        //    {
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
+        //            success = provider.Insert("UpdateEnquiryReject", Params);
+        //            scope.Complete();
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        new FileLogger().LogMessage("BEnquiry", "UpdateEnquiryReject", sqlEx);
+        //        throw sqlEx;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BEnquiry", " UpdateEnquiryReject", ex);
+        //        throw ex;
+        //    }
+        //    return true;
+        //}
 
         public List<PPreSaleStatus> GetEnquiryCountByStatus(DateTime? From, DateTime? To, int? DealerID, int? EngineerUserID)
         {
@@ -402,5 +402,16 @@ namespace Business
             }
             return true;
         }
+        public DataTable GetEnquiryUnattendedAgeing(int? DealerID, int? RegionID)
+        {
+            string endPoint = "Enquiry/GetEnquiryUnattendedAgeing?DealerID=" + DealerID + "&RegionID=" + RegionID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetEnquiryUnattendedAgeingDetails(int? DealerID, int? RegionID, int ReportTypeID)
+        {
+            string endPoint = "Enquiry/GetEnquiryUnattendedAgeingDetails?DealerID=" + DealerID + "&RegionID=" + RegionID + "&ReportTypeID=" + ReportTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
     }  
 }

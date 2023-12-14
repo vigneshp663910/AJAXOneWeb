@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
 {
 
 
-    public partial class EnquiryUnattendedAgeing
+    public partial class LeadExpectedDateofSaleAgeingReport
     {
 
         /// <summary>

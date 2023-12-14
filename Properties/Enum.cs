@@ -490,7 +490,9 @@ namespace Properties
         ViewDashboard_BIAdmin = 246,
         ViewDashboard_BIService = 247,
         ViewMaster_DealerMissionPlanning = 248,
-        ViewPreSale_DealerMissionPlanningReport = 249,
+        ViewPreSale_Reports_DealerMissionPlanningReport = 249,
+        ViewPreSale_Reports_EnquiryUnattendedAgeing = 250,
+        ViewPreSale_Reports_LeadExpectedDateofSaleAgeingReport = 251,
     }
     public enum SubModuleChildMaster
     {

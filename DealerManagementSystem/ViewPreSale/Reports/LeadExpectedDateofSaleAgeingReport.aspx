@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="EnquiryUnattendedAgeing.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Reports.EnquiryUnattendedAgeing" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="LeadExpectedDateofSaleAgeingReport.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Reports.LeadExpectedDateofSaleAgeingReport" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .Popup {
@@ -179,4 +178,3 @@
 
 
 </asp:Content>
-
