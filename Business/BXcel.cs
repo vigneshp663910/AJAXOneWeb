@@ -326,5 +326,123 @@ namespace Business
             HttpContext.Current.Response.Flush();
             HttpContext.Current.Response.End();
         }
+        public void DealerMissionPlanningReportForPreSales(DataTable table, string strFile, string FirstLine)
+        {
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.ClearContent();
+            HttpContext.Current.Response.ClearHeaders();
+            HttpContext.Current.Response.Buffer = true;
+            HttpContext.Current.Response.ContentType = "application/ms-excel";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + strFile + ".xls");
+            HttpContext.Current.Response.Charset = "utf-16";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+            HttpContext.Current.Response.Write("<font style='font-size:11.0pt; font-family:Calibri;'>");
+            HttpContext.Current.Response.Write("<BR><BR><BR>");
+            HttpContext.Current.Response.Write("<Table border='1' bgColor='#ffffff' borderColor='#000000' cellSpacing='0' cellPadding='0' style='font-size:11.0pt; font-family:Calibri; background:white;'> ");
+            int columnscount = table.Columns.Count;
+            HttpContext.Current.Response.Write("<TR ><Td  colspan='17' style='background-color: #b4c6e7; text-align: center;' ><B>" + FirstLine + "</B></Td></TR> ");
+            HttpContext.Current.Response.Write("<TR > ");
+            HttpContext.Current.Response.Write("<Td rowspan='2' style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Year</B></Td>");
+            HttpContext.Current.Response.Write("<Td rowspan='2' style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Month</B></Td>");
+            HttpContext.Current.Response.Write("<Td rowspan='2' style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Dealer Code</B></Td>");
+            HttpContext.Current.Response.Write("<Td rowspan='2' style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Dealer Name</B></Td>");
+            HttpContext.Current.Response.Write("<Td rowspan='2' style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Dealer Salesman</B></Td>"); 
+            HttpContext.Current.Response.Write("<Td colspan='3' style='background-color: #c6e0b4; text-align: center' ><B>Lead Generation</B></Td>");
+            HttpContext.Current.Response.Write("<Td colspan='3' style='background-color: #de6614; text-align: center' ><B>Lead Conversion</B></Td>");
+            HttpContext.Current.Response.Write("<Td colspan='3' style='background-color: #f8cbad; text-align: center' ><B>Quotation Generated</B></Td>");
+            HttpContext.Current.Response.Write("<Td colspan='3' style='background-color: #c6e0b4; text-align: center' ><B>Quotation Conversion</B></Td>"); 
+            HttpContext.Current.Response.Write("</TR>");
+            HttpContext.Current.Response.Write("<TR >");
+            HttpContext.Current.Response.Write("<Td style='background-color: #ddebf7;' ><B>Plan</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #c6e0b4;' ><B>Actual</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #8dcc62;' ><B>%Actual</B></Td>");
+
+            HttpContext.Current.Response.Write("<Td style='background-color: #ddebf7;' ><B>Plan</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #c6e0b4;' ><B>Actual</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #8dcc62;' ><B>%Actual</B></Td>");
+
+            HttpContext.Current.Response.Write("<Td style='background-color: #ddebf7;' ><B>Plan</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #c6e0b4;' ><B>Actual</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #8dcc62;' ><B>%Actual</B></Td>");
+
+            HttpContext.Current.Response.Write("<Td style='background-color: #ddebf7;' ><B>Plan</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #c6e0b4;' ><B>Actual</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #8dcc62;' ><B>%Actual</B></Td>"); 
+
+            HttpContext.Current.Response.Write("</TR>"); 
+            foreach (DataRow row in table.Rows)
+            {
+                HttpContext.Current.Response.Write("<TR>");
+                for (int i = 0; i < 17; i++)
+                {
+                    HttpContext.Current.Response.Write("<Td>");
+                    HttpContext.Current.Response.Write(row[i].ToString());
+                    HttpContext.Current.Response.Write("</Td>");
+                }
+
+                HttpContext.Current.Response.Write("</TR>");
+            }
+
+            // footer
+             
+
+            decimal LeadGenerationPlan = 0, LeadGenerationActual = 0, LeadGenerationActualP = 0,
+                 LeadConversionPlan = 0, LeadConversionActual = 0, LeadConversionActualP = 0,
+                 QuotationGeneratedPlan = 0, QuotationGeneratedActual = 0, QuotationGeneratedActualP = 0,
+                 QuotationConversionPlan = 0, QuotationConversionActual = 0, QuotationConversionActualP = 0;
+            foreach (DataRow dr in table.Rows)
+            {
+                LeadGenerationPlan = LeadGenerationPlan + Convert.ToDecimal(dr["New Lead Generation Plan"]);
+                LeadGenerationActual = LeadGenerationActual + Convert.ToDecimal(dr["New Lead Generation Actual"]);
+
+                LeadConversionPlan = LeadConversionPlan + Convert.ToDecimal(dr["Lead Conversion Plan"]);
+                LeadConversionActual = LeadConversionActual + Convert.ToDecimal(dr["Lead Conversion Actual"]);
+
+                QuotationGeneratedPlan = QuotationGeneratedPlan + Convert.ToDecimal(dr["Quotation Generated Plan"]);
+                QuotationGeneratedActual = QuotationGeneratedActual + Convert.ToDecimal(dr["Quotation Generated Actual"]);
+
+                QuotationConversionPlan = QuotationConversionPlan + Convert.ToDecimal(dr["Quotation Conversion Plan"]);
+                QuotationConversionActual = QuotationConversionActual + Convert.ToDecimal(dr["Quotation Conversion Actual"]);
+            }
+            LeadGenerationActualP = LeadGenerationActual * 100 / LeadGenerationPlan;
+            LeadConversionActualP = LeadConversionActual * 100 / LeadConversionPlan;
+            QuotationGeneratedActualP = QuotationGeneratedActual * 100 / QuotationGeneratedPlan;
+            QuotationConversionActualP = QuotationConversionActual * 100 / QuotationConversionPlan;
+
+            HttpContext.Current.Response.Write("<TR>");
+
+            HttpContext.Current.Response.Write("<Td colspan='5'><B>Total</Td>");
+
+            HttpContext.Current.Response.Write("<Td style='background-color: #ddebf7;' ><B>" + LeadGenerationPlan.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #c6e0b4;' ><B>" + LeadGenerationActual.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #8dcc62;' ><B>" + Math.Round(LeadGenerationActualP, 2).ToString() + "</B></Td>");
+
+            HttpContext.Current.Response.Write("<Td style='background-color: #ddebf7;' ><B>" + LeadConversionPlan.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #c6e0b4;' ><B>" + LeadConversionActual.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #8dcc62;' ><B>" + Math.Round(LeadConversionActualP, 2).ToString() + "</B></Td>");
+
+            HttpContext.Current.Response.Write("<Td style='background-color: #ddebf7;' ><B>" + QuotationGeneratedPlan.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #c6e0b4;' ><B>" + QuotationGeneratedActual.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #8dcc62;' ><B>" + Math.Round(QuotationGeneratedActualP, 2).ToString() + "</B></Td>");
+
+            HttpContext.Current.Response.Write("<Td style='background-color: #ddebf7;' ><B>" + QuotationConversionPlan.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #c6e0b4;' ><B>" + QuotationConversionActual.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #8dcc62;' ><B>" + Math.Round(QuotationConversionActualP, 2).ToString() + "</B></Td>"); 
+            HttpContext.Current.Response.Write("</TR>");
+
+
+            HttpContext.Current.Response.Write("</Table>");
+            HttpContext.Current.Response.Write("</font>");
+
+            // Append cookie
+            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+            cookie.Value = "Flag";
+            cookie.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.AppendCookie(cookie);
+            // end
+
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.End();
+        }
     }
 }

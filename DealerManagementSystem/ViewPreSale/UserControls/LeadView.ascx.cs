@@ -907,7 +907,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnAddProduct.Visible = false;
             //lbtnAddQuotation.Visible = false; 
 
-            lbtnEditLead.Visible = true; 
+            lbtnEditLead.Visible = true;
+            lbtnEditExpectedDate.Visible = true;
+            lbtnEditNextFollowUpDate.Visible = true;
             lbtnAssign.Visible = true;
             lbtnAddFollowUp.Visible = true;
             //lbtnCustomerConversation.Visible = true;
@@ -927,6 +929,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 )
             {
                 lbtnEditLead.Visible = false;
+                lbtnEditExpectedDate.Visible = false;
+                lbtnEditNextFollowUpDate.Visible = false;
                 lbtnAssign.Visible = false;
                 lbtnAddFollowUp.Visible = false;
                 //lbtnCustomerConversation.Visible = false;
@@ -951,6 +955,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditLead).Count() == 0)
             {
                 lbtnEditLead.Visible = false;
+                lbtnEditExpectedDate.Visible = false;
+                lbtnEditNextFollowUpDate.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AssignLead).Count() == 0)
             {
@@ -1003,5 +1009,84 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
         }
 
+        protected void btnUpdateExpectedDate_Click(object sender, EventArgs e)
+        {
+            MPE_Lead.Show();
+            PLead_Insert LeadEdit = new PLead_Insert();
+            lblMessageLead.ForeColor = Color.Red;
+            lblMessageLead.Visible = true;
+            string Message = UC_AddLead.Validation();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageLead.Text = Message;
+                return;
+            } 
+
+            LeadEdit.ProductTypeID = Lead.ProductType.ProductTypeID;
+            LeadEdit.SourceID = Lead.Source.SourceID;
+            LeadEdit.ProjectID = Lead.Project == null ? (int?)null : Lead.Project.ProjectID;
+
+            LeadEdit.ExpectedDateOfSale = Convert.ToDateTime(txtExpectedDateOfSale.Text.Trim());
+            LeadEdit.MainApplicationID = Lead.Application == null ? (int?)null :  Lead.Application.MainApplicationID;
+            LeadEdit.CustomerFeedback = Lead.CustomerFeedback;
+            LeadEdit.Remarks = Lead.Remarks;
+            LeadEdit.NextFollowUpDate = (DateTime)Lead.NextFollowUpDate;
+
+
+
+            LeadEdit.LeadID = Lead.LeadID;
+            LeadEdit.Customer = new PDMS_Customer_Insert();
+            LeadEdit.Customer.CustomerID = Lead.Customer.CustomerID; 
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", LeadEdit));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageLead.Text = "Customer is not updated successfully ";
+                return;
+            }
+            ShowMessage(Results);
+            fillViewLead(Lead.LeadID);
+
+            MPE_Lead.Hide();
+        }
+
+        protected void btnUpdateNextFollowUpDate_Click(object sender, EventArgs e)
+        {
+            MPE_Lead.Show();
+            PLead_Insert LeadEdit = new PLead_Insert();
+            lblMessageLead.ForeColor = Color.Red;
+            lblMessageLead.Visible = true;
+            string Message = UC_AddLead.Validation();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageLead.Text = Message;
+                return;
+            }
+
+            LeadEdit.ProductTypeID = Lead.ProductType.ProductTypeID;
+            LeadEdit.SourceID = Lead.Source.SourceID;
+            LeadEdit.ProjectID = Lead.Project == null ? (int?)null : Lead.Project.ProjectID;
+
+            LeadEdit.ExpectedDateOfSale = (DateTime)Lead.ExpectedDateOfSale;
+            LeadEdit.MainApplicationID = Lead.Application == null ? (int?)null : Lead.Application.MainApplicationID;
+            LeadEdit.CustomerFeedback = Lead.CustomerFeedback;
+            LeadEdit.Remarks = Lead.Remarks;
+            LeadEdit.NextFollowUpDate = Convert.ToDateTime(txtEditNextFollowUpDate.Text.Trim()); ;
+
+
+
+            LeadEdit.LeadID = Lead.LeadID;
+            LeadEdit.Customer = new PDMS_Customer_Insert();
+            LeadEdit.Customer.CustomerID = Lead.Customer.CustomerID;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", LeadEdit));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageLead.Text = "Customer is not updated successfully ";
+                return;
+            }
+            ShowMessage(Results);
+            fillViewLead(Lead.LeadID);
+
+            MPE_Lead.Hide();
+        }
     }
 }

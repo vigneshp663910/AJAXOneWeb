@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="BudgetPlanningMonth.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.BudgetPlanningMonth" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="BudgetPlanningMonth.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Planning.BudgetPlanningMonth" %>
 
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>

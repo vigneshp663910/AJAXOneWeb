@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewPreSale
+namespace DealerManagementSystem.ViewPreSale.Planning
 {
 
 

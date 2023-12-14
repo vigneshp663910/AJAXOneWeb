@@ -489,6 +489,8 @@ namespace Properties
         ViewAdmin_MessageAnnouncement = 245,
         ViewDashboard_BIAdmin = 246,
         ViewDashboard_BIService = 247,
+        ViewMaster_DealerMissionPlanning = 248,
+        ViewPreSale_DealerMissionPlanningReport = 249,
     }
     public enum SubModuleChildMaster
     {

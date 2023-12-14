@@ -233,5 +233,23 @@ namespace Business
         {
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadReportForDefinedPeriodDetails", Lead)).Data));
         }
+
+        public List<PDealerMissionPlanning> GetDealerMissionPlanning(int? Year, int? Month, int? DealerID, int? ProductTypeID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Lead/DealerMissionPlanning?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&ProductTypeID=" + ProductTypeID;
+            return JsonConvert.DeserializeObject<List<PDealerMissionPlanning>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+        }
+        public DataTable GetDealerMissionPlanningForPreSales(int? Year, int? Month, int? DealerID, int? ProductTypeID)
+        { 
+            string endPoint = "Lead/GetDealerMissionPlanningForPreSales?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&ProductTypeID=" + ProductTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetDealerMissionPlanningForPreSalesDetails(int? Year, int? Month, int? DealerID, int? ProductTypeID,int ReportTypeID)
+        {
+            string endPoint = "Lead/GetDealerMissionPlanningForPreSalesDetails?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&ProductTypeID=" + ProductTypeID + "&ReportTypeID=" + ReportTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

@@ -101,23 +101,17 @@
     <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportViewer.WebForms.10.0.40219.1\lib\Microsoft.ReportViewer.WebForms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ScriptManager.MSAjax, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
@@ -472,6 +466,7 @@
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerBinLocation.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewPreSale\Planning\DealerMissionPlanning.aspx" />
     <Content Include="ViewMaster\EInvoiceRequest.aspx" />
     <Content Include="ViewMaster\Equipment.aspx" />
     <Content Include="ViewMaster\MaterialSync.aspx" />
@@ -480,8 +475,9 @@
     <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
     <Content Include="ViewMaster\LocationMap.aspx" />
-    <Content Include="ViewPreSale\BudgetPlanningMonth.aspx" />
-    <Content Include="ViewPreSale\BudgetPlanningYear.aspx" />
+    <Content Include="ViewPreSale\Planning\BudgetPlanningMonth.aspx" />
+    <Content Include="ViewPreSale\Planning\BudgetPlanningYear.aspx" />
+    <Content Include="ViewPreSale\Reports\DealerMissionPlanningReport.aspx" />
     <Content Include="ViewPreSale\EnquiryIndiamart.aspx" />
     <Content Include="ViewMaster\Material.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
@@ -1587,6 +1583,13 @@
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\Planning\DealerMissionPlanning.aspx.cs">
+      <DependentUpon>DealerMissionPlanning.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Planning\DealerMissionPlanning.aspx.designer.cs">
+      <DependentUpon>DealerMissionPlanning.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewMaster\EInvoiceRequest.aspx.cs">
       <DependentUpon>EInvoiceRequest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1643,19 +1646,26 @@
     <Compile Include="ViewMaster\LocationMap.aspx.designer.cs">
       <DependentUpon>LocationMap.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\BudgetPlanningMonth.aspx.cs">
+    <Compile Include="ViewPreSale\Planning\BudgetPlanningMonth.aspx.cs">
       <DependentUpon>BudgetPlanningMonth.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\BudgetPlanningMonth.aspx.designer.cs">
+    <Compile Include="ViewPreSale\Planning\BudgetPlanningMonth.aspx.designer.cs">
       <DependentUpon>BudgetPlanningMonth.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\BudgetPlanningYear.aspx.cs">
+    <Compile Include="ViewPreSale\Planning\BudgetPlanningYear.aspx.cs">
       <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\BudgetPlanningYear.aspx.designer.cs">
+    <Compile Include="ViewPreSale\Planning\BudgetPlanningYear.aspx.designer.cs">
       <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\DealerMissionPlanningReport.aspx.cs">
+      <DependentUpon>DealerMissionPlanningReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\DealerMissionPlanningReport.aspx.designer.cs">
+      <DependentUpon>DealerMissionPlanningReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryIndiamart.aspx.cs">
       <DependentUpon>EnquiryIndiamart.aspx</DependentUpon>

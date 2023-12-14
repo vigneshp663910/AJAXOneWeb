@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace Properties
         public int? SourceID { get; set; }
         public DateTime ExpectedDateOfSale { get; set; }
         public DateTime NextFollowUpDate { get; set; }
-        public int? ProjectID { get; set; } 
+        public long? ProjectID { get; set; } 
         public int? MainApplicationID { get; set; }
         public string CustomerFeedback { get; set; }
         public string Remarks { get; set; }
@@ -239,5 +240,44 @@ namespace Properties
     {
         public int UrgencyID { get; set; }
         public string Urgency { get; set; }
+    }
+
+
+    public class PDealerMissionPlanning
+    {
+        public long DealerMissionPlanningID { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public string MonthName
+        {
+            get
+            {
+                return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month).Substring(0, 3);
+            }
+        }
+        public PDMS_Dealer Dealer { get; set; }
+        public PProductType ProductType { get; set; }
+        public int? BillingPlan { get; set; }
+        public int? BillingRevenuePlan { get; set; }
+        public int? RetailPlan { get; set; }
+        public int? LeadPlan { get; set; }
+        public int? LeadConversionPlan { get; set; }
+        public int? QuotationPlan { get; set; }
+        public int? QuotationConversionPlan { get; set; }
+        public int? PartsQuotationPlan { get; set; }
+        public int? PartsQuotationConversionPlan { get; set; }
+        public int? PartsRetailPlan { get; set; }
+        public int? PartsBillingPlan { get; set; }
+
+        //public int BillingActual { get; set; }
+        //public int BillingRevenueActual { get; set; }
+        //public int RetailActual { get; set; }
+        //public int LeadActual { get; set; }
+        //public int QuotationActual { get; set; }
+        //public int PartsQuotationActual { get; set; }
+        //public int PartsRetailActual { get; set; }
+        //public int PartsBillingActual { get; set; }
+
+        public PUser CreatedBy { get; set; }
     }
 }

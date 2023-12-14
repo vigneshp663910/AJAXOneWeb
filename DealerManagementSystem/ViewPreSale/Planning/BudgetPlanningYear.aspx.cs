@@ -9,11 +9,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem.ViewPreSale
+namespace DealerManagementSystem.ViewPreSale.Planning
 {
-    public partial class BudgetPlanningMonth : BasePage
+    public partial class BudgetPlanningYear : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_BudgetPlanningMonth; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_BudgetPlanningYear; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -24,20 +24,20 @@ namespace DealerManagementSystem.ViewPreSale
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('PreSale » Planning » Budget-Monthly');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('PreSale » Planning » Budget-Yearly');</script>");
             if (!IsPostBack)
             {
-                // new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
+                //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 new DDLBind().Year(ddlYear, 2022);
-                new DDLBind().Month(ddlMonth); 
+
             }
         }
 
         void FillVisitTargetPlanning()
         {
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            VTP = new BBudgetPlanningYearWise().GetBudgetPlanningMonthWise(DealerID, null, Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMonth.SelectedValue));
+            VTP = new BBudgetPlanningYearWise().GetBudgetPlanningYearWise(DealerID, null, Convert.ToInt32(ddlYear.SelectedValue));
 
             gvVisitTargetPlanning.DataSource = VTP;
             gvVisitTargetPlanning.DataBind();
@@ -58,19 +58,19 @@ namespace DealerManagementSystem.ViewPreSale
 
         }
 
-        public List<PBudgetPlanningMonthWise> VTP
+        public List<PBudgetPlanningYearWise> VTP
         {
             get
             {
-                if (Session["BudgetPlanningMonth"] == null)
+                if (Session["BudgetPlanningYear"] == null)
                 {
-                    Session["BudgetPlanningMonth"] = new List<PBudgetPlanningMonthWise>();
+                    Session["BudgetPlanningYear"] = new List<PBudgetPlanningYearWise>();
                 }
-                return (List<PBudgetPlanningMonthWise>)Session["BudgetPlanningMonth"];
+                return (List<PBudgetPlanningYearWise>)Session["BudgetPlanningYear"];
             }
             set
             {
-                Session["BudgetPlanningMonth"] = value;
+                Session["BudgetPlanningYear"] = value;
             }
         }
 
@@ -117,24 +117,23 @@ namespace DealerManagementSystem.ViewPreSale
         void Update()
         {
             Boolean Success;
-            List<PBudgetPlanningMonthWise> VisitTarget = new List<PBudgetPlanningMonthWise>();
+            List<PBudgetPlanningYearWise> VisitTarget = new List<PBudgetPlanningYearWise>();
             for (int i = 0; i < gvVisitTargetPlanning.Rows.Count; i++)
             {
-                Label lblBudgetPYWiseID = (Label)gvVisitTargetPlanning.Rows[i].FindControl("lblBudgetPYWiseID"); 
-                Label lblMonth = (Label)gvVisitTargetPlanning.Rows[i].FindControl("lblMonth");
-                TextBox txtPlaned = (TextBox)gvVisitTargetPlanning.Rows[i].FindControl("txtPlaned");
+                Label lblDealerID = (Label)gvVisitTargetPlanning.Rows[i].FindControl("lblDealerID");
+                Label lblModelID = (Label)gvVisitTargetPlanning.Rows[i].FindControl("lblModelID");
+                Label lblYear = (Label)gvVisitTargetPlanning.Rows[i].FindControl("lblYear");
+                TextBox txtBudget = (TextBox)gvVisitTargetPlanning.Rows[i].FindControl("txtBudget");
 
-                VisitTarget.Add(new PBudgetPlanningMonthWise()
+                VisitTarget.Add(new PBudgetPlanningYearWise()
                 {
-                    BudgetPlanningYear = new PBudgetPlanningYearWise()
-                    {
-                        BudgetPYWiseID = Convert.ToInt64(lblBudgetPYWiseID.Text)  
-                    },
-                    Month = Convert.ToInt32(lblMonth.Text),
-                    Planed = string.IsNullOrEmpty(txtPlaned.Text) ? 0 : Convert.ToInt32(txtPlaned.Text),
+                    Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(lblDealerID.Text) },
+                    Model = new PDMS_Model() { ModelID = Convert.ToInt32(lblModelID.Text) },
+                    Year = Convert.ToInt32(lblYear.Text),
+                    Budget = string.IsNullOrEmpty(txtBudget.Text) ? 0 : Convert.ToInt32(txtBudget.Text)
                 });
             }
-            Success = new BBudgetPlanningYearWise().insertOrUpdateBudgetPlanningMonthWise(VisitTarget, PSession.User.UserID);
+            Success = new BBudgetPlanningYearWise().insertOrUpdateBudgetPlanningYearWise(VisitTarget, PSession.User.UserID);
             if (!Success)
             {
                 lblMessage.Text = "Visit Target is not updated successfully ";
@@ -156,7 +155,7 @@ namespace DealerManagementSystem.ViewPreSale
         {
             try
             {
-                BudgetPlanningYearExportExcel(VTP, "Budget Planning Month Report");
+                BudgetPlanningYearExportExcel(VTP, "Budget Planning Year Report");
             }
             catch (Exception ex)
             {
@@ -164,14 +163,13 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        void BudgetPlanningYearExportExcel(List<PBudgetPlanningMonthWise> VTPs, String Name)
+        void BudgetPlanningYearExportExcel(List<PBudgetPlanningYearWise> VTPs, String Name)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Dealer");
             dt.Columns.Add("Dealer Name");
             dt.Columns.Add("Model");
             dt.Columns.Add("Year");
-            dt.Columns.Add("Month");
             dt.Columns.Add("Budget");
             dt.Columns.Add("Actual");
             dt.Columns.Add("Freezed");
@@ -179,15 +177,14 @@ namespace DealerManagementSystem.ViewPreSale
             dt.Columns.Add("Created On");
             dt.Columns.Add("Modified By");
             dt.Columns.Add("Modified On");
-            foreach (PBudgetPlanningMonthWise VTP in VTPs)
+            foreach (PBudgetPlanningYearWise VTP in VTPs)
             {
                 dt.Rows.Add(
-                    "'" + VTP.BudgetPlanningYear.Dealer.DealerCode
-                    , VTP.BudgetPlanningYear.Dealer.DealerName
-                    , VTP.BudgetPlanningYear.Model.Model
-                    , VTP.BudgetPlanningYear.Year
-                    , VTP.Month
-                    , VTP.Planed
+                    "'" + VTP.Dealer.DealerCode
+                    , VTP.Dealer.DealerName
+                    , VTP.Model.Model
+                    , VTP.Year
+                    , VTP.Budget
                     , VTP.Actual
                     , VTP.Freezed
                     , (VTP.CreatedBy == null) ? "" : VTP.CreatedBy.ContactName

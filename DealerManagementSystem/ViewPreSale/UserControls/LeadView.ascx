@@ -17,6 +17,8 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbtnEditLead" runat="server" OnClick="lbActions_Click">Edit Lead</asp:LinkButton>
+                <asp:LinkButton ID="lbtnEditExpectedDate" runat="server" OnClick="lbActions_Click">Edit Expected Date</asp:LinkButton>
+                <asp:LinkButton ID="lbtnEditNextFollowUpDate" runat="server" OnClick="lbActions_Click">Edit Next Follow-Up Date</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAssign" runat="server" OnClick="lbActions_Click">Assign</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddFollowUp" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
                 <%-- <asp:LinkButton ID="lbtnCustomerConversation" runat="server" OnClick="lbActions_Click">Customer Conversation</asp:LinkButton>--%>
@@ -824,8 +826,8 @@
         </a>
     </div>
     <div class="col-md-12">
-        <div class="model-scroll"> 
-            <asp:Label ID="lblMessageLost" runat="server" Text="" CssClass="message"  ForeColor ="Red" />
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageLost" runat="server" Text="" CssClass="message" ForeColor="Red" />
             <div class="col-md-2 text-right">
                 <label>Reason</label>
             </div>
@@ -849,7 +851,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-              <asp:Label ID="lblMessageDrop" runat="server" Text="" CssClass="message"  ForeColor ="Red" />
+            <asp:Label ID="lblMessageDrop" runat="server" Text="" CssClass="message" ForeColor="Red" />
             <div class="col-md-2 text-right">
                 <label>Reason</label>
             </div>
@@ -994,6 +996,50 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Visit" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlVisit" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+<asp:Panel ID="pnlEditExpectedDate" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Drop Reason</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button13" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <div class="col-md-6 col-sm-12">
+                <label>Expected Date of Sale</label>
+                <asp:TextBox ID="txtExpectedDateOfSale" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                <asp1:CalendarExtender ID="cxExpectedDateOfSale" runat="server" TargetControlID="txtExpectedDateOfSale" PopupButtonID="txtExpectedDateOfSale" Format="dd/MM/yyyy" />
+                <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender13" runat="server" TargetControlID="txtExpectedDateOfSale" WatermarkText="DD/MM/YYYY" />
+            </div>
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnUpdateExpectedDate" runat="server" Text="Update" CssClass="btn Save" OnClick="btnUpdateExpectedDate_Click" />
+            </div>
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditExpectedDate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditExpectedDate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlEditNextFollowUpDate" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Drop Reason</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button14" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <div class="col-md-6 col-sm-12">
+                <label>Expected Date of Sale</label>
+                <asp:TextBox ID="txtEditNextFollowUpDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                <asp1:CalendarExtender ID="cxEditNextFollowUpDate" runat="server" TargetControlID="txtEditNextFollowUpDate" PopupButtonID="txtEditNextFollowUpDate" Format="dd/MM/yyyy" />
+                <asp1:TextBoxWatermarkExtender ID="TextEditNextFollowUpDate" runat="server" TargetControlID="txtEditNextFollowUpDate" WatermarkText="DD/MM/YYYY" />
+            </div>
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnUpdateNextFollowUpDate" runat="server" Text="Update" CssClass="btn Save" OnClick="btnUpdateNextFollowUpDate_Click" />
+            </div>
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditNextFollowUpDate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditExpectedDate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
     <%-- <div  >--%>
