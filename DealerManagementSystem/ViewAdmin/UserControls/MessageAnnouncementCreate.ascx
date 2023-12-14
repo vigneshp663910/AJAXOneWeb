@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MessageAnnouncementCreate.ascx.cs" Inherits="DealerManagementSystem.ViewAdmin.UserControls.MessageAnnouncementCreate" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" ValidateRequestMode="Disabled" CodeBehind="MessageAnnouncementCreate.ascx.cs" Inherits="DealerManagementSystem.ViewAdmin.UserControls.MessageAnnouncementCreate" %>
+<%@ Register Assembly="FreeTextBox" Namespace="FreeTextBoxControls" TagPrefix="FTB" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <div class="col-md-12">
     <div class="action-btn">
@@ -31,12 +32,22 @@
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <label class="modal-label">Employee</label>
-                    <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealerEmployee_SelectedIndexChanged" AutoPostBack="true"/>
+                    <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealerEmployee_SelectedIndexChanged" AutoPostBack="true" />
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label class="modal-label">Valid From</label>
+                    <asp:TextBox ID="txtValidFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label class="modal-label">Valid To</label>
+                    <asp:TextBox ID="txtValidTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
             </fieldset>
+
             <div class="col-md-12 col-sm-12">
                 <label class="modal-label">Message</label>
-                <asp:TextBox ID="txtMessage" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="10"></asp:TextBox>
+                <FTB:FreeTextBox ID="FreeTextMessage" runat="server" Width="100%"></FTB:FreeTextBox>
+                <%--<asp:TextBox ID="txtMessage" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="10"></asp:TextBox>--%>
             </div>
             <div class="col-md-12 Report">
                 <div class="col-md-12 Report">

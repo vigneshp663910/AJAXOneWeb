@@ -15,15 +15,15 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
 {
     public partial class MessageAnnouncementCreate : System.Web.UI.UserControl
     {
-        private List<PMessageAnnouncement> DealerUserDetails
+        private List<PMessageAnnouncementItem> DealerUserDetails
         {
             get
             {
                 if (ViewState["DealerUserDetails"] == null)
                 {
-                    ViewState["DealerUserDetails"] = new List<PMessageAnnouncement>();
+                    ViewState["DealerUserDetails"] = new List<PMessageAnnouncementItem>();
                 }
-                return (List<PMessageAnnouncement>)ViewState["DealerUserDetails"];
+                return (List<PMessageAnnouncementItem>)ViewState["DealerUserDetails"];
             }
             set
             {
@@ -140,17 +140,17 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         }
         protected void gvEmp_Sorting(object sender, GridViewSortEventArgs e)
         {
-            List<PMessageAnnouncement> pMessageAnnouncement = ViewState["DealerUserDetailsSort"] as List<PMessageAnnouncement>;
+            List<PMessageAnnouncementItem> pMessageAnnouncement = ViewState["DealerUserDetailsSort"] as List<PMessageAnnouncementItem>;
             var MsgAnnouncement = pMessageAnnouncement;
             string Sortdir = GetSortDirection(e.SortExpression);
             string SortExp = e.SortExpression;
             if (Sortdir == "ASC")
             {
-                MsgAnnouncement = Sort<PMessageAnnouncement>(DealerUserDetails, SortExp, SortDirection.Ascending);
+                MsgAnnouncement = Sort<PMessageAnnouncementItem>(DealerUserDetails, SortExp, SortDirection.Ascending);
             }
             else
             {
-                MsgAnnouncement = Sort<PMessageAnnouncement>(DealerUserDetails, SortExp, SortDirection.Descending);
+                MsgAnnouncement = Sort<PMessageAnnouncementItem>(DealerUserDetails, SortExp, SortDirection.Descending);
             }
             gvEmp.DataSource = MsgAnnouncement;
             gvEmp.DataBind();
@@ -183,16 +183,16 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             ViewState["SortExpression"] = column;
             return sortDirection;
         }
-        public List<PMessageAnnouncement> Sort<TKey>(List<PMessageAnnouncement> list, string sortBy, SortDirection direction)
+        public List<PMessageAnnouncementItem> Sort<TKey>(List<PMessageAnnouncementItem> list, string sortBy, SortDirection direction)
         {
             PropertyInfo property = list.GetType().GetGenericArguments()[0].GetProperty(sortBy);
             if (direction == SortDirection.Ascending)
             {
-                return list.OrderBy(e => property.GetValue(e, null)).ToList<PMessageAnnouncement>();
+                return list.OrderBy(e => property.GetValue(e, null)).ToList<PMessageAnnouncementItem>();
             }
             else
             {
-                return list.OrderByDescending(e => property.GetValue(e, null)).ToList<PMessageAnnouncement>();
+                return list.OrderByDescending(e => property.GetValue(e, null)).ToList<PMessageAnnouncementItem>();
             }
         }
         protected void ChkMail_CheckedChanged(object sender, EventArgs e)
@@ -267,53 +267,67 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
 
-                if (string.IsNullOrEmpty(txtMessage.Text))
+                if (string.IsNullOrEmpty(FreeTextMessage.Text))
                 {
-                    lblMessage.Text = "Please Enter Message";
+                    lblMessage.Text = "Please Enter Message...!";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-
-                long success = 0;
-                long NotificationNumber = 0;
-                NotificationNumber = new BMessageAnnouncement().GetMaxNoMessageAnnouncement();
-                foreach (PMessageAnnouncement ss in DealerUserDetails)
+                if (string.IsNullOrEmpty(txtValidFrom.Text))
                 {
-                    if (ss.AssignTo.Department.DealerDepartment != "Top Management")
+                    lblMessage.Text = "Please select Valid From...!";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtValidTo.Text))
+                {
+                    lblMessage.Text = "Please select Valid To...!";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                PMessageAnnouncementHeader Msg = new PMessageAnnouncementHeader();
+                Msg.Message = FreeTextMessage.Text;
+                Msg.ValidFrom = Convert.ToDateTime(txtValidFrom.Text);
+                Msg.ValidTo = Convert.ToDateTime(txtValidTo.Text);
+                Msg.Item = DealerUserDetails;
+                //long success = 0;
+                //success = new BMessageAnnouncement().InsertMessageAnnouncement(Msg);
+                string result = new BAPI().ApiPut("MessageNotification", Msg);
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Result.Message;
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Visible = true;
+                    return;
+                }
+                else
+                {
+                    foreach (PMessageAnnouncementItem ss in DealerUserDetails)
                     {
-                        if (ss.MailResponce == true)
+                        if (ss.AssignTo.Department.DealerDepartment != "Top Management")
                         {
-                            ss.Message = txtMessage.Text;
-                            ss.NotificationNumber = NotificationNumber;
-                            success = new BMessageAnnouncement().InsertMessageAnnouncement(ss, Convert.ToInt64(PSession.User.UserID));
-
-                            if (success == 0)
+                            if (ss.MailResponce == true)
                             {
-                                lblMessage.Text = "Mail Not Send...!";
-                                lblMessage.ForeColor = Color.Red;
-                                lblMessage.Visible = true;
-                            }
-                            else
-                            {
-                                string messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/MessageAnnouncement.htm"); ;
-                                messageBody = messageBody.Replace("@@Message", txtMessage.Text);
-                                messageBody = messageBody.Replace("\r", "&nbsp");                                
-                                messageBody = messageBody.Replace("\n", "<br />");
-                                messageBody = messageBody.Replace("@@Dealer", (ddlDealer.SelectedValue=="0")?"ALL": ddlDealer.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@Department", (ddlDepartment.SelectedValue == "0") ? "ALL" : ddlDepartment.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@Designation", (ddlDesignation.SelectedValue == "0") ? "ALL" : ddlDesignation.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@NotificationNo", NotificationNumber.ToString());
-                                messageBody = messageBody.Replace("@@NotificationDate", DateTime.Now.ToString());
-                                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
-                                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
-                                new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. "+ NotificationNumber + "  ]", messageBody, Convert.ToInt64(PSession.User.UserID));
-                                lblMessage.Text = "Mail Send Successfully...!";
-                                lblMessage.ForeColor = Color.Green;
-                                lblMessage.Visible = true;
+                                    string messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/MessageAnnouncement.htm"); ;
+                                    messageBody = messageBody.Replace("@@Message", FreeTextMessage.Text);
+                                    messageBody = messageBody.Replace("\r", "&nbsp");
+                                    messageBody = messageBody.Replace("\n", "<br />");
+                                    messageBody = messageBody.Replace("@@Dealer", (ddlDealer.SelectedValue == "0") ? "ALL" : ddlDealer.SelectedItem.Text);
+                                    messageBody = messageBody.Replace("@@Department", (ddlDepartment.SelectedValue == "0") ? "ALL" : ddlDepartment.SelectedItem.Text);
+                                    messageBody = messageBody.Replace("@@Designation", (ddlDesignation.SelectedValue == "0") ? "ALL" : ddlDesignation.SelectedItem.Text);
+                                    messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
+                                    messageBody = messageBody.Replace("@@NotificationNo", Result.Data.ToString());
+                                    messageBody = messageBody.Replace("@@NotificationDate", DateTime.Now.ToString());
+                                    messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                                    messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+                                    new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
                             }
                         }
                     }
+                    lblMessage.Text = Result.Status;
+                    lblMessage.ForeColor = Color.Green;
+                    lblMessage.Visible = true;
                 }
                 lbSendMessage.Visible = false;
             }
