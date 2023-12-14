@@ -567,6 +567,7 @@ namespace Properties
         EquipmentClientAddEditDelete,
         CustomerGstChange = 74,
         TsirMailToSupplier=75,
+        MailNotificationCreation=76,
     }
     public enum DMS_WarrantyClaimStatus
     {

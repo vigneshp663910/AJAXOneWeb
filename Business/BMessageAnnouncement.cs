@@ -1,7 +1,9 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -19,141 +21,60 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public List<PMessageAnnouncement> GetMessageAnnouncement(long? MessageAnnouncementId, int? DealerID, int? DealerDepartmentID, int? DealerDesignationID, int? DealerEmployeeID)
+        public List<PMessageAnnouncementHeader> GetMessageAnnouncementHeader(long? MessageAnnouncementHeaderID, int? DealerID, int? DealerDepartmentID, int? DealerDesignationID, int? DealerEmployeeID, bool? ReadStatus, string LoginEntryDate)
         {
-            List<PMessageAnnouncement> PMAs = new List<PMessageAnnouncement>();
-            PMessageAnnouncement PMA = null;
-            DateTime traceStartTime = DateTime.Now;
-            try
-            {
-                DbParameter MessageAnnouncementIdP = provider.CreateParameter("MessageAnnouncementId", MessageAnnouncementId, DbType.Int64);
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
-                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int32);
-                DbParameter DealerEmployeeIDP = provider.CreateParameter("DealerEmployeeID", DealerEmployeeID, DbType.Int32);
-
-                DbParameter[] userParams = new DbParameter[5] { MessageAnnouncementIdP, DealerIDP, DealerDepartmentIDP, DealerDesignationIDP, DealerEmployeeIDP };
-
-                using (DataSet usersDataSet = provider.Select("GetMessageAnnouncement", userParams))
-                {
-                    if (usersDataSet != null)
-                        foreach (DataRow dr in usersDataSet.Tables[0].Rows)
-                        {
-                            PMA = new PMessageAnnouncement();
-                            PMA.MessageAnnouncementId = Convert.ToInt64(dr["MessageAnnouncementId"]);
-                            PMA.AssignTo = new PUser() { UserID = Convert.ToInt32(dr["AssignTo"]), ContactName = Convert.ToString(dr["AssignToName"]) };
-                            PMA.Message = Convert.ToString(dr["Message"]);
-                            PMA.CreatedBy = new PUser() { UserID = Convert.ToInt32(dr["CreatedBy"]), ContactName = Convert.ToString(dr["CreatedByName"]) };
-                            PMA.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
-                            PMA.NotificationNumber = Convert.ToInt64(dr["NotificationNumber"]);
-                            PMAs.Add(PMA);
-                        }
-                }
-                TraceLogger.Log(traceStartTime);
-                return PMAs;
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
-
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
+            string endPoint = "MessageNotification/GetMessageAnnouncementHeader?MessageAnnouncementHeaderID=" + MessageAnnouncementHeaderID + "&DealerID=" + DealerID + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&DealerEmployeeID=" + DealerEmployeeID + "&ReadStatus=" + ReadStatus + "&LoginEntryDate=" + LoginEntryDate;
+            return JsonConvert.DeserializeObject<List<PMessageAnnouncementHeader>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-
-        public List<PMessageAnnouncement> GetUsersForMessageAnnouncement(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID)
+        public PMessageAnnouncementHeader GetMessageAnnouncementHeaderByID(long? MessageAnnouncementHeaderID)
         {
-            List<PMessageAnnouncement> users = new List<PMessageAnnouncement>();
-            DateTime traceStartTime = DateTime.Now;
-            try
-            {
-                DbParameter UserNameP, ExternalReferenceIDP;
-
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-
-                if (!string.IsNullOrEmpty(UserName))
-                    UserNameP = provider.CreateParameter("UserName", UserName, DbType.String);
-                else
-                    UserNameP = provider.CreateParameter("UserName", DBNull.Value, DbType.String);
-
-                DbParameter UserTypeIDP = provider.CreateParameter("UserTypeID", UserTypeID, DbType.Int32);
-
-                if (!string.IsNullOrEmpty(ExternalReferenceID))
-                    ExternalReferenceIDP = provider.CreateParameter("ExternalReferenceID", ExternalReferenceID, DbType.String);
-                else
-                    ExternalReferenceIDP = provider.CreateParameter("ExternalReferenceID", DBNull.Value, DbType.String);
-
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-
-                DbParameter IsEnabledP = provider.CreateParameter("IsEnabled", IsEnabled, DbType.Boolean);
-                DbParameter ContactNameP = provider.CreateParameter("ContactName", ContactName, DbType.String);
-
-                DbParameter DealerDepartmentIDP = provider.CreateParameter("DealerDepartmentID", DealerDepartmentID, DbType.Int32);
-                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int32);
-
-                DbParameter[] userParams = new DbParameter[9] { UserIDP, UserNameP, UserTypeIDP, ExternalReferenceIDP, DealerIDP, IsEnabledP, ContactNameP, DealerDepartmentIDP, DealerDesignationIDP };
-
-                using (DataSet usersDataSet = provider.Select("GetUsersForMessageAnnouncement", userParams))
-                {
-                    if (usersDataSet != null)
-                        foreach (DataRow usersRow in usersDataSet.Tables[0].Rows)
-                            users.Add(ConvertToUserVO(usersRow));
-                }
-                // This call is for track the status and logged into the trace logeer
-                TraceLogger.Log(traceStartTime);
-                return users;
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
-
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
+            string endPoint = "MessageNotification/GetMessageAnnouncementHeaderByID?MessageAnnouncementHeaderID=" + MessageAnnouncementHeaderID;
+            return JsonConvert.DeserializeObject<PMessageAnnouncementHeader>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        private PMessageAnnouncement ConvertToUserVO(DataRow userRow)
+        public List<PMessageAnnouncementItem> GetUsersForMessageAnnouncement(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID)
         {
-            return new PMessageAnnouncement()
-            {
-                AssignTo = new PUser()
-                {
-                    UserID = Convert.ToInt32(userRow["UserID"]),
-                    ContactName = Convert.ToString(userRow["ContactName"]),
-                    ExternalReferenceID = userRow["ExternalReferenceID"] != DBNull.Value ? Convert.ToString(userRow["ExternalReferenceID"]) : string.Empty,
-                    Department = new PDMS_DealerDepartment() { DealerDepartmentID = Convert.ToInt32(userRow["DealerDepartmentID"]), DealerDepartment = Convert.ToString(userRow["DealerDepartment"]) },
-                    Designation = new PDMS_DealerDesignation() { DealerDesignationID = Convert.ToInt32(userRow["DealerDesignationID"]), DealerDesignation = Convert.ToString(userRow["DealerDesignation"]) },
-                    Mail = Convert.ToString(userRow["Mail"]),
-                },
-                Dealer = new PDealer()
-                {
-                    DID = Convert.ToInt32(userRow["DealerID"]),
-                    DealerCode = Convert.ToString(userRow["DealerCode"]),
-                    CodeWithDisplayName = Convert.ToString(userRow["DealerCode"]) + " " + Convert.ToString(userRow["DisplayName"]),
-                },
-            };
+            string endPoint = "MessageNotification/GetUsersForMessageAnnouncement?UserID=" + UserID + "&UserName=" + UserName + "&UserTypeID=" + UserTypeID + "&ExternalReferenceID=" + ExternalReferenceID + "&DealerID=" + DealerID + "&IsEnabled=" + IsEnabled + "&ContactName=" + ContactName + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID;
+            return JsonConvert.DeserializeObject<List<PMessageAnnouncementItem>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public long InsertMessageAnnouncement(PMessageAnnouncement PMA, Int64 UserID)
+        public long InsertMessageAnnouncement(PMessageAnnouncementHeader Msg)
         {
             TraceLogger.Log(DateTime.Now);
             long success = 0;
+            long MessageAnnouncementHeaderID = 0;
             try
             {
-                DbParameter AssignToP = provider.CreateParameter("AssignTo", PMA.AssignTo.UserID, DbType.Int64);
-                DbParameter MessageP = provider.CreateParameter("Message", PMA.Message, DbType.String);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                DbParameter NotificationNumberP = provider.CreateParameter("NotificationNumber", PMA.NotificationNumber, DbType.Int64);
-                DbParameter[] Params = new DbParameter[4] { AssignToP, MessageP, UserIDP, NotificationNumberP };
+                DbParameter MessageP = provider.CreateParameter("Message", Msg.Message, DbType.String);
+                DbParameter ValidFromP = provider.CreateParameter("ValidFrom", Msg.ValidFrom, DbType.DateTime);
+                DbParameter ValidToP = provider.CreateParameter("ValidTo", Msg.ValidTo, DbType.DateTime);
+                DbParameter UserIDP = provider.CreateParameter("UserID", Convert.ToInt64(Msg.CreatedBy.UserID), DbType.Int64);
+                DbParameter TicketIDParam = provider.CreateParameter("OutValue", "", DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
+                DbParameter[] Params = new DbParameter[5] { MessageP, ValidFromP, ValidToP, UserIDP, TicketIDParam };
 
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    provider.Insert("InsertMessageAnnouncement", Params);
+                    success = provider.Insert("InsertMessageAnnouncementHeader", Params);
+
+                    if (success != 0)
+                    {
+                        MessageAnnouncementHeaderID = Convert.ToInt64(TicketIDParam.Value);
+                        foreach (PMessageAnnouncementItem ss in Msg.Item)
+                        {
+                            if (ss.AssignTo.Department.DealerDepartment != "Top Management")
+                            {
+                                if (ss.MailResponce == true)
+                                {
+                                    DbParameter MessageAnnouncementHeaderIDP = provider.CreateParameter("MessageAnnouncementHeaderID", MessageAnnouncementHeaderID, DbType.Int64);
+                                    DbParameter AssignToP = provider.CreateParameter("AssignTo", ss.AssignTo.UserID, DbType.Int64);
+                                    DbParameter ReadStatusP = provider.CreateParameter("ReadStatus", false, DbType.Boolean);
+                                    DbParameter[] ParamsItem = new DbParameter[3] { MessageAnnouncementHeaderIDP, AssignToP, ReadStatusP };
+                                    success = provider.Insert("InsertMessageAnnouncementItem", ParamsItem);
+                                }
+                            }
+                        }
+                    }
                     scope.Complete();
                 }
-                success = 1;
+                success = (success != 0) ? MessageAnnouncementHeaderID : success;
             }
             catch (Exception e1)
             {
@@ -163,33 +84,29 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return success;
         }
-        public long GetMaxNoMessageAnnouncement()
+        public long UpdateMessageAnnouncementItemReadStatus(Int64 AssignTo,bool ReadStatus)
         {
             TraceLogger.Log(DateTime.Now);
-            long Success = 0;
-            long NotificationNumber = 0;
+            long success = 0;
             try
             {
-                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-                DbParameter[] Params = new DbParameter[1] { OutValue };
+                DbParameter AssignToP = provider.CreateParameter("AssignTo", AssignTo, DbType.Int64);
+                DbParameter ReadStatusP = provider.CreateParameter("ReadStatus", ReadStatus, DbType.Boolean);
+                DbParameter[] Params = new DbParameter[2] { AssignToP, ReadStatusP };
 
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    Success = provider.Insert("GetMaxNoMessageAnnouncement", Params);
-                    if (Success != 0)
-                    {
-                        NotificationNumber = Convert.ToInt64(OutValue.Value);
-                    }
+                    success = provider.Insert("UpdateMessageAnnouncementItemReadStatus", Params);
                     scope.Complete();
                 }
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("BMessageAnnouncement", "GetMaxNoMessageAnnouncement", e1);
+                new FileLogger().LogMessage("BMessageAnnouncement", "UpdateMessageAnnouncementItemReadStatus", e1);
                 throw e1;
             }
             TraceLogger.Log(DateTime.Now);
-            return NotificationNumber;
+            return success;
         }
     }
 }

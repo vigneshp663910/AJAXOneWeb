@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace DealerManagementSystem
         protected void Page_Load(object sender, EventArgs e)
         {
             CurrentPage = (BasePage)this.Page;
-           Boolean BDefaultPage = false;
+            Boolean BDefaultPage = false;
             lblPageName.Text = (string)Session["PageName"];
             Session["PageName"] = "";
             if (!IsPostBack)
@@ -31,10 +32,9 @@ namespace DealerManagementSystem
                     Response.Redirect(UIHelper.SessionFailureRedirectionPage);
                 }
 
-                 
 
-                if ((CurrentPage.ToString() == "ASP.home_aspx") || (CurrentPage.ToString() == "ASP.myprofile_aspx") || 
-                    (CurrentPage.ToString() == "ASP.aboutus_aspx") || (CurrentPage.ToString() == "ASP.account_changepassword_aspx")||
+                if ((CurrentPage.ToString() == "ASP.home_aspx") || (CurrentPage.ToString() == "ASP.myprofile_aspx") ||
+                    (CurrentPage.ToString() == "ASP.aboutus_aspx") || (CurrentPage.ToString() == "ASP.account_changepassword_aspx") ||
                     (CurrentPage.ToString() == "ASP.account_signout_aspx") || (CurrentPage.ToString() == "ASP.pdf_aspx") ||
                     (CurrentPage.ToString() == "ASP.help_help_aspx") || (CurrentPage.ToString() == "ASP.undercons_aspx") ||
                      (CurrentPage.ToString() == "ASP.help_helpdoc_aspx") ||
@@ -44,7 +44,7 @@ namespace DealerManagementSystem
                 }
 
                 if (!UIHelper.HasAccess((short)CurrentPage.SubModuleName) && !BDefaultPage)
-                { 
+                {
                     new BAPI().ApiGet("User/InsertUnauthorizedAccess?PageID=" + (short)CurrentPage.SubModuleName + "&PageName=" + CurrentPage.ToString());
 
                     if ((short)CurrentPage.SubModuleName != 0)
@@ -80,10 +80,11 @@ namespace DealerManagementSystem
                 MenuCon = MenuCon + " <li><a href='DMS_ContactUs.aspx' style='white-space: pre;'><img src='Ajax/ContactUsLogo.png'  width='17px' /></a></li>";
                 MenuCon = MenuCon + "</ul></li></ul>";
                 MenuNew.InnerHtml = MenuCon;
-                menu(); 
+                menu();
+                FillNotification();
             }
-            
-        } 
+
+        }
         //StringBuilder ReMenu(List<PSubModuleAccess> SMs, string SubModuleName, StringBuilder MenuDMS, [Optional] string MainMenu)
         //{
         //    List<PSubModuleAccess> SMsCount = SMs.Where(x => x.ParentMenu == SubModuleName).ToList();
@@ -296,6 +297,32 @@ namespace DealerManagementSystem
         private void Redirect(string pageName)
         {
             Response.Redirect(pageName);
+        }
+        private void FillNotification()
+        {
+            List<PMessageAnnouncementHeader> MsgList = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, null, null, null, PSession.User.UserID, false, DateTime.Now.ToString("yyyy-MM-dd"));
+            DivNotification.Visible = false;
+            NotificationCount.Visible = false;
+            gvMessageAnnouncement.DataSource = null;
+            gvMessageAnnouncement.DataBind();
+            if (MsgList.Count > 0)
+            {
+                lblNotification.Text = MsgList.Count.ToString();
+                NotificationCount.Visible = true;
+                DivNotification.Visible = true;
+                gvMessageAnnouncement.DataSource = MsgList;
+                gvMessageAnnouncement.DataBind();
+            }
+        }
+        protected void ChkReadMessage_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkReadMessage.Checked)
+            {
+                bool readstatus = true;
+                new BAPI().ApiPut("MessageNotification/UpdateMessageReadStatus", readstatus);
+                //new BMessageAnnouncement().UpdateMessageAnnouncementItemReadStatus(Convert.ToInt64(PSession.User.UserID), true);
+            }
+            FillNotification();
         }
     }
 }

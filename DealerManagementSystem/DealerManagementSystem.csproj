@@ -78,6 +78,9 @@
     <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
+    <Reference Include="FreeTextBox, Version=3.3.0.22838, Culture=neutral, PublicKeyToken=5962a4e684a48b87, processorArchitecture=MSIL">
+      <HintPath>..\packages\WCM.FreeTextBox.3.3.0\lib\FreeTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="iTextSharp.LGPLv2.Core, Version=1.7.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.LGPLv2.Core.1.7.5\lib\net40\iTextSharp.LGPLv2.Core.dll</HintPath>
     </Reference>
@@ -412,6 +415,7 @@
     <Content Include="ViewAdmin\UserAccessManagement.aspx" />
     <Content Include="ViewAdmin\UserActivityTrackingReport.aspx" />
     <Content Include="ViewAdmin\UserControls\MessageAnnouncementCreate.ascx" />
+    <Content Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
     <Content Include="ViewAdmin\VisitTagetPlanning.aspx" />
@@ -1166,6 +1170,13 @@
     </Compile>
     <Compile Include="ViewAdmin\UserControls\MessageAnnouncementCreate.ascx.designer.cs">
       <DependentUpon>MessageAnnouncementCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx.cs">
+      <DependentUpon>MessageAnnouncementView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx.designer.cs">
+      <DependentUpon>MessageAnnouncementView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserMobileApproval.aspx.cs">
       <DependentUpon>UserMobileApproval.aspx</DependentUpon>
@@ -3178,6 +3189,7 @@
     <EmbeddedResource Include="Print\SalesSpec_Machine_L.900.508.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_101030080000.rdlc" />
     <EmbeddedResource Include="Print\SalesTaxQuotation.rdlc" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.S3.3.7.7.20\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />

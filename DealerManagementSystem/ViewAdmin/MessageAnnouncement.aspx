@@ -1,14 +1,22 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="MessageAnnouncement.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.MessageAnnouncement" %>
+﻿<%@ Page Title="" Language="C#" MaintainScrollPositionOnPostback="true" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="MessageAnnouncement.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.MessageAnnouncement" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewAdmin/UserControls/MessageAnnouncementCreate.ascx" TagPrefix="UC" TagName="UC_MessageAnnouncementCreate" %>
+<%@ Register Src="~/ViewAdmin/UserControls/MessageAnnouncementView.ascx" TagPrefix="UC" TagName="UC_MessageAnnouncementView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .back-buttton #MainContent_btnViewBackToList {
+            float: right;
+            margin-right: 20px;
+            margin-top: -6px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Width="100%" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
-            <div class="col-md-12">
+            <div class="col-md-12" id="DivMessageHeader" runat="server">
                 <div class="col-md-12">
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
@@ -28,6 +36,10 @@
                             <div class="col-md-2 col-sm-12">
                                 <label>Employee</label>
                                 <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" />
+                            </div>
+                            <div class="col-md-2 col-sm-12" id="ChkMessage" runat="server">
+                                <br />
+                                <asp:CheckBox ID="ChkGetAllMessage" runat="server" Text="Get All Message" />
                             </div>
                             <div class="col-md-12 text-center">
                                 <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnSearch_Click" />
@@ -73,16 +85,28 @@
                                     <asp:TemplateField HeaderText="Notification No">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblNotificationNo" Text='<%# DataBinder.Eval(Container.DataItem, "NotificationNumber")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblNotificationNo" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementHeaderID")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="To">
+                                    <asp:TemplateField HeaderText="Valid From">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblValidFrom" Text='<%# DataBinder.Eval(Container.DataItem, "ValidFrom")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Valid To">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblValidTo" Text='<%# DataBinder.Eval(Container.DataItem, "ValidTo")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <%--<asp:TemplateField HeaderText="To">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblAssignTo" Text='<%# DataBinder.Eval(Container.DataItem, "AssignTo.ContactName")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Created By">
+                                    </asp:TemplateField>--%>
+                                    <asp:TemplateField HeaderText="From">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server"></asp:Label>
@@ -98,7 +122,12 @@
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMessage" Text='<%# DataBinder.Eval(Container.DataItem, "Message")%>' runat="server" />
-                                            <asp:Label ID="lblMessageAnnouncementId" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementId")%>' runat="server" Visible="false" />
+                                            <asp:Label ID="lblMessageAnnouncementId" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementHeaderID")%>' runat="server" Visible="false" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnViewMessage" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewMessage_Click" Width="75px" Height="25px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -118,9 +147,21 @@
             <div class="back-buttton" id="backBtn">
                 <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
             </div>
-            <div class="col-md-12" runat="server" id="tblDashboard">
-                <uc:uc_messageannouncementcreate ID="UC_MessageAnnouncementCreate" runat="server"></uc:uc_messageannouncementcreate>
+            <div class="col-md-12" runat="server">
+                <UC:UC_MessageAnnouncementCreate ID="UC_MessageAnnouncementCreate" runat="server"></UC:UC_MessageAnnouncementCreate>
                 <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>
+                <div class="col-md-12 text-center">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="divMessageAnnouncementView" runat="server" visible="false">
+            <div class="" id="boxHere"></div>
+            <div class="back-buttton" id="backBtn">
+                <asp:Button ID="btnViewBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnViewBackToList_Click" />
+            </div>
+            <div class="col-md-12" runat="server">
+                <UC:UC_MessageAnnouncementView ID="UC_MessageAnnouncementView" runat="server"></UC:UC_MessageAnnouncementView>
+                <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
                 <div class="col-md-12 text-center">
                 </div>
             </div>

@@ -17,7 +17,7 @@
     <%--<link rel="stylesheet" href="CSS/font-awesome.min.css" />--%>
     <%--<link rel="stylesheet" href="CSS/bootstrap.min.3.4.1.css" />--%>
     <script src="/JS/jquery.min.js"></script>
-     <%-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />--%>
+    <%-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />--%>
     <script src="/JS/bootstrap.min.js"></script>
     <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
     <%-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />--%>
@@ -882,8 +882,7 @@
             font-family: Segoe UI,Arial,sans-serif;
             font-size: 1.1em;
             margin: 0 1% 0 1%;
-            transition:transform 0.9s, top 0.9s;
-
+            transition: transform 0.9s, top 0.9s;
         }
 
         .PopupHeader {
@@ -1822,6 +1821,20 @@
                 width: 305px;
             }
         }
+
+        .LnkGridNotification {
+            overflow-y: scroll;
+            height: 100px;
+            background-color: white;
+        }
+
+            .LnkGridNotification:hover {
+                background-color: white;
+            }
+
+        #gvMessageAnnouncement a:hover {
+            background-color: white;
+        }
     </style>
     <%--Above for these Rating Related--%>
     <%--Ended Rating--%>
@@ -2249,6 +2262,26 @@
                 transform: scale(1);
             }
         }
+
+        .Notification-counter {
+            position: absolute;
+            transform: scale(.9);
+            transform-origin: top right;
+            right: -0.45rem;
+            margin-top: -0.15rem;
+            color: #fff;
+            background-color: #e74a3b;
+            display: inline-block;
+            padding: 0.25em 0.4em;
+            font-size: 64%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.35rem;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript">
@@ -2313,7 +2346,7 @@
             return "";
         }
     </script>
-   
+
 
 
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -2335,7 +2368,7 @@
             <div class="ajaxheaderinner">
                 <div class="row">
                     <div id="CompanyLogo" class="logo">
-                        <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" /> 
+                        <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
                     </div>
                     <div id="SideBarToggle" class="w3-display-topleft" style="color: white; padding-left: 235px">
                         <a class="navbar-brand" href="javascript:void(0)" onclick="w3_closeSideBar()" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
@@ -2367,11 +2400,11 @@
             </div>
         </div>
 
-        <nav id="mySidebar" class="w3-sidebar w3-blue w3-collapse w3-top w3-large" style="z-index: 3; width: 250px; font-weight: bold;"> 
-            <div class="w3-bar-block"> 
+        <nav id="mySidebar" class="w3-sidebar w3-blue w3-collapse w3-top w3-large" style="z-index: 3; width: 250px; font-weight: bold;">
+            <div class="w3-bar-block">
                 <div id="MenuNew" runat="server">
                 </div>
-                 
+
             </div>
         </nav>
         <header class="responsive-menu-click w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding" style="background-color: #2f516e !important; color: #fff !important">
@@ -2397,8 +2430,8 @@
 
                     <div id="titlebarico" style="float: right;">
 
-                        <div style="float: right; padding-right: 1em; font-size: medium; color: white; background-color:black ; margin-right:4px;">
-                            
+                        <div style="float: right; padding-right: 1em; font-size: medium; color: white; background-color: black; margin-right: 4px;">
+
                             <asp:Label ID="lblServer" runat="server"></asp:Label>
                         </div>
 
@@ -2408,25 +2441,45 @@
                                 <a href='/Account/SignOut.aspx' title="Signout...."><i class="fa fa-fw fa-power-off font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
-
-
-
                         <div style="float: right; padding-right: 0.3em;" id="ICCallsupport" runat="server">
-
                             <div class="dropdown">
                                 <a href='tel:+91 08067200014' title="IT Support...."><i class="fa fa-fw fa-phone font-white" style="color: lightgray"></i></a>
-
-
                             </div>
                         </div>
-
                         <div style="float: right; padding-right: 0.3em;" id="ICFeedback" runat="server">
 
                             <div class="dropdown">
                                 <a href='/Home.aspx' title="Feedback...."><i id="LnkComment" runat="server" class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
-
+                        <div style="float: right; padding-right: 0.5em;" id="Bell" runat="server">
+                            <div class="dropdown">
+                                <button class="dropbtn1">
+                                    <i class="fa fa-fw fa-bell font-white" style="color: lightgray"></i><span class="Notification-counter" id="NotificationCount" runat="server">
+                                        <asp:Label ID="lblNotification" runat="server" Text=""></asp:Label></span></button>
+                                <div class="dropdown-content" style="font-size: small;" id="DivNotification" runat="server">
+                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in show" aria-labelledby="alertsDropdown">
+                                        <h6 class="dropdown-header" style="background-color: #4e73df; color: white">Notification Center</h6>
+                                        <asp:CheckBox ID="ChkReadMessage" runat="server" Text="Read All Notification" OnCheckedChanged="ChkReadMessage_CheckedChanged" AutoPostBack="true"/>
+                                        <asp:GridView ID="gvMessageAnnouncement" runat="server" ShowHeader="false" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="Notification No">
+                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lnkNotification" class="LnkGridNotification" CommandArgument='<%# Eval("MessageAnnouncementHeaderID") %>' runat="server" Text='<%# Eval("CreatedBy.ContactName").ToString() + " : " +Eval("CreatedOn","{0:MMMM dd yyyy}").ToString()+"<br/>"+Eval("Message").ToString() %>'></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <FooterStyle ForeColor="White" />
+                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                        </asp:GridView>
+                                        <a class="dropdown-item text-center small text-gray-500" href="ViewAdmin/MessageAnnouncement.aspx">Show All Notification</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <%--<div style="float: right; padding-right: 0.3em;">
 
                             <div class="dropdown">
@@ -2483,14 +2536,12 @@
                                 <a href='/View/Appointment.aspx' title="Appointment...."><i class="fa fa-fw fa-calendar-plus-o font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
-
                         <div style="float: right; padding-right: 0.5em;" id="Home" runat="server">
-
                             <div class="dropdown">
                                 <a href='/Home.aspx' title="Home...."><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -2558,10 +2609,10 @@
     <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 
 
-  <%--  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />--%>
-   
-    
-<%--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <%--  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"        rel="stylesheet" type="text/css" />--%>
+
+
+    <%--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>--%>
 </body>

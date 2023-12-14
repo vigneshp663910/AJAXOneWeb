@@ -33,6 +33,15 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
+        /// DivMessageHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivMessageHeader;
+
+        /// <summary>
         /// ddlDealer control.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,24 @@ namespace DealerManagementSystem.ViewAdmin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDealerEmployee;
+
+        /// <summary>
+        /// ChkMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ChkMessage;
+
+        /// <summary>
+        /// ChkGetAllMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ChkGetAllMessage;
 
         /// <summary>
         /// btnSearch control.
@@ -141,15 +168,6 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.Button btnBackToList;
 
         /// <summary>
-        /// tblDashboard control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tblDashboard;
-
-        /// <summary>
         /// UC_MessageAnnouncementCreate control.
         /// </summary>
         /// <remarks>
@@ -166,5 +184,41 @@ namespace DealerManagementSystem.ViewAdmin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ph_usercontrols_1;
+
+        /// <summary>
+        /// divMessageAnnouncementView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMessageAnnouncementView;
+
+        /// <summary>
+        /// btnViewBackToList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewBackToList;
+
+        /// <summary>
+        /// UC_MessageAnnouncementView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewAdmin.UserControls.MessageAnnouncementView UC_MessageAnnouncementView;
+
+        /// <summary>
+        /// PlaceHolder1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder1;
     }
 }
