@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Dealer Mission Planning Report');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Lead Expected Date of Sale Ageing Report');</script>");
             if (!IsPostBack)
             {
                 EnquiryReport = null;
@@ -59,13 +59,13 @@ namespace DealerManagementSystem.ViewPreSale.Reports
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
-            FillEnquiry();
+            FillLead();
         }
-        void FillEnquiry()
+        void FillLead()
         {
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
-            EnquiryReport = new BEnquiry().GetEnquiryUnattendedAgeing(DealerID, RegionID);
+            EnquiryReport = new BLead().GetLeadExpectedDateofSaleAgeingReport(DealerID, RegionID);
             if (EnquiryReport.Rows.Count == 0)
             {
                 lblRowCountV.Visible = false;
@@ -110,24 +110,38 @@ namespace DealerManagementSystem.ViewPreSale.Reports
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + VT.Rows.Count;
             if (VT.Rows.Count > 0)
             {
-                decimal Days0_3 = 0, Days4_6 = 0, DaysGr6 = 0, EnquiryTotal = 0;
+                decimal DaysLeN60 = 0, DaysN31_60 = 0, DaysN1_30 = 0, Days0 = 0, Days1_30 = 0, Days31_60 = 0, DaysGr60 = 0, Total = 0;
                 foreach (DataRow dr in VT.Rows)
                 {
-                    Days0_3 = Days0_3 + Convert.ToDecimal(dr["Days 0 to 3"]);
-                    Days4_6 = Days4_6 + Convert.ToDecimal(dr["Days 4 to 6"]);
-                    DaysGr6 = DaysGr6 + Convert.ToDecimal(dr["Days > 6"]);
-                    EnquiryTotal = EnquiryTotal + Convert.ToDecimal(dr["Enquiry Total"]);
+                    DaysLeN60 = DaysLeN60 + Convert.ToDecimal(dr["Days < -60"]);
+                    DaysN31_60 = DaysN31_60 + Convert.ToDecimal(dr["Days -31 To -60"]);
+                    DaysN1_30 = DaysN1_30 + Convert.ToDecimal(dr["Days -1 To -30"]);
+                    Days0 = Days0 + Convert.ToDecimal(dr["Days 0"]);
+
+                    Days1_30 = Days1_30 + Convert.ToDecimal(dr["Days 1 To 30"]);
+                    Days31_60 = Days31_60 + Convert.ToDecimal(dr["Days 31 To 60"]);
+                    DaysGr60 = DaysGr60 + Convert.ToDecimal(dr["Days > 60"]);
+                    Total = Total + Convert.ToDecimal(dr["Total"]);
                 }
 
 
-                LinkButton lblDays0To3F = (LinkButton)gv.FooterRow.FindControl("lblDays0To3F");
-                lblDays0To3F.Text = Days0_3.ToString("##.##");
-                LinkButton lblDays4To6 = (LinkButton)gv.FooterRow.FindControl("lblDays4To6F");
-                lblDays4To6.Text = Days4_6.ToString("##.##");
-                LinkButton lblDaysGr6F = (LinkButton)gv.FooterRow.FindControl("lblDaysGr6F");
-                lblDaysGr6F.Text = DaysGr6.ToString("##.##");
-                LinkButton lblEnquiryTotalF = (LinkButton)gv.FooterRow.FindControl("lblEnquiryTotalF");
-                lblEnquiryTotalF.Text = EnquiryTotal.ToString("##.##");
+                LinkButton lblDaysLeN60F = (LinkButton)gv.FooterRow.FindControl("lblDaysLeN60F");
+                lblDaysLeN60F.Text = DaysLeN60.ToString("##.##");
+                LinkButton lblDaysN31To60F = (LinkButton)gv.FooterRow.FindControl("lblDaysN31To60F");
+                lblDaysN31To60F.Text = DaysN31_60.ToString("##.##");
+                LinkButton lblDaysN1To30F = (LinkButton)gv.FooterRow.FindControl("lblDaysN1To30F");
+                lblDaysN1To30F.Text = DaysN1_30.ToString("##.##");
+                LinkButton lblDays0F = (LinkButton)gv.FooterRow.FindControl("lblDays0F");
+                lblDays0F.Text = Days0.ToString("##.##");
+
+                LinkButton lblDays1To30F = (LinkButton)gv.FooterRow.FindControl("lblDays1To30F");
+                lblDays1To30F.Text = Days1_30.ToString("##.##");
+                LinkButton lblDays31To60F = (LinkButton)gv.FooterRow.FindControl("lblDays31To60F");
+                lblDays31To60F.Text = Days31_60.ToString("##.##");
+                LinkButton lblDaysGr60F = (LinkButton)gv.FooterRow.FindControl("lblDaysGr60F");
+                lblDaysGr60F.Text = DaysGr60.ToString("##.##");
+                LinkButton lblGrandTotalF = (LinkButton)gv.FooterRow.FindControl("lblGrandTotalF");
+                lblGrandTotalF.Text = Total.ToString("##.##");
             }
         }
 
@@ -143,7 +157,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
                 GridViewRow row = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
                 TableHeaderCell cell = new TableHeaderCell();
                 gvHeaderCellInfo(row, "", 4);
-                gvHeaderCellInfo(row, "Enquiry Ageing", 4);
+                gvHeaderCellInfo(row, "Lead Expected Date of Sale",8);
                 row.BackColor = ColorTranslator.FromHtml("#fce4d6");
                 gv.HeaderRow.Parent.Controls.AddAt(0, row);
             }
@@ -162,49 +176,79 @@ namespace DealerManagementSystem.ViewPreSale.Reports
             int? RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
             int ReportDetails = 0;
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.ID == "lblDays0To3F")
+            if (lbActions.ID == "lblDaysLeN60F")
             {
                 ReportDetails = 1;
             }
-            else if (lbActions.ID == "lblDays4To6F")
+            else if (lbActions.ID == "lblDaysN31To60F")
             {
                 ReportDetails = 2;
             }
-            else if (lbActions.ID == "lblDaysGr6F")
+            else if (lbActions.ID == "lblDaysN1To30F")
             {
                 ReportDetails = 3;
             }
-            else if (lbActions.ID == "lblEnquiryTotalF")
+            else if (lbActions.ID == "lblDays0F")
             {
                 ReportDetails = 4;
             }
+            else if (lbActions.ID == "lblDays1To30F")
+            {
+                ReportDetails = 5;
+            }
+            else if (lbActions.ID == "lblDays31To60F")
+            {
+                ReportDetails = 6;
+            }
+            else if (lbActions.ID == "lblDaysGr60F")
+            {
+                ReportDetails =7 ;
+            }
+            else if (lbActions.ID == "lblGrandTotalF")
+            {
+                ReportDetails =8 ;
+            } 
             else
             {
                 Label lblDealerID = (Label)gvRow.FindControl("lblDealerID");
                 Label lblRegionID = (Label)gvRow.FindControl("lblRegionID");
-
                 DealerID = Convert.ToInt32(lblDealerID.Text);
                 RegionID = Convert.ToInt32(lblRegionID.Text);
-
-                if (lbActions.ID == "lblDays0To3")
+                if (lbActions.ID == "lblDaysLeN60")
                 {
                     ReportDetails = 1;
                 }
-                else if (lbActions.ID == "lblDays4To6")
+                else if (lbActions.ID == "lblDaysN31To60")
                 {
                     ReportDetails = 2;
                 }
-                else if (lbActions.ID == "lblDaysGr6")
+                else if (lbActions.ID == "lblDaysN1To30")
                 {
                     ReportDetails = 3;
                 }
-                else if (lbActions.ID == "lblEnquiryTotal")
+                else if (lbActions.ID == "lblDays0")
                 {
                     ReportDetails = 4;
                 }
+                else if (lbActions.ID == "lblDays1To30")
+                {
+                    ReportDetails = 5;
+                }
+                else if (lbActions.ID == "lblDays31To60")
+                {
+                    ReportDetails = 6;
+                }
+                else if (lbActions.ID == "lblDaysGr60")
+                {
+                    ReportDetails = 7;
+                }
+                else if (lbActions.ID == "lblGrandTotal")
+                {
+                    ReportDetails =8 ;
+                } 
 
             }
-            EnquiryDetails = new BEnquiry().GetEnquiryUnattendedAgeingDetails(DealerID, RegionID, ReportDetails);
+            EnquiryDetails = new BLead().GetLeadExpectedDateofSaleAgeingDetails(DealerID, RegionID, ReportDetails);
             gvDetails.DataSource = EnquiryDetails;
             gvDetails.DataBind();
             MPE_LeadDetails.Show();
@@ -236,7 +280,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
             { 
                 try
                 {
-                    new BXcel().DealerMissionPlanningReportForPreSales(EnquiryReport, "Lead Expected Date of Sale Ageing", "Lead Expected Dateof Sale Ageing");
+                    new BXcel().ExporttoExcelForLeadExpectedDateofSaleAgeingReport(EnquiryReport, "Lead Expected Date of Sale Ageing", "Lead Expected Dateof Sale Ageing");
                 }
                 catch
                 {

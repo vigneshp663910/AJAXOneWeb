@@ -48,7 +48,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Dealer Mission Planning Report');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Enquiry Unattended Ageing Report');</script>");
             if (!IsPostBack)
             {
                 EnquiryReport = null; 
@@ -238,7 +238,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
 
                 try
                 {
-                    new BXcel().DealerMissionPlanningReportForPreSales(EnquiryReport, "Dealer Mission Planning Report", "Dealer Mission Planning Report");
+                    new BXcel().ExporttoExcelForEnquiryUnattendedAgeing(EnquiryReport, "Enquiry Unattended Ageing Report", "Enquiry Unattended Ageing Report");
                 }
                 catch
                 {

@@ -251,5 +251,15 @@ namespace Business
             string endPoint = "Lead/GetDealerMissionPlanningForPreSalesDetails?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&ProductTypeID=" + ProductTypeID + "&ReportTypeID=" + ReportTypeID;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public DataTable GetLeadExpectedDateofSaleAgeingReport(int? DealerID, int? RegionID)
+        {
+            string endPoint = "Lead/GetLeadExpectedDateofSaleAgeingReport?DealerID=" + DealerID + "&RegionID=" + RegionID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetLeadExpectedDateofSaleAgeingDetails(int? DealerID, int? RegionID, int ReportTypeID)
+        {
+            string endPoint = "Lead/GetLeadExpectedDateofSaleAgeingDetails?DealerID=" + DealerID + "&RegionID=" + RegionID + "&ReportTypeID=" + ReportTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }
