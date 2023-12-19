@@ -236,6 +236,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
                 new DDLBind(ddlPersonMet, new BDMS_Customer().GetCustomerRelation(Lead.Customer.CustomerID, null), "ContactName", "CustomerRelationID");
             }
+            else if (lbActions.ID == "lbtnEditExpectedDate")
+            {
+                MPE_EditExpectedDate.Show(); 
+                cxExpectedDateOfSale.StartDate = DateTime.Now;
+            }
+            else if (lbActions.ID == "lbtnEditNextFollowUpDate")
+            {
+                MPE_EditNextFollowUpDate.Show();
+                cxEditNextFollowUpDate.StartDate = DateTime.Now;
+            }
         }  
         protected void btnSaveEffort_Click(object sender, EventArgs e)
         {
@@ -1011,82 +1021,49 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void btnUpdateExpectedDate_Click(object sender, EventArgs e)
         {
-            MPE_Lead.Show();
+            MPE_EditExpectedDate.Show();
             PLead_Insert LeadEdit = new PLead_Insert();
-            lblMessageLead.ForeColor = Color.Red;
-            lblMessageLead.Visible = true;
-            string Message = UC_AddLead.Validation();
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageLead.Text = Message;
-                return;
-            } 
-
-            LeadEdit.ProductTypeID = Lead.ProductType.ProductTypeID;
-            LeadEdit.SourceID = Lead.Source.SourceID;
-            LeadEdit.ProjectID = Lead.Project == null ? (int?)null : Lead.Project.ProjectID;
-
-            LeadEdit.ExpectedDateOfSale = Convert.ToDateTime(txtExpectedDateOfSale.Text.Trim());
-            LeadEdit.MainApplicationID = Lead.Application == null ? (int?)null :  Lead.Application.MainApplicationID;
-            LeadEdit.CustomerFeedback = Lead.CustomerFeedback;
-            LeadEdit.Remarks = Lead.Remarks;
-            LeadEdit.NextFollowUpDate = (DateTime)Lead.NextFollowUpDate;
-
-
-
-            LeadEdit.LeadID = Lead.LeadID;
-            LeadEdit.Customer = new PDMS_Customer_Insert();
-            LeadEdit.Customer.CustomerID = Lead.Customer.CustomerID; 
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", LeadEdit));
+            lblExpectedDateOfSaleMessage.ForeColor = Color.Red;
+            lblExpectedDateOfSaleMessage.Visible = true; 
+            if (string.IsNullOrEmpty(txtExpectedDateOfSale.Text.Trim()))
+            { 
+                lblExpectedDateOfSaleMessage.Text = "Please select the Expected Date of Sale";
+                return ; 
+            }
+            string endPoint = "Lead/UpdateLeadExpectedDateOfSale?LeadID=" + Lead.LeadID + "&ExpectedDateOfSale=" + txtExpectedDateOfSale.Text.Trim();
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageLead.Text = "Customer is not updated successfully ";
+                lblExpectedDateOfSaleMessage.Text =  Results.Message ;
                 return;
             }
             ShowMessage(Results);
             fillViewLead(Lead.LeadID);
 
-            MPE_Lead.Hide();
+            MPE_EditExpectedDate.Hide();
         }
 
         protected void btnUpdateNextFollowUpDate_Click(object sender, EventArgs e)
         {
-            MPE_Lead.Show();
-            PLead_Insert LeadEdit = new PLead_Insert();
-            lblMessageLead.ForeColor = Color.Red;
-            lblMessageLead.Visible = true;
-            string Message = UC_AddLead.Validation();
-            if (!string.IsNullOrEmpty(Message))
+            MPE_EditNextFollowUpDate.Show();
+            lblNextFollowUpDateMessage.ForeColor = Color.Red;
+            lblNextFollowUpDateMessage.Visible = true;
+            if (string.IsNullOrEmpty(txtEditNextFollowUpDate.Text.Trim()))
             {
-                lblMessageLead.Text = Message;
+                lblNextFollowUpDateMessage.Text = "Please select the Next Follow Date";
                 return;
-            }
-
-            LeadEdit.ProductTypeID = Lead.ProductType.ProductTypeID;
-            LeadEdit.SourceID = Lead.Source.SourceID;
-            LeadEdit.ProjectID = Lead.Project == null ? (int?)null : Lead.Project.ProjectID;
-
-            LeadEdit.ExpectedDateOfSale = (DateTime)Lead.ExpectedDateOfSale;
-            LeadEdit.MainApplicationID = Lead.Application == null ? (int?)null : Lead.Application.MainApplicationID;
-            LeadEdit.CustomerFeedback = Lead.CustomerFeedback;
-            LeadEdit.Remarks = Lead.Remarks;
-            LeadEdit.NextFollowUpDate = Convert.ToDateTime(txtEditNextFollowUpDate.Text.Trim()); ;
-
-
-
-            LeadEdit.LeadID = Lead.LeadID;
-            LeadEdit.Customer = new PDMS_Customer_Insert();
-            LeadEdit.Customer.CustomerID = Lead.Customer.CustomerID;
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", LeadEdit));
+            } 
+            string endPoint = "Lead/UpdateLeadNextFollowUpDate?LeadID=" + Lead.LeadID + "&NextFollowUpDate=" + txtEditNextFollowUpDate.Text.Trim();
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageLead.Text = "Customer is not updated successfully ";
+                lblNextFollowUpDateMessage.Text = Results.Message;
                 return;
             }
             ShowMessage(Results);
             fillViewLead(Lead.LeadID);
 
-            MPE_Lead.Hide();
+            MPE_EditNextFollowUpDate.Hide();
         }
     }
 }

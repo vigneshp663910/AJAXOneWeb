@@ -476,9 +476,9 @@
                 display: none;
             }
 
-            #ICAppoinment {
+            /*#ICAppoinment {
                 display: none;
-            }
+            }*/
 
             #icoDashBoard {
                 display: none;

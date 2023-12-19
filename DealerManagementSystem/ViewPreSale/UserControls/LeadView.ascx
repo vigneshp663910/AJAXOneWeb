@@ -1004,6 +1004,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
+             <asp:Label ID="lblExpectedDateOfSaleMessage" runat="server" Text="" CssClass="message" Visible="false" />
             <div class="col-md-6 col-sm-12">
                 <label>Expected Date of Sale</label>
                 <asp:TextBox ID="txtExpectedDateOfSale" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
@@ -1027,6 +1028,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
+            <asp:Label ID="lblNextFollowUpDateMessage" runat="server" Text="" CssClass="message" Visible="false" />
             <div class="col-md-6 col-sm-12">
                 <label>Expected Date of Sale</label>
                 <asp:TextBox ID="txtEditNextFollowUpDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
@@ -1039,7 +1041,7 @@
         </div>
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_EditNextFollowUpDate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditExpectedDate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditNextFollowUpDate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditNextFollowUpDate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
     <%-- <div  >--%>

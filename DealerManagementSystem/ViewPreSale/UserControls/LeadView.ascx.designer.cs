@@ -1275,6 +1275,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.WebControls.Button Button13;
 
         /// <summary>
+        /// lblExpectedDateOfSaleMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExpectedDateOfSaleMessage;
+
+        /// <summary>
         /// txtExpectedDateOfSale control.
         /// </summary>
         /// <remarks>
@@ -1336,6 +1345,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button14;
+
+        /// <summary>
+        /// lblNextFollowUpDateMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNextFollowUpDateMessage;
 
         /// <summary>
         /// txtEditNextFollowUpDate control.
