@@ -42,6 +42,10 @@
                     <label class="modal-label">Valid To</label>
                     <asp:TextBox ID="txtValidTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
                 </div>
+                <div class="col-md-3 col-sm-12">
+                    <label class="modal-label">Subject</label>
+                    <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                </div>
             </fieldset>
 
             <div class="col-md-12 col-sm-12">

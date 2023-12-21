@@ -33,39 +33,25 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         }
         public void fillViewMessage(long MessageAnnouncementHeaderID)
         {
-            MessageAnnouncementHeaderByID = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(MessageAnnouncementHeaderID);
+            PMessageAnnouncementItem Item = new PMessageAnnouncementItem();
+            Item.MessageAnnouncementHeaderID = MessageAnnouncementHeaderID;
+            Item.ReadStatus = true;
+            new BAPI().ApiPut("MessageNotification/UpdateMessageReadStatus", Item);
 
+            MessageAnnouncementHeaderByID = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(MessageAnnouncementHeaderID);
 
             lblNotificationNumber.Text = MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID.ToString();
             lblDate.Text = MessageAnnouncementHeaderByID.CreatedOn.ToString();
             lblValidFrom.Text = MessageAnnouncementHeaderByID.ValidFrom.ToString();
             lblValidTo.Text = MessageAnnouncementHeaderByID.ValidTo.ToString();
             lblCreatedBy.Text = MessageAnnouncementHeaderByID.CreatedBy.ContactName;
+            lblSubject.Text = MessageAnnouncementHeaderByID.Subject;
             lblMailResponce.Text = (MessageAnnouncementHeaderByID.MailResponce == true) ? "Read" : (MessageAnnouncementHeaderByID.MailResponce == false) ? "Pending" : "Partial";
             lblMsg.Text = MessageAnnouncementHeaderByID.Message;
 
             gvMessageTo.DataSource = MessageAnnouncementHeaderByID.Item;
             gvMessageTo.DataBind();
             //ActionControlMange();
-        }
-
-        protected void lbActions_Click(object sender, EventArgs e)
-        {
-            LinkButton lbActions = ((LinkButton)sender);
-            //if (lbActions.Text == "Release PO")
-            //{
-            //    lblMessage.Visible = true;
-            //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/ReleasePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
-            //    if (Results.Status == PApplication.Failure)
-            //    {
-            //        lblMessage.Text = Results.Message;
-            //        lblMessage.ForeColor = Color.Red;
-            //        return;
-            //    }
-            //    lblMessage.Text = "Updated Successfully";
-            //    lblMessage.ForeColor = Color.Green;
-            //    fillViewPO(PurchaseOrder.PurchaseOrderID);
-            //}
         }
     }
 }

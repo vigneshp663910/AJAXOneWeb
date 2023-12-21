@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
@@ -301,28 +302,33 @@ namespace DealerManagementSystem
         private void FillNotification()
         {
             List<PMessageAnnouncementHeader> MsgList = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, null, null, null, PSession.User.UserID, false, DateTime.Now.ToString("yyyy-MM-dd"));
-            DivNotification.Visible = false;
             NotificationCount.Visible = false;
+            //ChkReadMessage.Visible = false;
             gvMessageAnnouncement.DataSource = null;
             gvMessageAnnouncement.DataBind();
             if (MsgList.Count > 0)
             {
                 lblNotification.Text = MsgList.Count.ToString();
                 NotificationCount.Visible = true;
-                DivNotification.Visible = true;
+                //ChkReadMessage.Visible = true;
                 gvMessageAnnouncement.DataSource = MsgList;
                 gvMessageAnnouncement.DataBind();
             }
         }
-        protected void ChkReadMessage_CheckedChanged(object sender, EventArgs e)
+        protected void BellClick_ServerClick(object sender, EventArgs e)
         {
-            if (ChkReadMessage.Checked)
-            {
-                bool readstatus = true;
-                new BAPI().ApiPut("MessageNotification/UpdateMessageReadStatus", readstatus);
-                //new BMessageAnnouncement().UpdateMessageAnnouncementItemReadStatus(Convert.ToInt64(PSession.User.UserID), true);
-            }
-            FillNotification();
+            divbellMain.Visible = true;
+        }
+        protected void btnNotificationClose_ServerClick(object sender, EventArgs e)
+        {
+            divbellMain.Visible = false;
+        }
+        protected void lnkNotification_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblMessageAnnouncementId = (Label)gvRow.FindControl("lblMessageAnnouncementId");
+            Session["MessageAnnouncementId"] = lblMessageAnnouncementId.Text;
+            Response.Redirect("~/ViewAdmin/MessageAnnouncement.aspx");
         }
     }
 }
