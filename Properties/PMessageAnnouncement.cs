@@ -11,6 +11,7 @@ namespace Properties
     {
         public long MessageAnnouncementHeaderID { get; set; }
         public string Message { get; set; }
+        public string Subject { get; set; }
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
         public PUser CreatedBy { get; set; }

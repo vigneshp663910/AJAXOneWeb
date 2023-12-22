@@ -11,6 +11,7 @@
         </div>
     </div>
 </div>--%>
+<br />
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Message Header</legend>
@@ -34,13 +35,17 @@
             <div class="col-md-4">
                 <label>Valid To : </label>
                 <asp:Label ID="lblValidTo" runat="server" CssClass="LabelValue"></asp:Label>
-            </div>
+            </div>            
             <div class="col-md-4">
                 <label>Mail Responce : </label>
                 <asp:Label ID="lblMailResponce" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
+            <div class="col-md-4">
+                <label>Subject : </label>
+                <asp:Label ID="lblSubject" runat="server" CssClass="LabelValue"></asp:Label>
+            </div>
             <div class="col-md-12">
-                <label>Message : </label>
+                <%--<label>Message : </label>--%>
                 <asp:Label ID="lblMsg" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
         </div>

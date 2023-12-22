@@ -1,9 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Dealer.master.cs" Inherits="DealerManagementSystem.Dealer" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
 <!DOCTYPE html>
-
 <html>
 <head runat="server">
     <link rel="icon" href="Ajax/Images/dms4.jpg" type="image/x-icon">
@@ -128,8 +126,8 @@
             color: blue;
             font-weight: bold;
             padding-left: 5px;
-            font-family: ui-sans-serif;
-            font-size: 17px;
+            font-size: 14px;
+            font-family: system-ui;
         }
     </style>
 
@@ -1232,6 +1230,24 @@
             z-index: 9;
         }
 
+        /*.project-title-outer .ProjectTitle {
+                position: fixed;
+                width: calc( 100% - 250px );
+                margin: 0;
+                top: 50px;
+                border-top: 1px solid #4c7da7;
+            }*/
+        @media screen and (min-device-width: 250px) and (max-device-width: 992px) {
+            .project-title-outer .ProjectTitle {
+                position: fixed;
+                width: 100%;
+                margin: 0;
+                top: 50px;
+                border-top: 1px solid #4c7da7;
+            }
+        }
+
+        @media screen and (min-device-width: 993px) and (max-device-width: 3000px) {
             .project-title-outer .ProjectTitle {
                 position: fixed;
                 width: calc( 100% - 250px );
@@ -1239,10 +1255,10 @@
                 top: 50px;
                 border-top: 1px solid #4c7da7;
             }
-
-        .w3-main.closed-sidebar-main .project-title-outer .ProjectTitle {
-            width: calc( 100% - 50px );
         }
+        /*.w3-main.closed-sidebar-main .project-title-outer .ProjectTitle {
+            width: calc( 100% - 50px );
+        }*/
 
         .sub-menu-dashboard .dropdown-content, #icoDashBoard .dropdown-content {
             right: 0px;
@@ -2452,41 +2468,15 @@
                                 <a href='/Home.aspx' title="Feedback...."><i id="LnkComment" runat="server" class="fa fa-fw fa-comment-o font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
+
                         <div style="float: right; padding-right: 0.5em;" id="Bell" runat="server">
                             <div class="dropdown">
-                                <button class="dropbtn1">
+                                <button class="dropbtn1" runat="server" onserverclick="BellClick_ServerClick">
                                     <i class="fa fa-fw fa-bell font-white" style="color: lightgray"></i><span class="Notification-counter" id="NotificationCount" runat="server">
                                         <asp:Label ID="lblNotification" runat="server" Text=""></asp:Label></span></button>
-                                <div class="dropdown-content" style="font-size: small;" id="DivNotification" runat="server">
-                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in show" aria-labelledby="alertsDropdown">
-                                        <h6 class="dropdown-header" style="background-color: #4e73df; color: white">Notification Center</h6>
-                                        <asp:CheckBox ID="ChkReadMessage" runat="server" Text="Read All Notification" OnCheckedChanged="ChkReadMessage_CheckedChanged" AutoPostBack="true"/>
-                                        <asp:GridView ID="gvMessageAnnouncement" runat="server" ShowHeader="false" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20">
-                                            <Columns>
-                                                <asp:TemplateField HeaderText="Notification No">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="lnkNotification" class="LnkGridNotification" CommandArgument='<%# Eval("MessageAnnouncementHeaderID") %>' runat="server" Text='<%# Eval("CreatedBy.ContactName").ToString() + " : " +Eval("CreatedOn","{0:MMMM dd yyyy}").ToString()+"<br/>"+Eval("Message").ToString() %>'></asp:LinkButton>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                            <FooterStyle ForeColor="White" />
-                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                        </asp:GridView>
-                                        <a class="dropdown-item text-center small text-gray-500" href="ViewAdmin/MessageAnnouncement.aspx">Show All Notification</a>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
-                        <%--<div style="float: right; padding-right: 0.3em;">
-
-                            <div class="dropdown">
-                                <a href='/Home.aspx'><i class="fa fa-fw fa-print font-white" style="color: lightgray"></i></a>
-                            </div>
-                        </div>--%>
-
 
                         <div id="icoDashBoard" runat="server" style="float: right; padding-right: 0.3em;">
                             <div class="dropdown">
@@ -2541,9 +2531,51 @@
                                 <a href='/Home.aspx' title="Home...."><i class="fa fa-fw fa-home font-white" style="color: lightgray"></i></a>
                             </div>
                         </div>
-
                     </div>
                 </div>
+            </div>
+            <style>
+                #divbellMain {
+                    transition: width .4s;
+                    float: right;
+                    position: absolute;
+                    right: 0;
+                    z-index: 9;
+                    border: 1px solid #3C4C5B;
+                    width: 320px;
+                }
+
+                    #divbellMain .table.table-bordered.table-condensed.Grid td {
+                        font-size: 15px;
+                    }
+            </style>
+            <div id="divbellMain" runat="server" visible="false">
+                <asp:Panel ID="pnlFilter" runat="server">
+                    <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%" class="home-history">
+                        <tr>
+                            <td>
+                                <button runat="server" onserverclick="btnNotificationClose_ServerClick">X</button><h6 class="dropdown-header" style="background-color: #4e73df; color: white">Notification Alart Center</h6>
+                                <%--<asp:CheckBox ID="ChkReadMessage" runat="server" Text="Read All Notification" OnCheckedChanged="ChkReadMessage_CheckedChanged" AutoPostBack="true" />--%>
+                                <asp:GridView ID="gvMessageAnnouncement" runat="server" ShowHeader="false" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="Notification No">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblMessageAnnouncementId" runat="server" Visible="false" Text='<%# Eval("MessageAnnouncementHeaderID") %>'></asp:Label>
+                                                <asp:LinkButton ID="lnkNotification" class="LnkGridNotification" CommandArgument='<%# Eval("MessageAnnouncementHeaderID") %>' runat="server" Text='<%# Eval("CreatedBy.ContactName").ToString() + " : " +Eval("CreatedOn","{0:MMMM dd yyyy}").ToString()+"<br/>"+Eval("Subject").ToString() %>' OnClick="lnkNotification_Click"></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <FooterStyle ForeColor="White" />
+                                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                </asp:GridView>
+                                <a class="dropdown-item text-center small text-gray-500" href="/ViewAdmin/MessageAnnouncement.aspx">Show All Notification</a>
+                            </td>
+                        </tr>
+                    </table>
+                </asp:Panel>
             </div>
             <div style="padding-left: 50px;" id="DivChangeLogin" runat="server" visible="false">
                 <asp:TextBox ID="txtEmpId" runat="server"></asp:TextBox>

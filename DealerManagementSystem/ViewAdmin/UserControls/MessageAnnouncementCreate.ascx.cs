@@ -285,13 +285,18 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
+                if (string.IsNullOrEmpty(txtSubject.Text))
+                {
+                    lblMessage.Text = "Please Enter Subject...!";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
                 PMessageAnnouncementHeader Msg = new PMessageAnnouncementHeader();
                 Msg.Message = FreeTextMessage.Text;
                 Msg.ValidFrom = Convert.ToDateTime(txtValidFrom.Text);
                 Msg.ValidTo = Convert.ToDateTime(txtValidTo.Text);
+                Msg.Subject = Convert.ToString(txtSubject.Text);
                 Msg.Item = DealerUserDetails;
-                //long success = 0;
-                //success = new BMessageAnnouncement().InsertMessageAnnouncement(Msg);
                 string result = new BAPI().ApiPut("MessageNotification", Msg);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
                 if (Result.Status == PApplication.Failure)
@@ -325,7 +330,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                             }
                         }
                     }
-                    lblMessage.Text = Result.Status;
+                    lblMessage.Text = "Message Sent Successfully...";
                     lblMessage.ForeColor = Color.Green;
                     lblMessage.Visible = true;
                 }
