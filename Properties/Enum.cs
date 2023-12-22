@@ -493,6 +493,9 @@ namespace Properties
         ViewPreSale_Reports_DealerMissionPlanningReport = 249,
         ViewPreSale_Reports_EnquiryUnattendedAgeing = 250,
         ViewPreSale_Reports_LeadExpectedDateofSaleAgeingReport = 251,
+        ViewPreSale_Planning_DealerBusinessExcellenceCategory3Update = 252,
+        ViewPreSale_Planning_DealerBusinessExcellence = 253,
+        ViewPreSale_Reports_DealerBusinessExcellenceReport = 254,
     }
     public enum SubModuleChildMaster
     {

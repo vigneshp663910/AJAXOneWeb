@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -309,5 +310,52 @@ namespace Properties
     {
         public int DealerTypeID { get; set; } 
         public string DealerType { get; set; } 
+    }
+
+
+    public class PDealerBusinessExcellenceCategory1
+    {
+        public int DealerBusinessExcellenceCategory1 { get; set; }
+        public string FunctionArea { get; set; }
+        public int MaxScore { get; set; }
+    }
+    public class PDealerBusinessExcellenceCategory2
+    {
+        public int DealerBusinessExcellenceCategory2 { get; set; }
+        public string Category2 { get; set; }
+        public PDealerBusinessExcellenceCategory1 Category1 { get; set; }
+    }
+    public class PDealerBusinessExcellenceCategory3
+    {
+        public int DealerBusinessExcellenceCategory3ID { get; set; }
+        public string Parameter { get; set; }
+        public int ParameterMaxScore { get; set; }
+        public int MinimumQualifying { get; set; }
+        public PDealerBusinessExcellenceCategory2 Category2 { get; set; }
+    }
+    public class PDealerBusinessExcellence
+    {
+        public long DealerBusinessExcellenceID { get; set; }
+        public int DealerBusinessExcellenceCategory3ID { get; set; }
+        public string FunctionArea { get; set; }
+        public string Category2 { get; set; }
+        public string Parameter { get; set; }  
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public string MonthName
+        {
+            get
+            {
+                return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month).Substring(0, 3);
+            }
+        }
+        public int DealerID { get; set; }
+        public string DealerCode { get; set; }
+        public string DealerName { get; set; }
+
+        public int Target { get; set; }
+        public int Actual { get; set; }
+        public string Remarks { get; set; }
+        public PUser CreatedBy { get; set; }
     }
 }

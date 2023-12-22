@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Newtonsoft.Json;
 using Properties; 
 using System;
 using System.Collections.Generic;
@@ -407,6 +408,19 @@ namespace Business
 
             TraceLogger.Log(DateTime.Now);
             return 0;
+        }
+
+        public List<PDealerBusinessExcellence> GetDealerBusinessExcellence(int? Year, int? Month, int? DealerID, int? DealerBusinessExcellenceCategory3ID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Dealer/GetDealerBusinessExcellenceToUpdate?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&DealerBusinessExcellenceCategory3ID=" + DealerBusinessExcellenceCategory3ID;
+            return JsonConvert.DeserializeObject<List<PDealerBusinessExcellence>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //  TraceLogger.Log(DateTime.Now);
+        }
+        public DataTable GetDealerBusinessExcellenceReport(int? Year, int? Month, int? DealerID, int? ProductTypeID)
+        {
+            string endPoint = "Dealer/GetDealerBusinessExcellenceReport?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&ProductTypeID=" + ProductTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }
