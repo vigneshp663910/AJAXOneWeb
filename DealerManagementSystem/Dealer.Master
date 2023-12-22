@@ -2554,7 +2554,7 @@
                     <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%" class="home-history">
                         <tr>
                             <td>
-                                <button runat="server" onserverclick="btnNotificationClose_ServerClick">X</button><h6 class="dropdown-header" style="background-color: #4e73df; color: white">Notification Alart Center</h6>
+                                <button runat="server" onserverclick="btnNotificationClose_ServerClick">X</button><h6 class="dropdown-header" style="background-color: #4e73df; color: white">Notification Center</h6>
                                 <%--<asp:CheckBox ID="ChkReadMessage" runat="server" Text="Read All Notification" OnCheckedChanged="ChkReadMessage_CheckedChanged" AutoPostBack="true" />--%>
                                 <asp:GridView ID="gvMessageAnnouncement" runat="server" ShowHeader="false" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20">
                                     <Columns>
