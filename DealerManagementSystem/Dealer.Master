@@ -2515,6 +2515,15 @@
                         <div style="float: right; padding-right: 0.5em;" id="ICHomeWithTiles" runat="server">
 
                             <div class="dropdown" style="display: none">
+                               
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div style="float: right; padding-right: 0.5em;" id="ICHomeWithTiles" runat="server">
+
+                            <div class="dropdown" style="display: none">
                                 <a href='/HomeWithTiles.aspx'><i class="fa fa-microphone font-white" style="color: lightgray"></i></a>
                             </div>
 
@@ -2542,7 +2551,7 @@
                     right: 0;
                     z-index: 9;
                     border: 1px solid #3C4C5B;
-                    width: 320px;
+                    width: 380px;
                 }
 
                     #divbellMain .table.table-bordered.table-condensed.Grid td {
@@ -2553,8 +2562,8 @@
                 <asp:Panel ID="pnlFilter" runat="server">
                     <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%" class="home-history">
                         <tr>
-                            <td>
-                                <button runat="server" onserverclick="btnNotificationClose_ServerClick">X</button><h6 class="dropdown-header" style="background-color: #4e73df; color: white">Notification Alart Center</h6>
+                            <td align="right">
+                                <button runat="server" onserverclick="btnNotificationClose_ServerClick">X</button><h6 class="dropdown-header" style="background-color: #4e73df; color: white" align="left">Notification Center</h6>
                                 <%--<asp:CheckBox ID="ChkReadMessage" runat="server" Text="Read All Notification" OnCheckedChanged="ChkReadMessage_CheckedChanged" AutoPostBack="true" />--%>
                                 <asp:GridView ID="gvMessageAnnouncement" runat="server" ShowHeader="false" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20">
                                     <Columns>
