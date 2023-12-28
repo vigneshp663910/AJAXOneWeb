@@ -107,61 +107,91 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         }
         public void FillGrid()
         {
-            DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            DealerDepartmentID = (ddlDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
-            DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
-            DealerUserID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-            DealerUserDetails = new BMessageAnnouncement().GetUsersForMessageAnnouncement(DealerUserID, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
-            ViewState["DealerUserDetailsSort"] = DealerUserDetails;
-            gvEmp.DataSource = DealerUserDetails;
-            gvEmp.DataBind();
-
-            CheckBox ChkMailH = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
-            foreach (var ss in DealerUserDetails)
+            try
             {
-                ChkMailH.Checked = true;
-                if (ss.MailResponce == false)
+                DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+                DealerDepartmentID = (ddlDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+                DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+                DealerUserID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+                DealerUserDetails = new BMessageAnnouncement().GetUsersForMessageAnnouncement(DealerUserID, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
+                ViewState["DealerUserDetailsSort"] = DealerUserDetails;
+                gvEmp.DataSource = DealerUserDetails;
+                gvEmp.DataBind();
+
+                CheckBox ChkMailH = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
+                foreach (var ss in DealerUserDetails)
                 {
-                    ChkMailH.Checked = false;
+                    ChkMailH.Checked = true;
+                    if (ss.MailResponce == false)
+                    {
+                        ChkMailH.Checked = false;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.Visible = true;
+                return;
             }
         }
         protected void gvEmp_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            lblMessage.Text = "";
-            gvEmp.DataSource = DealerUserDetails;
-            gvEmp.PageIndex = e.NewPageIndex;
-            gvEmp.DataBind();
-            CheckBox ChkMailHH = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
+            try
+            {
+                lblMessage.Text = "";
+                gvEmp.DataSource = DealerUserDetails;
+                gvEmp.PageIndex = e.NewPageIndex;
+                gvEmp.DataBind();
+                CheckBox ChkMailHH = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
 
-            if (UnChecked == DealerUserDetails.Count)
-            { ChkMailHH.Checked = true; }
-            else { ChkMailHH.Checked = false; }
+                if (UnChecked == DealerUserDetails.Count)
+                { ChkMailHH.Checked = true; }
+                else { ChkMailHH.Checked = false; }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.Visible = true;
+                return;
+            }
         }
         protected void gvEmp_Sorting(object sender, GridViewSortEventArgs e)
         {
-            List<PMessageAnnouncementItem> pMessageAnnouncement = ViewState["DealerUserDetailsSort"] as List<PMessageAnnouncementItem>;
-            var MsgAnnouncement = pMessageAnnouncement;
-            string Sortdir = GetSortDirection(e.SortExpression);
-            string SortExp = e.SortExpression;
-            if (Sortdir == "ASC")
+            try
             {
-                MsgAnnouncement = Sort<PMessageAnnouncementItem>(DealerUserDetails, SortExp, SortDirection.Ascending);
-            }
-            else
-            {
-                MsgAnnouncement = Sort<PMessageAnnouncementItem>(DealerUserDetails, SortExp, SortDirection.Descending);
-            }
-            gvEmp.DataSource = MsgAnnouncement;
-            gvEmp.DataBind();
-            CheckBox ChkMailH = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
-            foreach (var ss in pMessageAnnouncement)
-            {
-                ChkMailH.Checked = true;
-                if (ss.MailResponce == false)
+                List<PMessageAnnouncementItem> pMessageAnnouncement = ViewState["DealerUserDetailsSort"] as List<PMessageAnnouncementItem>;
+                var MsgAnnouncement = pMessageAnnouncement;
+                string Sortdir = GetSortDirection(e.SortExpression);
+                string SortExp = e.SortExpression;
+                if (Sortdir == "ASC")
                 {
-                    ChkMailH.Checked = false;
+                    MsgAnnouncement = Sort<PMessageAnnouncementItem>(DealerUserDetails, SortExp, SortDirection.Ascending);
                 }
+                else
+                {
+                    MsgAnnouncement = Sort<PMessageAnnouncementItem>(DealerUserDetails, SortExp, SortDirection.Descending);
+                }
+                gvEmp.DataSource = MsgAnnouncement;
+                gvEmp.DataBind();
+                CheckBox ChkMailH = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
+                foreach (var ss in pMessageAnnouncement)
+                {
+                    ChkMailH.Checked = true;
+                    if (ss.MailResponce == false)
+                    {
+                        ChkMailH.Checked = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.Visible = true;
+                return;
             }
         }
         private string GetSortDirection(string column)
@@ -197,66 +227,86 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         }
         protected void ChkMail_CheckedChanged(object sender, EventArgs e)
         {
-            lblMessage.Text = "";
-            CheckBox ChkMailE = (CheckBox)sender;
-            GridViewRow rowindex = (GridViewRow)ChkMailE.NamingContainer;
-            Label lblDealerEmployeeID = (Label)rowindex.FindControl("lblDealerEmployeeID");
-            int UserID = Convert.ToInt32(lblDealerEmployeeID.Text);
-            CheckBox ChkMailH = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
-
-            foreach (var ss in DealerUserDetails)
+            try
             {
-                if (ss.AssignTo.UserID == UserID)
+                lblMessage.Text = "";
+                CheckBox ChkMailE = (CheckBox)sender;
+                GridViewRow rowindex = (GridViewRow)ChkMailE.NamingContainer;
+                Label lblDealerEmployeeID = (Label)rowindex.FindControl("lblDealerEmployeeID");
+                int UserID = Convert.ToInt32(lblDealerEmployeeID.Text);
+                CheckBox ChkMailH = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
+
+                foreach (var ss in DealerUserDetails)
                 {
-                    ss.MailResponce = ChkMailE.Checked;
-                    if (ChkMailE.Checked)
+                    if (ss.AssignTo.UserID == UserID)
                     {
-                        lbSendMessage.Visible = true;
-                        UnChecked = UnChecked + 1;
-                        break;
-                    }
-                    else
-                    {
-                        UnChecked = UnChecked - 1;
-                        break;
+                        ss.MailResponce = ChkMailE.Checked;
+                        if (ChkMailE.Checked)
+                        {
+                            lbSendMessage.Visible = true;
+                            UnChecked = UnChecked + 1;
+                            break;
+                        }
+                        else
+                        {
+                            UnChecked = UnChecked - 1;
+                            break;
+                        }
                     }
                 }
+                if (UnChecked == DealerUserDetails.Count)
+                { ChkMailH.Checked = true; }
+                else { ChkMailH.Checked = false; }
             }
-            if (UnChecked == DealerUserDetails.Count)
-            { ChkMailH.Checked = true; }
-            else { ChkMailH.Checked = false; }
+            catch (Exception ex)
+            {
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.Visible = true;
+                return;
+            }
         }
 
         protected void ChkMailH_CheckedChanged(object sender, EventArgs e)
         {
-            lblMessage.Text = "";
-            CheckBox ChkMailH = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
-            if (ChkMailH.Checked == true)
+            try
             {
-                lbSendMessage.Visible = true;
+                lblMessage.Text = "";
+                CheckBox ChkMailH = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
+                if (ChkMailH.Checked == true)
+                {
+                    lbSendMessage.Visible = true;
 
-                foreach (var ss in DealerUserDetails)
-                {
-                    ss.MailResponce = true;
+                    foreach (var ss in DealerUserDetails)
+                    {
+                        ss.MailResponce = true;
+                    }
+                    gvEmp.DataSource = DealerUserDetails;
+                    gvEmp.DataBind();
+                    CheckBox ChkMailH_T = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
+                    ChkMailH_T.Checked = true;
+                    UnChecked = DealerUserDetails.Count;
                 }
-                gvEmp.DataSource = DealerUserDetails;
-                gvEmp.DataBind();
-                CheckBox ChkMailH_T = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
-                ChkMailH_T.Checked = true;
-                UnChecked = DealerUserDetails.Count;
+                else
+                {
+                    lbSendMessage.Visible = false;
+                    foreach (var ss in DealerUserDetails)
+                    {
+                        ss.MailResponce = false;
+                    }
+                    gvEmp.DataSource = DealerUserDetails;
+                    gvEmp.DataBind();
+                    CheckBox ChkMailH_T = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
+                    ChkMailH_T.Checked = false;
+                    UnChecked = 0;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lbSendMessage.Visible = false;
-                foreach (var ss in DealerUserDetails)
-                {
-                    ss.MailResponce = false;
-                }
-                gvEmp.DataSource = DealerUserDetails;
-                gvEmp.DataBind();
-                CheckBox ChkMailH_T = (CheckBox)gvEmp.HeaderRow.FindControl("ChkMailH");
-                ChkMailH_T.Checked = false;
-                UnChecked = 0;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.Visible = true;
+                return;
             }
         }
         protected void lbActions_Click(object sender, EventArgs e)
@@ -314,6 +364,8 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                         {
                             if (ss.MailResponce == true)
                             {
+                                if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
+                                {
                                     string messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/MessageAnnouncement.htm"); ;
                                     messageBody = messageBody.Replace("@@Message", FreeTextMessage.Text);
                                     messageBody = messageBody.Replace("\r", "&nbsp");
@@ -324,9 +376,11 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                                     messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
                                     messageBody = messageBody.Replace("@@NotificationNo", Result.Data.ToString());
                                     messageBody = messageBody.Replace("@@NotificationDate", DateTime.Now.ToString());
+                                    messageBody = messageBody.Replace("@@Subject", txtSubject.Text);
                                     messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
                                     messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                                     new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
+                                }
                             }
                         }
                     }

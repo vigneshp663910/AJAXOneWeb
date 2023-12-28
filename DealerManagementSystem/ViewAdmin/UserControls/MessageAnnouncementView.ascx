@@ -35,7 +35,7 @@
             <div class="col-md-4">
                 <label>Valid To : </label>
                 <asp:Label ID="lblValidTo" runat="server" CssClass="LabelValue"></asp:Label>
-            </div>            
+            </div>
             <div class="col-md-4">
                 <label>Mail Responce : </label>
                 <asp:Label ID="lblMailResponce" runat="server" CssClass="LabelValue"></asp:Label>
@@ -57,7 +57,25 @@
         <ContentTemplate>
             <div class="col-md-12 Report">
                 <div class="table-responsive">
-                    <asp:GridView ID="gvMessageTo" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                    <div class="boxHead">
+                        <div class="logheading">
+                            <div style="float: left">
+                                <table>
+                                    <tr>
+                                        <td>Message(s):</td>
+
+                                        <td>
+                                            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                        <td>
+                                            <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
+                                        <td>
+                                            <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <asp:GridView ID="gvMessageTo" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvMessageTo_PageIndexChanging" ShowFooter="false">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="25px">
                                 <ItemTemplate>
@@ -68,12 +86,27 @@
                             <asp:TemplateField HeaderText="To">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblGMessageAnnouncementItemID" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementItemID")%>' runat="server" Visible="false"/>
-                                    <asp:Label ID="lblGMessageAnnouncementHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementHeaderID")%>' runat="server" Visible="false"/>
+                                    <asp:Label ID="lblGMessageAnnouncementItemID" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementItemID")%>' runat="server" Visible="false" />
+                                    <asp:Label ID="lblGMessageAnnouncementHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementHeaderID")%>' runat="server" Visible="false" />
                                     <asp:Label ID="lblAssignTo" Text='<%# DataBinder.Eval(Container.DataItem, "AssignTo.ContactName")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Read Status" SortExpression="Country">
+                            <asp:TemplateField HeaderText="Dealer">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDealer" Text='<%# (DataBinder.Eval(Container.DataItem, "Dealer.CodeWithDisplayName")) %>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Department">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDepartment" Text='<%# (DataBinder.Eval(Container.DataItem, "AssignTo.Department.DealerDepartment")) %>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Designation">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDesignation" Text='<%# (DataBinder.Eval(Container.DataItem, "AssignTo.Designation.DealerDesignation")) %>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Read Status">
                                 <ItemTemplate>
                                     <asp:Label ID="lblReadStatus" Text='<%# (DataBinder.Eval(Container.DataItem, "ReadStatus").ToString()=="True")?"Yes":"No"%>' runat="server" />
                                 </ItemTemplate>

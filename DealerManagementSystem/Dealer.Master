@@ -2515,15 +2515,6 @@
                         <div style="float: right; padding-right: 0.5em;" id="ICHomeWithTiles" runat="server">
 
                             <div class="dropdown" style="display: none">
-                               
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div style="float: right; padding-right: 0.5em;" id="ICHomeWithTiles" runat="server">
-
-                            <div class="dropdown" style="display: none">
                                 <a href='/HomeWithTiles.aspx'><i class="fa fa-microphone font-white" style="color: lightgray"></i></a>
                             </div>
 
@@ -2659,4 +2650,3 @@
 </body>
 
 </html>
-
