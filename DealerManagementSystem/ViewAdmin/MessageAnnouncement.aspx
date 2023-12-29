@@ -82,6 +82,13 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Action" ControlStyle-Width="10px">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="LnkViewMessage" runat="server" OnClick="btnViewMessage_Click" ToolTip="View"><i class="fa fa-fw fa-play" style="font-size:13px"></i></asp:LinkButton>
+                                            <asp:LinkButton ID="LnkForwardMessage" runat="server" OnClick="LnkForwardMessage_Click" ToolTip="Forward"><i class="fa fa-fw fa-forward" style="font-size:13px"></i></asp:LinkButton>
+                                            <asp:LinkButton ID="LnkDraftEdit" runat="server" OnClick="LnkDraftEdit_Click" ToolTip="Forward"><i class="fa fa-fw fa-edit" style="font-size:13px"></i></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Notification No">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -118,6 +125,12 @@
                                             <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Status">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Subject">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
@@ -130,12 +143,7 @@
                                             <asp:Label ID="lblMessage" Text='<%# DataBinder.Eval(Container.DataItem, "Message")%>' runat="server" />
                                             <asp:Label ID="lblMessageAnnouncementId" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementHeaderID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <asp:Button ID="btnViewMessage" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewMessage_Click" Width="75px" Height="25px" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>                                    
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

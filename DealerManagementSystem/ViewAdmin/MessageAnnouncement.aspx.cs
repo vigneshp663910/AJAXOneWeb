@@ -69,7 +69,7 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » IT Notification');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Notification');</script>");
             lblMessage.Visible = false;
             if (!IsPostBack)
             {
@@ -205,6 +205,16 @@ namespace DealerManagementSystem.ViewAdmin
             divMessageAnnouncementCreate.Visible = false;
             divMessageAnnouncementView.Visible = false;
         }
+
+        protected void LnkForwardMessage_Click(object sender, EventArgs e)
+        {
+            divList.Visible = false;
+            divMessageAnnouncementCreate.Visible = true;
+            lblMessage.Text = "";
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblMessageAnnouncementHeaderId = (Label)gvRow.FindControl("lblMessageAnnouncementId");
+            UC_MessageAnnouncementCreate.FillMasterEdit(Convert.ToInt32(lblMessageAnnouncementHeaderId.Text),"");
+        }
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (PageCount > PageIndex)
@@ -225,6 +235,15 @@ namespace DealerManagementSystem.ViewAdmin
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             Fill();
+        }
+        protected void LnkDraftEdit_Click(object sender, EventArgs e)
+        {
+            divList.Visible = false;
+            divMessageAnnouncementCreate.Visible = true;
+            lblMessage.Text = "";
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblMessageAnnouncementHeaderId = (Label)gvRow.FindControl("lblMessageAnnouncementId");
+            UC_MessageAnnouncementCreate.FillMasterEdit(Convert.ToInt32(lblMessageAnnouncementHeaderId.Text),"Draft");
         }
     }
 }

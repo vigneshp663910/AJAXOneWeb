@@ -111,6 +111,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             {
                 PageIndexView = PageIndexView - 1;
                 fillViewMessage(MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID);
+                gvMessageTo.PageSize = gvMessageTo.PageIndex - 1;
             }
         }
 
@@ -120,12 +121,14 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             {
                 PageIndexView = PageIndexView + 1;
                 fillViewMessage(MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID);
+                gvMessageTo.PageSize = gvMessageTo.PageIndex + 1;
             }
         }
 
         protected void gvMessageTo_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvMessageTo.PageIndex = e.NewPageIndex;
+            PageIndexView = gvMessageTo.PageIndex+1;
             fillViewMessage(MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID);
         }
     }

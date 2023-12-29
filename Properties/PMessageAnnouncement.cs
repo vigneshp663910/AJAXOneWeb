@@ -17,6 +17,7 @@ namespace Properties
         public PUser CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public Boolean? MailResponce { get; set; }
+        public string Status { get; set; }
         public List<PMessageAnnouncementItem> Item { get; set; }
     }
     [Serializable]
@@ -28,6 +29,7 @@ namespace Properties
         public Boolean MailResponce { get; set; }
         public Boolean ReadStatus { get; set; }
         public PDealer Dealer { get; set; }
+        public DateTime? SentOn { get; set; }
     }
 
 }

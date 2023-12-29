@@ -30,6 +30,21 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 ViewState["DealerUserDetails"] = value;
             }
         }
+        public PMessageAnnouncementHeader MessageByID
+        {
+            get
+            {
+                if (ViewState["MessageByID"] == null)
+                {
+                    ViewState["MessageByID"] = new PMessageAnnouncementHeader();
+                }
+                return (PMessageAnnouncementHeader)ViewState["MessageByID"];
+            }
+            set
+            {
+                ViewState["MessageByID"] = value;
+            }
+        }
         private int UnChecked
         {
             get
@@ -266,7 +281,6 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 return;
             }
         }
-
         protected void ChkMailH_CheckedChanged(object sender, EventArgs e)
         {
             try
@@ -317,36 +331,138 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
 
-                if (string.IsNullOrEmpty(FreeTextMessage.Text))
+                LinkButton lbActions = (LinkButton)sender;
+                if (lbActions.Text == "Send Message")
                 {
-                    lblMessage.Text = "Please Enter Message...!";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
+                    SendMessage();
+                    lbSendMessage.Visible = false;
                 }
-                if (string.IsNullOrEmpty(txtValidFrom.Text))
+            }
+            catch (Exception ex)
+            {
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.Visible = true;
+                return;
+            }
+        }
+        public void ValidationMessage()
+        {
+            if (string.IsNullOrEmpty(FreeTextMessage.Text))
+            {
+                lblMessage.Text = "Please Enter Message...!";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            if (string.IsNullOrEmpty(txtValidFrom.Text))
+            {
+                lblMessage.Text = "Please select Valid From...!";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            if (string.IsNullOrEmpty(txtValidTo.Text))
+            {
+                lblMessage.Text = "Please select Valid To...!";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            if (string.IsNullOrEmpty(txtSubject.Text))
+            {
+                lblMessage.Text = "Please Enter Subject...!";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+        }
+        public void SendMessage()
+        {
+            ValidationMessage();
+            PMessageAnnouncementHeader Msg = new PMessageAnnouncementHeader();
+            if(MessageByID.MessageAnnouncementHeaderID != null)
+            {
+                Msg.MessageAnnouncementHeaderID = MessageByID.MessageAnnouncementHeaderID;
+            }
+            Msg.Message = FreeTextMessage.Text;
+            Msg.ValidFrom = Convert.ToDateTime(txtValidFrom.Text);
+            Msg.ValidTo = Convert.ToDateTime(txtValidTo.Text);
+            Msg.Subject = Convert.ToString(txtSubject.Text);
+            Msg.Status = "Sent";
+            Msg.Item = DealerUserDetails;
+            string result = new BAPI().ApiPut("MessageNotification", Msg);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                return;
+            }
+            else
+            {
+                foreach (PMessageAnnouncementItem ss in DealerUserDetails)
                 {
-                    lblMessage.Text = "Please select Valid From...!";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
+                    if (ss.AssignTo.Department.DealerDepartment != "Top Management")
+                    {
+                        if (ss.MailResponce == true)
+                        {
+                            if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
+                            {
+                                string messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/MessageAnnouncement.htm"); ;
+                                messageBody = messageBody.Replace("@@Message", FreeTextMessage.Text);
+                                messageBody = messageBody.Replace("\r", "&nbsp");
+                                messageBody = messageBody.Replace("\n", "<br />");
+                                messageBody = messageBody.Replace("@@Dealer", (ddlDealer.SelectedValue == "0") ? "ALL" : ddlDealer.SelectedItem.Text);
+                                messageBody = messageBody.Replace("@@Department", (ddlDepartment.SelectedValue == "0") ? "ALL" : ddlDepartment.SelectedItem.Text);
+                                messageBody = messageBody.Replace("@@Designation", (ddlDesignation.SelectedValue == "0") ? "ALL" : ddlDesignation.SelectedItem.Text);
+                                messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
+                                messageBody = messageBody.Replace("@@NotificationNo", Result.Data.ToString());
+                                messageBody = messageBody.Replace("@@NotificationDate", DateTime.Now.ToString());
+                                messageBody = messageBody.Replace("@@Subject", txtSubject.Text);
+                                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+                                new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
+                            }
+                        }
+                    }
                 }
-                if (string.IsNullOrEmpty(txtValidTo.Text))
-                {
-                    lblMessage.Text = "Please select Valid To...!";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-                if (string.IsNullOrEmpty(txtSubject.Text))
-                {
-                    lblMessage.Text = "Please Enter Subject...!";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
+                lblMessage.Text = "Message Sent Successfully...";
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Visible = true;
+            }
+        }
+        public void FillMasterEdit(long? MessageAnnouncementHeaderID,string IsDraft)
+        {
+            PApiResult Result = new PApiResult();
+            Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(Convert.ToInt64(MessageAnnouncementHeaderID), null, null);
+            MessageByID = JsonConvert.DeserializeObject<PMessageAnnouncementHeader>(JsonConvert.SerializeObject(Result.Data));
+            FreeTextMessage.Text = MessageByID.Message; 
+            txtValidFrom.Text = MessageByID.ValidFrom.ToString("yyyy-MM-dd"); 
+            txtValidTo.Text = MessageByID.ValidTo.ToString("yyyy-MM-dd"); 
+            txtSubject.Text = MessageByID.Subject; 
+            btnSaveAsDraft.Visible = false;
+            if(IsDraft!="Draft")
+            {
+                FreeTextMessage.ReadOnly = true;
+                txtValidFrom.ReadOnly = true;
+                txtValidTo.ReadOnly = true;
+                txtSubject.ReadOnly = true;
+                btnSaveAsDraft.Visible = true;
+            }
+        }
+        protected void btnSaveAsDraft_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblMessage.Text = string.Empty;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+
                 PMessageAnnouncementHeader Msg = new PMessageAnnouncementHeader();
                 Msg.Message = FreeTextMessage.Text;
                 Msg.ValidFrom = Convert.ToDateTime(txtValidFrom.Text);
                 Msg.ValidTo = Convert.ToDateTime(txtValidTo.Text);
                 Msg.Subject = Convert.ToString(txtSubject.Text);
-                Msg.Item = DealerUserDetails;
+                Msg.Item = new List<PMessageAnnouncementItem>();
+                Msg.Status = "Draft";
                 string result = new BAPI().ApiPut("MessageNotification", Msg);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
                 if (Result.Status == PApplication.Failure)
@@ -358,37 +474,10 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 }
                 else
                 {
-                    foreach (PMessageAnnouncementItem ss in DealerUserDetails)
-                    {
-                        if (ss.AssignTo.Department.DealerDepartment != "Top Management")
-                        {
-                            if (ss.MailResponce == true)
-                            {
-                                if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
-                                {
-                                    string messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/MessageAnnouncement.htm"); ;
-                                    messageBody = messageBody.Replace("@@Message", FreeTextMessage.Text);
-                                    messageBody = messageBody.Replace("\r", "&nbsp");
-                                    messageBody = messageBody.Replace("\n", "<br />");
-                                    messageBody = messageBody.Replace("@@Dealer", (ddlDealer.SelectedValue == "0") ? "ALL" : ddlDealer.SelectedItem.Text);
-                                    messageBody = messageBody.Replace("@@Department", (ddlDepartment.SelectedValue == "0") ? "ALL" : ddlDepartment.SelectedItem.Text);
-                                    messageBody = messageBody.Replace("@@Designation", (ddlDesignation.SelectedValue == "0") ? "ALL" : ddlDesignation.SelectedItem.Text);
-                                    messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
-                                    messageBody = messageBody.Replace("@@NotificationNo", Result.Data.ToString());
-                                    messageBody = messageBody.Replace("@@NotificationDate", DateTime.Now.ToString());
-                                    messageBody = messageBody.Replace("@@Subject", txtSubject.Text);
-                                    messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
-                                    messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
-                                    new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
-                                }
-                            }
-                        }
-                    }
-                    lblMessage.Text = "Message Sent Successfully...";
+                    lblMessage.Text = "Message Sent to Draft Successfully...";
                     lblMessage.ForeColor = Color.Green;
                     lblMessage.Visible = true;
                 }
-                lbSendMessage.Visible = false;
             }
             catch (Exception ex)
             {

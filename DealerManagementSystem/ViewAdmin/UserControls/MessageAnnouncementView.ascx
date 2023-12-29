@@ -17,7 +17,7 @@
         <legend style="background: none; color: #007bff; font-size: 17px;">Message Header</legend>
         <div class="col-md-12 View">
             <div class="col-md-4">
-                <label>Notification Number : </label>
+                <label>Notification No : </label>
                 <asp:Label ID="lblNotificationNumber" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
@@ -37,7 +37,7 @@
                 <asp:Label ID="lblValidTo" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
-                <label>Mail Responce : </label>
+                <label>Mail Response : </label>
                 <asp:Label ID="lblMailResponce" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
