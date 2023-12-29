@@ -84,6 +84,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             lblCreatedBy.Text = MessageAnnouncementHeaderByID.CreatedBy.ContactName;
             lblSubject.Text = MessageAnnouncementHeaderByID.Subject;
             lblMailResponce.Text = (MessageAnnouncementHeaderByID.MailResponce == true) ? "Read" : (MessageAnnouncementHeaderByID.MailResponce == false) ? "Pending" : "Partial";
+            lblStatus.Text = MessageAnnouncementHeaderByID.Status;
             lblMsg.Text = MessageAnnouncementHeaderByID.Message;
 
             gvMessageTo.DataSource = MessageAnnouncementHeaderByID.Item;

@@ -44,6 +44,10 @@
                 <label>Subject : </label>
                 <asp:Label ID="lblSubject" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
+            <div class="col-md-4">
+                <label>Status : </label>
+                <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
+            </div>
             <div class="col-md-12">
                 <%--<label>Message : </label>--%>
                 <asp:Label ID="lblMsg" runat="server" CssClass="LabelValue"></asp:Label>

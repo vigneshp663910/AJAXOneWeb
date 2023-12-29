@@ -441,10 +441,6 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             btnSaveAsDraft.Visible = false;
             if(IsDraft!="Draft")
             {
-                FreeTextMessage.ReadOnly = true;
-                txtValidFrom.ReadOnly = true;
-                txtValidTo.ReadOnly = true;
-                txtSubject.ReadOnly = true;
                 btnSaveAsDraft.Visible = true;
             }
         }

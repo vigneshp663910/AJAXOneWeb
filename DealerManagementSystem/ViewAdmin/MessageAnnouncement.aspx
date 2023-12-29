@@ -82,11 +82,11 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="150px">
+                                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="100px">
                                         <ItemTemplate>
-                                            <asp:LinkButton ID="LnkViewMessage" runat="server" OnClick="btnViewMessage_Click" ToolTip="View"><i class="fa fa-fw fa-play" style="font-size:13px"></i></asp:LinkButton>
-                                            <asp:LinkButton ID="LnkForwardMessage" runat="server" OnClick="LnkForwardMessage_Click" ToolTip="Forward"><i class="fa fa-fw fa-forward" style="font-size:13px"></i></asp:LinkButton>
-                                            <asp:LinkButton ID="LnkDraftEdit" runat="server" OnClick="LnkDraftEdit_Click" ToolTip="Draft Edit"><i class="fa fa-fw fa-edit" style="font-size:13px"></i></asp:LinkButton>
+                                            <asp:LinkButton ID="LnkViewMessage" runat="server" OnClick="btnViewMessage_Click" ToolTip="View"><i class="fa fa-fw fa-play" style="font-size:18px"></i></asp:LinkButton>
+                                            <asp:LinkButton ID="LnkForwardMessage" runat="server" OnClick="LnkForwardMessage_Click" ToolTip="Forward"><i class="fa fa-fw fa-forward" style="font-size:18px"></i></asp:LinkButton>
+                                            <asp:LinkButton ID="LnkDraftEdit" runat="server" OnClick="LnkDraftEdit_Click" ToolTip="Draft Edit"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Notification No">
