@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             {
                 FillYearAndMonth();
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
-                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+                ActionControlMange();
             }
         }
 
@@ -99,15 +99,23 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             gv.DataSource = VT;
             gv.DataBind();
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + VT.Count;
+            for (int i = 0; i < gv.Rows.Count; i++)
+            {
+                CheckBox cbIsSubmitted = (CheckBox)gv.Rows[i].FindControl("cbIsSubmitted");
+                if (cbIsSubmitted.Checked)
+                {
+                    LinkButton lnkBtnMissionPlanningEdit = (LinkButton)gv.Rows[i].FindControl("lnkBtnMissionPlanningEdit");
+                    lnkBtnMissionPlanningEdit.Visible = false;
+                }
+            }
         }
 
         void FillVisitTarget()
         {
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            int? Category3ID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
-            VT = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, Category3ID);
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
+            VT = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, null);
             gvMissionPlanning.DataSource = VT;
             gvMissionPlanning.DataBind();
 
@@ -122,7 +130,8 @@ namespace DealerManagementSystem.ViewPreSale.Planning
                 lblRowCountV.Visible = true;
                 ibtnVTArrowLeft.Visible = true;
                 ibtnVTArrowRight.Visible = true;
-                lblRowCountV.Text = (((gvMissionPlanning.PageIndex) * gvMissionPlanning.PageSize) + 1) + " - " + (((gvMissionPlanning.PageIndex) * gvMissionPlanning.PageSize) + gvMissionPlanning.Rows.Count) + " of " + VT.Count;
+                VTBind(gvMissionPlanning, lblRowCountV, VT);
+                //lblRowCountV.Text = (((gvMissionPlanning.PageIndex) * gvMissionPlanning.PageSize) + 1) + " - " + (((gvMissionPlanning.PageIndex) * gvMissionPlanning.PageSize) + gvMissionPlanning.Rows.Count) + " of " + VT.Count;
             }
 
         }
@@ -256,8 +265,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
                   Month = DateTime.ParseExact(lblMonth.Text, "MMM", CultureInfo.CurrentCulture).Month,
                   Target = string.IsNullOrEmpty(txtTarget.Text.Trim()) ? 0 : Convert.ToInt32(txtTarget.Text.Trim()),
                   Actual = string.IsNullOrEmpty(txtActual.Text.Trim()) ? 0 : Convert.ToInt32(txtActual.Text.Trim()),
-                  Remarks = txtRemarks.Text.Trim(),
-                  CreatedBy = new PUser() { UserID = PSession.User.UserID }
+                  Remarks = txtRemarks.Text.Trim() 
               };
                 Plannings.Add(Planning);
 
@@ -295,5 +303,35 @@ namespace DealerManagementSystem.ViewPreSale.Planning
                 }
             }
         }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            int Year = Convert.ToInt32(ddlYear.SelectedValue);
+            int Month = Convert.ToInt32(ddlMonth.SelectedValue);
+            int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+            string endPoint = "Dealer/UpdateDealerBusinessExcellenceSubmit?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID ;
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Results.Message;
+                return;
+            }
+            else
+            {
+                lblMessage.Text = "Submitted Successfully";
+                FillVisitTarget();
+            }
+        }
+
+        void ActionControlMange()
+        {
+            btnSubmit.Visible = true;  
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceSubmit).Count() == 0)
+            {
+                btnSubmit.Visible = false; 
+            } 
+        }
+
     }
 }

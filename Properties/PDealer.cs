@@ -335,7 +335,7 @@ namespace Properties
     }
     public class PDealerBusinessExcellence
     {
-        public long DealerBusinessExcellenceID { get; set; }
+       // public long DealerBusinessExcellenceID { get; set; }
         public int DealerBusinessExcellenceCategory3ID { get; set; }
         public string FunctionArea { get; set; }
         public string Category2 { get; set; }
@@ -355,7 +355,7 @@ namespace Properties
 
         public int Target { get; set; }
         public int Actual { get; set; }
-        public string Remarks { get; set; }
-        public PUser CreatedBy { get; set; }
+        public string Remarks { get; set; } 
+        public Boolean IsSubmitted { get; set; }
     }
 }

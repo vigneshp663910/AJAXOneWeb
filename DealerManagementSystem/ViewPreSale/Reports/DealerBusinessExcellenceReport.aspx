@@ -35,10 +35,7 @@
                 <label class="modal-label">Dealer</label>
                 <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
             </div>
-            <div class="col-md-2 col-sm-12">
-                <label class="modal-label">Product Type</label>
-                <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
-            </div>
+            
             <div class="col-md-12 text-center">
                 <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                 <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
@@ -66,7 +63,7 @@
                         </table>
                     </div>
                 </div>
-            </div> 
+            </div>
             <asp:GridView ID="gvMissionPlanning" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnDataBound="OnDataBound"
                 ShowFooter="true">
                 <Columns>
@@ -94,59 +91,71 @@
                             <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Max Score" ItemStyle-Width="30px">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblMaxScore" Text='<%# DataBinder.Eval(Container.DataItem, "Max Score")%>' runat="server" />
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:Label ID="lblMaxScoreF" runat="server" ForeColor="Black" Font-Size="Large" />
+                        </FooterTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Function Area" ItemStyle-Width="30px">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblFunctionArea" Text='<%# DataBinder.Eval(Container.DataItem, "FunctionArea")%>' runat="server" />
                         </ItemTemplate>
-                    </asp:TemplateField> 
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Function Sub Area" ItemStyle-Width="30px">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblCategory2" Text='<%# DataBinder.Eval(Container.DataItem, "Category2")%>' runat="server" />
                         </ItemTemplate>
-                    </asp:TemplateField> 
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Parameter" ItemStyle-Width="30px">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblParameter" Text='<%# DataBinder.Eval(Container.DataItem, "Parameter")%>' runat="server" />
                         </ItemTemplate>
-                    </asp:TemplateField> 
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Target" ItemStyle-Width="130px" ItemStyle-HorizontalAlign="right" FooterStyle-HorizontalAlign="Right">
                         <HeaderStyle BackColor="#ddebf7" />
                         <ItemTemplate>
                             <asp:Label ID="lblTarget" Text='<%# DataBinder.Eval(Container.DataItem, "Target")%>' runat="server" />
-                        </ItemTemplate> 
+                        </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Actual" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="right" FooterStyle-HorizontalAlign="Right">
                         <HeaderStyle BackColor="#c6e0b4" />
                         <ItemTemplate>
                             <asp:Label ID="lblActual" Text='<%# DataBinder.Eval(Container.DataItem, "Actual" )%>' runat="server" />
-                        </ItemTemplate> 
+                        </ItemTemplate>
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Achievement" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="right" FooterStyle-HorizontalAlign="Right">
+                    <asp:TemplateField HeaderText="Achievement" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="right" FooterStyle-HorizontalAlign="Right">
                         <HeaderStyle BackColor="#c6e0b4" />
                         <ItemTemplate>
                             <asp:Label ID="lblAchievement" Text='<%# DataBinder.Eval(Container.DataItem, "Achievement" )%>' runat="server" />
-                        </ItemTemplate> 
+                        </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Minimum Qualifying" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="right" FooterStyle-HorizontalAlign="Right">
                         <HeaderStyle BackColor="#c6e0b4" />
                         <ItemTemplate>
                             <asp:Label ID="lblMinimumQualifying" Text='<%# DataBinder.Eval(Container.DataItem, "Minimum Qualifying" )%>' runat="server" />
-                        </ItemTemplate> 
+                        </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Final Score" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="right" FooterStyle-HorizontalAlign="Right">
                         <HeaderStyle BackColor="#c6e0b4" />
                         <ItemTemplate>
                             <asp:Label ID="lblFinalScore" Text='<%# DataBinder.Eval(Container.DataItem, "Final Score" )%>' runat="server" />
-                        </ItemTemplate> 
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:Label ID="lblFinalScoreF" runat="server" ForeColor="Black" Font-Size="Large" />
+                        </FooterTemplate>
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Remarks" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="right" FooterStyle-HorizontalAlign="Right">
+                    <asp:TemplateField HeaderText="Remarks" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="right" FooterStyle-HorizontalAlign="Right">
                         <HeaderStyle BackColor="#c6e0b4" />
                         <ItemTemplate>
                             <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "Remarks" )%>' runat="server" />
-                        </ItemTemplate> 
+                        </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
                 <AlternatingRowStyle BackColor="White" />

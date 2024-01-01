@@ -575,6 +575,7 @@ namespace Properties
         CustomerGstChange = 74,
         TsirMailToSupplier=75,
         MailNotificationCreation=76,
+        DealerBusinessExcellenceSubmit = 77,
     }
     public enum DMS_WarrantyClaimStatus
     {

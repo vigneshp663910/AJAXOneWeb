@@ -39,8 +39,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
             {
                 LeadReport = null;
                 FillYearAndMonth();
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
-                new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer"); 
             }
             VTBind(gvMissionPlanning, lblRowCountV, LeadReport);
         }
@@ -66,11 +65,10 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         {
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            int? ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
 
 
-            LeadReport = new BDealer().GetDealerBusinessExcellenceReport(Year, Month, DealerID, ProductTypeID);
+            LeadReport = new BDealer().GetDealerBusinessExcellenceReport(Year, Month, DealerID, null);
 
 
 
@@ -126,21 +124,19 @@ namespace DealerManagementSystem.ViewPreSale.Reports
                 lblMonthName.Text = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Convert.ToInt32(lblMonth.Text)).Substring(0, 3);
             }
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + VT.Rows.Count;
-            //if (VT.Rows.Count > 0)
-            //{
-            //    decimal MaxScore = 0, FinalScore = 0;
-            //    foreach (DataRow dr in VT.Rows)
-            //    {
-            //        MaxScore = MaxScore + Convert.ToDecimal(dr["MaxScore"]);
-            //        FinalScore = FinalScore + Convert.ToDecimal(dr["FinalScore"]); 
-            //    } 
-            //    Label lblLeadGenerationPlanF = (Label)gv.FooterRow.FindControl("lblLeadGenerationPlanF");
-            //    lblLeadGenerationPlanF.Text = LeadGenerationPlan.ToString("##.##");
-            //    LinkButton lblLeadGenerationActualF = (LinkButton)gv.FooterRow.FindControl("lblLeadGenerationActualF");
-            //    lblLeadGenerationActualF.Text = LeadGenerationActual.ToString("##.##");
-            //    Label lblLeadGenerationActualPF = (Label)gv.FooterRow.FindControl("lblLeadGenerationActualPF");
-            //    lblLeadGenerationActualPF.Text = LeadGenerationActualP.ToString("##.##"); 
-            //}
+            if (VT.Rows.Count > 0)
+            {
+                decimal MaxScore = 0, FinalScore = 0;
+                foreach (DataRow dr in VT.Rows)
+                {
+                    MaxScore = MaxScore + Convert.ToDecimal(dr["Max Score"]);
+                    FinalScore = FinalScore + Convert.ToDecimal(dr["Final Score"]);
+                }
+                Label lblMaxScoreF = (Label)gv.FooterRow.FindControl("lblMaxScoreF");
+                lblMaxScoreF.Text = MaxScore.ToString("##.##"); 
+                Label lblFinalScoreF = (Label)gv.FooterRow.FindControl("lblFinalScoreF");
+                lblFinalScoreF.Text = FinalScore.ToString("##.##");
+            }
         }
 
         protected void OnDataBound(object sender, EventArgs e)
@@ -150,18 +146,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
 
         protected void gvHeader(GridView gv)
         {
-            if (gv.Rows.Count != 0)
-            {
-                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
-                TableHeaderCell cell = new TableHeaderCell();
-                gvHeaderCellInfo(row, "Report Period", 5);
-                gvHeaderCellInfo(row, "New Lead Generation", 3);
-                gvHeaderCellInfo(row, "Lead Conversion", 3);
-                gvHeaderCellInfo(row, "Quotation Generated", 3);
-                gvHeaderCellInfo(row, "Quotation Conversion", 3);
-                row.BackColor = ColorTranslator.FromHtml("#fce4d6");
-                gv.HeaderRow.Parent.Controls.AddAt(0, row);
-            }
+            
         }
         protected void gvHeaderCellInfo(GridViewRow row, string Name, int ColumnSpan)
         {
@@ -178,7 +163,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
 
                 try
                 {
-                    new BXcel().DealerMissionPlanningReportForPreSales(LeadReport, "Dealer Mission Planning Report", "Dealer Mission Planning Report");
+                    new BXcel().ExporttoExcel(LeadReport, "Dealer Business Excellence Report");
                 }
                 catch
                 {

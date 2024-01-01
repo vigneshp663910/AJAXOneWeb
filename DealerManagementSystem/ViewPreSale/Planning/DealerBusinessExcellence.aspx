@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="DealerBusinessExcellence.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Planning.DealerBusinessExcellence" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="DealerBusinessExcellence.aspx.cs" Inherits="DealerManagementSystem.ViewPreSale.Planning.DealerBusinessExcellence" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -23,12 +23,10 @@
                     <label class="modal-label">Dealer</label>
                     <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                 </div>
-                <div class="col-md-2 col-sm-12">
-                    <label class="modal-label">Product Type</label>
-                    <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
-                </div>
+                 
                 <div class="col-md-12 text-center">
                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button> 
+                     <asp:Button ID="btnSubmit" runat="server" CssClass="btn Search" Text="Submit" OnClick="btnSubmit_Click"></asp:Button> 
                 </div>
             </div>
         </fieldset>  
@@ -127,6 +125,7 @@
                                     <asp:LinkButton ID="lnkBtnMissionPlanningEdit" runat="server" OnClick="btnEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
                                     <asp:Button ID="BtnUpdateMissionPlanning" runat="server" Text="Update" CssClass="btn Back" OnClick="BtnUpdateMissionPlanning_Click" Width="70px" Height="33px" Visible="false" />
                                     <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn Back" OnClick="BtnUpdateMissionPlanning_Click" Width="70px" Height="33px" Visible="false" />
+                                    <asp:CheckBox ID="cbIsSubmitted" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsSubmitted")%>'  Visible="false"/>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
