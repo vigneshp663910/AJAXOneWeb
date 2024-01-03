@@ -27,9 +27,44 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 ViewState["PMessageAnnouncementHeaderByID"] = value;
             }
         }
+        private int PageCountView
+        {
+            get
+            {
+                if (ViewState["PageCountView"] == null)
+                {
+                    ViewState["PageCountView"] = 0;
+                }
+                return (int)ViewState["PageCountView"];
+            }
+            set
+            {
+                ViewState["PageCountView"] = value;
+            }
+        }
+        private int PageIndexView
+        {
+            get
+            {
+                if (ViewState["PageIndexView"] == null)
+                {
+                    ViewState["PageIndexView"] = 1;
+                }
+                return (int)ViewState["PageIndexView"];
+            }
+            set
+            {
+                ViewState["PageIndexView"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
+            if (!IsPostBack)
+            {
+                PageCountView = 0;
+                PageIndexView = 1;
+            }
         }
         public void fillViewMessage(long MessageAnnouncementHeaderID)
         {
@@ -38,7 +73,9 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             Item.ReadStatus = true;
             new BAPI().ApiPut("MessageNotification/UpdateMessageReadStatus", Item);
 
-            MessageAnnouncementHeaderByID = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(MessageAnnouncementHeaderID);
+            PApiResult Result = new PApiResult();
+            Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(MessageAnnouncementHeaderID, PageIndexView, gvMessageTo.PageSize);
+            MessageAnnouncementHeaderByID = JsonConvert.DeserializeObject<PMessageAnnouncementHeader>(JsonConvert.SerializeObject(Result.Data));
 
             lblNotificationNumber.Text = MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID.ToString();
             lblDate.Text = MessageAnnouncementHeaderByID.CreatedOn.ToString();
@@ -47,11 +84,53 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             lblCreatedBy.Text = MessageAnnouncementHeaderByID.CreatedBy.ContactName;
             lblSubject.Text = MessageAnnouncementHeaderByID.Subject;
             lblMailResponce.Text = (MessageAnnouncementHeaderByID.MailResponce == true) ? "Read" : (MessageAnnouncementHeaderByID.MailResponce == false) ? "Pending" : "Partial";
+            lblStatus.Text = MessageAnnouncementHeaderByID.Status;
             lblMsg.Text = MessageAnnouncementHeaderByID.Message;
 
             gvMessageTo.DataSource = MessageAnnouncementHeaderByID.Item;
             gvMessageTo.DataBind();
+            if (Result.RowCount == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnArrowLeft.Visible = false;
+                ibtnArrowRight.Visible = false;
+            }
+            else
+            {
+                PageCountView = (Result.RowCount + gvMessageTo.PageSize - 1) / gvMessageTo.PageSize;
+                lblRowCount.Visible = true;
+                ibtnArrowLeft.Visible = true;
+                ibtnArrowRight.Visible = true;
+                lblRowCount.Text = (((PageIndexView - 1) * gvMessageTo.PageSize) + 1) + " - " + (((PageIndexView - 1) * gvMessageTo.PageSize) + gvMessageTo.Rows.Count) + " of " + Result.RowCount;
+            }
             //ActionControlMange();
+        }
+
+        protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageIndexView > 1)
+            {
+                PageIndexView = PageIndexView - 1;
+                fillViewMessage(MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID);
+                gvMessageTo.PageSize = gvMessageTo.PageIndex - 1;
+            }
+        }
+
+        protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (PageCountView > PageIndexView)
+            {
+                PageIndexView = PageIndexView + 1;
+                fillViewMessage(MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID);
+                gvMessageTo.PageSize = gvMessageTo.PageIndex + 1;
+            }
+        }
+
+        protected void gvMessageTo_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvMessageTo.PageIndex = e.NewPageIndex;
+            PageIndexView = gvMessageTo.PageIndex+1;
+            fillViewMessage(MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID);
         }
     }
 }

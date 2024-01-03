@@ -1,5 +1,6 @@
 ﻿using Business;
 using DealerManagementSystem.ViewAdmin.UserControls;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -68,10 +69,12 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » IT Notification');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Notification');</script>");
             lblMessage.Visible = false;
             if (!IsPostBack)
             {
+                PageCount = 0;
+                PageIndex = 1;
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
@@ -101,23 +104,32 @@ namespace DealerManagementSystem.ViewAdmin
         }
         void Fill()
         {
+            PageIndex = 1;
             DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             DealerDepartmentID = (ddlDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
             DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
             DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
 
+            PApiResult Result = new PApiResult();
+
+
+
             if (ChkGetAllMessage.Checked)
             {
-                Message = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null);
+                //Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null, PageIndex, gvMessageAnnouncement.PageSize);
+                Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null, PageIndex, gvMessageAnnouncement.PageSize);
+                Message = JsonConvert.DeserializeObject<List<PMessageAnnouncementHeader>>(JsonConvert.SerializeObject(Result.Data));
             }
             else
             {
-                Message = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, PSession.User.UserID, null, DateTime.Now.ToString("yyyy-MM-dd"));
+                //Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, PSession.User.UserID, null, DateTime.Now.ToString("yyyy-MM-dd"), PageIndex, gvMessageAnnouncement.PageSize);
+                Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, PSession.User.UserID, null, DateTime.Now.ToString("yyyy-MM-dd"), PageIndex, gvMessageAnnouncement.PageSize);
+                Message = JsonConvert.DeserializeObject<List<PMessageAnnouncementHeader>>(JsonConvert.SerializeObject(Result.Data));
             }
             gvMessageAnnouncement.DataSource = Message;
             gvMessageAnnouncement.DataBind();
 
-            if (Message.Count == 0)
+            if (Result.RowCount == 0)
             {
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
@@ -125,10 +137,34 @@ namespace DealerManagementSystem.ViewAdmin
             }
             else
             {
+                PageCount = (Result.RowCount + gvMessageAnnouncement.PageSize - 1) / gvMessageAnnouncement.PageSize;
                 lblRowCount.Visible = true;
                 ibtnArrowLeft.Visible = true;
                 ibtnArrowRight.Visible = true;
-                lblRowCount.Text = (((gvMessageAnnouncement.PageIndex) * gvMessageAnnouncement.PageSize) + 1) + " - " + (((gvMessageAnnouncement.PageIndex) * gvMessageAnnouncement.PageSize) + gvMessageAnnouncement.Rows.Count) + " of " + Message.Count;
+                lblRowCount.Text = (((gvMessageAnnouncement.PageIndex) * gvMessageAnnouncement.PageSize) + 1) + " - " + (((gvMessageAnnouncement.PageIndex) * gvMessageAnnouncement.PageSize) + gvMessageAnnouncement.Rows.Count) + " of " + Result.RowCount;
+            }
+            foreach (GridViewRow row in gvMessageAnnouncement.Rows)
+            {
+                LinkButton LnkForwardMessage = (LinkButton)row.FindControl("LnkForwardMessage");
+                LinkButton LnkDraftEdit = (LinkButton)row.FindControl("LnkDraftEdit");
+                Label lblStatus = (Label)row.FindControl("lblStatus");
+                if (lblStatus.Text == "Sent")
+                {
+                    LnkForwardMessage.Visible = true;
+                    LnkDraftEdit.Visible = false;
+                }
+                else
+                {
+                    LnkForwardMessage.Visible = false;
+                    LnkDraftEdit.Visible = true;
+                }
+                List<PUser> User = new BMessageAnnouncement().GetMessageAnnouncementAccess();
+
+                if (User.Count() == 0)
+                {
+                    LnkForwardMessage.Visible = false;
+                    LnkDraftEdit.Visible = false;
+                }
             }
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
@@ -192,6 +228,16 @@ namespace DealerManagementSystem.ViewAdmin
             divMessageAnnouncementCreate.Visible = false;
             divMessageAnnouncementView.Visible = false;
         }
+
+        protected void LnkForwardMessage_Click(object sender, EventArgs e)
+        {
+            divList.Visible = false;
+            divMessageAnnouncementCreate.Visible = true;
+            lblMessage.Text = "";
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblMessageAnnouncementHeaderId = (Label)gvRow.FindControl("lblMessageAnnouncementId");
+            UC_MessageAnnouncementCreate.FillMasterEdit(Convert.ToInt32(lblMessageAnnouncementHeaderId.Text), "");
+        }
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (PageCount > PageIndex)
@@ -212,6 +258,15 @@ namespace DealerManagementSystem.ViewAdmin
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             Fill();
+        }
+        protected void LnkDraftEdit_Click(object sender, EventArgs e)
+        {
+            divList.Visible = false;
+            divMessageAnnouncementCreate.Visible = true;
+            lblMessage.Text = "";
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblMessageAnnouncementHeaderId = (Label)gvRow.FindControl("lblMessageAnnouncementId");
+            UC_MessageAnnouncementCreate.FillMasterEdit(Convert.ToInt32(lblMessageAnnouncementHeaderId.Text), "Draft");
         }
     }
 }

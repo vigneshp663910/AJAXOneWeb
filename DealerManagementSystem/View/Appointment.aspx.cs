@@ -56,8 +56,8 @@ namespace DealerManagementSystem.View
                 //  + "<label >" + F.Customer.CustomerName + "</label></td><td>Prospect</td></tr >" + "<tr><td>"
                 //  + "<label >" + F.Customer.ContactPerson + "</label></td><td>"
                 //  + "<label >" + F.Customer.Mobile + " </td></tr></table></div> ";
-
-                div = div + "<div class=\"dropdown1\">FollowUp<div class=\"dropdown1-content\"> " + F.Customer.CustomerName + "<br /> " + F.Customer.ContactPerson + "<br /> " + F.Customer.Mobile + "</div> </div>";
+                
+                div = div + "<div class=\"dropdown1\">FollowUp<div class=\"dropdown1-content\"> " + F.Customer.CustomerName + "<br /> " + F.Customer.ContactPerson + "<br /> " + "<a href = 'tel:" + F.Customer.Mobile + "' > " + F.Customer.Mobile + "</a>" + "</div> </div>";
             }
             div = e.Day.DayNumberText+ "<br />" + div;
             e.Cell.Text = "<a href=" + e.SelectUrl + " style=\"color: Black\" >" + div + "</a>";

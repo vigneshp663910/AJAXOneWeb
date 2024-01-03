@@ -301,14 +301,16 @@ namespace DealerManagementSystem
         }
         private void FillNotification()
         {
-            List<PMessageAnnouncementHeader> MsgList = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, null, null, null, PSession.User.UserID, false, DateTime.Now.ToString("yyyy-MM-dd"));
+            PApiResult Result = new PApiResult();
+            Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, null, null, null, PSession.User.UserID, false, DateTime.Now.ToString("yyyy-MM-dd"), null, null);
+            List<PMessageAnnouncementHeader> MsgList = JsonConvert.DeserializeObject<List<PMessageAnnouncementHeader>>(JsonConvert.SerializeObject(Result.Data));
             NotificationCount.Visible = false;
             //ChkReadMessage.Visible = false;
             gvMessageAnnouncement.DataSource = null;
             gvMessageAnnouncement.DataBind();
-            if (MsgList.Count > 0)
+            if (Result.RowCount > 0)
             {
-                lblNotification.Text = MsgList.Count.ToString();
+                lblNotification.Text = Result.RowCount.ToString();
                 NotificationCount.Visible = true;
                 //ChkReadMessage.Visible = true;
                 gvMessageAnnouncement.DataSource = MsgList;
@@ -328,7 +330,7 @@ namespace DealerManagementSystem
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblMessageAnnouncementId = (Label)gvRow.FindControl("lblMessageAnnouncementId");
             Session["MessageAnnouncementId"] = lblMessageAnnouncementId.Text;
-            Response.Redirect("~/ViewAdmin/MessageAnnouncement.aspx");
+            Response.Redirect("/ViewAdmin/MessageAnnouncement.aspx");
         }
     }
 }

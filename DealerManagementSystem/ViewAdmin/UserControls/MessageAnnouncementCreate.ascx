@@ -110,6 +110,7 @@
                     </asp:GridView>
                 </div>
             </div>
+            <asp:Button ID="btnSaveAsDraft" runat="server" Text="SaveAs Draft" CssClass="btn Save" OnClick="btnSaveAsDraft_Click" Width="100px"/>
         </div>
     </fieldset>
 </div>
