@@ -82,17 +82,51 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="100px">
+                                    <asp:TemplateField HeaderText="..." HeaderStyle-Width="60px">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="LnkViewMessage" runat="server" OnClick="btnViewMessage_Click" ToolTip="View"><i class="fa fa-fw fa-play" style="font-size:18px"></i></asp:LinkButton>
                                             <asp:LinkButton ID="LnkForwardMessage" runat="server" OnClick="LnkForwardMessage_Click" ToolTip="Forward"><i class="fa fa-fw fa-forward" style="font-size:18px"></i></asp:LinkButton>
                                             <asp:LinkButton ID="LnkDraftEdit" runat="server" OnClick="LnkDraftEdit_Click" ToolTip="Draft Edit"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Notification No">
+                                    <asp:TemplateField HeaderText="Notif No">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblNotificationNo" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementHeaderID")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    
+                                    
+                                    <asp:TemplateField HeaderText="Created On">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    
+                                    <asp:TemplateField HeaderText="Subject">
+                                        <ItemStyle VerticalAlign="Middle"/>
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblSubject" Text='<%# DataBinder.Eval(Container.DataItem, "Subject")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Message">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblMessage" Text='<%# DataBinder.Eval(Container.DataItem, "Message")%>' runat="server" />
+                                            <asp:Label ID="lblMessageAnnouncementId" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementHeaderID")%>' runat="server" Visible="false" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>    
+                                    <asp:TemplateField HeaderText="Status">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="From">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Valid From">
@@ -107,37 +141,6 @@
                                             <asp:Label ID="lblValidTo" Text='<%# DataBinder.Eval(Container.DataItem, "ValidTo")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="From">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Created On">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Status">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Subject">
-                                        <ItemStyle VerticalAlign="Middle"/>
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblSubject" Text='<%# DataBinder.Eval(Container.DataItem, "Subject")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Message">
-                                        <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblMessage" Text='<%# DataBinder.Eval(Container.DataItem, "Message")%>' runat="server" />
-                                            <asp:Label ID="lblMessageAnnouncementId" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementHeaderID")%>' runat="server" Visible="false" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>                                    
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
