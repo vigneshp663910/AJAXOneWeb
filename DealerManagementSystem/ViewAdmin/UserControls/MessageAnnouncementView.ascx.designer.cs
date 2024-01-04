@@ -150,13 +150,13 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
 
         /// <summary>
-        /// ChkRead control.
+        /// ddlRead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ChkRead;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRead;
 
         /// <summary>
         /// gvMessageTo control.

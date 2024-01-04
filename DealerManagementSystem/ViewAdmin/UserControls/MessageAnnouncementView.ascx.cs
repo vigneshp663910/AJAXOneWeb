@@ -74,7 +74,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             new BAPI().ApiPut("MessageNotification/UpdateMessageReadStatus", Item);
 
             PApiResult Result = new PApiResult();
-            bool? ReadStatus = (ChkRead.Checked == true) ? true : (bool?)null;
+            bool? ReadStatus = (ddlRead.SelectedValue == "0") ? (bool?)null : (ddlRead.SelectedValue == "1") ? true : false;
             Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(MessageAnnouncementHeaderID, ReadStatus, PageIndexView, gvMessageTo.PageSize);
             MessageAnnouncementHeaderByID = JsonConvert.DeserializeObject<PMessageAnnouncementHeader>(JsonConvert.SerializeObject(Result.Data));
 
@@ -130,7 +130,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         protected void gvMessageTo_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvMessageTo.PageIndex = e.NewPageIndex;
-            PageIndexView = gvMessageTo.PageIndex+1;
+            PageIndexView = gvMessageTo.PageIndex + 1;
             fillViewMessage(MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID);
         }
 

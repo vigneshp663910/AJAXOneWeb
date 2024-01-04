@@ -441,6 +441,19 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                             }
                         }
                     }
+                    else
+                    {
+                        if(ddlDepartment.SelectedItem.Text.Trim() == "Top Management")
+                        {
+                            if (ss.MailResponce == true)
+                            {
+                                if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
+                                {
+                                    new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
+                                }
+                            }
+                        }
+                    }
                 }
                 lblMessage.Text = "Message Sent Successfully...";
                 lblMessage.ForeColor = Color.Green;
