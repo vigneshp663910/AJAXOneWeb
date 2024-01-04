@@ -350,36 +350,47 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 return;
             }
         }
-        public void ValidationMessage()
+        public bool ValidationMessage()
         {
+            if(ddlDepartment.SelectedValue=="0")
+            {
+                lblMessage.Text = "Please Select Department...!";
+                lblMessage.ForeColor = Color.Red;
+                return true;
+            }
             if (string.IsNullOrEmpty(FreeTextMessage.Text))
             {
                 lblMessage.Text = "Please Enter Message...!";
                 lblMessage.ForeColor = Color.Red;
-                return;
+                return true;
             }
             if (string.IsNullOrEmpty(txtValidFrom.Text))
             {
                 lblMessage.Text = "Please select Valid From...!";
                 lblMessage.ForeColor = Color.Red;
-                return;
+                return true;
             }
             if (string.IsNullOrEmpty(txtValidTo.Text))
             {
                 lblMessage.Text = "Please select Valid To...!";
                 lblMessage.ForeColor = Color.Red;
-                return;
+                return true;
             }
             if (string.IsNullOrEmpty(txtSubject.Text))
             {
                 lblMessage.Text = "Please Enter Subject...!";
                 lblMessage.ForeColor = Color.Red;
-                return;
+                return true;
             }
+            return false;
         }
         public void SendMessage()
         {
-            ValidationMessage();
+            if (ValidationMessage())
+            {
+                lblMessage.Visible = true;
+                return;
+            }
             PMessageAnnouncementHeader Msg = new PMessageAnnouncementHeader();
             if(MessageByID.MessageAnnouncementHeaderID != null)
             {
@@ -441,7 +452,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             clear();
             MessageByID = new PMessageAnnouncementHeader();
             PApiResult Result = new PApiResult();
-            Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(Convert.ToInt64(MessageAnnouncementHeaderID), null, null);
+            Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(Convert.ToInt64(MessageAnnouncementHeaderID), null, null, null);
             MessageByID = JsonConvert.DeserializeObject<PMessageAnnouncementHeader>(JsonConvert.SerializeObject(Result.Data));
             FreeTextMessage.Text = MessageByID.Message; 
             txtValidFrom.Text = MessageByID.ValidFrom.ToString("yyyy-MM-dd"); 

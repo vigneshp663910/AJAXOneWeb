@@ -74,7 +74,8 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             new BAPI().ApiPut("MessageNotification/UpdateMessageReadStatus", Item);
 
             PApiResult Result = new PApiResult();
-            Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(MessageAnnouncementHeaderID, PageIndexView, gvMessageTo.PageSize);
+            bool? ReadStatus = (ChkRead.Checked == true) ? true : (bool?)null;
+            Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(MessageAnnouncementHeaderID, ReadStatus, PageIndexView, gvMessageTo.PageSize);
             MessageAnnouncementHeaderByID = JsonConvert.DeserializeObject<PMessageAnnouncementHeader>(JsonConvert.SerializeObject(Result.Data));
 
             lblNotificationNumber.Text = MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID.ToString();
@@ -130,6 +131,11 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         {
             gvMessageTo.PageIndex = e.NewPageIndex;
             PageIndexView = gvMessageTo.PageIndex+1;
+            fillViewMessage(MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID);
+        }
+
+        protected void ChkRead_CheckedChanged(object sender, EventArgs e)
+        {
             fillViewMessage(MessageAnnouncementHeaderByID.MessageAnnouncementHeaderID);
         }
     }

@@ -74,6 +74,8 @@
                                             <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
                                         <td>
                                             <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                        <td>
+                                            <asp:CheckBox ID="ChkRead" runat="server" Text="Read Status" AutoPostBack="true" OnCheckedChanged="ChkRead_CheckedChanged"/></td>
                                     </tr>
                                 </table>
                             </div>
