@@ -398,6 +398,22 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             }
             else
             {
+                string messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/MessageAnnouncement.htm"); ;
+                messageBody = messageBody.Replace("@@Message", FreeTextMessage.Text);
+                messageBody = messageBody.Replace("\r", "&nbsp");
+                messageBody = messageBody.Replace("\n", "<br />");
+                messageBody = messageBody.Replace("@@Dealer", (ddlDealer.SelectedValue == "0") ? "ALL" : ddlDealer.SelectedItem.Text);
+                messageBody = messageBody.Replace("@@Department", (ddlDepartment.SelectedValue == "0") ? "ALL" : ddlDepartment.SelectedItem.Text);
+                messageBody = messageBody.Replace("@@Designation", (ddlDesignation.SelectedValue == "0") ? "ALL" : ddlDesignation.SelectedItem.Text);
+                messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
+                messageBody = messageBody.Replace("@@NotificationNo", Result.Data.ToString());
+                messageBody = messageBody.Replace("@@NotificationDate", DateTime.Now.ToString());
+                messageBody = messageBody.Replace("@@Subject", txtSubject.Text);
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+
+                new EmailManager().MailSend(ConfigurationManager.AppSettings["TaskMailBcc"],"", ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
+
                 foreach (PMessageAnnouncementItem ss in DealerUserDetails)
                 {
                     if (ss.AssignTo.Department.DealerDepartment != "Top Management")
@@ -406,19 +422,6 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                         {
                             if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
                             {
-                                string messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/MessageAnnouncement.htm"); ;
-                                messageBody = messageBody.Replace("@@Message", FreeTextMessage.Text);
-                                messageBody = messageBody.Replace("\r", "&nbsp");
-                                messageBody = messageBody.Replace("\n", "<br />");
-                                messageBody = messageBody.Replace("@@Dealer", (ddlDealer.SelectedValue == "0") ? "ALL" : ddlDealer.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@Department", (ddlDepartment.SelectedValue == "0") ? "ALL" : ddlDepartment.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@Designation", (ddlDesignation.SelectedValue == "0") ? "ALL" : ddlDesignation.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@NotificationNo", Result.Data.ToString());
-                                messageBody = messageBody.Replace("@@NotificationDate", DateTime.Now.ToString());
-                                messageBody = messageBody.Replace("@@Subject", txtSubject.Text);
-                                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
-                                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                                 new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
                             }
                         }

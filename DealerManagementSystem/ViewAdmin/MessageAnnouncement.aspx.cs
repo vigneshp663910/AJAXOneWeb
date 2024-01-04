@@ -117,7 +117,7 @@ namespace DealerManagementSystem.ViewAdmin
             if (ChkGetAllMessage.Checked)
             {
                 //Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null, PageIndex, gvMessageAnnouncement.PageSize);
-                Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null, PageIndex, gvMessageAnnouncement.PageSize);
+                Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderAllNotification(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null, PageIndex, gvMessageAnnouncement.PageSize);
                 Message = JsonConvert.DeserializeObject<List<PMessageAnnouncementHeader>>(JsonConvert.SerializeObject(Result.Data));
             }
             else
