@@ -150,6 +150,15 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
 
         /// <summary>
+        /// ddlRead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRead;
+
+        /// <summary>
         /// gvMessageTo control.
         /// </summary>
         /// <remarks>

@@ -26,9 +26,14 @@ namespace Business
             string endPoint = "MessageNotification/GetMessageAnnouncementHeader?MessageAnnouncementHeaderID=" + MessageAnnouncementHeaderID + "&DealerID=" + DealerID + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&DealerEmployeeID=" + DealerEmployeeID + "&ReadStatus=" + ReadStatus + "&LoginEntryDate=" + LoginEntryDate + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetMessageAnnouncementHeaderByID(long? MessageAnnouncementHeaderID, int? PageIndex, int? PageSize)
+        public PApiResult GetMessageAnnouncementHeaderAllNotification(long? MessageAnnouncementHeaderID, int? DealerID, int? DealerDepartmentID, int? DealerDesignationID, int? DealerEmployeeID, bool? ReadStatus, string LoginEntryDate, int? PageIndex, int? PageSize)
         {
-            string endPoint = "MessageNotification/GetMessageAnnouncementHeaderByID?MessageAnnouncementHeaderID=" + MessageAnnouncementHeaderID;
+            string endPoint = "MessageNotification/GetMessageAnnouncementHeaderAllNotification?MessageAnnouncementHeaderID=" + MessageAnnouncementHeaderID + "&DealerID=" + DealerID + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&DealerEmployeeID=" + DealerEmployeeID + "&ReadStatus=" + ReadStatus + "&LoginEntryDate=" + LoginEntryDate + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetMessageAnnouncementHeaderByID(long? MessageAnnouncementHeaderID, bool? ReadStatus, int? PageIndex, int? PageSize)
+        {
+            string endPoint = "MessageNotification/GetMessageAnnouncementHeaderByID?MessageAnnouncementHeaderID=" + MessageAnnouncementHeaderID + "&ReadStatus="+ ReadStatus;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public List<PMessageAnnouncementItem> GetUsersForMessageAnnouncement(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID)

@@ -74,18 +74,25 @@
                                             <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
                                         <td>
                                             <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                        <td>Read Status : 
+                                            <asp:DropDownList ID="ddlRead" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ChkRead_CheckedChanged">
+                                                <asp:ListItem Value="0" Selected="True">All</asp:ListItem>
+                                                <asp:ListItem Value="1">Yes</asp:ListItem>
+                                                <asp:ListItem Value="2">No</asp:ListItem>
+                                            </asp:DropDownList></td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <asp:GridView ID="gvMessageTo" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvMessageTo_PageIndexChanging" ShowFooter="false">
+                    <asp:GridView ID="gvMessageTo" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" AllowPaging="True" OnPageIndexChanging="gvMessageTo_PageIndexChanging">
                         <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="25px">
+                            <asp:TemplateField HeaderText="RId">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                     <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Right" Width="25px" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="To">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -116,11 +123,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <AlternatingRowStyle BackColor="White" />
                         <FooterStyle ForeColor="White" />
                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#FBFCFD" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
                 </div>
             </div>

@@ -117,7 +117,7 @@ namespace DealerManagementSystem.ViewAdmin
             if (ChkGetAllMessage.Checked)
             {
                 //Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null, PageIndex, gvMessageAnnouncement.PageSize);
-                Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null, PageIndex, gvMessageAnnouncement.PageSize);
+                Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderAllNotification(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null, PageIndex, gvMessageAnnouncement.PageSize);
                 Message = JsonConvert.DeserializeObject<List<PMessageAnnouncementHeader>>(JsonConvert.SerializeObject(Result.Data));
             }
             else
@@ -204,7 +204,7 @@ namespace DealerManagementSystem.ViewAdmin
             divMessageAnnouncementCreate.Visible = true;
             lblMessage.Text = "";
             Button BtnView = (Button)sender;
-            //UC_MessageAnnouncementCreate.FillMaster();
+            UC_MessageAnnouncementCreate.FillMaster();
         }
 
         protected void btnBackToList_Click(object sender, EventArgs e)
@@ -219,7 +219,7 @@ namespace DealerManagementSystem.ViewAdmin
             divMessageAnnouncementView.Visible = true;
             divList.Visible = false;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblMessageAnnouncementId = (Label)gvRow.FindControl("lblMessageAnnouncementId");
+            Label lblMessageAnnouncementId = (Label)gvRow.FindControl("lblNotificationNo");
             UC_MessageAnnouncementView.fillViewMessage(Convert.ToInt64(lblMessageAnnouncementId.Text));
         }
         protected void btnViewBackToList_Click(object sender, EventArgs e)
@@ -235,7 +235,7 @@ namespace DealerManagementSystem.ViewAdmin
             divMessageAnnouncementCreate.Visible = true;
             lblMessage.Text = "";
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblMessageAnnouncementHeaderId = (Label)gvRow.FindControl("lblMessageAnnouncementId");
+            Label lblMessageAnnouncementHeaderId = (Label)gvRow.FindControl("lblNotificationNo");
             UC_MessageAnnouncementCreate.FillMasterEdit(Convert.ToInt32(lblMessageAnnouncementHeaderId.Text), "");
         }
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
@@ -265,7 +265,7 @@ namespace DealerManagementSystem.ViewAdmin
             divMessageAnnouncementCreate.Visible = true;
             lblMessage.Text = "";
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblMessageAnnouncementHeaderId = (Label)gvRow.FindControl("lblMessageAnnouncementId");
+            Label lblMessageAnnouncementHeaderId = (Label)gvRow.FindControl("lblNotificationNo");
             UC_MessageAnnouncementCreate.FillMasterEdit(Convert.ToInt32(lblMessageAnnouncementHeaderId.Text), "Draft");
         }
     }

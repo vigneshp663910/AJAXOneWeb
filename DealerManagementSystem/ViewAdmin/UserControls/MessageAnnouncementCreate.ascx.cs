@@ -62,7 +62,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         }
         public int? DealerID, DealerDepartmentID, DealerDesignationID, DealerUserID;
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {            
             if (!IsPostBack)
             {
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
@@ -70,10 +70,14 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, DealerDepartmentID, null, null);
                 List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
                 new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
+                clear();
+                MessageByID = new PMessageAnnouncementHeader();
             }
         }
         public void FillMaster()
         {
+            clear();
+            MessageByID = new PMessageAnnouncementHeader();
             new DDLBind().FillDealerAndEngneer(ddlDealer, null);
             DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
@@ -83,7 +87,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
             new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
             DealerUserID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-            FillGrid();
+            //FillGrid();
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -346,36 +350,47 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 return;
             }
         }
-        public void ValidationMessage()
+        public bool ValidationMessage()
         {
+            if(ddlDepartment.SelectedValue=="0")
+            {
+                lblMessage.Text = "Please Select Department...!";
+                lblMessage.ForeColor = Color.Red;
+                return true;
+            }
             if (string.IsNullOrEmpty(FreeTextMessage.Text))
             {
                 lblMessage.Text = "Please Enter Message...!";
                 lblMessage.ForeColor = Color.Red;
-                return;
+                return true;
             }
             if (string.IsNullOrEmpty(txtValidFrom.Text))
             {
                 lblMessage.Text = "Please select Valid From...!";
                 lblMessage.ForeColor = Color.Red;
-                return;
+                return true;
             }
             if (string.IsNullOrEmpty(txtValidTo.Text))
             {
                 lblMessage.Text = "Please select Valid To...!";
                 lblMessage.ForeColor = Color.Red;
-                return;
+                return true;
             }
             if (string.IsNullOrEmpty(txtSubject.Text))
             {
                 lblMessage.Text = "Please Enter Subject...!";
                 lblMessage.ForeColor = Color.Red;
-                return;
+                return true;
             }
+            return false;
         }
         public void SendMessage()
         {
-            ValidationMessage();
+            if (ValidationMessage())
+            {
+                lblMessage.Visible = true;
+                return;
+            }
             PMessageAnnouncementHeader Msg = new PMessageAnnouncementHeader();
             if(MessageByID.MessageAnnouncementHeaderID != null)
             {
@@ -398,6 +413,22 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             }
             else
             {
+                string messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/MessageAnnouncement.htm"); ;
+                messageBody = messageBody.Replace("@@Message", FreeTextMessage.Text);
+                messageBody = messageBody.Replace("\r", "&nbsp");
+                messageBody = messageBody.Replace("\n", "<br />");
+                messageBody = messageBody.Replace("@@Dealer", (ddlDealer.SelectedValue == "0") ? "ALL" : ddlDealer.SelectedItem.Text);
+                messageBody = messageBody.Replace("@@Department", (ddlDepartment.SelectedValue == "0") ? "ALL" : ddlDepartment.SelectedItem.Text);
+                messageBody = messageBody.Replace("@@Designation", (ddlDesignation.SelectedValue == "0") ? "ALL" : ddlDesignation.SelectedItem.Text);
+                messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
+                messageBody = messageBody.Replace("@@NotificationNo", Result.Data.ToString());
+                messageBody = messageBody.Replace("@@NotificationDate", DateTime.Now.ToString());
+                messageBody = messageBody.Replace("@@Subject", txtSubject.Text);
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+
+                new EmailManager().MailSend(ConfigurationManager.AppSettings["TaskMailBcc"],"", ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
+
                 foreach (PMessageAnnouncementItem ss in DealerUserDetails)
                 {
                     if (ss.AssignTo.Department.DealerDepartment != "Top Management")
@@ -406,20 +437,20 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                         {
                             if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
                             {
-                                string messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/MessageAnnouncement.htm"); ;
-                                messageBody = messageBody.Replace("@@Message", FreeTextMessage.Text);
-                                messageBody = messageBody.Replace("\r", "&nbsp");
-                                messageBody = messageBody.Replace("\n", "<br />");
-                                messageBody = messageBody.Replace("@@Dealer", (ddlDealer.SelectedValue == "0") ? "ALL" : ddlDealer.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@Department", (ddlDepartment.SelectedValue == "0") ? "ALL" : ddlDepartment.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@Designation", (ddlDesignation.SelectedValue == "0") ? "ALL" : ddlDesignation.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
-                                messageBody = messageBody.Replace("@@NotificationNo", Result.Data.ToString());
-                                messageBody = messageBody.Replace("@@NotificationDate", DateTime.Now.ToString());
-                                messageBody = messageBody.Replace("@@Subject", txtSubject.Text);
-                                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
-                                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                                 new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(ddlDepartment.SelectedItem.Text.Trim() == "Top Management")
+                        {
+                            if (ss.MailResponce == true)
+                            {
+                                if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
+                                {
+                                    new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
+                                }
                             }
                         }
                     }
@@ -431,8 +462,10 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         }
         public void FillMasterEdit(long? MessageAnnouncementHeaderID,string IsDraft)
         {
+            clear();
+            MessageByID = new PMessageAnnouncementHeader();
             PApiResult Result = new PApiResult();
-            Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(Convert.ToInt64(MessageAnnouncementHeaderID), null, null);
+            Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(Convert.ToInt64(MessageAnnouncementHeaderID), null, null, null);
             MessageByID = JsonConvert.DeserializeObject<PMessageAnnouncementHeader>(JsonConvert.SerializeObject(Result.Data));
             FreeTextMessage.Text = MessageByID.Message; 
             txtValidFrom.Text = MessageByID.ValidFrom.ToString("yyyy-MM-dd"); 
@@ -441,7 +474,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             btnSaveAsDraft.Visible = false;
             if(IsDraft!="Draft")
             {
-                btnSaveAsDraft.Visible = true;
+                //btnSaveAsDraft.Visible = true;
             }
         }
         protected void btnSaveAsDraft_Click(object sender, EventArgs e)
@@ -482,6 +515,16 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 lblMessage.Visible = true;
                 return;
             }
+        }
+        public void clear()
+        {
+            txtValidFrom.Text = "";
+            txtValidTo.Text = "";
+            txtSubject.Text = "";
+            FreeTextMessage.Text = "";
+            ViewState["DealerUserDetailsSort"] = null;
+            gvEmp.DataSource = null;
+            gvEmp.DataBind();
         }
     }
 }
