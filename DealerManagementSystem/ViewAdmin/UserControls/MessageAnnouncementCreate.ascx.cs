@@ -62,7 +62,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         }
         public int? DealerID, DealerDepartmentID, DealerDesignationID, DealerUserID;
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {            
             if (!IsPostBack)
             {
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
@@ -70,10 +70,14 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, DealerDepartmentID, null, null);
                 List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
                 new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
+                clear();
+                MessageByID = new PMessageAnnouncementHeader();
             }
         }
         public void FillMaster()
         {
+            clear();
+            MessageByID = new PMessageAnnouncementHeader();
             new DDLBind().FillDealerAndEngneer(ddlDealer, null);
             DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
@@ -83,7 +87,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
             new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
             DealerUserID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-            FillGrid();
+            //FillGrid();
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -434,6 +438,8 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         }
         public void FillMasterEdit(long? MessageAnnouncementHeaderID,string IsDraft)
         {
+            clear();
+            MessageByID = new PMessageAnnouncementHeader();
             PApiResult Result = new PApiResult();
             Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(Convert.ToInt64(MessageAnnouncementHeaderID), null, null);
             MessageByID = JsonConvert.DeserializeObject<PMessageAnnouncementHeader>(JsonConvert.SerializeObject(Result.Data));
@@ -444,7 +450,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             btnSaveAsDraft.Visible = false;
             if(IsDraft!="Draft")
             {
-                btnSaveAsDraft.Visible = true;
+                //btnSaveAsDraft.Visible = true;
             }
         }
         protected void btnSaveAsDraft_Click(object sender, EventArgs e)
@@ -485,6 +491,16 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 lblMessage.Visible = true;
                 return;
             }
+        }
+        public void clear()
+        {
+            txtValidFrom.Text = "";
+            txtValidTo.Text = "";
+            txtSubject.Text = "";
+            FreeTextMessage.Text = "";
+            ViewState["DealerUserDetailsSort"] = null;
+            gvEmp.DataSource = null;
+            gvEmp.DataBind();
         }
     }
 }

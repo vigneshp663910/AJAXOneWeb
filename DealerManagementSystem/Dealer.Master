@@ -2551,10 +2551,21 @@
             </style>
             <div id="divbellMain" runat="server" visible="false">
                 <asp:Panel ID="pnlFilter" runat="server">
+                    <div>
+                        <div class="dropdown-header" style="background-color: #4e73df; color: white" align="left">
+                            <h6>Notification Center                         
+                            </h6>
+                            <div style="float: right; margin-top: -26px; margin-right: -18px;">
+                                <button runat="server" onserverclick="btnNotificationClose_ServerClick">X</button>
+                            </div>
+                        </div>
+
+                    </div>
                     <table id="txnHistory1:panelGridid" style="height: 100%; width: 100%" class="home-history">
                         <tr>
                             <td align="right">
-                                <button runat="server" onserverclick="btnNotificationClose_ServerClick">X</button><h6 class="dropdown-header" style="background-color: #4e73df; color: white" align="left">Notification Center</h6>
+
+
                                 <%--<asp:CheckBox ID="ChkReadMessage" runat="server" Text="Read All Notification" OnCheckedChanged="ChkReadMessage_CheckedChanged" AutoPostBack="true" />--%>
                                 <asp:GridView ID="gvMessageAnnouncement" runat="server" ShowHeader="false" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20">
                                     <Columns>
@@ -2562,7 +2573,8 @@
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblMessageAnnouncementId" runat="server" Visible="false" Text='<%# Eval("MessageAnnouncementHeaderID") %>'></asp:Label>
-                                                <asp:LinkButton ID="lnkNotification" class="LnkGridNotification" CommandArgument='<%# Eval("MessageAnnouncementHeaderID") %>' runat="server" Text='<%# Eval("CreatedBy.ContactName").ToString() + " : " +Eval("CreatedOn","{0:MMMM dd yyyy}").ToString()+"<br/>"+Eval("Subject").ToString() %>' OnClick="lnkNotification_Click"></asp:LinkButton>
+                                                <asp:LinkButton ID="lnkNotification" class="LnkGridNotification" CommandArgument='<%# Eval("MessageAnnouncementHeaderID") %>' runat="server" Text='<%# Eval("Subject").ToString()  + "<br/>"  %>' OnClick="lnkNotification_Click"></asp:LinkButton>
+                                                <asp:Label ID="lblSentName" runat="server" Text='<%# Eval("CreatedOn","{0:dd-MM-yyyy}").ToString() + " : " + Eval("CreatedBy.ContactName").ToString() %>' Style="font-size: x-small; color: gray;"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
@@ -2570,8 +2582,8 @@
                                     <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                     <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                     <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                </asp:GridView>
-                                <a class="dropdown-item text-center small text-gray-500" href="/ViewAdmin/MessageAnnouncement.aspx">Show All Notification</a>
+                                </asp:GridView><b>
+                                <a class="dropdown-item text-center mediaum" href="/ViewAdmin/MessageAnnouncement.aspx" style="color:white;font-weight:normal;background-color:#006699;">List All Notification</a></b>
                             </td>
                         </tr>
                     </table>
