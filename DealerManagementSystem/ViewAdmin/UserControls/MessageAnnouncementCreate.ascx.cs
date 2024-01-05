@@ -392,7 +392,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 return;
             }
             PMessageAnnouncementHeader Msg = new PMessageAnnouncementHeader();
-            if (MessageByID.MessageAnnouncementHeaderID != null)
+            if (MessageByID.MessageAnnouncementHeaderID != 0)
             {
                 Msg.MessageAnnouncementHeaderID = MessageByID.MessageAnnouncementHeaderID;
             }
@@ -422,7 +422,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 messageBody = messageBody.Replace("@@Designation", (ddlDesignation.SelectedValue == "0") ? "ALL" : ddlDesignation.SelectedItem.Text);
                 messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
                 messageBody = messageBody.Replace("@@NotificationNo", Result.Data.ToString());
-                messageBody = messageBody.Replace("@@NotificationDate", DateTime.Now.ToString());
+                messageBody = messageBody.Replace("@@NotificationDate", (MessageByID.MessageAnnouncementHeaderID == 0)?DateTime.Now.ToString(): MessageByID.CreatedOn.ToString());
                 messageBody = messageBody.Replace("@@Subject", txtSubject.Text);
                 messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
                 messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
