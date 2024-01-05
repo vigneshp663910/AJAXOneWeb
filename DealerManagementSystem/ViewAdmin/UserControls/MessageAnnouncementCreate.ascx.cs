@@ -62,7 +62,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         }
         public int? DealerID, DealerDepartmentID, DealerDesignationID, DealerUserID;
         protected void Page_Load(object sender, EventArgs e)
-        {            
+        {
             if (!IsPostBack)
             {
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
@@ -352,7 +352,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
         }
         public bool ValidationMessage()
         {
-            if(ddlDepartment.SelectedValue=="0")
+            if (ddlDepartment.SelectedValue == "0")
             {
                 lblMessage.Text = "Please Select Department...!";
                 lblMessage.ForeColor = Color.Red;
@@ -392,7 +392,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 return;
             }
             PMessageAnnouncementHeader Msg = new PMessageAnnouncementHeader();
-            if(MessageByID.MessageAnnouncementHeaderID != null)
+            if (MessageByID.MessageAnnouncementHeaderID != null)
             {
                 Msg.MessageAnnouncementHeaderID = MessageByID.MessageAnnouncementHeaderID;
             }
@@ -427,31 +427,15 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
                 messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
 
-                new EmailManager().MailSend(ConfigurationManager.AppSettings["TaskMailBcc"],"", ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
+                new EmailManager().MailSend(ConfigurationManager.AppSettings["TaskMailBcc"], "", ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
 
                 foreach (PMessageAnnouncementItem ss in DealerUserDetails)
                 {
-                    if (ss.AssignTo.Department.DealerDepartment != "Top Management")
+                    if (ss.MailResponce == true)
                     {
-                        if (ss.MailResponce == true)
+                        if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
                         {
-                            if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
-                            {
-                                new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if(ddlDepartment.SelectedItem.Text.Trim() == "Top Management")
-                        {
-                            if (ss.MailResponce == true)
-                            {
-                                if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
-                                {
-                                    new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
-                                }
-                            }
+                            new EmailManager().MailSend(ss.AssignTo.Mail, "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
                         }
                     }
                 }
@@ -460,19 +444,19 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 lblMessage.Visible = true;
             }
         }
-        public void FillMasterEdit(long? MessageAnnouncementHeaderID,string IsDraft)
+        public void FillMasterEdit(long? MessageAnnouncementHeaderID, string IsDraft)
         {
             clear();
             MessageByID = new PMessageAnnouncementHeader();
             PApiResult Result = new PApiResult();
             Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderByID(Convert.ToInt64(MessageAnnouncementHeaderID), null, null, null);
             MessageByID = JsonConvert.DeserializeObject<PMessageAnnouncementHeader>(JsonConvert.SerializeObject(Result.Data));
-            FreeTextMessage.Text = MessageByID.Message; 
-            txtValidFrom.Text = MessageByID.ValidFrom.ToString("yyyy-MM-dd"); 
-            txtValidTo.Text = MessageByID.ValidTo.ToString("yyyy-MM-dd"); 
-            txtSubject.Text = MessageByID.Subject; 
+            FreeTextMessage.Text = MessageByID.Message;
+            txtValidFrom.Text = MessageByID.ValidFrom.ToString("yyyy-MM-dd");
+            txtValidTo.Text = MessageByID.ValidTo.ToString("yyyy-MM-dd");
+            txtSubject.Text = MessageByID.Subject;
             btnSaveAsDraft.Visible = false;
-            if(IsDraft!="Draft")
+            if (IsDraft != "Draft")
             {
                 //btnSaveAsDraft.Visible = true;
             }
