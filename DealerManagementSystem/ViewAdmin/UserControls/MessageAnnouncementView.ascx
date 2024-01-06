@@ -117,6 +117,11 @@
                                     <asp:Label ID="lblDesignation" Text='<%# (DataBinder.Eval(Container.DataItem, "AssignTo.Designation.DealerDesignation")) %>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Sent On">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSentOn" Text='<%# (DataBinder.Eval(Container.DataItem, "SentOn")) %>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Read Status">
                                 <ItemTemplate>
                                     <asp:Label ID="lblReadStatus" Text='<%# (DataBinder.Eval(Container.DataItem, "ReadStatus").ToString()=="True")?"Yes":"No"%>' runat="server" />
