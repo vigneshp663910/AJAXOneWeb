@@ -66,8 +66,8 @@
                             <asp:DropDownList ID="ddlSCountry" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">State</label>
-                            <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Region</label>
+                           <asp:DropDownList ID="ddlRegion" runat="server" CssClass="form-control" />
                         </div>
 
                         <div class="col-md-12 text-center">

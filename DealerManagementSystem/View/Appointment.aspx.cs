@@ -46,17 +46,11 @@ namespace DealerManagementSystem.View
         protected void caAppointment_DayRender(object sender, DayRenderEventArgs e)
         {
             string From = e.Day.Date.ToShortDateString();
-            List<PLeadFollowUp> FUp = new BLead().GetLeadFollowUp(null, PSession.User.UserID, From, From, null, null);
+            List<PLead> FUp = new BLead().GetLeadNextFollowUpDate(From, From, null);
              
             string div = "";
-            foreach (PLeadFollowUp F in FUp)
-            {
-                //Customer = F.Customer.CustomerName;
-                //div = "<div><table><tr><td>"
-                //  + "<label >" + F.Customer.CustomerName + "</label></td><td>Prospect</td></tr >" + "<tr><td>"
-                //  + "<label >" + F.Customer.ContactPerson + "</label></td><td>"
-                //  + "<label >" + F.Customer.Mobile + " </td></tr></table></div> ";
-                
+            foreach (PLead F in FUp)
+            { 
                 div = div + "<div class=\"dropdown1\">FollowUp<div class=\"dropdown1-content\"> " + F.Customer.CustomerName + "<br /> " + F.Customer.ContactPerson + "<br /> " + "<a href = 'tel:" + F.Customer.Mobile + "' > " + F.Customer.Mobile + "</a>" + "</div> </div>";
             }
             div = e.Day.DayNumberText+ "<br />" + div;

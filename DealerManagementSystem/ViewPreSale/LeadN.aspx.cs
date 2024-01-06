@@ -71,9 +71,8 @@ namespace DealerManagementSystem.ViewPreSale
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
 
-                // ddlCountry.SelectedValue = "1";
-                List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, null); 
-                new DDLBind(ddlSState, State, "State", "StateID");  
+                // ddlCountry.SelectedValue = "1"; 
+                new DDLBind(ddlRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID");
 
                 List<PLeadStatus> Status = new BLead().GetLeadStatus(null, null);
                 new DDLBind(ddlSStatus, Status, "Status", "StatusID");
@@ -228,7 +227,7 @@ namespace DealerManagementSystem.ViewPreSale
         {
             PLeadSearch S = new PLeadSearch();
             S.LeadNumber = txtLeadNumber.Text.Trim();
-            S.StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue); 
+            S.RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue); 
             S.QualificationID = ddlSQualification.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSQualification.SelectedValue);
             S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
             S.ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
@@ -271,7 +270,7 @@ namespace DealerManagementSystem.ViewPreSale
         } 
         protected void ddlSCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlSState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlRegion, new BDMS_Address().GetRegion( Convert.ToInt32(ddlSCountry.SelectedValue),  null, null), "Region", "RegionID");
         } 
 
         protected void btnAddLead_Click(object sender, EventArgs e)
@@ -324,7 +323,7 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 PLeadSearch S = new PLeadSearch();
                 S.LeadNumber = txtLeadNumber.Text.Trim();
-                S.StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue);
+                S.RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
                 S.QualificationID = ddlSQualification.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSQualification.SelectedValue);
                 S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
                 S.ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);

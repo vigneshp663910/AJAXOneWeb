@@ -2976,6 +2976,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnGenerateQuotation.Visible = false;
                 lbtnSaleOrderConfirmation.Visible = false;
             }
+
+            lbtnAddFollowUp.Visible = false;
         }
         protected void FillProduct(object sender, EventArgs e)
         {

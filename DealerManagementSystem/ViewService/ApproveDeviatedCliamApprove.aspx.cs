@@ -180,7 +180,7 @@ namespace DealerManagementSystem.ViewService
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            if (new BDMS_ICTicket().ApproveOrRejectDeviatedICTicketRequest(Convert.ToInt64(gvICTickets.DataKeys[index].Value), null, true, PSession.User.UserID))
+            if (new BDMS_WarrantyClaim().ApproveOrRejectDeviatedClaimRequest(Convert.ToInt64(gvICTickets.DataKeys[index].Value), null, true, PSession.User.UserID))
             {
                 lblMessage.Text = "ICTicket  Rejected successfully";
                 lblMessage.ForeColor = Color.Green;

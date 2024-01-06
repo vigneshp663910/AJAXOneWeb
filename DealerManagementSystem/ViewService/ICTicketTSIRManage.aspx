@@ -156,6 +156,13 @@
                                         </ItemTemplate>
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     </asp:TemplateField> 
+                                     <asp:TemplateField HeaderText="Nature Of Failures">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblNatureOfFailures" Text='<%# DataBinder.Eval(Container.DataItem, "NatureOfFailures" )%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    </asp:TemplateField> 
+                                    
                                     <asp:TemplateField HeaderText="Machine Serial Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
