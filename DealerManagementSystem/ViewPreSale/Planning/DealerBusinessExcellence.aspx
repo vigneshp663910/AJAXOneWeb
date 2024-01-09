@@ -23,6 +23,14 @@
                     <label class="modal-label">Dealer</label>
                     <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
                 </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Function Area</label>
+                    <asp:DropDownList ID="ddlFunctionArea" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlFunctionArea_SelectedIndexChanged" />
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Function Sub Area</label>
+                    <asp:DropDownList ID="ddlFunctionSubArea" runat="server" CssClass="form-control" />
+                </div>
                  
                 <div class="col-md-12 text-center">
                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button> 

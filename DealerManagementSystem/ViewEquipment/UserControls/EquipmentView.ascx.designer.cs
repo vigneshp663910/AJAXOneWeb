@@ -591,40 +591,13 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::AjaxControlToolkit.TabPanel tpnlService;
 
         /// <summary>
-        /// lblRowCountService control.
+        /// gvICTicket control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRowCountService;
-
-        /// <summary>
-        /// ibtnServiceArrowLeft control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnServiceArrowLeft;
-
-        /// <summary>
-        /// ibtnServiceArrowRight control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnServiceArrowRight;
-
-        /// <summary>
-        /// gvICTickets1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvICTickets1;
+        protected global::System.Web.UI.WebControls.GridView gvICTicket;
 
         /// <summary>
         /// tabPnlAttachedFile control.

@@ -136,109 +136,113 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             }
             lblWarrantyType.Text = EquipmentViewDet.EquipmentWarrantyType == null ? "" : EquipmentViewDet.EquipmentWarrantyType.Description;
             CustomerViewSoldTo.fillCustomer(EquipmentViewDet.Customer);
-            fillEquipmentService();
+            //fillEquipmentService();
             ActionControlMange();
             //fillWarrantyTypeChangeSupportDocument();
             //fillOwnershipChangeSupportDocument();
             //fillWarrantyExpiryDateChangeSupportDocument();
             fillSupportDocument();
             fillChangeRequestHistory();
+             
+            List<PDMS_ICTicket> Equ = new BDMS_ICTicket().GetICTicketByEquipmentSerialNo(EquipmentHeaderID);
+            gvICTicket.DataSource = Equ;
+            gvICTicket.DataBind();
         }
-        void fillEquipmentService()
-        {
-            DataSet ds = new BDMS_Equipment().GetEquipmentHistory(null, lblEquipmentSerialNo.Text.Trim());
+        //void fillEquipmentService()
+        //{
+        //    DataSet ds = new BDMS_Equipment().GetEquipmentHistory(null, lblEquipmentSerialNo.Text.Trim());
 
-            if (ds.Tables.Count == 0)
-            {
-                gvICTickets1.DataSource = null;
-                gvICTickets1.DataBind();
-                return;
-            }
-            ICTickets1 = GetEquipmentDT1toClass(ds.Tables[1]);
+        //    if (ds.Tables.Count == 0)
+        //    {
+        //        gvICTickets1.DataSource = null;
+        //        gvICTickets1.DataBind();
+        //        return;
+        //    }
+        //    ICTickets1 = GetEquipmentDT1toClass(ds.Tables[1]);
 
-            //gvICTickets1.DataSource = ICTickets1;
-            //gvICTickets1.DataBind();
-            EquipmentServiceBind();
-        }
-        public List<PDMS_ICTicket> GetEquipmentDT1toClass(DataTable dt)
-        {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_ICTicket> ICTickets = new List<PDMS_ICTicket>();
-            try
-            {
+        //    //gvICTickets1.DataSource = ICTickets1;
+        //    //gvICTickets1.DataBind();
+        //    EquipmentServiceBind();
+        //}
+        //public List<PDMS_ICTicket> GetEquipmentDT1toClass(DataTable dt)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    List<PDMS_ICTicket> ICTickets = new List<PDMS_ICTicket>();
+        //    try
+        //    {
 
-                PDMS_ICTicket ICTicket = new PDMS_ICTicket();
+        //        PDMS_ICTicket ICTicket = new PDMS_ICTicket();
 
-                if (dt != null)
-                {
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        ICTicket = new PDMS_ICTicket();
-                        ICTickets.Add(ICTicket);
-                        ICTicket.Equipment = new PDMS_EquipmentHeader()
-                        {
-                            EquipmentHeaderID = Convert.ToInt64(dr["EquipmentHeaderID"]),
-                            EquipmentModel = new PDMS_Model()
-                            {
-                                Model = Convert.ToString(dr["EquipmentModel"]),
-                                // Division = new PDMS_Division() {  DivisionCode = Convert.ToString(dr["DivisionCode"]), DivisionDescription = Convert.ToString(dr["DivisionDescription"]) }
-                            },
-                            EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]),
-                        };
-                        ICTicket.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
-                        ICTicket.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
-                        ICTicket.ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]);
-                        ICTicket.ServiceMaterial = new PDMS_ServiceCharge()
-                        {
-                            Material = new PDMS_Material() { MaterialCode = Convert.ToString(dr["SMaterialCode"]), MaterialDescription = Convert.ToString(dr["SMaterialDescription"]) },
-                        };
-                        ICTicket.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
-                        ICTicket.RequestedDate = DBNull.Value == dr["RequestedDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
-                        ICTicket.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
-                        ICTicket.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
-                        ICTicket.CurrentHMRValue = DBNull.Value == dr["CurrentHMRValue"] ? 0 : Convert.ToInt32(dr["CurrentHMRValue"]);
-                        ICTicket.ServiceMaterialM = new PDMS_ServiceMaterial()
-                        {
-                            Material = new PDMS_Material() { MaterialCode = Convert.ToString(dr["MaterialCode"]), MaterialDescription = Convert.ToString(dr["MaterialDescription"]) },
-                            TSIR = new PDMS_ICTicketTSIR() { TsirNumber = Convert.ToString(dr["TsirNumber"]) }
-                        };
-                    }
-                }
-                return ICTickets;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipment", ex);
-                throw ex;
-            }
-        }
-        protected void ibtnServiceArrowLeft_Click(object sender, ImageClickEventArgs e)
-        {
-            if (gvICTickets1.PageIndex > 0)
-            {
-                gvICTickets1.PageIndex = gvICTickets1.PageIndex - 1;
-                EquipmentServiceBind();
-            }
-        }
-        protected void ibtnServiceArrowRight_Click(object sender, ImageClickEventArgs e)
-        {
-            if (gvICTickets1.PageCount > gvICTickets1.PageIndex)
-            {
-                gvICTickets1.PageIndex = gvICTickets1.PageIndex + 1;
-                EquipmentServiceBind();
-            }
-        }
-        void EquipmentServiceBind()
-        {
-            gvICTickets1.DataSource = ICTickets1;
-            gvICTickets1.DataBind();
-            lblRowCountService.Text = (((gvICTickets1.PageIndex) * gvICTickets1.PageSize) + 1) + " - " + (((gvICTickets1.PageIndex) * gvICTickets1.PageSize) + gvICTickets1.Rows.Count) + " of " + ICTickets1.Count;
-        }
-        protected void gvICTickets1_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvICTickets1.PageIndex = e.NewPageIndex;
-            fillEquipmentService();
-        }
+        //        if (dt != null)
+        //        {
+        //            foreach (DataRow dr in dt.Rows)
+        //            {
+        //                ICTicket = new PDMS_ICTicket();
+        //                ICTickets.Add(ICTicket);
+        //                ICTicket.Equipment = new PDMS_EquipmentHeader()
+        //                {
+        //                    EquipmentHeaderID = Convert.ToInt64(dr["EquipmentHeaderID"]),
+        //                    EquipmentModel = new PDMS_Model()
+        //                    {
+        //                        Model = Convert.ToString(dr["EquipmentModel"]),
+        //                        // Division = new PDMS_Division() {  DivisionCode = Convert.ToString(dr["DivisionCode"]), DivisionDescription = Convert.ToString(dr["DivisionDescription"]) }
+        //                    },
+        //                    EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]),
+        //                };
+        //                ICTicket.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
+        //                ICTicket.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
+        //                ICTicket.ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]);
+        //                ICTicket.ServiceMaterial = new PDMS_ServiceCharge()
+        //                {
+        //                    Material = new PDMS_Material() { MaterialCode = Convert.ToString(dr["SMaterialCode"]), MaterialDescription = Convert.ToString(dr["SMaterialDescription"]) },
+        //                };
+        //                ICTicket.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+        //                ICTicket.RequestedDate = DBNull.Value == dr["RequestedDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
+        //                ICTicket.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
+        //                ICTicket.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
+        //                ICTicket.CurrentHMRValue = DBNull.Value == dr["CurrentHMRValue"] ? 0 : Convert.ToInt32(dr["CurrentHMRValue"]);
+        //                ICTicket.ServiceMaterialM = new PDMS_ServiceMaterial()
+        //                {
+        //                    Material = new PDMS_Material() { MaterialCode = Convert.ToString(dr["MaterialCode"]), MaterialDescription = Convert.ToString(dr["MaterialDescription"]) },
+        //                    TSIR = new PDMS_ICTicketTSIR() { TsirNumber = Convert.ToString(dr["TsirNumber"]) }
+        //                };
+        //            }
+        //        }
+        //        return ICTickets;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_Equipment", "GetEquipment", ex);
+        //        throw ex;
+        //    }
+        //}
+        //protected void ibtnServiceArrowLeft_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    if (gvICTickets1.PageIndex > 0)
+        //    {
+        //        gvICTickets1.PageIndex = gvICTickets1.PageIndex - 1;
+        //        EquipmentServiceBind();
+        //    }
+        //}
+        //protected void ibtnServiceArrowRight_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    if (gvICTickets1.PageCount > gvICTickets1.PageIndex)
+        //    {
+        //        gvICTickets1.PageIndex = gvICTickets1.PageIndex + 1;
+        //        EquipmentServiceBind();
+        //    }
+        //}
+        //void EquipmentServiceBind()
+        //{
+        //    gvICTickets1.DataSource = ICTickets1;
+        //    gvICTickets1.DataBind();
+        //    lblRowCountService.Text = (((gvICTickets1.PageIndex) * gvICTickets1.PageSize) + 1) + " - " + (((gvICTickets1.PageIndex) * gvICTickets1.PageSize) + gvICTickets1.Rows.Count) + " of " + ICTickets1.Count;
+        //}
+        //protected void gvICTickets1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    gvICTickets1.PageIndex = e.NewPageIndex;
+        //    fillEquipmentService();
+        //}
         protected void lnkBtnActions_Click(object sender, EventArgs e)
         {
             try
@@ -1116,5 +1120,32 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             fillEquipment(EquipmentViewDet.EquipmentHeaderID);
             new DDLBind(ddlClient, (new BDMS_Equipment().GetEquipmentClient(null, null, true, null, null)).Data, "Client", "EquipmentClientID");
         }
+
+        protected void gvICTicket_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    long ICTicketID = Convert.ToInt64(gvICTicket.DataKeys[e.Row.RowIndex].Value);
+                    PDMS_ICTicket Ticket = new BDMS_ICTicket().GetICTicketByICTIcketID(ICTicketID);
+
+                    GridView gvServiceCharges = (GridView)e.Row.FindControl("gvServiceCharges");
+                    gvServiceCharges.DataSource = new BDMS_Service().GetServiceCharges(Ticket.ICTicketID, null, "", false); 
+                    gvServiceCharges.DataBind(); 
+
+                    GridView gvMaterial = (GridView)e.Row.FindControl("gvMaterial");
+                    gvMaterial.DataSource = new BDMS_Service().GetServiceMaterials(ICTicketID, null, null, "", false, ""); 
+                    gvMaterial.DataBind();
+
+                }
+                TraceLogger.Log(traceStartTime);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        } 
     }
 }

@@ -227,7 +227,7 @@ namespace Business
                             W.IsMarginWarranty = Convert.ToBoolean(dr["IsMarginWarranty"]);
 
                             W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
-                            W.ReachedDate = dr["ReachedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ReachedDate"]); 
+                            //W.ReachedDate = dr["ReachedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ReachedDate"]); 
                             W.ServiceRecord = Convert.ToString(dr["ServiceRecord"]);
                             W.RegisteredBy = new PUser();
                             if (dr["RegisteredByID"] != DBNull.Value)
@@ -1196,6 +1196,51 @@ namespace Business
                             {
                                 W.LastICTicket.ICTicketDate = Convert.ToDateTime(dr["LastICTicketDate"]);
                             } 
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Ws;
+        }
+
+        public List<PDMS_ICTicket> GetICTicketByEquipmentSerialNo(long EquipmentHeaderID)
+        {
+            List<PDMS_ICTicket> Ws = new List<PDMS_ICTicket>();
+            PDMS_ICTicket W = null;
+            try
+            {      string Q = "select I.ICTicketID ,ICTicketNumber ,ICTicketDate ,DealerCode ,D.DisplayName,ServiceType"
+                    +" ,ServiceStatus ,IsWarranty ,IsMarginWarranty ,RequestedDate ,ReachedDate ,RestoreDate"
+                    +" from ZDMS_TICTicket I inner join MDealer D on D.DID = I.DealerID" 
+     +" left join ZDMS_MServiceType ST on ST.ServiceTypeID = I.ServiceTypeID" 
+     + " left join ZDMS_MServiceStatus SS on SS.ServiceStatusID = I.ServiceStatusID" 
+     + " where EquipmentHeaderID  ="+ EquipmentHeaderID + " order by I.ICTicketID desc ";
+                using (DataSet DataSet = provider.SelectUsingQuery(Q))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            W = new PDMS_ICTicket();
+                            Ws.Add(W);
+                            W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
+                            W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+                            W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+                            W.Dealer = new PDMS_Dealer()
+                            {
+                                DealerCode = Convert.ToString(dr["DealerCode"]),
+                                DealerName = Convert.ToString(dr["DisplayName"])
+                            }; 
+                            W.ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) };
+                            W.ServiceStatus = new PDMS_ServiceStatus() { ServiceStatus = Convert.ToString(dr["ServiceStatus"]) }; 
+                            W.IsWarranty = Convert.ToBoolean(dr["IsWarranty"]);
+                            W.IsMarginWarranty = Convert.ToBoolean(dr["IsMarginWarranty"]); 
+                            W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
+                            W.ReachedDate = dr["ReachedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ReachedDate"]);
+                            W.RestoreDate = dr["RestoreDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
                         }
                     }
                 }

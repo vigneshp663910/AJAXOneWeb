@@ -39,7 +39,9 @@ namespace DealerManagementSystem.ViewPreSale.Reports
             {
                 LeadReport = null;
                 FillYearAndMonth();
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer"); 
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
+                new DDLBind(ddlFunctionArea, new BDealer().GetDealerBusinessExcellenceFunctionArea(null), "FunctionArea", "DealerBusinessExcellenceCategory1", true, "All");
+
             }
             VTBind(gvMissionPlanning, lblRowCountV, LeadReport);
         }
@@ -65,10 +67,10 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         {
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            int? Category1ID = ddlFunctionArea.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlFunctionArea.SelectedValue);
 
-
-            LeadReport = new BDealer().GetDealerBusinessExcellenceReport(Year, Month, DealerID, null);
+            LeadReport = new BDealer().GetDealerBusinessExcellenceReport(Year, Month, DealerID, Category1ID);
 
 
 
@@ -163,7 +165,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
 
                 try
                 {
-                    new BXcel().ExporttoExcel(LeadReport, "Dealer Business Excellence Report");
+                    new BXcel().ExporttoExcelDealerBusinessExcellenceReport(LeadReport, "Dealer Business Excellence Report", "Dealer Business Excellence - Calculation Sheet");
                 }
                 catch
                 {

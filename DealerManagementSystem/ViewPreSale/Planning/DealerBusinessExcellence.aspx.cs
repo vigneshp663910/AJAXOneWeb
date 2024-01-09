@@ -47,6 +47,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             {
                 FillYearAndMonth();
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
+                new DDLBind(ddlFunctionArea, new BDealer().GetDealerBusinessExcellenceFunctionArea(null), "FunctionArea", "DealerBusinessExcellenceCategory1", true, "All");
                 ActionControlMange();
             }
         }
@@ -114,8 +115,14 @@ namespace DealerManagementSystem.ViewPreSale.Planning
         {
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
-            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); 
-            VT = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, null);
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            int? Category1ID = ddlFunctionArea.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlFunctionArea.SelectedValue);
+            int? Category2ID = null;
+            if (Category1ID != null)
+            {
+                Category2ID = ddlFunctionSubArea.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlFunctionSubArea.SelectedValue);
+            }
+            VT = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, Category1ID, Category2ID);
             gvMissionPlanning.DataSource = VT;
             gvMissionPlanning.DataBind();
 
@@ -333,5 +340,10 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             } 
         }
 
+        protected void ddlFunctionArea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlFunctionSubArea, new BDealer().GetDealerBusinessExcellenceFunctionSubArea(Convert.ToInt32(ddlFunctionArea.SelectedValue), null), "FunctionSubArea", "DealerBusinessExcellenceCategory2", true, "All");
+
+        }
     }
 }

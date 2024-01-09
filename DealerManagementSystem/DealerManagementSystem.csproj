@@ -394,7 +394,6 @@
     <Content Include="testDropWithMasteMain.aspx" />
     <Content Include="TestDropWithMaterSite.aspx" />
     <Content Include="TestPageForMenu.aspx" />
-    <Content Include="UserControls\EquipmentView.ascx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
     <Content Include="UserControls\ICTicketButton.ascx" />
     <Content Include="UserControls\ICTicketTSIR.ascx" />
@@ -450,6 +449,8 @@
     <Content Include="ViewEquipment\EquipmentPopulationReportForAE.aspx" />
     <Content Include="ViewEquipment\NepiDueReport.aspx" />
     <Content Include="ViewEquipment\UserControls\EquipmentView.ascx" />
+    <Content Include="ViewFinance\DealerBalanceConfirmationUpdate.aspx" />
+    <Content Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx" />
     <Content Include="ViewInventory\InitialStock.aspx" />
     <Content Include="ViewInventory\MaterialStockAnalysis.aspx" />
     <Content Include="ViewInventory\StockAdjustment.aspx" />
@@ -1031,13 +1032,6 @@
     <Compile Include="TestPageForMenu.aspx.designer.cs">
       <DependentUpon>TestPageForMenu.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\EquipmentView.ascx.cs">
-      <DependentUpon>EquipmentView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\EquipmentView.ascx.designer.cs">
-      <DependentUpon>EquipmentView.ascx</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ICTicketBasicInformation.ascx.cs">
       <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1422,6 +1416,20 @@
     </Compile>
     <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.designer.cs">
       <DependentUpon>EquipmentView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFinance\DealerBalanceConfirmationUpdate.aspx.cs">
+      <DependentUpon>DealerBalanceConfirmationUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFinance\DealerBalanceConfirmationUpdate.aspx.designer.cs">
+      <DependentUpon>DealerBalanceConfirmationUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx.cs">
+      <DependentUpon>DealerBalanceConfirmationReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx.designer.cs">
+      <DependentUpon>DealerBalanceConfirmationReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\InitialStock.aspx.cs">
       <DependentUpon>InitialStock.aspx</DependentUpon>
@@ -3201,7 +3209,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="ProcessFlow\SOP\" />
     <Folder Include="ViewDealerEmployee\MachineOpPhotos\" />
-    <Folder Include="ViewFinance\" />
+    <Folder Include="ViewFinance\Planning\" />
+    <Folder Include="ViewFinance\UserControls\" />
     <Folder Include="ViewStock\" />
   </ItemGroup>
   <ItemGroup>

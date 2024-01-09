@@ -616,5 +616,126 @@ namespace Business
             HttpContext.Current.Response.Flush();
             HttpContext.Current.Response.End();
         }
+
+        public void ExporttoExcelDealerBusinessExcellenceReport(DataTable table, string strFile, string FirstLine)
+        {
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.ClearContent();
+            HttpContext.Current.Response.ClearHeaders();
+            HttpContext.Current.Response.Buffer = true;
+            HttpContext.Current.Response.ContentType = "application/ms-excel";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + strFile + ".xls");
+            HttpContext.Current.Response.Charset = "utf-16";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+            HttpContext.Current.Response.Write("<font style='font-size:11.0pt; font-family:Calibri;'>");
+            HttpContext.Current.Response.Write("<BR><BR><BR>");
+            HttpContext.Current.Response.Write("<Table border='1' bgColor='#ffffff' borderColor='#000000' cellSpacing='0' cellPadding='0' style='font-size:11.0pt; font-family:Calibri; background:white;'> ");
+            int columnscount = table.Columns.Count;
+            HttpContext.Current.Response.Write("<TR ><Td  colspan='14' style='background-color: #b4c6e7; text-align: center;' ><B>" + FirstLine + "</B></Td></TR> ");
+            HttpContext.Current.Response.Write("<TR > ");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Year</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Month</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Dealer Code</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Dealer Name</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Function Area</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Function Sub Area</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Parameter</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Max Score</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Target</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Actual</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Achievement %</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Minimum Qualifying</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Final Score</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #c6e0b4; text-align: center; vertical-align: middle;' ><B>Remarks</B></Td>");
+               
+
+            HttpContext.Current.Response.Write("</TR>");
+
+          
+
+             
+
+            HttpContext.Current.Response.Write("</TR>");
+            foreach (DataRow row in table.Rows)
+            {
+                HttpContext.Current.Response.Write("<TR>");
+                for (int i = 0; i < 14; i++)
+                {
+                    HttpContext.Current.Response.Write("<Td>");
+                    HttpContext.Current.Response.Write(row[i].ToString());
+                    HttpContext.Current.Response.Write("</Td>");
+                }
+
+                HttpContext.Current.Response.Write("</TR>");
+            }              
+            HttpContext.Current.Response.Write("</Table>");
+             
+
+            HttpContext.Current.Response.Write("<Table border='1' bgColor='#ffffff' borderColor='#000000' cellSpacing='0' cellPadding='0' style='font-size:11.0pt; font-family:Calibri; background:white;'> ");
+            
+            HttpContext.Current.Response.Write("<TR >");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Function Area</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Max Score</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Final Score</B></Td>");
+            HttpContext.Current.Response.Write("<Td  style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>% Score</B></Td>"); 
+             
+            HttpContext.Current.Response.Write("</TR>");
+
+            decimal SalesScore = 0, FinanceScore = 0, ServiceScore = 0, PartsScore = 0, NPSScore = 0, ManpowerScore = 0, InfrastructureScore = 0, Total=0;
+            foreach (DataRow dr in table.Rows)
+            {
+                switch (Convert.ToString(dr["FunctionArea"]) )
+                {
+                    case "Sales":
+                        SalesScore = SalesScore + Convert.ToDecimal(dr["Final Score"]);
+                        break;
+                    case "Finance":
+                        FinanceScore = FinanceScore + Convert.ToDecimal(dr["Final Score"]);
+                        break;
+                    case "Service":
+                        ServiceScore = ServiceScore + Convert.ToDecimal(dr["Final Score"]);
+                        break;
+                    case "Parts":
+                        PartsScore = PartsScore + Convert.ToDecimal(dr["Final Score"]);
+                        break;
+                    case "NPS":
+                        NPSScore = NPSScore + Convert.ToDecimal(dr["Final Score"]);
+                        break;
+                    case "Manpower":
+                        ManpowerScore = ManpowerScore + Convert.ToDecimal(dr["Final Score"]);
+                        break;
+                    case "Infrastructure":
+                        InfrastructureScore = InfrastructureScore + Convert.ToDecimal(dr["Final Score"]);
+                        break;
+                } 
+            } 
+
+            HttpContext.Current.Response.Write("</TR>"); 
+            HttpContext.Current.Response.Write("<TR><Td>Sales</Td><Td>300</Td><Td>" + SalesScore + "</Td><Td>"+ SalesScore*100/300 + "%</Td></TR>");
+            HttpContext.Current.Response.Write("<TR><Td>Finance</Td><Td>100</Td><Td>" + FinanceScore + "</Td><Td>" + FinanceScore + "%</Td></TR>");
+            HttpContext.Current.Response.Write("<TR><Td>Service</Td><Td>200</Td><Td>" + ServiceScore + "</Td><Td>" + ServiceScore * 100 / 200 + "%</Td></TR>");
+            HttpContext.Current.Response.Write("<TR><Td>Parts</Td><Td>100</Td><Td>" + PartsScore + "</Td><Td>" + PartsScore + "%</Td></TR>");
+            HttpContext.Current.Response.Write("<TR><Td>NPS</Td><Td>100</Td><Td>" + NPSScore + "</Td><Td>" + NPSScore + "%</Td></TR>");
+            HttpContext.Current.Response.Write("<TR><Td>Manpower</Td><Td>100</Td><Td>" + ManpowerScore + "</Td><Td>" + ManpowerScore + "%</Td></TR>");
+            HttpContext.Current.Response.Write("<TR><Td>Infrastructure</Td><Td>100</Td><Td>" + InfrastructureScore + "</Td><Td>" + InfrastructureScore + "%</Td></TR>");
+            Total = SalesScore + FinanceScore + ServiceScore + PartsScore + NPSScore + ManpowerScore + InfrastructureScore;
+            HttpContext.Current.Response.Write("<TR><Td style='background-color: #fce4d6;'>Total</Td><Td style='background-color: #fce4d6;'>1000</Td><Td style='background-color: #fce4d6;'>" + Total + "</Td><Td style='background-color: #fce4d6;'>" + Total * 100 / 1000 + "%</Td><Td colspan = '3' style='background-color: #b4c6e7; text-align: center;'>Dealer Signature</Td><Td  colspan = '7' style='background-color: #b4c6e7; text-align: center;'>Ajax Team Member Signature</Td></TR>");
+             
+
+            HttpContext.Current.Response.Write("</Table>");
+
+
+            HttpContext.Current.Response.Write("</font>");
+
+            // Append cookie
+            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+            cookie.Value = "Flag";
+            cookie.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.AppendCookie(cookie);
+            // end
+
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.End();
+        }
     }
 }

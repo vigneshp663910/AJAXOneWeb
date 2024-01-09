@@ -322,7 +322,7 @@ namespace Properties
     public class PDealerBusinessExcellenceCategory2
     {
         public int DealerBusinessExcellenceCategory2 { get; set; }
-        public string Category2 { get; set; }
+        public string FunctionSubArea { get; set; }
         public PDealerBusinessExcellenceCategory1 Category1 { get; set; }
     }
     public class PDealerBusinessExcellenceCategory3

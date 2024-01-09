@@ -13,9 +13,23 @@ namespace DealerManagementSystem
 {
     public partial class Open : System.Web.UI.Page
     {
+        public class PDealerBalanceConfirmation_Insert
+        {
+            public string DealerCode { get; set; }
+            public DateTime Date { get; set; }
+            public decimal VendorBalance { get; set; }
+            public decimal CustomerBalance { get; set; }
+            public decimal TotalOutstandingAsPerAjax { get; set; }
+            public string Currency { get; set; }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
+            //List<PDealerBalanceConfirmation_Insert> t = new List<PDealerBalanceConfirmation_Insert>();
+            //t.Add(new PDealerBalanceConfirmation_Insert() { DealerCode = "9001", Date = DateTime.Now.Date, VendorBalance = 1, CustomerBalance = 2, TotalOutstandingAsPerAjax = 3, Currency = "INR", });
+            //t.Add(new PDealerBalanceConfirmation_Insert() { DealerCode = "9002", Date = DateTime.Now.Date, VendorBalance = 4, CustomerBalance = 5, TotalOutstandingAsPerAjax = 6, Currency = "INR", });
+            //new BAPI().ApiPutWithOutToken("Sap/InsertOrUpdateDealerBusinessExcellence", t);
             new BTest().getSalesByYearAndMonth();
+
             // FSRSignatur();
         }
 

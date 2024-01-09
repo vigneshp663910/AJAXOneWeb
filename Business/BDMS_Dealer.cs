@@ -1588,5 +1588,6 @@ namespace Business
             string endPoint = "Dealer/GetDealerAll?DealerID=" + DealerID + "&DealerCode=" + DealerCode + "&RegionID=" + RegionID + "&DealerTypeID=" + DealerTypeID;
             return JsonConvert.DeserializeObject<List<PDealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+       
     }
 }

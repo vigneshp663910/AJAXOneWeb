@@ -527,7 +527,7 @@ namespace DealerManagementSystem.ViewService
                         File.Delete(MapPath(Url1));
                     }
                     File.WriteAllBytes(MapPath(Url1), F1.AttachedFile);
-                    string DestPath = "ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
+                    string DestPath = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
 
                     new BDMS_ICTicketTSIR().resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
                     Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
@@ -548,7 +548,7 @@ namespace DealerManagementSystem.ViewService
                     }
                     
                     File.WriteAllBytes(MapPath(Url1), T1.AttachedFile);
-                    string DestPath = "ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
+                    string DestPath = "ICTickrtTSIR_Files/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
 
                     new BDMS_ICTicketTSIR().resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
                     Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
