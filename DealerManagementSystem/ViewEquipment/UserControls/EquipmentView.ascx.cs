@@ -15,36 +15,22 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
 {
     public partial class EquipmentView : System.Web.UI.UserControl
     {
-        public PDMS_EquipmentHeader EquipmentViewDet
+        private PDMS_EquipmentHeader EquipmentViewDet
         {
             get
             {
-                if (Session["EquipmentView"] == null)
+                if (ViewState["EquipmentView"] == null)
                 {
-                    Session["EquipmentView"] = new PDMS_EquipmentHeader();
+                    ViewState["EquipmentView"] = new PDMS_EquipmentHeader();
                 }
-                return (PDMS_EquipmentHeader)Session["EquipmentView"];
+                return (PDMS_EquipmentHeader)ViewState["EquipmentView"];
             }
             set
             {
-                Session["EquipmentView"] = value;
+                ViewState["EquipmentView"] = value;
             }
         }
-        public List<PDMS_ICTicket> ICTickets1
-        {
-            get
-            {
-                if (Session["DMS_EquipmentHistory1"] == null)
-                {
-                    Session["DMS_EquipmentHistory1"] = new List<PDMS_ICTicket>();
-                }
-                return (List<PDMS_ICTicket>)Session["DMS_EquipmentHistory1"];
-            }
-            set
-            {
-                Session["DMS_EquipmentHistory1"] = value;
-            }
-        }
+       
         public List<PEquipmentAttachedFilee_Insert> AttachedFileTemp
         {
             get
@@ -87,9 +73,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             lblMessage.Text = "";
         }
         public void fillEquipment(long EquipmentHeaderID)
-        {
-            ViewState["EquipmentHeaderID"] = EquipmentHeaderID;
-
+        {  
             EquipmentViewDet = new BDMS_Equipment().GetEquipmentHeaderByID(Convert.ToInt32(EquipmentHeaderID));
             EquipmentViewDet.Customer = new BDMS_Customer().GetCustomerByID(EquipmentViewDet.Customer.CustomerID);
             lblModel.Text = EquipmentViewDet.EquipmentModel.Model;
@@ -387,8 +371,45 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                 {
                     lblMessageUpdateClient.Text = "";
                     lblMessageUpdateClient.Visible = false;
-                    new DDLBind(ddlClient, (new BDMS_Equipment().GetEquipmentClient(null, null, true,null,null)).Data, "Client", "EquipmentClientID");
+                    new DDLBind(ddlClient, (new BDMS_Equipment().GetEquipmentClient(null, null, true, null, null)).Data, "Client", "EquipmentClientID");
                     MPE_UpdateClient.Show();
+                }
+                else if (lbActions.ID == "lnkBtnDownloadServiceDetails")
+                {
+                    List<PDMS_ICTicket> ICTicket = new BDMS_ICTicket().GetICTicketByEquipmentSerialNo(EquipmentViewDet.EquipmentHeaderID);
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("IC Ticket");
+                    dt.Columns.Add("IC Ticket Date");
+                    dt.Columns.Add("Dealer");
+                    dt.Columns.Add("Dealer Name");
+                    dt.Columns.Add("Service Type");
+                    dt.Columns.Add("Service Status");
+                    dt.Columns.Add("Warranty");
+                    dt.Columns.Add("Margin Warranty");
+                    dt.Columns.Add("Requested Date");
+                    dt.Columns.Add("Reached Date");
+                    dt.Columns.Add("Restore Date");
+                    dt.Columns.Add("HMR Date");
+                    dt.Columns.Add("HMR Value");
+                    foreach (PDMS_ICTicket IC in ICTicket)
+                    {
+                        dt.Rows.Add(
+                            IC.ICTicketNumber
+                    , IC.ICTicketDate.ToShortDateString()
+                    , IC.Dealer.DealerCode
+                    , IC.Dealer.DealerName
+                    , IC.ServiceType.ServiceType
+                    , IC.ServiceStatus.ServiceStatus
+                    , IC.IsWarranty
+                    , IC.IsMarginWarranty
+                    , IC.RequestedDate == null ? "" : ((DateTime)IC.RequestedDate).ToShortDateString()
+                    , IC.ReachedDate == null ? "" : ((DateTime)IC.ReachedDate).ToShortDateString()
+                    , IC.RestoreDate == null ? "" : ((DateTime)IC.RestoreDate).ToShortDateString()
+                    , IC.CurrentHMRDate == null ? "" : ((DateTime)IC.CurrentHMRDate).ToShortDateString()
+                    , Convert.ToString(IC.CurrentHMRValue)
+                    );
+                    }
+                    new BXcel().ExporttoExcel(dt, "IC Ticket Details");
                 }
             }
             catch (Exception ex)

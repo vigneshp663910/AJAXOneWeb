@@ -87,6 +87,15 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnUpdateClient;
 
         /// <summary>
+        /// lnkBtnDownloadServiceDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnDownloadServiceDetails;
+
+        /// <summary>
         /// divWarrantyTypeApproval control.
         /// </summary>
         /// <remarks>

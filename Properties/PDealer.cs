@@ -353,8 +353,8 @@ namespace Properties
         public string DealerCode { get; set; }
         public string DealerName { get; set; }
 
-        public int Target { get; set; }
-        public int Actual { get; set; }
+        public decimal Target { get; set; }
+        public decimal Actual { get; set; }
         public string Remarks { get; set; } 
         public Boolean IsSubmitted { get; set; }
     }

@@ -262,18 +262,29 @@ namespace DealerManagementSystem.ViewPreSale.Planning
                 Label lblYear = (Label)row.FindControl("lblYear");
                 Label lblMonth = (Label)row.FindControl("lblMonth");
                 List<PDealerBusinessExcellence> Plannings = new List<PDealerBusinessExcellence>();
-
-                PDealerBusinessExcellence Planning =
-              new PDealerBusinessExcellence()
-              {
-                  DealerID = Convert.ToInt32(lblDealerID.Text) ,
-                  DealerBusinessExcellenceCategory3ID =Convert.ToInt32(lblParameterID.Text),
-                  Year = Convert.ToInt32(lblYear.Text),
-                  Month = DateTime.ParseExact(lblMonth.Text, "MMM", CultureInfo.CurrentCulture).Month,
-                  Target = string.IsNullOrEmpty(txtTarget.Text.Trim()) ? 0 : Convert.ToInt32(txtTarget.Text.Trim()),
-                  Actual = string.IsNullOrEmpty(txtActual.Text.Trim()) ? 0 : Convert.ToInt32(txtActual.Text.Trim()),
-                  Remarks = txtRemarks.Text.Trim() 
-              };
+                decimal value;
+                if (!Decimal.TryParse(txtTarget.Text.Trim(), out value))
+                {
+                    lblMessage.Text = "Please update proper value in Target";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                if (!Decimal.TryParse(txtActual.Text.Trim(), out value))
+                {
+                    lblMessage.Text = "Please update proper value in Actual";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                PDealerBusinessExcellence Planning = new PDealerBusinessExcellence()
+                {
+                    DealerID = Convert.ToInt32(lblDealerID.Text),
+                    DealerBusinessExcellenceCategory3ID = Convert.ToInt32(lblParameterID.Text),
+                    Year = Convert.ToInt32(lblYear.Text),
+                    Month = DateTime.ParseExact(lblMonth.Text, "MMM", CultureInfo.CurrentCulture).Month,
+                    Target = string.IsNullOrEmpty(txtTarget.Text.Trim()) ? 0 : Convert.ToDecimal(txtTarget.Text.Trim()),
+                    Actual = string.IsNullOrEmpty(txtActual.Text.Trim()) ? 0 : Convert.ToDecimal(txtActual.Text.Trim()),
+                    Remarks = txtRemarks.Text.Trim()
+                };
                 Plannings.Add(Planning);
 
                 PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/InsertOrUpdateDealerBusinessExcellence", Plannings));

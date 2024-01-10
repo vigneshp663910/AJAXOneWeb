@@ -113,13 +113,13 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblTarget" Text='<%# DataBinder.Eval(Container.DataItem, "Target")%>' runat="server" />
                                     <asp:TextBox ID="txtTarget" Text='<%# DataBinder.Eval(Container.DataItem, "Target")%>'
-                                        runat="server" CssClass="form-control" TextMode="Number" Visible="false" />
+                                        runat="server" CssClass="form-control"   Visible="false" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Actual" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="right">
                                 <ItemTemplate>
                                     <asp:Label ID="lblActual" Text='<%# DataBinder.Eval(Container.DataItem, "Actual")%>' runat="server" />
-                                    <asp:TextBox ID="txtActual" Text='<%# DataBinder.Eval(Container.DataItem, "Actual")%>' runat="server" CssClass="form-control" TextMode="Number" Visible="false" onblur="Calculation(this)" />
+                                    <asp:TextBox ID="txtActual" Text='<%# DataBinder.Eval(Container.DataItem, "Actual")%>' runat="server" CssClass="form-control"   Visible="false" onblur="Calculation(this)" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remarks" ItemStyle-Width="125px" ItemStyle-HorizontalAlign="right">

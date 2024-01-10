@@ -94,6 +94,7 @@
                 <asp:LinkButton ID="lnkBtnApprOwnershipChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmApprOwnershipChg();">Approve Ownership Change</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnRejOwnershipChangeReq" runat="server" OnClick="lnkBtnActions_Click" OnClientClick="return ConfirmRejrOwnershipChg();">Reject Ownership Change</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnUpdateClient" runat="server" OnClick="lnkBtnActions_Click">Update Client</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnDownloadServiceDetails" runat="server" OnClick="lnkBtnActions_Click">Download Service Details </asp:LinkButton>
             </div>
         </div>
     </div>

@@ -1213,11 +1213,12 @@ namespace Business
             PDMS_ICTicket W = null;
             try
             {      string Q = "select I.ICTicketID ,ICTicketNumber ,ICTicketDate ,DealerCode ,D.DisplayName,ServiceType"
-                    +" ,ServiceStatus ,IsWarranty ,IsMarginWarranty ,RequestedDate ,ReachedDate ,RestoreDate"
-                    +" from ZDMS_TICTicket I inner join MDealer D on D.DID = I.DealerID" 
+                    + " ,ServiceStatus ,IsWarranty ,IsMarginWarranty ,RequestedDate ,ReachedDate ,RestoreDate,I.CurrentHMRDate,I.CurrentHMRValue"
+                    + " from ZDMS_TICTicket I inner join MDealer D on D.DID = I.DealerID" 
      +" left join ZDMS_MServiceType ST on ST.ServiceTypeID = I.ServiceTypeID" 
      + " left join ZDMS_MServiceStatus SS on SS.ServiceStatusID = I.ServiceStatusID" 
      + " where EquipmentHeaderID  ="+ EquipmentHeaderID + " order by I.ICTicketID desc ";
+
                 using (DataSet DataSet = provider.SelectUsingQuery(Q))
                 {
                     if (DataSet != null)
@@ -1241,15 +1242,23 @@ namespace Business
                             W.RequestedDate = dr["RequestedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RequestedDate"]);
                             W.ReachedDate = dr["ReachedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ReachedDate"]);
                             W.RestoreDate = dr["RestoreDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
+                            W.CurrentHMRDate = dr["CurrentHMRDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CurrentHMRDate"]);
+                            W.CurrentHMRValue = dr["CurrentHMRValue"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["CurrentHMRValue"]);
                         }
                     }
                 }
             }
             catch (SqlException sqlEx)
-            { }
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", "GetICTicketByEquipmentSerialNo_Table", sqlEx);
+                throw;
+            }
             catch (Exception ex)
-            { }
+            {
+                new FileLogger().LogMessage("BDMS_ICTicket", "GetICTicketByEquipmentSerialNo_Table", ex);
+                throw;
+            }
             return Ws;
-        }
+        } 
     }
 }
