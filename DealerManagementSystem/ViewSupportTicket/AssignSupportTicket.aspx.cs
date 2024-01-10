@@ -99,14 +99,14 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlCategory.DataTextField = "Category";
             ddlCategory.DataValueField = "CategoryID";
-            ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
+            ddlCategory.DataSource = JsonConvert.DeserializeObject<List<PCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketCategory(null, null).Data));
             ddlCategory.DataBind();
         }
         void FillSubCategory()
         {
             ddlSubcategory.DataTextField = "SubCategory";
             ddlSubcategory.DataValueField = "SubCategoryID";
-            ddlSubcategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue));
+            ddlSubcategory.DataSource = JsonConvert.DeserializeObject<List<PSubCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue)).Data));
             ddlSubcategory.DataBind();
             ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -114,7 +114,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlSeverity.DataTextField = "Severity";
             ddlSeverity.DataValueField = "SeverityID";
-            ddlSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
+            ddlSeverity.DataSource = JsonConvert.DeserializeObject<List<PSeverity>>(JsonConvert.SerializeObject(new BTickets().getTicketSeverity(null, null).Data));
             ddlSeverity.DataBind();
             ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -123,7 +123,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlTicketType.DataTextField = "Type";
             ddlTicketType.DataValueField = "TypeID";
-            ddlTicketType.DataSource = new BTicketType().getTicketType(null, null);
+            ddlTicketType.DataSource = JsonConvert.DeserializeObject<List<PType>>(JsonConvert.SerializeObject(new BTickets().getTicketType(null, null).Data));
             ddlTicketType.DataBind();
         }
 
@@ -131,7 +131,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlStatus.DataTextField = "Status";
             ddlStatus.DataValueField = "StatusID";
-            ddlStatus.DataSource = new BTicketStatus().getTicketStatus(null, null);
+            ddlStatus.DataSource = JsonConvert.DeserializeObject<List<PStatus>>(JsonConvert.SerializeObject(new BTickets().getTicketStatus(null, null).Data));
             ddlStatus.DataBind();
         }
 
@@ -150,14 +150,10 @@ namespace DealerManagementSystem.ViewSupportTicket
         }
         void FillAllFields(int TicketNo)
         {
-            //if (string.IsNullOrEmpty(TicketNo))
-            //{
-            //    TicketNo = txtTicketNo.Text.Trim();
-            //}
             PTicketHeader Tickets = new PTicketHeader();
-            // Tickets = new BTickets().GeTicketsByTicketNo(TicketNo);
-            int RowCount = 0;
-            Tickets = new BTickets().GetOpenTickets(TicketNo, null, null, null, null, null, PSession.User.UserID,null,null,out RowCount)[0];
+
+            PApiResult Result = new BTickets().GetOpenTickets(TicketNo, null, null, null, null, null, PSession.User.UserID, null, null);
+            Tickets = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data))[0];
 
             txtRequestedOn.Text = Convert.ToString(Tickets.CreatedOn);
             ddlCategory.SelectedValue = Convert.ToString(Tickets.Category.CategoryID);
@@ -181,21 +177,14 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
             txtRequestedBy.Text = Tickets.CreatedBy.ContactName + " " + txtRequestedOn.Text;
             ddlTicketType.SelectedValue = Convert.ToString(Tickets.Type.TypeID);
-            //if (Tickets.AssignedTo != null)
-            //{
-            //    ddlAssignedTo.SelectedValue = Convert.ToString(Tickets.AssignedTo.EID);
-            //}
-
+            
             ddlStatus.SelectedValue = Convert.ToString(Tickets.Status.StatusID);
             txtRequesterRemark.Text = Tickets.Description;
 
-            //if (Tickets.ActualDuration != null)
-            //{
-            //    txtActualDuration.Text = Convert.ToString(Tickets.ActualDuration);
-            //}
-
             Dictionary<string, long> AttachedFiles = new Dictionary<string, long>(); // new BTickets().getAttachedFiles(TicketNo);
-            List<PForum> Forums = new BTickets().GetForumDetails(TicketNo);
+            PApiResult ResultForum = new BTickets().GetForumDetails(TicketNo);
+            List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+
             foreach (PForum F in Forums)
             {
                 if (F.FileTypeID != (short)FileType.Message)
@@ -398,7 +387,9 @@ namespace DealerManagementSystem.ViewSupportTicket
         void FillTickets(int? TicketNO)
         {
             //List<PTicketHeader> Ticket = new BTickets().GetTicketDetails(TicketNO, null, null, null, null, null, null, null, null, null);
-            List<PTicketHeader> Ticket = new BTickets().GetTicketByID(TicketNO);
+            PApiResult Result = new BTickets().GetTicketByID(TicketNO);
+            List<PTicketHeader> Ticket = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
+            //List<PTicketHeader> Ticket = new BTickets().GetTicketByID(TicketNO);
             gvTickets.DataSource = Ticket;
             gvTickets.DataBind();
         }

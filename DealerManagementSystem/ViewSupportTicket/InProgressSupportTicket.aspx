@@ -2,7 +2,7 @@
 
 <%@ Register Src="~/ViewSupportTicket/UserControls/SupportTicketView.ascx" TagPrefix="UC" TagName="UC_SupportTicketView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <style>
+    <%--<style>
         .page-main-container .col, .page-main-container .col-1, .page-main-container .col-10, .page-main-container .col-11, .page-main-container .col-12, .page-main-container .col-2, .page-main-container .col-3, .page-main-container .col-4,
         .page-main-container .col-5, .page-main-container .col-6, .page-main-container .col-7, .page-main-container .col-8, .page-main-container .col-9, .page-main-container .col-auto, .page-main-container .col-lg, .page-main-container .col-lg-1,
         .page-main-container .col-lg-10, .page-main-container .col-lg-11, .page-main-container .col-lg-12, .page-main-container .col-lg-2, .page-main-container .col-lg-3, .page-main-container .col-lg-4, .page-main-container .col-lg-5,
@@ -74,9 +74,9 @@
                 padding: 3px 15px;
                 font-weight: 600;
             }
-    </style>
+    </style>--%>
 
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         $(document).ready(function () {
             var asnQunatity = 0;
             var gvTickets = document.getElementById('MainContent_gvTickets');
@@ -130,7 +130,7 @@
                 }
             }
         });
-    </script>
+    </script>--%>
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
     <div class="col-md-12">
         <div class="col-md-12" id="pnSearch" runat="server">

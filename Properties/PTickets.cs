@@ -39,6 +39,7 @@ namespace Properties
         public Decimal? Effort { get; set; }
         public int? ResolutionType   { get; set; }
         public string Resolution { get; set; }
+        public int StatusId { get; set; }
     }
     public class PForum_Insert
     {
@@ -109,7 +110,7 @@ namespace Properties
 
         public DateTime? InProgressOn { get; set; }
         public DateTime? ResolvedOn { get; set; }
-        public Boolean InActive { get; set; }
+        public bool? InActive { get; set; }
     }
     public class PForum
     {

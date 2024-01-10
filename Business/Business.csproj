@@ -182,13 +182,7 @@
     <Compile Include="BSmsManager.cs" />
     <Compile Include="BTest.cs" />
     <Compile Include="BTestSN.cs" />
-    <Compile Include="BTicketCategory.cs" />
-    <Compile Include="BTicketResolutionType.cs" />
     <Compile Include="BTickets.cs" />
-    <Compile Include="BTicketSeverity.cs" />
-    <Compile Include="BTicketStatus.cs" />
-    <Compile Include="BTicketSubCategory.cs" />
-    <Compile Include="BTicketType.cs" />
     <Compile Include="BUser.cs" />
     <Compile Include="BUserType.cs" />
     <Compile Include="BXcel.cs">
