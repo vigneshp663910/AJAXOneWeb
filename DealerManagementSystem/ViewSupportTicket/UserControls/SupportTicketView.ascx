@@ -496,7 +496,7 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_SendApproval" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSendApproval" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-<asp:Panel ID="pnResolve" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnResolve" runat="server" CssClass="Popup" Style="display: none;overflow-y: scroll;">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">
             <asp:Label ID="Label14" runat="server" Text="Resolve"></asp:Label></span><a href="#" role="button">
@@ -506,20 +506,82 @@
 
     <div class="col-md-12">
         <fieldset class="fieldset-border" id="Fieldset3" runat="server">
-            <div class="col-md-12 col-sm-6">
-                <asp:Label ID="lblEffort" runat="server" Text="Effort (H)" CssClass="label"></asp:Label>
-                <span style="color: red">*</span>
-                <asp:TextBox ID="txtEffort" runat="server" CssClass="TextBox form-control"></asp:TextBox>
-            </div>
-            <div class="col-md-12 col-sm-6">
-                <asp:Label ID="lblResolutionType" runat="server" Text="Resolution Type" CssClass="label"></asp:Label>
-                <asp:DropDownList ID="ddlResolutionType" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
-            </div>
-            <div class="col-md-12 col-sm-6">
-                <asp:Label ID="lblResolution" runat="server" Text="Resolution" CssClass="label"></asp:Label>
-            </div>
-            <div class="col-md-12 col-sm-6">
-                <asp:TextBox ID="txtResolution" runat="server" TextMode="MultiLine" CssClass="TextBox form-control"></asp:TextBox>
+            <div class="col-md-12">
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblEffort" runat="server" Text="Effort (H)" CssClass="label"></asp:Label>
+                    <span style="color: red">*</span>
+                    <asp:TextBox ID="txtEffort" runat="server" CssClass="TextBox form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblResolutionType" runat="server" Text="Resolution Type" CssClass="label"></asp:Label>
+                    <span style="color: red">*</span>
+                    <asp:DropDownList ID="ddlResolutionType" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="Label13" runat="server" Text="Support Type" CssClass="label"></asp:Label>
+                    <asp:DropDownList ID="ddlResSupportType" runat="server" CssClass="TextBox form-control">
+                        <asp:ListItem>L1</asp:ListItem>
+                        <asp:ListItem>L2</asp:ListItem>
+                        <asp:ListItem>L3</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="col-md-12">
+                        <div class="col-md-8 col-sm-8">
+                            <asp:Label ID="lblAjaxEmp" runat="server" Text="Ajax Employee" CssClass="label"></asp:Label><span style="color: red">*</span>
+                            <asp:DropDownList ID="ddlAjaxEmployee" runat="server" CssClass="TextBox form-control"></asp:DropDownList>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            <label>-</label>
+                            <br />
+                            <asp:Button ID="BtnAddAjaxEmployee" runat="server" CssClass="btn Save" Text="Add" OnClick="BtnAddAjaxEmployee_Click" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="col-md-12 Report">
+                        <div class="table-responsive">
+                            <asp:GridView ID="gvAjaxEmployee" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Contact Name">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblAjaxName" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" />
+                                            <asp:Label ID="lblAjaxUserID" Text='<%# DataBinder.Eval(Container.DataItem, "UserID")%>' runat="server" Visible="false" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Mail">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblAjaxMail" Text='<%# DataBinder.Eval(Container.DataItem, "Mail")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lbDelete" runat="server" OnClick="lbDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <asp:Label ID="lblResolution" runat="server" Text="Resolution" CssClass="label"></asp:Label>
+                    <span style="color: red">*</span>
+                    <asp:TextBox ID="txtResolution" runat="server" TextMode="MultiLine" CssClass="TextBox form-control"></asp:TextBox>
+                </div>
             </div>
             <div class="col-md-12 col-sm-6">
                 <asp:Label ID="Label12" runat="server" Text="Attached File" CssClass="label"></asp:Label>
@@ -543,14 +605,7 @@
                     </Columns>
                 </asp:GridView>
             </div>
-            <div class="col-md-12 col-sm-6">
-                <asp:Label ID="Label13" runat="server" Text="Support Type" CssClass="label"></asp:Label>
-                <asp:DropDownList ID="ddlResSupportType" runat="server" CssClass="TextBox form-control">
-                    <asp:ListItem>L1</asp:ListItem>
-                    <asp:ListItem>L2</asp:ListItem>
-                    <asp:ListItem>L3</asp:ListItem>
-                </asp:DropDownList>
-            </div>
+
 
 
             <%-- <div class="col-md-2 col-sm-6">

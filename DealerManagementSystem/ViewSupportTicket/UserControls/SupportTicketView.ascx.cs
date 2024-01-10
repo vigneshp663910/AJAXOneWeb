@@ -40,15 +40,30 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         {
             get
             {
-                if (Session["TaskReportView"] == null)
+                if (ViewState["TaskReportView"] == null)
                 {
-                    Session["TaskReportView"] = new List<PTicketHeader>();
+                    ViewState["TaskReportView"] = new List<PTicketHeader>();
                 }
-                return (List<PTicketHeader>)Session["TaskReportView"];
+                return (List<PTicketHeader>)ViewState["TaskReportView"];
             }
             set
             {
-                Session["TaskReportView"] = value;
+                ViewState["TaskReportView"] = value;
+            }
+        }
+        public List<PUser> AjaxEmployee
+        {
+            get
+            {
+                if (ViewState["AjaxEmployee"] == null)
+                {
+                    ViewState["AjaxEmployee"] = new List<PUser>();
+                }
+                return (List<PUser>)ViewState["AjaxEmployee"];
+            }
+            set
+            {
+                ViewState["AjaxEmployee"] = value;
             }
         }
         private string Action;
@@ -183,7 +198,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         void FillSubCategory()
         {
             ddlSubcategory.DataTextField = "SubCategory";
-            ddlSubcategory.DataValueField = "SubCategoryID";            
+            ddlSubcategory.DataValueField = "SubCategoryID";
             ddlSubcategory.DataSource = JsonConvert.DeserializeObject<List<PSubCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue)).Data));
             ddlSubcategory.DataBind();
             ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
@@ -191,7 +206,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         void FillEditSubCategory()
         {
             ddlEditSubCategory.DataTextField = "SubCategory";
-            ddlEditSubCategory.DataValueField = "SubCategoryID";            
+            ddlEditSubCategory.DataValueField = "SubCategoryID";
             ddlEditSubCategory.DataSource = JsonConvert.DeserializeObject<List<PSubCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketSubCategory(null, null, (ddlEditCategory.SelectedValue == "0") ? (Int32?)null : Convert.ToInt32(ddlEditCategory.SelectedValue)).Data));
             ddlEditSubCategory.DataBind();
             ddlEditSubCategory.Items.Insert(0, new ListItem("Select", "0"));
@@ -622,6 +637,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             else if (lbActions.Text == "Resolve")
             {
                 FillResolutionType();
+                FillAjaxEmployee();
                 MPE_Resolve.Show();
             }
             else if (lbActions.Text == "Cancel")
@@ -1245,7 +1261,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             PTaskItem_Insert Item = new PTaskItem_Insert();
             Item.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
             Item.AssignedTo = Approver;
-            
+
             //int success = new BTickets().insertTicketApprovalDetails(PSession.User.UserID, Convert.ToInt32(ViewState["TicketNo"]), Approver);
             string result = new BAPI().ApiPut("Task/insertTicketApprovalDetails", Item);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
@@ -1642,6 +1658,14 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
                 messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
 
+                string CC = string.Empty;
+                int mailindex = 0;
+                foreach(PUser user in AjaxEmployee)
+                {
+                    CC += (mailindex==0)? user.Mail : "," + user.Mail;
+                    mailindex += 1;
+                }
+
                 List<PMessage> PMessages = new List<PMessage>();
                 PMessage Message = null;
 
@@ -1660,7 +1684,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     LastMessageID = F.ID;
                 }
                 messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
-                new EmailManager().MailSend(userCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userAssignTo.Mail, "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] Resolved", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
+                new EmailManager().MailSend(userCreatedBy.Mail, CC, ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userAssignTo.Mail, "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] Resolved", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
             }
             ClearFieldResolve();
         }
@@ -1695,8 +1719,12 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             txtEffort.Text = string.Empty;
             txtResolution.Text = string.Empty;
             ddlResolutionType.SelectedValue = "0";
+            ddlAjaxEmployee.SelectedValue = "0";
             gvResolveNewFileAttached.DataSource = null;
             gvResolveNewFileAttached.DataBind();
+            gvAjaxEmployee.DataSource = null;
+            gvAjaxEmployee.DataBind();
+            AjaxEmployee = null;
             if (AttchedFile.Count > 0)
                 AttchedFile.RemoveAt(0);
         }
@@ -1707,6 +1735,14 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             ddlResolutionType.DataSource = JsonConvert.DeserializeObject<List<PResolutionType>>(JsonConvert.SerializeObject(new BTickets().getTicketResolutionType(null, null).Data));
             ddlResolutionType.DataBind();
             ddlResolutionType.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        void FillAjaxEmployee()
+        {
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, 53, true, null, null, null);
+            new DDLBind(ddlAjaxEmployee, user, "ContactName", "UserID");
+            gvAjaxEmployee.DataSource = null;
+            gvAjaxEmployee.DataBind();
+            AjaxEmployee = new List<PUser>();
         }
         protected void ResRemove_Click(object sender, EventArgs e)
         {
@@ -2008,6 +2044,59 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DepartmentID, null);
             new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
             MPE_AssignTo.Show();
+        }
+
+        protected void BtnAddAjaxEmployee_Click(object sender, EventArgs e)
+        {
+            lblResolve.ForeColor = Color.Red;
+            lblResolve.Visible = true;
+            if (ddlAjaxEmployee.SelectedValue == "0")
+            {
+                lblResolve.Text = "Please Add Ajax Employee...!";
+                MPE_Resolve.Show();
+                return;
+            }
+            if (AjaxEmployee.Any(item => item.UserID == Convert.ToInt32(ddlAjaxEmployee.SelectedValue)))
+            {
+                lblResolve.Text = "Ajax Employee Already Exist...!";
+                MPE_Resolve.Show();
+                return;
+            }
+            PUser User = new BUser().GetUserDetails(Convert.ToInt32(ddlAjaxEmployee.SelectedValue));
+            if (string.IsNullOrEmpty(User.Mail))
+            {
+                lblResolve.Text = "Mail ID Not Available...!";
+                MPE_Resolve.Show();
+                return;
+            }
+            AjaxEmployee.Add(User);
+            gvAjaxEmployee.DataSource = AjaxEmployee;
+            gvAjaxEmployee.DataBind();
+            MPE_Resolve.Show();
+        }
+
+        protected void lbDelete_Click(object sender, EventArgs e)
+        {
+            gvAjaxEmployee.DataSource = null;
+            gvAjaxEmployee.DataBind();
+
+            LinkButton lbDelete = (LinkButton)sender;
+            GridViewRow Grow = (GridViewRow)lbDelete.NamingContainer;
+            Label lblAjaxUserID = (Label)Grow.FindControl("lblAjaxUserID");
+            f:
+            int Index = 0;
+            foreach (PUser user in AjaxEmployee)
+            {
+                if (user.UserID.ToString() == lblAjaxUserID.Text)
+                {
+                    AjaxEmployee.RemoveAt(Index);
+                    goto f;
+                }
+                Index = Index + 1;
+            }
+            gvAjaxEmployee.DataSource = AjaxEmployee;
+            gvAjaxEmployee.DataBind();
+            MPE_Resolve.Show();
         }
     }
     class PMessage
