@@ -127,14 +127,13 @@ namespace DealerManagementSystem.ViewSupportTicket
 
                     HeaderId = Convert.ToInt32(txtTicketId.Text);
                 }
-                int RowCount = 0;
                 List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
 
                 PApiResult Result = new BTickets().GetOpenTickets(HeaderId, TicketCategoryID, null, CreatedBy, txtRequestedDateFrom.Text.Trim(), txtRequestedDateTo.Text.Trim(), PSession.User.UserID, PageIndex, gvTickets.PageSize);
                 TicketHeader = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
                 //TicketHeader = new BTickets().GetOpenTickets(HeaderId, TicketCategoryID, null, CreatedBy, RequestedDateFrom, RequestedDateTo, PSession.User.UserID, PageIndex, gvTickets.PageSize, out RowCount);
 
-                if (RowCount == 0)
+                if (Result.RowCount == 0)
                 {
                     gvTickets.DataSource = null;
                     gvTickets.DataBind();
@@ -146,11 +145,11 @@ namespace DealerManagementSystem.ViewSupportTicket
                 {
                     gvTickets.DataSource = TicketHeader;
                     gvTickets.DataBind();
-                    PageCount = (RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
+                    PageCount = (Result.RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + RowCount;
+                    lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + Result.RowCount;
                 }
 
 
