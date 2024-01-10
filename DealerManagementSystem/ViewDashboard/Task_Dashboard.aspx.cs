@@ -261,7 +261,7 @@ namespace DealerManagementSystem.ViewDashboard
                 double Average = ((Convert.ToDouble(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(WaitingForApproval)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(InProgress)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Approved)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Reject)", ""))) / Convert.ToDouble(ds.Tables[0].Compute("SUM(TotalCreated)", ""))) * 100;
                 gvTickets.FooterRow.Cells[11].Text = Average.ToString("N2");
                 gvTickets.FooterRow.Cells[11].HorizontalAlign = HorizontalAlign.Right;
-
+                
                 GridViewRow footer = gvTickets.FooterRow;
                 int numCells = footer.Cells.Count;
                 GridViewRow newRow = new GridViewRow(footer.RowIndex + 1, -1, footer.RowType, footer.RowState);
@@ -626,6 +626,12 @@ namespace DealerManagementSystem.ViewDashboard
                 List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, 7, null);
                 new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
             }
+        }
+
+        protected void gvTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvTickets.PageIndex = e.NewPageIndex;
+            FillStatusCount();            
         }
     }
 }
