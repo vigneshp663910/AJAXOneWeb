@@ -2,38 +2,6 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <%--<style>
-        .ChatButton {
-            position: fixed;
-            right: 0;
-            top: 183px;
-            list-style: none;
-        }
-
-        .ChatDataDisplay {
-            position: fixed;
-            display: block;
-            right: 50px;
-        }
-
-        .ChatDataNoneDisplay {
-            position: fixed;
-            display: none;
-            right: 10px;
-        }
-
-        .TextAlignRight {
-            text-align: right;
-        }
-
-        .Left {
-            float: left;
-        }
-
-        .Right {
-            float: right;
-        }
-    </style>--%>
     <style>
         .View {
             background: rgb(241 241 241) !important;

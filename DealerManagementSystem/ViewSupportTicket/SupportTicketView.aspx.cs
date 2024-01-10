@@ -77,7 +77,9 @@ namespace DealerManagementSystem.ViewSupportTicket
         }
         void FillTickets(int? TicketNO)
         {
-            List<PTicketHeader> Ticket = new BTickets().GetTicketByID(TicketNO);
+            PApiResult Result = new BTickets().GetTicketByID(TicketNO);
+            List<PTicketHeader> Ticket = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
+            //List<PTicketHeader> Ticket = new BTickets().GetTicketByID(TicketNO);
             lblTicketID.Text = Ticket[0].HeaderID.ToString();
             lblCategory.Text = Ticket[0].Category.Category;
             lblSubCategory.Text = (Ticket[0].SubCategory==null)?"":Ticket[0].SubCategory.SubCategory;
@@ -108,7 +110,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             // dt.Rows.Add("<p style = 'text-align: right'><U>" + F.FromUser.ContactName + "</U> </br> <p style = 'padding-left : 10px; text-align: right'>" + F.Message + "</p></p>","Right");
             //  dt.Rows.Add("<U>" + F.FromUser.ContactName + "</U> </br> <p style = 'padding-left : 10px'>" + F.Message + "</p>","Left");
             long LastMessageID = 0;
-            List<PForum> Forums = new BTickets().GetForumDetails(TicketNO);
+            //List<PForum> Forums = new BTickets().GetForumDetails(TicketNO);
+            PApiResult Result = new BTickets().GetForumDetails(TicketNO);
+            List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(Result.Data));
             foreach (PForum F in Forums)
             {
                 Message = new PMessage();
@@ -195,7 +199,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             PMessageTemp Message = null;
 
             long LastMessageID = 0;
-            List<PForum> Forums = new BTickets().GetForumDetails(TicketNO);
+            //List<PForum> Forums = new BTickets().GetForumDetails(TicketNO);
+            PApiResult Result = new BTickets().GetForumDetails(TicketNO);
+            List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(Result.Data));
             foreach (PForum F in Forums)
             {
                 Message = new PMessageTemp();

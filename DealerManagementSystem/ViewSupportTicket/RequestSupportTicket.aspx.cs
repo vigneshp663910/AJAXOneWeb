@@ -90,7 +90,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlTicketType.DataTextField = "Type";
             ddlTicketType.DataValueField = "TypeID";
-            ddlTicketType.DataSource = new BTicketType().getTicketType(null, null);
+            ddlTicketType.DataSource = JsonConvert.DeserializeObject<List<PType>>(JsonConvert.SerializeObject(new BTickets().getTicketType(null, null).Data));
             ddlTicketType.DataBind();
             ddlTicketType.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -98,7 +98,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlCategory.DataTextField = "Category";
             ddlCategory.DataValueField = "CategoryID";
-            ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
+            ddlCategory.DataSource = JsonConvert.DeserializeObject<List<PCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketCategory(null, null).Data));
             ddlCategory.DataBind();
             ddlCategory.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -106,7 +106,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlSubcategory.DataTextField = "SubCategory";
             ddlSubcategory.DataValueField = "SubCategoryID";
-            ddlSubcategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue));
+            ddlSubcategory.DataSource = JsonConvert.DeserializeObject<List<PSubCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue)).Data));
             ddlSubcategory.DataBind();
             ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -169,7 +169,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             PMessage Message = null;
             long LastMessageID = 0;
             string Msg = "";
-            List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(Result.Data.ToString()));
+            //List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(Result.Data.ToString()));
+            PApiResult ResultForum = new BTickets().GetForumDetails(Convert.ToInt32(Result.Data.ToString()));
+            List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
             foreach (PForum F in Forums)
             {
                 Message = new PMessage();
@@ -226,7 +228,9 @@ namespace DealerManagementSystem.ViewSupportTicket
         void FillTickets()
         {
             int RowCount = 0;
-            gvTickets.DataSource = new BTickets().GetTicketDetails(null, null, null, null, null, null, null, null, PSession.User.UserID, "Open,Assigned", null, null, 1, 10000, out RowCount);
+            PApiResult Result = new BTickets().GetTicketDetails(null, null, null, null, null, null, null, null, PSession.User.UserID, "Open,Assigned", null, null, 1, 10000);
+            gvTickets.DataSource = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
+            //gvTickets.DataSource = new BTickets().GetTicketDetails(null, null, null, null, null, null, null, null, PSession.User.UserID, "Open,Assigned", null, null, 1, 10000, out RowCount);
             gvTickets.DataBind();
         }
 

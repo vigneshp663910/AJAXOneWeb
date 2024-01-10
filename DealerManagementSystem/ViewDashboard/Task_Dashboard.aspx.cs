@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,6 @@ namespace DealerManagementSystem.ViewDashboard
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
         }
-        DateTime? From = null;
-        DateTime? To = null;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Task » Dashboard');</script>");
@@ -184,19 +182,10 @@ namespace DealerManagementSystem.ViewDashboard
             lblAssigned.Text = "0";
             lblInProgress.Text = "0";
             lblApproved.Text = "0";
-            //lblResolved.Text = "0";
             lblReject.Text = "0";
             lblClosed.Text = "0";
             DateTime TodayDate = DateTime.Now.Date;
 
-            if (!string.IsNullOrEmpty(txtTicketFrom.Text))
-            {
-                From = Convert.ToDateTime(txtTicketFrom.Text);
-            }
-            if (!string.IsNullOrEmpty(txtTicketTo.Text))
-            {
-                To = Convert.ToDateTime(txtTicketTo.Text);
-            }
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             int? DealerEmployeeUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
@@ -208,11 +197,13 @@ namespace DealerManagementSystem.ViewDashboard
             DataSet ds;
             if (DealerEmployeeUserID != null)
             {
-                ds = new BTickets().GetTicketDetailsCountByStatus(DealerID, DealerEmployeeUserID, Dealerwise, null, null);
+                PApiResult Result = new BTickets().GetTicketDetailsCountByStatus(DealerID, DealerEmployeeUserID, Dealerwise);
+                ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
             }
             else
             {
-                ds = new BTickets().GetTicketDetailsDealerwiseCountByStatus(DealerID, DealerEmployeeUserID, Dealerwise, null, null);
+                PApiResult Result = new BTickets().GetTicketDetailsDealerwiseCountByStatus(DealerID, DealerEmployeeUserID);
+                ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
             }
             if (ds.Tables[0].Rows.Count > 0)
             {
@@ -223,8 +214,6 @@ namespace DealerManagementSystem.ViewDashboard
                 lblInProgress.Text = ds.Tables[0].Compute("Sum(InProgress)", "").ToString();
                 lblApproved.Text = ds.Tables[0].Compute("Sum(Approved)", "").ToString();
                 lblReject.Text = ds.Tables[0].Compute("Sum(Reject)", "").ToString();
-                //lblResolved.Text = ds.Tables[0].Compute("Sum(Resolved)", "").ToString();
-                //lblClosed.Text = ds.Tables[0].Compute("Sum(Closed)", "").ToString();
                 lblClosed.Text = (Convert.ToDouble(ds.Tables[0].Compute("Sum(Resolved)", "")) + Convert.ToDouble(ds.Tables[0].Compute("Sum(Closed)", ""))).ToString();
 
                 gvTickets.DataSource = ds.Tables[0];
@@ -272,7 +261,7 @@ namespace DealerManagementSystem.ViewDashboard
                 double Average = ((Convert.ToDouble(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(WaitingForApproval)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(InProgress)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Approved)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Reject)", ""))) / Convert.ToDouble(ds.Tables[0].Compute("SUM(TotalCreated)", ""))) * 100;
                 gvTickets.FooterRow.Cells[11].Text = Average.ToString("N2");
                 gvTickets.FooterRow.Cells[11].HorizontalAlign = HorizontalAlign.Right;
-
+                
                 GridViewRow footer = gvTickets.FooterRow;
                 int numCells = footer.Cells.Count;
                 GridViewRow newRow = new GridViewRow(footer.RowIndex + 1, -1, footer.RowType, footer.RowState);
@@ -291,9 +280,6 @@ namespace DealerManagementSystem.ViewDashboard
                 newRow.Cells[10].Text = (Convert.ToInt32(ds.Tables[0].Compute("SUM(Resolved)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Closed)", "")) + Convert.ToInt32(ds.Tables[0].Compute("SUM(Reject)", ""))).ToString();
                 newRow.Cells[10].ForeColor = Color.DarkOliveGreen;
                 gvTickets.Controls[0].Controls.Add(newRow);
-
-
-
                 lblMonthlyReportTitle.Text = (ddlDealerEmployee.SelectedValue == "0") ? " Overall Status" : " Overall Status - " + ddlDealerEmployee.SelectedItem.Text.Trim();
             }
             gvTicketsMonthwise.DataSource = null;
@@ -321,11 +307,13 @@ namespace DealerManagementSystem.ViewDashboard
             DataSet ds;
             if (DealerEmployeeUserID != null)
             {
-                ds = new BTickets().GetTicketDetailsCountByStatusForChart(DealerID, DealerEmployeeUserID, Dealerwise, null, null);
+                PApiResult Result = new BTickets().GetTicketDetailsCountByStatusForChart(DealerID, DealerEmployeeUserID, Dealerwise);
+                ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
             }
             else
             {
-                ds = new BTickets().GetTicketDetailsDealerwiseCountByStatusForChart(DealerEmployeeUserID, DealerID, Dealerwise, null, null);
+                PApiResult Result = new BTickets().GetTicketDetailsDealerwiseCountByStatusForChart(DealerEmployeeUserID, DealerID);
+                ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
             }
 
             if (ds != null)
@@ -355,13 +343,13 @@ namespace DealerManagementSystem.ViewDashboard
             string Month = string.IsNullOrEmpty(txtTicketTo.Text) ? DateTime.Now.Month.ToString() : Convert.ToDateTime(txtTicketTo.Text).Month.ToString();
             int? DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             var lastDayOfMonth = DateTime.DaysInMonth(Convert.ToInt32(Year), Convert.ToInt32(Month));
-            From = Convert.ToDateTime("01-" + Month + "-" + Year);
-            To = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
+            string Fromdt = "01-" + Month + "-" + Year;
+            string Todt = lastDayOfMonth + "-" + Month + "-" + Year;
             DealerEmployeeUserID = (DealerEmployeeUserID == null) ? (int?)null : DealerEmployeeUserID;
             Boolean Dealerwise = ((DealerID != null && ddlDealerEmployee.SelectedValue == "0") || (DealerID == null && ddlDealerEmployee.SelectedValue == "0")) ? true : false;
-            if (DateTime.Now < To)
+            if (DateTime.Now < Convert.ToDateTime(Todt))
             {
-                if (DateTime.Now.Month == Convert.ToDateTime(To).Month)
+                if (DateTime.Now.Month == Convert.ToDateTime(Todt).Month)
                 {
                     lastDayOfMonth = DateTime.Now.Day;
                 }
@@ -374,18 +362,32 @@ namespace DealerManagementSystem.ViewDashboard
             DataSet ds;
             if (DealerEmployeeUserID != null)
             {
-                ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+                PApiResult Result = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, Fromdt, Todt);
+                ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
             }
             else
             {
-                ds = new BTickets().GetTicketDetailsDealerwiseMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+                PApiResult Result = new BTickets().GetTicketDetailsDealerwiseMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Fromdt, Todt);
+                ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
             }
 
             if (ds != null)
             {
-                if (ds.Tables[0].Rows.Count == 0)
+                if (ds.Tables[0].Rows.Count == 0 && ds.Tables[0].Columns.Count>0)
                 {
                     ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                }
+                else
+                {
+                    if (ds.Tables[0].Columns.Count == 0)
+                    {
+                        ds.Tables[0].Columns.Add("OpeningBalance", typeof(Int32));
+                        ds.Tables[0].Columns.Add("Created", typeof(Int32));
+                        ds.Tables[0].Columns.Add("Closed", typeof(Int32));
+                        ds.Tables[0].Columns.Add("ClosingBalance", typeof(Int32));
+                        ds.Tables[0].Columns.Add("TnDate", typeof(DateTime));
+                        ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                    }
                 }
             }
             else
@@ -483,11 +485,11 @@ namespace DealerManagementSystem.ViewDashboard
             string Year = string.IsNullOrEmpty(DateTo) ? DateTime.Now.Year.ToString() : Convert.ToDateTime(DateTo).Year.ToString();
             string Month = string.IsNullOrEmpty(DateTo) ? DateTime.Now.Month.ToString() : Convert.ToDateTime(DateTo).Month.ToString();
             var lastDayOfMonth = DateTime.DaysInMonth(Convert.ToInt32(Year), Convert.ToInt32(Month));
-            DateTime? From = Convert.ToDateTime("01-" + Month + "-" + Year);
-            DateTime? To = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
+            string From = "01-" + Month + "-" + Year;
+            string To = lastDayOfMonth + "-" + Month + "-" + Year;
             DealerEmployeeUserID = (DealerEmployeeUserID == null) ? (int?)null : DealerEmployeeUserID;
             Boolean Dealerwise = ((DealerID != null && DealerEmployeeUser == "0") || (DealerID == null && DealerEmployeeUser == "0")) ? true : false;
-            if (DateTime.Now < To)
+            if (DateTime.Now < Convert.ToDateTime(To))
             {
                 if (DateTime.Now.Month == Convert.ToDateTime(To).Month)
                 {
@@ -502,18 +504,31 @@ namespace DealerManagementSystem.ViewDashboard
             DataSet ds;
             if (DealerEmployeeUserID != null)
             {
-                ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+                PApiResult Result = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+                ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
             }
             else
             {
-                ds = new BTickets().GetTicketDetailsDealerwiseMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
+                PApiResult Result = new BTickets().GetTicketDetailsDealerwiseMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, From, To);
+                ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
             }
-            //DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, From, To);
             if (ds != null)
             {
-                if (ds.Tables[0].Rows.Count == 0)
+                if (ds.Tables[0].Rows.Count == 0 && ds.Tables[0].Columns.Count > 0)
                 {
                     ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                }
+                else
+                {
+                    if (ds.Tables[0].Columns.Count == 0)
+                    {
+                        ds.Tables[0].Columns.Add("OpeningBalance", typeof(Int32));
+                        ds.Tables[0].Columns.Add("Created", typeof(Int32));
+                        ds.Tables[0].Columns.Add("Closed", typeof(Int32));
+                        ds.Tables[0].Columns.Add("ClosingBalance", typeof(Int32));
+                        ds.Tables[0].Columns.Add("TnDate", typeof(DateTime));
+                        ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                    }
                 }
             }
             else
@@ -586,15 +601,18 @@ namespace DealerManagementSystem.ViewDashboard
             Boolean Dealerwise = ((DealerID != null && ddlDealerEmployee.SelectedValue == "0") || (DealerID == null && ddlDealerEmployee.SelectedValue == "0")) ? true : false;
             GVReport.DataSource = null;
             GVReport.DataBind();
-            DataSet ds = new BTickets().GetTicketDetailsDealerwiseReport(DealerID, DealerEmployeeUserID, Dealerwise, null, null, Year, Month, StatusID);
-            if (ds.Tables[0].Rows.Count > 0)
+            PApiResult Result = new BTickets().GetTicketDetailsDealerwiseReport(DealerID, Year, Month, StatusID);
+            DataSet ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
+            if (ds != null)
             {
-                lblRptCount.Text = "List Count : " + ds.Tables[0].Rows.Count.ToString();
-                GVReport.DataSource = ds;
-                GVReport.DataBind();
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    lblRptCount.Text = "List Count : " + ds.Tables[0].Rows.Count.ToString();
+                    GVReport.DataSource = ds;
+                    GVReport.DataBind();
+                }
             }
         }
-
         protected void GVReport_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GVReport.PageIndex = e.NewPageIndex;
@@ -608,6 +626,12 @@ namespace DealerManagementSystem.ViewDashboard
                 List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, 7, null);
                 new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
             }
+        }
+
+        protected void gvTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvTickets.PageIndex = e.NewPageIndex;
+            FillStatusCount();            
         }
     }
 }

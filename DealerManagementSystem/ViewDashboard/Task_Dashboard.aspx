@@ -566,7 +566,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="25" ShowFooter="true" EmptyDataText="No Data Found">
+                                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10" ShowFooter="true" EmptyDataText="No Data Found" OnPageIndexChanging="gvTickets_PageIndexChanging">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Year">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
@@ -592,12 +592,6 @@
                                                         <asp:Label ID="lnkOpened" Text='<%# DataBinder.Eval(Container.DataItem, "Opened")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <%--<asp:TemplateField HeaderText="Approved">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkApproved" Text='<%# DataBinder.Eval(Container.DataItem, "Approved")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>--%>
                                                 <asp:TemplateField HeaderText="Assigned">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
@@ -634,18 +628,6 @@
                                                         <asp:Label ID="lnkResolved" Text='<%# DataBinder.Eval(Container.DataItem, "Resolved")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <%--<asp:TemplateField HeaderText="Cancelled">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkCancelled" Text='<%# DataBinder.Eval(Container.DataItem, "Cancelled")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="ForceClose">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkForceClose" Text='<%# DataBinder.Eval(Container.DataItem, "ForceClose")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>--%>
                                                 <asp:TemplateField HeaderText="Closed">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>

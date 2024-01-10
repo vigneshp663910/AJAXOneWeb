@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -64,10 +65,11 @@ namespace DealerManagementSystem.ViewSupportTicket
             string Month = (ddlMonth.SelectedValue == "0") ? (string)null : ddlMonth.SelectedValue;
             int? DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             var lastDayOfMonth = DateTime.DaysInMonth(Convert.ToInt32(Year), Convert.ToInt32(Month));
-            DateTime DateFrom = Convert.ToDateTime("01-" + Month + "-" + Year);
-            DateTime DateTo = Convert.ToDateTime(lastDayOfMonth + "-" + Month + "-" + Year);
+            string DateFrom = "01-" + Month + "-" + Year;
+            string DateTo = lastDayOfMonth + "-" + Month + "-" + Year;
             Boolean Dealerwise = ((DealerID != null && ddlEmployee.SelectedValue == "0") || (DealerID == null && ddlEmployee.SelectedValue == "0")) ? true : false;
-            DataSet ds = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, DateFrom, DateTo);
+            PApiResult Result = new BTickets().GetTicketDetailsMonthwiseCountByStatus(DealerEmployeeUserID, DealerID, Dealerwise, DateFrom, DateTo);
+            DataSet ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
             gvTicketsMonthwise.DataSource = null;
             gvTicketsMonthwise.DataBind();
             DataTable dtMonthwise = new DataTable();
@@ -102,8 +104,6 @@ namespace DealerManagementSystem.ViewSupportTicket
                             dtMonthwise.Rows.Add(i.ToString("00"), OP, 0, 0, CL);
                         }
                     }
-                    //gvTicketsMonthwise.DataSource = dtMonthwise;
-                    //gvTicketsMonthwise.DataBind();
                 }
             }
             DataTable dt2 = new DataTable();

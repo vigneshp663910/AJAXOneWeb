@@ -1,88 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="AssignSupportTicket.aspx.cs" Inherits="DealerManagementSystem.ViewSupportTicket.AssignSupportTicket" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-    <style>
-        .page-main-container .col, .page-main-container .col-1, .page-main-container .col-10, .page-main-container .col-11, .page-main-container .col-12, .page-main-container .col-2, .page-main-container .col-3, .page-main-container .col-4,
-        .page-main-container .col-5, .page-main-container .col-6, .page-main-container .col-7, .page-main-container .col-8, .page-main-container .col-9, .page-main-container .col-auto, .page-main-container .col-lg, .page-main-container .col-lg-1,
-        .page-main-container .col-lg-10, .page-main-container .col-lg-11, .page-main-container .col-lg-12, .page-main-container .col-lg-2, .page-main-container .col-lg-3, .page-main-container .col-lg-4, .page-main-container .col-lg-5,
-        .page-main-container .col-lg-6, .page-main-container .col-lg-7, .page-main-container .col-lg-8, .page-main-container .col-lg-9, .page-main-container .col-lg-auto, .page-main-container .col-md, .page-main-container .col-md-1,
-        .page-main-container .col-md-10, .page-main-container .col-md-11, .page-main-container .col-md-12, .page-main-container .col-md-2, .page-main-container .col-md-3, .page-main-container .col-md-4, .page-main-container .col-md-5,
-        .page-main-container .col-md-6, .page-main-container .col-md-7, .page-main-container .col-md-8, .page-main-container .col-md-9, .page-main-container .col-md-auto, .page-main-container .col-sm, .page-main-container .col-sm-1,
-        .page-main-container .col-sm-10, .page-main-container .col-sm-11, .page-main-container .col-sm-12, .page-main-container .col-sm-2, .page-main-container .col-sm-3, .page-main-container .col-sm-4, .page-main-container .col-sm-5,
-        .page-main-container .col-sm-6, .page-main-container .col-sm-7, .page-main-container .col-sm-8, .page-main-container .col-sm-9, .page-main-container .col-sm-auto, .page-main-container .col-xl, .page-main-container .col-xl-1,
-        .page-main-container .col-xl-10, .page-main-container .col-xl-11, .page-main-container .col-xl-12, .page-main-container .col-xl-2, .page-main-container .col-xl-3, .page-main-container .col-xl-4, .page-main-container .col-xl-5,
-        .page-main-container .col-xl-6, .page-main-container .col-xl-7, .page-main-container .col-xl-8, .page-main-container .col-xl-9, .page-main-container .col-xl-auto {
-            display: initial;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-
-        .page-main-container {
-            width: 100%;
-            position: relative;
-        }
-
-            .page-main-container .form-container .form-control {
-                height: 35px;
-                padding: 0px 7px;
-            }
-
-            .page-main-container .form-container .InputButton {
-                height: 34px;
-            }
-
-        .form-container {
-            padding: 30px 25px;
-            background: #f9f9f9;
-        }
-
-        .page-main-container tr {
-            background: none;
-            border: none;
-        }
-
-        .form-container .file-upload {
-            padding: 2px;
-            height: auto;
-            display: block;
-            width: 100%;
-        }
-
-        .form-container-fields {
-            border: 1px solid #369;
-            padding: 25px;
-            position: relative;
-            border-radius: 5px;
-        }
-
-            .form-container-fields .label {
-                margin-bottom: 3px;
-                display: inline-block;
-                font-weight: 600;
-            }
-
-            .form-container-fields .field-label {
-                font-size: 14pt;
-                font-family: Arial;
-                text-align: left;
-                color: #3E4095;
-                position: absolute;
-                top: -17px;
-                left: 10px;
-                background: #f9f9f9;
-                padding: 3px 15px;
-                font-weight: 600;
-            }
-    </style>
-
-
-    <script>
+    <%--<script>
         $('[data-url]').each(function () {
             var $this = $(this);
             $this.html('<a href="' + $this.attr('data-url') + '">' + $this.text() + '</a>');
         });
-    </script>
+    </script>--%>
 
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
 
