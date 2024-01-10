@@ -379,12 +379,15 @@ namespace DealerManagementSystem.ViewDashboard
                 }
                 else
                 {
-                    ds.Tables[0].Columns.Add("OpeningBalance", typeof(Int32));
-                    ds.Tables[0].Columns.Add("Created", typeof(Int32));
-                    ds.Tables[0].Columns.Add("Closed", typeof(Int32));
-                    ds.Tables[0].Columns.Add("ClosingBalance", typeof(Int32));
-                    ds.Tables[0].Columns.Add("TnDate", typeof(DateTime));
-                    ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                    if (ds.Tables[0].Columns.Count == 0)
+                    {
+                        ds.Tables[0].Columns.Add("OpeningBalance", typeof(Int32));
+                        ds.Tables[0].Columns.Add("Created", typeof(Int32));
+                        ds.Tables[0].Columns.Add("Closed", typeof(Int32));
+                        ds.Tables[0].Columns.Add("ClosingBalance", typeof(Int32));
+                        ds.Tables[0].Columns.Add("TnDate", typeof(DateTime));
+                        ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                    }
                 }
             }
             else
@@ -517,12 +520,15 @@ namespace DealerManagementSystem.ViewDashboard
                 }
                 else
                 {
-                    ds.Tables[0].Columns.Add("OpeningBalance", typeof(Int32));
-                    ds.Tables[0].Columns.Add("Created", typeof(Int32));
-                    ds.Tables[0].Columns.Add("Closed", typeof(Int32));
-                    ds.Tables[0].Columns.Add("ClosingBalance", typeof(Int32));
-                    ds.Tables[0].Columns.Add("TnDate", typeof(DateTime));
-                    ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                    if (ds.Tables[0].Columns.Count == 0)
+                    {
+                        ds.Tables[0].Columns.Add("OpeningBalance", typeof(Int32));
+                        ds.Tables[0].Columns.Add("Created", typeof(Int32));
+                        ds.Tables[0].Columns.Add("Closed", typeof(Int32));
+                        ds.Tables[0].Columns.Add("ClosingBalance", typeof(Int32));
+                        ds.Tables[0].Columns.Add("TnDate", typeof(DateTime));
+                        ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
+                    }
                 }
             }
             else
