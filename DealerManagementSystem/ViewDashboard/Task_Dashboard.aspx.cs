@@ -29,6 +29,7 @@ namespace DealerManagementSystem.ViewDashboard
             if (!IsPostBack)
             {
                 new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
+                FillFinYear();
                 new FillDropDownt().Category(ddlCategory, null, null);
                 ddlCategory_SelectedIndexChanged(null, null);
                 List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
@@ -36,6 +37,15 @@ namespace DealerManagementSystem.ViewDashboard
                 txtTicketFrom.Text = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).ToString("yyyy-MM-dd");
                 txtTicketTo.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 FillStatusCount();
+            }
+        }
+        public void FillFinYear()
+        {
+            int year = (DateTime.Now.Month < 4) ? (DateTime.Now.AddYears(-1).Year) : DateTime.Now.Year;
+            for (int i = 2021; i <= year; i++)
+            {
+                ddlFinYear.Items.Add(new ListItem(i + "-" + (i + 1), i + "-" + (i + 1)));
+                ddlFinYear.SelectedValue = i + "-" + (i + 1);
             }
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
@@ -205,6 +215,27 @@ namespace DealerManagementSystem.ViewDashboard
                 PApiResult Result = new BTickets().GetTicketDetailsDealerwiseCountByStatus(DealerID, DealerEmployeeUserID);
                 ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
             }
+            HttpContext.Current.Session["FinYear"] = ddlFinYear.SelectedValue.ToString();
+            string[] FinYear = ddlFinYear.SelectedValue.ToString().Split('-');
+
+            DateTime FromDt = Convert.ToDateTime("01-03-" + FinYear[0]);
+            DateTime ToDt = Convert.ToDateTime("31-03-" + FinYear[1]);
+
+            string MYear = string.Empty;
+            for (FromDt = FromDt.AddMonths(1); FromDt <= ToDt; FromDt = FromDt.AddMonths(1))
+            {
+                MYear += string.IsNullOrEmpty(MYear) ? FromDt.Month + "-" + FromDt.Year : "," + FromDt.Month + "-" + FromDt.Year;
+            }
+            string[] FinYear1 = MYear.Split(',');
+        T:
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                if (!FinYear1.Any(item => item == dr["Month"].ToString() + "-" + dr["Year"].ToString()))
+                {
+                    ds.Tables[0].Rows.Remove(dr);
+                    goto T;
+                }
+            }
             if (ds.Tables[0].Rows.Count > 0)
             {
                 lblCreated.Text = ds.Tables[0].Compute("Sum(TotalCreated)", "").ToString();
@@ -261,7 +292,7 @@ namespace DealerManagementSystem.ViewDashboard
                 double Average = ((Convert.ToDouble(ds.Tables[0].Compute("SUM(Opened)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(WaitingForApproval)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Assigned)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(InProgress)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Approved)", "")) + Convert.ToDouble(ds.Tables[0].Compute("SUM(Reject)", ""))) / Convert.ToDouble(ds.Tables[0].Compute("SUM(TotalCreated)", ""))) * 100;
                 gvTickets.FooterRow.Cells[11].Text = Average.ToString("N2");
                 gvTickets.FooterRow.Cells[11].HorizontalAlign = HorizontalAlign.Right;
-                
+
                 GridViewRow footer = gvTickets.FooterRow;
                 int numCells = footer.Cells.Count;
                 GridViewRow newRow = new GridViewRow(footer.RowIndex + 1, -1, footer.RowType, footer.RowState);
@@ -314,6 +345,26 @@ namespace DealerManagementSystem.ViewDashboard
             {
                 PApiResult Result = new BTickets().GetTicketDetailsDealerwiseCountByStatusForChart(DealerEmployeeUserID, DealerID);
                 ds = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
+            }
+            string[] FinYear = HttpContext.Current.Session["FinYear"].ToString().Split('-');
+
+            DateTime FromDt = Convert.ToDateTime("01-03-" + FinYear[0]);
+            DateTime ToDt = Convert.ToDateTime("31-03-" + FinYear[1]);
+
+            string MYear = string.Empty;
+            for (FromDt = FromDt.AddMonths(1); FromDt <= ToDt; FromDt = FromDt.AddMonths(1))
+            {
+                MYear += string.IsNullOrEmpty(MYear) ? FromDt.Month + "-" + FromDt.Year : "," + FromDt.Month + "-" + FromDt.Year;
+            }
+            string[] FinYear1 = MYear.Split(',');
+        T:
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                if (!FinYear1.Any(item => item == dr["Month"].ToString() + "-" + dr["Year"].ToString()))
+                {
+                    ds.Tables[0].Rows.Remove(dr);
+                    goto T;
+                }
             }
 
             if (ds != null)
@@ -373,7 +424,7 @@ namespace DealerManagementSystem.ViewDashboard
 
             if (ds != null)
             {
-                if (ds.Tables[0].Rows.Count == 0 && ds.Tables[0].Columns.Count>0)
+                if (ds.Tables[0].Rows.Count == 0 && ds.Tables[0].Columns.Count > 0)
                 {
                     ds.Tables[0].Rows.Add(Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), 0, 0, Convert.ToInt32(HttpContext.Current.Session["PendingTickets"]), DateTime.Now);
                 }
@@ -590,7 +641,7 @@ namespace DealerManagementSystem.ViewDashboard
             {
                 chartData = null;
             }
-            Fail:
+        Fail:
             return chartData;
         }
         void GetTicketDetailsDealerwiseReport(int? Year = null, int? Month = null, int? StatusID = null)
@@ -631,7 +682,12 @@ namespace DealerManagementSystem.ViewDashboard
         protected void gvTickets_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvTickets.PageIndex = e.NewPageIndex;
-            FillStatusCount();            
+            FillStatusCount();
+        }
+
+        protected void ddlFinYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillStatusCount();
         }
     }
 }

@@ -559,14 +559,17 @@
                                                     <table>
                                                         <tr>
                                                             <td>
+                                                                <div></div>
                                                                 <asp:Label ID="lblMonthlyReportTitle" runat="server" CssClass="label"></asp:Label>
+                                                                
+                                                                <asp:DropDownList ID="ddlFinYear" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFinYear_SelectedIndexChanged"/>
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
-                                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10" ShowFooter="true" EmptyDataText="No Data Found" OnPageIndexChanging="gvTickets_PageIndexChanging">
+                                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="12" ShowFooter="true" EmptyDataText="No Data Found" OnPageIndexChanging="gvTickets_PageIndexChanging">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Year">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
