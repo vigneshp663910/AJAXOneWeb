@@ -1015,19 +1015,20 @@ namespace Business
             }
             return false;
         }
-        public Boolean UpdateEInvoiveHSNCode(string InvoiceNumber, long InvoiceItemID, string HSNCode, Int32 UserID)
+        public Boolean UpdateEInvoiveHSNCode(string InvoiceNumber, string MaterialDesc, string HSNCode, Int32 UserID)
         {
             try
             {
                 DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", InvoiceNumber, DbType.String);
-                DbParameter InvoiceItemIDP = provider.CreateParameter("InvoiceItemID", InvoiceItemID, DbType.String);
+                DbParameter MaterialDescP = provider.CreateParameter("MaterialDesc", MaterialDesc, DbType.String);
                 DbParameter HSNCodeP = provider.CreateParameter("HSNCode", HSNCode, DbType.String);
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.String);
-                DbParameter[] Params = new DbParameter[4] { InvoiceNumberP, InvoiceItemIDP, HSNCodeP, UserIDP };
+                DbParameter[] Params = new DbParameter[4] { InvoiceNumberP, MaterialDescP, HSNCodeP, UserIDP };
 
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    provider.Insert("ZDMS_InsertOrUpdateEInvoiceHSNCode", Params); ;
+                    //provider.Insert("ZDMS_InsertOrUpdateEInvoiceHSNCode", Params); 
+                    provider.Insert("InsertOrUpdateEInvoiceHSNCode", Params);
                     scope.Complete();
                 }
                 return true;

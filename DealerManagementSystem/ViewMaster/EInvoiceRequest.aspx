@@ -365,7 +365,7 @@
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblSlNo" Text='<%# DataBinder.Eval(Container.DataItem, "SlNo")%>' runat="server"></asp:Label>
-                                                                    <%-- <asp:Label ID="lblInvoiceItemID" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceItemID")%>' runat="server"></asp:Label>
+                                                                    <%--  <asp:Label ID="lblInvoiceItemID" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceItemID")%>' runat="server"  Visible="false"></asp:Label> 
                                                                     <asp:Label ID="lblBillingDocument" Text='<%# DataBinder.Eval(Container.DataItem, "BillingDocument")%>' runat="server" Visible="false"></asp:Label>--%>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>

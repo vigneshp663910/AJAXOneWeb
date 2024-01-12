@@ -465,18 +465,26 @@ namespace DealerManagementSystem.ViewMaster
                 GridViewRow grdParent = (GridViewRow)GV.Parent.Parent; // Find controls from parent grid view  
 
 
-                Label lblBillingDocument = (Label)grdParent.FindControl("lblBillingDocument");
-                Label lblInvoiceItemID = (Label)grdParent.FindControl("lblInvoiceItemID");
+                GridViewRow inner = (GridViewRow)((Button)sender).NamingContainer;
+                GridView child = (GridView)inner.Parent.Parent;//This returns the child gridview
+                GridViewRow parent = (GridViewRow)child.NamingContainer;// this returns the row of parent gridview.
+                int ParentRowIndex = parent.RowIndex; // this returns the row index of parent gridview
+                 
+
+
+                Label lblBillingDocument = (Label)gvInv.Rows[ParentRowIndex].FindControl("lblBillingDocument");
+                //Label lblInvoiceItemID = (Label)gvInv.Rows[ParentRowIndex].FindControl("lblInvoiceItemID");
+                Label lblMaterialDesc = (Label)grdParent.FindControl("lblPrdDesc");
                 Label lblHSNCode = (Label)grdParent.FindControl("lblHSNCode");
                 TextBox txtHSNCode = (TextBox)grdParent.FindControl("txtHSNCode");
 
 
                 string InvoiceNumber = lblBillingDocument.Text.Trim();
-                long InvoiceItemID = Convert.ToInt64(lblInvoiceItemID.Text.Trim());
+                //  long InvoiceItemID = Convert.ToInt64(lblMaterialDesc.Text);
                 string HSNCode = txtHSNCode.Text.Trim();
 
 
-                if (new BDMS_EInvoice().UpdateEInvoiveHSNCode(InvoiceNumber, InvoiceItemID, HSNCode, PSession.User.UserID))
+                if (new BDMS_EInvoice().UpdateEInvoiveHSNCode(InvoiceNumber, lblMaterialDesc.Text.Trim(), HSNCode, PSession.User.UserID))
                 {
                     Button btnEditItem = (Button)grdParent.FindControl("btnEditItem");
                     Button btnUpdateItem = (Button)grdParent.FindControl("btnUpdateItem");
