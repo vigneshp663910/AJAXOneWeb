@@ -766,7 +766,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                                 }
                             }
                         }
-                        string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketMessage.htm");
+                        string messageBody = messageBody = new EmailManager().GetMailNotificationTemplate("TicketMessage.htm");
                         messageBody = messageBody.Replace("@@RequestedOn", TicketLts[0].CreatedOn.ToString());
                         messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
                         messageBody = messageBody.Replace("@@Description", TicketLts[0].Description);
@@ -818,7 +818,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         {
                             CC += (CC == "") ? PSession.User.Mail : "," + PSession.User.Mail;
                         }
-                        string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketMessage.htm");
+                        string messageBody = messageBody = new EmailManager().GetMailNotificationTemplate("TicketMessage.htm");
                         messageBody = messageBody.Replace("@@RequestedOn", TicketLts[0].CreatedOn.ToString());
                         messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
                         messageBody = messageBody.Replace("@@Description", TicketLts[0].Description);
@@ -879,7 +879,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 PUser userCreatedBy = new BUser().GetUserDetails(Convert.ToInt64(CreatedBy));
                 PUser userRequester = new BUser().GetUserDetails(Convert.ToInt64(RequestedBy));
                 PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
-                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketApproved.htm");
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketApproved.htm");
                 messageBody = messageBody.Replace("@@TicketNo", TicketLts[0].HeaderID.ToString());
                 messageBody = messageBody.Replace("@@ApproverName", UserApprovar.ContactName);
                 messageBody = messageBody.Replace("@@RequestedByName", userRequester.ContactName);
@@ -942,7 +942,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 PUser userCreatedBy = new BUser().GetUserDetails(Convert.ToInt64(CreatedBy));
                 PUser userRequester = new BUser().GetUserDetails(Convert.ToInt64(RequestedBy));
                 PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
-                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketRejected.htm");
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketRejected.htm");
                 messageBody = messageBody.Replace("@@TicketNo", TicketLts[0].HeaderID.ToString());
                 messageBody = messageBody.Replace("@@ApproverName", UserApprovar.ContactName);
                 messageBody = messageBody.Replace("@@RequestedByName", userRequester.ContactName);
@@ -1009,7 +1009,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 }
 
 
-                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketForceclose.htm");
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketForceclose.htm");
                 messageBody = messageBody.Replace("@@TicketNo", TicketLts[0].HeaderID.ToString());
                 messageBody = messageBody.Replace("@@RequestedOn", TicketLts[0].CreatedOn.ToString());
                 messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
@@ -1180,7 +1180,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
             PUser userAssignTo = new BUser().GetUserDetails(Convert.ToInt32(ddlAssignedTo.SelectedValue));
             PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
-            messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
+            messageBody = new EmailManager().GetMailNotificationTemplate("TicketAssign.htm");
             messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
             messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
             messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
@@ -1290,7 +1290,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
                 PUser userRequester = new BUser().GetUserDetails(PSession.User.UserID);
                 PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
-                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketApproval.htm");
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketApproval.htm");
                 messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
                 messageBody = messageBody.Replace("@@ApproverName", UserApprovar.ContactName);
                 messageBody = messageBody.Replace("@@CreatedByName", userCreatedBy.ContactName);
@@ -1363,7 +1363,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
                 PUser userAssignTo = new BUser().GetUserDetails(Convert.ToInt64(PSession.User.UserID));
                 PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
-                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketInprogress.htm");
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketInprogress.htm");
                 messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
                 messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
                 messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
@@ -1429,7 +1429,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 PUser userCancelledBy = new BUser().GetUserDetails(Convert.ToInt64(PSession.User.UserID));
                 PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
 
-                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketCancel.htm");
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketCancel.htm");
                 messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
                 messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
                 messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
@@ -1539,7 +1539,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     }
                     string messageBody = "";
                     PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
-                    messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketReopen.htm");
+                    messageBody = new EmailManager().GetMailNotificationTemplate("TicketReopen.htm");
                     messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                     messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
                     messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
@@ -1642,7 +1642,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
                 PUser userAssignTo = new BUser().GetUserDetails(PSession.User.UserID);
                 PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
-                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketResolved.htm");
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketResolved.htm");
                 messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
                 messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
                 messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);

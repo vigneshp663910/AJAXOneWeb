@@ -243,7 +243,7 @@ namespace DealerManagementSystem.ViewSupportTicket
              
             PUser userAssignedTo = new BUser().GetUserDetails(Convert.ToInt32(ddlAssignedTo.SelectedValue));
 
-            messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
+            messageBody = new EmailManager().GetMailNotificationTemplate("TicketAssign.htm");
             if (userAssignedTo.SystemCategoryID == (short)SystemCategory.AF)
             {
                 messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"] + "AssignedTickets.aspx?TicketNo=" + TaskItem.HeaderID);
