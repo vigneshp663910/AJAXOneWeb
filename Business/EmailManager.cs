@@ -13,6 +13,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using System.Web;
 
 namespace Business
 {
@@ -255,7 +256,9 @@ namespace Business
             string msg = string.Empty;
             try
             {
-                string FilePath = ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/" + FileName;
+                //string FilePath = ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/" + FileName;
+                string FilePath = HttpContext.Current.Server.MapPath("~/MailFormat/" + FileName);
+
                 if (File.Exists(FilePath))
                 {
                     FileStream fStream = new FileStream(FilePath, FileMode.Open);
