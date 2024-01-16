@@ -358,4 +358,9 @@ namespace Properties
         public string Remarks { get; set; } 
         public Boolean IsSubmitted { get; set; }
     }
+    public class PDealerBalanceConfirmationStatus
+    {
+        public int StatusID { get; set; }
+        public string Status { get; set; }
+    }
 }
