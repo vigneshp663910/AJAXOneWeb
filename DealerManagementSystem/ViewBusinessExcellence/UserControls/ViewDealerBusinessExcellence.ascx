@@ -1,0 +1,1 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewDealerBusinessExcellence.ascx.cs" Inherits="DealerManagementSystem.ViewBusinessExcellence.UserControls.ViewDealerBusinessExcellence" %>

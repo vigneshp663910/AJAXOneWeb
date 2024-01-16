@@ -358,4 +358,32 @@ namespace Properties
         public string Remarks { get; set; } 
         public Boolean IsSubmitted { get; set; }
     }
+
+    public class PDealerBusinessExcellenceHeader
+    {  
+        
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public string MonthName
+        {
+            get
+            {
+                return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month).Substring(0, 3);
+            }
+        } 
+        public PDMS_Dealer Dealer { get; set; }  
+        public string status { get; set; }
+        public PUser RequestedBy { get; set; }
+        public DateTime RequestedOn { get; set; }
+        public PUser SubmittedBy { get; set; }
+        public DateTime? SubmittedOn { get; set; }
+        public PUser ApprovalL1By { get; set; }
+        public DateTime? ApprovalL1On { get; set; }
+        public PUser ApprovalL2By { get; set; }
+        public DateTime? ApprovalL2On { get; set; }
+        public PUser ApprovalL3By { get; set; }
+        public DateTime? ApprovalL3On { get; set; }
+        public PUser ApprovalL4By { get; set; }
+        public DateTime? ApprovalL4On { get; set; }
+    }
 }

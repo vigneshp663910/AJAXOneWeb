@@ -418,6 +418,8 @@
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
     <Content Include="ViewAdmin\VisitTagetPlanning.aspx" />
+    <Content Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx" />
+    <Content Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx" />
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
@@ -1199,6 +1201,20 @@
     </Compile>
     <Compile Include="ViewAdmin\VisitTagetPlanning.aspx.designer.cs">
       <DependentUpon>VisitTagetPlanning.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx.cs">
+      <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx.designer.cs">
+      <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx.cs">
+      <DependentUpon>ViewDealerBusinessExcellence.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx.designer.cs">
+      <DependentUpon>ViewDealerBusinessExcellence.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.cs">
       <DependentUpon>QuotationChangeHistory.aspx</DependentUpon>

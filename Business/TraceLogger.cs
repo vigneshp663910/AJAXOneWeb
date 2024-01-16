@@ -12,7 +12,7 @@ namespace Business
     public static class TraceLogger
     {
         #region Class Variables
-        static bool enableTraceLog = Convert.ToBoolean(ConfigurationManager.AppSettings["DebugTraceOn"]);
+      //  static bool enableTraceLog = Convert.ToBoolean(ConfigurationManager.AppSettings["DebugTraceOn"]);
         #endregion
 
         #region Public Methods
@@ -26,54 +26,22 @@ namespace Business
         /// <param name="startTime">DateTime</param>
         /// <param name="inputData">string</param>
         /// <param name="outputData">string</param>
+        /// 
         public static void Log(DateTime startTime, string inputData = "", string outputData = "")
         {
             try
             {
                 //Checks if trace log capture is turned on.
-                if (enableTraceLog)
+                if (ConfigurationManager.AppSettings["LogTrack"] =="1")
                 {
-                    string filePath = Convert.ToString(ConfigurationManager.AppSettings["LogPath"]);
-
                     StackTrace stackTrace = new StackTrace(true);          // get call stack
                     StackFrame stackFrame = stackTrace.GetFrame(1);  // get method calls (frames)
+                    string Message = "Object Name: " + stackFrame.GetFileName() + "," + "Method Name: " + stackFrame.GetMethod() + ","
+                        + "Start Time: " + startTime + "," + "End Time: " + DateTime.Now + "," + "Input Data: " + inputData
+                        + "," + "Output Data: " + (outputData)
+                    + "\n-----------------------------------------------------------";
 
-                    StringBuilder traceLogInfo = new StringBuilder();
-                    traceLogInfo.Append("Object Name: ");
-                    traceLogInfo.Append(stackFrame.GetFileName());
-                    traceLogInfo.Append(",");
-                    traceLogInfo.Append("Method Name: ");
-                    traceLogInfo.Append(stackFrame.GetMethod());
-                    traceLogInfo.Append(",");
-                    traceLogInfo.Append("Start Time: ");
-                    traceLogInfo.Append(startTime);
-                    traceLogInfo.Append(",");
-                    traceLogInfo.Append("End Time: ");
-                    traceLogInfo.Append(DateTime.Now);
-                    traceLogInfo.Append(",");
-                    traceLogInfo.Append("Input Data: ");
-                    traceLogInfo.Append(inputData);
-                    traceLogInfo.Append(",");
-                    traceLogInfo.Append("Output Data: ");
-                    traceLogInfo.Append(outputData);
-                    if (!File.Exists(filePath))
-                    {
-                        FileStream aFile = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-                        StreamWriter sw = new StreamWriter(aFile);
-                        sw.Write(Convert.ToString(traceLogInfo));
-                        sw.WriteLine("-----------------------------------------------------------");
-                        sw.Close();
-                        aFile.Close();
-                    }
-                    else
-                    {
-                        FileStream aFile = new FileStream(filePath, FileMode.Append, FileAccess.Write);
-                        StreamWriter sw = new StreamWriter(aFile);
-                        sw.WriteLine(Convert.ToString(traceLogInfo));
-                        sw.WriteLine("-----------------------------------------------------------");
-                        sw.Close();
-                        aFile.Close();
-                    }
+                    new BAPI().ApiGet("File/TraceLogger?Message=" + Message);
                 }
             }
             catch (Exception ex)
@@ -81,6 +49,61 @@ namespace Business
                 ExceptionLogger.LogError("Unable to log the trace information", ex);
             }
         }
+        //public static void Log(DateTime startTime, string inputData = "", string outputData = "")
+        //{
+        //    try
+        //    {
+        //        //Checks if trace log capture is turned on.
+        //        if (enableTraceLog)
+        //        {
+        //            string filePath = Convert.ToString(ConfigurationManager.AppSettings["LogPath"]);
+
+        //            StackTrace stackTrace = new StackTrace(true);          // get call stack
+        //            StackFrame stackFrame = stackTrace.GetFrame(1);  // get method calls (frames)
+
+        //            StringBuilder traceLogInfo = new StringBuilder();
+        //            traceLogInfo.Append("Object Name: ");
+        //            traceLogInfo.Append(stackFrame.GetFileName());
+        //            traceLogInfo.Append(",");
+        //            traceLogInfo.Append("Method Name: ");
+        //            traceLogInfo.Append(stackFrame.GetMethod());
+        //            traceLogInfo.Append(",");
+        //            traceLogInfo.Append("Start Time: ");
+        //            traceLogInfo.Append(startTime);
+        //            traceLogInfo.Append(",");
+        //            traceLogInfo.Append("End Time: ");
+        //            traceLogInfo.Append(DateTime.Now);
+        //            traceLogInfo.Append(",");
+        //            traceLogInfo.Append("Input Data: ");
+        //            traceLogInfo.Append(inputData);
+        //            traceLogInfo.Append(",");
+        //            traceLogInfo.Append("Output Data: ");
+        //            traceLogInfo.Append(outputData);
+        //            if (!File.Exists(filePath))
+        //            {
+        //                FileStream aFile = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+        //                StreamWriter sw = new StreamWriter(aFile);
+        //                sw.Write(Convert.ToString(traceLogInfo));
+        //                sw.WriteLine("-----------------------------------------------------------");
+        //                sw.Close();
+        //                aFile.Close();
+        //            }
+        //            else
+        //            {
+        //                FileStream aFile = new FileStream(filePath, FileMode.Append, FileAccess.Write);
+        //                StreamWriter sw = new StreamWriter(aFile);
+        //                sw.WriteLine(Convert.ToString(traceLogInfo));
+        //                sw.WriteLine("-----------------------------------------------------------");
+        //                sw.Close();
+        //                aFile.Close();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ExceptionLogger.LogError("Unable to log the trace information", ex);
+        //    }
+        //}
         #endregion
     }
 }

@@ -496,6 +496,8 @@ namespace Properties
         ViewPreSale_Planning_DealerBusinessExcellenceCategory3Update = 252,
         ViewPreSale_Planning_DealerBusinessExcellence = 253,
         ViewPreSale_Reports_DealerBusinessExcellenceReport = 254,
+        ViewPreSale_Reports_DealerBusinessExcellence = 255,
+        ViewPreSale_Reports_DealerBusinessExcellenceApprove = 256,
     }
     public enum SubModuleChildMaster
     {

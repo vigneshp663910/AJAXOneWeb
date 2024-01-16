@@ -1,9 +1,11 @@
 ﻿using Business;
+using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
 using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -29,8 +31,41 @@ namespace DealerManagementSystem
             //t.Add(new PDealerBalanceConfirmation_Insert() { DealerCode = "9002", Date = DateTime.Now.Date, VendorBalance = 4, CustomerBalance = 5, TotalOutstandingAsPerAjax = 6, Currency = "INR", });
             //new BAPI().ApiPutWithOutToken("Sap/InsertOrUpdateDealerBusinessExcellence", t);
             new BTest().getSalesByYearAndMonth();
+            //  PrintFSR2();
 
             // FSRSignatur();
+             new FileLogger().WriteLog("Web Test" + DateTime.Now.ToString());
+        }
+
+        void PrintFSR2()
+        { 
+                string Path1 = "https://storciaedev.blob.core.windows.net/dms-dev-temp/118333.jpg"; 
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                var CC = CultureInfo.CurrentCulture;
+                string FileName = "TSIR_" + ".pdf";
+                string extension;
+                string encoding;
+                string mimeType;
+                string[] streams;
+                Warning[] warnings;
+                LocalReport report = new LocalReport();
+                report.EnableExternalImages = true;
+                ReportParameter[] P = new ReportParameter[1];
+
+                P[0] = new ReportParameter("Path1", Path1, false); 
+                report.ReportPath = Server.MapPath("~/Print/Test.rdlc");
+                report.SetParameters(P); 
+
+                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF   
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
+                Response.Flush(); // send it to the client to download
+           
         }
 
         protected void btnAPITest_Click(object sender, EventArgs e)

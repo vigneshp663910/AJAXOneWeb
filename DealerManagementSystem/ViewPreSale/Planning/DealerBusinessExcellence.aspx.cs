@@ -122,7 +122,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             {
                 Category2ID = ddlFunctionSubArea.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlFunctionSubArea.SelectedValue);
             }
-            VT = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, Category1ID, Category2ID);
+            VT = new BDealer().GetDealerBusinessExcellenceToUpdate(Year, Month, DealerID, Category1ID, Category2ID);
             gvMissionPlanning.DataSource = VT;
             gvMissionPlanning.DataBind();
 

@@ -128,10 +128,10 @@ namespace Business
                 {
                     if (EmployeeDataSet != null)
                     {
-                        foreach (DataRow  Row in EmployeeDataSet.Tables[0].Rows)
+                        foreach (DataRow Row in EmployeeDataSet.Tables[0].Rows)
                         {
                             L1SupportMapping = new PL1SupportMapping();
-                            L1SupportMapping.L1SupportUserMappingID = Row["L1SupportUserMappingID"] == DBNull.Value? (int?) null: Convert.ToInt32(Row["L1SupportUserMappingID"]);
+                            L1SupportMapping.L1SupportUserMappingID = Row["L1SupportUserMappingID"] == DBNull.Value ? (int?)null : Convert.ToInt32(Row["L1SupportUserMappingID"]);
                             L1SupportMapping.DealerID = Row["DealerID"] == DBNull.Value ? (int?)null : Convert.ToInt32(Row["DealerID"]);
                             L1SupportMapping.CategoryID = Convert.ToInt32(Row["CategoryID"]);
                             L1SupportMapping.UserId = Row["UserId"] == DBNull.Value ? (int?)null : Convert.ToInt32(Row["UserId"]);
@@ -148,12 +148,12 @@ namespace Business
             { }
             return L1SupportMappingS;
         }
- 
+
         public List<PDealer> GetDealerByUserID(long UserID)
         {
             List<PDealer> Dealers = new List<PDealer>();
             PDealer Dealer = null;
-            DbParameter   UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
 
 
 
@@ -188,11 +188,11 @@ namespace Business
             catch (Exception ex)
             { }
             return Dealers;
-        }        
-        public PDealer GetDealerByID(int? DealerID,string DealerCode)
+        }
+        public PDealer GetDealerByID(int? DealerID, string DealerCode)
         {
-           
-            PDealer Dealer = null; 
+
+            PDealer Dealer = null;
 
             DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter DealerCodeP = provider.CreateParameter("DealerCode", string.IsNullOrEmpty(DealerCode) ? null : DealerCode, DbType.Int32);
@@ -245,7 +245,7 @@ namespace Business
         {
             //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Code);
             PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(Code);
-            if ( String.IsNullOrEmpty (Dealer.CustomerName))
+            if (String.IsNullOrEmpty(Dealer.CustomerName))
             {
                 return 0;
             }
@@ -261,7 +261,7 @@ namespace Business
             DbParameter PAN = provider.CreateParameter("PAN", Dealer.PAN, DbType.String);
             DbParameter Mobile = provider.CreateParameter("Mobile", Dealer.Mobile, DbType.String);
             DbParameter Email = provider.CreateParameter("Email", Dealer.Email, DbType.String);
-            DbParameter ContactPerson = provider.CreateParameter("ContactPerson", Dealer.ContactPerson, DbType.String); 
+            DbParameter ContactPerson = provider.CreateParameter("ContactPerson", Dealer.ContactPerson, DbType.String);
 
             DbParameter[] Params = new DbParameter[12] { DealerCode, Address1, Address2, City, State, StateCode, Pincode, GSTIN, PAN, Mobile, Email, ContactPerson };
             try
@@ -362,7 +362,7 @@ namespace Business
                             //});
                             DealerStateMapping = new PDealerStateMappingID();
                             DealerStateMapping.DealerStateMappingID = Convert.ToInt32(dr["DealerStateMappingID"]);
-                            DealerStateMapping.Dealer= new PDealer() { DealerID =  Convert.ToInt32(dr["DID"]), DealerCode = Convert.ToString(dr["DealerCode"]) };
+                            DealerStateMapping.Dealer = new PDealer() { DealerID = Convert.ToInt32(dr["DID"]), DealerCode = Convert.ToString(dr["DealerCode"]) };
                             DealerStateMapping.State = new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]), State = Convert.ToString(dr["State"]) };
                             DealerStateMappings.Add(DealerStateMapping);
                         }
@@ -410,7 +410,7 @@ namespace Business
             return 0;
         }
 
-        public List<PDealerBusinessExcellence> GetDealerBusinessExcellence(int? Year, int? Month, int? DealerID, int? Category1ID, int? Category2ID)
+        public List<PDealerBusinessExcellence> GetDealerBusinessExcellenceToUpdate(int? Year, int? Month, int? DealerID, int? Category1ID, int? Category2ID)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Dealer/GetDealerBusinessExcellenceToUpdate?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&Category1ID=" + Category1ID + "&Category2ID=" + Category2ID;
@@ -431,6 +431,11 @@ namespace Business
         {
             string endPoint = "Dealer/GetDealerBusinessExcellenceFunctionSubArea?Category1ID=" + Category1ID + "&Category2ID=" + Category2ID;
             return JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceCategory2>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PDealerBusinessExcellenceHeader> GetDealerBusinessExcellence(int? Year, int? Month, int? DealerID, int? RegionID, int? StatusID)
+        {
+            string endPoint = "Dealer/GetDealerBusinessExcellence?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&RegionID=" + RegionID + "&StatusID=" + StatusID;
+            return JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceHeader>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }
