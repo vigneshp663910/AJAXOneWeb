@@ -406,7 +406,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                         {
                             if (!string.IsNullOrEmpty(ss.AssignTo.Mail))
                             {
-                                string messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/MessageAnnouncement.htm"); ;
+                                string messageBody = new EmailManager().GetMailNotificationTemplate("MessageAnnouncement.htm"); ;
                                 messageBody = messageBody.Replace("@@Message", FreeTextMessage.Text);
                                 messageBody = messageBody.Replace("\r", "&nbsp");
                                 messageBody = messageBody.Replace("\n", "<br />");

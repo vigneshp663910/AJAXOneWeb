@@ -149,7 +149,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             string CC = "";
             string messageBody = "";
             PDealer dealer = new BDealer().GetDealerByID(null, PSession.User.ExternalReferenceID);
-            messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketCreate.htm");
+            messageBody = new EmailManager().GetMailNotificationTemplate("TicketCreate.htm");
             messageBody = messageBody.Replace("@@TicketNo", Result.Data.ToString());
             messageBody = messageBody.Replace("@@RequestedOn", DateTime.Now.ToString());
             messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);

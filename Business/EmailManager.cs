@@ -250,29 +250,31 @@ namespace Business
             }
             return msg;
         }
-        private string GetMessageBody(string messagePath, int MailModuleId)
+        public string GetMailNotificationTemplate(string FileName)
         {
-            string messageBody = new EmailManager().GetFileContent(Server.MapPath(messagePath));
-
-            if (MailModuleId == 1)
+            string msg = string.Empty;
+            try
             {
-
+                string FilePath = ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/" + FileName;
+                if (File.Exists(FilePath))
+                {
+                    FileStream fStream = new FileStream(FilePath, FileMode.Open);
+                    StreamReader sReader = new StreamReader(fStream);
+                    msg = sReader.ReadToEnd();
+                    fStream.Close();
+                }
+                else
+                    throw new FileNotFoundException();
             }
-            else if (MailModuleId == 2)
+            catch (FileNotFoundException fex)
             {
-
+                new FileLogger().LogMessage("EmailManager", "GetFileContent", fex);
             }
-            else if (MailModuleId == 3)
+            catch (Exception ex)
             {
-
+                new FileLogger().LogMessage("EmailManager", "GetFileContent", ex);
             }
-            else if (MailModuleId == 4)
-            {
-
-            }
-
-            return messageBody;
-
+            return msg;
         }
 
 
