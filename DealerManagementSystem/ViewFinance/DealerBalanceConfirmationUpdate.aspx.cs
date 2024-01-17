@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -14,6 +15,7 @@ namespace DealerManagementSystem.ViewFinance
 {
     public partial class DealerBalanceConfirmationUpdate : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewFinance_DealerBalanceConfirmationUpdate; } }
         private DataTable DealerBalanceConfirmationToUpdate
         {
             get
@@ -42,9 +44,8 @@ namespace DealerManagementSystem.ViewFinance
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Finance » Dealer Balance Confirmation Update');</script>");
             if (!IsPostBack)
             {
-                //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
-                new DDLBind(ddlBalanceConfirmationStatus, new BDealer().GetDealerBalanceConfirmationStatus(null, null), "Status", "StatusID");
+                new DDLBind(ddlBalanceConfirmationStatus, new BDMS_Master().GetAjaxOneStatus(2), "Status", "StatusID");
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -121,8 +122,7 @@ namespace DealerManagementSystem.ViewFinance
 
             txtTotalOutstandingAsPerDealer.Text = lblTotalOutstandingAsPerDealer.Text;
             txtTotalOutstandingAsPerDealer.Visible = true;
-            new DDLBind(ddlBalanceConfirmationStatusG, new BDealer().GetDealerBalanceConfirmationStatus(null, null), "Status", "StatusID");
-            ddlBalanceConfirmationStatusG.SelectedValue = (string.IsNullOrEmpty(lblBalanceConfirmationStatusIDG.Text)) ? "0" : lblBalanceConfirmationStatusIDG.Text;
+            new DDLBind(ddlBalanceConfirmationStatusG, new BDMS_Master().GetAjaxOneStatus(2), "Status", "StatusID");
             ddlBalanceConfirmationStatusG.Visible = true;
 
             Button btnUpdateBalanceConfirmation = (Button)row.FindControl("btnUpdateBalanceConfirmation");
@@ -159,18 +159,29 @@ namespace DealerManagementSystem.ViewFinance
             }
             else
             {
-                if(string.IsNullOrEmpty(txtTotalOutstandingAsPerDealer.Text.Trim()))
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                txtTotalOutstandingAsPerDealer.BorderColor = Color.Silver;
+                ddlBalanceConfirmationStatusG.BorderColor = Color.Silver;
+
+                if (string.IsNullOrEmpty(txtTotalOutstandingAsPerDealer.Text.Trim()))
                 {
                     lblMessage.Text = "Please enter the Total Outstanding Amount.";
                     txtTotalOutstandingAsPerDealer.BorderColor = Color.Red;
-                    lblMessage.ForeColor = Color.Red;
                     return;
                 }
                 if (ddlBalanceConfirmationStatusG.SelectedValue == "0")
                 {
-                    lblMessage.Text = "Please enter the Total Outstanding Amount.";
+                    lblMessage.Text = "Please select the Balance Confirmation Status.";
+                    ddlBalanceConfirmationStatusG.BorderColor = Color.Red;
+                    return;
+                }
+                 
+                decimal x = 0; 
+                if (!decimal.TryParse(txtTotalOutstandingAsPerDealer.Text.Trim(), out x))
+                {
+                    lblMessage.Text = "Please enter the Amount in Total Outstanding As Per Dealer.";
                     txtTotalOutstandingAsPerDealer.BorderColor = Color.Red;
-                    lblMessage.ForeColor = Color.Red;
                     return;
                 }
 
@@ -189,7 +200,6 @@ namespace DealerManagementSystem.ViewFinance
                 {
                     lblMessage.ForeColor = Color.Green;
                     lblMessage.Text = "Dealer Balance Confirmation is updated successfully.";
-
                     lblTotalOutstandingAsPerDealer.Visible = true;
                     lblBalanceConfirmationStatusG.Visible = true;
 
@@ -197,7 +207,7 @@ namespace DealerManagementSystem.ViewFinance
                     ddlBalanceConfirmationStatusG.Visible = false;
 
                     lblTotalOutstandingAsPerDealer.Text = txtTotalOutstandingAsPerDealer.Text;
-                    lblBalanceConfirmationStatusG.Text = ddlBalanceConfirmationStatusG.SelectedValue;
+                    lblBalanceConfirmationStatusG.Text = ddlBalanceConfirmationStatusG.SelectedItem.Text;
 
                     Button btnUpdateBalanceConfirmation = (Button)row.FindControl("btnUpdateBalanceConfirmation");
                     Button btnBack = (Button)row.FindControl("btnBack");

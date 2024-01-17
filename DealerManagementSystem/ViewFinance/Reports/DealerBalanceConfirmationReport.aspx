@@ -101,10 +101,16 @@
                             <asp:Label ID="lblTotalOutstandingAsPerDealer" Text='<%# DataBinder.Eval(Container.DataItem, "TotalOutstandingAsPerDealer")%>' runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Status">
+                    <asp:TemplateField HeaderText="Balance Confirmation Status">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:Label ID="lblBalanceConfirmationStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status")%>' runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Balance Confirmation Date">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblDate" Text='<%# DataBinder.Eval(Container.DataItem, "BalanceConfirmationOn","{0:d}")%>' runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

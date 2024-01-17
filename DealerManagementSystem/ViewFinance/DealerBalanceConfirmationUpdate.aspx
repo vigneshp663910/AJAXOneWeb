@@ -102,13 +102,13 @@
                         <asp:TemplateField HeaderText="Total Outstanding As Per Dealer" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblTotalOutstandingAsPerDealer" Text='<%# DataBinder.Eval(Container.DataItem, "TotalOutstandingAsPerDealer")%>' runat="server" />
-                                <asp:TextBox ID="txtTotalOutstandingAsPerDealer" Text='<%# DataBinder.Eval(Container.DataItem, "TotalOutstandingAsPerDealer")%>' runat="server" CssClass="form-control" TextMode="Number" Visible="false" onblur="Calculation(this)" />
+                                <asp:TextBox ID="txtTotalOutstandingAsPerDealer" Text='<%# DataBinder.Eval(Container.DataItem, "TotalOutstandingAsPerDealer")%>' runat="server" CssClass="form-control" Visible="false" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Status" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="right">
                             <ItemTemplate>
                                 <asp:Label ID="lblBalanceConfirmationStatusG" Text='<%# DataBinder.Eval(Container.DataItem, "Status")%>' runat="server" />
-                                <asp:Label ID="lblBalanceConfirmationStatusIDG" Text='<%# DataBinder.Eval(Container.DataItem, "BalanceConfirmationStatusID")%>' runat="server" Visible="false" />
+                                <asp:Label ID="lblBalanceConfirmationStatusIDG" Text='<%# DataBinder.Eval(Container.DataItem, "StatusID")%>' runat="server" Visible="false" />
                                 <asp:DropDownList ID="ddlBalanceConfirmationStatusG" runat="server" CssClass="form-control" Visible="false"></asp:DropDownList>
                             </ItemTemplate>
                         </asp:TemplateField>

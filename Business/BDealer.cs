@@ -432,11 +432,6 @@ namespace Business
             string endPoint = "Dealer/GetDealerBusinessExcellenceFunctionSubArea?Category1ID=" + Category1ID + "&Category2ID=" + Category2ID;
             return JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceCategory2>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PDealerBalanceConfirmationStatus> GetDealerBalanceConfirmationStatus(int? StatusID, string Status)
-        {
-            string endPoint = "Dealer/GetDealerBalanceConfirmationStatus?StatusID=" + StatusID + "&Status=" + Status;
-            return JsonConvert.DeserializeObject<List<PDealerBalanceConfirmationStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }
         public DataTable GetDealerBalanceConfirmationReport(int? DealerID, int? BalanceConfirmationStatusID, string DateFrom, string DateTo)
         {
             string endPoint = "Dealer/GetDealerBalanceConfirmationReport?DealerID=" + DealerID + "&BalanceConfirmationStatusID=" + BalanceConfirmationStatusID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo;
@@ -446,6 +441,11 @@ namespace Business
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Dealer/GetDealerBalanceConfirmationToUpdate?DealerID=" + DealerID + "&BalanceConfirmationStatusID=" + BalanceConfirmationStatusID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetDealerBalanceConfirmationReportExcel(int? DealerID, int? BalanceConfirmationStatusID, string DateFrom, string DateTo)
+        {
+            string endPoint = "Dealer/GetDealerBalanceConfirmationReportExcel?DealerID=" + DealerID + "&BalanceConfirmationStatusID=" + BalanceConfirmationStatusID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }

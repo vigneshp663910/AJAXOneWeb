@@ -13,6 +13,7 @@ namespace DealerManagementSystem.ViewFinance.Reports
 {
     public partial class DealerBalanceConfirmationReport : BasePage
     {
+        public override SubModule SubModuleName { get { return SubModule.ViewFinance_Reports_DealerBalanceConfirmationReport; } }
         private DataTable DealerBalanceConfirmationRpt
         {
             get
@@ -42,9 +43,8 @@ namespace DealerManagementSystem.ViewFinance.Reports
             if (!IsPostBack)
             {
                 DealerBalanceConfirmationRpt = null;
-                //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
-                new DDLBind(ddlBalanceConfirmationStatus, new BDealer().GetDealerBalanceConfirmationStatus(null, null), "Status", "StatusID");
+                new DDLBind(ddlBalanceConfirmationStatus, new BDMS_Master().GetAjaxOneStatus(2), "Status", "StatusID");
             }
             DealerBalanceConfirmationRptBind(gvDealerBalanceConfirmationRpt, lblRowCountDealerBalConFirm, DealerBalanceConfirmationRpt);
         }
@@ -65,7 +65,7 @@ namespace DealerManagementSystem.ViewFinance.Reports
             string DateTo = txtToDate.Text.Trim();
             int? BalanceConfirmationStatusID = ddlBalanceConfirmationStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlBalanceConfirmationStatus.SelectedValue);
 
-            DealerBalanceConfirmationRpt = new BDealer().GetDealerBalanceConfirmationReport(DealerID, BalanceConfirmationStatusID, DateFrom, DateTo);
+            DataTable DealerBalanceConfirmationRpt = new BDealer().GetDealerBalanceConfirmationReport(DealerID, BalanceConfirmationStatusID, DateFrom, DateTo);
 
             if (DealerBalanceConfirmationRpt.Rows.Count == 0)
             {
@@ -101,7 +101,14 @@ namespace DealerManagementSystem.ViewFinance.Reports
         }
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            new BXcel().ExporttoExcel(DealerBalanceConfirmationRpt, "Dealer Balance Confirmation Report");
+            int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            string DateFrom = txtFromDate.Text.Trim();
+            string DateTo = txtToDate.Text.Trim();
+            int? BalanceConfirmationStatusID = ddlBalanceConfirmationStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlBalanceConfirmationStatus.SelectedValue);
+
+            DataTable dt = new BDealer().GetDealerBalanceConfirmationReportExcel(DealerID, BalanceConfirmationStatusID, DateFrom, DateTo);
+
+            new BXcel().ExporttoExcel(dt, "Dealer Balance Confirmation Report");
         }
     }
 }
