@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="DealerBusinessExcellence.aspx.cs" Inherits="DealerManagementSystem.ViewBusinessExcellence.DealerBusinessExcellence" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="DealerBusinessExcellence.aspx.cs" Inherits="DealerManagementSystem.ViewBusinessExcellence.DealerBusinessExcellence" %>
 
 <%@ Register Src="~/ViewBusinessExcellence/UserControls/ViewDealerBusinessExcellence.ascx" TagPrefix="UC" TagName="UC_ViewDealerBusinessExcellence" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -19,7 +19,7 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
-                     <div class="col-md-2 col-sm-12">
+                    <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Region</label>
                         <asp:DropDownList ID="ddlRegionID" runat="server" CssClass="form-control" />
                     </div>
@@ -48,9 +48,10 @@
                     </div>
 
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" /> 
-                       <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
-                   --%> </div>
+                        <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" />
+                        <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                        --%>
+                    </div>
                 </div>
             </fieldset>
             <div class="col-md-12">
@@ -76,7 +77,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                             <asp:GridView ID="gvDealerB" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
                                 AutoGenerateColumns="false" Width="100%">
                                 <Columns>
@@ -88,54 +89,73 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField>
                                         <ItemTemplate>
-                                            <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
+                                            <asp:Button ID="BtnView" runat="server" Text="View" CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Enquiry">
+                                    <asp:TemplateField HeaderText="Year">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblEnquiryNumber" Text='<%# DataBinder.Eval(Container.DataItem, "EnquiryNumber")%>' runat="server" />
-                                            <br />
-                                            <asp:Label ID="lblEnquiryDate" Text='<%# DataBinder.Eval(Container.DataItem, "EnquiryDate","{0:d}")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField HeaderText="Customer Name" DataField="CustomerName"></asp:BoundField>
-                                    <asp:BoundField HeaderText="PersonName" DataField="PersonName"></asp:BoundField>
-                                    <asp:TemplateField HeaderText="Contact">
-                                        <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblMobile" runat="server">
-                                                <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Mobile")%></a>
-                                            </asp:Label>
-                                            <asp:Label ID="lblEMail" runat="server">
-                                                <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Mail")%>'><%# DataBinder.Eval(Container.DataItem, "Mail")%></a>
-                                            </asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                            <asp:Label ID="lblDealerBusinessExcellenceID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerBusinessExcellenceID")%>' runat="server" Visible="false" />
 
-                                    <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
-                                    <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
-                                    <asp:TemplateField HeaderText="Address">
-                                        <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address")%>' runat="server" />
-                                            <br />
-                                            <asp:Label ID="lblAddress2" Text='<%# DataBinder.Eval(Container.DataItem, "Address2")%>' runat="server" />
-                                            <br />
-                                            <asp:Label ID="lblAddress3" Text='<%# DataBinder.Eval(Container.DataItem, "Address3")%>' runat="server" />
+                                            <asp:Label ID="lblYear" Text='<%# DataBinder.Eval(Container.DataItem, "Year")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-
-                                    <asp:BoundField HeaderText="Product" DataField="Product"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
-                                    <asp:TemplateField HeaderText="Created">
+                                    <asp:TemplateField HeaderText="Month">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
+                                            <asp:Label ID="lblMonthName" Text='<%# DataBinder.Eval(Container.DataItem, "MonthName")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField HeaderText="Dealer" DataField="Dealer.DealerCode"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Dealer Name" DataField="Dealer.DealerName"></asp:BoundField>
+                                    <asp:BoundField HeaderText="status" DataField="status"></asp:BoundField>
+
+                                    <asp:TemplateField HeaderText="Requested">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRequestedBy" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedBy.ContactName")%>' runat="server" />
                                             <br />
-                                            <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
+                                            <asp:Label ID="lblRequestedOn" Text='<%# DataBinder.Eval(Container.DataItem, "RequestedOn")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Submitted">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblSubmittedBy" Text='<%# DataBinder.Eval(Container.DataItem, "SubmittedBy.ContactName")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="lblSubmittedOn" Text='<%# DataBinder.Eval(Container.DataItem, "SubmittedOn")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Approval L1">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblApprovalL1By" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovalL1By.ContactName")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="ApprovalL1On" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovalL1On")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Approval L2">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblApprovalL2By" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovalL2By.ContactName")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="ApprovalL2On" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovalL2On")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Approval L3">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblApprovalL3By" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovalL3By.ContactName")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="ApprovalL3On" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovalL3On")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Approval L4">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblApprovalL4By" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovalL4By.ContactName")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="ApprovalL4On" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovalL4On")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
 

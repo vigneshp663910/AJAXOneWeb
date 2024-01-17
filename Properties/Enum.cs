@@ -578,6 +578,10 @@ namespace Properties
         TsirMailToSupplier=75,
         MailNotificationCreation=76,
         DealerBusinessExcellenceSubmit = 77,
+        DealerBusinessExcellenceApproveL1 = 78,
+        DealerBusinessExcellenceApproveL2 = 79,
+        DealerBusinessExcellenceApproveL3 = 80,
+        DealerBusinessExcellenceApproveL4 = 81,
     }
     public enum DMS_WarrantyClaimStatus
     {

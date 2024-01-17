@@ -327,7 +327,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             int Year = Convert.ToInt32(ddlYear.SelectedValue);
             int Month = Convert.ToInt32(ddlMonth.SelectedValue);
             int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-            string endPoint = "Dealer/UpdateDealerBusinessExcellenceSubmit?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID ;
+            string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&StatusID=4";
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
