@@ -413,29 +413,34 @@ namespace Business
         public List<PDealerBusinessExcellence> GetDealerBusinessExcellenceToUpdate(int? Year, int? Month, int? DealerID, int? Category1ID, int? Category2ID)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Dealer/GetDealerBusinessExcellenceToUpdate?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&Category1ID=" + Category1ID + "&Category2ID=" + Category2ID;
+            string endPoint = "DealerBusinessExcellence/GetDealerBusinessExcellenceToUpdate?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&Category1ID=" + Category1ID + "&Category2ID=" + Category2ID;
             return JsonConvert.DeserializeObject<List<PDealerBusinessExcellence>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             //  TraceLogger.Log(DateTime.Now);
         }
         public DataTable GetDealerBusinessExcellenceReport(int? Year, int? Month, int? DealerID, int? Category1ID)
         {
-            string endPoint = "Dealer/GetDealerBusinessExcellenceReport?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&Category1ID=" + Category1ID;
+            string endPoint = "DealerBusinessExcellence/GetDealerBusinessExcellenceReport?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&Category1ID=" + Category1ID;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PDealerBusinessExcellenceCategory1> GetDealerBusinessExcellenceFunctionArea(int? Category1ID)
         {
-            string endPoint = "Dealer/GetDealerBusinessExcellenceFunctionArea?Category1ID=" + Category1ID;
+            string endPoint = "DealerBusinessExcellence/GetDealerBusinessExcellenceFunctionArea?Category1ID=" + Category1ID;
             return JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceCategory1>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PDealerBusinessExcellenceCategory2> GetDealerBusinessExcellenceFunctionSubArea(int? Category1ID, int? Category2ID)
         {
-            string endPoint = "Dealer/GetDealerBusinessExcellenceFunctionSubArea?Category1ID=" + Category1ID + "&Category2ID=" + Category2ID;
+            string endPoint = "DealerBusinessExcellence/GetDealerBusinessExcellenceFunctionSubArea?Category1ID=" + Category1ID + "&Category2ID=" + Category2ID;
             return JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceCategory2>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PDealerBusinessExcellenceHeader> GetDealerBusinessExcellence(int? Year, int? Month, int? DealerID, int? RegionID, int? StatusID)
         {
-            string endPoint = "Dealer/GetDealerBusinessExcellence?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&RegionID=" + RegionID + "&StatusID=" + StatusID;
+            string endPoint = "DealerBusinessExcellence/GetDealerBusinessExcellence?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&RegionID=" + RegionID + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceHeader>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public  PDealerBusinessExcellenceHeader  GetDealerBusinessExcellenceByID(long DealerBusinessExcellenceID)
+        {
+            string endPoint = "DealerBusinessExcellence/GetDealerBusinessExcellenceByID?DealerBusinessExcellenceID=" + DealerBusinessExcellenceID   ;
+            return JsonConvert.DeserializeObject<PDealerBusinessExcellenceHeader>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

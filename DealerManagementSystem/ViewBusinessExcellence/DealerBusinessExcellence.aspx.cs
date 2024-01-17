@@ -56,6 +56,7 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             {
                 FillYearAndMonth();
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
+                new DDLBind(ddlRegionID, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID", true, "All");
             }
         }
         void FillYearAndMonth()
@@ -126,9 +127,9 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             divList.Visible = false;
             divDetailsView.Visible = true;
             lblMessage.Text = "";
-            Button BtnView = (Button)sender;
-            ViewState["EnquiryID"] = Convert.ToInt64(BtnView.CommandArgument);
-            //  UC_ViewDealerBusinessExcellence.fillViewEnquiry(Convert.ToInt64(BtnView.CommandArgument));
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblDealerBusinessExcellenceID = (Label)gvRow.FindControl("lblDealerBusinessExcellenceID"); 
+            UC_ViewDealerBusinessExcellence.fill(Convert.ToInt64(lblDealerBusinessExcellenceID.Text));
         }
         protected void btnBackToList_Click(object sender, EventArgs e)
         {

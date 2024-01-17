@@ -73,6 +73,7 @@
 
                             <asp:TemplateField HeaderText="Year" SortExpression="Year" ItemStyle-Width="30px" ItemStyle-HorizontalAlign="right">
                                 <ItemTemplate>
+                                     <asp:Label ID="lblDealerBusinessExcellenceID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerBusinessExcellenceID")%>' runat="server" Visible="false" />
                                     <asp:Label ID="lblYear" Text='<%# DataBinder.Eval(Container.DataItem, "Year")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
