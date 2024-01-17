@@ -115,7 +115,7 @@
                                 <asp:TemplateField HeaderText="PO Return Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblPOReturnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnStatus.PurchaseOrderReturnStatusDescription")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblPOReturnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnStatus.ProcurementStatus")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Remarks">

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PurchaseOrderAsnGR.aspx.cs" Inherits="DealerManagementSystem.ViewProcurement.PurchaseOrderAsnGR" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewProcurement/UserControls/PurchaseOrderASNGrView.ascx" TagPrefix="UC" TagName="UC_PurchaseOrderASNGrView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -68,6 +69,11 @@
                         <asp:GridView ID="gvAsnGr" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"
                             OnPageIndexChanging="gvAsnGr_PageIndexChanging">
                             <Columns>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnViewPO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPO_Click" Width="75px" Height="25px" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Gr Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -112,7 +118,7 @@
                                 <asp:TemplateField HeaderText="Gr Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblAsnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.GrStatus")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblAsnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.ProcurementStatus")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Remarks">
@@ -121,11 +127,7 @@
                                         <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "Remarks")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnViewPO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPO_Click" Width="75px" Height="25px" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />
@@ -140,7 +142,7 @@
         <div class="col-md-12" id="divDetailsView" runat="server" visible="false">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
-                <div class="back-buttton" id="backBtn" style="text-align:right">
+                <div class="back-buttton" id="backBtn" style="text-align: right">
                     <asp:Button ID="btnPurchaseOrderASNGrViewBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnPurchaseOrderASNGrViewBack_Click" />
                 </div>
             </div>

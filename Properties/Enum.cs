@@ -261,10 +261,10 @@ namespace Properties
         ViewSales_SaleOrderInvoicePartsReport = 16,
         ViewSales_SaleOrder = 17,
         ViewSales_SalesOrderPG = 18,
-        ViewSales_SalesReturn = 19,
+        ViewSales_SaleOrderReturn = 19,
         //**** Menu Level-2 ****************************** =  20, 
         //1 =  21,
-        ViewSales_SalesOrderDeliveryPending = 22,
+        ViewSales_SaleOrderDeliveryPending = 22,
         ViewSales_SaleInvoicePending = 23,
         ViewSales_SalesOrderPerformance = 24,
         ViewService_MTTR_Report = 25,
@@ -484,6 +484,7 @@ namespace Properties
         ViewService_ICTicketMarginWarrantyApproval = 239,
         ViewEquipment_EquipmentClient = 240,
         ViewSupportTicket_DeviationProcessReport = 241,
+        ViewSales_SaleOrderDelivery = 242,
         ViewMaster_CustomerGSTApproval = 243, 
         ViewPreSale_LeadReportForDefinedPeriod = 244,
         ViewAdmin_MessageAnnouncement = 245,
@@ -571,13 +572,14 @@ namespace Properties
         ICTicketRemoveRestoreDate,
         ClaimApprove4 = 69,
         ClaimApprove5 = 70,
-        MarginWarrantyApproval,
+        MarginWarrantyApproval = 71,
         EquipmentClientUpdate = 72,
-        EquipmentClientAddEditDelete,
+        EquipmentClientAddEditDelete = 73,
         CustomerGstChange = 74,
         TsirMailToSupplier=75,
         MailNotificationCreation=76,
-        DealerBusinessExcellenceSubmit = 77,
+        DealerBusinessExcellenceSubmit = 77, 
+         
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -794,5 +796,30 @@ namespace Properties
         OEM = 1,
         DealerShip = 2,
         CallCenter = 3
+    }
+    public enum ProcurementStatus
+    {
+        PoDraft = 1,
+        PoReleased = 2,
+        PoPartialReceived = 3,
+        PoCompleted = 4,
+        PoForceClosed = 5,
+        PoCancelld = 6,
+        PoWaitingForReleaseApproval = 7,
+        PoWaitingForCancelApproval = 8,
+        AsnGRPending = 9,
+        AsnGRDone = 10,
+        AsnCancelled = 11,
+        GrCreated = 12,
+        GrCancelled = 13,
+        PoReturnDraft = 14,
+        PoReturnWaitingForApproval = 15,
+        PoReturnApproved = 16,
+        PoReturnRejected = 17,
+        PoReturnDeliveryCreated = 18
+    }
+    public enum PurchaseOrderType
+    {
+        MachineOrder = 5
     }
 }

@@ -8,7 +8,7 @@ namespace Properties
     [Serializable]
     public class PDMS_Material
     {
-        public long MaterialID { get; set; }
+        public int MaterialID { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialCodeWithZero
         {

@@ -651,9 +651,12 @@
     <Content Include="ViewSales\SalesInvoice.aspx" />
     <Content Include="ViewSales\SalesOrderItems.aspx" />
     <Content Include="ViewSales\SalesOrderPerformance.aspx" />
+    <Content Include="ViewSales\UserControls\SaleOrderReturnCreate.ascx" />
+    <Content Include="ViewSales\UserControls\SaleOrderReturnView.ascx" />
     <Content Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx" />
     <Content Include="ViewSales\UserControls\SalesCommissionClaimView.ascx" />
     <Content Include="ViewSales\UserControls\SalesOrderCreate.ascx" />
+    <Content Include="ViewSales\UserControls\SalesOrderDeliveryView.ascx" />
     <Content Include="ViewSales\UserControls\SalesOrderView.ascx" />
     <Content Include="ViewService\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx" />
@@ -2578,6 +2581,20 @@
     <Compile Include="ViewSales\SalesOrderPerformance.aspx.designer.cs">
       <DependentUpon>SalesOrderPerformance.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSales\UserControls\SaleOrderReturnCreate.ascx.cs">
+      <DependentUpon>SaleOrderReturnCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SaleOrderReturnCreate.ascx.designer.cs">
+      <DependentUpon>SaleOrderReturnCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SaleOrderReturnView.ascx.cs">
+      <DependentUpon>SaleOrderReturnView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SaleOrderReturnView.ascx.designer.cs">
+      <DependentUpon>SaleOrderReturnView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx.cs">
       <DependentUpon>SalesCommissionClaimInvoiceView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2598,6 +2615,13 @@
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesOrderCreate.ascx.designer.cs">
       <DependentUpon>SalesOrderCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SalesOrderDeliveryView.ascx.cs">
+      <DependentUpon>SalesOrderDeliveryView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SalesOrderDeliveryView.ascx.designer.cs">
+      <DependentUpon>SalesOrderDeliveryView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesOrderView.ascx.cs">
       <DependentUpon>SalesOrderView.ascx</DependentUpon>

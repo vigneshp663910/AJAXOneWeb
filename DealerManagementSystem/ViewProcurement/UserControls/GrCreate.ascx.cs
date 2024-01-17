@@ -36,21 +36,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PAsnView"] = value;
             }
         }
-        public List<PAsnItem> PAsnItemView
-        {
-            get
-            {
-                if (ViewState["PAsnItemView"] == null)
-                {
-                    ViewState["PAsnItemView"] = new List<PAsnItem>();
-                }
-                return (List<PAsnItem>)ViewState["PAsnItemView"];
-            }
-            set
-            {
-                ViewState["PAsnItemView"] = value;
-            }
-        }
+        //public List<PAsnItem> PAsnItemView
+        //{
+        //    get
+        //    {
+        //        if (ViewState["PAsnItemView"] == null)
+        //        {
+        //            Session["PAsnItemView"] = new List<PAsnItem>();
+        //        }
+        //        return (List<PAsnItem>)ViewState["PAsnItemView"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["PAsnItemView"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -66,8 +66,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             gvPOAsnItem.DataSource = null;
             gvPOAsnItem.DataBind();
-            PAsnItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnItemByID(PAsnView.AsnID);
-            gvPOAsnItem.DataSource = PAsnItemView;
+           // PAsnItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnItemByID(PAsnView.AsnID);
+            gvPOAsnItem.DataSource = PAsnView.AsnItemS;
             gvPOAsnItem.DataBind();
         }
         public List<PGr_Insert> Read()
@@ -87,9 +87,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     AsnItemID = lblAsnItemID.Text.Trim(),
                     AsnID = Convert.ToInt64(lblAsnID.Text),
                     DeliveredQty = Convert.ToDecimal("0" + txtDeliveredQty.Text),
-                    ReceivedQty = Convert.ToDecimal("0" + txtReceivedQty.Text),
-                    DamagedQty = Convert.ToDecimal("0" + txtDamagedQty.Text),
-                    MissingQty = Convert.ToDecimal("0" + txtMissingQty.Text),
+                    //ReceivedQty = Convert.ToDecimal("0" + txtReceivedQty.Text),
+                    //DamagedQty = Convert.ToDecimal("0" + txtDamagedQty.Text),
+                    //MissingQty = Convert.ToDecimal("0" + txtMissingQty.Text),
                     GrRemarks = txtRemarks.Text
                 });
             }
@@ -130,6 +130,17 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 }
             }
             return Result;
+        }
+
+        protected void btnSetBlockedQty_Click(object sender, EventArgs e)
+        {
+            new DDLBind(ddlStatus, new BDMS_PurchaseOrder().GetProcurementStatus(2), "ProcurementStatus", "ProcurementStatusID");
+            MPE_UpdateBlockedQty.Show();
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

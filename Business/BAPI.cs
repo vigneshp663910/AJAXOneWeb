@@ -230,8 +230,6 @@ namespace Business
             //var APIResponse = client.PostAsync(url, new FormUrlEncodedContent(RequestBody)).Result;
 
             var APIResponse = client.PostAsync(ApiBaseAddress + EndPoint, new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")).Result;
-
-
             if (APIResponse.IsSuccessStatusCode)
             {
                 return APIResponse.Content.ReadAsStringAsync().Result;

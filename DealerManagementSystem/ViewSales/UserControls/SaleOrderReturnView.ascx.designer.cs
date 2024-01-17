@@ -7,137 +7,164 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewProcurement.UserControls
+namespace DealerManagementSystem.ViewSales.UserControls
 {
 
 
-    public partial class GrCreate
+    public partial class SaleOrderReturnView
     {
 
         /// <summary>
-        /// lblMessage control.
+        /// PnlSaleOrderReturnView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Panel PnlSaleOrderReturnView;
 
         /// <summary>
-        /// lblAsnNumber control.
+        /// lbSoReturnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAsnNumber;
+        protected global::System.Web.UI.WebControls.LinkButton lbSoReturnCancel;
 
         /// <summary>
-        /// lblAsnID control.
+        /// lbSoReturnDeliveryCreate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAsnID;
+        protected global::System.Web.UI.WebControls.LinkButton lbSoReturnDeliveryCreate;
 
         /// <summary>
-        /// txtRemarks control.
+        /// divPoReturnView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPoReturnView;
 
         /// <summary>
-        /// gvPOAsnItem control.
+        /// lblSaleOrderReturnNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvPOAsnItem;
+        protected global::System.Web.UI.WebControls.Label lblSaleOrderReturnNumber;
 
         /// <summary>
-        /// pnlUpdateBlockedQty control.
+        /// lblDealerOffice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlUpdateBlockedQty;
+        protected global::System.Web.UI.WebControls.Label lblDealerOffice;
 
         /// <summary>
-        /// Button8 control.
+        /// lblContactPerson control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button8;
+        protected global::System.Web.UI.WebControls.Label lblContactPerson;
 
         /// <summary>
-        /// lblMessageBlockedQty control.
+        /// lblSaleOrderReturnDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessageBlockedQty;
+        protected global::System.Web.UI.WebControls.Label lblSaleOrderReturnDate;
 
         /// <summary>
-        /// Fieldset7 control.
+        /// lblCustomer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset7;
+        protected global::System.Web.UI.WebControls.Label lblCustomer;
 
         /// <summary>
-        /// txtQty control.
+        /// lblContactPersonNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtQty;
+        protected global::System.Web.UI.WebControls.Label lblContactPersonNumber;
 
         /// <summary>
-        /// txtRemark control.
+        /// lblSODealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRemark;
+        protected global::System.Web.UI.WebControls.Label lblSODealer;
 
         /// <summary>
-        /// ddlStatus control.
+        /// lblSaleOrderReturnStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
+        protected global::System.Web.UI.WebControls.Label lblSaleOrderReturnStatus;
 
         /// <summary>
-        /// btnAdd control.
+        /// lblDivision control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAdd;
+        protected global::System.Web.UI.WebControls.Label lblDivision;
 
         /// <summary>
-        /// MPE_UpdateBlockedQty control.
+        /// lblMessageSoReturn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MPE_UpdateBlockedQty;
+        protected global::System.Web.UI.WebControls.Label lblMessageSoReturn;
+
+        /// <summary>
+        /// tbpSoReturn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabContainer tbpSoReturn;
+
+        /// <summary>
+        /// tpnlPoReturnItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlPoReturnItem;
+
+        /// <summary>
+        /// gvSoReturnItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvSoReturnItem;
     }
 }

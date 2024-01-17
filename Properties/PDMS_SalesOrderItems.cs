@@ -207,7 +207,9 @@ namespace Properties
         public decimal TotalAmt { get; set; }
         public string CalType { get; set; }   
     }
-     
+
+   
+   
 
     [Serializable]
     public class PDMS_SalesType
@@ -217,7 +219,8 @@ namespace Properties
         public int SalesTypeCode { get; set; }
             
     }
-     
+
+
 
     [Serializable]
     public class PSaleOrder
@@ -226,10 +229,24 @@ namespace Properties
         public string SaleOrderNumber { get; set; }
         public DateTime SaleOrderDate { get; set; }
         public PDMS_Dealer Dealer { get; set; }
-        public PDMS_Customer Customer { get; set; } 
-        public string SaleOrderStatus { get; set; }
+        public PDMS_DealerOffice DealerOffice { get; set; }
+        public PDMS_Customer Customer { get; set; }
+        public PSaleOrderStatus SaleOrderStatus { get; set; }
         public PSaleOrderItem SaleOrderItem { get; set; }
         public List<PSaleOrderItem> SaleOrderItems { get; set; }
+        public string ContactPerson { get; set; }
+        public string ContactPersonNumber { get; set; }
+        public PDMS_Division Division { get; set; }
+        public string Remarks { get; set; }
+        public DateTime ExpectedDeliveryDate { get; set; }
+        public string RefNumber { get; set; }
+        public DateTime? RefDate { get; set; }
+        public string InsurancePaidBy { get; set; }
+        public string FrieghtPaidBy { get; set; }
+        public string Attn { get; set; }
+        public PProduct Product { get; set; }
+        public string EquipmentSerialNo { get; set; }
+        public string SelectTax { get; set; }
     }
     [Serializable]
     public class PSaleOrderItem
@@ -237,6 +254,7 @@ namespace Properties
         public long SaleOrderItemID { get; set; }  
         public PDMS_Material Material { get; set; } 
         public decimal Qty { get; set; }
+        public decimal UnitPrice { get; set; }
         public decimal Value { get; set; }
         public decimal Discount { get; set; }
         public decimal DiscountedPrice { get; set; }
@@ -245,8 +263,6 @@ namespace Properties
         public decimal Tax { get; set; }
         public decimal TotalAmt { get; set; } 
     }
-
-
     [Serializable]
     public class PSaleOrderDelivery
     {
@@ -267,25 +283,89 @@ namespace Properties
         public decimal Qty { get; set; }
         
     }
-
     [Serializable]
-    public class PSaleOrderDeliveryReturn
+    public class PSaleOrderReturn
     {
-        public long SaleOrderDeliveryID { get; set; }
-        public string DeliveryNumber { get; set; }
-        public DateTime DeliveryDate { get; set; }
-        public PSaleOrder SaleOrder { get; set; }
-        public string InvoiceNumber { get; set; }
-        public DateTime? InvoiceDate { get; set; }
-        public PSaleOrderDeliveryItem SaleOrderDeliveryItem { get; set; }
-        public List<PSaleOrderDeliveryItem> SaleOrderDeliveryItems { get; set; }
+        public long SaleOrderReturnID { get; set; }
+        public string SaleOrderReturnNumber { get; set; }
+        public DateTime SaleOrderReturnDate { get; set; }
+        public PSaleOrderDelivery SaleOrderDelivery { get; set; } 
+        public PSaleOrderReturnItem SaleOrderReturnItem { get; set; }
+        public List<PSaleOrderReturnItem> SaleOrderReturnItems { get; set; }
+        public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
     }
     [Serializable]
-    public class PSaleOrderDeliveryItemReturn
+    public class PSaleOrderReturnItem
     {
-        public long SaleOrderDeliveryItemID { get; set; }
-        public PSaleOrderItem SaleOrderItem { get; set; }
+        public long SaleOrderReturnItemID { get; set; }
+        public PSaleOrderDeliveryItem SaleOrderDeliveryItem { get; set; }
         public decimal Qty { get; set; }
 
+    }
+    [Serializable]
+    public class PSaleOrderStatus
+    {
+        public int StatusID { get; set; }
+        public string Status { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrderReturnStatus
+    {
+        public int StatusID { get; set; }
+        public string Status { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrder_Insert
+    {
+        public long SaleOrderID { get; set; }
+        public string SaleOrderNumber { get; set; }
+        public DateTime SaleOrderDate { get; set; }
+        public int DealerID { get; set; }
+        public int OfficeID { get; set; }
+        public long CustomerID { get; set; }
+        public int StatusID { get; set; }
+        public string ContactPerson { get; set; }
+        public string ContactPersonNumber { get; set; }
+        public int DivisionID { get; set; }
+        public string Remarks { get; set; }
+        public DateTime ExpectedDeliveryDate { get; set; }
+        public string RefNumber { get; set; }
+        public DateTime? RefDate { get; set; }
+        public string InsurancePaidBy { get; set; }
+        public string FrieghtPaidBy { get; set; }
+        public string Attn { get; set; }
+        public int ProductID { get; set; }
+        public string EquipmentSerialNo { get; set; }
+        public string SelectTax { get; set; }
+        public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
+        public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrderItem_Insert
+    {
+        public long SaleOrderItemID { get; set; }
+        public long MaterialID { get; set; }
+        public string MaterialCode { get; set; }
+        public decimal UnitPrice { get; set; }        
+        public decimal Qty { get; set; }
+        public decimal Value { get; set; }
+        public decimal Discount { get; set; }
+        public decimal FreightAmount { get; set; }
+        public decimal TaxableAmount { get; set; }
+        public decimal SGST { get; set; }
+        public decimal CGST { get; set; }
+        public decimal IGST { get; set; }
+        public decimal CGSTAmt { get; set; }
+        public decimal SGSTAmt { get; set; }
+        public decimal IGSTAmt { get; set; }
+        public int StatusID { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrderReturnItem_Insert
+    {
+        public long SaleOrderDeliveryID { get; set; }
+        public long SaleOrderDeliveryItemID { get; set; }
+        public decimal Qty { get; set; }
+        //public string Remarks { get; set; }
     }
 }

@@ -28,21 +28,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PPurchaseOrderReturn"] = value;
             }
         }
-        public List<PPurchaseOrderReturnDelivery> PurchaseOrderReturnDeliveryList
-        {
-            get
-            {
-                if (ViewState["PurchaseOrderReturnDelivery"] == null)
-                {
-                    ViewState["PurchaseOrderReturnDelivery"] = new List<PPurchaseOrderReturnDelivery>();
-                }
-                return (List<PPurchaseOrderReturnDelivery>)ViewState["PurchaseOrderReturnDelivery"];
-            }
-            set
-            {
-                ViewState["PurchaseOrderReturnDelivery"] = value;
-            }
-        }
+        //public List<PPurchaseOrderReturnDelivery> PurchaseOrderReturnDeliveryList
+        //{
+        //    get
+        //    {
+        //        if (ViewState["PurchaseOrderReturnDelivery"] == null)
+        //        {
+        //            ViewState["PurchaseOrderReturnDelivery"] = new List<PPurchaseOrderReturnDelivery>();
+        //        }
+        //        return (List<PPurchaseOrderReturnDelivery>)ViewState["PurchaseOrderReturnDelivery"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["PurchaseOrderReturnDelivery"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessagePoReturn.Text = "";
@@ -53,7 +53,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             lblPurchaseOrderReturnNumber.Text = PoReturn.PurchaseOrderReturnNumber;
             lblPurchaseOrderReturnDate.Text = PoReturn.PurchaseOrderReturnDate.ToString();
-            lblPurchaseOrderReturnStatus.Text = PoReturn.PurchaseOrderReturnStatus.PurchaseOrderReturnStatusDescription;
+            lblPurchaseOrderReturnStatus.Text = PoReturn.PurchaseOrderReturnStatus.ProcurementStatus;
             lblRemarks.Text = PoReturn.Remarks;
 
             gvPOReturnItem.DataSource = PoReturn.PurchaseOrderReturnItems;
@@ -61,7 +61,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             gvPoReturnDelivery.DataSource = null;
             gvPoReturnDelivery.DataBind();
-            PurchaseOrderReturnDeliveryList = new BDMS_PurchaseOrder().GetPurchaseOrderReturnDeliveryByPoReturnID(PurchaseOrderReturnID);
+            List<PPurchaseOrderReturnDelivery>  PurchaseOrderReturnDeliveryList = new BDMS_PurchaseOrder().GetPurchaseOrderReturnDeliveryByPoReturnID(PurchaseOrderReturnID);
             gvPoReturnDelivery.DataSource = PurchaseOrderReturnDeliveryList;
             gvPoReturnDelivery.DataBind();
 
@@ -70,7 +70,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         void ActionControlMange()
         {
             lbPoReturnCancel.Visible = true;
-            if (PoReturn.PurchaseOrderReturnStatus.PurchaseOrderReturnStatusID != 1)
+            if (PoReturn.PurchaseOrderReturnStatus.ProcurementStatusID != (short)ProcurementStatus.PoReturnDraft)
             {
                 lbPoReturnCancel.Visible = false;
             }

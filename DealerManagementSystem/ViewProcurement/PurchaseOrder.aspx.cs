@@ -86,11 +86,20 @@ namespace DealerManagementSystem.ViewProcurement
                 PageIndex = 1;
                 // fillMTTR();
                 // FillPageNo(1);
-                txtPoDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
+                txtPoDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtPoDateTo.Text = DateTime.Now.ToShortDateString();
 
-                 
-                    fillDealer(); 
+
+                fillDealer();
+                fillProcurementStatus();
+
+                if(Session["PurchaseOrderID"] != null)
+                { 
+                    divList.Visible = false;
+                    divDetailsView.Visible = true;
+                    UC_PurchaseOrderView.fillViewPO(Convert.ToInt64(Session["PurchaseOrderID"]));
+                    
+                }
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
@@ -256,7 +265,15 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
-         
+        void fillProcurementStatus()
+        {
+            ddlPOStatus.DataTextField = "ProcurementStatus";
+            ddlPOStatus.DataValueField = "ProcurementStatusID";
+            ddlPOStatus.DataSource = new BDMS_PurchaseOrder().GetProcurementStatus(1);
+            ddlPOStatus.DataBind();
+            ddlPOStatus.Items.Insert(0, new ListItem("Select", "0"));
+        }
+
         //protected void BtnView_Click(object sender, EventArgs e)
         //{
         //    divList.Visible = false;

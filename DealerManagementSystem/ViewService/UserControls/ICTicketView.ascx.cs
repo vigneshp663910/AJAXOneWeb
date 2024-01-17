@@ -2827,7 +2827,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                         }
                     }
                     lbtnServiceClaim.Visible = false;
-                    lbtnMaterialClaim.Visible = false;
+                    lbtnMaterialClaim.Visible = false; 
                 }
 
                 //if (SDMS_ICTicket.ICTicketDate.AddDays(Days) < DateTime.Now)
