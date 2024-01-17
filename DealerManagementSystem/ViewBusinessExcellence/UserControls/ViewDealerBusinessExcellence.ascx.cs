@@ -35,7 +35,7 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
-            LinkButton lbActions = ((LinkButton)sender) 
+            LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.ID == "lbtnSubmit")
             {
                 string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID + "&StatusID=2";
