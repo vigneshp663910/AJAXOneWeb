@@ -1250,7 +1250,8 @@
         @media screen and (min-device-width: 993px) and (max-device-width: 3000px) {
             .project-title-outer .ProjectTitle {
                 position: fixed;
-                width: calc( 100% - 250px );
+               /* width: calc( 100% - 250px );*/
+                width: -webkit-fill-available ;
                 margin: 0;
                 top: 50px;
                 border-top: 1px solid #4c7da7;
