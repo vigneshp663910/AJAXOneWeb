@@ -95,4 +95,10 @@ namespace Properties
         public string PaymentTerms { get; set; }
         public string Description { get; set; }
     }
+    [Serializable]
+    public class PAjaxOneStatus
+    {
+        public int StatusID { get; set; }
+        public string Status { get; set; }
+    }
 }

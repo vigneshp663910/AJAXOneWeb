@@ -498,6 +498,8 @@ namespace Properties
         ViewPreSale_Reports_DealerBusinessExcellenceReport = 254,
         ViewPreSale_Reports_DealerBusinessExcellence = 255,
         ViewPreSale_Reports_DealerBusinessExcellenceApprove = 256,
+        ViewFinance_Reports_DealerBalanceConfirmationReport = 257,
+        ViewFinance_DealerBalanceConfirmationUpdate = 258
     }
     public enum SubModuleChildMaster
     {

@@ -442,5 +442,21 @@ namespace Business
             string endPoint = "DealerBusinessExcellence/GetDealerBusinessExcellenceByID?DealerBusinessExcellenceID=" + DealerBusinessExcellenceID   ;
             return JsonConvert.DeserializeObject<PDealerBusinessExcellenceHeader>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public DataTable GetDealerBalanceConfirmationReport(int? DealerID, int? BalanceConfirmationStatusID, string DateFrom, string DateTo)
+        {
+            string endPoint = "Dealer/GetDealerBalanceConfirmationReport?DealerID=" + DealerID + "&BalanceConfirmationStatusID=" + BalanceConfirmationStatusID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetDealerBalanceConfirmationToUpdate(int? DealerID, int? BalanceConfirmationStatusID, string DateFrom, string DateTo)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Dealer/GetDealerBalanceConfirmationToUpdate?DealerID=" + DealerID + "&BalanceConfirmationStatusID=" + BalanceConfirmationStatusID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetDealerBalanceConfirmationReportExcel(int? DealerID, int? BalanceConfirmationStatusID, string DateFrom, string DateTo)
+        {
+            string endPoint = "Dealer/GetDealerBalanceConfirmationReportExcel?DealerID=" + DealerID + "&BalanceConfirmationStatusID=" + BalanceConfirmationStatusID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }
