@@ -33,7 +33,8 @@
 
 
         #div1 {
-            min-height: 91.7vh;
+           /* min-height: 91.7vh;*/
+            min-height: 92.4vh;
            /* height: 100vh;*/
             display: flex;
             flex-direction: column;
