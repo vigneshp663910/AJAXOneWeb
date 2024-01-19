@@ -352,6 +352,8 @@
     <Content Include="DealerDashboard.Master" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="RedirectTo\eCatalogueN.aspx" />
+    <Content Include="RedirectTo\SPTN.aspx" />
     <Content Include="SalesOrderTemp.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -992,6 +994,20 @@
     </Compile>
     <Compile Include="ProcessFlow\Ticketing.aspx.designer.cs">
       <DependentUpon>Ticketing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RedirectTo\eCatalogueN.aspx.cs">
+      <DependentUpon>eCatalogueN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RedirectTo\eCatalogueN.aspx.designer.cs">
+      <DependentUpon>eCatalogueN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RedirectTo\SPTN.aspx.cs">
+      <DependentUpon>SPTN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RedirectTo\SPTN.aspx.designer.cs">
+      <DependentUpon>SPTN.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesOrderTemp.aspx.cs">
       <DependentUpon>SalesOrderTemp.aspx</DependentUpon>
