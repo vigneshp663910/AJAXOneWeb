@@ -337,7 +337,7 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
             {
                 lbtnApproveL1.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL1).Count() == 0)
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL2).Count() == 0)
             {
                 lbtnApproveL2.Visible = false;
             }

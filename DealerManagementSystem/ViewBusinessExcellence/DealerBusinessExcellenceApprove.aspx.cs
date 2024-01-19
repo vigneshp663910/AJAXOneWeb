@@ -92,7 +92,7 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             {
                 StatusID = 2;
             }
-            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL1).Count() == 1)
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL2).Count() == 1)
             {
                 StatusID = 3;
             }
