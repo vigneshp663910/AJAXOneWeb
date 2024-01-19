@@ -38,12 +38,7 @@
                     </div>
                     <div class="col-md-2 text-left">
                         <label>Status</label>
-                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="0">Select</asp:ListItem>
-                            <asp:ListItem Value="1">Unattended</asp:ListItem>
-                            <asp:ListItem Value="6">In Progress</asp:ListItem>
-                            <asp:ListItem Value="4">Converted To Lead</asp:ListItem>
-                            <asp:ListItem Value="5">Rejected</asp:ListItem>
+                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control"> 
                         </asp:DropDownList>
                     </div>
 
@@ -78,7 +73,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <asp:GridView ID="gvDealerB" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
+                            <asp:GridView ID="gvDealerB" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10" runat="server" ShowHeaderWhenEmpty="true"
                                 AutoGenerateColumns="false" Width="100%">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
@@ -108,7 +103,7 @@
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Dealer" DataField="Dealer.DealerCode"></asp:BoundField>
                                     <asp:BoundField HeaderText="Dealer Name" DataField="Dealer.DealerName"></asp:BoundField>
-                                    <asp:BoundField HeaderText="status" DataField="status"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
 
                                     <asp:TemplateField HeaderText="Requested">
                                         <ItemStyle VerticalAlign="Middle" />

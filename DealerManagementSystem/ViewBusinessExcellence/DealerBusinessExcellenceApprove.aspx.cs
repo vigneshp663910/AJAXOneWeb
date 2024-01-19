@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -83,41 +84,44 @@ namespace DealerManagementSystem.ViewBusinessExcellence
 
             int? StatusID = 0;
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceSubmit).Count() == 0)
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceSubmit).Count() == 1)
             {
                 StatusID = 1;
             }
-            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL1).Count() == 0)
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL1).Count() == 1)
             {
                 StatusID = 2;
             }
-            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL1).Count() == 0)
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL1).Count() == 1)
             {
                 StatusID = 3;
             }
-            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL3).Count() == 0)
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL3).Count() == 1)
             {
                 StatusID = 4;
             }
-            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL4).Count() == 0)
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL4).Count() == 1)
             {
                 StatusID = 5;
             }
-            List<PDealerBusinessExcellenceHeader> LeadReport = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, RegionID, StatusID);
-            gvDealerB.DataSource = LeadReport;
+            PApiResult Result = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, RegionID, StatusID, PageIndex, gvDealerB.PageSize);
+            gvDealerB.DataSource = JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceHeader>>(JsonConvert.SerializeObject(Result.Data)); ;
             gvDealerB.DataBind();
-            if (LeadReport.Count == 0)
+            if (Result.RowCount == 0)
             {
+                PageCount = 0;
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
             }
             else
             {
+                PageCount = (Result.RowCount + gvDealerB.PageSize - 1) / gvDealerB.PageSize;
                 lblRowCount.Visible = true;
                 ibtnArrowLeft.Visible = true;
                 ibtnArrowRight.Visible = true;
-                lblRowCount.Text = (((gvDealerB.PageIndex) * gvDealerB.PageSize) + 1) + " - " + (((gvDealerB.PageIndex) * gvDealerB.PageSize) + gvDealerB.Rows.Count) + " of " + LeadReport.Count;
+                lblRowCount.Text = (((PageIndex - 1) * gvDealerB.PageSize) + 1) + " - " + (((PageIndex - 1) * gvDealerB.PageSize) + gvDealerB.Rows.Count) + " of " + Result.RowCount;
+                // lblRowCount.Text = (((gvDealerB.PageIndex) * gvDealerB.PageSize) + 1) + " - " + (((gvDealerB.PageIndex) * gvDealerB.PageSize) + gvDealerB.Rows.Count) + " of " + LeadReport.Count;
             }
         }
 
