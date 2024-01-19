@@ -375,7 +375,7 @@ namespace Properties
             }
         } 
         public PDMS_Dealer Dealer { get; set; }  
-        public int status { get; set; }
+        public PAjaxOneStatus Status { get; set; }
         public PUser RequestedBy { get; set; }
         public DateTime RequestedOn { get; set; }
         public PUser SubmittedBy { get; set; }

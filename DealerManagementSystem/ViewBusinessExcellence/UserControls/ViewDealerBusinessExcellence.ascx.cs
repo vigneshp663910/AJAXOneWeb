@@ -111,10 +111,10 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
                     fill(DealerBusiness.DealerBusinessExcellenceID);
                 }
             }
-            ActionControlMange();
+            
         }
         public void fill(long DealerBusinessExcellenceID)
-        { 
+        {
             DealerBusiness = new BDealer().GetDealerBusinessExcellenceByID(DealerBusinessExcellenceID);
             lblYear.Text = Convert.ToString(DealerBusiness.Year);
             lblMonth.Text = DealerBusiness.MonthName;
@@ -139,26 +139,17 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
             lblApprovalL4On.Text = Convert.ToString(DealerBusiness.ApprovalL4On);
 
             gvDealer.DataSource = DealerBusiness.Items;
-            gvDealer.DataBind();
-            // lblExpectedDateOfSale.Text = Lead.ExpectedDateOfSale == null ? "" : ((DateTime)Lead.ExpectedDateOfSale).ToShortDateString();
-            //lblApplication.Text = Lead.Application == null ? "" : Lead.Application.MainApplication;
-            //lblQualification.Text = Lead.Qualification == null ? "" : Lead.Qualification.Qualification;
-            //lblSource.Text = Lead.Source == null ? "" : Lead.Source.Source;
-            //lblStatus.Text = Lead.Status.Status;
-            //lblProject.Text = Lead.Project == null ? "" : Lead.Project.ProjectName;
-            //lblDealer.Text = Lead.Dealer.DealerCode;
-            //lblCustomerFeedback.Text = Lead.CustomerFeedback;
-            //lblRemarks.Text = Lead.Remarks;
-            //lblCustomer.Text = Lead.Customer.CustomerFullName;
-            //lblContactPerson.Text = Lead.Customer.ContactPerson;
-            ////lblMobile.Text = Lead.Customer.Mobile;
-            //lblMobile.Text = "<a href='tel:" + Lead.Customer.Mobile + "'>" + Lead.Customer.Mobile + "</a>";
-            //lblEmail.Text = "<a href='mailto:" + Lead.Customer.Email + "'>" + Lead.Customer.Email + "</a>";
+            gvDealer.DataBind(); 
+            ActionControlMange();
 
-            //string Location = Lead.Customer.Address1 + ", " + Lead.Customer.Address2 + ", " + Lead.Customer.District.District + ", " + Lead.Customer.State.State;
-            //lblLocation.Text = Location;
-
-
+            if (!(lbtnSubmit.Visible || lbtnApproveL1.Visible || lbtnApproveL2.Visible || lbtnApproveL3.Visible || lbtnApproveL4.Visible))
+            {
+                for (int i = 0; i < gvDealer.Rows.Count;    i++)
+                { 
+                    LinkButton lnkBtnMissionPlanningEdit = (LinkButton)gvDealer.Rows[i].FindControl("lnkBtnMissionPlanningEdit");
+                    lnkBtnMissionPlanningEdit.Visible = false; 
+                }
+            }
         }
         protected void btnEdit_Click(object sender, EventArgs e)
         {
@@ -294,42 +285,42 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
             lbtnApproveL3.Visible = true;
             lbtnApproveL4.Visible = true;  
              
-            if (DealerBusiness.status == 1) 
+            if (DealerBusiness.Status.StatusID == 1) 
             {
                 lbtnApproveL1.Visible = false;
                 lbtnApproveL2.Visible = false;
                 lbtnApproveL3.Visible = false;
                 lbtnApproveL4.Visible = false;
             }
-            else if (DealerBusiness.status == 2)
+            else if (DealerBusiness.Status.StatusID == 2)
             {
                 lbtnSubmit.Visible = false;
                 lbtnApproveL2.Visible = false;
                 lbtnApproveL3.Visible = false;
                 lbtnApproveL4.Visible = false;
             }
-            else if (DealerBusiness.status ==3)
+            else if (DealerBusiness.Status.StatusID == 3)
             {
                 lbtnSubmit.Visible = false;
                 lbtnApproveL1.Visible = false;
                 lbtnApproveL3.Visible = false;
                 lbtnApproveL4.Visible = false;
             }
-            else if (DealerBusiness.status == 4)
+            else if (DealerBusiness.Status.StatusID == 4)
             {
                 lbtnSubmit.Visible = false;
                 lbtnApproveL1.Visible = false;
                 lbtnApproveL2.Visible = false;
                 lbtnApproveL4.Visible = false;
             }
-            else if (DealerBusiness.status == 5)
+            else if (DealerBusiness.Status.StatusID == 5)
             {
                 lbtnSubmit.Visible = false;
                 lbtnApproveL1.Visible = false;
                 lbtnApproveL2.Visible = false;
                 lbtnApproveL3.Visible = false;
             }
-            else if (DealerBusiness.status == 6)
+            else if (DealerBusiness.Status.StatusID == 6)
             {
                 lbtnSubmit.Visible = false;
                 lbtnApproveL1.Visible = false;

@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,7 @@ namespace DealerManagementSystem.ViewBusinessExcellence
                 FillYearAndMonth();
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
                 new DDLBind(ddlRegionID, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID", true, "All");
+                new DDLBind(ddlStatus, new BDMS_Master().GetAjaxOneStatus(1), "Status", "StatusID");
             }
         }
         void FillYearAndMonth()
@@ -80,22 +82,24 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? RegionID = ddlRegionID.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegionID.SelectedValue);
             int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
-
-            List<PDealerBusinessExcellenceHeader> LeadReport = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, RegionID, StatusID);
-            gvDealerB.DataSource = LeadReport;
+            PApiResult Result = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, RegionID, StatusID, PageIndex, gvDealerB.PageSize);
+            gvDealerB.DataSource = JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceHeader>>(JsonConvert.SerializeObject(Result.Data)); ;
             gvDealerB.DataBind();
-            if (LeadReport.Count == 0)
+            if (Result.RowCount == 0)
             {
+                PageCount = 0;
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
             }
             else
             {
+                PageCount = (Result.RowCount + gvDealerB.PageSize - 1) / gvDealerB.PageSize;
                 lblRowCount.Visible = true;
                 ibtnArrowLeft.Visible = true;
                 ibtnArrowRight.Visible = true;
-                lblRowCount.Text = (((gvDealerB.PageIndex) * gvDealerB.PageSize) + 1) + " - " + (((gvDealerB.PageIndex) * gvDealerB.PageSize) + gvDealerB.Rows.Count) + " of " + LeadReport.Count;
+                lblRowCount.Text = (((PageIndex - 1) * gvDealerB.PageSize) + 1) + " - " + (((PageIndex - 1) * gvDealerB.PageSize) + gvDealerB.Rows.Count) + " of " + Result.RowCount;
+                // lblRowCount.Text = (((gvDealerB.PageIndex) * gvDealerB.PageSize) + 1) + " - " + (((gvDealerB.PageIndex) * gvDealerB.PageSize) + gvDealerB.Rows.Count) + " of " + LeadReport.Count;
             }
         }
 
@@ -136,5 +140,6 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             divList.Visible = true;
             divDetailsView.Visible = false;
         }
+         
     }
 }
