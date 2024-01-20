@@ -48,9 +48,14 @@ namespace DealerManagementSystem.ViewInventory
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
-            new DDLBind(ddlMaterialModel, new BDMS_Model().GetModel(null, null, null), "ModelDescription", "ModelID", true, "Select Model");
-            new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+            lblMessage.Text = "";
+            if (!IsPostBack)
+            {
+                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
+                new DDLBind(ddlMaterialModel, new BDMS_Model().GetModel(null, null, null), "ModelDescription", "ModelID", true, "Select Model");
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+                new DDLBind().FillDealerAndEngneer(ddlDealerO, null);
+            }
         }
         protected void btnMaterialSearch_Click(object sender, EventArgs e)
         {
@@ -129,24 +134,32 @@ namespace DealerManagementSystem.ViewInventory
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            PApiResult Result = new BInventory().InsertInitialStock(MaterialUpload);
 
+            if(ddlDealerO.SelectedValue=="0")
+            {
+                lblMessage.Text = "Please select the Dealer";
+                return;
+            }
+            if (ddlDealerOffice.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please select the Dealer Office";
+                return;
+            }
+            PApiResult Result = new BInventory().InsertUpdateInitialStock(MaterialUpload);
             if (Result.Status == PApplication.Failure)
             {
                 lblMessage.Text = Result.Message;
                 return;
             }
-            lblMessage.Text = Result.Message;
-            lblMessage.Visible = true;
+            lblMessage.Text = Result.Message; 
             lblMessage.ForeColor = Color.Green;
-
-
            // FillMaterial();
         }
 
         protected void BtnBack_Click(object sender, EventArgs e)
         {
-
+            divList.Visible = true;
+            divUpload.Visible = false;
         }
         private Boolean FillUpload()
         {
@@ -165,12 +178,17 @@ namespace DealerManagementSystem.ViewInventory
                         sno += 1;
                         if (sno > 1)
                         {
-                            MaterialUpload.Add(new PInitialStock_Post()
-                            {
-                                DealerCode = row.Cells("DealerCode").ToString(),
-                                MaterialCode = row.Cells("DealerCode").ToString(),
-                                Quantity = Convert.ToDecimal(row.Cells("Quantity"))
-                            });
+                            List<IXLCell> IXLCell_ = row.Cells().ToList();
+                            if (IXLCell_.Count !=0)
+                                MaterialUpload.Add(new PInitialStock_Post()
+                                {
+                                    ID = Convert.ToInt32(IXLCell_[0].Value),
+                                    DealerID = 1,
+                                    OfficeID = 3,
+                                    MaterialCode = Convert.ToString(IXLCell_[1].Value),
+                                    Quantity = Convert.ToInt32(IXLCell_[2].Value),
+                                    PerUnitPrice = Convert.ToDecimal(IXLCell_[3].Value)
+                                });
                         }
                     }
                     List<PDMS_Material> Employee = new BDMS_Material().GetMaterialListSQL(null, null, null, null, null);
@@ -203,14 +221,14 @@ namespace DealerManagementSystem.ViewInventory
         }
         protected void btnDownload_Click(object sender, EventArgs e)
         {
-            string Path = Server.MapPath("Templates\\Sales Incentive-Templates.xlsx");
+            string Path = Server.MapPath("Templates\\InitialStock.xlsx");
             WebClient req = new WebClient();
             HttpResponse response = HttpContext.Current.Response;
             response.Clear();
             response.ClearContent();
             response.ClearHeaders();
             response.Buffer = true;
-            response.AddHeader("Content-Disposition", "attachment;filename=\"Sales Incentive-Templates.xlsx\"");
+            response.AddHeader("Content-Disposition", "attachment;filename=\"InitialStock.xlsx\"");
             byte[] data = req.DownloadData(Path);
             response.BinaryWrite(data);
             // Append cookie
@@ -235,6 +253,11 @@ namespace DealerManagementSystem.ViewInventory
         protected void ibtnMaterialArrowRight_Click(object sender, ImageClickEventArgs e)
         {
 
+        }
+
+        protected void ddlDealerO_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerO.SelectedValue), null, null), "OfficeName", "OfficeID");
         }
     }
 }

@@ -22,8 +22,11 @@ namespace Properties
     [Serializable]
     public class PInitialStock_Post
     {
-        public string DealerCode { get; set; }
+        public int ID { get; set; }
+        public int DealerID { get; set; }
+        public int OfficeID { get; set; }
         public string MaterialCode { get; set; }
-        public Decimal Quantity { get; set; } 
+        public Decimal Quantity { get; set; }
+        public Decimal PerUnitPrice { get; set; }
     }
 }

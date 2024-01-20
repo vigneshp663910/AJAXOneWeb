@@ -788,6 +788,7 @@
     <Content Include="VoiceText1.aspx" />
     <Content Include="Bundle.config" />
     <Content Include="Web.config" />
+    <Content Include="Templates\InitialStock.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
