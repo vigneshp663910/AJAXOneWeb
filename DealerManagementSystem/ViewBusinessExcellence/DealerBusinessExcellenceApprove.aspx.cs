@@ -86,23 +86,23 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceSubmit).Count() == 1)
             {
-                StatusID = 1;
+                StatusID =  (short)AjaxOneStatus.DealerBusinessExcellence_Requested;
             }
             else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL1).Count() == 1)
             {
-                StatusID = 2;
+                StatusID = (short)AjaxOneStatus.DealerBusinessExcellence_Submitted; 
             }
-            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL1).Count() == 1)
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL2).Count() == 1)
             {
-                StatusID = 3;
+                StatusID = (short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL1;
             }
             else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL3).Count() == 1)
             {
-                StatusID = 4;
+                StatusID = (short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL2;
             }
             else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL4).Count() == 1)
             {
-                StatusID = 5;
+                StatusID = (short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL3;
             }
             PApiResult Result = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, RegionID, StatusID, PageIndex, gvDealerB.PageSize);
             gvDealerB.DataSource = JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceHeader>>(JsonConvert.SerializeObject(Result.Data)); ;

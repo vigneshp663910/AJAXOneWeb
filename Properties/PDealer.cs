@@ -371,7 +371,7 @@ namespace Properties
         {
             get
             {
-                return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month).Substring(0, 3);
+                return Month == 0 ? "" : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month).Substring(0, 3);
             }
         } 
         public PDMS_Dealer Dealer { get; set; }  

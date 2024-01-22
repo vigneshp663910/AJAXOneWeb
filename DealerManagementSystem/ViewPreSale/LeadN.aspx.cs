@@ -78,6 +78,7 @@ namespace DealerManagementSystem.ViewPreSale
                 new DDLBind(ddlSStatus, Status, "Status", "StatusID");
                 ddlSStatus.Items.Insert(ddlSStatus.Items.Count, new ListItem("Expected date of sales is less than today date", "100"));
                 ddlSStatus.Items.Insert(ddlSStatus.Items.Count, new ListItem("Next Follow-up Date is Less Than today Date", "101"));
+                ddlSStatus.Items.Insert(ddlSStatus.Items.Count, new ListItem("Engineer not Defined", "102"));
                 new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
 
 

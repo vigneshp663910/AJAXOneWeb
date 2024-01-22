@@ -801,4 +801,17 @@ namespace Properties
         DealerShip = 2,
         CallCenter = 3
     }
+    public enum AjaxOneStatus
+    {
+        DealerBusinessExcellence_Requested = 1,
+        DealerBusinessExcellence_Submitted = 2,
+        DealerBusinessExcellence_ApprovalL1 = 3,
+        DealerBusinessExcellence_ApprovalL2 = 4,
+        DealerBusinessExcellence_ApprovalL3 = 5,
+        DealerBusinessExcellence_Approved = 6,
+        DealerBalanceConfirmation_Initiated = 7,
+        DealerBalanceConfirmation_Confirmed = 8,
+        DealerBalanceConfirmation_UnConfirmed = 9,
+        DealerBalanceConfirmation_NeedReconciliation = 10,
+    }
 }

@@ -34,12 +34,12 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Dealer Mission Planning Report');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Dealer Business Excellence Report');</script>");
             if (!IsPostBack)
             {
                 LeadReport = null;
                 FillYearAndMonth();
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "Select");
                 new DDLBind(ddlFunctionArea, new BDealer().GetDealerBusinessExcellenceFunctionArea(null), "FunctionArea", "DealerBusinessExcellenceCategory1", true, "All");
 
             }
@@ -47,24 +47,41 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         }
         void FillYearAndMonth()
         {
-            ddlYear.Items.Insert(0, new ListItem("All", "0"));
+            ddlYear.Items.Insert(0, new ListItem("Select", "0"));
             for (int i = 2023; i <= DateTime.Now.Year; i++)
             {
                 ddlYear.Items.Insert(i + 1 - 2023, new ListItem(i.ToString(), i.ToString()));
             }
+            ddlYear.SelectedValue = DateTime.Now.Year.ToString();
 
-            ddlMonth.Items.Insert(0, new ListItem("All", "0"));
+            ddlMonth.Items.Insert(0, new ListItem("Select", "0"));
             for (int i = 1; i <= 12; i++)
             {
                 ddlMonth.Items.Insert(i, new ListItem(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i).Substring(0, 3), i.ToString()));
             }
+            ddlMonth.SelectedValue = DateTime.Now.Month.ToString();
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillLead();
         }
         void FillLead()
-        {
+        { 
+            if ( ddlYear.SelectedValue == "0")
+            {
+                lblMessage.Text = "Select the Year";
+                return;
+            }
+            if (ddlMonth.SelectedValue == "0")
+            {
+                lblMessage.Text = "Select the Month";
+                return;
+            }
+            if (ddlDealer.SelectedValue == "0")
+            {
+                lblMessage.Text = "Select the Dealer";
+                return;
+            }
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
