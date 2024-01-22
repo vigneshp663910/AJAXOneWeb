@@ -1,6 +1,4 @@
-﻿
-
-using Business;
+﻿using Business;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -17,14 +15,17 @@ namespace DealerManagementSystem.RedirectTo
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             if (!IsPostBack)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('e-Catalogue » eSpare Parts Catalogue');</script>");
-                
+
             }
 
             //Response.Redirect("https://ajaxapps.ajax-engg.com:8095/eCatalogue/Home");
         }
+
+
     }
+
 }
