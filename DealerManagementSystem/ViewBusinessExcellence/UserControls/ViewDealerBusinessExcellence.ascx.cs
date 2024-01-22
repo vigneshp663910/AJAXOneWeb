@@ -38,7 +38,9 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.ID == "lbtnSubmit")
             {
-                string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID + "&StatusID=2";
+                string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year
+                    + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID 
+                    + "&StatusID=" + ((short)AjaxOneStatus.DealerBusinessExcellence_Submitted).ToString();
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
@@ -53,7 +55,8 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
             }
             else if (lbActions.ID == "lbtnApproveL1")
             {
-                string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID + "&StatusID=3";
+                string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID
+                    + "&StatusID=" + ((short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL1).ToString();
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
@@ -68,7 +71,8 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
             }
             else if (lbActions.ID == "lbtnApproveL2")
             {
-                string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID + "&StatusID=4";
+                string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID
+                    + "&StatusID=" + ((short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL2).ToString();
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
@@ -83,7 +87,8 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
             }
             else if (lbActions.ID == "lbtnApproveL3")
             {
-                string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID + "&StatusID=5";
+                string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID
+                    + "&StatusID=" + ((short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL3).ToString();
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
@@ -98,7 +103,8 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
             }
             else if (lbActions.ID == "lbtnApproveL4")
             {
-                string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID + "&StatusID=6";
+                string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + DealerBusiness.Year + "&Month=" + DealerBusiness.Month + "&DealerID=" + DealerBusiness.Dealer.DealerID
+                    + "&StatusID=" + ((short)AjaxOneStatus.DealerBusinessExcellence_Approved).ToString();
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
@@ -285,42 +291,42 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
             lbtnApproveL3.Visible = true;
             lbtnApproveL4.Visible = true;  
              
-            if (DealerBusiness.Status.StatusID == 1) 
+            if (DealerBusiness.Status.StatusID == (short)AjaxOneStatus.DealerBusinessExcellence_Requested) 
             {
                 lbtnApproveL1.Visible = false;
                 lbtnApproveL2.Visible = false;
                 lbtnApproveL3.Visible = false;
                 lbtnApproveL4.Visible = false;
             }
-            else if (DealerBusiness.Status.StatusID == 2)
+            else if (DealerBusiness.Status.StatusID == (short)AjaxOneStatus.DealerBusinessExcellence_Submitted)
             {
                 lbtnSubmit.Visible = false;
                 lbtnApproveL2.Visible = false;
                 lbtnApproveL3.Visible = false;
                 lbtnApproveL4.Visible = false;
             }
-            else if (DealerBusiness.Status.StatusID == 3)
+            else if (DealerBusiness.Status.StatusID == (short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL1)
             {
                 lbtnSubmit.Visible = false;
                 lbtnApproveL1.Visible = false;
                 lbtnApproveL3.Visible = false;
                 lbtnApproveL4.Visible = false;
             }
-            else if (DealerBusiness.Status.StatusID == 4)
+            else if (DealerBusiness.Status.StatusID == (short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL2)
             {
                 lbtnSubmit.Visible = false;
                 lbtnApproveL1.Visible = false;
                 lbtnApproveL2.Visible = false;
                 lbtnApproveL4.Visible = false;
             }
-            else if (DealerBusiness.Status.StatusID == 5)
+            else if (DealerBusiness.Status.StatusID == (short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL3)
             {
                 lbtnSubmit.Visible = false;
                 lbtnApproveL1.Visible = false;
                 lbtnApproveL2.Visible = false;
                 lbtnApproveL3.Visible = false;
             }
-            else if (DealerBusiness.Status.StatusID == 6)
+            else if (DealerBusiness.Status.StatusID == (short)AjaxOneStatus.DealerBusinessExcellence_Approved)
             {
                 lbtnSubmit.Visible = false;
                 lbtnApproveL1.Visible = false;
