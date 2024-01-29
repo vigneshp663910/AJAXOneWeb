@@ -276,12 +276,12 @@ namespace Properties
         ViewService_WarrantyClaimInvoiceCreate = 31,
         ViewService_WarrantyClaimAnnexureReport = 32,
         ViewInventory_InitialStock = 33,
-        ViewInventory_StockAdjustment = 34,
+        ViewInventory_PhysicalInventoryPosting = 34,
         ViewInventory_StockInTransit = 35,
         ViewSupportTicket_RequestSupportTicket = 36,
         //**** Menu Level-2 ****************************** =  37,
         //       UnderCons = 38,
-        ViewInventory_WarehouseStockOnHand = 39,
+        ViewInventory_WarehouseStock = 39,
         ViewInventory_StockForPostingDate = 40,
         ViewInventory_MaterialStockAnalysis = 41,
         //=  42,
@@ -499,6 +499,7 @@ namespace Properties
         ViewPreSale_Reports_DealerBusinessExcellenceReport = 254,
         ViewPreSale_Reports_DealerBusinessExcellence = 255,
         ViewPreSale_Reports_DealerBusinessExcellenceApprove = 256,
+        ViewInventory_StockTransfer = 260,
     }
     public enum SubModuleChildMaster
     {
@@ -825,5 +826,14 @@ namespace Properties
     public enum PurchaseOrderType
     {
         MachineOrder = 5
+    }
+    public enum StockMovementType
+    {
+        UnrestrictedToRestricted =24,
+        UnrestrictedToBlocked = 25, 
+        RestrictedToUnrestricted = 26,
+        RestrictedToBlocked = 27, 
+        BlockedToUnrestricted = 28,
+        BlockedToRestricted = 29 
     }
 }

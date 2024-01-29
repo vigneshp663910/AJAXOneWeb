@@ -8,9 +8,9 @@
 //------------------------------------------------------------------------------
 
 
-namespace DealerManagementSystem.ViewInventory
+namespace DealerManagementSystem.ViewInventory.UserControls
 {
-    public partial class StockAdjustment
+    public partial class ViewPhysicalInventoryPosting
     {
     }
 }
