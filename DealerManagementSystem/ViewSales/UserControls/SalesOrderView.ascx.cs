@@ -161,6 +161,20 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 MPE_SaleOrderItemAdd.Show();
             }
+            else if (lbActions.Text == "Release SO")
+            {
+                lblMessage.Visible = true;
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    return;
+                }
+                lblMessage.Text = Results.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+                fillViewSO(SaleOrderByID.SaleOrderID);
+            }
         }
         public void Cancel()
         {

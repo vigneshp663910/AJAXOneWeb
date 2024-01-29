@@ -822,4 +822,8 @@ namespace Properties
     {
         MachineOrder = 5
     }
+    public enum Division
+    {
+        Parts = 15
+    }
 }

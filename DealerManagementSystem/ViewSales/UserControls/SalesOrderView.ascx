@@ -194,6 +194,7 @@
                 <asp:LinkButton ID="lbEditSaleOrder" runat="server" OnClick="lbActions_Click">Edit SO</asp:LinkButton>
                 <asp:LinkButton ID="lbCancelSaleOrder" runat="server" OnClick="lbActions_Click">Cancel SO</asp:LinkButton>
                 <asp:LinkButton ID="lbAddSaleOrderItem" runat="server" OnClick="lbActions_Click">Add SO Item</asp:LinkButton>
+                <asp:LinkButton ID="lbReleaseSaleOrder" runat="server" OnClick="lbActions_Click">Release SO</asp:LinkButton>
             </div>
         </div>
     </div>
