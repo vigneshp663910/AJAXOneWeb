@@ -22,6 +22,7 @@ namespace DealerManagementSystem.ViewSales
         int? DealerID = null;
         string CustomerCode = null;
         int? SaleOrderStatusID = null;
+        int? SaleOrderTypeID = null;
         public List<PSaleOrder> SalesOrder
         {
             get
@@ -96,7 +97,19 @@ namespace DealerManagementSystem.ViewSales
                     fillDealer();
                 }
                 new DDLBind(ddlSOStatus, new BDMS_SalesOrder().GetSaleOrderStatus(null, null), "Status", "StatusID");
-                fillSalesOrder();
+                new DDLBind(ddlSOStatus, new BDMS_SalesOrder().GetSaleOrderStatus(null, null), "Status", "StatusID");
+                new DDLBind(ddlSOType, new BDMS_SalesOrder().GetSaleOrderType(null, null), "SaleOrderType", "SaleOrderTypeID");
+                //fillSalesOrder();
+                if (Session["SaleOrderID"] != null)
+                {
+                    divList.Visible = false;
+                    divDetailsView.Visible = true;
+                    UC_SalesOrderView.fillViewSO(Convert.ToInt64(Session["SaleOrderID"]));
+
+                }
+                lblRowCount.Visible = false;
+                ibtnArrowLeft.Visible = false;
+                ibtnArrowRight.Visible = false;
             }
         }
         void fillDealer()
@@ -129,6 +142,7 @@ namespace DealerManagementSystem.ViewSales
             DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
             SaleOrderStatusID = ddlSOStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSOStatus.SelectedValue);
             CustomerCode = string.IsNullOrEmpty(txtCustomer.Text.Trim()) ? null : txtCustomer.Text.Trim();
+            SaleOrderTypeID = ddlSOType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSOType.SelectedValue);
         }
         void fillSalesOrder()
         {
@@ -137,7 +151,7 @@ namespace DealerManagementSystem.ViewSales
                 TraceLogger.Log(DateTime.Now);
                 Search();
                 long? SaleOrderID = null;
-                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderHeader(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), SaleOrderNo, DealerID, CustomerCode, SaleOrderStatusID, PageIndex, gvSaleOrder.PageSize);
+                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderHeader(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), SaleOrderNo, DealerID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID, PageIndex, gvSaleOrder.PageSize);
                 SalesOrder = JsonConvert.DeserializeObject<List<PSaleOrder>>(JsonConvert.SerializeObject(Result.Data));
 
                 gvSaleOrder.PageIndex = 0;

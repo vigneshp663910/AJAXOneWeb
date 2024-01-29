@@ -12,11 +12,13 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                <asp:LinkButton ID="lbAddMaterial" runat="server" OnClick="lbActions_Click">Add Material</asp:LinkButton>
                 <asp:LinkButton ID="lbReleasePO" runat="server" OnClick="lbActions_Click">Release PO</asp:LinkButton>
-               <%-- <asp:LinkButton ID="lbEditPO" runat="server" OnClick="lbActions_Click">Edit PO</asp:LinkButton>--%>
+                <%--<asp:LinkButton ID="lbEditPO" runat="server" OnClick="lbActions_Click">Edit PO</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbCancelPO" runat="server" OnClick="lbActions_Click">Cancel PO</asp:LinkButton>
                 <asp:LinkButton ID="lbReleaseApprove" runat="server" OnClick="lbActions_Click">Release Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbCancelApprove" runat="server" OnClick="lbActions_Click">Cancel Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbViewPurchaseOrder" runat="server" OnClick="lbActions_Click">PO Preview</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -32,10 +34,10 @@
                     <asp:Label ID="lblPurchaseOrderNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>O Date : </label>
+                    <label>PO Date : </label>
                     <asp:Label ID="lblPurchaseOrderDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                 <div class="col-md-12">
+                <div class="col-md-12">
                     <label>SO Number : </label>
                     <asp:Label ID="lblSoNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
@@ -76,7 +78,7 @@
                     <asp:Label ID="lblTaxAmount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Gross Amount : </label>
+                    <label>Net Amount : </label>
                     <asp:Label ID="lblGrossAmount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
@@ -195,12 +197,12 @@
                                             <asp:Label ID="lblf_uom" Text='<%# DataBinder.Eval(Container.DataItem, "Material.BaseUnit")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <%--  <asp:TemplateField HeaderText="Unit Price">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lblUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "Price","{0:n}")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
+                                    <asp:TemplateField HeaderText="Unit Price">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "Material.CurrentPrice","{0:n}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Price">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
@@ -229,6 +231,12 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "TaxValue","{0:n}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Net Value">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblNetValue" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <%--<asp:TemplateField HeaderText="Status">
@@ -359,22 +367,10 @@
                                                                         <asp:Label ID="lblReceivedQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.ReceivedQty")%>' runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Damaged Qty">
-                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                                                    <ItemTemplate>
-                                                                        <asp:Label ID="lblDamagedQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.DamagedQty")%>' runat="server"></asp:Label>
-                                                                    </ItemTemplate>
-                                                                </asp:TemplateField>
                                                                 <asp:TemplateField HeaderText="Returned Qty">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                                     <ItemTemplate>
                                                                         <asp:Label ID="lblReturnedQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.ReturnedQty")%>' runat="server"></asp:Label>
-                                                                    </ItemTemplate>
-                                                                </asp:TemplateField>
-                                                                <asp:TemplateField HeaderText="Missing Qty">
-                                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                                                    <ItemTemplate>
-                                                                        <asp:Label ID="lblMissingQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.MissingQty")%>' runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField HeaderText="Net Weight">
@@ -458,6 +454,38 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Enquiry" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEnquiry" BackgroundCssClass="modalBackground" />
 
+<asp:Panel ID="pnlAddMaterial" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Material</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblAddMaterialMessage" runat="server" Text="" CssClass="message" />
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">SupersedeYN</label>
+                    <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <asp:HiddenField ID="hdfMaterialID" runat="server" />
+                    <asp:HiddenField ID="hdfMaterialCode" runat="server" />
+                    <label class="modal-label">Material</label>
+                    <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" onKeyUp="GetMaterial()"></asp:TextBox>
+                </div>
+                <div class="col-md-1 col-sm-12">
+                    <label class="modal-label">Qty</label>
+                    <asp:TextBox ID="txtQty" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSubmitMaterial" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSubmitMaterial_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AddMaterial" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddMaterial" BackgroundCssClass="modalBackground" />
+
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
@@ -479,6 +507,74 @@
         }
         else
             return false;
+    }
+</script>
+<script type="text/javascript">
+
+    function GetMaterial() {
+        $("#MainContent_UC_PurchaseOrderView_hdfMaterialID").val('');
+        $("#MainContent_UC_PurchaseOrderView_hdfMaterialCode").val('');
+        var param = { Material: $('#MainContent_UC_PurchaseOrderView_txtMaterial').val(), MaterialType: '' }
+        var Customers = [];
+        if ($('#MainContent_UC_PurchaseOrderView_txtMaterial').val().trim().length >= 3) {
+            $.ajax({
+                url: "PurchaseOrder.aspx/GetMaterial",
+                contentType: "application/json; charset=utf-8",
+                type: 'POST',
+                data: JSON.stringify(param),
+                dataType: 'JSON',
+                success: function (data) {
+                    var DataList = JSON.parse(data.d);
+                    for (i = 0; i < DataList.length; i++) {
+                        Customers[i] = {
+                            value: DataList[i].MaterialCode + ' ' + DataList[i].MaterialDescription,
+                            value1: DataList[i].MaterialID,
+                            MaterialCode: DataList[i].MaterialCode
+                        };
+                    }
+                    $('#MainContent_UC_PurchaseOrderView_txtMaterial').autocomplete({
+                        source: function (request, response) { response(Customers) },
+                        select: function (e, u) {
+                            $("#MainContent_UC_PurchaseOrderView_hdfMaterialID").val(u.item.value1);
+                            $("#MainContent_UC_PurchaseOrderView_hdfMaterialCode").val(u.item.MaterialCode);
+                        },
+                        open: function (event, ui) {
+                            $(this).autocomplete("widget").css({
+                                "max-width":
+                                    $('#MainContent_UC_PurchaseOrderView_txtMaterial').width() + 48,
+                            });
+                            $(this).autocomplete("widget").scrollTop(0);
+                        }
+                    }).focus(function (e) {
+                        $(this).autocomplete("search");
+                    }).click(function () {
+                        $(this).autocomplete("search");
+                    }).data('ui-autocomplete')._renderItem = function (ul, item) {
+
+                        var inner_html = FormatAutocompleteList(item);
+                        return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                            .data('item.autocomplete', item)
+                            .append(inner_html)
+                            .appendTo(ul);
+                    };
+
+                }
+            });
+        }
+        else {
+            $('#MainContent_UC_PurchaseOrderView_txtMaterial').autocomplete({
+                source: function (request, response) {
+                    response($.ui.autocomplete.filter(Customers, ""))
+                }
+            });
+        }
+    }
+
+    function FormatAutocompleteList(item) {
+        var inner_html = '<a>';
+        inner_html += '<p style="margin:0;"><strong>' + item.value + '</strong></p>';
+        inner_html += '</a>';
+        return inner_html;
     }
 </script>
 <script type="text/javascript">

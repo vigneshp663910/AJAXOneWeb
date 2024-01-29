@@ -11,11 +11,11 @@
                 <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
             </div>
             <div class="col-md-6 col-sm-12">
-                <label class="modal-label">DealerOffice<samp style="color: red">*</samp></label>
+                <label class="modal-label">Dealer Office<samp style="color: red">*</samp></label>
                 <asp:DropDownList ID="ddlOfficeName" runat="server" CssClass="form-control" />
             </div>
             <div class="col-md-6 col-sm-12">
-                <label class="modal-label">Customer (Search by customer Code(6 char.)/Name(min 4 Char.)/Mobile(10 digits))<samp style="color: red">*</samp></label>
+                <label class="modal-label">Customer (Search by Customer Code(6 Char.)/Name(min 4 Char.)/Mobile(10 digits))<samp style="color: red">*</samp></label>
                 <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"
                     onKeyUp="GetCustomers()"></asp:TextBox>
                 <asp:HiddenField ID="hdfCustomerId" runat="server" />
@@ -53,27 +53,39 @@
                 <asp:TextBox ID="txtFrieghtPaidBy" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
             </div>
             <div class="col-md-6 col-sm-12">
-                <label>Attn</label>
+                <label>Attn.</label>
                 <asp:TextBox ID="txtAttn" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
             </div>
             <div class="col-md-6 col-sm-12">
-                <label>Equipment SerialNo</label>
+                <label>Equipment Serial No</label>
                 <asp:TextBox ID="txtEquipmentSerialNo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
             </div>
             <div class="col-md-6 col-sm-12">
-                <label>Select Tax</label>
-                <asp:TextBox ID="txtSelectTax" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                <label>Select Tax<samp style="color: red">*</samp></label>
+                <%--<asp:TextBox ID="txtSelectTax" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>--%>
+                <asp:DropDownList ID="ddlTax" runat="server" CssClass="form-control" BorderColor="Silver">
+                    <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
+                    <asp:ListItem Value="1">SGST & CGST</asp:ListItem>
+                    <asp:ListItem Value="2">IGST</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <label>Dealer Employee</label>
+                <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true" />
             </div>
             <div class="col-md-6 col-sm-12">
                 <label>Remarks</label>
                 <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
             </div>
-
+            <div class="col-md-6 col-sm-12">
+                <label>Header Discount %</label>
+                <asp:TextBox ID="txtBoxHeaderDiscountPercent" runat="server" CssClass="form-control" BorderColor="Silver" AutoPostBack="true" OnTextChanged="txtBoxHeaderDiscountPercent_TextChanged"></asp:TextBox>
+            </div>
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">SupersedeYN</label>
+                            <label class="modal-label">Supersede Y/N</label>
                             <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
                         </div>
                         <div class="col-md-3 col-sm-12">
@@ -95,7 +107,7 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">SaleOrder Item</legend>
                     <div class="col-md-12 Report">
-                        <asp:GridView ID="gvSOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="2500px">
+                        <asp:GridView ID="gvSOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                             <Columns>
                                 <asp:TemplateField HeaderText="Material">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -103,6 +115,18 @@
                                         <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Material Desc">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                             <asp:TemplateField HeaderText="HSN Code">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "HSN")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Order Qty">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
@@ -121,10 +145,16 @@
                                         <asp:Label ID="lblPrice" Text='<%# DataBinder.Eval(Container.DataItem, "Value","{0:n}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="DiscountedPrice">
+                                <%--<asp:TemplateField HeaderText="Discounted Price">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDiscountAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Discount","{0:n}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
+                                <asp:TemplateField HeaderText="Discount %">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                    <ItemTemplate>
+                                        <asp:TextBox ID="txtBoxDiscountPercent" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtBoxDiscountPercent_TextChanged"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Taxable Amount">
@@ -134,22 +164,40 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="SGST">
+                                <%--<asp:TemplateField HeaderText="SGST">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblSGST" Text='<%# DataBinder.Eval(Container.DataItem, "SGST","{0:n}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="CGST">
+                                </asp:TemplateField>--%>
+                                <%--<asp:TemplateField HeaderText="CGST">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblCGST" Text='<%# DataBinder.Eval(Container.DataItem, "CGST","{0:n}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="IGST">
+                                </asp:TemplateField>--%>
+                                <%--<asp:TemplateField HeaderText="IGST">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblIGST" Text='<%# DataBinder.Eval(Container.DataItem, "IGST","{0:n}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
+                                <asp:TemplateField HeaderText="Tax">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblTax" Text='<%# (decimal)DataBinder.Eval(Container.DataItem, "SGST") + (decimal)DataBinder.Eval(Container.DataItem, "CGST") + (decimal)DataBinder.Eval(Container.DataItem, "IGST") %>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Tax Value">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblTaxValue" Text='<%# (decimal)DataBinder.Eval(Container.DataItem, "SGSTAmt") + (decimal)DataBinder.Eval(Container.DataItem, "CGSTAmt") + (decimal)DataBinder.Eval(Container.DataItem, "IGSTAmt")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Net Value">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblNetValue" Text='<%# DataBinder.Eval(Container.DataItem, "NetValue","{0:n}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">

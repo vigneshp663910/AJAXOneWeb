@@ -247,6 +247,8 @@ namespace Properties
         public PProduct Product { get; set; }
         public string EquipmentSerialNo { get; set; }
         public string SelectTax { get; set; }
+        public decimal GrossAmount { get; set; }
+        public PSaleOrderType SaleOrderType { get; set; }
     }
     [Serializable]
     public class PSaleOrderItem
@@ -261,7 +263,8 @@ namespace Properties
         public decimal FreightAmount { get; set; }
         public decimal TaxableAmount { get; set; } 
         public decimal Tax { get; set; }
-        public decimal TotalAmt { get; set; } 
+        //public decimal TotalAmt { get; set; }
+        public decimal NetAmount { get; set; }
     }
     [Serializable]
     public class PSaleOrderDelivery
@@ -359,6 +362,10 @@ namespace Properties
         public decimal SGSTAmt { get; set; }
         public decimal IGSTAmt { get; set; }
         public int StatusID { get; set; }
+        public string MaterialDescription { get; set; }
+        public string UOM { get; set; }
+        public string HSN { get; set; }
+        public decimal NetValue { get; set; }
     }
     [Serializable]
     public class PSaleOrderReturnItem_Insert
@@ -367,5 +374,12 @@ namespace Properties
         public long SaleOrderDeliveryItemID { get; set; }
         public decimal Qty { get; set; }
         //public string Remarks { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrderType
+    {
+        public int SaleOrderTypeID { get; set; }
+        public string SaleOrderType { get; set; }
+        public Boolean IsActive { get; set; }
     }
 }

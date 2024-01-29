@@ -177,13 +177,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtEquipmentSerialNo;
 
         /// <summary>
-        /// txtSelectTax control.
+        /// ddlTax control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSelectTax;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTax;
+
+        /// <summary>
+        /// ddlDealerEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerEmployee;
 
         /// <summary>
         /// txtRemarks control.
@@ -193,6 +202,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+
+        /// <summary>
+        /// txtBoxHeaderDiscountPercent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBoxHeaderDiscountPercent;
 
         /// <summary>
         /// Fieldset1 control.

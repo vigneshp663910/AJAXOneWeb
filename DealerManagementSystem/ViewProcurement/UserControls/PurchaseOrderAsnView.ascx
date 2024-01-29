@@ -125,16 +125,16 @@
                                             <asp:Label ID="lblReceivedQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?DataBinder.Eval(Container.DataItem, "Qty"):DataBinder.Eval(Container.DataItem, "GrItem.ReceivedQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Saleable Qty">
+                                    <asp:TemplateField HeaderText="Unrestricted Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblSaleableQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?DataBinder.Eval(Container.DataItem, "Qty"):DataBinder.Eval(Container.DataItem, "GrItem.SaleableQty")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblUnrestrictedQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?DataBinder.Eval(Container.DataItem, "Qty"):DataBinder.Eval(Container.DataItem, "GrItem.UnrestrictedQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Blocked Qty">
+                                    <asp:TemplateField HeaderText="Restricted Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblBlockedQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?0:DataBinder.Eval(Container.DataItem, "GrItem.BlockedQty")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblRestrictedQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?0:DataBinder.Eval(Container.DataItem, "GrItem.RestrictedQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <%--<asp:TemplateField HeaderText="Damaged Qty">
@@ -254,16 +254,16 @@
                                             <asp:Label ID="lblReturnedQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.ReturnedQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                    <asp:TemplateField HeaderText="Saleable Qty">
+                                    <asp:TemplateField HeaderText="Unrestricted Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblSaleableQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.SaleableQty")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblUnrestrictedQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.UnrestrictedQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Blocked Qty">
+                                    <asp:TemplateField HeaderText="Restricted Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblBlockedQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.BlockedQty")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblRestrictedQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.RestrictedQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Remarks">
@@ -371,6 +371,10 @@
                                         <label>Expected Delivery Date : </label>
                                         <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
                                     </div>
+                                    <div class="col-md-12">
+                                        <label>Net Amount : </label>
+                                        <asp:Label ID="lblGrossAmount" runat="server" CssClass="LabelValue"></asp:Label>
+                                    </div>
                                 </div>
                             </div>
                         </fieldset>
@@ -424,7 +428,7 @@
                                             <asp:Label ID="lblTaxableValue" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.TaxableValue")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="CGST">
+                                    <%--<asp:TemplateField HeaderText="CGST">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCGST" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.Material.CGST")%>' runat="server"></asp:Label>
@@ -458,6 +462,24 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblIGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.Material.IGSTValue")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>--%>
+                                    <asp:TemplateField HeaderText="Tax">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTax" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.Tax","{0:n}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Tax Value">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.TaxValue","{0:n}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Net Value">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblNetValue" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.NetAmount","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -530,22 +552,22 @@
                                         <asp:Label ID="lblReceivedQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Saleable Qty">
+                                <asp:TemplateField HeaderText="Unrestricted Qty">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblSaleableQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?DataBinder.Eval(Container.DataItem, "Qty"):DataBinder.Eval(Container.DataItem, "GrItem.SaleableQty")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblUnrestrictedQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?DataBinder.Eval(Container.DataItem, "Qty"):DataBinder.Eval(Container.DataItem, "GrItem.UnrestrictedQty")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Blocked Qty">
+                                <asp:TemplateField HeaderText="Restricted Qty">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblBlockedQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?0:DataBinder.Eval(Container.DataItem, "GrItem.BlockedQty")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblRestrictedQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?0:DataBinder.Eval(Container.DataItem, "GrItem.RestrictedQty")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lnkSetBlockedQty" runat="server" OnClick="lnkSetBlockedQty_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                        <asp:LinkButton ID="lnkSetRestrictedQty" runat="server" OnClick="lnkSetRestrictedQty_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -569,7 +591,7 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_GrCreate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlGrCreate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-<asp:Panel ID="pnlUpdateBlockedQty" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnlUpdateRestrictedQty" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Blocked Qty</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button8" runat="server" Text="X" CssClass="PopupClose" />
@@ -578,13 +600,13 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageBlockedQty" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageRestrictedQty" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset7" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Blocked Qty</legend>
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
-                        <label class="modal-label">Saleable Qty<samp style="color: red">*</samp></label>
-                        <asp:TextBox ID="txtSaleableQty" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Number"></asp:TextBox>
+                        <label class="modal-label">Unrestricted Qty<samp style="color: red">*</samp></label>
+                        <asp:TextBox ID="txtUnrestrictedQty" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Number"></asp:TextBox>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Missing Qty<samp style="color: red">*</samp></label>
@@ -611,7 +633,7 @@
 
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_UpdateBlockedQty" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateBlockedQty" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_UpdateRestrictedQty" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateRestrictedQty" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

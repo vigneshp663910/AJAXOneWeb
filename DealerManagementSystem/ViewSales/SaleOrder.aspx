@@ -182,8 +182,12 @@
                         <asp:TextBox ID="txtSONumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Sale Oder Status</label>
+                        <label class="modal-label">Sale Order Status</label>
                         <asp:DropDownList ID="ddlSOStatus" runat="server" CssClass="form-control"></asp:DropDownList>
+                    </div>
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Sale Order Type</label>
+                        <asp:DropDownList ID="ddlSOType" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Date From</label>
@@ -207,13 +211,14 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Sale Order Report</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
                             <div class="boxHead">
                                 <div class="logheading">
                                     <div style="float: left">
                                         <table>
                                             <tr>
+                                                <td>Sale Order(s):</td>
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
@@ -234,6 +239,11 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnViewSO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSO_Click" Width="75px" Height="25px" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Sale Order Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
@@ -244,7 +254,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Dealer">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label>
                                             <br />
@@ -255,6 +265,12 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblDealerOffice" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerOffice.OfficeName")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Division">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "Division.DivisionCode")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Customer Name">
@@ -271,9 +287,16 @@
                                             <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderStatus.Status")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Order Type">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Button ID="btnViewSO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSO_Click" Width="75px" Height="25px" />
+                                            <asp:Label ID="lblSOType" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderType.SaleOrderType")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="Total Amount">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblTotalAmt" Text='<%# DataBinder.Eval(Container.DataItem, "GrossAmount")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>

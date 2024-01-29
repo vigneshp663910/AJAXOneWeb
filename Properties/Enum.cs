@@ -585,6 +585,12 @@ namespace Properties
         DealerBusinessExcellenceApproveL2 = 79,
         DealerBusinessExcellenceApproveL3 = 80,
         DealerBusinessExcellenceApproveL4 = 81,
+        PurchaseOrderCreate = 82,
+        PurchaseOrderReleasePO = 83,
+        PurchaseOrderCancelPO = 84,
+        PurchaseOrderReleaseApprove = 85,
+        PurchaseOrderCancelApprove = 86, 
+        
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -848,5 +854,9 @@ namespace Properties
         RestrictedToBlocked = 27, 
         BlockedToUnrestricted = 28,
         BlockedToRestricted = 29 
+    }
+    public enum Division
+    {
+        Parts = 15
     }
 }
