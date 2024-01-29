@@ -11,9 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewBusinessExcellence
 {
-    public partial class DealerBusinessExcellence : BasePage
+    public partial class DealerBusinessExcellenceApprove : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Reports_DealerBusinessExcellence; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Reports_DealerBusinessExcellenceApprove; } }
         private int PageCount
         {
             get
@@ -58,7 +58,6 @@ namespace DealerManagementSystem.ViewBusinessExcellence
                 FillYearAndMonth();
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
                 new DDLBind(ddlRegionID, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID", true, "All");
-                new DDLBind(ddlStatus, new BDMS_Master().GetAjaxOneStatus(1), "Status", "StatusID");
             }
         }
         void FillYearAndMonth()
@@ -81,7 +80,30 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? RegionID = ddlRegionID.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegionID.SelectedValue);
-            int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+            //   int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
+
+            int? StatusID = 0;
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceSubmit).Count() == 1)
+            {
+                StatusID =  (short)AjaxOneStatus.DealerBusinessExcellence_Requested;
+            }
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL1).Count() == 1)
+            {
+                StatusID = (short)AjaxOneStatus.DealerBusinessExcellence_Submitted; 
+            }
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL2).Count() == 1)
+            {
+                StatusID = (short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL1;
+            }
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL3).Count() == 1)
+            {
+                StatusID = (short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL2;
+            }
+            else if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBusinessExcellenceApproveL4).Count() == 1)
+            {
+                StatusID = (short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL3;
+            }
             PApiResult Result = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, RegionID, StatusID, PageIndex, gvDealerB.PageSize);
             gvDealerB.DataSource = JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceHeader>>(JsonConvert.SerializeObject(Result.Data)); ;
             gvDealerB.DataBind();
@@ -132,7 +154,7 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             divDetailsView.Visible = true;
             lblMessage.Text = "";
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblDealerBusinessExcellenceID = (Label)gvRow.FindControl("lblDealerBusinessExcellenceID"); 
+            Label lblDealerBusinessExcellenceID = (Label)gvRow.FindControl("lblDealerBusinessExcellenceID");
             UC_ViewDealerBusinessExcellence.fill(Convert.ToInt64(lblDealerBusinessExcellenceID.Text));
         }
         protected void btnBackToList_Click(object sender, EventArgs e)
@@ -140,6 +162,5 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             divList.Visible = true;
             divDetailsView.Visible = false;
         }
-         
     }
 }

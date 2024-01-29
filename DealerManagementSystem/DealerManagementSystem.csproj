@@ -352,6 +352,8 @@
     <Content Include="DealerDashboard.Master" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="RedirectTo\eCatalogueN.aspx" />
+    <Content Include="RedirectTo\SPTN.aspx" />
     <Content Include="SalesOrderTemp.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -434,6 +436,7 @@
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
     <Content Include="ViewAdmin\VisitTagetPlanning.aspx" />
     <Content Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx" />
+    <Content Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx" />
     <Content Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx" />
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
@@ -999,6 +1002,20 @@
     <Compile Include="ProcessFlow\Ticketing.aspx.designer.cs">
       <DependentUpon>Ticketing.aspx</DependentUpon>
     </Compile>
+    <Compile Include="RedirectTo\eCatalogueN.aspx.cs">
+      <DependentUpon>eCatalogueN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RedirectTo\eCatalogueN.aspx.designer.cs">
+      <DependentUpon>eCatalogueN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RedirectTo\SPTN.aspx.cs">
+      <DependentUpon>SPTN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RedirectTo\SPTN.aspx.designer.cs">
+      <DependentUpon>SPTN.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SalesOrderTemp.aspx.cs">
       <DependentUpon>SalesOrderTemp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1230,6 +1247,13 @@
     </Compile>
     <Compile Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx.designer.cs">
       <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx.cs">
+      <DependentUpon>DealerBusinessExcellenceApprove.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx.designer.cs">
+      <DependentUpon>DealerBusinessExcellenceApprove.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx.cs">
       <DependentUpon>ViewDealerBusinessExcellence.ascx</DependentUpon>

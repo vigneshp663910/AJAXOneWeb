@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewPreSale.Planning
+namespace DealerManagementSystem.ViewBusinessExcellence
 {
 
 
-    public partial class DealerBusinessExcellence
+    public partial class DealerBusinessExcellenceApprove
     {
 
         /// <summary>
@@ -33,13 +33,22 @@ namespace DealerManagementSystem.ViewPreSale.Planning
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
-        /// FldSearch control.
+        /// ddlRegionID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl FldSearch;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRegionID;
+
+        /// <summary>
+        /// ddlDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
         /// ddlYear control.
@@ -60,33 +69,6 @@ namespace DealerManagementSystem.ViewPreSale.Planning
         protected global::System.Web.UI.WebControls.DropDownList ddlMonth;
 
         /// <summary>
-        /// ddlDealer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
-
-        /// <summary>
-        /// ddlFunctionArea control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFunctionArea;
-
-        /// <summary>
-        /// ddlFunctionSubArea control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFunctionSubArea;
-
-        /// <summary>
         /// BtnSearch control.
         /// </summary>
         /// <remarks>
@@ -96,30 +78,66 @@ namespace DealerManagementSystem.ViewPreSale.Planning
         protected global::System.Web.UI.WebControls.Button BtnSearch;
 
         /// <summary>
-        /// btnSubmit control.
+        /// lblRowCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.WebControls.Label lblRowCount;
 
         /// <summary>
-        /// lblRowCountV control.
+        /// ibtnArrowLeft control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRowCountV;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowLeft;
 
         /// <summary>
-        /// gvMissionPlanning control.
+        /// ibtnArrowRight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvMissionPlanning;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
+
+        /// <summary>
+        /// gvDealerB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvDealerB;
+
+        /// <summary>
+        /// divDetailsView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDetailsView;
+
+        /// <summary>
+        /// btnBackToList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBackToList;
+
+        /// <summary>
+        /// UC_ViewDealerBusinessExcellence control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DealerManagementSystem.ViewBusinessExcellence.UserControls.ViewDealerBusinessExcellence UC_ViewDealerBusinessExcellence;
     }
 }

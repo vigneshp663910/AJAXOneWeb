@@ -113,12 +113,26 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblSalesCommissionClaimID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesCommissionClaimID")%>' runat="server" Visible="false"></asp:Label>
                                         <asp:Label ID="lblClaimNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimNumber")%>' runat="server"></asp:Label>
+
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Claim Dt" HeaderStyle-Width="55px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblClaimDate" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimDate","{0:d}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Sales Invoice">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSalesInvoiceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Quotation.SalesInvoiceNumber")%>' runat="server"></asp:Label>
+
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Sales Invoice Dt" HeaderStyle-Width="55px">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSalesInvoiceDate" Text='<%# DataBinder.Eval(Container.DataItem, "Quotation.SalesInvoiceDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <%--                                    <asp:TemplateField HeaderText="Cust. Code">

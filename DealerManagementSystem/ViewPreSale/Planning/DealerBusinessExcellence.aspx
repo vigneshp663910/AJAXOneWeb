@@ -51,10 +51,10 @@
 
                                         <td>
                                             <asp:Label ID="lblRowCountV" runat="server" CssClass="label"></asp:Label></td>
-                                        <td>
+                                        <%--<td>
                                             <asp:ImageButton ID="ibtnVTArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnVTArrowLeft_Click" /></td>
                                         <td>
-                                            <asp:ImageButton ID="ibtnVTArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnVTArrowRight_Click" /></td>
+                                            <asp:ImageButton ID="ibtnVTArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnVTArrowRight_Click" /></td>--%>
                                     </tr>
                                 </table>
                             </div>
@@ -73,6 +73,7 @@
 
                             <asp:TemplateField HeaderText="Year" SortExpression="Year" ItemStyle-Width="30px" ItemStyle-HorizontalAlign="right">
                                 <ItemTemplate>
+                                    <%-- <asp:Label ID="lblDealerBusinessExcellenceID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerBusinessExcellenceID")%>' runat="server" Visible="false" />--%>
                                     <asp:Label ID="lblYear" Text='<%# DataBinder.Eval(Container.DataItem, "Year")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>

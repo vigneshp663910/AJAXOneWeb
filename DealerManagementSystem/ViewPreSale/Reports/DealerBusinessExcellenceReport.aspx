@@ -16,7 +16,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"  />
 
     <fieldset class="fieldset-border" id="Fieldset2" runat="server">
         <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <asp:GridView ID="gvMissionPlanning" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnDataBound="OnDataBound"
-                ShowFooter="true">
+                ShowFooter="true" >
                 <Columns>
                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="35px">
                         <ItemTemplate>

@@ -191,7 +191,37 @@
             display: none;
         }
 
-        @media screen and (min-device-width: 250px) and (max-device-width: 1000px) {
+     /*   @media screen and (min-device-width: 250px) and (max-device-width: 1000px) {
+            #LoginLeft {
+                display: none;
+            }
+
+            #Footer {
+                display: none;
+            }
+
+            #ImageCompanyLogoRight {
+                display: block;
+            }
+
+            #LoginRight {
+                width: 100%;
+                overflow : auto;
+            }
+
+
+            .vertical-center {
+                margin: 0;
+                padding: initial;
+                position: absolute;
+                top: 40%;
+                left: 10%;
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+        }*/
+
+        @media (min-width: 250px) and (max-width: 1000px) {
             #LoginLeft {
                 display: none;
             }
@@ -220,6 +250,8 @@
                 transform: translateY(-50%);
             }
         }
+
+        
 
         .care {
             font-family: Proxima Nova;

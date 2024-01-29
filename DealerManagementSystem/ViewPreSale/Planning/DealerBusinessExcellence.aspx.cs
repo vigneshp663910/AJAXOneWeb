@@ -16,7 +16,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
 {
     public partial class DealerBusinessExcellence : BasePage
     {
-        public List<PDealerBusinessExcellence> VT
+        public List<PDealerBusinessExcellence> VT1
         {
             get
             {
@@ -46,7 +46,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             if (!IsPostBack)
             {
                 FillYearAndMonth();
-                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
+                new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "Select");
                 new DDLBind(ddlFunctionArea, new BDealer().GetDealerBusinessExcellenceFunctionArea(null), "FunctionArea", "DealerBusinessExcellenceCategory1", true, "All");
                 ActionControlMange();
             }
@@ -54,17 +54,18 @@ namespace DealerManagementSystem.ViewPreSale.Planning
 
         void FillYearAndMonth()
         {
-            ddlYear.Items.Insert(0, new ListItem("All", "0"));
+            ddlYear.Items.Insert(0, new ListItem("Select", "0"));
             for (int i = 2023; i <= DateTime.Now.Year; i++)
             {
                 ddlYear.Items.Insert(i + 1 - 2023, new ListItem(i.ToString(), i.ToString()));
             }
-
-            ddlMonth.Items.Insert(0, new ListItem("All", "0"));
+            ddlYear.SelectedValue = DateTime.Now.Year.ToString();
+            ddlMonth.Items.Insert(0, new ListItem("Select", "0"));
             for (int i = 1; i <= 12; i++)
             {
                 ddlMonth.Items.Insert(i, new ListItem(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i).Substring(0, 3), i.ToString()));
             }
+            ddlMonth.SelectedValue = DateTime.Now.Month.ToString();
         }
 
         protected void BtnSearch_Click(object sender, EventArgs e)
@@ -79,22 +80,22 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             FillVisitTarget();
             gvMissionPlanning.DataBind();
         }
-        protected void ibtnVTArrowLeft_Click(object sender, ImageClickEventArgs e)
-        {
-            if (gvMissionPlanning.PageIndex > 0)
-            {
-                gvMissionPlanning.PageIndex = gvMissionPlanning.PageIndex - 1;
-                VTBind(gvMissionPlanning, lblRowCountV, VT);
-            }
-        }
-        protected void ibtnVTArrowRight_Click(object sender, ImageClickEventArgs e)
-        {
-            if (gvMissionPlanning.PageCount > gvMissionPlanning.PageIndex)
-            {
-                gvMissionPlanning.PageIndex = gvMissionPlanning.PageIndex + 1;
-                VTBind(gvMissionPlanning, lblRowCountV, VT);
-            }
-        }
+        //protected void ibtnVTArrowLeft_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    if (gvMissionPlanning.PageIndex > 0)
+        //    {
+        //        gvMissionPlanning.PageIndex = gvMissionPlanning.PageIndex - 1;
+        //        VTBind(gvMissionPlanning, lblRowCountV, VT);
+        //    }
+        //}
+        //protected void ibtnVTArrowRight_Click(object sender, ImageClickEventArgs e)
+        //{
+        //    if (gvMissionPlanning.PageCount > gvMissionPlanning.PageIndex)
+        //    {
+        //        gvMissionPlanning.PageIndex = gvMissionPlanning.PageIndex + 1;
+        //        VTBind(gvMissionPlanning, lblRowCountV, VT);
+        //    }
+        //}
         void VTBind(GridView gv, Label lbl, List<PDealerBusinessExcellence> VT)
         {
             gv.DataSource = VT;
@@ -113,6 +114,21 @@ namespace DealerManagementSystem.ViewPreSale.Planning
 
         void FillVisitTarget()
         {
+            if (ddlYear.SelectedValue == "0")
+            {
+                lblMessage.Text = "Select the Year";
+                return;
+            }
+            if (ddlMonth.SelectedValue == "0")
+            {
+                lblMessage.Text = "Select the Month";
+                return;
+            }
+            if (ddlDealer.SelectedValue == "0")
+            {
+                lblMessage.Text = "Select the Dealer";
+                return;
+            }
             int? Year = ddlYear.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlYear.SelectedValue);
             int? Month = ddlMonth.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMonth.SelectedValue);
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
@@ -122,21 +138,21 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             {
                 Category2ID = ddlFunctionSubArea.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlFunctionSubArea.SelectedValue);
             }
-            VT = new BDealer().GetDealerBusinessExcellenceToUpdate(Year, Month, DealerID, Category1ID, Category2ID);
+            List<PDealerBusinessExcellence> VT = new BDealer().GetDealerBusinessExcellenceToUpdate(Year, Month, DealerID, Category1ID, Category2ID);
             gvMissionPlanning.DataSource = VT;
             gvMissionPlanning.DataBind();
 
             if (VT.Count == 0)
             {
                 lblRowCountV.Visible = false;
-                ibtnVTArrowLeft.Visible = false;
-                ibtnVTArrowRight.Visible = false;
+                //ibtnVTArrowLeft.Visible = false;
+                //ibtnVTArrowRight.Visible = false;
             }
             else
             {
                 lblRowCountV.Visible = true;
-                ibtnVTArrowLeft.Visible = true;
-                ibtnVTArrowRight.Visible = true;
+                //ibtnVTArrowLeft.Visible = true;
+                //ibtnVTArrowRight.Visible = true;
                 VTBind(gvMissionPlanning, lblRowCountV, VT);
                 //lblRowCountV.Text = (((gvMissionPlanning.PageIndex) * gvMissionPlanning.PageSize) + 1) + " - " + (((gvMissionPlanning.PageIndex) * gvMissionPlanning.PageSize) + gvMissionPlanning.Rows.Count) + " of " + VT.Count;
             }
@@ -327,7 +343,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             int Year = Convert.ToInt32(ddlYear.SelectedValue);
             int Month = Convert.ToInt32(ddlMonth.SelectedValue);
             int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-            string endPoint = "Dealer/UpdateDealerBusinessExcellenceSubmit?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID ;
+            string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&StatusID=4";
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {

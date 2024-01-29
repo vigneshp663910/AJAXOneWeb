@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="DealerBusinessExcellence.aspx.cs" Inherits="DealerManagementSystem.ViewBusinessExcellence.DealerBusinessExcellence" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="DealerBusinessExcellenceApprove.aspx.cs" Inherits="DealerManagementSystem.ViewBusinessExcellence.DealerBusinessExcellenceApprove" %>
 <%@ Register Src="~/ViewBusinessExcellence/UserControls/ViewDealerBusinessExcellence.ascx" TagPrefix="UC" TagName="UC_ViewDealerBusinessExcellence" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -35,17 +34,9 @@
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Month</label>
                         <asp:DropDownList ID="ddlMonth" runat="server" CssClass="form-control" />
-                    </div>
-                    <div class="col-md-2 text-left">
-                        <label>Status</label>
-                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control"> 
-                        </asp:DropDownList>
-                    </div>
-
+                    </div> 
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" />
-                        <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
-                        --%>
+                        <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" /> 
                     </div>
                 </div>
             </fieldset>

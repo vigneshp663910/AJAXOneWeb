@@ -499,7 +499,8 @@ namespace Properties
         ViewPreSale_Reports_DealerBusinessExcellenceReport = 254,
         ViewPreSale_Reports_DealerBusinessExcellence = 255,
         ViewPreSale_Reports_DealerBusinessExcellenceApprove = 256,
-        ViewInventory_StockTransfer = 260,
+        ViewFinance_Reports_DealerBalanceConfirmationReport = 257,
+        ViewFinance_DealerBalanceConfirmationUpdate = 258
     }
     public enum SubModuleChildMaster
     {
@@ -579,8 +580,11 @@ namespace Properties
         CustomerGstChange = 74,
         TsirMailToSupplier=75,
         MailNotificationCreation=76,
-        DealerBusinessExcellenceSubmit = 77, 
-         
+        DealerBusinessExcellenceSubmit = 77,
+        DealerBusinessExcellenceApproveL1 = 78,
+        DealerBusinessExcellenceApproveL2 = 79,
+        DealerBusinessExcellenceApproveL3 = 80,
+        DealerBusinessExcellenceApproveL4 = 81,
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -797,6 +801,19 @@ namespace Properties
         OEM = 1,
         DealerShip = 2,
         CallCenter = 3
+    }
+    public enum AjaxOneStatus
+    {
+        DealerBusinessExcellence_Requested = 1,
+        DealerBusinessExcellence_Submitted = 2,
+        DealerBusinessExcellence_ApprovalL1 = 3,
+        DealerBusinessExcellence_ApprovalL2 = 4,
+        DealerBusinessExcellence_ApprovalL3 = 5,
+        DealerBusinessExcellence_Approved = 6,
+        DealerBalanceConfirmation_Initiated = 7,
+        DealerBalanceConfirmation_Confirmed = 8,
+        DealerBalanceConfirmation_UnConfirmed = 9,
+        DealerBalanceConfirmation_NeedReconciliation = 10,
     }
     public enum ProcurementStatus
     {

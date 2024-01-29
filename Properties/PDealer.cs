@@ -312,19 +312,21 @@ namespace Properties
         public string DealerType { get; set; } 
     }
 
-
+    [Serializable]
     public class PDealerBusinessExcellenceCategory1
     {
         public int DealerBusinessExcellenceCategory1 { get; set; }
         public string FunctionArea { get; set; }
         public int MaxScore { get; set; }
     }
+    [Serializable]
     public class PDealerBusinessExcellenceCategory2
     {
         public int DealerBusinessExcellenceCategory2 { get; set; }
         public string FunctionSubArea { get; set; }
         public PDealerBusinessExcellenceCategory1 Category1 { get; set; }
     }
+    [Serializable]
     public class PDealerBusinessExcellenceCategory3
     {
         public int DealerBusinessExcellenceCategory3ID { get; set; }
@@ -333,6 +335,7 @@ namespace Properties
         public int MinimumQualifying { get; set; }
         public PDealerBusinessExcellenceCategory2 Category2 { get; set; }
     }
+    [Serializable]
     public class PDealerBusinessExcellence
     {
        // public long DealerBusinessExcellenceID { get; set; }
@@ -358,21 +361,21 @@ namespace Properties
         public string Remarks { get; set; } 
         public Boolean IsSubmitted { get; set; }
     }
-
+    [Serializable]
     public class PDealerBusinessExcellenceHeader
-    {  
-        
+    {
+        public long DealerBusinessExcellenceID { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
         public string MonthName
         {
             get
             {
-                return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month).Substring(0, 3);
+                return Month == 0 ? "" : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month).Substring(0, 3);
             }
         } 
         public PDMS_Dealer Dealer { get; set; }  
-        public string status { get; set; }
+        public PAjaxOneStatus Status { get; set; }
         public PUser RequestedBy { get; set; }
         public DateTime RequestedOn { get; set; }
         public PUser SubmittedBy { get; set; }
@@ -385,5 +388,18 @@ namespace Properties
         public DateTime? ApprovalL3On { get; set; }
         public PUser ApprovalL4By { get; set; }
         public DateTime? ApprovalL4On { get; set; }
+        public List<PDealerBusinessExcellenceItem> Items { get; set; }
+    }
+    [Serializable]
+    public class PDealerBusinessExcellenceItem
+    {
+        public long DealerBusinessExcellenceItemID { get; set; }
+        public int DealerBusinessExcellenceCategory3ID { get; set; }
+        public PDealerBusinessExcellenceCategory1 FunctionArea { get; set; }
+        public PDealerBusinessExcellenceCategory2 FunctionSubArea { get; set; }
+        public PDealerBusinessExcellenceCategory3 Parameter { get; set; }  
+        public decimal Target { get; set; }
+        public decimal Actual { get; set; }
+        public string Remarks { get; set; } 
     }
 }
