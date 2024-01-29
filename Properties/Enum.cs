@@ -578,8 +578,12 @@ namespace Properties
         CustomerGstChange = 74,
         TsirMailToSupplier=75,
         MailNotificationCreation=76,
-        DealerBusinessExcellenceSubmit = 77, 
-         
+        DealerBusinessExcellenceSubmit = 77,
+        PurchaseOrderCreate = 82,
+        PurchaseOrderReleasePO = 83,
+        PurchaseOrderCancelPO = 84,
+        PurchaseOrderReleaseApprove = 85,
+        PurchaseOrderCancelApprove = 86,
     }
     public enum DMS_WarrantyClaimStatus
     {

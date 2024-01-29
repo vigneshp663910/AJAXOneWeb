@@ -789,6 +789,7 @@
     <Content Include="Bundle.config" />
     <Content Include="Web.config" />
     <Content Include="Templates\InitialStock.xlsx" />
+    <Content Include="Templates\Material.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3304,6 +3305,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Print\PurchaseOrder.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
     <Content Include="Print\SalesMachineQuotation.rdlc" />
