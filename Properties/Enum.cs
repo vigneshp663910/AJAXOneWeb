@@ -500,7 +500,9 @@ namespace Properties
         ViewPreSale_Reports_DealerBusinessExcellence = 255,
         ViewPreSale_Reports_DealerBusinessExcellenceApprove = 256,
         ViewFinance_Reports_DealerBalanceConfirmationReport = 257,
-        ViewFinance_DealerBalanceConfirmationUpdate = 258
+        ViewFinance_DealerBalanceConfirmationUpdate = 258,
+        //**** Menu Level-2 ****************************** =  259,
+        ViewInventory_StockTransfer = 260
     }
     public enum SubModuleChildMaster
     {
