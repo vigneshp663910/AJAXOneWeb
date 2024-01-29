@@ -810,6 +810,13 @@ namespace Properties
         DealerShip = 2,
         CallCenter = 3
     }
+    public enum AjaxOneStatusHeader
+    {
+        DealerBusinessExcellence = 1,
+        DealerBalanceConfirmation = 2,
+        SaleOrder = 3,
+        PostingInventoryType = 4
+    }
     public enum AjaxOneStatus
     {
         DealerBusinessExcellence_Requested = 1,
