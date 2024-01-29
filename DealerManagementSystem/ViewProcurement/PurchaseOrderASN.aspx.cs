@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -204,6 +205,72 @@ namespace DealerManagementSystem.ViewProcurement
             divList.Visible = false;
             divDetailsView.Visible = true;
             UC_PurchaseOrderASNView.fillViewPOAsn(Convert.ToInt64(lblAsnID.Text));
+        }
+
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            ExportExcel(PAsnHeader, "Asn Report");
+        }
+        void ExportExcel(List<PAsn> AsnList, String Name)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Sno");
+            dt.Columns.Add("Asn Number");
+            dt.Columns.Add("Asn Date");
+            dt.Columns.Add("PO Number");
+            dt.Columns.Add("PO Date");
+            dt.Columns.Add("Dealer Code");
+            dt.Columns.Add("Vendor Code");
+            dt.Columns.Add("Asn Status");
+            dt.Columns.Add("Delivery Number");
+            dt.Columns.Add("Delivery Date");
+            dt.Columns.Add("Net Weight");            
+            dt.Columns.Add("Track ID");
+            dt.Columns.Add("Courier ID");
+            dt.Columns.Add("Courier Date");
+            dt.Columns.Add("LR Number");
+            dt.Columns.Add("Asn Remarks");
+            dt.Columns.Add("Gr Number");
+            dt.Columns.Add("Gr Date");
+            dt.Columns.Add("Gr Status");
+            int sno = 0;
+            foreach (PAsn Asn in AsnList)
+            {
+                sno += 1;
+                dt.Rows.Add(
+                    sno
+                    , Asn.AsnNumber
+                    , Asn.AsnDate
+                    , Asn.PurchaseOrder.PurchaseOrderNumber
+                    , Asn.PurchaseOrder.PurchaseOrderDate
+                    , Asn.PurchaseOrder.Dealer.DealerCode
+                    , Asn.PurchaseOrder.Vendor.DealerCode
+                    , Asn.AsnStatus.ProcurementStatus
+                    , Asn.DeliveryNumber
+                    , Asn.DeliveryDate
+                    , Asn.NetWeight
+                    , Asn.TrackID
+                    , Asn.CourierID
+                    , Asn.CourierDate
+                    , Asn.LRNo
+                    , Asn.Remarks
+                    , (Asn.Gr != null) ? Asn.Gr.GrNumber : ""
+                    , (Asn.Gr != null) ? Asn.Gr.GrDate.ToString() : ""
+                    , (Asn.Gr != null) ? Asn.Gr.Status.ProcurementStatus : ""
+                    );
+            }
+            try
+            {
+                new BXcel().ExporttoExcel(dt, Name);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
+            }
         }
     }
 }

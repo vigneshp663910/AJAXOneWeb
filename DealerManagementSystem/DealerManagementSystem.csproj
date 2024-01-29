@@ -469,11 +469,14 @@
     <Content Include="ViewFinance\DealerBalanceConfirmationUpdate.aspx" />
     <Content Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx" />
     <Content Include="ViewInventory\InitialStock.aspx" />
-    <Content Include="ViewInventory\MaterialStockAnalysis.aspx" />
-    <Content Include="ViewInventory\StockAdjustment.aspx" />
+    <Content Include="ViewInventory\PhysicalInventoryPosting.aspx" />
     <Content Include="ViewInventory\StockForPostingDate.aspx" />
     <Content Include="ViewInventory\StockInTransit.aspx" />
-    <Content Include="ViewInventory\WarehouseStockOnHand.aspx" />
+    <Content Include="ViewInventory\StockLedger.aspx" />
+    <Content Include="ViewInventory\StockTransfer.aspx" />
+    <Content Include="ViewInventory\UserControls\CreatePhysicalInventoryPosting.ascx" />
+    <Content Include="ViewInventory\UserControls\ViewPhysicalInventoryPosting.ascx" />
+    <Content Include="ViewInventory\WarehouseStock.aspx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
@@ -789,6 +792,7 @@
     <Content Include="Bundle.config" />
     <Content Include="Web.config" />
     <Content Include="Templates\InitialStock.xlsx" />
+    <Content Include="Templates\Material.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1473,19 +1477,12 @@
     <Compile Include="ViewInventory\InitialStock.aspx.designer.cs">
       <DependentUpon>InitialStock.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewInventory\MaterialStockAnalysis.aspx.cs">
-      <DependentUpon>MaterialStockAnalysis.aspx</DependentUpon>
+    <Compile Include="ViewInventory\PhysicalInventoryPosting.aspx.cs">
+      <DependentUpon>PhysicalInventoryPosting.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewInventory\MaterialStockAnalysis.aspx.designer.cs">
-      <DependentUpon>MaterialStockAnalysis.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewInventory\StockAdjustment.aspx.cs">
-      <DependentUpon>StockAdjustment.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewInventory\StockAdjustment.aspx.designer.cs">
-      <DependentUpon>StockAdjustment.aspx</DependentUpon>
+    <Compile Include="ViewInventory\PhysicalInventoryPosting.aspx.designer.cs">
+      <DependentUpon>PhysicalInventoryPosting.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\StockForPostingDate.aspx.cs">
       <DependentUpon>StockForPostingDate.aspx</DependentUpon>
@@ -1501,12 +1498,40 @@
     <Compile Include="ViewInventory\StockInTransit.aspx.designer.cs">
       <DependentUpon>StockInTransit.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewInventory\WarehouseStockOnHand.aspx.cs">
-      <DependentUpon>WarehouseStockOnHand.aspx</DependentUpon>
+    <Compile Include="ViewInventory\StockLedger.aspx.cs">
+      <DependentUpon>StockLedger.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewInventory\WarehouseStockOnHand.aspx.designer.cs">
-      <DependentUpon>WarehouseStockOnHand.aspx</DependentUpon>
+    <Compile Include="ViewInventory\StockLedger.aspx.designer.cs">
+      <DependentUpon>StockLedger.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\StockTransfer.aspx.cs">
+      <DependentUpon>StockTransfer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\StockTransfer.aspx.designer.cs">
+      <DependentUpon>StockTransfer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\UserControls\CreatePhysicalInventoryPosting.ascx.cs">
+      <DependentUpon>CreatePhysicalInventoryPosting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\UserControls\CreatePhysicalInventoryPosting.ascx.designer.cs">
+      <DependentUpon>CreatePhysicalInventoryPosting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\UserControls\ViewPhysicalInventoryPosting.ascx.cs">
+      <DependentUpon>ViewPhysicalInventoryPosting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\UserControls\ViewPhysicalInventoryPosting.ascx.designer.cs">
+      <DependentUpon>ViewPhysicalInventoryPosting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\WarehouseStock.aspx.cs">
+      <DependentUpon>WarehouseStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\WarehouseStock.aspx.designer.cs">
+      <DependentUpon>WarehouseStock.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ABPModelWise.aspx.cs">
       <DependentUpon>ABPModelWise.aspx</DependentUpon>
@@ -3304,6 +3329,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Print\PurchaseOrder.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
     <Content Include="Print\SalesMachineQuotation.rdlc" />

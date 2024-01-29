@@ -87,6 +87,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblPODealer.Text = GrView.ASN.PurchaseOrder.Dealer.DealerName;
             lblPOVendor.Text = GrView.ASN.PurchaseOrder.Vendor.DealerName;
             lblExpectedDeliveryDate.Text = GrView.ASN.PurchaseOrder.ExpectedDeliveryDate.ToString();
+            lblGrossAmount.Text = GrView.ASN.PurchaseOrder.NetAmount.ToString();
 
             GVGrPO.DataSource = null;
             GVGrPO.DataBind();

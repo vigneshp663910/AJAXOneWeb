@@ -172,8 +172,7 @@ namespace Properties
         public decimal TaxValue { get { return Material.CGSTValue + Material.SGSTValue + Material.IGSTValue; } }
         public decimal TransitQuantity { get; set; }
         public decimal DeliveredQuantity { get; set; }
-
-        //public decimal NetAmount { get; set; }
+        public decimal NetAmount { get { return TaxableValue + TaxValue; } }
         //public decimal GrossAmount { get; set; }
         //public decimal ShipedQuantity { get; set; } 
         //public decimal ApprovedQuantity { get; set; }
@@ -211,6 +210,7 @@ namespace Properties
         public string MaterialDescription { get; set; }
         public decimal Quantity { get; set; }
         public string UOM { get; set; }
+        public decimal UnitPrice { get; set; }
         public decimal Price { get; set; }
         public decimal DiscountAmount { get; set; }
         public decimal TaxableAmount { get; set; }
@@ -221,6 +221,8 @@ namespace Properties
         public decimal CGSTValue { get; set; }
         public decimal SGSTValue { get; set; }
         public decimal IGSTValue { get; set; }
+        public decimal Tax { get; set; }
+        public decimal TaxValue { get; set; }
         public decimal NetValue { get; set; }
     }
 
@@ -299,8 +301,8 @@ namespace Properties
         public PAsnItem AsnItem { get; set; }
         public decimal DeliveredQty { get; set; }
         public decimal ReceivedQty { get; set; }
-        public decimal SaleableQty { get; set; }
-        public decimal BlockedQty { get; set; }
+        public decimal UnrestrictedQty { get; set; }
+        public decimal RestrictedQty { get; set; }
         public decimal ReturnedQty { get; set; } 
         public string Remark { get; set; }
         public List<PGrBlocked> GrBlocked { get; set; }
@@ -375,8 +377,8 @@ namespace Properties
         public long AsnID { get; set; }
         public decimal DeliveredQty { get; set; }
         //public decimal ReceivedQty { get; set; }
-        public decimal SaleableQty { get; set; }
-        public decimal BlockedQty { get; set; }
+        public decimal UnrestrictedQty { get; set; }
+        public decimal RestrictedQty { get; set; }
         public string GrRemarks { get; set; }
         public string ItemRemarks { get; set; }
         public List<PGrBlocked_Insert> BlockedList { get; set; }

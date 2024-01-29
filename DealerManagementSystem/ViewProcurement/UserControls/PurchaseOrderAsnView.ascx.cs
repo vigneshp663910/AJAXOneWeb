@@ -73,6 +73,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblPODealer.Text = PAsnView.PurchaseOrder.Dealer.DealerName;
             lblPOVendor.Text = PAsnView.PurchaseOrder.Vendor.DealerName;
             lblExpectedDeliveryDate.Text = PAsnView.PurchaseOrder.ExpectedDeliveryDate.ToString();
+            lblGrossAmount.Text = PAsnView.PurchaseOrder.NetAmount.ToString();
+
 
             GVAsnPO.DataSource = null;
             GVAsnPO.DataBind();
@@ -150,15 +152,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 Label lblAsnID = (Label)row.FindControl("lblAsnID");
                 Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
                 Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
-                Label lblSaleableQty = (Label)row.FindControl("lblSaleableQty");
-                Label lblBlockedQty = (Label)row.FindControl("lblBlockedQty");
+                Label lblUnrestrictedQty = (Label)row.FindControl("lblUnrestrictedQty");
+                Label lblRestrictedQty = (Label)row.FindControl("lblRestrictedQty");
 
                 PAsnView.Gr.GrItemS.Add(new PGrItem()
                 {
                     AsnItem = new PAsnItem() { AsnItemID = Convert.ToInt64(lblAsnItemID.Text.Trim()) },
                     ReceivedQty = Convert.ToDecimal("0" + lblReceivedQty.Text),
-                    SaleableQty = Convert.ToDecimal("0" + lblSaleableQty.Text),
-                    BlockedQty = Convert.ToDecimal("0" + lblBlockedQty.Text),
+                    UnrestrictedQty = Convert.ToDecimal("0" + lblUnrestrictedQty.Text),
+                    RestrictedQty = Convert.ToDecimal("0" + lblRestrictedQty.Text),
                     GrBlocked = new List<PGrBlocked>()
                 });
             }
@@ -175,8 +177,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     pGr.AsnItemID = asnItem.AsnItemID.ToString();
                     pGr.AsnID = Convert.ToInt64(asnItem.AsnID);
                     pGr.DeliveredQty = asnItem.GrItem.ReceivedQty;
-                    pGr.SaleableQty = asnItem.GrItem.SaleableQty;
-                    pGr.BlockedQty = asnItem.GrItem.BlockedQty;
+                    pGr.UnrestrictedQty = asnItem.GrItem.UnrestrictedQty;
+                    pGr.RestrictedQty = asnItem.GrItem.RestrictedQty;
                     pGr.GrRemarks = txtRemarks.Text;
 
                     pGr.BlockedList = new List<PGrBlocked_Insert>();
@@ -194,8 +196,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     pGr.AsnItemID = asnItem.AsnItemID.ToString();
                     pGr.AsnID = Convert.ToInt64(asnItem.AsnID);
                     pGr.DeliveredQty = asnItem.Qty;
-                    pGr.SaleableQty = asnItem.Qty;
-                    pGr.BlockedQty = 0;
+                    pGr.UnrestrictedQty = asnItem.Qty;
+                    pGr.RestrictedQty = 0;
                     pGr.GrRemarks = txtRemarks.Text;
 
                     pGr.BlockedList = new List<PGrBlocked_Insert>();
@@ -230,20 +232,20 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 Label lblAsnItem = (Label)row.FindControl("lblAsnItem");
 
                 Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
-                Label lblSaleableQty = (Label)row.FindControl("lblSaleableQty");
-                Label lblBlockedQty = (Label)row.FindControl("lblBlockedQty");
+                Label lblUnrestrictedQty = (Label)row.FindControl("lblUnrestrictedQty");
+                Label lblRestrictedQty = (Label)row.FindControl("lblRestrictedQty");
 
-                decimal ReceivedQty = 0, SaleableQty = 0, BlockedQty = 0;
+                decimal ReceivedQty = 0, UnrestrictedQty = 0, RestrictedQty = 0;
                 decimal.TryParse(lblReceivedQty.Text, out ReceivedQty);
-                decimal.TryParse(lblSaleableQty.Text, out SaleableQty);
-                decimal.TryParse(lblBlockedQty.Text, out BlockedQty);
+                decimal.TryParse(lblUnrestrictedQty.Text, out UnrestrictedQty);
+                decimal.TryParse(lblRestrictedQty.Text, out RestrictedQty);
 
                 if (Convert.ToDecimal("0" + lblQty.Text) != ReceivedQty)
                 {
                     lblMessageGrCreation.Text = "Please Equal To AsnQty with Received Qty From Item No : " + lblAsnItem.Text;
                     Result = true;
                 }
-                if (ReceivedQty != (SaleableQty + BlockedQty))
+                if (ReceivedQty != (UnrestrictedQty + RestrictedQty))
                 {
                     lblMessageGrCreation.Text = "Please Equal To Received Qty with (Saleable + Blocked) From Item No : " + lblAsnItem.Text;
                     Result = true;
@@ -251,13 +253,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             return Result;
         }
-        protected void lnkSetBlockedQty_Click(object sender, EventArgs e)
+        protected void lnkSetRestrictedQty_Click(object sender, EventArgs e)
         {
             lblMessageGrCreation.Text = string.Empty;
             lblMessageGrCreation.ForeColor = Color.Red;
             lblMessageGrCreation.Visible = true;
-            LinkButton lnkSetBlockedQty = (LinkButton)sender;
-            GridViewRow row = (GridViewRow)(lnkSetBlockedQty.NamingContainer);
+            LinkButton lnkSetRestrictedQty = (LinkButton)sender;
+            GridViewRow row = (GridViewRow)(lnkSetRestrictedQty.NamingContainer);
 
             Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
             Label lblAsnID = (Label)row.FindControl("lblAsnID");
@@ -269,40 +271,40 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             HidAsnItem.Value = lblAsnItem.Text;
             HidReceivedQty.Value = lblReceivedQty.Text;
 
-            txtSaleableQty.Text = HidReceivedQty.Value;
+            txtUnrestrictedQty.Text = HidReceivedQty.Value;
             txtDamagedQty.Text = "0";
             txtMissingQty.Text = "0";
 
-            MPE_UpdateBlockedQty.Show();
+            MPE_UpdateRestrictedQty.Show();
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            lblMessageBlockedQty.Text = "";
-            lblMessageBlockedQty.ForeColor = Color.Red;
-            lblMessageBlockedQty.Visible = true;
-            if (string.IsNullOrEmpty(txtSaleableQty.Text))
+            lblMessageRestrictedQty.Text = "";
+            lblMessageRestrictedQty.ForeColor = Color.Red;
+            lblMessageRestrictedQty.Visible = true;
+            if (string.IsNullOrEmpty(txtUnrestrictedQty.Text))
             {
-                lblMessageBlockedQty.Text = "Please Saleable Quantity...!";
-                MPE_UpdateBlockedQty.Show();
+                lblMessageRestrictedQty.Text = "Please Saleable Quantity...!";
+                MPE_UpdateRestrictedQty.Show();
                 return;
             }
             if (string.IsNullOrEmpty(txtMissingQty.Text))
             {
-                lblMessageBlockedQty.Text = "Please Missing Quantity...!";
-                MPE_UpdateBlockedQty.Show();
+                lblMessageRestrictedQty.Text = "Please Missing Quantity...!";
+                MPE_UpdateRestrictedQty.Show();
                 return;
             }
             if (string.IsNullOrEmpty(txtDamagedQty.Text))
             {
-                lblMessageBlockedQty.Text = "Please Damaged Quantity...!";
-                MPE_UpdateBlockedQty.Show();
+                lblMessageRestrictedQty.Text = "Please Damaged Quantity...!";
+                MPE_UpdateRestrictedQty.Show();
                 return;
             }
-            if (Convert.ToDecimal(HidReceivedQty.Value) != (Convert.ToDecimal(txtSaleableQty.Text) + Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text)))
+            if (Convert.ToDecimal(HidReceivedQty.Value) != (Convert.ToDecimal(txtUnrestrictedQty.Text) + Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text)))
             {
-                lblMessageBlockedQty.Text = "Received Qty Not match with (Saleable+Missing+Damage) Quantity...!";
-                MPE_UpdateBlockedQty.Show();
+                lblMessageRestrictedQty.Text = "Received Qty Not match with (Saleable+Missing+Damage) Quantity...!";
+                MPE_UpdateRestrictedQty.Show();
                 return;
             }
             foreach (PAsnItem asn in PAsnView.AsnItemS)
@@ -326,12 +328,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     asn.GrItem.GrBlocked.Add(pgrb);
 
                     asn.GrItem.ReceivedQty = Convert.ToDecimal(HidReceivedQty.Value);
-                    asn.GrItem.SaleableQty = Convert.ToDecimal(txtSaleableQty.Text);
-                    asn.GrItem.BlockedQty = (Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text));
+                    asn.GrItem.UnrestrictedQty = Convert.ToDecimal(txtUnrestrictedQty.Text);
+                    asn.GrItem.RestrictedQty = (Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text));
                 }
             }
             MPE_GrCreate.Show();
-            MPE_UpdateBlockedQty.Hide();
+            MPE_UpdateRestrictedQty.Hide();
             gvPOAsnGrItem.DataSource = null;
             gvPOAsnGrItem.DataBind();
 

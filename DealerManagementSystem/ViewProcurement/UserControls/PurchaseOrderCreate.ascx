@@ -22,6 +22,7 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbUploadMaterial" runat="server" OnClick="lbActions_Click">Upload Material</asp:LinkButton>
+                <asp:LinkButton ID="lbDownloadMaterialTemplate" runat="server" OnClick="lbActions_Click">Download Material Template</asp:LinkButton>
                 <asp:LinkButton ID="lbAddMaterialFromCart" runat="server" OnClick="lbActions_Click">Add Material From Cart</asp:LinkButton>
                 <asp:LinkButton ID="lbCopyFromPO" runat="server" OnClick="lbActions_Click">Copy From PO</asp:LinkButton>
                 <asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click">Save</asp:LinkButton>
@@ -79,30 +80,30 @@
                 <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
             </div>
         </div>
-          <div class="col-md-3">
-                <div class="col-md-12">
-                    <label>Price : </label>
-                    <asp:Label ID="lblPrice" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Discount : </label>
-                    <asp:Label ID="lblDiscount" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Taxable Amount : </label>
-                    <asp:Label ID="lblTaxableAmount" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Tax Amount : </label>
-                    <asp:Label ID="lblTaxAmount" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Gross Amount : </label>
-                    <asp:Label ID="lblGrossAmount" runat="server" CssClass="label"></asp:Label>
-                </div>
-
-                
+        <div class="col-md-3">
+            <div class="col-md-12">
+                <label>Price : </label>
+                <asp:Label ID="lblPrice" runat="server" CssClass="label"></asp:Label>
             </div>
+            <div class="col-md-12">
+                <label>Discount : </label>
+                <asp:Label ID="lblDiscount" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Taxable Amount : </label>
+                <asp:Label ID="lblTaxableAmount" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Tax Amount : </label>
+                <asp:Label ID="lblTaxAmount" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Gross Amount : </label>
+                <asp:Label ID="lblGrossAmount" runat="server" CssClass="label"></asp:Label>
+            </div>
+
+
+        </div>
     </fieldset>
     <div class="col-md-12">
         <div class="col-md-12 Report">
@@ -174,7 +175,7 @@
                             <asp:TemplateField HeaderText="Unit Price">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "Price","{0:n}")%>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "UnitPrice","{0:n}")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Price">
@@ -196,7 +197,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="SGST">
+                            <%--<asp:TemplateField HeaderText="SGST">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblSGST" Text='<%# DataBinder.Eval(Container.DataItem, "SGST","{0:n}")%>' runat="server"></asp:Label>
@@ -213,14 +214,26 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblIGST" Text='<%# DataBinder.Eval(Container.DataItem, "IGST","{0:n}")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>
-                             <asp:TemplateField HeaderText="Net Amount">
+                            </asp:TemplateField>--%>
+                            <asp:TemplateField HeaderText="Tax">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblIGST" Text='<%# DataBinder.Eval(Container.DataItem, "NetValue","{0:n}")%>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblTax" Text='<%# DataBinder.Eval(Container.DataItem, "Tax","{0:n}")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            
+                            <asp:TemplateField HeaderText="Tax Value">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "TaxValue","{0:n}")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Net Amount">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNetAmount" Text='<%# DataBinder.Eval(Container.DataItem, "NetValue","{0:n}")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
                             <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkBtnPoItemDelete" runat="server" OnClick="lnkBtnPoItemDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
@@ -252,7 +265,7 @@
                 <div class="col-md-12">
                     <div class="col-md-12 Report">
                         <div class="table-responsive">
-                            <asp:GridView ID="gvMaterialFromCart" runat="server" AutoGenerateColumns="false" OnRowDataBound="gvMaterialFromCart_RowDataBound" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
+                            <asp:GridView ID="gvMaterialFromCart" ShowHeader="true" runat="server" AutoGenerateColumns="false" OnRowDataBound="gvMaterialFromCart_RowDataBound" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                                 <AlternatingRowStyle BackColor="White" />
                                 <Columns>
                                     <asp:TemplateField>
@@ -262,6 +275,9 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Select">
+                                        <HeaderTemplate>
+                                            <asp:CheckBox ID="ChkMailH" Text="Check" runat="server"/>
+                                        </HeaderTemplate>
                                         <ItemTemplate>
                                             <asp:CheckBox ID="cbSelect" runat="server" onchange="OnchangeHandler(this);" />
                                         </ItemTemplate>
@@ -446,6 +462,32 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_CopyOrder" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCopyOrder" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+<asp:Panel ID="pnlMaterialUpload" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Material Upload</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageMaterialUpload" runat="server" Text="" CssClass="message" Visible="false" />
+        <fieldset class="fieldset-border">
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Upload Material</label>
+                    <asp:FileUpload ID="fileUpload" runat="server" />
+                </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnUploadMaterial" runat="server" Text="Submit" CssClass="btn Save" OnClick="btnUploadMaterial_Click" />
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+
+
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_MaterialUpload" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMaterialUpload" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
@@ -537,6 +579,29 @@
 
 
     function OnchangeHandler(txtid) {
+
+        var index = txtid.parentNode.parentNode.sectionRowIndex; // Get the corresponding index 
+        index = (index + 1) / 2;
+        index = index - 1;
+        var checkBox = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_cbSelect_' + index);
+        var gvMaterialFromCartItem = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_gvMaterialFromCartItem_' + index);
+        for (i = 0; i < gvMaterialFromCartItem.rows.length; i++) {
+            var cbSelectChild = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_gvMaterialFromCartItem_' + index + '_cbSelectChild_' + i);
+            if (checkBox.checked) {
+                cbSelectChild.checked = true;
+            }
+            else {
+                cbSelectChild.checked = false;
+            }
+
+        }
+        //var grid = txtid.parentNode.parentNode.parentNode;
+        // var checkBox = grid.rows[index].cells[1].getElementsByTagName("INPUT")[0];
+        //  var gvMaterialFromCartItem = grid.rows[index].cells[5].getElementsByTagName("INPUT")[0];
+
+
+    }
+    function OnCheckAll(txtid) {
 
         var index = txtid.parentNode.parentNode.sectionRowIndex; // Get the corresponding index 
         index = (index + 1) / 2;

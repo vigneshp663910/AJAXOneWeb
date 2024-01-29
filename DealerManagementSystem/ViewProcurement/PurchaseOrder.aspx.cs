@@ -20,7 +20,7 @@ namespace DealerManagementSystem.ViewProcurement
         string PurchaseOrderNo = null;
         DateTime? PurchaseOrderDateF = null;
         DateTime? PurchaseOrderDateT = null;
-        int? PurchaseOrderStatusID = null; 
+        int? PurchaseOrderStatusID = null;
         int? PurchaseOrderTypeID = null;
 
         public List<PDMS_PurchaseOrder> SDMS_PurchaseOrder
@@ -70,35 +70,35 @@ namespace DealerManagementSystem.ViewProcurement
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
-        { 
+        {
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            } 
+            }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Orders');</script>");
-            lblMessage.Visible = false; 
+            lblMessage.Visible = false;
             if (!IsPostBack)
             {
                 PageCount = 0;
                 PageIndex = 1;
-                // fillMTTR();
-                // FillPageNo(1);
                 txtPoDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtPoDateTo.Text = DateTime.Now.ToShortDateString();
 
-
                 fillDealer();
                 fillProcurementStatus();
-
-                if(Session["PurchaseOrderID"] != null)
-                { 
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderCreate).Count() == 0)
+                {
+                    btnCreatePO.Visible = false;
+                }
+                if (Session["PurchaseOrderID"] != null)
+                {
                     divList.Visible = false;
                     divDetailsView.Visible = true;
                     UC_PurchaseOrderView.fillViewPO(Convert.ToInt64(Session["PurchaseOrderID"]));
-                    
                 }
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
@@ -127,18 +127,18 @@ namespace DealerManagementSystem.ViewProcurement
             PurchaseOrderDateT = string.IsNullOrEmpty(txtPoDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtPoDateTo.Text.Trim());
 
             PurchaseOrderStatusID = ddlPOStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPOStatus.SelectedValue);
-          
+
             //  int? PurchaseOrderTypeID = ddlPOStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPOStatus.SelectedValue);
             PurchaseOrderNo = txtPoNumber.Text.Trim();
         }
         void fillPurchaseOrder()
         {
             try
-            { 
+            {
                 TraceLogger.Log(DateTime.Now);
                 Search();
                 PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderHeader(DealerID, VendorID, PurchaseOrderNo, PurchaseOrderDateF
-                    , PurchaseOrderDateT, PurchaseOrderStatusID,  PurchaseOrderTypeID, PageIndex, gvICTickets.PageSize);
+                    , PurchaseOrderDateT, PurchaseOrderStatusID, PurchaseOrderTypeID, PageIndex, gvICTickets.PageSize);
                 List<PPurchaseOrder> PO = JsonConvert.DeserializeObject<List<PPurchaseOrder>>(JsonConvert.SerializeObject(Result.Data));
                 gvICTickets.PageIndex = 0;
                 gvICTickets.DataSource = PO;
@@ -156,7 +156,7 @@ namespace DealerManagementSystem.ViewProcurement
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
                     lblRowCount.Text = (((PageIndex - 1) * gvICTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + Result.RowCount;
-                } 
+                }
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception e1)
@@ -172,7 +172,7 @@ namespace DealerManagementSystem.ViewProcurement
             {
                 PageIndex = PageIndex - 1;
                 fillPurchaseOrder();
-            } 
+            }
         }
 
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
@@ -321,7 +321,7 @@ namespace DealerManagementSystem.ViewProcurement
         protected void btnViewPO_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblPurchaseOrderID = (Label)gvRow.FindControl("lblPurchaseOrderID"); 
+            Label lblPurchaseOrderID = (Label)gvRow.FindControl("lblPurchaseOrderID");
             divList.Visible = false;
             divDetailsView.Visible = true;
             UC_PurchaseOrderView.fillViewPO(Convert.ToInt64(lblPurchaseOrderID.Text));

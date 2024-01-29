@@ -267,6 +267,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblExpectedDeliveryDate;
 
         /// <summary>
+        /// lblGrossAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGrossAmount;
+
+        /// <summary>
         /// GVAsnPO control.
         /// </summary>
         /// <remarks>
@@ -393,13 +402,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_GrCreate;
 
         /// <summary>
-        /// pnlUpdateBlockedQty control.
+        /// pnlUpdateRestrictedQty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlUpdateBlockedQty;
+        protected global::System.Web.UI.WebControls.Panel pnlUpdateRestrictedQty;
 
         /// <summary>
         /// Button8 control.
@@ -411,13 +420,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Button Button8;
 
         /// <summary>
-        /// lblMessageBlockedQty control.
+        /// lblMessageRestrictedQty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessageBlockedQty;
+        protected global::System.Web.UI.WebControls.Label lblMessageRestrictedQty;
 
         /// <summary>
         /// Fieldset7 control.
@@ -429,13 +438,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset7;
 
         /// <summary>
-        /// txtSaleableQty control.
+        /// txtUnrestrictedQty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSaleableQty;
+        protected global::System.Web.UI.WebControls.TextBox txtUnrestrictedQty;
 
         /// <summary>
         /// txtMissingQty control.
@@ -474,13 +483,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Button btnAdd;
 
         /// <summary>
-        /// MPE_UpdateBlockedQty control.
+        /// MPE_UpdateRestrictedQty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender MPE_UpdateBlockedQty;
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_UpdateRestrictedQty;
 
         /// <summary>
         /// lnkMPE control.
