@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                        <asp:Button ID="btnAddLead" runat="server" CssClass="btn Save" Text="Add Lead" OnClick="btnAddLead_Click" Width="150px"></asp:Button>
+                        <asp:Button ID="btnPostPhysicalInventory" runat="server" CssClass="btn Save" Text="Post Physical Inventory" OnClick="btnPostPhysicalInventory_Click" Width="150px"></asp:Button>
                     </div>
                 </div>
             </fieldset>

@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-2 col-sm-12">
                     <label class="modal-label">Document Date</label>
-                    <asp:TextBox ID="txtDocumentDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                    <asp:TextBox ID="txtDocumentDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled" TextMode="Date"></asp:TextBox>
                 </div>
                 <div class="col-md-2 text-left">
                     <label>Posting Inventory Type</label>

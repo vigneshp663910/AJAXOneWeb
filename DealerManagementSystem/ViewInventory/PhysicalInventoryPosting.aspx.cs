@@ -107,13 +107,7 @@ namespace DealerManagementSystem.ViewInventory
         {
             new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID");
         }
-
-        protected void btnAddLead_Click(object sender, EventArgs e)
-        {
-            divList.Visible = false; 
-            divCreate.Visible = true;
-            UC_Create.FillMaster();
-        }
+ 
         protected void btnView_Click(object sender, EventArgs e)
         { 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -129,6 +123,13 @@ namespace DealerManagementSystem.ViewInventory
             divList.Visible = true;
             divView.Visible = false;
             divCreate.Visible = false;
+        }
+
+        protected void btnPostPhysicalInventory_Click(object sender, EventArgs e)
+        {
+            divList.Visible = false;
+            divCreate.Visible = true;
+            UC_Create.FillMaster();
         }
     }
 }

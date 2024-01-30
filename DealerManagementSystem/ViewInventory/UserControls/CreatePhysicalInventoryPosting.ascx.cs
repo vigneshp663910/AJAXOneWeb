@@ -52,7 +52,8 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             txtDocumentNumber.Text = string.Empty;
             txtDocumentDate.Text = string.Empty; 
             new DDLBind().FillDealerAndEngneer(ddlDealer, null);
-            new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID"); 
+            new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID");
+            new DDLBind(ddlPostingInventoryType, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.PostingInventoryType), "Status", "StatusID");
         }
         public PEnquiry Read()
         {
