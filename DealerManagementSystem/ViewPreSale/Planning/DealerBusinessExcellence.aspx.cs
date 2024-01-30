@@ -303,7 +303,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
                 };
                 Plannings.Add(Planning);
 
-                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/InsertOrUpdateDealerBusinessExcellence", Plannings));
+                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("DealerBusinessExcellence/InsertOrUpdateDealerBusinessExcellence", Plannings));
 
                 if (result.Status == PApplication.Failure)
                 {
