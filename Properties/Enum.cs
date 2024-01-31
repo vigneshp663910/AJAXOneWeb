@@ -282,7 +282,7 @@ namespace Properties
         //**** Menu Level-2 ****************************** =  37,
         //       UnderCons = 38,
         ViewInventory_WarehouseStock = 39,
-        ViewInventory_StockForPostingDate = 40,
+        ViewInventory_StockAgeingReport = 40,
         ViewInventory_MaterialStockAnalysis = 41,
         //=  42,
         ViewService_TicketTracking = 43,
@@ -829,6 +829,14 @@ namespace Properties
         DealerBalanceConfirmation_Confirmed = 8,
         DealerBalanceConfirmation_UnConfirmed = 9,
         DealerBalanceConfirmation_NeedReconciliation = 10,
+        SaleOrder_Draft = 11,
+        SaleOrder_OrderConformed = 12,
+        SaleOrder_Cancelled = 13,
+        SaleOrder_PartiallyDelivered = 14,
+        SaleOrder_Delivered = 15,
+        PostingInventoryType_PostingUnrestricted = 16,
+        PostingInventoryType_PostingRestricted = 17,
+        PostingInventoryType_PostingBlocked = 18
     }
     public enum ProcurementStatus
     {

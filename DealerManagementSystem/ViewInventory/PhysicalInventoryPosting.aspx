@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                        <asp:Button ID="btnPostPhysicalInventory" runat="server" CssClass="btn Save" Text="Post Physical Inventory" OnClick="btnPostPhysicalInventory_Click" Width="150px"></asp:Button>
+                        <asp:Button ID="btnPostPhysicalInventory" runat="server" CssClass="btn Save" Text="Post Physical Inventory" OnClick="btnPostPhysicalInventory_Click" Width="170px"></asp:Button>
                     </div>
                 </div>
             </fieldset>
@@ -62,9 +62,7 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
-                                        <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerID")%>' runat="server" Visible="false" />
-                                        <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialID")%>' runat="server" Visible="false" />
-                                        <asp:Label ID="lblOfficeID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerOffice.OfficeID")%>' runat="server" Visible="false" />
+                                        <asp:Label ID="lblPhysicalInventoryPostingID" Text='<%# DataBinder.Eval(Container.DataItem, "PhysicalInventoryPostingID")%>' runat="server" Visible="false" /> 
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer Name">
@@ -79,53 +77,28 @@
                                         <asp:Label ID="lblOfficeName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerOffice.OfficeName")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Material">
+                                <asp:TemplateField HeaderText="Document Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server" />
-
+                                        <asp:Label ID="lblDocumentNumber" Text='<%# DataBinder.Eval(Container.DataItem, "DocumentNumber")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Material Description">
+                                <asp:TemplateField HeaderText="Document Date">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server" />
+                                        <asp:Label ID="lblDocumentDate" Text='<%# DataBinder.Eval(Container.DataItem, "DocumentDate","{0:d}")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="OnOrder Qty">
+                                <asp:TemplateField HeaderText="Posting Date">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblOnOrderQty" Text='<%# DataBinder.Eval(Container.DataItem, "OnOrderQty","{0:0}" )%>' runat="server" />
+                                        <asp:Label ID="lblPostingDate" Text='<%# DataBinder.Eval(Container.DataItem, "PostingDate")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Transit Qty">
+                                <asp:TemplateField HeaderText="Created By">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblTransitQty" Text='<%# DataBinder.Eval(Container.DataItem, "TransitQty","{0:0}")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="UnrestrictedQty">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblUnrestrictedQty" Text='<%# DataBinder.Eval(Container.DataItem, "UnrestrictedQty","{0:0}")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="RestrictedQty">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblRestrictedQty" Text='<%# DataBinder.Eval(Container.DataItem, "RestrictedQty","{0:0}")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="BlockedQty">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblBlockedQty" Text='<%# DataBinder.Eval(Container.DataItem, "BlockedQty","{0:0}")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="ReservedQty">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblReservedQty" Text='<%# DataBinder.Eval(Container.DataItem, "ReservedQty","{0:0}")%>' runat="server" />
+                                        <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -142,20 +115,20 @@
         <div class="col-md-12" id="divView" runat="server" visible="false" style="padding: 5px 15px">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
-                <div class="back-buttton" id="backBtn">
+                <div class="back-buttton" id="backBtn" style="float: inline-end">
                     <asp:Button ID="btnViewBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
                 </div>
             </div>
-            <uc:UC_View id="UC_View" runat="server"></uc:UC_View>
+            <UC:UC_View ID="UC_View" runat="server"></UC:UC_View>
         </div>
         <div class="col-md-12" id="divCreate" runat="server" visible="false" style="padding: 5px 15px">
             <div class="col-md-12 lead-back-btn">
-                <div class="" id="boxHere"></div>
-                <div class="back-buttton" id="backBtn">
+                <div class="" id="boxHere1"></div>
+                <div class="back-buttton" id="backBtn1"  style="float: inline-end">
                     <asp:Button ID="btnCreateBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
                 </div>
             </div>
-            <uc:UC_Create id="UC_Create" runat="server"></uc:UC_Create>
+            <UC:UC_Create ID="UC_Create" runat="server"></UC:UC_Create>
         </div>
     </div>
 </asp:Content>

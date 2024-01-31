@@ -43,14 +43,20 @@ namespace Business
              + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetDealerPhysicalInventoryPostingByID(long PhysicalInventoryPostingID)
+        public PPhysicalInventoryPosting GetDealerPhysicalInventoryPostingByID(long PhysicalInventoryPostingID)
         {
-            string endPoint = "Inventory/GetDealerPhysicalInventoryPosting?PhysicalInventoryPostingID=" + PhysicalInventoryPostingID;
-            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            string endPoint = "Inventory/GetDealerPhysicalInventoryPostingByID?PhysicalInventoryPostingID=" + PhysicalInventoryPostingID;
+            return JsonConvert.DeserializeObject<PPhysicalInventoryPosting>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
         }
         public PApiResult InsertDealerPhysicalInventoryPosting(List<PPhysicalInventoryPosting_Post> Stock)
         {
-            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Inventory/InsertUpdateInitialStock", Stock));
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Inventory/InsertDealerPhysicalInventoryPosting", Stock));
+        }
+        public PApiResult GetDealerStockAgeing(int? DealerID, int? OfficeID, int? DivisionID, int? ModelID, string MaterialCode, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "Inventory/GetDealerStockAgeing?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&DivisionID=" + DivisionID + "&ModelID=" + ModelID
+            + "&MaterialCode=" + MaterialCode + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
     }
 }

@@ -221,7 +221,7 @@ namespace DealerManagementSystem.ViewInventory
         }
         protected void btnDownload_Click(object sender, EventArgs e)
         {
-            string Path = Server.MapPath("Templates\\InitialStock.xlsx");
+            string Path = Server.MapPath("~") + "Templates\\InitialStock.xlsx";
             WebClient req = new WebClient();
             HttpResponse response = HttpContext.Current.Response;
             response.Clear();
