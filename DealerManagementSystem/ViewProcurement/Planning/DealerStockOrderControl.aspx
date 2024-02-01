@@ -87,7 +87,7 @@
                                 <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px">
                                     <ItemTemplate>
                                         <asp:LinkButton ID="LnkEdit" runat="server" OnClick="LnkEdit_Click" ToolTip="Edit"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
-                                        <asp:LinkButton ID="LnkUpdate" runat="server" OnClick="LnkUpdate_Click" ToolTip="Update"><i class="fa fa-fw fa-exchange" style="font-size:18px"></i></asp:LinkButton>
+                                        <asp:LinkButton ID="LnkUpdate" runat="server" OnClick="LnkUpdate_Click" ToolTip="Update"><i class="fa fa-fw fa-refresh" style="font-size:18px"></i></asp:LinkButton>
                                         <asp:LinkButton ID="LnkDelete" runat="server" OnClick="LnkDelete_Click" ToolTip="Delete"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
