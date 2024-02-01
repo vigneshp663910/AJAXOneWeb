@@ -485,7 +485,7 @@ namespace Properties
         ViewEquipment_EquipmentClient = 240,
         ViewSupportTicket_DeviationProcessReport = 241,
         ViewSales_SaleOrderDelivery = 242,
-        ViewMaster_CustomerGSTApproval = 243, 
+        ViewMaster_CustomerGSTApproval = 243,
         ViewPreSale_LeadReportForDefinedPeriod = 244,
         ViewAdmin_MessageAnnouncement = 245,
         ViewDashboard_BIAdmin = 246,
@@ -502,7 +502,8 @@ namespace Properties
         ViewFinance_Reports_DealerBalanceConfirmationReport = 257,
         ViewFinance_DealerBalanceConfirmationUpdate = 258,
         //**** Menu Level-2 ****************************** =  259,
-        ViewInventory_StockTransfer = 260
+        ViewInventory_StockTransfer = 260,
+        ViewProcurement_DealerStockOrderControl = 261
     }
     public enum SubModuleChildMaster
     {
@@ -580,8 +581,8 @@ namespace Properties
         EquipmentClientUpdate = 72,
         EquipmentClientAddEditDelete = 73,
         CustomerGstChange = 74,
-        TsirMailToSupplier=75,
-        MailNotificationCreation=76,
+        TsirMailToSupplier = 75,
+        MailNotificationCreation = 76,
         DealerBusinessExcellenceSubmit = 77,
         DealerBusinessExcellenceApproveL1 = 78,
         DealerBusinessExcellenceApproveL2 = 79,
@@ -591,8 +592,8 @@ namespace Properties
         PurchaseOrderReleasePO = 83,
         PurchaseOrderCancelPO = 84,
         PurchaseOrderReleaseApprove = 85,
-        PurchaseOrderCancelApprove = 86, 
-        
+        PurchaseOrderCancelApprove = 86,
+
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -649,29 +650,29 @@ namespace Properties
     {
         SendSMS = 1,
         SendMail = 2,
-       // ICTicketIntegrationFromCRM = 3,
+        // ICTicketIntegrationFromCRM = 3,
         MaterialIntegrationFromPostgre = 4,
         SAPDocumentForWarrantyInvoiceFromSAP = 5,
         SaleOrderNumberForSrviceQuatationFromSAP = 6,
-      //  TechnicianIntegrationFromSAP = 7,
-      //  UpdateICTicketToSAP = 8,
-      //  ModelForClaim = 9,
-     //   Category = 10,
-     //   ICTicketIntegrationVerification = 11,
-      //  QuotationForJSN = 12,
-      //  IntegrationSalesOrder = 13,
+        //  TechnicianIntegrationFromSAP = 7,
+        //  UpdateICTicketToSAP = 8,
+        //  ModelForClaim = 9,
+        //   Category = 10,
+        //   ICTicketIntegrationVerification = 11,
+        //  QuotationForJSN = 12,
+        //  IntegrationSalesOrder = 13,
         IntegrationSalesOrderInvoice = 14,
         IntegrationClaimAnnexure = 15,
         EInvoice = 16,
         SendMailMttrEscalationMatrix = 17,
-       // IntegrationEquipmentFromSAP = 18,
-       // IntegrationMaterialFromEccSap = 19,
+        // IntegrationEquipmentFromSAP = 18,
+        // IntegrationMaterialFromEccSap = 19,
         GetPurchaseOrderIntegration = 20,
         MaterialIntegrationFromSAP = 21,
-     //   CustomerIntegration = 22,
+        //   CustomerIntegration = 22,
         //  UpdateSalesQuotationDeliveryDetails = 23 ,
         SalesQuotationFlowFromSap = 24,
-     //   EnquiryFromCRM = 25,
+        //   EnquiryFromCRM = 25,
         LeadQualificationByExpectedDateOfSale = 26,
         IntegrationEquipmentFromSAP_New = 27,
         EnquiryIndiamart = 28,
@@ -750,21 +751,21 @@ namespace Properties
         Administration = 4,
         FinanceAccounting = 5,
         TopManagement = 6,
-        BusinessSystem=7,
+        BusinessSystem = 7,
         Quality = 8,
         Engineering = 9,
-        Marketing=10,
-        Operations=11,
+        Marketing = 10,
+        Operations = 11,
         TrainingDevelopment = 12,
         IC = 13
     }
     public enum DealerDesignation
     {
         GmSales = 1,
-        SalesManager=2,
+        SalesManager = 2,
         SalesExecutive = 4,
         DealerServiceManager = 5,
-        ServiceTechnician = 8,  
+        ServiceTechnician = 8,
         BusinessSystemManager = 31,
         BusinessSystemExecutive = 32,
         BusinessSystemHead = 51
@@ -865,12 +866,12 @@ namespace Properties
     }
     public enum StockMovementType
     {
-        UnrestrictedToRestricted =24,
-        UnrestrictedToBlocked = 25, 
+        UnrestrictedToRestricted = 24,
+        UnrestrictedToBlocked = 25,
         RestrictedToUnrestricted = 26,
-        RestrictedToBlocked = 27, 
+        RestrictedToBlocked = 27,
         BlockedToUnrestricted = 28,
-        BlockedToRestricted = 29 
+        BlockedToRestricted = 29
     }
     public enum Division
     {
