@@ -454,29 +454,27 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Enquiry" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEnquiry" BackgroundCssClass="modalBackground" />
 
-<asp:Panel ID="pnlAddMaterial" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnlAddMaterial" runat="server" CssClass="Popup" Style="display: none" Height="500px">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">Add Material</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
-        <div class="model-scroll">
-            <asp:Label ID="lblAddMaterialMessage" runat="server" Text="" CssClass="message" />
-            <div class="col-md-12">
-                <div class="col-md-2 col-sm-12">
-                    <label class="modal-label">SupersedeYN</label>
-                    <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
-                </div>
-                <div class="col-md-3 col-sm-12">
-                    <asp:HiddenField ID="hdfMaterialID" runat="server" />
-                    <asp:HiddenField ID="hdfMaterialCode" runat="server" />
-                    <label class="modal-label">Material</label>
-                    <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" onKeyUp="GetMaterial()"></asp:TextBox>
-                </div>
-                <div class="col-md-1 col-sm-12">
-                    <label class="modal-label">Qty</label>
-                    <asp:TextBox ID="txtQty" runat="server" CssClass="form-control"></asp:TextBox>
-                </div>
+        <asp:Label ID="lblAddMaterialMessage" runat="server" Text="" CssClass="message" />
+        <div class="col-md-12">
+            <div class="col-md-2 col-sm-12">
+                <label class="modal-label">SupersedeYN</label>
+                <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <asp:HiddenField ID="hdfMaterialID" runat="server" />
+                <asp:HiddenField ID="hdfMaterialCode" runat="server" />
+                <label class="modal-label">Material</label>
+                <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" onKeyUp="GetMaterial()"></asp:TextBox>
+            </div>
+            <div class="col-md-2 col-sm-12">
+                <label class="modal-label">Qty</label>
+                <asp:TextBox ID="txtQty" runat="server" CssClass="form-control"></asp:TextBox>
             </div>
         </div>
         <div class="col-md-12 text-center">

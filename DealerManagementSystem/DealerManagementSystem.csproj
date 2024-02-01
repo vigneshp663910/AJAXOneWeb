@@ -612,6 +612,7 @@
     <Content Include="ViewPreSale\VisitCoverageReport.aspx" />
     <Content Include="ViewPreSale\VisitReport.aspx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
+    <Content Include="ViewProcurement\Planning\DealerStockOrderControl.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderASN.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderAsnGR.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderPG.aspx" />
@@ -2315,6 +2316,13 @@
     </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.designer.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\Planning\DealerStockOrderControl.aspx.cs">
+      <DependentUpon>DealerStockOrderControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\Planning\DealerStockOrderControl.aspx.designer.cs">
+      <DependentUpon>DealerStockOrderControl.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderASN.aspx.cs">
       <DependentUpon>PurchaseOrderASN.aspx</DependentUpon>

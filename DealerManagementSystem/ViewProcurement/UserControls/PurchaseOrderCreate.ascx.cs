@@ -311,7 +311,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.Text = "Material already available.";
                 return;
             }
-            PPurchaseOrderItem_Insert PoI = ReadItem(hdfMaterialID.Value, hdfMaterialCode.Value, txtQty.Text.Trim());
+            PPurchaseOrderItem_Insert PoI = ReadItem(hdfMaterialID.Value, hdfMaterialCode.Value.Trim(), txtQty.Text.Trim());
             PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
             PoI.MaterialDescription = m.MaterialDescription;
             PoI.UOM = m.BaseUnit;
@@ -890,7 +890,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         void DownloadMaterialTemplate()
         {
-            string Path = Server.MapPath("Templates\\Material.xlsx");
+            string Path = Server.MapPath("~/Templates/Material.xlsx");
             WebClient req = new WebClient();
             HttpResponse response = HttpContext.Current.Response;
             response.Clear();
@@ -907,6 +907,36 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             HttpContext.Current.Response.AppendCookie(cookie);
             // end
             response.End();
+        }
+
+        protected void ChkMailH_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox ChkMailH = (CheckBox)sender;
+            foreach (GridViewRow row in gvMaterialCopyOrder.Rows)
+            {
+                if (row.RowType == DataControlRowType.DataRow)
+                {
+                    CheckBox cbSelectChild = row.FindControl("cbSelectChild") as CheckBox;
+                    cbSelectChild.Checked = (ChkMailH.Checked) ? true : false;
+                }
+            }
+            MPE_CopyOrder.Show();
+        }
+
+        protected void cbSelectChild_CheckedChanged(object sender, EventArgs e)
+        {
+            bool ChkHeader = true;
+            CheckBox ChkMailH = (CheckBox)gvMaterialCopyOrder.HeaderRow.FindControl("ChkMailH");
+            foreach (GridViewRow row in gvMaterialCopyOrder.Rows)
+            {
+                CheckBox cbSelectChild = row.FindControl("cbSelectChild") as CheckBox;
+                if(cbSelectChild.Checked == false)
+                {
+                    ChkHeader = false;
+                }
+            }
+            ChkMailH.Checked = ChkHeader;
+            MPE_CopyOrder.Show();
         }
     }
 }
