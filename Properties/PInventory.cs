@@ -45,7 +45,7 @@ namespace Properties
     }
 
     [Serializable]
-    public class PhysicalInventoryPosting
+    public class PPhysicalInventoryPosting
     {
         public long PhysicalInventoryPostingID { get; set; }
         public string DocumentNumber { get; set; }
@@ -54,10 +54,11 @@ namespace Properties
         public PDMS_DealerOffice DealerOffice { get; set; }         
         public DateTime PostingDate { get; set; }
         public PUser CreatedBy { get; set; }
-        public List<PhysicalInventoryPostingItem> Items { get; set; }
+        public PAjaxOneStatus InventoryPostingType { get; set; }
+        public List<PPhysicalInventoryPostingItem> Items { get; set; }
     }
     [Serializable]
-    public class PhysicalInventoryPostingItem
+    public class PPhysicalInventoryPostingItem
     {
         public long PhysicalInventoryPostingItemID { get; set; }
         public long PhysicalInventoryPostingID { get; set; }

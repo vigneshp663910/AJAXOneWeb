@@ -221,7 +221,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbReleasePO.Visible = false;
                 lbReleaseApprove.Visible = false;
                 lbCancelApprove.Visible = false;
-                gvPOItem.Columns[14].Visible = false;
+                gvPOItem.Columns[15].Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoPartialReceived)
             {
@@ -230,7 +230,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbReleaseApprove.Visible = false;
                 lbCancelApprove.Visible = false;
 
-                gvPOItem.Columns[14].Visible = false;
+                gvPOItem.Columns[15].Visible = false;
             }
             else if ((StatusID == (short)ProcurementStatus.PoCompleted)
                || (StatusID == (short)ProcurementStatus.PoForceClosed) || (StatusID == (short)ProcurementStatus.PoCancelld))
@@ -240,7 +240,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbCancelPO.Visible = false;
                 lbReleaseApprove.Visible = false;
                 lbCancelApprove.Visible = false;
-                gvPOItem.Columns[14].Visible = false;
+                gvPOItem.Columns[15].Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoWaitingForReleaseApproval)
             {
@@ -249,7 +249,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbCancelPO.Visible = false;
                 lbCancelApprove.Visible = false;
 
-                gvPOItem.Columns[14].Visible = false;
+                gvPOItem.Columns[15].Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoWaitingForCancelApproval)
             {
@@ -258,7 +258,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbCancelPO.Visible = false;
                 lbReleaseApprove.Visible = false;
 
-                gvPOItem.Columns[14].Visible = false;
+                gvPOItem.Columns[15].Visible = false;
             }
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
@@ -272,7 +272,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderCancelPO).Count() == 0)
             {
-                lbCancelPO.Visible = false;                
+                lbCancelPO.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderReleaseApprove).Count() == 0)
             {
@@ -572,6 +572,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.Text = "";
             lblMessage.ForeColor = Color.Red;
             lblMessage.Visible = true;
+
+            if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
+            {
+                lblAddMaterialMessage.Text = "Material Already Available...!";
+                MPE_AddMaterial.Show();
+                return;
+            }
+
             PPurchaseOrderItem_Insert POi = new PPurchaseOrderItem_Insert();
             POi.PurchaseOrderID = Convert.ToInt64(PurchaseOrder.PurchaseOrderID);
             POi.Quantity = Convert.ToDecimal(txtQty.Text);

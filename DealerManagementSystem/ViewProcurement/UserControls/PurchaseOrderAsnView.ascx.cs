@@ -247,7 +247,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 }
                 if (ReceivedQty != (UnrestrictedQty + RestrictedQty))
                 {
-                    lblMessageGrCreation.Text = "Please Equal To Received Qty with (Saleable + Blocked) From Item No : " + lblAsnItem.Text;
+                    lblMessageGrCreation.Text = "Please Equal To Received Qty with (UnRestricted + Restricted) From Item No : " + lblAsnItem.Text;
                     Result = true;
                 }
             }
@@ -285,7 +285,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessageRestrictedQty.Visible = true;
             if (string.IsNullOrEmpty(txtUnrestrictedQty.Text))
             {
-                lblMessageRestrictedQty.Text = "Please Saleable Quantity...!";
+                lblMessageRestrictedQty.Text = "Please UnRestricted Quantity...!";
                 MPE_UpdateRestrictedQty.Show();
                 return;
             }
@@ -303,7 +303,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             if (Convert.ToDecimal(HidReceivedQty.Value) != (Convert.ToDecimal(txtUnrestrictedQty.Text) + Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text)))
             {
-                lblMessageRestrictedQty.Text = "Received Qty Not match with (Saleable+Missing+Damage) Quantity...!";
+                lblMessageRestrictedQty.Text = "Received Qty Not match with (UnRestricted+Missing+Damage) Quantity...!";
                 MPE_UpdateRestrictedQty.Show();
                 return;
             }

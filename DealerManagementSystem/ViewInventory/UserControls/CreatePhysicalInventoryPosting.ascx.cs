@@ -1,10 +1,12 @@
 ﻿using Business;
-using ClosedXML.Excel;
+using ClosedXML.Excel; 
 using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -112,6 +114,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             MaterialUpload.Clear();
             GVUpload.DataSource = MaterialUpload;
             GVUpload.DataBind();
+            lblMessage.ForeColor = Color.Red;
             if (ddlDealer.SelectedValue == "0")
             {
                 lblMessage.Text = "Please select the Dealer";
@@ -120,6 +123,21 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             if (ddlDealerOffice.SelectedValue == "0")
             {
                 lblMessage.Text = "Please select the Dealer Office";
+                return;
+            }
+            if (string.IsNullOrEmpty(txtDocumentNumber.Text.Trim()))
+            {
+                lblMessage.Text = "Please enter the Document Number";
+                return;
+            }
+            if (string.IsNullOrEmpty(txtDocumentDate.Text.Trim()))
+            {
+                lblMessage.Text = "Please enter the Document Date";
+                return;
+            }
+            if (ddlPostingInventoryType.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please select the Posting Inventory Type";
                 return;
             }
             if (IsPostBack && fileUpload.PostedFile != null)
@@ -131,14 +149,14 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             }
         }
         protected void BtnSave_Click(object sender, EventArgs e)
-        { 
+        {
+            lblMessage.ForeColor = Color.Red;
             PApiResult Result = new BInventory().InsertDealerPhysicalInventoryPosting(MaterialUpload);
-            if (Result.Status == PApplication.Failure)
-            {
-                lblMessage.Text = Result.Message;
-                return;
-            }
             lblMessage.Text = Result.Message;
+            if (Result.Status == PApplication.Failure)
+            { 
+                return;
+            } 
             lblMessage.ForeColor = Color.Green; 
         }
 
@@ -176,38 +194,28 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                                     ID = Convert.ToInt32(IXLCell_[0].Value),
                                     DealerID = DealerID,
                                     OfficeID = OfficeID,
+                                    DocumentDate= Convert.ToDateTime(txtDocumentDate.Text.Trim()),
+                                    DocumentNumber= txtDocumentNumber.Text.Trim(),
                                     MaterialCode = Convert.ToString(IXLCell_[1].Value),
-                                    PhysicalStock = Convert.ToInt32(IXLCell_[2].Value) 
-                                });
+                                    PhysicalStock = Convert.ToInt32(IXLCell_[3].Value) ,
+                                    PostingTypeID = Convert.ToInt32(ddlPostingInventoryType.SelectedValue)
+                        });
                         }
                     }
                    
                     PApiResult Result = new BInventory().GetDealerStock(DealerID, OfficeID, null, null, null, null, null);
 
                     List<PDealerStock> DealerStocks = JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data)); 
-
-                   // List<PDMS_Material> Employee = new BDMS_Material().GetMaterialListSQL(null, null, null, null, null);
                     foreach (PPhysicalInventoryPosting_Post dr in MaterialUpload)
                     {
                         List<PDealerStock> DealerStock = DealerStocks.Where(s => s.Material.MaterialCode == dr.MaterialCode).ToList();
                         if(DealerStock.Count==0)
                         {
-                            lblMessage.Text = "Please Check Material Code : " + dr.MaterialCode + " Not Available...!";
-                            lblMessage.ForeColor = Color.Red;
-                            Success = false;
-                            return Success;
+                            lblMessage.Text = "Please Check Material Code : " + dr.MaterialCode + " Not Available...!";  
+                            return false;
                         }
                         dr.MaterialID = DealerStock[0].Material.MaterialID;
-                        dr.SystemStock = DealerStock[0].UnrestrictedQty;
-
-                        //bool containsItem = Employee.Any(item => item.MaterialCode == dr.MaterialCode);
-                        //if (!containsItem)
-                        //{
-                        //    lblMessage.Text = "Please Check Material Code : " + dr.MaterialCode + " Not Available...!";
-                        //    lblMessage.ForeColor = Color.Red;
-                        //    Success = false;
-                        //    return Success;
-                        //}
+                        dr.SystemStock = DealerStock[0].UnrestrictedQty; 
                     }
                     if (MaterialUpload.Count > 0)
                     {
@@ -218,39 +226,129 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             }
             else
             {
-                lblMessage.Text = "Please Upload the File...!";
-                lblMessage.ForeColor = Color.Red;
-                Success = false;
-                return Success;
+                lblMessage.Text = "Please Upload the File...!";  
+                return false;
             }
             return Success;
         }
         protected void btnDownload_Click(object sender, EventArgs e)
         {
-            string Path = Server.MapPath("Templates\\PhysicalInventoryPosting.xlsx");
-            WebClient req = new WebClient();
-            HttpResponse response = HttpContext.Current.Response;
-            response.Clear();
-            response.ClearContent();
-            response.ClearHeaders();
-            response.Buffer = true;
-            response.AddHeader("Content-Disposition", "attachment;filename=\"PhysicalInventoryPosting.xlsx\"");
-            byte[] data = req.DownloadData(Path);
-            response.BinaryWrite(data);
-            // Append cookie
-            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
-            cookie.Value = "Flag";
-            cookie.Expires = DateTime.Now.AddDays(1);
-            HttpContext.Current.Response.AppendCookie(cookie);
-            // end
-            response.End();
-        }
 
+            if (ddlDealer.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please select the Dealer";
+                return;
+            }
+            if (ddlDealerOffice.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please select the Dealer Office";
+                return;
+            }
+            if (ddlPostingInventoryType.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please select the Posting Inventory Type";
+                return;
+            }
+            int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+            int OfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            PApiResult Result = new BInventory().GetDealerStock(DealerID, OfficeID, null, null, null, null, null);
+
+            List<PDealerStock> DealerStocks = JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
+            //DataTable dt = new DataTable();
+            //dt.Columns.Add("ID");
+            //dt.Columns.Add("MaterialCode");
+            //dt.Columns.Add("SystemStock");
+            //dt.Columns.Add("PhysicalStock");
+            //int i = 0;
+            //foreach (PDealerStock S in DealerStocks)
+            //{
+            //    i = i + 1;
+            //    if ((short)AjaxOneStatus.PostingInventoryType_PostingUnrestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+            //    {
+            //        dt.Rows.Add(i,S.Material.MaterialCode, S.UnrestrictedQty, "");
+            //    }
+            //    else if ((short)AjaxOneStatus.PostingInventoryType_PostingRestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+            //    {
+            //        dt.Rows.Add(i, S.Material.MaterialCode, S.RestrictedQty, "");
+            //    }
+            //    else if ((short)AjaxOneStatus.PostingInventoryType_PostingBlocked == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+            //    {
+            //        dt.Rows.Add(i, S.Material.MaterialCode, S.BlockedQty, "");
+            //    }
+            //}
+            int i = 0;
+            string Name = Server.MapPath("~") + "Template/PhysicalInventoryPostingTemplate" + DateTime.Now.ToLongTimeString().Replace(':', '_') + ".xlsx";
+            try
+            { 
+                var wb = new XLWorkbook();
+                var worksheet = wb.Worksheets.Add("SINS");
+
+                worksheet.Cell(1, 1).Value = "ID";
+                worksheet.Cell(1, 2).Value = "MaterialCode";
+                worksheet.Cell(1, 3).Value = "SystemStock";
+                worksheet.Cell(1, 4).Value = "PhysicalStock";
+                foreach (PDealerStock S in DealerStocks)
+                {
+                    i = i + 1;
+                    if ((short)AjaxOneStatus.PostingInventoryType_PostingUnrestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+                    {
+                        worksheet.Cell(i + 1, 1).Value = i;
+                        worksheet.Cell(i + 1, 2).Value = S.Material.MaterialCode;
+                        worksheet.Cell(i + 1, 3).Value = S.UnrestrictedQty; 
+                    }
+                    else if ((short)AjaxOneStatus.PostingInventoryType_PostingRestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+                    {
+                        worksheet.Cell(i + 1, 1).Value = i;
+                        worksheet.Cell(i + 1, 2).Value = S.Material.MaterialCode;
+                        worksheet.Cell(i + 1, 3).Value = S.RestrictedQty; 
+                    }
+                    else if ((short)AjaxOneStatus.PostingInventoryType_PostingBlocked == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+                    {
+                        worksheet.Cell(i + 1, 1).Value = i;
+                        worksheet.Cell(i + 1, 2).Value = S.Material.MaterialCode;
+                        worksheet.Cell(i + 1, 3).Value = S.BlockedQty; 
+                    }
+                } 
+                if (!Directory.Exists(Server.MapPath("~") + "/Template"))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~") + "/Template");
+                }               
+                wb.SaveAs(Name);
+
+                //string Path = Server.MapPath("Templates\\InitialStock.xlsx");
+                WebClient req = new WebClient();
+                HttpResponse response = HttpContext.Current.Response;
+                response.Clear();
+                response.ClearContent();
+                response.ClearHeaders();
+                response.Buffer = true;
+                response.AddHeader("Content-Disposition", "attachment;filename=\"PhysicalInventoryPostingTemplate.xlsx\"");
+                byte[] data = req.DownloadData(Name);
+                response.BinaryWrite(data);
+                // Append cookie
+                HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+                cookie.Value = "Flag";
+                cookie.Expires = DateTime.Now.AddDays(1);
+                HttpContext.Current.Response.AppendCookie(cookie);
+                // end
+                response.End();
+                //  new BXcel().ExporttoExcel(dt, "PhysicalInventoryPostingTemplate");
+            }
+            catch(Exception e1)
+            {
+            }
+            finally
+            {
+                if (File.Exists(Name))
+                {
+                    File.Delete(Name);
+                }
+            }
+        }
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
 
         }
-
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
 

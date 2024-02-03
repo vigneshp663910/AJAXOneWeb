@@ -473,7 +473,7 @@
     <Content Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx" />
     <Content Include="ViewInventory\InitialStock.aspx" />
     <Content Include="ViewInventory\PhysicalInventoryPosting.aspx" />
-    <Content Include="ViewInventory\StockForPostingDate.aspx" />
+    <Content Include="ViewInventory\StockAgeingReport.aspx" />
     <Content Include="ViewInventory\StockInTransit.aspx" />
     <Content Include="ViewInventory\StockLedger.aspx" />
     <Content Include="ViewInventory\StockTransfer.aspx" />
@@ -612,6 +612,7 @@
     <Content Include="ViewPreSale\VisitCoverageReport.aspx" />
     <Content Include="ViewPreSale\VisitReport.aspx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
+    <Content Include="ViewProcurement\Planning\DealerStockOrderControl.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderASN.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderAsnGR.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderPG.aspx" />
@@ -1508,12 +1509,12 @@
     <Compile Include="ViewInventory\PhysicalInventoryPosting.aspx.designer.cs">
       <DependentUpon>PhysicalInventoryPosting.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewInventory\StockForPostingDate.aspx.cs">
-      <DependentUpon>StockForPostingDate.aspx</DependentUpon>
+    <Compile Include="ViewInventory\StockAgeingReport.aspx.cs">
+      <DependentUpon>StockAgeingReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewInventory\StockForPostingDate.aspx.designer.cs">
-      <DependentUpon>StockForPostingDate.aspx</DependentUpon>
+    <Compile Include="ViewInventory\StockAgeingReport.aspx.designer.cs">
+      <DependentUpon>StockAgeingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\StockInTransit.aspx.cs">
       <DependentUpon>StockInTransit.aspx</DependentUpon>
@@ -2315,6 +2316,13 @@
     </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.designer.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\Planning\DealerStockOrderControl.aspx.cs">
+      <DependentUpon>DealerStockOrderControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\Planning\DealerStockOrderControl.aspx.designer.cs">
+      <DependentUpon>DealerStockOrderControl.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderASN.aspx.cs">
       <DependentUpon>PurchaseOrderASN.aspx</DependentUpon>

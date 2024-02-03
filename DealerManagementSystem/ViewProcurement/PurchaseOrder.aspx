@@ -1,9 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PurchaseOrder.aspx.cs" Inherits="DealerManagementSystem.ViewProcurement.PurchaseOrder" %>
+﻿<%@ Page Title="" Language="C#" MaintainScrollPositionOnPostback="true" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="PurchaseOrder.aspx.cs" Inherits="DealerManagementSystem.ViewProcurement.PurchaseOrder" %>
 
 <%@ Register Src="~/ViewProcurement/UserControls/PurchaseOrderView.ascx" TagPrefix="UC" TagName="UC_PurchaseOrderView" %>
 <%@ Register Src="~/ViewProcurement/UserControls/PurchaseOrderCreate.ascx" TagPrefix="UC" TagName="UC_PurchaseOrderCreate" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+    <style>
+        .Popup{
+            transition:initial;
+        }
+    </style>
     <script type="text/javascript">
         function collapseExpand(obj) {
             var gvObject = document.getElementById("MainContent_pnlFilterContent");

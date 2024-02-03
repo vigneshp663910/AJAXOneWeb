@@ -274,10 +274,7 @@
                                                 <img id="imageDeliveryNumber-<%# Eval("OrderNo") %>" alt="Click to show/hide orders" border="0" src="../Images/grid_expand.png" height="10" width="10" /></a>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Select">
-                                        <HeaderTemplate>
-                                            <asp:CheckBox ID="ChkMailH" Text="Check" runat="server"/>
-                                        </HeaderTemplate>
+                                    <asp:TemplateField HeaderText="Select">                                        
                                         <ItemTemplate>
                                             <asp:CheckBox ID="cbSelect" runat="server" onchange="OnchangeHandler(this);" />
                                         </ItemTemplate>
@@ -421,8 +418,11 @@
                             <asp:GridView ID="gvMaterialCopyOrder" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
                                 <Columns>
                                     <asp:TemplateField HeaderText="Select">
+                                        <HeaderTemplate>
+                                            <asp:CheckBox ID="ChkMailH" Text="Check All" runat="server" AutoPostBack="true" OnCheckedChanged="ChkMailH_CheckedChanged"/>
+                                        </HeaderTemplate>
                                         <ItemTemplate>
-                                            <asp:CheckBox ID="cbSelectChild" runat="server" />
+                                            <asp:CheckBox ID="cbSelectChild" runat="server" AutoPostBack="true" OnCheckedChanged="cbSelectChild_CheckedChanged"/>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Material">
@@ -498,6 +498,7 @@
 
     function GetMaterial() {
         $("#MainContent_UC_PurchaseOrderCreate_hdfMaterialID").val('');
+        $("#MainContent_UC_PurchaseOrderCreate_hdfMaterialCode").val('');
         $("#MainContent_UC_PurchaseOrderCreate_hdfMaterialCode").val('');
         var param = { Material: $('#MainContent_UC_PurchaseOrderCreate_txtMaterial').val(), MaterialType: '' }
         var Customers = [];
@@ -579,29 +580,6 @@
 
 
     function OnchangeHandler(txtid) {
-
-        var index = txtid.parentNode.parentNode.sectionRowIndex; // Get the corresponding index 
-        index = (index + 1) / 2;
-        index = index - 1;
-        var checkBox = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_cbSelect_' + index);
-        var gvMaterialFromCartItem = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_gvMaterialFromCartItem_' + index);
-        for (i = 0; i < gvMaterialFromCartItem.rows.length; i++) {
-            var cbSelectChild = document.getElementById('MainContent_UC_PurchaseOrderCreate_gvMaterialFromCart_gvMaterialFromCartItem_' + index + '_cbSelectChild_' + i);
-            if (checkBox.checked) {
-                cbSelectChild.checked = true;
-            }
-            else {
-                cbSelectChild.checked = false;
-            }
-
-        }
-        //var grid = txtid.parentNode.parentNode.parentNode;
-        // var checkBox = grid.rows[index].cells[1].getElementsByTagName("INPUT")[0];
-        //  var gvMaterialFromCartItem = grid.rows[index].cells[5].getElementsByTagName("INPUT")[0];
-
-
-    }
-    function OnCheckAll(txtid) {
 
         var index = txtid.parentNode.parentNode.sectionRowIndex; // Get the corresponding index 
         index = (index + 1) / 2;

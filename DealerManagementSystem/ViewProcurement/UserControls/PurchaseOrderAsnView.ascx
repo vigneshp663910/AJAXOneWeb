@@ -107,12 +107,12 @@
                                             <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Qty">
+                                    <%--<asp:TemplateField HeaderText="Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                     <%--<asp:TemplateField HeaderText="Delivered Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
@@ -593,7 +593,7 @@
 <ajaxToolkit:ModalPopupExtender ID="MPE_GrCreate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlGrCreate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 <asp:Panel ID="pnlUpdateRestrictedQty" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Blocked Qty</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Gr</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button8" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
@@ -602,7 +602,7 @@
         <div class="model-scroll">
             <asp:Label ID="lblMessageRestrictedQty" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset7" runat="server">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Blocked Qty</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Gr Creation</legend>
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Unrestricted Qty<samp style="color: red">*</samp></label>

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,9 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewInventory
 {
-    public partial class PhysicalInventoryPosting : BasePage
+    public partial class StockAgeingReport : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewInventory_PhysicalInventoryPosting; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewInventory_StockAgeingReport; } }
         private int PageCount
         {
             get
@@ -45,7 +46,7 @@ namespace DealerManagementSystem.ViewInventory
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Inventory » Physical- Inventory Posting');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Inventory » Warehouse Stock');</script>");
             if (!IsPostBack)
             {
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
@@ -65,10 +66,11 @@ namespace DealerManagementSystem.ViewInventory
             {
                 DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
                 OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
-            }  
-            PApiResult Result = new BInventory().GetDealerPhysicalInventoryPosting(DealerID, OfficeID, null, null, PageIndex, gvStock.PageSize);
+            }
+            string MaterialCode = txtMaterial.Text.Trim();
+            PApiResult Result = new BInventory().GetDealerStockAgeing(DealerID, OfficeID, null, null, MaterialCode, PageIndex, gvStock.PageSize);
 
-            gvStock.DataSource = JsonConvert.DeserializeObject<List<PPhysicalInventoryPosting>>(JsonConvert.SerializeObject(Result.Data));
+            gvStock.DataSource = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
             gvStock.DataBind();
 
             if (Result.RowCount == 0)
@@ -106,29 +108,6 @@ namespace DealerManagementSystem.ViewInventory
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID");
-        }
- 
-        protected void btnView_Click(object sender, EventArgs e)
-        { 
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblPhysicalInventoryPostingID = (Label)gvRow.FindControl("lblPhysicalInventoryPostingID"); 
-
-            divList.Visible = false;
-            divView.Visible = true;
-             UC_View.fillViewEnquiry(Convert.ToInt64(lblPhysicalInventoryPostingID.Text));
-        }
-        protected void btnBackToList_Click(object sender, EventArgs e)
-        {
-            divList.Visible = true;
-            divView.Visible = false;
-            divCreate.Visible = false;
-        }
-
-        protected void btnPostPhysicalInventory_Click(object sender, EventArgs e)
-        {
-            divList.Visible = false;
-            divCreate.Visible = true;
-            UC_Create.FillMaster();
         }
     }
 }
