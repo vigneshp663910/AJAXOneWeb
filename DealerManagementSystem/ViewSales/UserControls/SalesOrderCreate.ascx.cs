@@ -151,15 +151,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 //    return;
                 //}
 
-                Mat.CurrentPrice = Convert.ToDecimal(1000);
-                Mat.Discount = Convert.ToDecimal(0);
-                Mat.TaxablePrice = Convert.ToDecimal(1000);
-                Mat.SGST = Convert.ToDecimal(9);
-                Mat.SGSTValue = Convert.ToDecimal(90);
-                Mat.CGST = Convert.ToDecimal(9);
-                Mat.CGSTValue = Convert.ToDecimal(90);
-                Mat.IGST = Convert.ToDecimal(0);
-                Mat.IGSTValue = Convert.ToDecimal(0);
+                //Mat.CurrentPrice = Convert.ToDecimal(1000);
+                //Mat.Discount = Convert.ToDecimal(0);
+                //Mat.TaxablePrice = Convert.ToDecimal(1000);
+                //Mat.SGST = Convert.ToDecimal(9);
+                //Mat.SGSTValue = Convert.ToDecimal(90);
+                //Mat.CGST = Convert.ToDecimal(9);
+                //Mat.CGSTValue = Convert.ToDecimal(90);
+                //Mat.IGST = Convert.ToDecimal(0);
+                //Mat.IGSTValue = Convert.ToDecimal(0);
 
                 SoI.UnitPrice = Mat.CurrentPrice / SoI.Qty;
                 SoI.Value = Mat.CurrentPrice;
