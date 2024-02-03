@@ -96,8 +96,7 @@ namespace DealerManagementSystem.ViewSales
                     ddlDealerCode.Enabled = true;
                     fillDealer();
                 }
-                new DDLBind(ddlSOStatus, new BDMS_SalesOrder().GetSaleOrderStatus(null, null), "Status", "StatusID");
-                new DDLBind(ddlSOStatus, new BDMS_SalesOrder().GetSaleOrderStatus(null, null), "Status", "StatusID");
+                new DDLBind(ddlSOStatus, new BDMS_Master().GetAjaxOneStatus(3), "Status", "StatusID");
                 new DDLBind(ddlSOType, new BDMS_SalesOrder().GetSaleOrderType(null, null), "SaleOrderType", "SaleOrderTypeID");
                 //fillSalesOrder();
                 if (Session["SaleOrderID"] != null)

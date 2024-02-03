@@ -231,7 +231,8 @@ namespace Properties
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerOffice DealerOffice { get; set; }
         public PDMS_Customer Customer { get; set; }
-        public PSaleOrderStatus SaleOrderStatus { get; set; }
+        //public PSaleOrderStatus SaleOrderStatus { get; set; }
+        public PAjaxOneStatus SaleOrderStatus { get; set; }
         public PSaleOrderItem SaleOrderItem { get; set; }
         public List<PSaleOrderItem> SaleOrderItems { get; set; }
         public string ContactPerson { get; set; }
@@ -249,6 +250,9 @@ namespace Properties
         public string SelectTax { get; set; }
         public decimal GrossAmount { get; set; }
         public PSaleOrderType SaleOrderType { get; set; }
+        public PUser SalesEngineer { get; set; }
+        public decimal HeaderDiscount { get; set; }
+        
     }
     [Serializable]
     public class PSaleOrderItem
@@ -341,7 +345,10 @@ namespace Properties
         public string EquipmentSerialNo { get; set; }
         public string SelectTax { get; set; }
         public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
-        public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
+        //public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
+        public int SaleOrderTypeID { get; set; }
+        public int? SalesEngineerID { get; set; }
+        public decimal HeaderDiscount { get; set; }
     }
     [Serializable]
     public class PSaleOrderItem_Insert
@@ -365,7 +372,7 @@ namespace Properties
         public string MaterialDescription { get; set; }
         public string UOM { get; set; }
         public string HSN { get; set; }
-        public decimal NetValue { get; set; }
+        public decimal NetAmt { get; set; }
     }
     [Serializable]
     public class PSaleOrderReturnItem_Insert
