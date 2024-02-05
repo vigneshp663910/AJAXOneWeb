@@ -247,7 +247,7 @@ namespace Properties
         public string Attn { get; set; }
         public PProduct Product { get; set; }
         public string EquipmentSerialNo { get; set; }
-        public string SelectTax { get; set; }
+        public string TaxType { get; set; }
         public decimal GrossAmount { get; set; }
         public PSaleOrderType SaleOrderType { get; set; }
         public PUser SalesEngineer { get; set; }
@@ -343,7 +343,7 @@ namespace Properties
         public string Attn { get; set; }
         public int ProductID { get; set; }
         public string EquipmentSerialNo { get; set; }
-        public string SelectTax { get; set; }
+        public string TaxType { get; set; }
         public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
         //public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
         public int SaleOrderTypeID { get; set; }

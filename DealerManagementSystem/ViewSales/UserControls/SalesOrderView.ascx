@@ -185,6 +185,32 @@
         return inner_html;
     }
 </script>
+<script type="text/javascript">
+    function ConfirmCancelSaleOrder() {
+        var x = confirm("Are you sure you want to cancel?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmItemUpdate() {
+        var x = confirm("Are you sure you want to update?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmItemDelete() {
+        var x = confirm("Are you sure you want to delete?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+</script>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -192,9 +218,9 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbEditSaleOrder" runat="server" OnClick="lbActions_Click">Edit SO</asp:LinkButton>
-                <asp:LinkButton ID="lbCancelSaleOrder" runat="server" OnClick="lbActions_Click">Cancel SO</asp:LinkButton>
+                <asp:LinkButton ID="lbCancelSaleOrder" runat="server" OnClick="lbActions_Click" OnClientClick="ConfirmCancelSaleOrder();">Cancel SO</asp:LinkButton>
                 <asp:LinkButton ID="lbAddSaleOrderItem" runat="server" OnClick="lbActions_Click">Add SO Item</asp:LinkButton>
-                <asp:LinkButton ID="lbReleaseSaleOrder" runat="server" OnClick="lbActions_Click">Release SO</asp:LinkButton>
+                <asp:LinkButton ID="lbReleaseSaleOrder" runat="server" OnClick="lbActions_Click" OnClientClick="ConfirmReleaseSaleOrder();">Release SO</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -230,7 +256,7 @@
                 </div>
                 <div class="col-md-12">
                     <label>Select Tax : </label>
-                    <asp:Label ID="lblSelectTax" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblTaxType" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Header Discount Percent : </label>
@@ -331,16 +357,30 @@
                                             <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "Material.HSN")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Qty">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Qty","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="BaseUnit">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "Material.BaseUnit")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="UnitPrice">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "UnitPrice","{0:n}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Qty">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Qty","{0:n}")%>' runat="server"></asp:Label>
+                                            <asp:TextBox ID="txtBoxQuantity" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Qty","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Discount %">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDiscountPercent" Text='<%# DataBinder.Eval(Container.DataItem, "Discount","{0:n}")%>' runat="server"></asp:Label>
+                                            <asp:TextBox ID="txtBoxDiscountPercent" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Discount","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <%--<asp:TemplateField HeaderText="CGST">
@@ -391,40 +431,34 @@
                                             <asp:Label ID="lblTaxValue" Text='<%# (Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.CGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.SGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.IGSTValue"))).ToString("N2") %>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="UnitPrice">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "UnitPrice","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Value">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "Value","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Discount">
+                                   <%-- <asp:TemplateField HeaderText="Discount">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblDiscount" Text='<%# DataBinder.Eval(Container.DataItem, "Discount","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                     <%--<asp:TemplateField HeaderText="Discounted Price">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblDiscountedPrice" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountedPrice","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                    <asp:TemplateField HeaderText="Freight Amount">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblFreightAmount" Text='<%# DataBinder.Eval(Container.DataItem, "FreightAmount","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Taxable Amount">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblTaxableAmount" Text='<%# DataBinder.Eval(Container.DataItem, "TaxableAmount","{0:n}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Freight Amount">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblFreightAmount" Text='<%# DataBinder.Eval(Container.DataItem, "FreightAmount","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <%--<asp:TemplateField HeaderText="Tax">
@@ -458,7 +492,11 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
-                                            <asp:LinkButton ID="lblMaterialRemove" runat="server" OnClick="lblMaterialRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                            <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnItemAction_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                            <asp:LinkButton ID="lnkBtnUpdate" runat="server" OnClick="lnkBtnItemAction_Click" Visible="false" OnClientClick="return ConfirmItemUpdate();"><i class='fa fa-fw fa-refresh' style='font-size:18px'></i></asp:LinkButton>
+                                            <asp:LinkButton ID="lnkBtnCancel" runat="server" OnClick="lnkBtnItemAction_Click" Visible="false"> <i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                            <%--<asp:LinkButton ID="lblMaterialRemove" runat="server" OnClick="lblMaterialRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>--%>
+                                            <asp:LinkButton ID="lnkBtnDelete" runat="server" OnClick="lnkBtnItemAction_Click" OnClientClick="return ConfirmItemDelete()";><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -568,7 +606,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label>Header Discount %</label>
-                            <asp:TextBox ID="txtBoxHeaderDiscountPercent" runat="server" CssClass="form-control" BorderColor="Silver" ></asp:TextBox>
+                            <asp:TextBox ID="txtBoxHeaderDiscountPercent" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                     </div>
                 </fieldset>
@@ -617,7 +655,6 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_SaleOrderItemAdd" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSaleOrderItemAdd" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

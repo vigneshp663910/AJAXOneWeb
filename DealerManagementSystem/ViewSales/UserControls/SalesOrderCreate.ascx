@@ -117,17 +117,17 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Material Desc">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                             <asp:TemplateField HeaderText="HSN Code">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "HSN")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="HSN Code">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "HSN")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Order Qty">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
@@ -135,11 +135,11 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="UOM">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lblUOM" Text='<%# DataBinder.Eval(Container.DataItem, "UOM")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblUOM" Text='<%# DataBinder.Eval(Container.DataItem, "UOM")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Unit Price">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
