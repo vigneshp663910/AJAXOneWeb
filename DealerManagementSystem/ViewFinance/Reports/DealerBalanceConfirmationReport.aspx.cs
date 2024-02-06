@@ -86,7 +86,8 @@ namespace DealerManagementSystem.ViewFinance.Reports
         {
             gv.DataSource = DealerBalanceConfirmationReport;
             gv.DataBind();
-            lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + RowCount;
+            //lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + RowCount;
+            lbl.Text = (((PageIndex - 1) * gv.PageSize) + 1) + " - " + (((PageIndex - 1) * gv.PageSize) + gv.Rows.Count) + " of " + RowCount;
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
@@ -112,6 +113,7 @@ namespace DealerManagementSystem.ViewFinance.Reports
             }
             else
             {
+                PageCount = (Result.RowCount + gvDealerBalanceConfirmationRpt.PageSize - 1) / gvDealerBalanceConfirmationRpt.PageSize;
                 lblRowCountDealerBalConFirm.Visible = true;
                 ibtnDealerBalConFirmArrowLeft.Visible = true;
                 ibtnDealerBalConFirmArrowRight.Visible = true;
@@ -120,17 +122,17 @@ namespace DealerManagementSystem.ViewFinance.Reports
         }
         protected void ibtnDealerBalConFirmArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvDealerBalanceConfirmationRpt.PageIndex > 0)
+            if (PageIndex > 1)
             {
-                gvDealerBalanceConfirmationRpt.PageIndex = gvDealerBalanceConfirmationRpt.PageIndex - 1;
+                PageIndex = PageIndex - 1;
                 FillDealerBalanceConfirmation();
-            }
+            } 
         }
         protected void ibtnDealerBalConFirmArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvDealerBalanceConfirmationRpt.PageCount > gvDealerBalanceConfirmationRpt.PageIndex)
+            if (PageCount > PageIndex)
             {
-                gvDealerBalanceConfirmationRpt.PageIndex = gvDealerBalanceConfirmationRpt.PageIndex + 1;
+                PageIndex = PageIndex + 1;
                 FillDealerBalanceConfirmation();
             }
         }
