@@ -60,41 +60,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblMessage.Text = "";
+            lblMessageAddSOItem.Text = "";
+            lblMessageSOEdit.Text = "";
             if (!IsPostBack)
-            {
-                LoadDropdown();
-                cxExpectedDeliveryDate.StartDate = DateTime.Now;
+            {  
             }
-        }
-        void LoadDropdown()
-        {
-            if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-            {
-                int? DealerID = null;
-                ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID, PSession.User.Dealer[0].DID.ToString()));
-                ddlDealer.Enabled = false;
-                DealerID = PSession.User.Dealer[0].DID;
-
-                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
-                //new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
-                //new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
-            }
-            else
-            {
-                ddlDealer.Enabled = true;
-                ddlDealer.DataTextField = "CodeWithName";
-                ddlDealer.DataValueField = "DID";
-                ddlDealer.DataSource = PSession.User.Dealer;
-                ddlDealer.DataBind();
-                ddlDealer.Items.Insert(0, new ListItem("Select", "0"));
-
-                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
-                //new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
-                //new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
-            }
-            new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
-            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
-        }
+        }         
         public void fillViewSO(long SaleOrderID)
         {
             SaleOrderByID = new BDMS_SalesOrder().GetSaleOrderByID(SaleOrderID);
@@ -160,7 +132,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.Text == "Cancel SO")
             {
-                //Cancel();
                 lblMessage.Visible = true;
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/CancelSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID));
                 if (Results.Status == PApplication.Failure)
@@ -196,70 +167,27 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SaleOrderByID.SaleOrderID);
             }
-        }
-        public void Cancel()
-        {
-            lblMessage.Text = "";
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Red;            
-            try
-            {
-                PSaleOrder_Insert SO = new PSaleOrder_Insert();
-                SO.SaleOrderID = Convert.ToInt64(SaleOrderByID.SaleOrderID);
-                SO.DealerID = Convert.ToInt32(SaleOrderByID.Dealer.DealerID);
-                SO.CustomerID = Convert.ToInt32(SaleOrderByID.Customer.CustomerID);
-                SO.StatusID = 13;
-                SO.OfficeID = Convert.ToInt32(SaleOrderByID.Dealer.DealerOffice.OfficeID);
-                SO.ContactPerson = SaleOrderByID.ContactPerson.Trim();
-                SO.ContactPersonNumber = SaleOrderByID.ContactPersonNumber.Trim();
-                SO.DivisionID = Convert.ToInt32(SaleOrderByID.Division.DivisionID);
-                SO.Remarks = SaleOrderByID.Remarks.Trim();
-                SO.ExpectedDeliveryDate = SaleOrderByID.ExpectedDeliveryDate;
-                SO.InsurancePaidBy = SaleOrderByID.InsurancePaidBy.Trim();
-                SO.FrieghtPaidBy = SaleOrderByID.FrieghtPaidBy.Trim();
-                SO.Attn = SaleOrderByID.Attn.Trim();
-                SO.ProductID = Convert.ToInt32(SaleOrderByID.Product.ProductID);
-                SO.EquipmentSerialNo = SaleOrderByID.EquipmentSerialNo.Trim();
-                SO.TaxType = SaleOrderByID.TaxType.Trim();
-                SO.SaleOrderItems = new List<PSaleOrderItem_Insert>();
-                foreach (PSaleOrderItem item in SaleOrderByID.SaleOrderItems)
-                {
-                    PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
-                    SoI.SaleOrderItemID = item.SaleOrderItemID;
-                    SoI.StatusID = 13;
-                    SO.SaleOrderItems.Add(SoI);
-                }
-                string result = new BAPI().ApiPut("SaleOrder", SO);
-                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
-                if (Result.Status == PApplication.Failure)
-                {
-                    lblMessage.Text = Result.Message;
-                    return;
-                }
-                lblMessage.Text = Result.Message;
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Green;
-                fillViewSO(SaleOrderByID.SaleOrderID);
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-            }
-        }
+        } 
         public void Edit()
         {
-            ddlDealer.BorderColor = Color.Silver;
+            cxExpectedDeliveryDate.StartDate = DateTime.Now;
+            new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
+            new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
+
             ddlOfficeName.BorderColor = Color.Silver;
             txtCustomer.BorderColor = Color.Silver;
             ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
-
-            ddlDealer.SelectedValue = SaleOrderByID.Dealer.DealerID.ToString();
+            lblDealer.Text = SaleOrderByID.Dealer.DealerCode + " - " + SaleOrderByID.Dealer.DealerName;
             hdfCustomerId.Value = SaleOrderByID.Customer.CustomerID.ToString();
             txtCustomer.Text = SaleOrderByID.Customer.CustomerName + (string.IsNullOrEmpty(SaleOrderByID.Customer.CustomerCode) ? "" : " [" + SaleOrderByID.Customer.CustomerCode + "]");
-            ddlDealer_SelectedIndexChanged(null, null);
+            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(SaleOrderByID.Dealer.DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
+           
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, SaleOrderByID.Dealer.DealerID, true, null, null, null);
+            new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
+            ddlSalesEngineer.SelectedValue = SaleOrderByID.SalesEngineer == null ? "0" : SaleOrderByID.SalesEngineer.UserID.ToString();
+
             ddlOfficeName.SelectedValue = SaleOrderByID.Dealer.DealerOffice.OfficeID.ToString();
             txtContactPerson.Text = SaleOrderByID.ContactPerson;
             txtContactPersonNumber.Text = SaleOrderByID.ContactPersonNumber;
@@ -272,18 +200,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlProduct.SelectedValue = SaleOrderByID.Product.ProductID.ToString();
             txtEquipmentSerialNo.Text = SaleOrderByID.EquipmentSerialNo;
             //txtSelectTax.Text = SaleOrderByID.TaxType;
-            ddlTax.SelectedValue = ddlTax.Items.FindByText(SaleOrderByID.TaxType).Value;
-            ddlSalesEngineer.SelectedValue = SaleOrderByID.SalesEngineer == null ? "0": SaleOrderByID.SalesEngineer.UserID.ToString();
-        }
-        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int? CDealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID", true, "Select");
-
-            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
-            new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
-            MPE_SaleOrderEdit.Show();
-        }
+            ddlTax.SelectedValue = ddlTax.Items.FindByText(SaleOrderByID.TaxType).Value; 
+        } 
         protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
@@ -310,7 +228,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SO_Insert = Read();
                 //SO_Insert.SaleOrderItems = new List<PSaleOrderItem_Insert>();
                 //string result = new BAPI().ApiPut("SaleOrder", SO_Insert);
-                string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", SO_Insert);
+                string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrder", SO_Insert);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
                 if (Result.Status == PApplication.Failure)
@@ -333,11 +251,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void btnSaveSOItem_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red; 
             lblMessage.Text = "";
-            lblMessageAddSOItem.ForeColor = Color.Red;
-            lblMessageAddSOItem.Visible = true;
+            lblMessageAddSOItem.ForeColor = Color.Red; 
             lblMessageAddSOItem.Text = "";
             try
             {
@@ -349,31 +265,35 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     return;
                 }
 
-                PSaleOrder_Insert SO = new PSaleOrder_Insert();
-                SO.SaleOrderID = Convert.ToInt64(SaleOrderByID.SaleOrderID);
-                SO.DealerID = Convert.ToInt32(SaleOrderByID.Dealer.DealerID);
-                SO.CustomerID = Convert.ToInt32(SaleOrderByID.Customer.CustomerID);
-                SO.StatusID = 11;
-                SO.OfficeID = Convert.ToInt32(SaleOrderByID.Dealer.DealerOffice.OfficeID);
-                SO.ContactPerson = SaleOrderByID.ContactPerson.Trim();
-                SO.ContactPersonNumber = SaleOrderByID.ContactPersonNumber.Trim();
-                SO.DivisionID = Convert.ToInt32(SaleOrderByID.Division.DivisionID);
-                SO.Remarks = SaleOrderByID.Remarks.Trim();
-                SO.ExpectedDeliveryDate = SaleOrderByID.ExpectedDeliveryDate;
-                SO.InsurancePaidBy = SaleOrderByID.InsurancePaidBy.Trim();
-                SO.FrieghtPaidBy = SaleOrderByID.FrieghtPaidBy.Trim();
-                SO.Attn = SaleOrderByID.Attn.Trim();
-                SO.ProductID = Convert.ToInt32(SaleOrderByID.Product.ProductID);
-                SO.EquipmentSerialNo = SaleOrderByID.EquipmentSerialNo.Trim();
-                SO.TaxType = SaleOrderByID.TaxType.Trim();
-                SO.SaleOrderTypeID = SaleOrderByID.SaleOrderType.SaleOrderTypeID;
-                SO.SalesEngineerID = SaleOrderByID.SalesEngineer.UserID;
-                SO.HeaderDiscount = SaleOrderByID.HeaderDiscount;
+                //PSaleOrder_Insert SO = new PSaleOrder_Insert();
+                //SO.SaleOrderID = Convert.ToInt64(SaleOrderByID.SaleOrderID);
+                //SO.DealerID = Convert.ToInt32(SaleOrderByID.Dealer.DealerID);
+                //SO.CustomerID = Convert.ToInt32(SaleOrderByID.Customer.CustomerID);
+                //SO.StatusID = 11;
+                //SO.OfficeID = Convert.ToInt32(SaleOrderByID.Dealer.DealerOffice.OfficeID);
+                //SO.ContactPerson = SaleOrderByID.ContactPerson.Trim();
+                //SO.ContactPersonNumber = SaleOrderByID.ContactPersonNumber.Trim();
+                //SO.DivisionID = Convert.ToInt32(SaleOrderByID.Division.DivisionID);
+                //SO.Remarks = SaleOrderByID.Remarks.Trim();
+                //SO.ExpectedDeliveryDate = SaleOrderByID.ExpectedDeliveryDate;
+                //SO.InsurancePaidBy = SaleOrderByID.InsurancePaidBy.Trim();
+                //SO.FrieghtPaidBy = SaleOrderByID.FrieghtPaidBy.Trim();
+                //SO.Attn = SaleOrderByID.Attn.Trim();
+                //SO.ProductID = Convert.ToInt32(SaleOrderByID.Product.ProductID);
+                //SO.EquipmentSerialNo = SaleOrderByID.EquipmentSerialNo.Trim();
+                //SO.TaxType = SaleOrderByID.TaxType.Trim();
+                //SO.SaleOrderTypeID = SaleOrderByID.SaleOrderType.SaleOrderTypeID;
+                //SO.SalesEngineerID = SaleOrderByID.SalesEngineer.UserID;
+                //SO.HeaderDiscount = SaleOrderByID.HeaderDiscount;
 
-                SO.SaleOrderItems = new List<PSaleOrderItem_Insert>();
-                SO.SaleOrderItems.Add(ReadItem());
+                //SO.SaleOrderItems = new List<PSaleOrderItem_Insert>();
+                //SO.SaleOrderItems.Add(ReadItem());
 
-                string result = new BAPI().ApiPut("SaleOrder", SO);
+                //string result = new BAPI().ApiPut("SaleOrder", SO);
+                //PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+                PSaleOrderItem_Insert pSaleOrderItem = new PSaleOrderItem_Insert();
+                string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", pSaleOrderItem);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
                 if (Result.Status == PApplication.Failure)
@@ -382,8 +302,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     MPE_SaleOrderItemAdd.Show();
                     return;
                 }
-                lblMessage.Text = Result.Message;
-                lblMessage.Visible = true;
+                lblMessage.Text = Result.Message; 
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SaleOrderByID.SaleOrderID);
             }
@@ -396,16 +315,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void lblMaterialRemove_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
-            lblMessage.Text = "";
-
+            lblMessage.ForeColor = Color.Red;  
             if (SaleOrderByID.SaleOrderStatus.StatusID == 14 || SaleOrderByID.SaleOrderStatus.StatusID == 15)
             {
                 lblMessage.Text = "Sale Order is delivered. Item not allowed edit.";
                 return;
-            }
-
+            } 
             try
             {
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -462,8 +377,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblMessage.Text = Result.Message; 
                     return;
                 }
-                lblMessage.Text = Result.Message;
-                lblMessage.Visible = true;
+                lblMessage.Text = Result.Message; 
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SaleOrderByID.SaleOrderID);
             }
@@ -477,7 +391,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             PSaleOrder_Insert SO = new PSaleOrder_Insert();
             SO.SaleOrderID = SaleOrderByID.SaleOrderID;
-            SO.DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+            SO.DealerID = SaleOrderByID.Dealer.DealerID;
             SO.CustomerID = Convert.ToInt32(hdfCustomerId.Value);
             SO.StatusID = 11;
             SO.OfficeID = Convert.ToInt32(ddlOfficeName.SelectedValue);
@@ -548,21 +462,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
             return SoI;
         }
         public string Validation()
-        {
-            ddlDealer.BorderColor = Color.Silver;
+        { 
             ddlOfficeName.BorderColor = Color.Silver;
             txtCustomer.BorderColor = Color.Silver;
             ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
             ddlTax.BorderColor = Color.Silver;
-            string Message = "";
-
-            if (ddlDealer.SelectedValue == "0")
-            {
-                ddlDealer.BorderColor = Color.Red;
-                return "Please select the Dealer.";
-            }
+            string Message = ""; 
             if (ddlOfficeName.SelectedValue == "0")
             {
                 ddlOfficeName.BorderColor = Color.Red;

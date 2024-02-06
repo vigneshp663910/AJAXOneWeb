@@ -330,13 +330,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblMessageSOEdit;
 
         /// <summary>
-        /// ddlDealer control.
+        /// lblDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
+        protected global::System.Web.UI.WebControls.Label lblDealer;
 
         /// <summary>
         /// ddlOfficeName control.

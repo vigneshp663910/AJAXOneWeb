@@ -327,7 +327,7 @@
     </fieldset>
 </div>
 
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <asp1:TabContainer ID="tbpContainer" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
     <asp1:TabPanel ID="tpnlSOItem" runat="server" HeaderText="SO Item" Font-Bold="True" ToolTip="">
         <ContentTemplate>
@@ -529,13 +529,13 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <div class="model-scroll">
-                <asp:Label ID="lblMessageSOEdit" runat="server" Text="" CssClass="message" Visible="false" />
+                <asp:Label ID="lblMessageSOEdit" runat="server" Text="" CssClass="message"  />
                 <fieldset class="fieldset-border" runat="server">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Sale Order Edit</legend>
                     <div class="col-md-12">
                         <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Dealer<samp style="color: red">*</samp></label>
-                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+                            <label class="modal-label">Dealer<samp style="color: red">*</samp></label> 
+                            <asp:Label ID="lblDealer" runat="server" CssClass="form-control"  />
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Dealer Office<samp style="color: red">*</samp></label>
@@ -627,7 +627,7 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <div class="model-scroll">
-                <asp:Label ID="lblMessageAddSOItem" runat="server" Text="" CssClass="message" Visible="false" />
+                <asp:Label ID="lblMessageAddSOItem" runat="server" Text="" CssClass="message" />
                 <fieldset class="fieldset-border" runat="server">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Sale Order Item</legend>
                     <div class="col-md-12">
