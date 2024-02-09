@@ -497,4 +497,5 @@ namespace Properties
         public PUser CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
     }
+    
 }

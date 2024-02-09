@@ -109,6 +109,7 @@
     <Compile Include="PSalesQuotation.cs" />
     <Compile Include="PSAPDocumentNumber.cs" />
     <Compile Include="PSession.cs" />
+    <Compile Include="PStockTransferOrder.cs" />
     <Compile Include="PTickets.cs" />
     <Compile Include="PUser.cs" />
     <Compile Include="PUserPermission.cs" />
