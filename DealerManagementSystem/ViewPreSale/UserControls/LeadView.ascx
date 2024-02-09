@@ -355,7 +355,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlFollowUp" runat="server" HeaderText="Follow Up">
+    <asp1:TabPanel ID="tpnlFollowUp" runat="server" HeaderText="Follow Up" Visible="false">
         <ContentTemplate>
             <%--<div class="col-md-12">--%>
             <div class="col-md-12 Report">
