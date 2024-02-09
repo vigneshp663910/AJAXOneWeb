@@ -122,11 +122,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 }
                 PSaleOrderItem_Insert SoI = ReadItem();
                 PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(SoI.MaterialID), null, null, null, null)[0];
-                //if (string.IsNullOrEmpty(m.HSN))
-                //{
-                //    lblMessage.Text = "HSN Code is not updated for this Material. Please contact Parts Admin.";
-                //    return;
-                //}
+                if (string.IsNullOrEmpty(m.HSN))
+                {
+                    lblMessage.Text = "HSN Code is not updated for this Material. Please contact Parts Admin.";
+                    return;
+                }
                 string Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
                 string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
                 string Material = SoI.MaterialCode;
@@ -135,22 +135,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 string IsWarrenty = "false";
 
                 PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DSSOR_SALES_ORDER_HDR", 1, Material, SoI.Qty, IV_SEC_SALES, PriceDate, IsWarrenty);
-                //if (Mat.CurrentPrice <= 0)
-                //{
-                //    lblMessage.Text = "Please maintain the price for Material " + Material + " in SAP.";
-                //    return;
-                //}
-                //if (Mat.SGST <= 0 && Mat.IGST <= 0)
-                //{
-                //    lblMessage.Text = "Please maintain the Tax for Material " + Material + " in SAP.";
-                //    return;
-                //}
-                //if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
-                //{
-                //    lblMessage.Text = "GST Tax value not found this Material " + Material + " in SAP.";
-                //    return;
-                //}
-
+                
                 Mat.CurrentPrice = Convert.ToDecimal(1000);
                 Mat.Discount = Convert.ToDecimal(0);
                 Mat.TaxablePrice = Convert.ToDecimal(1000);
@@ -160,6 +145,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 Mat.CGSTValue = Convert.ToDecimal(90);
                 Mat.IGST = Convert.ToDecimal(0);
                 Mat.IGSTValue = Convert.ToDecimal(0);
+
+                if (Mat.CurrentPrice <= 0)
+                {
+                    lblMessage.Text = "Please maintain the price for Material " + Material + " in SAP.";
+                    return;
+                }
+                if (Mat.SGST <= 0 && Mat.IGST <= 0)
+                {
+                    lblMessage.Text = "Please maintain the Tax for Material " + Material + " in SAP.";
+                    return;
+                }
+                if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
+                {
+                    lblMessage.Text = "GST Tax value not found this Material " + Material + " in SAP.";
+                    return;
+                }
 
                 SoI.UnitPrice = Mat.CurrentPrice / SoI.Qty;
                 SoI.Value = Mat.CurrentPrice;
@@ -177,7 +178,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 //SoI.Discount = Mat.CurrentPrice - (Mat.CurrentPrice * HDiscount / 100);
                 //SoI.TaxableAmount = SoI.Discount;
-                SoI.Discount = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : Mat.Discount;
+                //SoI.Discount = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : Mat.Discount;
+                SoI.Discount = HDiscount > 0 ?  0: Mat.Discount;
                 SoI.TaxableAmount = HDiscount > 0 ? Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100)) : SoI.TaxableAmount;
                 //SoI.SGST = Mat.SGST;
                 //SoI.SGSTAmt = Mat.SGSTValue;
@@ -185,14 +187,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 //SoI.CGSTAmt = Mat.CGSTValue;
                 //SoI.IGST = Mat.IGST;
                 //SoI.IGSTAmt = Mat.IGSTValue;
-                SoI.StatusID = 11;
+                SoI.StatusID = 19;
                 SoI.MaterialDescription = m.MaterialDescription;
                 SoI.HSN = m.HSN;
                 SoI.UOM = m.BaseUnit;
                 
                 if (ddlTax.SelectedValue == "1")
                 {
-                    SoI.SGST =  (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
+                    SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
                     SoI.SGSTAmt = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
                     SoI.CGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
                     SoI.CGSTAmt = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
@@ -209,12 +211,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     SoI.IGSTAmt = Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue;
                 }
 
-
                 SoI.SGSTAmt = SoI.TaxableAmount * (SoI.SGST / 100);
                 SoI.CGSTAmt = SoI.TaxableAmount * (SoI.CGST / 100);
                 SoI.IGSTAmt = SoI.TaxableAmount * (SoI.IGST / 100);
 
-                SoI.NetAmt = SoI.TaxableAmount + SoI.SGSTAmt + SoI.CGSTAmt+ SoI.IGSTAmt;
+                SoI.NetAmt = SoI.TaxableAmount + SoI.SGSTAmt + SoI.CGSTAmt + SoI.IGSTAmt;
                 SOItem_Insert.Add(SoI);
                 fillItem();
                 ClearItem();
@@ -229,6 +230,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlDealer.BorderColor = Color.Silver;
             ddlOfficeName.BorderColor = Color.Silver;
             txtCustomer.BorderColor = Color.Silver;
+            txtContactPersonNumber.BorderColor = Color.Silver;
             ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
@@ -250,6 +252,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 txtCustomer.BorderColor = Color.Red;
                 return "Please enter Customer.";
+            }
+            if (!string.IsNullOrEmpty(txtContactPersonNumber.Text.Trim()))
+            {
+                long longCheck;
+                if (!long.TryParse(txtContactPersonNumber.Text.Trim(), out longCheck))
+                {
+                    txtContactPersonNumber.BorderColor = Color.Red;
+                    return "Mobile should be 10 Digit.";
+                }
             }
             if (ddlDivision.SelectedValue == "0")
             {
@@ -315,8 +326,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
             SO.Remarks = txtRemarks.Text.Trim();
             SO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
-            SO.InsurancePaidBy = txtInsurancePaidBy.Text.Trim();
-            SO.FrieghtPaidBy = txtFrieghtPaidBy.Text.Trim();
+            //SO.InsurancePaidBy = txtInsurancePaidBy.Text.Trim();
+            SO.InsurancePaidBy = ddlInsurancePaidBy.SelectedItem.Text;
+            //SO.FrieghtPaidBy = txtFrieghtPaidBy.Text.Trim();
+            SO.FrieghtPaidBy = ddlFrieghtPaidBy.SelectedItem.Text;
             SO.Attn = txtAttn.Text.Trim();
             SO.ProductID = Convert.ToInt32(ddlProduct.SelectedValue);
             SO.EquipmentSerialNo = txtEquipmentSerialNo.Text.Trim();
@@ -380,11 +393,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlOfficeName.SelectedValue = "0";
             txtContactPerson.Text = "";
             txtContactPersonNumber.Text = "";
-            ddlDivision.SelectedValue = "0";
+            //ddlDivision.SelectedValue = "0";
             txtRemarks.Text = "";
             //txtExpectedDeliveryDate.Text = "";
-            txtInsurancePaidBy.Text = "";
-            txtFrieghtPaidBy.Text = "";
+            //txtInsurancePaidBy.Text = "";
+            ddlInsurancePaidBy.SelectedValue = "0";
+            //txtFrieghtPaidBy.Text = "";
+            ddlFrieghtPaidBy.SelectedValue = "0";
             txtAttn.Text = "";
             ddlProduct.SelectedValue = "0";
             txtEquipmentSerialNo.Text = "";
@@ -453,32 +468,36 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 Label lblTaxAmount = (Label)row.FindControl("lblTaxAmount");
                 Label lblNetAmount = (Label)row.FindControl("lblNetAmount");
 
-                decimal HDiscount = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
-                decimal IDiscount = Convert.ToDecimal(((TextBox)row.FindControl("txtBoxDiscountPercent")).Text.Trim());
-
-                if ((HDiscount + IDiscount < 0) || (HDiscount + IDiscount >= 100))
-                {
-                    lblMessage.Text = "Discount Percentage cannot be less than 0 and more 100.";
-                    lblMessage.Visible = true;
-                    return;
-                }
-
                 foreach (PSaleOrderItem_Insert SOI in SOItem_Insert)
                 {
-                    decimal discountValue = SOI.Value * ((HDiscount + IDiscount) / 100);
-                    decimal discountedPrice = SOI.Value - discountValue;
-                    SOI.TaxableAmount = discountedPrice;
-                    
-                    SOI.SGSTAmt = SOI.TaxableAmount * (SOI.SGST / 100);
-                    SOI.CGSTAmt = SOI.TaxableAmount * (SOI.CGST / 100);
-                    SOI.IGSTAmt = SOI.TaxableAmount * (SOI.IGST / 100);
-                    
-                    SOI.NetAmt = SOI.TaxableAmount + SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt;
-                    SOI.Discount = IDiscount;
-                    
-                    lblTaxableAmount.Text = SOI.TaxableAmount.ToString();
-                    lblTaxAmount.Text = Convert.ToString(SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt);
-                    lblNetAmount.Text = SOI.NetAmt.ToString();
+                    decimal HDiscount = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
+                    decimal IDiscount = Convert.ToDecimal(((TextBox)row.FindControl("txtBoxDiscountPercent")).Text.Trim());
+
+                    if ((HDiscount + IDiscount < 0) || (HDiscount + IDiscount >= 100))
+                    {
+                        lblMessage.Text = "Discount Percentage cannot be less than 0 and more 100.";
+                        lblMessage.Visible = true;
+                        return;
+                    }
+
+                    if (SOI.MaterialID == Convert.ToInt64(MaterialID.Text))
+                    {
+
+                        decimal discountValue = SOI.Value * ((HDiscount + IDiscount) / 100);
+                        decimal discountedPrice = SOI.Value - discountValue;
+                        SOI.TaxableAmount = discountedPrice;
+
+                        SOI.SGSTAmt = SOI.TaxableAmount * (SOI.SGST / 100);
+                        SOI.CGSTAmt = SOI.TaxableAmount * (SOI.CGST / 100);
+                        SOI.IGSTAmt = SOI.TaxableAmount * (SOI.IGST / 100);
+
+                        SOI.NetAmt = SOI.TaxableAmount + SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt;
+                        SOI.Discount = IDiscount;
+
+                        lblTaxableAmount.Text = SOI.TaxableAmount.ToString();
+                        lblTaxAmount.Text = Convert.ToString(SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt);
+                        lblNetAmount.Text = SOI.NetAmt.ToString();
+                    }
                 }
             }
         }
@@ -493,19 +512,19 @@ namespace DealerManagementSystem.ViewSales.UserControls
             Label lblTaxAmount = (Label)gvRow.FindControl("lblTaxAmount");
             Label lblNetAmount = (Label)gvRow.FindControl("lblNetAmount");
 
-            decimal HDiscount = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
-            decimal IDiscount = Convert.ToDecimal(((TextBox)gvRow.FindControl("txtBoxDiscountPercent")).Text.Trim());
-
-            if ((HDiscount + IDiscount < 0) || (HDiscount + IDiscount >= 100))
-            {
-                lblMessage.Text = "Discount Percentage cannot be less than 0 and more 100.";
-                lblMessage.Visible = true;
-                return;
-            }
-
             foreach(PSaleOrderItem_Insert SOI in SOItem_Insert)
             {
-                if(SOI.MaterialID == Convert.ToInt64(MaterialID.Text))
+                decimal HDiscount = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
+                decimal IDiscount = Convert.ToDecimal(((TextBox)gvRow.FindControl("txtBoxDiscountPercent")).Text.Trim());
+
+                if ((HDiscount + IDiscount < 0) || (HDiscount + IDiscount >= 100))
+                {
+                    lblMessage.Text = "Discount Percentage cannot be less than 0 and more 100.";
+                    lblMessage.Visible = true;
+                    return;
+                }
+
+                if (SOI.MaterialID == Convert.ToInt64(MaterialID.Text))
                 {
                     decimal discountValue = SOI.Value * (HDiscount + IDiscount) / 100;
                     decimal discountedPrice = SOI.Value - discountValue;
@@ -517,7 +536,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     
                     SOI.NetAmt = SOI.TaxableAmount + SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt;
                     SOI.Discount = IDiscount;
-
+                    
                     lblTaxableAmount.Text = SOI.TaxableAmount.ToString();
                     lblTaxAmount.Text = Convert.ToString(SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt);
                     lblNetAmount.Text = SOI.NetAmt.ToString();

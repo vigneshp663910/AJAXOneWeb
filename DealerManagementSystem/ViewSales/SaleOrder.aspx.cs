@@ -19,6 +19,7 @@ namespace DealerManagementSystem.ViewSales
         DateTime? DateFrom = null;
         DateTime? DateTo = null;
         string SaleOrderNo = null;
+        string QuotationNo = null;
         int? DealerID = null;
         string CustomerCode = null;
         int? SaleOrderStatusID = null;
@@ -137,7 +138,8 @@ namespace DealerManagementSystem.ViewSales
             DateFrom = null;
             DateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
             DateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
-            SaleOrderNo = txtSONumber.Text.Trim();
+            //SaleOrderNo = txtSONumber.Text.Trim();
+            QuotationNo = txtQuotationNumber.Text.Trim();
             DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
             SaleOrderStatusID = ddlSOStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSOStatus.SelectedValue);
             CustomerCode = string.IsNullOrEmpty(txtCustomer.Text.Trim()) ? null : txtCustomer.Text.Trim();
@@ -150,7 +152,7 @@ namespace DealerManagementSystem.ViewSales
                 TraceLogger.Log(DateTime.Now);
                 Search();
                 long? SaleOrderID = null;
-                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderHeader(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), SaleOrderNo, DealerID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID, PageIndex, gvSaleOrder.PageSize);
+                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderHeader(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), QuotationNo, DealerID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID, PageIndex, gvSaleOrder.PageSize);
                 SalesOrder = JsonConvert.DeserializeObject<List<PSaleOrder>>(JsonConvert.SerializeObject(Result.Data));
 
                 gvSaleOrder.PageIndex = 0;
