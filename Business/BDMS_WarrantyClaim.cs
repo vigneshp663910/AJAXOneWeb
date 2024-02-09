@@ -1274,18 +1274,20 @@ namespace Business
             }
             return true;
         }
-        public List<PDMS_WarrantyInvoiceHeader> GetDeviatedClaimForApproval(int? DealerID, string ClaimNumber, DateTime? RequestedDateF, DateTime? RequestedDateT)
+        public List<PDMS_WarrantyInvoiceHeader> GetDeviatedClaimForApproval(int? DealerID,string IcTicketNumber, string ClaimNumber, DateTime? RequestedDateF, DateTime? RequestedDateT,int UserID)
         {
             List<PDMS_WarrantyInvoiceHeader> Ws = new List<PDMS_WarrantyInvoiceHeader>();
             PDMS_WarrantyInvoiceHeader W = null;
             try
             {
                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter ClaimNumberP = provider.CreateParameter("ClaimNumber", string.IsNullOrEmpty(ClaimNumber) ? null : ClaimNumber, DbType.String);
+                DbParameter IcTicketNumberP = provider.CreateParameter("IcTicketNumber", string.IsNullOrEmpty(IcTicketNumber) ? null : IcTicketNumber, DbType.String);
+                DbParameter ClaimNumberP = provider.CreateParameter("ClaimNumber", string.IsNullOrEmpty(ClaimNumber) ? null : ClaimNumber, DbType.String); 
                 DbParameter RequestedDateFP = provider.CreateParameter("RequestedDateF", RequestedDateF, DbType.DateTime);
                 DbParameter RequestedDateTP = provider.CreateParameter("RequestedDateT", RequestedDateT, DbType.DateTime);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
 
-                DbParameter[] Params = new DbParameter[4] { DealerIDP, ClaimNumberP, RequestedDateFP, RequestedDateTP };
+                DbParameter[] Params = new DbParameter[6] { DealerIDP, IcTicketNumberP, ClaimNumberP, RequestedDateFP, RequestedDateTP, UserIDP };
                 using (DataSet DataSet = provider.Select("ZDMS_GetDeviatedClaimForApproval", Params))
                 {
 

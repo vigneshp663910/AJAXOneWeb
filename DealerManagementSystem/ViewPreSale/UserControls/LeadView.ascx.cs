@@ -91,6 +91,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ActionControlMange();
             fillVisit();
             fillEffortConversationVisit();
+            fillSupportDocument();
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {

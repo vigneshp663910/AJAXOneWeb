@@ -39,6 +39,10 @@
                         <label class="modal-label">IC Ticket</label>
                         <asp:TextBox ID="txtICTicketNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Claim Number</label>
+                        <asp:TextBox ID="txtClaimNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Requested Date From</label>
                         <asp:TextBox ID="txtRequestedDateFrom" runat="server" AutoComplete="Off" CssClass="form-control"></asp:TextBox>
@@ -60,7 +64,7 @@
         </div>
         <div class="col-md-12 Report">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Deviated ICTicket for Approve</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Deviated Claim for Approve</legend>
                 <div class="col-md-12 Report">
                     <div class="boxHead">
                         <div class="logheading">
