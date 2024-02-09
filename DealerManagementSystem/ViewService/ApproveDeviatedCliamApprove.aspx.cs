@@ -13,13 +13,11 @@ namespace DealerManagementSystem.ViewService
     {
         public override SubModule SubModuleName { get { return SubModule.ViewService_ApproveDeviatedCliamApprove; } }
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            Session["previousUrl"] = "DMS_DeviatedCliamApprove.aspx";
+        { 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
         public List<PDMS_WarrantyInvoiceHeader> Claim
         {
@@ -49,21 +47,10 @@ namespace DealerManagementSystem.ViewService
                 txtRequestedDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtRequestedDateTo.Text = DateTime.Now.ToShortDateString();
 
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID == (short)UserTypes.Dealer)
-                {
-                    PDealer Dealer = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, Dealer.DID.ToString()));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                fillDealer();
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
-
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -88,31 +75,32 @@ namespace DealerManagementSystem.ViewService
                 int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
                 DateTime? ICTicketDateF = string.IsNullOrEmpty(txtRequestedDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRequestedDateFrom.Text.Trim());
                 DateTime? ICTicketDateT = string.IsNullOrEmpty(txtRequestedDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRequestedDateTo.Text.Trim());
-                List<PDMS_WarrantyInvoiceHeader> SOIs = null;
+
+              //  List<PDMS_WarrantyInvoiceHeader> SOIs = null;
 
 
-                SOIs = new BDMS_WarrantyClaim().GetDeviatedClaimForApproval(DealerID, txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT);
+                Claim = new BDMS_WarrantyClaim().GetDeviatedClaimForApproval(DealerID, txtICTicketNumber.Text.Trim(), txtClaimNumber.Text.Trim(), ICTicketDateF, ICTicketDateT,PSession.User.UserID);
 
-                if (ddlDealerCode.SelectedValue == "0")
-                {
-                    var SOIs1 = (from S in SOIs
-                                 join D in PSession.User.Dealer on S.DealerCode equals D.UserName
-                                 select new
-                                 {
-                                     S
-                                 }).ToList();
-                    SOIs.Clear();
-                    foreach (var w in SOIs1)
-                    {
-                        SOIs.Add(w.S);
-                    }
-                }
-                Claim = SOIs;
+                //if (ddlDealerCode.SelectedValue == "0")
+                //{
+                //    var SOIs1 = (from S in SOIs
+                //                 join D in PSession.User.Dealer on S.DealerCode equals D.UserName
+                //                 select new
+                //                 {
+                //                     S
+                //                 }).ToList();
+                //    SOIs.Clear();
+                //    foreach (var w in SOIs1)
+                //    {
+                //        SOIs.Add(w.S);
+                //    }
+                //}
+               // Claim = SOIs;
 
                 gvICTickets.PageIndex = 0;
-                gvICTickets.DataSource = SOIs;
+                gvICTickets.DataSource = Claim;
                 gvICTickets.DataBind();
-                if (SOIs.Count == 0)
+                if (Claim.Count == 0)
                 {
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
@@ -191,7 +179,7 @@ namespace DealerManagementSystem.ViewService
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            if (new BDMS_ICTicket().ApproveOrRejectDeviatedICTicketRequest(Convert.ToInt64(gvICTickets.DataKeys[index].Value), null, true, PSession.User.UserID))
+            if (new BDMS_WarrantyClaim().ApproveOrRejectDeviatedClaimRequest(Convert.ToInt64(gvICTickets.DataKeys[index].Value), null, true, PSession.User.UserID))
             {
                 lblMessage.Text = "ICTicket  Rejected successfully";
                 lblMessage.ForeColor = Color.Green;

@@ -183,8 +183,8 @@
                             <asp:TemplateField HeaderText="">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnConfirm_Click" OnClientClick="return dateValidation();" Visible='<%# DataBinder.Eval(Container.DataItem, "_IsAcknowledged")%>' />
-                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="InputButton" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnCancel_Click" Visible='<%# DataBinder.Eval(Container.DataItem, "_IsAcknowledged")%>' />
+                                    <asp:Button ID="btnConfirm" runat="server" Text="Confirm" CssClass="InputButton" UseSubmitBehavior="true" OnClick="btnConfirm_Click" OnClientClick="return dateValidation();" Visible='<%# DataBinder.Eval(Container.DataItem, "_IsAcknowledged")%>' Width="70px" Height="25px" />
+                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="InputButton" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnCancel_Click" Visible='<%# DataBinder.Eval(Container.DataItem, "_IsAcknowledged")%>' Width="70px" Height="25px" />
                                     <asp:Label ID="lblAcknowledgeStatus" Text='<%# DataBinder.Eval(Container.DataItem, "AcknowledgeStatus")%>' runat="server" Visible='<%# DataBinder.Eval(Container.DataItem, "IsAcknowledged")%>'></asp:Label>
                                     <asp:Label ID="Label3" Text='<%# DataBinder.Eval(Container.DataItem, "AcknowledgeStatus")%>' runat="server" Visible='<%# DataBinder.Eval(Container.DataItem, "IsCanceled")%>'></asp:Label>
                                 </ItemTemplate>

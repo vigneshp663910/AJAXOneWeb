@@ -492,13 +492,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.GridView gvTechnician;
 
         /// <summary>
-        /// TabPanel1 control.
+        /// TabReached control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel1;
+        protected global::AjaxControlToolkit.TabPanel TabReached;
 
         /// <summary>
         /// lblDepartureDate control.
@@ -1032,13 +1032,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.GridView gvTechnicianWorkDays;
 
         /// <summary>
-        /// TabPanel2 control.
+        /// TabRestore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel2;
+        protected global::AjaxControlToolkit.TabPanel TabRestore;
 
         /// <summary>
         /// lblRestoreDate control.
@@ -1086,13 +1086,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Label lblCustomerSatisfactionLevel;
 
         /// <summary>
-        /// TabPanel3 control.
+        /// TabSignature control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel3;
+        protected global::AjaxControlToolkit.TabPanel TabSignature;
 
         /// <summary>
         /// lblTName control.
@@ -1183,6 +1183,33 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnCSignature;
+
+        /// <summary>
+        /// tpnlDeclined control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlDeclined;
+
+        /// <summary>
+        /// lblDeclinedDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDeclinedDate;
+
+        /// <summary>
+        /// lblDeclinedReson control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDeclinedReson;
 
         /// <summary>
         /// pnlAddTechnician control.
@@ -1606,6 +1633,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddMaterialCharges;
+
+        /// <summary>
+        /// btnAddMaterialAvailability control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAddMaterialAvailability;
 
         /// <summary>
         /// MPE_AddMaterialCharges control.
@@ -2173,6 +2209,42 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLocation;
+
+        /// <summary>
+        /// txtHMRValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHMRValue;
+
+        /// <summary>
+        /// txtOperatorName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOperatorName;
+
+        /// <summary>
+        /// txtSiteContactPersonNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSiteContactPersonNumber;
+
+        /// <summary>
+        /// ddlDesignation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
 
         /// <summary>
         /// btnReachedSite control.

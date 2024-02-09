@@ -1,6 +1,5 @@
 ﻿using Business;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,18 +42,8 @@ namespace DealerManagementSystem.ViewService
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Service » Warranty » Delivery Report');</script>");
              
             if (!IsPostBack)
-            {
-
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+            { 
+                    fillDealer(); 
                 txtDeliveryDateFrom.Text = DateTime.Now.ToShortDateString();
                 txtDeliveryDateTo.Text = DateTime.Now.ToShortDateString();
                 lblRowCount.Visible = false;

@@ -81,16 +81,7 @@ namespace DealerManagementSystem.ViewService
             }
             if (!IsPostBack)
             { 
-                //if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                //{
-                //    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                //    ddlDealerCode.Enabled = false;
-                //}
-                //else
-                //{
-                //    ddlDealerCode.Enabled = true;
-                //    fillDealer();
-                //}
+                
 
                 new DDLBind().FillDealerAndEngneer(ddlDealerCode, null);
 
@@ -384,23 +375,26 @@ namespace DealerManagementSystem.ViewService
                     string supplierPOID = Convert.ToString(gvICTickets.DataKeys[e.Row.RowIndex].Value);
                     GridView supplierPOLinesGrid = (GridView)e.Row.FindControl("gvICTicketItems");
 
-                     
+
                     Label lblICTicketID = (Label)e.Row.FindControl("lblICTicketID");
+                    Label lblInvoiceDate = (Label)e.Row.FindControl("lblInvoiceDate");
+                    Label lblRestoreDate = (Label)e.Row.FindControl("lblRestoreDate");
+                    
 
                     //List<PDMS_ICTicket> SOIs = new BDMS_ICTicket().GetICTicketManage( null, null, lblICTicketID.Text, null, null, null, null, null, null);
                     //if (SOIs.Count == 1)
                     //{ 
-                        List<PDMS_FSRAttachedFile> UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileDetails(Convert.ToInt64(lblICTicketID.Text), null);
-                        GridView gvFileAttachedFSR = (GridView)e.Row.FindControl("gvFileAttachedFSR");
-                        gvFileAttachedFSR.DataSource = UploadedFileFSR;
-                        gvFileAttachedFSR.DataBind(); 
+                    List<PDMS_FSRAttachedFile> UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileDetails(Convert.ToInt64(lblICTicketID.Text), null);
+                    GridView gvFileAttachedFSR = (GridView)e.Row.FindControl("gvFileAttachedFSR");
+                    gvFileAttachedFSR.DataSource = UploadedFileFSR;
+                    gvFileAttachedFSR.DataBind();
 
-                        List<PDMS_TSIRAttachedFile> UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(Convert.ToInt64(lblICTicketID.Text), null, null);
-                        GridView gvFileAttachedTSIR = (GridView)e.Row.FindControl("gvFileAttachedTSIR");
-                        gvFileAttachedTSIR.DataSource = UploadedFileTSIR;
-                        gvFileAttachedTSIR.DataBind();
+                    List<PDMS_TSIRAttachedFile> UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(Convert.ToInt64(lblICTicketID.Text), null, null);
+                    GridView gvFileAttachedTSIR = (GridView)e.Row.FindControl("gvFileAttachedTSIR");
+                    gvFileAttachedTSIR.DataSource = UploadedFileTSIR;
+                    gvFileAttachedTSIR.DataBind();
 
-                   // }
+                    // }
 
                     List<PDMS_WarrantyInvoiceItem> supplierPurchaseOrderLines = new List<PDMS_WarrantyInvoiceItem>();
                     supplierPurchaseOrderLines = SDMS_WarrantyClaimHeader.Find(s => s.InvoiceNumber == supplierPOID).InvoiceItems;
@@ -409,11 +403,11 @@ namespace DealerManagementSystem.ViewService
                     supplierPOLinesGrid.DataBind();
 
                     //string[] ClaimApprove1 = ConfigurationManager.AppSettings["ClaimApprove1"].Split(',');
-                   // string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
-                   // string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
+                    // string[] ClaimApprove2 = ConfigurationManager.AppSettings["ClaimApprove2"].Split(',');
+                    // string[] ClaimApprove3 = ConfigurationManager.AppSettings["ClaimApprove3"].Split(',');
 
                     List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
- 
+
                     Label lblStatus = (Label)e.Row.FindControl("lblStatus");
                     if (lblStatus.Text == "REQUESTED")
                     {
@@ -425,17 +419,11 @@ namespace DealerManagementSystem.ViewService
                             lblApproved1By.Visible = false;
                             for (int i = 0; i < supplierPOLinesGrid.Rows.Count; i++)
                             {
-                                //Label lblMaterialStatus = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblMaterialStatus");
                                 Label lblAmount = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblAmount");
 
-
-
-                                //DropDownList ddlMaterialStatus = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlMaterialStatus");                               
                                 TextBox txtApproved1Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved1Amount");
-                                txtApproved1Amount.Text = lblAmount.Text;
-                                //ddlMaterialStatus.SelectedValue = lblMaterialStatus.Text.Trim() == "" ? "0" : lblMaterialStatus.Text.Trim();
-                                //lblMaterialStatus.Visible = false;
-                                //ddlMaterialStatus.Visible = true;                             
+                                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text));
+                                txtApproved1Amount.Text = Amount.ToString();
                                 txtApproved1Amount.Enabled = true;
 
 
@@ -466,48 +454,48 @@ namespace DealerManagementSystem.ViewService
                             }
                         }
 
-                        if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval2).Count() == 1)
-                        {
-                            Button btnApproved2By = (Button)e.Row.FindControl("btnApproved2By");
-                            Label lblApproved2By = (Label)e.Row.FindControl("lblApproved2By");
-                            btnApproved2By.Visible = true;
-                            lblApproved2By.Visible = false;
-                            for (int i = 0; i < supplierPOLinesGrid.Rows.Count; i++)
-                            {
+                        //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.ClaimApproval2).Count() == 1)
+                        //{
+                        //    Button btnApproved2By = (Button)e.Row.FindControl("btnApproved2By");
+                        //    Label lblApproved2By = (Label)e.Row.FindControl("lblApproved2By");
+                        //    btnApproved2By.Visible = true;
+                        //    lblApproved2By.Visible = false;
+                        //    for (int i = 0; i < supplierPOLinesGrid.Rows.Count; i++)
+                        //    {
 
-                                TextBox txtApproved1Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved1Amount");
-                                TextBox txtApproved2Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved2Amount");
-                                txtApproved2Amount.Text = txtApproved1Amount.Text;
-                                txtApproved2Amount.Enabled = true;
+                        //        TextBox txtApproved1Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved1Amount");
+                        //        TextBox txtApproved2Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved2Amount");
+                        //        txtApproved2Amount.Text = txtApproved1Amount.Text;
+                        //        txtApproved2Amount.Enabled = true;
 
 
-                                Label lblMaterialStatusRemarks2 = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblMaterialStatusRemarks2");
-                                DropDownList ddlMaterialStatusRemarks2 = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlMaterialStatusRemarks2");
+                        //        Label lblMaterialStatusRemarks2 = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblMaterialStatusRemarks2");
+                        //        DropDownList ddlMaterialStatusRemarks2 = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlMaterialStatusRemarks2");
 
-                                lblMaterialStatusRemarks2.Visible = false;
-                                ddlMaterialStatusRemarks2.Visible = true;
-                                ddlMaterialStatusRemarks2.DataTextField = "Remarks";
-                                ddlMaterialStatusRemarks2.DataValueField = "RemarksSubID";
-                                ddlMaterialStatusRemarks2.DataSource = MStatusRemarks;
-                                ddlMaterialStatusRemarks2.DataBind();
-                                ddlMaterialStatusRemarks2.Items.Insert(0, new ListItem("Select", "0"));
+                        //        lblMaterialStatusRemarks2.Visible = false;
+                        //        ddlMaterialStatusRemarks2.Visible = true;
+                        //        ddlMaterialStatusRemarks2.DataTextField = "Remarks";
+                        //        ddlMaterialStatusRemarks2.DataValueField = "RemarksSubID";
+                        //        ddlMaterialStatusRemarks2.DataSource = MStatusRemarks;
+                        //        ddlMaterialStatusRemarks2.DataBind();
+                        //        ddlMaterialStatusRemarks2.Items.Insert(0, new ListItem("Select", "0"));
 
-                                DropDownList ddlApproved2Remarks = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlApproved2Remarks");
-                                Label lblApproved2Remarks = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblApproved2Remarks");
-                                lblApproved2Remarks.Visible = false;
-                                ddlApproved2Remarks.Visible = true;
-                                ddlApproved2Remarks.DataTextField = "Remarks";
-                                ddlApproved2Remarks.DataValueField = "RemarksSubID";
-                                ddlApproved2Remarks.DataSource = Remarks;
-                                ddlApproved2Remarks.DataBind();
-                                ddlApproved2Remarks.Items.Insert(0, new ListItem("Select", "0"));
-                                Label lblCategory = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblCategory");
-                                if (lblCategory.Text != "Warranty.")
-                                {
-                                    ddlMaterialStatusRemarks2.Visible = false;
-                                }
-                            }
-                        }
+                        //        DropDownList ddlApproved2Remarks = (DropDownList)supplierPOLinesGrid.Rows[i].FindControl("ddlApproved2Remarks");
+                        //        Label lblApproved2Remarks = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblApproved2Remarks");
+                        //        lblApproved2Remarks.Visible = false;
+                        //        ddlApproved2Remarks.Visible = true;
+                        //        ddlApproved2Remarks.DataTextField = "Remarks";
+                        //        ddlApproved2Remarks.DataValueField = "RemarksSubID";
+                        //        ddlApproved2Remarks.DataSource = Remarks;
+                        //        ddlApproved2Remarks.DataBind();
+                        //        ddlApproved2Remarks.Items.Insert(0, new ListItem("Select", "0"));
+                        //        Label lblCategory = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblCategory");
+                        //        if (lblCategory.Text != "Warranty.")
+                        //        {
+                        //            ddlMaterialStatusRemarks2.Visible = false;
+                        //        }
+                        //    }
+                        //}
                     }
                     if (lblStatus.Text == "APPROVED L1")
                     {
@@ -644,13 +632,15 @@ namespace DealerManagementSystem.ViewService
             Label lblInvoiceNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceNumber");
 
             Label lblInvoiceDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceDate");
-            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text))
+            Label lblRestoreDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblRestoreDate");
+            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text,Convert.ToDateTime(lblRestoreDate.Text)))
             {
                 lblMessage.Text = "This claim crossed the date. Please get approval.";
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
+             
 
             List<PDMS_WarrantyInvoiceItem> Claims = new List<PDMS_WarrantyInvoiceItem>();
             for (int i = 0; i < supplierPOLinesGrid.Rows.Count; i++)
@@ -664,7 +654,8 @@ namespace DealerManagementSystem.ViewService
                 Label lblAmount = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblAmount");
 
 
-                decimal Amount = Convert.ToDecimal(lblAmount.Text);
+                // decimal Amount = Convert.ToDecimal(lblAmount.Text);
+                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text));
                 decimal parsedValue;
                 if (!decimal.TryParse(txtApproved1Amount.Text, out parsedValue))
                 {
@@ -745,7 +736,8 @@ namespace DealerManagementSystem.ViewService
             //  Label lblClaimID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblClaimID");
             Label lblInvoiceNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceNumber");
             Label lblInvoiceDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceDate");
-            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text))
+            Label lblRestoreDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblRestoreDate");
+            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text, Convert.ToDateTime(lblRestoreDate.Text)))
             {
                 lblMessage.Text = "This claim crossed the date. Please get approval.";
                 lblMessage.Visible = true;
@@ -769,7 +761,8 @@ namespace DealerManagementSystem.ViewService
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                decimal Amount = Convert.ToDecimal(lblAmount.Text);
+                // decimal Amount = Convert.ToDecimal(lblAmount.Text);
+                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text));
                 if (Amount < Convert.ToDecimal(txtApproved2Amount.Text))
                 {
                     lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
@@ -842,7 +835,8 @@ namespace DealerManagementSystem.ViewService
             //  Label lblClaimID = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblClaimID");
             Label lblInvoiceNumber = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceNumber");
             Label lblInvoiceDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblInvoiceDate");
-            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text))
+            Label lblRestoreDate = (Label)gvICTickets.Rows[gvRow.RowIndex].FindControl("lblRestoreDate");
+            if (ControlBaseOn60Days(Convert.ToDateTime(lblInvoiceDate.Text), lblInvoiceNumber.Text, Convert.ToDateTime(lblRestoreDate.Text)))
             {
                 lblMessage.Text = "This claim crossed the date. Please get approval.";
                 lblMessage.Visible = true;
@@ -866,7 +860,8 @@ namespace DealerManagementSystem.ViewService
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                decimal Amount = Convert.ToDecimal(lblAmount.Text);
+                // decimal Amount = Convert.ToDecimal(lblAmount.Text);
+                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text));
                 if (Amount < Convert.ToDecimal(txtApproved3Amount.Text))
                 {
                     lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
@@ -985,8 +980,8 @@ namespace DealerManagementSystem.ViewService
                 Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
 
                 long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
-                PDMS_FSRAttachedFile UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(AttachedFileID);
-
+                //PDMS_FSRAttachedFile UploadedFileFSR = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(AttachedFileID);
+                PAttachedFile UploadedFileFSR  = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(AttachedFileID);
                 Response.AddHeader("Content-type", UploadedFileFSR.FileType);
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFileFSR.FileName);
                 HttpContext.Current.Response.Charset = "utf-16";
@@ -1008,7 +1003,8 @@ namespace DealerManagementSystem.ViewService
                 Label lblAttachedFileID = (Label)gvRow.FindControl("lblAttachedFileID");
 
                 long AttachedFileID = Convert.ToInt64(lblAttachedFileID.Text);
-                PDMS_TSIRAttachedFile UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(AttachedFileID);
+                // PDMS_TSIRAttachedFile UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileByID(AttachedFileID);
+                PAttachedFile UploadedFileTSIR = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileForDownload(AttachedFileID);
                 Response.AddHeader("Content-type", UploadedFileTSIR.FileType);
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFileTSIR.FileName);
                 HttpContext.Current.Response.Charset = "utf-16";
@@ -1041,25 +1037,37 @@ namespace DealerManagementSystem.ViewService
             } 
         }
 
-        Boolean ControlBaseOn60Days(DateTime InvoiceDate, string InvoiceNumber)
+        Boolean ControlBaseOn60Days(DateTime ClaimDate, string InvoiceNumber, DateTime RestoreDate)
         {
             Boolean ch = false;
             try
             {
-                int Days = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDate"]);
-
-                if (InvoiceDate.AddDays(Days) < DateTime.Now)
+                ClaimDate = ClaimDate.Date;
+                RestoreDate = RestoreDate.Date;
+                //int Days = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDate"]);
+                int ClaimLockDays1 = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDays1"]);
+                int ClaimLockDays2 = Convert.ToInt32(ConfigurationManager.AppSettings["ClaimLockDays2"]);
+                if (ClaimDate.AddDays(ClaimLockDays1) >= DateTime.Now)
                 {
-                    ch = true;
-                    List<PDMS_WarrantyInvoiceHeader> ICTicketDT = new BDMS_WarrantyClaim().GetDeviatedClaimReport(null, InvoiceNumber, null, null, PSession.User.UserID);
-                    if (ICTicketDT.Count == 1)
+                    return false;
+                }
+                if (RestoreDate.Date.AddDays(ClaimLockDays2) >= DateTime.Now)
+                {
+                    return false;
+                }
+
+
+                ch = true;
+                List<PDMS_WarrantyInvoiceHeader> ICTicketDT = new BDMS_WarrantyClaim().GetDeviatedClaimReport(null, InvoiceNumber, null, null, PSession.User.UserID);
+                if (ICTicketDT.Count == 1)
+                {
+                    if (ICTicketDT[0].DeviatedIsApproved == true)
                     {
-                        if (ICTicketDT[0].DeviatedIsApproved == true)
-                        {
-                            ch = false;
-                        }
+                        ch = false;
                     }
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -1080,6 +1088,20 @@ namespace DealerManagementSystem.ViewService
         {
             divClaimList.Visible = true; 
             divEquipmentView.Visible = false; 
+        }
+
+        decimal DeductionCalculation(DateTime RestoreDate, DateTime ClaimDate, decimal Amount)
+        {
+            decimal Deduction = 0;
+            if ((ClaimDate - RestoreDate).TotalDays > 30)
+            {
+                Deduction = 50;
+            }
+            else if ((ClaimDate - RestoreDate).TotalDays > 15)
+            {
+                Deduction = 25;
+            }
+            return Amount - (Amount * Deduction / 100);
         }
     }
 }

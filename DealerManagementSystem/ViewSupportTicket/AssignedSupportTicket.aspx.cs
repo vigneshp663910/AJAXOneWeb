@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -70,15 +71,15 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlCategory.DataTextField = "Category";
             ddlCategory.DataValueField = "CategoryID";
-            ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
+            ddlCategory.DataSource = JsonConvert.DeserializeObject<List<PCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketCategory(null, null).Data));
             ddlCategory.DataBind();
             ddlCategory.Items.Insert(0, new ListItem("Select", "0"));
         }
         void FillSubCategory()
         {
             ddlSubcategory.DataTextField = "SubCategory";
-            ddlSubcategory.DataValueField = "SubCategoryID";
-            ddlSubcategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue));
+            ddlSubcategory.DataValueField = "SubCategoryID";            
+            ddlSubcategory.DataSource = JsonConvert.DeserializeObject<List<PSubCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue)).Data));
             ddlSubcategory.DataBind();
             ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -86,7 +87,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlSeverity.DataTextField = "Severity";
             ddlSeverity.DataValueField = "SeverityID";
-            ddlSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
+            ddlSeverity.DataSource = JsonConvert.DeserializeObject<List<PSeverity>>(JsonConvert.SerializeObject(new BTickets().getTicketSeverity(null, null).Data));
             ddlSeverity.DataBind();
             ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -101,10 +102,12 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
             int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
             int UserID = PSession.User.UserID;
-            int RowCount = 0;
+            //int RowCount = 0;
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            TicketHeader= new BTickets().GetAssignedTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity, UserID, PageIndex, gvTickets.PageSize, out RowCount);
-            if (RowCount == 0)
+            PApiResult Result = new BTickets().GetAssignedTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity, UserID, PageIndex, gvTickets.PageSize);
+            TicketHeader = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
+            //TicketHeader = new BTickets().GetAssignedTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity, UserID, PageIndex, gvTickets.PageSize, out RowCount);
+            if (Result.RowCount == 0)
             {
                 gvTickets.DataSource = null;
                 gvTickets.DataBind();
@@ -116,11 +119,11 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 gvTickets.DataSource = TicketHeader;
                 gvTickets.DataBind();
-                PageCount = (RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
+                PageCount = (Result.RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
                 lblRowCount.Visible = true;
                 ibtnArrowLeft.Visible = true;
                 ibtnArrowRight.Visible = true;
-                lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + RowCount;
+                lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + Result.RowCount;
             }
             for (int i = 0; i < gvTickets.Rows.Count; i++)
             {
@@ -175,15 +178,6 @@ namespace DealerManagementSystem.ViewSupportTicket
             gvTickets.PageIndex = e.NewPageIndex;
             FillTickets();
         }
-
-        protected void btnInProgress_Click(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label ItemId = (Label)gvTickets.Rows[gvRow.RowIndex].FindControl("lblItemID");
-            new BTickets().UpdateTicketStatus(Convert.ToInt32(ItemId.Text), 3);
-            FillTickets();
-        }
-
         protected void ibMessage_Click(object sender, ImageClickEventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -196,26 +190,6 @@ namespace DealerManagementSystem.ViewSupportTicket
             UC_SupportTicketView.FillTickets(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
             UC_SupportTicketView.FillChat(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
             UC_SupportTicketView.FillChatTemp(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
-        }
-
-        protected void btnReassign_Click(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label TicketNo = (Label)gvTickets.Rows[gvRow.RowIndex].FindControl("lblTicketID");
-            Label ItemNo = (Label)gvTickets.Rows[gvRow.RowIndex].FindControl("lblItemID");
-
-            Response.Redirect("ReassignSupportTicket.aspx?TicketNo=" + TicketNo.Text + "&ItemNo=" + ItemNo.Text);
-        }
-        protected void btnCancel_Click(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label TicketNo = (Label)gvTickets.Rows[gvRow.RowIndex].FindControl("lblTicketID");
-            Label ItemNo = (Label)gvTickets.Rows[gvRow.RowIndex].FindControl("lblItemID");
-
-            //Response.Redirect("ReassignSupportTicket.aspx?TicketNo=" + TicketNo.Text + "&ItemNo=" + ItemNo.Text);
-
-            new BTickets().UpdateTicketCancelStatus(Convert.ToInt32(TicketNo.Text), Convert.ToInt32(ItemNo.Text), PSession.User.UserID);
-            FillTickets();
         }
         protected void btnBackToList_Click(object sender, EventArgs e)
         {

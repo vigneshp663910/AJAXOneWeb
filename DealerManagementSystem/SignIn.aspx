@@ -110,70 +110,7 @@
                 background-color: #45a049;
             }
 
-        /* Two-column layout */
-        /*.col {
-            float: left;
-            width: 50%;
-            margin: auto;
-            padding: 0 50px;
-            margin-top: 6px;
-        }*/
-
-        /* Clear floats after the columns */
-        /*.row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }*/
-
-        /* vertical line */
-        /*.vl {
-            position: absolute;
-            left: 50%;
-            transform: translate(-50%);
-            border: 2px solid #ddd;
-            height: 175px;
-        }*/
-
-        /* text inside the vertical line */
-        /*.vl-innertext {
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-            border-radius: 50%;
-            padding: 8px 10px;
-        }*/
-
-        /* hide some text on medium and large screens */
-        /*.hide-md-lg {
-            display: none;
-        }*/
-
-        /* bottom container */
-        /*.bottom-container {
-            text-align: center;
-            background-color: #666;
-            border-radius: 0px 0px 4px 4px;
-        }*/
-
-        /* Responsive layout - when the screen is less than 650px wide, make the two columns stack on top of each other instead of next to each other */
-        /*@media screen and (max-width: 650px) {
-            .col {
-                width: 100%;
-                margin-top: 0;
-            }*/
-        /* hide the vertical line */
-        /*.vl {
-                display: none;
-            }*/
-        /* show the hidden text on small screens */
-        /*.hide-md-lg {
-                display: block;
-                text-align: center;
-            }
-        }*/
+        
 
         .modal-lc {
             max-width: 20%;
@@ -254,7 +191,37 @@
             display: none;
         }
 
-        @media screen and (min-device-width: 250px) and (max-device-width: 1000px) {
+     /*   @media screen and (min-device-width: 250px) and (max-device-width: 1000px) {
+            #LoginLeft {
+                display: none;
+            }
+
+            #Footer {
+                display: none;
+            }
+
+            #ImageCompanyLogoRight {
+                display: block;
+            }
+
+            #LoginRight {
+                width: 100%;
+                overflow : auto;
+            }
+
+
+            .vertical-center {
+                margin: 0;
+                padding: initial;
+                position: absolute;
+                top: 40%;
+                left: 10%;
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+        }*/
+
+        @media (min-width: 250px) and (max-width: 1000px) {
             #LoginLeft {
                 display: none;
             }
@@ -283,6 +250,8 @@
                 transform: translateY(-50%);
             }
         }
+
+        
 
         .care {
             font-family: Proxima Nova;
@@ -313,47 +282,15 @@
             }
         }
     </script>
-    <%--F12 Event--%>
-    <%--<script>  
-document.onkeypress = function (event) {  
-event = (event || window.event);  
-if (event.keyCode == 123) {  
-return false;  
-}  
-}  
-document.onmousedown = function (event) {  
-event = (event || window.event);  
-if (event.keyCode == 123) {  
-return false;  
-}  
-}  
-document.onkeydown = function (event) {  
-event = (event || window.event);  
-if (event.keyCode == 123) {  
-return false;  
-}  
-}  
-    </script>--%>
+     
 
-    <script>
-        /* function geoFindMe() { */
-
-        //const status = document.querySelector('#status');
-        //const mapLink = document.querySelector('#map-link');
-
-        //mapLink.href = '';
-        //mapLink.textContent = '';
-
+    <script> 
         function success(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
             document.getElementById('hfLatitude').value = latitude;
             document.getElementById('hfLongitude').value = longitude;
-            status.textContent = '';
-            //  mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-            //  mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
-            //alert(latitude);
-            //alert(longitude);
+            status.textContent = ''; 
         }
         function error() {
             status.textContent = 'Unable to retrieve your location';
@@ -365,18 +302,10 @@ return false;
         } else {
             status.textContent = 'Locating…';
             navigator.geolocation.getCurrentPosition(success, error);
-        }
-
-        /*  } */
-     //   document.querySelector('#find-me').addEventListener('click', geoFindMe);
+        } 
     </script>
 </head>
-<body>
- <%--   <div class="loading" align="center" aria-disabled="true">
-        Loading. Please wait.<br />
-        <br />
-        <img src="Images/PageLoader.gif" alt="" style="margin: 15%; background-color: white" />
-    </div>--%>
+<body> 
     <style type="text/css">
         .modal {
             position: fixed;
@@ -432,8 +361,7 @@ return false;
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
 
                         <div class="vertical-center" style="padding: 198px; text-align: center">
-                            <asp:Image ID="Image6" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="35" Width="48" />
-                            <%-- <asp:Image ID="ImageCompanyLogo1" runat="server" ImageUrl="~/Ajax/Images/ajax_logow.png" Height="70" Width="150" />--%>
+                            <asp:Image ID="Image6" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="35" Width="48" /> 
                             <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/AJAXOneW.png" Height="50" Width="150" />
                             <h3 style="font-family: Calibri; color: white; margin-top: 5px">DEALER MANAGEMENT SYSTEM</h3>
 
@@ -448,32 +376,23 @@ return false;
                                 <a class="care text-white" href="mailto:support@ajax-engg.com"><span>support@ajax-engg.com</span></a></li>
                         </div>
 
-                    </div>
-                    <%--<div class="split bottom" style="padding: 128px; background: linear-gradient(180deg, #b7babf, #f0f4fd,#b7babf);">
-                        <h2>Ajax-XXXXXXXXXXXX</h2>
-                    </div>--%>
+                    </div> 
                 </div>
                 <div id="LoginRight" class="right split" style="margin: 0 auto">
                     <div class="col-md-12 vertical-center" style="width: 80%">
-                        <div id="ImageCompanyLogoRight" style="text-align: center;">
-                            <%--<asp:Image ID="Image7" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="30" Width="40" />--%>
-                            <%-- <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/Ajax-New-Logo.png" Height="40" Width="150" />--%>
+                        <div id="ImageCompanyLogoRight" style="text-align: center;"> 
                             <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/AJAXOneB.png" Height="40" Width="150" />
                         </div>
                         <br />
                         <div style="text-align: center;">
                             <asp:Image ID="ImageAppLogo" runat="server" ImageUrl="~/Ajax/Images/dms4.jpg" Width="50" Height="50" />
-                        </div>
-
-                        <%--<div style="text-align: center;background-color:#2e516d">
-                            <asp:Image ID="Image2" runat="server" ImageUrl="~/Ajax/Images/dms6.jpg" Width="130" Height="60" />
-                        </div>--%>
-
+                        </div> 
                         <fieldset class="fieldset-border" id="FldSignin" runat="server">
 
                             <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Sign in</legend>
                             <div class="col-md-12">
                                 <div>
+                                    
                                     <br />
                                     <label><b>UserID / Email / Mobile</b></label>
                                 </div>
@@ -506,6 +425,8 @@ return false;
                                 <br />
                                 <label>Don't have ajax account?</label>
                                 <input type="submit" value="Create an account" class="btn-danger">--%>
+                                <dev  style="float: right; padding-right: 1em; font-size: medium; color: white; background-color:darkgray ; margin-right:4px;">
+                                    <asp:Label ID="lblServer" runat="server"></asp:Label></dev>
                             </div>
                         </fieldset>
 
@@ -539,41 +460,11 @@ return false;
                                 <asp:Button ID="BtnReset" runat="server" Text="Reset" OnClick="BtnReset_Click" />
                             </div>
                         </fieldset>
-
-                        <fieldset class="fieldset-border" id="FldChangePassword" runat="server" visible="false">
-                            <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Change Password</legend>
-                            <div class="col-md-12">
-                                <div>
-                                    <%--<br />--%>
-                                    <label><b>Old Password</b></label>
-                                </div>
-                                <div>
-                                    <asp:TextBox ID="txtOldPassword" runat="server" ToolTip="Enter Old Password..." PlaceHolder="Old Password" TextMode="Password"></asp:TextBox>
-                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtOldPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
-                                </div>
-                                <div>
-                                    <br />
-                                    <label><b>New Password</b></label>
-                                </div>
-                                <div>
-                                    <asp:TextBox ID="txtCNewPassword" runat="server" ToolTip="Enter New Password..." PlaceHolder="New Password" TextMode="Password"></asp:TextBox>
-                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtCNewPassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
-                                </div>
-                                <div>
-                                    <br />
-                                    <label><b>Retype Password</b></label>
-                                </div>
-                                <div>
-                                    <asp:TextBox ID="txtCRetypePassword" runat="server" ToolTip="Enter Retype Password..." PlaceHolder="Retype Password" TextMode="Password"></asp:TextBox>
-                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtCRetypePassword" ToolTip="<%$ Resources:Resource,ttpPassword %>" ForeColor="Red"><img src="images/error_info.png" alt="info" /></asp:RequiredFieldValidator>--%>
-                                </div>
-                                <asp:Button ID="BtnChange" runat="server" Text="Change" OnClick="BtnChange_Click" />
-                            </div>
-                        </fieldset>
+                         
                         <div style="text-align: center">
                             <asp:Label ID="lblMessage" runat="server"></asp:Label>
                         </div>
-                        <%--  </div>--%>
+                       
 
                         <div id="Footer1">
                             <div style="text-align: center; margin: 10px 0;">
@@ -703,13 +594,6 @@ return false;
 
             </div>
         </div>
-    </div>
-
-    <%--<script>
-
-        function openModal() {
-            $('#myModal').modal('show')
-        };
-    </script>--%>
+    </div> 
 </body>
 </html>

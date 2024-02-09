@@ -180,5 +180,11 @@ namespace Business
             string endPoint = "Master/AttachedFileProductDrawingForDownload?DocumentName=" + DocumentName;
             return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
         }
+        public List<PAjaxOneStatus> GetAjaxOneStatus(int StatusHeaderID)
+        {
+            string endPoint = "Master/GetAjaxOneStatus?StatusHeaderID=" + StatusHeaderID;
+            return JsonConvert.DeserializeObject<List<PAjaxOneStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
     }
 } 

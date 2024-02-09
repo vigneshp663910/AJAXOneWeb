@@ -116,7 +116,10 @@
     <Compile Include="BChangeHistory.cs" />
     <Compile Include="BColdVisit.cs" />
     <Compile Include="BDealer.cs" />
+    <Compile Include="BDealerBusiness.cs" />
+    <Compile Include="BDealerBusinessExcellence.cs" />
     <Compile Include="BDealerOperatorDetails.cs" />
+    <Compile Include="BDeviationProcess.cs" />
     <Compile Include="BDMS_Address.cs" />
     <Compile Include="BDMS_AvailabilityOfOtherMachine.cs" />
     <Compile Include="BDMS_BankDepositClearing.cs" />
@@ -168,6 +171,7 @@
     <Compile Include="BIntegration.cs" />
     <Compile Include="BInventory.cs" />
     <Compile Include="BMachineOperator.cs" />
+    <Compile Include="BMessageAnnouncement.cs" />
     <Compile Include="BNotification.cs" />
     <Compile Include="BOrganization.cs" />
     <Compile Include="BPG.cs" />
@@ -180,13 +184,7 @@
     <Compile Include="BSmsManager.cs" />
     <Compile Include="BTest.cs" />
     <Compile Include="BTestSN.cs" />
-    <Compile Include="BTicketCategory.cs" />
-    <Compile Include="BTicketResolutionType.cs" />
     <Compile Include="BTickets.cs" />
-    <Compile Include="BTicketSeverity.cs" />
-    <Compile Include="BTicketStatus.cs" />
-    <Compile Include="BTicketSubCategory.cs" />
-    <Compile Include="BTicketType.cs" />
     <Compile Include="BUser.cs" />
     <Compile Include="BUserType.cs" />
     <Compile Include="BXcel.cs">
@@ -225,10 +223,6 @@
     <ProjectReference Include="..\Properties\Properties.csproj">
       <Project>{f7c6cccb-e36e-461f-a844-0546264d53bc}</Project>
       <Name>Properties</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SapIntegration\SapIntegration.csproj">
-      <Project>{87886c5a-4aab-4aa8-84d4-d77321444cb3}</Project>
-      <Name>SapIntegration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

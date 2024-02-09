@@ -152,6 +152,14 @@
             padding-left: 15px;
             margin-bottom: 15px;
         }
+
+        #MainContent_GVReport.table.table-bordered.table-condensed.Grid td {
+            font-size: 9px;
+        }
+
+        #MainContent_GVReport.table.table-bordered.table-condensed.Grid th {
+            font-size: 9px;
+        }
     </style>
     <style>
         #funnel-container {
@@ -380,16 +388,16 @@
                 </div>
                 <div class="col-md-2 col-sm-12">
                     <label class="modal-label">Dealer</label>
-                    <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged"/>
+                    <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
                 </div>
                 <div class="col-md-2 col-sm-12">
                     <label class="modal-label">Employee</label>
                     <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" AutoPostBack="true" />
                 </div>
-                <%--<div class="col-md-2 col-sm-12">
-                    <label class="modal-label">Employee</label>
-                    <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
-                </div>--%>
+                <div class="col-md-2 col-sm-12" runat="server" id="divChkIT" visible="false">
+                    <label class="modal-label">-</label>
+                    <asp:CheckBox ID="ChkIT" Text="IT" runat="server" OnCheckedChanged="ChkIT_CheckedChanged" AutoPostBack="true" Font-Bold="true" />
+                </div>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                 </div>
@@ -551,14 +559,17 @@
                                                     <table>
                                                         <tr>
                                                             <td>
+                                                                <div></div>
                                                                 <asp:Label ID="lblMonthlyReportTitle" runat="server" CssClass="label"></asp:Label>
+                                                                
+                                                                <asp:DropDownList ID="ddlFinYear" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFinYear_SelectedIndexChanged"/>
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
-                                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="15" ShowFooter="true" EmptyDataText="No Data Found">
+                                        <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="12" ShowFooter="true" EmptyDataText="No Data Found" OnPageIndexChanging="gvTickets_PageIndexChanging">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Year">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
@@ -584,12 +595,6 @@
                                                         <asp:Label ID="lnkOpened" Text='<%# DataBinder.Eval(Container.DataItem, "Opened")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <%--<asp:TemplateField HeaderText="Approved">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkApproved" Text='<%# DataBinder.Eval(Container.DataItem, "Approved")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>--%>
                                                 <asp:TemplateField HeaderText="Assigned">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
@@ -626,18 +631,6 @@
                                                         <asp:Label ID="lnkResolved" Text='<%# DataBinder.Eval(Container.DataItem, "Resolved")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <%--<asp:TemplateField HeaderText="Cancelled">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkCancelled" Text='<%# DataBinder.Eval(Container.DataItem, "Cancelled")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="ForceClose">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkForceClose" Text='<%# DataBinder.Eval(Container.DataItem, "ForceClose")%>' runat="server"></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>--%>
                                                 <asp:TemplateField HeaderText="Closed">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" ForeColor="Blue" />
                                                     <ItemTemplate>
@@ -708,6 +701,46 @@
             </div>
         </div>
         <br />
+    </div>
+    <asp:Panel ID="pnlTktReport" runat="server" CssClass="Popup" Style="display: none" Height="650px" Width="80%">
+        <div class="PopupHeader clearfix">
+            <span id="PopupDialogue">
+                <asp:Label ID="Label2" runat="server" Text="Report"></asp:Label></span><a href="#" role="button">
+                    <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" /></a>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-12 Report">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Monthly</legend>
+                    <div class="col-md-12 Report">
+                        <div class="boxHead">
+                            <div class="logheading">
+                                <div style="float: left">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="lblRptCount" runat="server" CssClass="label"></asp:Label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <asp:GridView ID="GVReport" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" EmptyDataText="No Data Found" OnPageIndexChanging="GVReport_PageIndexChanging">
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle CssClass="FooterStyle" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </asp:GridView>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </asp:Panel>
+    <ajaxToolkit:ModalPopupExtender ID="MPE_TktReport" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlTktReport" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+    <div style="display: none">
+        <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript"> 

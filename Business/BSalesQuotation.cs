@@ -931,7 +931,12 @@ namespace Business
                     Qty = item.Qty
                 });
             }
-            return JsonConvert.DeserializeObject<PSalesQuotationItem>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/getMaterialTaxForQuotation", Tax)).Data));
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/getMaterialTaxForQuotation", Tax));
+            if (Results.Status == PApplication.Failure)
+            {
+                throw new Exception( Results.Message); 
+            }
+            return JsonConvert.DeserializeObject<PSalesQuotationItem>(JsonConvert.SerializeObject(Results.Data));
         }
         public DataTable getMaterialTextForQuotation(string MaterialCode)
         {

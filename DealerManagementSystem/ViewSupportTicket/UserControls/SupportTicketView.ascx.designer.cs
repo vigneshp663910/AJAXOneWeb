@@ -204,13 +204,13 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected global::System.Web.UI.WebControls.Label lblDescription;
 
         /// <summary>
-        /// lblDealerCode control.
+        /// lblDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDealerCode;
+        protected global::System.Web.UI.WebControls.Label lblDealer;
 
         /// <summary>
         /// lblSubCategory control.
@@ -258,13 +258,13 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected global::System.Web.UI.WebControls.Label lblClosedBy;
 
         /// <summary>
-        /// lblDealerName control.
+        /// lblSubject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDealerName;
+        protected global::System.Web.UI.WebControls.Label lblSubject;
 
         /// <summary>
         /// lblTicketType control.
@@ -762,13 +762,49 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlSeverity;
 
         /// <summary>
-        /// lblAssignedTo control.
+        /// lblAssignDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAssignedTo;
+        protected global::System.Web.UI.WebControls.Label lblAssignDealer;
+
+        /// <summary>
+        /// ddlAssignDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAssignDealer;
+
+        /// <summary>
+        /// lblAssignDepartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAssignDepartment;
+
+        /// <summary>
+        /// ddlAssignDepartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAssignDepartment;
+
+        /// <summary>
+        /// lblAssignTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAssignTo;
 
         /// <summary>
         /// ddlAssignedTo control.
@@ -1032,6 +1068,60 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlResolutionType;
 
         /// <summary>
+        /// Label13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label13;
+
+        /// <summary>
+        /// ddlResSupportType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlResSupportType;
+
+        /// <summary>
+        /// lblAjaxEmp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAjaxEmp;
+
+        /// <summary>
+        /// ddlAjaxEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAjaxEmployee;
+
+        /// <summary>
+        /// BtnAddAjaxEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnAddAjaxEmployee;
+
+        /// <summary>
+        /// gvAjaxEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvAjaxEmployee;
+
+        /// <summary>
         /// lblResolution control.
         /// </summary>
         /// <remarks>
@@ -1075,24 +1165,6 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvResolveNewFileAttached;
-
-        /// <summary>
-        /// Label13 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label13;
-
-        /// <summary>
-        /// ddlResSupportType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlResSupportType;
 
         /// <summary>
         /// btnResolve control.

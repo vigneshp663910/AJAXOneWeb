@@ -78,6 +78,9 @@
     <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
+    <Reference Include="FreeTextBox, Version=3.3.0.22838, Culture=neutral, PublicKeyToken=5962a4e684a48b87, processorArchitecture=MSIL">
+      <HintPath>..\packages\WCM.FreeTextBox.3.3.0\lib\FreeTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="iTextSharp.LGPLv2.Core, Version=1.7.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.LGPLv2.Core.1.7.5\lib\net40\iTextSharp.LGPLv2.Core.dll</HintPath>
     </Reference>
@@ -102,22 +105,22 @@
       <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1586.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1586.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1586.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1586.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.WebDesign, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1586.0\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1586.0\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ScriptManager.MSAjax, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
@@ -201,6 +204,7 @@
     <Content Include="Account\SignOut.aspx" />
     <Content Include="Account\SignOut.htm" />
     <Content Include="Ajax\Images\Ajax-New-Logo.png" />
+    <Content Include="Ajax\Images\AjaxHeader.jpg" />
     <Content Include="Ajax\Images\AJAXOneB.png" />
     <Content Include="Ajax\Images\AJAXOneW.png" />
     <Content Include="Ajax\Images\AJAXTLogo.png" />
@@ -218,6 +222,7 @@
     <Content Include="Ajax\Images\dms5.jpg" />
     <Content Include="Ajax\Images\dms6.jpg" />
     <Content Include="Ajax\Images\feedback.png" />
+    <Content Include="Ajax\Images\ImageURLLink.jpg" />
     <Content Include="Ajax\Images\Login1.png" />
     <Content Include="Ajax\Images\newicon.gif" />
     <Content Include="Ajax\Images\Operator1.png" />
@@ -244,6 +249,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CSS\jquery-ui.css" />
     <Content Include="CSS\StyleSheet1.css" />
+    <Content Include="Dashboard\FirstTimeRightForWarrantyService.aspx" />
+    <Content Include="Dashboard\ICTicketEscalationOnBreakdownLevel.ascx" />
+    <Content Include="Dashboard\WarrantyMaterialAnalysis.aspx" />
+    <Content Include="ErrorPages.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="ForbidAccess.aspx" />
     <Content Include="Geolocation.aspx" />
@@ -291,6 +300,21 @@
     <Content Include="JSAutocomplete\ajax\ui1.8.22jquery-ui.js" />
     <Content Include="JSAutocomplete\query-ui.css" />
     <Content Include="JS\jquery-ui.css" />
+    <Content Include="MailFormat\Forum.htm" />
+    <Content Include="MailFormat\MessageAnnouncement.htm" />
+    <Content Include="MailFormat\TicketApproval.htm" />
+    <Content Include="MailFormat\TicketApproved.htm" />
+    <Content Include="MailFormat\TicketAssign.htm" />
+    <Content Include="MailFormat\TicketCancel.htm" />
+    <Content Include="MailFormat\TicketCreate.htm" />
+    <Content Include="MailFormat\TicketForceclose.htm" />
+    <Content Include="MailFormat\TicketInProgress.htm" />
+    <Content Include="MailFormat\TicketMessage.htm" />
+    <Content Include="MailFormat\TicketRejected.htm" />
+    <Content Include="MailFormat\TicketReopen.htm" />
+    <Content Include="MailFormat\TicketRequestForApproval.htm" />
+    <Content Include="MailFormat\TicketResolved.htm" />
+    <Content Include="MailFormat\UserResetPassword.htm" />
     <Content Include="Open.aspx" />
     <Content Include="PDF.aspx" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
@@ -302,6 +326,7 @@
     <Content Include="ProcessFlow\Pre_Sales1.png" />
     <Content Include="ProcessFlow\Project_Plan1.png" />
     <Content Include="ProcessFlow\Sales_Org1.png" />
+    <Content Include="ProcessFlow\Service_Calls.png" />
     <Content Include="ProcessFlow\Service_Org1.png" />
     <Content Include="ProcessFlow\Ticketing.aspx" />
     <Content Include="ProcessFlow\V0_DMPM.png" />
@@ -327,6 +352,8 @@
     <Content Include="DealerDashboard.Master" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="RedirectTo\eCatalogueN.aspx" />
+    <Content Include="RedirectTo\SPTN.aspx" />
     <Content Include="SalesOrderTemp.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -384,7 +411,6 @@
     <Content Include="testDropWithMasteMain.aspx" />
     <Content Include="TestDropWithMaterSite.aspx" />
     <Content Include="TestPageForMenu.aspx" />
-    <Content Include="UserControls\EquipmentView.ascx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
     <Content Include="UserControls\ICTicketButton.ascx" />
     <Content Include="UserControls\ICTicketTSIR.ascx" />
@@ -398,18 +424,26 @@
     <Content Include="ViewAdmin\DealerStateMapping.aspx" />
     <Content Include="ViewAdmin\DealerwisePermissionList.aspx" />
     <Content Include="ViewAdmin\DefaultUserModule.aspx" />
+    <Content Include="ViewAdmin\MessageAnnouncement.aspx" />
     <Content Include="ViewAdmin\ModulePermissionList.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewAdmin\UserAccessManagement.aspx" />
     <Content Include="ViewAdmin\UserActivityTrackingReport.aspx" />
+    <Content Include="ViewAdmin\UserControls\MessageAnnouncementCreate.ascx" />
+    <Content Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
     <Content Include="ViewAdmin\VisitTagetPlanning.aspx" />
+    <Content Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx" />
+    <Content Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx" />
+    <Content Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx" />
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
+    <Content Include="ViewDashboard\BIAdmin.aspx" />
     <Content Include="ViewDashboard\BiEnquiry.aspx" />
+    <Content Include="ViewDashboard\BIService.aspx" />
     <Content Include="ViewDashboard\EnquiryChart.aspx" />
     <Content Include="ViewDashboard\LeadChart.aspx" />
     <Content Include="ViewDashboard\Task_Dashboard.aspx" />
@@ -428,12 +462,15 @@
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
     <Content Include="ViewEquipment\EquipmentChangeApproval.aspx" />
+    <Content Include="ViewEquipment\EquipmentClient.aspx" />
     <Content Include="ViewEquipment\EquipmentHistory.aspx" />
     <Content Include="ViewEquipment\EquipmentMissing.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReport.aspx" />
     <Content Include="ViewEquipment\EquipmentPopulationReportForAE.aspx" />
     <Content Include="ViewEquipment\NepiDueReport.aspx" />
     <Content Include="ViewEquipment\UserControls\EquipmentView.ascx" />
+    <Content Include="ViewFinance\DealerBalanceConfirmationUpdate.aspx" />
+    <Content Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx" />
     <Content Include="ViewInventory\InitialStock.aspx" />
     <Content Include="ViewInventory\MaterialStockAnalysis.aspx" />
     <Content Include="ViewInventory\StockAdjustment.aspx" />
@@ -456,10 +493,13 @@
     <Content Include="ViewMaster\Application.aspx" />
     <Content Include="ViewMaster\CreateAjaxEmployee.aspx" />
     <Content Include="ViewMaster\Customer.aspx" />
-    <Content Include="ViewMaster\CustomerChangeForApproval.aspx" />
+    <Content Include="ViewMaster\CustomerGstApproval.aspx" />
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerBinLocation.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewPreSale\Planning\DealerBusinessExcellence.aspx" />
+    <Content Include="ViewPreSale\Planning\DealerBusinessExcellenceCategory3Update.aspx" />
+    <Content Include="ViewPreSale\Planning\DealerMissionPlanning.aspx" />
     <Content Include="ViewMaster\EInvoiceRequest.aspx" />
     <Content Include="ViewMaster\Equipment.aspx" />
     <Content Include="ViewMaster\MaterialSync.aspx" />
@@ -470,8 +510,10 @@
     <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
     <Content Include="ViewMaster\LocationMap.aspx" />
-    <Content Include="ViewPreSale\BudgetPlanningMonth.aspx" />
-    <Content Include="ViewPreSale\BudgetPlanningYear.aspx" />
+    <Content Include="ViewPreSale\Planning\BudgetPlanningMonth.aspx" />
+    <Content Include="ViewPreSale\Planning\BudgetPlanningYear.aspx" />
+    <Content Include="ViewPreSale\Reports\DealerBusinessExcellenceReport.aspx" />
+    <Content Include="ViewPreSale\Reports\DealerMissionPlanningReport.aspx" />
     <Content Include="ViewPreSale\EnquiryIndiamart.aspx" />
     <Content Include="ViewMaster\Material.aspx" />
     <Content Include="ViewMaster\ModelTemplateDesign.aspx" />
@@ -536,6 +578,7 @@
     <Content Include="ViewPreSale\EnquiryTimeLineReport.aspx" />
     <Content Include="ViewPreSale\LeadFoloowUpReport.aspx" />
     <Content Include="ViewPreSale\LeadN.aspx" />
+    <Content Include="ViewPreSale\LeadReportForDefinedPeriod.aspx" />
     <Content Include="ViewPreSale\ManageLeadFoloowUps.aspx" />
     <Content Include="ViewPreSale\PreSalesReport.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerCreate.ascx" />
@@ -544,6 +587,8 @@
     <Content Include="ViewPreSale\PreSalesSummaryReport.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewPreSale\Quotation.aspx" />
+    <Content Include="ViewPreSale\Reports\EnquiryUnattendedAgeing.aspx" />
+    <Content Include="ViewPreSale\Reports\LeadExpectedDateofSaleAgeingReport.aspx" />
     <Content Include="ViewPreSale\SalesPipelineReport.aspx" />
     <Content Include="ViewPreSale\UserControls\AddCustomerConversation.ascx" />
     <Content Include="ViewPreSale\UserControls\AddEnquiry.ascx" />
@@ -624,6 +669,7 @@
     <Content Include="ViewService\ICTicket.aspx" />
     <Content Include="ViewService\ICTicketCommissionMailToReport.aspx" />
     <Content Include="ViewService\ICTicketCreate.aspx" />
+    <Content Include="ViewService\ICTicketEscalationOnBreakdown.aspx" />
     <Content Include="ViewService\ICTicketFSRManage.aspx" />
     <Content Include="ViewService\ICTicketManage.aspx" />
     <Content Include="ViewService\ICTicketMarginWarrantyApproval.aspx" />
@@ -723,6 +769,7 @@
     <Content Include="ViewSupportTicket\AssignedSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\AssignSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ClosedSupportTicket.aspx" />
+    <Content Include="ViewSupportTicket\DeviationProcessReport.aspx" />
     <Content Include="ViewSupportTicket\InProgressSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\ManageSupportTicket.aspx" />
     <Content Include="ViewSupportTicket\OpenSupportTicket.aspx" />
@@ -742,8 +789,14 @@
     <Content Include="View\ViewUserManual.aspx" />
     <Content Include="VoiceText.aspx" />
     <Content Include="VoiceText1.aspx" />
-    <Content Include="Web.config" />
     <Content Include="Bundle.config" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\ChangePassword.aspx.cs">
@@ -815,12 +868,40 @@
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ChatHub.cs" />
+    <Compile Include="Dashboard\FirstTimeRightForWarrantyService.aspx.cs">
+      <DependentUpon>FirstTimeRightForWarrantyService.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dashboard\FirstTimeRightForWarrantyService.aspx.designer.cs">
+      <DependentUpon>FirstTimeRightForWarrantyService.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\ICTicketEscalationOnBreakdownLevel.ascx.cs">
+      <DependentUpon>ICTicketEscalationOnBreakdownLevel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dashboard\ICTicketEscalationOnBreakdownLevel.ascx.designer.cs">
+      <DependentUpon>ICTicketEscalationOnBreakdownLevel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\WarrantyMaterialAnalysis.aspx.cs">
+      <DependentUpon>WarrantyMaterialAnalysis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Dashboard\WarrantyMaterialAnalysis.aspx.designer.cs">
+      <DependentUpon>WarrantyMaterialAnalysis.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DealerDashboard.Master.cs">
       <DependentUpon>DealerDashboard.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DealerDashboard.Master.designer.cs">
       <DependentUpon>DealerDashboard.Master</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages.aspx.cs">
+      <DependentUpon>ErrorPages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages.aspx.designer.cs">
+      <DependentUpon>ErrorPages.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForbidAccess.aspx.cs">
       <DependentUpon>ForbidAccess.aspx</DependentUpon>
@@ -917,6 +998,20 @@
     <Compile Include="ProcessFlow\Ticketing.aspx.designer.cs">
       <DependentUpon>Ticketing.aspx</DependentUpon>
     </Compile>
+    <Compile Include="RedirectTo\eCatalogueN.aspx.cs">
+      <DependentUpon>eCatalogueN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RedirectTo\eCatalogueN.aspx.designer.cs">
+      <DependentUpon>eCatalogueN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RedirectTo\SPTN.aspx.cs">
+      <DependentUpon>SPTN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RedirectTo\SPTN.aspx.designer.cs">
+      <DependentUpon>SPTN.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SalesOrderTemp.aspx.cs">
       <DependentUpon>SalesOrderTemp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -973,13 +1068,6 @@
     </Compile>
     <Compile Include="TestPageForMenu.aspx.designer.cs">
       <DependentUpon>TestPageForMenu.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\EquipmentView.ascx.cs">
-      <DependentUpon>EquipmentView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\EquipmentView.ascx.designer.cs">
-      <DependentUpon>EquipmentView.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ICTicketBasicInformation.ascx.cs">
       <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
@@ -1072,6 +1160,13 @@
     <Compile Include="ViewAdmin\DefaultUserModule.aspx.designer.cs">
       <DependentUpon>DefaultUserModule.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewAdmin\MessageAnnouncement.aspx.cs">
+      <DependentUpon>MessageAnnouncement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\MessageAnnouncement.aspx.designer.cs">
+      <DependentUpon>MessageAnnouncement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewAdmin\ModulePermissionList.aspx.cs">
       <DependentUpon>ModulePermissionList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1107,6 +1202,20 @@
     <Compile Include="ViewAdmin\UserActivityTrackingReport.aspx.designer.cs">
       <DependentUpon>UserActivityTrackingReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewAdmin\UserControls\MessageAnnouncementCreate.ascx.cs">
+      <DependentUpon>MessageAnnouncementCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\MessageAnnouncementCreate.ascx.designer.cs">
+      <DependentUpon>MessageAnnouncementCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx.cs">
+      <DependentUpon>MessageAnnouncementView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx.designer.cs">
+      <DependentUpon>MessageAnnouncementView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewAdmin\UserMobileApproval.aspx.cs">
       <DependentUpon>UserMobileApproval.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1127,6 +1236,27 @@
     </Compile>
     <Compile Include="ViewAdmin\VisitTagetPlanning.aspx.designer.cs">
       <DependentUpon>VisitTagetPlanning.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx.cs">
+      <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx.designer.cs">
+      <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx.cs">
+      <DependentUpon>DealerBusinessExcellenceApprove.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx.designer.cs">
+      <DependentUpon>DealerBusinessExcellenceApprove.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx.cs">
+      <DependentUpon>ViewDealerBusinessExcellence.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx.designer.cs">
+      <DependentUpon>ViewDealerBusinessExcellence.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.cs">
       <DependentUpon>QuotationChangeHistory.aspx</DependentUpon>
@@ -1149,12 +1279,26 @@
     <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.designer.cs">
       <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewDashboard\BIAdmin.aspx.cs">
+      <DependentUpon>BIAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\BIAdmin.aspx.designer.cs">
+      <DependentUpon>BIAdmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewDashboard\BiEnquiry.aspx.cs">
       <DependentUpon>BiEnquiry.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\BiEnquiry.aspx.designer.cs">
       <DependentUpon>BiEnquiry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\BIService.aspx.cs">
+      <DependentUpon>BIService.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\BIService.aspx.designer.cs">
+      <DependentUpon>BIService.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\EnquiryChart.aspx.cs">
       <DependentUpon>EnquiryChart.aspx</DependentUpon>
@@ -1282,6 +1426,13 @@
     <Compile Include="ViewEquipment\EquipmentChangeApproval.aspx.designer.cs">
       <DependentUpon>EquipmentChangeApproval.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewEquipment\EquipmentClient.aspx.cs">
+      <DependentUpon>EquipmentClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewEquipment\EquipmentClient.aspx.designer.cs">
+      <DependentUpon>EquipmentClient.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewEquipment\EquipmentHistory.aspx.cs">
       <DependentUpon>EquipmentHistory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1323,6 +1474,20 @@
     </Compile>
     <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.designer.cs">
       <DependentUpon>EquipmentView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFinance\DealerBalanceConfirmationUpdate.aspx.cs">
+      <DependentUpon>DealerBalanceConfirmationUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFinance\DealerBalanceConfirmationUpdate.aspx.designer.cs">
+      <DependentUpon>DealerBalanceConfirmationUpdate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx.cs">
+      <DependentUpon>DealerBalanceConfirmationReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx.designer.cs">
+      <DependentUpon>DealerBalanceConfirmationReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\InitialStock.aspx.cs">
       <DependentUpon>InitialStock.aspx</DependentUpon>
@@ -1478,12 +1643,12 @@
     <Compile Include="ViewMaster\Customer.aspx.designer.cs">
       <DependentUpon>Customer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewMaster\CustomerChangeForApproval.aspx.cs">
-      <DependentUpon>CustomerChangeForApproval.aspx</DependentUpon>
+    <Compile Include="ViewMaster\CustomerGstApproval.aspx.cs">
+      <DependentUpon>CustomerGstApproval.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewMaster\CustomerChangeForApproval.aspx.designer.cs">
-      <DependentUpon>CustomerChangeForApproval.aspx</DependentUpon>
+    <Compile Include="ViewMaster\CustomerGstApproval.aspx.designer.cs">
+      <DependentUpon>CustomerGstApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Dealer.aspx.cs">
       <DependentUpon>Dealer.aspx</DependentUpon>
@@ -1505,6 +1670,27 @@
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Planning\DealerBusinessExcellence.aspx.cs">
+      <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Planning\DealerBusinessExcellence.aspx.designer.cs">
+      <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Planning\DealerBusinessExcellenceCategory3Update.aspx.cs">
+      <DependentUpon>DealerBusinessExcellenceCategory3Update.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Planning\DealerBusinessExcellenceCategory3Update.aspx.designer.cs">
+      <DependentUpon>DealerBusinessExcellenceCategory3Update.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Planning\DealerMissionPlanning.aspx.cs">
+      <DependentUpon>DealerMissionPlanning.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Planning\DealerMissionPlanning.aspx.designer.cs">
+      <DependentUpon>DealerMissionPlanning.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\EInvoiceRequest.aspx.cs">
       <DependentUpon>EInvoiceRequest.aspx</DependentUpon>
@@ -1576,19 +1762,33 @@
     <Compile Include="ViewMaster\LocationMap.aspx.designer.cs">
       <DependentUpon>LocationMap.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\BudgetPlanningMonth.aspx.cs">
+    <Compile Include="ViewPreSale\Planning\BudgetPlanningMonth.aspx.cs">
       <DependentUpon>BudgetPlanningMonth.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\BudgetPlanningMonth.aspx.designer.cs">
+    <Compile Include="ViewPreSale\Planning\BudgetPlanningMonth.aspx.designer.cs">
       <DependentUpon>BudgetPlanningMonth.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewPreSale\BudgetPlanningYear.aspx.cs">
+    <Compile Include="ViewPreSale\Planning\BudgetPlanningYear.aspx.cs">
       <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewPreSale\BudgetPlanningYear.aspx.designer.cs">
+    <Compile Include="ViewPreSale\Planning\BudgetPlanningYear.aspx.designer.cs">
       <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\DealerBusinessExcellenceReport.aspx.cs">
+      <DependentUpon>DealerBusinessExcellenceReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\DealerBusinessExcellenceReport.aspx.designer.cs">
+      <DependentUpon>DealerBusinessExcellenceReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\DealerMissionPlanningReport.aspx.cs">
+      <DependentUpon>DealerMissionPlanningReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\DealerMissionPlanningReport.aspx.designer.cs">
+      <DependentUpon>DealerMissionPlanningReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryIndiamart.aspx.cs">
       <DependentUpon>EnquiryIndiamart.aspx</DependentUpon>
@@ -1873,6 +2073,13 @@
     <Compile Include="ViewPreSale\LeadN.aspx.designer.cs">
       <DependentUpon>LeadN.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewPreSale\LeadReportForDefinedPeriod.aspx.cs">
+      <DependentUpon>LeadReportForDefinedPeriod.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadReportForDefinedPeriod.aspx.designer.cs">
+      <DependentUpon>LeadReportForDefinedPeriod.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1928,6 +2135,20 @@
     </Compile>
     <Compile Include="ViewPreSale\Quotation.aspx.designer.cs">
       <DependentUpon>Quotation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\EnquiryUnattendedAgeing.aspx.cs">
+      <DependentUpon>EnquiryUnattendedAgeing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\EnquiryUnattendedAgeing.aspx.designer.cs">
+      <DependentUpon>EnquiryUnattendedAgeing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\LeadExpectedDateofSaleAgeingReport.aspx.cs">
+      <DependentUpon>LeadExpectedDateofSaleAgeingReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\LeadExpectedDateofSaleAgeingReport.aspx.designer.cs">
+      <DependentUpon>LeadExpectedDateofSaleAgeingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\SalesPipelineReport.aspx.cs">
       <DependentUpon>SalesPipelineReport.aspx</DependentUpon>
@@ -2489,6 +2710,13 @@
     <Compile Include="ViewService\ICTicketCreate.aspx.designer.cs">
       <DependentUpon>ICTicketCreate.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewService\ICTicketEscalationOnBreakdown.aspx.cs">
+      <DependentUpon>ICTicketEscalationOnBreakdown.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\ICTicketEscalationOnBreakdown.aspx.designer.cs">
+      <DependentUpon>ICTicketEscalationOnBreakdown.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewService\ICTicketFSRManage.aspx.cs">
       <DependentUpon>ICTicketFSRManage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2914,6 +3142,13 @@
     <Compile Include="ViewSupportTicket\ClosedSupportTicket.aspx.designer.cs">
       <DependentUpon>ClosedSupportTicket.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSupportTicket\DeviationProcessReport.aspx.cs">
+      <DependentUpon>DeviationProcessReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\DeviationProcessReport.aspx.designer.cs">
+      <DependentUpon>DeviationProcessReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSupportTicket\InProgressSupportTicket.aspx.cs">
       <DependentUpon>InProgressSupportTicket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3051,8 +3286,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ProcessFlow\SOP\" />
     <Folder Include="ViewDealerEmployee\MachineOpPhotos\" />
-    <Folder Include="ViewFinance\" />
+    <Folder Include="ViewFinance\Planning\" />
+    <Folder Include="ViewFinance\UserControls\" />
     <Folder Include="ViewStock\" />
   </ItemGroup>
   <ItemGroup>
@@ -3061,12 +3298,6 @@
     <Content Include="Scripts\Voice\jquery-3.3.1.slim.min.map" />
     <Content Include="Site.Mobile.Master" />
     <Content Include="ViewDealerEmployee\Templates\Sales Incentive-Templates.xlsx" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj">
@@ -3080,10 +3311,6 @@
     <ProjectReference Include="..\Properties\Properties.csproj">
       <Project>{f7c6cccb-e36e-461f-a844-0546264d53bc}</Project>
       <Name>Properties</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SapIntegration\SapIntegration.csproj">
-      <Project>{87886c5a-4aab-4aa8-84d4-d77321444cb3}</Project>
-      <Name>SapIntegration</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -3104,10 +3331,12 @@
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
     <EmbeddedResource Include="Print\SalesMachineQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\SalesMachineQuotation.rdlc" />
+    <Content Include="Print\SalesMachineQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_L.900.508.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_101030080000.rdlc" />
     <EmbeddedResource Include="Print\SalesTaxQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\SalesTaxQuotation.rdlc" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.S3.3.7.7.20\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />

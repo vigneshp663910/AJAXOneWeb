@@ -38,8 +38,9 @@ namespace DealerManagementSystem.ViewPreSale
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
                 ddlSCountry.SelectedValue = "1";
-                List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, null);
-                new DDLBind(ddlState, State, "State", "StateID");
+                //List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, null);
+                //new DDLBind(ddlState, State, "State", "StateID");
+                new DDLBind(ddlRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID");
                 new DDLBind(ddlSActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
             }
         }
@@ -103,13 +104,13 @@ namespace DealerManagementSystem.ViewPreSale
             string Mobile = txtMobile.Text.Trim();
 
             int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
-            int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+            int? RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
 
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             int? ActionTypeID = ddlSActionType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSActionType.SelectedValue);
 
-            VisitList = new BColdVisit().GetColdVisit(null, null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
+            VisitList = new BColdVisit().GetColdVisit(null, null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, RegionID, null, null, DealerID, SalesEngineerID, ActionTypeID);
 
             gvLead.DataSource = VisitList;
             gvLead.DataBind();
@@ -131,7 +132,8 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlRegion, new BDMS_Address().GetRegion(Convert.ToInt32(ddlSCountry.SelectedValue), null, null), "Region", "RegionID");
+            //new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
         } 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -311,14 +313,14 @@ namespace DealerManagementSystem.ViewPreSale
                 string Mobile = txtMobile.Text.Trim();
 
                 int? CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
-                int? StateID = ddlState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlState.SelectedValue);
+                int? RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
 
                 int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
                 int? SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
                 int? ActionTypeID = ddlSActionType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSActionType.SelectedValue);
                 //List<PColdVisit> Leads = new BColdVisit().GetColdVisit(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null,null);
 
-                DataTable dt = new BColdVisit().GetColdVisitExcelDownload(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, StateID, null, null, DealerID, SalesEngineerID, ActionTypeID);
+                DataTable dt = new BColdVisit().GetColdVisitExcelDownload(null, ColdVisitDateFrom, ColdVisitDateTo, CustomerID, CustomerCode, CustomerName, Mobile, CountryID, RegionID, null, null, DealerID, SalesEngineerID, ActionTypeID);
 
                 new BXcel().ExporttoExcel(dt, "Visit Detail Report");
             }

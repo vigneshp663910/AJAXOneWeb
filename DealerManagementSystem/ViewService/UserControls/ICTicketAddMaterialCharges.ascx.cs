@@ -37,10 +37,23 @@ namespace DealerManagementSystem.ViewService.UserControls
             ddlTSIRNumber.DataSource = ddlTSIR;
             ddlTSIRNumber.DataBind();
             ddlTSIRNumber.Items.Insert(0, new ListItem("Select", "0"));
+            Clear();
         }
 
         void Clear()
-        { 
+        {
+
+            hdfMaterialID.Value = "";
+            txtMaterial.Text = "";
+            txtMaterialSN.Text = "";
+            txtQty.Text = "";
+            txtDefectiveMaterial.Text = "";
+            txtDefectiveMaterialSN.Text = "";
+            txtOldInvoice.Text = "";
+            cbIsFaultyPart.Checked = false;
+            cbRecomenedParts.Checked = false;
+            cbQuotationParts.Checked = false;
+
         }
         public PDMS_ServiceMaterial_API Read()
         {

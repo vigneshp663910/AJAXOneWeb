@@ -84,6 +84,13 @@ namespace Properties
                 return TaxPercentage * 2;
             }
         }
+        public decimal CGST { get; set; }
+        public decimal SGST { get; set; }
+        public decimal IGST { get; set; }
+
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
         public decimal CurrentPrice { get; set; }
         public Boolean IsMainServiceMaterial { get; set; }
 
@@ -236,5 +243,23 @@ namespace Properties
         public PMaterialVariantType VariantType { get; set; }
         public PDMS_Material Material { get; set; }  
         public bool IsActive { get; set; }
+    }
+    [Serializable]
+    public class PMaterialTax_Api
+    {
+        public List<PMaterial_Api> Material { get; set; }
+        public string Customer { get; set; }
+        public string Vendor { get; set; }
+        public string OrderType { get; set; }
+        public string PRICEDATE { get; set; }
+        public string IV_SEC_SALES { get; set; }
+        public Boolean IsWarrenty { get; set; }
+    }
+    [Serializable]
+    public class PMaterial_Api
+    { 
+        public int Item { get; set; }
+        public string MaterialCode { get; set; } 
+        public decimal Quantity { get; set; }
     }
 }

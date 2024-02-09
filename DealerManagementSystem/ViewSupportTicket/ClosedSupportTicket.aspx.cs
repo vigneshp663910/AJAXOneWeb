@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -65,7 +66,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlCategory.DataTextField = "Category";
             ddlCategory.DataValueField = "CategoryID";
-            ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
+            ddlCategory.DataSource = JsonConvert.DeserializeObject<List<PCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketCategory(null, null).Data));
             ddlCategory.DataBind();
             ddlCategory.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -73,7 +74,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlSubcategory.DataTextField = "SubCategory";
             ddlSubcategory.DataValueField = "SubCategoryID";
-            ddlSubcategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue));
+            ddlSubcategory.DataSource = JsonConvert.DeserializeObject<List<PSubCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue)).Data));
             ddlSubcategory.DataBind();
             ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -87,10 +88,10 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 TicketSubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             }
-            int RowCount = 0;
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            TicketHeader = new BTickets().GetTicketToClose(HeaderID, TicketCategoryID, TicketSubCategoryID, PSession.User.UserID, PageIndex, gvTickets.PageSize, out RowCount);
-            if (RowCount == 0)
+            PApiResult Result = new BTickets().GetTicketToClose(HeaderID, TicketCategoryID, TicketSubCategoryID, PageIndex, gvTickets.PageSize);
+            TicketHeader = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
+            if (Result.RowCount == 0)
             {
                 gvTickets.DataSource = null;
                 gvTickets.DataBind();
@@ -102,11 +103,11 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 gvTickets.DataSource = TicketHeader;
                 gvTickets.DataBind();
-                PageCount = (RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
+                PageCount = (Result.RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
                 lblRowCount.Visible = true;
                 ibtnArrowLeft.Visible = true;
                 ibtnArrowRight.Visible = true;
-                lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + RowCount;
+                lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + Result.RowCount;
             }
             for (int i = 0; i < gvTickets.Rows.Count; i++)
             {
@@ -168,10 +169,13 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            int RowCount = 0;
-            PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null,null,null, 1, 10000, out RowCount)[0];
 
-            new BTickets().UpdateTicketClosedStatus(H.HeaderID,PSession.User.UserID);
+            PApiResult Result = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null, null, null, 1, 10000);
+            PTicketHeader H = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data))[0];
+            //PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null, null, null, 1, 10000, out RowCount)[0];
+
+            //new BTickets().UpdateTicketClosedStatus(H.HeaderID,PSession.User.UserID);
+            new BAPI().ApiPut("Task/UpdateTicketClosedStatus", H.HeaderID);
 
             FillTickets();
             lblMessage.Text = "Ticket is  successfully updated.";

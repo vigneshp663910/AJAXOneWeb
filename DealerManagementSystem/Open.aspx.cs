@@ -1,10 +1,11 @@
 ﻿using Business;
+using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,57 @@ namespace DealerManagementSystem
 {
     public partial class Open : System.Web.UI.Page
     {
+        public class PDealerBalanceConfirmation_Insert
+        {
+            public string DealerCode { get; set; }
+            public DateTime Date { get; set; }
+            public decimal VendorBalance { get; set; }
+            public decimal CustomerBalance { get; set; }
+            public decimal TotalOutstandingAsPerAjax { get; set; }
+            public string Currency { get; set; }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
+            //List<PDealerBalanceConfirmation_Insert> t = new List<PDealerBalanceConfirmation_Insert>();
+            //t.Add(new PDealerBalanceConfirmation_Insert() { DealerCode = "9001", Date = DateTime.Now.Date, VendorBalance = 1, CustomerBalance = 2, TotalOutstandingAsPerAjax = 3, Currency = "INR", });
+            //t.Add(new PDealerBalanceConfirmation_Insert() { DealerCode = "9002", Date = DateTime.Now.Date, VendorBalance = 4, CustomerBalance = 5, TotalOutstandingAsPerAjax = 6, Currency = "INR", });
+            //new BAPI().ApiPutWithOutToken("Sap/InsertOrUpdateDealerBusinessExcellence", t);
             new BTest().getSalesByYearAndMonth();
+            //  PrintFSR2();
+
             // FSRSignatur();
+             new FileLogger().WriteLog("Web Test" + DateTime.Now.ToString());
+        }
+
+        void PrintFSR2()
+        { 
+                string Path1 = "https://storciaedev.blob.core.windows.net/dms-dev-temp/118333.jpg"; 
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                var CC = CultureInfo.CurrentCulture;
+                string FileName = "TSIR_" + ".pdf";
+                string extension;
+                string encoding;
+                string mimeType;
+                string[] streams;
+                Warning[] warnings;
+                LocalReport report = new LocalReport();
+                report.EnableExternalImages = true;
+                ReportParameter[] P = new ReportParameter[1];
+
+                P[0] = new ReportParameter("Path1", Path1, false); 
+                report.ReportPath = Server.MapPath("~/Print/Test.rdlc");
+                report.SetParameters(P); 
+
+                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF   
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
+                Response.Flush(); // send it to the client to download
+           
         }
 
         protected void btnAPITest_Click(object sender, EventArgs e)
@@ -168,12 +216,12 @@ namespace DealerManagementSystem
 
         protected void btnIntegrationWarrantyClaimAnnexureToSAP_Click(object sender, EventArgs e)
         {
-            new BDMS_WarrantyClaimAnnexure().IntegrationWarrantyClaimAnnexureToSAP();
+            new BAPI().ApiGetWithOutToken("Warranty/CreateWarrantyClaimAnnexureToSAP"); 
         }
 
         protected void btnIntegrationEquipmentFromSAP_Click(object sender, EventArgs e)
         {
-            new BDMS_Equipment().IntegrationEquipmentFromSAP();
+            //new BDMS_Equipment().IntegrationEquipmentFromSAP();
         }
 
         protected void btnIntegrationEquipmentFromSAP_New_Click(object sender, EventArgs e)
@@ -188,7 +236,9 @@ namespace DealerManagementSystem
 
         protected void btnUpdateServiceDeliveryNumber_Click(object sender, EventArgs e)
         {
-            new BAPI().ApiGetWithOutToken("ICTicket/UpdateSaleOrderNumberFromPostgres");
+            new BIntegration().UpdateSaleOrderNumberFromPostgres();
+
+            //new BAPI().ApiGetWithOutToken("ICTicket/UpdateSaleOrderNumberFromPostgres");
         }
    
        void FSRSignatur()
@@ -212,6 +262,11 @@ namespace DealerManagementSystem
         {
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/GetASNFromSAP?InvoiceNo=" + txtInvoiceNumber.Text));
             //new BDMS_PurchaseOrder().InsertOrUpdatePurchaseOrderAsn(txtInvoiceNumber.Text);
+        }
+
+        protected void btnMttrEscalation_Click(object sender, EventArgs e)
+        {
+            new BDMS_MTTR().SendMailMttrEscalationMatrix();
         }
     }
     [Serializable]

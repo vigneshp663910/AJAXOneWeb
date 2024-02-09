@@ -5,7 +5,7 @@ using System.Text;
 using System.Web;
 
 namespace Properties
-{   
+{
     public enum FileType
     {
         Unknown = 1,
@@ -64,12 +64,12 @@ namespace Properties
     {
         Intput = 1,
         Output = 2
-    }    
+    }
     public enum ApplicationSettings
     {
         DebitNoteNumberFormat = 1,
         ICTicketNumber = 2,
-        EInvoiceToken = 3 
+        EInvoiceToken = 3
     }
     public enum UserTypes
     {
@@ -252,10 +252,10 @@ namespace Properties
         ViewDashboard_Task_Dashboard = 7,
         ViewProcurement_PurchaseOrderPG = 8,
         ViewProcurement_PurchaseOrderASNReport = 9,
-        ViewProcurement_PurchaseOrder = 10, 
+        ViewProcurement_PurchaseOrder = 10,
         ViewProcurement_PurchaseOrderASN = 11,
-        ViewProcurement_PurchaseOrderReturn =  12,
-        ViewProcurement_PurchaseOrderReturnInvoice =  13,
+        ViewProcurement_PurchaseOrderReturn = 12,
+        ViewProcurement_PurchaseOrderReturnInvoice = 13,
         ViewProcurement_PurchaseOrderAsnGR = 14,
         ViewProcurement_PurchaseOrderPerformance = 15,
         ViewSales_SaleOrderInvoicePartsReport = 16,
@@ -275,7 +275,7 @@ namespace Properties
         ViewService_WarrantyClaimInvoiceReport = 30,
         ViewService_WarrantyClaimInvoiceCreate = 31,
         ViewService_WarrantyClaimAnnexureReport = 32,
-        ViewInventory_InitialStock =  33,
+        ViewInventory_InitialStock = 33,
         ViewInventory_StockAdjustment = 34,
         ViewInventory_StockInTransit = 35,
         ViewSupportTicket_RequestSupportTicket = 36,
@@ -283,7 +283,7 @@ namespace Properties
         //       UnderCons = 38,
         ViewInventory_WarehouseStockOnHand = 39,
         ViewInventory_StockForPostingDate = 40,
-        ViewInventory_MaterialStockAnalysis = 41, 
+        ViewInventory_MaterialStockAnalysis = 41,
         //=  42,
         ViewService_TicketTracking = 43,
         ViewService_WarrantyClaimAnnexureCreate = 44,
@@ -378,7 +378,7 @@ namespace Properties
         Account_LoginAs = 133,
         ViewAdmin_UserList = 134,
         ViewPreSale_PreSalesSummaryReport = 135,
-        ViewPreSale_VisitCoverageReport = 136, 
+        ViewPreSale_VisitCoverageReport = 136,
         //**** Menu Level-2 ****************************** =  137,
         Help_HelpOld = 138,
         // UnderCons = 139,
@@ -481,7 +481,25 @@ namespace Properties
         ViewAdmin_UserAccessManagement = 236,
         ViewMaster_DealerBinLocation = 237,
         ViewService_ICTicketMarginWarrantyReport = 238,
-        ViewService_ICTicketMarginWarrantyApproval = 239
+        ViewService_ICTicketMarginWarrantyApproval = 239,
+        ViewEquipment_EquipmentClient = 240,
+        ViewSupportTicket_DeviationProcessReport = 241,
+        ViewMaster_CustomerGSTApproval = 243, 
+        ViewPreSale_LeadReportForDefinedPeriod = 244,
+        ViewAdmin_MessageAnnouncement = 245,
+        ViewDashboard_BIAdmin = 246,
+        ViewDashboard_BIService = 247,
+        ViewMaster_DealerMissionPlanning = 248,
+        ViewPreSale_Reports_DealerMissionPlanningReport = 249,
+        ViewPreSale_Reports_EnquiryUnattendedAgeing = 250,
+        ViewPreSale_Reports_LeadExpectedDateofSaleAgeingReport = 251,
+        ViewPreSale_Planning_DealerBusinessExcellenceCategory3Update = 252,
+        ViewPreSale_Planning_DealerBusinessExcellence = 253,
+        ViewPreSale_Reports_DealerBusinessExcellenceReport = 254,
+        ViewPreSale_Reports_DealerBusinessExcellence = 255,
+        ViewPreSale_Reports_DealerBusinessExcellenceApprove = 256,
+        ViewFinance_Reports_DealerBalanceConfirmationReport = 257,
+        ViewFinance_DealerBalanceConfirmationUpdate = 258
     }
     public enum SubModuleChildMaster
     {
@@ -553,9 +571,19 @@ namespace Properties
         DealerBankDetailsEdit,
         DealerResponsibleUserEdit,
         ICTicketRemoveRestoreDate,
-        ClaimApprove4=69,
-        ClaimApprove5=70,
+        ClaimApprove4 = 69,
+        ClaimApprove5 = 70,
         MarginWarrantyApproval,
+        EquipmentClientUpdate = 72,
+        EquipmentClientAddEditDelete,
+        CustomerGstChange = 74,
+        TsirMailToSupplier=75,
+        MailNotificationCreation=76,
+        DealerBusinessExcellenceSubmit = 77,
+        DealerBusinessExcellenceApproveL1 = 78,
+        DealerBusinessExcellenceApproveL2 = 79,
+        DealerBusinessExcellenceApproveL3 = 80,
+        DealerBusinessExcellenceApproveL4 = 81,
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -612,32 +640,33 @@ namespace Properties
     {
         SendSMS = 1,
         SendMail = 2,
-        ICTicketIntegrationFromCRM = 3,
+       // ICTicketIntegrationFromCRM = 3,
         MaterialIntegrationFromPostgre = 4,
         SAPDocumentForWarrantyInvoiceFromSAP = 5,
         SaleOrderNumberForSrviceQuatationFromSAP = 6,
-        TechnicianIntegrationFromSAP = 7,
-        UpdateICTicketToSAP = 8,
-        ModelForClaim = 9,
-        Category = 10,
-        ICTicketIntegrationVerification = 11,
-        QuotationForJSN = 12,
-        IntegrationSalesOrder = 13,
+      //  TechnicianIntegrationFromSAP = 7,
+      //  UpdateICTicketToSAP = 8,
+      //  ModelForClaim = 9,
+     //   Category = 10,
+     //   ICTicketIntegrationVerification = 11,
+      //  QuotationForJSN = 12,
+      //  IntegrationSalesOrder = 13,
         IntegrationSalesOrderInvoice = 14,
         IntegrationClaimAnnexure = 15,
         EInvoice = 16,
         SendMailMttrEscalationMatrix = 17,
-        IntegrationEquipmentFromSAP = 18,
-        IntegrationMaterialFromEccSap = 19,
+       // IntegrationEquipmentFromSAP = 18,
+       // IntegrationMaterialFromEccSap = 19,
         GetPurchaseOrderIntegration = 20,
         MaterialIntegrationFromSAP = 21,
-        CustomerIntegration =22  ,
-      //  UpdateSalesQuotationDeliveryDetails = 23 ,
+     //   CustomerIntegration = 22,
+        //  UpdateSalesQuotationDeliveryDetails = 23 ,
         SalesQuotationFlowFromSap = 24,
-        EnquiryFromCRM = 25,
+     //   EnquiryFromCRM = 25,
         LeadQualificationByExpectedDateOfSale = 26,
         IntegrationEquipmentFromSAP_New = 27,
-        EnquiryIndiamart =28
+        EnquiryIndiamart = 28,
+        TaskTicketResolvedAutoClose = 29
     }
     public enum DashboardControl
     {
@@ -645,7 +674,7 @@ namespace Properties
         ICTicketEscalationOnBreakdownCount,
         ICTicketTransactionStatics,
         DebitNoteAcknowledgePending,
-        LeadStatus, 
+        LeadStatus,
         FoloowUpCount,
         //LeadStatusAssigned,
         //LeadStatusAssigned,
@@ -664,7 +693,7 @@ namespace Properties
         TechnicianSignature,
         CustomerSignature,
         CheckList
-    }    
+    }
     public enum TSIRStatus
     {
         Requested = 1,
@@ -685,7 +714,7 @@ namespace Properties
         OnlyForInfo,
         Policy_Warranty,
         MarginWarranty
-    }    
+    }
     public enum LeadStatus
     {
         Unattended = 1,
@@ -704,10 +733,29 @@ namespace Properties
         Rejected = 5,
         InProgress = 6
     }
+    public enum DealerDepartment
+    {
+        Sales = 1,
+        Service = 2,
+        SpareParts = 3,
+        Administration = 4,
+        FinanceAccounting = 5,
+        TopManagement = 6,
+        BusinessSystem=7,
+        Quality = 8,
+        Engineering = 9,
+        Marketing=10,
+        Operations=11,
+        TrainingDevelopment = 12,
+        IC = 13
+    }
     public enum DealerDesignation
     {
+        GmSales = 1,
+        SalesManager=2,
         SalesExecutive = 4,
-        ServiceTechnician = 8,
+        DealerServiceManager = 5,
+        ServiceTechnician = 8,  
         BusinessSystemManager = 31,
         BusinessSystemExecutive = 32,
         BusinessSystemHead = 51
@@ -765,6 +813,19 @@ namespace Properties
         DumperOld = 11,
         SpareParts = 12,
         PlacingEquipment = 13
+    }
+    public enum AjaxOneStatus
+    {
+        DealerBusinessExcellence_Requested = 1,
+        DealerBusinessExcellence_Submitted = 2,
+        DealerBusinessExcellence_ApprovalL1 = 3,
+        DealerBusinessExcellence_ApprovalL2 = 4,
+        DealerBusinessExcellence_ApprovalL3 = 5,
+        DealerBusinessExcellence_Approved = 6,
+        DealerBalanceConfirmation_Initiated = 7,
+        DealerBalanceConfirmation_Confirmed = 8,
+        DealerBalanceConfirmation_UnConfirmed = 9,
+        DealerBalanceConfirmation_NeedReconciliation = 10,
     }
 }
 

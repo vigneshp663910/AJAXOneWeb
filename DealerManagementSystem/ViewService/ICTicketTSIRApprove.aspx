@@ -108,30 +108,28 @@
                         </div>
                         <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" DataKeyNames="TsirID" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging">
                             <Columns>
+                                 <asp:TemplateField HeaderText="View">
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnView" runat="server" Text="View" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnView_Click" Width="50px" Height="33px" />
+                                    </ItemTemplate>
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="IC Ticket">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.ICTicketNumber")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="IC Ticket Date">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
+                                        <br />
                                         <asp:Label ID="lblf_call_login_date1" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicket.ICTicketDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField> 
                                 <asp:TemplateField HeaderText="TSIR">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblTsirNumber" Text='<%# DataBinder.Eval(Container.DataItem, "TsirNumber")%>' runat="server" />
+                                         <br />
+                                         <asp:Label ID="lblTsirDate" Text='<%# DataBinder.Eval(Container.DataItem, "TsirDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Tsir Date">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblTsirDate" Text='<%# DataBinder.Eval(Container.DataItem, "TsirDate","{0:d}")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField> 
                                 <asp:TemplateField HeaderText="Dealer">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -205,12 +203,7 @@
                                         <asp:Label ID="lblStatusID" Text='<%# DataBinder.Eval(Container.DataItem, "Status.StatusID")%>' runat="server" Visible="false"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="View">
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnView" runat="server" Text="View" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnView_Click" Width="50px" Height="33px" />
-                                    </ItemTemplate>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                </asp:TemplateField>
+                               
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />

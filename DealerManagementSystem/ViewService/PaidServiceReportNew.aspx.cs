@@ -52,19 +52,8 @@ namespace DealerManagementSystem.ViewService
                 // FillPageNo(1);
                 txtICTicketDateF.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtICTicketDateT.Text = DateTime.Now.ToShortDateString();
-
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    //ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    PDealer Dealer = new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0];
-                    ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID, Dealer.DID.ToString()));
-                    ddlDealer.Enabled = false;
-                }
-                else
-                {
-                    ddlDealer.Enabled = true;
-                    fillDealer();
-                }
+                 
+                    fillDealer(); 
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;

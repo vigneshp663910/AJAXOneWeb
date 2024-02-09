@@ -1,6 +1,5 @@
 ﻿using DataAccess;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -289,85 +288,6 @@ namespace Business
             catch (Exception ex)
             { }
             return Ws;
-        }
-
-        public void IntegrationWarrantyClaimAnnexureToSAP()
-        {
-            GetWarrantyClaimAnnexureForSAP();
-        }
-        public int GetWarrantyClaimAnnexureForSAP()
-        {
-            List<PDMS_WarrantyClaimAnnexureHeader> Ws = new List<PDMS_WarrantyClaimAnnexureHeader>();
-            PDMS_WarrantyClaimAnnexureHeader W = null;
-            try
-            {
-                using (DataSet DS = provider.Select("ZDMS_GetWarrantyClaimAnnexureForSAP"))
-                {
-                    if (DS != null)
-                    {
-                        foreach (DataRow dr in DS.Tables[0].Rows)
-                        {
-                            W = new PDMS_WarrantyClaimAnnexureHeader();
-                            Ws.Add(W);
-                            W.Dealer = new PDMS_Dealer();
-                            W.Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
-                            W.Dealer.DealerName = Convert.ToString(dr["DealerName"]);
-                            W.Year = Convert.ToInt32(dr["Year"]);
-                            W.InvoiceNumber = Convert.ToString(dr["NEPI_INV"]);
-                            W.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
-                            W.PeriodFrom = Convert.ToDateTime(dr["PeriodFrom"]);
-                            W.PeriodTo = Convert.ToDateTime(dr["PeriodTo"]);
-                            W.AnnexureNumber = Convert.ToString(dr["AnnexureNumber"]);
-                            W.AnnexureItem = (new PDMS_WarrantyClaimAnnexureItem()
-                            {
-                                WarrantyClaimAnnexureItemID = Convert.ToInt64(dr["WarrantyClaimAnnexureItemID"]),
-                                ICTicketID = Convert.ToString(dr["ICTicket"]),
-                                ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]),
-                                CustomerCode = Convert.ToString(dr["CustomerCode"]),
-                                CustomerName = Convert.ToString(dr["CustomerName"]),
-                                HMR = Convert.ToString(dr["HMR"]),
-                                MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]),
-                                Model = Convert.ToString(dr["Model"]),
-                                RestoreDate = dr["RestoreDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]),
-                                ApprovedDate = dr["ApprovedDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ApprovedDate"]),
-                                Material = Convert.ToString(dr["Material"]),
-                                HSNCode = Convert.ToString(dr["HSNCode"]),
-                                ClaimAmount = Convert.ToDecimal(dr["ClaimAmount"]),
-                                ApprovedAmount = Convert.ToDecimal(dr["ApprovedAmount"])
-                            });
-                        }
-                    }
-
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            foreach (PDMS_WarrantyClaimAnnexureHeader Anne in Ws)
-            {
-                Boolean Status = new SDMS_WarrantyClaimAnnexure().UpdateICTicketRequestedDateToSAP(Anne);
-                DbParameter StatusP = provider.CreateParameter("Status", Status, DbType.Boolean);
-                DbParameter WarrantyClaimAnnexureItemIDP = provider.CreateParameter("WarrantyClaimAnnexureItemID", Anne.AnnexureItem.WarrantyClaimAnnexureItemID, DbType.Int64);
-                DbParameter[] Params = new DbParameter[2] { StatusP, WarrantyClaimAnnexureItemIDP };
-                try
-                {
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                    {
-                        provider.Insert("ZDMS_UpdateWarrantyClaimAnnexureSapStatus", Params);
-                        scope.Complete();
-                    }
-                }
-                catch (SqlException sqlEx)
-                {
-                    new FileLogger().LogMessage("BDMS_WarrantyClaimAnnexure", "ZDMS_UpdateWarrantyClaimAnnexureSapStatus", sqlEx);
-                }
-                catch (Exception ex)
-                {
-                    new FileLogger().LogMessage("BDMS_WarrantyClaimAnnexure", " ZDMS_UpdateWarrantyClaimAnnexureSapStatus", ex);
-                }
-            }
-            return Ws.Count();
         }
     }
 }

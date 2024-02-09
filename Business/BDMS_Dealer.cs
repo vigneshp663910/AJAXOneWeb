@@ -1,7 +1,6 @@
 ﻿using DataAccess;
 using Newtonsoft.Json;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -666,33 +665,40 @@ namespace Business
         }
         public PDMS_DealerEmployeeAttachedFile GetDealerEmployeeAttachedFile(long AttachedFileID)
         {
-            PDMS_DealerEmployeeAttachedFile EMP = new PDMS_DealerEmployeeAttachedFile();
-            try
-            {
-                DbParameter AttachedFileIDP = provider.CreateParameter("AttachedFileID", AttachedFileID, DbType.Int64);
-                DbParameter[] Params = new DbParameter[1] { AttachedFileIDP };
 
-                using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeAttachedFile", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            EMP = new PDMS_DealerEmployeeAttachedFile()
-                            {
-                                AttachedFileID = Convert.ToInt64(dr["AttachedFileID"]),
-                                AttachedFile = (Byte[])(dr["AttachedFile"]),
-                                FileType = Convert.ToString(dr["ContentType"]),
-                                FileName = Convert.ToString(dr["FileName"]),
-                                FileSize = Convert.ToInt32(dr["FileSize"])
-                            };
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx) { throw sqlEx; }
-            catch (Exception ex) { throw ex; }
-            return EMP;
+            string endPoint = "Dealer/DealerAttachmentsForDownload?AttachedFileID=" + AttachedFileID;
+            // return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
+            return JsonConvert.DeserializeObject<PDMS_DealerEmployeeAttachedFile>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+
+
+            //PDMS_DealerEmployeeAttachedFile EMP = new PDMS_DealerEmployeeAttachedFile();
+            //try
+            //{
+            //    DbParameter AttachedFileIDP = provider.CreateParameter("AttachedFileID", AttachedFileID, DbType.Int64);
+            //    DbParameter[] Params = new DbParameter[1] { AttachedFileIDP };
+
+            //    using (DataSet DataSet = provider.Select("ZDMS_GetDealerEmployeeAttachedFile", Params))
+            //    {
+            //        if (DataSet != null)
+            //        {
+            //            foreach (DataRow dr in DataSet.Tables[0].Rows)
+            //            {
+            //                EMP = new PDMS_DealerEmployeeAttachedFile()
+            //                {
+            //                    AttachedFileID = Convert.ToInt64(dr["AttachedFileID"]),
+            //                    //AttachedFile = (Byte[])(dr["AttachedFile"]),
+            //                    FileType = Convert.ToString(dr["ContentType"]),
+            //                    FileName = Convert.ToString(dr["FileName"]),
+            //                    FileSize = Convert.ToInt32(dr["FileSize"])
+            //                };
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (SqlException sqlEx) { throw sqlEx; }
+            //catch (Exception ex) { throw ex; }
+            //return EMP;
         }
 
         public void GetDealerDepartmentDDL(DropDownList ddl, int? DealerDepartmentID, string DealerDepartment)
@@ -1582,5 +1588,6 @@ namespace Business
             string endPoint = "Dealer/GetDealerAll?DealerID=" + DealerID + "&DealerCode=" + DealerCode + "&RegionID=" + RegionID + "&DealerTypeID=" + DealerTypeID;
             return JsonConvert.DeserializeObject<List<PDealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+       
     }
 }

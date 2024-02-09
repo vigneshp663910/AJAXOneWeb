@@ -21,73 +21,7 @@ namespace Business
             provider = new ProviderFactory().GetProvider();
         }
         #region Public Methods
-        /// <summary>
-        /// This method  will call the user login authenticate details from datbase and validate the user.
-        /// </summary>
-        /// <param name="userID"></param>
-        /// <param name="password"></param>
-        /// <returns>It returns the valid integer value</returns>
-        public PUser AuthenticateUser(string userName, string password)
-        {
-            PUser userAuthDetails = new PUser();
-            try
-            {
-                DateTime tracerStart = DateTime.Now;
-                using (DataTable userData = AuthenticateUserByUserNameOrMobileOrEmail(userName, password))
-                {
-                    if (userData.Rows.Count > 0)
-                        userAuthDetails = ConvertToUser(userData.Rows[0]);
-                }
-                TraceLogger.Log(tracerStart);
-                ValidateAuthenication(userAuthDetails, password);
-                return userAuthDetails;
-            }
-            catch (LMSException lmsEx)
-            {
-                throw lmsEx;
-            }
-            catch (LMSFunctionalException lmsfExe)
-            {
-                throw lmsfExe;
-            }
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
-
-        public DataTable AuthenticateUserByUserNameOrMobileOrEmail(string userName, String password)
-        {
-            try
-            {
-                DateTime traceStartTime = DateTime.Now;
-                DataTable userDataTable = new DataTable();
-
-                DbParameter userIDParams = provider.CreateParameter("UserName", userName, DbType.String);
-                DbParameter passwordP = provider.CreateParameter("Password", LMSHelper.EncodeString(password), DbType.String);
-                DbParameter[] userParams = new DbParameter[2] { userIDParams, passwordP };
-
-                using (DataSet userDataSet = provider.Select("AuthenticateUserByUserNameOrMobileOrEmail", userParams))
-                {
-                    if (userDataSet != null)
-                        userDataTable = userDataSet.Tables[0];
-                }
-
-                // This call is for track the status and loged into the trace logeer
-                TraceLogger.Log(traceStartTime);
-
-                return userDataTable;
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        
         public DataTable AuthenticateUser(string userName)
         {
             try
@@ -190,11 +124,6 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        /// <summary>
-        /// This method will call the GetLoginUserDetails method in DAO layer for getting user details
-        /// </summary>
-        /// <param name="userID"></param>
-        /// <returns>it returns userdetails list</returns>
         public PUser GetUserDetails(long userID)
         {
             PUser userAuthDetails = new PUser();
@@ -251,65 +180,6 @@ namespace Business
             }
         }
 
-        /// <summary>
-        ///  This method will call the GetAllUsers method in DAO layer for getting all users.
-        /// </summary>
-        /// <returns></returns>
-        //public List<PUser> GetAllUsers(string contactName = "", string userName = "")
-        //{
-        //    List<PUser> users = new List<PUser>();
-        //    try
-        //    {
-        //        DateTime traceStartTime = DateTime.Now;
-        //        using (DataTable userData = GetAllUsers1(contactName, userName))
-        //        {
-        //            foreach (DataRow usersRow in userData.Rows)
-        //                users.Add(ConvertToUserVO(usersRow));
-        //        }
-        //        TraceLogger.Log(traceStartTime);
-        //        return users;
-        //    }
-        //    catch (LMSException lmsEx)
-        //    {
-        //        throw lmsEx;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new LMSException(ErrorCode.GENE, ex);
-        //    }
-        //}
-        public List<PUser> GetAllUsers(string contactName = "", string userName = "")
-        {
-            List<PUser> users = new List<PUser>();
-            DateTime traceStartTime = DateTime.Now;
-            DataTable usersDataTable = new DataTable();
-            try
-            {
-                DbParameter ContactNameParams, UserNameParams;
-                ContactNameParams = provider.CreateParameter("ContactName", contactName, DbType.String);
-                UserNameParams = provider.CreateParameter("UserName", userName, DbType.String);
-                DbParameter[] userParams = new DbParameter[2] { ContactNameParams, UserNameParams };
-
-                using (DataSet usersDataSet = provider.Select("GetAllUsers", userParams))
-                {
-                    if (usersDataSet != null)
-                        foreach (DataRow usersRow in usersDataSet.Tables[0].Rows)
-                            users.Add(ConvertToUserVO(usersRow));
-                }
-                // This call is for track the status and logged into the trace logeer
-                TraceLogger.Log(traceStartTime);
-                return users;
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
-
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
         public List<PUser> GetUsersActivityTracking(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID, bool? IsLocked, bool? ajaxOne, int? PageIndex, int? PageSize, out int RowCount)
         {
             List<PUser> users = new List<PUser>();
@@ -393,18 +263,12 @@ namespace Business
             }
         }
 
-        //public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID, bool? ajaxOne)
-        public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID)      
+         public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID)      
         {
             string endPoint = "User/GetUsers?UserID=" + UserID + "&UserName=" + UserName + "&UserTypeID=" + UserTypeID + "&ExternalReferenceID=" + ExternalReferenceID + "&DealerID=" + DealerID
                  + "&IsEnabled=" + IsEnabled + "&ContactName=" + ContactName + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID;
             return JsonConvert.DeserializeObject<List<PUser>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        /// <summary>
-        /// This method is used to call UpdateUser method from DAO layer 
-        /// to update lock for the selected user.
-        /// </summary>
-        /// <param name="user"></param>
         public void LockUserAccount(PUser user)
         {
             try
@@ -499,43 +363,6 @@ namespace Business
             }
         }
 
-        /// <summary>
-        /// This method is used to call UpdateUser method from DAO layer
-        /// to update enable/disable and enable/disable reason for the selected user.
-        /// </summary>
-        /// <param name="user"></param>
-        public void EnableDisableUser(PUser user)
-        {
-            try
-            {
-                DateTime tracerStartTime = DateTime.Now;
-                UpdateUser(user);
-                string emailId = GetContactDetailByUser(user.UserID).EmailID;
-                if (user.IsEnabled)
-                {
-                    new LMSMessaging().SendEnableUserMail(user, emailId);
-                }
-                else
-                {
-                    new LMSMessaging().SendDisableUserMail(user, emailId);
-                }
-                TraceLogger.Log(tracerStartTime);
-            }
-            catch (LMSException lmsEx)
-            {
-                throw lmsEx;
-            }
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
-
-        /// <summary>
-        ///  This method is used to call GetContactDetailsByUser method in DAO layer for getting contact details
-        /// </summary>
-        /// <param name="userID"></param>
-        /// <returns></returns>
         public PContactDetail GetContactDetailByUser(Int64 userID)
         {
             PContactDetail contactDetail = new PContactDetail();
@@ -605,189 +432,6 @@ namespace Business
             };
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="account"></param>
-        /// <returns></returns>
-        public long AuthorizeUser(PUser user, PAccount account)
-        {
-            int userId = 0;
-            try
-            {
-
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    // userId = CreateUser(user);
-                    user.UserID = userId;
-                    //foreach (PPlant plant in user.UserPlants)
-                    //{
-                    //    CreateUserPlantMapping(PlantVOtoUserPlantMappingDAO(plant, user));
-                    //}
-                    //foreach (PUserModuleAccess module in user.AccessModules)
-                    //{
-                    //    CreateuserModuleAccess(ModuleAccessVOtoModuleAccessDAO(module, user));
-                    //}
-                    user.ContactDetail.UserID = userId;
-                    CreateContactDetails(user.ContactDetail);
-                    UpdateAccount(account);
-                    scope.Complete();
-                }
-                //new lmsMessaging().SendAuthorizationMail(account);
-                return userId;
-            }
-            catch (LMSException lmsEx)
-            {
-                throw lmsEx;
-            }
-            catch (LMSFunctionalException lmsfExe)
-            {
-                throw lmsfExe;
-            }
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
-        public void UpdateAccount(PAccount account)
-        {
-            try
-            {
-                UpdateAccountDetails(account);
-            }
-            catch (LMSException vpEx)
-            {
-                throw vpEx;
-            }
-        }
-        public long UpdateAccountDetails(PAccount accountDAO)
-        {
-            DateTime traceStartTime = DateTime.Now;
-            long accountId = 0;
-            try
-            {
-                DbParameter accountIDParam = provider.CreateParameter("AccountID", accountDAO.AccountID, DbType.Int64);
-                DbParameter stateParam = provider.CreateParameter("State", accountDAO.State, DbType.String);
-                DbParameter cityParam = provider.CreateParameter("City", accountDAO.City, DbType.String);
-                DbParameter countryParam = provider.CreateParameter("Country", accountDAO.Country, DbType.String);
-                DbParameter emailIDParam = provider.CreateParameter("EmailID", accountDAO.EmailID, DbType.String);
-                DbParameter systemIDParam = provider.CreateParameter("SystemID", accountDAO.SystemID, DbType.Int16);
-                DbParameter postcodeParam = provider.CreateParameter("Postcode", accountDAO.Postcode, DbType.String);
-                DbParameter userNameParam = provider.CreateParameter("UserName", accountDAO.UserName, DbType.String);
-                DbParameter createdByParam = provider.CreateParameter("CreatedBy", accountDAO.CreatedBy, DbType.Int64);
-                DbParameter staffNameParam = provider.CreateParameter("StaffName", accountDAO.StaffName, DbType.String);
-                DbParameter userTypeIDParam = provider.CreateParameter("UserTypeID", accountDAO.UserTypeID, DbType.Byte);
-                DbParameter contactNameParam = provider.CreateParameter("ContactName", accountDAO.ContactName, DbType.String);
-                DbParameter loginPasswordParam = provider.CreateParameter("LoginPassword", accountDAO.LoginPassword, DbType.String);
-                DbParameter contactPhoneParam = provider.CreateParameter("ContactPhone", accountDAO.ContactPhone, DbType.String);
-                DbParameter addressLine1Param = provider.CreateParameter("AddressLine1", accountDAO.AddressLine1, DbType.String);
-                DbParameter addressLine2Param = provider.CreateParameter("AddressLine2", accountDAO.AddressLine2, DbType.String);
-                DbParameter addressLine3Param = provider.CreateParameter("AddressLine3", accountDAO.AddressLine3, DbType.String);
-                DbParameter IsAuthorizedParam = provider.CreateParameter("IsAuthorized", accountDAO.IsAuthorized, DbType.Boolean);
-                DbParameter DeclineReasonParam;
-                if (!string.IsNullOrEmpty(accountDAO.DeclineReason))
-                    DeclineReasonParam = provider.CreateParameter("DeclineReason", accountDAO.DeclineReason, DbType.String);
-                else
-                    DeclineReasonParam = provider.CreateParameter("DeclineReason", DBNull.Value, DbType.String);
-                DbParameter UpdatedByParam = provider.CreateParameter("UpdatedBy", accountDAO.UpdatedBy, DbType.Int64);
-                DbParameter CreatedOnParam = provider.CreateParameter("CreatedOn", accountDAO.CreatedOn, DbType.DateTime);
-                DbParameter UpdatedOnParam = provider.CreateParameter("UpdatedOn", accountDAO.UpdatedOn, DbType.DateTime);
-                DbParameter externalReferenceIDParam = provider.CreateParameter("ExternalReferenceID", accountDAO.ExternalReferenceID, DbType.String);
-                DbParameter[] accountParams = new DbParameter[23] { accountIDParam,staffNameParam, userNameParam, loginPasswordParam, userTypeIDParam,
-                                                           externalReferenceIDParam,emailIDParam,contactNameParam,
-                                                           contactPhoneParam,addressLine1Param,addressLine2Param,addressLine3Param,IsAuthorizedParam,DeclineReasonParam,
-                                                           cityParam,stateParam,postcodeParam,countryParam,systemIDParam,createdByParam,UpdatedByParam,CreatedOnParam,UpdatedOnParam};
-                accountId = provider.Update("UpdateAccountDetails", accountParams);
-                TraceLogger.Log(traceStartTime);
-                return accountId;
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
-
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
-        public void CreateContactDetails(PContactDetail contactDetailsDAO)
-        {
-            DateTime traceStartTime = DateTime.Now;
-            try
-            {
-                DbParameter userIDParam = provider.CreateParameter("UserID", contactDetailsDAO.UserID, DbType.Int64);
-                DbParameter emailIDParam = provider.CreateParameter("EmailID", contactDetailsDAO.EmailID, DbType.String);
-                DbParameter phoneParam = provider.CreateParameter("Phone", contactDetailsDAO.Phone, DbType.String);
-                DbParameter addressLine1Param = provider.CreateParameter("AddressLine1", contactDetailsDAO.AddressLine1, DbType.String);
-                DbParameter addressLine2Param = provider.CreateParameter("AddressLine2", contactDetailsDAO.AddressLine2, DbType.String);
-                DbParameter addressLine3Param = provider.CreateParameter("AddressLine3", contactDetailsDAO.AddressLine3, DbType.String);
-                DbParameter cityParam = provider.CreateParameter("City", contactDetailsDAO.City, DbType.String);
-                DbParameter stateParam = provider.CreateParameter("State", contactDetailsDAO.State, DbType.String);
-                DbParameter postcodeParam = provider.CreateParameter("Postcode", contactDetailsDAO.Postcode, DbType.String);
-                DbParameter countryParam = provider.CreateParameter("Country", contactDetailsDAO.Country, DbType.String);
-                DbParameter[] contactDetailParams = new DbParameter[10] { userIDParam, emailIDParam, phoneParam, addressLine1Param, addressLine2Param, addressLine3Param,
-                                                                    cityParam, stateParam, postcodeParam, countryParam};
-                provider.Insert("CreateContactDetails", contactDetailParams);
-                TraceLogger.Log(traceStartTime);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
-
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
-
-        private PModuleAccess ModuleAccessVOtoModuleAccessDAO(PUserModuleAccess moduleAccess, PUser user)
-        {
-            return new PModuleAccess()
-            {
-
-                UserID = user.UserID,
-                SubModuleAccessID = moduleAccess.SubModuleAccessId,
-                ModuleAccessID = moduleAccess.ModuleAccessID,
-                IsActive = moduleAccess.IsActive,
-                CreatedBy = user.CreatedBy,
-                CreatedOn = user.CreatedOn,
-                UpdatedBy = user.UpdatedBy,
-                UpdatedOn = user.UpdatedOn
-            };
-        }
-        public void CreateuserModuleAccess(PModuleAccess moduleAccess)
-        {
-            DateTime traceStartTime = DateTime.Now;
-            try
-            {
-                DbParameter userIDParam = provider.CreateParameter("UserID", moduleAccess.UserID, DbType.Int64);
-                DbParameter moduleAccessIDParam = provider.CreateParameter("ModuleAccessID", moduleAccess.ModuleAccessID, DbType.Int32);
-                DbParameter subModuleAccessIDParam = provider.CreateParameter("SubModuleAccessID", moduleAccess.SubModuleAccessID, DbType.Int32);
-                DbParameter isActiveParam = provider.CreateParameter("IsActive", moduleAccess.IsActive, DbType.Boolean);
-                DbParameter createdByParam = provider.CreateParameter("CreatedBy", moduleAccess.CreatedBy, DbType.Int64);
-                DbParameter updatedByParam = provider.CreateParameter("UpdatedBy", moduleAccess.UpdatedBy, DbType.Int64);
-                DbParameter createdOnParam = provider.CreateParameter("CreatedOn", moduleAccess.CreatedOn, DbType.DateTime);
-                DbParameter updatedOnParam = provider.CreateParameter("UpdatedOn", moduleAccess.UpdatedOn, DbType.DateTime);
-                DbParameter[] contactDetailParams = new DbParameter[8] { userIDParam, moduleAccessIDParam, subModuleAccessIDParam, isActiveParam,
-                                                    createdByParam, updatedByParam, createdOnParam,updatedOnParam };
-                provider.Insert("CreateUpdateUserModuleAccess", contactDetailParams);
-                TraceLogger.Log(traceStartTime);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
-
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
-     
         public Boolean InsertOrUpdateUser(PUser userDAO)
         {
             Boolean Success = false;
@@ -848,73 +492,6 @@ namespace Business
 
         }
 
-        public void CreateUserPlantMapping(PUserPlantMapping mapping)
-        {
-            DateTime traceStartTime = DateTime.Now;
-            try
-            {
-                DbParameter UserId = provider.CreateParameter("UserId", mapping.UserID, DbType.Int64);
-                DbParameter PlantId = provider.CreateParameter("PlantId", mapping.PlantID, DbType.Int16);
-                DbParameter IsActive = provider.CreateParameter("IsActive", mapping.IsActive, DbType.Boolean);
-                DbParameter CreatedBy = provider.CreateParameter("CreatedBy", mapping.CreatedBy, DbType.Int64);
-                DbParameter CreatedOn = provider.CreateParameter("CreatedOn", mapping.CreatedOn, DbType.DateTime);
-                DbParameter UpdatedBy = provider.CreateParameter("UpdatedBy", mapping.UpdatedBy, DbType.Int64);
-                DbParameter UpdatedOn = provider.CreateParameter("UpdatedOn", mapping.UpdatedOn, DbType.DateTime);
-                DbParameter[] accountParams = new DbParameter[7] { UserId, PlantId, IsActive, CreatedBy, CreatedOn, UpdatedBy, UpdatedOn };
-                provider.Insert("CreateUpdateUserPlantMappings", accountParams);
-                TraceLogger.Log(traceStartTime);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
-
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
-        /// <summary>
-        /// This method is used to call UpdateUserPlantMapping method to activate the existing plants for the selected user
-        /// call CreateUserPlantMapping method to add new plants for the user.
-        /// call UpdateUserModuleAccess method to update access rights  to the user for selected modules 
-        /// call CreateuserModuleAccess method to add new modules for the user.
-        /// </summary>
-        /// <param name="userVO"></param>
-        public void UpdateUserDetail(PUser userVO)
-        {
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    //foreach (PPlant plant in userVO.UserPlants)
-                    //{
-                    //    CreateUserPlantMapping(PlantVOtoUserPlantMapping(plant, userVO));
-                    //}
-                    //foreach (PUserModuleAccess moduleAccess in userVO.AccessModules)
-                    //{
-
-                    //    CreateuserModuleAccess(ModuleAccessVOtoModuleAccessDAO(moduleAccess, userVO));
-
-                    //}
-
-                    scope.Complete();
-                }
-            }
-            catch (LMSException lmsEx)
-            {
-                throw lmsEx;
-            }
-            catch (LMSFunctionalException lmsfExe)
-            {
-                throw lmsfExe;
-            }
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
-        
         public void InsertUpdateUserAudit(PUserAudit userAudit)
         {
             DateTime traceStartTime = DateTime.Now;
@@ -1338,35 +915,7 @@ namespace Business
             return false;
         }
 
-        public List<PUser> GetDMSUserBySubModuleAccessID(Int64 SubModuleAccessID)
-        {
-            DateTime traceStartTime = DateTime.Now;
-            List<PUser> users = new List<PUser>();
-
-            try
-            {
-                DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleAccessID", SubModuleAccessID, DbType.Int64);
-                DbParameter[] contactDetailParams = new DbParameter[1] { SubModuleAccessIDP };
-                using (DataSet ds = provider.Select("GetDMSUserBySubModuleAccessID", contactDetailParams))
-                {
-                    if (ds != null)
-                        foreach (DataRow usersRow in ds.Tables[0].Rows)
-                            users.Add(ConvertToUserVO(usersRow));
-                }
-                // This call is for track the status and loged into the trace logeer
-                TraceLogger.Log(traceStartTime);
-                return users;
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-        }
-
+       
         public List<PSubModuleChild> GetSubModuleChileAll(int? SubModuleMasterID)
         {
             string endPoint = "User/SubModuleChileAll?SubModuleMasterID=" + SubModuleMasterID;
@@ -1401,49 +950,7 @@ namespace Business
             string endPoint = "User/GetTokenByID?userID=" + userID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-
-
-        public PUserMobile GetUserIDByIMEI(string IMEI)
-        {
-            PUserMobile UserMobile = null;
-            try
-            {
-                DateTime tracerStart = DateTime.Now;
-                DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
-                DbParameter[] userParams = new DbParameter[1] { IMEIP };
-
-                using (DataSet userDataSet = provider.Select("GetUserIDByIMEI", userParams))
-                {
-                    if (userDataSet != null)
-                        foreach (DataRow dr in userDataSet.Tables[0].Rows)
-                        {
-                            UserMobile = new PUserMobile();
-                            UserMobile.UserMobileID = Convert.ToInt32(dr["UserMobileID"]);
-                            UserMobile.UserID = Convert.ToInt32(dr["UserID"]);
-                            //UserMobile.IMEI = Convert.ToString(dr["IMEI"]);
-                            UserMobile.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
-                            UserMobile.ApprovedBy = DBNull.Value == dr["ApprovedBy"] ? (int?)null : Convert.ToInt32(dr["ApprovedBy"]);
-                            UserMobile.ApprovedOn = DBNull.Value == dr["ApprovedOn"] ? (DateTime?)null : Convert.ToDateTime(dr["ApprovedOn"]);
-                            UserMobile.IsActive = Convert.ToBoolean(dr["IsActive"]);
-                        }
-                }
-                TraceLogger.Log(tracerStart);
-                return UserMobile;
-            }
-            catch (LMSException lmsEx)
-            {
-                throw lmsEx;
-            }
-            catch (LMSFunctionalException lmsfExe)
-            {
-                throw lmsfExe;
-            }
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-
-        }
+ 
         public List<PUserMobile> GetUserMobileForApproval()
         {
             string endPoint = "User/UserMobileForApproval";
@@ -1486,38 +993,6 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        //public Boolean InserUserMobileIMEI(int UserID, string IMEI)
-        //{
-        //    Boolean UserMobile = false;
-        //    try
-        //    {
-        //        DateTime tracerStart = DateTime.Now;
-        //        DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-        //        DbParameter IMEIP = provider.CreateParameter("IMEI", IMEI, DbType.String);
-        //        DbParameter[] userParams = new DbParameter[2] { UserIDP, IMEIP };
-        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-        //        {
-        //            provider.Select("InserUserMobileIMEI", userParams);
-        //            UserMobile = true;
-        //            scope.Complete();
-        //        }
-
-        //        TraceLogger.Log(tracerStart);
-        //        return UserMobile;
-        //    }
-        //    catch (LMSException lmsEx)
-        //    {
-        //        throw lmsEx;
-        //    }
-        //    catch (LMSFunctionalException lmsfExe)
-        //    {
-        //        throw lmsfExe;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new LMSException(ErrorCode.GENE, ex);
-        //    }
-        //}
         public List<PUserMobile> GetUserMobileManage(int? DealerID,string  FromDate, string ToDate,Boolean isActive, int? DealerDepartmentID, int? DealerDesignationID, int? EngineerUserID)
         {
             string endPoint = "User/UserMobileManage?DealerID=" + DealerID+ "&FromDate="+ FromDate + "&ToDate=" + ToDate + "&isActive=" + isActive + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&EngineerUserID=" + EngineerUserID;
@@ -1580,7 +1055,7 @@ namespace Business
             string endPoint = "User/SubModuleChileByDealerDesignationID?DealerDesignationID=" + DealerDesignationID;
             return JsonConvert.DeserializeObject<List<PSubModuleChild>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public Boolean InsertOrUpdateDefaultUserPermition(int DealerDesignationID, List<int> AccessModule, List<int> AccessModuleC, List<int> Dashboard, long CreatedBy)
+        public Boolean InsertOrUpdateDefaultUserPermition(int DealerDesignationID, List<int> AccessModule, List<int> AccessModuleC, List<int> Dashboard, List<int> MobileFeature, long CreatedBy)
         {
             List<PUser> users = new List<PUser>();
             DateTime traceStartTime = DateTime.Now;
@@ -1619,6 +1094,15 @@ namespace Business
                         DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
                         DbParameter[] DParams = new DbParameter[3] { DealerDesignationIDDP, DashboardIDP, CreatedByDP };
                         provider.Insert("InsertOrUpdateDefaultUserDashboardAccess", DParams, false);
+                    }
+
+                    foreach (int ID in MobileFeature)
+                    {
+                        DbParameter DealerDesignationIDDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
+                        DbParameter UserMobileFeatureIDP = provider.CreateParameter("UserMobileFeatureID", ID, DbType.Int32);
+                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+                        DbParameter[] DParams = new DbParameter[3] { DealerDesignationIDDP, UserMobileFeatureIDP, CreatedByDP };
+                        provider.Insert("InsertOrUpdateDefaultUserMobileAccess", DParams, false);
                     }
 
                     scope.Complete();
@@ -1953,6 +1437,44 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
             return false;
+        }
+
+        public List<PUserMobileFeature> GetMobileFeatureByDealerDesignationID(Int32 DealerDesignationID)
+        {
+            DateTime traceStartTime = DateTime.Now;
+            List<PUserMobileFeature> MAs = new List<PUserMobileFeature>();
+            int ID = 0;
+            PUserMobileFeature MA = null;
+            try
+            {
+                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
+                DbParameter[] Params = new DbParameter[1] { DealerDesignationIDP };
+
+                using (DataSet ds = provider.Select("GetMobileFeatureByDealerDesignationID", Params))
+                {
+                    if (ds != null)
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+
+                            MA = new PUserMobileFeature();
+                            MAs.Add(MA);
+                            MA.UserMobileFeatureID = Convert.ToInt32(dr["UserMobileFeatureID"]);
+                            MA.FeatureName = Convert.ToString(dr["FeatureName"]);
+                        }
+                }
+                // This call is for track the status and loged into the trace logeer
+                TraceLogger.Log(traceStartTime);
+                return MAs;
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+            }
+
+            catch (Exception ex)
+            {
+                throw new LMSException(ErrorCode.GENE, ex);
+            }
         }
     }
 }

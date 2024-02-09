@@ -11,13 +11,15 @@
                 <asp:LinkButton ID="lbtnEdit" runat="server" OnClick="lbActions_Click">Edit TSIR</asp:LinkButton>
                 <asp:LinkButton ID="lbtnCheck" runat="server" OnClick="lbActions_Click">TSIR Check</asp:LinkButton>
                 <asp:LinkButton ID="lbtnApprove" runat="server" OnClick="lbActions_Click">TSIR Approve</asp:LinkButton>
-                <asp:LinkButton ID="lbtnReject" runat="server" OnClick="lbActions_Click">TSIR Reject</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnReject" runat="server" OnClick="lbActions_Click">TSIR Reject</asp:LinkButton>
                 <asp:LinkButton ID="lbtnSalesApproveL1" runat="server" OnClick="lbActions_Click">TSIR Sales Approve L1</asp:LinkButton>
-                <asp:LinkButton ID="lbtnSalesApproveL2" runat="server" OnClick="lbActions_Click">TSIR Sales Approve L2</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnSalesApproveL2" runat="server" OnClick="lbActions_Click">TSIR Sales Approve L2</asp:LinkButton>
                 <asp:LinkButton ID="lbtnSalesReject" runat="server" OnClick="lbActions_Click">TSIR Sales Reject</asp:LinkButton>
-                 <asp:LinkButton ID="lbtnSendBack" runat="server" OnClick="lbActions_Click">TSIR Send Back</asp:LinkButton>
+                <asp:LinkButton ID="lbtnSendBack" runat="server" OnClick="lbActions_Click">TSIR Send Back</asp:LinkButton>
                 <asp:LinkButton ID="lbtnCancel" runat="server" OnClick="lbActions_Click">TSIR Cancel</asp:LinkButton>
-                
+               <%-- <asp:LinkButton ID="lbtnHoComments1" runat="server" OnClick="lbActions_Click">HO Comments1</asp:LinkButton>
+                <asp:LinkButton ID="lbtnHoComments2" runat="server" OnClick="lbActions_Click">HO Comments2</asp:LinkButton>  --%>
+                <asp:LinkButton ID="lbtnSendMail" runat="server" OnClick="lbActions_Click">Send Mail</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -116,13 +118,18 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
-
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Avl Qty">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblAvailableQty" Text='<%# DataBinder.Eval(Container.DataItem, "AvailableQty")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Base Price">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblBasePrice" Text='<%# DataBinder.Eval(Container.DataItem, "BasePrice")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Prime Faulty Part">
@@ -269,10 +276,10 @@
         <div class="model-scroll">
             <asp:Label ID="lblMessageCustomerFeedback" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-                <div class="col-md-12"> 
+                <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Amount</label>
-                        <asp:TextBox ID="txtSalesApproveAmount" runat="server" CssClass="form-control" ></asp:TextBox>
+                        <asp:TextBox ID="txtSalesApproveAmount" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
             </fieldset>
@@ -303,6 +310,33 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_AddTSIR" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddTSIR" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlMailToSupplier" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        
+        <span id="PopupDialogue">Mail To Supplier </span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblCommentsMessage" runat="server" Text="" CssClass="message" Visible="false" /> 
+            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Mail ID</label>
+                        <asp:TextBox ID="txtMailID" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                </div>
+            </fieldset> 
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnMailToSupplier" runat="server" Text="Save" CssClass="btn Save" OnClick="btnMailToSupplier_Click" />
+                                                             
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_MailToSupplier" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMailToSupplier" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <div style="display: none">

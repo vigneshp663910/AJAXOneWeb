@@ -54,6 +54,7 @@
                     <asp:LinkButton ID="lbtnShipTo" runat="server" OnClick="lbActions_Click">Add ShipTo</asp:LinkButton>
                     <asp:LinkButton ID="lbtnSyncToParts" runat="server" OnClick="lbActions_Click">Sync to Parts</asp:LinkButton>
                     <asp:LinkButton ID="lbtnAddLeadAjax" runat="server" OnClick="lbActions_Click">Add Lead Ajax</asp:LinkButton>
+                    <asp:LinkButton ID="lbtnUpdateGst" runat="server" OnClick="lbActions_Click">Update GST</asp:LinkButton>
                 </div>
             </div>
         </div>
@@ -1242,6 +1243,42 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_LeadAjax" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlLeadAjax" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlUpdateGst" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Update GST</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button8" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageUpdateGst" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset7" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Update GST</legend>
+                <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
+                        <b>Customer Code : </b><asp:Label ID="lblCustomerV" runat="server" Text=""></asp:Label>                        
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">GSTIN<samp style="color: red">*</samp></label>
+                        <asp:TextBox ID="txtGSTIN" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtGSTIN" WatermarkText="GSTIN" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">PAN<samp style="color: red">*</samp></label>
+                        <asp:TextBox ID="txtPAN" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtPAN" WatermarkText="PAN" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnUpdateGst" runat="server" Text="Update" CssClass="btn Save" OnClick="btnUpdateGst_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_UpdateGst" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateGst" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <div style="display: none">

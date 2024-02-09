@@ -156,12 +156,12 @@
 
                 <asp:LinkButton ID="lbtnRequestDateChange" runat="server" OnClick="lbActions_Click">Request Date Change</asp:LinkButton>
 
-                <asp:LinkButton ID="lbtnFsrSignature" runat="server" OnClick="lbActions_Click">FSR Signature</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnFsrSignature" runat="server" OnClick="lbActions_Click">FSR Signature</asp:LinkButton>
                 <asp:LinkButton ID="lbtnRemoveRestoreDate" runat="server" OnClick="lbActions_Click">Remove Restore Date</asp:LinkButton>
 
-                <asp:LinkButton ID="lbtnDepartureToSite" runat="server" OnClick="lbActions_Click">Departure To Site</asp:LinkButton> 
-                <asp:LinkButton ID="lbtnReachedInSite" runat="server" OnClick="lbActions_Click">Reached in Site</asp:LinkButton> 
-                <asp:LinkButton ID="lbtnArrivalBack" runat="server" OnClick="lbActions_Click">Arrival Back</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnDepartureToSite" runat="server" OnClick="lbActions_Click">Departure To Site</asp:LinkButton>
+                <asp:LinkButton ID="lbtnReachedInSite" runat="server" OnClick="lbActions_Click">Reached in Site</asp:LinkButton>
+                <asp:LinkButton ID="lbtnArrivalBack" runat="server" OnClick="lbActions_Click">Arrival Back</asp:LinkButton>
             </div>
 
 
@@ -274,6 +274,18 @@
                                     <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Assigned By">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblAssignedBy" Text='<%# DataBinder.Eval(Container.DataItem, "AssignedBy.ContactName")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Assigned On">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblAssignedOn" Text='<%# DataBinder.Eval(Container.DataItem, "AssignedOn")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remove">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
@@ -292,7 +304,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="Reached Info">
+    <asp1:TabPanel ID="TabReached" runat="server" HeaderText="Reached Info">
         <ContentTemplate>
             <br />
             <div class="col-md-12 View">
@@ -649,6 +661,7 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lblServiceRemove" runat="server" OnClick="lblServiceRemove_Click"><i class="fa fa-fw fa-times" style="font-size:18px"  ></i></asp:LinkButton>
+                                    <asp:LinkButton ID="lblServiceEdit" runat="server" OnClick="lblServiceEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"  ></i></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -1066,7 +1079,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="IC Ticket Restore" Font-Bold="True" ToolTip="">
+    <asp1:TabPanel ID="TabRestore" runat="server" HeaderText="IC Ticket Restore" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <br />
             <div class="col-md-12 View">
@@ -1093,11 +1106,11 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="TabPanel3" runat="server" HeaderText="Signature" Font-Bold="True" ToolTip="">
+    <asp1:TabPanel ID="TabSignature" runat="server" HeaderText="Signature" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <br />
             <div class="col-md-12 View">
-                 <div class="col-md-4">
+                <div class="col-md-4">
                     <label>Technician Name : </label>
                     <asp:Label ID="lblTName" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
@@ -1111,40 +1124,40 @@
                     <asp:Label ID="lblTSignature" runat="server" CssClass="LabelValue"></asp:Label>
                     <asp:LinkButton ID="lbtnTSignature" runat="server" OnClick="lbtnFsrSignatureDownload_Click">Technician Sign</asp:LinkButton>
                 </div>
-               <div class="col-md-4">
+                <div class="col-md-4">
                     <label>Customer Name : </label>
                     <asp:Label ID="lblCName" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
                     <label>Customer Photo : </label>
                     <asp:Label ID="lblCPhoto" runat="server" CssClass="LabelValue"></asp:Label>
-                     <asp:LinkButton ID="lbtnCPhoto" runat="server" OnClick="lbtnFsrSignatureDownload_Click">Customer Photo</asp:LinkButton>
+                    <asp:LinkButton ID="lbtnCPhoto" runat="server" OnClick="lbtnFsrSignatureDownload_Click">Customer Photo</asp:LinkButton>
                 </div>
                 <div class="col-md-4">
                     <label>Customer Sign : </label>
                     <asp:Label ID="lblCSignature" runat="server" CssClass="LabelValue"></asp:Label>
-                     <asp:LinkButton ID="lbtnCSignature" runat="server" OnClick="lbtnFsrSignatureDownload_Click">Customer Sign</asp:LinkButton>
+                    <asp:LinkButton ID="lbtnCSignature" runat="server" OnClick="lbtnFsrSignatureDownload_Click">Customer Sign</asp:LinkButton>
                 </div>
-                
+
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <%--<asp1:TabPanel ID="tpnlCustomerFeedback" runat="server" HeaderText="Customer Feedback" Font-Bold="True" ToolTip="">
+    <asp1:TabPanel ID="tpnlDeclined" runat="server" HeaderText="Declined Info" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <br />
             <div class="col-md-12 View">
-                
                 <div class="col-md-4">
-                    <label>Photo</label>
-                    <asp:LinkButton ID="lbtnPhoto" runat="server" OnClick="lbtnPhoto_Click" Text=""></asp:LinkButton>
+                    <label>Declined Requested Date: </label>
+                    <asp:Label ID="lblDeclinedDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-4">
-                    <label>Signature</label>
-                    <asp:LinkButton ID="lbtnSignature" runat="server" OnClick="lbtnSignature_Click" Text=""></asp:LinkButton>
+                    <label>Declined Requested Reson : </label>
+                    <asp:Label ID="lblDeclinedReson" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
+
         </ContentTemplate>
-    </asp1:TabPanel>--%>
+    </asp1:TabPanel>
 </asp1:TabContainer>
 <asp:Panel ID="pnlAddTechnician" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
@@ -1291,6 +1304,7 @@
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnAddMaterialCharges" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddMaterialCharges_Click" />
+            <asp:Button ID="btnAddMaterialAvailability" runat="server" Text="Availability" Width="85px" CssClass="btn Save" OnClick="btnAddMaterialCharges_Click" />
         </div>
 
     </div>
@@ -1524,9 +1538,9 @@
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageFsrSignature" runat="server" Text="" CssClass="message" Visible="false" />
-          <%--  <asp:Panel ID="pnlDynamicControl" runat="server">
+            <%--  <asp:Panel ID="pnlDynamicControl" runat="server">
             </asp:Panel>--%>
-             <UC:UC_FsrSignature ID="UC_FsrSignature" runat="server"></UC:UC_FsrSignature>
+            <UC:UC_FsrSignature ID="UC_FsrSignature" runat="server"></UC:UC_FsrSignature>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSignSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSignSave_Click" />
@@ -1549,10 +1563,26 @@
             <div class="col-md-12">
                 <div class="col-md-2 col-sm-12">
                     <label class="modal-label">Location</label>
-                    <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" ></asp:TextBox>
+                    <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
-                <div class="col-md-12 text-center"> 
-                    <asp:Button ID="btnReachedSite" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnReachedSite_Click"   />
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Current HMR Value</label>
+                    <asp:TextBox ID="txtHMRValue" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Site Contact Person’s Name</label>
+                    <asp:TextBox ID="txtOperatorName" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Site Contact Person’s Number</label>
+                    <asp:TextBox ID="txtSiteContactPersonNumber" runat="server" CssClass="form-control" MaxLength="10"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">Designation</label>
+                    <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnReachedSite" runat="server" Text="Save" CssClass="btn Save" UseSubmitBehavior="true" OnClick="btnReachedSite_Click" />
                 </div>
             </div>
         </fieldset>
@@ -1582,7 +1612,7 @@
 </script>
 
 
-  
+
 
 <asp:HiddenField ID="hfLatitude" runat="server" />
 <asp:HiddenField ID="hfLongitude" runat="server" />

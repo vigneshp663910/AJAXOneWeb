@@ -195,6 +195,19 @@ namespace DealerManagementSystem.ViewAdmin
             }
 
 
+            dlMobileFeatureAccess.DataSource = new BUser().GetUserMobileFeature();
+            dlMobileFeatureAccess.DataBind();
+            List<PUserMobileFeature> DefultMobileFeature = new BUser().GetMobileFeatureByDealerDesignationID( DealerDesignationID);
+            
+            for (int i = 0; i < dlMobileFeatureAccess.Items.Count; i++)
+            {
+                int UserMobileFeatureID = Convert.ToInt32(dlMobileFeatureAccess.DataKeys[i].ToString());
+                if (DefultMobileFeature.Where(A => A.UserMobileFeatureID == UserMobileFeatureID).Count() != 0)
+                {
+                    CheckBox cbSMId = (CheckBox)dlMobileFeatureAccess.Items[i].FindControl("cbSMId");
+                    cbSMId.Checked = true;
+                }
+            }
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -235,7 +248,18 @@ namespace DealerManagementSystem.ViewAdmin
                     AccessDB.Add(dlDashboardID);
                 }
             }
-            if (new BUser().InsertOrUpdateDefaultUserPermition(Convert.ToInt32(ViewState["DealerDesignationID"]), AccessM, AccessSCM, AccessDB, PSession.User.UserID))
+           
+            List<int> MobileFeature = new List<int>();
+            for (int i = 0; i < dlMobileFeatureAccess.Items.Count; i++)
+            {
+                CheckBox cbSMId = (CheckBox)dlMobileFeatureAccess.Items[i].FindControl("cbSMId");
+                int UserMobileFeatureID = Convert.ToInt32(dlMobileFeatureAccess.DataKeys[i].ToString());
+                if (cbSMId.Checked)
+                {
+                    MobileFeature.Add(UserMobileFeatureID);
+                }
+            }
+            if (new BUser().InsertOrUpdateDefaultUserPermition(Convert.ToInt32(ViewState["DealerDesignationID"]), AccessM, AccessSCM, AccessDB, MobileFeature, PSession.User.UserID))
             { 
                 btnUpdate.Visible = false;
                 btnBack.Visible = false;

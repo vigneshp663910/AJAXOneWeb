@@ -39,6 +39,7 @@ namespace Properties
         public Decimal? Effort { get; set; }
         public int? ResolutionType   { get; set; }
         public string Resolution { get; set; }
+        public int StatusId { get; set; }
     }
     public class PForum_Insert
     {
@@ -46,6 +47,7 @@ namespace Properties
         public string Message { get; set; }
         public PAttachedFile AttchedFile { get; set; }
     }
+    [Serializable]
     public class PTicketHeader
     {
         public int HeaderID { get; set; }
@@ -83,6 +85,7 @@ namespace Properties
         public string UATRemark { get; set; }
         public string SLA { get; set; }
     }
+    [Serializable]
     public class PTicketItem
     {
         public int ItemID { get; set; }
@@ -109,8 +112,9 @@ namespace Properties
 
         public DateTime? InProgressOn { get; set; }
         public DateTime? ResolvedOn { get; set; }
-        public Boolean InActive { get; set; }
+        public bool? InActive { get; set; }
     }
+    [Serializable]
     public class PForum
     {
         public long ID { get; set; }
@@ -125,6 +129,7 @@ namespace Properties
         public int  FileTypeID   { get; set; }
         public string FileType { get; set; }
     }
+    [Serializable]
     public class PTicketsApprovalDetails
     {
         public int Id { get; set; }
@@ -140,11 +145,13 @@ namespace Properties
         public DateTime? RejectedOn { get; set; }
         public Boolean InActive { get; set; }
     }
+    [Serializable]
     public class PType
     {
         public int TypeID { get; set; }
         public string Type { get; set; }
     }
+    [Serializable]
     public class PSubCategory
     {
         public int SubCategoryID { get; set; }
@@ -152,11 +159,13 @@ namespace Properties
         public string SubCategory { get; set; }
         public int SeverityID { get; set; }
     }
+    [Serializable]
     public class PStatus
     {
         public int StatusID { get; set; }
         public string Status { get; set; }
     }
+    [Serializable]
     public class PSeverity
     {
         public int SeverityID { get; set; }

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SapIntegration;
 using Newtonsoft.Json;
 using System.Globalization;
 using Microsoft.Reporting.WebForms;
@@ -41,15 +40,30 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         {
             get
             {
-                if (Session["TaskReportView"] == null)
+                if (ViewState["TaskReportView"] == null)
                 {
-                    Session["TaskReportView"] = new List<PTicketHeader>();
+                    ViewState["TaskReportView"] = new List<PTicketHeader>();
                 }
-                return (List<PTicketHeader>)Session["TaskReportView"];
+                return (List<PTicketHeader>)ViewState["TaskReportView"];
             }
             set
             {
-                Session["TaskReportView"] = value;
+                ViewState["TaskReportView"] = value;
+            }
+        }
+        public List<PUser> AjaxEmployee
+        {
+            get
+            {
+                if (ViewState["AjaxEmployee"] == null)
+                {
+                    ViewState["AjaxEmployee"] = new List<PUser>();
+                }
+                return (List<PUser>)ViewState["AjaxEmployee"];
+            }
+            set
+            {
+                ViewState["AjaxEmployee"] = value;
             }
         }
         private string Action;
@@ -173,19 +187,19 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         {
             ddlCategory.DataTextField = "Category";
             ddlCategory.DataValueField = "CategoryID";
-            ddlCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
+            ddlCategory.DataSource = JsonConvert.DeserializeObject<List<PCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketCategory(null, null).Data));
             ddlCategory.DataBind();
 
             ddlEditCategory.DataTextField = "Category";
             ddlEditCategory.DataValueField = "CategoryID";
-            ddlEditCategory.DataSource = new BTicketCategory().getTicketCategory(null, null);
+            ddlEditCategory.DataSource = JsonConvert.DeserializeObject<List<PCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketCategory(null, null).Data));
             ddlEditCategory.DataBind();
         }
         void FillSubCategory()
         {
             ddlSubcategory.DataTextField = "SubCategory";
             ddlSubcategory.DataValueField = "SubCategoryID";
-            ddlSubcategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue));
+            ddlSubcategory.DataSource = JsonConvert.DeserializeObject<List<PSubCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketSubCategory(null, null, Convert.ToInt32(ddlCategory.SelectedValue)).Data));
             ddlSubcategory.DataBind();
             ddlSubcategory.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -193,7 +207,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         {
             ddlEditSubCategory.DataTextField = "SubCategory";
             ddlEditSubCategory.DataValueField = "SubCategoryID";
-            ddlEditSubCategory.DataSource = new BTicketSubCategory().getTicketSubCategory(null, null, (ddlEditCategory.SelectedValue == "0") ? (Int32?)null : Convert.ToInt32(ddlEditCategory.SelectedValue));
+            ddlEditSubCategory.DataSource = JsonConvert.DeserializeObject<List<PSubCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketSubCategory(null, null, (ddlEditCategory.SelectedValue == "0") ? (Int32?)null : Convert.ToInt32(ddlEditCategory.SelectedValue)).Data));
             ddlEditSubCategory.DataBind();
             ddlEditSubCategory.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -201,7 +215,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         {
             ddlEditTicketType.DataTextField = "Type";
             ddlEditTicketType.DataValueField = "TypeID";
-            ddlEditTicketType.DataSource = new BTicketType().getTicketType(null, null);
+            ddlEditTicketType.DataSource = JsonConvert.DeserializeObject<List<PType>>(JsonConvert.SerializeObject(new BTickets().getTicketType(null, null).Data));
             ddlEditTicketType.DataBind();
             ddlEditTicketType.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -209,38 +223,36 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         {
             ddlSeverity.DataTextField = "Severity";
             ddlSeverity.DataValueField = "SeverityID";
-            ddlSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
+            ddlSeverity.DataSource = JsonConvert.DeserializeObject<List<PSeverity>>(JsonConvert.SerializeObject(new BTickets().getTicketSeverity(null, null).Data));
             ddlSeverity.DataBind();
             ddlSeverity.Items.Insert(0, new ListItem("Select", "0"));
             ddlSeverity.SelectedValue = "3";
 
             ddlEditSeverity.DataTextField = "Severity";
             ddlEditSeverity.DataValueField = "SeverityID";
-            ddlEditSeverity.DataSource = new BTicketSeverity().getTicketSeverity(null, null);
+            ddlEditSeverity.DataSource = JsonConvert.DeserializeObject<List<PSeverity>>(JsonConvert.SerializeObject(new BTickets().getTicketSeverity(null, null).Data));
             ddlEditSeverity.DataBind();
             ddlEditSeverity.Items.Insert(0, new ListItem("Select", "0"));
             ddlEditSeverity.SelectedValue = "3";
         }
         void FillAssignTo()
         {
-            List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, 7, null);
+            new DDLBind().FillDealerAndEngneer(ddlAssignDealer, null);
+            PDealer dealer = new BDealer().GetDealerByID(null, PSession.User.ExternalReferenceID);
+            ddlAssignDealer.SelectedValue = dealer.DID.ToString();
+            new BDMS_Dealer().GetDealerDepartmentDDL(ddlAssignDepartment, null, null);
+            ddlAssignDepartment.SelectedValue = PSession.User.Department.DealerDepartmentID.ToString();
+            //Changes Requested from John Sir
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
             new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
-            //ddlAssignedTo.DataTextField = "ContactName";
-            //ddlAssignedTo.DataValueField = "UserID";
-            //List<PUser> user = new BUser().GetAllUsers();
-            //ddlAssignedTo.DataSource = user;
-            //ddlAssignedTo.DataBind();
-            //ddlAssignedTo.Items.Insert(0, new ListItem("Select", "0"));
+            ddlAssignDealer.Enabled = false;
+            ddlAssignDepartment.Enabled = false;
+            ddlAssignDepartment_SelectedIndexChanged(null, null);
         }
         void FillApproval()
         {
-            List<PUser> user = new BUser().GetAllUsers(null, null);
-            //user.Where(M => M.SystemCategoryID == (short)SystemCategory.AF || M.SystemCategoryID == (short)SystemCategory.Support).ToList();
-            ddlapprovar.DataTextField = "ContactName";
-            ddlapprovar.DataValueField = "UserID";
-            ddlapprovar.DataSource = user;//.Where(M => M.SystemCategoryID == (short)SystemCategory.AF).ToList();
-            ddlapprovar.DataBind();
-            ddlapprovar.Items.Insert(0, new ListItem("Select", "0"));
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
+            new DDLBind(ddlapprovar, user, "ContactName", "UserID");
         }
         void FillAllFields(int TicketNo)
         {
@@ -262,28 +274,35 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         Boolean validatetion()
         {
             decimal parsedValue;
-            if (btnAssign.Text == "Assign")
+            if (ddlCategory.SelectedValue == "0")
             {
-                if (ddlCategory.SelectedValue == "0")
-                {
-                    lblMessageAssignTo.Text = "Please Select The Category";
-                    return false;
-                }
-                if (ddlSubcategory.SelectedValue == "0")
-                {
-                    lblMessageAssignTo.Text = "Please Select The Subcategory";
-                    return false;
-                }
-                if (ddlSeverity.SelectedValue == "0")
-                {
-                    lblMessageAssignTo.Text = "Please Select The Severity";
-                    return false;
-                }
-                if (ddlAssignedTo.SelectedValue == "0")
-                {
-                    lblMessageAssignTo.Text = "Please Select The Assigned To";
-                    return false;
-                }
+                lblMessageAssignTo.Text = "Please Select The Category";
+                return false;
+            }
+            if (ddlSubcategory.SelectedValue == "0")
+            {
+                lblMessageAssignTo.Text = "Please Select The Subcategory";
+                return false;
+            }
+            if (ddlSeverity.SelectedValue == "0")
+            {
+                lblMessageAssignTo.Text = "Please Select The Severity";
+                return false;
+            }
+            if (ddlAssignDealer.SelectedValue == "0")
+            {
+                lblMessageAssignTo.Text = "Please Select The Dealer";
+                return false;
+            }
+            if (ddlAssignDepartment.SelectedValue == "0")
+            {
+                lblMessageAssignTo.Text = "Please Select The Department";
+                return false;
+            }
+            if (ddlAssignedTo.SelectedValue == "0")
+            {
+                lblMessageAssignTo.Text = "Please Select The Assigned To";
+                return false;
             }
             return true;
         }
@@ -324,7 +343,9 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         public void FillTickets(int? TicketNO)
         {
             ViewState["TicketNo"] = TicketNO;
-            Ticket = new BTickets().GetTicketByID(TicketNO);
+            PApiResult Result = new BTickets().GetTicketByID(TicketNO);
+            Ticket = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
+            //Ticket = new BTickets().GetTicketByID(TicketNO);
 
             ddlMailNotification.Items.Clear();
             ddlMailNotification.Items.Insert(ddlMailNotification.Items.Count, new ListItem("Select", "0"));
@@ -357,15 +378,15 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
 
             lblTicketID.Text = Ticket[0].HeaderID.ToString();
-            lblDealerCode.Text = Ticket[0].Dealer.DealerCode;
-            lblDealerName.Text = Ticket[0].Dealer.DealerName;
+            lblDealer.Text = Ticket[0].Dealer.DealerCode + " " + Ticket[0].Dealer.DealerName;
+            lblSubject.Text = Ticket[0].Subject;
 
             lblCategory.Text = Ticket[0].Category.Category;
             lblSubCategory.Text = (Ticket[0].SubCategory == null) ? "" : Ticket[0].SubCategory.SubCategory;
             lblTicketType.Text = Ticket[0].Type.Type;
 
             lblSeverity.Text = (Ticket[0].Severity == null) ? "" : Ticket[0].Severity.Severity;
-            lblAge.Text = Ticket[0].age.ToString();
+            lblAge.Text = Ticket[0].age.ToString() + " " + Ticket[0].SLA.ToString();
             lblStatus.Text = Ticket[0].Status.Status;
 
             lblCreatedBy.Text = Ticket[0].CreatedBy.ContactName;
@@ -397,7 +418,9 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             PMessage Message = null;
 
             long LastMessageID = 0;
-            List<PForum> Forums = new BTickets().GetForumDetails(TicketNO);
+            //List<PForum> Forums = new BTickets().GetForumDetails(TicketNO);
+            PApiResult Result = new BTickets().GetForumDetails(TicketNO);
+            List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(Result.Data));
             foreach (PForum F in Forums)
             {
                 Message = new PMessage();
@@ -485,7 +508,9 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             PMessageTemp Message = null;
 
             long LastMessageID = 0;
-            List<PForum> Forums = new BTickets().GetForumDetails(TicketNO);
+            //List<PForum> Forums = new BTickets().GetForumDetails(TicketNO);
+            PApiResult Result = new BTickets().GetForumDetails(TicketNO);
+            List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(Result.Data));
             foreach (PForum F in Forums)
             {
                 Message = new PMessageTemp();
@@ -612,6 +637,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             else if (lbActions.Text == "Resolve")
             {
                 FillResolutionType();
+                FillAjaxEmployee();
                 MPE_Resolve.Show();
             }
             else if (lbActions.Text == "Cancel")
@@ -692,19 +718,18 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             string result = new BAPI().ApiPut("Task/Forum", Forum);
             if (Label2.Text == "Force Close")
             {
-                new BTickets().UpdateTicketForceClosedStatus(Forum.HeaderID, PSession.User.UserID);
+                result = new BAPI().ApiPut("Task/UpdateTicketForceClosedStatus", Forum);
             }
             if (Label2.Text == "Approve")
             {
-                new BTickets().UpdateTicketStatusApprove(Convert.ToInt32(ViewState["TicketNo"]), PSession.User.UserID, Forum.Message);
+                result = new BAPI().ApiPut("Task/UpdateTicketStatusApprove", Forum);
             }
             if (Label2.Text == "Reject")
             {
-                new BTickets().UpdateTicketRejectStatus(Convert.ToInt32(ViewState["TicketNo"]), PSession.User.UserID, Forum.Message);
+                result = new BAPI().ApiPut("Task/UpdateTicketRejectStatus", Forum);
             }
 
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-            //result = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(result).Data);
 
             if (Result.Status == PApplication.Failure)
             {
@@ -714,6 +739,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 MPE_Conversation.Show();
                 return;
             }
+
             if (Label2.Text == "Message" || Label2.Text == "Upload")
             {
                 if (ddlMailNotification.SelectedValue != "0")
@@ -721,9 +747,13 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     string CC = "";
                     if (ddlMailNotification.SelectedValue == "-1")
                     {
+                        PApiResult ResultTicketByID = new BTickets().GetTicketByID(Forum.HeaderID);
+                        List<PTicketHeader> TicketLts = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(ResultTicketByID.Data));
+                        //List<PTicketHeader> TicketLts = new BTickets().GetTicketByID(Convert.ToInt32(Forum.HeaderID));
                         List<string> EmailList = new List<string>();
                         var items = ddlMailNotification.Items;
-                        PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                        PUser userCreatedBy = new BUser().GetUserDetails(TicketLts[0].CreatedBy.UserID);
+                        PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
                         foreach (var item in items.Cast<ListItem>().Where(x => x.Value != "-1" && x.Value != "0"))
                         {
                             PUser TicketUsers = new BUser().GetUserDetails(Convert.ToInt32(item.Value));
@@ -736,37 +766,285 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                                 }
                             }
                         }
-                        string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketMessage.htm");
-                        messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
-                        messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
-                        messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                        string messageBody = messageBody = new EmailManager().GetMailNotificationTemplate("TicketMessage.htm");
+                        messageBody = messageBody.Replace("@@RequestedOn", TicketLts[0].CreatedOn.ToString());
+                        messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                        messageBody = messageBody.Replace("@@Description", TicketLts[0].Description);
+                        messageBody = messageBody.Replace("@@ContactName", TicketLts[0].ContactName);
+                        messageBody = messageBody.Replace("@@MobileNo", TicketLts[0].MobileNo);
+                        messageBody = messageBody.Replace("@@Category", TicketLts[0].Category.Category);
+                        messageBody = messageBody.Replace("@@Subcategory", TicketLts[0].SubCategory.SubCategory);
+                        messageBody = messageBody.Replace("@@Subject", TicketLts[0].Subject);
                         messageBody = messageBody.Replace("@@Message", Forum.Message);
                         messageBody = messageBody.Replace("@@TicketNo", Forum.HeaderID.ToString());
                         messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName);
-                        messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
+                        messageBody = messageBody.Replace("@@Status", TicketLts[0].Status.Status);
+                        messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
                         messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
-                        new EmailManager().MailSend(userCreatedBy.Mail, CC, Forum.HeaderID.ToString() + " Request for More Information", messageBody, Forum.HeaderID);
+
+                        List<PMessage> PMessages = new List<PMessage>();
+                        PMessage Message = null;
+
+                        long LastMessageID = 0;
+                        string Msg = "";
+                        //List<PForum> Forums = new BTickets().GetForumDetails(Forum.HeaderID);
+                        PApiResult ResultForums = new BTickets().GetForumDetails(Forum.HeaderID);
+                        List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForums.Data));
+                        foreach (PForum F in Forums)
+                        {
+                            Message = new PMessage();
+                            Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                            Msg += Message.Message;
+
+                            PMessages.Add(Message);
+                            LastMessageID = F.ID;
+                        }
+                        messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+                        new EmailManager().MailSend(userCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + CC, "AJAXOne-[Ticket No: " + Forum.HeaderID.ToString() + "] Message", messageBody, Forum.HeaderID);
                     }
                     else
                     {
-                        PUser UserCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                        PApiResult ResultTicketByID = new BTickets().GetTicketByID(Forum.HeaderID);
+                        List<PTicketHeader> TicketLts = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(ResultTicketByID.Data));
+                        //List<PTicketHeader> TicketLts = new BTickets().GetTicketByID(Convert.ToInt32(Forum.HeaderID));
+                        PUser UserCreatedBy = new BUser().GetUserDetails(TicketLts[0].CreatedBy.UserID);
+                        PDealer dealer = new BDealer().GetDealerByID(null, UserCreatedBy.ExternalReferenceID);
                         PUser TicketSelectedUsers = new BUser().GetUserDetails(Convert.ToInt32(ddlMailNotification.SelectedValue));
                         if (UserCreatedBy.Mail != TicketSelectedUsers.Mail)
                         {
                             CC = TicketSelectedUsers.Mail;
                         }
-                        string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketMessage.htm");
-                        messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
-                        messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
-                        messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                        if ((UserCreatedBy.Mail != PSession.User.Mail) && TicketSelectedUsers.Mail != PSession.User.Mail && ConfigurationManager.AppSettings["TaskMailBcc"] != PSession.User.Mail)
+                        {
+                            CC += (CC == "") ? PSession.User.Mail : "," + PSession.User.Mail;
+                        }
+                        string messageBody = messageBody = new EmailManager().GetMailNotificationTemplate("TicketMessage.htm");
+                        messageBody = messageBody.Replace("@@RequestedOn", TicketLts[0].CreatedOn.ToString());
+                        messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                        messageBody = messageBody.Replace("@@Description", TicketLts[0].Description);
+                        messageBody = messageBody.Replace("@@ContactName", TicketLts[0].ContactName);
+                        messageBody = messageBody.Replace("@@MobileNo", TicketLts[0].MobileNo);
+                        messageBody = messageBody.Replace("@@Category", TicketLts[0].Category.Category);
+                        messageBody = messageBody.Replace("@@Subcategory", TicketLts[0].SubCategory.SubCategory);
+                        messageBody = messageBody.Replace("@@Subject", TicketLts[0].Subject);
                         messageBody = messageBody.Replace("@@Message", Forum.Message);
                         messageBody = messageBody.Replace("@@TicketNo", Forum.HeaderID.ToString());
                         messageBody = messageBody.Replace("@@ToName", UserCreatedBy.ContactName);
-                        messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
+                        messageBody = messageBody.Replace("@@Status", TicketLts[0].Status.Status);
+                        messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
                         messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
-                        new EmailManager().MailSend(UserCreatedBy.Mail, CC, Forum.HeaderID.ToString() + " Request for More Information", messageBody, Forum.HeaderID);
+
+                        List<PMessage> PMessages = new List<PMessage>();
+                        PMessage Message = null;
+
+                        long LastMessageID = 0;
+                        string Msg = "";
+                        //List<PForum> Forums = new BTickets().GetForumDetails(Forum.HeaderID));
+                        PApiResult ResultForum = new BTickets().GetForumDetails(Forum.HeaderID);
+                        List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+                        foreach (PForum F in Forums)
+                        {
+                            Message = new PMessage();
+                            Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                            Msg += Message.Message;
+
+                            PMessages.Add(Message);
+                            LastMessageID = F.ID;
+                        }
+                        messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+                        new EmailManager().MailSend(UserCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + CC, "AJAXOne-[Ticket No: " + Forum.HeaderID.ToString() + "] Message", messageBody, Forum.HeaderID);
                     }
                 }
+            }
+            else if (Label2.Text == "Approve")
+            {
+                int? RequestedBy = null, Approver = null, CreatedBy = null;
+                DateTime? RequestedOn = null;
+                PApiResult ResultTicketByID = new BTickets().GetTicketByID(Forum.HeaderID);
+                List<PTicketHeader> TicketLts = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(ResultTicketByID.Data));
+                //List<PTicketHeader> TicketLts = new BTickets().GetTicketByID(Convert.ToInt32(Forum.HeaderID));
+                foreach (PTicketsApprovalDetails Item in TicketLts[0].ApprovalDetails)
+                {
+                    if (PSession.User.UserID == Item.Approver.UserID && Item.InActive == false)
+                    {
+                        RequestedBy = Item.RequestedBy.UserID;
+                        RequestedOn = Item.RequestedOn;
+                        Approver = Item.Approver.UserID;
+                    }
+                }
+                CreatedBy = TicketLts[0].CreatedBy.UserID;
+
+                string messageBody = "";
+                PUser UserApprovar = new BUser().GetUserDetails(Convert.ToInt64(Approver));
+                PUser userCreatedBy = new BUser().GetUserDetails(Convert.ToInt64(CreatedBy));
+                PUser userRequester = new BUser().GetUserDetails(Convert.ToInt64(RequestedBy));
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketApproved.htm");
+                messageBody = messageBody.Replace("@@TicketNo", TicketLts[0].HeaderID.ToString());
+                messageBody = messageBody.Replace("@@ApproverName", UserApprovar.ContactName);
+                messageBody = messageBody.Replace("@@RequestedByName", userRequester.ContactName);
+                messageBody = messageBody.Replace("@@CreatedByName", userCreatedBy.ContactName);
+                messageBody = messageBody.Replace("@@RequestedOn", TicketLts[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", TicketLts[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", TicketLts[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", TicketLts[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", TicketLts[0].Subject);
+                messageBody = messageBody.Replace("@@Description", TicketLts[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", TicketLts[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", TicketLts[0].MobileNo);
+                messageBody = messageBody.Replace("@@ApprovalRequestedDate", RequestedOn.ToString());
+                messageBody = messageBody.Replace("@@ApprovedDate", DateTime.Now.ToString());
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@Status", TicketLts[0].Status.Status);
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+
+                List<PMessage> PMessages = new List<PMessage>();
+                PMessage Message = null;
+
+                long LastMessageID = 0;
+                string Msg = "";
+                //List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(TicketLts[0].HeaderID.ToString()));
+                PApiResult ResultForum = new BTickets().GetForumDetails(TicketLts[0].HeaderID);
+                List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+                foreach (PForum F in Forums)
+                {
+                    Message = new PMessage();
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                    Msg += Message.Message;
+
+                    PMessages.Add(Message);
+                    LastMessageID = F.ID;
+                }
+                messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+                new EmailManager().MailSend(userRequester.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userCreatedBy.Mail + "," + UserApprovar.Mail, "AJAXOne-[Ticket No: " + TicketLts[0].HeaderID.ToString() + "] Approved", messageBody, Convert.ToInt64(TicketLts[0].HeaderID.ToString()));
+            }
+            else if (Label2.Text == "Reject")
+            {
+                int? RequestedBy = null, Approver = null, CreatedBy = null;
+                DateTime? RequestedOn = null;
+                PApiResult ResultTicketByID = new BTickets().GetTicketByID(Forum.HeaderID);
+                List<PTicketHeader> TicketLts = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(ResultTicketByID.Data));
+                //List<PTicketHeader> TicketLts = new BTickets().GetTicketByID(Convert.ToInt32(Forum.HeaderID));
+                foreach (PTicketsApprovalDetails Item in TicketLts[0].ApprovalDetails)
+                {
+                    if (PSession.User.UserID == Item.Approver.UserID && Item.InActive == false)
+                    {
+                        RequestedBy = Item.RequestedBy.UserID;
+                        RequestedOn = Item.RequestedOn;
+                        Approver = Item.Approver.UserID;
+                    }
+                }
+                CreatedBy = TicketLts[0].CreatedBy.UserID;
+
+                string messageBody = "";
+                PUser UserApprovar = new BUser().GetUserDetails(Convert.ToInt64(Approver));
+                PUser userCreatedBy = new BUser().GetUserDetails(Convert.ToInt64(CreatedBy));
+                PUser userRequester = new BUser().GetUserDetails(Convert.ToInt64(RequestedBy));
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketRejected.htm");
+                messageBody = messageBody.Replace("@@TicketNo", TicketLts[0].HeaderID.ToString());
+                messageBody = messageBody.Replace("@@ApproverName", UserApprovar.ContactName);
+                messageBody = messageBody.Replace("@@RequestedByName", userRequester.ContactName);
+                messageBody = messageBody.Replace("@@CreatedByName", userCreatedBy.ContactName);
+                messageBody = messageBody.Replace("@@RequestedOn", TicketLts[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", TicketLts[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", TicketLts[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", TicketLts[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", TicketLts[0].Subject);
+                messageBody = messageBody.Replace("@@Description", TicketLts[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", TicketLts[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", TicketLts[0].MobileNo);
+                messageBody = messageBody.Replace("@@ApprovalRequestedDate", RequestedOn.ToString());
+                messageBody = messageBody.Replace("@@ApprovedDate", DateTime.Now.ToString());
+                messageBody = messageBody.Replace("@@ReasonForRejection", Forum.Message);
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@Status", TicketLts[0].Status.Status);
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+
+                List<PMessage> PMessages = new List<PMessage>();
+                PMessage Message = null;
+
+                long LastMessageID = 0;
+                string Msg = "";
+                //List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(TicketLts[0].HeaderID.ToString()));
+                PApiResult ResultForum = new BTickets().GetForumDetails(TicketLts[0].HeaderID);
+                List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+                foreach (PForum F in Forums)
+                {
+                    Message = new PMessage();
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                    Msg += Message.Message;
+
+                    PMessages.Add(Message);
+                    LastMessageID = F.ID;
+                }
+                messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+                new EmailManager().MailSend(userRequester.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userCreatedBy.Mail + "," + UserApprovar.Mail, "AJAXOne-[Ticket No: " + TicketLts[0].HeaderID.ToString() + "] Rejected", messageBody, Convert.ToInt64(TicketLts[0].HeaderID.ToString()));
+            }
+            else if (Label2.Text == "Force Close")
+            {
+                string messageBody = "";
+                PApiResult ResultTicketByID = new BTickets().GetTicketByID(Forum.HeaderID);
+                List<PTicketHeader> TicketLts = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(ResultTicketByID.Data));
+                //List<PTicketHeader> TicketLts = new BTickets().GetTicketByID(Convert.ToInt32(Forum.HeaderID));
+                PUser userCreatedBy = new BUser().GetUserDetails(TicketLts[0].CreatedBy.UserID);
+                PUser userForceclosedBy = new BUser().GetUserDetails(Convert.ToInt64(PSession.User.UserID));
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+
+                string CC = "";
+                foreach (PTicketItem TktDet in TicketLts[0].TicketItems)
+                {
+                    PUser TicketUsersAssignedTo = new BUser().GetUserDetails(Convert.ToInt32(TktDet.AssignedTo.UserID));
+                    if (!CC.Contains(TicketUsersAssignedTo.Mail))
+                    {
+                        CC = (CC == "") ? TicketUsersAssignedTo.Mail : "," + TicketUsersAssignedTo.Mail;
+                    }
+                    PUser TicketUsersAssignedBy = new BUser().GetUserDetails(Convert.ToInt32(TktDet.AssignedBy.UserID));
+                    if (!CC.Contains(TicketUsersAssignedBy.Mail))
+                    {
+                        CC = (CC == "") ? TicketUsersAssignedBy.Mail : "," + TicketUsersAssignedBy.Mail;
+                    }
+                }
+
+
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketForceclose.htm");
+                messageBody = messageBody.Replace("@@TicketNo", TicketLts[0].HeaderID.ToString());
+                messageBody = messageBody.Replace("@@RequestedOn", TicketLts[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", TicketLts[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", TicketLts[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", TicketLts[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", TicketLts[0].Subject);
+                messageBody = messageBody.Replace("@@Description", TicketLts[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", TicketLts[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", TicketLts[0].MobileNo);
+                messageBody = messageBody.Replace("@@ToName", userForceclosedBy.ContactName);
+                messageBody = messageBody.Replace("@@Message", Forum.Message);
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@Status", TicketLts[0].Status.Status);
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+
+                List<PMessage> PMessages = new List<PMessage>();
+                PMessage Message = null;
+
+                long LastMessageID = 0;
+                string Msg = "";
+                //List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(TicketLts[0].HeaderID.ToString()));
+                PApiResult ResultForum = new BTickets().GetForumDetails(TicketLts[0].HeaderID);
+                List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+                foreach (PForum F in Forums)
+                {
+                    Message = new PMessage();
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                    Msg += Message.Message;
+
+                    PMessages.Add(Message);
+                    LastMessageID = F.ID;
+                }
+                messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+                new EmailManager().MailSend(userForceclosedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + CC, "AJAXOne-[Ticket No: " + TicketLts[0].HeaderID.ToString() + "] ForceClosed", messageBody, Convert.ToInt64(TicketLts[0].HeaderID.ToString()));
             }
 
             FillTickets(Forum.HeaderID);
@@ -897,40 +1175,47 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             FillTickets(TicketNo);
             FillChat(TicketNo);
             FillChatTemp(TicketNo);
-            string CC = "";
-            List<string> EmailList = new List<string>();
-            var items = ddlMailNotification.Items;
+
+            string messageBody = "";
             PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
             PUser userAssignTo = new BUser().GetUserDetails(Convert.ToInt32(ddlAssignedTo.SelectedValue));
-            foreach (var item in items.Cast<ListItem>().Where(x => x.Value != "-1" && x.Value != "0"))
-            {
-                PUser TicketUsers = new BUser().GetUserDetails(Convert.ToInt32(item.Value));
-                if (!EmailList.Contains(TicketUsers.Mail))
-                {
-                    if (userCreatedBy.Mail != TicketUsers.Mail && PSession.User.Mail != TicketUsers.Mail && userAssignTo.Mail != TicketUsers.Mail)
-                    {
-                        EmailList.Add(TicketUsers.Mail);
-                        CC = (CC == "") ? TicketUsers.Mail : "," + TicketUsers.Mail;
-                    }
-                }
-            }
-            string messageBody = "";
-            messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
-            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+            PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+            messageBody = new EmailManager().GetMailNotificationTemplate("TicketAssign.htm");
             messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
-            messageBody = messageBody.Replace("@@AssignedTo", userAssignTo.ContactName);
-            messageBody = messageBody.Replace("@@AssignedOn", DateTime.Now.ToString());
             messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
-            messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+            messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
             messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
-            messageBody = messageBody.Replace("@@Severity", ddlSeverity.SelectedItem.Text);
-            messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
-            messageBody = messageBody.Replace("@@Category", ddlCategory.SelectedItem.Text);
-            messageBody = messageBody.Replace("@@Subcategory", ddlSubcategory.SelectedItem.Text);
+            messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+            messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+            messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
             messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
-            messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName + "," + userAssignTo.ContactName);
-            messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-            new EmailManager().MailSend(userCreatedBy.Mail + "," + userAssignTo.Mail, CC, PSession.User.Mail, "New Ticket Assignment " + TaskItem.HeaderID, messageBody, TaskItem.HeaderID);
+            messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+            messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+            messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName);
+            messageBody = messageBody.Replace("@@AssignedTo", userAssignTo.ContactName);
+            messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+            messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
+            messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+
+            List<PMessage> PMessages = new List<PMessage>();
+            PMessage Message = null;
+
+            long LastMessageID = 0;
+            string Msg = "";
+            //List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(Ticket[0].HeaderID.ToString()));
+            PApiResult ResultForum = new BTickets().GetForumDetails(Ticket[0].HeaderID);
+            List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+            foreach (PForum F in Forums)
+            {
+                Message = new PMessage();
+                Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                Msg += Message.Message;
+
+                PMessages.Add(Message);
+                LastMessageID = F.ID;
+            }
+            messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+            new EmailManager().MailSend(userCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + PSession.User.Mail + "," + userAssignTo.Mail, "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] Assigned", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
             ClearField();
             btnAssign.Visible = false;
             MPE_AssignTo.Hide();
@@ -973,8 +1258,15 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             {
                 Approver = Convert.ToInt32(ddlapprovar.SelectedValue);
             }
-            int success = new BTickets().insertTicketApprovalDetails(PSession.User.UserID, Convert.ToInt32(ViewState["TicketNo"]), Approver);
-            if (success == 0)
+            PTaskItem_Insert Item = new PTaskItem_Insert();
+            Item.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
+            Item.AssignedTo = Approver;
+
+            //int success = new BTickets().insertTicketApprovalDetails(PSession.User.UserID, Convert.ToInt32(ViewState["TicketNo"]), Approver);
+            string result = new BAPI().ApiPut("Task/insertTicketApprovalDetails", Item);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+            if (Result.Status == PApplication.Failure)
             {
                 lblSendApproval.Text = "Ticket No " + Convert.ToInt32(ViewState["TicketNo"]) + "  is not successfully updated.";
                 lblSendApproval.ForeColor = Color.Red;
@@ -992,23 +1284,50 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 FillTickets(TicketNo);
                 FillChat(TicketNo);
                 FillChatTemp(TicketNo);
-                PUser UserApproval = new BUser().GetUsers(Convert.ToInt32(ddlapprovar.SelectedValue), "", null, "", null, null, null, null, null)[0];
-                //  PEmployee EmployeeApproval = new BEmployees().GetEmployeeListJohn(Convert.ToInt32(ddlapprovar.SelectedValue), null, "", "", "")[0];
 
-                string messageBody = messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketRequestForApproval.htm");
-
-                messageBody = messageBody.Replace("@@RequestedBy", PSession.User.ContactName);
-                messageBody = messageBody.Replace("@@TicketNo", Convert.ToInt32(ViewState["TicketNo"]).ToString());
-                messageBody = messageBody.Replace("@@ToName", UserApproval.ContactName);
+                string messageBody = "";
+                PUser UserApprovar = new BUser().GetUserDetails(Convert.ToInt32(ddlapprovar.SelectedValue));
+                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                PUser userRequester = new BUser().GetUserDetails(PSession.User.UserID);
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketApproval.htm");
+                messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
+                messageBody = messageBody.Replace("@@ApproverName", UserApprovar.ContactName);
+                messageBody = messageBody.Replace("@@CreatedByName", userCreatedBy.ContactName);
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
                 messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
                 messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
-                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
                 messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
-                messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                messageBody = messageBody.Replace("@@ApprovalRequester", userRequester.ContactName);
+                messageBody = messageBody.Replace("@@ApprovalDueDate", DateTime.Now.AddDays(10).ToString());
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
                 messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
-                PUser user = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
-                new EmailManager().MailSend(UserApproval.Mail, user.Mail, "New Ticket " + Convert.ToInt32(ViewState["TicketNo"]).ToString(), messageBody, Convert.ToInt32(ViewState["TicketNo"]));
+
+                List<PMessage> PMessages = new List<PMessage>();
+                PMessage Message = null;
+
+                long LastMessageID = 0;
+                string Msg = "";
+                //List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(Ticket[0].HeaderID.ToString()));
+                PApiResult ResultForum = new BTickets().GetForumDetails(Ticket[0].HeaderID);
+                List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+                foreach (PForum F in Forums)
+                {
+                    Message = new PMessage();
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                    Msg += Message.Message;
+
+                    PMessages.Add(Message);
+                    LastMessageID = F.ID;
+                }
+                messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+                new EmailManager().MailSend(UserApprovar.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + PSession.User.Mail + "," + userCreatedBy.Mail, "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Request for Approval / Reject", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
             }
         }
         void InProgress()
@@ -1021,11 +1340,16 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 {
                     TaskItem.HeaderID = ticketItem.HeaderID;
                     TaskItem.ItemID = ticketItem.ItemID;
+                    TaskItem.StatusId = 3;
                 }
             }
-            int Success = new BTickets().UpdateTicketStatus(TaskItem.ItemID, 3);
 
-            if (Success != 0)
+            //int Success = new BTickets().UpdateTicketStatus(TaskItem.ItemID, 3);
+
+            string result = new BAPI().ApiPut("Task/UpdateTicketStatus", TaskItem);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+            if (Result.Status == PApplication.Success)
             {
                 lblMessage.Text = "Ticket No " + TaskItem.HeaderID + " is successfully updated.";
                 lblMessage.ForeColor = Color.Green;
@@ -1034,6 +1358,47 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 FillTickets(TicketNo);
                 FillChat(TicketNo);
                 FillChatTemp(TicketNo);
+
+                string messageBody = "";
+                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                PUser userAssignTo = new BUser().GetUserDetails(Convert.ToInt64(PSession.User.UserID));
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketInprogress.htm");
+                messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName);
+                messageBody = messageBody.Replace("@@AssignedTo", userAssignTo.ContactName);
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+
+                List<PMessage> PMessages = new List<PMessage>();
+                PMessage Message = null;
+
+                long LastMessageID = 0;
+                string Msg = "";
+                //List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(Ticket[0].HeaderID.ToString()));
+                PApiResult ResultForum = new BTickets().GetForumDetails(Ticket[0].HeaderID);
+                List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+                foreach (PForum F in Forums)
+                {
+                    Message = new PMessage();
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                    Msg += Message.Message;
+
+                    PMessages.Add(Message);
+                    LastMessageID = F.ID;
+                }
+                messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+                new EmailManager().MailSend(userCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userAssignTo.Mail, "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] is InProgress", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
             }
         }
         void Cancel()
@@ -1047,8 +1412,9 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     TaskItem.ItemID = ticketItem.ItemID;
                 }
             }
-            int Success = new BTickets().UpdateTicketCancelStatus(TaskItem.HeaderID, TaskItem.ItemID, PSession.User.UserID);
-            if (Success != 0)
+            string result = new BAPI().ApiPut("Task/UpdateTicketCancelStatus", TaskItem);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+            if (Result.Status == PApplication.Success)
             {
                 lblMessage.Text = "Ticket No " + TaskItem.HeaderID + " is successfully updated.";
                 lblMessage.ForeColor = Color.Green;
@@ -1057,14 +1423,66 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 FillTickets(TicketNo);
                 FillChat(TicketNo);
                 FillChatTemp(TicketNo);
+
+                string messageBody = "";
+                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                PUser userCancelledBy = new BUser().GetUserDetails(Convert.ToInt64(PSession.User.UserID));
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketCancel.htm");
+                messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName);
+                messageBody = messageBody.Replace("@@Message", "This ticket to be Cancelled");
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+
+                List<PMessage> PMessages = new List<PMessage>();
+                PMessage Message = null;
+
+                long LastMessageID = 0;
+                string Msg = "";
+                //List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(Ticket[0].HeaderID.ToString()));
+                PApiResult ResultForum = new BTickets().GetForumDetails(Ticket[0].HeaderID);
+                List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+                foreach (PForum F in Forums)
+                {
+                    Message = new PMessage();
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                    Msg += Message.Message;
+
+                    PMessages.Add(Message);
+                    LastMessageID = F.ID;
+                }
+                messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+                new EmailManager().MailSend(userCreatedBy.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userCancelledBy.Mail, "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Cancelled", messageBody, Convert.ToInt64(Ticket[0].HeaderID.ToString()));
+            }
+            else
+            {
+                lblMessage.Text = Result.Message.ToString();
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Visible = true;
+                return;
             }
         }
         void Close()
         {
             if (Ticket[0].Status.StatusID == 4)
             {
-                int Success = new BTickets().UpdateTicketClosedStatus(Ticket[0].HeaderID, PSession.User.UserID);
-                if (Success != 0)
+                //int Success = new BTickets().UpdateTicketClosedStatus(Ticket[0].HeaderID, PSession.User.UserID);
+                string result = new BAPI().ApiPut("Task/UpdateTicketClosedStatus", Ticket[0].HeaderID);
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+                if (Result.Status == PApplication.Success)
                 {
                     lblMessage.Text = "Ticket No " + Ticket[0].HeaderID + " is successfully updated.";
                     lblMessage.ForeColor = Color.Green;
@@ -1080,8 +1498,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         {
             if (Ticket[0].Status.StatusID == 4)
             {
-                int Success = new BTickets().UpdateTicketReopenStatus(Ticket[0].HeaderID, PSession.User.UserID);
-                if (Success != 0)
+                //int Success = new BTickets().UpdateTicketReopenStatus(Ticket[0].HeaderID, PSession.User.UserID);
+                string result = new BAPI().ApiPut("Task/UpdateTicketReopenStatus", Ticket[0].HeaderID);
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+                if (Result.Status == PApplication.Success)
                 {
                     lblMessage.Text = "Ticket No " + Ticket[0].HeaderID + " is successfully updated.";
                     lblMessage.ForeColor = Color.Green;
@@ -1117,22 +1538,43 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                         }
                     }
                     string messageBody = "";
-                    messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketAssign.htm");
+                    PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                    messageBody = new EmailManager().GetMailNotificationTemplate("TicketReopen.htm");
                     messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
                     messageBody = messageBody.Replace("@@TicketNo", Ticket[0].HeaderID.ToString());
-                    messageBody = messageBody.Replace("@@AssignedTo", userAssignTo.ContactName);
-                    messageBody = messageBody.Replace("@@AssignedOn", DateTime.Now.ToString());
                     messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
-                    messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                    messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
                     messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
-                    messageBody = messageBody.Replace("@@Severity", Ticket[0].Severity.Severity);
-                    messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
                     messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
                     messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                    messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
                     messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
-                    messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName + "," + userAssignTo.ContactName);
+                    messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                    messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
+                    messageBody = messageBody.Replace("@@ReopenDate", DateTime.Now.ToString());
+                    messageBody = messageBody.Replace("@@AssignedTo", userAssignTo.ContactName);
                     messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-                    new EmailManager().MailSend(userCreatedBy.Mail + "," + userAssignTo.Mail, CC, PSession.User.Mail, "New Ticket Assignment " + Ticket[0].HeaderID, messageBody, Ticket[0].HeaderID);
+                    messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
+
+                    List<PMessage> PMessages = new List<PMessage>();
+                    PMessage Message = null;
+
+                    long LastMessageID = 0;
+                    string Msg = "";
+                    //List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(Ticket[0].HeaderID.ToString()));
+                    PApiResult ResultForum = new BTickets().GetForumDetails(Ticket[0].HeaderID);
+                    List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+                    foreach (PForum F in Forums)
+                    {
+                        Message = new PMessage();
+                        Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                        Msg += Message.Message;
+
+                        PMessages.Add(Message);
+                        LastMessageID = F.ID;
+                    }
+                    messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+                    new EmailManager().MailSend(userCreatedBy.Mail + "," + userAssignTo.Mail, "", ConfigurationManager.AppSettings["TaskMailBcc"] + "," + PSession.User.Mail + "," + CC, "AJAXOne-[Ticket No: " + Ticket[0].HeaderID.ToString() + "] Re-Opened", messageBody, Ticket[0].HeaderID);
                 }
             }
         }
@@ -1159,6 +1601,8 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             TaskItem.Resolution = txtResolution.Text;
             TaskItem.SupportType = ddlResSupportType.SelectedValue;
 
+
+
             string result = new BAPI().ApiPut("Task/UpdateTicketResolvedStatus", TaskItem);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
@@ -1167,7 +1611,21 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lblMessage.Text = Result.Message;
                 return;
             }
-
+            else
+            {
+                if (fuResolve.PostedFile != null)
+                {
+                    if (AttchedFile.Count == 1)
+                    {
+                        PForum_Insert Forum = new PForum_Insert();
+                        Forum.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
+                        Forum.Message = AttchedFile[0].FileName;
+                        Forum.AttchedFile = AttchedFile[0];
+                        new BAPI().ApiPut("Task/Forum", Forum);
+                        PApiResult Result1 = JsonConvert.DeserializeObject<PApiResult>(result);
+                    }
+                }
+            }
 
             lblMessage.Text = "Ticket No " + TaskItem.HeaderID + " is successfully updated.";
             lblMessage.ForeColor = Color.Green;
@@ -1180,32 +1638,53 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
 
             if (Ticket[0].Status.StatusID == 4)
             {
-                string CC = "";
-                List<string> EmailList = new List<string>();
-                var items = ddlMailNotification.Items;
-                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
-                foreach (var item in items.Cast<ListItem>().Where(x => x.Value != "-1" && x.Value != "0"))
-                {
-                    PUser TicketUsers = new BUser().GetUserDetails(Convert.ToInt32(item.Value));
-                    if (!EmailList.Contains(TicketUsers.Mail))
-                    {
-                        if (userCreatedBy.Mail != TicketUsers.Mail && PSession.User.Mail != TicketUsers.Mail)
-                        {
-                            EmailList.Add(TicketUsers.Mail);
-                            CC = (CC == "") ? TicketUsers.Mail : "," + TicketUsers.Mail;
-                        }
-                    }
-                }
                 string messageBody = "";
-                messageBody = new EmailManager().GetFileContent(ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/TicketResolved.htm");
-                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+                PUser userCreatedBy = new BUser().GetUserDetails(Ticket[0].CreatedBy.UserID);
+                PUser userAssignTo = new BUser().GetUserDetails(PSession.User.UserID);
+                PDealer dealer = new BDealer().GetDealerByID(null, userCreatedBy.ExternalReferenceID);
+                messageBody = new EmailManager().GetMailNotificationTemplate("TicketResolved.htm");
                 messageBody = messageBody.Replace("@@TicketNo", TaskItem.HeaderID.ToString());
-                messageBody = messageBody.Replace("@@ResolvedOn", DateTime.Now.ToString());
-                messageBody = messageBody.Replace("@@ResolvedBy", PSession.User.ContactName);
-                messageBody = messageBody.Replace("@@Resolution", TaskItem.Resolution);
+                messageBody = messageBody.Replace("@@RequestedOn", Ticket[0].CreatedOn.ToString());
+                messageBody = messageBody.Replace("@@DealerName", dealer.DealerCode + " - " + dealer.ContactName);
+                messageBody = messageBody.Replace("@@TicketType", Ticket[0].Type.Type);
+                messageBody = messageBody.Replace("@@Category", Ticket[0].Category.Category);
+                messageBody = messageBody.Replace("@@Subcategory", Ticket[0].SubCategory.SubCategory);
+                messageBody = messageBody.Replace("@@Subject", Ticket[0].Subject);
+                messageBody = messageBody.Replace("@@Description", Ticket[0].Description);
+                messageBody = messageBody.Replace("@@ContactName", Ticket[0].ContactName);
+                messageBody = messageBody.Replace("@@MobileNo", Ticket[0].MobileNo);
                 messageBody = messageBody.Replace("@@ToName", userCreatedBy.ContactName);
-                messageBody = messageBody.Replace("@@fromName", PSession.User.ContactName);
-                new EmailManager().MailSend(userCreatedBy.Mail, CC, PSession.User.Mail, TaskItem.HeaderID + " Resolution: Ticket Successfully Resolved", messageBody, TaskItem.HeaderID);
+                messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
+                messageBody = messageBody.Replace("@@Status", Ticket[0].Status.Status);
+                messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
+
+                string CC = string.Empty;
+                int mailindex = 0;
+                foreach(PUser user in AjaxEmployee)
+                {
+                    CC += (mailindex==0)? user.Mail : "," + user.Mail;
+                    mailindex += 1;
+                }
+
+                List<PMessage> PMessages = new List<PMessage>();
+                PMessage Message = null;
+
+                long LastMessageID = 0;
+                string Msg = "";
+                //List<PForum> Forums = new BTickets().GetForumDetails(Convert.ToInt32(Ticket[0].HeaderID.ToString()));
+                PApiResult ResultForum = new BTickets().GetForumDetails(Ticket[0].HeaderID);
+                List<PForum> Forums = JsonConvert.DeserializeObject<List<PForum>>(JsonConvert.SerializeObject(ResultForum.Data));
+                foreach (PForum F in Forums)
+                {
+                    Message = new PMessage();
+                    Message.Message = "<tr><td style='background-color: white;width:150px;'>" + F.FromUser.ContactName + "</td><td style='background-color: white;width:145px;'>" + F.CreatedOn + "</td><td style='background-color: white;color:blue'>" + F.Message + "</td></tr>";
+                    Msg += Message.Message;
+
+                    PMessages.Add(Message);
+                    LastMessageID = F.ID;
+                }
+                messageBody = messageBody.Replace("@@Msg", "<table border='1' cellspacing='0' width='100%'><tr><th style='background-color: #696767;color: white;'>From</th><th style='background-color: #696767;color: white;'>Date</th><th style='background-color: #696767;color: white;'>Response</th style='background-color: #696767;color: white;'></tr>" + Msg + "</table>");
+                new EmailManager().MailSend(userCreatedBy.Mail, CC, ConfigurationManager.AppSettings["TaskMailBcc"] + "," + userAssignTo.Mail, "AJAXOne-[Ticket No: " + TaskItem.HeaderID.ToString() + "] Resolved", messageBody, Convert.ToInt64(TaskItem.HeaderID.ToString()));
             }
             ClearFieldResolve();
         }
@@ -1240,16 +1719,30 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             txtEffort.Text = string.Empty;
             txtResolution.Text = string.Empty;
             ddlResolutionType.SelectedValue = "0";
+            ddlAjaxEmployee.SelectedValue = "0";
             gvResolveNewFileAttached.DataSource = null;
             gvResolveNewFileAttached.DataBind();
+            gvAjaxEmployee.DataSource = null;
+            gvAjaxEmployee.DataBind();
+            AjaxEmployee = null;
+            if (AttchedFile.Count > 0)
+                AttchedFile.RemoveAt(0);
         }
         void FillResolutionType()
         {
             ddlResolutionType.DataTextField = "ResolutionType";
             ddlResolutionType.DataValueField = "ResolutionTypeID";
-            ddlResolutionType.DataSource = new BTicketResolutionType().getTicketResolutionType(null, null);
+            ddlResolutionType.DataSource = JsonConvert.DeserializeObject<List<PResolutionType>>(JsonConvert.SerializeObject(new BTickets().getTicketResolutionType(null, null).Data));
             ddlResolutionType.DataBind();
             ddlResolutionType.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        void FillAjaxEmployee()
+        {
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, 53, true, null, null, null);
+            new DDLBind(ddlAjaxEmployee, user, "ContactName", "UserID");
+            gvAjaxEmployee.DataSource = null;
+            gvAjaxEmployee.DataBind();
+            AjaxEmployee = new List<PUser>();
         }
         protected void ResRemove_Click(object sender, EventArgs e)
         {
@@ -1460,6 +1953,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             {
                 lbtnForceclose.Visible = false;
             }
+            if (Ticket[0].Status.StatusID != 1)
+            {
+                lbtnSendApproval.Visible = false;
+                lbtnResendApproval.Visible = false;
+            }
         }
 
         protected void btnUpdateHeaderInfo_Click(object sender, EventArgs e)
@@ -1479,8 +1977,10 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             TaskHeader.SeverityID = Convert.ToInt32(ddlEditSeverity.SelectedValue);
             TaskHeader.Subject = txtEditSubject.Text.Trim();
             TaskHeader.Description = txtEditDescription.Text.Trim();
-            long success = new BTickets().UpdateHeaderInfo(TaskHeader, Convert.ToInt32(PSession.User.UserID));
-            if (success == 0)
+            string result = new BAPI().ApiPut("Task/UpdateHeaderInfo", TaskHeader);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+            if (Result.Status == PApplication.Failure)
             {
                 lblMessageHeaderEdit.Text = "Ticket Not Updated successfully.";
                 lblMessageHeaderEdit.ForeColor = Color.Red;
@@ -1488,15 +1988,17 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 MPE_EditHeaderInfo.Show();
                 return;
             }
-            lblMessage.Text = "Ticket No " + Convert.ToInt32(ViewState["TicketNo"]) + " is successfully updated.";
-            lblMessage.ForeColor = Color.Green;
-            lblMessage.Visible = true;
-            int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
-            FillTickets(TicketNo);
-            FillChat(TicketNo);
-            FillChatTemp(TicketNo);
+            else
+            {
+                lblMessage.Text = "Ticket No " + Convert.ToInt32(ViewState["TicketNo"]) + " is successfully updated.";
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Visible = true;
+                int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
+                FillTickets(TicketNo);
+                FillChat(TicketNo);
+                FillChatTemp(TicketNo);
+            }
         }
-
         protected void ddlEditCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillEditSubCategory();
@@ -1520,6 +2022,81 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
             txtEditSubject.Text = Ticket[0].Subject.ToString();
             txtEditDescription.Text = Ticket[0].Description.ToString();
+        }
+
+        protected void ddlAssignDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? DealerID = null;
+            DealerID = (ddlAssignDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlAssignDealer.SelectedValue);
+            new BDMS_Dealer().GetDealerDepartmentDDL(ddlAssignDepartment, null, null);
+            ddlAssignDepartment.SelectedValue = PSession.User.Department.DealerDepartmentID.ToString();
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, null, null);
+            new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
+            ddlAssignDepartment_SelectedIndexChanged(null, null);
+            MPE_AssignTo.Show();
+        }
+
+        protected void ddlAssignDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? DealerID = null, DepartmentID = null;
+            DealerID = (ddlAssignDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlAssignDealer.SelectedValue);
+            DepartmentID = (ddlAssignDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlAssignDepartment.SelectedValue);
+            List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DepartmentID, null);
+            new DDLBind(ddlAssignedTo, user, "ContactName", "UserID");
+            MPE_AssignTo.Show();
+        }
+
+        protected void BtnAddAjaxEmployee_Click(object sender, EventArgs e)
+        {
+            lblResolve.ForeColor = Color.Red;
+            lblResolve.Visible = true;
+            if (ddlAjaxEmployee.SelectedValue == "0")
+            {
+                lblResolve.Text = "Please Add Ajax Employee...!";
+                MPE_Resolve.Show();
+                return;
+            }
+            if (AjaxEmployee.Any(item => item.UserID == Convert.ToInt32(ddlAjaxEmployee.SelectedValue)))
+            {
+                lblResolve.Text = "Ajax Employee Already Exist...!";
+                MPE_Resolve.Show();
+                return;
+            }
+            PUser User = new BUser().GetUserDetails(Convert.ToInt32(ddlAjaxEmployee.SelectedValue));
+            if (string.IsNullOrEmpty(User.Mail))
+            {
+                lblResolve.Text = "Mail ID Not Available...!";
+                MPE_Resolve.Show();
+                return;
+            }
+            AjaxEmployee.Add(User);
+            gvAjaxEmployee.DataSource = AjaxEmployee;
+            gvAjaxEmployee.DataBind();
+            MPE_Resolve.Show();
+        }
+
+        protected void lbDelete_Click(object sender, EventArgs e)
+        {
+            gvAjaxEmployee.DataSource = null;
+            gvAjaxEmployee.DataBind();
+
+            LinkButton lbDelete = (LinkButton)sender;
+            GridViewRow Grow = (GridViewRow)lbDelete.NamingContainer;
+            Label lblAjaxUserID = (Label)Grow.FindControl("lblAjaxUserID");
+            f:
+            int Index = 0;
+            foreach (PUser user in AjaxEmployee)
+            {
+                if (user.UserID.ToString() == lblAjaxUserID.Text)
+                {
+                    AjaxEmployee.RemoveAt(Index);
+                    goto f;
+                }
+                Index = Index + 1;
+            }
+            gvAjaxEmployee.DataSource = AjaxEmployee;
+            gvAjaxEmployee.DataBind();
+            MPE_Resolve.Show();
         }
     }
     class PMessage

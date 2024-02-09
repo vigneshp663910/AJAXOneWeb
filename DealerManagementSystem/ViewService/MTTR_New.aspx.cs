@@ -501,7 +501,9 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("MTTR1-Act Resp(Hour)");
             dt.Columns.Add("MTTR2-Actual Restored(Hour)");
 
-
+            dt.Columns.Add("Response (Hours)");
+            dt.Columns.Add("Resolution (Hours)");
+            dt.Columns.Add("Restore (Hours)");
 
             string CallOpenReason = "";
             string CallOpenReasonDetails = "";
@@ -636,6 +638,9 @@ namespace DealerManagementSystem.ViewService
                                                , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortTimeString()
                                                  , M.MTTR1H
                                                , M.MTTR2H
+                                               , M.Response
+                                               , M.Resolution
+                                               , M.Restore
                                                 );
 
                     i++;
@@ -947,6 +952,10 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("MTTR1-Act Resp(Hour)");
             dt.Columns.Add("MTTR2-Actual Restored(Hour)");
 
+            dt.Columns.Add("Response (Hours)");
+            dt.Columns.Add("Resolution (Hours)");
+            dt.Columns.Add("Restore (Hours)");
+
             int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
             int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
             string Division = "";
@@ -1029,6 +1038,9 @@ namespace DealerManagementSystem.ViewService
                         , M.ICTicket.RestoreDate == null ? "" : ((DateTime)M.ICTicket.RestoreDate).ToShortTimeString()
                             , M.MTTR1H
                         , M.MTTR2H
+                        , M.Response
+                                               , M.Resolution
+                                               , M.Restore
                         );
                 }
             }
@@ -1075,7 +1087,7 @@ namespace DealerManagementSystem.ViewService
             List<PDMS_ServiceTechnician> Technicians = new BDMS_Service().GetTechniciansByTicketID(ICTicketID);
             foreach (PDMS_ServiceTechnician t in Technicians)
             {
-                if (t.ServiceTechnicianWorkedDate != null)
+                if (t.ServiceTechnicianWorkedDate.Count != 0)
                 {
                     foreach (PDMS_ServiceTechnicianWorkedDate tw in t.ServiceTechnicianWorkedDate)
                     {
@@ -1109,23 +1121,27 @@ namespace DealerManagementSystem.ViewService
             {
                 if (t.ServiceTechnicianWorkedDate != null)
                 {
-                    foreach (PDMS_ServiceTechnicianWorkedDate tw in t.ServiceTechnicianWorkedDate)
+                    if (t.ServiceTechnicianWorkedDate.Count != 0)
                     {
-                        tech.Add(new Technician() 
-                        {                            
-                            Name = t.ContactName, 
-                            WorkedDate = tw.WorkedDate, 
-                            WorkedHours = tw.WorkedHours ,
-                            ICTicketID=tw.ICTicketID
-                        });
+                        foreach (PDMS_ServiceTechnicianWorkedDate tw in t.ServiceTechnicianWorkedDate)
+                        {
+                            tech.Add(new Technician()
+                            {
+                                Name = t.ContactName,
+                                WorkedDate = tw.WorkedDate,
+                                WorkedHours = tw.WorkedHours,
+                                ICTicketID = tw.ICTicketID
+                            });
+                        }
+                    }
+                    else
+                    {
+                        tech.Add(new Technician() { ICTicketID = t.ICTicketID, Name = t.ContactName });
                     }
                 }
                 else
                 {
-                    tech.Add(new Technician() {
-                        ICTicketID = t.ICTicketID,
-                        Name = t.ContactName 
-                    });
+                    tech.Add(new Technician() { ICTicketID = t.ICTicketID, Name = t.ContactName });
                 }
             }
             return tech;

@@ -88,16 +88,8 @@ namespace DealerManagementSystem.ViewProcurement
                 txtGrDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtGrDateTo.Text = DateTime.Now.ToShortDateString();
                 new DDLBind(ddlGrStatus, new BDMS_PurchaseOrder().GetGrStatus(null, null), "GrStatus", "GrStatusID");
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                 
+                    fillDealer(); 
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;

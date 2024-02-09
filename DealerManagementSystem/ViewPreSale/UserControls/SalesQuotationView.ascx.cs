@@ -6,8 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using SapIntegration;
+using System.Web.UI.WebControls; 
 using Newtonsoft.Json;
 using System.Globalization;
 using Microsoft.Reporting.WebForms;
@@ -2097,6 +2096,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnAddDiscount.Visible = false;
                 lbtnAddCustomerSingedQuotation.Visible = false;
             }
+
+            lbtnAddFollowUp.Visible = false;
         }
         protected void FillProduct(object sender, EventArgs e)
         {

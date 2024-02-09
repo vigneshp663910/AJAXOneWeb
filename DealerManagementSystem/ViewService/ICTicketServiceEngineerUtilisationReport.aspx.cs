@@ -63,16 +63,7 @@ namespace DealerManagementSystem.ViewService
             if (!IsPostBack)
             {
                 fillStatus();
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID, new BDealer().GetDealerList(null, PSession.User.ExternalReferenceID, "")[0].DID.ToString()));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+                fillDealer(); 
             }
         }
         void fillStatus()
@@ -151,7 +142,7 @@ namespace DealerManagementSystem.ViewService
             }
             catch (Exception e1)
             {
-                new FileLogger().LogMessage("DMS_WarrantyClaim", "fillClaim", e1);
+                new FileLogger().LogMessage("ICTicketServiceEngineerUtilisationReport", "fillICTicket", e1);
                 throw e1;
             }
         }

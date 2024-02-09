@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem
@@ -17,12 +19,12 @@ namespace DealerManagementSystem
         protected void Page_Load(object sender, EventArgs e)
         {
             CurrentPage = (BasePage)this.Page;
-           Boolean BDefaultPage = false;
+            Boolean BDefaultPage = false;
             lblPageName.Text = (string)Session["PageName"];
             Session["PageName"] = "";
             if (!IsPostBack)
             {
-                //lblQuality.Text = ConfigurationManager.AppSettings["IsQuality"];
+                lblServer.Text = "&nbsp;&nbsp;&nbsp;" + ConfigurationManager.AppSettings["Server"];
                 //var retrievedPerson = JSON.parse(localStorage.getItem('person'));
                 //var x = sessionStorage.getItem("test1");
                 //lblProjectTitle.Text = "&nbsp;";
@@ -31,10 +33,9 @@ namespace DealerManagementSystem
                     Response.Redirect(UIHelper.SessionFailureRedirectionPage);
                 }
 
-                 
 
-                if ((CurrentPage.ToString() == "ASP.home_aspx") || (CurrentPage.ToString() == "ASP.myprofile_aspx") || 
-                    (CurrentPage.ToString() == "ASP.aboutus_aspx") || (CurrentPage.ToString() == "ASP.account_changepassword_aspx")||
+                if ((CurrentPage.ToString() == "ASP.home_aspx") || (CurrentPage.ToString() == "ASP.myprofile_aspx") ||
+                    (CurrentPage.ToString() == "ASP.aboutus_aspx") || (CurrentPage.ToString() == "ASP.account_changepassword_aspx") ||
                     (CurrentPage.ToString() == "ASP.account_signout_aspx") || (CurrentPage.ToString() == "ASP.pdf_aspx") ||
                     (CurrentPage.ToString() == "ASP.help_help_aspx") || (CurrentPage.ToString() == "ASP.undercons_aspx") ||
                      (CurrentPage.ToString() == "ASP.help_helpdoc_aspx") ||
@@ -44,7 +45,7 @@ namespace DealerManagementSystem
                 }
 
                 if (!UIHelper.HasAccess((short)CurrentPage.SubModuleName) && !BDefaultPage)
-                { 
+                {
                     new BAPI().ApiGet("User/InsertUnauthorizedAccess?PageID=" + (short)CurrentPage.SubModuleName + "&PageName=" + CurrentPage.ToString());
 
                     if ((short)CurrentPage.SubModuleName != 0)
@@ -80,10 +81,11 @@ namespace DealerManagementSystem
                 MenuCon = MenuCon + " <li><a href='DMS_ContactUs.aspx' style='white-space: pre;'><img src='Ajax/ContactUsLogo.png'  width='17px' /></a></li>";
                 MenuCon = MenuCon + "</ul></li></ul>";
                 MenuNew.InnerHtml = MenuCon;
-                menu(); 
+                menu();
+                FillNotification();
             }
-            
-        } 
+
+        }
         //StringBuilder ReMenu(List<PSubModuleAccess> SMs, string SubModuleName, StringBuilder MenuDMS, [Optional] string MainMenu)
         //{
         //    List<PSubModuleAccess> SMsCount = SMs.Where(x => x.ParentMenu == SubModuleName).ToList();
@@ -296,6 +298,39 @@ namespace DealerManagementSystem
         private void Redirect(string pageName)
         {
             Response.Redirect(pageName);
+        }
+        private void FillNotification()
+        {
+            PApiResult Result = new PApiResult();
+            Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, null, null, null, PSession.User.UserID, false, DateTime.Now.ToString("yyyy-MM-dd"), null, null);
+            List<PMessageAnnouncementHeader> MsgList = JsonConvert.DeserializeObject<List<PMessageAnnouncementHeader>>(JsonConvert.SerializeObject(Result.Data));
+            NotificationCount.Visible = false;
+            //ChkReadMessage.Visible = false;
+            gvMessageAnnouncement.DataSource = null;
+            gvMessageAnnouncement.DataBind();
+            if (Result.RowCount > 0)
+            {
+                lblNotification.Text = Result.RowCount.ToString();
+                NotificationCount.Visible = true;
+                //ChkReadMessage.Visible = true;
+                gvMessageAnnouncement.DataSource = MsgList;
+                gvMessageAnnouncement.DataBind();
+            }
+        }
+        protected void BellClick_ServerClick(object sender, EventArgs e)
+        {
+            divbellMain.Visible = true;
+        }
+        protected void btnNotificationClose_ServerClick(object sender, EventArgs e)
+        {
+            divbellMain.Visible = false;
+        }
+        protected void lnkNotification_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblMessageAnnouncementId = (Label)gvRow.FindControl("lblMessageAnnouncementId");
+            Session["MessageAnnouncementId"] = lblMessageAnnouncementId.Text;
+            Response.Redirect("/ViewAdmin/MessageAnnouncement.aspx");
         }
     }
 }

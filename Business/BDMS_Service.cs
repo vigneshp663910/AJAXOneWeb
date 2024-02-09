@@ -1,8 +1,8 @@
 ﻿using DataAccess;
 using Microsoft.Reporting.WebForms;
+using Newtonsoft.Json;
 using Properties;
-using QRCoder;
-using SapIntegration;
+using QRCoder; 
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -461,6 +461,7 @@ namespace Business
                                 Item = Convert.ToInt32(dr["Item"]),
                                 Material = new PDMS_Material()
                                 {
+                                    MaterialID = Convert.ToInt32(dr["MaterialID"]),
                                     MaterialCode = Convert.ToString(dr["MaterialCode"]),
                                     MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
                                     IsMainServiceMaterial = dr["IsMainServiceMaterial"] == DBNull.Value ? false : Convert.ToBoolean(dr["IsMainServiceMaterial"]),
@@ -531,14 +532,14 @@ namespace Business
                                 },
                                 Material = new PDMS_Material()
                                 {
-                                    MaterialID = Convert.ToInt64(dr["MaterialID"]),
+                                    MaterialID = Convert.ToInt32(dr["MaterialID"]),
                                     MaterialCode = Convert.ToString(dr["MaterialCode"]),
                                     MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
                                     MaterialSerialNumber = Convert.ToString(dr["MaterialSN"]),
                                     MaterialGroup = Convert.ToString(dr["MaterialGroup"])
                                 },
 
-                                DefectiveMaterial = dr["DefectiveMaterialID"] == DBNull.Value ? null : new PDMS_Material() { MaterialID = Convert.ToInt64(dr["DefectiveMaterialID"]), MaterialCode = Convert.ToString(dr["DefectiveMaterialCode"]), MaterialDescription = Convert.ToString(dr["DefectiveMaterialDescription"]), MaterialSerialNumber = Convert.ToString(dr["DefectiveMaterialSN"]) },
+                                DefectiveMaterial = dr["DefectiveMaterialID"] == DBNull.Value ? null : new PDMS_Material() { MaterialID = Convert.ToInt32(dr["DefectiveMaterialID"]), MaterialCode = Convert.ToString(dr["DefectiveMaterialCode"]), MaterialDescription = Convert.ToString(dr["DefectiveMaterialDescription"]), MaterialSerialNumber = Convert.ToString(dr["DefectiveMaterialSN"]) },
 
                                 Qty = Convert.ToInt32(dr["Qty"]),
                                 AvailableQty = Convert.ToInt32(dr["AvailableQty"]),
@@ -1066,23 +1067,10 @@ namespace Business
             PAttachedFile Files = null;
             try
             {
-                DbParameter[] Params = new DbParameter[1] { ServiceInvoiceIDP };
 
-                using (DataSet DS = provider.Select("ZDMS_GetServiceInvoiceFile", Params))
-                {
-                    if (DS != null)
-                    {
-                        foreach (DataRow dr in DS.Tables[0].Rows)
-                        {
-                            Files = new PAttachedFile()
-                            {
-                                AttachedFile = (Byte[])(dr["InvoiceFiIe"]),
-                                FileType = Convert.ToString(dr["ContentType"]),
-                                FileName = Convert.ToString(dr["FileName"])
-                            };
-                        }
-                    }
-                }
+                string endPoint = "ICTicket/GetServiceInvoiceFile?ServiceInvoiceID=" + ServiceInvoiceID ;
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                Files   = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
 
                 if (Files == null)
                 {

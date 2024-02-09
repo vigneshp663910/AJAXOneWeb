@@ -15,6 +15,36 @@ namespace DealerManagementSystem.ViewPreSale
     public partial class LeadN : BasePage
     {
         public override SubModule SubModuleName { get { return SubModule.ViewPreSale_LeadN; } }
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] = 0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -41,13 +71,14 @@ namespace DealerManagementSystem.ViewPreSale
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
 
-                // ddlCountry.SelectedValue = "1";
-                List<PDMS_State> State = new BDMS_Address().GetState(null, 1, null, null, null); 
-                new DDLBind(ddlSState, State, "State", "StateID");  
+                // ddlCountry.SelectedValue = "1"; 
+                new DDLBind(ddlRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID");
 
                 List<PLeadStatus> Status = new BLead().GetLeadStatus(null, null);
                 new DDLBind(ddlSStatus, Status, "Status", "StatusID");
-                 
+                ddlSStatus.Items.Insert(ddlSStatus.Items.Count, new ListItem("Expected date of sales is less than today date", "100"));
+                ddlSStatus.Items.Insert(ddlSStatus.Items.Count, new ListItem("Next Follow-up Date is Less Than today Date", "101"));
+                ddlSStatus.Items.Insert(ddlSStatus.Items.Count, new ListItem("Engineer not Defined", "102"));
                 new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
 
 
@@ -115,49 +146,76 @@ namespace DealerManagementSystem.ViewPreSale
             
             PLeadSearch S = new PLeadSearch();
             S.LeadID = Convert.ToInt64(Result.Data);
-
-            gvLead.DataSource = new BLead().GetLead(S);
+            PApiResult ResultLead = new BLead().GetLead(S);
+            gvLead.DataSource = JsonConvert.DeserializeObject<List<PLead>>(JsonConvert.SerializeObject(ResultLead.Data));
             gvLead.DataBind();
+
+            if (Result.RowCount == 0)
+            {
+                lblRowCount.Visible = false;
+                ibtnLeadArrowLeft.Visible = false;
+                ibtnLeadArrowRight.Visible = false;
+            }
+            else
+            {
+                PageCount = (Result.RowCount + gvLead.PageSize - 1) / gvLead.PageSize;
+                lblRowCount.Visible = true;
+                ibtnLeadArrowLeft.Visible = true;
+                ibtnLeadArrowRight.Visible = true;
+                lblRowCount.Text = (((PageIndex - 1) * gvLead.PageSize) + 1) + " - " + (((PageIndex - 1) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + ResultLead.RowCount;
+            }
+
             UC_Customer.FillClean();
             MPE_Customer.Hide();
         }
          
+
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillLead();
         }
          
-        public List<PLead> Lead1
-        {
-            get
-            {
-                if (Session["Lead1"] == null)
-                {
-                    Session["Lead1"] = new List<PLead>();
-                }
-                return (List<PLead>)Session["Lead1"];
-            }
-            set
-            {
-                Session["Lead1"] = value;
-            }
-        }
+        //public List<PLead> Lead1
+        //{
+        //    get
+        //    {
+        //        if (Session["Lead1"] == null)
+        //        {
+        //            Session["Lead1"] = new List<PLead>();
+        //        }
+        //        return (List<PLead>)Session["Lead1"];
+        //    }
+        //    set
+        //    {
+        //        Session["Lead1"] = value;
+        //    }
+        //}
          
         protected void ibtnLeadArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvLead.PageIndex > 0)
+            if (PageIndex > 1)
             {
-                gvLead.PageIndex = gvLead.PageIndex - 1;
-                LeadBind(gvLead, lblRowCount, Lead1);
+                PageIndex = PageIndex - 1;
+                FillLead();
             }
+            //if (gvLead.PageIndex > 0)
+            //{
+            //    gvLead.PageIndex = gvLead.PageIndex - 1;
+            //    LeadBind(gvLead, lblRowCount, Lead1);
+            //}
         }
         protected void ibtnLeadArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvLead.PageCount > gvLead.PageIndex)
+            if (PageCount > PageIndex)
             {
-                gvLead.PageIndex = gvLead.PageIndex + 1;
-                LeadBind(gvLead, lblRowCount, Lead1);
+                PageIndex = PageIndex + 1;
+                FillLead();
             }
+            //if (gvLead.PageCount > gvLead.PageIndex)
+            //{
+            //    gvLead.PageIndex = gvLead.PageIndex + 1;
+            //    LeadBind(gvLead, lblRowCount, Lead1);
+            //}
         }
 
         void LeadBind(GridView gv, Label lbl, List<PLead> Lead1)
@@ -171,26 +229,32 @@ namespace DealerManagementSystem.ViewPreSale
         {
             PLeadSearch S = new PLeadSearch();
             S.LeadNumber = txtLeadNumber.Text.Trim();
-            S.StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue); 
+            S.RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue); 
             S.QualificationID = ddlSQualification.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSQualification.SelectedValue);
             S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
             S.ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
-            S.CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);
-            S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
-
+            S.CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);             
+            S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue); 
             S.CustomerCode = txtCustomer.Text.Trim();
             S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateFrom.Text.Trim());
             S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim());
 
             S.DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            S.SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue); 
-            Lead1 = new BLead().GetLead(S);
+            S.SalesEngineerID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
 
-            gvLead.DataSource = Lead1;
+            S.PageIndex = PageIndex;
+            S.PageSize = gvLead.PageSize;
+
+            //Lead1 = new BLead().GetLead(S);
+            //gvLead.DataSource = Lead1;
+
+            PApiResult ResultLead = new BLead().GetLead(S);
+
+            gvLead.DataSource = JsonConvert.DeserializeObject<List<PLead>>(JsonConvert.SerializeObject(ResultLead.Data)); 
             gvLead.DataBind();
 
 
-            if (Lead1.Count == 0)
+            if (ResultLead.RowCount == 0)
             {
                 lblRowCount.Visible = false;
                 ibtnLeadArrowLeft.Visible = false;
@@ -198,16 +262,17 @@ namespace DealerManagementSystem.ViewPreSale
             }
             else
             {
+                PageCount = (ResultLead.RowCount + gvLead.PageSize - 1) / gvLead.PageSize;
                 lblRowCount.Visible = true;
                 ibtnLeadArrowLeft.Visible = true;
                 ibtnLeadArrowRight.Visible = true;
-                lblRowCount.Text = (((gvLead.PageIndex) * gvLead.PageSize) + 1) + " - " + (((gvLead.PageIndex) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + Lead1.Count;
+                lblRowCount.Text = (((PageIndex - 1) * gvLead.PageSize) + 1) + " - " + (((PageIndex - 1) * gvLead.PageSize) + gvLead.Rows.Count) + " of " + ResultLead.RowCount;
             }
 
         } 
         protected void ddlSCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlSState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlSCountry.SelectedValue), null, null, null), "State", "StateID");
+            new DDLBind(ddlRegion, new BDMS_Address().GetRegion( Convert.ToInt32(ddlSCountry.SelectedValue),  null, null), "Region", "RegionID");
         } 
 
         protected void btnAddLead_Click(object sender, EventArgs e)
@@ -260,7 +325,7 @@ namespace DealerManagementSystem.ViewPreSale
             {
                 PLeadSearch S = new PLeadSearch();
                 S.LeadNumber = txtLeadNumber.Text.Trim();
-                S.StateID = ddlSState.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSState.SelectedValue);
+                S.RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
                 S.QualificationID = ddlSQualification.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSQualification.SelectedValue);
                 S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
                 S.ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);

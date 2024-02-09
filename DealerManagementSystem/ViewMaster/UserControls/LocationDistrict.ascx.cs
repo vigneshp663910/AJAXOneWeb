@@ -247,7 +247,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
 
                 DropDownList ddlSalesEngineer = (DropDownList)gvDistrict.FooterRow.FindControl("ddlSalesEngineer");
 
-                List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, Convert.ToInt32(ddlGDDealer.SelectedValue), true, null, null, 4);
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, Convert.ToInt32(ddlGDDealer.SelectedValue), true, null, (short)DealerDepartment.Sales, null);
                 new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID", true, "Select Sales Engineer");
 
                 TextBox txtGDDistrict = (TextBox)gvDistrict.FooterRow.FindControl("txtGDDistrict");
@@ -261,10 +261,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 ddlGDState.SelectedValue = (string.IsNullOrEmpty(lblGDStateID.Text)) ? "0" : lblGDStateID.Text;
                 Label lblGDSalesOffice = (Label)row.FindControl("lblGDSalesOffice");
                 Label lblGDSalesOfficeID = (Label)row.FindControl("lblGDSalesOfficeID");
+
                 ddlGDSalesOffice.SelectedValue = (string.IsNullOrEmpty(lblGDSalesOfficeID.Text)) ? "0" : lblGDSalesOfficeID.Text;
+
+
                 Label lblGDSalesEngineer = (Label)row.FindControl("lblGDSalesEngineer");
                 Label lblGDSalesEngineerUserID = (Label)row.FindControl("lblGDSalesEngineerUserID");
-                ddlSalesEngineer.SelectedValue = (string.IsNullOrEmpty(lblGDSalesEngineerUserID.Text)) ? "0" : lblGDSalesEngineerUserID.Text;
+                try
+                {
+                    ddlSalesEngineer.SelectedValue = (string.IsNullOrEmpty(lblGDSalesEngineerUserID.Text)) ? "0" : lblGDSalesEngineerUserID.Text;
+                }
+                catch { }
                 Label lblGDDealer = (Label)row.FindControl("lblGDDealer");
 
                 Label lblGDDistrict = (Label)row.FindControl("lblGDDistrict");

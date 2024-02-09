@@ -217,6 +217,11 @@ namespace DealerManagementSystem.ViewMarketing
                 string Location = txtLocation.Text;
                 string Remarks = txtRemarks.Text;
                 double dblExpenses = Convert.ToDouble(txtExpenses.Text);
+                if (Convert.ToDateTime(ToDate) < DateTime.Now.AddMonths(-1))
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "key1", "alert('Please check ToDate!');Clear();", true);
+                    return;
+                }
                 Session["ActDocs"] = null;
 
                 BDMS_Activity oActivity = new BDMS_Activity();
@@ -251,6 +256,10 @@ namespace DealerManagementSystem.ViewMarketing
                 {
                     string sFileName = DateTime.Now.ToString("ddmmyhhmmsstt") + "_" + PSession.User.UserID.ToString() + "_" + postedFile.FileName;
                     string pathaname = HttpContext.Current.Server.MapPath("~/YDMS/Temp/") + @"\" + sFileName;
+                    if(!Directory.Exists(HttpContext.Current.Server.MapPath("~/YDMS/Temp/")))
+                    {
+                        Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/YDMS/Temp/"));
+                    }
                     if (postedFile.ContentType.ToUpper().Contains("IMAGE"))
                     {
                         BDMS_ImageCompress imgCompress = BDMS_ImageCompress.GetImageCompressObject;

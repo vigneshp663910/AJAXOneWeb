@@ -15,7 +15,7 @@ namespace DealerManagementSystem
             lblPageName.Text = (string)Session["PageName"];
             if (!IsPostBack)
             {
-                lblQuality.Text = ConfigurationManager.AppSettings["IsQuality"];
+                lblQuality.Text = ConfigurationManager.AppSettings["Server"];
                 //this.Master.Page.Parent
                 if (PSession.User == null)
                 {
@@ -25,20 +25,7 @@ namespace DealerManagementSystem
 
 
                 string MenuCon = "<ul id='topnav'>";
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    MenuCon = MenuCon + "<li><a title='Services' href='CreateTicket.aspx'>New support ticket</a></li>";
-                    MenuCon = MenuCon + "<li><a title='Enquiries' href='ManageTickets.aspx'>Check ticket status </a></li>";
-                    if (new BFeedback().CheckPendingFeedback(PSession.User.UserID))
-                    {
-                        MenuCon = MenuCon + "<li><a title='Feedback' href='Feedback.aspx'>Feed back</a></li>";
-                    }
-                    //divbluemenu.Visible = false;
-                }
-                else
-                {
-                    // divbluemenu.Visible = true;
-                }
+                 
                 MenuCon = MenuCon + "<li style='float: right; margin-top: 0px;'><ul style='list-style-type: none;'>";
                 MenuCon = MenuCon + "<li class='right-boarder'><a href='Home.aspx' style='white-space: pre;'><img src='Ajax/HomeLogo.png'  width='17px' /></a></li>";
                 MenuCon = MenuCon + "<li class='right-boarder'><a href='ChangePassword.aspx' style='white-space: pre;'><img src='Ajax/ChangePasswordLogo.png'  width='17px' /></a></li>";

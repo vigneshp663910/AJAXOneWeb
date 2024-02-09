@@ -290,10 +290,10 @@ namespace DealerManagementSystem.ViewAdmin
                 lblMessageDealerSalesDistrict.Text = string.Empty;
                 lblMessageDealerSalesDistrict.ForeColor = Color.Red;
                 lblMessageDealerSalesDistrict.Visible = true;
-                
+
                 LinkButton lnkBtnDistrictEdit = (LinkButton)sender;
                 GridViewRow row = (GridViewRow)(lnkBtnDistrictEdit.NamingContainer);
-                
+
                 Label lblGDSalesCountry = (Label)row.FindControl("lblGDSalesCountry");
                 //Label lblGDSalesCountryID = (Label)row.FindControl("lblGDSalesCountryID");
                 TextBox txtSalesCountry = (TextBox)gvDealerSalesDistrict.FooterRow.FindControl("txtSalesCountry");
@@ -335,9 +335,13 @@ namespace DealerManagementSystem.ViewAdmin
                 Label lblGDSalesEngineer = (Label)row.FindControl("lblGDSalesEngineer");
                 Label lblGDSalesEngineerUserID = (Label)row.FindControl("lblGDSalesEngineerUserID");
                 DropDownList ddlSalesEngineer = (DropDownList)gvDealerSalesDistrict.FooterRow.FindControl("ddlSalesEngineer");
-                List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, Convert.ToInt32(ddlGDSalesDealer.SelectedValue), true, null, null, 4);
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, Convert.ToInt32(ddlGDSalesDealer.SelectedValue), true, null, (short)DealerDepartment.Sales, null);
                 new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID", true, "Select Sales Engineer");
-                ddlSalesEngineer.SelectedValue = (string.IsNullOrEmpty(lblGDSalesEngineerUserID.Text)) ? "0" : lblGDSalesEngineerUserID.Text;
+                try
+                {
+                    ddlSalesEngineer.SelectedValue = (string.IsNullOrEmpty(lblGDSalesEngineerUserID.Text)) ? "0" : lblGDSalesEngineerUserID.Text;
+                }
+                catch { }
                 ddlSalesEngineer.Visible = true;
 
                 HiddenID.Value = Convert.ToString(lnkBtnDistrictEdit.CommandArgument);

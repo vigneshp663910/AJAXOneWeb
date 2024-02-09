@@ -463,5 +463,23 @@ namespace Properties
         public int WarrantyMaterialReturnStatusID { get; set; }
         public string WarrantyMaterialReturnStatus { get; set; } 
     }
-   
+
+    [Serializable]
+    public class PWarrantyClaim_Filter
+    {
+        public string ICTicketNumber { get; set; }
+        public DateTime? ICTicketDateF { get; set; }
+        public DateTime? ICTicketDateT { get; set; }
+        public string ClaimNumber { get; set; }
+        public DateTime? ClaimDateF { get; set; }
+        public DateTime? ClaimDateT { get; set; }
+        public int? DealerID { get; set; }
+        public int? StatusID { get; set; }
+        public DateTime? ApprovedDateF { get; set; }
+        public DateTime? ApprovedDateT { get; set; }
+        public string TSIRNumber { get; set; }
+        public string CustomerCode { get; set; }
+        public string MachineSerialNumber { get; set; }
+        public Boolean IsAbove50K { get; set; }
+    }
 }

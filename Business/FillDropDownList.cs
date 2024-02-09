@@ -1,4 +1,6 @@
 ﻿
+using Newtonsoft.Json;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,21 +20,21 @@ namespace Business
         {
             ddl.DataTextField = "Category";
             ddl.DataValueField = "CategoryID";
-            ddl.DataSource = new BTicketCategory().getTicketCategory(CategoryID, Category);
+            ddl.DataSource = JsonConvert.DeserializeObject<List<PCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketCategory(CategoryID, Category).Data));
             DataBindDDL(ddl);
         }
         public void SubCategory(DropDownList ddl, int? SubCategoryID, string SubCategory, int? CategoryId)
         {
             ddl.DataTextField = "SubCategory";
-            ddl.DataValueField = "SubCategoryID";
-            ddl.DataSource = new BTicketSubCategory().getTicketSubCategory(SubCategoryID, SubCategory, CategoryId);
+            ddl.DataValueField = "SubCategoryID";            
+            ddl.DataSource = JsonConvert.DeserializeObject<List<PSubCategory>>(JsonConvert.SerializeObject(new BTickets().getTicketSubCategory(SubCategoryID, SubCategory, CategoryId).Data));
             DataBindDDL(ddl);
         }
         public void Severity(DropDownList ddl, int? SeverityID, string Severity)
         {
             ddl.DataTextField = "Severity";
             ddl.DataValueField = "SeverityID";
-            ddl.DataSource = new BTicketSeverity().getTicketSeverity(SeverityID, Severity);
+            ddl.DataSource = JsonConvert.DeserializeObject<List<PSeverity>>(JsonConvert.SerializeObject(new BTickets().getTicketSeverity(SeverityID, Severity).Data));
             DataBindDDL(ddl);
         }
 
@@ -40,7 +42,7 @@ namespace Business
         {
             ddl.DataTextField = "Type";
             ddl.DataValueField = "TypeID";
-            ddl.DataSource = new BTicketType().getTicketType(TypeID, Type);
+            ddl.DataSource = JsonConvert.DeserializeObject<List<PType>>(JsonConvert.SerializeObject(new BTickets().getTicketType(TypeID, Type).Data));
             DataBindDDL(ddl);
         }
 
@@ -48,14 +50,14 @@ namespace Business
         {
             ddl.DataTextField = "Status";
             ddl.DataValueField = "StatusID";
-            ddl.DataSource = new BTicketStatus().getTicketStatus(StatusID, Status);
+            ddl.DataSource = JsonConvert.DeserializeObject<List<PStatus>>(JsonConvert.SerializeObject(new BTickets().getTicketStatus(StatusID, Status).Data));
             DataBindDDL(ddl);
         }
         public void ResolutionType(DropDownList ddl, int? ResolutionTypeID, string ResolutionType)
         {
             ddl.DataTextField = "ResolutionType";
-            ddl.DataValueField = "ResolutionTypeID";
-            ddl.DataSource = new BTicketResolutionType().getTicketResolutionType(ResolutionTypeID, ResolutionType);
+            ddl.DataValueField = "ResolutionTypeID";            
+            ddl.DataSource = JsonConvert.DeserializeObject<List<PResolutionType>>(JsonConvert.SerializeObject(new BTickets().getTicketResolutionType(ResolutionTypeID, ResolutionType).Data));
             DataBindDDL(ddl);
         }
 

@@ -1,7 +1,6 @@
 ﻿using DataAccess;
 using Newtonsoft.Json;
-using Properties;
-using SapIntegration;
+using Properties; 
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -547,7 +546,12 @@ namespace Business
                 {
                     // DataTable DtResult = new SapIntegration.SCustomer().ChangeCustomerInSAP(Customer, IsShipTo);
                     string endPoint = "Customer/ChangeCustomerInSAP?CustomerID=" + Customer.CustomerID + "&IsShipTo=" + IsShipTo;
-                    DataTable DtResult = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+                    PApiResult RE = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                    if(RE.Status == PApplication.Failure)
+                    {
+                        throw new Exception(RE.Message);
+                    }
+                    DataTable DtResult = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(RE.Data));
 
                     foreach (DataRow dr in DtResult.Rows)
                     {
@@ -621,109 +625,6 @@ namespace Business
             string endPoint = "Customer/ShipTo?CustomerShipToID=" + CustomerShipToID + "&CustomerID=" + CustomerID;
             return JsonConvert.DeserializeObject<List<PDMS_CustomerShipTo>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PDMS_CustomerChangeForApproval> GetCustomerChangeForApproval(string CustomerCode, int? PageIndex, int? PageSize, out int RowCount)
-        {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_CustomerChangeForApproval> Customers = new List<PDMS_CustomerChangeForApproval>();
-            RowCount = 0;
-            try
-            {
-                DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
-                DbParameter PageIndexP = provider.CreateParameter("PageIndex", PageIndex, DbType.Int32);
-                DbParameter PageSizeP = provider.CreateParameter("PageSize", PageSize, DbType.Int32);
-                DbParameter[] Params = new DbParameter[3] { CustomerCodeP, PageIndexP, PageSizeP };
-
-                using (DataSet DataSet = provider.Select("GetCustomerChangeForApproval", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            PDMS_CustomerChangeForApproval Customer = new PDMS_CustomerChangeForApproval();
-                            Customer.CustomerChangeForApprovalID = Convert.ToInt64(dr["CustomerChangeForApprovalID"]);
-                            Customer.CustomerID = Convert.ToInt32(dr["CustomerID"]);
-                            Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
-                            Customer.Unregistered = Convert.ToBoolean(dr["Unregistered"]);
-                            Customer.GSTIN = Convert.ToString(dr["GST"]);
-                            Customer.PAN = Convert.ToString(dr["PAN"]);
-                            Customer.IsApproved = dr["IsApproved"] == DBNull.Value ? (bool?)null : Convert.ToBoolean(dr["IsApproved"]);
-
-                            Customer.ApprovedBy = DBNull.Value == dr["ApprovedBy"] ? null : new PUser()
-                            {
-                                ContactName = Convert.ToString(dr["ApprovedByName"])
-                            };
-                            Customer.ApprovedOn = dr["ApprovedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ApprovedOn"]);
-                            Customer.CreatedBy = DBNull.Value == dr["CreatedBy"] ? null : new PUser()
-                            {
-                                ContactName = Convert.ToString(dr["CreatedByName"])
-                            };
-                            Customer.CreatedOn = dr["CreatedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CreatedOn"]);
-                            Customer.SendSAP = dr["SendSAP"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["SendSAP"]);
-                            Customer.Success = dr["Success"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["Success"]);
-                            Customers.Add(Customer);
-                            RowCount = Convert.ToInt32(dr["RowCount"]);
-                        }
-                    }
-                }
-
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Customer", "GetCustomerChangeForApproval", ex);
-                throw ex;
-            }
-            return Customers;
-        }
-        public PDMS_CustomerChangeForApproval GetCustomerChangeForApprovalByID(long CustomerChangeForApprovalID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            PDMS_CustomerChangeForApproval Customer = null;
-            try
-            {
-                DbParameter CustomerChangeForApprovalIDP = provider.CreateParameter("CustomerChangeForApprovalID", CustomerChangeForApprovalID, DbType.Int64);
-                DbParameter[] Params = new DbParameter[1] { CustomerChangeForApprovalIDP };
-
-                using (DataSet DataSet = provider.Select("GetCustomerChangeForApprovalByID", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Customer = new PDMS_CustomerChangeForApproval();
-                            Customer.CustomerChangeForApprovalID = Convert.ToInt64(dr["CustomerChangeForApprovalID"]);
-                            Customer.CustomerID = Convert.ToInt32(dr["CustomerID"]);
-                            Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
-                            Customer.Unregistered = Convert.ToBoolean(dr["Unregistered"]);
-                            Customer.GSTIN = Convert.ToString(dr["GST"]);
-                            Customer.PAN = Convert.ToString(dr["PAN"]);
-                            Customer.IsApproved = dr["IsApproved"] == DBNull.Value ? (bool?)null : Convert.ToBoolean(dr["IsApproved"]);
-
-                            Customer.ApprovedBy = DBNull.Value == dr["ApprovedBy"] ? null : new PUser()
-                            {
-                                ContactName = Convert.ToString(dr["ApprovedByName"])
-                            };
-                            Customer.ApprovedOn = dr["ApprovedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["ApprovedOn"]);
-                            Customer.CreatedBy = DBNull.Value == dr["CreatedBy"] ? null : new PUser()
-                            {
-                                ContactName = Convert.ToString(dr["CreatedByName"])
-                            };
-                            Customer.CreatedOn = dr["CreatedOn"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["CreatedOn"]);
-                            Customer.SendSAP = dr["SendSAP"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["SendSAP"]);
-                            Customer.Success = dr["Success"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["Success"]);
-                        }
-                    }
-                }                
-                TraceLogger.Log(DateTime.Now);
-                return Customer;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Customer", "GetCustomerChangeForApprovalByID", ex);
-                throw ex;
-            }
-        }
-
         public List<PCustomerEmployeeDesignation> GetCustomerEmployeeDesignation(int? DesignationID, string Designation)
         {
             string endPoint = "Customer/CustomerEmployeeDesignation?DesignationID=" + DesignationID + "&Designation=" + Designation;
@@ -733,6 +634,16 @@ namespace Business
         {
             string endPoint = "Customer/getCustomerAddressFromSAP?CustomerCode=" + CustomerCode;
             return JsonConvert.DeserializeObject<PDMS_Customer>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
+        }
+        public PApiResult GetCustomerGstApproval(string CustomerCode, string From, string To, bool? IsApproved, int? PageIndex, int? PageSize)
+        {
+            string endPoint = "Customer/GetCustomerGstApproval?CustomerCode=" + CustomerCode + "&From=" + From + "&To=" + To + "&IsApproved=" + IsApproved + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetCustomerGstApprovalByID(long CustomerGstApprovalID)
+        {
+            string endPoint = "Customer/GetCustomerGstApprovalByID?CustomerGstApprovalID=" + CustomerGstApprovalID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
     }
 }

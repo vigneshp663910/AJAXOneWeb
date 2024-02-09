@@ -14,7 +14,7 @@ namespace DealerManagementSystem.Help
 
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
-            string ls_filename = Request.QueryString["aFileName"];
+            string ls_filename = Request.QueryString["aFileName"].Replace("file://","");
             string embed = "<object data=\"{0}\" type=\"application/pdf\" width=\"1000px\" height=\"1200px\">";
             embed += "If you are unable to view file, you can download from <a href = \"{0}\">here</a>";
             embed += " or download <a target = \"_blank\" href = \"http://get.adobe.com/reader/\">Adobe PDF Reader</a> to view the file.";

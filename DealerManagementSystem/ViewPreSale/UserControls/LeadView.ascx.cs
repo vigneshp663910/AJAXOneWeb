@@ -41,6 +41,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessageFinancial.Text = "";
             lblMessageProduct.Text = "";
             lblMessageQuotation.Text = "";
+            lblMessageLost.Text = "";
+            lblMessageDrop.Text = "";
             //if (!string.IsNullOrEmpty(Convert.ToString( ViewState["LeadID"])))
             //{
             //    long LeadID = Convert.ToInt64(Convert.ToString(ViewState["LeadID"]));
@@ -89,6 +91,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ActionControlMange();
             fillVisit();
             fillEffortConversationVisit();
+            fillSupportDocument();
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -113,11 +116,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else if (lbActions.Text == "Lost Lead")
             {
-                MPE_LostReason.Show();
+                MPE_LeadLost.Show();
             }
             else if (lbActions.Text == "Cancel Lead")
             {
-                MPE_RejectedBySales.Show();
+                MPE_LeadDrop.Show();
             }
             else if(lbActions.Text == "Assign")
             {
@@ -233,6 +236,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
                 new DDLBind(ddlPersonMet, new BDMS_Customer().GetCustomerRelation(Lead.Customer.CustomerID, null), "ContactName", "CustomerRelationID");
+            }
+            else if (lbActions.ID == "lbtnEditExpectedDate")
+            {
+                MPE_EditExpectedDate.Show(); 
+                cxExpectedDateOfSale.StartDate = DateTime.Now;
+            }
+            else if (lbActions.ID == "lbtnEditNextFollowUpDate")
+            {
+                MPE_EditNextFollowUpDate.Show();
+                cxEditNextFollowUpDate.StartDate = DateTime.Now;
             }
         }  
         protected void btnSaveEffort_Click(object sender, EventArgs e)
@@ -633,28 +646,43 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }         
         protected void btnLostReasonUpdate_Click(object sender, EventArgs e)
         {
+            MPE_LeadLost.Show();
+            if (string.IsNullOrEmpty(txtLostReason.Text.Trim()))
+            {
+                lblMessageLost.Text = "Enter the Reason";
+                return;
+            }
+
             string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=5&Reason=" + txtLostReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             ShowMessage(Results); 
             if (Results.Status == PApplication.Failure)
-            { 
-                lblMessage.ForeColor = Color.Red;
+            {
+                lblMessageLost.Text = Results.Message; 
                 return;
             } 
             txtLostReason.Text = "";
+            MPE_LeadLost.Hide();
             fillViewLead(Lead.LeadID);
         }
-        protected void btnRejectedBySalesUpdate_Click(object sender, EventArgs e)
+        protected void btnLeadDropUpdate_Click(object sender, EventArgs e)
         {
+            MPE_LeadDrop.Show();
+            if (string.IsNullOrEmpty(txtRejectedBySalesReason.Text.Trim()))
+            {
+                lblMessageDrop.Text = "Enter the Reason";
+                return;
+            }
             string endPoint = "Lead/UpdateLeadStatus?LeadID=" + Lead.LeadID + "&StatusID=6&Reason=" + txtRejectedBySalesReason.Text.Trim() + "&UserID=" + PSession.User.UserID;
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             ShowMessage(Results);
             if (Results.Status == PApplication.Failure)
-            { 
-                lblMessage.ForeColor = Color.Red;
+            {
+                lblMessageDrop.Text = Results.Message; 
                 return;
             } 
             txtRejectedBySalesReason.Text = "";
+            MPE_LeadDrop.Hide();
             fillViewLead(Lead.LeadID);
         }
         protected void btnLeadEdit_Click(object sender, EventArgs e)
@@ -890,7 +918,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //lbtnAddProduct.Visible = false;
             //lbtnAddQuotation.Visible = false; 
 
-            lbtnEditLead.Visible = true; 
+            lbtnEditLead.Visible = true;
+            lbtnEditExpectedDate.Visible = true;
+            lbtnEditNextFollowUpDate.Visible = true;
             lbtnAssign.Visible = true;
             lbtnAddFollowUp.Visible = true;
             //lbtnCustomerConversation.Visible = true;
@@ -910,6 +940,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 )
             {
                 lbtnEditLead.Visible = false;
+                lbtnEditExpectedDate.Visible = false;
+                lbtnEditNextFollowUpDate.Visible = false;
                 lbtnAssign.Visible = false;
                 lbtnAddFollowUp.Visible = false;
                 //lbtnCustomerConversation.Visible = false;
@@ -934,6 +966,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditLead).Count() == 0)
             {
                 lbtnEditLead.Visible = false;
+                lbtnEditExpectedDate.Visible = false;
+                lbtnEditNextFollowUpDate.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.AssignLead).Count() == 0)
             {
@@ -986,5 +1020,51 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
         }
 
+        protected void btnUpdateExpectedDate_Click(object sender, EventArgs e)
+        {
+            MPE_EditExpectedDate.Show();
+            PLead_Insert LeadEdit = new PLead_Insert();
+            lblExpectedDateOfSaleMessage.ForeColor = Color.Red;
+            lblExpectedDateOfSaleMessage.Visible = true; 
+            if (string.IsNullOrEmpty(txtExpectedDateOfSale.Text.Trim()))
+            { 
+                lblExpectedDateOfSaleMessage.Text = "Please select the Expected Date of Sale";
+                return ; 
+            }
+            string endPoint = "Lead/UpdateLeadExpectedDateOfSale?LeadID=" + Lead.LeadID + "&ExpectedDateOfSale=" + txtExpectedDateOfSale.Text.Trim();
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblExpectedDateOfSaleMessage.Text =  Results.Message ;
+                return;
+            }
+            ShowMessage(Results);
+            fillViewLead(Lead.LeadID);
+
+            MPE_EditExpectedDate.Hide();
+        }
+
+        protected void btnUpdateNextFollowUpDate_Click(object sender, EventArgs e)
+        {
+            MPE_EditNextFollowUpDate.Show();
+            lblNextFollowUpDateMessage.ForeColor = Color.Red;
+            lblNextFollowUpDateMessage.Visible = true;
+            if (string.IsNullOrEmpty(txtEditNextFollowUpDate.Text.Trim()))
+            {
+                lblNextFollowUpDateMessage.Text = "Please select the Next Follow Date";
+                return;
+            } 
+            string endPoint = "Lead/UpdateLeadNextFollowUpDate?LeadID=" + Lead.LeadID + "&NextFollowUpDate=" + txtEditNextFollowUpDate.Text.Trim();
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblNextFollowUpDateMessage.Text = Results.Message;
+                return;
+            }
+            ShowMessage(Results);
+            fillViewLead(Lead.LeadID);
+
+            MPE_EditNextFollowUpDate.Hide();
+        }
     }
 }

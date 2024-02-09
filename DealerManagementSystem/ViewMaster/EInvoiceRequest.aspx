@@ -97,12 +97,12 @@
                                         <asp:Label ID="lblInvType" Text='<%# DataBinder.Eval(Container.DataItem, "InvType")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <%--  <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <a href="javascript:collapseExpand('EInvoiceID-<%# Eval("EInvoiceID") %>');">
-                                                    <img id="imageEInvoiceID-<%# Eval("EInvoiceID") %>" alt="Click to show/hide orders" border="0" src="Images/grid_expand.png" height="10" width="10" /></a>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>--%>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <a href="javascript:collapseExpand('EInvoiceID-<%# Eval("EInvoice.DocDtls.No") %>');">
+                                            <img id="imageEInvoiceID-<%# Eval("EInvoice.DocDtls.No") %>" alt="Click to show/hide orders" border="0" src="Images/grid_expand.png" height="10" width="10" /></a>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Tax Scheme">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -174,7 +174,7 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblBuyerGSTIN" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Gstin")%>' runat="server"></asp:Label>
-                                        <asp:TextBox ID="txtBuyerGSTIN" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Gstin")%>' Visible="false" />
+                                        <asp:TextBox ID="txtBuyerGSTIN" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Gstin")%>' Visible="false" Width="200px" Height="30px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Buyer Name">
@@ -187,28 +187,28 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblBuyerStateCode" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Stcd")%>' runat="server"></asp:Label>
-                                        <asp:TextBox ID="txtBuyerStateCode" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Stcd")%>' Visible="false" />
+                                        <asp:TextBox ID="txtBuyerStateCode" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Stcd")%>' Visible="false" Width="200px" Height="30px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Buyer Addr1">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblBuyer_addr1" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Addr1")%>' runat="server"></asp:Label>
-                                        <asp:TextBox ID="txtBuyer_addr1" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Addr1")%>' Visible="false" />
+                                        <asp:TextBox ID="txtBuyer_addr1" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Addr1")%>' Visible="false" Width="200px" Height="30px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Buyer Loc">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblBuyer_loc" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Loc")%>' runat="server"></asp:Label>
-                                        <asp:TextBox ID="txtBuyer_loc" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Loc")%>' Visible="false" />
+                                        <asp:TextBox ID="txtBuyer_loc" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Loc")%>' Visible="false" Width="200px" Height="30px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Buyer Pincode">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblBuyerPincode" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Pin")%>' runat="server"></asp:Label>
-                                        <asp:TextBox ID="txtBuyerPincode" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Pin")%>' Visible="false" />
+                                        <asp:TextBox ID="txtBuyerPincode" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Pin")%>' Visible="false" Width="200px" Height="30px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Disp Sup Trade Name">
@@ -353,19 +353,19 @@
                                 <asp:TemplateField HeaderText="">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
-                                        <%-- <asp:Button ID="btnEdit" runat="server" Text="Edit" Visible="false" OnClick="btnEdit_Click"  CssClass="btn Search"  Width="75px" Height="25px"/>
-                                        <asp:Button ID="btnUpdate" runat="server" Text="Update" Visible="false" OnClick="btnUpdate_Click"  CssClass="btn Search"  Width="75px" Height="25px"/>
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" Visible="false" OnClick="btnCancel_Click"  CssClass="btn Search"  Width="75px" Height="25px"/>--%>
+                                        <asp:Button ID="btnEdit" runat="server" Text="Edit" Visible="false" OnClick="btnEdit_Click" CssClass="btn Search" Width="75px" Height="25px" />
+                                        <asp:Button ID="btnUpdate" runat="server" Text="Update" Visible="false" OnClick="btnUpdate_Click" CssClass="btn Search" Width="75px" Height="25px" />
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" Visible="false" OnClick="btnCancel_Click" CssClass="btn Search" Width="75px" Height="25px" />
                                         <tr>
                                             <td colspan="100%" style="padding-left: 96px">
                                                 <div id="EInvoiceID-<%# Eval("EInvoice.DocDtls.No") %>" style="display: block; position: relative;">
-                                                    <asp:GridView ID="gvClaimInvoiceItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
+                                                    <asp:GridView ID="gvInvItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="SlNo">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblSlNo" Text='<%# DataBinder.Eval(Container.DataItem, "SlNo")%>' runat="server"></asp:Label>
-                                                                    <%-- <asp:Label ID="lblInvoiceItemID" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceItemID")%>' runat="server"></asp:Label>
+                                                                    <%--  <asp:Label ID="lblInvoiceItemID" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceItemID")%>' runat="server"  Visible="false"></asp:Label> 
                                                                     <asp:Label ID="lblBillingDocument" Text='<%# DataBinder.Eval(Container.DataItem, "BillingDocument")%>' runat="server" Visible="false"></asp:Label>--%>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
@@ -385,7 +385,7 @@
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblHSNCode" Text='<%# DataBinder.Eval(Container.DataItem, "HsnCd")%>' runat="server"></asp:Label>
-                                                                    <asp:TextBox ID="txtHSNCode" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "HsnCd")%>' Visible="false" />
+                                                                    <asp:TextBox ID="txtHSNCode" runat="server" CssClass="input" Text='<%# DataBinder.Eval(Container.DataItem, "HsnCd")%>' Visible="false" Width="200px" Height="30px" />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="Quantity" HeaderStyle-Width="55px">
@@ -499,14 +499,14 @@
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
 
-                                                            <%-- <asp:TemplateField HeaderText="Edit">
+                                                            <asp:TemplateField HeaderText="Edit">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                                 <ItemTemplate>
-                                                                    <asp:Button ID="btnEditItem" runat="server" Text="Edit" Visible="false" OnClick="btnEditItem_Click"  CssClass="btn Search" Width="75px" Height="25px"/>
-                                                                    <asp:Button ID="btnUpdateItem" runat="server" Text="Update" Visible="false" OnClick="btnUpdateItem_Click"  CssClass="btn Search" Width="75px" Height="25px"/>
-                                                                    <asp:Button ID="btnCancelItem" runat="server" Text="Cancel" Visible="false" OnClick="btnCancelItem_Click"  CssClass="btn Search" Width="75px" Height="25px"/>
+                                                                    <asp:Button ID="btnEditItem" runat="server" Text="Edit" Visible="false" OnClick="btnEditItem_Click" CssClass="btn Search" Width="75px" Height="25px" />
+                                                                    <asp:Button ID="btnUpdateItem" runat="server" Text="Update" Visible="false" OnClick="btnUpdateItem_Click" CssClass="btn Search" Width="75px" Height="25px" />
+                                                                    <asp:Button ID="btnCancelItem" runat="server" Text="Cancel" Visible="false" OnClick="btnCancelItem_Click" CssClass="btn Search" Width="75px" Height="25px" />
                                                                 </ItemTemplate>
-                                                            </asp:TemplateField>--%>
+                                                            </asp:TemplateField>
                                                         </Columns>
                                                     </asp:GridView>
                                                 </div>

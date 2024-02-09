@@ -107,6 +107,10 @@ namespace Properties
         public decimal TotalHours { get; set; }
         public List<PBreakdown> Breakdown { get; set; }
         public Boolean IsNew { get; set; }
+
+        public int? Response { get; set; }
+        public int? Resolution { get; set; }
+        public int? Restore { get; set; }
     }
    
 }

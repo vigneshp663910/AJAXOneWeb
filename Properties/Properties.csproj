@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="AppSetting.cs" />
     <Compile Include="Enum.cs" />
+    <Compile Include="PDealerBusiness.cs" />
+    <Compile Include="PDeviationProcess.cs" />
     <Compile Include="PInventory.cs" />
     <Compile Include="PActivity.cs" />
     <Compile Include="PApplicationSetting.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="PMachineOperator.cs" />
     <Compile Include="PMaster.cs" />
     <Compile Include="PMenu.cs" />
+    <Compile Include="PMessageAnnouncement.cs" />
     <Compile Include="PNotifications.cs" />
     <Compile Include="PProject.cs" />
     <Compile Include="PQuery.cs" />
