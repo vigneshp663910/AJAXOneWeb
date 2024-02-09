@@ -182,6 +182,7 @@
     <Compile Include="BSalesOrderReturn.cs" />
     <Compile Include="BSalesQuotation.cs" />
     <Compile Include="BSmsManager.cs" />
+    <Compile Include="BStockTransferOrder.cs" />
     <Compile Include="BTest.cs" />
     <Compile Include="BTestSN.cs" />
     <Compile Include="BTickets.cs" />

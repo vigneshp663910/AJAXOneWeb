@@ -618,6 +618,10 @@
     <Content Include="ViewProcurement\PurchaseOrderPG.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderReturn.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderReturnInvoice.aspx" />
+    <Content Include="ViewProcurement\StockTransferOrder.aspx" />
+    <Content Include="ViewProcurement\StockTransferOrderASN.aspx" />
+    <Content Include="ViewProcurement\StockTransferOrderAsnGR.aspx" />
+    <Content Include="ViewProcurement\StockTransferOrderDelivery.aspx" />
     <Content Include="ViewProcurement\UserControls\GrCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderASNGrView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderAsnView.ascx" />
@@ -626,6 +630,8 @@
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnDeliveryCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderView.ascx" />
+    <Content Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx" />
+    <Content Include="ViewProcurement\UserControls\StockTransferOrderView.ascx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
     <Content Include="ViewSales\SaleInvoicePending.aspx" />
     <Content Include="ViewSales\SaleOrder.aspx" />
@@ -2359,6 +2365,34 @@
     <Compile Include="ViewProcurement\PurchaseOrderReturnInvoice.aspx.designer.cs">
       <DependentUpon>PurchaseOrderReturnInvoice.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrder.aspx.cs">
+      <DependentUpon>StockTransferOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrder.aspx.designer.cs">
+      <DependentUpon>StockTransferOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderASN.aspx.cs">
+      <DependentUpon>StockTransferOrderASN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderASN.aspx.designer.cs">
+      <DependentUpon>StockTransferOrderASN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderAsnGR.aspx.cs">
+      <DependentUpon>StockTransferOrderAsnGR.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderAsnGR.aspx.designer.cs">
+      <DependentUpon>StockTransferOrderAsnGR.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderDelivery.aspx.cs">
+      <DependentUpon>StockTransferOrderDelivery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderDelivery.aspx.designer.cs">
+      <DependentUpon>StockTransferOrderDelivery.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewProcurement\UserControls\GrCreate.ascx.cs">
       <DependentUpon>GrCreate.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2414,6 +2448,20 @@
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderView.ascx.designer.cs">
       <DependentUpon>PurchaseOrderView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx.cs">
+      <DependentUpon>StockTransferOrderCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx.designer.cs">
+      <DependentUpon>StockTransferOrderCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderView.ascx.cs">
+      <DependentUpon>StockTransferOrderView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderView.ascx.designer.cs">
+      <DependentUpon>StockTransferOrderView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewReport\CustomerVisitReport.aspx.cs">
       <DependentUpon>CustomerVisitReport.aspx</DependentUpon>
