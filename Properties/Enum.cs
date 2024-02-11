@@ -284,7 +284,7 @@ namespace Properties
         ViewInventory_WarehouseStock = 39,
         ViewInventory_StockAgeingReport = 40,
         ViewInventory_MaterialStockAnalysis = 41,
-        //=  42,
+        ViewProcurement_StockTransferOrderDelivery =  42,
         ViewService_TicketTracking = 43,
         ViewService_WarrantyClaimAnnexureCreate = 44,
         ViewService_WarrantyDeliveryReport = 45,

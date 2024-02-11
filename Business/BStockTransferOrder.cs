@@ -36,5 +36,21 @@ namespace Business
             string endPoint = "StockTransferOrder/UpdateStockTransferOrderStatus?StockTransferOrderID=" + StockTransferOrderID + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public PApiResult InsertStockTransferOrderDelivery(object obj)
+        {
+            string endPoint = "StockTransferOrder/InsertStockTransferOrderDelivery";
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, obj));
+        }
+        public PApiResult GetStockTransferOrderDeliveryByID(long? StockTransferOrderID, long? DeliveryID)
+        {
+            string endPoint = "StockTransferOrder/GetStockTransferOrderDeliveryByID?StockTransferOrderID=" + StockTransferOrderID + "&DeliveryID=" + DeliveryID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetStockTransferOrderDeliveryHeader(int? DealerID, string DeliveryNumber, string StockTransferOrderNo, string DateFrom, string DateTo, int? StatusID, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "StockTransferOrder/GetStockTransferOrderHeader?DealerID=" + DealerID + "&DeliveryNumber=" + DeliveryNumber + "&StockTransferOrderNo=" + StockTransferOrderNo
+              + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&StatusID=" + StatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }
