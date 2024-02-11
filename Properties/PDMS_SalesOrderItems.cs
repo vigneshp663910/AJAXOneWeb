@@ -226,8 +226,12 @@ namespace Properties
     public class PSaleOrder
     {
         public long SaleOrderID { get; set; }
+        public string QuotationNumber { get; set; }
+        public DateTime QuotationDate { get; set; }
         public string SaleOrderNumber { get; set; }
-        public DateTime SaleOrderDate { get; set; }
+        public DateTime? SaleOrderDate { get; set; }        
+        public string ProformaInvoiceNumber { get; set; }
+        public DateTime? ProformaInvoiceDate { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerOffice DealerOffice { get; set; }
         public PDMS_Customer Customer { get; set; }
@@ -252,7 +256,12 @@ namespace Properties
         public PSaleOrderType SaleOrderType { get; set; }
         public PUser SalesEngineer { get; set; }
         public decimal HeaderDiscount { get; set; }
-        
+        public PUser CreatedBy { get; set; }
+        public PUser CancelledBy { get; set; }
+        public DateTime CancelledOn { get; set; }
+        public PUser ForceClosedBy { get; set; }
+        public DateTime ForceClosedOn { get; set; }
+
     }
     [Serializable]
     public class PSaleOrderItem
@@ -269,6 +278,8 @@ namespace Properties
         public decimal Tax { get; set; }
         //public decimal TotalAmt { get; set; }
         public decimal NetAmount { get; set; }
+        public PUser CancelledBy { get; set; }
+        public DateTime CancelledOn { get; set; }
     }
     [Serializable]
     public class PSaleOrderDelivery
@@ -349,10 +360,12 @@ namespace Properties
         public int SaleOrderTypeID { get; set; }
         public int? SalesEngineerID { get; set; }
         public decimal HeaderDiscount { get; set; }
+        public int UserID { get; set; }
     }
     [Serializable]
     public class PSaleOrderItem_Insert
     {
+        public long SaleOrderID { get; set; }
         public long SaleOrderItemID { get; set; }
         public long MaterialID { get; set; }
         public string MaterialCode { get; set; }

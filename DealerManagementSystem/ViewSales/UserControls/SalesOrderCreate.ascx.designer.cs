@@ -141,22 +141,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
 
         /// <summary>
-        /// txtInsurancePaidBy control.
+        /// ddlInsurancePaidBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtInsurancePaidBy;
+        protected global::System.Web.UI.WebControls.DropDownList ddlInsurancePaidBy;
 
         /// <summary>
-        /// txtFrieghtPaidBy control.
+        /// ddlFrieghtPaidBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFrieghtPaidBy;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFrieghtPaidBy;
 
         /// <summary>
         /// txtAttn control.

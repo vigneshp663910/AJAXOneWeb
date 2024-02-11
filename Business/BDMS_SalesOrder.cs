@@ -1189,9 +1189,9 @@ namespace Business
             string endPoint = "SaleOrder/GetSaleOrderStatus?SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderStatus=" + SaleOrderStatus;
             return JsonConvert.DeserializeObject<List<PSaleOrderStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public PApiResult GetSaleOrderHeader(long? SaleOrderID, string DateFrom, string DateTo, string SaleOrderNumber, int? DealerID, string CustomerCode, int? SaleOrderStatusID, int? SaleOrderTypeID, int? PageIndex = null, int? PageSize = null)
+        public PApiResult GetSaleOrderHeader(long? SaleOrderID, string DateFrom, string DateTo, string QuotationNumber, int? DealerID, string CustomerCode, int? SaleOrderStatusID, int? SaleOrderTypeID, int? PageIndex = null, int? PageSize = null)
         {
-            string endPoint = "SaleOrder/GetSaleOrderHeader?SaleOrderID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SaleOrderNumber=" + SaleOrderNumber + "&DealerID=" + DealerID
+            string endPoint = "SaleOrder/GetSaleOrderHeader?SaleOrderID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&QuotationNumber=" + QuotationNumber + "&DealerID=" + DealerID
                 + "&CustomerCode=" + CustomerCode + "&SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderTypeID=" + SaleOrderTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }

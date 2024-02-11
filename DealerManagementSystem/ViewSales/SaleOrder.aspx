@@ -178,8 +178,8 @@
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Sale Order Number</label>
-                        <asp:TextBox ID="txtSONumber" runat="server" CssClass="form-control"></asp:TextBox>
+                        <label class="modal-label">Quotation Number</label>
+                        <asp:TextBox ID="txtQuotationNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Sale Order Status</label>
@@ -244,13 +244,13 @@
                                             <asp:Button ID="btnViewSO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSO_Click" Width="75px" Height="25px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Sale Order Number">
+                                    <asp:TemplateField HeaderText="Quotation Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblSaleOrderID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderID")%>' runat="server" Visible="false" />
-                                            <asp:Label ID="lblSaleOrderNumber" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderNumber")%>' runat="server" />
+                                            <asp:Label ID="lblQuotationNumber" Text='<%# DataBinder.Eval(Container.DataItem, "QuotationNumber")%>' runat="server" />
                                             <br />
-                                            <asp:Label ID="lblSaleOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDate","{0:d}")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "QuotationDate","{0:d}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Dealer">

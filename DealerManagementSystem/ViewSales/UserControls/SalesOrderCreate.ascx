@@ -46,11 +46,21 @@
             </div>
             <div class="col-md-6 col-sm-12">
                 <label>Insurance Paid By</label>
-                <asp:TextBox ID="txtInsurancePaidBy" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                <%--<asp:TextBox ID="txtInsurancePaidBy" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>--%>
+                <asp:DropDownList ID="ddlInsurancePaidBy" runat="server" CssClass="form-control" BorderColor="Silver">
+                    <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
+                    <asp:ListItem Value="1">Seller</asp:ListItem>
+                    <asp:ListItem Value="2">Buyer</asp:ListItem>
+                </asp:DropDownList>
             </div>
             <div class="col-md-6 col-sm-12">
                 <label>Frieght Paid By</label>
-                <asp:TextBox ID="txtFrieghtPaidBy" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                <%--<asp:TextBox ID="txtFrieghtPaidBy" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>--%>
+                <asp:DropDownList ID="ddlFrieghtPaidBy" runat="server" CssClass="form-control" BorderColor="Silver">
+                    <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
+                    <asp:ListItem Value="1">Seller</asp:ListItem>
+                    <asp:ListItem Value="2">Buyer</asp:ListItem>
+                </asp:DropDownList>
             </div>
             <div class="col-md-6 col-sm-12">
                 <label>Attn.</label>

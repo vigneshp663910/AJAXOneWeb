@@ -60,13 +60,13 @@ namespace DealerManagementSystem.ViewSales
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender6;
 
         /// <summary>
-        /// txtSONumber control.
+        /// txtQuotationNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSONumber;
+        protected global::System.Web.UI.WebControls.TextBox txtQuotationNumber;
 
         /// <summary>
         /// ddlSOStatus control.

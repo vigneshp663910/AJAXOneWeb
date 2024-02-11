@@ -71,15 +71,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             SaleOrderByID = new BDMS_SalesOrder().GetSaleOrderByID(SaleOrderID);
 
-            lblSaleOrderNumber.Text = SaleOrderByID.SaleOrderNumber;
+            lblQuotationNumber.Text = SaleOrderByID.QuotationNumber;
             lblDealerOffice.Text = SaleOrderByID.Dealer.DealerOffice.OfficeName;
             lblContactPerson.Text = SaleOrderByID.ContactPerson;
             lblRemarks.Text = SaleOrderByID.Remarks;
             lblRefNumber.Text = SaleOrderByID.RefNumber;
             lblFrieghtPaidBy.Text = SaleOrderByID.FrieghtPaidBy;
             lblTaxType.Text = SaleOrderByID.TaxType;
-            lblSaleOrderDate.Text = SaleOrderByID.SaleOrderDate.ToString();
-            lblCustomer.Text = SaleOrderByID.Customer.CustomerCode + " " + SaleOrderByID.Customer.CustomerName;
+            lblQuotationDate.Text = SaleOrderByID.QuotationDate.ToString();
+            //lblCustomer.Text = SaleOrderByID.Customer.CustomerCode + " " + SaleOrderByID.Customer.CustomerName;
             lblContactPersonNumber.Text = SaleOrderByID.ContactPersonNumber;
             lblExpectedDeliveryDate.Text = SaleOrderByID.ExpectedDeliveryDate.ToString();
             lblRefDate.Text = SaleOrderByID.RefDate.ToString();
@@ -94,10 +94,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblSalesEngnieer.Text = SaleOrderByID.SalesEngineer == null ? "" : SaleOrderByID.SalesEngineer.ContactName;
             lblHeaderDiscount.Text = SaleOrderByID.HeaderDiscount.ToString();
 
-            foreach(PSaleOrderItem SaleOrderItem in SaleOrderByID.SaleOrderItems)
+            decimal Price = 0, TaxableAmount = 0, TaxAmount = 0, NetAmount = 0;
+            foreach (PSaleOrderItem SaleOrderItem in SaleOrderByID.SaleOrderItems)
             {
+                Price = Price + SaleOrderItem.Value;
+                TaxableAmount = TaxableAmount + SaleOrderItem.TaxableAmount;
+                TaxAmount = TaxAmount + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
+                NetAmount = NetAmount + SaleOrderItem.TaxableAmount + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
                 SaleOrderItem.NetAmount = SaleOrderItem.TaxableAmount + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
             }
+
+            lblPrice.Text = Price.ToString();
+            lblTaxableAmount.Text = TaxableAmount.ToString();
+            lblTaxAmount.Text = TaxAmount.ToString();
+            lblNetAmount.Text = NetAmount.ToString();
+
             gvSOItem.DataSource = SaleOrderByID.SaleOrderItems;
             gvSOItem.DataBind();
             SaleOrderByID.Customer = new BDMS_Customer().GetCustomerByID(SaleOrderByID.Customer.CustomerID);
@@ -109,15 +120,34 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lbEditSaleOrder.Visible = true;
             lbCancelSaleOrder.Visible = true;
             lbAddSaleOrderItem.Visible = true;
+            lbGenerateQuotation.Visible = true;
+            lbGenerateProformaInvoice.Visible = true;
+            lbReleaseSaleOrder.Visible = true;
             int StatusID = SaleOrderByID.SaleOrderStatus.StatusID;
-            if (StatusID == 13)
+            if (StatusID == 23)
             {
                 lbCancelSaleOrder.Visible = false;
                 lbEditSaleOrder.Visible = false;
                 lbAddSaleOrderItem.Visible = false;
                 lbReleaseSaleOrder.Visible = false;
+                lbGenerateQuotation.Visible = false;
+                lbGenerateProformaInvoice.Visible = false;
+            }
+            DisableSOItemEditDelete();
+        }
+
+        private void DisableSOItemEditDelete()
+        {
+            if(SaleOrderByID.SaleOrderStatus.StatusID == 23 || SaleOrderByID.SaleOrderStatus.StatusID == 15)
+            {
+                for (int i = 0; i < gvSOItem.Rows.Count; i++)
+                {
+                    ((LinkButton)gvSOItem.Rows[i].FindControl("lnkBtnEdit")).Enabled = false;
+                    ((LinkButton)gvSOItem.Rows[i].FindControl("lnkBtnDelete")).Enabled = false;
+                }
             }
         }
+
         protected void lbActions_Click(object sender, EventArgs e)
         {
             lblMessage.ForeColor = Color.Red;
@@ -130,10 +160,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblMessageAddSOItem.Visible = true;
             lblMessageAddSOItem.Text = "";
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Cancel SO")
+            if (lbActions.Text == "Cancel")
             {
                 lblMessage.Visible = true;
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/CancelSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID));
+                //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/CancelSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID));
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SaleOrderByID.SaleOrderID + "&StatusID=" + 23));
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
@@ -144,19 +175,20 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SaleOrderByID.SaleOrderID);
             }
-            else if (lbActions.Text == "Edit SO")
+            else if (lbActions.Text == "Edit")
             {                
                 Edit();
                 MPE_SaleOrderEdit.Show();
             }
-            else if (lbActions.Text == "Add SO Item")
+            else if (lbActions.Text == "Add Item")
             {
                 MPE_SaleOrderItemAdd.Show();
             }
-            else if (lbActions.Text == "Release SO")
+            else if (lbActions.Text == "Release")
             {
                 lblMessage.Visible = true;
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID));
+                //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID));
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID + "&StatusID=" + 13));
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
@@ -166,6 +198,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SaleOrderByID.SaleOrderID);
+            }
+            else if(lbActions.Text == "Generate Quotation")
+            {
+
+            }
+            else if (lbActions.Text == "Proforma Invoice")
+            {
+
             }
         } 
         public void Edit()
@@ -194,13 +234,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlDivision.SelectedValue = SaleOrderByID.Division.DivisionID.ToString();
             txtRemarks.Text = SaleOrderByID.Remarks;
             txtExpectedDeliveryDate.Text = SaleOrderByID.ExpectedDeliveryDate.ToString();
-            txtInsurancePaidBy.Text = SaleOrderByID.InsurancePaidBy;
-            txtFrieghtPaidBy.Text = SaleOrderByID.FrieghtPaidBy;
+            ddlInsurancePaidBy.SelectedValue = ddlInsurancePaidBy.Items.FindByText(SaleOrderByID.InsurancePaidBy).Value;
+            ddlFrieghtPaidBy.SelectedValue = ddlFrieghtPaidBy.Items.FindByText(SaleOrderByID.FrieghtPaidBy).Value;
             txtAttn.Text = SaleOrderByID.Attn;
             ddlProduct.SelectedValue = SaleOrderByID.Product.ProductID.ToString();
             txtEquipmentSerialNo.Text = SaleOrderByID.EquipmentSerialNo;
-            //txtSelectTax.Text = SaleOrderByID.TaxType;
-            ddlTax.SelectedValue = ddlTax.Items.FindByText(SaleOrderByID.TaxType).Value; 
+            ddlTax.SelectedValue = ddlTax.Items.FindByText(SaleOrderByID.TaxType).Value;
+            txtBoxHeaderDiscountPercent.Text = SaleOrderByID.HeaderDiscount.ToString();
         } 
         protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -265,34 +305,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     return;
                 }
 
-                //PSaleOrder_Insert SO = new PSaleOrder_Insert();
-                //SO.SaleOrderID = Convert.ToInt64(SaleOrderByID.SaleOrderID);
-                //SO.DealerID = Convert.ToInt32(SaleOrderByID.Dealer.DealerID);
-                //SO.CustomerID = Convert.ToInt32(SaleOrderByID.Customer.CustomerID);
-                //SO.StatusID = 11;
-                //SO.OfficeID = Convert.ToInt32(SaleOrderByID.Dealer.DealerOffice.OfficeID);
-                //SO.ContactPerson = SaleOrderByID.ContactPerson.Trim();
-                //SO.ContactPersonNumber = SaleOrderByID.ContactPersonNumber.Trim();
-                //SO.DivisionID = Convert.ToInt32(SaleOrderByID.Division.DivisionID);
-                //SO.Remarks = SaleOrderByID.Remarks.Trim();
-                //SO.ExpectedDeliveryDate = SaleOrderByID.ExpectedDeliveryDate;
-                //SO.InsurancePaidBy = SaleOrderByID.InsurancePaidBy.Trim();
-                //SO.FrieghtPaidBy = SaleOrderByID.FrieghtPaidBy.Trim();
-                //SO.Attn = SaleOrderByID.Attn.Trim();
-                //SO.ProductID = Convert.ToInt32(SaleOrderByID.Product.ProductID);
-                //SO.EquipmentSerialNo = SaleOrderByID.EquipmentSerialNo.Trim();
-                //SO.TaxType = SaleOrderByID.TaxType.Trim();
-                //SO.SaleOrderTypeID = SaleOrderByID.SaleOrderType.SaleOrderTypeID;
-                //SO.SalesEngineerID = SaleOrderByID.SalesEngineer.UserID;
-                //SO.HeaderDiscount = SaleOrderByID.HeaderDiscount;
-
-                //SO.SaleOrderItems = new List<PSaleOrderItem_Insert>();
-                //SO.SaleOrderItems.Add(ReadItem());
-
-                //string result = new BAPI().ApiPut("SaleOrder", SO);
-                //PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
                 PSaleOrderItem_Insert pSaleOrderItem = new PSaleOrderItem_Insert();
+                pSaleOrderItem = ReadItem();
                 string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", pSaleOrderItem);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
@@ -305,6 +319,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.Text = Result.Message; 
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SaleOrderByID.SaleOrderID);
+                
             }
             catch (Exception ex)
             {
@@ -315,12 +330,17 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void lblMaterialRemove_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;  
-            if (SaleOrderByID.SaleOrderStatus.StatusID == 14 || SaleOrderByID.SaleOrderStatus.StatusID == 15)
-            {
-                lblMessage.Text = "Sale Order is delivered. Item not allowed edit.";
-                return;
-            } 
+            lblMessage.ForeColor = Color.Red;
+            //if (SaleOrderByID.SaleOrderStatus.StatusID == 23)
+            //{
+            //    lblMessage.Text = "Sale Order is Cancelled.";
+            //    return;
+            //}
+            //if (SaleOrderByID.SaleOrderStatus.StatusID == 15)
+            //{
+            //    lblMessage.Text = "Sale Order is delivered. Item not allowed edit.";
+            //    return;
+            //}
             try
             {
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -342,14 +362,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.CGSTAmt = Item.Material.CGSTValue;
                 SoI.IGST = Item.Material.IGST;
                 SoI.IGSTAmt = Item.Material.IGSTValue;
-                SoI.StatusID = 13;
+                SoI.StatusID = 20;
 
                 PSaleOrder_Insert SO = new PSaleOrder_Insert();
                 SO.SaleOrderID = Convert.ToInt64(SaleOrderByID.SaleOrderID);
                 SO.DealerID = Convert.ToInt32(SaleOrderByID.Dealer.DealerID);
                 SO.CustomerID = Convert.ToInt32(SaleOrderByID.Customer.CustomerID);
-                //SO.StatusID = 11;
-                SO.StatusID = 20;
+                SO.StatusID = 23;
                 SO.OfficeID = Convert.ToInt32(SaleOrderByID.Dealer.DealerOffice.OfficeID);
                 SO.ContactPerson = SaleOrderByID.ContactPerson.Trim();
                 SO.ContactPersonNumber = SaleOrderByID.ContactPersonNumber.Trim();
@@ -400,13 +419,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
             SO.Remarks = txtRemarks.Text.Trim();
             SO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
-            SO.InsurancePaidBy = txtInsurancePaidBy.Text.Trim();
-            SO.FrieghtPaidBy = txtFrieghtPaidBy.Text.Trim();
+            SO.InsurancePaidBy = ddlInsurancePaidBy.SelectedItem.Text;
+            SO.FrieghtPaidBy = ddlFrieghtPaidBy.SelectedItem.Text;
             SO.Attn = txtAttn.Text.Trim();
             SO.ProductID = Convert.ToInt32(ddlProduct.SelectedValue);
             SO.EquipmentSerialNo = txtEquipmentSerialNo.Text.Trim();
-            //SO.TaxType = txtSelectTax.Text.Trim();
-            SO.TaxType = ddlTax.SelectedItem.Text.Trim();
+            SO.TaxType = ddlTax.SelectedItem.Text;
             SO.SaleOrderTypeID = SaleOrderByID.SaleOrderType.SaleOrderTypeID;
             SO.SalesEngineerID = Convert.ToInt32(ddlSalesEngineer.SelectedValue);
             SO.HeaderDiscount = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
@@ -415,9 +433,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
         public PSaleOrderItem_Insert ReadItem()
         {
             PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
+            SoI.SaleOrderID = SaleOrderByID.SaleOrderID;
             SoI.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
             SoI.MaterialCode = hdfMaterialCode.Value;
             SoI.Qty = Convert.ToInt32(txtQty.Text.Trim());
+
+            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(SoI.MaterialID), null, null, null, null)[0];
+            if (string.IsNullOrEmpty(m.HSN))
+            {
+                throw new Exception("HSN Code is not updated for this Material. Please contact Parts Admin.");
+            }
 
             string Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(SaleOrderByID.Customer.CustomerID)).CustomerCode;
             string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(SaleOrderByID.Dealer.DealerID), "").DealerCode;
@@ -426,11 +451,36 @@ namespace DealerManagementSystem.ViewSales.UserControls
             string PriceDate = "";
             string IsWarrenty = "false";
             PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DPPOR_PURC_ORDER_HDR", 1, Material, SoI.Qty, IV_SEC_SALES, PriceDate, IsWarrenty);
+
+            Mat.CurrentPrice = Convert.ToDecimal(111);
+            Mat.Discount = Convert.ToDecimal(0);
+            Mat.TaxablePrice = Convert.ToDecimal(111);
+            Mat.SGST = Convert.ToDecimal(9);
+            Mat.SGSTValue = Convert.ToDecimal(9.99);
+            Mat.CGST = Convert.ToDecimal(9);
+            Mat.CGSTValue = Convert.ToDecimal(9.99);
+            Mat.IGST = Convert.ToDecimal(0);
+            Mat.IGSTValue = Convert.ToDecimal(0);
+
+            if (Mat.CurrentPrice <= 0)
+            {
+                throw new Exception("Please maintain the Price for Material " + Material + " in SAP.");
+            }
+            if (Mat.SGST <= 0 && Mat.IGST <= 0)
+            {
+                throw new Exception("Please maintain the Tax for Material " + Material + " in SAP.");
+            }
+            if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
+            {
+                throw new Exception("GST Tax value not found this Material " + Material + " in SAP.");
+            }
+
             SoI.UnitPrice = Mat.CurrentPrice / SoI.Qty;
             SoI.Value = Mat.CurrentPrice;
             //SoI.Discount = Mat.Discount;
             //SoI.TaxableAmount = Mat.TaxablePrice;
-            SoI.Discount = SaleOrderByID.HeaderDiscount > 0 ? SaleOrderByID.HeaderDiscount : Mat.Discount;
+            //SoI.Discount = SaleOrderByID.HeaderDiscount > 0 ? SaleOrderByID.HeaderDiscount : Mat.Discount;
+            SoI.Discount = SaleOrderByID.HeaderDiscount > 0 ? 0 : Mat.Discount;
             SoI.TaxableAmount = SaleOrderByID.HeaderDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (SaleOrderByID.HeaderDiscount / 100))) : Mat.TaxablePrice;
             //SoI.SGST = Mat.SGST;
             //SoI.SGSTAmt = Mat.SGSTValue;
@@ -438,7 +488,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             //SoI.CGSTAmt = Mat.CGSTValue;
             //SoI.IGST = Mat.IGST;
             //SoI.IGSTAmt = Mat.IGSTValue;
-            if (ddlTax.SelectedValue == "1")
+            if (SaleOrderByID.TaxType == "SGST & CGST")
             {
                 SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
                 SoI.SGSTAmt = SaleOrderByID.HeaderDiscount > 0 ? (SoI.TaxableAmount * (SoI.SGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
@@ -458,17 +508,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
 
             SoI.NetAmt = SoI.TaxableAmount + SoI.SGSTAmt + SoI.CGSTAmt + SoI.IGSTAmt;
-            SoI.StatusID = 11;
+            SoI.StatusID = 19;
+            SoI.MaterialDescription = m.MaterialDescription;
+            SoI.HSN = m.HSN;
+            SoI.UOM = m.BaseUnit;
             return SoI;
         }
         public string Validation()
         { 
             ddlOfficeName.BorderColor = Color.Silver;
             txtCustomer.BorderColor = Color.Silver;
+            txtContactPersonNumber.BorderColor = Color.Silver;
             ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
             ddlTax.BorderColor = Color.Silver;
+            txtBoxHeaderDiscountPercent.BorderColor = Color.Silver;
             string Message = ""; 
             if (ddlOfficeName.SelectedValue == "0")
             {
@@ -479,6 +534,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 txtCustomer.BorderColor = Color.Red;
                 return "Please enter Customer.";
+            }
+            if (!string.IsNullOrEmpty(txtContactPersonNumber.Text.Trim()))
+            {
+                long longCheck;
+                if (!long.TryParse(txtContactPersonNumber.Text.Trim(), out longCheck))
+                {
+                    txtContactPersonNumber.BorderColor = Color.Red;
+                    return "Mobile should be 10 Digit.";
+                }
             }
             if (ddlDivision.SelectedValue == "0")
             {
@@ -499,6 +563,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 ddlTax.BorderColor = Color.Red;
                 return "Please select Tax.";
+            }
+            decimal value;
+            if (!decimal.TryParse(txtBoxHeaderDiscountPercent.Text, out value))
+            {
+                txtBoxHeaderDiscountPercent.BackColor = Color.Red;
+                return "Please enter correct format in Header Discount Percent.";
             }
             return Message;
         }
@@ -531,11 +601,18 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void lnkBtnItemAction_Click(object sender, EventArgs e)
         {
-            if(SaleOrderByID.SaleOrderStatus.StatusID == 14 || SaleOrderByID.SaleOrderStatus.StatusID == 15)
-            {
-                lblMessage.Text = "Sale Order is delivered. Item not allowed edit.";
-                return;
-            }
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            //if (SaleOrderByID.SaleOrderStatus.StatusID == 23)
+            //{
+            //    lblMessage.Text = "Sale Order is Cancelled.";
+            //    return;
+            //}
+            //if (SaleOrderByID.SaleOrderStatus.StatusID == 15)
+            //{
+            //    lblMessage.Text = "Sale Order is Delivered. Item not allowed edit.";
+            //    return;
+            //}
 
             LinkButton lbActions = ((LinkButton)sender);
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -574,7 +651,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 PSaleOrderItem_Insert item_Insert = new PSaleOrderItem_Insert();
                 item_Insert.SaleOrderItemID = Convert.ToInt64(lblSaleOrderItemID.Text);
                 item_Insert.Qty = Convert.ToDecimal(txtBoxQuantity.Text);
-                item_Insert.Discount = Convert.ToDecimal(txtBoxQuantity.Text);
+                item_Insert.Discount = Convert.ToDecimal(txtBoxDiscountPercent.Text);
+                item_Insert.StatusID = 19;
                 string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", item_Insert);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
@@ -615,7 +693,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
-                    lblMessage.ForeColor = Color.Red;
                     return;
                 }
                 lblMessage.ForeColor = Color.Green;
