@@ -84,12 +84,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PApiResult Result = new BStockTransferOrder().GetStockTransferOrderByID(Deliverys.StockTransferOrder.StockTransferOrderID);
             StockTransferOrder = JsonConvert.DeserializeObject<PStockTransferOrder>(JsonConvert.SerializeObject(Result.Data));
 
+
             lblPurchaseOrderNumber.Text = StockTransferOrder.StockTransferOrderNumber;
             lblPurchaseOrderDate.Text = StockTransferOrder.StockTransferOrderDate.ToString();
-            lblStatus.Text = StockTransferOrder.Status.Status;
+
+            lblDeliveryNumber.Text = Deliverys.DeliveryNumber;
+            lblDeliveryDate.Text = Deliverys.DeliveryDate.ToString();
+
+            lblGrNumber.Text = Deliverys.GrNumber;
+            lblGrDate.Text = Convert.ToString(Deliverys.GrDate);
+
+
+            lblStatus.Text = Deliverys.Status.Status;
 
             lblReceivingLocation.Text = StockTransferOrder.DestinationOffice.OfficeName;
-            //   lblReceivingLocation.Text = StockTransferOrder.DestinationOffice.OfficeName;
+            lblSourceLocation.Text = StockTransferOrder.SourceOffice.OfficeName;
+
             lblPORemarks.Text = StockTransferOrder.Remarks;
 
             lblPODealer.Text = StockTransferOrder.Dealer.DealerName;
@@ -120,13 +130,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     Gr_Insert.Add(new PStockTransferOrderItemGr_Insert()
                     {
                         DeliveryID = Deliverys.DeliveryID,
+                        DealerID = Deliverys.StockTransferOrder.Dealer.DealerID,
                         DeliveryItemID = Item.DeliveryItemID,
-                        MaterialID = Item.Material.MaterialID,
                         MaterialCode = Item.Material.MaterialCode,
                         MaterialDescription = Item.Material.MaterialDescription,
                         Quantity = Item.DeliveryQuantity,
                         UnrestrictedQty = Item.DeliveryQuantity,
                         RestrictedQty = 0,
+                        RestrictedItem = new List<PGrRestricted_Insert>()
                     });
                 }
                 FillGr();
@@ -456,8 +467,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
 
         protected void btnGrCreate_Click(object sender, EventArgs e)
-        {
-            lblMessage.ForeColor = Color.Red; 
+        { 
+            MPE_GrCreate.Show();
             lblMessageGrCreation.ForeColor = Color.Red; 
             Boolean Validation = ValidationGrItem();
             if (Validation)
@@ -468,13 +479,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PApiResult Result = new BStockTransferOrder().UpdateStockTransferOrderGr(Gr_Insert);
             if (Result.Status == PApplication.Failure)
             {
-                lblMessage.Text = Result.Message;
+                lblMessageGrCreation.Text = Result.Message;
                 return;
             }
             fillViewDelivery(Deliverys.DeliveryID);
-            lblMessage.Text = Result.Message;
-            lblMessage.Visible = true;
+            lblMessage.Text = Result.Message; 
             lblMessage.ForeColor = Color.Green;
+            MPE_GrCreate.Hide();
         }
         public Boolean ValidationGrItem()
         {
@@ -570,11 +581,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     asn.RestrictedItem = new List<PGrRestricted_Insert>(); 
                     if (MissingQty != 0)
                     {
-                        asn.RestrictedItem.Add(new PGrRestricted_Insert() { Qty = MissingQty, RestrictedStatusID = 20 });
+                        asn.RestrictedItem.Add(new PGrRestricted_Insert() { Qty = MissingQty, RestrictedStatusID = (short)AjaxOneStatus.StockTransferOrderGrRestricted_MissingQty });
                     }
                     if (DamagedQty != 0)
                     {
-                        asn.RestrictedItem.Add(new PGrRestricted_Insert() { Qty = DamagedQty, RestrictedStatusID = 19 });
+                        asn.RestrictedItem.Add(new PGrRestricted_Insert() { Qty = DamagedQty, RestrictedStatusID = (short)AjaxOneStatus.StockTransferOrderGrRestricted_DamagedQty });
                     }
                     asn.UnrestrictedQty = UnrestrictedQty;
                     asn.RestrictedQty = MissingQty + DamagedQty;

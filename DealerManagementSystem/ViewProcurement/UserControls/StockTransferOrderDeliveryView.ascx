@@ -27,17 +27,23 @@
 
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
-        <legend style="background: none; color: #007bff; font-size: 17px;">PO</legend>
+        <legend style="background: none; color: #007bff; font-size: 17px;">STO</legend>
         <div class="col-md-12 View">
             <div class="col-md-3">
                 <div class="col-md-12">
                     <label>Delivery Number : </label>
-                    <asp:Label ID="Label1" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:Label ID="lblDeliveryNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Delivery Date : </label>
-                    <asp:Label ID="Label2" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:Label ID="lblDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Dealer : </label>
+                    <asp:Label ID="lblPODealer" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="col-md-12">
                     <label>PO Number : </label>
                     <asp:Label ID="lblPurchaseOrderNumber" runat="server" CssClass="LabelValue"></asp:Label>
@@ -46,22 +52,31 @@
                     <label>PO Date : </label>
                     <asp:Label ID="lblPurchaseOrderDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="col-md-12">
-                    <label>Dealer : </label>
-                    <asp:Label ID="lblPODealer" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Status : </label>
-                    <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-            </div>
-            <div class="col-md-3">
                 <div class="col-md-12">
                     <label>Receiving Location : </label>
                     <asp:Label ID="lblReceivingLocation" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <label>GR Number : </label>
+                    <asp:Label ID="lblGrNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>GR Date : </label>
+                    <asp:Label ID="lblGrDate" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Source Location : </label>
+                    <asp:Label ID="lblSourceLocation" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-3">
+
+                <div class="col-md-12">
+                    <label>Status : </label>
+                    <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
+                </div> 
                 <div class="col-md-12">
                     <label>Remarks : </label>
                     <asp:Label ID="lblPORemarks" runat="server" CssClass="LabelValue"></asp:Label>
@@ -83,12 +98,12 @@
 
                             <asp:GridView ID="gvDeliveryViewItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="Item">
+                                  <%--  <asp:TemplateField HeaderText="Item">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDeliveryItemID" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryItemID")%>' runat="server" Visible="false"></asp:Label> 
+                                            <asp:Label ID="lblDeliveryItemID" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryItemID")%>' runat="server" Visible="false"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                     <asp:TemplateField HeaderText="Material">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -107,12 +122,12 @@
                                             <asp:Label ID="lblDeliveryQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryQuantity")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Gr Quantity">
+                                  <%--  <asp:TemplateField HeaderText="Gr Quantity">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblGrQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "GrQuantity")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                     <asp:TemplateField HeaderText="Unrestricted Quantity">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -225,7 +240,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    
+
 </asp1:TabContainer>
 
 <asp:Panel ID="pnlGrCreate" runat="server" CssClass="Popup" Style="display: none; width: 70%">
@@ -309,7 +324,7 @@
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
-                        <asp:HiddenField ID="HidAsnItemID" runat="server" Visible="false" /> 
+                        <asp:HiddenField ID="HidAsnItemID" runat="server" Visible="false" />
                         <asp:HiddenField ID="HidReceivedQty" runat="server" Visible="false" />
                     </div>
                 </div>
