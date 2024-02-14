@@ -850,6 +850,15 @@ namespace Properties
         StockTransferOrder_Delivered = 28,
         StockTransferOrder_PartiallyClosed = 29,
         StockTransferOrder_Cancelled = 30,
+        StockTransferOrderItem_Created = 31,
+        StockTransferOrderItem_PartiallyDelivered = 32,
+        StockTransferOrderItem_Delivered = 33,
+        StockTransferOrderItem_PartiallyClosed = 34,
+        StockTransferOrderItem_Cancelled = 35,
+        StockTransferOrderDelivery_Delivery = 36,
+        StockTransferOrderDelivery_GR = 37,
+        StockTransferOrderGrRestricted_MissingQty = 38,
+        StockTransferOrderGrRestricted_DamagedQty = 39
     }
     public enum ProcurementStatus
     {

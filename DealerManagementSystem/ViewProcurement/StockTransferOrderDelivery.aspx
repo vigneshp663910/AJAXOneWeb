@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="StockTransferOrderDelivery.aspx.cs" Inherits="DealerManagementSystem.ViewProcurement.StockTransferOrderDelivery" %>
 
-<%@ Register Src="~/ViewProcurement/UserControls/StockTransferOrderView.ascx" TagPrefix="UC" TagName="UC_StockTransferOrderView" %>
-<%@ Register Src="~/ViewProcurement/UserControls/StockTransferOrderCreate.ascx" TagPrefix="UC" TagName="UC_StockTransferOrderCreate" %>
+<%@ Register Src="~/ViewProcurement/UserControls/StockTransferOrderDeliveryView.ascx" TagPrefix="UC" TagName="UC_StockTransferOrderDeliveryView" %> 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -77,7 +76,6 @@
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
-                        <asp:Button ID="btnCreatePO" runat="server" CssClass="btn Save" Text="Create PO" OnClick="btnCreatePO_Click" Width="150px"></asp:Button>
                         <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
                     </div>
                 </div>
@@ -103,40 +101,49 @@
                                     </div>
                                 </div>
                             </div>
-                            <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"                                >
+                            <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20">
                                 <Columns>
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnViewPO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPO_Click" Width="75px" Height="25px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Delivery">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDeliveryID" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryID")%>' runat="server" Visible="false" />
+                                            <asp:Label ID="lblDelivery" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryNumber")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="lblDeliveryDate" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryDate","{0:d}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="STO">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblStockTransferOrderID" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrderID")%>' runat="server" Visible="false" />
-                                            <asp:Label ID="lblStockTransferOrderNumber" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrderNumber")%>' runat="server" />
+                                            <asp:Label ID="lblStockTransferOrderID" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrder.StockTransferOrderID")%>' runat="server" Visible="false" />
+                                            <asp:Label ID="lblStockTransferOrderNumber" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrder.StockTransferOrderNumber")%>' runat="server" />
                                             <br />
-                                            <asp:Label ID="lblStockTransferOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrderDate","{0:d}")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblStockTransferOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrder.StockTransferOrderDate","{0:d}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Dealer">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrder.Dealer.DealerCode")%>' runat="server"></asp:Label>
                                             <br />
-                                            <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerName")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrder.Dealer.DealerName")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Destination Location">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDestinationOffice" Text='<%# DataBinder.Eval(Container.DataItem, "DestinationOffice.OfficeName")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblDestinationOffice" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrder.DestinationOffice.OfficeName")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Source Location">
+                                    <asp:TemplateField HeaderText="Source Location">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblSourceOffice" Text='<%# DataBinder.Eval(Container.DataItem, "SourceOffice.OfficeName")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblSourceOffice" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrder.SourceOffice.OfficeName")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Status">
@@ -164,7 +171,7 @@
                     <asp:Button ID="btnPurchaseOrderViewBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnPurchaseOrderViewBack_Click" />
                 </div>
             </div>
-            <UC:UC_StockTransferOrderView ID="UC_StockTransferOrderView" runat="server"></UC:UC_StockTransferOrderView>
-        </div> 
+            <UC:UC_StockTransferOrderDeliveryView ID="UC_StockTransferOrderDeliveryView" runat="server"></UC:UC_StockTransferOrderDeliveryView>
+        </div>
     </div>
 </asp:Content>

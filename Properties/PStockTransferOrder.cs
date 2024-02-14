@@ -31,6 +31,7 @@ namespace Properties
         public decimal Quantity { get; set; }
         public decimal TransitQuantity { get; set; }
         public decimal DeliveredQuantity { get; set; }
+        public PAjaxOneStatus Status { get; set; }
     }
     [Serializable]
     public class PStockTransferOrder_Insert
@@ -80,6 +81,7 @@ namespace Properties
         public PStockTransferOrder StockTransferOrder { get; set; }
         public PStockTransferOrderDeliveryItem Item { get; set; }
         public List<PStockTransferOrderDeliveryItem> Items { get; set; }
+        public PAjaxOneStatus Status { get; set; }
     }
     [Serializable]
     public class PStockTransferOrderDeliveryItem
@@ -94,5 +96,26 @@ namespace Properties
         public decimal? GrQuantity { get; set; }
         public decimal? UnrestrictedQuantity { get; set; }
         public decimal? RestrictedQuantity { get; set; }
+    }
+
+    [Serializable]
+    public class PStockTransferOrderItemGr_Insert
+    {
+        public long DeliveryID { get; set; }
+        public long DeliveryItemID { get; set; }
+        public long DealerID { get; set; }
+        public string MaterialCode { get; set; }
+        public string MaterialDescription { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal UnrestrictedQty { get; set; }
+        public decimal RestrictedQty { get; set; }
+        public List<PGrRestricted_Insert> RestrictedItem { get; set; }
+        public string Remark { get; set; }
+    }
+    [Serializable]
+    public class PGrRestricted_Insert
+    {  
+        public decimal Qty { get; set; }
+        public int RestrictedStatusID { get; set; }        
     }
 }

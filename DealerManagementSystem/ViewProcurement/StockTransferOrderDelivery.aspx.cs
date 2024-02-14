@@ -72,16 +72,8 @@ namespace DealerManagementSystem.ViewProcurement
                 fillDealer();
                 fillProcurementStatus();
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderCreate).Count() == 0)
-                {
-                    btnCreatePO.Visible = false;
-                }
-                if (Session["PurchaseOrderID"] != null)
-                {
-                    divList.Visible = false;
-                    divDetailsView.Visible = true;
-                    UC_StockTransferOrderView.fillViewPO(Convert.ToInt64(Session["PurchaseOrderID"]));
-                }
+               
+                
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
@@ -266,10 +258,10 @@ namespace DealerManagementSystem.ViewProcurement
         protected void btnViewPO_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblStockTransferOrderID = (Label)gvRow.FindControl("lblStockTransferOrderID");
+            Label lblDeliveryID = (Label)gvRow.FindControl("lblDeliveryID");
             divList.Visible = false;
             divDetailsView.Visible = true;
-            UC_StockTransferOrderView.fillViewPO(Convert.ToInt64(lblStockTransferOrderID.Text));
+            UC_StockTransferOrderDeliveryView.fillViewDelivery(Convert.ToInt64(lblDeliveryID.Text));
         }
     }
 }
