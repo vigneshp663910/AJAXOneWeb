@@ -134,18 +134,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 string PriceDate = "";
                 string IsWarrenty = "false";
 
-                PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DSSOR_SALES_ORDER_HDR", 1, Material, SoI.Qty, IV_SEC_SALES, PriceDate, IsWarrenty);
+                PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DSSOR_SALES_ORDER_HDR", 1, Material, SoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
                 
-                Mat.CurrentPrice = Convert.ToDecimal(1000);
-                Mat.Discount = Convert.ToDecimal(0);
-                Mat.TaxablePrice = Convert.ToDecimal(1000);
-                Mat.SGST = Convert.ToDecimal(9);
-                Mat.SGSTValue = Convert.ToDecimal(90);
-                Mat.CGST = Convert.ToDecimal(9);
-                Mat.CGSTValue = Convert.ToDecimal(90);
-                Mat.IGST = Convert.ToDecimal(0);
-                Mat.IGSTValue = Convert.ToDecimal(0);
-
                 if (Mat.CurrentPrice <= 0)
                 {
                     lblMessage.Text = "Please maintain the price for Material " + Material + " in SAP.";
@@ -162,10 +152,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     return;
                 }
 
-                SoI.UnitPrice = Mat.CurrentPrice / SoI.Qty;
+                SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
                 SoI.Value = Mat.CurrentPrice;
                 //SoI.Discount = Mat.Discount;
-                //SoI.TaxableAmount = Mat.TaxablePrice;
+                //SoI.TaxableValue = Mat.TaxablePrice;
 
                 decimal HDiscount = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
 
@@ -177,16 +167,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 }
 
                 //SoI.Discount = Mat.CurrentPrice - (Mat.CurrentPrice * HDiscount / 100);
-                //SoI.TaxableAmount = SoI.Discount;
+                //SoI.TaxableValue = SoI.Discount;
                 //SoI.Discount = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : Mat.Discount;
                 SoI.Discount = HDiscount > 0 ?  0: Mat.Discount;
-                SoI.TaxableAmount = HDiscount > 0 ? Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100)) : SoI.TaxableAmount;
+                SoI.TaxableValue = HDiscount > 0 ? Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100)) : SoI.TaxableValue;
                 //SoI.SGST = Mat.SGST;
-                //SoI.SGSTAmt = Mat.SGSTValue;
+                //SoI.SGSTValue = Mat.SGSTValue;
                 //SoI.CGST = Mat.CGST;
-                //SoI.CGSTAmt = Mat.CGSTValue;
+                //SoI.CGSTValue = Mat.CGSTValue;
                 //SoI.IGST = Mat.IGST;
-                //SoI.IGSTAmt = Mat.IGSTValue;
+                //SoI.IGSTValue = Mat.IGSTValue;
                 SoI.StatusID = 19;
                 SoI.MaterialDescription = m.MaterialDescription;
                 SoI.HSN = m.HSN;
@@ -195,27 +185,27 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 if (ddlTax.SelectedValue == "1")
                 {
                     SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                    SoI.SGSTAmt = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                    SoI.SGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
                     SoI.CGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                    SoI.CGSTAmt = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                    SoI.CGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
                     SoI.IGST = 0;
-                    SoI.IGSTAmt = 0;
+                    SoI.IGSTValue = 0;
                 }
                 else
                 {
                     SoI.SGST = 0;
-                    SoI.SGSTAmt = 0;
+                    SoI.SGSTValue = 0;
                     SoI.CGST = 0;
-                    SoI.CGSTAmt = 0;
+                    SoI.CGSTValue = 0;
                     SoI.IGST = Mat.SGST + Mat.CGST + Mat.IGST;
-                    SoI.IGSTAmt = Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue;
+                    SoI.IGSTValue = Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue;
                 }
 
-                SoI.SGSTAmt = SoI.TaxableAmount * (SoI.SGST / 100);
-                SoI.CGSTAmt = SoI.TaxableAmount * (SoI.CGST / 100);
-                SoI.IGSTAmt = SoI.TaxableAmount * (SoI.IGST / 100);
+                SoI.SGSTValue = SoI.TaxableValue * (SoI.SGST / 100);
+                SoI.CGSTValue = SoI.TaxableValue * (SoI.CGST / 100);
+                SoI.IGSTValue = SoI.TaxableValue * (SoI.IGST / 100);
 
-                SoI.NetAmt = SoI.TaxableAmount + SoI.SGSTAmt + SoI.CGSTAmt + SoI.IGSTAmt;
+                SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
                 SOItem_Insert.Add(SoI);
                 fillItem();
                 ClearItem();
@@ -346,7 +336,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
             SoI.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
             SoI.MaterialCode = hdfMaterialCode.Value;
-            SoI.Qty = Convert.ToInt32(txtQty.Text.Trim());
+            SoI.Quantity = Convert.ToInt32(txtQty.Text.Trim());
             return SoI;
         }
         void fillItem()
@@ -464,8 +454,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             foreach (GridViewRow row in gvSOItem.Rows)
             {
                 Label MaterialID = (Label)row.FindControl("lblMaterialID");
-                Label lblTaxableAmount = (Label)row.FindControl("lblTaxableAmount");
-                Label lblTaxAmount = (Label)row.FindControl("lblTaxAmount");
+                Label lblTaxableValue = (Label)row.FindControl("lblTaxableValue");
+                Label lblTaxValue = (Label)row.FindControl("lblTaxValue");
                 Label lblNetAmount = (Label)row.FindControl("lblNetAmount");
 
                 foreach (PSaleOrderItem_Insert SOI in SOItem_Insert)
@@ -485,18 +475,18 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                         decimal discountValue = SOI.Value * ((HDiscount + IDiscount) / 100);
                         decimal discountedPrice = SOI.Value - discountValue;
-                        SOI.TaxableAmount = discountedPrice;
+                        SOI.TaxableValue = discountedPrice;
 
-                        SOI.SGSTAmt = SOI.TaxableAmount * (SOI.SGST / 100);
-                        SOI.CGSTAmt = SOI.TaxableAmount * (SOI.CGST / 100);
-                        SOI.IGSTAmt = SOI.TaxableAmount * (SOI.IGST / 100);
+                        SOI.SGSTValue = SOI.TaxableValue * (SOI.SGST / 100);
+                        SOI.CGSTValue = SOI.TaxableValue * (SOI.CGST / 100);
+                        SOI.IGSTValue = SOI.TaxableValue * (SOI.IGST / 100);
 
-                        SOI.NetAmt = SOI.TaxableAmount + SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt;
+                        SOI.NetAmount = SOI.TaxableValue + SOI.SGSTValue + SOI.CGSTValue + SOI.IGSTValue;
                         SOI.Discount = IDiscount;
 
-                        lblTaxableAmount.Text = SOI.TaxableAmount.ToString();
-                        lblTaxAmount.Text = Convert.ToString(SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt);
-                        lblNetAmount.Text = SOI.NetAmt.ToString();
+                        lblTaxableValue.Text = SOI.TaxableValue.ToString();
+                        lblTaxValue.Text = Convert.ToString(SOI.SGSTValue + SOI.CGSTValue + SOI.IGSTValue);
+                        lblNetAmount.Text = SOI.NetAmount.ToString();
                     }
                 }
             }
@@ -508,9 +498,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             Label MaterialID = (Label)gvRow.FindControl("lblMaterialID");
 
             //Label lblDiscountAmount = (Label)gvRow.FindControl("lblDiscountAmount");
-            Label lblTaxableAmount = (Label)gvRow.FindControl("lblTaxableAmount");
-            Label lblTaxAmount = (Label)gvRow.FindControl("lblTaxAmount");
-            Label lblNetAmount = (Label)gvRow.FindControl("lblNetAmount");
+            Label lblTaxableValue = (Label)gvRow.FindControl("lblTaxableValue");
+            Label lblTaxValue = (Label)gvRow.FindControl("lblTaxValue");
+            Label lblNetAmount = (Label)gvRow.FindControl("lblNetValue");
 
             foreach(PSaleOrderItem_Insert SOI in SOItem_Insert)
             {
@@ -528,18 +518,18 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     decimal discountValue = SOI.Value * (HDiscount + IDiscount) / 100;
                     decimal discountedPrice = SOI.Value - discountValue;
-                    SOI.TaxableAmount = discountedPrice;
+                    SOI.TaxableValue = discountedPrice;
 
-                    SOI.SGSTAmt = SOI.TaxableAmount * (SOI.SGST / 100);
-                    SOI.CGSTAmt = SOI.TaxableAmount * (SOI.CGST / 100);
-                    SOI.IGSTAmt = SOI.TaxableAmount * (SOI.IGST / 100);
+                    SOI.SGSTValue = SOI.TaxableValue * (SOI.SGST / 100);
+                    SOI.CGSTValue = SOI.TaxableValue * (SOI.CGST / 100);
+                    SOI.IGSTValue = SOI.TaxableValue * (SOI.IGST / 100);
                     
-                    SOI.NetAmt = SOI.TaxableAmount + SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt;
+                    SOI.NetAmount = SOI.TaxableValue + SOI.SGSTValue + SOI.CGSTValue + SOI.IGSTValue;
                     SOI.Discount = IDiscount;
-                    
-                    lblTaxableAmount.Text = SOI.TaxableAmount.ToString();
-                    lblTaxAmount.Text = Convert.ToString(SOI.SGSTAmt + SOI.CGSTAmt + SOI.IGSTAmt);
-                    lblNetAmount.Text = SOI.NetAmt.ToString();
+
+                    lblTaxableValue.Text = SOI.TaxableValue.ToString();
+                    lblTaxValue.Text = Convert.ToString(SOI.SGSTValue + SOI.CGSTValue + SOI.IGSTValue);
+                    lblNetAmount.Text = SOI.NetAmount.ToString();
                 }
             }
         }

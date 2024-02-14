@@ -58,6 +58,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 ViewState["SO_Insert"] = value;
             }
         }
+        public List<PSaleOrderDeliveryItem_Insert> SODelivery_Insert
+        {
+            get
+            {
+                if (ViewState["SaleOrderDelivery_Insert"] == null)
+                {
+                    ViewState["SaleOrderDelivery_Insert"] = new List<PSaleOrderDeliveryItem_Insert>();
+                }
+                return (List<PSaleOrderDeliveryItem_Insert>)ViewState["SaleOrderDelivery_Insert"];
+            }
+            set
+            {
+                ViewState["SaleOrderDelivery_Insert"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
@@ -94,19 +109,19 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblSalesEngnieer.Text = SaleOrderByID.SalesEngineer == null ? "" : SaleOrderByID.SalesEngineer.ContactName;
             lblHeaderDiscount.Text = SaleOrderByID.HeaderDiscount.ToString();
 
-            decimal Price = 0, TaxableAmount = 0, TaxAmount = 0, NetAmount = 0;
+            decimal Price = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderItem SaleOrderItem in SaleOrderByID.SaleOrderItems)
             {
                 Price = Price + SaleOrderItem.Value;
-                TaxableAmount = TaxableAmount + SaleOrderItem.TaxableAmount;
-                TaxAmount = TaxAmount + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
-                NetAmount = NetAmount + SaleOrderItem.TaxableAmount + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
-                SaleOrderItem.NetAmount = SaleOrderItem.TaxableAmount + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
+                TaxableValue = TaxableValue + SaleOrderItem.TaxableValue;
+                TaxValue = TaxValue + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
+                NetAmount = NetAmount + SaleOrderItem.TaxableValue + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
+                SaleOrderItem.NetAmount = SaleOrderItem.TaxableValue + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
             }
 
             lblPrice.Text = Price.ToString();
-            lblTaxableAmount.Text = TaxableAmount.ToString();
-            lblTaxAmount.Text = TaxAmount.ToString();
+            lblTaxableValue.Text = TaxableValue.ToString();
+            lblTaxValue.Text = TaxValue.ToString();
             lblNetAmount.Text = NetAmount.ToString();
 
             gvSOItem.DataSource = SaleOrderByID.SaleOrderItems;
@@ -123,11 +138,35 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lbGenerateQuotation.Visible = true;
             lbGenerateProformaInvoice.Visible = true;
             lbReleaseSaleOrder.Visible = true;
+            lbDelivery.Visible = true;
+            
             int StatusID = SaleOrderByID.SaleOrderStatus.StatusID;
-            if (StatusID == 23)
+            
+            if (StatusID == 11 || StatusID == 12) //Draft
             {
-                lbCancelSaleOrder.Visible = false;
+                lbDelivery.Visible = false;
+            }
+            if (StatusID == 13) //Order Placed
+            {
                 lbEditSaleOrder.Visible = false;
+                lbCancelSaleOrder.Visible = false;
+                lbAddSaleOrderItem.Visible = false;
+                lbReleaseSaleOrder.Visible = false;
+            }
+            if (StatusID == 23) //Cancelled
+            {
+                lbEditSaleOrder.Visible = false;
+                lbCancelSaleOrder.Visible = false;
+                lbAddSaleOrderItem.Visible = false;
+                lbReleaseSaleOrder.Visible = false;
+                lbGenerateQuotation.Visible = false;
+                lbGenerateProformaInvoice.Visible = false;
+                lbDelivery.Visible = false;
+            }
+            if (StatusID == 15) //Delivered
+            {
+                lbEditSaleOrder.Visible = false;
+                lbCancelSaleOrder.Visible = false;
                 lbAddSaleOrderItem.Visible = false;
                 lbReleaseSaleOrder.Visible = false;
                 lbGenerateQuotation.Visible = false;
@@ -135,10 +174,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             DisableSOItemEditDelete();
         }
-
         private void DisableSOItemEditDelete()
         {
-            if(SaleOrderByID.SaleOrderStatus.StatusID == 23 || SaleOrderByID.SaleOrderStatus.StatusID == 15)
+            if(SaleOrderByID.SaleOrderStatus.StatusID == 15 || SaleOrderByID.SaleOrderStatus.StatusID == 23)
             {
                 for (int i = 0; i < gvSOItem.Rows.Count; i++)
                 {
@@ -147,7 +185,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 }
             }
         }
-
         protected void lbActions_Click(object sender, EventArgs e)
         {
             lblMessage.ForeColor = Color.Red;
@@ -188,7 +225,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 lblMessage.Visible = true;
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID));
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID + "&StatusID=" + 13));
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SaleOrderByID.SaleOrderID + "&StatusID=" + 13));
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
@@ -203,20 +240,48 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
 
             }
-            else if (lbActions.Text == "Proforma Invoice")
+            else if (lbActions.Text == "Generate Proforma Invoice")
             {
 
+            }
+            else if (lbActions.Text == "Delivery")
+            {
+                MPE_Delivery.Show();
+                SODelivery_Insert = new List<PSaleOrderDeliveryItem_Insert>();
+                foreach (PSaleOrderItem Item in SaleOrderByID.SaleOrderItems)
+                {
+                    SODelivery_Insert.Add(new PSaleOrderDeliveryItem_Insert()
+                    {
+                        SaleOrderID = SaleOrderByID.SaleOrderID,
+                        SaleOrderItemID = Item.SaleOrderItemID,
+                        MaterialCode = Item.Material.MaterialCode,
+                        MaterialDescription = Item.Material.MaterialDescription,
+                        UOM = Item.Material.BaseUnit,
+                        Quantity = Item.Quantity,
+                        DeliveryQuantity = Item.Quantity,
+                        Value = Item.Value,
+                        TaxableValue = Item.TaxableValue,
+                        CGST = Item.Material.CGST,
+                        CGSTValue = Item.Material.CGSTValue,
+                        SGST = Item.Material.SGST,
+                        SGSTValue = Item.Material.SGSTValue,
+                        IGST = Item.Material.IGST,
+                        IGSTValue = Item.Material.IGSTValue,
+                    });
+                }
+                gvDelivery.DataSource = SODelivery_Insert;
+                gvDelivery.DataBind();
             }
         } 
         public void Edit()
         {
             cxExpectedDeliveryDate.StartDate = DateTime.Now;
-            new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
+            //new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
 
             ddlOfficeName.BorderColor = Color.Silver;
             txtCustomer.BorderColor = Color.Silver;
-            ddlDivision.BorderColor = Color.Silver;
+            //ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
             lblDealer.Text = SaleOrderByID.Dealer.DealerCode + " - " + SaleOrderByID.Dealer.DealerName;
@@ -231,7 +296,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlOfficeName.SelectedValue = SaleOrderByID.Dealer.DealerOffice.OfficeID.ToString();
             txtContactPerson.Text = SaleOrderByID.ContactPerson;
             txtContactPersonNumber.Text = SaleOrderByID.ContactPersonNumber;
-            ddlDivision.SelectedValue = SaleOrderByID.Division.DivisionID.ToString();
+            //ddlDivision.SelectedValue = SaleOrderByID.Division.DivisionID.ToString();
+            lblDivisionE.Text = SaleOrderByID.Division.DivisionID.ToString();
             txtRemarks.Text = SaleOrderByID.Remarks;
             txtExpectedDeliveryDate.Text = SaleOrderByID.ExpectedDeliveryDate.ToString();
             ddlInsurancePaidBy.SelectedValue = ddlInsurancePaidBy.Items.FindByText(SaleOrderByID.InsurancePaidBy).Value;
@@ -351,17 +417,17 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.SaleOrderItemID = Item.SaleOrderItemID;
                 SoI.MaterialID = Item.Material.MaterialID;
                 SoI.MaterialCode = Item.Material.MaterialCode;
-                SoI.Qty = Item.Qty;
-                SoI.UnitPrice = Item.UnitPrice;
+                SoI.Quantity = Item.Quantity;
+                SoI.PerRate = Item.PerRate;
                 SoI.Value = Item.Value;
                 SoI.Discount = Item.Discount;
-                SoI.TaxableAmount = Item.TaxableAmount;
+                SoI.TaxableValue = Item.TaxableValue;
                 SoI.SGST = Item.Material.SGST;
-                SoI.SGSTAmt = Item.Material.SGSTValue;
+                SoI.SGSTValue = Item.Material.SGSTValue;
                 SoI.CGST = Item.Material.CGST;
-                SoI.CGSTAmt = Item.Material.CGSTValue;
+                SoI.CGSTValue = Item.Material.CGSTValue;
                 SoI.IGST = Item.Material.IGST;
-                SoI.IGSTAmt = Item.Material.IGSTValue;
+                SoI.IGSTValue = Item.Material.IGSTValue;
                 SoI.StatusID = 20;
 
                 PSaleOrder_Insert SO = new PSaleOrder_Insert();
@@ -416,7 +482,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.OfficeID = Convert.ToInt32(ddlOfficeName.SelectedValue);
             SO.ContactPerson = txtContactPerson.Text.Trim();
             SO.ContactPersonNumber = txtContactPersonNumber.Text.Trim();
-            SO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
+            //SO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
+            SO.DivisionID = Convert.ToInt32(lblDivisionE.Text);
             SO.Remarks = txtRemarks.Text.Trim();
             SO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
             SO.InsurancePaidBy = ddlInsurancePaidBy.SelectedItem.Text;
@@ -436,7 +503,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SoI.SaleOrderID = SaleOrderByID.SaleOrderID;
             SoI.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
             SoI.MaterialCode = hdfMaterialCode.Value;
-            SoI.Qty = Convert.ToInt32(txtQty.Text.Trim());
+            SoI.Quantity = Convert.ToInt32(txtQty.Text.Trim());
 
             PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(SoI.MaterialID), null, null, null, null)[0];
             if (string.IsNullOrEmpty(m.HSN))
@@ -450,17 +517,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             string IV_SEC_SALES = "";
             string PriceDate = "";
             string IsWarrenty = "false";
-            PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DPPOR_PURC_ORDER_HDR", 1, Material, SoI.Qty, IV_SEC_SALES, PriceDate, IsWarrenty);
-
-            Mat.CurrentPrice = Convert.ToDecimal(111);
-            Mat.Discount = Convert.ToDecimal(0);
-            Mat.TaxablePrice = Convert.ToDecimal(111);
-            Mat.SGST = Convert.ToDecimal(9);
-            Mat.SGSTValue = Convert.ToDecimal(9.99);
-            Mat.CGST = Convert.ToDecimal(9);
-            Mat.CGSTValue = Convert.ToDecimal(9.99);
-            Mat.IGST = Convert.ToDecimal(0);
-            Mat.IGSTValue = Convert.ToDecimal(0);
+            PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DPPOR_PURC_ORDER_HDR", 1, Material, SoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
 
             if (Mat.CurrentPrice <= 0)
             {
@@ -475,39 +532,39 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 throw new Exception("GST Tax value not found this Material " + Material + " in SAP.");
             }
 
-            SoI.UnitPrice = Mat.CurrentPrice / SoI.Qty;
+            SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
             SoI.Value = Mat.CurrentPrice;
             //SoI.Discount = Mat.Discount;
-            //SoI.TaxableAmount = Mat.TaxablePrice;
+            //SoI.TaxableValue = Mat.TaxablePrice;
             //SoI.Discount = SaleOrderByID.HeaderDiscount > 0 ? SaleOrderByID.HeaderDiscount : Mat.Discount;
             SoI.Discount = SaleOrderByID.HeaderDiscount > 0 ? 0 : Mat.Discount;
-            SoI.TaxableAmount = SaleOrderByID.HeaderDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (SaleOrderByID.HeaderDiscount / 100))) : Mat.TaxablePrice;
+            SoI.TaxableValue = SaleOrderByID.HeaderDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (SaleOrderByID.HeaderDiscount / 100))) : Mat.TaxablePrice;
             //SoI.SGST = Mat.SGST;
-            //SoI.SGSTAmt = Mat.SGSTValue;
+            //SoI.SGSTValue = Mat.SGSTValue;
             //SoI.CGST = Mat.CGST;
-            //SoI.CGSTAmt = Mat.CGSTValue;
+            //SoI.CGSTValue = Mat.CGSTValue;
             //SoI.IGST = Mat.IGST;
-            //SoI.IGSTAmt = Mat.IGSTValue;
+            //SoI.IGSTValue = Mat.IGSTValue;
             if (SaleOrderByID.TaxType == "SGST & CGST")
             {
                 SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                SoI.SGSTAmt = SaleOrderByID.HeaderDiscount > 0 ? (SoI.TaxableAmount * (SoI.SGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                SoI.SGSTValue = SaleOrderByID.HeaderDiscount > 0 ? (SoI.TaxableValue * (SoI.SGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
                 SoI.CGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                SoI.CGSTAmt = SaleOrderByID.HeaderDiscount > 0 ? (SoI.TaxableAmount * (SoI.CGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                SoI.CGSTValue = SaleOrderByID.HeaderDiscount > 0 ? (SoI.TaxableValue * (SoI.CGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
                 SoI.IGST = 0;
-                SoI.IGSTAmt = 0;
+                SoI.IGSTValue = 0;
             }
             else 
             {
                 SoI.SGST = 0;
-                SoI.SGSTAmt = 0;
+                SoI.SGSTValue = 0;
                 SoI.CGST = 0;
-                SoI.CGSTAmt = 0;
+                SoI.CGSTValue = 0;
                 SoI.IGST = Mat.SGST + Mat.CGST + Mat.IGST;
-                SoI.IGSTAmt = SaleOrderByID.HeaderDiscount > 0 ? (SoI.TaxableAmount * (SoI.IGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue);
+                SoI.IGSTValue = SaleOrderByID.HeaderDiscount > 0 ? (SoI.TaxableValue * (SoI.IGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue);
             }
 
-            SoI.NetAmt = SoI.TaxableAmount + SoI.SGSTAmt + SoI.CGSTAmt + SoI.IGSTAmt;
+            SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
             SoI.StatusID = 19;
             SoI.MaterialDescription = m.MaterialDescription;
             SoI.HSN = m.HSN;
@@ -519,7 +576,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlOfficeName.BorderColor = Color.Silver;
             txtCustomer.BorderColor = Color.Silver;
             txtContactPersonNumber.BorderColor = Color.Silver;
-            ddlDivision.BorderColor = Color.Silver;
+            //ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
             ddlTax.BorderColor = Color.Silver;
@@ -544,11 +601,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     return "Mobile should be 10 Digit.";
                 }
             }
-            if (ddlDivision.SelectedValue == "0")
-            {
-                ddlDivision.BorderColor = Color.Red;
-                return "Please select the Division.";
-            }
+            //if (ddlDivision.SelectedValue == "0")
+            //{
+            //    ddlDivision.BorderColor = Color.Red;
+            //    return "Please select the Division.";
+            //}
             if (ddlProduct.SelectedValue == "0")
             {
                 ddlProduct.BorderColor = Color.Red;
@@ -650,7 +707,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 PSaleOrderItem_Insert item_Insert = new PSaleOrderItem_Insert();
                 item_Insert.SaleOrderItemID = Convert.ToInt64(lblSaleOrderItemID.Text);
-                item_Insert.Qty = Convert.ToDecimal(txtBoxQuantity.Text);
+                item_Insert.Quantity = Convert.ToDecimal(txtBoxQuantity.Text);
                 item_Insert.Discount = Convert.ToDecimal(txtBoxDiscountPercent.Text);
                 item_Insert.StatusID = 19;
                 string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", item_Insert);
@@ -698,6 +755,59 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SaleOrderByID.SaleOrderID);
             }
+        }
+        protected void btnSaveDelivery_Click(object sender, EventArgs e)
+        {
+            MPE_Delivery.Show();
+            try
+            {
+                readSaleOrderDelivery();
+                PApiResult Result = new BDMS_SalesOrder().InsertSaleOrderDelivery(SODelivery_Insert);
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Result.Message;
+                    return;
+                }
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Green;
+                fillViewSO(SaleOrderByID.SaleOrderID);
+                MPE_Delivery.Hide();
+            }
+            catch (Exception e1)
+            {
+                lblMessage.Text = e1.Message;
+            }
+        }
+        void readSaleOrderDelivery()
+        {
+            foreach (GridViewRow row in gvDelivery.Rows)
+            {
+                Label lblSaleOrderItemID = (Label)row.FindControl("lblSaleOrderItemID");
+                Label lblOrderQty = (Label)row.FindControl("lblOrderQty");
+                TextBox txtDeliveryQuantity = (TextBox)row.FindControl("txtDeliveryQuantity");
+
+                decimal OrderQty = Convert.ToDecimal(lblOrderQty.Text);
+                decimal DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text);
+                if (DeliveryQuantity > OrderQty)
+                {
+                    throw new Exception("Please check the Delivery Quantity.");
+                }
+                foreach (PSaleOrderDeliveryItem_Insert Item in SODelivery_Insert)
+                {
+                    if (Convert.ToInt64(lblSaleOrderItemID.Text) == Item.SaleOrderItemID)
+                    {
+                        Item.DeliveryQuantity = DeliveryQuantity;
+                        break;
+                    }
+                }
+            }
+        }
+        protected void gvDelivery_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            readSaleOrderDelivery();
+            gvDelivery.DataSource = SODelivery_Insert;
+            gvDelivery.PageIndex = e.NewPageIndex;
+            gvDelivery.DataBind();
         }
     }
 }
