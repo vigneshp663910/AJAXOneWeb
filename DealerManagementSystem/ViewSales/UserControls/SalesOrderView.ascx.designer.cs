@@ -69,6 +69,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbReleaseSaleOrder;
 
         /// <summary>
+        /// lbDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbDelivery;
+
+        /// <summary>
         /// lblQuotationNumber control.
         /// </summary>
         /// <remarks>
@@ -159,22 +168,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblPrice;
 
         /// <summary>
-        /// lblTaxableAmount control.
+        /// lblTaxableValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTaxableAmount;
+        protected global::System.Web.UI.WebControls.Label lblTaxableValue;
 
         /// <summary>
-        /// lblTaxAmount control.
+        /// lblTaxValue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTaxAmount;
+        protected global::System.Web.UI.WebControls.Label lblTaxValue;
 
         /// <summary>
         /// lblNetAmount control.
@@ -456,13 +465,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender5;
 
         /// <summary>
-        /// ddlDivision control.
+        /// lblDivisionE control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
+        protected global::System.Web.UI.WebControls.Label lblDivisionE;
 
         /// <summary>
         /// ddlProduct control.
@@ -679,6 +688,51 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_SaleOrderItemAdd;
+
+        /// <summary>
+        /// pnlCreateSODelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCreateSODelivery;
+
+        /// <summary>
+        /// PopupDeliveryClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button PopupDeliveryClose;
+
+        /// <summary>
+        /// gvDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvDelivery;
+
+        /// <summary>
+        /// btnSaveDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveDelivery;
+
+        /// <summary>
+        /// MPE_Delivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_Delivery;
 
         /// <summary>
         /// lnkMPE control.

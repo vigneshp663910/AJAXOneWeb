@@ -21,6 +21,8 @@ namespace DealerManagementSystem.ViewSales
         string SaleOrderNo = null;
         string QuotationNo = null;
         int? DealerID = null;
+        int? OfficeCodeID = null;
+        int? DivisionID = null;
         string CustomerCode = null;
         int? SaleOrderStatusID = null;
         int? SaleOrderTypeID = null;
@@ -97,6 +99,9 @@ namespace DealerManagementSystem.ViewSales
                     ddlDealerCode.Enabled = true;
                     fillDealer();
                 }
+                int? CDealerID = (ddlDealerCode.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID", true, "Select");
+                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 new DDLBind(ddlSOStatus, new BDMS_Master().GetAjaxOneStatus(3), "Status", "StatusID");
                 new DDLBind(ddlSOType, new BDMS_SalesOrder().GetSaleOrderType(null, null), "SaleOrderType", "SaleOrderTypeID");
                 //fillSalesOrder();
@@ -141,6 +146,8 @@ namespace DealerManagementSystem.ViewSales
             //SaleOrderNo = txtSONumber.Text.Trim();
             QuotationNo = txtQuotationNumber.Text.Trim();
             DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            OfficeCodeID = ddlOfficeName.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlOfficeName.SelectedValue);
+            DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
             SaleOrderStatusID = ddlSOStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSOStatus.SelectedValue);
             CustomerCode = string.IsNullOrEmpty(txtCustomer.Text.Trim()) ? null : txtCustomer.Text.Trim();
             SaleOrderTypeID = ddlSOType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSOType.SelectedValue);
@@ -152,7 +159,7 @@ namespace DealerManagementSystem.ViewSales
                 TraceLogger.Log(DateTime.Now);
                 Search();
                 long? SaleOrderID = null;
-                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderHeader(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), QuotationNo, DealerID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID, PageIndex, gvSaleOrder.PageSize);
+                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderHeader(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), QuotationNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID, PageIndex, gvSaleOrder.PageSize);
                 SalesOrder = JsonConvert.DeserializeObject<List<PSaleOrder>>(JsonConvert.SerializeObject(Result.Data));
 
                 gvSaleOrder.PageIndex = 0;
@@ -237,7 +244,7 @@ namespace DealerManagementSystem.ViewSales
             Search();
             long? SaleOrderID = null;
             DataTable dt = new DataTable();
-            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderReport(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), SaleOrderNo, DealerID, CustomerCode, SaleOrderStatusID);
+            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderReport(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), SaleOrderNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID);
             dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
             new BXcel().ExporttoExcel(dt, "Sales Order Report");

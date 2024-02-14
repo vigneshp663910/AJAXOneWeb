@@ -268,13 +268,13 @@ namespace Properties
     {
         public long SaleOrderItemID { get; set; }  
         public PDMS_Material Material { get; set; } 
-        public decimal Qty { get; set; }
-        public decimal UnitPrice { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal PerRate { get; set; }
         public decimal Value { get; set; }
         public decimal Discount { get; set; }
         public decimal DiscountedPrice { get; set; }
-        public decimal FreightAmount { get; set; }
-        public decimal TaxableAmount { get; set; } 
+        public decimal FreightValue { get; set; }
+        public decimal TaxableValue { get; set; } 
         public decimal Tax { get; set; }
         //public decimal TotalAmt { get; set; }
         public decimal NetAmount { get; set; }
@@ -336,8 +336,10 @@ namespace Properties
     public class PSaleOrder_Insert
     {
         public long SaleOrderID { get; set; }
-        public string SaleOrderNumber { get; set; }
-        public DateTime SaleOrderDate { get; set; }
+        //public string SaleOrderNumber { get; set; }
+        //public DateTime SaleOrderDate { get; set; }
+        public string QuotationNumber { get; set; }
+        public DateTime QuotationDate { get; set; }
         public int DealerID { get; set; }
         public int OfficeID { get; set; }
         public long CustomerID { get; set; }
@@ -355,12 +357,13 @@ namespace Properties
         public int ProductID { get; set; }
         public string EquipmentSerialNo { get; set; }
         public string TaxType { get; set; }
-        public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
         //public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
         public int SaleOrderTypeID { get; set; }
         public int? SalesEngineerID { get; set; }
         public decimal HeaderDiscount { get; set; }
         public int UserID { get; set; }
+        public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
+
     }
     [Serializable]
     public class PSaleOrderItem_Insert
@@ -369,23 +372,23 @@ namespace Properties
         public long SaleOrderItemID { get; set; }
         public long MaterialID { get; set; }
         public string MaterialCode { get; set; }
-        public decimal UnitPrice { get; set; }        
-        public decimal Qty { get; set; }
+        public string MaterialDescription { get; set; }
+        public string HSN { get; set; }
+        public string UOM { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal PerRate { get; set; }
         public decimal Value { get; set; }
         public decimal Discount { get; set; }
-        public decimal FreightAmount { get; set; }
-        public decimal TaxableAmount { get; set; }
+        public decimal FreightValue { get; set; }
+        public decimal TaxableValue { get; set; }
         public decimal SGST { get; set; }
         public decimal CGST { get; set; }
         public decimal IGST { get; set; }
-        public decimal CGSTAmt { get; set; }
-        public decimal SGSTAmt { get; set; }
-        public decimal IGSTAmt { get; set; }
-        public int StatusID { get; set; }
-        public string MaterialDescription { get; set; }
-        public string UOM { get; set; }
-        public string HSN { get; set; }
-        public decimal NetAmt { get; set; }
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
+        public int StatusID { get; set; }        
+        public decimal NetAmount { get; set; }
     }
     [Serializable]
     public class PSaleOrderReturnItem_Insert
@@ -401,5 +404,25 @@ namespace Properties
         public int SaleOrderTypeID { get; set; }
         public string SaleOrderType { get; set; }
         public Boolean IsActive { get; set; }
+    }
+    [Serializable]
+    public class PSaleOrderDeliveryItem_Insert
+    {
+        public long SaleOrderID { get; set; }
+        public long SaleOrderItemID { get; set; }
+        public string MaterialCode { get; set; }
+        public string MaterialDescription { get; set; }
+        public string UOM { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal DeliveryQuantity { get; set; }
+        public decimal Value { get; set; }
+        public decimal Discount { get; set; }
+        public decimal TaxableValue { get; set; }
+        public decimal SGST { get; set; }
+        public decimal CGST { get; set; }
+        public decimal IGST { get; set; }
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
     }
 }

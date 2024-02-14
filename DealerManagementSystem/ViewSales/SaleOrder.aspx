@@ -173,6 +173,14 @@
                         <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer Office</label>
+                        <asp:DropDownList ID="ddlOfficeName" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Division</label>
+                        <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Customer Code</label>
                         <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
