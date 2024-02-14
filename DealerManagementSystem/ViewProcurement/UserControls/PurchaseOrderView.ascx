@@ -239,6 +239,18 @@
                                             <asp:Label ID="lblNetValue" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Cancelled By">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCancelledBy" Text='<%# DataBinder.Eval(Container.DataItem, "CancelledBy.ContactName")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Cancelled On">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblCancelledOn" Text='<%# DataBinder.Eval(Container.DataItem, "CencelledOn")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <%--<asp:TemplateField HeaderText="Status">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>

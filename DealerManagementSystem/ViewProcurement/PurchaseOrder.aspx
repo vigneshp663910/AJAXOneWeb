@@ -5,8 +5,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <style>
-        .Popup{
-            transition:initial;
+        .Popup {
+            transition: initial;
         }
     </style>
     <script type="text/javascript">
@@ -39,7 +39,7 @@
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Code</label>
-                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
+                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged"/>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">PO Number</label>
@@ -74,6 +74,18 @@
                             <asp:ListItem Value="REJECTED">REJECTED</asp:ListItem>
                             <asp:ListItem Value="TEMPLATE">TEMPLATE</asp:ListItem>
                         </asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer Office</label>
+                        <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
+                    </div>                    
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Order Type</label>
+                        <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPurchaseOrderType_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Division</label>
+                        <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />

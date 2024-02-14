@@ -123,15 +123,6 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
-        /// btnCreatePO control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreatePO;
-
-        /// <summary>
         /// btnExportExcel control.
         /// </summary>
         /// <remarks>
@@ -195,12 +186,12 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::System.Web.UI.WebControls.Button btnPurchaseOrderViewBack;
 
         /// <summary>
-        /// UC_StockTransferOrderView control.
+        /// UC_StockTransferOrderDeliveryView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DealerManagementSystem.ViewProcurement.UserControls.StockTransferOrderView UC_StockTransferOrderView;
+        protected global::DealerManagementSystem.ViewProcurement.UserControls.StockTransferOrderDeliveryView UC_StockTransferOrderDeliveryView;
     }
 }
