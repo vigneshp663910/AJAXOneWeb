@@ -42,6 +42,24 @@ namespace DealerManagementSystem.ViewSales
         protected global::System.Web.UI.WebControls.DropDownList ddlDealerCode;
 
         /// <summary>
+        /// ddlOfficeName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOfficeName;
+
+        /// <summary>
+        /// ddlDivision control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
+
+        /// <summary>
         /// txtCustomer control.
         /// </summary>
         /// <remarks>

@@ -173,6 +173,8 @@ namespace Properties
         public decimal TransitQuantity { get; set; }
         public decimal DeliveredQuantity { get; set; }
         public decimal NetAmount { get { return TaxableValue + TaxValue; } }
+        public PUser CancelledBy { get; set; }
+        public DateTime? CencelledOn { get; set; }
         //public decimal GrossAmount { get; set; }
         //public decimal ShipedQuantity { get; set; } 
         //public decimal ApprovedQuantity { get; set; }
