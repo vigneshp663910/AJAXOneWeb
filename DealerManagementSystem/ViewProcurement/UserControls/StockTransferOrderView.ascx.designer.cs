@@ -186,13 +186,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
-        /// lblAddMaterialMessage control.
+        /// lblMessageAddMaterial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAddMaterialMessage;
+        protected global::System.Web.UI.WebControls.Label lblMessageAddMaterial;
 
         /// <summary>
         /// cbSupersedeYN control.
@@ -274,6 +274,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button2;
+
+        /// <summary>
+        /// lblMessageDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessageDelivery;
 
         /// <summary>
         /// gvDelivery control.

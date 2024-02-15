@@ -213,12 +213,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.Text = "Material already available.";
                 return;
             }
-            PStockTransferOrderItem_Insert PoI = ReadItem(hdfMaterialID.Value, hdfMaterialCode.Value.Trim(), txtQty.Text.Trim());
-            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
-            PoI.MaterialDescription = m.MaterialDescription;
-            PoI.UOM = m.BaseUnit; 
             PO_Insert = Read();
-              
+            PStockTransferOrderItem_Insert PoI = ReadItem(PO_Insert.DealerID,hdfMaterialID.Value, hdfMaterialCode.Value.Trim(), txtQty.Text.Trim());
+           
+            
+
+            
+
+
             PurchaseOrderItem_Insert.Add(PoI);
             PoI.Item = PurchaseOrderItem_Insert.Count * 10;
             fillItem();
@@ -249,17 +251,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 MPE_MaterialUpload.Show();
                 return;
             }
-            PStockTransferOrderItem_Insert PoI = ReadItem(MaterialID, MaterialCode, Qty);
+            PO_Insert = Read();
+            PStockTransferOrderItem_Insert PoI = ReadItem(PO_Insert.DealerID, MaterialID, MaterialCode, Qty);
             PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
-            PoI.MaterialDescription = m.MaterialDescription;
-            PoI.UOM = m.BaseUnit;
+            PoI.MaterialDescription = m.MaterialDescription; 
             if (string.IsNullOrEmpty(m.HSN))
             {
                 lblMessageMaterialUpload.Text = "HSN is Not updated for this material. Please contact Admin.";
                 MPE_MaterialUpload.Show();
                 return;
-            }
-            PO_Insert = Read(); 
+            } 
             PurchaseOrderItem_Insert.Add(PoI);
             PoI.Item = PurchaseOrderItem_Insert.Count * 10;
             fillItem();
@@ -274,13 +275,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             txtMaterial.Text = "";
             txtQty.Text = "";
         }
-        public PStockTransferOrderItem_Insert ReadItem(string MaterialID, string MaterialCode, string Qty)
+        public PStockTransferOrderItem_Insert ReadItem(int DealerID,string MaterialID, string MaterialCode, string Qty)
         {
             PStockTransferOrderItem_Insert SM = new PStockTransferOrderItem_Insert();
             SM.MaterialID = Convert.ToInt32(MaterialID);
             SM.MaterialCode = MaterialCode;
             // SM.SupersedeYN = cbSupersedeYN.Checked;
             SM.Quantity = Convert.ToInt32(Qty);
+            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(SM.MaterialID, null, null, null, null)[0];
+            SM.MaterialDescription = m.MaterialDescription;
+            SM = new BStockTransferOrder().GetMaterialPriceForStockTransferOrder(DealerID, SM);
             return SM;
         }
         public string ValidationItem(string MaterialID, string Qty)
