@@ -231,6 +231,14 @@
         else
             return false;
     }
+    function ConfirmReleaseSaleOrder() {
+        var x = confirm("Are you sure you want to Release?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
 </script>
 <div class="col-md-12">
     <div class="action-btn">
@@ -363,7 +371,7 @@
                     <asp:Label ID="lblContactPerson" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Select Tax : </label>
+                    <label>Tax : </label>
                     <asp:Label ID="lblTaxType" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
@@ -433,7 +441,7 @@
                                 <asp:Label ID="lblDealerOffice" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
                             <div class="col-md-12">
-                                <label>EquipmentSerial No : </label>
+                                <label>Equipment Serial No. : </label>
                                 <asp:Label ID="lblEquipmentSerialNo" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
                             <div class="col-md-12">
@@ -455,7 +463,7 @@
                                 <asp:Label ID="lblRefNumber" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
                             <div class="col-md-12">
-                                <label>Frieght PaidBy : </label>
+                                <label>Frieght Paid By : </label>
                                 <asp:Label ID="lblFrieghtPaidBy" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
                             <div class="col-md-12">
@@ -542,8 +550,14 @@
                                     <asp:TemplateField HeaderText="Discount %">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDiscountPercent" Text='<%# DataBinder.Eval(Container.DataItem, "Discount","{0:n}")%>' runat="server"></asp:Label>
-                                            <asp:TextBox ID="txtBoxDiscountPercent" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Discount","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
+                                            <asp:Label ID="lblDiscountPercent" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountPercentage","{0:n}")%>' runat="server"></asp:Label>
+                                            <asp:TextBox ID="txtBoxDiscountPercent" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountPercentage","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Discount">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDiscountValue" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountValue","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <%--<asp:TemplateField HeaderText="CGST">
@@ -585,7 +599,7 @@
                                     <asp:TemplateField HeaderText="Taxable Amount">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblTaxableAmount" Text='<%# DataBinder.Eval(Container.DataItem, "TaxableValue","{0:n}")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblTaxableValue" Text='<%# DataBinder.Eval(Container.DataItem, "TaxableValue","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Tax">
@@ -617,7 +631,7 @@
                                     <asp:TemplateField HeaderText="Freight Amount">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblFreightAmount" Text='<%# DataBinder.Eval(Container.DataItem, "FreightValue","{0:n}")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblFreightValue" Text='<%# DataBinder.Eval(Container.DataItem, "FreightValue","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <%--<asp:TemplateField HeaderText="Tax">
@@ -718,8 +732,8 @@
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Division<samp style="color: red">*</samp></label>
-                            <%--<asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDivision_SelectedIndexChanged" />--%>
-                            <asp:Label ID="lblDivisionE" runat="server" CssClass="form-control" />
+                            <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDivision_SelectedIndexChanged" /> 
+                            <%--<asp:Label ID="lblDivisionE" runat="server" CssClass="form-control" />--%>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Product<samp style="color: red">*</samp></label>
@@ -756,8 +770,8 @@
                             <asp:TextBox ID="txtEquipmentSerialNo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-6 col-sm-12">
-                            <label>Select Tax</label>
-                            <asp:DropDownList ID="ddlTax" runat="server" CssClass="form-control" BorderColor="Silver">
+                            <label>Tax</label>
+                            <asp:DropDownList ID="ddlTaxType" runat="server" CssClass="form-control" BorderColor="Silver">
                                 <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
                                 <asp:ListItem Value="1">SGST & CGST</asp:ListItem>
                                 <asp:ListItem Value="2">IGST</asp:ListItem>
@@ -799,7 +813,7 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Add Item</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">SupersedeYN</label>
+                            <label class="modal-label">Supersede Y/N</label>
                             <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
                         </div>
                         <div class="col-md-6 col-sm-12">

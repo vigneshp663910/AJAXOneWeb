@@ -9,9 +9,9 @@
             float: right;
             margin-right: 10px;
         }
-        
-        .Popup{
-            transition:initial;
+
+        .Popup {
+            transition: initial;
         }
     </style>
     <script>
@@ -44,7 +44,7 @@
                             source: function (request, response) {
                                 response(Customers)
                             },
-                            select: function (e, u) {                                
+                            select: function (e, u) {
                                 $("#MainContent_UC_SalesOrderCreate_hdfCustomerId").val(u.item.value1);
                             },
                             open: function (event, ui) {
@@ -91,7 +91,6 @@
 
 
     </script>
-    
     <script type="text/javascript">
 
         function GetMaterial() {
@@ -169,8 +168,8 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Dealer Code</label>
-                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
+                        <label class="modal-label">Dealer</label>
+                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Office</label>
@@ -179,6 +178,10 @@
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Division</label>
                         <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
+                    </div>                   
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Quotation Number</label>
+                        <asp:TextBox ID="txtQuotationNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Customer Code</label>
@@ -186,16 +189,12 @@
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Quotation Number</label>
-                        <asp:TextBox ID="txtQuotationNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                        <label class="modal-label">Sale Order Type</label>
+                        <asp:DropDownList ID="ddlSOType" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Sale Order Status</label>
                         <asp:DropDownList ID="ddlSOStatus" runat="server" CssClass="form-control"></asp:DropDownList>
-                    </div>
-                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Sale Order Type</label>
-                        <asp:DropDownList ID="ddlSOType" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Date From</label>
@@ -208,7 +207,7 @@
                         <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateTo" PopupButtonID="txtDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateTo" WatermarkText="Date To"></asp:TextBoxWatermarkExtender>
-                    </div>                    
+                    </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
                         <asp:Button ID="btnCreateSO" runat="server" CssClass="btn Save" Text="Create Sale Order" OnClick="btnCreateSO_Click" Width="150px"></asp:Button>
@@ -281,18 +280,12 @@
                                             <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "Division.DivisionCode")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Customer Name">
+                                    <asp:TemplateField HeaderText="Customer">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerCode")%>' runat="server"></asp:Label>
                                             <br />
                                             <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer.CustomerName")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Status">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderStatus.Status")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Order Type">
@@ -301,7 +294,13 @@
                                             <asp:Label ID="lblSOType" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderType.SaleOrderType")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Total Amount">
+                                    <asp:TemplateField HeaderText="Status">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderStatus.Status")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Total Amount">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblTotalAmt" Text='<%# DataBinder.Eval(Container.DataItem, "GrossAmount")%>' runat="server"></asp:Label>
@@ -338,5 +337,4 @@
             <UC:UC_SalesOrderCreate ID="UC_SalesOrderCreate" runat="server"></UC:UC_SalesOrderCreate>
         </div>
     </div>
-
 </asp:Content>
