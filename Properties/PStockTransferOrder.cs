@@ -29,6 +29,14 @@ namespace Properties
         public int ItemNo { get; set; }
         public PMaterial Material { get; set; }
         public decimal Quantity { get; set; }
+        public Decimal PerRate { get; set; }
+        public Decimal TaxableValue { get; set; }
+        public decimal CGST { get; set; }
+        public decimal SGST { get; set; }
+        public decimal IGST { get; set; }
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
         public decimal TransitQuantity { get; set; }
         public decimal DeliveredQuantity { get; set; }
         public PAjaxOneStatus Status { get; set; }
@@ -53,8 +61,15 @@ namespace Properties
         public int MaterialID { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialDescription { get; set; }
-        public decimal Quantity { get; set; }
-        public string UOM { get; set; }
+        public decimal Quantity { get; set; } 
+        public Decimal PerRate { get; set; } 
+        public Decimal TaxableValue { get; set; }
+        public decimal CGST { get; set; }
+        public decimal SGST { get; set; }
+        public decimal IGST { get; set; }
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
     }
     [Serializable]
     public class PStockTransferOrderItemDelivery_Insert
@@ -93,6 +108,14 @@ namespace Properties
         public int ItemNo { get; set; }
         public PDMS_Material Material { get; set; }
         public decimal DeliveryQuantity { get; set; }
+        public Decimal PerRate { get; set; }
+        public Decimal TaxableValue { get; set; }
+        public decimal CGST { get; set; }
+        public decimal SGST { get; set; }
+        public decimal IGST { get; set; }
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
         public decimal? GrQuantity { get; set; }
         public decimal? UnrestrictedQuantity { get; set; }
         public decimal? RestrictedQuantity { get; set; }

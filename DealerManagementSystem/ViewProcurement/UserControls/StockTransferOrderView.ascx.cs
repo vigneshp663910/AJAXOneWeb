@@ -17,6 +17,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 {
     public partial class StockTransferOrderView : System.Web.UI.UserControl
     {
+        public List<PStockTransferOrderItem_Insert> PurchaseOrderItem_Insert
+        {
+            get
+            {
+                if (ViewState["PurchaseOrderItem_Insert"] == null)
+                {
+                    ViewState["PurchaseOrderItem_Insert"] = new List<PStockTransferOrderItem_Insert>();
+                }
+                return (List<PStockTransferOrderItem_Insert>)ViewState["PurchaseOrderItem_Insert"];
+            }
+            set
+            {
+                ViewState["PurchaseOrderItem_Insert"] = value;
+            }
+        }
         public PStockTransferOrder StockTransferOrder
         {
             get
@@ -65,6 +80,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
+            lblMessageAddMaterial.Text = "";
+            lblMessageDelivery.Text = "";
             //if (Session["PurchaseOrderID"] != null)
             //{
             //    lblMessage.Text = "Purchase Order Created Number : " + PurchaseOrder.PurchaseOrderNumber;
@@ -94,6 +111,17 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             gvPOItem.DataSource = StockTransferOrder.Items;
             gvPOItem.DataBind();
+            if (StockTransferOrder.Status.StatusID != (short)AjaxOneStatus.StockTransferOrder_Draft)
+            {
+
+                foreach (GridViewRow row in gvPOItem.Rows)
+                {
+                    LinkButton lnkBtnEdit = (LinkButton)row.FindControl("lnkBtnEdit");
+                    LinkButton lnkBtnDelete = (LinkButton)row.FindControl("lnkBtnDelete");
+                    lnkBtnEdit.Visible = false;
+                    lnkBtnDelete.Visible = false;
+                }
+            }
 
             gvDeliveryView.DataSource = Deliverys;
             gvDeliveryView.DataBind();
@@ -172,11 +200,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lbRelease.Visible = true;
             lbCancel.Visible = true;
             lbPDF.Visible = true;
+            lbDelivery.Visible = true;
 
             int StatusID = StockTransferOrder.Status.StatusID;
             if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Draft)
             {
                 lbPDF.Visible = false;
+                lbDelivery.Visible = false;
             }
             else if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Release)
             {
@@ -195,12 +225,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbAddMaterial.Visible = false;
                 lbRelease.Visible = false;
                 lbCancel.Visible = false;
+
+                lbDelivery.Visible = false;
             }
             else if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Cancelled)
             {
                 lbAddMaterial.Visible = false;
                 lbRelease.Visible = false;
-                lbCancel.Visible = false;
+                lbCancel.Visible = false; 
+                lbDelivery.Visible = false;
+                lbPDF.Visible = false;
             }
 
             //else if ((StatusID == (short)ProcurementStatus.PoCompleted)
@@ -368,159 +402,42 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //    return;
             //}
         }
-        //Byte[] PurchaseOrderRdlc(out string mimeType)
-        //{
-
-        //    PPurchaseOrder PO = PurchaseOrder;
-        //    var CC = CultureInfo.CurrentCulture;
-        //    Random r = new Random();
-        //    string extension;
-        //    string encoding;
-        //    string[] streams;
-        //    Warning[] warnings;
-        //    LocalReport report = new LocalReport();
-        //    report.EnableExternalImages = true;
-
-
-        //    PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
-        //    string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
-        //    string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
-
-        //    PDMS_Customer Supplier = new BDMS_Customer().getCustomerAddressFromSAP(PO.Vendor.DealerCode);
-        //    string SupplierAddress1 = (Supplier.Address1 + (string.IsNullOrEmpty(Supplier.Address2) ? "" : "," + Supplier.Address2) + (string.IsNullOrEmpty(Supplier.Address3) ? "" : "," + Supplier.Address3)).Trim(',', ' ');
-        //    string SupplierAddress2 = (Supplier.City + (string.IsNullOrEmpty(Supplier.State.State) ? "" : "," + Supplier.State.State) + (string.IsNullOrEmpty(Supplier.Pincode) ? "" : "-" + Supplier.Pincode)).Trim(',', ' ');
-
-        //    PDMS_Customer BillTo = new BDMS_Customer().getCustomerAddressFromSAP(PO.Dealer.DealerCode);
-        //    string BillToAddress1 = (BillTo.Address1 + (string.IsNullOrEmpty(BillTo.Address2) ? "" : "," + BillTo.Address2) + (string.IsNullOrEmpty(BillTo.Address3) ? "" : "," + BillTo.Address3)).Trim(',', ' ');
-        //    string BillToAddress2 = (BillTo.City + (string.IsNullOrEmpty(BillTo.State.State) ? "" : "," + BillTo.State.State) + (string.IsNullOrEmpty(BillTo.Pincode) ? "" : "-" + BillTo.Pincode)).Trim(',', ' ');
-
-
-        //    //lblMessage.Visible = true;
-        //    //lblMessage.ForeColor = Color.Red;
-
-
-
-        //    ReportParameter[] P = new ReportParameter[28];
-        //    P[0] = new ReportParameter("PurchaseOrderNumber", PO.PurchaseOrderNumber, false);
-        //    P[1] = new ReportParameter("PurchaseOrderDate", PO.PurchaseOrderDate.ToString(), false);
-        //    P[2] = new ReportParameter("SupplierName", Supplier.CustomerFullName, false);
-        //    P[3] = new ReportParameter("SupplierAddress1", SupplierAddress1, false);
-        //    P[4] = new ReportParameter("SupplierAddress2", SupplierAddress2, false);
-        //    P[5] = new ReportParameter("SupplierMobile", Supplier.Mobile, false);
-        //    P[6] = new ReportParameter("SupplierEMail", Supplier.Email, false);
-        //    P[7] = new ReportParameter("BillToCustomerName", BillTo.CustomerFullName, false);
-        //    P[8] = new ReportParameter("BillToCustomerAddress1", BillToAddress1, false);
-        //    P[9] = new ReportParameter("BillToCustomerAddress2", BillToAddress2, false);
-        //    P[10] = new ReportParameter("BillToMobile", BillTo.Mobile, false);
-        //    P[11] = new ReportParameter("BillToEMail", BillTo.Email, false);
-        //    P[12] = new ReportParameter("CompanyName", Ajax.CustomerName.ToUpper(), false);
-        //    P[13] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
-        //    P[14] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-        //    P[15] = new ReportParameter("CompanyCINandGST", "CIN : " + Ajax.CIN + ", GST : " + Ajax.GSTIN);
-        //    P[16] = new ReportParameter("CompanyPAN", "PAN : " + Ajax.PAN + ", T : " + Ajax.Mobile);
-        //    P[17] = new ReportParameter("CompanyTelephoneandEmail", "Email : " + Ajax.Email + ", Web : " + Ajax.Web);
-        //    P[18] = new ReportParameter("PurchaseOrderType", PO.PurchaseOrderType.PurchaseOrderType, false);
-        //    P[19] = new ReportParameter("SaleOrderNumber", PO.SaleOrderNumber, false);
-        //    P[20] = new ReportParameter("ExpectedDeliveryDate", PO.ExpectedDeliveryDate.ToString(), false);
-        //    P[21] = new ReportParameter("ReceivingLocation", PO.Location.OfficeName, false);
-        //    P[22] = new ReportParameter("SystemDate", DateTime.Now.ToString(), false);
-
-
-        //    DataTable dtItem = new DataTable();
-        //    dtItem.Columns.Add("ItemNo");
-        //    dtItem.Columns.Add("PartNo");
-        //    dtItem.Columns.Add("Description");
-        //    dtItem.Columns.Add("Qty");
-        //    dtItem.Columns.Add("UOM");
-        //    dtItem.Columns.Add("UnitPrice");
-        //    dtItem.Columns.Add("Taxable");
-        //    dtItem.Columns.Add("Tax");
-        //    dtItem.Columns.Add("Net");
-
-        //    decimal GrandTotal = 0, TaxTotal = 0;
-
-        //    DataTable DTMaterialText = new DataTable();
-        //    foreach (PPurchaseOrderItem Item in PO.PurchaseOrderItems)
-        //    {
-        //        dtItem.Rows.Add(Item.POItem, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Quantity.ToString("0"), Item.Material.BaseUnit, String.Format("{0:n}", Item.Material.CurrentPrice), String.Format("{0:n}", Item.TaxableValue), String.Format("{0:n}", Item.TaxValue), String.Format("{0:n}", (Item.TaxableValue + Item.TaxValue)));
-        //        TaxTotal += Item.TaxValue;
-        //        GrandTotal += (Item.TaxableValue + Item.TaxValue);
-        //    }
-        //    P[23] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxTotal.ToString()), false);
-        //    P[24] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
-        //    P[25] = new ReportParameter("Remarks", PO.Remarks, false);
-        //    P[26] = new ReportParameter("SupplierCode", Supplier.CustomerCode, false);
-        //    P[27] = new ReportParameter("BillToCode", BillTo.CustomerCode, false);
-        //    report.ReportPath = Server.MapPath("~/Print/PurchaseOrder.rdlc");
-        //    report.SetParameters(P);
-        //    ReportDataSource rds = new ReportDataSource();
-        //    rds.Name = "PurchaseOrder";//This refers to the dataset name in the RDLC file  
-        //    rds.Value = dtItem;
-        //    report.DataSources.Add(rds);
-        //    Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
-
-        //    return mybytes;
-        //}
+      
 
         protected void btnSubmitMaterial_Click(object sender, EventArgs e)
         {
-            //lblAddMaterialMessage.Text = "";
-            //lblAddMaterialMessage.ForeColor = Color.Red;
-            //lblAddMaterialMessage.Visible = true;
-            //lblMessage.Text = "";
-            //lblMessage.ForeColor = Color.Red;
-            //lblMessage.Visible = true;
+            MPE_AddMaterial.Show();
 
-            //if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
-            //{
-            //    lblAddMaterialMessage.Text = "Material Already Available...!";
-            //    MPE_AddMaterial.Show();
-            //    return;
-            //}
+            lblMessageAddMaterial.ForeColor = Color.Red;  
+            lblMessage.ForeColor = Color.Red;  
+            if (StockTransferOrder.Items.Any(item => item.Material.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
+            {
+                lblMessageAddMaterial.Text = "Material Already Available...!";
+                MPE_AddMaterial.Show();
+                return;
+            } 
+            PStockTransferOrderItem_Insert PoI = new PStockTransferOrderItem_Insert(); 
+            PoI.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
+            PoI.MaterialCode = hdfMaterialCode.Value; 
+            PoI.StockTransferOrderID = StockTransferOrder.StockTransferOrderID;
+            PoI.Quantity = Convert.ToDecimal(txtQty.Text); 
 
-            //PPurchaseOrderItem_Insert POi = new PPurchaseOrderItem_Insert();
-            //POi.PurchaseOrderID = Convert.ToInt64(PurchaseOrder.PurchaseOrderID);
-            //POi.Quantity = Convert.ToDecimal(txtQty.Text);
-            //POi.MaterialCode = hdfMaterialCode.Value;
+            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
+            PoI.MaterialDescription = m.MaterialDescription; 
 
-            //string Customer = PurchaseOrder.Dealer.DealerCode;
-            //string Vendor = PurchaseOrder.Vendor.DealerCode;
-            //string OrderType = PurchaseOrder.PurchaseOrderType.SapOrderType;
-            //string Material = POi.MaterialCode;
-            //string IV_SEC_SALES = "";
-            ////string PriceDate = DateTime.Now.ToShortDateString();
-            //string PriceDate = "";
-            //string IsWarrenty = "false";
-
-            //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, POi.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
-            //POi.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
-            //POi.Price = Mat.CurrentPrice;
-            //POi.DiscountAmount = Mat.Discount;
-            //POi.TaxableAmount = Mat.TaxablePrice;
-            //POi.SGST = Mat.SGST;
-            //POi.SGSTValue = Mat.SGSTValue;
-            //POi.CGST = Mat.SGST;
-            //POi.CGSTValue = Mat.SGSTValue;
-            //POi.IGST = Mat.IGST;
-            //POi.IGSTValue = Mat.IGSTValue;
-            //POi.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
-            //POi.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
-            //POi.NetValue = POi.TaxableAmount + POi.SGSTValue + POi.CGSTValue + POi.IGSTValue;
-
-            //string result = new BAPI().ApiPut("PurchaseOrder/UpdatePurchaseOrderItem", POi);
-            //PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
-            //if (Result.Status == PApplication.Failure)
-            //{
-            //    lblAddMaterialMessage.Text = Result.Message;
-            //    MPE_AddMaterial.Show();
-            //    return;
-            //}
-            //lblMessage.Text = Result.Message;
-            //lblMessage.ForeColor = Color.Green;
-            //fillViewPO(PurchaseOrder.PurchaseOrderID);
-        }
-
+            PoI = new BStockTransferOrder().GetMaterialPriceForStockTransferOrder(StockTransferOrder.Dealer.DealerID, PoI); 
+            PurchaseOrderItem_Insert.Add(PoI); 
+            PApiResult Result = new BStockTransferOrder().InsertOrUpdateStockTransferOrderItem(PoI); 
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessageAddMaterial.Text = Result.Message; 
+                return;
+            }
+            lblMessage.Text = Result.Message;
+            lblMessage.ForeColor = Color.Green;
+            MPE_AddMaterial.Hide();
+            fillViewPO(StockTransferOrder.StockTransferOrderID);
+        } 
         protected void lnkBtngvDeliveryAction_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
@@ -550,13 +467,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected void btnSaveDelivery_Click(object sender, EventArgs e)
         {
             MPE_Delivery.Show();
+            lblMessageDelivery.ForeColor = Color.Red;
             try
             {
                 readDeviveryGrid();
                 PApiResult Result = new BStockTransferOrder().InsertStockTransferOrderDelivery(Delivery_Insert);
                 if (Result.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Result.Message;
+                    lblMessageDelivery.Text = Result.Message;
                     return;
                 }
                 lblMessage.Text = Result.Message;

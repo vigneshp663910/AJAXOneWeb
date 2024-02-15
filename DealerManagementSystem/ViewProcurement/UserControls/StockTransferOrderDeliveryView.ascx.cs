@@ -154,22 +154,17 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         void ActionControlMange()
         {
 
-            //lbAddMaterial.Visible = true;
-            //lbRelease.Visible = true;
-            //lbCancel.Visible = true;
-            //lbPDF.Visible = true;
+            lbGrCreate.Visible = true; 
 
-            //int StatusID = StockTransferOrder.Status.StatusID;
-            //if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Draft)
-            //{
-            //    lbPDF.Visible = false;
-            //}
-            //else if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Release)
-            //{
-            //    lbAddMaterial.Visible = false;
-            //    lbRelease.Visible = false;
-            //    lbCancel.Visible = false;
-            //}
+            int StatusID = Deliverys.Status.StatusID;
+            if (StatusID == (short)AjaxOneStatus.StockTransferOrderDelivery_Delivery)
+            {
+                //lbPDF.Visible = false;
+            }
+            else if (StatusID == (short)AjaxOneStatus.StockTransferOrderDelivery_GR)
+            {
+                lbGrCreate.Visible = false;
+            }
             //else if (StatusID == (short)AjaxOneStatus.StockTransferOrder_PartiallyDelivered)
             //{
             //    lbAddMaterial.Visible = false;
@@ -189,7 +184,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //    lbCancel.Visible = false;
             //}
 
-          
+
         }
           
         protected void lnkBtnItemAction_Click(object sender, EventArgs e)

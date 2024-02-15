@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -56,6 +57,21 @@ namespace Business
         {
             string endPoint = "StockTransferOrder/UpdateStockTransferOrderGr";
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, obj));
+        }
+        public PStockTransferOrderItem_Insert GetMaterialPriceForStockTransferOrder(int DealerID, PStockTransferOrderItem_Insert PoI)
+        { 
+            PDealer Dealer= new BDealer().GetDealerByID(DealerID,"");
+            PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Dealer.DealerCode, Dealer.DealerCode, "DEFAULT_SEC_AUART", 1, PoI.MaterialCode, PoI.Quantity, "", "", "false");
+            
+            PoI.TaxableValue = Mat.CurrentPrice;
+            PoI.SGST = Mat.SGST;
+            PoI.SGSTValue = Mat.SGST == 0 ? 0 : Mat.CurrentPrice * Mat.SGST / 100;
+            PoI.CGST = Mat.SGST;
+            PoI.CGSTValue = Mat.SGST == 0 ? 0 : Mat.CurrentPrice * Mat.SGST / 100;
+            PoI.IGST = Mat.IGST;
+            PoI.IGSTValue = Mat.IGST == 0 ? 0 : Mat.CurrentPrice * Mat.IGST / 100; 
+
+            return PoI;
         }
     }
 }
