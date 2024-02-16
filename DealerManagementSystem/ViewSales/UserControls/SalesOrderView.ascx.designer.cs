@@ -465,13 +465,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender5;
 
         /// <summary>
-        /// lblDivisionE control.
+        /// ddlDivision control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDivisionE;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
 
         /// <summary>
         /// ddlProduct control.
@@ -546,13 +546,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtEquipmentSerialNo;
 
         /// <summary>
-        /// ddlTax control.
+        /// ddlTaxType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTax;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTaxType;
 
         /// <summary>
         /// ddlSalesEngineer control.

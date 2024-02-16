@@ -255,7 +255,7 @@ namespace Properties
         public decimal GrossAmount { get; set; }
         public PSaleOrderType SaleOrderType { get; set; }
         public PUser SalesEngineer { get; set; }
-        public decimal HeaderDiscount { get; set; }
+        public decimal HeaderDiscountPercentage { get; set; }
         public PUser CreatedBy { get; set; }
         public PUser CancelledBy { get; set; }
         public DateTime CancelledOn { get; set; }
@@ -271,13 +271,16 @@ namespace Properties
         public decimal Quantity { get; set; }
         public decimal PerRate { get; set; }
         public decimal Value { get; set; }
-        public decimal Discount { get; set; }
-        public decimal DiscountedPrice { get; set; }
+        public decimal DiscountPercentage { get; set; }
+        //public decimal DiscountedPrice { get; set; }
+        public decimal DiscountValue { get; set; }
         public decimal FreightValue { get; set; }
         public decimal TaxableValue { get; set; } 
         public decimal Tax { get; set; }
         //public decimal TotalAmt { get; set; }
         public decimal NetAmount { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
         public PUser CancelledBy { get; set; }
         public DateTime CancelledOn { get; set; }
     }
@@ -360,7 +363,7 @@ namespace Properties
         //public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
         public int SaleOrderTypeID { get; set; }
         public int? SalesEngineerID { get; set; }
-        public decimal HeaderDiscount { get; set; }
+        public decimal HeaderDiscountPercentage { get; set; }
         public int UserID { get; set; }
         public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
 
@@ -378,7 +381,8 @@ namespace Properties
         public decimal Quantity { get; set; }
         public decimal PerRate { get; set; }
         public decimal Value { get; set; }
-        public decimal Discount { get; set; }
+        public decimal DiscountPercentage { get; set; }
+        public decimal DiscountValue { get; set; }
         public decimal FreightValue { get; set; }
         public decimal TaxableValue { get; set; }
         public decimal SGST { get; set; }
@@ -387,7 +391,8 @@ namespace Properties
         public decimal CGSTValue { get; set; }
         public decimal SGSTValue { get; set; }
         public decimal IGSTValue { get; set; }
-        public int StatusID { get; set; }        
+        public int StatusID { get; set; }
+        public int UserID { get; set; }
         public decimal NetAmount { get; set; }
     }
     [Serializable]

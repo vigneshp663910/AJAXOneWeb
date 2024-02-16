@@ -96,7 +96,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblQuotationDate.Text = SaleOrderByID.QuotationDate.ToString();
             //lblCustomer.Text = SaleOrderByID.Customer.CustomerCode + " " + SaleOrderByID.Customer.CustomerName;
             lblContactPersonNumber.Text = SaleOrderByID.ContactPersonNumber;
-            lblExpectedDeliveryDate.Text = SaleOrderByID.ExpectedDeliveryDate.ToString();
+            lblExpectedDeliveryDate.Text = SaleOrderByID.ExpectedDeliveryDate.ToString("dd/MM/yyyy");
             lblRefDate.Text = SaleOrderByID.RefDate.ToString();
             lblAttn.Text = SaleOrderByID.Attn;
             lblSODealer.Text = SaleOrderByID.Dealer.DealerCode + " " + SaleOrderByID.Dealer.DealerName;
@@ -107,7 +107,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblEquipmentSerialNo.Text = SaleOrderByID.EquipmentSerialNo;
             lblSaleOrderType.Text = SaleOrderByID.SaleOrderType.SaleOrderType;
             lblSalesEngnieer.Text = SaleOrderByID.SalesEngineer == null ? "" : SaleOrderByID.SalesEngineer.ContactName;
-            lblHeaderDiscount.Text = SaleOrderByID.HeaderDiscount.ToString();
+            lblHeaderDiscount.Text = SaleOrderByID.HeaderDiscountPercentage.ToString();
 
             decimal Price = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderItem SaleOrderItem in SaleOrderByID.SaleOrderItems)
@@ -176,7 +176,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         private void DisableSOItemEditDelete()
         {
-            if(SaleOrderByID.SaleOrderStatus.StatusID == 15 || SaleOrderByID.SaleOrderStatus.StatusID == 23)
+            if(SaleOrderByID.SaleOrderStatus.StatusID == 13 || SaleOrderByID.SaleOrderStatus.StatusID == 15 || SaleOrderByID.SaleOrderStatus.StatusID == 23)
             {
                 for (int i = 0; i < gvSOItem.Rows.Count; i++)
                 {
@@ -276,12 +276,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
         public void Edit()
         {
             cxExpectedDeliveryDate.StartDate = DateTime.Now;
-            //new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
+            new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
 
             ddlOfficeName.BorderColor = Color.Silver;
             txtCustomer.BorderColor = Color.Silver;
-            //ddlDivision.BorderColor = Color.Silver;
+            ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
             lblDealer.Text = SaleOrderByID.Dealer.DealerCode + " - " + SaleOrderByID.Dealer.DealerName;
@@ -296,18 +296,19 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlOfficeName.SelectedValue = SaleOrderByID.Dealer.DealerOffice.OfficeID.ToString();
             txtContactPerson.Text = SaleOrderByID.ContactPerson;
             txtContactPersonNumber.Text = SaleOrderByID.ContactPersonNumber;
-            //ddlDivision.SelectedValue = SaleOrderByID.Division.DivisionID.ToString();
-            lblDivisionE.Text = SaleOrderByID.Division.DivisionID.ToString();
+            ddlDivision.SelectedValue = SaleOrderByID.Division.DivisionID.ToString();
+            ddlDivision.Enabled = false;
+            //lblDivisionE.Text = SaleOrderByID.Division.DivisionCode.ToString();
             txtRemarks.Text = SaleOrderByID.Remarks;
-            txtExpectedDeliveryDate.Text = SaleOrderByID.ExpectedDeliveryDate.ToString();
+            txtExpectedDeliveryDate.Text = SaleOrderByID.ExpectedDeliveryDate.ToString("dd/MM/yyyy");
             ddlInsurancePaidBy.SelectedValue = ddlInsurancePaidBy.Items.FindByText(SaleOrderByID.InsurancePaidBy).Value;
             ddlFrieghtPaidBy.SelectedValue = ddlFrieghtPaidBy.Items.FindByText(SaleOrderByID.FrieghtPaidBy).Value;
             txtAttn.Text = SaleOrderByID.Attn;
             ddlProduct.SelectedValue = SaleOrderByID.Product.ProductID.ToString();
             txtEquipmentSerialNo.Text = SaleOrderByID.EquipmentSerialNo;
-            ddlTax.SelectedValue = ddlTax.Items.FindByText(SaleOrderByID.TaxType).Value;
-            txtBoxHeaderDiscountPercent.Text = SaleOrderByID.HeaderDiscount.ToString();
-        } 
+            ddlTaxType.SelectedValue = ddlTaxType.Items.FindByText(SaleOrderByID.TaxType).Value;
+            txtBoxHeaderDiscountPercent.Text = SaleOrderByID.HeaderDiscountPercentage.ToString();
+        }
         protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
@@ -420,7 +421,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.Quantity = Item.Quantity;
                 SoI.PerRate = Item.PerRate;
                 SoI.Value = Item.Value;
-                SoI.Discount = Item.Discount;
+                SoI.DiscountPercentage = Item.DiscountPercentage;
                 SoI.TaxableValue = Item.TaxableValue;
                 SoI.SGST = Item.Material.SGST;
                 SoI.SGSTValue = Item.Material.SGSTValue;
@@ -449,7 +450,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SO.TaxType = SaleOrderByID.TaxType.Trim();
                 SO.SaleOrderTypeID = SaleOrderByID.SaleOrderType.SaleOrderTypeID;
                 SO.SalesEngineerID = SaleOrderByID.SalesEngineer.UserID;
-                SO.HeaderDiscount = SaleOrderByID.HeaderDiscount;
+                SO.HeaderDiscountPercentage = SaleOrderByID.HeaderDiscountPercentage;
 
                 SO.SaleOrderItems = new List<PSaleOrderItem_Insert>();
                 SO.SaleOrderItems.Add(SoI);
@@ -482,8 +483,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.OfficeID = Convert.ToInt32(ddlOfficeName.SelectedValue);
             SO.ContactPerson = txtContactPerson.Text.Trim();
             SO.ContactPersonNumber = txtContactPersonNumber.Text.Trim();
-            //SO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
-            SO.DivisionID = Convert.ToInt32(lblDivisionE.Text);
+            SO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
+            //SO.DivisionID = Convert.ToInt32(lblDivisionE.Text);
             SO.Remarks = txtRemarks.Text.Trim();
             SO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
             SO.InsurancePaidBy = ddlInsurancePaidBy.SelectedItem.Text;
@@ -491,10 +492,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.Attn = txtAttn.Text.Trim();
             SO.ProductID = Convert.ToInt32(ddlProduct.SelectedValue);
             SO.EquipmentSerialNo = txtEquipmentSerialNo.Text.Trim();
-            SO.TaxType = ddlTax.SelectedItem.Text;
+            SO.TaxType = ddlTaxType.SelectedItem.Text;
             SO.SaleOrderTypeID = SaleOrderByID.SaleOrderType.SaleOrderTypeID;
             SO.SalesEngineerID = Convert.ToInt32(ddlSalesEngineer.SelectedValue);
-            SO.HeaderDiscount = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
+            SO.HeaderDiscountPercentage = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
             return SO;
         }
         public PSaleOrderItem_Insert ReadItem()
@@ -519,6 +520,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
             string IsWarrenty = "false";
             PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DPPOR_PURC_ORDER_HDR", 1, Material, SoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
 
+            Mat.CurrentPrice = Convert.ToDecimal(1000);
+            Mat.Discount = Convert.ToDecimal(0);
+            Mat.TaxablePrice = Convert.ToDecimal(1000);
+            Mat.SGST = Convert.ToDecimal(9);
+            Mat.SGSTValue = Convert.ToDecimal(90);
+            Mat.CGST = Convert.ToDecimal(9);
+            Mat.CGSTValue = Convert.ToDecimal(90);
+            Mat.IGST = Convert.ToDecimal(0);
+            Mat.IGSTValue = Convert.ToDecimal(0);
+
             if (Mat.CurrentPrice <= 0)
             {
                 throw new Exception("Please maintain the Price for Material " + Material + " in SAP.");
@@ -537,8 +548,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             //SoI.Discount = Mat.Discount;
             //SoI.TaxableValue = Mat.TaxablePrice;
             //SoI.Discount = SaleOrderByID.HeaderDiscount > 0 ? SaleOrderByID.HeaderDiscount : Mat.Discount;
-            SoI.Discount = SaleOrderByID.HeaderDiscount > 0 ? 0 : Mat.Discount;
-            SoI.TaxableValue = SaleOrderByID.HeaderDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (SaleOrderByID.HeaderDiscount / 100))) : Mat.TaxablePrice;
+            SoI.DiscountPercentage = SaleOrderByID.HeaderDiscountPercentage > 0 ? 0 : Mat.Discount;
+            SoI.DiscountValue = SaleOrderByID.HeaderDiscountPercentage > 0 ? (Mat.CurrentPrice * (SaleOrderByID.HeaderDiscountPercentage / 100)) : Mat.Discount;
+
+            SoI.TaxableValue = SaleOrderByID.HeaderDiscountPercentage > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (SaleOrderByID.HeaderDiscountPercentage / 100))) : Mat.TaxablePrice;
             //SoI.SGST = Mat.SGST;
             //SoI.SGSTValue = Mat.SGSTValue;
             //SoI.CGST = Mat.CGST;
@@ -548,9 +561,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             if (SaleOrderByID.TaxType == "SGST & CGST")
             {
                 SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                SoI.SGSTValue = SaleOrderByID.HeaderDiscount > 0 ? (SoI.TaxableValue * (SoI.SGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                SoI.SGSTValue = SaleOrderByID.HeaderDiscountPercentage > 0 ? (SoI.TaxableValue * (SoI.SGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
                 SoI.CGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                SoI.CGSTValue = SaleOrderByID.HeaderDiscount > 0 ? (SoI.TaxableValue * (SoI.CGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                SoI.CGSTValue = SaleOrderByID.HeaderDiscountPercentage > 0 ? (SoI.TaxableValue * (SoI.CGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
                 SoI.IGST = 0;
                 SoI.IGSTValue = 0;
             }
@@ -561,7 +574,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.CGST = 0;
                 SoI.CGSTValue = 0;
                 SoI.IGST = Mat.SGST + Mat.CGST + Mat.IGST;
-                SoI.IGSTValue = SaleOrderByID.HeaderDiscount > 0 ? (SoI.TaxableValue * (SoI.IGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue);
+                SoI.IGSTValue = SaleOrderByID.HeaderDiscountPercentage > 0 ? (SoI.TaxableValue * (SoI.IGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue);
             }
 
             SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
@@ -579,7 +592,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             //ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
-            ddlTax.BorderColor = Color.Silver;
+            ddlTaxType.BorderColor = Color.Silver;
             txtBoxHeaderDiscountPercent.BorderColor = Color.Silver;
             string Message = ""; 
             if (ddlOfficeName.SelectedValue == "0")
@@ -616,9 +629,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 txtExpectedDeliveryDate.BorderColor = Color.Red;
                 return "Please enter the Expected Delivery Date.";
             }
-            if (ddlTax.SelectedValue == "0")
+            if (ddlTaxType.SelectedValue == "0")
             {
-                ddlTax.BorderColor = Color.Red;
+                ddlTaxType.BorderColor = Color.Red;
                 return "Please select Tax.";
             }
             decimal value;
@@ -626,6 +639,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 txtBoxHeaderDiscountPercent.BackColor = Color.Red;
                 return "Please enter correct format in Header Discount Percent.";
+            }
+            if (Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text) >= 100)
+            {
+                txtBoxHeaderDiscountPercent.BackColor = Color.Red;
+                return "Discount Percentage cannot exceed 100.";
             }
             return Message;
         }
@@ -702,14 +720,31 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else if (lbActions.ID == "lnkBtnUpdate")
             {
                 Label lblSaleOrderItemID = (Label)gvRow.FindControl("lblSaleOrderItemID");
-                Label lblMaterial = (Label)gvRow.FindControl("lblMaterial");
-                Label lblMaterialID = (Label)gvRow.FindControl("lblMaterialID");
+
+                decimal value;
+                if (!decimal.TryParse(txtBoxQuantity.Text, out value))
+                {
+                    lblMessage.Text = "Please enter correct format in Qty.";
+                    return;
+                }
+                if (!decimal.TryParse(txtBoxDiscountPercent.Text, out value))
+                {
+                    lblMessage.Text = "Please enter correct format in Discount Percent.";
+                    return;
+                }
+                decimal IDiscount = Convert.ToDecimal(txtBoxDiscountPercent.Text);
+                if (SaleOrderByID.HeaderDiscountPercentage + IDiscount >= 100)
+                {
+                    lblMessage.Text = "Discount Percentage cannot exceed 100.";
+                    return;
+                }
 
                 PSaleOrderItem_Insert item_Insert = new PSaleOrderItem_Insert();
                 item_Insert.SaleOrderItemID = Convert.ToInt64(lblSaleOrderItemID.Text);
                 item_Insert.Quantity = Convert.ToDecimal(txtBoxQuantity.Text);
-                item_Insert.Discount = Convert.ToDecimal(txtBoxDiscountPercent.Text);
+                item_Insert.DiscountPercentage = IDiscount;
                 item_Insert.StatusID = 19;
+
                 string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", item_Insert);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 

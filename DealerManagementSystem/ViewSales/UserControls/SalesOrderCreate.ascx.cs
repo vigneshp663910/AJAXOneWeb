@@ -135,7 +135,17 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 string IsWarrenty = "false";
 
                 PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DSSOR_SALES_ORDER_HDR", 1, Material, SoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
-                
+
+                Mat.CurrentPrice = Convert.ToDecimal(1000);
+                Mat.Discount = Convert.ToDecimal(0);
+                Mat.TaxablePrice = Convert.ToDecimal(1000);
+                Mat.SGST = Convert.ToDecimal(9);
+                Mat.SGSTValue = Convert.ToDecimal(90);
+                Mat.CGST = Convert.ToDecimal(9);
+                Mat.CGSTValue = Convert.ToDecimal(90);
+                Mat.IGST = Convert.ToDecimal(0);
+                Mat.IGSTValue = Convert.ToDecimal(0);
+
                 if (Mat.CurrentPrice <= 0)
                 {
                     lblMessage.Text = "Please maintain the price for Material " + Material + " in SAP.";
@@ -161,7 +171,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 if (HDiscount >= 100)
                 {
-                    lblMessage.Text = "Discount Percentage cannot be more 100.";
+                    lblMessage.Text = "Discount Percentage cannot exceed 100.";
                     lblMessage.Visible = true;
                     return;
                 }
@@ -169,8 +179,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 //SoI.Discount = Mat.CurrentPrice - (Mat.CurrentPrice * HDiscount / 100);
                 //SoI.TaxableValue = SoI.Discount;
                 //SoI.Discount = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : Mat.Discount;
-                SoI.Discount = HDiscount > 0 ?  0: Mat.Discount;
-                SoI.TaxableValue = HDiscount > 0 ? Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100)) : SoI.TaxableValue;
+                SoI.DiscountPercentage = HDiscount > 0 ? 0 : Mat.Discount;
+                SoI.DiscountValue = HDiscount > 0 ? (Mat.CurrentPrice * (HDiscount / 100)) : Mat.Discount;
+                SoI.TaxableValue = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : SoI.TaxableValue;
                 //SoI.SGST = Mat.SGST;
                 //SoI.SGSTValue = Mat.SGSTValue;
                 //SoI.CGST = Mat.CGST;
@@ -182,7 +193,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.HSN = m.HSN;
                 SoI.UOM = m.BaseUnit;
                 
-                if (ddlTax.SelectedValue == "1")
+                if (ddlTaxType.SelectedValue == "1")
                 {
                     SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
                     SoI.SGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
@@ -224,7 +235,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
-            ddlTax.BorderColor = Color.Silver;
+            ddlTaxType.BorderColor = Color.Silver;
             txtBoxHeaderDiscountPercent.BorderColor = Color.Silver;
             string Message = "";
 
@@ -249,7 +260,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 if (!long.TryParse(txtContactPersonNumber.Text.Trim(), out longCheck))
                 {
                     txtContactPersonNumber.BorderColor = Color.Red;
-                    return "Mobile should be 10 Digit.";
+                    return "Contact Number should be 10 Digit.";
                 }
             }
             if (ddlDivision.SelectedValue == "0")
@@ -267,9 +278,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 txtExpectedDeliveryDate.BorderColor = Color.Red;
                 return "Please enter the Expected Delivery Date.";
             }
-            if (ddlTax.SelectedValue == "0")
+            if (ddlTaxType.SelectedValue == "0")
             {
-                ddlTax.BorderColor = Color.Red;
+                ddlTaxType.BorderColor = Color.Red;
                 return "Please select the Tax.";
             }
             decimal value;
@@ -324,10 +335,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.ProductID = Convert.ToInt32(ddlProduct.SelectedValue);
             SO.EquipmentSerialNo = txtEquipmentSerialNo.Text.Trim();
             //SO.TaxType = txtSelectTax.Text.Trim();
-            SO.TaxType = ddlTax.SelectedItem.Text;
+            SO.TaxType = ddlTaxType.SelectedItem.Text;
             SO.SaleOrderTypeID = 1;
             SO.SalesEngineerID = ddlSalesEngineer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesEngineer.SelectedValue);
-            SO.HeaderDiscount = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
+            SO.HeaderDiscountPercentage = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
             
             return SO;
         }
@@ -394,7 +405,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlProduct.SelectedValue = "0";
             txtEquipmentSerialNo.Text = "";
             //txtSelectTax.Text = "";
-            ddlTax.SelectedValue = "0";
+            ddlTaxType.SelectedValue = "0";
             cxExpectedDeliveryDate.StartDate = DateTime.Now;
             ddlSalesEngineer.SelectedValue = "0";
             gvSOItem.DataSource = null;
@@ -454,6 +465,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             foreach (GridViewRow row in gvSOItem.Rows)
             {
                 Label MaterialID = (Label)row.FindControl("lblMaterialID");
+                Label lblDiscountValue = (Label)row.FindControl("lblDiscountValue");
                 Label lblTaxableValue = (Label)row.FindControl("lblTaxableValue");
                 Label lblTaxValue = (Label)row.FindControl("lblTaxValue");
                 Label lblNetAmount = (Label)row.FindControl("lblNetAmount");
@@ -465,7 +477,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                     if ((HDiscount + IDiscount < 0) || (HDiscount + IDiscount >= 100))
                     {
-                        lblMessage.Text = "Discount Percentage cannot be less than 0 and more 100.";
+                        lblMessage.Text = "Discount Percentage cannot be less than 0 and more than 100.";
                         lblMessage.Visible = true;
                         return;
                     }
@@ -475,15 +487,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                         decimal discountValue = SOI.Value * ((HDiscount + IDiscount) / 100);
                         decimal discountedPrice = SOI.Value - discountValue;
+                        SOI.DiscountPercentage = IDiscount;
+                        SOI.DiscountValue = discountValue;
                         SOI.TaxableValue = discountedPrice;
 
                         SOI.SGSTValue = SOI.TaxableValue * (SOI.SGST / 100);
                         SOI.CGSTValue = SOI.TaxableValue * (SOI.CGST / 100);
                         SOI.IGSTValue = SOI.TaxableValue * (SOI.IGST / 100);
-
                         SOI.NetAmount = SOI.TaxableValue + SOI.SGSTValue + SOI.CGSTValue + SOI.IGSTValue;
-                        SOI.Discount = IDiscount;
 
+                        lblDiscountValue.Text = SOI.DiscountValue.ToString();
                         lblTaxableValue.Text = SOI.TaxableValue.ToString();
                         lblTaxValue.Text = Convert.ToString(SOI.SGSTValue + SOI.CGSTValue + SOI.IGSTValue);
                         lblNetAmount.Text = SOI.NetAmount.ToString();
@@ -498,9 +511,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             Label MaterialID = (Label)gvRow.FindControl("lblMaterialID");
 
             //Label lblDiscountAmount = (Label)gvRow.FindControl("lblDiscountAmount");
+            Label lblDiscountValue = (Label)gvRow.FindControl("lblDiscountValue");
             Label lblTaxableValue = (Label)gvRow.FindControl("lblTaxableValue");
             Label lblTaxValue = (Label)gvRow.FindControl("lblTaxValue");
-            Label lblNetAmount = (Label)gvRow.FindControl("lblNetValue");
+            Label lblNetAmount = (Label)gvRow.FindControl("lblNetAmount");
 
             foreach(PSaleOrderItem_Insert SOI in SOItem_Insert)
             {
@@ -509,24 +523,25 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 if ((HDiscount + IDiscount < 0) || (HDiscount + IDiscount >= 100))
                 {
-                    lblMessage.Text = "Discount Percentage cannot be less than 0 and more 100.";
+                    lblMessage.Text = "Discount Percentage cannot be less than 0 and more than 100.";
                     lblMessage.Visible = true;
                     return;
                 }
 
                 if (SOI.MaterialID == Convert.ToInt64(MaterialID.Text))
                 {
-                    decimal discountValue = SOI.Value * (HDiscount + IDiscount) / 100;
+                    decimal discountValue = SOI.Value * ((HDiscount + IDiscount) / 100);
                     decimal discountedPrice = SOI.Value - discountValue;
+                    SOI.DiscountPercentage = IDiscount;
+                    SOI.DiscountValue = discountValue;
                     SOI.TaxableValue = discountedPrice;
 
                     SOI.SGSTValue = SOI.TaxableValue * (SOI.SGST / 100);
                     SOI.CGSTValue = SOI.TaxableValue * (SOI.CGST / 100);
                     SOI.IGSTValue = SOI.TaxableValue * (SOI.IGST / 100);
-                    
                     SOI.NetAmount = SOI.TaxableValue + SOI.SGSTValue + SOI.CGSTValue + SOI.IGSTValue;
-                    SOI.Discount = IDiscount;
 
+                    lblDiscountValue.Text = SOI.DiscountValue.ToString();
                     lblTaxableValue.Text = SOI.TaxableValue.ToString();
                     lblTaxValue.Text = Convert.ToString(SOI.SGSTValue + SOI.CGSTValue + SOI.IGSTValue);
                     lblNetAmount.Text = SOI.NetAmount.ToString();

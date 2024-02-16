@@ -18,7 +18,7 @@ namespace DealerManagementSystem.ViewSales
         public override SubModule SubModuleName { get { return SubModule.ViewSales_SaleOrder; } }
         DateTime? DateFrom = null;
         DateTime? DateTo = null;
-        string SaleOrderNo = null;
+        //string SaleOrderNo = null;
         string QuotationNo = null;
         int? DealerID = null;
         int? OfficeCodeID = null;
@@ -124,6 +124,11 @@ namespace DealerManagementSystem.ViewSales
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
+        }
+        protected void ddlDealerCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int? CDealerID = (ddlDealerCode.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID", true, "Select");
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -244,7 +249,7 @@ namespace DealerManagementSystem.ViewSales
             Search();
             long? SaleOrderID = null;
             DataTable dt = new DataTable();
-            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderReport(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), SaleOrderNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID);
+            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderReport(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), QuotationNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID);
             dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
             new BXcel().ExporttoExcel(dt, "Sales Order Report");

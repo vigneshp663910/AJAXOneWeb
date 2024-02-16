@@ -177,13 +177,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtEquipmentSerialNo;
 
         /// <summary>
-        /// ddlTax control.
+        /// ddlTaxType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTax;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTaxType;
 
         /// <summary>
         /// ddlSalesEngineer control.
