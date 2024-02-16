@@ -61,8 +61,15 @@ namespace Business
         public PStockTransferOrderItem_Insert GetMaterialPriceForStockTransferOrder(int DealerID, PStockTransferOrderItem_Insert PoI)
         { 
             PDealer Dealer= new BDealer().GetDealerByID(DealerID,"");
-            PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Dealer.DealerCode, Dealer.DealerCode, "DEFAULT_SEC_AUART", 1, PoI.MaterialCode, PoI.Quantity, "", "", "false");
-            
+            PSapMatPrice_Input InPut = new PSapMatPrice_Input();
+            InPut.Customer = Dealer.DealerCode;
+            InPut.Vendor = Dealer.DealerCode;
+            InPut.OrderType = "DEFAULT_SEC_AUART";
+            //InPut.PriceDate = DateTime.Now;
+
+            //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Dealer.DealerCode, Dealer.DealerCode, "DEFAULT_SEC_AUART", 1, PoI.MaterialCode, PoI.Quantity, "", "", "false");
+            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(InPut);
+            PMaterial Mat = Mats[0];
             PoI.TaxableValue = Mat.CurrentPrice;
             PoI.SGST = Mat.SGST;
             PoI.SGSTValue = Mat.SGST == 0 ? 0 : Mat.CurrentPrice * Mat.SGST / 100;

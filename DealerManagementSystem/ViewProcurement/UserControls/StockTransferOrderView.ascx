@@ -35,12 +35,16 @@
         <div class="col-md-12 View">
             <div class="col-md-3">
                 <div class="col-md-12">
-                    <label>PO Number : </label>
+                    <label>STO Number : </label>
                     <asp:Label ID="lblPurchaseOrderNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>PO Date : </label>
+                    <label>STO Date : </label>
                     <asp:Label ID="lblPurchaseOrderDate" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Remarks : </label>
+                    <asp:Label ID="lblPORemarks" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
             <div class="col-md-3">
@@ -59,8 +63,22 @@
                     <asp:Label ID="lblReceivingLocation" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Remarks : </label>
-                    <asp:Label ID="lblPORemarks" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>Source Location : </label>
+                    <asp:Label ID="Label1" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <label>Taxable Amount : </label>
+                    <asp:Label ID="lblTaxableAmount" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Tax Amount : </label>
+                    <asp:Label ID="lblTaxAmount" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Gross Amount : </label>
+                    <asp:Label ID="lblGrossAmount" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
         </div>
@@ -74,7 +92,6 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Item</legend>
                         <div class="col-md-12 Report">
                             <asp:GridView ID="gvPOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                                 <Columns>
@@ -192,7 +209,6 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">ASN</legend>
                         <div class="col-md-12 Report">
                             <asp:GridView ID="gvDeliveryView" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid"
                                 OnRowDataBound="gvDeliveryView_RowDataBound">
@@ -431,13 +447,13 @@
 <script type="text/javascript">
 
     function GetMaterial() {
-        $("#MainContent_UC_PurchaseOrderView_hdfMaterialID").val('');
-        $("#MainContent_UC_PurchaseOrderView_hdfMaterialCode").val('');
-        var param = { Material: $('#MainContent_UC_PurchaseOrderView_txtMaterial').val(), MaterialType: '' }
+        $("#MainContent_UC_StockTransferOrderView_hdfMaterialID").val('');
+        $("#MainContent_UC_StockTransferOrderView_hdfMaterialCode").val('');
+        var param = { Material: $('#MainContent_UC_StockTransferOrderView_txtMaterial').val(), MaterialType: '' }
         var Customers = [];
-        if ($('#MainContent_UC_PurchaseOrderView_txtMaterial').val().trim().length >= 3) {
+        if ($('#MainContent_UC_StockTransferOrderView_txtMaterial').val().trim().length >= 3) {
             $.ajax({
-                url: "PurchaseOrder.aspx/GetMaterial",
+                url: "StockTransferOrder.aspx/GetMaterial",
                 contentType: "application/json; charset=utf-8",
                 type: 'POST',
                 data: JSON.stringify(param),
@@ -451,16 +467,16 @@
                             MaterialCode: DataList[i].MaterialCode
                         };
                     }
-                    $('#MainContent_UC_PurchaseOrderView_txtMaterial').autocomplete({
+                    $('#MainContent_UC_StockTransferOrderView_txtMaterial').autocomplete({
                         source: function (request, response) { response(Customers) },
                         select: function (e, u) {
-                            $("#MainContent_UC_PurchaseOrderView_hdfMaterialID").val(u.item.value1);
-                            $("#MainContent_UC_PurchaseOrderView_hdfMaterialCode").val(u.item.MaterialCode);
+                            $("#MainContent_UC_StockTransferOrderView_hdfMaterialID").val(u.item.value1);
+                            $("#MainContent_UC_StockTransferOrderView_hdfMaterialCode").val(u.item.MaterialCode);
                         },
                         open: function (event, ui) {
                             $(this).autocomplete("widget").css({
                                 "max-width":
-                                    $('#MainContent_UC_PurchaseOrderView_txtMaterial').width() + 48,
+                                    $('#MainContent_UC_StockTransferOrderView_txtMaterial').width() + 48,
                             });
                             $(this).autocomplete("widget").scrollTop(0);
                         }
@@ -481,7 +497,7 @@
             });
         }
         else {
-            $('#MainContent_UC_PurchaseOrderView_txtMaterial').autocomplete({
+            $('#MainContent_UC_StockTransferOrderView_txtMaterial').autocomplete({
                 source: function (request, response) {
                     response($.ui.autocomplete.filter(Customers, ""))
                 }

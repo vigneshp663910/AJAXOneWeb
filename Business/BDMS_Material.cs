@@ -59,21 +59,21 @@ namespace Business
             { }
             return Materials;
         }
-        public List<PDMS_Material> GetMaterialAutocompleteN(string Material, string MaterialType, int? DivisionID)
+        public List<PDMS_Material> GetMaterialAutocompleteN(string Material, string MaterialType, int? DivisionID, string WithDotFLMaterial = "true")
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "";
             if (MaterialType == "DIEN")
             {
-                endPoint = "Material/ServiceMaterialAutocomplete?Material=" + Material + "&DivisionID=" + DivisionID;
+                endPoint = "Material/ServiceMaterialAutocomplete?Material=" + Material + "&DivisionID=" + DivisionID + "&WithDotFLMaterial=" + WithDotFLMaterial;
             }
             else if (MaterialType == "FERT")
             {
-                endPoint = "Material/MaterialFinishedGoodsAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID;
+                endPoint = "Material/MaterialFinishedGoodsAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID + "&WithDotFLMaterial=" + WithDotFLMaterial;
             }
             else  
             {
-                endPoint = "Material/MaterialAccessoriesAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID;
+                endPoint = "Material/MaterialAccessoriesAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID + "&WithDotFLMaterial=" + WithDotFLMaterial;
             }
             return JsonConvert.DeserializeObject<List<PDMS_Material>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
@@ -219,6 +219,18 @@ namespace Business
             string endPoint = "Material/MaterialPriceFromSapMulti";
 
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialTax_Sap));
+            if (Result.Status == PApplication.Failure)
+            {
+                throw new Exception(Result.Message);
+            }
+            return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
+        }
+
+        public List<PMaterial> MaterialPriceFromSapApi(PSapMatPrice_Input MaterialPrice)
+        {
+            string endPoint = "Material/MaterialPriceFromSapApi";
+
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialPrice));
             if (Result.Status == PApplication.Failure)
             {
                 throw new Exception(Result.Message);

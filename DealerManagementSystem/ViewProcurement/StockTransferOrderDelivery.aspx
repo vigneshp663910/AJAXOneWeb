@@ -41,37 +41,24 @@
                         <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">PO Number</label>
+                        <label class="modal-label">STO Number</label>
                         <asp:TextBox ID="txtPoNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">PO Date From</label>
+                        <label class="modal-label">STO Date From</label>
                         <asp:TextBox ID="txtPoDateFrom" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                         <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtPoDateFrom" PopupButtonID="txtPoDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtPoDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">PO Date To</label>
+                        <label class="modal-label">STO Date To</label>
                         <asp:TextBox ID="txtPoDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                         <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtPoDateTo" PopupButtonID="txtPoDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtPoDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">PO Status</label>
-                        <asp:DropDownList ID="ddlPOStatus" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="0">All</asp:ListItem>
-                            <asp:ListItem Value="NEW">NEW</asp:ListItem>
-                            <asp:ListItem Value="REQUEST">REQUEST</asp:ListItem>
-                            <asp:ListItem Value="DRAFT">DRAFT</asp:ListItem>
-                            <asp:ListItem Value="COMPLETED">COMPLETED</asp:ListItem>
-                            <asp:ListItem Value="CLOSED">CLOSED</asp:ListItem>
-                            <asp:ListItem Value="PARTIAL_RECEIVED">PARTIAL_RECEIVED</asp:ListItem>
-                            <asp:ListItem Value="AUTO PO EMER DRAFT">AUTO PO EMER DRAFT</asp:ListItem>
-                            <asp:ListItem Value="ORDER_PLACED">ORDER_PLACED</asp:ListItem>
-                            <asp:ListItem Value="PARTIAL_CLOSE">PARTIAL_CLOSE</asp:ListItem>
-                            <asp:ListItem Value="AUTO PO STOCK DRAFT">AUTO PO STOCK DRAFT</asp:ListItem>
-                            <asp:ListItem Value="REJECTED">REJECTED</asp:ListItem>
-                            <asp:ListItem Value="TEMPLATE">TEMPLATE</asp:ListItem>
+                        <label class="modal-label">STO Status</label>
+                        <asp:DropDownList ID="ddlPOStatus" runat="server" CssClass="form-control"> 
                         </asp:DropDownList>
                     </div>
                     <div class="col-md-12 text-center">
@@ -83,7 +70,7 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">PO Report</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">STO Report</legend>
                         <div class="col-md-12 Report">
                             <div class="boxHead">
                                 <div class="logheading">

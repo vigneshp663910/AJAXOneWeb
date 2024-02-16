@@ -28,7 +28,7 @@
         </div>
     </div>
 </div>
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"   />
 <div class="col-md-12">
     <fieldset class="fieldset-border">
         <div class="col-md-9">
@@ -53,6 +53,20 @@
                 <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
             </div>
         </div> 
+         <div class="col-md-3"> 
+            <div class="col-md-12">
+                <label>Taxable Amount : </label>
+                <asp:Label ID="lblTaxableAmount" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Tax Amount : </label>
+                <asp:Label ID="lblTaxAmount" runat="server" CssClass="label"></asp:Label>
+            </div>
+            <div class="col-md-12">
+                <label>Gross Amount : </label>
+                <asp:Label ID="lblGrossAmount" runat="server" CssClass="label"></asp:Label>
+            </div> 
+        </div>
     </fieldset>
     <div class="col-md-12">
         <div class="col-md-12 Report">
@@ -72,7 +86,7 @@
                         <label class="modal-label">.</label>
                         <asp:Button ID="btnAddMaterial" runat="server" Text="Add" CssClass="btn Search" OnClick="btnAddMaterial_Click" />
 
-                        <asp:Button ID="Button2" runat="server" Text="Availability" CssClass="btn Save" OnClick="btnAddMaterial_Click" />
+                        <asp:Button ID="btnAvailability" runat="server" Text="Availability" CssClass="btn Save" OnClick="btnAvailability_Click" />
                     </div>
                 </div>
             </fieldset>
@@ -178,7 +192,7 @@
     </div>
 
     <div class="col-md-12">
-        <asp:Label ID="lblMessageMaterialUpload" runat="server" Text="" CssClass="message" Visible="false" />
+        <asp:Label ID="lblMessageMaterialUpload" runat="server" Text="" CssClass="message"  />
         <fieldset class="fieldset-border">
             <div class="col-md-12">
                 <div class="col-md-2 col-sm-12">

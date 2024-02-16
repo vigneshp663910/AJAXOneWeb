@@ -1,5 +1,8 @@
 ﻿using Business;
 using ClosedXML.Excel; 
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Newtonsoft.Json;
 using Properties;
 using System;
@@ -114,7 +117,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             MaterialUpload.Clear();
             GVUpload.DataSource = MaterialUpload;
             GVUpload.DataBind();
-            lblMessage.ForeColor = Color.Red;
+            lblMessage.ForeColor = System.Drawing.Color.Red;
             if (ddlDealer.SelectedValue == "0")
             {
                 lblMessage.Text = "Please select the Dealer";
@@ -150,14 +153,14 @@ namespace DealerManagementSystem.ViewInventory.UserControls
         }
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;
+            lblMessage.ForeColor = System.Drawing.Color.Red;
             PApiResult Result = new BInventory().InsertDealerPhysicalInventoryPosting(MaterialUpload);
             lblMessage.Text = Result.Message;
             if (Result.Status == PApplication.Failure)
             { 
                 return;
             } 
-            lblMessage.ForeColor = Color.Green; 
+            lblMessage.ForeColor = System.Drawing.Color.Green; 
         }
 
         
@@ -197,7 +200,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                                     DocumentDate= Convert.ToDateTime(txtDocumentDate.Text.Trim()),
                                     DocumentNumber= txtDocumentNumber.Text.Trim(),
                                     MaterialCode = Convert.ToString(IXLCell_[1].Value),
-                                    PhysicalStock = Convert.ToInt32(IXLCell_[3].Value) ,
+                                    PhysicalStock = Convert.ToDecimal(IXLCell_[3].Value) ,
                                     PostingTypeID = Convert.ToInt32(ddlPostingInventoryType.SelectedValue)
                         });
                         }
@@ -254,66 +257,70 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             PApiResult Result = new BInventory().GetDealerStock(DealerID, OfficeID, null, null, null, null, null);
 
             List<PDealerStock> DealerStocks = JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("ID");
-            //dt.Columns.Add("MaterialCode");
-            //dt.Columns.Add("SystemStock");
-            //dt.Columns.Add("PhysicalStock");
-            //int i = 0;
-            //foreach (PDealerStock S in DealerStocks)
-            //{
-            //    i = i + 1;
-            //    if ((short)AjaxOneStatus.PostingInventoryType_PostingUnrestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
-            //    {
-            //        dt.Rows.Add(i,S.Material.MaterialCode, S.UnrestrictedQty, "");
-            //    }
-            //    else if ((short)AjaxOneStatus.PostingInventoryType_PostingRestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
-            //    {
-            //        dt.Rows.Add(i, S.Material.MaterialCode, S.RestrictedQty, "");
-            //    }
-            //    else if ((short)AjaxOneStatus.PostingInventoryType_PostingBlocked == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
-            //    {
-            //        dt.Rows.Add(i, S.Material.MaterialCode, S.BlockedQty, "");
-            //    }
-            //}
-            int i = 0;
+
             string Name = Server.MapPath("~") + "Template/PhysicalInventoryPostingTemplate" + DateTime.Now.ToLongTimeString().Replace(':', '_') + ".xlsx";
             try
-            { 
-                var wb = new XLWorkbook();
-                var worksheet = wb.Worksheets.Add("SINS");
+            {
 
-                worksheet.Cell(1, 1).Value = "ID";
-                worksheet.Cell(1, 2).Value = "MaterialCode";
-                worksheet.Cell(1, 3).Value = "SystemStock";
-                worksheet.Cell(1, 4).Value = "PhysicalStock";
+                SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(Name, SpreadsheetDocumentType.Workbook);
+                // Add a WorkbookPart to the document.
+                WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
+                workbookpart.Workbook = new Workbook();
+                // Add a WorksheetPart to the WorkbookPart.
+                WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
+                worksheetPart.Worksheet = new Worksheet(new SheetData());
+                // Add Sheets to the Workbook.
+                Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
+                // Append a new worksheet and associate it with the workbook.
+                Sheet sheet = new Sheet()
+                {
+                    Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
+                    SheetId = 1,
+                    Name = "mySheet"
+                };
+                sheets.Append(sheet);
+                Worksheet worksheet = new Worksheet();
+                SheetData sheetData = new SheetData();
+                Row row = new Row();
+
+                row = new Row() { RowIndex = 1U, Spans = new ListValue<StringValue>() };
+                Cell cell = new Cell();
+
+                cell = new Cell()
+                {
+                    CellReference = "A1", // Location of Cell
+                    DataType = CellValues.String,
+                    CellValue = new CellValue("ID") // Setting Cell Value
+                };
+                row.Append(cell);
+                row.Append(new Cell() { CellReference = "B1", DataType = CellValues.String, CellValue = new CellValue("MaterialCode") });
+                row.Append(new Cell() { CellReference = "C1", DataType = CellValues.String, CellValue = new CellValue("SystemStock") });
+                row.Append(new Cell() { CellReference = "D1", DataType = CellValues.String, CellValue = new CellValue("PhysicalStock") });
+                sheetData.Append(row);
+                int ExcelRow = 1;
+
                 foreach (PDealerStock S in DealerStocks)
                 {
-                    i = i + 1;
-                    if ((short)AjaxOneStatus.PostingInventoryType_PostingUnrestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
-                    {
-                        worksheet.Cell(i + 1, 1).Value = i;
-                        worksheet.Cell(i + 1, 2).Value = S.Material.MaterialCode;
-                        worksheet.Cell(i + 1, 3).Value = S.UnrestrictedQty; 
-                    }
-                    else if ((short)AjaxOneStatus.PostingInventoryType_PostingRestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
-                    {
-                        worksheet.Cell(i + 1, 1).Value = i;
-                        worksheet.Cell(i + 1, 2).Value = S.Material.MaterialCode;
-                        worksheet.Cell(i + 1, 3).Value = S.RestrictedQty; 
-                    }
-                    else if ((short)AjaxOneStatus.PostingInventoryType_PostingBlocked == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
-                    {
-                        worksheet.Cell(i + 1, 1).Value = i;
-                        worksheet.Cell(i + 1, 2).Value = S.Material.MaterialCode;
-                        worksheet.Cell(i + 1, 3).Value = S.BlockedQty; 
-                    }
-                } 
+                    ExcelRow = ExcelRow + 1;
+                    row = new Row() { Spans = new ListValue<StringValue>() };
+                    row.Append(new Cell() { CellReference = "A" + ExcelRow.ToString(), DataType = CellValues.String, CellValue = new CellValue(ExcelRow - 1) });
+                    row.Append(new Cell() { CellReference = "B" + ExcelRow.ToString(), DataType = CellValues.String, CellValue = new CellValue(S.Material.MaterialCode) });
+                    row.Append(new Cell() { CellReference = "C" + ExcelRow.ToString(), DataType = CellValues.String, CellValue = new CellValue(S.UnrestrictedQty) });
+                    //row.Append(new Cell() { CellReference = "D" + ExcelRow.ToString(), DataType = CellValues.String, CellValue = new CellValue("PhysicalStock") });
+                    sheetData.Append(row);
+                }
+
+
+                worksheet.Append(sheetData);
+                worksheetPart.Worksheet = worksheet;
                 if (!Directory.Exists(Server.MapPath("~") + "/Template"))
                 {
                     Directory.CreateDirectory(Server.MapPath("~") + "/Template");
-                }               
-                wb.SaveAs(Name);
+                }
+                workbookpart.Workbook.Save();
+                // Close the document.
+                spreadsheetDocument.Close(); 
+
 
                 //string Path = Server.MapPath("Templates\\InitialStock.xlsx");
                 WebClient req = new WebClient();
@@ -334,7 +341,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                 response.End();
                 //  new BXcel().ExporttoExcel(dt, "PhysicalInventoryPostingTemplate");
             }
-            catch(Exception e1)
+            catch (Exception e1)
             {
             }
             finally
@@ -345,6 +352,121 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                 }
             }
         }
+        //protected void btnDownload_Click(object sender, EventArgs e)
+        //{
+
+        //    if (ddlDealer.SelectedValue == "0")
+        //    {
+        //        lblMessage.Text = "Please select the Dealer";
+        //        return;
+        //    }
+        //    if (ddlDealerOffice.SelectedValue == "0")
+        //    {
+        //        lblMessage.Text = "Please select the Dealer Office";
+        //        return;
+        //    }
+        //    if (ddlPostingInventoryType.SelectedValue == "0")
+        //    {
+        //        lblMessage.Text = "Please select the Posting Inventory Type";
+        //        return;
+        //    }
+        //    int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+        //    int OfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
+        //    PApiResult Result = new BInventory().GetDealerStock(DealerID, OfficeID, null, null, null, null, null);
+
+        //    List<PDealerStock> DealerStocks = JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
+        //    //DataTable dt = new DataTable();
+        //    //dt.Columns.Add("ID");
+        //    //dt.Columns.Add("MaterialCode");
+        //    //dt.Columns.Add("SystemStock");
+        //    //dt.Columns.Add("PhysicalStock");
+        //    //int i = 0;
+        //    //foreach (PDealerStock S in DealerStocks)
+        //    //{
+        //    //    i = i + 1;
+        //    //    if ((short)AjaxOneStatus.PostingInventoryType_PostingUnrestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+        //    //    {
+        //    //        dt.Rows.Add(i,S.Material.MaterialCode, S.UnrestrictedQty, "");
+        //    //    }
+        //    //    else if ((short)AjaxOneStatus.PostingInventoryType_PostingRestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+        //    //    {
+        //    //        dt.Rows.Add(i, S.Material.MaterialCode, S.RestrictedQty, "");
+        //    //    }
+        //    //    else if ((short)AjaxOneStatus.PostingInventoryType_PostingBlocked == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+        //    //    {
+        //    //        dt.Rows.Add(i, S.Material.MaterialCode, S.BlockedQty, "");
+        //    //    }
+        //    //}
+        //    int i = 0;
+        //    string Name = Server.MapPath("~") + "Template/PhysicalInventoryPostingTemplate" + DateTime.Now.ToLongTimeString().Replace(':', '_') + ".xlsx";
+        //    try
+        //    { 
+        //        var wb = new XLWorkbook();
+        //        var worksheet = wb.Worksheets.Add("SINS");
+        //        worksheet.Column(1).DataType = XLDataType.Text;
+        //        worksheet.Column(2).DataType = XLDataType.Text;
+        //        worksheet.Cell(1, 1).Value = "ID";
+        //        worksheet.Cell(1, 2).Value = "MaterialCode";
+        //        worksheet.Cell(1, 3).Value = "SystemStock";
+        //        worksheet.Cell(1, 4).Value = "PhysicalStock";
+        //        foreach (PDealerStock S in DealerStocks)
+        //        {
+        //            i = i + 1;
+        //            if ((short)AjaxOneStatus.PostingInventoryType_PostingUnrestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+        //            {
+        //                worksheet.Cell(i + 1, 1).Value = i; 
+        //                worksheet.Cell(i + 1, 2).Value = S.Material.MaterialCode.ToString();
+        //                worksheet.Cell(i + 1, 3).Value = S.UnrestrictedQty; 
+        //            }
+        //            else if ((short)AjaxOneStatus.PostingInventoryType_PostingRestricted == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+        //            {
+        //                worksheet.Cell(i + 1, 1).Value = i;
+        //                worksheet.Cell(i + 1, 2).Value = S.Material.MaterialCode;
+        //                worksheet.Cell(i + 1, 3).Value = S.RestrictedQty; 
+        //            }
+        //            else if ((short)AjaxOneStatus.PostingInventoryType_PostingBlocked == Convert.ToInt32(ddlPostingInventoryType.SelectedValue))
+        //            {
+        //                worksheet.Cell(i + 1, 1).Value = i;
+        //                worksheet.Cell(i + 1, 2).Value = S.Material.MaterialCode;
+        //                worksheet.Cell(i + 1, 3).Value = S.BlockedQty; 
+        //            }
+        //        } 
+        //        if (!Directory.Exists(Server.MapPath("~") + "/Template"))
+        //        {
+        //            Directory.CreateDirectory(Server.MapPath("~") + "/Template");
+        //        }               
+        //        wb.SaveAs(Name);
+
+        //        //string Path = Server.MapPath("Templates\\InitialStock.xlsx");
+        //        WebClient req = new WebClient();
+        //        HttpResponse response = HttpContext.Current.Response;
+        //        response.Clear();
+        //        response.ClearContent();
+        //        response.ClearHeaders();
+        //        response.Buffer = true;
+        //        response.AddHeader("Content-Disposition", "attachment;filename=\"PhysicalInventoryPostingTemplate.xlsx\"");
+        //        byte[] data = req.DownloadData(Name);
+        //        response.BinaryWrite(data);
+        //        // Append cookie
+        //        HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+        //        cookie.Value = "Flag";
+        //        cookie.Expires = DateTime.Now.AddDays(1);
+        //        HttpContext.Current.Response.AppendCookie(cookie);
+        //        // end
+        //        response.End();
+        //        //  new BXcel().ExporttoExcel(dt, "PhysicalInventoryPostingTemplate");
+        //    }
+        //    catch(Exception e1)
+        //    {
+        //    }
+        //    finally
+        //    {
+        //        if (File.Exists(Name))
+        //        {
+        //            File.Delete(Name);
+        //        }
+        //    }
+        //}
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
 

@@ -78,6 +78,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblPurchaseOrderDate;
 
         /// <summary>
+        /// lblPORemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPORemarks;
+
+        /// <summary>
         /// lblPODealer control.
         /// </summary>
         /// <remarks>
@@ -105,13 +114,40 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblReceivingLocation;
 
         /// <summary>
-        /// lblPORemarks control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPORemarks;
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// lblTaxableAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTaxableAmount;
+
+        /// <summary>
+        /// lblTaxAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTaxAmount;
+
+        /// <summary>
+        /// lblGrossAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGrossAmount;
 
         /// <summary>
         /// lblMessage control.

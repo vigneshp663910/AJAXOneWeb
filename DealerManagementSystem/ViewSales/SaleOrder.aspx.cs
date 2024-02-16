@@ -258,7 +258,7 @@ namespace DealerManagementSystem.ViewSales
         [WebMethod]
         public static string GetMaterial(string Material, string MaterialType, string Division)
         {
-            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null);
+            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null, "false");
             return JsonConvert.SerializeObject(Materials);
         }
     }

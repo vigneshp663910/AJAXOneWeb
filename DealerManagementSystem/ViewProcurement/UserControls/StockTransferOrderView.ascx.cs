@@ -111,6 +111,17 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             gvPOItem.DataSource = StockTransferOrder.Items;
             gvPOItem.DataBind();
+            decimal TaxableValue = 0, TaxValue = 0;
+            foreach (PStockTransferOrderItem Item in StockTransferOrder.Items)
+            {
+                TaxableValue = TaxableValue + Item.TaxableValue;
+                TaxValue = TaxValue + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue;
+                //Item.NetValue = Item.CGSTValue + Item.SGSTValue + Item.IGSTValue + Item.TaxableAmount;
+            }
+            lblTaxableAmount.Text = TaxableValue.ToString();
+            lblTaxAmount.Text = TaxValue.ToString();
+            lblGrossAmount.Text = (TaxValue + TaxableValue).ToString();
+
             if (StockTransferOrder.Status.StatusID != (short)AjaxOneStatus.StockTransferOrder_Draft)
             {
 
@@ -451,10 +462,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             foreach (PStockTransferOrderItemDelivery_Insert Item in Delivery_Insert)
             {
                 if (Convert.ToInt64(lblStockTransferOrderItemID.Text) == Item.StockTransferOrderItemID)
+                {
                     Delivery_Insert.Remove(Item);
-                gvDelivery.DataSource = Delivery_Insert;
-                gvDelivery.DataBind();
+                    gvDelivery.DataSource = Delivery_Insert;
+                    gvDelivery.DataBind();
+                    break;
+                }
             }
+            MPE_Delivery.Show();
         }
 
         protected void gvDelivery_SelectedIndexChanged(object sender, EventArgs e)

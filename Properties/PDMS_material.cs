@@ -258,4 +258,24 @@ namespace Properties
         public string MaterialCode { get; set; } 
         public decimal Quantity { get; set; }
     }
+
+    [Serializable]
+    public class PSapMatPrice_Input
+    {
+        public string Customer { get; set; }
+        public string Vendor { get; set; }
+        public string OrderType { get; set; }
+        public string Divition { get; set; }
+        public DateTime? PriceDate { get; set; }
+        public List<PSapMatPriceItem_Input> Item { get; set; }
+    }
+    [Serializable]
+    public class PSapMatPriceItem_Input
+    {
+        public string ItemNo { get; set; }
+        public string Material { get; set; }
+        public Decimal Quantity { get; set; }
+        public Decimal TotalValue { get; set; }
+        public Decimal netValue { get; set; }
+    }
 }

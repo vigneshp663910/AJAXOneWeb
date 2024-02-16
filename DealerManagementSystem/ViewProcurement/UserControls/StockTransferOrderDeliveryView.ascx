@@ -44,11 +44,11 @@
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
-                    <label>PO Number : </label>
+                    <label>STO Number : </label>
                     <asp:Label ID="lblPurchaseOrderNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>PO Date : </label>
+                    <label>STO Date : </label>
                     <asp:Label ID="lblPurchaseOrderDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
@@ -90,8 +90,7 @@
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
-                    <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">ASN</legend>
+                    <fieldset class="fieldset-border"> 
                         <div class="col-md-12 Report">
 
                             <asp:GridView ID="gvDeliveryViewItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
@@ -188,12 +187,11 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="Item" Font-Bold="True" ToolTip="">
+    <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="STO Item" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
-                    <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">STO Item</legend>
+                    <fieldset class="fieldset-border"> 
                         <div class="col-md-12 Report">
                             <asp:GridView ID="gvPOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                                 <Columns>

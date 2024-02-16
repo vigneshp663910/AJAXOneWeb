@@ -320,8 +320,8 @@ namespace DealerManagementSystem.ViewProcurement
         [WebMethod]
         public static string GetMaterial(string Material, string MaterialType, string DivisionID)
         {
-            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, Convert.ToInt32(DivisionID));
-            return JsonConvert.SerializeObject(Materials);
+            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, Convert.ToInt32(DivisionID), "false");
+            return JsonConvert.SerializeObject(Materials); 
         }
 
         protected void btnViewPO_Click(object sender, EventArgs e)

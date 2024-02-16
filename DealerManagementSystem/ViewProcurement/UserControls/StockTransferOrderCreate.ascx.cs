@@ -47,25 +47,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PPurchaseOrder_Insert"] = value;
             }
         }
-
-        public DataTable MaterialCart
-        {
-            get
-            {
-                if (Session["MaterialCart"] == null)
-                {
-                    Session["MaterialCart"] = new DataTable();
-                }
-                return (DataTable)Session["MaterialCart"];
-            }
-            set
-            {
-                Session["MaterialCart"] = value;
-            }
-        }
+ 
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = string.Empty;
+            lblMessageMaterialUpload.Text = string.Empty;
         }
         public void FillMaster()
         {
@@ -93,8 +79,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
-                lblMessage.Visible = true;
+                lblMessage.Text = ex.Message; 
                 lblMessage.ForeColor = Color.Red;
             }
         }
@@ -155,7 +140,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 ddlSourceOffice.BorderColor = Color.Red;
                 return "Please select the Source Location";
-            } 
+            }
+            if (ddlSourceOffice.SelectedValue == ddlDestinationOffice.SelectedValue)
+            {
+                ddlSourceOffice.BorderColor = Color.Red;
+                return "Please select the Receiving Location and Source Location";
+            }
             return Message;
         }
         void fillDealer()
@@ -171,7 +161,17 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         void fillItem()
         {
             gvPOItem.DataSource = PurchaseOrderItem_Insert;
-            gvPOItem.DataBind(); 
+            gvPOItem.DataBind();
+            decimal TaxableValue = 0, TaxValue = 0;
+            foreach (PStockTransferOrderItem_Insert Item in PurchaseOrderItem_Insert)
+            { 
+                TaxableValue = TaxableValue + Item.TaxableValue;
+                TaxValue = TaxValue + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue; 
+               //Item.NetValue = Item.CGSTValue + Item.SGSTValue + Item.IGSTValue + Item.TaxableAmount;
+            } 
+            lblTaxableAmount.Text = TaxableValue.ToString();
+            lblTaxAmount.Text = TaxValue.ToString();
+            lblGrossAmount.Text = (TaxValue + TaxableValue).ToString(); 
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -194,8 +194,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red; 
             string Message = Validation();
             if (!string.IsNullOrEmpty(Message))
             {
@@ -228,10 +227,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         void Save(string MaterialID, string MaterialCode, string Qty)
         {
-            lblMessageMaterialUpload.ForeColor = Color.Red;
-            lblMessageMaterialUpload.Visible = true;
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessageMaterialUpload.ForeColor = Color.Red; 
+            lblMessage.ForeColor = Color.Red; 
             string Message = Validation();
             if (!string.IsNullOrEmpty(Message))
             {
@@ -306,8 +303,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         public void Save()
         {
-            PO_Insert = Read();
-            lblMessage.Visible = true;
+            PO_Insert = Read(); 
             lblMessage.ForeColor = Color.Red;
              
             PO_Insert.Items = PurchaseOrderItem_Insert; 
@@ -326,8 +322,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected void lnkBtnPoItemDelete_Click(object sender, EventArgs e)
         {
             try
-            {
-                lblMessage.Visible = true;
+            { 
                 LinkButton lnkBtnCountryDelete = (LinkButton)sender;
                 GridViewRow row = (GridViewRow)(lnkBtnCountryDelete.NamingContainer);
                 string Material = ((Label)row.FindControl("lblMaterial")).Text.Trim();
@@ -386,7 +381,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                                 if (Cells.Count != 0)
                                 {
 
-                                    List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Convert.ToString(Cells[1].Value), "", null);
+                                    List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null,Convert.ToString(Cells[1].Value),null,null, null);
                                     if (Materials.Count > 0)
                                     {
                                         MaterialID = Materials[0].MaterialID.ToString();
@@ -431,6 +426,32 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             // end
             response.End();
         }
-         
+
+        protected void btnAvailability_Click(object sender, EventArgs e)
+        {
+            lblMessage.ForeColor = Color.Red; 
+            string Message = Validation();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessage.Text = Message;
+                return;
+            }
+            if (string.IsNullOrEmpty(hdfMaterialCode.Value.Trim()))
+            {
+                lblMessage.Text = "Please select the Material";
+                return;
+            } 
+            PApiResult Result = new BInventory().GetDealerStock(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlSourceOffice.SelectedValue), null, null, hdfMaterialCode.Value.Trim());
+
+            List<PDealerStock> PDealerStock =  JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
+            if(PDealerStock.Count==1)
+            {
+                lblMessage.Text = "Available Material is : " + PDealerStock[0].UnrestrictedQty;
+            }
+            else
+            {
+                lblMessage.Text = "Material is not available";
+            }
+        }
     }
 }

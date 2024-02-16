@@ -61,7 +61,7 @@ namespace DealerManagementSystem.ViewProcurement
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Orders');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Stock Transfer Orders');</script>");
             lblMessage.Visible = false;
             if (!IsPostBack)
             {
@@ -277,7 +277,7 @@ namespace DealerManagementSystem.ViewProcurement
         [WebMethod]
         public static string GetMaterial(string Material, string MaterialType)
         {
-            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null);
+            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null, "false");
             return JsonConvert.SerializeObject(Materials);
         }
 
