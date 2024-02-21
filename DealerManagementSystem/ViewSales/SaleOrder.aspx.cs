@@ -261,10 +261,46 @@ namespace DealerManagementSystem.ViewSales
             return JsonConvert.SerializeObject(Customer);
         }
         [WebMethod]
-        public static string GetMaterial(string Material, string MaterialType, string Division)
+        public static string GetMaterial(string Material, string MaterialType, string DivisionID)
         {
-            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, null, "false");
+
+            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, Convert.ToInt32(DivisionID), "false");
             return JsonConvert.SerializeObject(Materials);
+        }
+        [WebMethod]
+        public static List<DetailsAutoFill> GetEquipment(string custID)
+        {
+            DetailsAutoFill studentDetails = null;
+            List<PDMS_EquipmentHeader> Relations = new BDMS_Equipment().GetEquipmentForCreateICTicket(Convert.ToInt64(custID), null, null);
+            List<DetailsAutoFill> lstStudentDetails = new List<DetailsAutoFill>();
+            foreach (PDMS_EquipmentHeader Relation in Relations)
+            {
+                studentDetails = new DetailsAutoFill();
+                studentDetails.Id = Relation.EquipmentHeaderID;
+                studentDetails.Name = Relation.EquipmentSerialNo;
+                lstStudentDetails.Add(studentDetails);
+            }
+            return lstStudentDetails;
+        }
+        public class DetailsAutoFill
+        {
+            public long Id { get; set; }
+            public string Name { get; set; }
+        }
+        [WebMethod]
+        public static List<DetailsAutoFill> GetShiftTo(string custID)
+        {
+            DetailsAutoFill studentDetails = null;
+            List<PDMS_CustomerShipTo> Relations = new BDMS_Customer().GetCustomerShopTo(null, Convert.ToInt64(custID));
+            List<DetailsAutoFill> lstStudentDetails = new List<DetailsAutoFill>();
+            foreach (PDMS_CustomerShipTo Relation in Relations)
+            {
+                studentDetails = new DetailsAutoFill();
+                studentDetails.Id = Relation.CustomerShipToID;
+                studentDetails.Name = Relation.Address1+","+ Relation.Address2 + "," + Relation.Address2 + "," + Relation.District.District + "," + Relation.State.State;
+                lstStudentDetails.Add(studentDetails);
+            }
+            return lstStudentDetails;
         }
     }
 }

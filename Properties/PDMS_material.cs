@@ -263,7 +263,7 @@ namespace Properties
     public class PSapMatPrice_Input
     {
         public string Customer { get; set; }
-        public string Vendor { get; set; }
+      //  public string Vendor { get; set; }
         public string OrderType { get; set; }
         public string Divition { get; set; }
         public DateTime? PriceDate { get; set; }

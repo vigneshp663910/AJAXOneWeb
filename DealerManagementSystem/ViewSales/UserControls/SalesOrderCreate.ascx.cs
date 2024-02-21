@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessage.Text = string.Empty;
+            lblMessage.Text = string.Empty; 
         }
         public void FillMaster()
         {
@@ -103,9 +103,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
-            lblMessage.Text = "";
+            lblMessage.ForeColor = Color.Red;  
             try
             {
                 string Message = Validation();
@@ -171,17 +169,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 if (HDiscount >= 100)
                 {
-                    lblMessage.Text = "Discount Percentage cannot exceed 100.";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Discount Percentage cannot exceed 100."; 
                     return;
                 }
 
                 //SoI.Discount = Mat.CurrentPrice - (Mat.CurrentPrice * HDiscount / 100);
                 //SoI.TaxableValue = SoI.Discount;
                 //SoI.Discount = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : Mat.Discount;
-                SoI.DiscountPercentage = HDiscount > 0 ? 0 : Mat.Discount;
+                SoI.ItemDiscountPercentage = HDiscount > 0 ? 0 : Mat.Discount;
                 SoI.DiscountValue = HDiscount > 0 ? (Mat.CurrentPrice * (HDiscount / 100)) : Mat.Discount;
-                SoI.TaxableValue = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : SoI.TaxableValue;
+                SoI.TaxableValue = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : Mat.TaxablePrice;
                 //SoI.SGST = Mat.SGST;
                 //SoI.SGSTValue = Mat.SGSTValue;
                 //SoI.CGST = Mat.CGST;
@@ -319,22 +316,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             PSaleOrder_Insert SO = new PSaleOrder_Insert();
             SO.DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-            SO.CustomerID = Convert.ToInt32(hdfCustomerId.Value);
-            SO.StatusID = 11;
             SO.OfficeID = Convert.ToInt32(ddlOfficeName.SelectedValue);
-            SO.ContactPerson = txtContactPerson.Text.Trim();
+
+            SO.CustomerID = Convert.ToInt32(hdfCustomerId.Value);
+            
+            SO.ProductID = ddlProduct.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProduct.SelectedValue);
+            SO.EquipmentID = ddlEquipment.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlEquipment.SelectedValue);
             SO.ContactPersonNumber = txtContactPersonNumber.Text.Trim();
+            SO.Attn = txtAttn.Text.Trim();
+
+            SO.StatusID = 11; 
             SO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
             SO.Remarks = txtRemarks.Text.Trim();
-            SO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
-            //SO.InsurancePaidBy = txtInsurancePaidBy.Text.Trim();
-            SO.InsurancePaidBy = ddlInsurancePaidBy.SelectedItem.Text;
-            //SO.FrieghtPaidBy = txtFrieghtPaidBy.Text.Trim();
-            SO.FrieghtPaidBy = ddlFrieghtPaidBy.SelectedItem.Text;
-            SO.Attn = txtAttn.Text.Trim();
-            SO.ProductID = Convert.ToInt32(ddlProduct.SelectedValue);
-            SO.EquipmentSerialNo = txtEquipmentSerialNo.Text.Trim();
-            //SO.TaxType = txtSelectTax.Text.Trim();
+            SO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim()); 
+            SO.InsurancePaidBy = ddlInsurancePaidBy.SelectedItem.Text; 
+            SO.FrieghtPaidBy = ddlFrieghtPaidBy.SelectedItem.Text; 
             SO.TaxType = ddlTaxType.SelectedItem.Text;
             SO.SaleOrderTypeID = 1;
             SO.SalesEngineerID = ddlSalesEngineer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesEngineer.SelectedValue);
@@ -354,14 +350,28 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             gvSOItem.DataSource = SOItem_Insert;
             gvSOItem.DataBind();
+            FillAmountCall();
+        }
+        void FillAmountCall()
+        {
+            decimal DiscountValue = 0, TaxableValue = 0, TaxValue = 0, TCSValue = 0;
+            foreach (PSaleOrderItem_Insert Item in SOItem_Insert)
+            {
+                DiscountValue = Item.DiscountValue;
+                TaxableValue = TaxableValue + Item.TaxableValue;
+                TaxValue = TaxValue + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue;
+            }
+            lblDiscountValue.Text = DiscountValue.ToString();
+            lblTaxableValue.Text = TaxableValue.ToString();
+            lblTaxValue.Text = TaxValue.ToString();
+            lblTCSValue.Text = TCSValue.ToString(); 
+            lblTotalValue.Text = (TaxableValue + TaxValue + TCSValue).ToString();
         }
         protected void lnkBtnSoItemDelete_Click(object sender, EventArgs e)
         {
             try
-            {
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Text = "";
+            { 
+                lblMessage.ForeColor = Color.Red; 
                 LinkButton lnkBtnCountryDelete = (LinkButton)sender;
                 GridViewRow row = (GridViewRow)(lnkBtnCountryDelete.NamingContainer);
                 string Material = ((Label)row.FindControl("lblMaterial")).Text.Trim();
@@ -391,8 +401,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlDealer.SelectedValue = "0";
             txtCustomer.Text = "";
             hdfCustomerId.Value = "";
-            ddlOfficeName.SelectedValue = "0";
-            txtContactPerson.Text = "";
+            ddlOfficeName.SelectedValue = "0"; 
             txtContactPersonNumber.Text = "";
             //ddlDivision.SelectedValue = "0";
             txtRemarks.Text = "";
@@ -402,8 +411,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             //txtFrieghtPaidBy.Text = "";
             ddlFrieghtPaidBy.SelectedValue = "0";
             txtAttn.Text = "";
-            ddlProduct.SelectedValue = "0";
-            txtEquipmentSerialNo.Text = "";
+            ddlProduct.SelectedValue = "0"; 
             //txtSelectTax.Text = "";
             ddlTaxType.SelectedValue = "0";
             cxExpectedDeliveryDate.StartDate = DateTime.Now;
@@ -419,9 +427,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             txtQty.Text = "";
         }
         protected void btnSaveSOItem_Click(object sender, EventArgs e)
-        {
-            lblMessage.Text = "";
-            lblMessage.Visible = true;
+        { 
             lblMessage.ForeColor = Color.Red;
             try
             {
@@ -457,11 +463,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
         }
         protected void txtBoxHeaderDiscountPercent_TextChanged(object sender, EventArgs e)
-        {
-            lblMessage.Text = "";
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Red;
-            
+        { 
+            lblMessage.ForeColor = Color.Red; 
             foreach (GridViewRow row in gvSOItem.Rows)
             {
                 Label MaterialID = (Label)row.FindControl("lblMaterialID");
@@ -477,8 +480,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                     if ((HDiscount + IDiscount < 0) || (HDiscount + IDiscount >= 100))
                     {
-                        lblMessage.Text = "Discount Percentage cannot be less than 0 and more than 100.";
-                        lblMessage.Visible = true;
+                        lblMessage.Text = "Discount Percentage cannot be less than 0 and more than 100."; 
                         return;
                     }
 
@@ -487,7 +489,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                         decimal discountValue = SOI.Value * ((HDiscount + IDiscount) / 100);
                         decimal discountedPrice = SOI.Value - discountValue;
-                        SOI.DiscountPercentage = IDiscount;
+                        SOI.ItemDiscountPercentage = IDiscount;
                         SOI.DiscountValue = discountValue;
                         SOI.TaxableValue = discountedPrice;
 
@@ -502,7 +504,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
                         lblNetAmount.Text = SOI.NetAmount.ToString();
                     }
                 }
+                 
             }
+            FillAmountCall();
         }
         protected void txtBoxDiscountPercent_TextChanged(object sender, EventArgs e)
         {
@@ -523,8 +527,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 if ((HDiscount + IDiscount < 0) || (HDiscount + IDiscount >= 100))
                 {
-                    lblMessage.Text = "Discount Percentage cannot be less than 0 and more than 100.";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Discount Percentage cannot be less than 0 and more than 100."; 
                     return;
                 }
 
@@ -532,7 +535,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     decimal discountValue = SOI.Value * ((HDiscount + IDiscount) / 100);
                     decimal discountedPrice = SOI.Value - discountValue;
-                    SOI.DiscountPercentage = IDiscount;
+                    SOI.ItemDiscountPercentage = IDiscount;
                     SOI.DiscountValue = discountValue;
                     SOI.TaxableValue = discountedPrice;
 
@@ -547,6 +550,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblNetAmount.Text = SOI.NetAmount.ToString();
                 }
             }
+            FillAmountCall();
         }
+
+        protected void txtCustomer_TextChanged(object sender, EventArgs e)
+        { 
+            List<PDMS_EquipmentHeader> EQs = new BDMS_Equipment().GetEquipmentForCreateICTicket(Convert.ToInt64(hdfCustomerId.Value), null, null); 
+            new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
+ 
+        } 
     }
 }

@@ -63,7 +63,7 @@ namespace Business
             PDealer Dealer= new BDealer().GetDealerByID(DealerID,"");
             PSapMatPrice_Input InPut = new PSapMatPrice_Input();
             InPut.Customer = Dealer.DealerCode;
-            InPut.Vendor = Dealer.DealerCode;
+            //InPut.Vendor = Dealer.DealerCode;
             InPut.OrderType = "DEFAULT_SEC_AUART";
             //InPut.PriceDate = DateTime.Now;
 

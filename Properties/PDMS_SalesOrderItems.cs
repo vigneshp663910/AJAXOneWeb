@@ -235,11 +235,12 @@ namespace Properties
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerOffice DealerOffice { get; set; }
         public PDMS_Customer Customer { get; set; }
+        public PDMS_CustomerShipTo ShipTo { get; set; }
         //public PSaleOrderStatus SaleOrderStatus { get; set; }
         public PAjaxOneStatus SaleOrderStatus { get; set; }
         public PSaleOrderItem SaleOrderItem { get; set; }
         public List<PSaleOrderItem> SaleOrderItems { get; set; }
-        public string ContactPerson { get; set; }
+      //  public string ContactPerson { get; set; }
         public string ContactPersonNumber { get; set; }
         public PDMS_Division Division { get; set; }
         public string Remarks { get; set; }
@@ -250,7 +251,7 @@ namespace Properties
         public string FrieghtPaidBy { get; set; }
         public string Attn { get; set; }
         public PProduct Product { get; set; }
-        public string EquipmentSerialNo { get; set; }
+        public PDMS_EquipmentHeader Equipment { get; set; }
         public string TaxType { get; set; }
         public decimal GrossAmount { get; set; }
         public PSaleOrderType SaleOrderType { get; set; }
@@ -271,10 +272,8 @@ namespace Properties
         public decimal Quantity { get; set; }
         public decimal PerRate { get; set; }
         public decimal Value { get; set; }
-        public decimal DiscountPercentage { get; set; }
-        //public decimal DiscountedPrice { get; set; }
-        public decimal DiscountValue { get; set; }
-        public decimal FreightValue { get; set; }
+        public decimal ItemDiscountPercentage { get; set; } 
+        public decimal DiscountValue { get; set; } 
         public decimal TaxableValue { get; set; } 
         public decimal Tax { get; set; }
         //public decimal TotalAmt { get; set; }
@@ -338,33 +337,25 @@ namespace Properties
     [Serializable]
     public class PSaleOrder_Insert
     {
-        public long SaleOrderID { get; set; }
-        //public string SaleOrderNumber { get; set; }
-        //public DateTime SaleOrderDate { get; set; }
-        public string QuotationNumber { get; set; }
-        public DateTime QuotationDate { get; set; }
+        public long SaleOrderID { get; set; } 
         public int DealerID { get; set; }
         public int OfficeID { get; set; }
         public long CustomerID { get; set; }
-        public int StatusID { get; set; }
-        public string ContactPerson { get; set; }
+        
+        public int StatusID { get; set; } 
         public string ContactPersonNumber { get; set; }
         public int DivisionID { get; set; }
         public string Remarks { get; set; }
-        public DateTime ExpectedDeliveryDate { get; set; }
-        public string RefNumber { get; set; }
-        public DateTime? RefDate { get; set; }
+        public DateTime ExpectedDeliveryDate { get; set; } 
         public string InsurancePaidBy { get; set; }
         public string FrieghtPaidBy { get; set; }
         public string Attn { get; set; }
-        public int ProductID { get; set; }
-        public string EquipmentSerialNo { get; set; }
-        public string TaxType { get; set; }
-        //public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
+        public int? ProductID { get; set; }
+        public long? EquipmentID { get; set; }
+        public string TaxType { get; set; } 
         public int SaleOrderTypeID { get; set; }
         public int? SalesEngineerID { get; set; }
-        public decimal HeaderDiscountPercentage { get; set; }
-        public int UserID { get; set; }
+        public decimal HeaderDiscountPercentage { get; set; } 
         public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
 
     }
@@ -381,7 +372,7 @@ namespace Properties
         public decimal Quantity { get; set; }
         public decimal PerRate { get; set; }
         public decimal Value { get; set; }
-        public decimal DiscountPercentage { get; set; }
+        public decimal ItemDiscountPercentage { get; set; }
         public decimal DiscountValue { get; set; }
         public decimal FreightValue { get; set; }
         public decimal TaxableValue { get; set; }
@@ -414,6 +405,7 @@ namespace Properties
     public class PSaleOrderDeliveryItem_Insert
     {
         public long SaleOrderID { get; set; }
+        public long? ShiftToID { get; set; }
         public long SaleOrderItemID { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialDescription { get; set; }

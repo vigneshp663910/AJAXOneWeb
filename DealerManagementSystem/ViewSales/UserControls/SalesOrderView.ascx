@@ -135,7 +135,7 @@
     function GetMaterial() {
         $("#MainContent_UC_SalesOrderView_hdfMaterialID").val('');
         $("#MainContent_UC_SalesOrderView_hdfMaterialCode").val('');
-        var param = { Material: $('#MainContent_UC_SalesOrderView_txtMaterial').val(), MaterialType: '', Division: '' }
+        var param = { Material: $('#MainContent_UC_SalesOrderView_txtMaterial').val(), MaterialType: '', DivisionID: '15' }
         var Customers = [];
         if ($('#MainContent_UC_SalesOrderView_txtMaterial').val().trim().length >= 3) {
             $.ajax({
@@ -262,18 +262,8 @@
         <legend style="background: none; color: #007bff; font-size: 17px;">Sale Order</legend>
         <%--<div class="col-md-12 View">
             <div class="col-md-4">
-                <div class="col-md-12">
-                    <label>Sale Order Number : </label>
-                    <asp:Label ID="lblSaleOrderNumber" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Dealer Office : </label>
-                    <asp:Label ID="lblDealerOffice" runat="server" CssClass="label"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Contact Person : </label>
-                    <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
-                </div>
+               
+                
                 <div class="col-md-12">
                     <label>Remarks : </label>
                     <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
@@ -346,10 +336,7 @@
                     <label>Insurance Paid By : </label>
                     <asp:Label ID="lblInsurancePaidBy" runat="server" CssClass="label"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>EquipmentSerial No : </label>
-                    <asp:Label ID="lblEquipmentSerialNo" runat="server" CssClass="label"></asp:Label>
-                </div>
+                
                 <div class="col-md-12">
                     <label>Sales Engnieer : </label>
                     <asp:Label ID="lblSalesEngnieer" runat="server" CssClass="label"></asp:Label>
@@ -359,51 +346,72 @@
         <div class="col-md-12 View">
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Quotation Number : </label>
+                    <label>Quot No & Dt : </label>
                     <asp:Label ID="lblQuotationNumber" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>QuotationDate : </label>
                     <asp:Label ID="lblQuotationDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+
                 <div class="col-md-12">
-                    <label>Contact Person : </label>
-                    <asp:Label ID="lblContactPerson" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>SO No & Dt : </label>
+                    <asp:Label ID="lblSaleOrderNumber" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblSaleOrderDate" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Pro Inv No & Dt : </label>
+                    <asp:Label ID="Label1" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="Label2" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Order Type : </label>
+                    <asp:Label ID="lblSaleOrderType" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <label>Dealer : </label>
+                    <asp:Label ID="lblSODealer" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Dealer Office : </label>
+                    <asp:Label ID="lblDealerOffice" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+
+                <%--<div class="col-md-12">
+                    <label>Customer : </label>
+                    <asp:Label ID="lblCustomer" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>--%>
+                <div class="col-md-12">
+                    <label>Contact No : </label>
+                    <asp:Label ID="lblContactPersonNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Attn : </label>
+                    <asp:Label ID="lblAttn" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <label>Status : </label>
+                    <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Tax : </label>
                     <asp:Label ID="lblTaxType" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Header Discount Percent : </label>
+                    <label>Header Discount% : </label>
                     <asp:Label ID="lblHeaderDiscount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-            </div>
-            <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Dealer : </label>
-                    <asp:Label ID="lblSODealer" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Status : </label>
-                    <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <%--<div class="col-md-12">
-                    <label>Customer : </label>
-                    <asp:Label ID="lblCustomer" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>--%>
-                <div class="col-md-12">
-                    <label>Contact Person Number : </label>
-                    <asp:Label ID="lblContactPersonNumber" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Sale Order Type : </label>
-                    <asp:Label ID="lblSaleOrderType" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>Exp Delivery Date : </label>
+                    <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="col-md-12">
-                    <label>Price : </label>
+                    <label>Discount Value : </label>
                     <asp:Label ID="lblPrice" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <%--<div class="col-md-12">
@@ -419,7 +427,7 @@
                     <asp:Label ID="lblTaxValue" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Net Amount : </label>
+                    <label>Gross Value : </label>
                     <asp:Label ID="lblNetAmount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
@@ -436,10 +444,7 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">SO Header</legend>
                     <div class="col-md-12 View">
                         <div class="col-md-4">
-                            <div class="col-md-12">
-                                <label>Dealer Office : </label>
-                                <asp:Label ID="lblDealerOffice" runat="server" CssClass="LabelValue"></asp:Label>
-                            </div>
+
                             <div class="col-md-12">
                                 <label>Equipment Serial No. : </label>
                                 <asp:Label ID="lblEquipmentSerialNo" runat="server" CssClass="LabelValue"></asp:Label>
@@ -459,30 +464,15 @@
                                 <asp:Label ID="lblDivision" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
                             <div class="col-md-12">
-                                <label>Ref Number : </label>
-                                <asp:Label ID="lblRefNumber" runat="server" CssClass="LabelValue"></asp:Label>
-                            </div>
-                            <div class="col-md-12">
                                 <label>Frieght Paid By : </label>
                                 <asp:Label ID="lblFrieghtPaidBy" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
-                            <div class="col-md-12">
-                                <label>Attn : </label>
-                                <asp:Label ID="lblAttn" runat="server" CssClass="LabelValue"></asp:Label>
-                            </div>
+
                         </div>
                         <div class="col-md-4">
                             <div class="col-md-12">
                                 <label>Product : </label>
                                 <asp:Label ID="lblProduct" runat="server" CssClass="LabelValue"></asp:Label>
-                            </div>
-                            <div class="col-md-12">
-                                <label>Ref Date : </label>
-                                <asp:Label ID="lblRefDate" runat="server" CssClass="LabelValue"></asp:Label>
-                            </div>
-                            <div class="col-md-12">
-                                <label>Expected Delivery Date : </label>
-                                <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
                             <div class="col-md-12">
                                 <label>Remarks : </label>
@@ -535,12 +525,12 @@
                                             <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "Material.BaseUnit")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Unit Price">
+                                    <%--  <asp:TemplateField HeaderText="Unit Price">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "PerRate","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                     <asp:TemplateField HeaderText="Value">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
@@ -550,8 +540,8 @@
                                     <asp:TemplateField HeaderText="Discount %">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDiscountPercent" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountPercentage","{0:n}")%>' runat="server"></asp:Label>
-                                            <asp:TextBox ID="txtBoxDiscountPercent" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountPercentage","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
+                                            <asp:Label ID="lblDiscountPercent" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountPercentage","{0:n}")%>' runat="server"></asp:Label>
+                                            <asp:TextBox ID="txtBoxDiscountPercent" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountPercentage","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Discount">
@@ -627,13 +617,6 @@
                                             <asp:Label ID="lblDiscountedPrice" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountedPrice","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-
-                                    <asp:TemplateField HeaderText="Freight Amount">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblFreightValue" Text='<%# DataBinder.Eval(Container.DataItem, "FreightValue","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
                                     <%--<asp:TemplateField HeaderText="Tax">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
@@ -706,34 +689,11 @@
                 <fieldset class="fieldset-border" runat="server">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Edit</legend>
                     <div class="col-md-12">
-                        <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Dealer<samp style="color: red">*</samp></label>
-                            <asp:Label ID="lblDealer" runat="server" CssClass="form-control" />
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Dealer Office<samp style="color: red">*</samp></label>
-                            <asp:DropDownList ID="ddlOfficeName" runat="server" CssClass="form-control" />
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Customer (Search by customer Code(6 Char.)/Name(min 4 Char.)/Mobile(10 Digits))<samp style="color: red">*</samp></label>
-                            <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"
-                                onKeyUp="GetCustomers()"></asp:TextBox>
-                            <asp:HiddenField ID="hdfCustomerId" runat="server" />
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Contact Person</label>
-                            <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="35"></asp:TextBox>
-                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtContactPerson" WatermarkText="Contact Person" WatermarkCssClass="WatermarkCssClass" />
-                        </div>
+
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Contact Person Number</label>
                             <asp:TextBox ID="txtContactPersonNumber" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
                             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtContactPersonNumber" WatermarkText="Mobile" WatermarkCssClass="WatermarkCssClass" />
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label class="modal-label">Division<samp style="color: red">*</samp></label>
-                            <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDivision_SelectedIndexChanged" /> 
-                            <%--<asp:Label ID="lblDivisionE" runat="server" CssClass="form-control" />--%>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Product<samp style="color: red">*</samp></label>
@@ -765,10 +725,7 @@
                             <label>Attn</label>
                             <asp:TextBox ID="txtAttn" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label>Equipment Serial No</label>
-                            <asp:TextBox ID="txtEquipmentSerialNo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        </div>
+
                         <div class="col-md-6 col-sm-12">
                             <label>Tax</label>
                             <asp:DropDownList ID="ddlTaxType" runat="server" CssClass="form-control" BorderColor="Silver">
@@ -842,57 +799,73 @@
         <span id="PopupDialogueCreateSODelivery">Delivery</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="PopupDeliveryClose" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
+
     <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="col-md-5">
+                    <label>Billing Address </label> <br />
+                    <asp:Label ID="lblBillingAddress" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-2">
+                    <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
+                    <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlShiftTo_SelectedIndexChanged" />
+                </div>
+                <div class="col-md-5">
+                    <label>Delivery Address : </label><br />
+                    <asp:Label ID="lblDeliveryAddress" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+            </div>
+        </div>
         <div class="col-md-12 Report">
-            <fieldset class="fieldset-border">
-                <div class="table-responsive">
-                    <asp:GridView ID="gvDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" 
-                        EmptyDataText="No Data Found" AllowPaging="true" PageSize="2" OnPageIndexChanging="gvDelivery_PageIndexChanging">
-                        <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Material">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
-                                    <asp:Label ID="lblSaleOrderItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItemID")%>' runat="server" Visible="false"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Material Desc">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <%--<asp:TemplateField HeaderText="HSN">
+            <div class="table-responsive">
+                <asp:GridView ID="gvDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid"
+                    EmptyDataText="No Data Found" AllowPaging="true" PageSize="2" OnPageIndexChanging="gvDelivery_PageIndexChanging">
+                    <Columns>
+                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Material">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblSaleOrderItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItemID")%>' runat="server" Visible="false"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Material Desc">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                            <ItemTemplate>
+                                <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <%--<asp:TemplateField HeaderText="HSN">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "Material.HSN")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>--%>
-                            <asp:TemplateField HeaderText="Order Qty">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lblOrderQty" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="UOM">
+                        <asp:TemplateField HeaderText="Order Qty">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblOrderQty" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <%--  <asp:TemplateField HeaderText="UOM">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "Material.BaseUnit")%>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "BaseUnit")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delivery Qty">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                <ItemTemplate>
-                                    <asp:TextBox ID="txtDeliveryQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' CssClass="form-control" runat="server"></asp:TextBox>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Value">
+                            </asp:TemplateField>--%>
+                        <asp:TemplateField HeaderText="Delivery Qty">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                            <ItemTemplate>
+                                <asp:TextBox ID="txtDeliveryQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' CssClass="form-control" runat="server"></asp:TextBox>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <%-- <asp:TemplateField HeaderText="Value">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "Value","{0:n}")%>' runat="server"></asp:Label>
@@ -913,36 +886,24 @@
                             <asp:TemplateField HeaderText="Tax">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblTax" Text='<%# (Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.SGST")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.CGST")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.IGST"))).ToString("N2") %>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblTax" Text='<%# (Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "SGST")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "CGST")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "IGST"))).ToString("N2") %>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Tax Value">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblTaxValue" Text='<%# (Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.CGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.SGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.IGSTValue"))).ToString("N2") %>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblTaxValue" Text='<%# (Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "CGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "SGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "IGSTValue"))).ToString("N2") %>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Freight Value">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lblFreightValue" Text='<%# DataBinder.Eval(Container.DataItem, "FreightValue","{0:n}")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Net Amount">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lblNetAmount" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                        <AlternatingRowStyle BackColor="#ffffff" />
-                        <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                    </asp:GridView>
-                </div>
-            </fieldset>
+                            </asp:TemplateField> --%>
+                    </Columns>
+                    <AlternatingRowStyle BackColor="#ffffff" />
+                    <FooterStyle ForeColor="White" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                </asp:GridView>
+            </div>
+
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveDelivery" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveDelivery_Click" />
