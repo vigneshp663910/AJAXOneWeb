@@ -223,7 +223,7 @@
                     <asp:TemplateField HeaderText="Discount %">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                         <ItemTemplate>
-                            <asp:TextBox ID="txtBoxDiscountPercent" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountPercentage","{0:n}")%>' AutoPostBack="true" OnTextChanged="txtBoxDiscountPercent_TextChanged"></asp:TextBox>
+                            <asp:TextBox ID="txtBoxDiscountPercent" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountPercentage","{0:n}")%>' AutoPostBack="true" OnTextChanged="txtBoxDiscountPercent_TextChanged"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Discount">
