@@ -53,7 +53,8 @@ namespace DealerManagementSystem.ViewInventory
             {
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
                 new DDLBind(ddlMaterialModel, new BDMS_Model().GetModel(null, null, null), "ModelDescription", "ModelID", true, "Select Model");
-                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+                new DDLBind().FillDealerAndEngneer(ddlDealerF, null);
+                FillDealerOfficeF();
                 new DDLBind().FillDealerAndEngneer(ddlDealerO, null);
             }
         }
@@ -65,10 +66,11 @@ namespace DealerManagementSystem.ViewInventory
         {
             try
             {
-                int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+                int? DealerID = ddlDealerF.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerF.SelectedValue);
+                int? OfficeID = ddlDealerOfficeF.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOfficeF.SelectedValue);
                 int? DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
                 int? ModelID = ddlMaterialModel.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlMaterialModel.SelectedValue);
-                Mat = new BInventory().GetInitialStock(DealerID, DivisionID, ModelID, txtMaterialCode.Text.Trim());
+                Mat = new BInventory().GetInitialStock(DealerID, OfficeID, DivisionID, ModelID, txtMaterialCode.Text.Trim());
                 gvMaterial.PageIndex = 0;
                 gvMaterial.DataSource = Mat;
                 gvMaterial.DataBind();
@@ -140,11 +142,17 @@ namespace DealerManagementSystem.ViewInventory
                 lblMessage.Text = "Please select the Dealer";
                 return;
             }
-            if (ddlDealerOffice.SelectedValue == "0")
+            if (ddlDealerOfficeO.SelectedValue == "0")
             {
                 lblMessage.Text = "Please select the Dealer Office";
                 return;
             }
+            foreach (PInitialStock_Post dr in MaterialUpload)
+            {
+
+                dr.DealerID = Convert.ToInt32(ddlDealerO.SelectedValue);
+                dr.OfficeID = Convert.ToInt32(ddlDealerOfficeO.SelectedValue);
+           }
             PApiResult Result = new BInventory().InsertUpdateInitialStock(MaterialUpload);
             if (Result.Status == PApplication.Failure)
             {
@@ -163,7 +171,7 @@ namespace DealerManagementSystem.ViewInventory
         }
         private Boolean FillUpload()
         {
-            Boolean Success = true;
+            Boolean Success = true; 
             if (fileUpload.HasFile == true)
             {
                 using (XLWorkbook workBook = new XLWorkbook(fileUpload.PostedFile.InputStream))
@@ -179,22 +187,23 @@ namespace DealerManagementSystem.ViewInventory
                         if (sno > 1)
                         {
                             List<IXLCell> IXLCell_ = row.Cells().ToList();
+                            
                             if (IXLCell_.Count !=0)
                                 MaterialUpload.Add(new PInitialStock_Post()
                                 {
                                     ID = Convert.ToInt32(IXLCell_[0].Value),
-                                    DealerID = 1,
-                                    OfficeID = 3,
+                                    DealerID = Convert.ToInt32(ddlDealerO.SelectedValue),
+                                    OfficeID = Convert.ToInt32(ddlDealerOfficeO.SelectedValue),
                                     MaterialCode = Convert.ToString(IXLCell_[1].Value),
                                     Quantity = Convert.ToInt32(IXLCell_[2].Value),
                                     PerUnitPrice = Convert.ToDecimal(IXLCell_[3].Value)
                                 });
                         }
                     }
-                    List<PDMS_Material> Employee = new BDMS_Material().GetMaterialListSQL(null, null, null, null, null);
+                    List<PDMS_Material> MaterialS = new BDMS_Material().GetMaterialListSQL(null, null, null, null, null);
                     foreach (PInitialStock_Post dr in MaterialUpload)
                     {
-                        bool containsItem = Employee.Any(item => item.MaterialCode == dr.MaterialCode);
+                        bool containsItem = MaterialS.Any(item => item.MaterialCode == dr.MaterialCode);
                         if (!containsItem)
                         {
                             lblMessage.Text = "Please Check Material Code : " + dr.MaterialCode + " Not Available...!";
@@ -202,6 +211,8 @@ namespace DealerManagementSystem.ViewInventory
                             Success = false;
                             return Success;
                         }
+                        List<PDMS_Material> Mats = MaterialS.Where(s => s.MaterialCode == dr.MaterialCode).ToList();
+                        dr.MaterialDescription = Mats[0].MaterialDescription; 
                     }
                     if (MaterialUpload.Count > 0)
                     {
@@ -257,7 +268,16 @@ namespace DealerManagementSystem.ViewInventory
 
         protected void ddlDealerO_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerO.SelectedValue), null, null), "OfficeName", "OfficeID");
+            new DDLBind(ddlDealerOfficeO, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerO.SelectedValue), null, null), "OfficeName", "OfficeID");
+        }
+
+        protected void ddlDealerF_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillDealerOfficeF();
+        }
+        void FillDealerOfficeF()
+        {
+            new DDLBind(ddlDealerOfficeF, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerF.SelectedValue), null, null), "OfficeName", "OfficeID");
         }
     }
 }

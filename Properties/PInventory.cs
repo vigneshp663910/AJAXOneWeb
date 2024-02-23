@@ -26,6 +26,7 @@ namespace Properties
         public int DealerID { get; set; }
         public int OfficeID { get; set; }
         public string MaterialCode { get; set; }
+        public string MaterialDescription { get; set; }
         public Decimal Quantity { get; set; }
         public Decimal PerUnitPrice { get; set; }
     }

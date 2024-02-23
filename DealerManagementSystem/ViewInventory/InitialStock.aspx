@@ -14,11 +14,15 @@
                         <div class="col-md-12">
                             <div class="col-md-2 col-sm-12">
                                 <label class="modal-label">Dealer</label>
-                                <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" />
+                                <asp:DropDownList ID="ddlDealerF" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerF_SelectedIndexChanged" />
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                <label class="modal-label">Dealer Office</label>
+                                <asp:DropDownList ID="ddlDealerOfficeF" runat="server" CssClass="form-control" />
                             </div>
                             <div class="col-md-2 text-left">
                                 <label>Division</label>
-                                <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" AutoPostBack="true"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
                             <div class="col-md-2 text-left">
                                 <label>Material Model</label>
@@ -109,7 +113,12 @@
                                                             <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-
+                                                    <asp:TemplateField HeaderText="Division">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "Division")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Per Unit Price">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                         <ItemTemplate>
@@ -168,8 +177,9 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Office</label>
-                        <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" AutoPostBack="true" />
+                        <asp:DropDownList ID="ddlDealerOfficeO" runat="server" CssClass="form-control" AutoPostBack="true" />
                     </div>
+
 
                 </div>
                 <div class="col-md-12">
@@ -197,6 +207,12 @@
                                 <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Material Desc">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Quantity">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
@@ -210,7 +226,7 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                         
+
                     </Columns>
                     <AlternatingRowStyle BackColor="#ffffff" />
                     <FooterStyle ForeColor="White" />

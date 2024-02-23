@@ -16,9 +16,9 @@ namespace Business
             string endPoint = "Inventory/GetStockMovementType?StockMovementTypeID=" + StockMovementTypeID + "&IsManual=" + IsManual;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public DataTable GetInitialStock(int? DealerID, int? DivisionID, int? ModelID, string MaterialCode)
+        public DataTable GetInitialStock(int? DealerID,int? OfficeID, int? DivisionID, int? ModelID, string MaterialCode)
         {
-            string endPoint = "Inventory/GetInitialStock?DealerID=" + DealerID + "&DivisionID=" + DivisionID + "&ModelID=" + ModelID + "&MaterialCode=" + MaterialCode;
+            string endPoint = "Inventory/GetInitialStock?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&DivisionID=" + DivisionID + "&ModelID=" + ModelID + "&MaterialCode=" + MaterialCode;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public PApiResult InsertUpdateInitialStock(List<PInitialStock_Post> Stock)
