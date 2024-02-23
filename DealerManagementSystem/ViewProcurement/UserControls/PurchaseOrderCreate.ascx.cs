@@ -754,9 +754,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void btnSearchCopyOrder_Click(object sender, EventArgs e)
         {
-            PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderHeader(null, null, txtPoNumber.Text.Trim(), null, null, null, null, null, null, 1, 1);
-            List<PPurchaseOrder> PO = JsonConvert.DeserializeObject<List<PPurchaseOrder>>(JsonConvert.SerializeObject(Result.Data));
-            PPurchaseOrder PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrderByID(PO[0].PurchaseOrderID);
+            //PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderHeader(null, null, txtPoNumber.Text.Trim(), null, null, null, null, null, null, 1, 1);
+            //List<PPurchaseOrder> PO = JsonConvert.DeserializeObject<List<PPurchaseOrder>>(JsonConvert.SerializeObject(Result.Data));
+            PPurchaseOrder PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrderByMaterial(txtPoNumber.Text.Trim(), Convert.ToInt32(ddlDivision.SelectedValue));
             gvMaterialCopyOrder.DataSource = PurchaseOrder.PurchaseOrderItems;
             gvMaterialCopyOrder.DataBind();
 

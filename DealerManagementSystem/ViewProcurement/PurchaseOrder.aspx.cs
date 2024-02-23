@@ -93,7 +93,8 @@ namespace DealerManagementSystem.ViewProcurement
                 fillProcurementStatus();
                 FillGetDealerOffice();
                 fillPurchaseOrderType();
-                ddlDivision.Items.Insert(0, new ListItem("Select", "0"));
+                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
+                //ddlDivision.Items.Insert(0, new ListItem("Select", "0"));
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
                 if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderCreate).Count() == 0)
                 {
@@ -332,43 +333,6 @@ namespace DealerManagementSystem.ViewProcurement
             divDetailsView.Visible = true;
             UC_PurchaseOrderView.fillViewPO(Convert.ToInt64(lblPurchaseOrderID.Text));
         }
-
-        protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ddlDivision.Items.Clear();
-            ddlDivision.DataTextField = "DivisionDescription";
-            ddlDivision.DataValueField = "DivisionID";
-            ddlDivision.Items.Insert(0, new ListItem("Select", "0"));
-
-            string OrderType = ddlPurchaseOrderType.SelectedValue;
-
-            if ((OrderType == "1") || (OrderType == "2") || (OrderType == "7"))
-            {
-                ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
-            }
-            else if (ddlPurchaseOrderType.SelectedValue == "5")
-            {
-                ddlDivision.Items.Insert(1, new ListItem("Batching Plant", "1"));
-                ddlDivision.Items.Insert(2, new ListItem("Concrete Mixer", "2"));
-                ddlDivision.Items.Insert(3, new ListItem("Concrete Pump", "3"));
-                ddlDivision.Items.Insert(4, new ListItem("Dumper", "4"));
-                ddlDivision.Items.Insert(5, new ListItem("Transit Mixer", "11"));
-                ddlDivision.Items.Insert(6, new ListItem("Mobile Concrete Equipment", "14"));
-                ddlDivision.Items.Insert(7, new ListItem("Placing Equipment", "19"));
-            }
-            else if (ddlPurchaseOrderType.SelectedValue == "6")
-            {
-                ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
-                ddlDivision.Items.Insert(2, new ListItem("Batching Plant", "1"));
-                ddlDivision.Items.Insert(3, new ListItem("Concrete Mixer", "2"));
-                ddlDivision.Items.Insert(4, new ListItem("Concrete Pump", "3"));
-                ddlDivision.Items.Insert(5, new ListItem("Dumper", "4"));
-                ddlDivision.Items.Insert(6, new ListItem("Transit Mixer", "11"));
-                ddlDivision.Items.Insert(7, new ListItem("Mobile Concrete Equipment", "14"));
-                ddlDivision.Items.Insert(8, new ListItem("Placing Equipment", "19"));
-            }
-        }
-
         protected void ddlDealerCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillGetDealerOffice();

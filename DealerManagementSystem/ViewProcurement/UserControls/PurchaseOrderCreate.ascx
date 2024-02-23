@@ -499,7 +499,6 @@
     function GetMaterial() {
         $("#MainContent_UC_PurchaseOrderCreate_hdfMaterialID").val('');
         $("#MainContent_UC_PurchaseOrderCreate_hdfMaterialCode").val('');
-        $("#MainContent_UC_PurchaseOrderCreate_hdfMaterialCode").val('');
         var param = { Material: $('#MainContent_UC_PurchaseOrderCreate_txtMaterial').val(), MaterialType: '', DivisionID: $('#MainContent_UC_PurchaseOrderCreate_ddlDivision').val() }
         var Customers = [];
         if ($('#MainContent_UC_PurchaseOrderCreate_txtMaterial').val().trim().length >= 3) {

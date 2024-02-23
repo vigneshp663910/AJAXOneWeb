@@ -56,6 +56,11 @@ namespace Business
             string endPoint = "PurchaseOrder/PurchaseOrderByID?PurchaseOrderID=" + PurchaseOrderID;
             return JsonConvert.DeserializeObject<PPurchaseOrder>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public PPurchaseOrder GetPurchaseOrderByMaterial(string PurchaseOrderNumber, int DivisionID)
+        {
+            string endPoint = "PurchaseOrder/GetPurchaseOrderByMaterial?PurchaseOrderNumber=" + PurchaseOrderNumber + "&DivisionID=" + DivisionID;
+            return JsonConvert.DeserializeObject<PPurchaseOrder>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
         public List<PDMS_PurchaseOrder> GetPurchaseOrderPG(string filter)
         {
             string endPoint = "PurchaseOrder/PurchaseOrder?Filter=" + filter;

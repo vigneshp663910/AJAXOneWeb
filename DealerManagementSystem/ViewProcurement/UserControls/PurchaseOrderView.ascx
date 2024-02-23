@@ -480,6 +480,7 @@
             </div>
             <div class="col-md-5 col-sm-12">
                 <asp:HiddenField ID="hdfMaterialID" runat="server" />
+                <asp:HiddenField ID="hdfDivisionID" runat="server" />
                 <asp:HiddenField ID="hdfMaterialCode" runat="server" />
                 <label class="modal-label">Material</label>
                 <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" onKeyUp="GetMaterial()"></asp:TextBox>
@@ -524,7 +525,7 @@
     function GetMaterial() {
         $("#MainContent_UC_PurchaseOrderView_hdfMaterialID").val('');
         $("#MainContent_UC_PurchaseOrderView_hdfMaterialCode").val('');
-        var param = { Material: $('#MainContent_UC_PurchaseOrderView_txtMaterial').val(), MaterialType: '' }
+        var param = { Material: $('#MainContent_UC_PurchaseOrderView_txtMaterial').val(), MaterialType: '', DivisionID: $('#MainContent_UC_PurchaseOrderView_hdfDivisionID').val() }
         var Customers = [];
         if ($('#MainContent_UC_PurchaseOrderView_txtMaterial').val().trim().length >= 3) {
             $.ajax({

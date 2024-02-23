@@ -81,7 +81,7 @@
                     </div>                    
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Order Type</label>
-                        <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPurchaseOrderType_SelectedIndexChanged" AutoPostBack="true" />
+                        <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control"/>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Division</label>
