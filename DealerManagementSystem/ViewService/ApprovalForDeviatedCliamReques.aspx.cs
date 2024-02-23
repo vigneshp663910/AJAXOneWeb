@@ -12,15 +12,15 @@ namespace DealerManagementSystem.ViewService
     public partial class ApprovalForDeviatedCliamReques : BasePage
     {
         public override SubModule SubModuleName { get { return SubModule.ViewService_ApprovalForDeviatedCliamReques; } }
-        public List<PDMS_WarrantyInvoiceHeader> ICTicketDT
+        public List<PClaimDeviation> ICTicketDT
         {
             get
             {
                 if (Session["DMS_DeviatedCliamRequestForApproval"] == null)
                 {
-                    Session["DMS_DeviatedCliamRequestForApproval"] = new List<PDMS_WarrantyInvoiceHeader>();
+                    Session["DMS_DeviatedCliamRequestForApproval"] = new List<PClaimDeviation>();
                 }
-                return (List<PDMS_WarrantyInvoiceHeader>)Session["DMS_DeviatedCliamRequestForApproval"];
+                return (List<PClaimDeviation>)Session["DMS_DeviatedCliamRequestForApproval"];
             }
             set
             {
@@ -29,24 +29,19 @@ namespace DealerManagementSystem.ViewService
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
             lblMessage.Visible = false;
-
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
             if (!IsPostBack)
             {
-                if (!IsPostBack)
-                {
-                    txtRequestedDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
-                    txtRequestedDateTo.Text = DateTime.Now.ToShortDateString(); 
-                    fillDealer(); 
-                    lblRowCount.Visible = false;
-                    ibtnArrowLeft.Visible = false;
-                    ibtnArrowRight.Visible = false;
-                } 
+                txtRequestedDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
+                txtRequestedDateTo.Text = DateTime.Now.ToShortDateString();
+                fillDealer();
+                lblRowCount.Visible = false;
+                ibtnArrowLeft.Visible = false;
+                ibtnArrowRight.Visible = false;
             }
         }
 
@@ -59,10 +54,22 @@ namespace DealerManagementSystem.ViewService
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
+            if (ddlDeviationType.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please select the Deviation Type";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            if (string.IsNullOrEmpty(txtClaimNumber.Text.Trim()))
+            {
+                lblMessage.Text = "Please enter the Claim Number";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
 
             string DealerCode = ddlDealerCode.SelectedValue;
 
-            List<PDMS_WarrantyInvoiceHeader> Claim = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, txtClaimNumber.Text.Trim(), null, null, DealerCode, null, null, null, "", "", "", false, PSession.User.UserID);
+          //  List<PDMS_WarrantyInvoiceHeader> Claim = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, txtClaimNumber.Text.Trim(), null, null, DealerCode, null, null, null, "", "", "", false, PSession.User.UserID);
 
 
             //var SOIs1 = (from S in ICTicket
@@ -76,26 +83,39 @@ namespace DealerManagementSystem.ViewService
             //{
             //    ICTicket.Add(w.S);
             //}
-            if (Claim.Count == 1)
-            {
-                if (new BDMS_WarrantyClaim().InsertDeviatedClaimRequestForApproval(Claim[0].WarrantyInvoiceHeaderID, PSession.User.UserID))
-                {
 
-                    lblMessage.Text = "Claim sent for approval";
-                    lblMessage.ForeColor = Color.Green;
-                    txtClaimNumber.Text = "";
-                }
-                else
+
+            //if (Claim.Count == 1)
+            //{
+                PApiResult Results = new BDMS_WarrantyClaim().InsertDeviatedClaimRequestForApproval(txtClaimNumber.Text.Trim(), Convert.ToInt32(ddlDeviationType.SelectedValue));
+
+                if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = "Claim is not sent for approval";
-                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = Results.Message;
+                    return;
                 }
-            }
-            else
-            {
-                lblMessage.Text = "Please enter the correct Claim Number";
-                lblMessage.ForeColor = Color.Red;
-            }
+                lblMessage.Text = "Claim sent for approval";
+                lblMessage.ForeColor = Color.Green;
+                txtClaimNumber.Text = "";
+
+                //if (new BDMS_WarrantyClaim().InsertDeviatedClaimRequestForApproval(Claim[0].WarrantyInvoiceHeaderID, PSession.User.UserID))
+                //{
+
+                //    lblMessage.Text = "Claim sent for approval";
+                //    lblMessage.ForeColor = Color.Green;
+                //    txtClaimNumber.Text = "";
+                //}
+                //else
+                //{
+                //    lblMessage.Text = "Claim is not sent for approval";
+                //    lblMessage.ForeColor = Color.Red;
+                //}
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "Please enter the correct Claim Number";
+            //    lblMessage.ForeColor = Color.Red;
+            //}
 
         }
         void fillDealer()
@@ -116,11 +136,17 @@ namespace DealerManagementSystem.ViewService
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            if (ddlDeviationTypeF.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please select the Deviated Type";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
             int? DealerID = ddlDealerF.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerF.SelectedValue);
             DateTime? DateF = string.IsNullOrEmpty(txtRequestedDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRequestedDateFrom.Text.Trim());
             DateTime? DateT = string.IsNullOrEmpty(txtRequestedDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRequestedDateTo.Text.Trim());
 
-            ICTicketDT = new BDMS_WarrantyClaim().GetDeviatedClaimReport(DealerID, txtClaimNumberF.Text.Trim(), DateF, DateT, PSession.User.UserID);
+            ICTicketDT = new BDMS_WarrantyClaim().GetDeviatedClaimReport(DealerID, txtClaimNumberF.Text.Trim(), txtRequestedDateFrom.Text.Trim(), txtRequestedDateTo.Text.Trim(), Convert.ToInt32(ddlDeviationTypeF.SelectedValue));
 
             gvICTickets.DataSource = ICTicketDT;
             gvICTickets.DataBind();
@@ -195,7 +221,7 @@ namespace DealerManagementSystem.ViewService
 
             dt.Columns.Add("Claim Number");
             dt.Columns.Add("Claim Date");
-            dt.Columns.Add("TSIR Number");
+          //  dt.Columns.Add("TSIR Number");
             dt.Columns.Add("Model");
             dt.Columns.Add("SAC / HSN Code");
             dt.Columns.Add("Material");
@@ -208,7 +234,7 @@ namespace DealerManagementSystem.ViewService
 
             dt.Columns.Add("Approve");
             dt.Columns.Add("Reject");
-            foreach (PDMS_WarrantyInvoiceHeader M in ICTicketDT)
+            foreach (PClaimDeviation M in ICTicketDT)
             {
                 foreach (PDMS_WarrantyInvoiceItem Item in M.InvoiceItems)
                 {
@@ -224,7 +250,7 @@ namespace DealerManagementSystem.ViewService
                         , M.MachineSerialNumber
                         , M.InvoiceNumber
                         , ((DateTime)M.InvoiceDate).ToShortDateString()
-                        , M.TSIRNumber
+                      //  , M.TSIRNumber
                         , M.Model
                         , Item.HSNCode
                         , "'" + Item.Material

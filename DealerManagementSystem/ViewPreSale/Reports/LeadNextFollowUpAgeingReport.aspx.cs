@@ -11,9 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewPreSale.Reports
 {
-    public partial class LeadExpectedDateofSaleAgeingReport : BasePage
+    public partial class LeadNextFollowUpAgeingReport : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Reports_LeadNextFollowUpAgeingReport; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Reports_LeadExpectedDateofSaleAgeingReport; } }
         private DataTable EnquiryReport
         {
             get
@@ -65,7 +65,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         {
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue);
-            EnquiryReport = new BLead().GetLeadExpectedDateofSaleAgeingReport(DealerID, RegionID);
+            EnquiryReport = new BLead().GetLeadNextFollowUpDateAgeingReport(DealerID, RegionID);
             if (EnquiryReport.Rows.Count == 0)
             {
                 lblRowCountV.Visible = false;
@@ -157,7 +157,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
                 GridViewRow row = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
                 TableHeaderCell cell = new TableHeaderCell();
                 gvHeaderCellInfo(row, "", 4);
-                gvHeaderCellInfo(row, "Lead Expected Date of Sale",8);
+                gvHeaderCellInfo(row, "Lead Next Follow Up", 8);
                 row.BackColor = ColorTranslator.FromHtml("#fce4d6");
                 gv.HeaderRow.Parent.Controls.AddAt(0, row);
             }
@@ -202,12 +202,12 @@ namespace DealerManagementSystem.ViewPreSale.Reports
             }
             else if (lbActions.ID == "lblDaysGr60F")
             {
-                ReportDetails =7 ;
+                ReportDetails = 7;
             }
             else if (lbActions.ID == "lblGrandTotalF")
             {
-                ReportDetails =8 ;
-            } 
+                ReportDetails = 8;
+            }
             else
             {
                 Label lblDealerID = (Label)gvRow.FindControl("lblDealerID");
@@ -244,11 +244,11 @@ namespace DealerManagementSystem.ViewPreSale.Reports
                 }
                 else if (lbActions.ID == "lblGrandTotal")
                 {
-                    ReportDetails =8 ;
-                } 
+                    ReportDetails = 8;
+                }
 
             }
-            EnquiryDetails = new BLead().GetLeadExpectedDateofSaleAgeingDetails(DealerID, RegionID, ReportDetails);
+            EnquiryDetails = new BLead().GetLeadNextFollowUpDateAgeingDetails(DealerID, RegionID, ReportDetails);
             gvDetails.DataSource = EnquiryDetails;
             gvDetails.DataBind();
             MPE_LeadDetails.Show();
@@ -277,10 +277,10 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
             try
-            { 
+            {
                 try
                 {
-                    new BXcel().ExporttoExcelForLeadExpectedDateofSaleAgeingReport(EnquiryReport, "Lead Expected Date of Sale Ageing", "Lead Expected Dateof Sale Ageing");
+                    new BXcel().ExporttoExcelForLeadNextFollowUpAgeingReport(EnquiryReport, "Lead Next Follow Up Ageing", "Lead Next Follow Up Ageing");
                 }
                 catch
                 {

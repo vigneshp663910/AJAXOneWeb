@@ -3,7 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <%@ Register Src="~/UserControls/ICTicketBasicInformation.ascx" TagPrefix="UC" TagName="UC_BasicInformation" %>
-<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server"> 
+<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <script type="text/javascript">
         function collapseExpand(obj) {
             var gvObject = document.getElementById(obj);
@@ -32,14 +32,21 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Deviation Type</label>
+                        <asp:DropDownList ID="ddlDeviationType" runat="server" CssClass="form-control" BorderColor="Silver">
+                            <asp:ListItem Value="3">Claim Approval Delay</asp:ListItem>
+                            <asp:ListItem Value="4">Claim Creation Delay</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Code</label>
-                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control"/>
+                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">IC Ticket</label>
                         <asp:TextBox ID="txtICTicketNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                     <div class="col-md-2 col-sm-12">
+                    <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Claim Number</label>
                         <asp:TextBox ID="txtClaimNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
@@ -93,7 +100,7 @@
                             <asp:TemplateField HeaderText="Claim Number">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblWarrantyInvoiceHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyInvoiceHeaderID")%>' runat="server" Visible="false"></asp:Label>
+                                    <asp:Label ID="lblClaimDeviationID" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimDeviationID")%>' runat="server" Visible="false"></asp:Label>
                                     <asp:Label ID="lblInvoiceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceNumber")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -168,18 +175,10 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblMachineSerialNumber" Text='<%# DataBinder.Eval(Container.DataItem, "MachineSerialNumber")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="TSIR No" Visible="false">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                <ItemTemplate>
-                                    <asp:Label ID="lblTSIRNumber" Text='<%# DataBinder.Eval(Container.DataItem, "TSIRNumber")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <%-- <asp:TemplateField HeaderText="Status" HeaderStyle-Width="55px">--%>
+                            </asp:TemplateField>  
                             <asp:TemplateField HeaderText=" ">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                <ItemTemplate>
-                                    <%--  <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimStatus")%>' runat="server"></asp:Label>--%>
+                                <ItemTemplate> 
                                     <asp:LinkButton ID="lbApprove" runat="server" OnClick="lbApprove_Click">Approve</asp:LinkButton>
                                     <asp:LinkButton ID="lbReject" runat="server" OnClick="lbReject_Click">Reject</asp:LinkButton>
                                     <tr>

@@ -499,7 +499,9 @@ namespace Properties
         ViewPreSale_Reports_DealerBusinessExcellence = 255,
         ViewPreSale_Reports_DealerBusinessExcellenceApprove = 256,
         ViewFinance_Reports_DealerBalanceConfirmationReport = 257,
-        ViewFinance_DealerBalanceConfirmationUpdate = 258
+        ViewFinance_DealerBalanceConfirmationUpdate = 258,
+        ViewPreSale_Reports_DealerBusinessExcellenceQuarterWise = 262,
+        ViewPreSale_Reports_LeadNextFollowUpAgeingReport = 263
     }
     public enum SubModuleChildMaster
     {
@@ -813,5 +815,12 @@ namespace Properties
         DealerBalanceConfirmation_Confirmed = 8,
         DealerBalanceConfirmation_UnConfirmed = 9,
         DealerBalanceConfirmation_NeedReconciliation = 10,
+    }
+    public enum ICTicketDeviationType
+    {
+        ICTicketDelay = 1,
+        Commissioning = 2,
+        ClaimApprovalDelay = 3,
+        ClaimCreationDelay = 4,
     }
 }

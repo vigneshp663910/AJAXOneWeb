@@ -377,6 +377,7 @@ namespace DealerManagementSystem.ViewService
 
 
                     Label lblICTicketID = (Label)e.Row.FindControl("lblICTicketID");
+                    Label lblInvoiceNumber = (Label)e.Row.FindControl("lblInvoiceNumber");
                     Label lblInvoiceDate = (Label)e.Row.FindControl("lblInvoiceDate");
                     Label lblRestoreDate = (Label)e.Row.FindControl("lblRestoreDate");
                     
@@ -422,7 +423,7 @@ namespace DealerManagementSystem.ViewService
                                 Label lblAmount = (Label)supplierPOLinesGrid.Rows[i].FindControl("lblAmount");
 
                                 TextBox txtApproved1Amount = (TextBox)supplierPOLinesGrid.Rows[i].FindControl("txtApproved1Amount");
-                                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text));
+                                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text), lblInvoiceNumber.Text);
                                 txtApproved1Amount.Text = Amount.ToString();
                                 txtApproved1Amount.Enabled = true;
 
@@ -655,7 +656,7 @@ namespace DealerManagementSystem.ViewService
 
 
                 // decimal Amount = Convert.ToDecimal(lblAmount.Text);
-                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text));
+                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text), lblInvoiceNumber.Text);
                 decimal parsedValue;
                 if (!decimal.TryParse(txtApproved1Amount.Text, out parsedValue))
                 {
@@ -762,7 +763,7 @@ namespace DealerManagementSystem.ViewService
                     return;
                 }
                 // decimal Amount = Convert.ToDecimal(lblAmount.Text);
-                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text));
+                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text), lblInvoiceNumber.Text);
                 if (Amount < Convert.ToDecimal(txtApproved2Amount.Text))
                 {
                     lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
@@ -861,7 +862,7 @@ namespace DealerManagementSystem.ViewService
                     return;
                 }
                 // decimal Amount = Convert.ToDecimal(lblAmount.Text);
-                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text));
+                decimal Amount = DeductionCalculation(Convert.ToDateTime(lblRestoreDate.Text), Convert.ToDateTime(lblInvoiceDate.Text), Convert.ToDecimal(lblAmount.Text), lblInvoiceNumber.Text);
                 if (Amount < Convert.ToDecimal(txtApproved3Amount.Text))
                 {
                     lblMessage.Text = "Please enter approve amount less than or equal of claim amount";
@@ -1034,7 +1035,7 @@ namespace DealerManagementSystem.ViewService
             if (!string.IsNullOrEmpty(lblTsirID.Text))
             {
                 UC_TSIRView.FillTsir(Convert.ToInt64(lblTsirID.Text));
-            } 
+            }
         }
 
         Boolean ControlBaseOn60Days(DateTime ClaimDate, string InvoiceNumber, DateTime RestoreDate)
@@ -1058,16 +1059,23 @@ namespace DealerManagementSystem.ViewService
 
 
                 ch = true;
-                List<PDMS_WarrantyInvoiceHeader> ICTicketDT = new BDMS_WarrantyClaim().GetDeviatedClaimReport(null, InvoiceNumber, null, null, PSession.User.UserID);
-                if (ICTicketDT.Count == 1)
+                //List<PDMS_WarrantyInvoiceHeader> ICTicketDT = new BDMS_WarrantyClaim().GetDeviatedClaimReport(null, InvoiceNumber, null, null, PSession.User.UserID);
+                //if (ICTicketDT.Count == 1)
+                //{
+                //    if (ICTicketDT[0].DeviatedIsApproved == true)
+                //    {
+                //        ch = false;
+                //    }
+                //}
+
+                Boolean DeviatedIsApproved = new BDMS_WarrantyClaim().GetDeviatedClaimToVerify(InvoiceNumber, (short)ICTicketDeviationType.ClaimApprovalDelay);
+
+                //List<PClaimDeviation> ICTicketDT = new BDMS_WarrantyClaim().GetDeviatedClaimReport(null, InvoiceNumber, null, null, (short)ICTicketDeviationType.ClaimApprovalDelay);
+
+                if (DeviatedIsApproved == true)
                 {
-                    if (ICTicketDT[0].DeviatedIsApproved == true)
-                    {
-                        ch = false;
-                    }
+                    ch = false;
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -1090,16 +1098,30 @@ namespace DealerManagementSystem.ViewService
             divEquipmentView.Visible = false; 
         }
 
-        decimal DeductionCalculation(DateTime RestoreDate, DateTime ClaimDate, decimal Amount)
+        decimal DeductionCalculation(DateTime RestoreDate, DateTime ClaimDate, decimal Amount,string InvoiceNumber)
         {
+            Boolean DeviatedIsApproved = true;
+            //PClaimDeviation ClaimDeviation = new BDMS_WarrantyClaim().GetDeviatedClaimToVerify(InvoiceNumber, (short)ICTicketDeviationType.ClaimCreationDelay);
+
+            //if (ClaimDeviation.DeviatedIsApproved == true)
+            //{
+            //    return Amount;
+            //}
+
             decimal Deduction = 0;
             if ((ClaimDate - RestoreDate).TotalDays > 30)
             {
+                DeviatedIsApproved = new BDMS_WarrantyClaim().GetDeviatedClaimToVerify(InvoiceNumber, (short)ICTicketDeviationType.ClaimCreationDelay);  
                 Deduction = 50;
             }
             else if ((ClaimDate - RestoreDate).TotalDays > 15)
             {
+                DeviatedIsApproved = new BDMS_WarrantyClaim().GetDeviatedClaimToVerify(InvoiceNumber, (short)ICTicketDeviationType.ClaimCreationDelay);
                 Deduction = 25;
+            }
+            if (DeviatedIsApproved == true)
+            {
+                return Amount;
             }
             return Amount - (Amount * Deduction / 100);
         }
