@@ -69,6 +69,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             // lblSoDate.Text = PurchaseOrder..ToString();
             lblStatus.Text = PurchaseOrder.PurchaseOrderStatus.ProcurementStatus;
             lblDivision.Text = PurchaseOrder.Division.DivisionCode;
+            hdfDivisionID.Value = PurchaseOrder.Division.DivisionID.ToString();
             lblRefNo.Text = PurchaseOrder.ReferenceNo;
 
 
@@ -108,6 +109,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             if (lbActions.ID == "lbReleasePO")
             {
                 lblMessage.Visible = true;
+
+                int DealerID = PurchaseOrder.Dealer.DealerID;
+                PApiResult Result = new BDMS_PurchaseOrder().GetDealerStockOrderControl(DealerID, null, null);
+                List<PDealerStockOrderControl> DealerStockOrderControlList = JsonConvert.DeserializeObject<List<PDealerStockOrderControl>>(JsonConvert.SerializeObject(Result.Data));
+
+                if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == 1)
+                {
+                    if (Convert.ToDecimal(lblTaxableAmount.Text) < Convert.ToDecimal(DealerStockOrderControlList[0].MaxValue))
+                    {
+                        lblMessage.Text = "Taxable Value is Less than stock order defined value...!";
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                }
+
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/ReleasePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
                 if (Results.Status == PApplication.Failure)
                 {
