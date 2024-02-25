@@ -125,38 +125,57 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblMessage.Text = "HSN Code is not updated for this Material. Please contact Parts Admin.";
                     return;
                 }
-                string Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
-                string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-                string Material = SoI.MaterialCode;
-                string IV_SEC_SALES = "";
-                string PriceDate = "";
-                string IsWarrenty = "false";
+                //string Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
+                //string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+                //string Material = SoI.MaterialCode;
+                //string IV_SEC_SALES = "";
+                //string PriceDate = "";
+                //string IsWarrenty = "false";
 
-                PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DSSOR_SALES_ORDER_HDR", 1, Material, SoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+                //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DSSOR_SALES_ORDER_HDR", 1, Material, SoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
 
-                Mat.CurrentPrice = Convert.ToDecimal(1000);
-                Mat.Discount = Convert.ToDecimal(0);
-                Mat.TaxablePrice = Convert.ToDecimal(1000);
-                Mat.SGST = Convert.ToDecimal(9);
-                Mat.SGSTValue = Convert.ToDecimal(90);
-                Mat.CGST = Convert.ToDecimal(9);
-                Mat.CGSTValue = Convert.ToDecimal(90);
-                Mat.IGST = Convert.ToDecimal(0);
-                Mat.IGSTValue = Convert.ToDecimal(0);
+                List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
+                Material_SapS.Add(new PMaterial_Api()
+                {
+                    MaterialCode = SoI.MaterialCode,
+                    Quantity = SoI.Quantity,
+                    Item = (Material_SapS.Count + 1) * 10
+                });
+
+                PMaterialTax_Api MaterialTax_Sap = new PMaterialTax_Api();
+                MaterialTax_Sap.Material = Material_SapS;
+                MaterialTax_Sap.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
+                MaterialTax_Sap.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+                MaterialTax_Sap.OrderType = "101_DSSOR_SALES_ORDER_HDR";
+                MaterialTax_Sap.IV_SEC_SALES = "";
+                // MaterialTax_Sap.PriceDate = "";
+                MaterialTax_Sap.IsWarrenty = false;
+                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapMulti(MaterialTax_Sap);
+                PMaterial Mat = Mats[0];
+
+                //Mat.CurrentPrice = Convert.ToDecimal(1000);
+                //Mat.Discount = Convert.ToDecimal(0);
+                //Mat.TaxablePrice = Convert.ToDecimal(1000);
+                //Mat.SGST = Convert.ToDecimal(9);
+                //Mat.SGSTValue = Convert.ToDecimal(90);
+                //Mat.CGST = Convert.ToDecimal(9);
+                //Mat.CGSTValue = Convert.ToDecimal(90);
+                //Mat.IGST = Convert.ToDecimal(0);
+                //Mat.IGSTValue = Convert.ToDecimal(0);
 
                 if (Mat.CurrentPrice <= 0)
                 {
-                    lblMessage.Text = "Please maintain the price for Material " + Material + " in SAP.";
+                    lblMessage.Text = "Please maintain the price for Material " + SoI.MaterialCode + " in SAP.";
                     return;
                 }
                 if (Mat.SGST <= 0 && Mat.IGST <= 0)
                 {
-                    lblMessage.Text = "Please maintain the Tax for Material " + Material + " in SAP.";
+                    lblMessage.Text = "Please maintain the Tax for Material " + SoI.MaterialCode + " in SAP.";
                     return;
                 }
                 if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
                 {
-                    lblMessage.Text = "GST Tax value not found this Material " + Material + " in SAP.";
+                    lblMessage.Text = "GST Tax value not found this Material " + SoI.MaterialCode + " in SAP.";
                     return;
                 }
 

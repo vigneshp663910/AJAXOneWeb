@@ -354,16 +354,37 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 POi.Quantity = Convert.ToDecimal(txtQuantity.Text);
                 POi.MaterialCode = lblMaterial.Text;
 
-                string Customer = PurchaseOrder.Dealer.DealerCode;
-                string Vendor = PurchaseOrder.Vendor.DealerCode;
-                string OrderType = PurchaseOrder.PurchaseOrderType.SapOrderType;
-                string Material = POi.MaterialCode;
-                string IV_SEC_SALES = "";
-                //string PriceDate = DateTime.Now.ToShortDateString();
-                string PriceDate = "";
-                string IsWarrenty = "false";
+                //string Customer = PurchaseOrder.Dealer.DealerCode;
+                //string Vendor = PurchaseOrder.Vendor.DealerCode;
+                //string OrderType = PurchaseOrder.PurchaseOrderType.SapOrderType;
+                //string Material = POi.MaterialCode;
+                //string IV_SEC_SALES = "";
+                ////string PriceDate = DateTime.Now.ToShortDateString();
+                //string PriceDate = "";
+                //string IsWarrenty = "false";
 
-                PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, POi.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+                //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, POi.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+
+                List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
+                Material_SapS.Add(new PMaterial_Api()
+                {
+                    MaterialCode = POi.MaterialCode,
+                    Quantity = POi.Quantity,
+                    Item = (Material_SapS.Count + 1) * 10
+                });
+
+                PMaterialTax_Api MaterialTax_Sap = new PMaterialTax_Api();
+                MaterialTax_Sap.Material = Material_SapS;
+                MaterialTax_Sap.Customer = PurchaseOrder.Dealer.DealerCode;
+                MaterialTax_Sap.Vendor = PurchaseOrder.Vendor.DealerCode;
+                MaterialTax_Sap.OrderType = PurchaseOrder.PurchaseOrderType.SapOrderType;
+                MaterialTax_Sap.IV_SEC_SALES = "";
+                // MaterialTax_Sap.PriceDate = "";
+                MaterialTax_Sap.IsWarrenty = false;
+                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapMulti(MaterialTax_Sap);
+                PMaterial Mat = Mats[0];
+
+
                 POi.Price = Mat.CurrentPrice;
                 POi.DiscountAmount = Mat.Discount;
                 POi.TaxableAmount = Mat.TaxablePrice;
@@ -601,16 +622,36 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             POi.Quantity = Convert.ToDecimal(txtQty.Text);
             POi.MaterialCode = hdfMaterialCode.Value;
 
-            string Customer = PurchaseOrder.Dealer.DealerCode;
-            string Vendor = PurchaseOrder.Vendor.DealerCode;
-            string OrderType = PurchaseOrder.PurchaseOrderType.SapOrderType;
-            string Material = POi.MaterialCode;
-            string IV_SEC_SALES = "";
-            //string PriceDate = DateTime.Now.ToShortDateString();
-            string PriceDate = "";
-            string IsWarrenty = "false";
+            //string Customer = PurchaseOrder.Dealer.DealerCode;
+            //string Vendor = PurchaseOrder.Vendor.DealerCode;
+            //string OrderType = PurchaseOrder.PurchaseOrderType.SapOrderType;
+            //string Material = POi.MaterialCode;
+            //string IV_SEC_SALES = "";
+            ////string PriceDate = DateTime.Now.ToShortDateString();
+            //string PriceDate = "";
+            //string IsWarrenty = "false";
 
-            PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, POi.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+            //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, POi.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+
+            List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
+            Material_SapS.Add(new PMaterial_Api()
+            {
+                MaterialCode = POi.MaterialCode,
+                Quantity = POi.Quantity,
+                Item = (Material_SapS.Count + 1) * 10
+            });
+
+            PMaterialTax_Api MaterialTax_Sap = new PMaterialTax_Api();
+            MaterialTax_Sap.Material = Material_SapS;
+            MaterialTax_Sap.Customer = PurchaseOrder.Dealer.DealerCode;
+            MaterialTax_Sap.Vendor = PurchaseOrder.Vendor.DealerCode;
+            MaterialTax_Sap.OrderType = PurchaseOrder.PurchaseOrderType.SapOrderType;
+            MaterialTax_Sap.IV_SEC_SALES = "";
+            // MaterialTax_Sap.PriceDate = "";
+            MaterialTax_Sap.IsWarrenty = false;
+            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapMulti(MaterialTax_Sap);
+            PMaterial Mat = Mats[0];
+
             POi.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
             POi.Price = Mat.CurrentPrice;
             POi.DiscountAmount = Mat.Discount;
