@@ -52,11 +52,15 @@ namespace Properties
         public string DocumentNumber { get; set; }
         public DateTime DocumentDate { get; set; }
         public PDealer Dealer { get; set; }
-        public PDMS_DealerOffice DealerOffice { get; set; }         
-        public DateTime PostingDate { get; set; }
+        public PDMS_DealerOffice DealerOffice { get; set; }
+        public string ReasonOfPosting { get; set; }
+        public PUser PostingBy { get; set; }
+        public DateTime? PostingDate { get; set; }
         public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
         public PAjaxOneStatus InventoryPostingType { get; set; }
-        public List<PPhysicalInventoryPostingItem> Items { get; set; }
+        public PAjaxOneStatus Status { get; set; }
+        public List<PPhysicalInventoryPostingItem> Items { get; set; } 
     }
     [Serializable]
     public class PPhysicalInventoryPostingItem
@@ -77,9 +81,12 @@ namespace Properties
         public int DealerID { get; set; }
         public int OfficeID { get; set; }
         public int PostingTypeID { get; set; }
+        public string ReasonOfPosting { get; set; }
         public string MaterialCode { get; set; }
+        public string MaterialDescription { get; set; }
         public int MaterialID { get; set; }
         public Decimal SystemStock { get; set; }
         public Decimal PhysicalStock { get; set; }
+        public Decimal DeferenceQuantity { get; set; }
     }
 }

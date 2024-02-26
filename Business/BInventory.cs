@@ -52,6 +52,10 @@ namespace Business
         {
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Inventory/InsertDealerPhysicalInventoryPosting", Stock));
         }
+        public PApiResult UpdateDealerPhysicalInventoryPosting(long PhysicalInventoryPostingID)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Inventory/UpdateDealerPhysicalInventoryPosting?PhysicalInventoryPostingID="+ PhysicalInventoryPostingID));
+        }
         public PApiResult GetDealerStockAgeing(int? DealerID, int? OfficeID, int? DivisionID, int? ModelID, string MaterialCode, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "Inventory/GetDealerStockAgeing?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&DivisionID=" + DivisionID + "&ModelID=" + ModelID

@@ -15,6 +15,15 @@ namespace DealerManagementSystem.ViewInventory.UserControls
     {
 
         /// <summary>
+        /// lbtnPost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnPost;
+
+        /// <summary>
         /// lblDealerCode control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace DealerManagementSystem.ViewInventory.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblOfficeName;
+
+        /// <summary>
+        /// lblInventoryPostingType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInventoryPostingType;
 
         /// <summary>
         /// lblDocumentNumber control.
@@ -69,22 +87,49 @@ namespace DealerManagementSystem.ViewInventory.UserControls
         protected global::System.Web.UI.WebControls.Label lblPostingDate;
 
         /// <summary>
-        /// lblInventoryPostingType control.
+        /// lblPostingBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInventoryPostingType;
+        protected global::System.Web.UI.WebControls.Label lblPostingBy;
 
         /// <summary>
-        /// lblCreatedByContactName control.
+        /// lblCreatedBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCreatedByContactName;
+        protected global::System.Web.UI.WebControls.Label lblCreatedBy;
+
+        /// <summary>
+        /// lblCreatedOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreatedOn;
+
+        /// <summary>
+        /// lblStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStatus;
+
+        /// <summary>
+        /// lblReasonOfPosting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReasonOfPosting;
 
         /// <summary>
         /// lblMessage control.
@@ -96,13 +141,13 @@ namespace DealerManagementSystem.ViewInventory.UserControls
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// tbpEnquiry control.
+        /// tbp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tbpEnquiry;
+        protected global::AjaxControlToolkit.TabContainer tbp;
 
         /// <summary>
         /// tpnlStatusHistory control.

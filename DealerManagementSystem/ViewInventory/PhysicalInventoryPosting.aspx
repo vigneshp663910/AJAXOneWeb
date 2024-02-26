@@ -77,28 +77,31 @@
                                         <asp:Label ID="lblOfficeName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerOffice.OfficeName")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Document Number">
+                                <asp:TemplateField HeaderText="Document">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDocumentNumber" Text='<%# DataBinder.Eval(Container.DataItem, "DocumentNumber")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Document Date">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
+                                        <asp:Label ID="lblDocumentNumber" Text='<%# DataBinder.Eval(Container.DataItem, "DocumentNumber")%>' runat="server" /><br />
                                         <asp:Label ID="lblDocumentDate" Text='<%# DataBinder.Eval(Container.DataItem, "DocumentDate","{0:d}")%>' runat="server" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Posting Date">
+                                </asp:TemplateField> 
+                                 <asp:TemplateField HeaderText="Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblPostingDate" Text='<%# DataBinder.Eval(Container.DataItem, "PostingDate")%>' runat="server" />
+                                        <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Created By">
+                                <asp:TemplateField HeaderText="Created">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
+                                        <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" /><br />
+                                         <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                  <asp:TemplateField HeaderText="Posting Date">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblPostingBy" Text='<%# DataBinder.Eval(Container.DataItem, "PostingBy.ContactName")%>' runat="server" /><br />
+                                        <asp:Label ID="lblPostingDate" Text='<%# DataBinder.Eval(Container.DataItem, "PostingDate")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

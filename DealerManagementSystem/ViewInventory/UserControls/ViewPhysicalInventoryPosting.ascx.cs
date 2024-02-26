@@ -13,35 +13,57 @@ namespace DealerManagementSystem.ViewInventory.UserControls
 {
     public partial class ViewPhysicalInventoryPosting : System.Web.UI.UserControl
     { 
-        public PPhysicalInventoryPosting Inventory
+        public long InventoryID
         {
             get
             {
-                if (ViewState["ViewPhysicalInventoryPosting"] == null)
+                if (ViewState["PhysicalInventoryPostingID"] == null)
                 {
-                    ViewState["ViewPhysicalInventoryPosting"] = new PPhysicalInventoryPosting();
+                    ViewState["PhysicalInventoryPostingID"] = 0;
                 }
-                return (PPhysicalInventoryPosting)ViewState["ViewPhysicalInventoryPosting"];
+                return (long)ViewState["PhysicalInventoryPostingID"];
             }
             set
             {
-                ViewState["ViewPhysicalInventoryPosting"] = value;
+                ViewState["PhysicalInventoryPostingID"] = value;
             }
-        } 
+        }
+        public long StatusID
+        {
+            get
+            {
+                if (ViewState["StatusID"] == null)
+                {
+                    ViewState["StatusID"] = 0;
+                }
+                return (long)ViewState["StatusID"];
+            }
+            set
+            {
+                ViewState["StatusID"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = ""; 
         }
         public void fillViewEnquiry(long PhysicalInventoryPostingID)
         {
-            Inventory = new BInventory().GetDealerPhysicalInventoryPostingByID(PhysicalInventoryPostingID);
+            InventoryID = PhysicalInventoryPostingID;
+            
+            PPhysicalInventoryPosting Inventory = new BInventory().GetDealerPhysicalInventoryPostingByID(PhysicalInventoryPostingID);
+            StatusID = Inventory.Status.StatusID;
             lblDealerCode.Text = Inventory.Dealer.DealerCode;
             lblDealerName.Text = Inventory.Dealer.DealerName;
             lblOfficeName.Text = Inventory.DealerOffice.OfficeName;
             lblDocumentNumber.Text = Inventory.DocumentNumber;
             lblDocumentDate.Text = Inventory.DocumentDate.ToString("dd/MM/yyyy");
-            lblPostingDate.Text = Inventory.PostingDate.ToString("dd/MM/yyyy HH:mm:ss");
-            lblCreatedByContactName.Text = Inventory.CreatedBy.ContactName;
+            lblPostingDate.Text = Inventory.PostingDate == null ? "" : ((DateTime)Inventory.PostingDate).ToString("dd/MM/yyyy HH:mm:ss");
+            lblPostingBy.Text = Inventory.PostingBy.ContactName;
+            lblCreatedBy.Text = Inventory.CreatedBy.ContactName;
+            lblCreatedOn.Text = Inventory.CreatedOn.ToString("dd/MM/yyyy");
+            lblStatus.Text = Inventory.Status.Status;
+            lblReasonOfPosting.Text = Inventory.ReasonOfPosting;
             lblInventoryPostingType.Text = Inventory.InventoryPostingType.Status;
             gvStatusHistory.DataSource = Inventory.Items;
             gvStatusHistory.DataBind();
@@ -49,18 +71,20 @@ namespace DealerManagementSystem.ViewInventory.UserControls
         }    
         protected void lbActions_Click(object sender, EventArgs e)
         {
-            LinkButton lbActions = ((LinkButton)sender); 
-            //if (lbActions.Text == "Convert To Lead")
-            //{
-            //    MPE_CustomerSelect.Show();
-            //    gvCustomer.DataSource = new BDMS_Customer().GetCustomerForEnquiryToLead(Enquiry.CustomerName, Enquiry.Mobile, Enquiry.State.StateID);
-            //    gvCustomer.DataBind();
-            //}
-            //if (lbActions.Text == "Reject")
-            //{
-            //    MPE_EnquiryReject.Show();
-            //    new DDLBind(ddlEnquiryRejectRemarks, new BEnquiry().GetEnquiryRemark(null, null, null, null, null, true), "Remark", "EnquiryRemarkID");
-            //} 
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.ID == "lbtnPost")
+            {
+                PApiResult Results = new BInventory().UpdateDealerPhysicalInventoryPosting(InventoryID);
+
+                lblMessage.Text = Results.Message;
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblMessage.ForeColor = Color.Green;
+                fillViewEnquiry(InventoryID);
+            } 
         }  
         void ShowMessage(PApiResult Results)
         {
@@ -70,22 +94,11 @@ namespace DealerManagementSystem.ViewInventory.UserControls
         }
         void ActionControlMange()
         {
-            //lbEditEnquiry.Visible = true;
-            //lbInActive.Visible = true;
-            //lbReject.Visible = true;
-            //lbInProgress.Visible = true;
-
-
-            //if ((Enquiry.Status.StatusID == (short)PreSaleStatus.ConvertedToLead) || (Enquiry.Status.StatusID == (short)PreSaleStatus.Rejected))
-            //{
-            //    lbEditEnquiry.Visible = false;
-            //    lbInActive.Visible = false;
-            //    lbReject.Visible = false;
-            //    lbInProgress.Visible = false;
-            //}
-
-            //lbInProgress.Visible = false;
-        } 
-        
+            lbtnPost.Visible = true;
+            if ((StatusID == (short)AjaxOneStatus.PostingInventoryStatus_Posted))
+            {
+                lbtnPost.Visible = false;
+            }
+        }
     }
 }

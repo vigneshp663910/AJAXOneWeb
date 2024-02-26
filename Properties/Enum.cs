@@ -858,7 +858,9 @@ namespace Properties
         StockTransferOrderDelivery_Delivery = 36,
         StockTransferOrderDelivery_GR = 37,
         StockTransferOrderGrRestricted_MissingQty = 38,
-        StockTransferOrderGrRestricted_DamagedQty = 39
+        StockTransferOrderGrRestricted_DamagedQty = 39,
+        PostingInventoryStatus_Requested = 40,
+        PostingInventoryStatus_Posted = 41
     }
     public enum ProcurementStatus
     {

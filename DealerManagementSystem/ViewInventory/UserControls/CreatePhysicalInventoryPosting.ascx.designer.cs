@@ -78,6 +78,24 @@ namespace DealerManagementSystem.ViewInventory.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlPostingInventoryType;
 
         /// <summary>
+        /// txtReasonOfPosting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReasonOfPosting;
+
+        /// <summary>
+        /// lblTotal Material control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalMaterial;
+        
+        /// <summary>
         /// Div1 control.
         /// </summary>
         /// <remarks>

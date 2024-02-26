@@ -60,23 +60,6 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID");
             new DDLBind(ddlPostingInventoryType, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.PostingInventoryType), "Status", "StatusID");
         }
-        public PEnquiry Read()
-        {
-            PEnquiry enquiry = new PEnquiry();
-            //enquiry.CustomerName = txtCustomerName.Text.Trim();
-            //enquiry.EnquiryNextFollowUpDate = Convert.ToDateTime(txtNextFollowUpDate.Text.Trim());
-            //enquiry.PersonName = txtPersonName.Text.Trim();
-            //enquiry.Mobile = txtMobile.Text.Trim();
-            //enquiry.Mail = txtMail.Text.Trim();
-            //enquiry.ProductType = new PProductType();
-            //enquiry.ProductType.ProductTypeID = Convert.ToInt32(ddlProductType.SelectedValue);
-
-          
-            //enquiry.Remarks = txtRemarks.Text.Trim();
-            //enquiry.CreatedBy = new PUser();
-            return enquiry;
-        }
-
         
         public string Validation()
         {
@@ -201,7 +184,9 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                                     DocumentNumber= txtDocumentNumber.Text.Trim(),
                                     MaterialCode = Convert.ToString(IXLCell_[1].Value),
                                     PhysicalStock = Convert.ToDecimal(IXLCell_[3].Value) ,
-                                    PostingTypeID = Convert.ToInt32(ddlPostingInventoryType.SelectedValue)
+                                    PostingTypeID = Convert.ToInt32(ddlPostingInventoryType.SelectedValue),
+                                    ReasonOfPosting =txtReasonOfPosting.Text.Trim()
+                                    
                         });
                         }
                     }
@@ -218,13 +203,16 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                             return false;
                         }
                         dr.MaterialID = DealerStock[0].Material.MaterialID;
-                        dr.SystemStock = DealerStock[0].UnrestrictedQty; 
+                        dr.MaterialDescription = DealerStock[0].Material.MaterialDescription;
+                        dr.SystemStock = DealerStock[0].UnrestrictedQty;
+                        dr.DeferenceQuantity = dr.SystemStock - dr.PhysicalStock;
                     }
                     if (MaterialUpload.Count > 0)
                     {
                         GVUpload.DataSource = MaterialUpload;
                         GVUpload.DataBind();
                     }
+                    lblTotalMaterial.Text = MaterialUpload.Count.ToString();
                 }
             }
             else

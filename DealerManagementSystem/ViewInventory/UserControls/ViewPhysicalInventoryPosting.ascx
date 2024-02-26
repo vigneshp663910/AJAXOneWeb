@@ -1,10 +1,31 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewPhysicalInventoryPosting.ascx.cs" Inherits="DealerManagementSystem.ViewInventory.UserControls.ViewPhysicalInventoryPosting" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
-<br />
-<br />
+
+<script type="text/javascript">
+    function ConfirmPost() {
+        var x = confirm("Are you sure you want to Post?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+</script>
+<div class="col-md-12">
+    <div class="action-btn">
+        <div class="" id="boxHere"></div>
+        <div class="dropdown btnactions" id="customerAction">
+            <div class="btn Approval">Actions</div>
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                <asp:LinkButton ID="lbtnPost" runat="server" OnClick="lbActions_Click"  OnClientClick="return ConfirmPost();">Post</asp:LinkButton>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
-        <legend style="background: none; color: #007bff; font-size: 17px;">Enquiry Details</legend>
+        <legend style="background: none; color: #007bff; font-size: 17px;">Physical Inventory</legend>
         <div class="col-md-12 View">
             <div class="col-md-4">
                 <div class="col-md-12">
@@ -18,6 +39,10 @@
                 <div class="col-md-12">
                     <label>Office Name : </label>
                     <asp:Label ID="lblOfficeName" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Inventory Posting Type : </label>
+                    <asp:Label ID="lblInventoryPostingType" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
@@ -33,25 +58,35 @@
                     <label>Posting Date : </label>
                     <asp:Label ID="lblPostingDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-               
+                <div class="col-md-12">
+                    <label>Posting By : </label>
+                    <asp:Label ID="lblPostingBy" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <div class="col-md-4">
-                 <div class="col-md-12">
-                    <label>Inventory Posting Type : </label>
-                    <asp:Label ID="lblInventoryPostingType" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
                 <div class="col-md-12">
                     <label>Created By : </label>
-                    <asp:Label ID="lblCreatedByContactName" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:Label ID="lblCreatedBy" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Created On : </label>
+                    <asp:Label ID="lblCreatedOn" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Status : </label>
+                    <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Reason Of Posting : </label>
+                    <asp:Label ID="lblReasonOfPosting" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
-
         </div>
     </fieldset>
 </div>
 
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
-<asp1:TabContainer ID="tbpEnquiry" runat="server" ToolTip="Enquiry Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="2">
+<asp1:TabContainer ID="tbp" runat="server" Font-Bold="True" Font-Size="Medium">
     <asp1:TabPanel ID="tpnlStatusHistory" runat="server" HeaderText="Stock List" Font-Bold="True">
         <ContentTemplate>
             <asp:GridView ID="gvStatusHistory" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false"
