@@ -309,6 +309,28 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlShipToParty" runat="server" HeaderText="Address" Height="350px">
+        <ContentTemplate>
+            <br />
+            <div class="col-md-12">
+                <div class="col-md-12 field-margin-top">
+                    <fieldset class="fieldset-border">
+                        <%--<legend style="background: none; color: #007bff; font-size: 17px;">Address</legend>--%>
+                        <div class="col-md-12 View">
+                            <div class="col-md-4">
+                                <label>Billing Address : </label>
+                                <asp:Label ID="lblBillingAddress" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Delivery Address : </label>
+                                <asp:Label ID="lblDeliveryAddress" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
     <asp:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">

@@ -347,9 +347,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.StatusID = 11; 
             SO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue);
             SO.Remarks = txtRemarks.Text.Trim();
-            SO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim()); 
-            SO.InsurancePaidBy = ddlInsurancePaidBy.SelectedItem.Text; 
-            SO.FrieghtPaidBy = ddlFrieghtPaidBy.SelectedItem.Text; 
+            SO.ExpectedDeliveryDate = Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
+            SO.InsurancePaidBy = ddlInsurancePaidBy.SelectedValue == "0" ? null : ddlInsurancePaidBy.SelectedItem.Text;
+            SO.FrieghtPaidBy = ddlFrieghtPaidBy.SelectedValue == "0" ? null : ddlFrieghtPaidBy.SelectedItem.Text;
             SO.TaxType = ddlTaxType.SelectedItem.Text;
             SO.SaleOrderTypeID = 1;
             SO.SalesEngineerID = ddlSalesEngineer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesEngineer.SelectedValue);

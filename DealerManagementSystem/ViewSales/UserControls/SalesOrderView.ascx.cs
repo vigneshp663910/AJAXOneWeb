@@ -87,12 +87,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SaleOrderByID = new BDMS_SalesOrder().GetSaleOrderByID(SaleOrderID);
 
             lblQuotationNumber.Text = SaleOrderByID.QuotationNumber;
+            lblQuotationDate.Text = SaleOrderByID.QuotationDate.ToString("dd/MM/yyyy");
+            lblSaleOrderNumber.Text = SaleOrderByID.SaleOrderNumber;
+            lblSaleOrderDate.Text =  (SaleOrderByID.SaleOrderDate == null) ? null: Convert.ToDateTime(SaleOrderByID.SaleOrderDate).ToString("dd/MM/yyyy");
+            lblProformaInvoiceNumber.Text = SaleOrderByID.ProformaInvoiceNumber;
+            lblProformaInvoiceDate.Text = (SaleOrderByID.ProformaInvoiceDate == null) ? null : Convert.ToDateTime(SaleOrderByID.ProformaInvoiceDate).ToString("dd/MM/yyyy");
             lblDealerOffice.Text = SaleOrderByID.Dealer.DealerOffice.OfficeName;
-           // lblContactPerson.Text = SaleOrderByID.ContactPerson;
+            //lblContactPerson.Text = SaleOrderByID.ContactPerson;
             lblRemarks.Text = SaleOrderByID.Remarks; 
             lblFrieghtPaidBy.Text = SaleOrderByID.FrieghtPaidBy;
             lblTaxType.Text = SaleOrderByID.TaxType;
-            lblQuotationDate.Text = SaleOrderByID.QuotationDate.ToString();
             //lblCustomer.Text = SaleOrderByID.Customer.CustomerCode + " " + SaleOrderByID.Customer.CustomerName;
             lblContactPersonNumber.Text = SaleOrderByID.ContactPersonNumber;
             lblExpectedDeliveryDate.Text = SaleOrderByID.ExpectedDeliveryDate.ToString("dd/MM/yyyy"); 
@@ -194,6 +198,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblMessageAddSOItem.ForeColor = Color.Red;
             lblMessageAddSOItem.Visible = true;
             lblMessageAddSOItem.Text = "";
+            lblMessageCreateSODelivery.ForeColor = Color.Red;
+            lblMessageCreateSODelivery.Visible = true;
+            lblMessageCreateSODelivery.Text = "";
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.Text == "Cancel")
             {
@@ -245,6 +252,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else if (lbActions.Text == "Delivery")
             {
                 MPE_Delivery.Show();
+                List<PDMS_EquipmentHeader> EQs = new BDMS_Equipment().GetEquipmentForCreateICTicket(Convert.ToInt64(SaleOrderByID.Dealer.DealerID), null, null);
+                new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
+                cxDispatchDate.StartDate = DateTime.Now;
+                txtBoxDispatchDate.Text = DateTime.Now.ToShortDateString();
+
+                cxCourierDate.StartDate = DateTime.Now;
+                txtBoxCourierDate.Text = DateTime.Now.ToShortDateString();
+
+                cxPickupDate.StartDate = DateTime.Now;
+                txtBoxPickupDate.Text = DateTime.Now.ToShortDateString();
+
+                if(SaleOrderByID.SaleOrderType.SaleOrderTypeID == 4)
+                {
+                    divEquipment.Visible = true;
+                }
+
                 SODelivery_Insert = new List<PSaleOrderDeliveryItem_Insert>();
                 foreach (PSaleOrderItem Item in SaleOrderByID.SaleOrderItems)
                 {
@@ -282,7 +305,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     + SaleOrderByID.Customer.State.State;
 
                 lblDeliveryAddress.Text = lblBillingAddress.Text;
-
 
                 gvDelivery.DataSource = SODelivery_Insert;
                 gvDelivery.DataBind();
@@ -808,18 +830,42 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void btnSaveDelivery_Click(object sender, EventArgs e)
         {
+            lblMessageCreateSODelivery.ForeColor = Color.Red;
+            lblMessageCreateSODelivery.Visible = true;
+            lblMessageCreateSODelivery.Text = "";
             MPE_Delivery.Show();
             try
             {
+                if(SaleOrderByID.SaleOrderType.SaleOrderTypeID == 4)
+                {
+                    lblMessageCreateSODelivery.Text = "Please select the Equipment.";
+                    return;
+                }
+
                 readSaleOrderDelivery();
                 foreach (PSaleOrderDeliveryItem_Insert T in SODelivery_Insert)
                 {
-                    T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue); 
+                    T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue);
+                    T.NetWeight = Convert.ToDecimal(txtBoxNetWeight.Text);
+                    T.Remarks = txtBoxRemarks.Text.Trim();
+                    T.DispatchDate = Convert.ToDateTime(txtBoxDispatchDate.Text.Trim());
+                    T.CourierID = txtBoxCourierId.Text.Trim();
+                    T.CourierDate = Convert.ToDateTime(txtBoxCourierDate.Text.Trim());
+                    T.CourierCompanyName = txtBoxCourierCompanyName.Text.Trim();
+                    T.CourierPerson = txtBoxCourierPerson.Text.Trim();
+                    T.LRNo = txtBoxLRNo.Text.Trim();
+                    T.PackingDescription = txtBoxPackingDescription.Text.Trim();
+                    T.PackingRemarks = txtBoxPackingRemarks.Text.Trim();
+                    T.TransportDetails = txtBoxTransportDetails.Text.Trim();
+                    T.TransportMode = ddlTransportMode.SelectedItem.Text;
+                    T.EquipmentHeaderID = ddlEquipment.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlEquipment.SelectedValue);
+                    T.PickupDate = Convert.ToDateTime(txtBoxPickupDate.Text.Trim());
                 }
+                
                 PApiResult Result = new BDMS_SalesOrder().InsertSaleOrderDelivery(SODelivery_Insert);
                 if (Result.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Result.Message;
+                    lblMessageCreateSODelivery.Text = Result.Message;
                     return;
                 }
                 lblMessage.Text = Result.Message;
@@ -842,6 +888,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 decimal OrderQty = Convert.ToDecimal(lblOrderQty.Text);
                 decimal DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text);
+                if (string.IsNullOrEmpty(txtDeliveryQuantity.Text))
+                {
+                    throw new Exception("Please enter the Delivery Quantity.");
+                }
                 if (DeliveryQuantity > OrderQty)
                 {
                     throw new Exception("Please check the Delivery Quantity.");
@@ -863,7 +913,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
             gvDelivery.PageIndex = e.NewPageIndex;
             gvDelivery.DataBind();
         }
-
         protected void ddlShiftTo_SelectedIndexChanged(object sender, EventArgs e)
         {
             MPE_Delivery.Show();
