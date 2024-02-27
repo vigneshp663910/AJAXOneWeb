@@ -317,7 +317,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PoI.UOM = m.BaseUnit;
             if (string.IsNullOrEmpty(m.HSN))
             {
-                lblMessage.Text = "HSN is Not updated for this material. Please contact Admin.";
+                lblMessage.Text = "HSN is Not updated for this material " + m.MaterialCode + ". Please contact Admin.";
                 return;
             }
             PO_Insert = Read();
@@ -360,7 +360,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PMaterial Mat = Mats[0];
             if (Mat.CurrentPrice == 0)
             {
-                lblMessage.Text = "Price is Not updated for this material. Please contact Admin.";
+                lblMessage.Text = "Price is Not updated for this material " + Material + ". Please contact Admin.";
                 return;
             }
             PoI.UnitPrice = Mat.CurrentPrice / PoI.Quantity;
@@ -381,7 +381,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             fillItem();
             ClearItem();
         }
-        void Save(string MaterialID, string MaterialCode, string Qty)
+        protected string Save(string MaterialID, string MaterialCode, string Qty)
         {
             lblMessageMaterialUpload.ForeColor = Color.Red;
             lblMessageMaterialUpload.Visible = true;
@@ -391,20 +391,29 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             if (!string.IsNullOrEmpty(Message))
             {
                 lblMessage.Text = Message;
-                return;
+                return Message;
             }
             Message = ValidationItem(MaterialID, Qty);
             if (!string.IsNullOrEmpty(Message))
             {
                 lblMessageMaterialUpload.Text = Message;
                 MPE_MaterialUpload.Show();
-                return;
+                return Message;
             }
             if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(MaterialID)))
             {
-                lblMessageMaterialUpload.Text = "Dublicate Material Found.";
+                Message = "Dublicate Material Found.";
+                lblMessageMaterialUpload.Text = Message;
                 MPE_MaterialUpload.Show();
-                return;
+                return Message;
+            }
+            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(MaterialCode, "", Convert.ToInt32(ddlDivision.SelectedValue), "false");
+            if (Materials.Count==0)
+            {
+                Message = "Material " + MaterialCode + " Not Available.";
+                lblMessageMaterialUpload.Text = Message;
+                MPE_MaterialUpload.Show();
+                return Message;
             }
             PPurchaseOrderItem_Insert PoI = ReadItem(MaterialID, MaterialCode, Qty);
             PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
@@ -412,18 +421,20 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PoI.UOM = m.BaseUnit;
             if (string.IsNullOrEmpty(m.HSN))
             {
-                lblMessageMaterialUpload.Text = "HSN is Not updated for this material. Please contact Admin.";
+                Message = "HSN is Not updated for this material " + m.MaterialCode + ". Please contact Admin.";
+                lblMessageMaterialUpload.Text = Message;
                 MPE_MaterialUpload.Show();
-                return;
+                return Message;
             }
             PO_Insert = Read();
             if (PO_Insert.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
             {
                 if ((PurchaseOrderItem_Insert.Count != 0) || (PoI.Quantity != 1))
                 {
-                    lblMessageMaterialUpload.Text = "In machine Order you cannot add more material or more quantity.";
+                    Message = "In machine Order you cannot add more material or more quantity.";
+                    lblMessageMaterialUpload.Text = Message;
                     MPE_MaterialUpload.Show();
-                    return;
+                    return Message;
                 }
             }
 
@@ -459,9 +470,10 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             if (Mat.CurrentPrice == 0)
             {
-                lblMessageMaterialUpload.Text = "Price is Not updated for this material. Please contact Admin.";
+                Message = "Price is Not updated for this material " + PoI.MaterialCode + ". Please contact Admin.";
+                lblMessageMaterialUpload.Text = Message;
                 MPE_MaterialUpload.Show();
-                return;
+                return Message;
             }
             PoI.UnitPrice = Mat.CurrentPrice / PoI.Quantity;
             PoI.Price = Mat.CurrentPrice;
@@ -480,6 +492,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PoI.Item = PurchaseOrderItem_Insert.Count * 10;
             fillItem();
             ClearItem();
+            return Message;
         }
         protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -587,6 +600,10 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 return "Please enter correct format in Qty";
             }
+            if (value < 1)
+            {
+                return "Please enter qty more than zero";
+            }
             return "";
         }
         public void Save()
@@ -679,6 +696,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                                 {
                                     continue;
                                 }
+                                List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Item.MaterialCode, "", Convert.ToInt32(ddlDivision.SelectedValue), "false");
+                                if (Materials.Count == 0)
+                                {
+                                    lblMessageMaterialFromCart.Text = "Material " + Item.MaterialCode + " Not Available.";
+                                    lblMessageMaterialFromCart.Visible = true;
+                                    lblMessageMaterialFromCart.ForeColor = Color.Red;
+                                    MPE_MaterialFromCart.Show();
+                                    return;
+                                }
                             }
                             if (Material_SapS.Where(M => M.MaterialCode == lblMaterial.Text).Count() + (PurchaseOrderItem_Insert.Where(M => M.MaterialCode == lblMaterial.Text).Count()) == 0)
                             {
@@ -689,10 +715,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                                 Material_Sap.Item = (Material_SapS.Count + 1) * 10;
                                 Material_SapS.Add(Material_Sap);
                             }
+                            
                         }
                     }
 
                 }
+                
                 //string Material = PoI.MaterialCode; 
                 PMaterialTax_Api MaterialTax_Sap = new PMaterialTax_Api();
                 MaterialTax_Sap.Material = Material_SapS;
@@ -905,7 +933,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                                         MaterialID = Materials[0].MaterialID.ToString();
                                         MaterialCode = Materials[0].MaterialCode;
                                         Qty = Convert.ToString(Cells[2].Value);
-                                        Save(MaterialID, MaterialCode, Qty);
+                                        string Message=Save(MaterialID, MaterialCode, Qty);
+                                        if(!string.IsNullOrEmpty(Message))
+                                        {
+                                            PurchaseOrderItem_Insert = null;
+                                            gvPOItem.DataSource = PurchaseOrderItem_Insert;
+                                            gvPOItem.DataBind();
+                                            lblMessageMaterialUpload.Text = Message;
+                                            lblMessageMaterialUpload.ForeColor = Color.Red;
+                                            return;
+                                        }
                                     }
                                 }
                             }
