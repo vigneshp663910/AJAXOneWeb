@@ -171,7 +171,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if (lbActions.ID == "lbReleaseApprove")
             {
-
                 lblMessage.Visible = true;
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/ReleaseApprovePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
                 if (Results.Status == PApplication.Failure)
@@ -237,7 +236,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbReleasePO.Visible = false;
                 lbReleaseApprove.Visible = false;
                 lbCancelApprove.Visible = false;
-                gvPOItem.Columns[17].Visible = false;
+                gvPOItem.Columns[15].Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoPartialReceived)
             {
@@ -246,7 +245,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbReleaseApprove.Visible = false;
                 lbCancelApprove.Visible = false;
 
-                gvPOItem.Columns[17].Visible = false;
+                gvPOItem.Columns[15].Visible = false;
             }
             else if ((StatusID == (short)ProcurementStatus.PoCompleted)
                || (StatusID == (short)ProcurementStatus.PoForceClosed) || (StatusID == (short)ProcurementStatus.PoCancelld))
@@ -256,7 +255,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbCancelPO.Visible = false;
                 lbReleaseApprove.Visible = false;
                 lbCancelApprove.Visible = false;
-                gvPOItem.Columns[17].Visible = false;
+                gvPOItem.Columns[15].Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoWaitingForReleaseApproval)
             {
@@ -265,7 +264,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbCancelPO.Visible = false;
                 lbCancelApprove.Visible = false;
 
-                gvPOItem.Columns[17].Visible = false;
+                gvPOItem.Columns[15].Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoWaitingForCancelApproval)
             {
@@ -274,7 +273,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbCancelPO.Visible = false;
                 lbReleaseApprove.Visible = false;
 
-                gvPOItem.Columns[17].Visible = false;
+                gvPOItem.Columns[15].Visible = false;
             }
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;

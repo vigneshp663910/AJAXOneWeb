@@ -6,6 +6,16 @@
 <%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
 
+<script type="text/javascript">
+    function ConfirmReleasePO() {
+        var x = confirm("Are you sure you want to Release Purchase Order?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+</script>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -13,10 +23,10 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbAddMaterial" runat="server" OnClick="lbActions_Click">Add Material</asp:LinkButton>
-                <asp:LinkButton ID="lbReleasePO" runat="server" OnClick="lbActions_Click">Release PO</asp:LinkButton>
+                <asp:LinkButton ID="lbReleasePO" runat="server" OnClientClick="return ConfirmReleasePO();" OnClick="lbActions_Click">Release PO</asp:LinkButton>
                 <%--<asp:LinkButton ID="lbEditPO" runat="server" OnClick="lbActions_Click">Edit PO</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbCancelPO" runat="server" OnClick="lbActions_Click">Cancel PO</asp:LinkButton>
-                <asp:LinkButton ID="lbReleaseApprove" runat="server" OnClick="lbActions_Click">Release Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbReleaseApprove" runat="server" OnClientClick="return ConfirmReleasePO();" OnClick="lbActions_Click">Release Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbCancelApprove" runat="server" OnClick="lbActions_Click">Cancel Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbViewPurchaseOrder" runat="server" OnClick="lbActions_Click">PO Preview</asp:LinkButton>
             </div>
@@ -239,24 +249,6 @@
                                             <asp:Label ID="lblNetValue" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Cancelled By">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCancelledBy" Text='<%# DataBinder.Eval(Container.DataItem, "CancelledBy.ContactName")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Cancelled On">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblCancelledOn" Text='<%# DataBinder.Eval(Container.DataItem, "CencelledOn")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <%--<asp:TemplateField HeaderText="Status">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblPurchaseOrderStatus" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderStatus.PurchaseOrderStatus","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnItemAction_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
