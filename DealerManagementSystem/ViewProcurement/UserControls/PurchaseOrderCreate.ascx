@@ -393,7 +393,7 @@
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
-        <asp:Label ID="Label2" runat="server" Text="" CssClass="message" Visible="false" />
+        <asp:Label ID="lblMessageCopyOrder" runat="server" Text="" CssClass="message" Visible="false" />
         <fieldset class="fieldset-border">
             <div class="col-md-12">
                 <div class="col-md-2 col-sm-12">
