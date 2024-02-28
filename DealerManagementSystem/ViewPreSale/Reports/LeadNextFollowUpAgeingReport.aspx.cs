@@ -13,7 +13,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
 {
     public partial class LeadNextFollowUpAgeingReport : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Reports_LeadExpectedDateofSaleAgeingReport; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Reports_LeadNextFollowUpAgeingReport; } }
         private DataTable EnquiryReport
         {
             get
