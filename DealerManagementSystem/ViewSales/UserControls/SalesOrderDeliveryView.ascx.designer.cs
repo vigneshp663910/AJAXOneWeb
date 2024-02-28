@@ -366,6 +366,33 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.GridView gvSOItem;
 
         /// <summary>
+        /// tpnlShipToParty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlShipToParty;
+
+        /// <summary>
+        /// lblBillingAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBillingAddress;
+
+        /// <summary>
+        /// lblDeliveryAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDeliveryAddress;
+
+        /// <summary>
         /// TabCustomer control.
         /// </summary>
         /// <remarks>

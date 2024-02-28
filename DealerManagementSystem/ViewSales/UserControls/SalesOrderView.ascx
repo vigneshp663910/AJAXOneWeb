@@ -131,7 +131,6 @@
 
 </script>
 <script type="text/javascript">
-
     function GetMaterial() {
         $("#MainContent_UC_SalesOrderView_hdfMaterialID").val('');
         $("#MainContent_UC_SalesOrderView_hdfMaterialCode").val('');
@@ -178,7 +177,6 @@
                             .append(inner_html)
                             .appendTo(ul);
                     };
-
                 }
             });
         }
@@ -353,13 +351,13 @@
 
                 <div class="col-md-12">
                     <label>SO No & Dt : </label>
-                    <asp:Label ID="lblSaleOrderNumber" runat="server" CssClass="label"></asp:Label>
-                    <asp:Label ID="lblSaleOrderDate" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblSaleOrderNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:Label ID="lblSaleOrderDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Pro Inv No & Dt : </label>
-                    <asp:Label ID="Label1" runat="server" CssClass="label"></asp:Label>
-                    <asp:Label ID="Label2" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblProformaInvoiceNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:Label ID="lblProformaInvoiceDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Order Type : </label>
@@ -689,7 +687,6 @@
                 <fieldset class="fieldset-border" runat="server">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Edit</legend>
                     <div class="col-md-12">
-
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Contact Person Number</label>
                             <asp:TextBox ID="txtContactPersonNumber" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
@@ -725,7 +722,6 @@
                             <label>Attn</label>
                             <asp:TextBox ID="txtAttn" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
-
                         <div class="col-md-6 col-sm-12">
                             <label>Tax</label>
                             <asp:DropDownList ID="ddlTaxType" runat="server" CssClass="form-control" BorderColor="Silver">
@@ -799,73 +795,148 @@
         <span id="PopupDialogueCreateSODelivery">Delivery</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="PopupDeliveryClose" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-
+    <asp:Label ID="lblMessageCreateSODelivery" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
-        <div class="col-md-12">
-            <div class="col-md-12">
-                <div class="col-md-5">
-                    <label>Billing Address </label> <br />
-                    <asp:Label ID="lblBillingAddress" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-2">
-                    <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
-                    <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlShiftTo_SelectedIndexChanged" />
-                </div>
-                <div class="col-md-5">
-                    <label>Delivery Address : </label><br />
-                    <asp:Label ID="lblDeliveryAddress" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12 Report">
-            <div class="table-responsive">
-                <asp:GridView ID="gvDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid"
-                    EmptyDataText="No Data Found" AllowPaging="true" PageSize="2" OnPageIndexChanging="gvDelivery_PageIndexChanging">
-                    <Columns>
-                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                            <ItemTemplate>
-                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Material">
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                            <ItemTemplate>
-                                <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
-                                <asp:Label ID="lblSaleOrderItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItemID")%>' runat="server" Visible="false"></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Material Desc">
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                            <ItemTemplate>
-                                <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <%--<asp:TemplateField HeaderText="HSN">
+        <div class="model-scroll">
+            <fieldset class="fieldset-border" id="fldCountry" runat="server">
+                <fieldset class="fieldset-border">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="col-md-5">
+                                <label>Billing Address </label>
+                                <br />
+                                <asp:Label ID="lblBillingAddress" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
+                                <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlShiftTo_SelectedIndexChanged" />
+                            </div>
+                            <div class="col-md-5">
+                                <label>Delivery Address</label>
+                                <br />
+                                <asp:Label ID="lblDeliveryAddress" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">Net Weight</label>
+                                <asp:TextBox ID="txtBoxNetWeight" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">Dispatch Date</label>
+                                <asp:TextBox ID="txtBoxDispatchDate" runat="server" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
+                                <asp1:CalendarExtender ID="cxDispatchDate" runat="server" TargetControlID="txtBoxDispatchDate" PopupButtonID="txtBoxDispatchDate" Format="dd/MM/yyyy" />
+                                <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderDispatchDate" runat="server" TargetControlID="txtBoxDispatchDate" WatermarkText="DD/MM/YYYY" />
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">Courier Id</label>
+                                <asp:TextBox ID="txtBoxCourierId" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">Courier Date</label>
+                                <asp:TextBox ID="txtBoxCourierDate" runat="server" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
+                                <asp1:CalendarExtender ID="cxCourierDate" runat="server" TargetControlID="txtBoxCourierDate" PopupButtonID="txtBoxCourierDate" Format="dd/MM/yyyy" />
+                                <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderCourierDate" runat="server" TargetControlID="txtBoxCourierDate" WatermarkText="DD/MM/YYYY" />
+                            </div>
+                            <div class="col-md-5">
+                                <label>Courier Company Name</label>
+                                <asp:TextBox ID="txtBoxCourierCompanyName" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">Courier Person</label>
+                                <asp:TextBox ID="txtBoxCourierPerson" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">LR No.</label>
+                                <asp:TextBox ID="txtBoxLRNo" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">Transport Mode</label>
+                                <asp:DropDownList ID="ddlTransportMode" runat="server" CssClass="form-control" BorderColor="Silver">
+                                    <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
+                                    <asp:ListItem Value="BY ROAD">BY ROAD</asp:ListItem>
+                                    <asp:ListItem Value="BY TRAIN">BY TRAIN</asp:ListItem>
+                                    <asp:ListItem Value="BY AIR">BY AIR</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">Transport Details</label>
+                                <asp:TextBox ID="txtBoxTransportDetails" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">Packing Description</label>
+                                <asp:TextBox ID="txtBoxPackingDescription" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">Packing Remarks</label>
+                                <asp:TextBox ID="txtBoxPackingRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5">
+                                <label class="modal-label">Pickup Date</label>
+                                <asp:TextBox ID="txtBoxPickupDate" runat="server" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
+                                <asp1:CalendarExtender ID="cxPickupDate" runat="server" TargetControlID="txtBoxPickupDate" PopupButtonID="txtBoxPickupDate" Format="dd/MM/yyyy" />
+                                <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderPickupDate" runat="server" TargetControlID="txtBoxPickupDate" WatermarkText="DD/MM/YYYY" />
+                            </div>
+                            <div class="col-sm-10" id="divEquipment" runat="server" visible="false">
+                                <label>Equipment Serial No</label>
+                                <asp:DropDownList ID="ddlEquipment" runat="server" CssClass="form-control"/>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label>Remarks</label>
+                                <asp:TextBox ID="txtBoxRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br />
+                <fieldset class="fieldset-border">
+                    <div class="col-md-12 Report">
+                        <div class="table-responsive">
+                            <asp:GridView ID="gvDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid"
+                                EmptyDataText="No Data Found" AllowPaging="true" PageSize="2" OnPageIndexChanging="gvDelivery_PageIndexChanging">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Material">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblSaleOrderItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItemID")%>' runat="server" Visible="false"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Material Desc">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <%--<asp:TemplateField HeaderText="HSN">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "Material.HSN")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>--%>
-                        <asp:TemplateField HeaderText="Order Qty">
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                            <ItemTemplate>
-                                <asp:Label ID="lblOrderQty" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' runat="server"></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <%--  <asp:TemplateField HeaderText="UOM">
+                                    <asp:TemplateField HeaderText="Order Qty">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblOrderQty" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <%--  <asp:TemplateField HeaderText="UOM">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "BaseUnit")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>--%>
-                        <asp:TemplateField HeaderText="Delivery Qty">
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                            <ItemTemplate>
-                                <asp:TextBox ID="txtDeliveryQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' CssClass="form-control" runat="server"></asp:TextBox>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <%-- <asp:TemplateField HeaderText="Value">
+                                    <asp:TemplateField HeaderText="Delivery Qty">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:TextBox ID="txtDeliveryQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' CssClass="form-control" runat="server"></asp:TextBox>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <%-- <asp:TemplateField HeaderText="Value">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "Value","{0:n}")%>' runat="server"></asp:Label>
@@ -895,15 +966,17 @@
                                     <asp:Label ID="lblTaxValue" Text='<%# (Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "CGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "SGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "IGSTValue"))).ToString("N2") %>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField> --%>
-                    </Columns>
-                    <AlternatingRowStyle BackColor="#ffffff" />
-                    <FooterStyle ForeColor="White" />
-                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                </asp:GridView>
-            </div>
-
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
+                    </div>
+                </fieldset>
+            </fieldset>
         </div>
         <div class="col-md-12 text-center">
             <asp:Button ID="btnSaveDelivery" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveDelivery_Click" />

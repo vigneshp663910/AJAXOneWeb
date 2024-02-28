@@ -249,13 +249,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Button btnAddMaterial;
 
         /// <summary>
-        /// Button2 control.
+        /// Btn_MatAvailability control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button Btn_MatAvailability;
 
         /// <summary>
         /// gvPOItem control.
@@ -339,13 +339,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
-        /// Label2 control.
+        /// lblMessageCopyOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblMessageCopyOrder;
 
         /// <summary>
         /// txtPoNumber control.

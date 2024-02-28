@@ -68,12 +68,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblQuotationNumber.Text = SaleOrderDeliveryByID.SaleOrder.QuotationNumber;
             lblQuotationDate.Text = SaleOrderDeliveryByID.SaleOrder.QuotationDate.ToString("dd/MM/yyyy");
             lblSaleOrderNumber.Text = SaleOrderDeliveryByID.SaleOrder.SaleOrderNumber;
-            lblSaleOrderDate.Text = SaleOrderDeliveryByID.SaleOrder.SaleOrderDate.ToString();
+            lblSaleOrderDate.Text = (SaleOrderDeliveryByID.SaleOrder.SaleOrderDate == null) ? null : Convert.ToDateTime(SaleOrderDeliveryByID.SaleOrder.SaleOrderDate).ToString("dd/MM/yyyy");
             lblProformaInvoiceNumber.Text = SaleOrderDeliveryByID.SaleOrder.ProformaInvoiceNumber;
-            lblProformaInvoiceDate.Text = SaleOrderDeliveryByID.SaleOrder.ProformaInvoiceDate.ToString();
+            lblProformaInvoiceDate.Text = (SaleOrderDeliveryByID.SaleOrder.ProformaInvoiceDate == null) ? null : Convert.ToDateTime(SaleOrderDeliveryByID.SaleOrder.ProformaInvoiceDate).ToString("dd/MM/yyy");
             lblSOExpectedDeliveryDate.Text = SaleOrderDeliveryByID.SaleOrder.ExpectedDeliveryDate.ToString("dd/MM/yyyy");
             lblRefNumber.Text = SaleOrderDeliveryByID.SaleOrder.RefNumber;
-            lblRefDate.Text = SaleOrderDeliveryByID.SaleOrder.RefDate.ToString();
+            lblRefDate.Text = Convert.ToDateTime(SaleOrderDeliveryByID.SaleOrder.RefDate).ToString("dd/MM/yyyy");
             lblContactPersonNumber.Text = SaleOrderDeliveryByID.SaleOrder.ContactPersonNumber;
             lblProduct.Text = SaleOrderDeliveryByID.SaleOrder.Product.Product;
             lblEquipmentSerialNo.Text = SaleOrderDeliveryByID.SaleOrder.Equipment.EquipmentSerialNo;
@@ -94,6 +94,34 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             SaleOrderDeliveryByID.SaleOrder.Customer = new BDMS_Customer().GetCustomerByID(SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
             UC_CustomerView.fillCustomer(SaleOrderDeliveryByID.SaleOrder.Customer);
+
+            //gvShipTo.DataSource = null;
+            //gvShipTo.DataBind();
+            //gvShipTo.DataSource = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
+            //gvShipTo.DataBind();
+
+            List<PDMS_CustomerShipTo> ShipTos = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
+            
+            lblBillingAddress.Text = SaleOrderDeliveryByID.SaleOrder.Customer.Address1 + "," 
+                + SaleOrderDeliveryByID.SaleOrder.Customer.Address2 + ","
+                + SaleOrderDeliveryByID.SaleOrder.Customer.Address3 + ","
+                + SaleOrderDeliveryByID.SaleOrder.Customer.District.District + ","
+                + SaleOrderDeliveryByID.SaleOrder.Customer.State.State + ","
+                + SaleOrderDeliveryByID.SaleOrder.Customer.Pincode;
+
+            if (SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID == 0)
+            {
+                lblDeliveryAddress.Text = lblBillingAddress.Text;
+            }
+            else
+            {
+                lblDeliveryAddress.Text = ShipTos[0].Address1 + ","
+                + ShipTos[0].Address2 + ","
+                + ShipTos[0].Address3 + ","
+                + ShipTos[0].District.District + ","
+                + ShipTos[0].State.State + ","
+                + ShipTos[0].Pincode;
+            }
         }
     }
 }
