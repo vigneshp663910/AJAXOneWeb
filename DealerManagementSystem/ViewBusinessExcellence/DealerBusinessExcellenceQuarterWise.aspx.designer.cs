@@ -87,31 +87,13 @@ namespace DealerManagementSystem.ViewBusinessExcellence
         protected global::System.Web.UI.WebControls.Button BtnSearch;
 
         /// <summary>
-        /// lblRowCount control.
+        /// btnExportExcel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRowCount;
-
-        /// <summary>
-        /// ibtnArrowLeft control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowLeft;
-
-        /// <summary>
-        /// ibtnArrowRight control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
+        protected global::System.Web.UI.WebControls.Button btnExportExcel;
 
         /// <summary>
         /// gvDealerB control.

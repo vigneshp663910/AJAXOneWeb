@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Lead Next Follow Up Ageing Report');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Lead Expected Date of Sale Ageing Report');</script>");
             if (!IsPostBack)
             {
                 EnquiryReport = null;

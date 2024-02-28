@@ -4,6 +4,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -15,36 +16,23 @@ namespace DealerManagementSystem.ViewBusinessExcellence
     public partial class DealerBusinessExcellenceQuarterWise : BasePage
     {
         public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Reports_DealerBusinessExcellenceQuarterWise; } }
-        private int PageCount
+       
+        public DataTable QuarterWise
         {
             get
             {
-                if (ViewState["PageCount"] == null)
+                if (ViewState["DealerBusinessExcellenceQuarterWise"] == null)
                 {
-                    ViewState["PageCount"] = 0;
+                    ViewState["DealerBusinessExcellenceQuarterWise"] = new DataTable();
                 }
-                return (int)ViewState["PageCount"];
+                return (DataTable)ViewState["DealerBusinessExcellenceQuarterWise"];
             }
             set
             {
-                ViewState["PageCount"] = value;
+                ViewState["DealerBusinessExcellenceQuarterWise"] = value;
             }
         }
-        private int PageIndex
-        {
-            get
-            {
-                if (ViewState["PageIndex"] == null)
-                {
-                    ViewState["PageIndex"] = 1;
-                }
-                return (int)ViewState["PageIndex"];
-            }
-            set
-            {
-                ViewState["PageIndex"] = value;
-            }
-        }
+       
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -83,47 +71,39 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             int? RegionID = ddlRegionID.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegionID.SelectedValue);
             int? Quarter = ddlQuarter.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlQuarter.SelectedValue); 
             PApiResult Result = new BDealerBusiness().GetDealerBusinessExcellenceQuarterWise(Year, Quarter, Month, DealerID, RegionID);
-            gvDealerB.DataSource = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
-            gvDealerB.DataBind();
-            if (Result.RowCount == 0)
-            {
-                PageCount = 0;
-                lblRowCount.Visible = false;
-                ibtnArrowLeft.Visible = false;
-                ibtnArrowRight.Visible = false;
-            }
-            else
-            {
-                PageCount = (Result.RowCount + gvDealerB.PageSize - 1) / gvDealerB.PageSize;
-                lblRowCount.Visible = true;
-                ibtnArrowLeft.Visible = true;
-                ibtnArrowRight.Visible = true;
-                lblRowCount.Text = (((PageIndex - 1) * gvDealerB.PageSize) + 1) + " - " + (((PageIndex - 1) * gvDealerB.PageSize) + gvDealerB.Rows.Count) + " of " + Result.RowCount;
-                // lblRowCount.Text = (((gvDealerB.PageIndex) * gvDealerB.PageSize) + 1) + " - " + (((gvDealerB.PageIndex) * gvDealerB.PageSize) + gvDealerB.Rows.Count) + " of " + LeadReport.Count;
-            }
+            QuarterWise = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
+            gvDealerB.DataSource = QuarterWise;
+            gvDealerB.DataBind(); 
         }
 
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             FillGrid();
-        }
-
-        protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
-        {
-            if (PageIndex > 1)
-            {
-                PageIndex = PageIndex - 1;
-                FillGrid();
-            }
-        }
-
-        protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
-        {
-            if (PageCount > PageIndex)
-            {
-                PageIndex = PageIndex + 1;
-                FillGrid();
-            }
         } 
+
+        protected void gvDealerB_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvDealerB.PageIndex = e.NewPageIndex;
+            gvDealerB.DataSource = QuarterWise;
+            gvDealerB.DataBind();
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                try
+                {
+                    new BXcel().ExporttoExcel(QuarterWise,"BusinessExcellenceQuarterWise");
+                }
+                catch
+                {
+                } 
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
     }
 }
