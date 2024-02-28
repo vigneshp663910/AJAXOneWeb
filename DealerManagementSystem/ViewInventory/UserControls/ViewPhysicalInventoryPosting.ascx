@@ -18,6 +18,7 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbtnPost" runat="server" OnClick="lbActions_Click"  OnClientClick="return ConfirmPost();">Post</asp:LinkButton>
+                <asp:LinkButton ID="lbtnPDF" runat="server" OnClick="lbActions_Click">PDF</asp:LinkButton>
             </div>
         </div>
     </div>

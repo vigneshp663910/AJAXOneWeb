@@ -814,28 +814,24 @@
   <ItemGroup>
     <Compile Include="Account\ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Account\ChangePassword.aspx.designer.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\CompanyProfile.aspx.cs">
       <DependentUpon>CompanyProfile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Account\CompanyProfile.aspx.designer.cs">
       <DependentUpon>CompanyProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\MyProfile.aspx.cs">
       <DependentUpon>MyProfile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Account\MyProfile.aspx.designer.cs">
       <DependentUpon>MyProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\SignOut.aspx.cs">
       <DependentUpon>SignOut.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Account\SignOut.aspx.designer.cs">
       <DependentUpon>SignOut.aspx</DependentUpon>
@@ -854,28 +850,24 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BackUp\DMS.Master.cs">
       <DependentUpon>DMS.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BackUp\DMS.Master.designer.cs">
       <DependentUpon>DMS.Master</DependentUpon>
     </Compile>
     <Compile Include="BackUp\DMSDynamic.Master.cs">
       <DependentUpon>DMSDynamic.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BackUp\DMSDynamic.Master.designer.cs">
       <DependentUpon>DMSDynamic.Master</DependentUpon>
     </Compile>
     <Compile Include="BackUp\Home1.aspx.cs">
       <DependentUpon>Home1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BackUp\Home1.aspx.designer.cs">
       <DependentUpon>Home1.aspx</DependentUpon>
     </Compile>
     <Compile Include="BackUp\SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BackUp\SignIn.aspx.designer.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
@@ -883,105 +875,90 @@
     <Compile Include="ChatHub.cs" />
     <Compile Include="Dashboard\FirstTimeRightForWarrantyService.aspx.cs">
       <DependentUpon>FirstTimeRightForWarrantyService.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dashboard\FirstTimeRightForWarrantyService.aspx.designer.cs">
       <DependentUpon>FirstTimeRightForWarrantyService.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\ICTicketEscalationOnBreakdownLevel.ascx.cs">
       <DependentUpon>ICTicketEscalationOnBreakdownLevel.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dashboard\ICTicketEscalationOnBreakdownLevel.ascx.designer.cs">
       <DependentUpon>ICTicketEscalationOnBreakdownLevel.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\WarrantyMaterialAnalysis.aspx.cs">
       <DependentUpon>WarrantyMaterialAnalysis.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dashboard\WarrantyMaterialAnalysis.aspx.designer.cs">
       <DependentUpon>WarrantyMaterialAnalysis.aspx</DependentUpon>
     </Compile>
     <Compile Include="DealerDashboard.Master.cs">
       <DependentUpon>DealerDashboard.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="DealerDashboard.Master.designer.cs">
       <DependentUpon>DealerDashboard.Master</DependentUpon>
     </Compile>
     <Compile Include="ErrorPages.aspx.cs">
       <DependentUpon>ErrorPages.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ErrorPages.aspx.designer.cs">
       <DependentUpon>ErrorPages.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForbidAccess.aspx.cs">
       <DependentUpon>ForbidAccess.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ForbidAccess.aspx.designer.cs">
       <DependentUpon>ForbidAccess.aspx</DependentUpon>
     </Compile>
     <Compile Include="Geolocation.aspx.cs">
       <DependentUpon>Geolocation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Geolocation.aspx.designer.cs">
       <DependentUpon>Geolocation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Help\Help.aspx.cs">
       <DependentUpon>Help.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Help\Help.aspx.designer.cs">
       <DependentUpon>Help.aspx</DependentUpon>
     </Compile>
     <Compile Include="Help\HelpDoc.aspx.cs">
       <DependentUpon>HelpDoc.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Help\HelpDoc.aspx.designer.cs">
       <DependentUpon>HelpDoc.aspx.cs</DependentUpon>
     </Compile>
     <Compile Include="Help\HelpOld.aspx.cs">
       <DependentUpon>HelpOld.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Help\HelpOld.aspx.designer.cs">
       <DependentUpon>HelpOld.aspx</DependentUpon>
     </Compile>
     <Compile Include="Help\UserGuide.aspx.cs">
       <DependentUpon>UserGuide.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Help\UserGuide.aspx.designer.cs">
       <DependentUpon>UserGuide.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="HomeWithTiles.aspx.cs">
       <DependentUpon>HomeWithTiles.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="HomeWithTiles.aspx.designer.cs">
       <DependentUpon>HomeWithTiles.aspx</DependentUpon>
     </Compile>
     <Compile Include="Open.aspx.cs">
       <DependentUpon>Open.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Open.aspx.designer.cs">
       <DependentUpon>Open.aspx</DependentUpon>
     </Compile>
     <Compile Include="PDF.aspx.cs">
       <DependentUpon>PDF.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="PDF.aspx.designer.cs">
       <DependentUpon>PDF.aspx</DependentUpon>
@@ -992,56 +969,48 @@
     <Compile Include="PowerBIFiles\TileEmbedConfig.cs" />
     <Compile Include="ProcessFlow\DMM_Process.aspx.cs">
       <DependentUpon>DMM_Process.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProcessFlow\DMM_Process.aspx.designer.cs">
       <DependentUpon>DMM_Process.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\Pre_Sales.aspx.cs">
       <DependentUpon>Pre_Sales.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProcessFlow\Pre_Sales.aspx.designer.cs">
       <DependentUpon>Pre_Sales.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\Ticketing.aspx.cs">
       <DependentUpon>Ticketing.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProcessFlow\Ticketing.aspx.designer.cs">
       <DependentUpon>Ticketing.aspx</DependentUpon>
     </Compile>
     <Compile Include="RedirectTo\eCatalogueN.aspx.cs">
       <DependentUpon>eCatalogueN.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="RedirectTo\eCatalogueN.aspx.designer.cs">
       <DependentUpon>eCatalogueN.aspx</DependentUpon>
     </Compile>
     <Compile Include="RedirectTo\SPTN.aspx.cs">
       <DependentUpon>SPTN.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="RedirectTo\SPTN.aspx.designer.cs">
       <DependentUpon>SPTN.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesOrderTemp.aspx.cs">
       <DependentUpon>SalesOrderTemp.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SalesOrderTemp.aspx.designer.cs">
       <DependentUpon>SalesOrderTemp.aspx</DependentUpon>
     </Compile>
     <Compile Include="SignIn.aspx.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SignIn.aspx.designer.cs">
       <DependentUpon>SignIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
@@ -1049,2047 +1018,1753 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Test.aspx.cs">
       <DependentUpon>Test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Test.aspx.designer.cs">
       <DependentUpon>Test.aspx</DependentUpon>
     </Compile>
     <Compile Include="TestDrop.aspx.cs">
       <DependentUpon>TestDrop.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="TestDrop.aspx.designer.cs">
       <DependentUpon>TestDrop.aspx</DependentUpon>
     </Compile>
     <Compile Include="testDropWithMasteMain.aspx.cs">
       <DependentUpon>testDropWithMasteMain.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="testDropWithMasteMain.aspx.designer.cs">
       <DependentUpon>testDropWithMasteMain.aspx</DependentUpon>
     </Compile>
     <Compile Include="TestDropWithMaterSite.aspx.cs">
       <DependentUpon>TestDropWithMaterSite.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="TestDropWithMaterSite.aspx.designer.cs">
       <DependentUpon>TestDropWithMaterSite.aspx</DependentUpon>
     </Compile>
     <Compile Include="TestPageForMenu.aspx.cs">
       <DependentUpon>TestPageForMenu.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="TestPageForMenu.aspx.designer.cs">
       <DependentUpon>TestPageForMenu.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ICTicketBasicInformation.ascx.cs">
       <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\ICTicketBasicInformation.ascx.designer.cs">
       <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ICTicketButton.ascx.cs">
       <DependentUpon>ICTicketButton.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\ICTicketButton.ascx.designer.cs">
       <DependentUpon>ICTicketButton.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ICTicketTSIR.ascx.cs">
       <DependentUpon>ICTicketTSIR.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\ICTicketTSIR.ascx.designer.cs">
       <DependentUpon>ICTicketTSIR.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MultiSelectDropDown.ascx.cs">
       <DependentUpon>MultiSelectDropDown.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControls\MultiSelectDropDown.ascx.designer.cs">
       <DependentUpon>MultiSelectDropDown.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewActivity\Activity.aspx.cs">
       <DependentUpon>Activity.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewActivity\Activity.aspx.designer.cs">
       <DependentUpon>Activity.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewActivity\UserControls\AddActivity.ascx.cs">
       <DependentUpon>AddActivity.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewActivity\UserControls\AddActivity.ascx.designer.cs">
       <DependentUpon>AddActivity.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewActivity\UserControls\ViewActivity.ascx.cs">
       <DependentUpon>ViewActivity.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewActivity\UserControls\ViewActivity.ascx.designer.cs">
       <DependentUpon>ViewActivity.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DealerSalesConfiguration.aspx.cs">
       <DependentUpon>DealerSalesConfiguration.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\DealerSalesConfiguration.aspx.designer.cs">
       <DependentUpon>DealerSalesConfiguration.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DealerServiceConfiguration.aspx.cs">
       <DependentUpon>DealerServiceConfiguration.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\DealerServiceConfiguration.aspx.designer.cs">
       <DependentUpon>DealerServiceConfiguration.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DealerStateMapping.aspx.cs">
       <DependentUpon>DealerStateMapping.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\DealerStateMapping.aspx.designer.cs">
       <DependentUpon>DealerStateMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DealerwisePermissionList.aspx.cs">
       <DependentUpon>DealerwisePermissionList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\DealerwisePermissionList.aspx.designer.cs">
       <DependentUpon>DealerwisePermissionList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DefaultUserModule.aspx.cs">
       <DependentUpon>DefaultUserModule.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\DefaultUserModule.aspx.designer.cs">
       <DependentUpon>DefaultUserModule.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\MessageAnnouncement.aspx.cs">
       <DependentUpon>MessageAnnouncement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\MessageAnnouncement.aspx.designer.cs">
       <DependentUpon>MessageAnnouncement.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\ModulePermissionList.aspx.cs">
       <DependentUpon>ModulePermissionList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\ModulePermissionList.aspx.designer.cs">
       <DependentUpon>ModulePermissionList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModule.aspx.cs">
       <DependentUpon>tab_AdminModule.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModule.aspx.designer.cs">
       <DependentUpon>tab_AdminModule.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.cs">
       <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.designer.cs">
       <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserAccessManagement.aspx.cs">
       <DependentUpon>UserAccessManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\UserAccessManagement.aspx.designer.cs">
       <DependentUpon>UserAccessManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserActivityTrackingReport.aspx.cs">
       <DependentUpon>UserActivityTrackingReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\UserActivityTrackingReport.aspx.designer.cs">
       <DependentUpon>UserActivityTrackingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserControls\MessageAnnouncementCreate.ascx.cs">
       <DependentUpon>MessageAnnouncementCreate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\UserControls\MessageAnnouncementCreate.ascx.designer.cs">
       <DependentUpon>MessageAnnouncementCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx.cs">
       <DependentUpon>MessageAnnouncementView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx.designer.cs">
       <DependentUpon>MessageAnnouncementView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserMobileApproval.aspx.cs">
       <DependentUpon>UserMobileApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\UserMobileApproval.aspx.designer.cs">
       <DependentUpon>UserMobileApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserMobileManagement.aspx.cs">
       <DependentUpon>UserMobileManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\UserMobileManagement.aspx.designer.cs">
       <DependentUpon>UserMobileManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\VisitTagetPlanning.aspx.cs">
       <DependentUpon>VisitTagetPlanning.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\VisitTagetPlanning.aspx.designer.cs">
       <DependentUpon>VisitTagetPlanning.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx.cs">
       <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx.designer.cs">
       <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx.cs">
       <DependentUpon>DealerBusinessExcellenceApprove.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx.designer.cs">
       <DependentUpon>DealerBusinessExcellenceApprove.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx.cs">
       <DependentUpon>ViewDealerBusinessExcellence.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx.designer.cs">
       <DependentUpon>ViewDealerBusinessExcellence.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.cs">
       <DependentUpon>QuotationChangeHistory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.designer.cs">
       <DependentUpon>QuotationChangeHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewChangeHistory\LeadChangeHistory.aspx.cs">
       <DependentUpon>LeadChangeHistory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewChangeHistory\LeadChangeHistory.aspx.designer.cs">
       <DependentUpon>LeadChangeHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.cs">
       <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewChangeHistory\CustomerChangeHistory.aspx.designer.cs">
       <DependentUpon>CustomerChangeHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\BIAdmin.aspx.cs">
       <DependentUpon>BIAdmin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\BIAdmin.aspx.designer.cs">
       <DependentUpon>BIAdmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\BiEnquiry.aspx.cs">
       <DependentUpon>BiEnquiry.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\BiEnquiry.aspx.designer.cs">
       <DependentUpon>BiEnquiry.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\BIService.aspx.cs">
       <DependentUpon>BIService.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\BIService.aspx.designer.cs">
       <DependentUpon>BIService.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\EnquiryChart.aspx.cs">
       <DependentUpon>EnquiryChart.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\EnquiryChart.aspx.designer.cs">
       <DependentUpon>EnquiryChart.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\LeadChart.aspx.cs">
       <DependentUpon>LeadChart.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\LeadChart.aspx.designer.cs">
       <DependentUpon>LeadChart.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\Task_Dashboard.aspx.cs">
       <DependentUpon>Task_Dashboard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\Task_Dashboard.aspx.designer.cs">
       <DependentUpon>Task_Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\CustomerSatisfactionInAfterSalesSupport.ascx.cs">
       <DependentUpon>CustomerSatisfactionInAfterSalesSupport.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\CustomerSatisfactionInAfterSalesSupport.ascx.designer.cs">
       <DependentUpon>CustomerSatisfactionInAfterSalesSupport.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\FoloowUpCount.ascx.cs">
       <DependentUpon>FoloowUpCount.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\FoloowUpCount.ascx.designer.cs">
       <DependentUpon>FoloowUpCount.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\ICTicketEscalationOnBreakdownCount.ascx.cs">
       <DependentUpon>ICTicketEscalationOnBreakdownCount.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\ICTicketEscalationOnBreakdownCount.ascx.designer.cs">
       <DependentUpon>ICTicketEscalationOnBreakdownCount.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\ICTicketTransactionStatics.ascx.cs">
       <DependentUpon>ICTicketTransactionStatics.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\ICTicketTransactionStatics.ascx.designer.cs">
       <DependentUpon>ICTicketTransactionStatics.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\LeadStatusDashboard.ascx.cs">
       <DependentUpon>LeadStatusDashboard.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\LeadStatusDashboard.ascx.designer.cs">
       <DependentUpon>LeadStatusDashboard.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\DealerOperatorDetails.aspx.cs">
       <DependentUpon>DealerOperatorDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDealerEmployee\DealerOperatorDetails.aspx.designer.cs">
       <DependentUpon>DealerOperatorDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\MachineOperatorApproval.aspx.cs">
       <DependentUpon>MachineOperatorApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDealerEmployee\MachineOperatorApproval.aspx.designer.cs">
       <DependentUpon>MachineOperatorApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\MachineOperatorManage.aspx.cs">
       <DependentUpon>MachineOperatorManage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDealerEmployee\MachineOperatorManage.aspx.designer.cs">
       <DependentUpon>MachineOperatorManage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\MachineOperatorRegister.aspx.cs">
       <DependentUpon>MachineOperatorRegister.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDealerEmployee\MachineOperatorRegister.aspx.designer.cs">
       <DependentUpon>MachineOperatorRegister.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\SalesIncentive.aspx.cs">
       <DependentUpon>SalesIncentive.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDealerEmployee\SalesIncentive.aspx.designer.cs">
       <DependentUpon>SalesIncentive.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\UserControls\MachineOperatorView.ascx.cs">
       <DependentUpon>MachineOperatorView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDealerEmployee\UserControls\MachineOperatorView.ascx.designer.cs">
       <DependentUpon>MachineOperatorView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\UserMonthlyVerification.aspx.cs">
       <DependentUpon>UserMonthlyVerification.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewDealerEmployee\UserMonthlyVerification.aspx.designer.cs">
       <DependentUpon>UserMonthlyVerification.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\Equipment.aspx.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewEquipment\Equipment.aspx.designer.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentChangeApproval.aspx.cs">
       <DependentUpon>EquipmentChangeApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentChangeApproval.aspx.designer.cs">
       <DependentUpon>EquipmentChangeApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentClient.aspx.cs">
       <DependentUpon>EquipmentClient.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentClient.aspx.designer.cs">
       <DependentUpon>EquipmentClient.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentHistory.aspx.cs">
       <DependentUpon>EquipmentHistory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentHistory.aspx.designer.cs">
       <DependentUpon>EquipmentHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentMissing.aspx.cs">
       <DependentUpon>EquipmentMissing.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentMissing.aspx.designer.cs">
       <DependentUpon>EquipmentMissing.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentPopulationReport.aspx.cs">
       <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentPopulationReport.aspx.designer.cs">
       <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentPopulationReportForAE.aspx.cs">
       <DependentUpon>EquipmentPopulationReportForAE.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewEquipment\EquipmentPopulationReportForAE.aspx.designer.cs">
       <DependentUpon>EquipmentPopulationReportForAE.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\NepiDueReport.aspx.cs">
       <DependentUpon>NepiDueReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewEquipment\NepiDueReport.aspx.designer.cs">
       <DependentUpon>NepiDueReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.cs">
       <DependentUpon>EquipmentView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewEquipment\UserControls\EquipmentView.ascx.designer.cs">
       <DependentUpon>EquipmentView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewFinance\DealerBalanceConfirmationUpdate.aspx.cs">
       <DependentUpon>DealerBalanceConfirmationUpdate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewFinance\DealerBalanceConfirmationUpdate.aspx.designer.cs">
       <DependentUpon>DealerBalanceConfirmationUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx.cs">
       <DependentUpon>DealerBalanceConfirmationReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx.designer.cs">
       <DependentUpon>DealerBalanceConfirmationReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\InitialStock.aspx.cs">
       <DependentUpon>InitialStock.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewInventory\InitialStock.aspx.designer.cs">
       <DependentUpon>InitialStock.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\PhysicalInventoryPosting.aspx.cs">
       <DependentUpon>PhysicalInventoryPosting.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewInventory\PhysicalInventoryPosting.aspx.designer.cs">
       <DependentUpon>PhysicalInventoryPosting.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\StockAgeingReport.aspx.cs">
       <DependentUpon>StockAgeingReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewInventory\StockAgeingReport.aspx.designer.cs">
       <DependentUpon>StockAgeingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\StockInTransit.aspx.cs">
       <DependentUpon>StockInTransit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewInventory\StockInTransit.aspx.designer.cs">
       <DependentUpon>StockInTransit.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\StockLedger.aspx.cs">
       <DependentUpon>StockLedger.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewInventory\StockLedger.aspx.designer.cs">
       <DependentUpon>StockLedger.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\StockTransfer.aspx.cs">
       <DependentUpon>StockTransfer.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewInventory\StockTransfer.aspx.designer.cs">
       <DependentUpon>StockTransfer.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\UserControls\CreatePhysicalInventoryPosting.ascx.cs">
       <DependentUpon>CreatePhysicalInventoryPosting.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewInventory\UserControls\CreatePhysicalInventoryPosting.ascx.designer.cs">
       <DependentUpon>CreatePhysicalInventoryPosting.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\UserControls\ViewPhysicalInventoryPosting.ascx.cs">
       <DependentUpon>ViewPhysicalInventoryPosting.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewInventory\UserControls\ViewPhysicalInventoryPosting.ascx.designer.cs">
       <DependentUpon>ViewPhysicalInventoryPosting.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\WarehouseStock.aspx.cs">
       <DependentUpon>WarehouseStock.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewInventory\WarehouseStock.aspx.designer.cs">
       <DependentUpon>WarehouseStock.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ABPModelWise.aspx.cs">
       <DependentUpon>ABPModelWise.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\ABPModelWise.aspx.designer.cs">
       <DependentUpon>ABPModelWise.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ABPSparePart.aspx.cs">
       <DependentUpon>ABPSparePart.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\ABPSparePart.aspx.designer.cs">
       <DependentUpon>ABPSparePart.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ABPSparePart_Retail.aspx.cs">
       <DependentUpon>ABPSparePart_Retail.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\ABPSparePart_Retail.aspx.designer.cs">
       <DependentUpon>ABPSparePart_Retail.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ActivityActual.aspx.cs">
       <DependentUpon>ActivityActual.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\ActivityActual.aspx.designer.cs">
       <DependentUpon>ActivityActual.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ActivityInvoice.aspx.cs">
       <DependentUpon>ActivityInvoice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\ActivityInvoice.aspx.designer.cs">
       <DependentUpon>ActivityInvoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ActivityInvReports.aspx.cs">
       <DependentUpon>ActivityInvReports.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\ActivityInvReports.aspx.designer.cs">
       <DependentUpon>ActivityInvReports.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ActivityPlan.aspx.cs">
       <DependentUpon>ActivityPlan.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\ActivityPlan.aspx.designer.cs">
       <DependentUpon>ActivityPlan.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ClaimApproval.aspx.cs">
       <DependentUpon>ClaimApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\ClaimApproval.aspx.designer.cs">
       <DependentUpon>ClaimApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ClaimEntry.aspx.cs">
       <DependentUpon>ClaimEntry.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\ClaimEntry.aspx.designer.cs">
       <DependentUpon>ClaimEntry.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\LostCustomerData.aspx.cs">
       <DependentUpon>LostCustomerData.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\LostCustomerData.aspx.designer.cs">
       <DependentUpon>LostCustomerData.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\RollingPlanModelWise.aspx.cs">
       <DependentUpon>RollingPlanModelWise.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\RollingPlanModelWise.aspx.designer.cs">
       <DependentUpon>RollingPlanModelWise.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ActivityInfoM.aspx.cs">
       <DependentUpon>ActivityInfoM.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMarketing\ActivityInfoM.aspx.designer.cs">
       <DependentUpon>ActivityInfoM.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\AjaxEmployeeManage.aspx.cs">
       <DependentUpon>AjaxEmployeeManage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\AjaxEmployeeManage.aspx.designer.cs">
       <DependentUpon>AjaxEmployeeManage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Application.aspx.cs">
       <DependentUpon>Application.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\Application.aspx.designer.cs">
       <DependentUpon>Application.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\CreateAjaxEmployee.aspx.cs">
       <DependentUpon>CreateAjaxEmployee.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\CreateAjaxEmployee.aspx.designer.cs">
       <DependentUpon>CreateAjaxEmployee.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Customer.aspx.cs">
       <DependentUpon>Customer.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\Customer.aspx.designer.cs">
       <DependentUpon>Customer.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\CustomerGstApproval.aspx.cs">
       <DependentUpon>CustomerGstApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\CustomerGstApproval.aspx.designer.cs">
       <DependentUpon>CustomerGstApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Dealer.aspx.cs">
       <DependentUpon>Dealer.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\Dealer.aspx.designer.cs">
       <DependentUpon>Dealer.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\DealerBinLocation.aspx.cs">
       <DependentUpon>DealerBinLocation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\DealerBinLocation.aspx.designer.cs">
       <DependentUpon>DealerBinLocation.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Planning\DealerBusinessExcellence.aspx.cs">
       <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Planning\DealerBusinessExcellence.aspx.designer.cs">
       <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Planning\DealerBusinessExcellenceCategory3Update.aspx.cs">
       <DependentUpon>DealerBusinessExcellenceCategory3Update.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Planning\DealerBusinessExcellenceCategory3Update.aspx.designer.cs">
       <DependentUpon>DealerBusinessExcellenceCategory3Update.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Planning\DealerMissionPlanning.aspx.cs">
       <DependentUpon>DealerMissionPlanning.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Planning\DealerMissionPlanning.aspx.designer.cs">
       <DependentUpon>DealerMissionPlanning.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\EInvoiceRequest.aspx.cs">
       <DependentUpon>EInvoiceRequest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\EInvoiceRequest.aspx.designer.cs">
       <DependentUpon>EInvoiceRequest.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Equipment.aspx.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\Equipment.aspx.designer.cs">
       <DependentUpon>Equipment.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\MaterialSync.aspx.cs">
       <DependentUpon>MaterialSync.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\MaterialSync.aspx.designer.cs">
       <DependentUpon>MaterialSync.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerVerification.ascx.cs">
       <DependentUpon>CustomerVerification.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerVerification.ascx.designer.cs">
       <DependentUpon>CustomerVerification.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\LocationDistrict.ascx.cs">
       <DependentUpon>LocationDistrict.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserControls\LocationDistrict.ascx.designer.cs">
       <DependentUpon>LocationDistrict.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserLocationTrackMap.aspx.cs">
       <DependentUpon>UserLocationTrackMap.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserLocationTrackMap.aspx.designer.cs">
       <DependentUpon>UserLocationTrackMap.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\SalesCommissionClaimPrice.aspx.cs">
       <DependentUpon>SalesCommissionClaimPrice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\SalesCommissionClaimPrice.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimPrice.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\LocationMap.aspx.cs">
       <DependentUpon>LocationMap.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\LocationMap.aspx.designer.cs">
       <DependentUpon>LocationMap.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Planning\BudgetPlanningMonth.aspx.cs">
       <DependentUpon>BudgetPlanningMonth.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Planning\BudgetPlanningMonth.aspx.designer.cs">
       <DependentUpon>BudgetPlanningMonth.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Planning\BudgetPlanningYear.aspx.cs">
       <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Planning\BudgetPlanningYear.aspx.designer.cs">
       <DependentUpon>BudgetPlanningYear.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Reports\DealerBusinessExcellenceReport.aspx.cs">
       <DependentUpon>DealerBusinessExcellenceReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Reports\DealerBusinessExcellenceReport.aspx.designer.cs">
       <DependentUpon>DealerBusinessExcellenceReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Reports\DealerMissionPlanningReport.aspx.cs">
       <DependentUpon>DealerMissionPlanningReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Reports\DealerMissionPlanningReport.aspx.designer.cs">
       <DependentUpon>DealerMissionPlanningReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryIndiamart.aspx.cs">
       <DependentUpon>EnquiryIndiamart.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryIndiamart.aspx.designer.cs">
       <DependentUpon>EnquiryIndiamart.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Material.aspx.cs">
       <DependentUpon>Material.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\Material.aspx.designer.cs">
       <DependentUpon>Material.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\ModelTemplateDesign.aspx.cs">
       <DependentUpon>ModelTemplateDesign.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\ModelTemplateDesign.aspx.designer.cs">
       <DependentUpon>ModelTemplateDesign.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\PresalesMasters.aspx.cs">
       <DependentUpon>PresalesMasters.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\PresalesMasters.aspx.designer.cs">
       <DependentUpon>PresalesMasters.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMasterPages.aspx.cs">
       <DependentUpon>tab_MaterialMasterPages.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMasterPages.aspx.designer.cs">
       <DependentUpon>tab_MaterialMasterPages.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\OrgChart.aspx.cs">
       <DependentUpon>OrgChart.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProcessFlow\OrgChart.aspx.designer.cs">
       <DependentUpon>OrgChart.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMaster.aspx.cs">
       <DependentUpon>tab_MaterialMaster.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\tab_MaterialMaster.aspx.designer.cs">
       <DependentUpon>tab_MaterialMaster.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\Process_Flow.aspx.cs">
       <DependentUpon>Process_Flow.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProcessFlow\Process_Flow.aspx.designer.cs">
       <DependentUpon>Process_Flow.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\ProjectTeam.aspx.cs">
       <DependentUpon>ProjectTeam.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProcessFlow\ProjectTeam.aspx.designer.cs">
       <DependentUpon>ProjectTeam.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProcessFlow\Service.aspx.cs">
       <DependentUpon>Service.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProcessFlow\Service.aspx.designer.cs">
       <DependentUpon>Service.aspx</DependentUpon>
     </Compile>
     <Compile Include="RedirectTo\eCatalogue.aspx.cs">
       <DependentUpon>eCatalogue.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="RedirectTo\eCatalogue.aspx.designer.cs">
       <DependentUpon>eCatalogue.aspx</DependentUpon>
     </Compile>
     <Compile Include="RedirectTo\SPT.aspx.cs">
       <DependentUpon>SPT.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="RedirectTo\SPT.aspx.designer.cs">
       <DependentUpon>SPT.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Site1.Master.designer.cs">
       <DependentUpon>Site1.Master</DependentUpon>
     </Compile>
     <Compile Include="UnderCons.aspx.cs">
       <DependentUpon>UnderCons.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UnderCons.aspx.designer.cs">
       <DependentUpon>UnderCons.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BasePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="BasePage.cs" />
     <Compile Include="Dashboard\CustomerSatisfactionInAfterSalesSupport.ascx.cs">
       <DependentUpon>CustomerSatisfactionInAfterSalesSupport.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dashboard\CustomerSatisfactionInAfterSalesSupport.ascx.designer.cs">
       <DependentUpon>CustomerSatisfactionInAfterSalesSupport.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\ICTicketEscalationOnBreakdownCount.ascx.cs">
       <DependentUpon>ICTicketEscalationOnBreakdownCount.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dashboard\ICTicketEscalationOnBreakdownCount.ascx.designer.cs">
       <DependentUpon>ICTicketEscalationOnBreakdownCount.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\ICTicketTransactionStatics.ascx.cs">
       <DependentUpon>ICTicketTransactionStatics.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dashboard\ICTicketTransactionStatics.ascx.designer.cs">
       <DependentUpon>ICTicketTransactionStatics.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dashboard\WarrantyClaimDebitNoteAcknowledgePending.ascx.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dashboard\WarrantyClaimDebitNoteAcknowledgePending.ascx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>
     </Compile>
     <Compile Include="Dealer.Master.cs">
       <DependentUpon>Dealer.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Dealer.Master.designer.cs">
       <DependentUpon>Dealer.Master</DependentUpon>
     </Compile>
     <Compile Include="Account\LoginAs.aspx.cs">
       <DependentUpon>LoginAs.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Account\LoginAs.aspx.designer.cs">
       <DependentUpon>LoginAs.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\OrganizationStructure.aspx.cs">
       <DependentUpon>OrganizationStructure.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\OrganizationStructure.aspx.designer.cs">
       <DependentUpon>OrganizationStructure.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeApproval.aspx.cs">
       <DependentUpon>DealerEmployeeApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeApproval.aspx.designer.cs">
       <DependentUpon>DealerEmployeeApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeAssigningRole.aspx.cs">
       <DependentUpon>DealerEmployeeAssigningRole.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeAssigningRole.aspx.designer.cs">
       <DependentUpon>DealerEmployeeAssigningRole.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeCreate.aspx.cs">
       <DependentUpon>DealerEmployeeCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeCreate.aspx.designer.cs">
       <DependentUpon>DealerEmployeeCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeLeaving.aspx.cs">
       <DependentUpon>DealerEmployeeLeaving.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeLeaving.aspx.designer.cs">
       <DependentUpon>DealerEmployeeLeaving.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeManage.aspx.cs">
       <DependentUpon>DealerEmployeeManage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeManage.aspx.designer.cs">
       <DependentUpon>DealerEmployeeManage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeView.aspx.cs">
       <DependentUpon>DealerEmployeeView.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeView.aspx.designer.cs">
       <DependentUpon>DealerEmployeeView.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\EquipmentPopulationReport.aspx.cs">
       <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\EquipmentPopulationReport.aspx.designer.cs">
       <DependentUpon>EquipmentPopulationReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\Location.aspx.cs">
       <DependentUpon>Location.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\Location.aspx.designer.cs">
       <DependentUpon>Location.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserManagement.aspx.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\UserManagement.aspx.designer.cs">
       <DependentUpon>UserManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\AjaxEmployeeCreate.ascx.cs">
       <DependentUpon>AjaxEmployeeCreate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserControls\AjaxEmployeeCreate.ascx.designer.cs">
       <DependentUpon>AjaxEmployeeCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerAutocomplete.ascx.cs">
       <DependentUpon>CustomerAutocomplete.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerAutocomplete.ascx.designer.cs">
       <DependentUpon>CustomerAutocomplete.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerViewHeader.ascx.cs">
       <DependentUpon>CustomerViewHeader.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerViewHeader.ascx.designer.cs">
       <DependentUpon>CustomerViewHeader.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\DealerView.ascx.cs">
       <DependentUpon>DealerView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserControls\DealerView.ascx.designer.cs">
       <DependentUpon>DealerView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewOrganization\Organization.aspx.cs">
       <DependentUpon>Organization.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewOrganization\Organization.aspx.designer.cs">
       <DependentUpon>Organization.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryN.aspx.cs">
       <DependentUpon>EnquiryN.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryN.aspx.designer.cs">
       <DependentUpon>EnquiryN.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryTimeLineReport.aspx.cs">
       <DependentUpon>EnquiryTimeLineReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\EnquiryTimeLineReport.aspx.designer.cs">
       <DependentUpon>EnquiryTimeLineReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\LeadFoloowUpReport.aspx.cs">
       <DependentUpon>LeadFoloowUpReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\LeadFoloowUpReport.aspx.designer.cs">
       <DependentUpon>LeadFoloowUpReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\LeadN.aspx.cs">
       <DependentUpon>LeadN.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\LeadN.aspx.designer.cs">
       <DependentUpon>LeadN.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\LeadReportForDefinedPeriod.aspx.cs">
       <DependentUpon>LeadReportForDefinedPeriod.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\LeadReportForDefinedPeriod.aspx.designer.cs">
       <DependentUpon>LeadReportForDefinedPeriod.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\ManageLeadFoloowUps.aspx.designer.cs">
       <DependentUpon>ManageLeadFoloowUps.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\PreSalesReport.aspx.cs">
       <DependentUpon>PreSalesReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\PreSalesReport.aspx.designer.cs">
       <DependentUpon>PreSalesReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerCreate.ascx.cs">
       <DependentUpon>CustomerCreate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerCreate.ascx.designer.cs">
       <DependentUpon>CustomerCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerSearch.ascx.cs">
       <DependentUpon>CustomerSearch.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerSearch.ascx.designer.cs">
       <DependentUpon>CustomerSearch.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerView.ascx.cs">
       <DependentUpon>CustomerView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewMaster\UserControls\CustomerView.ascx.designer.cs">
       <DependentUpon>CustomerView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\PreSalesSummaryReport.aspx.cs">
       <DependentUpon>PreSalesSummaryReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\PreSalesSummaryReport.aspx.designer.cs">
       <DependentUpon>PreSalesSummaryReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Pre_Sales_Dashboard.aspx.designer.cs">
       <DependentUpon>Pre_Sales_Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Quotation.aspx.cs">
       <DependentUpon>Quotation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Quotation.aspx.designer.cs">
       <DependentUpon>Quotation.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Reports\EnquiryUnattendedAgeing.aspx.cs">
       <DependentUpon>EnquiryUnattendedAgeing.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Reports\EnquiryUnattendedAgeing.aspx.designer.cs">
       <DependentUpon>EnquiryUnattendedAgeing.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Reports\LeadExpectedDateofSaleAgeingReport.aspx.cs">
       <DependentUpon>LeadExpectedDateofSaleAgeingReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Reports\LeadExpectedDateofSaleAgeingReport.aspx.designer.cs">
       <DependentUpon>LeadExpectedDateofSaleAgeingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\SalesPipelineReport.aspx.cs">
       <DependentUpon>SalesPipelineReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\SalesPipelineReport.aspx.designer.cs">
       <DependentUpon>SalesPipelineReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddCustomerConversation.ascx.cs">
       <DependentUpon>AddCustomerConversation.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddCustomerConversation.ascx.designer.cs">
       <DependentUpon>AddCustomerConversation.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddEnquiry.ascx.cs">
       <DependentUpon>AddEnquiry.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddEnquiry.ascx.designer.cs">
       <DependentUpon>AddEnquiry.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddFinancial.ascx.cs">
       <DependentUpon>AddFinancial.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddFinancial.ascx.designer.cs">
       <DependentUpon>AddFinancial.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddFollowUp.ascx.cs">
       <DependentUpon>AddFollowUp.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddFollowUp.ascx.designer.cs">
       <DependentUpon>AddFollowUp.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddLead.ascx.cs">
       <DependentUpon>AddLead.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddLead.ascx.designer.cs">
       <DependentUpon>AddLead.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddLeadProduct.ascx.cs">
       <DependentUpon>AddLeadProduct.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddLeadProduct.ascx.designer.cs">
       <DependentUpon>AddLeadProduct.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddQuotation.ascx.cs">
       <DependentUpon>AddQuotation.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddQuotation.ascx.designer.cs">
       <DependentUpon>AddQuotation.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AssignSE.ascx.cs">
       <DependentUpon>AssignSE.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AssignSE.ascx.designer.cs">
       <DependentUpon>AssignSE.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\ColdVisitsView.ascx.cs">
       <DependentUpon>ColdVisitsView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\ColdVisitsView.ascx.designer.cs">
       <DependentUpon>ColdVisitsView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\Effort.ascx.cs">
       <DependentUpon>Effort.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\Effort.ascx.designer.cs">
       <DependentUpon>Effort.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\EnquiryIndiamartView.ascx.cs">
       <DependentUpon>EnquiryIndiamartView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\EnquiryIndiamartView.ascx.designer.cs">
       <DependentUpon>EnquiryIndiamartView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\EnquiryViewN.ascx.cs">
       <DependentUpon>EnquiryViewN.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\EnquiryViewN.ascx.designer.cs">
       <DependentUpon>EnquiryViewN.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\Expense.ascx.cs">
       <DependentUpon>Expense.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\Expense.ascx.designer.cs">
       <DependentUpon>Expense.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\LeadView.ascx.cs">
       <DependentUpon>LeadView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\LeadView.ascx.designer.cs">
       <DependentUpon>LeadView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\LeadViewHeader.ascx.cs">
       <DependentUpon>LeadViewHeader.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\LeadViewHeader.ascx.designer.cs">
       <DependentUpon>LeadViewHeader.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\SalesQuotationView.ascx.cs">
       <DependentUpon>SalesQuotationView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\SalesQuotationView.ascx.designer.cs">
       <DependentUpon>SalesQuotationView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx.cs">
       <DependentUpon>SalesQuotationViewHeader.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\SalesQuotationViewHeader.ascx.designer.cs">
       <DependentUpon>SalesQuotationViewHeader.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Visit.aspx.cs">
       <DependentUpon>Visit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\Visit.aspx.designer.cs">
       <DependentUpon>Visit.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\VisitCoverageReport.aspx.cs">
       <DependentUpon>VisitCoverageReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\VisitCoverageReport.aspx.designer.cs">
       <DependentUpon>VisitCoverageReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\VisitReport.aspx.cs">
       <DependentUpon>VisitReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\VisitReport.aspx.designer.cs">
       <DependentUpon>VisitReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.designer.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\Planning\DealerStockOrderControl.aspx.cs">
       <DependentUpon>DealerStockOrderControl.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\Planning\DealerStockOrderControl.aspx.designer.cs">
       <DependentUpon>DealerStockOrderControl.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderASN.aspx.cs">
       <DependentUpon>PurchaseOrderASN.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderASN.aspx.designer.cs">
       <DependentUpon>PurchaseOrderASN.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderAsnGR.aspx.cs">
       <DependentUpon>PurchaseOrderAsnGR.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderAsnGR.aspx.designer.cs">
       <DependentUpon>PurchaseOrderAsnGR.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderPG.aspx.cs">
       <DependentUpon>PurchaseOrderPG.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderPG.aspx.designer.cs">
       <DependentUpon>PurchaseOrderPG.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderReturn.aspx.cs">
       <DependentUpon>PurchaseOrderReturn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderReturn.aspx.designer.cs">
       <DependentUpon>PurchaseOrderReturn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderReturnInvoice.aspx.cs">
       <DependentUpon>PurchaseOrderReturnInvoice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderReturnInvoice.aspx.designer.cs">
       <DependentUpon>PurchaseOrderReturnInvoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\StockTransferOrder.aspx.cs">
       <DependentUpon>StockTransferOrder.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\StockTransferOrder.aspx.designer.cs">
       <DependentUpon>StockTransferOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\StockTransferOrderASN.aspx.cs">
       <DependentUpon>StockTransferOrderASN.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\StockTransferOrderASN.aspx.designer.cs">
       <DependentUpon>StockTransferOrderASN.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\StockTransferOrderAsnGR.aspx.cs">
       <DependentUpon>StockTransferOrderAsnGR.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\StockTransferOrderAsnGR.aspx.designer.cs">
       <DependentUpon>StockTransferOrderAsnGR.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\StockTransferOrderDelivery.aspx.cs">
       <DependentUpon>StockTransferOrderDelivery.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\StockTransferOrderDelivery.aspx.designer.cs">
       <DependentUpon>StockTransferOrderDelivery.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\GrCreate.ascx.cs">
       <DependentUpon>GrCreate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\GrCreate.ascx.designer.cs">
       <DependentUpon>GrCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderASNGrView.ascx.cs">
       <DependentUpon>PurchaseOrderASNGrView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderASNGrView.ascx.designer.cs">
       <DependentUpon>PurchaseOrderASNGrView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderAsnView.ascx.cs">
       <DependentUpon>PurchaseOrderAsnView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderAsnView.ascx.designer.cs">
       <DependentUpon>PurchaseOrderAsnView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderCreate.ascx.cs">
       <DependentUpon>PurchaseOrderCreate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderCreate.ascx.designer.cs">
       <DependentUpon>PurchaseOrderCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderReturnCreate.ascx.cs">
       <DependentUpon>PurchaseOrderReturnCreate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderReturnCreate.ascx.designer.cs">
       <DependentUpon>PurchaseOrderReturnCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderReturnDeliveryCreate.ascx.cs">
       <DependentUpon>PurchaseOrderReturnDeliveryCreate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderReturnDeliveryCreate.ascx.designer.cs">
       <DependentUpon>PurchaseOrderReturnDeliveryCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderReturnView.ascx.cs">
       <DependentUpon>PurchaseOrderReturnView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderReturnView.ascx.designer.cs">
       <DependentUpon>PurchaseOrderReturnView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderView.ascx.cs">
       <DependentUpon>PurchaseOrderView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderView.ascx.designer.cs">
       <DependentUpon>PurchaseOrderView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx.cs">
       <DependentUpon>StockTransferOrderCreate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx.designer.cs">
       <DependentUpon>StockTransferOrderCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\StockTransferOrderDeliveryView.ascx.cs">
       <DependentUpon>StockTransferOrderDeliveryView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\StockTransferOrderDeliveryView.ascx.designer.cs">
       <DependentUpon>StockTransferOrderDeliveryView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\StockTransferOrderView.ascx.cs">
       <DependentUpon>StockTransferOrderView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\StockTransferOrderView.ascx.designer.cs">
       <DependentUpon>StockTransferOrderView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewReport\CustomerVisitReport.aspx.cs">
       <DependentUpon>CustomerVisitReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewReport\CustomerVisitReport.aspx.designer.cs">
       <DependentUpon>CustomerVisitReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleInvoicePending.aspx.cs">
       <DependentUpon>SaleInvoicePending.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleInvoicePending.aspx.designer.cs">
       <DependentUpon>SaleInvoicePending.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleOrder.aspx.cs">
       <DependentUpon>SaleOrder.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleOrder.aspx.designer.cs">
       <DependentUpon>SaleOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleOrderDelivery.aspx.cs">
       <DependentUpon>SaleOrderDelivery.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleOrderDelivery.aspx.designer.cs">
       <DependentUpon>SaleOrderDelivery.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleOrderDeliveryPending.aspx.cs">
       <DependentUpon>SaleOrderDeliveryPending.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleOrderDeliveryPending.aspx.designer.cs">
       <DependentUpon>SaleOrderDeliveryPending.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleOrderReturn.aspx.cs">
       <DependentUpon>SaleOrderReturn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleOrderReturn.aspx.designer.cs">
       <DependentUpon>SaleOrderReturn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaim.aspx.cs">
       <DependentUpon>SalesCommissionClaim.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaim.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaim.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimApprove.aspx.cs">
       <DependentUpon>SalesCommissionClaimApprove.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimApprove.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimApprove.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimCreate.aspx.cs">
       <DependentUpon>SalesCommissionClaimCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimCreate.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimInvoice.aspx.cs">
       <DependentUpon>SalesCommissionClaimInvoice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimInvoice.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimInvoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimInvoiceCreate.aspx.cs">
       <DependentUpon>SalesCommissionClaimInvoiceCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimInvoiceCreate.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimInvoiceCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimInvoiceVerify.aspx.cs">
       <DependentUpon>SalesCommissionClaimInvoiceVerify.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimInvoiceVerify.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimInvoiceVerify.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimPerformanceReport.aspx.cs">
       <DependentUpon>SalesCommissionClaimPerformanceReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesCommissionClaimPerformanceReport.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimPerformanceReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesOrderPG.aspx.cs">
       <DependentUpon>SalesOrderPG.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesOrderPG.aspx.designer.cs">
       <DependentUpon>SalesOrderPG.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesReturn.aspx.cs">
       <DependentUpon>SalesReturn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesReturn.aspx.designer.cs">
       <DependentUpon>SalesReturn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\tab_ASNPages.aspx.designer.cs">
       <DependentUpon>tab_ASNPages.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\tab_ASN.aspx.cs">
       <DependentUpon>tab_ASN.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\tab_ASN.aspx.designer.cs">
       <DependentUpon>tab_ASN.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\MonthlyProcurement.aspx.cs">
       <DependentUpon>MonthlyProcurement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\MonthlyProcurement.aspx.designer.cs">
       <DependentUpon>MonthlyProcurement.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\MonthlySales.aspx.cs">
       <DependentUpon>MonthlySales.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\MonthlySales.aspx.designer.cs">
       <DependentUpon>MonthlySales.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrder.aspx.cs">
       <DependentUpon>PurchaseOrder.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrder.aspx.designer.cs">
       <DependentUpon>PurchaseOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderASNReport.aspx.cs">
       <DependentUpon>PurchaseOrderASNReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderASNReport.aspx.designer.cs">
       <DependentUpon>PurchaseOrderASNReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderInvoiceReport.aspx.cs">
       <DependentUpon>PurchaseOrderInvoiceReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderInvoiceReport.aspx.designer.cs">
       <DependentUpon>PurchaseOrderInvoiceReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderN.aspx.cs">
       <DependentUpon>PurchaseOrderN.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderN.aspx.designer.cs">
       <DependentUpon>PurchaseOrderN.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderPerformance.aspx.cs">
       <DependentUpon>PurchaseOrderPerformance.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderPerformance.aspx.designer.cs">
       <DependentUpon>PurchaseOrderPerformance.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderReport.aspx.cs">
       <DependentUpon>PurchaseOrderReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderReport.aspx.designer.cs">
       <DependentUpon>PurchaseOrderReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleOrderInvoiceMcReport.aspx.cs">
       <DependentUpon>SaleOrderInvoiceMcReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleOrderInvoiceMcReport.aspx.designer.cs">
       <DependentUpon>SaleOrderInvoiceMcReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleOrderInvoicePartsReport.aspx.cs">
       <DependentUpon>SaleOrderInvoicePartsReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleOrderInvoicePartsReport.aspx.designer.cs">
       <DependentUpon>SaleOrderInvoicePartsReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleOrderInvoiceReport.aspx.cs">
       <DependentUpon>SaleOrderInvoiceReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleOrderInvoiceReport.aspx.designer.cs">
       <DependentUpon>SaleOrderInvoiceReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleOrderInvoiceWarrantyReport.aspx.cs">
       <DependentUpon>SaleOrderInvoiceWarrantyReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SaleOrderInvoiceWarrantyReport.aspx.designer.cs">
       <DependentUpon>SaleOrderInvoiceWarrantyReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesInvoice.aspx.cs">
       <DependentUpon>SalesInvoice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesInvoice.aspx.designer.cs">
       <DependentUpon>SalesInvoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesOrderItems.aspx.cs">
       <DependentUpon>SalesOrderItems.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesOrderItems.aspx.designer.cs">
       <DependentUpon>SalesOrderItems.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SalesOrderPerformance.aspx.cs">
       <DependentUpon>SalesOrderPerformance.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\SalesOrderPerformance.aspx.designer.cs">
       <DependentUpon>SalesOrderPerformance.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\UserControls\SaleOrderReturnCreate.ascx.cs">
       <DependentUpon>SaleOrderReturnCreate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\UserControls\SaleOrderReturnCreate.ascx.designer.cs">
       <DependentUpon>SaleOrderReturnCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\UserControls\SaleOrderReturnView.ascx.cs">
       <DependentUpon>SaleOrderReturnView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\UserControls\SaleOrderReturnView.ascx.designer.cs">
       <DependentUpon>SaleOrderReturnView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx.cs">
       <DependentUpon>SalesCommissionClaimInvoiceView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx.designer.cs">
       <DependentUpon>SalesCommissionClaimInvoiceView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesCommissionClaimView.ascx.cs">
       <DependentUpon>SalesCommissionClaimView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesCommissionClaimView.ascx.designer.cs">
       <DependentUpon>SalesCommissionClaimView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesOrderCreate.ascx.cs">
       <DependentUpon>SalesOrderCreate.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesOrderCreate.ascx.designer.cs">
       <DependentUpon>SalesOrderCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesOrderDeliveryView.ascx.cs">
       <DependentUpon>SalesOrderDeliveryView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesOrderDeliveryView.ascx.designer.cs">
       <DependentUpon>SalesOrderDeliveryView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesOrderView.ascx.cs">
       <DependentUpon>SalesOrderView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesOrderView.ascx.designer.cs">
       <DependentUpon>SalesOrderView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ApprovalForDeviatedCliamReques.aspx.cs">
       <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ApprovalForDeviatedCliamReques.aspx.designer.cs">
       <DependentUpon>ApprovalForDeviatedCliamReques.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx.cs">
       <DependentUpon>ApprovalForDeviatedICTicketRequest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx.designer.cs">
       <DependentUpon>ApprovalForDeviatedICTicketRequest.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ApproveDeclinedICTicket.aspx.cs">
       <DependentUpon>ApproveDeclinedICTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ApproveDeclinedICTicket.aspx.designer.cs">
       <DependentUpon>ApproveDeclinedICTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ApproveDeviatedCliamApprove.aspx.cs">
       <DependentUpon>ApproveDeviatedCliamApprove.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ApproveDeviatedCliamApprove.aspx.designer.cs">
       <DependentUpon>ApproveDeviatedCliamApprove.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ApproveDeviatedICTicket.aspx.cs">
       <DependentUpon>ApproveDeviatedICTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ApproveDeviatedICTicket.aspx.designer.cs">
       <DependentUpon>ApproveDeviatedICTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicket.aspx.cs">
       <DependentUpon>ICTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicket.aspx.designer.cs">
       <DependentUpon>ICTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketCommissionMailToReport.aspx.cs">
       <DependentUpon>ICTicketCommissionMailToReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketCommissionMailToReport.aspx.designer.cs">
       <DependentUpon>ICTicketCommissionMailToReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketCreate.aspx.cs">
       <DependentUpon>ICTicketCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketCreate.aspx.designer.cs">
       <DependentUpon>ICTicketCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketEscalationOnBreakdown.aspx.cs">
       <DependentUpon>ICTicketEscalationOnBreakdown.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketEscalationOnBreakdown.aspx.designer.cs">
       <DependentUpon>ICTicketEscalationOnBreakdown.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketFSRManage.aspx.cs">
       <DependentUpon>ICTicketFSRManage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketFSRManage.aspx.designer.cs">
       <DependentUpon>ICTicketFSRManage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketManage.aspx.cs">
       <DependentUpon>ICTicketManage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketManage.aspx.designer.cs">
       <DependentUpon>ICTicketManage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketMarginWarrantyApproval.aspx.cs">
       <DependentUpon>ICTicketMarginWarrantyApproval.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketMarginWarrantyApproval.aspx.designer.cs">
       <DependentUpon>ICTicketMarginWarrantyApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketMarginWarrantyChange.aspx.cs">
       <DependentUpon>ICTicketMarginWarrantyChange.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketMarginWarrantyChange.aspx.designer.cs">
       <DependentUpon>ICTicketMarginWarrantyChange.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketMarginWarrantyReport.aspx.cs">
       <DependentUpon>ICTicketMarginWarrantyReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketMarginWarrantyReport.aspx.designer.cs">
       <DependentUpon>ICTicketMarginWarrantyReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketReachedDateChange.aspx.cs">
       <DependentUpon>ICTicketReachedDateChange.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketReachedDateChange.aspx.designer.cs">
       <DependentUpon>ICTicketReachedDateChange.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx.cs">
       <DependentUpon>ICTicketServiceEngineerUtilisationReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketServiceEngineerUtilisationReport.aspx.designer.cs">
       <DependentUpon>ICTicketServiceEngineerUtilisationReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketStatusReport.aspx.cs">
       <DependentUpon>ICTicketStatusReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketStatusReport.aspx.designer.cs">
       <DependentUpon>ICTicketStatusReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketStatusReportForIC.aspx.cs">
       <DependentUpon>ICTicketStatusReportForIC.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketStatusReportForIC.aspx.designer.cs">
       <DependentUpon>ICTicketStatusReportForIC.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRApprove.aspx.cs">
       <DependentUpon>ICTicketTSIRApprove.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRApprove.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRApprove.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRMailToVendorReport.aspx.cs">
       <DependentUpon>ICTicketTSIRMailToVendorReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRMailToVendorReport.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRMailToVendorReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRManage.aspx.cs">
       <DependentUpon>ICTicketTSIRManage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRManage.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRManage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRMessage.aspx.cs">
       <DependentUpon>ICTicketTSIRMessage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRMessage.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRMessage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRReport.aspx.cs">
       <DependentUpon>ICTicketTSIRReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\ICTicketTSIRReport.aspx.designer.cs">
       <DependentUpon>ICTicketTSIRReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\MTTR_New.aspx.cs">
       <DependentUpon>MTTR_New.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\MTTR_New.aspx.designer.cs">
       <DependentUpon>MTTR_New.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\PaidServiceInvoice.aspx.cs">
       <DependentUpon>PaidServiceInvoice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\PaidServiceInvoice.aspx.designer.cs">
       <DependentUpon>PaidServiceInvoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\PaidServiceProformaInvoice.aspx.cs">
       <DependentUpon>PaidServiceProformaInvoice.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\PaidServiceProformaInvoice.aspx.designer.cs">
       <DependentUpon>PaidServiceProformaInvoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\PaidServiceQuotation.aspx.cs">
       <DependentUpon>PaidServiceQuotation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\PaidServiceQuotation.aspx.designer.cs">
       <DependentUpon>PaidServiceQuotation.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\PaidServiceReportNew.aspx.cs">
       <DependentUpon>PaidServiceReportNew.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\PaidServiceReportNew.aspx.designer.cs">
       <DependentUpon>PaidServiceReportNew.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\TicketTracking.aspx.cs">
       <DependentUpon>TicketTracking.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\TicketTracking.aspx.designer.cs">
       <DependentUpon>TicketTracking.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\AddFSR.ascx.cs">
       <DependentUpon>AddFSR.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\AddFSR.ascx.designer.cs">
       <DependentUpon>AddFSR.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\AddFSRAttachments.ascx.cs">
       <DependentUpon>AddFSRAttachments.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\AddFSRAttachments.ascx.designer.cs">
       <DependentUpon>AddFSRAttachments.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\AddFsrSignature.ascx.cs">
       <DependentUpon>AddFsrSignature.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\AddFsrSignature.ascx.designer.cs">
       <DependentUpon>AddFsrSignature.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\AddICTicketCustomerFeedback.ascx.cs">
       <DependentUpon>AddICTicketCustomerFeedback.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\AddICTicketCustomerFeedback.ascx.designer.cs">
       <DependentUpon>AddICTicketCustomerFeedback.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\AddTsirAttachments.ascx.cs">
       <DependentUpon>AddTsirAttachments.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\AddTsirAttachments.ascx.designer.cs">
       <DependentUpon>AddTsirAttachments.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\AvailabilityOfOtherMachine.ascx.cs">
       <DependentUpon>AvailabilityOfOtherMachine.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\AvailabilityOfOtherMachine.ascx.designer.cs">
       <DependentUpon>AvailabilityOfOtherMachine.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddMaterialCharges.ascx.cs">
       <DependentUpon>ICTicketAddMaterialCharges.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddMaterialCharges.ascx.designer.cs">
       <DependentUpon>ICTicketAddMaterialCharges.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\AddTSIR.ascx.cs">
       <DependentUpon>AddTSIR.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\AddTSIR.ascx.designer.cs">
       <DependentUpon>AddTSIR.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddNotes.ascx.cs">
       <DependentUpon>ICTicketAddNotes.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddNotes.ascx.designer.cs">
       <DependentUpon>ICTicketAddNotes.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddOtherMachine.ascx.cs">
       <DependentUpon>ICTicketAddOtherMachine.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddOtherMachine.ascx.designer.cs">
       <DependentUpon>ICTicketAddOtherMachine.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddServiceCharges.ascx.cs">
       <DependentUpon>ICTicketAddServiceCharges.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddServiceCharges.ascx.designer.cs">
       <DependentUpon>ICTicketAddServiceCharges.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddTechnician.ascx.cs">
       <DependentUpon>ICTicketAddTechnician.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddTechnician.ascx.designer.cs">
       <DependentUpon>ICTicketAddTechnician.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddTechnicianWork.ascx.cs">
       <DependentUpon>ICTicketAddTechnicianWork.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketAddTechnicianWork.ascx.designer.cs">
       <DependentUpon>ICTicketAddTechnicianWork.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketMarginWarrantyChange.ascx.cs">
       <DependentUpon>ICTicketMarginWarrantyChange.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketMarginWarrantyChange.ascx.designer.cs">
       <DependentUpon>ICTicketMarginWarrantyChange.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketTSIRView.ascx.cs">
       <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketTSIRView.ascx.designer.cs">
       <DependentUpon>ICTicketTSIRView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketUpdateCallInformation.ascx.cs">
       <DependentUpon>ICTicketUpdateCallInformation.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketUpdateCallInformation.ascx.designer.cs">
       <DependentUpon>ICTicketUpdateCallInformation.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketUpdateRestore.ascx.cs">
       <DependentUpon>ICTicketUpdateRestore.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketUpdateRestore.ascx.designer.cs">
       <DependentUpon>ICTicketUpdateRestore.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketView.ascx.cs">
       <DependentUpon>ICTicketView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketView.ascx.designer.cs">
       <DependentUpon>ICTicketView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaim.aspx.cs">
       <DependentUpon>WarrantyClaim.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaim.aspx.designer.cs">
       <DependentUpon>WarrantyClaim.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimAnnexureCreate.aspx.cs">
       <DependentUpon>WarrantyClaimAnnexureCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimAnnexureCreate.aspx.designer.cs">
       <DependentUpon>WarrantyClaimAnnexureCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimAnnexureReport.aspx.cs">
       <DependentUpon>WarrantyClaimAnnexureReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimAnnexureReport.aspx.designer.cs">
       <DependentUpon>WarrantyClaimAnnexureReport.aspx</DependentUpon>
@@ -3101,175 +2776,150 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewService\WarrantyClaimApprovalLevel1.aspx.cs">
       <DependentUpon>WarrantyClaimApprovalLevel1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimApprovalLevel1.aspx.designer.cs">
       <DependentUpon>WarrantyClaimApprovalLevel1.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimApprovalRequest.aspx.cs">
       <DependentUpon>WarrantyClaimApprovalRequest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimApprovalRequest.aspx.designer.cs">
       <DependentUpon>WarrantyClaimApprovalRequest.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimDebitNoteAcknowledge.aspx.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledge.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimDebitNoteAcknowledge.aspx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledge.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimDebitNoteCreate.aspx.cs">
       <DependentUpon>WarrantyClaimDebitNoteCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimDebitNoteCreate.aspx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimDebitNoteReport.aspx.cs">
       <DependentUpon>WarrantyClaimDebitNoteReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimDebitNoteReport.aspx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimInvoiceCreate.aspx.cs">
       <DependentUpon>WarrantyClaimInvoiceCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimInvoiceCreate.aspx.designer.cs">
       <DependentUpon>WarrantyClaimInvoiceCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimInvoiceCreate5k.aspx.cs">
       <DependentUpon>WarrantyClaimInvoiceCreate5k.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimInvoiceCreate5k.aspx.designer.cs">
       <DependentUpon>WarrantyClaimInvoiceCreate5k.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimInvoiceReport.aspx.cs">
       <DependentUpon>WarrantyClaimInvoiceReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyClaimInvoiceReport.aspx.designer.cs">
       <DependentUpon>WarrantyClaimInvoiceReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyDeliveryReport.aspx.cs">
       <DependentUpon>WarrantyDeliveryReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyDeliveryReport.aspx.designer.cs">
       <DependentUpon>WarrantyDeliveryReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialDCCreation.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialDCCreation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialDCCreation.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialDCCreation.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialDCReport.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialDCReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialDCReport.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialDCReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialDCTemplateCreation.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialDCTemplateCreation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialDCTemplateCreation.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialDCTemplateCreation.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialGateEntry.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialGateEntry.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialGateEntry.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialGateEntry.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialReport.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialReport.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialReturn.aspx.cs">
       <DependentUpon>WarrantyFailureMaterialReturn.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyFailureMaterialReturn.aspx.designer.cs">
       <DependentUpon>WarrantyFailureMaterialReturn.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyPartsAvailabilityReport.aspx.cs">
       <DependentUpon>WarrantyPartsAvailabilityReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewService\WarrantyPartsAvailabilityReport.aspx.designer.cs">
       <DependentUpon>WarrantyPartsAvailabilityReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\AssignedSupportTicket.aspx.cs">
       <DependentUpon>AssignedSupportTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\AssignedSupportTicket.aspx.designer.cs">
       <DependentUpon>AssignedSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\AssignSupportTicket.aspx.cs">
       <DependentUpon>AssignSupportTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\AssignSupportTicket.aspx.designer.cs">
       <DependentUpon>AssignSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\ClosedSupportTicket.aspx.cs">
       <DependentUpon>ClosedSupportTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\ClosedSupportTicket.aspx.designer.cs">
       <DependentUpon>ClosedSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\DeviationProcessReport.aspx.cs">
       <DependentUpon>DeviationProcessReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\DeviationProcessReport.aspx.designer.cs">
       <DependentUpon>DeviationProcessReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\InProgressSupportTicket.aspx.cs">
       <DependentUpon>InProgressSupportTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\InProgressSupportTicket.aspx.designer.cs">
       <DependentUpon>InProgressSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\ManageSupportTicket.aspx.cs">
       <DependentUpon>ManageSupportTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\ManageSupportTicket.aspx.designer.cs">
       <DependentUpon>ManageSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\OpenSupportTicket.aspx.cs">
       <DependentUpon>OpenSupportTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\OpenSupportTicket.aspx.designer.cs">
       <DependentUpon>OpenSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\ReassignSupportTicket.aspx.cs">
       <DependentUpon>ReassignSupportTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\ReassignSupportTicket.aspx.designer.cs">
       <DependentUpon>ReassignSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\RequestSupportTicket.aspx.cs">
       <DependentUpon>RequestSupportTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\RequestSupportTicket.aspx.designer.cs">
       <DependentUpon>RequestSupportTicket.aspx</DependentUpon>
@@ -3277,98 +2927,84 @@
     <Compile Include="UIHelper.cs" />
     <Compile Include="ViewAdmin\UserList.aspx.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewAdmin\UserList.aspx.designer.cs">
       <DependentUpon>UserList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\SupportTicketView.aspx.cs">
       <DependentUpon>SupportTicketView.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\SupportTicketView.aspx.designer.cs">
       <DependentUpon>SupportTicketView.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\Task_DashboardMonthwise.aspx.cs">
       <DependentUpon>Task_DashboardMonthwise.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\Task_DashboardMonthwise.aspx.designer.cs">
       <DependentUpon>Task_DashboardMonthwise.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\UserControls\SupportTicketView.ascx.cs">
       <DependentUpon>SupportTicketView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\UserControls\SupportTicketView.ascx.designer.cs">
       <DependentUpon>SupportTicketView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\WaitingForApprovalSupportTicket.aspx.cs">
       <DependentUpon>WaitingForApprovalSupportTicket.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSupportTicket\WaitingForApprovalSupportTicket.aspx.designer.cs">
       <DependentUpon>WaitingForApprovalSupportTicket.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
     <Compile Include="View\Appointment.aspx.cs">
       <DependentUpon>Appointment.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="View\Appointment.aspx.designer.cs">
       <DependentUpon>Appointment.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\Attendance.aspx.cs">
       <DependentUpon>Attendance.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="View\Attendance.aspx.designer.cs">
       <DependentUpon>Attendance.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\Project.aspx.cs">
       <DependentUpon>Project.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="View\Project.aspx.designer.cs">
       <DependentUpon>Project.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\AddProject.ascx.cs">
       <DependentUpon>AddProject.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="View\UserControls\AddProject.ascx.designer.cs">
       <DependentUpon>AddProject.ascx</DependentUpon>
     </Compile>
     <Compile Include="View\UserControls\ProjectView.ascx.cs">
       <DependentUpon>ProjectView.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="View\UserControls\ProjectView.ascx.designer.cs">
       <DependentUpon>ProjectView.ascx</DependentUpon>
     </Compile>
     <Compile Include="View\ViewUserManual.aspx.cs">
       <DependentUpon>ViewUserManual.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="View\ViewUserManual.aspx.designer.cs">
       <DependentUpon>ViewUserManual.aspx</DependentUpon>
     </Compile>
     <Compile Include="VoiceText.aspx.cs">
       <DependentUpon>VoiceText.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="VoiceText.aspx.designer.cs">
       <DependentUpon>VoiceText.aspx</DependentUpon>
     </Compile>
     <Compile Include="VoiceText1.aspx.cs">
       <DependentUpon>VoiceText1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="VoiceText1.aspx.designer.cs">
       <DependentUpon>VoiceText1.aspx</DependentUpon>
@@ -3417,6 +3053,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Print\PhysicalInventoryPosting.rdlc" />
     <EmbeddedResource Include="Print\PurchaseOrder.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
