@@ -133,24 +133,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 //string IsWarrenty = "false";
 
                 //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DSSOR_SALES_ORDER_HDR", 1, Material, SoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+ 
 
-                List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
-                Material_SapS.Add(new PMaterial_Api()
+                PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
+                MaterialPrice.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
+                MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+                MaterialPrice.OrderType = "101_DSSOR_SALES_ORDER_HDR";
+
+                MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
+                MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
                 {
-                    MaterialCode = SoI.MaterialCode,
-                    Quantity = SoI.Quantity,
-                    Item = (Material_SapS.Count + 1) * 10
+                    ItemNo = "10",
+                    Material = SoI.MaterialCode,
+                    Quantity = SoI.Quantity
                 });
+                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
 
-                PMaterialTax_Api MaterialTax_Sap = new PMaterialTax_Api();
-                MaterialTax_Sap.Material = Material_SapS;
-                MaterialTax_Sap.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
-                MaterialTax_Sap.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-                MaterialTax_Sap.OrderType = "101_DSSOR_SALES_ORDER_HDR";
-                MaterialTax_Sap.IV_SEC_SALES = "";
-                // MaterialTax_Sap.PriceDate = "";
-                MaterialTax_Sap.IsWarrenty = false;
-                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapMulti(MaterialTax_Sap);
                 PMaterial Mat = Mats[0];
 
                 //Mat.CurrentPrice = Convert.ToDecimal(1000);

@@ -214,17 +214,17 @@ namespace Business
                 + "&Material=" + Material + "&Quantity=" + Quantity + "&IV_SEC_SALES=" + IV_SEC_SALES + "&PriceDate=" + PriceDate + "&IsWarrenty=" + IsWarrenty;
             return JsonConvert.DeserializeObject<PMaterial>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public List<PMaterial> MaterialPriceFromSapMulti(PMaterialTax_Api MaterialTax_Sap)
-        {
-            string endPoint = "Material/MaterialPriceFromSapMulti";
+        //public List<PMaterial> MaterialPriceFromSapMulti(PMaterialTax_Api MaterialTax_Sap)
+        //{
+        //    string endPoint = "Material/MaterialPriceFromSapMulti";
 
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialTax_Sap));
-            if (Result.Status == PApplication.Failure)
-            {
-                throw new Exception(Result.Message);
-            }
-            return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
-        }
+        //    PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialTax_Sap));
+        //    if (Result.Status == PApplication.Failure)
+        //    {
+        //        throw new Exception(Result.Message);
+        //    }
+        //    return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
+        //}
 
         public List<PMaterial> MaterialPriceFromSapApi(PSapMatPrice_Input MaterialPrice)
         {

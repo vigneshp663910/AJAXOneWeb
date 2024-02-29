@@ -390,6 +390,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         protected string Save(string MaterialID, string MaterialCode, string Qty)
         {
+
             lblMessageMaterialUpload.ForeColor = Color.Red;
             lblMessageMaterialUpload.Visible = true;
             lblMessage.ForeColor = Color.Red;
@@ -463,16 +464,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 Quantity = PoI.Quantity,
                 Item = (Material_SapS.Count + 1) * 10
             });
+            PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
+            MaterialPrice.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+            MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
+            MaterialPrice.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
 
-            PMaterialTax_Api MaterialTax_Sap = new PMaterialTax_Api();
-            MaterialTax_Sap.Material = Material_SapS;
-            MaterialTax_Sap.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-            MaterialTax_Sap.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
-            MaterialTax_Sap.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
-            MaterialTax_Sap.IV_SEC_SALES = "";
-            // MaterialTax_Sap.PriceDate = "";
-            MaterialTax_Sap.IsWarrenty = false;
-            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapMulti(MaterialTax_Sap);
+            MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
+            MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
+            {
+                ItemNo = "10",
+                Material = PoI.MaterialCode,
+                Quantity = PoI.Quantity
+            });
+
+
+            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
             PMaterial Mat = Mats[0];
 
             if (Mat.CurrentPrice == 0)
