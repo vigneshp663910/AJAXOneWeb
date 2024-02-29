@@ -413,42 +413,49 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //    return;
             //}
         }
-      
+
 
         protected void btnSubmitMaterial_Click(object sender, EventArgs e)
         {
-            MPE_AddMaterial.Show();
-
-            lblMessageAddMaterial.ForeColor = Color.Red;  
-            lblMessage.ForeColor = Color.Red;  
-            if (StockTransferOrder.Items.Any(item => item.Material.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
+            try
             {
-                lblMessageAddMaterial.Text = "Material Already Available...!";
                 MPE_AddMaterial.Show();
-                return;
-            } 
-            PStockTransferOrderItem_Insert PoI = new PStockTransferOrderItem_Insert(); 
-            PoI.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
-            PoI.MaterialCode = hdfMaterialCode.Value; 
-            PoI.StockTransferOrderID = StockTransferOrder.StockTransferOrderID;
-            PoI.Quantity = Convert.ToDecimal(txtQty.Text); 
 
-            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
-            PoI.MaterialDescription = m.MaterialDescription; 
+                lblMessageAddMaterial.ForeColor = Color.Red;
+                lblMessage.ForeColor = Color.Red;
+                if (StockTransferOrder.Items.Any(item => item.Material.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
+                {
+                    lblMessageAddMaterial.Text = "Material Already Available...!";
+                    MPE_AddMaterial.Show();
+                    return;
+                }
+                PStockTransferOrderItem_Insert PoI = new PStockTransferOrderItem_Insert();
+                PoI.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
+                PoI.MaterialCode = hdfMaterialCode.Value;
+                PoI.StockTransferOrderID = StockTransferOrder.StockTransferOrderID;
+                PoI.Quantity = Convert.ToDecimal(txtQty.Text);
 
-            PoI = new BStockTransferOrder().GetMaterialPriceForStockTransferOrder(StockTransferOrder.Dealer.DealerID, PoI); 
-            PurchaseOrderItem_Insert.Add(PoI); 
-            PApiResult Result = new BStockTransferOrder().InsertOrUpdateStockTransferOrderItem(PoI); 
-            if (Result.Status == PApplication.Failure)
-            {
-                lblMessageAddMaterial.Text = Result.Message; 
-                return;
+                PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
+                PoI.MaterialDescription = m.MaterialDescription;
+
+                PoI = new BStockTransferOrder().GetMaterialPriceForStockTransferOrder(StockTransferOrder.Dealer.DealerID, PoI);
+                PurchaseOrderItem_Insert.Add(PoI);
+                PApiResult Result = new BStockTransferOrder().InsertOrUpdateStockTransferOrderItem(PoI);
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessageAddMaterial.Text = Result.Message;
+                    return;
+                }
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Green;
+                MPE_AddMaterial.Hide();
+                fillViewPO(StockTransferOrder.StockTransferOrderID);
             }
-            lblMessage.Text = Result.Message;
-            lblMessage.ForeColor = Color.Green;
-            MPE_AddMaterial.Hide();
-            fillViewPO(StockTransferOrder.StockTransferOrderID);
-        } 
+            catch (Exception e1)
+            {
+                lblMessage.Text = e1.Message;
+            }
+        }
         protected void lnkBtngvDeliveryAction_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);

@@ -194,75 +194,84 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red; 
-            string Message = Validation();
-            if (!string.IsNullOrEmpty(Message))
+            try
             {
-                lblMessage.Text = Message;
-                return;
+                lblMessage.ForeColor = Color.Red;
+                string Message = Validation();
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    return;
+                }
+                Message = ValidationItem(hdfMaterialID.Value, txtQty.Text.Trim());
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    return;
+                }
+                if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
+                {
+                    lblMessage.Text = "Material already available.";
+                    return;
+                }
+                PO_Insert = Read();
+                PStockTransferOrderItem_Insert PoI = ReadItem(PO_Insert.DealerID, hdfMaterialID.Value, hdfMaterialCode.Value.Trim(), txtQty.Text.Trim());
+                 
+                PurchaseOrderItem_Insert.Add(PoI);
+                PoI.Item = PurchaseOrderItem_Insert.Count * 10;
+                fillItem();
+                ClearItem();
             }
-            Message = ValidationItem(hdfMaterialID.Value, txtQty.Text.Trim());
-            if (!string.IsNullOrEmpty(Message))
+            catch(Exception e1)
             {
-                lblMessage.Text = Message;
-                return;
+                lblMessage.Text = e1.Message;
             }
-            if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
-            {
-                lblMessage.Text = "Material already available.";
-                return;
-            }
-            PO_Insert = Read();
-            PStockTransferOrderItem_Insert PoI = ReadItem(PO_Insert.DealerID,hdfMaterialID.Value, hdfMaterialCode.Value.Trim(), txtQty.Text.Trim());
-           
-            
-
-            
-
-
-            PurchaseOrderItem_Insert.Add(PoI);
-            PoI.Item = PurchaseOrderItem_Insert.Count * 10;
-            fillItem();
-            ClearItem();
         }
         void Save(string MaterialID, string MaterialCode, string Qty)
         {
-            lblMessageMaterialUpload.ForeColor = Color.Red; 
-            lblMessage.ForeColor = Color.Red; 
-            string Message = Validation();
-            if (!string.IsNullOrEmpty(Message))
+            try
             {
-                lblMessage.Text = Message;
-                return;
+                lblMessageMaterialUpload.ForeColor = Color.Red;
+                lblMessage.ForeColor = Color.Red;
+                string Message = Validation();
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    return;
+                }
+                Message = ValidationItem(MaterialID, Qty);
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessageMaterialUpload.Text = Message;
+                    MPE_MaterialUpload.Show();
+                    return;
+                }
+                if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(MaterialID)))
+                {
+                    lblMessageMaterialUpload.Text = "Dublicate Material Found.";
+                    MPE_MaterialUpload.Show();
+                    return;
+                }
+                PO_Insert = Read();
+                PStockTransferOrderItem_Insert PoI = ReadItem(PO_Insert.DealerID, MaterialID, MaterialCode, Qty);
+                PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
+                PoI.MaterialDescription = m.MaterialDescription;
+                if (string.IsNullOrEmpty(m.HSN))
+                {
+                    lblMessageMaterialUpload.Text = "HSN is Not updated for this material. Please contact Admin.";
+                    MPE_MaterialUpload.Show();
+                    return;
+                }
+                PurchaseOrderItem_Insert.Add(PoI);
+                PoI.Item = PurchaseOrderItem_Insert.Count * 10;
+                fillItem();
+                ClearItem();
             }
-            Message = ValidationItem(MaterialID, Qty);
-            if (!string.IsNullOrEmpty(Message))
+            catch (Exception e1)
             {
-                lblMessageMaterialUpload.Text = Message;
-                MPE_MaterialUpload.Show();
-                return;
+                lblMessage.Text = e1.Message;
             }
-            if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(MaterialID)))
-            {
-                lblMessageMaterialUpload.Text = "Dublicate Material Found.";
-                MPE_MaterialUpload.Show();
-                return;
-            }
-            PO_Insert = Read();
-            PStockTransferOrderItem_Insert PoI = ReadItem(PO_Insert.DealerID, MaterialID, MaterialCode, Qty);
-            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
-            PoI.MaterialDescription = m.MaterialDescription; 
-            if (string.IsNullOrEmpty(m.HSN))
-            {
-                lblMessageMaterialUpload.Text = "HSN is Not updated for this material. Please contact Admin.";
-                MPE_MaterialUpload.Show();
-                return;
-            } 
-            PurchaseOrderItem_Insert.Add(PoI);
-            PoI.Item = PurchaseOrderItem_Insert.Count * 10;
-            fillItem();
-            ClearItem();
-        } 
+        }
        
         
         void ClearItem()

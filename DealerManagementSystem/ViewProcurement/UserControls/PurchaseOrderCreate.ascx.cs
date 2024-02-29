@@ -292,95 +292,101 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
-            string Message = Validation();
-            if (!string.IsNullOrEmpty(Message))
+            try
             {
-                lblMessage.Text = Message;
-                return;
-            }
-            Message = ValidationItem(hdfMaterialID.Value, txtQty.Text.Trim());
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessage.Text = Message;
-                return;
-            }
-            if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
-            {
-                lblMessage.Text = "Material already available.";
-                return;
-            }
-            PPurchaseOrderItem_Insert PoI = ReadItem(hdfMaterialID.Value, hdfMaterialCode.Value.Trim(), txtQty.Text.Trim());
-            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
-            PoI.MaterialDescription = m.MaterialDescription;
-            PoI.UOM = m.BaseUnit;
-            if (string.IsNullOrEmpty(m.HSN))
-            {
-                lblMessage.Text = "HSN is Not updated for this material " + m.MaterialCode + ". Please contact Admin.";
-                return;
-            }
-            PO_Insert = Read();
-            if (PO_Insert.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
-            {
-                if ((PurchaseOrderItem_Insert.Count != 0) || (PoI.Quantity != 1))
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                string Message = Validation();
+                if (!string.IsNullOrEmpty(Message))
                 {
-                    lblMessage.Text = "In machine Order you cannot add more material or more quantity.";
+                    lblMessage.Text = Message;
                     return;
                 }
+                Message = ValidationItem(hdfMaterialID.Value, txtQty.Text.Trim());
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    return;
+                }
+                if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
+                {
+                    lblMessage.Text = "Material already available.";
+                    return;
+                }
+                PPurchaseOrderItem_Insert PoI = ReadItem(hdfMaterialID.Value, hdfMaterialCode.Value.Trim(), txtQty.Text.Trim());
+                PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
+                PoI.MaterialDescription = m.MaterialDescription;
+                PoI.UOM = m.BaseUnit;
+                if (string.IsNullOrEmpty(m.HSN))
+                {
+                    lblMessage.Text = "HSN is Not updated for this material " + m.MaterialCode + ". Please contact Admin.";
+                    return;
+                }
+                PO_Insert = Read();
+                if (PO_Insert.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
+                {
+                    if ((PurchaseOrderItem_Insert.Count != 0) || (PoI.Quantity != 1))
+                    {
+                        lblMessage.Text = "In machine Order you cannot add more material or more quantity.";
+                        return;
+                    }
+                }
+
+                //  string Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+                // string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
+                //  string OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
+                string Material = PoI.MaterialCode;
+                string IV_SEC_SALES = "";
+                //string PriceDate = DateTime.Now.ToShortDateString();
+                // string PriceDate = "";
+                // string IsWarrenty = "false";
+
+                //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, PoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
+
+                PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
+                MaterialPrice.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+                MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
+                MaterialPrice.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
+
+                //MaterialPrice.Division = "";
+                //    MaterialPrice.PriceDate =
+                MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
+                MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
+                {
+                    ItemNo = "10",
+                    Material = PoI.MaterialCode,
+                    Quantity = PoI.Quantity
+                });
+
+                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                PMaterial Mat = Mats[0];
+                if (Mat.CurrentPrice == 0)
+                {
+                    lblMessage.Text = "Price is Not updated for this material " + Material + ". Please contact Admin.";
+                    return;
+                }
+                PoI.UnitPrice = Mat.CurrentPrice / PoI.Quantity;
+                PoI.Price = Mat.CurrentPrice;
+                PoI.DiscountAmount = Mat.Discount;
+                PoI.TaxableAmount = Mat.TaxablePrice;
+                PoI.SGST = Mat.SGST;
+                PoI.SGSTValue = Mat.SGSTValue;
+                PoI.CGST = Mat.SGST;
+                PoI.CGSTValue = Mat.SGSTValue;
+                PoI.IGST = Mat.IGST;
+                PoI.IGSTValue = Mat.IGSTValue;
+                PoI.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
+                PoI.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
+                PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
+                PurchaseOrderItem_Insert.Add(PoI);
+                PoI.Item = PurchaseOrderItem_Insert.Count * 10;
+                fillItem();
+                ClearItem(); 
             }
-
-            //  string Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-            // string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
-            //  string OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
-            string Material = PoI.MaterialCode;
-            string IV_SEC_SALES = "";
-            //string PriceDate = DateTime.Now.ToShortDateString();
-            // string PriceDate = "";
-            // string IsWarrenty = "false";
-
-            //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, PoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
-
-            PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
-            MaterialPrice.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-            MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
-            MaterialPrice.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
-
-            //MaterialPrice.Division = "";
-            //    MaterialPrice.PriceDate =
-            MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
-            MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
+            catch(Exception e1)
             {
-                ItemNo = "10",
-                Material = PoI.MaterialCode,
-                Quantity = PoI.Quantity
-            });
-
-            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-            PMaterial Mat = Mats[0];
-            if (Mat.CurrentPrice == 0)
-            {
-                lblMessage.Text = "Price is Not updated for this material " + Material + ". Please contact Admin.";
-                return;
+                lblMessage.Text = e1.Message; 
             }
-            PoI.UnitPrice = Mat.CurrentPrice / PoI.Quantity;
-            PoI.Price = Mat.CurrentPrice;
-            PoI.DiscountAmount = Mat.Discount;
-            PoI.TaxableAmount = Mat.TaxablePrice;
-            PoI.SGST = Mat.SGST;
-            PoI.SGSTValue = Mat.SGSTValue;
-            PoI.CGST = Mat.SGST;
-            PoI.CGSTValue = Mat.SGSTValue;
-            PoI.IGST = Mat.IGST;
-            PoI.IGSTValue = Mat.IGSTValue;
-            PoI.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
-            PoI.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
-            PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
-            PurchaseOrderItem_Insert.Add(PoI);
-            PoI.Item = PurchaseOrderItem_Insert.Count * 10;
-            fillItem();
-            ClearItem();
-            btnAddMaterial.Visible = false;
         }
         protected string Save(string MaterialID, string MaterialCode, string Qty)
         {
@@ -863,117 +869,124 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void btnCopyPoAdd_Click(object sender, EventArgs e)
         {
-            lblMessageCopyOrder.Text = "";
-            lblMessageCopyOrder.ForeColor = Color.Red;
-            lblMessageCopyOrder.Visible = true;
-            List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
-            PMaterial_Api Material_Sap = new PMaterial_Api();
-
-            for (int j = 0; j < gvMaterialCopyOrder.Rows.Count; j++)
+            try
             {
-                CheckBox cbSelectChild = (CheckBox)gvMaterialCopyOrder.Rows[j].FindControl("cbSelectChild");
-                if (cbSelectChild.Checked)
+                lblMessageCopyOrder.Text = "";
+                lblMessageCopyOrder.ForeColor = Color.Red;
+                lblMessageCopyOrder.Visible = true;
+                List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
+                PMaterial_Api Material_Sap = new PMaterial_Api();
+
+                for (int j = 0; j < gvMaterialCopyOrder.Rows.Count; j++)
                 {
-                    Label lblMaterial = (Label)gvMaterialCopyOrder.Rows[j].FindControl("lblMaterial");
-                    List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(lblMaterial.Text, "", Convert.ToInt32(ddlDivision.SelectedValue), "false");
-                    if (Materials.Count == 0)
+                    CheckBox cbSelectChild = (CheckBox)gvMaterialCopyOrder.Rows[j].FindControl("cbSelectChild");
+                    if (cbSelectChild.Checked)
                     {
-                        lblMessageCopyOrder.Text = "Material " + lblMaterial.Text + " Not Available.";
-                        lblMessageCopyOrder.Visible = true;
-                        lblMessageCopyOrder.ForeColor = Color.Red;
-                        MPE_CopyOrder.Show();
-                        return;
-                    }
-                    foreach (PPurchaseOrderItem_Insert Item in PurchaseOrderItem_Insert)
-                    {
-                        if (Item.MaterialCode == lblMaterial.Text)
+                        Label lblMaterial = (Label)gvMaterialCopyOrder.Rows[j].FindControl("lblMaterial");
+                        List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(lblMaterial.Text, "", Convert.ToInt32(ddlDivision.SelectedValue), "false");
+                        if (Materials.Count == 0)
                         {
-                            continue;
+                            lblMessageCopyOrder.Text = "Material " + lblMaterial.Text + " Not Available.";
+                            lblMessageCopyOrder.Visible = true;
+                            lblMessageCopyOrder.ForeColor = Color.Red;
+                            MPE_CopyOrder.Show();
+                            return;
+                        }
+                        foreach (PPurchaseOrderItem_Insert Item in PurchaseOrderItem_Insert)
+                        {
+                            if (Item.MaterialCode == lblMaterial.Text)
+                            {
+                                continue;
+                            }
+                        }
+                        if (Material_SapS.Where(M => M.MaterialCode == lblMaterial.Text).Count() + (PurchaseOrderItem_Insert.Where(M => M.MaterialCode == lblMaterial.Text).Count()) == 0)
+                        {
+                            Label lblPartQty = (Label)gvMaterialCopyOrder.Rows[j].FindControl("lblPartQty");
+                            Material_Sap = new PMaterial_Api();
+                            Material_Sap.MaterialCode = lblMaterial.Text;
+                            Material_Sap.Quantity = Convert.ToDecimal(lblPartQty.Text);
+                            Material_Sap.Item = (Material_SapS.Count + 1) * 10;
+                            Material_SapS.Add(Material_Sap);
                         }
                     }
-                    if (Material_SapS.Where(M => M.MaterialCode == lblMaterial.Text).Count() + (PurchaseOrderItem_Insert.Where(M => M.MaterialCode == lblMaterial.Text).Count()) == 0)
-                    {
-                        Label lblPartQty = (Label)gvMaterialCopyOrder.Rows[j].FindControl("lblPartQty");
-                        Material_Sap = new PMaterial_Api();
-                        Material_Sap.MaterialCode = lblMaterial.Text;
-                        Material_Sap.Quantity = Convert.ToDecimal(lblPartQty.Text);
-                        Material_Sap.Item = (Material_SapS.Count + 1) * 10;
-                        Material_SapS.Add(Material_Sap);
-                    }
                 }
-            }
 
-            //PMaterialTax_Api MaterialTax_Sap = new PMaterialTax_Api();
-            //MaterialTax_Sap.Material = Material_SapS;
-            //MaterialTax_Sap.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-            //MaterialTax_Sap.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
-            //MaterialTax_Sap.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
-            //MaterialTax_Sap.IV_SEC_SALES = "";
-            //// MaterialTax_Sap.PriceDate = "";
-            //MaterialTax_Sap.IsWarrenty = false;
-            //List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapMulti(MaterialTax_Sap);
+                //PMaterialTax_Api MaterialTax_Sap = new PMaterialTax_Api();
+                //MaterialTax_Sap.Material = Material_SapS;
+                //MaterialTax_Sap.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+                //MaterialTax_Sap.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
+                //MaterialTax_Sap.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
+                //MaterialTax_Sap.IV_SEC_SALES = "";
+                //// MaterialTax_Sap.PriceDate = "";
+                //MaterialTax_Sap.IsWarrenty = false;
+                //List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapMulti(MaterialTax_Sap);
 
-            PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
-            MaterialPrice.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-            MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
-            MaterialPrice.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
-            MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
-            foreach (PMaterial_Api M in Material_SapS)
-            {
-                MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
-                {
-                    ItemNo = M.Item.ToString(),
-                    Material = M.MaterialCode,
-                    Quantity = M.Quantity
-                });
-            }
-
-            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-            foreach (PMaterial Mat in Mats)
-            {
-                if (Mat.CurrentPrice == 0)
-                {
-                    lblMessageMaterialFromCart.Text = "Price is Not updated for this material " + Mat.MaterialCode + ". Please contact Admin.";
-                    lblMessageMaterialFromCart.Visible = true;
-                    lblMessageMaterialFromCart.ForeColor = Color.Red;
-                    MPE_MaterialFromCart.Show();
-                    return;
-                }
-            }
-            foreach (PMaterial Mat in Mats)
-            {
-                PPurchaseOrderItem_Insert PoI = new PPurchaseOrderItem_Insert();
-                PDMS_Material MaterialSql = new BDMS_Material().GetMaterialListSQL(null, Mat.MaterialCode, null, null, null)[0];
-                PoI.MaterialID = MaterialSql.MaterialID;
-                PoI.UOM = MaterialSql.BaseUnit;
-                //PoI.
-                PoI.MaterialCode = Mat.MaterialCode;
+                PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
+                MaterialPrice.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+                MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
+                MaterialPrice.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
+                MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
                 foreach (PMaterial_Api M in Material_SapS)
                 {
-                    if (Mat.MaterialCode == M.MaterialCode)
+                    MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
                     {
-                        PoI.Quantity = M.Quantity;
-                    }
+                        ItemNo = M.Item.ToString(),
+                        Material = M.MaterialCode,
+                        Quantity = M.Quantity
+                    });
                 }
 
-                PoI.UnitPrice = Mat.CurrentPrice / PoI.Quantity;
-                PoI.Price = Mat.CurrentPrice;
-                PoI.DiscountAmount = Mat.Discount;
-                PoI.TaxableAmount = Mat.TaxablePrice;
-                PoI.SGST = Mat.SGST;
-                PoI.SGSTValue = Mat.SGSTValue;
-                PoI.CGST = Mat.SGST;
-                PoI.CGSTValue = Mat.SGSTValue;
-                PoI.IGST = Mat.IGST;
-                PoI.IGSTValue = Mat.IGSTValue;
-                PoI.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
-                PoI.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
-                PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
+                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                foreach (PMaterial Mat in Mats)
+                {
+                    if (Mat.CurrentPrice == 0)
+                    {
+                        lblMessageMaterialFromCart.Text = "Price is Not updated for this material " + Mat.MaterialCode + ". Please contact Admin.";
+                        lblMessageMaterialFromCart.Visible = true;
+                        lblMessageMaterialFromCart.ForeColor = Color.Red;
+                        MPE_MaterialFromCart.Show();
+                        return;
+                    }
+                }
+                foreach (PMaterial Mat in Mats)
+                {
+                    PPurchaseOrderItem_Insert PoI = new PPurchaseOrderItem_Insert();
+                    PDMS_Material MaterialSql = new BDMS_Material().GetMaterialListSQL(null, Mat.MaterialCode, null, null, null)[0];
+                    PoI.MaterialID = MaterialSql.MaterialID;
+                    PoI.UOM = MaterialSql.BaseUnit;
+                    //PoI.
+                    PoI.MaterialCode = Mat.MaterialCode;
+                    foreach (PMaterial_Api M in Material_SapS)
+                    {
+                        if (Mat.MaterialCode == M.MaterialCode)
+                        {
+                            PoI.Quantity = M.Quantity;
+                        }
+                    }
 
-                PurchaseOrderItem_Insert.Add(PoI);
-                PoI.Item = PurchaseOrderItem_Insert.Count * 10;
+                    PoI.UnitPrice = Mat.CurrentPrice / PoI.Quantity;
+                    PoI.Price = Mat.CurrentPrice;
+                    PoI.DiscountAmount = Mat.Discount;
+                    PoI.TaxableAmount = Mat.TaxablePrice;
+                    PoI.SGST = Mat.SGST;
+                    PoI.SGSTValue = Mat.SGSTValue;
+                    PoI.CGST = Mat.SGST;
+                    PoI.CGSTValue = Mat.SGSTValue;
+                    PoI.IGST = Mat.IGST;
+                    PoI.IGSTValue = Mat.IGSTValue;
+                    PoI.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
+                    PoI.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
+                    PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
+
+                    PurchaseOrderItem_Insert.Add(PoI);
+                    PoI.Item = PurchaseOrderItem_Insert.Count * 10;
+                }
+                fillItem();
             }
-            fillItem();
+            catch (Exception e1)
+            {
+                lblMessage.Text = e1.Message;
+            }
         }
         void Upload()
         {
@@ -1088,69 +1101,72 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void Btn_MatAvailability_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "";
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
-            string Message = Validation();
-            if (!string.IsNullOrEmpty(Message))
+            try
             {
-                lblMessage.Text = Message;
-                return;
-            }
-            Message = ValidationItem(hdfMaterialID.Value, txtQty.Text.Trim());
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessage.Text = Message;
-                return;
-            }
-            if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
-            {
-                lblMessage.Text = "Material already available.";
-                return;
-            }
-            PPurchaseOrderItem_Insert PoI = ReadItem(hdfMaterialID.Value, hdfMaterialCode.Value.Trim(), txtQty.Text.Trim());
-            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
-            PoI.MaterialDescription = m.MaterialDescription;
-            PoI.UOM = m.BaseUnit;
-            if (string.IsNullOrEmpty(m.HSN))
-            {
-                lblMessage.Text = "HSN is Not updated for this material " + m.MaterialCode + ". Please contact Admin.";
-                return;
-            }
-            PO_Insert = Read();
-            if (PO_Insert.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
-            {
-                if ((PurchaseOrderItem_Insert.Count != 0) || (PoI.Quantity != 1))
+                lblMessage.Text = "";
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+                string Message = Validation();
+                if (!string.IsNullOrEmpty(Message))
                 {
-                    lblMessage.Text = "In machine Order you cannot add more material or more quantity.";
+                    lblMessage.Text = Message;
+                    return;
+                }
+                Message = ValidationItem(hdfMaterialID.Value, txtQty.Text.Trim());
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    return;
+                }
+                if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
+                {
+                    lblMessage.Text = "Material already available.";
+                    return;
+                }
+                PPurchaseOrderItem_Insert PoI = ReadItem(hdfMaterialID.Value, hdfMaterialCode.Value.Trim(), txtQty.Text.Trim());
+                PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
+                PoI.MaterialDescription = m.MaterialDescription;
+                PoI.UOM = m.BaseUnit;
+                if (string.IsNullOrEmpty(m.HSN))
+                {
+                    lblMessage.Text = "HSN is Not updated for this material " + m.MaterialCode + ". Please contact Admin.";
+                    return;
+                }
+                PO_Insert = Read();
+                if (PO_Insert.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
+                {
+                    if ((PurchaseOrderItem_Insert.Count != 0) || (PoI.Quantity != 1))
+                    {
+                        lblMessage.Text = "In machine Order you cannot add more material or more quantity.";
+                        return;
+                    }
+                }
+
+                PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
+                MaterialPrice.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+                MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
+                MaterialPrice.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
+
+                MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
+                MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
+                {
+                    ItemNo = "10",
+                    Material = PoI.MaterialCode,
+                    Quantity = PoI.Quantity
+                });
+
+                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                PMaterial Mat = Mats[0];
+                if (Mat.CurrentPrice == 0)
+                {
+                    lblMessage.Text = "Price is Not updated for this material " + PoI.MaterialCode + ". Please contact Admin.";
                     return;
                 }
             }
-
-            string Material = PoI.MaterialCode;
-            string IV_SEC_SALES = "";
-            
-            PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
-            MaterialPrice.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-            MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
-            MaterialPrice.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
-
-            MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
-            MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
+            catch (Exception e1)
             {
-                ItemNo = "10",
-                Material = PoI.MaterialCode,
-                Quantity = PoI.Quantity
-            });
-
-            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-            PMaterial Mat = Mats[0];
-            if (Mat.CurrentPrice == 0)
-            {
-                lblMessage.Text = "Price is Not updated for this material " + Material + ". Please contact Admin.";
-                return;
+                lblMessage.Text = e1.Message;
             }
-            btnAddMaterial.Visible = true;
         }
     }
 }

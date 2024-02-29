@@ -125,7 +125,7 @@
                     </div>
                     <div class="col-md-4 text-left">
                         <label class="modal-label">.</label>
-                        <asp:Button ID="btnAddMaterial" runat="server" Text="Add" CssClass="btn Search" OnClick="btnAddMaterial_Click" Visible="false"/>
+                        <asp:Button ID="btnAddMaterial" runat="server" Text="Add" CssClass="btn Search" OnClick="btnAddMaterial_Click"/>
 
                         <asp:Button ID="Btn_MatAvailability" runat="server" Text="Availability" CssClass="btn Save" OnClick="Btn_MatAvailability_Click" />
                     </div>
