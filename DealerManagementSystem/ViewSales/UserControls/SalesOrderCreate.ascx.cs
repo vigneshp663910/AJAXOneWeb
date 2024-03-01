@@ -88,6 +88,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
             txtBoxHeaderDiscountPercent.Text = "0";
+            ClearHeader();
+            ClearItem();
         }        
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -139,7 +141,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 MaterialPrice.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
                 MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
                 MaterialPrice.OrderType = "101_DSSOR_SALES_ORDER_HDR";
-
+                MaterialPrice.Division = "SP";
                 MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
                 MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
                 {
@@ -433,8 +435,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlTaxType.SelectedValue = "0";
             cxExpectedDeliveryDate.StartDate = DateTime.Now;
             ddlSalesEngineer.SelectedValue = "0";
-            gvSOItem.DataSource = null;
-            gvSOItem.DataBind();
         }
         void ClearItem()
         {
@@ -442,6 +442,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             hdfMaterialCode.Value = "";
             txtMaterial.Text = "";
             txtQty.Text = "";
+            gvSOItem.DataSource = null;
+            gvSOItem.DataBind();
         }
         protected void btnSaveSOItem_Click(object sender, EventArgs e)
         { 

@@ -265,7 +265,7 @@ namespace Properties
         public string Customer { get; set; }
         public string Vendor { get; set; }
         public string OrderType { get; set; }
-        public string Divition { get; set; }
+        public string Division { get; set; }
         public DateTime? PriceDate { get; set; }
         public List<PSapMatPriceItem_Input> Item { get; set; }
     }

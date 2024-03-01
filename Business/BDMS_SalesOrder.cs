@@ -1202,7 +1202,7 @@ namespace Business
         }
         public PApiResult GetSaleOrderReport(long? SaleOrderID, string DateFrom, string DateTo, string QuotationNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderStatusID, int? SaleOrderTypeID)
         {
-            string endPoint = "SaleOrder/GetSaleOrderReport?DealerID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SaleOrderNumber=" + QuotationNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
+            string endPoint = "SaleOrder/GetSaleOrderReport?SaleOrderID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SaleOrderNumber=" + QuotationNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
                 + "&CustomerCode=" + CustomerCode + "&SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderTypeID=" + SaleOrderTypeID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }

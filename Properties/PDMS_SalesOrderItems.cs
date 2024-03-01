@@ -282,6 +282,7 @@ namespace Properties
         public DateTime CreatedOn { get; set; }
         public PUser CancelledBy { get; set; }
         public DateTime CancelledOn { get; set; }
+        public decimal DeliveredQuantity { get; set; }
     }
     [Serializable]
     public class PSaleOrderDelivery

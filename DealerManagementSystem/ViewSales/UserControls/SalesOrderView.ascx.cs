@@ -173,6 +173,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbReleaseSaleOrder.Visible = false;
                 lbGenerateQuotation.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
+                lbDelivery.Visible = false;
+            }
+            if (StatusID == 14) //Partially Delivered
+            {
+                lbEditSaleOrder.Visible = false;
+                lbCancelSaleOrder.Visible = false;
+                lbAddSaleOrderItem.Visible = false;
+                lbReleaseSaleOrder.Visible = false;
+                lbGenerateQuotation.Visible = false;
+                lbGenerateProformaInvoice.Visible = false;
             }
             DisableSOItemEditDelete();
         }
@@ -278,8 +288,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                         MaterialCode = Item.Material.MaterialCode,
                         MaterialDescription = Item.Material.MaterialDescription,
                         UOM = Item.Material.BaseUnit,
-                        Quantity = Item.Quantity,
-                        DeliveryQuantity = Item.Quantity,
+                        Quantity = Item.Quantity - Item.DeliveredQuantity,
+                        DeliveryQuantity = Item.Quantity - Item.DeliveredQuantity,
                         Value = Item.Value,
                         TaxableValue = Item.TaxableValue,
                         CGST = Item.Material.CGST,
