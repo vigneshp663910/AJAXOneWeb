@@ -208,6 +208,47 @@ namespace Business
             }
             return SOIs;
         }
+        public int GetMaterialSupersedeFinalByID(int MaterialID)
+        {
+            int cout = 0;
+            int smaterial = MaterialID;
+            do
+            {
+                cout = cout + 1;
+                if(cout==100)
+                {
+                    throw new Exception("Material Has supersede issue Please contact support team.");
+                }
+                MaterialID = smaterial;
+                List<PDMS_Material> d = GetMaterialSupersede(MaterialID, null);
+                if (d.Count == 1)
+                {
+                    smaterial = d[0].MaterialID;
+                }
+            } while (smaterial != MaterialID);
+            return MaterialID;
+        }
+        public string GetMaterialSupersedeFinalByCode(string MaterialCode)
+        {
+            int cout = 0;
+            string smaterial = MaterialCode;
+            do
+            {
+                cout = cout + 1;
+                if (cout == 100)
+                {
+                    throw new Exception("Material Has supersede issue Please contact support team.");
+                }
+
+                MaterialCode = smaterial;
+                List<PDMS_Material> d = GetMaterialSupersede(null, MaterialCode);
+                if (d.Count == 1)
+                {
+                    smaterial = d[0].MaterialCode;
+                }
+            } while (smaterial != MaterialCode);
+            return MaterialCode;
+        }
         public PMaterial MaterialPriceFromSap(string Customer, string Vendor, string OrderType, int Item, string Material, decimal Quantity, string IV_SEC_SALES, string PriceDate, string IsWarrenty)
         {
             string endPoint = "Material/MaterialPriceFromSap?Customer=" + Customer + "&Vendor=" + Vendor + "&OrderType=" + OrderType + "&Item=" + Item
