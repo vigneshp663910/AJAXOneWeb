@@ -76,7 +76,7 @@
                         <asp:TemplateField HeaderText="Quantity">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "GRItem.DamagedQty","{0:n}")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "GRItem.RestrictedQty","{0:n}")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
