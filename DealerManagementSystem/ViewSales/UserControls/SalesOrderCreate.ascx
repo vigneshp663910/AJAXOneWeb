@@ -117,7 +117,7 @@
                     <asp:Label ID="lblDiscountValue" runat="server" BorderColor="Silver"></asp:Label>
                 </div>
                 <div class="col-sm-12">
-                    <label>Taxable Value</label>
+                    <label>Taxable Value : </label>
                     <asp:Label ID="lblTaxableValue" runat="server" BorderColor="Silver"></asp:Label>
                 </div>
                 <div class="col-sm-12">
