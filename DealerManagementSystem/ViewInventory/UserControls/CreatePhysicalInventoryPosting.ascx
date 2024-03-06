@@ -4,31 +4,31 @@
 <fieldset class="fieldset-border" id="Fieldset2" runat="server">
     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
     <div class="col-md-12">
-        <div class="col-md-2 col-sm-12">
+        <div class="col-md-3 col-sm-12">
             <label class="modal-label">Dealer</label>
             <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
         </div>
-        <div class="col-md-2 text-left">
+        <div class="col-md-3 text-left">
             <label>Dealer Office</label>
             <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
         </div>
-        <div class="col-md-2 col-sm-12">
+        <div class="col-md-3 col-sm-12">
             <label class="modal-label">Document Number</label>
             <asp:TextBox ID="txtDocumentNumber" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
         </div>
-        <div class="col-md-2 col-sm-12">
+        <div class="col-md-3 col-sm-12">
             <label class="modal-label">Document Date</label>
             <asp:TextBox ID="txtDocumentDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled" TextMode="Date"></asp:TextBox>
         </div>
-        <div class="col-md-2 text-left">
+        <div class="col-md-3 text-left">
             <label>Posting Inventory Type</label>
             <asp:DropDownList ID="ddlPostingInventoryType" runat="server" CssClass="form-control" />
         </div>
-        <div class="col-md-2 col-sm-12">
+        <div class="col-md-3 col-sm-12">
             <label class="modal-label">Reason Of Posting</label>
             <asp:TextBox ID="txtReasonOfPosting" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
         </div>
-         <div class="col-md-2 col-sm-12">
+         <div class="col-md-3 col-sm-12">
             <label class="modal-label">Total Material</label>
             <asp:label ID="lblTotalMaterial" runat="server" CssClass="form-control"></asp:label>
         </div>

@@ -56,6 +56,7 @@ namespace DealerManagementSystem.ViewInventory
                 new DDLBind().FillDealerAndEngneer(ddlDealerF, null);
                 FillDealerOfficeF();
                 new DDLBind().FillDealerAndEngneer(ddlDealerO, null);
+                ActionControlMange();
             }
         }
         protected void btnMaterialSearch_Click(object sender, EventArgs e)
@@ -122,22 +123,38 @@ namespace DealerManagementSystem.ViewInventory
 
         protected void btnView_Click(object sender, EventArgs e)
         {
+
+            if (ddlDealerO.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please Check Dealer.";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            if (ddlDealerOfficeO.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please Check Dealer Office.";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
             MaterialUpload.Clear();
             GVUpload.DataSource = MaterialUpload;
             GVUpload.DataBind();
-            if (IsPostBack && fileUpload.PostedFile != null)
+
+            if (fileUpload.PostedFile.FileName.Length > 0)
             {
-                if (fileUpload.PostedFile.FileName.Length > 0)
-                {
-                    FillUpload();
-                }
+                FillUpload();
+            }
+            else
+            {
+                lblMessage.Text = "Please Check File.";
+                lblMessage.ForeColor = Color.Red;
             }
         }
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
 
-            if(ddlDealerO.SelectedValue=="0")
+            if (ddlDealerO.SelectedValue == "0")
             {
                 lblMessage.Text = "Please select the Dealer";
                 return;
@@ -147,21 +164,44 @@ namespace DealerManagementSystem.ViewInventory
                 lblMessage.Text = "Please select the Dealer Office";
                 return;
             }
+
+            DataTable dt = new BInventory().GetInitialStock(Convert.ToInt32(ddlDealerO.SelectedValue), Convert.ToInt32(ddlDealerOfficeO.SelectedValue), null, null, null);
+            List<PDMS_Material> MIT = new List<PDMS_Material>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                MIT.Add(new PDMS_Material()
+                { 
+                    MaterialCode = Convert.ToString(dr["MaterialCode"])
+                });
+            }
+
             foreach (PInitialStock_Post dr in MaterialUpload)
             {
 
                 dr.DealerID = Convert.ToInt32(ddlDealerO.SelectedValue);
                 dr.OfficeID = Convert.ToInt32(ddlDealerOfficeO.SelectedValue);
-           }
+            } 
+           
+            foreach (PInitialStock_Post dr in MaterialUpload)
+            {
+                bool containsItem = MIT.Any(item => item.MaterialCode == dr.MaterialCode);
+                if (containsItem)
+                {
+                    lblMessage.Text = "Please Check Material Code : " + dr.MaterialCode + " It is already Available in Stock.";
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+            } 
+
             PApiResult Result = new BInventory().InsertUpdateInitialStock(MaterialUpload);
             if (Result.Status == PApplication.Failure)
             {
                 lblMessage.Text = Result.Message;
                 return;
             }
-            lblMessage.Text = Result.Message; 
+            lblMessage.Text = Result.Message;
             lblMessage.ForeColor = Color.Green;
-           // FillMaterial();
+            // FillMaterial();
         }
 
         protected void BtnBack_Click(object sender, EventArgs e)
@@ -187,8 +227,9 @@ namespace DealerManagementSystem.ViewInventory
                         if (sno > 1)
                         {
                             List<IXLCell> IXLCell_ = row.Cells().ToList();
-                            
-                            if (IXLCell_.Count !=0)
+
+                            if (IXLCell_.Count != 0)
+                            {
                                 MaterialUpload.Add(new PInitialStock_Post()
                                 {
                                     ID = Convert.ToInt32(IXLCell_[0].Value),
@@ -198,6 +239,13 @@ namespace DealerManagementSystem.ViewInventory
                                     Quantity = Convert.ToInt32(IXLCell_[2].Value),
                                     PerUnitPrice = Convert.ToDecimal(IXLCell_[3].Value)
                                 });
+                                if (Convert.ToDecimal(IXLCell_[3].Value) <= 0)
+                                {
+                                    lblMessage.Text = "Please Check Material Code : " + IXLCell_[1].Value + " Price is not valid!";
+                                    lblMessage.ForeColor = Color.Red;
+                                    return false;
+                                }
+                            }
                         }
                     }
                     List<PDMS_Material> MaterialS = new BDMS_Material().GetMaterialListSQL(null, null, null, null, null);
@@ -278,6 +326,15 @@ namespace DealerManagementSystem.ViewInventory
         void FillDealerOfficeF()
         {
             new DDLBind(ddlDealerOfficeF, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerF.SelectedValue), null, null), "OfficeName", "OfficeID");
+        }
+        void ActionControlMange()
+        { 
+            btnMaterialUpload.Visible = true; 
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CreateInitialStock).Count() == 0)
+            {
+                btnMaterialUpload.Visible = false;
+            } 
         }
     }
 }

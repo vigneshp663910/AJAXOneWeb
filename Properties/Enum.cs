@@ -593,7 +593,9 @@ namespace Properties
         PurchaseOrderCancelPO = 84,
         PurchaseOrderReleaseApprove = 85,
         PurchaseOrderCancelApprove = 86,
-
+        CreateInitialStock = 87,
+        CreatePhysicalInventory = 88,
+        PostingPhysicalInventory = 89,
     }
     public enum DMS_WarrantyClaimStatus
     {

@@ -49,6 +49,7 @@ namespace DealerManagementSystem.ViewInventory
             if (!IsPostBack)
             {
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+                ActionControlMange();
             }
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
@@ -66,7 +67,7 @@ namespace DealerManagementSystem.ViewInventory
                 DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
                 OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
             }  
-            PApiResult Result = new BInventory().GetDealerPhysicalInventoryPosting(DealerID, OfficeID, null, null, PageIndex, gvStock.PageSize);
+            PApiResult Result = new BInventory().GetDealerPhysicalInventoryPosting(DealerID, OfficeID, txtPostingDateFrom.Text.Trim(), txtPostingDateTo.Text.Trim(), PageIndex, gvStock.PageSize);
 
             gvStock.DataSource = JsonConvert.DeserializeObject<List<PPhysicalInventoryPosting>>(JsonConvert.SerializeObject(Result.Data));
             gvStock.DataBind();
@@ -129,6 +130,15 @@ namespace DealerManagementSystem.ViewInventory
             divList.Visible = false;
             divCreate.Visible = true;
             UC_Create.FillMaster();
+        }
+        void ActionControlMange()
+        {
+            btnPostPhysicalInventory.Visible = true;
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CreatePhysicalInventory).Count() == 0)
+            {
+                btnPostPhysicalInventory.Visible = false;
+            }
         }
     }
 }

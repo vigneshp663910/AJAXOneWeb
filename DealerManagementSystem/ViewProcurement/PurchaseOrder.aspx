@@ -71,20 +71,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">PO Status</label>
-                        <asp:DropDownList ID="ddlPOStatus" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="0">All</asp:ListItem>
-                            <asp:ListItem Value="NEW">NEW</asp:ListItem>
-                            <asp:ListItem Value="REQUEST">REQUEST</asp:ListItem>
-                            <asp:ListItem Value="DRAFT">DRAFT</asp:ListItem>
-                            <asp:ListItem Value="COMPLETED">COMPLETED</asp:ListItem>
-                            <asp:ListItem Value="CLOSED">CLOSED</asp:ListItem>
-                            <asp:ListItem Value="PARTIAL_RECEIVED">PARTIAL_RECEIVED</asp:ListItem>
-                            <asp:ListItem Value="AUTO PO EMER DRAFT">AUTO PO EMER DRAFT</asp:ListItem>
-                            <asp:ListItem Value="ORDER_PLACED">ORDER_PLACED</asp:ListItem>
-                            <asp:ListItem Value="PARTIAL_CLOSE">PARTIAL_CLOSE</asp:ListItem>
-                            <asp:ListItem Value="AUTO PO STOCK DRAFT">AUTO PO STOCK DRAFT</asp:ListItem>
-                            <asp:ListItem Value="REJECTED">REJECTED</asp:ListItem>
-                            <asp:ListItem Value="TEMPLATE">TEMPLATE</asp:ListItem>
+                        <asp:DropDownList ID="ddlPOStatus" runat="server" CssClass="form-control"> 
                         </asp:DropDownList>
                     </div>
                     <div class="col-md-12 text-center">

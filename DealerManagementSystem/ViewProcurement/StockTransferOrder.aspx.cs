@@ -16,6 +16,7 @@ namespace DealerManagementSystem.ViewProcurement
     {
         public override SubModule SubModuleName { get { return SubModule.ViewProcurement_StockTransferOrder; } }
         int? DealerID = null;
+        int? OfficeID = null;
         string StockTransferOrderNo = "";
             string DateFrom = null; 
         string DateTo = null;
@@ -71,6 +72,7 @@ namespace DealerManagementSystem.ViewProcurement
                 txtPoDateTo.Text = DateTime.Now.ToShortDateString();
 
                 fillDealer();
+
                 fillProcurementStatus();
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
                 if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderCreate).Count() == 0)
@@ -103,7 +105,8 @@ namespace DealerManagementSystem.ViewProcurement
         }
         void Search()
         {
-            DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue); 
+            DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
             DateFrom =  txtPoDateFrom.Text.Trim();
             DateTo = txtPoDateTo.Text.Trim();
             StatusID = ddlPOStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPOStatus.SelectedValue);
@@ -115,7 +118,7 @@ namespace DealerManagementSystem.ViewProcurement
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BStockTransferOrder().GetStockTransferOrderHeader(DealerID, StockTransferOrderNo, DateFrom, DateTo, StatusID, PageIndex, gvICTickets.PageSize);
+                PApiResult Result = new BStockTransferOrder().GetStockTransferOrderHeader(DealerID, OfficeID, StockTransferOrderNo, DateFrom, DateTo, StatusID, PageIndex, gvICTickets.PageSize);
                 List<PStockTransferOrder> PO = JsonConvert.DeserializeObject<List<PStockTransferOrder>>(JsonConvert.SerializeObject(Result.Data));
                 gvICTickets.PageIndex = 0;
                 gvICTickets.DataSource = PO;
@@ -237,6 +240,7 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
+            FillGetDealerOffice();
         }
         void fillProcurementStatus()
         {
@@ -288,6 +292,18 @@ namespace DealerManagementSystem.ViewProcurement
             divList.Visible = false;
             divDetailsView.Visible = true;
             UC_StockTransferOrderView.fillViewPO(Convert.ToInt64(lblStockTransferOrderID.Text));
+        }
+        protected void ddlDealerCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillGetDealerOffice();
+        }
+        private void FillGetDealerOffice()
+        { 
+            ddlDealerOffice.DataTextField = "OfficeName_OfficeCode";
+            ddlDealerOffice.DataValueField = "OfficeID";
+            ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerCode.SelectedValue), null, null);
+            ddlDealerOffice.DataBind();
+            ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
         }
     }
 }
