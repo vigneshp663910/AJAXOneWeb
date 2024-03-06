@@ -19,10 +19,18 @@
                     <div class="col-md-2 text-left">
                         <label>Dealer Office</label>
                         <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
+                    </div> 
+                   <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Posting Date From</label>
+                        <asp:TextBox ID="txtPostingDateFrom" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                        <asp1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtPostingDateFrom" PopupButtonID="txtPostingDateFrom" Format="dd/MM/yyyy"></asp1:CalendarExtender>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtPostingDateFrom" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
                     </div>
-                    <div class="col-md-2 text-left">
-                        <label>Material</label>
-                        <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Posting Date To</label>
+                        <asp:TextBox ID="txtPostingDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                        <asp1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtPostingDateTo" PopupButtonID="txtPostingDateTo" Format="dd/MM/yyyy"></asp1:CalendarExtender>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtPostingDateTo" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>

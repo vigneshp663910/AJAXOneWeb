@@ -18,6 +18,8 @@ namespace Properties
         public PAjaxOneStatus Status { get; set; }
         public PDMS_Division Division { get; set; }
         public string Remarks { get; set; }
+        public decimal GrossValue { get; set; }
+        public PUser CreatedBy { get; set; }
         public PStockTransferOrderItem Item { get; set; }
         public List<PStockTransferOrderItem> Items { get; set; }
     }

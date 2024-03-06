@@ -162,6 +162,11 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             if ((StatusID == (short)AjaxOneStatus.PostingInventoryStatus_Posted))
             {
                 lbtnPost.Visible = false;
+            } 
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PostingPhysicalInventory).Count() == 0)
+            {
+                lbtnPost.Visible = false;
             }
         }
     }
