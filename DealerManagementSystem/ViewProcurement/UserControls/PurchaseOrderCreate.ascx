@@ -389,7 +389,7 @@
 
 <asp:Panel ID="pnlCopyOrder" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Material From Cart</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Copy From PO</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
@@ -419,7 +419,7 @@
                                 <Columns>
                                     <asp:TemplateField HeaderText="Select">
                                         <HeaderTemplate>
-                                            <asp:CheckBox ID="ChkMailH" Text="Check All" runat="server" AutoPostBack="true" OnCheckedChanged="ChkMailH_CheckedChanged"/>
+                                            <asp:CheckBox ID="ChkMailH" Text="Select All" runat="server" AutoPostBack="true" OnCheckedChanged="ChkMailH_CheckedChanged"/>
                                         </HeaderTemplate>
                                         <ItemTemplate>
                                             <asp:CheckBox ID="cbSelectChild" runat="server" AutoPostBack="true" OnCheckedChanged="cbSelectChild_CheckedChanged"/>
@@ -437,10 +437,11 @@
                                             <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Qty">
+                                    <asp:TemplateField HeaderText="Qty" ControlStyle-Width="100px">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server" />
+                                            <asp:Label ID="lblPartQty" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server" Visible="false"/>
+                                            <asp:TextBox ID="txtPartQty" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>'></asp:TextBox>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -477,7 +478,7 @@
                     <asp:FileUpload ID="fileUpload" runat="server" />
                 </div>
                 <div class="col-md-12 text-center">
-                    <asp:Button ID="btnUploadMaterial" runat="server" Text="Submit" CssClass="btn Save" OnClick="btnUploadMaterial_Click" />
+                    <asp:Button ID="btnUploadMaterial" runat="server" Text="Add" CssClass="btn Save" OnClick="btnUploadMaterial_Click" />
                 </div>
             </div>
         </fieldset>

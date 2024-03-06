@@ -186,6 +186,7 @@ namespace Business
                         {
 
                             SOI = new PDMS_Material();
+                            SOI.MaterialID = Convert.ToInt32(dr["MaterialID"]);
                             SOI.MaterialCode = Convert.ToString(dr["MaterialCode"]);
                             SOI.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
                             SOI.Supersede = new PSupersede();

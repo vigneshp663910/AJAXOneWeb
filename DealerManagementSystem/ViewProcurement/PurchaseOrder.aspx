@@ -38,8 +38,12 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Dealer Code</label>
+                        <label class="modal-label">Dealer</label>
                         <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer Office</label>
+                        <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">PO Number</label>
@@ -56,6 +60,14 @@
                         <asp:TextBox ID="txtPoDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                         <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtPoDateTo" PopupButtonID="txtPoDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtPoDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                    </div>                    
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Order Type</label>
+                        <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPurchaseOrderType_SelectedIndexChanged" AutoPostBack="true"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Division</label>
+                        <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">PO Status</label>
@@ -75,18 +87,6 @@
                             <asp:ListItem Value="TEMPLATE">TEMPLATE</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Dealer Office</label>
-                        <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
-                    </div>                    
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Order Type</label>
-                        <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control"/>
-                    </div>
-                    <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Division</label>
-                        <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
-                    </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
                         <asp:Button ID="btnCreatePO" runat="server" CssClass="btn Save" Text="Create PO" OnClick="btnCreatePO_Click" Width="150px"></asp:Button>
@@ -97,13 +97,14 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">PO Report</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
                             <div class="boxHead">
                                 <div class="logheading">
                                     <div style="float: left">
                                         <table>
                                             <tr>
+                                                <td>Purchase Order(s):</td>
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
@@ -116,7 +117,7 @@
                                 </div>
                             </div>
                             <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"
-                                OnPageIndexChanging="gvICTickets_PageIndexChanging">
+                                EmptyDataText="No Data Found">
                                 <Columns>
                                     <asp:TemplateField>
                                         <ItemTemplate>
@@ -140,7 +141,7 @@
                                             <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerName")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Location">
+                                    <asp:TemplateField HeaderText="Receiving Location">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location.OfficeName")%>' runat="server"></asp:Label>
@@ -188,7 +189,7 @@
                                     <asp:TemplateField HeaderText="Sale Order Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblSaleOrderNumber" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderNumber","{0:n}")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblSaleOrderNumber" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderNumber")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Net Value">
@@ -197,38 +198,14 @@
                                             <asp:Label ID="lblNetAmount" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <%-- <asp:TemplateField HeaderText="Net Amt">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                    <asp:TemplateField HeaderText="Created">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblr_net_amt" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.NetAmount","{0:n}")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "Created.ContactName")%>' runat="server"></asp:Label>
+                                            <br />
+                                            <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderDate","{0:d}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-
-                                    <asp:TemplateField HeaderText="Freight">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblFright" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.Fright","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Insurance">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblInsurance" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.Insurance","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Packing">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblPackingAndForwarding" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.PackingAndForwarding","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-
-                                    <asp:TemplateField HeaderText="Gross Amt">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblr_gross_amt" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderItem.GrossAmount","{0:n}")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>--%>
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

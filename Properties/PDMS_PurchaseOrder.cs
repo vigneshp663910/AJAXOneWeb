@@ -155,6 +155,9 @@ namespace Properties
         public List<PPurchaseOrderItem> PurchaseOrderItems { get; set; }
 
         public string SaleOrderNumber { get; set; }
+        public PUser Created { get; set; }
+        public PUser Cancelled { get; set; }
+        public DateTime? CancelledOn { get; set; }
     }
 
     [Serializable]

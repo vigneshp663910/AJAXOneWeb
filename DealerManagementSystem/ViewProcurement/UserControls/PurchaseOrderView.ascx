@@ -65,6 +65,10 @@
                     <label>Status : </label>
                     <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Created By : </label>
+                    <asp:Label ID="lblCreatedBy" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
@@ -75,10 +79,12 @@
                     <label>Discount : </label>
                     <asp:Label ID="lblDiscount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-
+                <div class="col-md-12">
+                    <label>Cancelled By : </label>
+                    <asp:Label ID="lblCancelledBy" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <div class="col-md-3">
-
                 <div class="col-md-12">
                     <label>Taxable Amount : </label>
                     <asp:Label ID="lblTaxableAmount" runat="server" CssClass="LabelValue"></asp:Label>
@@ -90,6 +96,10 @@
                 <div class="col-md-12">
                     <label>Net Amount : </label>
                     <asp:Label ID="lblGrossAmount" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Cancelled On : </label>
+                    <asp:Label ID="lblCancelledOn" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
         </div>

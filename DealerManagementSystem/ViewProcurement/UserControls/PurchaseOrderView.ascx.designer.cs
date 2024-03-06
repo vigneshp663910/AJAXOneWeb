@@ -114,6 +114,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblStatus;
 
         /// <summary>
+        /// lblCreatedBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreatedBy;
+
+        /// <summary>
         /// lblPrice control.
         /// </summary>
         /// <remarks>
@@ -130,6 +139,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDiscount;
+
+        /// <summary>
+        /// lblCancelledBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCancelledBy;
 
         /// <summary>
         /// lblTaxableAmount control.
@@ -157,6 +175,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGrossAmount;
+
+        /// <summary>
+        /// lblCancelledOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCancelledOn;
 
         /// <summary>
         /// lblMessage control.

@@ -81,6 +81,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblPOVendor.Text = PurchaseOrder.Vendor.DealerName;
             lblExpectedDeliveryDate.Text = PurchaseOrder.ExpectedDeliveryDate.ToString();
             lblOrderTo.Text = PurchaseOrder.PurchaseOrderTo.PurchaseOrderTo.ToString();
+            lblCreatedBy.Text = PurchaseOrder.Created.ContactName;
+            lblCancelledBy.Text = (PurchaseOrder.Cancelled==null)?"":PurchaseOrder.Cancelled.ContactName;
+            lblCancelledOn.Text = (PurchaseOrder.CancelledOn==null)?"":PurchaseOrder.CancelledOn.ToString();
 
             gvPOItem.DataSource = PurchaseOrder.PurchaseOrderItems;
             gvPOItem.DataBind();
@@ -207,15 +210,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 MPE_AddMaterial.Show();
             }
         }
-
-
-        void ShowMessage(PApiResult Results)
-        {
-            lblMessage.Text = Results.Message;
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Green;
-        }
-
         void ActionControlMange()
         {
             lbAddMaterial.Visible = true;
@@ -223,6 +217,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lbReleaseApprove.Visible = true;
             lbCancelPO.Visible = true;
             lbCancelApprove.Visible = true;
+            gvPOItem.Columns[15].Visible = true;
 
             int StatusID = PurchaseOrder.PurchaseOrderStatus.ProcurementStatusID;
             if (StatusID == (short)ProcurementStatus.PoDraft)
@@ -342,9 +337,41 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
                 txtQuantity.Visible = true;
                 lblQuantity.Visible = false;
+                txtQuantity.Text = lblQuantity.Text;
             }
             else if (lbActions.ID == "lnkBtnupdate")
             {
+                lblMessage.Text = "";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+
+                if(string.IsNullOrEmpty(txtQuantity.Text))
+                {
+                    lblMessage.Text = "Please Enter the Quantity.";
+                    return;
+                }
+
+                decimal value;
+                if (!decimal.TryParse(txtQuantity.Text, out value))
+                {
+                    lblMessage.Text = "Please enter correct format in Qty";
+                    return;
+                }
+                if (value < 1)
+                {
+                    lblMessage.Text = "Please enter qty more than zero";
+                    return;
+                }
+
+
+
+
+
+                if (Convert.ToDecimal(txtQuantity.Text) < 1)
+                {
+                    lblMessage.Text = "Please Enter Quantity greater than zero.";
+                    return;
+                }
                 Label lblPurchaseOrderItemID = (Label)gvRow.FindControl("lblPurchaseOrderItemID");
                 Label lblMaterial = (Label)gvRow.FindControl("lblMaterial");
 
