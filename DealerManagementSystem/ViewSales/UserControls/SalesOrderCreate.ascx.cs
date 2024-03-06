@@ -140,7 +140,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
                 MaterialPrice.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
                 MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-                MaterialPrice.OrderType = "101_DSSOR_SALES_ORDER_HDR";
+                //MaterialPrice.OrderType = "101_DSSOR_SALES_ORDER_HDR";
+                MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
                 MaterialPrice.Division = "SP";
                 MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
                 MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
@@ -376,7 +377,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             decimal DiscountValue = 0, TaxableValue = 0, TaxValue = 0, TCSValue = 0;
             foreach (PSaleOrderItem_Insert Item in SOItem_Insert)
             {
-                DiscountValue = Item.DiscountValue;
+                DiscountValue = DiscountValue + Item.DiscountValue;
                 TaxableValue = TaxableValue + Item.TaxableValue;
                 TaxValue = TaxValue + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue;
             }
@@ -435,6 +436,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlTaxType.SelectedValue = "0";
             cxExpectedDeliveryDate.StartDate = DateTime.Now;
             ddlSalesEngineer.SelectedValue = "0";
+            gvSOItem.DataSource = null;
+            gvSOItem.DataBind();
         }
         void ClearItem()
         {
@@ -442,8 +445,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
             hdfMaterialCode.Value = "";
             txtMaterial.Text = "";
             txtQty.Text = "";
-            gvSOItem.DataSource = null;
-            gvSOItem.DataBind();
         }
         protected void btnSaveSOItem_Click(object sender, EventArgs e)
         { 
