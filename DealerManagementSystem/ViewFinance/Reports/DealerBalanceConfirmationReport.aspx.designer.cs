@@ -222,6 +222,15 @@ namespace DealerManagementSystem.ViewFinance.Reports
         protected global::System.Web.UI.WebControls.TextBox txtPostDateFrom;
 
         /// <summary>
+        /// txtPostDateTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPostDateTo;
+
+        /// <summary>
         /// txtMail control.
         /// </summary>
         /// <remarks>

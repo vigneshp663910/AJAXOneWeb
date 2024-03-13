@@ -184,6 +184,10 @@
                         <label class="modal-label">Post Date From</label>
                         <asp:TextBox ID="txtPostDateFrom" runat="server" CssClass="form-control" TextMode="Date" />
                     </div>
+                     <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Post Date From</label>
+                        <asp:TextBox ID="txtPostDateTo" runat="server" CssClass="form-control" TextMode="Date" />
+                    </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Mail</label>
                         <asp:TextBox ID="txtMail" runat="server" CssClass="form-control" />
