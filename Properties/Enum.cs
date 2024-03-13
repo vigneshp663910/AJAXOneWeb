@@ -503,7 +503,7 @@ namespace Properties
         ViewFinance_DealerBalanceConfirmationUpdate = 258,
         //**** Menu Level-2 ****************************** =  259,
         ViewInventory_StockTransfer = 260,
-        ViewProcurement_DealerStockOrderControl = 261
+        ViewProcurement_DealerStockOrderControl = 261,
         ViewPreSale_Reports_DealerBusinessExcellenceQuarterWise = 262,
         ViewPreSale_Reports_LeadNextFollowUpAgeingReport = 263 
        
