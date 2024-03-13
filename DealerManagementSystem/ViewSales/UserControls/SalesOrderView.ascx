@@ -247,10 +247,10 @@
                 <asp:LinkButton ID="lbEditSaleOrder" runat="server" OnClick="lbActions_Click">Edit</asp:LinkButton>
                 <asp:LinkButton ID="lbCancelSaleOrder" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmCancelSaleOrder();">Cancel</asp:LinkButton>
                 <asp:LinkButton ID="lbAddSaleOrderItem" runat="server" OnClick="lbActions_Click">Add Item</asp:LinkButton>
-                <asp:LinkButton ID="lbGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>
+                <%--<asp:LinkButton ID="lbGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbGenerateProformaInvoice" runat="server" OnClick="lbActions_Click">Generate Proforma Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbReleaseSaleOrder" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmReleaseSaleOrder();">Release</asp:LinkButton>
-                <asp:LinkButton ID="lbDelivery" runat="server" OnClick="lbActions_Click">Delivery</asp:LinkButton>
+                <asp:LinkButton ID="lbDelivery" runat="server" OnClick="lbActions_Click">Create Delivery</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -344,25 +344,25 @@
         <div class="col-md-12 View">
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Quot No & Dt : </label>
+                    <label>Quot No : </label>
                     <asp:Label ID="lblQuotationNumber" runat="server" CssClass="LabelValue"></asp:Label>
+
+                </div>
+                <div class="col-md-12">
+                    <label>Quot Date : </label>
                     <asp:Label ID="lblQuotationDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-
                 <div class="col-md-12">
-                    <label>SO No & Dt : </label>
+                    <label>SO No : </label>
                     <asp:Label ID="lblSaleOrderNumber" runat="server" CssClass="LabelValue"></asp:Label>
+
+                </div>
+                <div class="col-md-12">
+                    <label>SO Date : </label>
                     <asp:Label ID="lblSaleOrderDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>Pro Inv No & Dt : </label>
-                    <asp:Label ID="lblProformaInvoiceNumber" runat="server" CssClass="LabelValue"></asp:Label>
-                    <asp:Label ID="lblProformaInvoiceDate" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Order Type : </label>
-                    <asp:Label ID="lblSaleOrderType" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
+
+
 
             </div>
             <div class="col-md-3">
@@ -383,11 +383,11 @@
                     <label>Contact No : </label>
                     <asp:Label ID="lblContactPersonNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>Attn : </label>
-                    <asp:Label ID="lblAttn" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
 
+                <div class="col-md-12">
+                    <label>Order Type : </label>
+                    <asp:Label ID="lblSaleOrderType" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
@@ -442,15 +442,19 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">SO Header</legend>
                     <div class="col-md-12 View">
                         <div class="col-md-4">
+                            <div class="col-md-12">
+                                <label>Pro Inv No : </label>
+                                <asp:Label ID="lblProformaInvoiceNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Pro Inv Date : </label>
+                                <asp:Label ID="lblProformaInvoiceDate" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Attn : </label>
+                                <asp:Label ID="lblAttn" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
 
-                            <div class="col-md-12">
-                                <label>Equipment Serial No. : </label>
-                                <asp:Label ID="lblEquipmentSerialNo" runat="server" CssClass="LabelValue"></asp:Label>
-                            </div>
-                            <div class="col-md-12">
-                                <label>Insurance Paid By : </label>
-                                <asp:Label ID="lblInsurancePaidBy" runat="server" CssClass="LabelValue"></asp:Label>
-                            </div>
                             <div class="col-md-12">
                                 <label>Sales Engnieer : </label>
                                 <asp:Label ID="lblSalesEngnieer" runat="server" CssClass="LabelValue"></asp:Label>
@@ -458,19 +462,29 @@
                         </div>
                         <div class="col-md-4">
                             <div class="col-md-12">
+                                <label>Equipment Serial No. : </label>
+                                <asp:Label ID="lblEquipmentSerialNo" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
                                 <label>Division : </label>
                                 <asp:Label ID="lblDivision" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
                             <div class="col-md-12">
-                                <label>Frieght Paid By : </label>
-                                <asp:Label ID="lblFrieghtPaidBy" runat="server" CssClass="LabelValue"></asp:Label>
+                                <label>Product : </label>
+                                <asp:Label ID="lblProduct" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
+
 
                         </div>
                         <div class="col-md-4">
                             <div class="col-md-12">
-                                <label>Product : </label>
-                                <asp:Label ID="lblProduct" runat="server" CssClass="LabelValue"></asp:Label>
+                                <label>Insurance Paid By : </label>
+                                <asp:Label ID="lblInsurancePaidBy" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>Frieght Paid By : </label>
+                                <asp:Label ID="lblFrieghtPaidBy" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
                             <div class="col-md-12">
                                 <label>Remarks : </label>
@@ -688,6 +702,10 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Edit</legend>
                     <div class="col-md-12">
                         <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Dealer Office<samp style="color: red">*</samp></label>
+                            <asp:DropDownList ID="ddlOfficeName" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Contact Person Number</label>
                             <asp:TextBox ID="txtContactPersonNumber" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
                             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtContactPersonNumber" WatermarkText="Mobile" WatermarkCssClass="WatermarkCssClass" />
@@ -877,7 +895,7 @@
                             </div>
                             <div class="col-sm-10" id="divEquipment" runat="server" visible="false">
                                 <label>Equipment Serial No</label>
-                                <asp:DropDownList ID="ddlEquipment" runat="server" CssClass="form-control"/>
+                                <asp:DropDownList ID="ddlEquipment" runat="server" CssClass="form-control" />
                             </div>
                             <div class="col-md-12 col-sm-12">
                                 <label>Remarks</label>

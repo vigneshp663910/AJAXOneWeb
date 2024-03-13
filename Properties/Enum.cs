@@ -831,9 +831,9 @@ namespace Properties
         DealerBalanceConfirmation_Initiated = 7,
         DealerBalanceConfirmation_Confirmed = 8,
         DealerBalanceConfirmation_UnConfirmed = 9,
-        DealerBalanceConfirmation_NeedReconciliation = 10,
-        SaleOrder_Draft = 11,
-        SaleOrder_Quotation = 12,
+        DealerBalanceConfirmation_NeedReconciliation = 10,       
+        SaleOrder_Quotation = 11,
+        SaleOrder_ProformaInvoice = 12,
         SaleOrder_OrderPlaced = 13,
         SaleOrder_PartiallyDelivered = 14,
         SaleOrder_Delivered = 15,
@@ -901,5 +901,12 @@ namespace Properties
     public enum Division
     {
         Parts = 15
+    }
+    public enum SaleOrderType
+    {
+        CustomerOrder = 1,
+        IntraDealerOrder = 2,
+        WarrantyOrder = 3,
+        MachineOrder = 4 
     }
 }

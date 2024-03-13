@@ -6,6 +6,35 @@
         margin-bottom: 0rem;
     }
 </style>
+
+<style>
+    .Popup {
+        width: 95%;
+        height: 95%;
+        top: 128px;
+        left: 283px;
+    }
+
+        .Popup .model-scroll {
+            height: 80vh;
+            overflow: auto;
+        }
+</style>
+<div class="col-md-12">
+    <div class="action-btn">
+        <div class="" id="boxHere"></div>
+        <div class="dropdown btnactions" id="customerAction">
+            <div class="btn Approval">Actions</div>
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                <asp:LinkButton ID="lbUploadMaterial" runat="server" OnClick="lbActions_Click">Upload Material</asp:LinkButton>
+                <asp:LinkButton ID="lbDownloadMaterialTemplate" runat="server" OnClick="lbActions_Click">Download Material Template</asp:LinkButton>
+               <%-- <asp:LinkButton ID="lbAddMaterialFromCart" runat="server" OnClick="lbActions_Click">Add Material From Cart</asp:LinkButton>
+                <asp:LinkButton ID="lbCopyFromPO" runat="server" OnClick="lbActions_Click">Copy From PO</asp:LinkButton>--%>
+                <asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click">Save</asp:LinkButton>
+            </div>
+        </div>
+    </div>
+</div>
 <asp:Label ID="lblMessage" runat="server" CssClass="message" />
 <asp:HiddenField ID="hfEquipmentID" runat="server" Value="0" />
 <asp:HiddenField ID="hfShiptToID" runat="server" Value="0" />
@@ -166,6 +195,7 @@
             <div class="col-md-2 text-left">
                 <label class="modal-label">.</label>
                 <asp:Button ID="btnAddMaterial" runat="server" Text="Add" CssClass="btn Search" OnClick="btnAddMaterial_Click" />
+                 <asp:Button ID="BtnAvailability" runat="server" Text="Availability" CssClass="btn Save" OnClick="BtnAvailability_Click" />
             </div>
         </div>
         <div class="col-md-12 Report">
@@ -290,10 +320,42 @@
         </div>
     </fieldset>
 
-    <div class="col-md-12 text-center">
+   <%-- <div class="col-md-12 text-center">
         <asp:Button ID="btnSaveSOItem" runat="server" CssClass="btn Save" Text="Save" OnClick="btnSaveSOItem_Click" Width="100px"></asp:Button>
+    </div>--%>
+
+</div>
+
+
+<asp:Panel ID="pnlMaterialUpload" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Material Upload</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
 
+    <div class="col-md-12">
+        <asp:Label ID="lblMessageMaterialUpload" runat="server" Text="" CssClass="message" Visible="false" />
+        <fieldset class="fieldset-border">
+            <div class="col-md-12">
+                <div class="col-md-2 col-sm-12">
+                    <label class="modal-label">Upload Material</label>
+                    <asp:FileUpload ID="fileUpload" runat="server" />
+                </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnUploadMaterial" runat="server" Text="Add" CssClass="btn Save" OnClick="btnUploadMaterial_Click" />
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+
+
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_MaterialUpload" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMaterialUpload" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<div style="display: none">
+    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
 <script>
     function GetCustomers() {

@@ -42,15 +42,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbAddSaleOrderItem;
 
         /// <summary>
-        /// lbGenerateQuotation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbGenerateQuotation;
-
-        /// <summary>
         /// lbGenerateProformaInvoice control.
         /// </summary>
         /// <remarks>
@@ -114,33 +105,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblSaleOrderDate;
 
         /// <summary>
-        /// lblProformaInvoiceNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblProformaInvoiceNumber;
-
-        /// <summary>
-        /// lblProformaInvoiceDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblProformaInvoiceDate;
-
-        /// <summary>
-        /// lblSaleOrderType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSaleOrderType;
-
-        /// <summary>
         /// lblSODealer control.
         /// </summary>
         /// <remarks>
@@ -168,13 +132,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblContactPersonNumber;
 
         /// <summary>
-        /// lblAttn control.
+        /// lblSaleOrderType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAttn;
+        protected global::System.Web.UI.WebControls.Label lblSaleOrderType;
 
         /// <summary>
         /// lblStatus control.
@@ -276,22 +240,31 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::AjaxControlToolkit.TabPanel tbPSODetails;
 
         /// <summary>
-        /// lblEquipmentSerialNo control.
+        /// lblProformaInvoiceNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEquipmentSerialNo;
+        protected global::System.Web.UI.WebControls.Label lblProformaInvoiceNumber;
 
         /// <summary>
-        /// lblInsurancePaidBy control.
+        /// lblProformaInvoiceDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInsurancePaidBy;
+        protected global::System.Web.UI.WebControls.Label lblProformaInvoiceDate;
+
+        /// <summary>
+        /// lblAttn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAttn;
 
         /// <summary>
         /// lblSalesEngnieer control.
@@ -303,6 +276,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblSalesEngnieer;
 
         /// <summary>
+        /// lblEquipmentSerialNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEquipmentSerialNo;
+
+        /// <summary>
         /// lblDivision control.
         /// </summary>
         /// <remarks>
@@ -312,15 +294,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblDivision;
 
         /// <summary>
-        /// lblFrieghtPaidBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFrieghtPaidBy;
-
-        /// <summary>
         /// lblProduct control.
         /// </summary>
         /// <remarks>
@@ -328,6 +301,24 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblProduct;
+
+        /// <summary>
+        /// lblInsurancePaidBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInsurancePaidBy;
+
+        /// <summary>
+        /// lblFrieghtPaidBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFrieghtPaidBy;
 
         /// <summary>
         /// lblRemarks control.
@@ -400,6 +391,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessageSOEdit;
+
+        /// <summary>
+        /// ddlOfficeName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOfficeName;
 
         /// <summary>
         /// txtContactPersonNumber control.

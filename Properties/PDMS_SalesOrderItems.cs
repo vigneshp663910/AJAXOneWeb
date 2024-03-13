@@ -365,7 +365,7 @@ namespace Properties
     {
         public long SaleOrderID { get; set; }
         public long SaleOrderItemID { get; set; }
-        public long MaterialID { get; set; }
+        public int MaterialID { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialDescription { get; set; }
         public string HSN { get; set; }

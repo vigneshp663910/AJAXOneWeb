@@ -77,7 +77,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             lblMessage.Text = "";
             lblMessageAddSOItem.Text = "";
-            lblMessageSOEdit.Text = "";
+            lblMessageSOEdit.Text = "";  
+            lblMessageCreateSODelivery.Text = "";
+
             if (!IsPostBack)
             {  
             }
@@ -104,7 +106,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblSODealer.Text = SaleOrderByID.Dealer.DealerCode + " " + SaleOrderByID.Dealer.DealerName;
             lblStatus.Text = SaleOrderByID.SaleOrderStatus.Status;
             lblDivision.Text = SaleOrderByID.Division.DivisionCode;
-            lblProduct.Text = SaleOrderByID.Product.Product;
+            lblProduct.Text = SaleOrderByID.Product == null ? "" : SaleOrderByID.Product.Product;
             lblInsurancePaidBy.Text = SaleOrderByID.InsurancePaidBy;
             lblEquipmentSerialNo.Text = SaleOrderByID.Equipment == null ? "" : SaleOrderByID.Equipment.EquipmentSerialNo;
             lblSaleOrderType.Text = SaleOrderByID.SaleOrderType.SaleOrderType;
@@ -137,58 +139,68 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lbEditSaleOrder.Visible = true;
             lbCancelSaleOrder.Visible = true;
             lbAddSaleOrderItem.Visible = true;
-            lbGenerateQuotation.Visible = true;
+           // lbGenerateQuotation.Visible = true;
             lbGenerateProformaInvoice.Visible = true;
             lbReleaseSaleOrder.Visible = true;
             lbDelivery.Visible = true;
             
             int StatusID = SaleOrderByID.SaleOrderStatus.StatusID;
             
-            if (StatusID == 11 || StatusID == 12) //Draft
+            if (StatusID == (short)AjaxOneStatus.SaleOrder_Quotation   || StatusID == (short)AjaxOneStatus.SaleOrder_ProformaInvoice) // Draft
             {
                 lbDelivery.Visible = false;
             }
-            if (StatusID == 13) //Order Placed
+            if (StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced) //Order Placed
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
                 lbAddSaleOrderItem.Visible = false;
                 lbReleaseSaleOrder.Visible = false;
+                lbGenerateProformaInvoice.Visible = false;
             }
-            if (StatusID == 23) //Cancelled
+            if (StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled) //Cancelled
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
                 lbAddSaleOrderItem.Visible = false;
                 lbReleaseSaleOrder.Visible = false;
-                lbGenerateQuotation.Visible = false;
+                //lbGenerateQuotation.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
                 lbDelivery.Visible = false;
             }
-            if (StatusID == 15) //Delivered
+            if (StatusID == (short)AjaxOneStatus.SaleOrder_Delivered) //Delivered
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
                 lbAddSaleOrderItem.Visible = false;
                 lbReleaseSaleOrder.Visible = false;
-                lbGenerateQuotation.Visible = false;
+               // lbGenerateQuotation.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
                 lbDelivery.Visible = false;
             }
-            if (StatusID == 14) //Partially Delivered
+            if (StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyDelivered) //Partially Delivered
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
                 lbAddSaleOrderItem.Visible = false;
                 lbReleaseSaleOrder.Visible = false;
-                lbGenerateQuotation.Visible = false;
+                //lbGenerateQuotation.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
+            }
+
+            if (SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.IntraDealerOrder)
+            { 
+                lbAddSaleOrderItem.Visible = false; 
             }
             DisableSOItemEditDelete();
         }
         private void DisableSOItemEditDelete()
         {
-            if(SaleOrderByID.SaleOrderStatus.StatusID == 13 || SaleOrderByID.SaleOrderStatus.StatusID == 15 || SaleOrderByID.SaleOrderStatus.StatusID == 23)
+            int StatusID = SaleOrderByID.SaleOrderStatus.StatusID;
+            if (StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced 
+                || StatusID == (short)AjaxOneStatus.SaleOrder_Delivered 
+                || StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled 
+                )
             {
                 for (int i = 0; i < gvSOItem.Rows.Count; i++)
                 {
@@ -196,70 +208,68 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     ((LinkButton)gvSOItem.Rows[i].FindControl("lnkBtnDelete")).Visible = false;
                 }
             }
+            if (SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.IntraDealerOrder)
+            {
+                for (int i = 0; i < gvSOItem.Rows.Count; i++)
+                {
+                    ((LinkButton)gvSOItem.Rows[i].FindControl("lnkBtnDelete")).Visible = false;
+                }
+            }
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
-            lblMessage.Text = "";
-            lblMessageSOEdit.ForeColor = Color.Red;
-            lblMessageSOEdit.Visible = true;
-            lblMessageSOEdit.Text = "";
-            lblMessageAddSOItem.ForeColor = Color.Red;
-            lblMessageAddSOItem.Visible = true;
-            lblMessageAddSOItem.Text = "";
-            lblMessageCreateSODelivery.ForeColor = Color.Red;
-            lblMessageCreateSODelivery.Visible = true;
-            lblMessageCreateSODelivery.Text = "";
+            lblMessage.ForeColor = Color.Red;  
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Cancel")
-            {
-                lblMessage.Visible = true;
+            if (lbActions.ID == "lbCancelSaleOrder")
+            { 
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/CancelSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID));
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SaleOrderByID.SaleOrderID + "&StatusID=" + 23));
+                // PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SaleOrderByID.SaleOrderID + "&StatusID=" + 23));
+                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SaleOrderByID.SaleOrderID, (short)AjaxOneStatus.SaleOrder_Cancelled);
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
                     return;
                 }
-                lblMessage.Text = Results.Message;
-                lblMessage.Visible = true;
+                lblMessage.Text = Results.Message; 
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SaleOrderByID.SaleOrderID);
             }
-            else if (lbActions.Text == "Edit")
+            else if (lbActions.ID == "lbEditSaleOrder")
             {                
                 Edit();
                 MPE_SaleOrderEdit.Show();
             }
-            else if (lbActions.Text == "Add Item")
+            else if (lbActions.ID == "lbAddSaleOrderItem")
             {
                 MPE_SaleOrderItemAdd.Show();
             }
-            else if (lbActions.Text == "Release")
-            {
-                lblMessage.Visible = true;
+            else if (lbActions.ID == "lbReleaseSaleOrder")
+            { 
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SaleOrderByID.SaleOrderID));
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SaleOrderByID.SaleOrderID + "&StatusID=" + 13));
+                // PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SaleOrderByID.SaleOrderID + "&StatusID=" + 13));
+                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SaleOrderByID.SaleOrderID,(short)AjaxOneStatus.SaleOrder_OrderPlaced);
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
                     return;
                 }
-                lblMessage.Text = Results.Message;
-                lblMessage.Visible = true;
+                lblMessage.Text = Results.Message; 
+                lblMessage.ForeColor = Color.Green;
+                fillViewSO(SaleOrderByID.SaleOrderID);
+            } 
+            else if (lbActions.ID == "lbGenerateProformaInvoice")
+            { 
+                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SaleOrderByID.SaleOrderID, (short)AjaxOneStatus.SaleOrder_ProformaInvoice);
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    return;
+                }
+                lblMessage.Text = Results.Message; 
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SaleOrderByID.SaleOrderID);
             }
-            else if(lbActions.Text == "Generate Quotation")
-            {
-
-            }
-            else if (lbActions.Text == "Generate Proforma Invoice")
-            {
-
-            }
-            else if (lbActions.Text == "Delivery")
+            else if (lbActions.ID == "lbDelivery")
             {
                 MPE_Delivery.Show();
                 List<PDMS_EquipmentHeader> EQs = new BDMS_Equipment().GetEquipmentForCreateICTicket(Convert.ToInt64(SaleOrderByID.Dealer.DealerID), null, null);
@@ -324,7 +334,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             cxExpectedDeliveryDate.StartDate = DateTime.Now; 
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
-              
+            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(SaleOrderByID.Dealer.DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
+            ddlOfficeName.SelectedValue = SaleOrderByID.Dealer.DealerOffice.OfficeID.ToString();
+
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;  
              
@@ -335,10 +347,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             txtContactPersonNumber.Text = SaleOrderByID.ContactPersonNumber;  
             txtRemarks.Text = SaleOrderByID.Remarks;
             txtExpectedDeliveryDate.Text = SaleOrderByID.ExpectedDeliveryDate.ToString("dd/MM/yyyy");
-            ddlInsurancePaidBy.SelectedValue = ddlInsurancePaidBy.Items.FindByText(SaleOrderByID.InsurancePaidBy).Value;
-            ddlFrieghtPaidBy.SelectedValue = ddlFrieghtPaidBy.Items.FindByText(SaleOrderByID.FrieghtPaidBy).Value;
+            if (!string.IsNullOrEmpty( SaleOrderByID.InsurancePaidBy))
+                ddlInsurancePaidBy.SelectedValue = ddlInsurancePaidBy.Items.FindByText(SaleOrderByID.InsurancePaidBy).Value;
+            if (!string.IsNullOrEmpty(SaleOrderByID.FrieghtPaidBy))
+                ddlFrieghtPaidBy.SelectedValue = ddlFrieghtPaidBy.Items.FindByText(SaleOrderByID.FrieghtPaidBy).Value;
             txtAttn.Text = SaleOrderByID.Attn;
-            ddlProduct.SelectedValue = SaleOrderByID.Product.ProductID.ToString(); 
+            if (SaleOrderByID.Product != null)
+                ddlProduct.SelectedValue = SaleOrderByID.Product.ProductID.ToString();
             ddlTaxType.SelectedValue = ddlTaxType.Items.FindByText(SaleOrderByID.TaxType).Value;
             txtBoxHeaderDiscountPercent.Text = SaleOrderByID.HeaderDiscountPercentage.ToString();
         }
@@ -349,11 +364,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void btnUpdateSO_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red; 
             lblMessage.Text = "";
-            lblMessageSOEdit.ForeColor = Color.Red;
-            lblMessageSOEdit.Visible = true;
+            lblMessageSOEdit.ForeColor = Color.Red; 
             lblMessageSOEdit.Text = "";
             try
             {
@@ -377,8 +390,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     MPE_SaleOrderEdit.Show();
                     return;
                 }
-                lblMessage.Text = Result.Message;
-                lblMessage.Visible = true;
+                lblMessage.Text = Result.Message; 
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SaleOrderByID.SaleOrderID);
             }
@@ -511,7 +523,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.DealerID = SaleOrderByID.Dealer.DealerID;
            // SO.CustomerID = Convert.ToInt32(hdfCustomerId.Value);
             SO.StatusID = 11;
-            //SO.OfficeID = Convert.ToInt32(ddlOfficeName.SelectedValue); 
+            SO.OfficeID = Convert.ToInt32(ddlOfficeName.SelectedValue); 
             SO.ContactPersonNumber = txtContactPersonNumber.Text.Trim();
             //SO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue); 
             SO.Remarks = txtRemarks.Text.Trim();
@@ -637,7 +649,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         public string Validation()
         { 
-           // ddlOfficeName.BorderColor = Color.Silver;
+            ddlOfficeName.BorderColor = Color.Silver;
             //txtCustomer.BorderColor = Color.Silver;
             txtContactPersonNumber.BorderColor = Color.Silver;
             //ddlDivision.BorderColor = Color.Silver;
@@ -645,12 +657,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
             ddlTaxType.BorderColor = Color.Silver;
             txtBoxHeaderDiscountPercent.BorderColor = Color.Silver;
-            string Message = ""; 
-            //if (ddlOfficeName.SelectedValue == "0")
-            //{
-            //    ddlOfficeName.BorderColor = Color.Red;
-            //    return "Please select the Dealer Office.";
-            //}
+            string Message = "";
+            if (ddlOfficeName.SelectedValue == "0")
+            {
+                ddlOfficeName.BorderColor = Color.Red;
+                return "Please select the Dealer Office.";
+            }
             //if (string.IsNullOrEmpty(hdfCustomerId.Value))
             //{
             //    txtCustomer.BorderColor = Color.Red;
@@ -727,8 +739,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void lnkBtnItemAction_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red; 
             //if (SaleOrderByID.SaleOrderStatus.StatusID == 23)
             //{
             //    lblMessage.Text = "Sale Order is Cancelled.";
@@ -829,8 +840,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblDiscountPercent.Visible = true;
             }
             else if (lbActions.ID == "lnkBtnDelete")
-            {
-                lblMessage.Visible = true;
+            { 
                 Label lblSaleOrderItemID = (Label)gvRow.FindControl("lblSaleOrderItemID");
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/CancelSaleOrderItem?SaleOrderItemID=" + Convert.ToInt64(lblSaleOrderItemID.Text)));
                 if (Results.Status == PApplication.Failure)
@@ -844,8 +854,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void btnSaveDelivery_Click(object sender, EventArgs e)
         {
-            lblMessageCreateSODelivery.ForeColor = Color.Red;
-            lblMessageCreateSODelivery.Visible = true;
+            lblMessageCreateSODelivery.ForeColor = Color.Red; 
             lblMessageCreateSODelivery.Text = "";
             MPE_Delivery.Show();
             try
@@ -926,6 +935,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             gvDelivery.DataSource = SODelivery_Insert;
             gvDelivery.PageIndex = e.NewPageIndex;
             gvDelivery.DataBind();
+            MPE_Delivery.Show();
         }
         protected void ddlShiftTo_SelectedIndexChanged(object sender, EventArgs e)
         {

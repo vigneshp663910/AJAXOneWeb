@@ -89,18 +89,8 @@ namespace DealerManagementSystem.ViewSales
                 txtDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtDateTo.Text = DateTime.Now.ToShortDateString();
 
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
-                int? CDealerID = (ddlDealerCode.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
-                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID", true, "Select");
+                fillDealer(); 
+                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerCode.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 new DDLBind(ddlSOStatus, new BDMS_Master().GetAjaxOneStatus(3), "Status", "StatusID");
                 new DDLBind(ddlSOType, new BDMS_SalesOrder().GetSaleOrderType(null, null), "SaleOrderType", "SaleOrderTypeID");
@@ -110,7 +100,7 @@ namespace DealerManagementSystem.ViewSales
                     divList.Visible = false;
                     divDetailsView.Visible = true;
                     UC_SalesOrderView.fillViewSO(Convert.ToInt64(Session["SaleOrderID"]));
-
+                    Session["SaleOrderID"] = null;
                 }
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
