@@ -616,7 +616,105 @@ namespace Business
             HttpContext.Current.Response.Flush();
             HttpContext.Current.Response.End();
         }
+        public void ExporttoExcelForLeadNextFollowUpAgeingReport(DataTable table, string strFile, string FirstLine)
+        {
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.ClearContent();
+            HttpContext.Current.Response.ClearHeaders();
+            HttpContext.Current.Response.Buffer = true;
+            HttpContext.Current.Response.ContentType = "application/ms-excel";
+            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + strFile + ".xls");
+            HttpContext.Current.Response.Charset = "utf-16";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+            HttpContext.Current.Response.Write("<font style='font-size:11.0pt; font-family:Calibri;'>");
+            HttpContext.Current.Response.Write("<BR><BR><BR>");
+            HttpContext.Current.Response.Write("<Table border='1' bgColor='#ffffff' borderColor='#000000' cellSpacing='0' cellPadding='0' style='font-size:11.0pt; font-family:Calibri; background:white;'> ");
+            int columnscount = table.Columns.Count;
+            HttpContext.Current.Response.Write("<TR ><Td  colspan='11' style='background-color: #b4c6e7; text-align: center;' ><B>" + FirstLine + "</B></Td></TR> ");
+            HttpContext.Current.Response.Write("<TR > ");
+            HttpContext.Current.Response.Write("<Td rowspan='3' style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Region</B></Td>");
+            HttpContext.Current.Response.Write("<Td rowspan='3' style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Dealer Code</B></Td>");
+            HttpContext.Current.Response.Write("<Td rowspan='3' style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B>Dealer Name</B></Td>");
+            HttpContext.Current.Response.Write("<Td  colspan='8' style='background-color: #c6e0b4; text-align: center' ><B>Next Follow Up) from Today Date - Ageing in Days</B></Td>");
 
+            HttpContext.Current.Response.Write("</TR>");
+
+            HttpContext.Current.Response.Write("<TR >");
+            HttpContext.Current.Response.Write("<Td colspan='3' style='background-color: #ff8f8f; text-align: center;' ><B> - Days </B></Td>");
+            HttpContext.Current.Response.Write("<Td rowspan='2' style='background-color: #fce4d6; text-align: center; vertical-align: middle;' ><B> 0 </B></Td>");
+            HttpContext.Current.Response.Write("<Td colspan='3' style='background-color: #6dce2b; text-align: center;' ><B> + Days </B></Td>");
+            HttpContext.Current.Response.Write("<Td rowspan='2' style='background-color: #f8cbad; text-align: center; vertical-align: middle;' ><B> Grand Total </B></Td>");
+            HttpContext.Current.Response.Write("</TR>");
+
+            HttpContext.Current.Response.Write("<TR >");
+            HttpContext.Current.Response.Write("<Td style='background-color: #ff4747;' ><B> < (-60) </B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #ff8f8f;' ><B> (-31) To (-60) </B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #ffd1d1;' ><B> (-1) To (-30) </B></Td>");
+
+            HttpContext.Current.Response.Write("<Td style='background-color: #67b92f;' ><B> 1 To 30 </B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #6dce2b;' ><B> 31 To 60 </B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #92cf68;' ><B> > 60 </B></Td>");
+
+            HttpContext.Current.Response.Write("</TR>");
+            foreach (DataRow row in table.Rows)
+            {
+                HttpContext.Current.Response.Write("<TR>");
+                for (int i = 0; i < 11; i++)
+                {
+                    HttpContext.Current.Response.Write("<Td>");
+                    HttpContext.Current.Response.Write(row[i].ToString());
+                    HttpContext.Current.Response.Write("</Td>");
+                }
+
+                HttpContext.Current.Response.Write("</TR>");
+            }
+
+            // footer
+
+
+            decimal DaysLeN60 = 0, DaysN31_60 = 0, DaysN1_30 = 0, Days0 = 0, Days1_30 = 0, Days31_60 = 0, DaysGr60 = 0, Total = 0;
+            foreach (DataRow dr in table.Rows)
+            {
+                DaysLeN60 = DaysLeN60 + Convert.ToDecimal(dr["Days < -60"]);
+                DaysN31_60 = DaysN31_60 + Convert.ToDecimal(dr["Days -31 To -60"]);
+                DaysN1_30 = DaysN1_30 + Convert.ToDecimal(dr["Days -1 To -30"]);
+                Days0 = Days0 + Convert.ToDecimal(dr["Days 0"]);
+
+                Days1_30 = Days1_30 + Convert.ToDecimal(dr["Days 1 To 30"]);
+                Days31_60 = Days31_60 + Convert.ToDecimal(dr["Days 31 To 60"]);
+                DaysGr60 = DaysGr60 + Convert.ToDecimal(dr["Days > 60"]);
+                Total = Total + Convert.ToDecimal(dr["Total"]);
+            }
+
+            HttpContext.Current.Response.Write("<TR>");
+
+            HttpContext.Current.Response.Write("<Td colspan='3'><B>Total</Td>");
+
+            HttpContext.Current.Response.Write("<Td style='background-color: #ff4747;' ><B>" + DaysLeN60.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #ff8f8f;' ><B>" + DaysN31_60.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #ffd1d1;' ><B>" + DaysN1_30.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #fce4d6;' ><B>" + Days0.ToString() + "</B></Td>");
+
+            HttpContext.Current.Response.Write("<Td style='background-color: #67b92f;' ><B>" + Days1_30.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #6dce2b;' ><B>" + Days31_60.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #92cf68;' ><B>" + DaysGr60.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("<Td style='background-color: #f8cbad;' ><B>" + Total.ToString() + "</B></Td>");
+            HttpContext.Current.Response.Write("</TR>");
+
+
+            HttpContext.Current.Response.Write("</Table>");
+            HttpContext.Current.Response.Write("</font>");
+
+            // Append cookie
+            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+            cookie.Value = "Flag";
+            cookie.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.AppendCookie(cookie);
+            // end
+
+            HttpContext.Current.Response.Flush();
+            HttpContext.Current.Response.End();
+        }
         public void ExporttoExcelDealerBusinessExcellenceReport(DataTable table, string strFile, string FirstLine)
         {
             HttpContext.Current.Response.Clear();

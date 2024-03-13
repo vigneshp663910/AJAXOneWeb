@@ -104,7 +104,7 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             {
                 StatusID = (short)AjaxOneStatus.DealerBusinessExcellence_ApprovalL3;
             }
-            PApiResult Result = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, RegionID, StatusID, PageIndex, gvDealerB.PageSize);
+            PApiResult Result = new BDealerBusiness().GetDealerBusinessExcellence(Year, Month, DealerID, RegionID, StatusID, PageIndex, gvDealerB.PageSize);
             gvDealerB.DataSource = JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceHeader>>(JsonConvert.SerializeObject(Result.Data)); ;
             gvDealerB.DataBind();
             if (Result.RowCount == 0)

@@ -437,6 +437,7 @@
     <Content Include="ViewAdmin\VisitTagetPlanning.aspx" />
     <Content Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx" />
     <Content Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx" />
+    <Content Include="ViewBusinessExcellence\DealerBusinessExcellenceQuarterWise.aspx" />
     <Content Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx" />
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
@@ -590,6 +591,7 @@
     <Content Include="ViewPreSale\Quotation.aspx" />
     <Content Include="ViewPreSale\Reports\EnquiryUnattendedAgeing.aspx" />
     <Content Include="ViewPreSale\Reports\LeadExpectedDateofSaleAgeingReport.aspx" />
+    <Content Include="ViewPreSale\Reports\LeadNextFollowUpAgeingReport.aspx" />
     <Content Include="ViewPreSale\SalesPipelineReport.aspx" />
     <Content Include="ViewPreSale\UserControls\AddCustomerConversation.ascx" />
     <Content Include="ViewPreSale\UserControls\AddEnquiry.ascx" />
@@ -1201,6 +1203,13 @@
     </Compile>
     <Compile Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx.designer.cs">
       <DependentUpon>DealerBusinessExcellenceApprove.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\DealerBusinessExcellenceQuarterWise.aspx.cs">
+      <DependentUpon>DealerBusinessExcellenceQuarterWise.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewBusinessExcellence\DealerBusinessExcellenceQuarterWise.aspx.designer.cs">
+      <DependentUpon>DealerBusinessExcellenceQuarterWise.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx.cs">
       <DependentUpon>ViewDealerBusinessExcellence.ascx</DependentUpon>
@@ -1976,6 +1985,13 @@
     </Compile>
     <Compile Include="ViewPreSale\Reports\LeadExpectedDateofSaleAgeingReport.aspx.designer.cs">
       <DependentUpon>LeadExpectedDateofSaleAgeingReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\LeadNextFollowUpAgeingReport.aspx.cs">
+      <DependentUpon>LeadNextFollowUpAgeingReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\LeadNextFollowUpAgeingReport.aspx.designer.cs">
+      <DependentUpon>LeadNextFollowUpAgeingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\SalesPipelineReport.aspx.cs">
       <DependentUpon>SalesPipelineReport.aspx</DependentUpon>

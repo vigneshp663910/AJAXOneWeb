@@ -121,7 +121,7 @@ namespace DealerManagementSystem.ViewBusinessExcellence.UserControls
         }
         public void fill(long DealerBusinessExcellenceID)
         {
-            DealerBusiness = new BDealer().GetDealerBusinessExcellenceByID(DealerBusinessExcellenceID);
+            DealerBusiness = new BDealerBusiness().GetDealerBusinessExcellenceByID(DealerBusinessExcellenceID);
             lblYear.Text = Convert.ToString(DealerBusiness.Year);
             lblMonth.Text = DealerBusiness.MonthName;
             lblDealer.Text = DealerBusiness.Dealer.DealerCode;

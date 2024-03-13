@@ -1221,243 +1221,245 @@ namespace Business
             return false;
         } 
          
-        public Boolean InsertDeviatedClaimRequestForApproval(long WarrantyInvoiceHeaderID, int UserID)
-        {
+        //public Boolean InsertDeviatedClaimRequestForApproval(long WarrantyInvoiceHeaderID, int UserID)
+        //{
 
-            DbParameter WarrantyInvoiceHeaderIDP = provider.CreateParameter("WarrantyInvoiceHeaderID", WarrantyInvoiceHeaderID, DbType.Int64);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[2] { WarrantyInvoiceHeaderIDP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_InsertDeviatedClaimRequestForApproval", Params);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_WarrantyClaim", "InsertDeviatedClaimRequestForApproval", sqlEx);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_WarrantyClaim", " InsertDeviatedClaimRequestForApproval", ex);
-                return false;
-            }
-            return true;
-        }
-        public Boolean ApproveOrRejectDeviatedClaimRequest(long WarrantyInvoiceHeaderID, Boolean? IsApproved, Boolean? IsRejected, int UserID)
-        {
-            DbParameter WarrantyInvoiceHeaderIDP = provider.CreateParameter("WarrantyInvoiceHeaderID", WarrantyInvoiceHeaderID, DbType.Int64);
-            DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Int32);
-            DbParameter IsRejectedP = provider.CreateParameter("IsRejected", IsRejected, DbType.Int32);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[4] { WarrantyInvoiceHeaderIDP, IsApprovedP, IsRejectedP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_ApproveOrRejectDeviatedClaimRequest", Params);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_WarrantyClaim", "ApproveOrRejectDeviatedClaimRequest", sqlEx);
-                return false;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_WarrantyClaim", " ApproveOrRejectDeviatedClaimRequest", ex);
-                return false;
-            }
-            return true;
-        }
-        public List<PDMS_WarrantyInvoiceHeader> GetDeviatedClaimForApproval(int? DealerID, string ClaimNumber, DateTime? RequestedDateF, DateTime? RequestedDateT)
-        {
-            List<PDMS_WarrantyInvoiceHeader> Ws = new List<PDMS_WarrantyInvoiceHeader>();
-            PDMS_WarrantyInvoiceHeader W = null;
-            try
-            {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter ClaimNumberP = provider.CreateParameter("ClaimNumber", string.IsNullOrEmpty(ClaimNumber) ? null : ClaimNumber, DbType.String);
-                DbParameter RequestedDateFP = provider.CreateParameter("RequestedDateF", RequestedDateF, DbType.DateTime);
-                DbParameter RequestedDateTP = provider.CreateParameter("RequestedDateT", RequestedDateT, DbType.DateTime);
+        //    DbParameter WarrantyInvoiceHeaderIDP = provider.CreateParameter("WarrantyInvoiceHeaderID", WarrantyInvoiceHeaderID, DbType.Int64);
+        //    DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+        //    DbParameter[] Params = new DbParameter[2] { WarrantyInvoiceHeaderIDP, UserIDP };
+        //    try
+        //    {
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
+        //            provider.Insert("ZDMS_InsertDeviatedClaimRequestForApproval", Params);
+        //            scope.Complete();
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_WarrantyClaim", "InsertDeviatedClaimRequestForApproval", sqlEx);
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_WarrantyClaim", " InsertDeviatedClaimRequestForApproval", ex);
+        //        return false;
+        //    }
+        //    return true;
+        //}
+        //public Boolean ApproveOrRejectDeviatedClaimRequest(long WarrantyInvoiceHeaderID, Boolean? IsApproved, Boolean? IsRejected, int UserID)
+        //{
+        //    DbParameter WarrantyInvoiceHeaderIDP = provider.CreateParameter("WarrantyInvoiceHeaderID", WarrantyInvoiceHeaderID, DbType.Int64);
+        //    DbParameter IsApprovedP = provider.CreateParameter("IsApproved", IsApproved, DbType.Int32);
+        //    DbParameter IsRejectedP = provider.CreateParameter("IsRejected", IsRejected, DbType.Int32);
+        //    DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+        //    DbParameter[] Params = new DbParameter[4] { WarrantyInvoiceHeaderIDP, IsApprovedP, IsRejectedP, UserIDP };
+        //    try
+        //    {
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
+        //            provider.Insert("ZDMS_ApproveOrRejectDeviatedClaimRequest", Params);
+        //            scope.Complete();
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_WarrantyClaim", "ApproveOrRejectDeviatedClaimRequest", sqlEx);
+        //        return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessage("BDMS_WarrantyClaim", " ApproveOrRejectDeviatedClaimRequest", ex);
+        //        return false;
+        //    }
+        //    return true;
+        //}
+        //public List<PDMS_WarrantyInvoiceHeader> GetDeviatedClaimForApproval(int? DealerID,string IcTicketNumber, string ClaimNumber, DateTime? RequestedDateF, DateTime? RequestedDateT,int UserID)
+        //{
+        //    List<PDMS_WarrantyInvoiceHeader> Ws = new List<PDMS_WarrantyInvoiceHeader>();
+        //    PDMS_WarrantyInvoiceHeader W = null;
+        //    try
+        //    {
+        //        DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+        //        DbParameter IcTicketNumberP = provider.CreateParameter("IcTicketNumber", string.IsNullOrEmpty(IcTicketNumber) ? null : IcTicketNumber, DbType.String);
+        //        DbParameter ClaimNumberP = provider.CreateParameter("ClaimNumber", string.IsNullOrEmpty(ClaimNumber) ? null : ClaimNumber, DbType.String); 
+        //        DbParameter RequestedDateFP = provider.CreateParameter("RequestedDateF", RequestedDateF, DbType.DateTime);
+        //        DbParameter RequestedDateTP = provider.CreateParameter("RequestedDateT", RequestedDateT, DbType.DateTime);
+        //        DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
 
-                DbParameter[] Params = new DbParameter[4] { DealerIDP, ClaimNumberP, RequestedDateFP, RequestedDateTP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetDeviatedClaimForApproval", Params))
-                {
+        //        DbParameter[] Params = new DbParameter[6] { DealerIDP, IcTicketNumberP, ClaimNumberP, RequestedDateFP, RequestedDateTP, UserIDP };
+        //        using (DataSet DataSet = provider.Select("ZDMS_GetDeviatedClaimForApproval", Params))
+        //        {
 
-                    if (DataSet != null)
-                    {
-                        long HeaderID = -1;
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
+        //            if (DataSet != null)
+        //            {
+        //                long HeaderID = -1;
+        //                foreach (DataRow dr in DataSet.Tables[0].Rows)
+        //                {
 
-                            if (HeaderID != Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]))
-                            {
-                                W = new PDMS_WarrantyInvoiceHeader();
-                                Ws.Add(W);
-                                W.WarrantyInvoiceHeaderID = Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]);
-                                W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
-                                W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
-                                W.ICTicketID = Convert.ToString(dr["ICTicketID"]);
-                                W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-                                W.CustomerCode = Convert.ToString(dr["CustomerCode"]);
-                                W.CustomerName = Convert.ToString(dr["CustomerName"]);
-                                W.DealerCode = Convert.ToString(dr["DealerCode"]);
-                                W.DealerName = Convert.ToString(dr["DealerName"]);
-                                W.Approved1By = new PUser();
-                                if (dr["Approved1By"] != DBNull.Value)
-                                {
-                                    W.Approved1By.ContactName = Convert.ToString(dr["Approved1By"]);
-                                }
-                                // W.Approved1By = new PUser() { UserID = DBNull.Value == dr["Approved1By"] ? (int?)null : Convert.ToInt32(dr["Approved1By"]) };
-                                W.Approved1On = DBNull.Value == dr["Approved1On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved1On"]);
+        //                    if (HeaderID != Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]))
+        //                    {
+        //                        W = new PDMS_WarrantyInvoiceHeader();
+        //                        Ws.Add(W);
+        //                        W.WarrantyInvoiceHeaderID = Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]);
+        //                        W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
+        //                        W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
+        //                        W.ICTicketID = Convert.ToString(dr["ICTicketID"]);
+        //                        W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+        //                        W.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+        //                        W.CustomerName = Convert.ToString(dr["CustomerName"]);
+        //                        W.DealerCode = Convert.ToString(dr["DealerCode"]);
+        //                        W.DealerName = Convert.ToString(dr["DealerName"]);
+        //                        W.Approved1By = new PUser();
+        //                        if (dr["Approved1By"] != DBNull.Value)
+        //                        {
+        //                            W.Approved1By.ContactName = Convert.ToString(dr["Approved1By"]);
+        //                        }
+        //                        // W.Approved1By = new PUser() { UserID = DBNull.Value == dr["Approved1By"] ? (int?)null : Convert.ToInt32(dr["Approved1By"]) };
+        //                        W.Approved1On = DBNull.Value == dr["Approved1On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved1On"]);
 
-                                // W.Approved2By = DBNull.Value == dr["Approved2By"] ? (int?)null : Convert.ToInt32(dr["Approved2By"]);
+        //                        // W.Approved2By = DBNull.Value == dr["Approved2By"] ? (int?)null : Convert.ToInt32(dr["Approved2By"]);
 
-                                W.Approved2By = new PUser();
-                                if (dr["Approved2By"] != DBNull.Value)
-                                {
-                                    W.Approved2By.ContactName = Convert.ToString(dr["Approved2By"]);
-                                }
+        //                        W.Approved2By = new PUser();
+        //                        if (dr["Approved2By"] != DBNull.Value)
+        //                        {
+        //                            W.Approved2By.ContactName = Convert.ToString(dr["Approved2By"]);
+        //                        }
 
-                                W.Approved2On = DBNull.Value == dr["Approved2On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved2On"]);
-                                W.ClaimStatus = Convert.ToString(dr["ClaimStatus"]).Trim();
-                                W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
-                                W.MarginWarranty = DBNull.Value == dr["MarginWarranty"] ? (Boolean?)null : Convert.ToBoolean(dr["MarginWarranty"]);
-                                W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
-                                W.Model = Convert.ToString(dr["Model"]);
-                                W.PscID = Convert.ToString(dr["PscID"]);
+        //                        W.Approved2On = DBNull.Value == dr["Approved2On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved2On"]);
+        //                        W.ClaimStatus = Convert.ToString(dr["ClaimStatus"]).Trim();
+        //                        W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
+        //                        W.MarginWarranty = DBNull.Value == dr["MarginWarranty"] ? (Boolean?)null : Convert.ToBoolean(dr["MarginWarranty"]);
+        //                        W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
+        //                        W.Model = Convert.ToString(dr["Model"]);
+        //                        W.PscID = Convert.ToString(dr["PscID"]);
 
-                                W.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
-                                HeaderID = W.WarrantyInvoiceHeaderID;
+        //                        W.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
+        //                        HeaderID = W.WarrantyInvoiceHeaderID;
 
-                                W.InvoiceItems = new List<PDMS_WarrantyInvoiceItem>();
-                            }
-                            PDMS_WarrantyInvoiceItem item = new PDMS_WarrantyInvoiceItem();
-                            item.WarrantyInvoiceItemID = Convert.ToInt64(dr["WarrantyInvoiceItemID"]);
+        //                        W.InvoiceItems = new List<PDMS_WarrantyInvoiceItem>();
+        //                    }
+        //                    PDMS_WarrantyInvoiceItem item = new PDMS_WarrantyInvoiceItem();
+        //                    item.WarrantyInvoiceItemID = Convert.ToInt64(dr["WarrantyInvoiceItemID"]);
 
-                            item.Item = Convert.ToString(dr["Item"]);
-                            item.RefDocID = Convert.ToString(dr["RefDocID"]);
-                            item.Material = Convert.ToString(dr["Material"]);
-                            item.MaterialDesc = Convert.ToString(dr["MaterialDesc"]);
-                            item.DeliveryNumber = Convert.ToString(dr["DeliveryNumber"]);
-                            item.Category = Convert.ToString(dr["Category"]);
+        //                    item.Item = Convert.ToString(dr["Item"]);
+        //                    item.RefDocID = Convert.ToString(dr["RefDocID"]);
+        //                    item.Material = Convert.ToString(dr["Material"]);
+        //                    item.MaterialDesc = Convert.ToString(dr["MaterialDesc"]);
+        //                    item.DeliveryNumber = Convert.ToString(dr["DeliveryNumber"]);
+        //                    item.Category = Convert.ToString(dr["Category"]);
 
-                            item.HSNCode = Convert.ToString(dr["HSNCode"]);
-                            item.Qty = Convert.ToDecimal(dr["Qty"]);
-                            item.UnitOM = Convert.ToString(dr["UnitOM"]);
-                            item.MaterialStatus = Convert.ToString(dr["MaterialStatus"]);
-                            item.MaterialStatusRemarks1 = Convert.ToString(dr["MaterialStatusRemarks1"]);
-                            item.MaterialStatusRemarks2 = Convert.ToString(dr["MaterialStatusRemarks2"]);
-                            item.Amount = DBNull.Value == dr["Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Amount"]);
-                            item.BaseTax = DBNull.Value == dr["BaseTax"] ? (decimal?)null : Convert.ToDecimal(dr["BaseTax"]);
-                            item.Approved1Amount = DBNull.Value == dr["Approved1Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved1Amount"]);
-                            item.Approved1Remarks = Convert.ToString(dr["Approved1Remarks"]);
+        //                    item.HSNCode = Convert.ToString(dr["HSNCode"]);
+        //                    item.Qty = Convert.ToDecimal(dr["Qty"]);
+        //                    item.UnitOM = Convert.ToString(dr["UnitOM"]);
+        //                    item.MaterialStatus = Convert.ToString(dr["MaterialStatus"]);
+        //                    item.MaterialStatusRemarks1 = Convert.ToString(dr["MaterialStatusRemarks1"]);
+        //                    item.MaterialStatusRemarks2 = Convert.ToString(dr["MaterialStatusRemarks2"]);
+        //                    item.Amount = DBNull.Value == dr["Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Amount"]);
+        //                    item.BaseTax = DBNull.Value == dr["BaseTax"] ? (decimal?)null : Convert.ToDecimal(dr["BaseTax"]);
+        //                    item.Approved1Amount = DBNull.Value == dr["Approved1Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved1Amount"]);
+        //                    item.Approved1Remarks = Convert.ToString(dr["Approved1Remarks"]);
 
-                            item.Approved2Amount = DBNull.Value == dr["Approved2Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved2Amount"]);
-                            item.Approved2Remarks = Convert.ToString(dr["Approved2Remarks"]);
-                            item.WarrantyMaterialReturnStatus = new PDMS_WarrantyMaterialReturnStatus();
-                            if (DBNull.Value != dr["WarrantyMaterialReturnStatusID"])
-                            {
-                                item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatusID = Convert.ToInt32(dr["WarrantyMaterialReturnStatusID"]);
-                                item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatus = Convert.ToString(dr["WarrantyMaterialReturnStatus"]);
-                            }
-                            item.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
-                            W.InvoiceItems.Add(item);
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Ws;
-        }
-        public List<PDMS_WarrantyInvoiceHeader> GetDeviatedClaimReport(int? DealerID, string ClaimNumber, DateTime? RequestedDateF, DateTime? RequestedDateT, int UserID)
-        {
-            List<PDMS_WarrantyInvoiceHeader> Ws = new List<PDMS_WarrantyInvoiceHeader>();
-            PDMS_WarrantyInvoiceHeader W = null;
-            try
-            {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter ClaimNumberP = provider.CreateParameter("ClaimNumber", string.IsNullOrEmpty(ClaimNumber) ? null : ClaimNumber, DbType.String);
-                DbParameter RequestedDateFP = provider.CreateParameter("RequestedDateF", RequestedDateF, DbType.DateTime);
-                DbParameter RequestedDateTP = provider.CreateParameter("RequestedDateT", RequestedDateT, DbType.DateTime);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[5] { DealerIDP, ClaimNumberP, RequestedDateFP, RequestedDateTP, UserIDP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetDeviatedClaimReport", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        long HeaderID = -1;
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
+        //                    item.Approved2Amount = DBNull.Value == dr["Approved2Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved2Amount"]);
+        //                    item.Approved2Remarks = Convert.ToString(dr["Approved2Remarks"]);
+        //                    item.WarrantyMaterialReturnStatus = new PDMS_WarrantyMaterialReturnStatus();
+        //                    if (DBNull.Value != dr["WarrantyMaterialReturnStatusID"])
+        //                    {
+        //                        item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatusID = Convert.ToInt32(dr["WarrantyMaterialReturnStatusID"]);
+        //                        item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatus = Convert.ToString(dr["WarrantyMaterialReturnStatus"]);
+        //                    }
+        //                    item.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
+        //                    W.InvoiceItems.Add(item);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    { }
+        //    catch (Exception ex)
+        //    { }
+        //    return Ws;
+        //}
+        //public List<PDMS_WarrantyInvoiceHeader> GetDeviatedClaimReport(int? DealerID, string ClaimNumber, DateTime? RequestedDateF, DateTime? RequestedDateT, int UserID)
+        //{
+        //    List<PDMS_WarrantyInvoiceHeader> Ws = new List<PDMS_WarrantyInvoiceHeader>();
+        //    PDMS_WarrantyInvoiceHeader W = null;
+        //    try
+        //    {
+        //        DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+        //        DbParameter ClaimNumberP = provider.CreateParameter("ClaimNumber", string.IsNullOrEmpty(ClaimNumber) ? null : ClaimNumber, DbType.String);
+        //        DbParameter RequestedDateFP = provider.CreateParameter("RequestedDateF", RequestedDateF, DbType.DateTime);
+        //        DbParameter RequestedDateTP = provider.CreateParameter("RequestedDateT", RequestedDateT, DbType.DateTime);
+        //        DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+        //        DbParameter[] Params = new DbParameter[5] { DealerIDP, ClaimNumberP, RequestedDateFP, RequestedDateTP, UserIDP };
+        //        using (DataSet DataSet = provider.Select("ZDMS_GetDeviatedClaimReport", Params))
+        //        {
+        //            if (DataSet != null)
+        //            {
+        //                long HeaderID = -1;
+        //                foreach (DataRow dr in DataSet.Tables[0].Rows)
+        //                {
 
-                            if (HeaderID != Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]))
-                            {
-                                W = new PDMS_WarrantyInvoiceHeader();
-                                Ws.Add(W);
-                                W.WarrantyInvoiceHeaderID = Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]);
-                                W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
-                                W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
-                                W.ICTicketID = Convert.ToString(dr["ICTicketID"]);
-                                W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-                                W.CustomerCode = Convert.ToString(dr["CustomerCode"]);
-                                W.CustomerName = Convert.ToString(dr["CustomerName"]);
-                                W.DealerCode = Convert.ToString(dr["DealerCode"]);
-                                W.DealerName = Convert.ToString(dr["DealerName"]); 
+        //                    if (HeaderID != Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]))
+        //                    {
+        //                        W = new PDMS_WarrantyInvoiceHeader();
+        //                        Ws.Add(W);
+        //                        W.WarrantyInvoiceHeaderID = Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]);
+        //                        W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
+        //                        W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
+        //                        W.ICTicketID = Convert.ToString(dr["ICTicketID"]);
+        //                        W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+        //                        W.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+        //                        W.CustomerName = Convert.ToString(dr["CustomerName"]);
+        //                        W.DealerCode = Convert.ToString(dr["DealerCode"]);
+        //                        W.DealerName = Convert.ToString(dr["DealerName"]); 
 
-                                W.ClaimStatus = Convert.ToString(dr["ClaimStatus"]).Trim();
-                                W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
-                                W.MarginWarranty = DBNull.Value == dr["MarginWarranty"] ? (Boolean?)null : Convert.ToBoolean(dr["MarginWarranty"]);
-                                W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
-                                W.Model = Convert.ToString(dr["Model"]); 
+        //                        W.ClaimStatus = Convert.ToString(dr["ClaimStatus"]).Trim();
+        //                        W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
+        //                        W.MarginWarranty = DBNull.Value == dr["MarginWarranty"] ? (Boolean?)null : Convert.ToBoolean(dr["MarginWarranty"]);
+        //                        W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
+        //                        W.Model = Convert.ToString(dr["Model"]); 
 
-                                W.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
+        //                        W.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
 
-                                W.DeviatedIsApproved = DBNull.Value == dr["IsApproved"] ? (Boolean?)null : Convert.ToBoolean(dr["IsApproved"]);
-                                W.DeviatedIsRejected = DBNull.Value == dr["IsRejected"] ? (Boolean?)null : Convert.ToBoolean(dr["IsRejected"]);
+        //                        W.DeviatedIsApproved = DBNull.Value == dr["IsApproved"] ? (Boolean?)null : Convert.ToBoolean(dr["IsApproved"]);
+        //                        W.DeviatedIsRejected = DBNull.Value == dr["IsRejected"] ? (Boolean?)null : Convert.ToBoolean(dr["IsRejected"]);
 
-                                HeaderID = W.WarrantyInvoiceHeaderID;
-                                W.InvoiceItems = new List<PDMS_WarrantyInvoiceItem>();
-                            }
-                            PDMS_WarrantyInvoiceItem item = new PDMS_WarrantyInvoiceItem();
-                            item.WarrantyInvoiceItemID = Convert.ToInt64(dr["WarrantyInvoiceItemID"]);
+        //                        HeaderID = W.WarrantyInvoiceHeaderID;
+        //                        W.InvoiceItems = new List<PDMS_WarrantyInvoiceItem>();
+        //                    }
+        //                    PDMS_WarrantyInvoiceItem item = new PDMS_WarrantyInvoiceItem();
+        //                    item.WarrantyInvoiceItemID = Convert.ToInt64(dr["WarrantyInvoiceItemID"]);
 
-                            item.Item = Convert.ToString(dr["Item"]);
-                            item.RefDocID = Convert.ToString(dr["RefDocID"]);
-                            item.Material = Convert.ToString(dr["Material"]);
-                            item.MaterialDesc = Convert.ToString(dr["MaterialDesc"]);
-                            item.DeliveryNumber = Convert.ToString(dr["DeliveryNumber"]);
-                            item.Category = Convert.ToString(dr["Category"]);
+        //                    item.Item = Convert.ToString(dr["Item"]);
+        //                    item.RefDocID = Convert.ToString(dr["RefDocID"]);
+        //                    item.Material = Convert.ToString(dr["Material"]);
+        //                    item.MaterialDesc = Convert.ToString(dr["MaterialDesc"]);
+        //                    item.DeliveryNumber = Convert.ToString(dr["DeliveryNumber"]);
+        //                    item.Category = Convert.ToString(dr["Category"]);
 
-                            item.HSNCode = Convert.ToString(dr["HSNCode"]);
-                            item.Qty = Convert.ToDecimal(dr["Qty"]);
-                            item.UnitOM = Convert.ToString(dr["UnitOM"]);
-                            item.MaterialStatus = Convert.ToString(dr["MaterialStatus"]);
-                            item.MaterialStatusRemarks1 = Convert.ToString(dr["MaterialStatusRemarks1"]);
-                            item.MaterialStatusRemarks2 = Convert.ToString(dr["MaterialStatusRemarks2"]);
-                            item.Amount = DBNull.Value == dr["Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Amount"]);
-                            item.BaseTax = DBNull.Value == dr["BaseTax"] ? (decimal?)null : Convert.ToDecimal(dr["BaseTax"]);
+        //                    item.HSNCode = Convert.ToString(dr["HSNCode"]);
+        //                    item.Qty = Convert.ToDecimal(dr["Qty"]);
+        //                    item.UnitOM = Convert.ToString(dr["UnitOM"]);
+        //                    item.MaterialStatus = Convert.ToString(dr["MaterialStatus"]);
+        //                    item.MaterialStatusRemarks1 = Convert.ToString(dr["MaterialStatusRemarks1"]);
+        //                    item.MaterialStatusRemarks2 = Convert.ToString(dr["MaterialStatusRemarks2"]);
+        //                    item.Amount = DBNull.Value == dr["Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Amount"]);
+        //                    item.BaseTax = DBNull.Value == dr["BaseTax"] ? (decimal?)null : Convert.ToDecimal(dr["BaseTax"]);
                           
                            
-                            item.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
-                            W.InvoiceItems.Add(item);
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Ws;
-        }
+        //                    item.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
+        //                    W.InvoiceItems.Add(item);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (SqlException sqlEx)
+        //    { }
+        //    catch (Exception ex)
+        //    { }
+        //    return Ws;
+        //}
         public PSAPDocumentNumber getSAPDocumentNumber(string InvoiceNumber)
         {
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Warranty/getSAPDocumentNumber?InvoiceNumber=" + InvoiceNumber));
@@ -1466,6 +1468,44 @@ namespace Business
                 throw new Exception(Results.Message);
             }
             return JsonConvert.DeserializeObject<PSAPDocumentNumber>(JsonConvert.SerializeObject(Results.Data));
+        }
+
+        public List<PClaimDeviation> GetDeviatedClaimReport(int? DealerID, string ClaimNumber, string RequestedDateF, string RequestedDateT, int DeviationTypeID)
+        { 
+            string endPoint = "Warranty/GetDeviatedClaimReport?DealerID=" + DealerID + "&ClaimNumber=" + ClaimNumber
+                + "&RequestedDateF=" + RequestedDateF + "&RequestedDateT=" + RequestedDateT + "&DeviationTypeID=" + DeviationTypeID;
+            return JsonConvert.DeserializeObject<List<PClaimDeviation>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+        public PApiResult InsertDeviatedClaimRequestForApproval(string ClaimNumber, int DeviationTypeID)
+        {
+            string endPoint = "Warranty/InsertDeviatedClaimRequestForApproval?ClaimNumber=" + ClaimNumber + "&DeviationTypeID=" + DeviationTypeID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+
+        }
+        public List<PClaimDeviation> GetDeviatedClaimForApproval(int? DealerID, string IcTicketNumber, string ClaimNumber, string RequestedDateF, string RequestedDateT, int DeviationTypeID)
+        {
+            string endPoint = "Warranty/GetDeviatedClaimForApproval?DealerID=" + DealerID + "&IcTicketNumber=" + IcTicketNumber + "&ClaimNumber=" + ClaimNumber 
+                + "&RequestedDateF=" + RequestedDateF + "&RequestedDateT=" + RequestedDateT + "&DeviationTypeID=" + DeviationTypeID ;
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+
+            if (Results.Status == PApplication.Failure)
+            {
+                throw new Exception(Results.Message); 
+            }
+            return JsonConvert.DeserializeObject<List<PClaimDeviation>>(JsonConvert.SerializeObject(Results.Data));
+
+        }
+        public PApiResult ApproveOrRejectDeviatedClaimRequest(long ClaimDeviationID, Boolean? IsApproved, Boolean? IsRejected)
+        {
+            string endPoint = "Warranty/ApproveOrRejectDeviatedClaimRequest?ClaimDeviationID=" + ClaimDeviationID + "&IsApproved=" + IsApproved + "&IsRejected=" + IsRejected;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public Boolean GetDeviatedClaimToVerify(string ClaimNumber, int DeviationTypeID)
+        {
+            string endPoint = "Warranty/GetDeviatedClaimToVerify?ClaimNumber=" + ClaimNumber + "&DeviationTypeID=" + DeviationTypeID;
+            return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

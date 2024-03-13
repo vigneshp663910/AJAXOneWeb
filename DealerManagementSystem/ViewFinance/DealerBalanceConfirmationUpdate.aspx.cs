@@ -16,6 +16,17 @@ namespace DealerManagementSystem.ViewFinance
     public partial class DealerBalanceConfirmationUpdate : BasePage
     {
         public override SubModule SubModuleName { get { return SubModule.ViewFinance_DealerBalanceConfirmationUpdate; } }
+        private List<PAttachedFile_Azure> AttchedFile
+        {
+            get
+            {
+                if (ViewState["AttchedFileDealerBalanceConfirmationUpdate"] == null)
+                {
+                    ViewState["AttchedFileDealerBalanceConfirmationUpdate"] = new List<PAttachedFile_Azure>();
+                }
+                return (List<PAttachedFile_Azure>)ViewState["AttchedFileDealerBalanceConfirmationUpdate"];
+            }
+        }
         private DataTable DealerBalanceConfirmationToUpdate
         {
             get
@@ -47,6 +58,8 @@ namespace DealerManagementSystem.ViewFinance
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 new DDLBind(ddlBalanceConfirmationStatus, new BDMS_Master().GetAjaxOneStatus(2), "Status", "StatusID");
             }
+
+
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -56,10 +69,10 @@ namespace DealerManagementSystem.ViewFinance
         {
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             string DateFrom = txtFromDate.Text.Trim();
-            string DateTo = txtToDate.Text.Trim(); 
+            string DateTo = txtToDate.Text.Trim();
             int? BalanceConfirmationStatusID = ddlBalanceConfirmationStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlBalanceConfirmationStatus.SelectedValue);
 
-            DealerBalanceConfirmationToUpdate = new BDealer().GetDealerBalanceConfirmationToUpdate(DealerID, BalanceConfirmationStatusID, DateFrom, DateTo);
+            DealerBalanceConfirmationToUpdate = new BDealerBusiness().GetDealerBalanceConfirmationToUpdate(DealerID, BalanceConfirmationStatusID, DateFrom, DateTo);
             gvDealerBalanceConfirmation.DataSource = DealerBalanceConfirmationToUpdate;
             gvDealerBalanceConfirmation.DataBind();
 
@@ -107,116 +120,212 @@ namespace DealerManagementSystem.ViewFinance
         }
         protected void lnkBtnBalanceConfirmationEdit_Click(object sender, EventArgs e)
         {
+            MPE_Edit.Show();
             LinkButton lnkBtnBalanceConfirmationEdit = (LinkButton)sender;
             GridViewRow row = (GridViewRow)(lnkBtnBalanceConfirmationEdit.NamingContainer);
-
-            Label lblTotalOutstandingAsPerDealer = (Label)row.FindControl("lblTotalOutstandingAsPerDealer");
-            Label lblBalanceConfirmationStatusG = (Label)row.FindControl("lblBalanceConfirmationStatusG");
-            Label lblBalanceConfirmationStatusIDG = (Label)row.FindControl("lblBalanceConfirmationStatusIDG");
-            
-            TextBox txtTotalOutstandingAsPerDealer = (TextBox)row.FindControl("txtTotalOutstandingAsPerDealer");
-            DropDownList ddlBalanceConfirmationStatusG = (DropDownList)row.FindControl("ddlBalanceConfirmationStatusG");
-
-            lblTotalOutstandingAsPerDealer.Visible = false;
-            lblBalanceConfirmationStatusG.Visible = false;
-
-            txtTotalOutstandingAsPerDealer.Text = lblTotalOutstandingAsPerDealer.Text;
-            txtTotalOutstandingAsPerDealer.Visible = true;
             new DDLBind(ddlBalanceConfirmationStatusG, new BDMS_Master().GetAjaxOneStatus(2), "Status", "StatusID");
-            ddlBalanceConfirmationStatusG.Visible = true;
+            Label lblDealerBalanceConfirmationIDGV = (Label)row.FindControl("lblDealerBalanceConfirmationID");
+            lblDealerBalanceConfirmationID.Text = lblDealerBalanceConfirmationIDGV.Text;
 
-            Button btnUpdateBalanceConfirmation = (Button)row.FindControl("btnUpdateBalanceConfirmation");
-            Button btnBack = (Button)row.FindControl("btnBack");
-            btnUpdateBalanceConfirmation.Visible = true;
-            btnBack.Visible = true;
-            lnkBtnBalanceConfirmationEdit.Visible = false;
+            txtVendorBalanceAsPerDealer.Text = "";
+             txtCustomerBalanceAsPerDealer.Text = "";
+            txtTotalOutstandingAsPerDealer.Text = ""; 
+            AttchedFile.Clear();
+            //Label lblVendorBalanceAsPerDealer = (Label)row.FindControl("lblVendorBalanceAsPerDealer");
+            //Label lblCustomerBalanceAsPerDealer = (Label)row.FindControl("lblCustomerBalanceAsPerDealer");
+            //Label lblTotalOutstandingAsPerDealer = (Label)row.FindControl("lblTotalOutstandingAsPerDealer");
+
+
+            //Label lblBalanceConfirmationStatusG = (Label)row.FindControl("lblBalanceConfirmationStatusG");
+            //// Label lblBalanceConfirmationStatusIDG = (Label)row.FindControl("lblBalanceConfirmationStatusIDG");
+
+            //TextBox txtVendorBalanceAsPerDealer = (TextBox)row.FindControl("txtVendorBalanceAsPerDealer");
+            //TextBox txtCustomerBalanceAsPerDealer = (TextBox)row.FindControl("txtCustomerBalanceAsPerDealer");
+            //TextBox txtTotalOutstandingAsPerDealer = (TextBox)row.FindControl("txtTotalOutstandingAsPerDealer");
+
+
+            //DropDownList ddlBalanceConfirmationStatusG = (DropDownList)row.FindControl("ddlBalanceConfirmationStatusG");
+
+            //lblVendorBalanceAsPerDealer.Visible = false;
+            //lblCustomerBalanceAsPerDealer.Visible = false;
+            //lblTotalOutstandingAsPerDealer.Visible = false;
+
+            //lblBalanceConfirmationStatusG.Visible = false;
+
+            //txtTotalOutstandingAsPerDealer.Text = lblTotalOutstandingAsPerDealer.Text;
+
+
+            //txtVendorBalanceAsPerDealer.Visible = true;
+            //txtCustomerBalanceAsPerDealer.Visible = true;
+            //txtTotalOutstandingAsPerDealer.Visible = true;
+
+
+            //new DDLBind(ddlBalanceConfirmationStatusG, new BDMS_Master().GetAjaxOneStatus(2), "Status", "StatusID");
+            //ddlBalanceConfirmationStatusG.Visible = true;
+
+            //Button btnUpdateBalanceConfirmation = (Button)row.FindControl("btnUpdateBalanceConfirmation");
+            //Button btnBack = (Button)row.FindControl("btnBack");
+            //btnUpdateBalanceConfirmation.Visible = true;
+            //btnBack.Visible = true;
+            //lnkBtnBalanceConfirmationEdit.Visible = false;
         }
-        protected void btnUpdateBalanceConfirmation_Click(object sender, EventArgs e)
+        
+        protected void lblAttachedFileAddR_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            GridViewRow row = (GridViewRow)(btn.NamingContainer);
-
-            Label lblTotalOutstandingAsPerDealer = (Label)row.FindControl("lblTotalOutstandingAsPerDealer");
-            Label lblBalanceConfirmationStatusG = (Label)row.FindControl("lblBalanceConfirmationStatusG");
-
-            TextBox txtTotalOutstandingAsPerDealer = (TextBox)row.FindControl("txtTotalOutstandingAsPerDealer");
-            DropDownList ddlBalanceConfirmationStatusG = (DropDownList)row.FindControl("ddlBalanceConfirmationStatusG");
-
-            if (btn.ID == "btnBack")
+            MPE_Edit.Show();
+            lblMessage.Visible = true; 
+            if (fu.PostedFile.FileName.Length == 0)
             {
-                lblTotalOutstandingAsPerDealer.Visible = true;
-                lblBalanceConfirmationStatusG.Visible = true;
+                lblMessage.Text = "Please select the file";
+                lblMessage.ForeColor = Color.Red;
+                return;
+            }
+            string ext = System.IO.Path.GetExtension(fu.PostedFile.FileName).ToLower();
 
-                txtTotalOutstandingAsPerDealer.Visible = false;
-                ddlBalanceConfirmationStatusG.Visible = false;
+            AttchedFile.Add(CreateUploadedFileFSR(fu.PostedFile));
+            gvAttachedFile.DataSource = AttchedFile;
+            gvAttachedFile.DataBind();
+           
+        }
+        protected void lblAttachedFileRemoveR_Click(object sender, EventArgs e)
+        {
+            lblMessage.Visible = true;
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            GridView Parentgrid = (GridView)(gvRow.Parent.Parent);
+            long AttachedFileID = Convert.ToInt64(Parentgrid.DataKeys[gvRow.RowIndex].Value);
 
-                Button btnUpdateBalanceConfirmation = (Button)row.FindControl("btnUpdateBalanceConfirmation");
-                Button btnBack = (Button)row.FindControl("btnBack");
-                LinkButton lnkBtnBalanceConfirmationEdit = (LinkButton)row.FindControl("lnkBtnBalanceConfirmationEdit");
-                btnUpdateBalanceConfirmation.Visible = false;
-                btnBack.Visible = false;
-                lnkBtnBalanceConfirmationEdit.Visible = true;
+            GridViewRow GParentrow = (GridViewRow)(Parentgrid.NamingContainer);
+            int GParentRowIndex = GParentrow.RowIndex;
+
+            PDMS_TSIRAttachedFile__M AttachedFile = new PDMS_TSIRAttachedFile__M();
+            AttachedFile.AttachedFileID = AttachedFileID;
+            AttachedFile.IsDeleted = true;
+
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicketTsir/AddOrRemoveTsirAttachment", AttachedFile));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessage.Text = Results.Message;
+                return;
+            }
+            lblMessage.Text = "File Removed";
+            lblMessage.ForeColor = Color.Green;
+            try
+            {
+                //List<PDMS_TSIRAttachedFile> UploadedFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(SDMS_ICTicket.ICTicketID, Convert.ToInt64(gvTSIR.DataKeys[GParentRowIndex].Value), null);
+                //Parentgrid.DataSource = UploadedFile;
+                //Parentgrid.DataBind();
+            }
+            catch (Exception ex)
+            { }
+        }
+        protected void lnkDownloadR_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton lnkDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkDownload.NamingContainer;
+                GridView Parentgrid = (GridView)(gvRow.NamingContainer);
+
+
+                long AttachedFileID = Convert.ToInt64(Parentgrid.DataKeys[gvRow.RowIndex].Value);
+
+                PAttachedFile UploadedFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileForDownload(AttachedFileID);
+                Response.AddHeader("Content-type", UploadedFile.FileType);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + UploadedFile.FileName.Replace(",", " "));
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        private PAttachedFile_Azure CreateUploadedFileFSR(HttpPostedFile file)
+        {
+
+            PAttachedFile_Azure AttachedFile = new PAttachedFile_Azure();
+            int size = file.ContentLength;
+            string name = file.FileName;
+            int position = name.LastIndexOf("\\");
+            name = name.Substring(position + 1);
+            AttachedFile.FileName = name;
+
+            AttachedFile.FileType = file.ContentType;
+
+            byte[] fileData = new byte[size];
+            file.InputStream.Read(fileData, 0, size);
+            AttachedFile.AttachedFile = fileData;
+            AttachedFile.AttachedFileID = 0;
+            return AttachedFile;
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+
+            MPE_Edit.Show();
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            txtTotalOutstandingAsPerDealer.BorderColor = Color.Silver;
+            ddlBalanceConfirmationStatusG.BorderColor = Color.Silver;
+
+            if (string.IsNullOrEmpty(txtVendorBalanceAsPerDealer.Text.Trim()))
+            {
+                lblMessage.Text = "Please enter the Vendor Balance.";
+                txtTotalOutstandingAsPerDealer.BorderColor = Color.Red;
+                return;
+            }
+            if (string.IsNullOrEmpty(txtCustomerBalanceAsPerDealer.Text.Trim()))
+            {
+                lblMessage.Text = "Please enter the Customer Balance.";
+                txtTotalOutstandingAsPerDealer.BorderColor = Color.Red;
+                return;
+            }
+            if (string.IsNullOrEmpty(txtTotalOutstandingAsPerDealer.Text.Trim()))
+            {
+                lblMessage.Text = "Please enter the Total Outstanding Amount.";
+                txtTotalOutstandingAsPerDealer.BorderColor = Color.Red;
+                return;
+            }
+            if (ddlBalanceConfirmationStatusG.SelectedValue == "0")
+            {
+                lblMessage.Text = "Please select the Balance Confirmation Status.";
+                ddlBalanceConfirmationStatusG.BorderColor = Color.Red;
+                return;
+            }
+
+            decimal x = 0;
+            if (!decimal.TryParse(txtTotalOutstandingAsPerDealer.Text.Trim(), out x))
+            {
+                lblMessage.Text = "Please enter the Amount in Total Outstanding As Per Dealer.";
+                txtTotalOutstandingAsPerDealer.BorderColor = Color.Red;
+                return;
+            }
+
+            string endPoint = "DealerBusiness/UpdateDealerBalanceConfirmation";
+            PDealerBalanceConfirmation_Post Dealer = new PDealerBalanceConfirmation_Post();
+            Dealer.DealerBalanceConfirmationID = Convert.ToInt64(lblDealerBalanceConfirmationID.Text);
+            Dealer.VendorBalanceAsPerDealer = Convert.ToDecimal(txtVendorBalanceAsPerDealer.Text);
+            Dealer.CustomerBalanceAsPerDealer = Convert.ToDecimal(txtCustomerBalanceAsPerDealer.Text);
+            Dealer.TotalOutstandingAsPerDealer = Convert.ToDecimal(txtTotalOutstandingAsPerDealer.Text);
+            Dealer.BalanceConfirmationStatusID = Convert.ToInt32(ddlBalanceConfirmationStatusG.SelectedValue);
+            Dealer.AttachedFile = new List<PAttachedFile_Azure>();
+            Dealer.AttachedFile = AttchedFile;
+            PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, Dealer));
+
+            if (result.Status == PApplication.Failure)
+            {
+                lblMessage.Text = "Dealer Balance Confirmation is not updated successfully.";
+                lblMessage.ForeColor = Color.Red;
+                return;
             }
             else
             {
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-                txtTotalOutstandingAsPerDealer.BorderColor = Color.Silver;
-                ddlBalanceConfirmationStatusG.BorderColor = Color.Silver;
-
-                if (string.IsNullOrEmpty(txtTotalOutstandingAsPerDealer.Text.Trim()))
-                {
-                    lblMessage.Text = "Please enter the Total Outstanding Amount.";
-                    txtTotalOutstandingAsPerDealer.BorderColor = Color.Red;
-                    return;
-                }
-                if (ddlBalanceConfirmationStatusG.SelectedValue == "0")
-                {
-                    lblMessage.Text = "Please select the Balance Confirmation Status.";
-                    ddlBalanceConfirmationStatusG.BorderColor = Color.Red;
-                    return;
-                }
-                 
-                decimal x = 0; 
-                if (!decimal.TryParse(txtTotalOutstandingAsPerDealer.Text.Trim(), out x))
-                {
-                    lblMessage.Text = "Please enter the Amount in Total Outstanding As Per Dealer.";
-                    txtTotalOutstandingAsPerDealer.BorderColor = Color.Red;
-                    return;
-                }
-
-                Label lblDealerBalanceConfirmationID = (Label)row.FindControl("lblDealerBalanceConfirmationID");
-
-                string endPoint = "Dealer/UpdateDealerBalanceConfirmation?DealerBalanceConfirmationID=" + lblDealerBalanceConfirmationID.Text + "&TotalOutstandingAsPerDealer=" + txtTotalOutstandingAsPerDealer.Text + "&BalanceConfirmationStatusID=" + ddlBalanceConfirmationStatusG.SelectedValue;
-                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-
-                if (result.Status == PApplication.Failure)
-                {
-                    lblMessage.Text = "Dealer Balance Confirmation is not updated successfully.";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-                else
-                {
-                    lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "Dealer Balance Confirmation is updated successfully.";
-                    lblTotalOutstandingAsPerDealer.Visible = true;
-                    lblBalanceConfirmationStatusG.Visible = true;
-
-                    txtTotalOutstandingAsPerDealer.Visible = false;
-                    ddlBalanceConfirmationStatusG.Visible = false;
-
-                    lblTotalOutstandingAsPerDealer.Text = txtTotalOutstandingAsPerDealer.Text;
-                    lblBalanceConfirmationStatusG.Text = ddlBalanceConfirmationStatusG.SelectedItem.Text;
-
-                    Button btnUpdateBalanceConfirmation = (Button)row.FindControl("btnUpdateBalanceConfirmation");
-                    Button btnBack = (Button)row.FindControl("btnBack");
-                    LinkButton lnkBtnBalanceConfirmationEdit = (LinkButton)row.FindControl("lnkBtnBalanceConfirmationEdit");
-                    btnUpdateBalanceConfirmation.Visible = false;
-                    btnBack.Visible = false;
-                    lnkBtnBalanceConfirmationEdit.Visible = true;
-                }
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = "Dealer Balance Confirmation is updated successfully.";
             }
+            MPE_Edit.Hide();
         }
     }
 }

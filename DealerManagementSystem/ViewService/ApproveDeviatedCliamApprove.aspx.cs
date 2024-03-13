@@ -13,23 +13,21 @@ namespace DealerManagementSystem.ViewService
     {
         public override SubModule SubModuleName { get { return SubModule.ViewService_ApproveDeviatedCliamApprove; } }
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            Session["previousUrl"] = "DMS_DeviatedCliamApprove.aspx";
+        { 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
-        public List<PDMS_WarrantyInvoiceHeader> Claim
+        public List<PClaimDeviation> Claim
         {
             get
             {
                 if (Session["DMS_DeviatedCliamApprove"] == null)
                 {
-                    Session["DMS_DeviatedCliamApprove"] = new List<PDMS_WarrantyInvoiceHeader>();
+                    Session["DMS_DeviatedCliamApprove"] = new List<PClaimDeviation>();
                 }
-                return (List<PDMS_WarrantyInvoiceHeader>)Session["DMS_DeviatedCliamApprove"];
+                return (List<PClaimDeviation>)Session["DMS_DeviatedCliamApprove"];
             }
             set
             {
@@ -77,31 +75,14 @@ namespace DealerManagementSystem.ViewService
                 int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
                 DateTime? ICTicketDateF = string.IsNullOrEmpty(txtRequestedDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRequestedDateFrom.Text.Trim());
                 DateTime? ICTicketDateT = string.IsNullOrEmpty(txtRequestedDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRequestedDateTo.Text.Trim());
-                List<PDMS_WarrantyInvoiceHeader> SOIs = null;
-
-
-                SOIs = new BDMS_WarrantyClaim().GetDeviatedClaimForApproval(DealerID, txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT);
-
-                if (ddlDealerCode.SelectedValue == "0")
-                {
-                    var SOIs1 = (from S in SOIs
-                                 join D in PSession.User.Dealer on S.DealerCode equals D.UserName
-                                 select new
-                                 {
-                                     S
-                                 }).ToList();
-                    SOIs.Clear();
-                    foreach (var w in SOIs1)
-                    {
-                        SOIs.Add(w.S);
-                    }
-                }
-                Claim = SOIs;
+                 
+                Claim = new BDMS_WarrantyClaim().GetDeviatedClaimForApproval(DealerID, txtICTicketNumber.Text.Trim(), txtClaimNumber.Text.Trim()
+                    , txtRequestedDateFrom.Text.Trim(), txtRequestedDateTo.Text.Trim(), Convert.ToInt32(ddlDeviationType.SelectedValue)); 
 
                 gvICTickets.PageIndex = 0;
-                gvICTickets.DataSource = SOIs;
+                gvICTickets.DataSource = Claim;
                 gvICTickets.DataBind();
-                if (SOIs.Count == 0)
+                if (Claim.Count == 0)
                 {
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
@@ -162,35 +143,60 @@ namespace DealerManagementSystem.ViewService
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
 
+            Label lblClaimDeviationID = (Label)gvRow.FindControl("lblClaimDeviationID");
 
-            if (new BDMS_WarrantyClaim().ApproveOrRejectDeviatedClaimRequest(Convert.ToInt64(gvICTickets.DataKeys[index].Value), true, null, PSession.User.UserID))
+            PApiResult Results = new BDMS_WarrantyClaim().ApproveOrRejectDeviatedClaimRequest(Convert.ToInt64(lblClaimDeviationID.Text), true, null);
+
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = "ICTicket  Approved successfully";
-                lblMessage.ForeColor = Color.Green;
-                fillICTicket();
+                lblMessage.Text = Results.Message;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "ICTicket is not Approved successfully";
-                lblMessage.ForeColor = Color.Red;
-            }
+            lblMessage.Text = "ICTicket  Approved successfully";
+            lblMessage.ForeColor = Color.Green;
+            fillICTicket();
+
+
+            //if (new BDMS_WarrantyClaim().ApproveOrRejectDeviatedClaimRequest(Convert.ToInt64(gvICTickets.DataKeys[index].Value), true, null, PSession.User.UserID))
+            //{
+            //    lblMessage.Text = "ICTicket  Approved successfully";
+            //    lblMessage.ForeColor = Color.Green;
+            //    fillICTicket();
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "ICTicket is not Approved successfully";
+            //    lblMessage.ForeColor = Color.Red;
+            //}
 
         }
         protected void lbReject_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-            if (new BDMS_WarrantyClaim().ApproveOrRejectDeviatedClaimRequest(Convert.ToInt64(gvICTickets.DataKeys[index].Value), null, true, PSession.User.UserID))
+
+            PApiResult Results = new BDMS_WarrantyClaim().ApproveOrRejectDeviatedClaimRequest(Convert.ToInt64(gvICTickets.DataKeys[index].Value), null, true);
+
+            if (Results.Status == PApplication.Failure)
             {
-                lblMessage.Text = "ICTicket  Rejected successfully";
-                lblMessage.ForeColor = Color.Green;
-                fillICTicket();
+                lblMessage.Text = Results.Message;
+                return;
             }
-            else
-            {
-                lblMessage.Text = "Invoice is not Rejected successfully";
-                lblMessage.ForeColor = Color.Red;
-            }
+            lblMessage.Text = "ICTicket  Rejected successfully";
+            lblMessage.ForeColor = Color.Green;
+            fillICTicket();
+
+            //if (new BDMS_WarrantyClaim().ApproveOrRejectDeviatedClaimRequest(Convert.ToInt64(gvICTickets.DataKeys[index].Value), null, true, PSession.User.UserID))
+            //{
+            //    lblMessage.Text = "ICTicket  Rejected successfully";
+            //    lblMessage.ForeColor = Color.Green;
+            //    fillICTicket();
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "Invoice is not Rejected successfully";
+            //    lblMessage.ForeColor = Color.Red;
+            //}
         }
 
         protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)

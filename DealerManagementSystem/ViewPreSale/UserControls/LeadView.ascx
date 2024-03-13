@@ -355,7 +355,7 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlFollowUp" runat="server" HeaderText="Follow Up">
+    <asp1:TabPanel ID="tpnlFollowUp" runat="server" HeaderText="Follow Up" Visible="false">
         <ContentTemplate>
             <%--<div class="col-md-12">--%>
             <div class="col-md-12 Report">
@@ -845,7 +845,7 @@
 
 <asp:Panel ID="pnlLeadDrop" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Drop Reason</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Cancel Reason</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button9" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
@@ -998,7 +998,7 @@
 
 <asp:Panel ID="pnlEditExpectedDate" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Drop Reason</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Expected Date Of Sale</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button13" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
@@ -1022,7 +1022,7 @@
 
 <asp:Panel ID="pnlEditNextFollowUpDate" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Drop Reason</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Next Follow Up Date</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button14" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
@@ -1030,7 +1030,7 @@
         <div class="model-scroll">
             <asp:Label ID="lblNextFollowUpDateMessage" runat="server" Text="" CssClass="message" Visible="false" />
             <div class="col-md-6 col-sm-12">
-                <label>Expected Date of Sale</label>
+                <label>Next Follow Up Date</label>
                 <asp:TextBox ID="txtEditNextFollowUpDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                 <asp1:CalendarExtender ID="cxEditNextFollowUpDate" runat="server" TargetControlID="txtEditNextFollowUpDate" PopupButtonID="txtEditNextFollowUpDate" Format="dd/MM/yyyy" />
                 <asp1:TextBoxWatermarkExtender ID="TextEditNextFollowUpDate" runat="server" TargetControlID="txtEditNextFollowUpDate" WatermarkText="DD/MM/YYYY" />

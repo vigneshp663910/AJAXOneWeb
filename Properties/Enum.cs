@@ -504,6 +504,10 @@ namespace Properties
         //**** Menu Level-2 ****************************** =  259,
         ViewInventory_StockTransfer = 260,
         ViewProcurement_DealerStockOrderControl = 261
+        ViewPreSale_Reports_DealerBusinessExcellenceQuarterWise = 262,
+        ViewPreSale_Reports_LeadNextFollowUpAgeingReport = 263 
+       
+        
     }
     public enum SubModuleChildMaster
     {
@@ -908,5 +912,12 @@ namespace Properties
         IntraDealerOrder = 2,
         WarrantyOrder = 3,
         MachineOrder = 4 
+    }
+    public enum ICTicketDeviationType
+    {
+        ICTicketDelay = 1,
+        Commissioning = 2,
+        ClaimApprovalDelay = 3,
+        ClaimCreationDelay = 4,
     }
 }

@@ -101,4 +101,12 @@ namespace Properties
         public int StatusID { get; set; }
         public string Status { get; set; }
     }
+    [Serializable]
+    public class PAttachedFile_Azure
+    {
+        public long AttachedFileID { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public byte[] AttachedFile { get; set; }
+    }
 }

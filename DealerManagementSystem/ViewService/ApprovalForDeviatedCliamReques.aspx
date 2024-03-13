@@ -39,11 +39,18 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Deviated ICTicket Request</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Deviated Claim Request</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Code</label>
                         <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" BorderColor="Silver" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Deviation Type</label>
+                        <asp:DropDownList ID="ddlDeviationType" runat="server" CssClass="form-control" BorderColor="Silver">
+                            <asp:ListItem Value="3">Claim Approval Delay</asp:ListItem>
+                            <asp:ListItem Value="4">Claim Creation Delay</asp:ListItem>
+                        </asp:DropDownList>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Claim Number</label>
@@ -58,6 +65,13 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Deviation Type</label>
+                        <asp:DropDownList ID="ddlDeviationTypeF" runat="server" CssClass="form-control" BorderColor="Silver">
+                            <asp:ListItem Value="3">Claim Approval Delay</asp:ListItem>
+                            <asp:ListItem Value="4">Claim Creation Delay</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Code</label>
                         <asp:DropDownList ID="ddlDealerF" runat="server" CssClass="form-control" BorderColor="Silver" />
@@ -88,7 +102,7 @@
         </div>
         <div class="col-md-12 Report">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Deviated ICTicket Report</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Deviated Claim Report</legend>
                 <div class="col-md-12 Report">
                     <div class="boxHead">
                         <div class="logheading">
@@ -117,16 +131,11 @@
                                         <img id="imageInvoiceNumber-<%# Eval("InvoiceNumber") %>" alt="Click to show/hide orders" border="0" src="../Images/grid_collapse.png" height="10" width="10" /></a>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Claim Number">
+                            <asp:TemplateField HeaderText="Claim">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblWarrantyInvoiceHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyInvoiceHeaderID")%>' runat="server" Visible="false"></asp:Label>
                                     <asp:Label ID="lblInvoiceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceNumber")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Claim Dt" HeaderStyle-Width="55px">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                <ItemTemplate>
                                     <asp:Label ID="lblInvoiceDate" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceDate","{0:d}")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -140,11 +149,6 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblICTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketID")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="IC Ticket Dt" HeaderStyle-Width="75px">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
                                     <asp:Label ID="lblICTicketDate" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketDate","{0:d}")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
@@ -196,24 +200,21 @@
                                     <asp:Label ID="lblMachineSerialNumber" Text='<%# DataBinder.Eval(Container.DataItem, "MachineSerialNumber")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="TSIR No" Visible="false">
+                          <%--  <asp:TemplateField HeaderText="TSIR No" Visible="false">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblTSIRNumber" Text='<%# DataBinder.Eval(Container.DataItem, "TSIRNumber")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
                             <asp:TemplateField HeaderText="Approve">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDeviatedIsApproved" Text='<%# DataBinder.Eval(Container.DataItem, "DeviatedIsApproved")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <%-- <asp:TemplateField HeaderText="Status" HeaderStyle-Width="55px">--%>
                             <asp:TemplateField HeaderText="Reject">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <%--  <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimStatus")%>' runat="server"></asp:Label>--%>
-
                                     <asp:Label ID="lblDeviatedIsRejected" Text='<%# DataBinder.Eval(Container.DataItem, "DeviatedIsRejected")%>' runat="server"></asp:Label>
                                     <tr>
                                         <td colspan="100%" style="padding-left: 96px">

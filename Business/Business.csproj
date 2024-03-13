@@ -116,6 +116,7 @@
     <Compile Include="BChangeHistory.cs" />
     <Compile Include="BColdVisit.cs" />
     <Compile Include="BDealer.cs" />
+    <Compile Include="BDealerBusiness.cs" />
     <Compile Include="BDealerBusinessExcellence.cs" />
     <Compile Include="BDealerOperatorDetails.cs" />
     <Compile Include="BDeviationProcess.cs" />

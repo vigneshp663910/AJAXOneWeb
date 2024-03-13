@@ -82,7 +82,7 @@ namespace DealerManagementSystem.ViewBusinessExcellence
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? RegionID = ddlRegionID.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegionID.SelectedValue);
             int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
-            PApiResult Result = new BDealer().GetDealerBusinessExcellence(Year, Month, DealerID, RegionID, StatusID, PageIndex, gvDealerB.PageSize);
+            PApiResult Result = new BDealerBusiness().GetDealerBusinessExcellence(Year, Month, DealerID, RegionID, StatusID, PageIndex, gvDealerB.PageSize);
             gvDealerB.DataSource = JsonConvert.DeserializeObject<List<PDealerBusinessExcellenceHeader>>(JsonConvert.SerializeObject(Result.Data)); ;
             gvDealerB.DataBind();
             if (Result.RowCount == 0)

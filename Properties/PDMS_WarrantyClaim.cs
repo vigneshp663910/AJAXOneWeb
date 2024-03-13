@@ -482,4 +482,30 @@ namespace Properties
         public string MachineSerialNumber { get; set; }
         public Boolean IsAbove50K { get; set; }
     }
+    [Serializable]
+    public class PClaimDeviation
+    {
+        public long ClaimDeviationID { get; set; }
+        public long WarrantyInvoiceHeaderID { get; set; } 
+        public string InvoiceNumber { get; set; }
+        public DateTime InvoiceDate { get; set; } 
+        public string ICTicketID { get; set; }
+        public DateTime? ICTicketDate { get; set; }
+
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+        public string DealerCode { get; set; }
+        public string DealerName { get; set; }
+
+        public int? HMR { get; set; }
+        public Boolean? MarginWarranty { get; set; }
+        public string MachineSerialNumber { get; set; }
+        public string Model { get; set; }
+        public string ClaimStatus { get; set; }
+        public DateTime? RestoreDate { get; set; }
+        public List<PDMS_WarrantyInvoiceItem> InvoiceItems { get; set; }
+
+        public Boolean? DeviatedIsApproved { get; set; }
+        public Boolean? DeviatedIsRejected { get; set; }
+    }
 }

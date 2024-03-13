@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             {
                 FillYearAndMonth();
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "Select");
-                new DDLBind(ddlFunctionArea, new BDealer().GetDealerBusinessExcellenceFunctionArea(null), "FunctionArea", "DealerBusinessExcellenceCategory1", true, "All");
+                new DDLBind(ddlFunctionArea, new BDealerBusiness().GetDealerBusinessExcellenceFunctionArea(null), "FunctionArea", "DealerBusinessExcellenceCategory1", true, "All");
                 ActionControlMange();
             }
         }
@@ -138,7 +138,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             {
                 Category2ID = ddlFunctionSubArea.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlFunctionSubArea.SelectedValue);
             }
-            List<PDealerBusinessExcellence> VT = new BDealer().GetDealerBusinessExcellenceToUpdate(Year, Month, DealerID, Category1ID, Category2ID);
+            List<PDealerBusinessExcellence> VT = new BDealerBusiness().GetDealerBusinessExcellenceToUpdate(Year, Month, DealerID, Category1ID, Category2ID);
             gvMissionPlanning.DataSource = VT;
             gvMissionPlanning.DataBind();
 
@@ -303,7 +303,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
                 };
                 Plannings.Add(Planning);
 
-                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/InsertOrUpdateDealerBusinessExcellence", Plannings));
+                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("DealerBusinessExcellence/InsertOrUpdateDealerBusinessExcellence", Plannings));
 
                 if (result.Status == PApplication.Failure)
                 {
@@ -343,7 +343,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
             int Year = Convert.ToInt32(ddlYear.SelectedValue);
             int Month = Convert.ToInt32(ddlMonth.SelectedValue);
             int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-            string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&StatusID=4";
+            string endPoint = "DealerBusinessExcellence/UpdateDealerBusinessExcellenceStatus?Year=" + Year + "&Month=" + Month + "&DealerID=" + DealerID + "&StatusID=" + ((short)AjaxOneStatus.DealerBusinessExcellence_Submitted).ToString();
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (Results.Status == PApplication.Failure)
             {
@@ -369,7 +369,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
 
         protected void ddlFunctionArea_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new DDLBind(ddlFunctionSubArea, new BDealer().GetDealerBusinessExcellenceFunctionSubArea(Convert.ToInt32(ddlFunctionArea.SelectedValue), null), "FunctionSubArea", "DealerBusinessExcellenceCategory2", true, "All");
+            new DDLBind(ddlFunctionSubArea, new BDealerBusiness().GetDealerBusinessExcellenceFunctionSubArea(Convert.ToInt32(ddlFunctionArea.SelectedValue), null), "FunctionSubArea", "DealerBusinessExcellenceCategory2", true, "All");
 
         }
     }

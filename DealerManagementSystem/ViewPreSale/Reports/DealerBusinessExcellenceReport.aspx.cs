@@ -40,7 +40,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
                 LeadReport = null;
                 FillYearAndMonth();
                 new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "Select");
-                new DDLBind(ddlFunctionArea, new BDealer().GetDealerBusinessExcellenceFunctionArea(null), "FunctionArea", "DealerBusinessExcellenceCategory1", true, "All");
+                new DDLBind(ddlFunctionArea, new BDealerBusiness().GetDealerBusinessExcellenceFunctionArea(null), "FunctionArea", "DealerBusinessExcellenceCategory1", true, "All");
 
             }
             VTBind(gvMissionPlanning, lblRowCountV, LeadReport);
@@ -87,7 +87,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
             int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             int? Category1ID = ddlFunctionArea.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlFunctionArea.SelectedValue);
 
-            LeadReport = new BDealer().GetDealerBusinessExcellenceReport(Year, Month, DealerID, Category1ID);
+            LeadReport = new BDealerBusiness().GetDealerBusinessExcellenceReport(Year, Month, DealerID, Category1ID);
 
 
 

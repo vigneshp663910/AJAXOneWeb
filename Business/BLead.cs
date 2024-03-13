@@ -270,5 +270,16 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PLead>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             //  TraceLogger.Log(DateTime.Now);
         }
+
+        public DataTable GetLeadNextFollowUpDateAgeingReport(int? DealerID, int? RegionID)
+        {
+            string endPoint = "Lead/GetLeadNextFollowUpDateAgeingReport?DealerID=" + DealerID + "&RegionID=" + RegionID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetLeadNextFollowUpDateAgeingDetails(int? DealerID, int? RegionID, int ReportTypeID)
+        {
+            string endPoint = "Lead/GetLeadNextFollowUpDateAgeingDetails?DealerID=" + DealerID + "&RegionID=" + RegionID + "&ReportTypeID=" + ReportTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }
