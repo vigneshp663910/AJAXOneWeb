@@ -946,7 +946,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else
             {
-                PDMS_CustomerShipTo ShiftTo = new BDMS_Customer().GetCustomerShopTo(null, SaleOrderByID.Customer.CustomerID)[0];
+                PDMS_CustomerShipTo ShiftTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(ddlShiftTo.SelectedValue), SaleOrderByID.Customer.CustomerID)[0];
                 lblDeliveryAddress.Text = ShiftTo.Address1 + "," + ShiftTo.Address2 + "," + ShiftTo.Address3 + "," + ShiftTo.District.District + "," + ShiftTo.State.State;
             }
         }

@@ -187,6 +187,7 @@ namespace Properties
     [Serializable]
     public class PSupersede
     {
+        public int MaterialID { get; set; }
         public string Material { get; set; }
         public string MaterialDescription { get; set; }
         public string Description { get; set; }

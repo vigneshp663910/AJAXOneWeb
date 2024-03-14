@@ -190,6 +190,7 @@ namespace Business
                             SOI.MaterialCode = Convert.ToString(dr["MaterialCode"]);
                             SOI.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
                             SOI.Supersede = new PSupersede();
+                            SOI.Supersede.MaterialID = Convert.ToInt32(dr["SupersedeMaterialID"]);
                             SOI.Supersede.Material = Convert.ToString(dr["SupersedeCode"]);
                             SOI.Supersede.MaterialDescription = Convert.ToString(dr["SupersedeMaterailDescription"]);
                             SOI.Supersede.ValidFrom = Convert.ToDateTime(dr["ValidFrom"]);
@@ -224,7 +225,7 @@ namespace Business
                 List<PDMS_Material> d = GetMaterialSupersede(MaterialID, null);
                 if (d.Count == 1)
                 {
-                    smaterial = d[0].MaterialID;
+                    smaterial = d[0].Supersede.MaterialID;
                 }
             } while (smaterial != MaterialID);
             return MaterialID;
@@ -245,7 +246,7 @@ namespace Business
                 List<PDMS_Material> d = GetMaterialSupersede(null, MaterialCode);
                 if (d.Count == 1)
                 {
-                    smaterial = d[0].MaterialCode;
+                    smaterial = d[0].Supersede.Material;
                 }
             } while (smaterial != MaterialCode);
             return MaterialCode;

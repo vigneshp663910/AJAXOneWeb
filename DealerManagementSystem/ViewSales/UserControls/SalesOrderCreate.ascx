@@ -28,7 +28,7 @@
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbUploadMaterial" runat="server" OnClick="lbActions_Click">Upload Material</asp:LinkButton>
                 <asp:LinkButton ID="lbDownloadMaterialTemplate" runat="server" OnClick="lbActions_Click">Download Material Template</asp:LinkButton>
-               <%-- <asp:LinkButton ID="lbAddMaterialFromCart" runat="server" OnClick="lbActions_Click">Add Material From Cart</asp:LinkButton>
+                <%-- <asp:LinkButton ID="lbAddMaterialFromCart" runat="server" OnClick="lbActions_Click">Add Material From Cart</asp:LinkButton>
                 <asp:LinkButton ID="lbCopyFromPO" runat="server" OnClick="lbActions_Click">Copy From PO</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click">Save</asp:LinkButton>
             </div>
@@ -178,10 +178,10 @@
     <fieldset class="fieldset-border" id="Fieldset1" runat="server">
         <legend style="background: none; color: #007bff; font-size: 17px;">Sale Order Item</legend>
         <div class="col-md-12" style="margin-top: -15px; margin-bottom: -20px">
-            <div class="col-md-2 col-sm-12">
+            <%--  <div class="col-md-2 col-sm-12">
                 <label class="modal-label">Supersede Y/N</label>
                 <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
-            </div>
+            </div>--%>
             <div class="col-md-3 col-sm-12">
                 <asp:HiddenField ID="hdfMaterialID" runat="server" />
                 <asp:HiddenField ID="hdfMaterialCode" runat="server" />
@@ -195,7 +195,7 @@
             <div class="col-md-2 text-left">
                 <label class="modal-label">.</label>
                 <asp:Button ID="btnAddMaterial" runat="server" Text="Add" CssClass="btn Search" OnClick="btnAddMaterial_Click" />
-                 <asp:Button ID="BtnAvailability" runat="server" Text="Availability" CssClass="btn Save" OnClick="BtnAvailability_Click" />
+                <asp:Button ID="BtnAvailability" runat="server" Text="Availability" CssClass="btn Save" OnClick="BtnAvailability_Click" />
             </div>
         </div>
         <div class="col-md-12 Report">
@@ -320,10 +320,9 @@
         </div>
     </fieldset>
 
-   <%-- <div class="col-md-12 text-center">
+    <%-- <div class="col-md-12 text-center">
         <asp:Button ID="btnSaveSOItem" runat="server" CssClass="btn Save" Text="Save" OnClick="btnSaveSOItem_Click" Width="100px"></asp:Button>
     </div>--%>
-
 </div>
 
 
@@ -332,9 +331,8 @@
         <span id="PopupDialogue">Material Upload</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-
     <div class="col-md-12">
-        <asp:Label ID="lblMessageMaterialUpload" runat="server" Text="" CssClass="message" Visible="false" />
+        <asp:Label ID="lblMessageMaterialUpload" runat="server" Text="" CssClass="message"   />
         <fieldset class="fieldset-border">
             <div class="col-md-12">
                 <div class="col-md-2 col-sm-12">
@@ -347,11 +345,47 @@
             </div>
         </fieldset>
     </div>
-
-
-
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_MaterialUpload" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMaterialUpload" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlSupersede" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Material Supersede</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+
+    <div class="col-md-12">
+        <fieldset class="fieldset-border">
+            <div class="col-md-12">
+                <asp:GridView ID="gvSupersede" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
+                    <Columns>
+                        <asp:TemplateField HeaderText="Material">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Supersede">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblSupersede" Text='<%# DataBinder.Eval(Container.DataItem, "Supersede.Material")%>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                    <AlternatingRowStyle BackColor="#ffffff" />
+                    <FooterStyle ForeColor="White" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                </asp:GridView>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="Button2" runat="server" Text="Continue" CssClass="btn Save" />
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Supersede" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSupersede" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 
 <div style="display: none">

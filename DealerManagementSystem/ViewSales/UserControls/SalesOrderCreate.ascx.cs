@@ -122,121 +122,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblMessage.Text = Message;
                     return;
                 }
-                PSaleOrderItem_Insert SoI = ReadItem();
-                PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(SoI.MaterialID), null, null, null, null)[0];
-                if (string.IsNullOrEmpty(m.HSN))
+                int MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
+                string MessageSupersede = "";
+                PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, null, null, null, null)[0];
+
+                if (MaterialID != Convert.ToInt32(hdfMaterialID.Value))
                 {
-                    lblMessage.Text = "HSN Code is not updated for this Material. Please contact Parts Admin.";
+                    lblMessage.Text = MessageSupersede = "Material :" + hdfMaterialCode.Value + "Supersede to " + "Material :" + m.MaterialCode;
+                }
+
+                Message = AddMat(m.MaterialID, m.MaterialCode, txtQty.Text.Trim());
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
                     return;
                 }
-                //string Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
-                //string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-                //string Material = SoI.MaterialCode;
-                //string IV_SEC_SALES = "";
-                //string PriceDate = "";
-                //string IsWarrenty = "false";
-
-                //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DSSOR_SALES_ORDER_HDR", 1, Material, SoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
-
-
-                PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
-                MaterialPrice.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
-                MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-                //MaterialPrice.OrderType = "101_DSSOR_SALES_ORDER_HDR";
-                MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
-                MaterialPrice.Division = "SP";
-                MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
-                MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
-                {
-                    ItemNo = "10",
-                    Material = SoI.MaterialCode,
-                    Quantity = SoI.Quantity
-                });
-                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-
-                PMaterial Mat = Mats[0];
-
-                //Mat.CurrentPrice = Convert.ToDecimal(1000);
-                //Mat.Discount = Convert.ToDecimal(0);
-                //Mat.TaxablePrice = Convert.ToDecimal(1000);
-                //Mat.SGST = Convert.ToDecimal(9);
-                //Mat.SGSTValue = Convert.ToDecimal(90);
-                //Mat.CGST = Convert.ToDecimal(9);
-                //Mat.CGSTValue = Convert.ToDecimal(90);
-                //Mat.IGST = Convert.ToDecimal(0);
-                //Mat.IGSTValue = Convert.ToDecimal(0);
-
-                if (Mat.CurrentPrice <= 0)
-                {
-                    lblMessage.Text = "Please maintain the price for Material " + SoI.MaterialCode + " in SAP.";
-                    return;
-                }
-                if (Mat.SGST <= 0 && Mat.IGST <= 0)
-                {
-                    lblMessage.Text = "Please maintain the Tax for Material " + SoI.MaterialCode + " in SAP.";
-                    return;
-                }
-                if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
-                {
-                    lblMessage.Text = "GST Tax value not found this Material " + SoI.MaterialCode + " in SAP.";
-                    return;
-                }
-
-                SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
-                SoI.Value = Mat.CurrentPrice;
-                //SoI.Discount = Mat.Discount;
-                //SoI.TaxableValue = Mat.TaxablePrice;
-
-                decimal HDiscount = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
-
-                if (HDiscount >= 100)
-                {
-                    lblMessage.Text = "Discount Percentage cannot exceed 100.";
-                    return;
-                }
-
-                //SoI.Discount = Mat.CurrentPrice - (Mat.CurrentPrice * HDiscount / 100);
-                //SoI.TaxableValue = SoI.Discount;
-                //SoI.Discount = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : Mat.Discount;
-                SoI.ItemDiscountPercentage = HDiscount > 0 ? 0 : Mat.Discount;
-                SoI.DiscountValue = HDiscount > 0 ? (Mat.CurrentPrice * (HDiscount / 100)) : Mat.Discount;
-                SoI.TaxableValue = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : Mat.TaxablePrice;
-                //SoI.SGST = Mat.SGST;
-                //SoI.SGSTValue = Mat.SGSTValue;
-                //SoI.CGST = Mat.CGST;
-                //SoI.CGSTValue = Mat.CGSTValue;
-                //SoI.IGST = Mat.IGST;
-                //SoI.IGSTValue = Mat.IGSTValue;
-                SoI.StatusID = 19;
-                SoI.MaterialDescription = m.MaterialDescription;
-                SoI.HSN = m.HSN;
-                SoI.UOM = m.BaseUnit;
-
-                if (ddlTaxType.SelectedValue == "1")
-                {
-                    SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                    SoI.SGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
-                    SoI.CGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                    SoI.CGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
-                    SoI.IGST = 0;
-                    SoI.IGSTValue = 0;
-                }
-                else
-                {
-                    SoI.SGST = 0;
-                    SoI.SGSTValue = 0;
-                    SoI.CGST = 0;
-                    SoI.CGSTValue = 0;
-                    SoI.IGST = Mat.SGST + Mat.CGST + Mat.IGST;
-                    SoI.IGSTValue = Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue;
-                }
-
-                SoI.SGSTValue = SoI.TaxableValue * (SoI.SGST / 100);
-                SoI.CGSTValue = SoI.TaxableValue * (SoI.CGST / 100);
-                SoI.IGSTValue = SoI.TaxableValue * (SoI.IGST / 100);
-
-                SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
-                SOItem_Insert.Add(SoI);
                 fillItem();
                 ClearItem();
             }
@@ -272,14 +172,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             return SO;
         }
-        public PSaleOrderItem_Insert ReadItem()
-        {
-            PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
-            SoI.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
-            SoI.MaterialCode = hdfMaterialCode.Value;
-            SoI.Quantity = Convert.ToInt32(txtQty.Text.Trim());
-            return SoI;
-        }
+        
         void fillItem()
         {
             gvSOItem.DataSource = SOItem_Insert;
@@ -543,7 +436,19 @@ namespace DealerManagementSystem.ViewSales.UserControls
                         lblMessage.Text = "Please add Material.";
                         return;
                     }
-                    Save();
+                    SO_Insert = Read();
+                    SO_Insert.SaleOrderItems = SOItem_Insert;
+                    string result = new BAPI().ApiPut("SaleOrder", SO_Insert);
+                    PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+                    if (Result.Status == PApplication.Failure)
+                    {
+                        lblMessage.Text = Result.Message;
+                        return;
+                    }
+
+                    Session["SaleOrderID"] = Result.Data;
+                    Response.Redirect("SaleOrder.aspx");
                 }
                 else if (lbActions.ID == "lbAddMaterialFromCart")
                 {
@@ -601,28 +506,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             HttpContext.Current.Response.AppendCookie(cookie);
             // end
             response.End();
-        }
-        void Save()
-        {
-           
-            SO_Insert = Read();
-            SO_Insert.SaleOrderItems = SOItem_Insert;
-            string result = new BAPI().ApiPut("SaleOrder", SO_Insert);
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
-            if (Result.Status == PApplication.Failure)
-            {
-                lblMessage.Text = Result.Message;
-                return;
-            }
-
-            Session["SaleOrderID"] = Result.Data;
-            Response.Redirect("SaleOrder.aspx");
-
-        }
+        } 
         protected void btnUploadMaterial_Click(object sender, EventArgs e)
         {
             MPE_MaterialUpload.Show();
+            List<PDMS_Material> Supersede = new List<PDMS_Material>();
             try
             {
                 if (fileUpload.HasFile == true)
@@ -642,18 +530,33 @@ namespace DealerManagementSystem.ViewSales.UserControls
                             sno += 1;
                             if (sno > 1)
                             {
-                                string MaterialID = string.Empty, Qty = string.Empty, MaterialCode = string.Empty;
+                                string   Qty = string.Empty;
                                 List<IXLCell> Cells = row.Cells().ToList();
                                 if (Cells.Count != 0)
                                 {
 
-                                    List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, Convert.ToString(Cells[1].Value), null, null, null);
-                                    if (Materials.Count > 0)
+                                    string MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(Convert.ToString(Cells[1].Value));
+                                    // PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, TMaterialCode, null, null, null)[0];
+                                   
+                                   if (MaterialCode != Convert.ToString(Cells[1].Value))
                                     {
-                                        MaterialID = Materials[0].MaterialID.ToString();
-                                        MaterialCode = Materials[0].MaterialCode;
-                                        Qty = Convert.ToString(Cells[2].Value);
-                                        string Message = AddMat(MaterialID, MaterialCode, Qty);
+                                        Supersede.Add(new PDMS_Material()
+                                        {
+                                            MaterialCode = Convert.ToString(Cells[1].Value),
+                                            Supersede = new PSupersede() { Material = MaterialCode }
+                                        });
+                                    }
+                                    List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, MaterialCode, null, null, null);
+
+                                    if (SOItem_Insert.Any(item => item.MaterialID == Materials[0].MaterialID))
+                                    {
+                                        lblMessageMaterialUpload.Text = "Dublicate Material (" + Materials[0].MaterialCode + ") Found."; 
+                                        return ;
+                                    }
+
+                                    if (Materials.Count > 0)
+                                    {  
+                                        string Message = AddMat(Materials[0].MaterialID, Materials[0].MaterialCode, Convert.ToString(Cells[2].Value));
                                         if (!string.IsNullOrEmpty(Message))
                                         {
                                             SOItem_Insert = null;
@@ -664,118 +567,291 @@ namespace DealerManagementSystem.ViewSales.UserControls
                                             return;
                                         }
                                     }
+                                    gvSOItem.DataSource = SOItem_Insert;
+                                    gvSOItem.DataBind();
                                 }
                             }
                         }
                     }
                 }
                 MPE_MaterialUpload.Hide();
+                if (Supersede.Count != 0)
+                {
+                    gvSupersede.DataSource = Supersede;
+                    gvSupersede.DataBind();
+                    MPE_Supersede.Show();
+                }
             }
             catch (Exception ex)
             {
                 lblMessageMaterialUpload.Text = ex.ToString();
                 lblMessageMaterialUpload.ForeColor = Color.Red;
             } 
-        }
-        void Upload()
+        } 
+        protected string AddMat(int MaterialID, string MaterialCode, string Qty)
         {
-            
-        }
-        protected string AddMat(string MaterialID, string MaterialCode, string Qty)
-        {
+            //PSaleOrderItem_Insert SoI = ReadItem();
+            PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
+            SoI.MaterialID = MaterialID;
+            SoI.MaterialCode = MaterialCode;
+            SoI.Quantity = Convert.ToInt32(Qty);
 
-            lblMessageMaterialUpload.ForeColor = Color.Red;
-            lblMessageMaterialUpload.Visible = true;
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
-            string Message = "";
-            if (SOItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(MaterialID)))
-            {
-                Message = "Dublicate Material Found.";
-                lblMessageMaterialUpload.Text = Message;
-                MPE_MaterialUpload.Show();
-                return Message;
-            }
-            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(MaterialCode, "", Convert.ToInt32(ddlDivision.SelectedValue), "false");
-            if (Materials.Count == 0)
-            {
-                Message = "Material " + MaterialCode + " Not Available.";
-                lblMessageMaterialUpload.Text = Message;
-                MPE_MaterialUpload.Show();
-                return Message;
-            }
-            PSaleOrderItem_Insert PoI = ReadItem(MaterialID, MaterialCode, Qty);
-            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
-            PoI.MaterialDescription = m.MaterialDescription;
-            PoI.UOM = m.BaseUnit;
+
+
+
+            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(SoI.MaterialID), null, null, null, null)[0];
             if (string.IsNullOrEmpty(m.HSN))
             {
-                Message = "HSN is Not updated for this material " + m.MaterialCode + ". Please contact Admin.";
-                lblMessageMaterialUpload.Text = Message;
-                MPE_MaterialUpload.Show();
-                return Message;
+                return "HSN Code is not updated for this Material. Please contact Parts Admin."; 
             }
-            
-            List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
-            Material_SapS.Add(new PMaterial_Api()
+
+            PMaterial Mat = null;
+            if (m.MaterialGroup != "887")
             {
-                MaterialCode = PoI.MaterialCode,
-                Quantity = PoI.Quantity,
-                Item = (Material_SapS.Count + 1) * 10
-            });
-            PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
-            MaterialPrice.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
-            MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode; 
-            MaterialPrice.OrderType = "DEFAULT_SEC_AUART"; 
-            //MaterialPrice.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
 
-            MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
-            MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
-            {
-                ItemNo = "10",
-                Material = PoI.MaterialCode,
-                Quantity = PoI.Quantity
-            });
-
-
-            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-            PMaterial Mat = Mats[0];
-
-            if (Mat.CurrentPrice == 0)
-            {
-                Message = "Price is Not updated for this material " + PoI.MaterialCode + ". Please contact Admin.";
-                lblMessageMaterialUpload.Text = Message;
-                MPE_MaterialUpload.Show();
-                return Message;
+                PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
+                MaterialPrice.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
+                MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+                //MaterialPrice.OrderType = "101_DSSOR_SALES_ORDER_HDR";
+                MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
+                MaterialPrice.Division = "SP";
+                MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
+                MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
+                {
+                    ItemNo = "10",
+                    Material = SoI.MaterialCode,
+                    Quantity = SoI.Quantity
+                });
+                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                Mat = Mats[0];
+                if (Mat.CurrentPrice <= 0)
+                {
+                    return "Please maintain the price for Material " + SoI.MaterialCode + " in SAP."; 
+                }
+                if (Mat.SGST <= 0 && Mat.IGST <= 0)
+                {
+                    return "Please maintain the Tax for Material " + SoI.MaterialCode + " in SAP."; 
+                }
+                if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
+                {
+                    return "GST Tax value not found this Material " + SoI.MaterialCode + " in SAP."; 
+                }
             }
-            PoI.PerRate = Mat.CurrentPrice / PoI.Quantity;
-            PoI.Value = Mat.CurrentPrice;
-            PoI.DiscountValue = Mat.Discount;
-            PoI.TaxableValue = Mat.TaxablePrice;
-            PoI.SGST = Mat.SGST;
-            PoI.SGSTValue = Mat.SGSTValue;
-            PoI.CGST = Mat.SGST;
-            PoI.CGSTValue = Mat.SGSTValue;
-            PoI.IGST = Mat.IGST;
-            PoI.IGSTValue = Mat.IGSTValue;
-            //  PoI.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
-            //  PoI.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
-            //  PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
-            SOItem_Insert.Add(PoI);
-           // PoI.Item = SOItem_Insert.Count * 10;
-            fillItem();
-            ClearItem();
-            return Message;
-        }
-        public PSaleOrderItem_Insert ReadItem(string MaterialID, string MaterialCode, string Qty)
-        {
-            PSaleOrderItem_Insert SM = new PSaleOrderItem_Insert();
-            SM.MaterialID = Convert.ToInt32(MaterialID);
-            SM.MaterialCode = MaterialCode;
-            // SM.SupersedeYN = cbSupersedeYN.Checked;
-            SM.Quantity = Convert.ToInt32(Qty);
-            return SM;
-        }
+            else
+            {
+                
+                Mat = new PMaterial();
+                Mat.Discount = 0;
+                Mat.CurrentPrice = m.CurrentPrice;
+                Mat.TaxablePrice = m.CurrentPrice * SoI.Quantity;
+                if (ddlTaxType.SelectedValue == "1")
+                {
+                    Mat.SGST = m.TaxPercentage;
+                    Mat.CGST = m.TaxPercentage;
+                    SoI.SGSTValue = Mat.SGST * Mat.CurrentPrice * SoI.Quantity / 100;
+                    SoI.CGSTValue = Mat.CGST * Mat.CurrentPrice * SoI.Quantity / 100;
+
+                    Mat.IGST = 0;
+                    SoI.IGSTValue = 0;
+                }
+                else
+                {
+                    Mat.SGST = 0;
+                    Mat.CGST = 0;
+                    SoI.SGSTValue = 0;
+                    SoI.CGSTValue = 0;
+
+                    Mat.IGST = m.TaxPercentage * 2;
+                    SoI.IGSTValue = Mat.IGST * Mat.CurrentPrice * SoI.Quantity / 100;
+                }
+            }
+
+            //Mat.CurrentPrice = Convert.ToDecimal(1000);
+            //Mat.Discount = Convert.ToDecimal(0);
+            //Mat.TaxablePrice = Convert.ToDecimal(1000);
+            //Mat.SGST = Convert.ToDecimal(9);
+            //Mat.SGSTValue = Convert.ToDecimal(90);
+            //Mat.CGST = Convert.ToDecimal(9);
+            //Mat.CGSTValue = Convert.ToDecimal(90);
+            //Mat.IGST = Convert.ToDecimal(0);
+            //Mat.IGSTValue = Convert.ToDecimal(0);
+
+
+
+            SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
+            SoI.Value = Mat.CurrentPrice;
+            //SoI.Discount = Mat.Discount;
+            //SoI.TaxableValue = Mat.TaxablePrice;
+
+            decimal HDiscount = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
+
+            if (HDiscount >= 100)
+            {
+                return "Discount Percentage cannot exceed 100."; 
+            }
+
+            //SoI.Discount = Mat.CurrentPrice - (Mat.CurrentPrice * HDiscount / 100);
+            //SoI.TaxableValue = SoI.Discount;
+            //SoI.Discount = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : Mat.Discount;
+            SoI.ItemDiscountPercentage = HDiscount > 0 ? 0 : Mat.Discount;
+            SoI.DiscountValue = HDiscount > 0 ? (Mat.CurrentPrice * (HDiscount / 100)) : Mat.Discount;
+            SoI.TaxableValue = HDiscount > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (HDiscount / 100))) : Mat.TaxablePrice;
+            //SoI.SGST = Mat.SGST;
+            //SoI.SGSTValue = Mat.SGSTValue;
+            //SoI.CGST = Mat.CGST;
+            //SoI.CGSTValue = Mat.CGSTValue;
+            //SoI.IGST = Mat.IGST;
+            //SoI.IGSTValue = Mat.IGSTValue;
+            SoI.StatusID = 19;
+            SoI.MaterialDescription = m.MaterialDescription;
+            SoI.HSN = m.HSN;
+            SoI.UOM = m.BaseUnit;
+
+            if (ddlTaxType.SelectedValue == "1")
+            {
+                SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
+                SoI.SGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                SoI.CGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
+                SoI.CGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                SoI.IGST = 0;
+                SoI.IGSTValue = 0;
+            }
+            else
+            {
+                SoI.SGST = 0;
+                SoI.SGSTValue = 0;
+                SoI.CGST = 0;
+                SoI.CGSTValue = 0;
+                SoI.IGST = Mat.SGST + Mat.CGST + Mat.IGST;
+                SoI.IGSTValue = Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue;
+            }
+
+            SoI.SGSTValue = SoI.TaxableValue * (SoI.SGST / 100);
+            SoI.CGSTValue = SoI.TaxableValue * (SoI.CGST / 100);
+            SoI.IGSTValue = SoI.TaxableValue * (SoI.IGST / 100);
+
+            SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
+            SOItem_Insert.Add(SoI);
+            return "";
+
+            // lblMessageMaterialUpload.ForeColor = Color.Red;
+            // lblMessageMaterialUpload.Visible = true;
+            // lblMessage.ForeColor = Color.Red;
+            // lblMessage.Visible = true;
+            // string Message = "";
+            // if (SOItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(MaterialID)))
+            // {
+            //     Message = "Dublicate Material Found.";
+            //     lblMessageMaterialUpload.Text = Message;
+            //     MPE_MaterialUpload.Show();
+            //     return Message;
+            // }
+            // //   List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(MaterialCode, "", Convert.ToInt32(ddlDivision.SelectedValue), "false");
+
+            // List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, MaterialCode, Convert.ToInt32(ddlDivision.SelectedValue), null, null);
+
+            // if (Materials.Count == 0)
+            // {
+            //     Message = "Material " + MaterialCode + " Not Available.";
+            //     lblMessageMaterialUpload.Text = Message;
+            //     MPE_MaterialUpload.Show();
+            //     return Message;
+            // } 
+            // PSaleOrderItem_Insert PoI = new PSaleOrderItem_Insert();
+            // PoI.MaterialID = Convert.ToInt32(MaterialID);
+            // PoI.MaterialCode = MaterialCode;
+            // // SM.SupersedeYN = cbSupersedeYN.Checked;
+            // PoI.Quantity = Convert.ToInt32(Qty);
+
+            // PDMS_Material m = new BDMS_Material().GetMaterialListSQL(PoI.MaterialID, null, null, null, null)[0];
+            // PoI.MaterialDescription = m.MaterialDescription;
+            // PoI.UOM = m.BaseUnit;
+            // if (string.IsNullOrEmpty(m.HSN))
+            // {
+            //     Message = "HSN is Not updated for this material " + m.MaterialCode + ". Please contact Admin.";
+            //     lblMessageMaterialUpload.Text = Message;
+            //     MPE_MaterialUpload.Show();
+            //     return Message;
+            // }
+
+            // List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
+            // Material_SapS.Add(new PMaterial_Api()
+            // {
+            //     MaterialCode = PoI.MaterialCode,
+            //     Quantity = PoI.Quantity,
+            //     Item = (Material_SapS.Count + 1) * 10
+            // }); 
+
+            // if (m.MaterialGroup != "887")
+            // {
+            //     PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
+            //     MaterialPrice.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
+            //     MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
+            //     MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
+            //     //MaterialPrice.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
+
+            //     MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
+            //     MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
+            //     {
+            //         ItemNo = "10",
+            //         Material = PoI.MaterialCode,
+            //         Quantity = PoI.Quantity
+            //     });
+
+
+            //     List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+            //     PMaterial Mat = Mats[0];
+
+            //     if (Mat.CurrentPrice == 0)
+            //     {
+            //         Message = "Price is Not updated for this material " + PoI.MaterialCode + ". Please contact Admin.";
+            //         lblMessageMaterialUpload.Text = Message;
+            //         MPE_MaterialUpload.Show();
+            //         return Message;
+            //     }
+            //     PoI.PerRate = Mat.CurrentPrice / PoI.Quantity;
+            //     PoI.Value = Mat.CurrentPrice;
+            //     PoI.DiscountValue = Mat.Discount;
+            //     PoI.TaxableValue = Mat.TaxablePrice;
+            //     PoI.SGST = Mat.SGST;
+            //     PoI.SGSTValue = Mat.SGSTValue;
+            //     PoI.CGST = Mat.SGST;
+            //     PoI.CGSTValue = Mat.SGSTValue;
+            //     PoI.IGST = Mat.IGST;
+            //     PoI.IGSTValue = Mat.IGSTValue;
+
+
+            // }
+            // else
+            // {
+            //     PDMS_Material MM_SQL = Materials[0]; //new BDMS_Material().GetMaterialListSQL(null, Material, null, null, null)[0]; 
+            //     PoI.PerRate = MM_SQL.CurrentPrice;
+            //     PoI.Value = MM_SQL.CurrentPrice * PoI.Quantity;
+            //     PoI.DiscountValue = 0;
+            //     PoI.TaxableValue = PoI.Value;
+
+            //     if (ddlTaxType.SelectedItem.Text == "")
+            //     {
+            //         PoI.IGST = MM_SQL.TaxPercentage;
+            //         PoI.IGSTValue = MM_SQL.TaxPercentage * MM_SQL.CurrentPrice * 2 / 100;
+            //     }
+            //     else
+            //     {
+            //         PoI.SGST = MM_SQL.TaxPercentage;
+            //         PoI.SGSTValue = MM_SQL.TaxPercentage * MM_SQL.CurrentPrice / 100;
+            //         PoI.CGST = MM_SQL.TaxPercentage;
+            //         PoI.CGSTValue = MM_SQL.TaxPercentage * MM_SQL.CurrentPrice / 100; 
+            //     }
+            // } 
+            // //  PoI.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
+            // //  PoI.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
+            // //  PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
+            // SOItem_Insert.Add(PoI);
+            //// PoI.Item = SOItem_Insert.Count * 10;
+            // fillItem();
+            // ClearItem();
+            // return Message;
+        } 
 
         public string Validation()
         {
