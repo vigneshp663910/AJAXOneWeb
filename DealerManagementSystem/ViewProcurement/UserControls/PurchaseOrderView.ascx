@@ -15,6 +15,14 @@
         else
             return false;
     }
+    function ConfirmCancelPO() {
+        var x = confirm("Are you sure you want to Cancel Purchase Order?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
 </script>
 <div class="col-md-12">
     <div class="action-btn">
@@ -25,9 +33,9 @@
                 <asp:LinkButton ID="lbAddMaterial" runat="server" OnClick="lbActions_Click">Add Material</asp:LinkButton>
                 <asp:LinkButton ID="lbReleasePO" runat="server" OnClientClick="return ConfirmReleasePO();" OnClick="lbActions_Click">Release PO</asp:LinkButton>
                 <%--<asp:LinkButton ID="lbEditPO" runat="server" OnClick="lbActions_Click">Edit PO</asp:LinkButton>--%>
-                <asp:LinkButton ID="lbCancelPO" runat="server" OnClick="lbActions_Click">Cancel PO</asp:LinkButton>
+                <asp:LinkButton ID="lbCancelPO" runat="server" OnClientClick="return ConfirmCancelPO();" OnClick="lbActions_Click">Cancel PO</asp:LinkButton>
                 <asp:LinkButton ID="lbReleaseApprove" runat="server" OnClientClick="return ConfirmReleasePO();" OnClick="lbActions_Click">Release Approve</asp:LinkButton>
-                <asp:LinkButton ID="lbCancelApprove" runat="server" OnClick="lbActions_Click">Cancel Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbCancelApprove" runat="server" OnClientClick="return ConfirmCancelPO();" OnClick="lbActions_Click">Cancel Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbViewPurchaseOrder" runat="server" OnClick="lbActions_Click">PO Preview</asp:LinkButton>
             </div>
         </div>

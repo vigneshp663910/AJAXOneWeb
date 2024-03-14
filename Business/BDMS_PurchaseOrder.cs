@@ -297,5 +297,13 @@ namespace Business
             string endPoint = "PurchaseOrder/GetDealerStockOrderControl?DealerID=" + DealerID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public PApiResult GetPurchaseOrderExportToExcel(int? DealerID, string VendorID, string PurchaseOrderNo, DateTime? PurchaseOrderDateF, DateTime? PurchaseOrderDateT
+            , int? PurchaseOrderStatusID, int? PurchaseOrderTypeID, int? DivisionID, int? LocationID)
+        {
+            string endPoint = "PurchaseOrder/GetPurchaseOrderExportToExcel?DealerID=" + DealerID + "&VendorID=" + VendorID + "&PurchaseOrderNo=" + PurchaseOrderNo
+                + "&PurchaseOrderDateF=" + PurchaseOrderDateF + "&PurchaseOrderDateT=" + PurchaseOrderDateT + "&PurchaseOrderStatusID=" + PurchaseOrderStatusID
+                + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&DivisionID=" + DivisionID + "&LocationID=" + LocationID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

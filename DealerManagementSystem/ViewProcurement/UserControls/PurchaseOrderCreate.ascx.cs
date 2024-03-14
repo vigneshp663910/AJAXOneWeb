@@ -227,11 +227,32 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ddlDealerOffice.BorderColor = Color.Red;
                 return "Please select the Dealer Office";
             }
-            if(string.IsNullOrEmpty(txtReferenceNo.Text))
+            if ((ddlPurchaseOrderType.SelectedValue == "2") || (ddlPurchaseOrderType.SelectedValue == "7"))
             {
-                txtReferenceNo.BorderColor = Color.Red;
-                return "Please enter the Ref. No";
+                if (string.IsNullOrEmpty(txtReferenceNo.Text))
+                {
+                    txtReferenceNo.BorderColor = Color.Red;
+                    return "Please enter the ReferenceNo";
+                }
             }
+
+            string From = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
+            string To = DateTime.Now.ToShortDateString();
+            PApiResult ResultPOList = new BDMS_PurchaseOrder().GetPurchaseOrderHeader(Convert.ToInt32(ddlDealer.SelectedValue), null, null, Convert.ToDateTime(From)
+                    , Convert.ToDateTime(To), null, null, null, null, null, null);
+            List<PPurchaseOrder> PurchaseOrderList = JsonConvert.DeserializeObject<List<PPurchaseOrder>>(JsonConvert.SerializeObject(ResultPOList.Data));
+
+            PApiResult ResultStockCount = new BDMS_PurchaseOrder().GetDealerStockOrderControl(Convert.ToInt32(ddlDealer.SelectedValue), null, null);
+            List<PDealerStockOrderControl> StockOrderControl = JsonConvert.DeserializeObject<List<PDealerStockOrderControl>>(JsonConvert.SerializeObject(ResultStockCount.Data));
+
+            if (ddlPurchaseOrderType.SelectedValue == "1")
+            {   
+                if(StockOrderControl[0].MaxCount > PurchaseOrderList.Count)
+                {
+                    return "Stock order count exceeded";
+                }
+            }
+
             //if (string.IsNullOrEmpty(txtExpectedDeliveryDate.Text.Trim()))
             //{
             //    txtExpectedDeliveryDate.BorderColor = Color.Red;
@@ -319,7 +340,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     return;
                 }
                 PPurchaseOrderItem_Insert PoI = ReadItem(hdfMaterialID.Value, hdfMaterialCode.Value.Trim(), txtQty.Text.Trim());
-                
+
                 PoI.MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
                 PoI.MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(hdfMaterialCode.Value.Trim());
                 //lblMessage.Text = "The entered material : " + hdfMaterialCode.Value + " is superseded by other material number " + PoI.MaterialCode + ".";
@@ -392,11 +413,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 PurchaseOrderItem_Insert.Add(PoI);
                 PoI.Item = PurchaseOrderItem_Insert.Count * 10;
                 fillItem();
-                ClearItem(); 
+                ClearItem();
             }
-            catch(Exception e1)
+            catch (Exception e1)
             {
-                lblMessage.Text = e1.Message; 
+                lblMessage.Text = e1.Message;
             }
         }
         protected string Save(string MaterialID, string MaterialCode, string Qty)
@@ -567,6 +588,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ddlDivision.Items.Insert(7, new ListItem("Mobile Concrete Equipment", "14"));
                 ddlDivision.Items.Insert(8, new ListItem("Placing Equipment", "19"));
             }
+            if (OrderType == "1" || OrderType == "6")
+            {
+                Btn_MatAvailability.Visible = true;
+            }
+            else
+            {
+                Btn_MatAvailability.Visible = false;
+            }
         }
         protected void ddlOrderTo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -632,22 +661,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         public void Save()
         {
-            PO_Insert = Read();
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Red;
-            if ((PO_Insert.PurchaseOrderTypeID == 2) || (PO_Insert.PurchaseOrderTypeID == 7))
-            {
-                if (string.IsNullOrEmpty(PO_Insert.ReferenceNo))
-                {
-                    lblMessage.Text = "Please enter the ReferenceNo";
-                    return;
-                }
-            }
             if (PurchaseOrderItem_Insert.Count == 0)
             {
                 lblMessage.Text = "Please select the Material.";
                 return;
             }
+            PO_Insert = Read();
             PO_Insert.PurchaseOrderItems = PurchaseOrderItem_Insert;
             string result = new BAPI().ApiPut("PurchaseOrder", PO_Insert);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
@@ -917,7 +938,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                         }
                         if (string.IsNullOrEmpty(txtPartQty.Text))
                         {
-                            lblMessageCopyOrder.Text = "Please Enter the Quantity for these material "+ lblMaterial.Text + ".";
+                            lblMessageCopyOrder.Text = "Please Enter the Quantity for these material " + lblMaterial.Text + ".";
                             lblMessageCopyOrder.Visible = true;
                             lblMessageCopyOrder.ForeColor = Color.Red;
                             MPE_CopyOrder.Show();
@@ -950,7 +971,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                         if (Material_SapS.Where(M => M.MaterialCode == lblMaterial.Text).Count() + (PurchaseOrderItem_Insert.Where(M => M.MaterialCode == lblMaterial.Text).Count()) == 0)
                         {
                             Label lblPartQty = (Label)gvMaterialCopyOrder.Rows[j].FindControl("lblPartQty");
-                            
+
                             Material_Sap = new PMaterial_Api();
                             Material_Sap.MaterialCode = lblMaterial.Text;
                             Material_Sap.Quantity = Convert.ToDecimal(txtPartQty.Text);
@@ -988,12 +1009,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
                 foreach (PMaterial Mat in Mats)
                 {
+                    Mat.MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(Mat.MaterialID));
+                    Mat.MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(Mat.MaterialCode);
                     if (Mat.CurrentPrice == 0)
                     {
-                        lblMessageMaterialFromCart.Text = "Price is Not updated for this material " + Mat.MaterialCode + ". Please contact Admin.";
-                        lblMessageMaterialFromCart.Visible = true;
-                        lblMessageMaterialFromCart.ForeColor = Color.Red;
-                        MPE_MaterialFromCart.Show();
+                        lblMessageCopyOrder.Text = "Price is Not updated for this material " + Mat.MaterialCode + ". Please contact Admin.";
+                        lblMessageCopyOrder.Visible = true;
+                        lblMessageCopyOrder.ForeColor = Color.Red;
+                        MPE_CopyOrder.Show();
                         return;
                     }
                 }
@@ -1034,7 +1057,10 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             catch (Exception e1)
             {
-                lblMessage.Text = e1.Message;
+                lblMessageCopyOrder.Text = e1.Message;
+                lblMessageCopyOrder.Visible = true;
+                lblMessageCopyOrder.ForeColor = Color.Red;
+                MPE_CopyOrder.Show();
             }
         }
         void Upload()
