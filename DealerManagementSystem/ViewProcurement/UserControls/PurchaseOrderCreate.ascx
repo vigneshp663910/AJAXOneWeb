@@ -72,7 +72,7 @@
                 <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtExpectedDeliveryDate" WatermarkText="DD/MM/YYYY" />
             </div>--%>
             <div class="col-md-3 col-sm-12">
-                <label class="modal-label">Ref. No<samp style="color: red">*</samp></label>
+                <label class="modal-label">Ref. No</label>
                 <asp:TextBox ID="txtReferenceNo" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
             </div>
             <div class="col-md-4 col-sm-12">
@@ -127,7 +127,7 @@
                         <label class="modal-label">.</label>
                         <asp:Button ID="btnAddMaterial" runat="server" Text="Add" CssClass="btn Search" OnClick="btnAddMaterial_Click"/>
 
-                        <asp:Button ID="Btn_MatAvailability" runat="server" Text="Availability" CssClass="btn Save" OnClick="Btn_MatAvailability_Click" />
+                        <asp:Button ID="Btn_MatAvailability" runat="server" Text="Availability" CssClass="btn Save" OnClick="Btn_MatAvailability_Click" Visible="false"/>
                     </div>
                 </div>
             </fieldset>

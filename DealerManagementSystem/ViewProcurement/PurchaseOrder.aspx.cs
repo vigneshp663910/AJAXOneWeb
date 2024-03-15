@@ -194,31 +194,40 @@ namespace DealerManagementSystem.ViewProcurement
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("PO Number");
-            dt.Columns.Add("Dealer");
-            dt.Columns.Add("Receiving Location");
-            dt.Columns.Add("Vendor");
-            dt.Columns.Add("PO Order Type");
-            dt.Columns.Add("Division");            
-            dt.Columns.Add("PO Status");
-            dt.Columns.Add("SaleOrder Number");
-            dt.Columns.Add("Net Value");
-            dt.Columns.Add("Created");
+            TraceLogger.Log(DateTime.Now);
+            Search();
+            PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderExportToExcel(DealerID, VendorID, PurchaseOrderNo, PurchaseOrderDateF
+                    , PurchaseOrderDateT, PurchaseOrderStatusID, PurchaseOrderTypeID, DivisionID, DealerOfficeID);
+            DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
+            //DataTable dt = new DataTable();
+            //dt.Columns.Add("PO Number");
+            //dt.Columns.Add("PO Date");
+            //dt.Columns.Add("Dealer");
+            //dt.Columns.Add("Receiving Location");
+            //dt.Columns.Add("Vendor");
+            //dt.Columns.Add("PO Order Type");
+            //dt.Columns.Add("Division");            
+            //dt.Columns.Add("PO Status");
+            //dt.Columns.Add("SaleOrder Number");
+            //dt.Columns.Add("Net Value");
+            //dt.Columns.Add("Created");
 
-            foreach (PPurchaseOrder M in PurchaseOrderList)
-            {
-                dt.Rows.Add(
-                    M.PurchaseOrderNumber + Environment.NewLine + M.PurchaseOrderDate.ToShortDateString()
-                    , M.Dealer.DealerCode + Environment.NewLine + M.Dealer.DealerName
-                    , M.Location.OfficeName
-                    , M.Vendor.DealerCode + Environment.NewLine + M.Vendor.DealerName
-                    , M.PurchaseOrderType.PurchaseOrderType
-                    , M.Division.DivisionCode
-                    , M.PurchaseOrderStatus.ProcurementStatus
-                    , M.SaleOrderNumber
-                    , M.NetAmount);
-            }
+            //foreach (PPurchaseOrder M in PurchaseOrderList)
+            //{
+            //    dt.Rows.Add(
+            //        M.PurchaseOrderNumber
+            //        , M.PurchaseOrderDate.ToShortDateString()
+            //        , M.Dealer.DealerCode + Environment.NewLine + M.Dealer.DealerName
+            //        , M.Location.OfficeName
+            //        , M.Vendor.DealerCode + Environment.NewLine + M.Vendor.DealerName
+            //        , M.PurchaseOrderType.PurchaseOrderType
+            //        , M.Division.DivisionCode
+            //        , M.PurchaseOrderStatus.ProcurementStatus
+            //        , M.SaleOrderNumber
+            //        , M.NetAmount
+            //        , M.Created.ContactName
+            //        );
+            //}
             new BXcel().ExporttoExcel(dt, "PurchaseOrder Report");
         }
         void fillDealer()
@@ -296,7 +305,7 @@ namespace DealerManagementSystem.ViewProcurement
         }
         private void FillGetDealerOffice()
         {
-            DealerID = (ddlDealerCode.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            DealerID = Convert.ToInt32(ddlDealerCode.SelectedValue);
             ddlDealerOffice.DataTextField = "OfficeName_OfficeCode";
             ddlDealerOffice.DataValueField = "OfficeID";
             ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(DealerID, null, null);
@@ -349,6 +358,10 @@ namespace DealerManagementSystem.ViewProcurement
                 ddlDivision.Items.Insert(6, new ListItem("Transit Mixer", "11"));
                 ddlDivision.Items.Insert(7, new ListItem("Mobile Concrete Equipment", "14"));
                 ddlDivision.Items.Insert(8, new ListItem("Placing Equipment", "19"));
+            }
+            else
+            {
+                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
             }
         }
     }
