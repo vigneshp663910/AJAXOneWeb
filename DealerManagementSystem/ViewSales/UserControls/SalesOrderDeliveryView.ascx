@@ -330,11 +330,11 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
+    <asp1:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
                 <UC:UC_CustomerView ID="UC_CustomerView" runat="server"></UC:UC_CustomerView>
             </div>
         </ContentTemplate>
-    </asp:TabPanel>
+    </asp1:TabPanel>
 </asp1:TabContainer>

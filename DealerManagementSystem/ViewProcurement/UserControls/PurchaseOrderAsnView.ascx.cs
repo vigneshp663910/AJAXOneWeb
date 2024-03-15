@@ -271,10 +271,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             HidAsnItem.Value = lblAsnItem.Text;
             HidReceivedQty.Value = lblReceivedQty.Text;
 
-            txtUnrestrictedQty.Text = HidReceivedQty.Value;
-            txtDamagedQty.Text = "0";
-            txtMissingQty.Text = "0";
-
+            if (string.IsNullOrEmpty(txtMissingQty.Text) && string.IsNullOrEmpty(txtDamagedQty.Text))
+            {
+                txtUnrestrictedQty.Text = HidReceivedQty.Value;
+                txtDamagedQty.Text = "0";
+                txtMissingQty.Text = "0";
+            }
             MPE_UpdateRestrictedQty.Show();
         }
 

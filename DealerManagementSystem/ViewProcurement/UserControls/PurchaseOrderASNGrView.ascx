@@ -6,7 +6,7 @@
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                <asp:LinkButton ID="lbGrCancel" runat="server" OnClick="lbActions_Click">Gr Cancel</asp:LinkButton>
+                <%--<asp:LinkButton ID="lbGrCancel" runat="server" OnClick="lbActions_Click">Gr Cancel</asp:LinkButton>--%>
             </div>
         </div>
     </div>
