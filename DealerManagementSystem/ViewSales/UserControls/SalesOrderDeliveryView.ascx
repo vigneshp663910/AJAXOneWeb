@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SalesOrderDeliveryView.ascx.cs" Inherits="DealerManagementSystem.ViewSales.UserControls.SalesOrderDeliveryView" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %> 
 
 <%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
 
@@ -66,8 +65,6 @@
         </div>
     </fieldset>
 </div>
-
-
 <asp1:TabContainer ID="tbpContainer" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
     <asp1:TabPanel ID="tpnlSODeliveryItem" runat="server" HeaderText="Delivery Item" Font-Bold="True" ToolTip="">
         <ContentTemplate>
@@ -177,7 +174,9 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label>Ref Number : </label>
-                                    <asp:Label ID="lblRefNumber" runat="server" CssClass="LabelValue"></asp:Label><asp:Label ID="lblRefDate" runat="server" CssClass="LabelValue"></asp:Label>
+                                    <asp:Label ID="lblRefNumber" runat="server" CssClass="LabelValue"> 
+                                    </asp:Label>
+                                    <asp:Label ID="lblRefDate" runat="server" CssClass="LabelValue"></asp:Label>
                                 </div>
                                 <div class="col-md-12">
                                     <label>Contact Person Number : </label>

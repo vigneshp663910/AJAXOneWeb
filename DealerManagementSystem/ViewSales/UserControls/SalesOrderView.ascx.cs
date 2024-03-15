@@ -130,6 +130,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             gvSOItem.DataSource = SaleOrderByID.SaleOrderItems;
             gvSOItem.DataBind();
+            gvSODelivery.DataSource = SaleOrderByID.Deliverys;
+            gvSODelivery.DataBind();
+
+            
             SaleOrderByID.Customer = new BDMS_Customer().GetCustomerByID(SaleOrderByID.Customer.CustomerID);
             UC_CustomerView.fillCustomer(SaleOrderByID.Customer);
             ActionControlMange();
@@ -854,8 +858,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void btnSaveDelivery_Click(object sender, EventArgs e)
         {
-            lblMessageCreateSODelivery.ForeColor = Color.Red; 
-            lblMessageCreateSODelivery.Text = "";
+            lblMessageCreateSODelivery.ForeColor = Color.Red;  
             MPE_Delivery.Show();
             try
             {

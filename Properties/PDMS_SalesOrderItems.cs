@@ -262,6 +262,7 @@ namespace Properties
         public DateTime CancelledOn { get; set; }
         public PUser ForceClosedBy { get; set; }
         public DateTime ForceClosedOn { get; set; }
+        public List<PSaleOrderDelivery> Deliverys { get; set; }
 
     }
     [Serializable]
@@ -300,6 +301,7 @@ namespace Properties
     public class PSaleOrderDeliveryItem
     {
         public long SaleOrderDeliveryItemID { get; set; }
+        public PDMS_Material Material { get; set; }
         public PSaleOrderItem SaleOrderItem { get; set; } 
         public decimal Qty { get; set; }
         

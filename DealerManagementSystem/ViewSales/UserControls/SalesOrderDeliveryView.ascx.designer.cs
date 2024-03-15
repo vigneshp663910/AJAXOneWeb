@@ -399,7 +399,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabCustomer;
+        protected global::System.Web.UI.WebControls.TabPanel TabCustomer;
 
         /// <summary>
         /// UC_CustomerView control.

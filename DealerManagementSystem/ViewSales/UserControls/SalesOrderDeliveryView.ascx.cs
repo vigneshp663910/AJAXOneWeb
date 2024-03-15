@@ -73,7 +73,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblProformaInvoiceDate.Text = (SaleOrderDeliveryByID.SaleOrder.ProformaInvoiceDate == null) ? null : Convert.ToDateTime(SaleOrderDeliveryByID.SaleOrder.ProformaInvoiceDate).ToString("dd/MM/yyy");
             lblSOExpectedDeliveryDate.Text = SaleOrderDeliveryByID.SaleOrder.ExpectedDeliveryDate.ToString("dd/MM/yyyy");
             lblRefNumber.Text = SaleOrderDeliveryByID.SaleOrder.RefNumber;
-            lblRefDate.Text = Convert.ToDateTime(SaleOrderDeliveryByID.SaleOrder.RefDate).ToString("dd/MM/yyyy");
+            lblRefDate.Text = SaleOrderDeliveryByID.SaleOrder.RefDate == null ? "" : Convert.ToDateTime(SaleOrderDeliveryByID.SaleOrder.RefDate).ToString("dd/MM/yyyy");
             lblContactPersonNumber.Text = SaleOrderDeliveryByID.SaleOrder.ContactPersonNumber;
             lblProduct.Text = SaleOrderDeliveryByID.SaleOrder.Product.Product;
             lblEquipmentSerialNo.Text = SaleOrderDeliveryByID.SaleOrder.Equipment.EquipmentSerialNo;
@@ -100,28 +100,27 @@ namespace DealerManagementSystem.ViewSales.UserControls
             //gvShipTo.DataSource = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
             //gvShipTo.DataBind();
 
-            List<PDMS_CustomerShipTo> ShipTos = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
-            
-            lblBillingAddress.Text = SaleOrderDeliveryByID.SaleOrder.Customer.Address1 + "," 
-                + SaleOrderDeliveryByID.SaleOrder.Customer.Address2 + ","
-                + SaleOrderDeliveryByID.SaleOrder.Customer.Address3 + ","
-                + SaleOrderDeliveryByID.SaleOrder.Customer.District.District + ","
-                + SaleOrderDeliveryByID.SaleOrder.Customer.State.State + ","
-                + SaleOrderDeliveryByID.SaleOrder.Customer.Pincode;
+            lblBillingAddress.Text = SaleOrderDeliveryByID.SaleOrder.Customer.Address1 + ","
+             + SaleOrderDeliveryByID.SaleOrder.Customer.Address2 + ","
+             + SaleOrderDeliveryByID.SaleOrder.Customer.Address3 + ","
+             + SaleOrderDeliveryByID.SaleOrder.Customer.District.District + ","
+             + SaleOrderDeliveryByID.SaleOrder.Customer.State.State + ","
+             + SaleOrderDeliveryByID.SaleOrder.Customer.Pincode;
 
-            if (SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID == 0)
+            if (SaleOrderDeliveryByID.SaleOrder.ShipTo != null)
             {
-                lblDeliveryAddress.Text = lblBillingAddress.Text;
+                List<PDMS_CustomerShipTo> ShipTos = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
+                lblDeliveryAddress.Text = ShipTos[0].Address1 + ","
+                    + ShipTos[0].Address2 + ","
+                    + ShipTos[0].Address3 + ","
+                    + ShipTos[0].District.District + ","
+                    + ShipTos[0].State.State + ","
+                    + ShipTos[0].Pincode;
             }
             else
             {
-                lblDeliveryAddress.Text = ShipTos[0].Address1 + ","
-                + ShipTos[0].Address2 + ","
-                + ShipTos[0].Address3 + ","
-                + ShipTos[0].District.District + ","
-                + ShipTos[0].State.State + ","
-                + ShipTos[0].Pincode;
-            }
+                lblDeliveryAddress.Text = lblBillingAddress.Text;
+            } 
         }
     }
 }
