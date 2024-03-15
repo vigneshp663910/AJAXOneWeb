@@ -563,7 +563,7 @@ namespace Business
                             }
                             else
                             {
-                                W.DayLeftForClaimCreation = dr["ClaimNumber"] == DBNull.Value ? 60 - ((DateTime.Now - W.ICTicketDate).Days) : (int?)null;
+                                W.DayLeftForClaimCreation = dr["ClaimNumber"] == DBNull.Value ? 15 - ((DateTime.Now - W.ICTicketDate).Days) : (int?)null;
                             }
                         }
                     }
