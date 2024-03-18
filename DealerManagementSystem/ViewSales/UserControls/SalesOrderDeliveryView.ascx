@@ -3,8 +3,21 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %> 
 
 <%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
-
-<asp:Label ID="lblMessageSODeliveryView" runat="server" Text="" CssClass="message" />
+<div class="col-md-12">
+    <div class="action-btn">
+        <div class="" id="boxHere"></div>
+        <div class="dropdown btnactions" id="customerAction">
+            <div class="btn Approval">Actions</div>
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px">   
+                <%--<asp:LinkButton ID="lbGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>--%>
+                <asp:LinkButton ID="lbGenerateInvoice" runat="server" OnClick="lbActions_Click">Generate Invoice</asp:LinkButton>
+                <asp:LinkButton ID="lbReleaseSaleOrder" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmReleaseSaleOrder();">Release</asp:LinkButton>
+                <asp:LinkButton ID="lbDelivery" runat="server" OnClick="lbActions_Click">Create Delivery</asp:LinkButton>
+            </div>
+        </div>
+    </div>
+</div>
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Sale Order Delivery</legend>
@@ -330,11 +343,11 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
+    <asp1:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
                 <UC:UC_CustomerView ID="UC_CustomerView" runat="server"></UC:UC_CustomerView>
             </div>
         </ContentTemplate>
-    </asp:TabPanel>
+    </asp1:TabPanel>
 </asp1:TabContainer>

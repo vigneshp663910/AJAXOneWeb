@@ -147,7 +147,7 @@ namespace DealerManagementSystem.ViewSales
                 TraceLogger.Log(DateTime.Now);
                 Search();
                 long? SaleOrderDeliveryID = null;
-                PApiResult Result = new BSne().GetSaleOrderDeliveryHeader(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID, PageIndex, gvSODelivery.PageSize);
+                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderDeliveryHeader(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID, PageIndex, gvSODelivery.PageSize);
                 SalesOrderDelivery = JsonConvert.DeserializeObject<List<PSaleOrderDelivery>>(JsonConvert.SerializeObject(Result.Data));
 
                 gvSODelivery.PageIndex = 0;
@@ -229,7 +229,7 @@ namespace DealerManagementSystem.ViewSales
             Search();
             long? SaleOrderDeliveryID = null;
             DataTable dt = new DataTable();
-            PApiResult Result = new BSne().GetSaleOrderDeliveryReport(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID);
+            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderDeliveryReport(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID);
             dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
             new BXcel().ExporttoExcel(dt, "Sales Order Delivery Report");

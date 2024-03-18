@@ -15,13 +15,40 @@ namespace DealerManagementSystem.ViewSales.UserControls
     {
 
         /// <summary>
-        /// lblMessageSODeliveryView control.
+        /// lbGenerateInvoice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessageSODeliveryView;
+        protected global::System.Web.UI.WebControls.LinkButton lbGenerateInvoice;
+
+        /// <summary>
+        /// lbReleaseSaleOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbReleaseSaleOrder;
+
+        /// <summary>
+        /// lbDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbDelivery;
+
+        /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
         /// lblDeliveryNumber control.
@@ -399,7 +426,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TabPanel TabCustomer;
+        protected global::AjaxControlToolkit.TabPanel TabCustomer;
 
         /// <summary>
         /// UC_CustomerView control.

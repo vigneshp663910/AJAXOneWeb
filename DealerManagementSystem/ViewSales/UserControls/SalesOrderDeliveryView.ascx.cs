@@ -2,6 +2,7 @@
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,45 +11,87 @@ using System.Web.UI.WebControls;
 namespace DealerManagementSystem.ViewSales.UserControls
 {
     public partial class SalesOrderDeliveryView : System.Web.UI.UserControl
-    {
-        public PSaleOrderDelivery SaleOrderDeliveryByID
+    { 
+        public long SODeliveryID
         {
             get
             {
-                if (ViewState["SaleOrderDeliveryByID"] == null)
+                if (ViewState["SaleOrderDeliveryID"] == null)
                 {
-                    ViewState["SaleOrderDeliveryByID"] = new PSaleOrderDelivery();
+                    ViewState["SaleOrderDeliveryID"] = 0;
                 }
-                return (PSaleOrderDelivery)ViewState["SaleOrderDeliveryByID"];
+                return (long)ViewState["SaleOrderDeliveryID"];
             }
             set
             {
-                ViewState["SaleOrderDeliveryByID"] = value;
+                ViewState["SaleOrderDeliveryID"] = value;
             }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessageSODeliveryView.Text = "";
+            lblMessage.Text = "";
             if (!IsPostBack)
             {
             }
         }
+        protected void lbActions_Click(object sender, EventArgs e)
+        {
+            lblMessage.ForeColor = Color.Red;
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.ID == "lbGenerateInvoice")
+            {
+                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SODeliveryID, (short)AjaxOneStatus.SaleOrder_ProformaInvoice);
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    return;
+                }
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Green;
+                fillViewSODelivery(SODeliveryID);
+            }
+            else if (lbActions.ID == "lbReleaseSaleOrder")
+            {
+                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SODeliveryID, (short)AjaxOneStatus.SaleOrder_OrderPlaced);
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    return;
+                }
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Green;
+                fillViewSODelivery(SODeliveryID);
+            }
+            else if (lbActions.ID == "lbGenerateInvoice")
+            {
+                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SODeliveryID, (short)AjaxOneStatus.SaleOrder_ProformaInvoice);
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    return;
+                }
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Green;
+                fillViewSODelivery(SODeliveryID);
+            }
+
+        }
         public void fillViewSODelivery(long SaleOrderDeliveryID)
         {
-            SaleOrderDeliveryByID = new BSne().GetSaleOrderDeliveryByID(SaleOrderDeliveryID);
-
-            lblDeliveryNumber.Text = SaleOrderDeliveryByID.DeliveryNumber;
-            lblDeliveryDate.Text = SaleOrderDeliveryByID.DeliveryDate.ToString("dd/MM/yyyy");
-            lblInvoiceNumber.Text = SaleOrderDeliveryByID.InvoiceNumber;
-            lblInvoiceDate.Text = SaleOrderDeliveryByID.InvoiceDate.ToString();
-            lblDealer.Text = SaleOrderDeliveryByID.SaleOrder.Dealer.DealerCode + " " + SaleOrderDeliveryByID.SaleOrder.Dealer.DealerName;
-            lblDealerOffice.Text = SaleOrderDeliveryByID.SaleOrder.Dealer.DealerOffice.OfficeName;
-            lblDivision.Text = SaleOrderDeliveryByID.SaleOrder.Division.DivisionCode;
-            lblCustomer.Text = SaleOrderDeliveryByID.SaleOrder.Customer.CustomerCode + " " + SaleOrderDeliveryByID.SaleOrder.Customer.CustomerName;
-            lblSaleOrderType.Text = SaleOrderDeliveryByID.SaleOrder.SaleOrderType.SaleOrderType;
+            PSaleOrderDelivery SaleOrderDelivery = new BDMS_SalesOrder().GetSaleOrderDeliveryByID(SaleOrderDeliveryID);
+            SODeliveryID = SaleOrderDeliveryID;
+            lblDeliveryNumber.Text = SaleOrderDelivery.DeliveryNumber;
+            lblDeliveryDate.Text = SaleOrderDelivery.DeliveryDate.ToString("dd/MM/yyyy");
+            lblInvoiceNumber.Text = SaleOrderDelivery.InvoiceNumber;
+            lblInvoiceDate.Text = SaleOrderDelivery.InvoiceDate.ToString();
+            lblDealer.Text = SaleOrderDelivery.SaleOrder.Dealer.DealerCode + " " + SaleOrderDelivery.SaleOrder.Dealer.DealerName;
+            lblDealerOffice.Text = SaleOrderDelivery.SaleOrder.Dealer.DealerOffice.OfficeName;
+            lblDivision.Text = SaleOrderDelivery.SaleOrder.Division.DivisionCode;
+            lblCustomer.Text = SaleOrderDelivery.SaleOrder.Customer.CustomerCode + " " + SaleOrderDelivery.SaleOrder.Customer.CustomerName;
+            lblSaleOrderType.Text = SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderType;
             
             decimal Value = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
-            foreach (PSaleOrderDeliveryItem DeliveryItem in SaleOrderDeliveryByID.SaleOrderDeliveryItems)
+            foreach (PSaleOrderDeliveryItem DeliveryItem in SaleOrderDelivery.SaleOrderDeliveryItems)
             {
                 Value = Value + DeliveryItem.SaleOrderItem.Value;
                 TaxableValue = TaxableValue + DeliveryItem.SaleOrderItem.TaxableValue;
@@ -62,54 +105,54 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblTaxValue.Text = TaxValue.ToString();
             lblNetAmount.Text = NetAmount.ToString();
 
-            gvSODeliveryItem.DataSource = SaleOrderDeliveryByID.SaleOrderDeliveryItems;
+            gvSODeliveryItem.DataSource = SaleOrderDelivery.SaleOrderDeliveryItems;
             gvSODeliveryItem.DataBind();
 
-            lblQuotationNumber.Text = SaleOrderDeliveryByID.SaleOrder.QuotationNumber;
-            lblQuotationDate.Text = SaleOrderDeliveryByID.SaleOrder.QuotationDate.ToString("dd/MM/yyyy");
-            lblSaleOrderNumber.Text = SaleOrderDeliveryByID.SaleOrder.SaleOrderNumber;
-            lblSaleOrderDate.Text = (SaleOrderDeliveryByID.SaleOrder.SaleOrderDate == null) ? null : Convert.ToDateTime(SaleOrderDeliveryByID.SaleOrder.SaleOrderDate).ToString("dd/MM/yyyy");
-            lblProformaInvoiceNumber.Text = SaleOrderDeliveryByID.SaleOrder.ProformaInvoiceNumber;
-            lblProformaInvoiceDate.Text = (SaleOrderDeliveryByID.SaleOrder.ProformaInvoiceDate == null) ? null : Convert.ToDateTime(SaleOrderDeliveryByID.SaleOrder.ProformaInvoiceDate).ToString("dd/MM/yyy");
-            lblSOExpectedDeliveryDate.Text = SaleOrderDeliveryByID.SaleOrder.ExpectedDeliveryDate.ToString("dd/MM/yyyy");
-            lblRefNumber.Text = SaleOrderDeliveryByID.SaleOrder.RefNumber;
-            lblRefDate.Text = SaleOrderDeliveryByID.SaleOrder.RefDate == null ? "" : Convert.ToDateTime(SaleOrderDeliveryByID.SaleOrder.RefDate).ToString("dd/MM/yyyy");
-            lblContactPersonNumber.Text = SaleOrderDeliveryByID.SaleOrder.ContactPersonNumber;
-            lblProduct.Text = SaleOrderDeliveryByID.SaleOrder.Product.Product;
-            lblEquipmentSerialNo.Text = SaleOrderDeliveryByID.SaleOrder.Equipment.EquipmentSerialNo;
-            lblFrieghtPaidBy.Text = SaleOrderDeliveryByID.SaleOrder.FrieghtPaidBy;
-            lblInsurancePaidBy.Text = SaleOrderDeliveryByID.SaleOrder.InsurancePaidBy;
-            lblRemarks.Text = SaleOrderDeliveryByID.SaleOrder.Remarks;
-            lblAttn.Text = SaleOrderDeliveryByID.SaleOrder.Attn;
-            lblSalesEngnieer.Text = SaleOrderDeliveryByID.SaleOrder.SalesEngineer.ContactName;
-            lblTaxType.Text = SaleOrderDeliveryByID.SaleOrder.TaxType;
-            lblHeaderDiscountPercent.Text = SaleOrderDeliveryByID.SaleOrder.HeaderDiscountPercentage.ToString();
-            lblGrossAmount.Text = SaleOrderDeliveryByID.SaleOrder.GrossAmount.ToString();
+            lblQuotationNumber.Text = SaleOrderDelivery.SaleOrder.QuotationNumber;
+            lblQuotationDate.Text = SaleOrderDelivery.SaleOrder.QuotationDate.ToString("dd/MM/yyyy");
+            lblSaleOrderNumber.Text = SaleOrderDelivery.SaleOrder.SaleOrderNumber;
+            lblSaleOrderDate.Text = (SaleOrderDelivery.SaleOrder.SaleOrderDate == null) ? null : Convert.ToDateTime(SaleOrderDelivery.SaleOrder.SaleOrderDate).ToString("dd/MM/yyyy");
+            lblProformaInvoiceNumber.Text = SaleOrderDelivery.SaleOrder.ProformaInvoiceNumber;
+            lblProformaInvoiceDate.Text = (SaleOrderDelivery.SaleOrder.ProformaInvoiceDate == null) ? null : Convert.ToDateTime(SaleOrderDelivery.SaleOrder.ProformaInvoiceDate).ToString("dd/MM/yyy");
+            lblSOExpectedDeliveryDate.Text = SaleOrderDelivery.SaleOrder.ExpectedDeliveryDate.ToString("dd/MM/yyyy");
+            lblRefNumber.Text = SaleOrderDelivery.SaleOrder.RefNumber;
+            lblRefDate.Text = SaleOrderDelivery.SaleOrder.RefDate == null ? "" : Convert.ToDateTime(SaleOrderDelivery.SaleOrder.RefDate).ToString("dd/MM/yyyy");
+            lblContactPersonNumber.Text = SaleOrderDelivery.SaleOrder.ContactPersonNumber;
+            lblProduct.Text = SaleOrderDelivery.SaleOrder.Product.Product;
+            lblEquipmentSerialNo.Text = SaleOrderDelivery.SaleOrder.Equipment.EquipmentSerialNo;
+            lblFrieghtPaidBy.Text = SaleOrderDelivery.SaleOrder.FrieghtPaidBy;
+            lblInsurancePaidBy.Text = SaleOrderDelivery.SaleOrder.InsurancePaidBy;
+            lblRemarks.Text = SaleOrderDelivery.SaleOrder.Remarks;
+            lblAttn.Text = SaleOrderDelivery.SaleOrder.Attn;
+            lblSalesEngnieer.Text = SaleOrderDelivery.SaleOrder.SalesEngineer.ContactName;
+            lblTaxType.Text = SaleOrderDelivery.SaleOrder.TaxType;
+            lblHeaderDiscountPercent.Text = SaleOrderDelivery.SaleOrder.HeaderDiscountPercentage.ToString();
+            lblGrossAmount.Text = SaleOrderDelivery.SaleOrder.GrossAmount.ToString();
 
             gvSOItem.DataSource = null;
             gvSOItem.DataBind();
-            List<PSaleOrderItem> saleOrderItems = new BSne().GetSaleOrderItemByDeliveryID(SaleOrderDeliveryByID.SaleOrderDeliveryID);
+            List<PSaleOrderItem> saleOrderItems = new BDMS_SalesOrder().GetSaleOrderItemByDeliveryID(SaleOrderDelivery.SaleOrderDeliveryID);
             gvSOItem.DataSource = saleOrderItems;
             gvSOItem.DataBind();
 
-            SaleOrderDeliveryByID.SaleOrder.Customer = new BDMS_Customer().GetCustomerByID(SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
-            UC_CustomerView.fillCustomer(SaleOrderDeliveryByID.SaleOrder.Customer);
+            SaleOrderDelivery.SaleOrder.Customer = new BDMS_Customer().GetCustomerByID(SaleOrderDelivery.SaleOrder.Customer.CustomerID);
+            UC_CustomerView.fillCustomer(SaleOrderDelivery.SaleOrder.Customer);
 
             //gvShipTo.DataSource = null;
             //gvShipTo.DataBind();
             //gvShipTo.DataSource = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
             //gvShipTo.DataBind();
 
-            lblBillingAddress.Text = SaleOrderDeliveryByID.SaleOrder.Customer.Address1 + ","
-             + SaleOrderDeliveryByID.SaleOrder.Customer.Address2 + ","
-             + SaleOrderDeliveryByID.SaleOrder.Customer.Address3 + ","
-             + SaleOrderDeliveryByID.SaleOrder.Customer.District.District + ","
-             + SaleOrderDeliveryByID.SaleOrder.Customer.State.State + ","
-             + SaleOrderDeliveryByID.SaleOrder.Customer.Pincode;
+            lblBillingAddress.Text = SaleOrderDelivery.SaleOrder.Customer.Address1 + ","
+             + SaleOrderDelivery.SaleOrder.Customer.Address2 + ","
+             + SaleOrderDelivery.SaleOrder.Customer.Address3 + ","
+             + SaleOrderDelivery.SaleOrder.Customer.District.District + ","
+             + SaleOrderDelivery.SaleOrder.Customer.State.State + ","
+             + SaleOrderDelivery.SaleOrder.Customer.Pincode;
 
-            if (SaleOrderDeliveryByID.SaleOrder.ShipTo != null)
+            if (SaleOrderDelivery.SaleOrder.ShipTo != null)
             {
-                List<PDMS_CustomerShipTo> ShipTos = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
+                List<PDMS_CustomerShipTo> ShipTos = new BDMS_Customer().GetCustomerShopTo(SaleOrderDelivery.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDelivery.SaleOrder.Customer.CustomerID);
                 lblDeliveryAddress.Text = ShipTos[0].Address1 + ","
                     + ShipTos[0].Address2 + ","
                     + ShipTos[0].Address3 + ","

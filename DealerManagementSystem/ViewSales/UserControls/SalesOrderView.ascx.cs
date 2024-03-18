@@ -192,7 +192,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbGenerateProformaInvoice.Visible = false;
             }
 
-            if (SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.IntraDealerOrder)
+            if (SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.IntraDealerOrder
+                || SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder
+                || SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder
+                )
             { 
                 lbAddSaleOrderItem.Visible = false; 
             }
@@ -204,6 +207,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             if (StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced 
                 || StatusID == (short)AjaxOneStatus.SaleOrder_Delivered 
                 || StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled 
+                || SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder
+                || SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder
                 )
             {
                 for (int i = 0; i < gvSOItem.Rows.Count; i++)

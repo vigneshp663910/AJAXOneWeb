@@ -9,9 +9,11 @@ namespace Properties
     [Serializable]
     public class PDMS_Dealer
     {
+        public int DID { get; set; }
         public int DealerID { get; set; }
         public string DealerCode { get; set; }
         public string DealerName { get; set; }
+        public string ContactName { get; set; }
         public string DisplayName { get; set; }
         public string CodeWithDisplayName { get; set; }
         public string Address1 { get; set; }
@@ -31,10 +33,7 @@ namespace Properties
         public PUser TL { get; set; }
         public PUser SM { get; set; }
         public Boolean ServicePaidEInvoice { get; set; }
-        public Boolean IsEInvoice { get; set; }
-        //public string EInvoiceFTPPath { get; set; }
-        //public string EInvoiceFTPUserID { get; set; }
-        //public string EInvoiceFTPPassword { get; set; }
+        public Boolean IsEInvoice { get; set; } 
         public DateTime? EInvoiceDate { get; set; }
         public string AuthorityName { get; set; }
         public string AuthorityDesignation { get; set; }
@@ -43,6 +42,7 @@ namespace Properties
         public Boolean IsActive { get; set; }
 
         public PDMS_Region Region { get; set; }
+        public Boolean IsPartsPortal { get; set; }
     }
 
     [Serializable]
@@ -191,6 +191,21 @@ namespace Properties
         public string ContactName { get; set; }
         public string DisplayName { get; set; }
         public string CodeWithDisplayName { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string City { get; set; }
+        public PDMS_State StateN { get; set; }
+        public PDMS_State State { get; set; }
+        public string StateCode { get; set; }
+        public PDMS_Country Country { get; set; }
+        
+        public string Pincode { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string GSTIN { get; set; }
+        public string PAN { get; set; }
+        public PDMS_DealerOffice DealerOffice { get; set; }
+        public PDealerBankDetails DealerBank { get; set; }
         public string UserName { get; set; }
         public string CodeWithName { get; set; }
         public string MailID1 { get; set; }
@@ -198,7 +213,7 @@ namespace Properties
         public int UserTypeID { get; set; }        
         public Boolean IsActive { get; set; }
         public string HeadOfficeID { get; set; }
-        public string StateCode { get; set; }
+       
 
         public Boolean IsEInvoice { get; set; }
         public string EInvoiveFTPPath { get; set; }
@@ -206,8 +221,7 @@ namespace Properties
         public string EInvoiveFTPPassword { get; set; }
         public string EInvoiveDate { get; set; }
 
-        public PDMS_Country Country { get; set; }
-        public PDMS_State State { get; set; }
+       
 
 
         public Boolean EInvAPI { get; set; }
@@ -218,6 +232,7 @@ namespace Properties
 
         public PEInvUserAPI EInvUserAPI { get; set; }
         public PDealerType DealerType { get; set; }
+        public Boolean IsPartsPortal { get; set; }
     }
     [Serializable] 
     public class PDealerStateMappingID
