@@ -94,7 +94,7 @@ namespace DealerManagementSystem.ViewEquipment
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
             }

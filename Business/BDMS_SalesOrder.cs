@@ -1189,9 +1189,10 @@ namespace Business
             string endPoint = "SaleOrder/GetSaleOrderStatus?SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderStatus=" + SaleOrderStatus;
             return JsonConvert.DeserializeObject<List<PAjaxOneStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public PApiResult GetSaleOrderHeader(long? SaleOrderID, string DateFrom, string DateTo, string QuotationNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderStatusID, int? SaleOrderTypeID, int? PageIndex = null, int? PageSize = null)
+        public PApiResult GetSaleOrderHeader(long? SaleOrderID, string DateFrom, string DateTo, string QuotationNumber, string SaleOrderNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderStatusID, int? SaleOrderTypeID, int? PageIndex = null, int? PageSize = null)
         {
-            string endPoint = "SaleOrder/GetSaleOrderHeader?SaleOrderID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&QuotationNumber=" + QuotationNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
+            string endPoint = "SaleOrder/GetSaleOrderHeader?SaleOrderID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo 
+                + "&QuotationNumber=" + QuotationNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
                 + "&CustomerCode=" + CustomerCode + "&SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderTypeID=" + SaleOrderTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }

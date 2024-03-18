@@ -97,8 +97,8 @@ namespace DealerManagementSystem.ViewSales
                     ddlDealer.Enabled = true;
                     fillDealer();
                 }
-                
-                int? CDealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+
+                int? CDealerID = Convert.ToInt32(ddlDealer.SelectedValue);
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 new DDLBind(ddlSaleOrderType, new BDMS_SalesOrder().GetSaleOrderType(null, null), "SaleOrderType", "SaleOrderTypeID");

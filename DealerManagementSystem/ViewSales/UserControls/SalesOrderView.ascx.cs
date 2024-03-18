@@ -108,22 +108,24 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblDivision.Text = SaleOrderByID.Division.DivisionCode;
             lblProduct.Text = SaleOrderByID.Product == null ? "" : SaleOrderByID.Product.Product;
             lblInsurancePaidBy.Text = SaleOrderByID.InsurancePaidBy;
-            lblEquipmentSerialNo.Text = SaleOrderByID.Equipment == null ? "" : SaleOrderByID.Equipment.EquipmentSerialNo;
+            lblEquipmentSerialNo.Text = SaleOrderByID.Equipment.EquipmentSerialNo;
             lblSaleOrderType.Text = SaleOrderByID.SaleOrderType.SaleOrderType;
             lblSalesEngnieer.Text = SaleOrderByID.SalesEngineer == null ? "" : SaleOrderByID.SalesEngineer.ContactName;
             lblHeaderDiscount.Text = SaleOrderByID.HeaderDiscountPercentage.ToString();
 
-            decimal Price = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
+            lblSoCreatedBy.Text = SaleOrderByID.CreatedBy.ContactName;
+
+            decimal Discount = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderItem SaleOrderItem in SaleOrderByID.SaleOrderItems)
             {
-                Price = Price + SaleOrderItem.Value;
+                Discount = Discount + SaleOrderItem.DiscountValue;
                 TaxableValue = TaxableValue + SaleOrderItem.TaxableValue;
                 TaxValue = TaxValue + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
                 NetAmount = NetAmount + SaleOrderItem.TaxableValue + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
                 SaleOrderItem.NetAmount = SaleOrderItem.TaxableValue + SaleOrderItem.Material.CGSTValue + SaleOrderItem.Material.SGSTValue + SaleOrderItem.Material.IGSTValue;
             }
 
-            lblPrice.Text = Price.ToString();
+            lblDiscount.Text = Discount.ToString();
             lblTaxableValue.Text = TaxableValue.ToString();
             lblTaxValue.Text = TaxValue.ToString();
             lblNetAmount.Text = NetAmount.ToString();
@@ -923,7 +925,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     throw new Exception("Please enter the Delivery Quantity.");
                 }
-                if (DeliveryQuantity > OrderQty)
+                if (DeliveryQuantity > OrderQty || DeliveryQuantity < 1)
                 {
                     throw new Exception("Please check the Delivery Quantity.");
                 }

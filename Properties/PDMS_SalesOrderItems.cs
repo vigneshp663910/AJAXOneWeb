@@ -296,6 +296,7 @@ namespace Properties
         public DateTime? InvoiceDate { get; set; }
         public PSaleOrderDeliveryItem SaleOrderDeliveryItem { get; set; }
         public List<PSaleOrderDeliveryItem> SaleOrderDeliveryItems { get; set; }
+        public PDMS_EquipmentHeader Equipment { get; set; }
     }
     [Serializable]
     public class PSaleOrderDeliveryItem

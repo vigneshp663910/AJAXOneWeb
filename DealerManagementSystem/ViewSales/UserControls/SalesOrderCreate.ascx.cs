@@ -54,34 +54,35 @@ namespace DealerManagementSystem.ViewSales.UserControls
         public void FillMaster()
         {
             if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-            {
-                int? DealerID = null;
-                ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID, PSession.User.Dealer[0].DID.ToString()));
-                ddlDealer.Enabled = false;
-                DealerID = PSession.User.Dealer[0].DID;
-
-                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
+            { 
+                 
                 //new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 //new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
                 //cxExpectedDeliveryDate.StartDate = DateTime.Now;
                 //ddlDivision.SelectedValue = "15"; ddlDivision.Enabled = false;
-                new DDLBind(ddlSalesEngineer, DealerID, "ContactName", "UserID");
+              
             }
             else
             {
-                ddlDealer.Enabled = true;
-                ddlDealer.DataTextField = "CodeWithName";
-                ddlDealer.DataValueField = "DID";
-                ddlDealer.DataSource = PSession.User.Dealer;
-                ddlDealer.DataBind();
-                ddlDealer.Items.Insert(0, new ListItem("Select", "0"));
 
-                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
+
+                
                 //new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 //new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
                 //cxExpectedDeliveryDate.StartDate = DateTime.Now;
                 //ddlDivision.SelectedValue = "15"; ddlDivision.Enabled = false;
             }
+
+            ddlDealer.Enabled = true;
+            ddlDealer.DataTextField = "CodeWithName";
+            ddlDealer.DataValueField = "DID";
+            ddlDealer.DataSource = PSession.User.Dealer;
+            ddlDealer.DataBind();
+            ddlDealer.Items.Insert(0, new ListItem("Select", "0"));
+
+            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
+            //new DDLBind(ddlSalesEngineer, 0, "ContactName", "UserID");
+
             new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
             cxExpectedDeliveryDate.StartDate = DateTime.Now;
@@ -584,7 +585,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             catch (Exception ex)
             {
-                lblMessageMaterialUpload.Text = ex.ToString();
+                lblMessageMaterialUpload.Text = ex.Message.ToString();
                 lblMessageMaterialUpload.ForeColor = Color.Red;
             } 
         } 

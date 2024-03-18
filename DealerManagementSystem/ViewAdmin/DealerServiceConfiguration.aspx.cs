@@ -50,7 +50,7 @@ namespace DealerManagementSystem.ViewAdmin
                 catch (Exception Ex)
                 {
                     lblMessageDealerServiceDistrict.Visible = true;
-                    lblMessageDealerServiceDistrict.Text = Ex.ToString();
+                    lblMessageDealerServiceDistrict.Text = Ex.Message.ToString();
                     lblMessageDealerServiceDistrict.ForeColor = Color.Red;
                 }
             }
@@ -68,7 +68,7 @@ namespace DealerManagementSystem.ViewAdmin
             catch (Exception Ex)
             {
                 lblMessageDealerServiceDistrict.Visible = true;
-                lblMessageDealerServiceDistrict.Text = Ex.ToString();
+                lblMessageDealerServiceDistrict.Text = Ex.Message.ToString();
                 lblMessageDealerServiceDistrict.ForeColor = Color.Red;
             }
         }
@@ -89,7 +89,7 @@ namespace DealerManagementSystem.ViewAdmin
             catch (Exception Ex)
             {
                 lblMessageDealerServiceDistrict.Visible = true;
-                lblMessageDealerServiceDistrict.Text = Ex.ToString();
+                lblMessageDealerServiceDistrict.Text = Ex.Message.ToString();
                 lblMessageDealerServiceDistrict.ForeColor = Color.Red;
             }
         }
@@ -112,7 +112,7 @@ namespace DealerManagementSystem.ViewAdmin
             catch (Exception Ex)
             {
                 lblMessageDealerServiceDistrict.Visible = true;
-                lblMessageDealerServiceDistrict.Text = Ex.ToString();
+                lblMessageDealerServiceDistrict.Text = Ex.Message.ToString();
                 lblMessageDealerServiceDistrict.ForeColor = Color.Red;
             }
         }
@@ -133,7 +133,7 @@ namespace DealerManagementSystem.ViewAdmin
             catch (Exception Ex)
             {
                 lblMessageDealerServiceDistrict.Visible = true;
-                lblMessageDealerServiceDistrict.Text = Ex.ToString();
+                lblMessageDealerServiceDistrict.Text = Ex.Message.ToString();
                 lblMessageDealerServiceDistrict.ForeColor = Color.Red;
             }
         }
@@ -151,7 +151,7 @@ namespace DealerManagementSystem.ViewAdmin
             catch (Exception Ex)
             {
                 lblMessageDealerServiceDistrict.Visible = true;
-                lblMessageDealerServiceDistrict.Text = Ex.ToString();
+                lblMessageDealerServiceDistrict.Text = Ex.Message.ToString();
                 lblMessageDealerServiceDistrict.ForeColor = Color.Red;
             }
         }
@@ -210,7 +210,7 @@ namespace DealerManagementSystem.ViewAdmin
             catch (Exception Ex)
             {
                 lblMessageDealerServiceDistrict.Visible = true;
-                lblMessageDealerServiceDistrict.Text = Ex.ToString();
+                lblMessageDealerServiceDistrict.Text = Ex.Message.ToString();
                 lblMessageDealerServiceDistrict.ForeColor = Color.Red;
             }
         }

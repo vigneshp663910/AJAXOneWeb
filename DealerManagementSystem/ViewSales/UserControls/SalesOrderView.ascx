@@ -410,7 +410,7 @@
             <div class="col-md-2">
                 <div class="col-md-12">
                     <label>Discount Value : </label>
-                    <asp:Label ID="lblPrice" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:Label ID="lblDiscount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <%--<div class="col-md-12">
                     <label>Discount : </label>
@@ -473,7 +473,10 @@
                                 <label>Product : </label>
                                 <asp:Label ID="lblProduct" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
-
+                            <div class="col-md-12">
+                                <label>Created By : </label>
+                                <asp:Label ID="lblSoCreatedBy" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
 
                         </div>
                         <div class="col-md-4">
@@ -687,7 +690,7 @@
             </div>
         </ContentTemplate>
     </asp:TabPanel>
-     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="SO Delivery" Font-Bold="True" ToolTip="">
+    <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="SO Delivery" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
@@ -696,25 +699,25 @@
                         <div class="col-md-12 Report">
                             <asp:GridView ID="gvSODelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                                 <Columns>
-                                     <asp:TemplateField HeaderText="Delivery Number">
+                                    <asp:TemplateField HeaderText="Delivery Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblDeliveryNumber" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryNumber")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Delivery Date">
+                                    <asp:TemplateField HeaderText="Delivery Date">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblDeliveryDate" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryDate")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Invoice Number">
+                                    <asp:TemplateField HeaderText="Invoice Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblInvoiceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceNumber")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Invoice Date">
+                                    <asp:TemplateField HeaderText="Invoice Date">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblInvoiceDate" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceDate")%>' runat="server"></asp:Label>
@@ -725,20 +728,20 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.MaterialCode")%>' runat="server"></asp:Label>
-                                            </ItemTemplate>
+                                        </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Material Desc">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.MaterialDescription")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField> 
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Qty","{0:n}")%>' runat="server"></asp:Label>
-                                            </ItemTemplate>
-                                    </asp:TemplateField> 
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

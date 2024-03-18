@@ -40,7 +40,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.ID == "lbGenerateInvoice")
             {
-                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SODeliveryID, (short)AjaxOneStatus.SaleOrder_ProformaInvoice);
+                PApiResult Results = new BDMS_SalesOrder().GenerateSaleInvoice(SODeliveryID);
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
@@ -49,32 +49,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.Text = Results.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSODelivery(SODeliveryID);
-            }
-            else if (lbActions.ID == "lbReleaseSaleOrder")
-            {
-                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SODeliveryID, (short)AjaxOneStatus.SaleOrder_OrderPlaced);
-                if (Results.Status == PApplication.Failure)
-                {
-                    lblMessage.Text = Results.Message;
-                    return;
-                }
-                lblMessage.Text = Results.Message;
-                lblMessage.ForeColor = Color.Green;
-                fillViewSODelivery(SODeliveryID);
-            }
-            else if (lbActions.ID == "lbGenerateInvoice")
-            {
-                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SODeliveryID, (short)AjaxOneStatus.SaleOrder_ProformaInvoice);
-                if (Results.Status == PApplication.Failure)
-                {
-                    lblMessage.Text = Results.Message;
-                    return;
-                }
-                lblMessage.Text = Results.Message;
-                lblMessage.ForeColor = Color.Green;
-                fillViewSODelivery(SODeliveryID);
-            }
-
+            } 
         }
         public void fillViewSODelivery(long SaleOrderDeliveryID)
         {
@@ -89,7 +64,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblDivision.Text = SaleOrderDelivery.SaleOrder.Division.DivisionCode;
             lblCustomer.Text = SaleOrderDelivery.SaleOrder.Customer.CustomerCode + " " + SaleOrderDelivery.SaleOrder.Customer.CustomerName;
             lblSaleOrderType.Text = SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderType;
-            
+            lblEquipment.Text = SaleOrderDelivery.Equipment.EquipmentSerialNo;
             decimal Value = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderDeliveryItem DeliveryItem in SaleOrderDelivery.SaleOrderDeliveryItems)
             {
@@ -119,7 +94,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblRefDate.Text = SaleOrderDelivery.SaleOrder.RefDate == null ? "" : Convert.ToDateTime(SaleOrderDelivery.SaleOrder.RefDate).ToString("dd/MM/yyyy");
             lblContactPersonNumber.Text = SaleOrderDelivery.SaleOrder.ContactPersonNumber;
             lblProduct.Text = SaleOrderDelivery.SaleOrder.Product.Product;
-            lblEquipmentSerialNo.Text = SaleOrderDelivery.SaleOrder.Equipment.EquipmentSerialNo;
+            lblEquipmentSerialNo.Text = SaleOrderDelivery.Equipment.EquipmentSerialNo;
             lblFrieghtPaidBy.Text = SaleOrderDelivery.SaleOrder.FrieghtPaidBy;
             lblInsurancePaidBy.Text = SaleOrderDelivery.SaleOrder.InsurancePaidBy;
             lblRemarks.Text = SaleOrderDelivery.SaleOrder.Remarks;
@@ -163,7 +138,19 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else
             {
                 lblDeliveryAddress.Text = lblBillingAddress.Text;
-            } 
+            }
+
+            ActionControlMange(SaleOrderDelivery);
         }
+
+        void ActionControlMange(PSaleOrderDelivery SaleOrderDelivery)
+        {
+            lbGenerateInvoice.Visible = true;
+            if (!string.IsNullOrEmpty(SaleOrderDelivery.InvoiceNumber))
+            {
+                lbGenerateInvoice.Visible = false;
+            }
+        }
+      
     }
 }

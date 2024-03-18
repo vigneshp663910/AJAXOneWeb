@@ -40,6 +40,10 @@
                         <label class="modal-label">Quotation Number</label>
                         <asp:TextBox ID="txtQuotationNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">SaleOrder Number</label>
+                        <asp:TextBox ID="txtSaleOrderNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Customer Code</label>
                         <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
@@ -117,6 +121,14 @@
                                             <asp:Label ID="lblQuotationDate" Text='<%# DataBinder.Eval(Container.DataItem, "QuotationDate","{0:d}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="So Number">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemTemplate> 
+                                            <asp:Label ID="lblSaleOrderNumber" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderNumber")%>' runat="server" />
+                                            <br />
+                                            <asp:Label ID="lblSaleOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDate","{0:d}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Dealer">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -157,7 +169,7 @@
                                             <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderStatus.Status")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Total Amount">
+                                    <asp:TemplateField HeaderText="Gross Amount">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblTotalAmt" Text='<%# DataBinder.Eval(Container.DataItem, "GrossAmount")%>' runat="server"></asp:Label>

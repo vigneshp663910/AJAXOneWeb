@@ -406,7 +406,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             catch (Exception ex)
             {
-                lblMessageMaterialUpload.Text = ex.ToString();
+                lblMessageMaterialUpload.Text = ex.Message.ToString();
                 lblMessageMaterialUpload.ForeColor = Color.Red;
             }
         }

@@ -333,7 +333,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                         }
                         catch (Exception ex)
                         {
-                            lblMessage.Text = ex.ToString();
+                            lblMessage.Text = ex.Message.ToString();
                             lblMessage.ForeColor = System.Drawing.Color.Red;
                         }
                     }
@@ -349,7 +349,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
         }

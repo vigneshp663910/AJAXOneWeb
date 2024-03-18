@@ -1,23 +1,23 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SalesOrderDeliveryView.ascx.cs" Inherits="DealerManagementSystem.ViewSales.UserControls.SalesOrderDeliveryView" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %> 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 <%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerView" %>
+
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
-            <div class="dropdown-content" style="font-size: small; margin-left: -105px">   
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <%--<asp:LinkButton ID="lbGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbGenerateInvoice" runat="server" OnClick="lbActions_Click">Generate Invoice</asp:LinkButton>
-                <asp:LinkButton ID="lbReleaseSaleOrder" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmReleaseSaleOrder();">Release</asp:LinkButton>
-                <asp:LinkButton ID="lbDelivery" runat="server" OnClick="lbActions_Click">Create Delivery</asp:LinkButton>
             </div>
         </div>
     </div>
 </div>
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
+
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Sale Order Delivery</legend>
@@ -25,11 +25,20 @@
             <div class="col-md-3">
                 <div class="col-md-12">
                     <label>Delivery No & Dt: </label>
-                    <asp:Label ID="lblDeliveryNumber" runat="server" CssClass="LabelValue"></asp:Label><asp:Label ID="lblDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:Label ID="lblDeliveryNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Delivery Dt: </label>
+                    <asp:Label ID="lblDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
+
                 </div>
                 <div class="col-md-12">
                     <label>Invoice No & Dt: </label>
-                    <asp:Label ID="lblInvoiceNumber" runat="server" CssClass="LabelValue"></asp:Label><asp:Label ID="lblInvoiceDate" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:Label ID="lblInvoiceNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Invoice Dt: </label>
+                    <asp:Label ID="lblInvoiceDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
             <div class="col-md-3">
@@ -54,6 +63,10 @@
                 <div class="col-md-12">
                     <label>Order Type : </label>
                     <asp:Label ID="lblSaleOrderType" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Equipment : </label>
+                    <asp:Label ID="lblEquipment" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
 
@@ -133,16 +146,46 @@
                                 <asp:Label ID="lblTaxableValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.TaxableValue","{0:n}")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Tax">
+                        <asp:TemplateField HeaderText="CGST">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblCGST" Text='<%#  DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.CGST")  %>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="SGST">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblCGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.SGST")  %>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="IGST">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblCGST" Text='<%#  DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.IGST") %>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <%--   <asp:TemplateField HeaderText="Tax">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
                                 <asp:Label ID="lblTax" Text='<%# (Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.SGST")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.CGST")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.IGST"))).ToString("N2") %>' runat="server"></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Tax Value">
+                        </asp:TemplateField>--%>
+                        <asp:TemplateField HeaderText="CGST Value">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTaxValue" Text='<%# (Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.CGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.SGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.IGSTValue"))).ToString("N2") %>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.CGSTValue") %>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                         <asp:TemplateField HeaderText="SGST Value">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.SGSTValue") %>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                         <asp:TemplateField HeaderText="IGST Value">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.IGSTValue") %>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Net Amount">
