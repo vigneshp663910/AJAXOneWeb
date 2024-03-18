@@ -18,9 +18,13 @@ namespace DealerManagementSystem.ViewProcurement
         int? DealerID = null;
         string VendorID = null;
         string AsnNumber = null;
+        string PurchaseOrderNo = null;
+        string SaleOrderNo = null;
         DateTime? AsnDateF = null;
         DateTime? AsnDateT = null;
         int? AsnStatusID = null;
+        int? PurchaseOrderTypeID = null;
+        int? DivisionID = null;
         public List<PAsn> PAsnHeader
         {
             get
@@ -101,6 +105,8 @@ namespace DealerManagementSystem.ViewProcurement
                     ddlDealerCode.Enabled = true;
                     fillDealer();
                 }
+                fillPurchaseOrderType();
+                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
@@ -127,7 +133,63 @@ namespace DealerManagementSystem.ViewProcurement
             AsnDateF = string.IsNullOrEmpty(txtAsnDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAsnDateFrom.Text.Trim());
             AsnDateT = string.IsNullOrEmpty(txtAsnDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtAsnDateTo.Text.Trim());
             AsnStatusID = ddlAsnStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlAsnStatus.SelectedValue);
-            AsnNumber = string.IsNullOrEmpty(txtAsnNumber.Text)?null:txtAsnNumber.Text.Trim();
+            AsnNumber = txtAsnNumber.Text.Trim();
+            PurchaseOrderNo = txtPoNumber.Text.Trim();
+            SaleOrderNo = txtSoNumber.Text.Trim();
+            DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
+            PurchaseOrderTypeID = ddlPurchaseOrderType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);
+        }
+        void fillPurchaseOrderType()
+        {
+            ddlPurchaseOrderType.Items.Clear();
+            ddlPurchaseOrderType.DataTextField = "PurchaseOrderType";
+            ddlPurchaseOrderType.DataValueField = "PurchaseOrderTypeID";
+            ddlPurchaseOrderType.Items.Insert(0, new ListItem("Select", "0"));
+
+            ddlPurchaseOrderType.Items.Insert(1, new ListItem("Stock Order-Within 15 Days", "1"));
+            ddlPurchaseOrderType.Items.Insert(2, new ListItem("Emergency Order-Within 3 Days", "2"));
+            ddlPurchaseOrderType.Items.Insert(3, new ListItem("Break Down Order-Within 3 Days", "7"));
+            ddlPurchaseOrderType.Items.Insert(4, new ListItem("Machine Order-Within 3 Days", "5"));
+            ddlPurchaseOrderType.Items.Insert(5, new ListItem("Intra-Dealer Order-Within 3 Days", "6"));
+        }
+        protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlDivision.Items.Clear();
+            ddlDivision.DataTextField = "DivisionDescription";
+            ddlDivision.DataValueField = "DivisionID";
+            ddlDivision.Items.Insert(0, new ListItem("Select", "0"));
+
+            string OrderType = ddlPurchaseOrderType.SelectedValue;
+
+            if ((OrderType == "1") || (OrderType == "2") || (OrderType == "7"))
+            {
+                ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
+            }
+            else if (ddlPurchaseOrderType.SelectedValue == "5")
+            {
+                ddlDivision.Items.Insert(1, new ListItem("Batching Plant", "1"));
+                ddlDivision.Items.Insert(2, new ListItem("Concrete Mixer", "2"));
+                ddlDivision.Items.Insert(3, new ListItem("Concrete Pump", "3"));
+                ddlDivision.Items.Insert(4, new ListItem("Dumper", "4"));
+                ddlDivision.Items.Insert(5, new ListItem("Transit Mixer", "11"));
+                ddlDivision.Items.Insert(6, new ListItem("Mobile Concrete Equipment", "14"));
+                ddlDivision.Items.Insert(7, new ListItem("Placing Equipment", "19"));
+            }
+            else if (ddlPurchaseOrderType.SelectedValue == "6")
+            {
+                ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
+                ddlDivision.Items.Insert(2, new ListItem("Batching Plant", "1"));
+                ddlDivision.Items.Insert(3, new ListItem("Concrete Mixer", "2"));
+                ddlDivision.Items.Insert(4, new ListItem("Concrete Pump", "3"));
+                ddlDivision.Items.Insert(5, new ListItem("Dumper", "4"));
+                ddlDivision.Items.Insert(6, new ListItem("Transit Mixer", "11"));
+                ddlDivision.Items.Insert(7, new ListItem("Mobile Concrete Equipment", "14"));
+                ddlDivision.Items.Insert(8, new ListItem("Placing Equipment", "19"));
+            }
+            else
+            {
+                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
+            }
         }
         void fillPurchaseOrderASN()
         {
@@ -135,7 +197,7 @@ namespace DealerManagementSystem.ViewProcurement
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnHeader(DealerID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PageIndex, gvPAsn.PageSize);
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnHeader(DealerID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo, PurchaseOrderTypeID, DivisionID, PageIndex, gvPAsn.PageSize);
                 PAsnHeader = JsonConvert.DeserializeObject<List<PAsn>>(JsonConvert.SerializeObject(Result.Data));
                 gvPAsn.PageIndex = 0;
                 gvPAsn.DataSource = PAsnHeader;

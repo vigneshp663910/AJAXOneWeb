@@ -35,6 +35,14 @@
                             <asp:TextBox ID="txtAsnNumber" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">PO Number</label>
+                            <asp:TextBox ID="txtPoNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">SO Number</label>
+                            <asp:TextBox ID="txtSoNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Asn Date From</label>
                             <asp:TextBox ID="txtAsnDateFrom" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                             <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtAsnDateFrom" PopupButtonID="txtPoDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
@@ -45,6 +53,14 @@
                             <asp:TextBox ID="txtAsnDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                             <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtAsnDateTo" PopupButtonID="txtPoDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
                             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtAsnDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Order Type</label>
+                            <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPurchaseOrderType_SelectedIndexChanged" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Division</label>
+                            <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Asn Status</label>
@@ -103,7 +119,7 @@
                                         <br />
                                         <asp:Label ID="lblPurchaseOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.PurchaseOrderDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
-                                </asp:TemplateField>                                
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Gr Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>

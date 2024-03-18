@@ -107,11 +107,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         void ActionControlMange()
         {
-            lbGrCancel.Visible = true;
-            if (GrView.Status.ProcurementStatusID != (short)ProcurementStatus.GrCreated)
-            {
-                lbGrCancel.Visible = false;
-            }
+            //lbGrCancel.Visible = true;
+            //if (GrView.Status.ProcurementStatusID != (short)ProcurementStatus.GrCreated)
+            //{
+            //    lbGrCancel.Visible = false;
+            //}
         }
         protected void btnGrCancel_Click(object sender, EventArgs e)
         {
