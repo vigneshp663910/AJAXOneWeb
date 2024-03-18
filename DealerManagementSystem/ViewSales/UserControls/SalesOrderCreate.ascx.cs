@@ -50,35 +50,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = string.Empty;
+            lblMessageMaterialUpload.Text = string.Empty;
         }
         public void FillMaster()
-        {
-            if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-            { 
-                 
-                //new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
-                //new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
-                //cxExpectedDeliveryDate.StartDate = DateTime.Now;
-                //ddlDivision.SelectedValue = "15"; ddlDivision.Enabled = false;
-              
-            }
-            else
-            {
-
-
-                
-                //new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
-                //new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
-                //cxExpectedDeliveryDate.StartDate = DateTime.Now;
-                //ddlDivision.SelectedValue = "15"; ddlDivision.Enabled = false;
-            }
-
-            ddlDealer.Enabled = true;
-            ddlDealer.DataTextField = "CodeWithName";
-            ddlDealer.DataValueField = "DID";
-            ddlDealer.DataSource = PSession.User.Dealer;
-            ddlDealer.DataBind();
-            ddlDealer.Items.Insert(0, new ListItem("Select", "0"));
+        { 
+            //new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
+            //new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
+            //cxExpectedDeliveryDate.StartDate = DateTime.Now; 
+            //ddlDivision.SelectedValue = "15"; ddlDivision.Enabled = false;
+             
+            new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID", true, "Select");
 
             new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
             //new DDLBind(ddlSalesEngineer, 0, "ContactName", "UserID");
@@ -511,70 +492,82 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected void btnUploadMaterial_Click(object sender, EventArgs e)
         {
             MPE_MaterialUpload.Show();
+            lblMessageMaterialUpload.ForeColor = Color.Red;
             List<PDMS_Material> Supersede = new List<PDMS_Material>();
             try
             {
-                if (fileUpload.HasFile == true)
+                if (fileUpload.HasFile != true)
                 {
-                    using (XLWorkbook workBook = new XLWorkbook(fileUpload.PostedFile.InputStream))
+                    lblMessageMaterialUpload.Text = "Please check the file."; 
+                    return;
+                }
+                string validExcel = ".xlsx";
+                string FileExtension = System.IO.Path.GetExtension(fileUpload.PostedFile.FileName);
+                if (validExcel != FileExtension)
+                {
+                    lblMessageMaterialUpload.Text = "Please check the file format."; 
+                    return;
+                }
+
+
+                using (XLWorkbook workBook = new XLWorkbook(fileUpload.PostedFile.InputStream))
+                {
+                    //Read the first Sheet from Excel file.
+                    IXLWorksheet workSheet = workBook.Worksheet(1);
+
+                    //Create a new DataTable.
+                    DataTable DTDealerOperatorDetailsUpload = new DataTable();
+
+                    //Loop through the Worksheet rows.
+                    int sno = 0;
+                    foreach (IXLRow row in workSheet.Rows())
                     {
-                        //Read the first Sheet from Excel file.
-                        IXLWorksheet workSheet = workBook.Worksheet(1);
-
-                        //Create a new DataTable.
-                        DataTable DTDealerOperatorDetailsUpload = new DataTable();
-
-                        //Loop through the Worksheet rows.
-                        int sno = 0;
-                        foreach (IXLRow row in workSheet.Rows())
+                        sno += 1;
+                        if (sno > 1)
                         {
-                            sno += 1;
-                            if (sno > 1)
+                            string Qty = string.Empty;
+                            List<IXLCell> Cells = row.Cells().ToList();
+                            if (Cells.Count != 0)
                             {
-                                string   Qty = string.Empty;
-                                List<IXLCell> Cells = row.Cells().ToList();
-                                if (Cells.Count != 0)
+
+                                string MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(Convert.ToString(Cells[1].Value));
+                                // PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, TMaterialCode, null, null, null)[0];
+
+                                if (MaterialCode != Convert.ToString(Cells[1].Value))
                                 {
-
-                                    string MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(Convert.ToString(Cells[1].Value));
-                                    // PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, TMaterialCode, null, null, null)[0];
-                                   
-                                   if (MaterialCode != Convert.ToString(Cells[1].Value))
+                                    Supersede.Add(new PDMS_Material()
                                     {
-                                        Supersede.Add(new PDMS_Material()
-                                        {
-                                            MaterialCode = Convert.ToString(Cells[1].Value),
-                                            Supersede = new PSupersede() { Material = MaterialCode }
-                                        });
-                                    }
-                                    List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, MaterialCode, null, null, null);
-
-                                    if (SOItem_Insert.Any(item => item.MaterialID == Materials[0].MaterialID))
-                                    {
-                                        lblMessageMaterialUpload.Text = "Dublicate Material (" + Materials[0].MaterialCode + ") Found."; 
-                                        return ;
-                                    }
-
-                                    if (Materials.Count > 0)
-                                    {  
-                                        string Message = AddMat(Materials[0].MaterialID, Materials[0].MaterialCode, Convert.ToString(Cells[2].Value));
-                                        if (!string.IsNullOrEmpty(Message))
-                                        {
-                                            SOItem_Insert = null;
-                                            gvSOItem.DataSource = SOItem_Insert;
-                                            gvSOItem.DataBind();
-                                            lblMessageMaterialUpload.Text = Message;
-                                            lblMessageMaterialUpload.ForeColor = Color.Red;
-                                            return;
-                                        }
-                                    }
-                                    gvSOItem.DataSource = SOItem_Insert;
-                                    gvSOItem.DataBind();
+                                        MaterialCode = Convert.ToString(Cells[1].Value),
+                                        Supersede = new PSupersede() { Material = MaterialCode }
+                                    });
                                 }
+                                List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, MaterialCode, null, null, null);
+
+                                if (SOItem_Insert.Any(item => item.MaterialID == Materials[0].MaterialID))
+                                {
+                                    lblMessageMaterialUpload.Text = "Dublicate Material (" + Materials[0].MaterialCode + ") Found.";
+                                    return;
+                                }
+
+                                if (Materials.Count > 0)
+                                {
+                                    string Message = AddMat(Materials[0].MaterialID, Materials[0].MaterialCode, Convert.ToString(Cells[2].Value));
+                                    if (!string.IsNullOrEmpty(Message))
+                                    {
+                                        SOItem_Insert = null;
+                                        gvSOItem.DataSource = SOItem_Insert;
+                                        gvSOItem.DataBind();
+                                        lblMessageMaterialUpload.Text = Message; 
+                                        return;
+                                    }
+                                }
+                                gvSOItem.DataSource = SOItem_Insert;
+                                gvSOItem.DataBind();
                             }
                         }
                     }
                 }
+
                 MPE_MaterialUpload.Hide();
                 if (Supersede.Count != 0)
                 {
@@ -585,9 +578,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             catch (Exception ex)
             {
-                lblMessageMaterialUpload.Text = ex.Message.ToString();
-                lblMessageMaterialUpload.ForeColor = Color.Red;
-            } 
+                lblMessage.Text = ex.Message.ToString(); 
+            }            
         } 
         protected string AddMat(int MaterialID, string MaterialCode, string Qty)
         {

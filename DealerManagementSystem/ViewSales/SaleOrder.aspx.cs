@@ -117,9 +117,8 @@ namespace DealerManagementSystem.ViewSales
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
         protected void ddlDealerCode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int? CDealerID = (ddlDealerCode.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
-            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID", true, "Select");
+        { 
+            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerCode.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
