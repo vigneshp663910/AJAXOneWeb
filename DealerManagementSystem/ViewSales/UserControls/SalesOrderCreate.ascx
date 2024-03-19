@@ -350,13 +350,21 @@
 
 <asp:Panel ID="pnlSupersede" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Material Supersede</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Material Status</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
 
     <div class="col-md-12">
         <fieldset class="fieldset-border">
             <div class="col-md-12">
+                <asp:GridView ID="gvMaterialIssue" runat="server"  CssClass="table table-bordered table-condensed Grid"> 
+                    <AlternatingRowStyle BackColor="#ffffff" />
+                    <FooterStyle ForeColor="White" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                </asp:GridView>
+
                 <asp:GridView ID="gvSupersede" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                     <Columns>
                         <asp:TemplateField HeaderText="Material">
@@ -377,7 +385,7 @@
                     <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                     <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                     <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                </asp:GridView>
+                </asp:GridView> 
                 <div class="col-md-12 text-center">
                     <asp:Button ID="Button2" runat="server" Text="Continue" CssClass="btn Save" />
                 </div>

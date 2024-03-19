@@ -152,11 +152,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
             
             int StatusID = SaleOrderByID.SaleOrderStatus.StatusID;
             
-            if (StatusID == (short)AjaxOneStatus.SaleOrder_Quotation   || StatusID == (short)AjaxOneStatus.SaleOrder_ProformaInvoice) // Draft
+            if (StatusID == (short)AjaxOneStatus.SaleOrder_Quotation  ) // Draft
             {
                 lbDelivery.Visible = false;
             }
-            if (StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced) //Order Placed
+           else if (StatusID == (short)AjaxOneStatus.SaleOrder_ProformaInvoice) // Draft
+            {
+                lbDelivery.Visible = false;
+                lbGenerateProformaInvoice.Visible = false;
+            }
+            else if(StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced) //Order Placed
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
@@ -164,7 +169,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbReleaseSaleOrder.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
             }
-            if (StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled) //Cancelled
+            else if(StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled) //Cancelled
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
@@ -174,7 +179,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbGenerateProformaInvoice.Visible = false;
                 lbDelivery.Visible = false;
             }
-            if (StatusID == (short)AjaxOneStatus.SaleOrder_Delivered) //Delivered
+            else if(StatusID == (short)AjaxOneStatus.SaleOrder_Delivered) //Delivered
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
@@ -184,7 +189,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbGenerateProformaInvoice.Visible = false;
                 lbDelivery.Visible = false;
             }
-            if (StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyDelivered) //Partially Delivered
+            else if(StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyDelivered) //Partially Delivered
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
@@ -302,24 +307,27 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SODelivery_Insert = new List<PSaleOrderDeliveryItem_Insert>();
                 foreach (PSaleOrderItem Item in SaleOrderByID.SaleOrderItems)
                 {
-                    SODelivery_Insert.Add(new PSaleOrderDeliveryItem_Insert()
+                    if (Item.Quantity != Item.DeliveredQuantity)
                     {
-                        SaleOrderID = SaleOrderByID.SaleOrderID,
-                        SaleOrderItemID = Item.SaleOrderItemID,
-                        MaterialCode = Item.Material.MaterialCode,
-                        MaterialDescription = Item.Material.MaterialDescription,
-                        UOM = Item.Material.BaseUnit,
-                        Quantity = Item.Quantity - Item.DeliveredQuantity,
-                        DeliveryQuantity = Item.Quantity - Item.DeliveredQuantity,
-                        Value = Item.Value,
-                        TaxableValue = Item.TaxableValue,
-                        CGST = Item.Material.CGST,
-                        CGSTValue = Item.Material.CGSTValue,
-                        SGST = Item.Material.SGST,
-                        SGSTValue = Item.Material.SGSTValue,
-                        IGST = Item.Material.IGST,
-                        IGSTValue = Item.Material.IGSTValue,
-                    });
+                        SODelivery_Insert.Add(new PSaleOrderDeliveryItem_Insert()
+                        {
+                            SaleOrderID = SaleOrderByID.SaleOrderID,
+                            SaleOrderItemID = Item.SaleOrderItemID,
+                            MaterialCode = Item.Material.MaterialCode,
+                            MaterialDescription = Item.Material.MaterialDescription,
+                            UOM = Item.Material.BaseUnit,
+                            Quantity = Item.Quantity - Item.DeliveredQuantity,
+                            DeliveryQuantity = Item.Quantity - Item.DeliveredQuantity,
+                            Value = Item.Value,
+                            TaxableValue = Item.TaxableValue,
+                            CGST = Item.Material.CGST,
+                            CGSTValue = Item.Material.CGSTValue,
+                            SGST = Item.Material.SGST,
+                            SGSTValue = Item.Material.SGSTValue,
+                            IGST = Item.Material.IGST,
+                            IGSTValue = Item.Material.IGSTValue,
+                        });
+                    }
                 }
 
                 List<PDMS_CustomerShipTo> ShipTos = new BDMS_Customer().GetCustomerShopTo(null, SaleOrderByID.Customer.CustomerID);
@@ -879,7 +887,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 foreach (PSaleOrderDeliveryItem_Insert T in SODelivery_Insert)
                 {
                     T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue);
-                    T.NetWeight = Convert.ToDecimal(txtBoxNetWeight.Text);
+                    T.NetWeight = Convert.ToDecimal("0"+txtBoxNetWeight.Text);
                     T.Remarks = txtBoxRemarks.Text.Trim();
                     T.DispatchDate = Convert.ToDateTime(txtBoxDispatchDate.Text.Trim());
                     T.CourierID = txtBoxCourierId.Text.Trim();
@@ -941,11 +949,19 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void gvDelivery_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            readSaleOrderDelivery();
+            try
+            {
+                MPE_Delivery.Show();
+                readSaleOrderDelivery();
             gvDelivery.DataSource = SODelivery_Insert;
             gvDelivery.PageIndex = e.NewPageIndex;
             gvDelivery.DataBind();
-            MPE_Delivery.Show();
+            
+            }
+            catch (Exception e1)
+            {
+                lblMessage.Text = e1.Message;
+            }
         }
         protected void ddlShiftTo_SelectedIndexChanged(object sender, EventArgs e)
         {

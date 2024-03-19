@@ -93,13 +93,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblRefNumber.Text = SaleOrderDelivery.SaleOrder.RefNumber;
             lblRefDate.Text = SaleOrderDelivery.SaleOrder.RefDate == null ? "" : Convert.ToDateTime(SaleOrderDelivery.SaleOrder.RefDate).ToString("dd/MM/yyyy");
             lblContactPersonNumber.Text = SaleOrderDelivery.SaleOrder.ContactPersonNumber;
-            lblProduct.Text = SaleOrderDelivery.SaleOrder.Product.Product;
+            lblProduct.Text = SaleOrderDelivery.SaleOrder.Product == null ? "" : SaleOrderDelivery.SaleOrder.Product.Product;
             lblEquipmentSerialNo.Text = SaleOrderDelivery.Equipment.EquipmentSerialNo;
             lblFrieghtPaidBy.Text = SaleOrderDelivery.SaleOrder.FrieghtPaidBy;
             lblInsurancePaidBy.Text = SaleOrderDelivery.SaleOrder.InsurancePaidBy;
             lblRemarks.Text = SaleOrderDelivery.SaleOrder.Remarks;
             lblAttn.Text = SaleOrderDelivery.SaleOrder.Attn;
-            lblSalesEngnieer.Text = SaleOrderDelivery.SaleOrder.SalesEngineer.ContactName;
+            lblSalesEngnieer.Text = SaleOrderDelivery.SaleOrder.SalesEngineer == null?"": SaleOrderDelivery.SaleOrder.SalesEngineer.ContactName;
             lblTaxType.Text = SaleOrderDelivery.SaleOrder.TaxType;
             lblHeaderDiscountPercent.Text = SaleOrderDelivery.SaleOrder.HeaderDiscountPercentage.ToString();
             lblGrossAmount.Text = SaleOrderDelivery.SaleOrder.GrossAmount.ToString();

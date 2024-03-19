@@ -44,6 +44,10 @@
                         <label class="modal-label">SaleOrder Number</label>
                         <asp:TextBox ID="txtSaleOrderNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
+                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Equipment Number</label>
+                        <asp:TextBox ID="txtEquipmentNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Customer Code</label>
                         <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
@@ -167,6 +171,12 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderStatus.Status")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Equipment">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblEquipment" Text='<%# DataBinder.Eval(Container.DataItem, "Equipment.EquipmentSerialNo")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Gross Amount">
