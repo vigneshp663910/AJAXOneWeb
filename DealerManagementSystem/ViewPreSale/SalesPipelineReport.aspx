@@ -58,7 +58,7 @@
                                     <div style="float: left">
                                         <table>
                                             <tr>
-                                                <td>Pre Sales Report(s):</td>
+                                                <td>Pre-Sales Pipeline:</td>
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>

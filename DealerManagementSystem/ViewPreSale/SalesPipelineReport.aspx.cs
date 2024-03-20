@@ -26,7 +26,7 @@ namespace DealerManagementSystem.ViewPreSale
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Performance');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Sales Pipeline');</script>");
 
             lblMessage.Text = "";
 

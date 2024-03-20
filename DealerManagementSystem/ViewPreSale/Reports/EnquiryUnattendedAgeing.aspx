@@ -45,7 +45,7 @@
                     <div style="float: left">
                         <table>
                             <tr>
-                                <td>Planning(s):</td>
+                                <td>Ageing Enquiries:</td>
                                 <td>
                                     <asp:Label ID="lblRowCountV" runat="server" CssClass="label"></asp:Label></td>
                                 <td>
