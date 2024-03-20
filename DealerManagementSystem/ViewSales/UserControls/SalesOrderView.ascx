@@ -493,6 +493,16 @@
                                 <label>Remarks : </label>
                                 <asp:Label ID="lblRemarks" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
+
+                            <div class="col-md-12">
+                                <label>Ref Number : </label>
+                                <asp:Label ID="lblRefNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Ref Date : </label>
+                                <asp:Label ID="lblRefDate" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+
                         </div>
                     </div>
                 </fieldset>
@@ -508,6 +518,12 @@
                         <div class="col-md-12 Report">
                             <asp:GridView ID="gvSOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                                 <Columns>
+                                    <asp:TemplateField HeaderText="SL No" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Material">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -659,6 +675,12 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblNetAmount" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Delivered Quantity">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDeliveredQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveredQuantity","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
@@ -827,6 +849,16 @@
                         <div class="col-md-6 col-sm-12">
                             <label>Header Discount %</label>
                             <asp:TextBox ID="txtBoxHeaderDiscountPercent" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label>Ref Number</label>
+                            <asp:TextBox ID="txtRefNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label>Ref Date<samp style="color: red">*</samp></label>
+                            <asp:TextBox ID="txtRefDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                            <asp1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtRefDate" PopupButtonID="txtRefDate" Format="dd/MM/yyyy" />
+                            <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRefDate" WatermarkText="DD/MM/YYYY" />
                         </div>
                     </div>
                 </fieldset>

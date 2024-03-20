@@ -27,8 +27,12 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Dealer Code</label>
-                            <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control"  AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged"/>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer Office</label>
+                            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Asn Number</label>
@@ -77,13 +81,14 @@
             </div>
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Asn Report</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Asn List</legend>
                     <div class="col-md-12 Report">
                         <div class="boxHead">
                             <div class="logheading">
                                 <div style="float: left">
                                     <table>
                                         <tr>
+                                            <td>Asn(s):</td>
                                             <td>
                                                 <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                             <td>
@@ -142,18 +147,18 @@
                                         <asp:Label ID="lblPurchaseOrderType" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.PurchaseOrderType.PurchaseOrderType")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Receiving Location">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblReceivingLocation" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Location.OfficeName")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Dealer.DealerCode")%>' runat="server"></asp:Label>
                                         <br />
                                         <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Dealer.DealerName")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Receiving Location">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblReceivingLocation" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Location.OfficeName")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Vendor">
@@ -168,6 +173,12 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblLRNo" Text='<%# DataBinder.Eval(Container.DataItem, "LRNo")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Division">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Division.DivisionCode")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Asn Status">

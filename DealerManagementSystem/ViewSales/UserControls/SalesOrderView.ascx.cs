@@ -113,6 +113,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblSalesEngnieer.Text = SaleOrderByID.SalesEngineer == null ? "" : SaleOrderByID.SalesEngineer.ContactName;
             lblHeaderDiscount.Text = SaleOrderByID.HeaderDiscountPercentage.ToString();
 
+            lblRefNumber.Text = SaleOrderByID.RefNumber;
+            lblRefDate.Text = SaleOrderByID.RefDate == null ? "" : ((DateTime)SaleOrderByID.RefDate).ToString("dd/MM/yyyy");
+
             lblSoCreatedBy.Text = SaleOrderByID.CreatedBy.ContactName;
 
             decimal Discount = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
@@ -192,7 +195,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else if(StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyDelivered) //Partially Delivered
             {
                 lbEditSaleOrder.Visible = false;
-                lbCancelSaleOrder.Visible = false;
+                //lbCancelSaleOrder.Visible = false;
                 lbAddSaleOrderItem.Visible = false;
                 lbReleaseSaleOrder.Visible = false;
                 //lbGenerateQuotation.Visible = false;
@@ -204,7 +207,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 || SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder
                 )
             { 
-                lbAddSaleOrderItem.Visible = false; 
+                lbAddSaleOrderItem.Visible = false;
+                txtRefDate.Enabled = false;
+                txtRefNumber.Enabled = false;
+            }
+            else
+            {
+                txtRefDate.Enabled = true;
+                txtRefNumber.Enabled = true;
             }
             DisableSOItemEditDelete();
         }
@@ -375,6 +385,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 ddlProduct.SelectedValue = SaleOrderByID.Product.ProductID.ToString();
             ddlTaxType.SelectedValue = ddlTaxType.Items.FindByText(SaleOrderByID.TaxType).Value;
             txtBoxHeaderDiscountPercent.Text = SaleOrderByID.HeaderDiscountPercentage.ToString();
+
+            txtRefNumber.Text = SaleOrderByID.RefNumber;
+            txtRefDate.Text = SaleOrderByID.RefDate == null ? "" : ((DateTime)SaleOrderByID.RefDate).ToString("dd/MM/yyyy");
+
         }
         protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -555,6 +569,19 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.SaleOrderTypeID = SaleOrderByID.SaleOrderType.SaleOrderTypeID;
             SO.SalesEngineerID = Convert.ToInt32(ddlSalesEngineer.SelectedValue);
             SO.HeaderDiscountPercentage = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
+            if (SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.IntraDealerOrder
+                || SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder
+                || SaleOrderByID.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder
+                )
+            {
+                SO.RefNumber = SaleOrderByID.RefNumber;
+                SO.RefDate = SaleOrderByID.RefDate;
+            }
+            else
+            {
+                SO.RefNumber = txtRefNumber.Text.Trim();
+                SO.RefDate = string.IsNullOrEmpty(txtRefDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRefDate.Text.Trim());
+            }
             return SO;
         }
         public PSaleOrderItem_Insert ReadItem()

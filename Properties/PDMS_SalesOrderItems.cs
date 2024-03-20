@@ -359,7 +359,9 @@ namespace Properties
         public string TaxType { get; set; } 
         public int SaleOrderTypeID { get; set; }
         public int? SalesEngineerID { get; set; }
-        public decimal HeaderDiscountPercentage { get; set; } 
+        public decimal HeaderDiscountPercentage { get; set; }
+        public string RefNumber { get; set; }
+        public DateTime? RefDate { get; set; }
         public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
 
     }

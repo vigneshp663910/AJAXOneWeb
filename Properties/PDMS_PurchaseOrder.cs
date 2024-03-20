@@ -213,6 +213,8 @@ namespace Properties
         public int MaterialID { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialDescription { get; set; }
+        public string MaterialType { get; set; }
+        
         public decimal Quantity { get; set; }
         public string UOM { get; set; }
         public decimal UnitPrice { get; set; }

@@ -24,6 +24,7 @@
             return false;
     }
 </script>
+<asp:HiddenField ID="hdfItemCount" runat="server" Value="0" />
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -46,7 +47,7 @@
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">PO</legend>
         <div class="col-md-12 View">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="col-md-12">
                     <label>PO Number : </label>
                     <asp:Label ID="lblPurchaseOrderNumber" runat="server" CssClass="LabelValue"></asp:Label>
@@ -59,26 +60,43 @@
                     <label>SO Number : </label>
                     <asp:Label ID="lblSoNumber" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Order Type : </label>
+                    <asp:Label ID="lblOrderType" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Order To : </label>
+                    <asp:Label ID="lblOrderTo" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
                 <%--<div class="col-md-12">
                     <label>SO Date : </label>
                     <asp:Label ID="lblSoDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>--%>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Dealer : </label>
                     <asp:Label ID="lblPODealer" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
+                    <label>Receiving Location : </label>
+                    <asp:Label ID="lblReceivingLocation" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Vendor : </label>
+                    <asp:Label ID="lblPOVendor" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Expected Delivery Date : </label>
+                    <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
                     <label>Status : </label>
                     <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>Created By : </label>
-                    <asp:Label ID="lblCreatedBy" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
+
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="col-md-12">
                     <label>Price : </label>
                     <asp:Label ID="lblPrice" runat="server" CssClass="LabelValue"></asp:Label>
@@ -87,17 +105,12 @@
                     <label>Discount : </label>
                     <asp:Label ID="lblDiscount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>Cancelled By : </label>
-                    <asp:Label ID="lblCancelledBy" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-            </div>
-            <div class="col-md-3">
+
                 <div class="col-md-12">
                     <label>Taxable Amount : </label>
                     <asp:Label ID="lblTaxableAmount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12" style="display: none">
+                <div class="col-md-12">
                     <label>Tax Amount : </label>
                     <asp:Label ID="lblTaxAmount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
@@ -105,17 +118,14 @@
                     <label>Net Amount : </label>
                     <asp:Label ID="lblGrossAmount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>Cancelled On : </label>
-                    <asp:Label ID="lblCancelledOn" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
+
             </div>
         </div>
     </fieldset>
 </div>
 
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
-<asp1:TabContainer ID="tbpEnquiry" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
+<asp1:TabContainer ID="tbp" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
     <asp1:TabPanel ID="TabPanel1" runat="server" HeaderText="PO Details" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12 field-margin-top">
@@ -124,10 +134,6 @@
                     <div class="col-md-12 View">
                         <div class="col-md-4">
                             <div class="col-md-12">
-                                <label>Order To : </label>
-                                <asp:Label ID="lblOrderTo" runat="server" CssClass="LabelValue"></asp:Label>
-                            </div>
-                            <div class="col-md-12">
                                 <label>Division : </label>
                                 <asp:Label ID="lblDivision" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
@@ -135,32 +141,28 @@
                                 <label>Ref No : </label>
                                 <asp:Label ID="lblRefNo" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
-
-                        </div>
-                        <div class="col-md-4">
-                            <div class="col-md-12">
-                                <label>Receiving Location : </label>
-                                <asp:Label ID="lblReceivingLocation" runat="server" CssClass="LabelValue"></asp:Label>
-                            </div>
                             <div class="col-md-12">
                                 <label>Remarks : </label>
                                 <asp:Label ID="lblPORemarks" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
-                            <div class="col-md-12">
-                                <label>Order Type : </label>
-                                <asp:Label ID="lblOrderType" runat="server" CssClass="LabelValue"></asp:Label>
-                            </div>
                         </div>
                         <div class="col-md-4">
+
                             <div class="col-md-12">
-                                <label>Vendor : </label>
-                                <asp:Label ID="lblPOVendor" runat="server" CssClass="LabelValue"></asp:Label>
+                                <label>Created By : </label>
+                                <asp:Label ID="lblCreatedBy" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
                             <div class="col-md-12">
-                                <label>Expected Delivery Date : </label>
-                                <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
+                                <label>Cancelled By : </label>
+                                <asp:Label ID="lblCancelledBy" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
+                            <div class="col-md-12">
+                                <label>Cancelled On : </label>
+                                <asp:Label ID="lblCancelledOn" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+
                         </div>
+
                     </div>
                 </fieldset>
             </div>
@@ -267,7 +269,7 @@
                                             <asp:Label ID="lblNetValue" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Action">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnItemAction_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
                                             <asp:LinkButton ID="lnkBtnupdate" runat="server" OnClick="lnkBtnItemAction_Click" Visible="false" OnClientClick="return ConfirmItemUpdate();"><i class='fa fa-fw fa-refresh' style='font-size:18px'></i></asp:LinkButton>
@@ -483,11 +485,7 @@
     </div>
     <div class="col-md-12">
         <asp:Label ID="lblAddMaterialMessage" runat="server" Text="" CssClass="message" />
-        <div class="col-md-12">
-            <div class="col-md-2 col-sm-12">
-                <label class="modal-label">SupersedeYN</label>
-                <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
-            </div>
+        <div class="col-md-12"> 
             <div class="col-md-5 col-sm-12">
                 <asp:HiddenField ID="hdfMaterialID" runat="server" />
                 <asp:HiddenField ID="hdfDivisionID" runat="server" />
@@ -533,9 +531,15 @@
 <script type="text/javascript">
 
     function GetMaterial() {
+        debugger;
         $("#MainContent_UC_PurchaseOrderView_hdfMaterialID").val('');
         $("#MainContent_UC_PurchaseOrderView_hdfMaterialCode").val('');
-        var param = { Material: $('#MainContent_UC_PurchaseOrderView_txtMaterial').val(), MaterialType: '', DivisionID: $('#MainContent_UC_PurchaseOrderView_hdfDivisionID').val() }
+        var param = {
+            Material: $('#MainContent_UC_PurchaseOrderView_txtMaterial').val(),
+            MaterialType: '',
+            DivisionID: $('#MainContent_UC_PurchaseOrderView_hdfDivisionID').val(),
+            ItemCount: $('#MainContent_UC_PurchaseOrderView_hdfItemCount').val()
+        }
         var Customers = [];
         if ($('#MainContent_UC_PurchaseOrderView_txtMaterial').val().trim().length >= 3) {
             $.ajax({

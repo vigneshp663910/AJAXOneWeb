@@ -196,12 +196,12 @@ namespace Business
             }
             return null;
         }
-        public PApiResult GetPurchaseOrderAsnHeader(int? DealerID, string VendorID, string AsnNumber, DateTime? AsnDateF, DateTime? AsnDateT
+        public PApiResult GetPurchaseOrderAsnHeader(int? DealerID, int? DealerOfficeID, string VendorID, string AsnNumber, DateTime? AsnDateF, DateTime? AsnDateT
             , int? AsnStatusID, string PurchaseOrderNo, string SaleOrderNo, int? PurchaseOrderTypeID, int? DivisionID, int? PageIndex = null, int? PageSize = null)
         {
-            string endPoint = "PurchaseOrder/PurchaseOrderAsnHeader?DealerID=" + DealerID + "&VendorID=" + VendorID + "&AsnNumber=" + AsnNumber
-                + "&AsnDateF=" + AsnDateF + "&AsnDateT=" + AsnDateT + "&AsnStatusID=" + AsnStatusID + "&PurchaseOrderNo=" + PurchaseOrderNo 
-                + "&SaleOrderNo=" + SaleOrderNo + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&DivisionID=" + DivisionID 
+            string endPoint = "PurchaseOrder/PurchaseOrderAsnHeader?DealerID=" + DealerID + "&DealerOfficeID=" + DealerOfficeID + "&VendorID=" + VendorID + "&AsnNumber=" + AsnNumber
+                + "&AsnDateF=" + AsnDateF + "&AsnDateT=" + AsnDateT + "&AsnStatusID=" + AsnStatusID + "&PurchaseOrderNo=" + PurchaseOrderNo
+                + "&SaleOrderNo=" + SaleOrderNo + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&DivisionID=" + DivisionID
                 + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }

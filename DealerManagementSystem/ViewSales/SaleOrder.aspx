@@ -41,7 +41,7 @@
                         <asp:TextBox ID="txtQuotationNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                      <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">SaleOrder Number</label>
+                        <label class="modal-label">Sale Order Number</label>
                         <asp:TextBox ID="txtSaleOrderNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                      <div class="col-md-2 col-sm-12">

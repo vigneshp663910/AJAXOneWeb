@@ -281,13 +281,22 @@ namespace DealerManagementSystem.ViewProcurement
             divPurchaseOrderCreate.Visible = true;
             lblMessage.Text = "";
             Button BtnView = (Button)sender;
-            UC_PurchaseOrderCreate.FillMaster();
+            UC_PurchaseOrderCreate.FillMaster(); 
         }
 
         [WebMethod]
-        public static string GetMaterial(string Material, string MaterialType, string DivisionID)
-        {
-            List<PDMS_Material> Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, Convert.ToInt32(DivisionID), "false");
+        public static string GetMaterial(string Material, string MaterialType, string DivisionID,int ItemCount)
+        { 
+            List<PDMS_Material> Materials = null;
+            if (ItemCount == 0)
+            {
+                Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, Convert.ToInt32(DivisionID), "false");
+            }
+            else
+            {
+                Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, (short)Division.Parts, "false");
+            }
+           
             return JsonConvert.SerializeObject(Materials); 
         }
 

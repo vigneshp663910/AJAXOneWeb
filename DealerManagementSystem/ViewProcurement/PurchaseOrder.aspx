@@ -63,7 +63,7 @@
                     </div>                    
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Order Type</label>
-                        <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPurchaseOrderType_SelectedIndexChanged" AutoPostBack="true"/>
+                        <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Division</label>
@@ -189,8 +189,7 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "Created.ContactName")%>' runat="server"></asp:Label>
-                                            <br />
-                                            <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderDate","{0:d}")%>' runat="server"></asp:Label>
+                                           
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>

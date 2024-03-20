@@ -104,8 +104,9 @@ namespace Properties
         public DateTime ValidTo { get; set; }
         public PDMS_Model Model { get; set; }
         public string SubCategory { get; set; }
-        public string SerialProfile { get; set; }
+        public string SerialProfile { get; set; } 
         public bool IsActive { get; set; } 
+
     }
     [Serializable]
     public class PMaterial

@@ -191,6 +191,7 @@ namespace Business
                     ModelDescription = Convert.ToString(dr["ModelDescription"]),
                     Division = new PDMS_Division()
                     {
+                        DivisionID = Convert.ToInt32(dr["DivisionID"]),
                         DivisionCode = Convert.ToString(dr["DivisionCode"]),
                         DivisionDescription = Convert.ToString(dr["DivisionDescription"]),
 
@@ -198,6 +199,7 @@ namespace Business
                         UOM = Convert.ToString(dr["UOM"])
                     }
                 };
+                SOI.IsActive = Convert.ToBoolean(dr["IsActive"]);
                 SOIs.Add(SOI);
             }
             return SOIs;

@@ -152,7 +152,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.SaleOrderTypeID = 1;
             SO.SalesEngineerID = ddlSalesEngineer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesEngineer.SelectedValue);
             SO.HeaderDiscountPercentage = Convert.ToDecimal(txtBoxHeaderDiscountPercent.Text.Trim());
-
+            SO.RefNumber = txtRefNumber.Text.Trim();
+            SO.RefDate = string.IsNullOrEmpty(txtRefDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
             return SO;
         }
 
@@ -564,9 +565,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                                 if (SOItem_Insert.Any(item => item.MaterialID == Material[0].MaterialID))
                                 {
-                                    MaterialIssue.Add(Material[0].MaterialCode, "Dublicate Material (" + Material[0].MaterialCode + ") Found. It is removed in list");
+                                    MaterialIssue.Add(Material[0].MaterialCode, "Duplicate Material (" + Material[0].MaterialCode + ") Found. It is removed in list");
                                     continue;
-                                    //lblMessageMaterialUpload.Text = "Dublicate Material (" + Material[0].MaterialCode + ") Found.";
+                                    //lblMessageMaterialUpload.Text = "Duplicate Material (" + Material[0].MaterialCode + ") Found.";
                                     //return;
                                 }
 
@@ -609,6 +610,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 gvSOItem.DataSource = SOItem_Insert;
                 gvSOItem.DataBind();
+                FillAmountCall();
             }
             catch (Exception ex)
             {
@@ -771,7 +773,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             // string Message = "";
             // if (SOItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(MaterialID)))
             // {
-            //     Message = "Dublicate Material Found.";
+            //     Message = "Duplicate Material Found.";
             //     lblMessageMaterialUpload.Text = Message;
             //     MPE_MaterialUpload.Show();
             //     return Message;

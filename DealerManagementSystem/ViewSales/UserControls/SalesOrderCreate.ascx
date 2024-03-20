@@ -106,6 +106,16 @@
                     <asp1:CalendarExtender ID="cxExpectedDeliveryDate" runat="server" TargetControlID="txtExpectedDeliveryDate" PopupButtonID="txtExpectedDeliveryDate" Format="dd/MM/yyyy" />
                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtExpectedDeliveryDate" WatermarkText="DD/MM/YYYY" />
                 </div>
+                <div class="col-sm-10">
+                    <label>Ref Number</label>
+                    <asp:TextBox ID="txtRefNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                </div>
+                <div class="col-sm-12">
+                    <label>Ref Date<samp style="color: red">*</samp></label>
+                    <asp:TextBox ID="txtRefDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                    <asp1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtRefDate" PopupButtonID="txtRefDate" Format="dd/MM/yyyy" />
+                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRefDate" WatermarkText="DD/MM/YYYY" />
+                </div>
             </div>
             <div class="col-md-2">
                 <div class="col-sm-12">
@@ -201,6 +211,12 @@
         <div class="col-md-12 Report">
             <asp:GridView ID="gvSOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                 <Columns>
+                    <asp:TemplateField HeaderText="SL No" ItemStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Material">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
@@ -332,7 +348,7 @@
             <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
-        <asp:Label ID="lblMessageMaterialUpload" runat="server" Text="" CssClass="message"   />
+        <asp:Label ID="lblMessageMaterialUpload" runat="server" Text="" CssClass="message" />
         <fieldset class="fieldset-border">
             <div class="col-md-12">
                 <div class="col-md-2 col-sm-12">
@@ -357,7 +373,7 @@
     <div class="col-md-12">
         <fieldset class="fieldset-border">
             <div class="col-md-12">
-                <asp:GridView ID="gvMaterialIssue" runat="server"  CssClass="table table-bordered table-condensed Grid"> 
+                <asp:GridView ID="gvMaterialIssue" runat="server" CssClass="table table-bordered table-condensed Grid">
                     <AlternatingRowStyle BackColor="#ffffff" />
                     <FooterStyle ForeColor="White" />
                     <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
@@ -385,7 +401,7 @@
                     <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                     <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                     <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                </asp:GridView> 
+                </asp:GridView>
                 <div class="col-md-12 text-center">
                     <asp:Button ID="Button2" runat="server" Text="Continue" CssClass="btn Save" />
                 </div>
