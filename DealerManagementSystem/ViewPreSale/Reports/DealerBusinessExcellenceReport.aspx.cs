@@ -34,7 +34,8 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Dealer Business Excellence Report');</script>");
+          
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Business Excellence » Report » Report ');</script>");
             if (!IsPostBack)
             {
                 LeadReport = null;

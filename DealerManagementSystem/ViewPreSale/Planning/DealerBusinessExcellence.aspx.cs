@@ -42,7 +42,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Planning » Dealer Business Excellence');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Business Excellence » Update');</script>");
             if (!IsPostBack)
             {
                 FillYearAndMonth();

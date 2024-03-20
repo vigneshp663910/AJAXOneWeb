@@ -13,7 +13,7 @@ namespace DealerManagementSystem.ViewPreSale.Planning
         public override SubModule SubModuleName { get { return SubModule.ViewPreSale_Planning_DealerBusinessExcellenceCategory3Update; } } 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Business Excellence » Category 3 Update');</script>");
         }
     }
 }
