@@ -39,9 +39,9 @@ namespace Business
             string endPoint = "DealerBusiness/AttachmentsForDownload?AttachedFileID=" + AttachedFileID;
             return JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public PApiResult SendMailtoDealerSatament(string customer, string open_dt, string pos_dt_from, string email)
+        public PApiResult SendMailtoDealerSatament(string customer, string open_dt, string pos_dt_from, string pos_dt_to, string email)
         {
-            string endPoint = "DealerBusiness/SendMailtoDealerSatament?customer=" + customer + "&open_dt=" + open_dt + "&pos_dt_from=" + pos_dt_from + "&email=" + email;
+            string endPoint = "DealerBusiness/SendMailtoDealerSatament?customer=" + customer + "&open_dt=" + open_dt + "&pos_dt_from=" + pos_dt_to + "&pos_dt_from=" + pos_dt_to + "&email=" + email;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
 

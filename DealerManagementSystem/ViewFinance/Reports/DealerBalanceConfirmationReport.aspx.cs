@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -199,8 +200,12 @@ namespace DealerManagementSystem.ViewFinance.Reports
 
         protected void btnRequest_Click(object sender, EventArgs e)
         {
-            MPE_MailRequest.Show(); 
-            new BDealerBusiness().SendMailtoDealerSatament(ddlDealerMail.SelectedValue, txtOpenDate.Text, txtPostDateFrom.Text, txtMail.Text.Trim());
+            MPE_MailRequest.Show();
+            string OpenDate = string.IsNullOrEmpty(txtOpenDate.Text) ? "" : DateTime.ParseExact(txtOpenDate.Text, "yyyy-MM-dd", CultureInfo.CurrentCulture).ToString("dd'/'MM'/'yyyy");
+            string PostDateFrom = string.IsNullOrEmpty(txtPostDateFrom.Text) ? "" : DateTime.ParseExact(txtPostDateFrom.Text, "yyyy-MM-dd", CultureInfo.CurrentCulture).ToString("dd'/'MM'/'yyyy");
+            string PostDateTo = string.IsNullOrEmpty(txtPostDateTo.Text) ? "" : DateTime.ParseExact(txtPostDateTo.Text, "yyyy-MM-dd", CultureInfo.CurrentCulture).ToString("dd'/'MM'/'yyyy");
+
+            new BDealerBusiness().SendMailtoDealerSatament(ddlDealerMail.SelectedValue, OpenDate, PostDateFrom, PostDateTo, txtMail.Text.Trim()); 
             MPE_MailRequest.Hide();
         }
     }
