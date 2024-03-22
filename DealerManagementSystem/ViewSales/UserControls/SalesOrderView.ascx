@@ -528,6 +528,7 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
+                                              <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialID")%>' runat="server"  Visible="false"></asp:Label>
                                             <asp:Label ID="lblSaleOrderItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItemID")%>' runat="server" Visible="false"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -568,11 +569,11 @@
                                             <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "Value","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Discount %">
+                                    <asp:TemplateField HeaderText="Item Discount Value">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDiscountPercent" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountPercentage","{0:n}")%>' runat="server"></asp:Label>
-                                            <asp:TextBox ID="txtBoxDiscountPercent" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountPercentage","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
+                                            <asp:Label ID="lblItemDiscountValue" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountValue","{0:n}")%>' runat="server"></asp:Label>
+                                            <asp:TextBox ID="txtItemDiscountValue" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountValue","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Discount">
@@ -883,10 +884,7 @@
                 <fieldset class="fieldset-border" runat="server">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Add Item</legend>
                     <div class="col-md-12">
-                        <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Supersede Y/N</label>
-                            <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
-                        </div>
+                      
                         <div class="col-md-6 col-sm-12">
                             <asp:HiddenField ID="hdfMaterialID" runat="server" />
                             <asp:HiddenField ID="hdfMaterialCode" runat="server" />

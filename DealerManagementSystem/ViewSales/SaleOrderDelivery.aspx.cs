@@ -19,6 +19,7 @@ namespace DealerManagementSystem.ViewSales
         DateTime? DateFrom = null;
         DateTime? DateTo = null;
         string DeliveryNo = null;
+        string SaleOrderNumber = null;
         int? DealerID = null;
         int? OfficeCodeID = null;
         int? DivisionID = null;
@@ -87,17 +88,8 @@ namespace DealerManagementSystem.ViewSales
                 txtDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtDateTo.Text = DateTime.Now.ToShortDateString();
 
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealer.Enabled = false;
-                }
-                else
-                {
-                    ddlDealer.Enabled = true;
-                    fillDealer();
-                }
-
+                 
+                    fillDealer(); 
                 int? CDealerID = Convert.ToInt32(ddlDealer.SelectedValue);
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
@@ -147,7 +139,7 @@ namespace DealerManagementSystem.ViewSales
                 TraceLogger.Log(DateTime.Now);
                 Search();
                 long? SaleOrderDeliveryID = null;
-                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderDeliveryHeader(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID, PageIndex, gvSODelivery.PageSize);
+                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderDeliveryHeader(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, SaleOrderNumber, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID, PageIndex, gvSODelivery.PageSize);
                 SalesOrderDelivery = JsonConvert.DeserializeObject<List<PSaleOrderDelivery>>(JsonConvert.SerializeObject(Result.Data));
 
                 gvSODelivery.PageIndex = 0;
@@ -181,6 +173,7 @@ namespace DealerManagementSystem.ViewSales
             DateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
             DateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
             DeliveryNo = txtDeliveryNumber.Text.Trim();
+            SaleOrderNumber = txtSaleOrderNumber.Text.Trim();
             DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             OfficeCodeID = ddlOfficeName.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlOfficeName.SelectedValue);
             DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);

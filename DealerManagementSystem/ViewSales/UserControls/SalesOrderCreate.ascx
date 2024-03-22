@@ -147,7 +147,7 @@
 
                 <div class="col-sm-12">
                     <label>Header Discount %</label>
-                    <asp:TextBox ID="txtBoxHeaderDiscountPercent" runat="server" CssClass="form-control" BorderColor="Silver" AutoPostBack="true" OnTextChanged="txtBoxHeaderDiscountPercent_TextChanged"></asp:TextBox>
+                    <asp:TextBox ID="txtHeaderDiscountPercent" runat="server" CssClass="form-control" BorderColor="Silver" AutoPostBack="true" OnTextChanged="txtHeaderDiscountPercent_TextChanged"></asp:TextBox>
                 </div>
             </div>
             <div class="col-md-2">
@@ -266,10 +266,10 @@
                                         <asp:Label ID="lblDiscountAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Discount","{0:n}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>--%>
-                    <asp:TemplateField HeaderText="Discount %">
+                    <asp:TemplateField HeaderText="Item Discount Value">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                         <ItemTemplate>
-                            <asp:TextBox ID="txtBoxDiscountPercent" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountPercentage","{0:n}")%>' AutoPostBack="true" OnTextChanged="txtBoxDiscountPercent_TextChanged"></asp:TextBox>
+                            <asp:TextBox ID="txtItemDiscountValue" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountValue","{0:n}")%>' AutoPostBack="true" OnTextChanged="txtBoxDiscountPercent_TextChanged"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Discount">

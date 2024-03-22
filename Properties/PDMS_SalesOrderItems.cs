@@ -268,14 +268,14 @@ namespace Properties
     [Serializable]
     public class PSaleOrderItem
     {
-        public long SaleOrderItemID { get; set; }  
-        public PDMS_Material Material { get; set; } 
+        public long SaleOrderItemID { get; set; }
+        public PDMS_Material Material { get; set; }
         public decimal Quantity { get; set; }
         public decimal PerRate { get; set; }
         public decimal Value { get; set; }
-        public decimal ItemDiscountPercentage { get; set; } 
-        public decimal DiscountValue { get; set; } 
-        public decimal TaxableValue { get; set; } 
+        public decimal ItemDiscountValue { get; set; }
+        public decimal DiscountValue { get; set; }
+        public decimal TaxableValue { get; set; }
         public decimal Tax { get; set; }
         //public decimal TotalAmt { get; set; }
         public decimal NetAmount { get; set; }
@@ -378,7 +378,7 @@ namespace Properties
         public decimal Quantity { get; set; }
         public decimal PerRate { get; set; }
         public decimal Value { get; set; }
-        public decimal ItemDiscountPercentage { get; set; }
+        public decimal ItemDiscountValue { get; set; }
         public decimal DiscountValue { get; set; }
         public decimal FreightValue { get; set; }
         public decimal TaxableValue { get; set; }
@@ -389,7 +389,7 @@ namespace Properties
         public decimal SGSTValue { get; set; }
         public decimal IGSTValue { get; set; }
         public int StatusID { get; set; }
-        public int UserID { get; set; }
+      //  public int UserID { get; set; }
         public decimal NetAmount { get; set; }
     }
     [Serializable]

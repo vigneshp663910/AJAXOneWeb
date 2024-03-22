@@ -267,6 +267,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else if (lbActions.ID == "lbAddSaleOrderItem")
             {
+                txtMaterial.Text = "";
+                hdfMaterialID.Value = "0";
+                txtQty.Text = "";
                 MPE_SaleOrderItemAdd.Show();
             }
             else if (lbActions.ID == "lbReleaseSaleOrder")
@@ -449,9 +452,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     MPE_SaleOrderItemAdd.Show();
                     return;
                 }
-
-                PSaleOrderItem_Insert pSaleOrderItem = new PSaleOrderItem_Insert();
-                pSaleOrderItem = ReadItem();
+                PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null)[0];
+                PSaleOrderItem_Insert pSaleOrderItem = new BDMS_SalesOrder().ReadItem(m, Convert.ToInt32(txtQty.Text.Trim()), SaleOrderByID.Customer.CustomerCode
+                    , SaleOrderByID.Dealer.DealerCode, SaleOrderByID.HeaderDiscountPercentage, 0, SaleOrderByID.TaxType);
+                pSaleOrderItem.SaleOrderID = SaleOrderByID.SaleOrderID;
+               // pSaleOrderItem = ReadItem();
                 string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", pSaleOrderItem);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
@@ -499,7 +504,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.Quantity = Item.Quantity;
                 SoI.PerRate = Item.PerRate;
                 SoI.Value = Item.Value;
-                SoI.ItemDiscountPercentage = Item.ItemDiscountPercentage;
+               // SoI.ItemDiscountPercentage = Item.ItemDiscountPercentage;
                 SoI.TaxableValue = Item.TaxableValue;
                 SoI.SGST = Item.Material.SGST;
                 SoI.SGSTValue = Item.Material.SGSTValue;
@@ -507,7 +512,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.CGSTValue = Item.Material.CGSTValue;
                 SoI.IGST = Item.Material.IGST;
                 SoI.IGSTValue = Item.Material.IGSTValue;
-                SoI.StatusID = 20;
+                SoI.StatusID = (short) AjaxOneStatus.SaleOrderItem_Cancelled ;
 
                 PSaleOrder_Insert SO = new PSaleOrder_Insert();
                 SO.SaleOrderID = Convert.ToInt64(SaleOrderByID.SaleOrderID);
@@ -596,16 +601,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             if (string.IsNullOrEmpty(m.HSN))
             {
                 throw new Exception("HSN Code is not updated for this Material. Please contact Parts Admin.");
-            }
-
-            //string Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(SaleOrderByID.Customer.CustomerID)).CustomerCode;
-            //string Vendor = new BDealer().GetDealerByID(Convert.ToInt32(SaleOrderByID.Dealer.DealerID), "").DealerCode;
-            //string Material = SoI.MaterialCode;
-            //string IV_SEC_SALES = "";
-            //string PriceDate = "";
-            //string IsWarrenty = "false";
-            //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, "101_DPPOR_PURC_ORDER_HDR", 1, Material, SoI.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
-
+            } 
             List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
             Material_SapS.Add(new PMaterial_Api()
             {
@@ -627,18 +623,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 Quantity = SoI.Quantity
             });
             List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-            PMaterial Mat = Mats[0];
-
-            //Mat.CurrentPrice = Convert.ToDecimal(1000);
-            //Mat.Discount = Convert.ToDecimal(0);
-            //Mat.TaxablePrice = Convert.ToDecimal(1000);
-            //Mat.SGST = Convert.ToDecimal(9);
-            //Mat.SGSTValue = Convert.ToDecimal(90);
-            //Mat.CGST = Convert.ToDecimal(9);
-            //Mat.CGSTValue = Convert.ToDecimal(90);
-            //Mat.IGST = Convert.ToDecimal(0);
-            //Mat.IGSTValue = Convert.ToDecimal(0);
-
+            PMaterial Mat = Mats[0]; 
+           
             if (Mat.CurrentPrice <= 0)
             {
                 throw new Exception("Please maintain the Price for Material " + SoI.MaterialCode + " in SAP.");
@@ -653,20 +639,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
 
             SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
-            SoI.Value = Mat.CurrentPrice;
-            //SoI.Discount = Mat.Discount;
-            //SoI.TaxableValue = Mat.TaxablePrice;
-            //SoI.Discount = SaleOrderByID.HeaderDiscount > 0 ? SaleOrderByID.HeaderDiscount : Mat.Discount;
-            SoI.ItemDiscountPercentage = SaleOrderByID.HeaderDiscountPercentage > 0 ? 0 : Mat.Discount;
+            SoI.Value = Mat.CurrentPrice;  
+
             SoI.DiscountValue = SaleOrderByID.HeaderDiscountPercentage > 0 ? (Mat.CurrentPrice * (SaleOrderByID.HeaderDiscountPercentage / 100)) : Mat.Discount;
 
             SoI.TaxableValue = SaleOrderByID.HeaderDiscountPercentage > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (SaleOrderByID.HeaderDiscountPercentage / 100))) : Mat.TaxablePrice;
-            //SoI.SGST = Mat.SGST;
-            //SoI.SGSTValue = Mat.SGSTValue;
-            //SoI.CGST = Mat.CGST;
-            //SoI.CGSTValue = Mat.CGSTValue;
-            //SoI.IGST = Mat.IGST;
-            //SoI.IGSTValue = Mat.IGSTValue;
+           
             if (SaleOrderByID.TaxType == "SGST & CGST")
             {
                 SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
@@ -686,8 +664,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.IGSTValue = SaleOrderByID.HeaderDiscountPercentage > 0 ? (SoI.TaxableValue * (SoI.IGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue);
             }
 
-            SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
-            SoI.StatusID = 19;
+            SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue; 
             SoI.MaterialDescription = m.MaterialDescription;
             SoI.HSN = m.HSN;
             SoI.UOM = m.BaseUnit;
@@ -809,8 +786,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             TextBox txtBoxQuantity = (TextBox)gvRow.FindControl("txtBoxQuantity");
             Label lblQuantity = (Label)gvRow.FindControl("lblQuantity");
-            TextBox txtBoxDiscountPercent = (TextBox)gvRow.FindControl("txtBoxDiscountPercent");
-            Label lblDiscountPercent = (Label)gvRow.FindControl("lblDiscountPercent");
+            TextBox txtItemDiscountValue = (TextBox)gvRow.FindControl("txtItemDiscountValue");
+            Label lblItemDiscountValue = (Label)gvRow.FindControl("lblItemDiscountValue");
             
             if (lbActions.ID == "lnkBtnEdit")
             {
@@ -822,12 +799,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 txtBoxQuantity.Visible = true;
                 lblQuantity.Visible = false;
-                txtBoxDiscountPercent.Visible = true;
-                lblDiscountPercent.Visible = false;
+                txtItemDiscountValue.Visible = true;
+                lblItemDiscountValue.Visible = false;
             }
             else if (lbActions.ID == "lnkBtnUpdate")
             {
                 Label lblSaleOrderItemID = (Label)gvRow.FindControl("lblSaleOrderItemID");
+                Label lblMaterialID = (Label)gvRow.FindControl("lblMaterialID");
 
                 decimal value;
                 if (!decimal.TryParse(txtBoxQuantity.Text, out value))
@@ -835,43 +813,53 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblMessage.Text = "Please enter correct format in Qty.";
                     return;
                 }
-                if (!decimal.TryParse(txtBoxDiscountPercent.Text, out value))
+                if (!decimal.TryParse(txtItemDiscountValue.Text, out value))
                 {
                     lblMessage.Text = "Please enter correct format in Discount Percent.";
                     return;
                 }
-                decimal IDiscount = Convert.ToDecimal(txtBoxDiscountPercent.Text);
-                if (SaleOrderByID.HeaderDiscountPercentage + IDiscount >= 100)
+                decimal IDiscountValue = Convert.ToDecimal(txtItemDiscountValue.Text);
+                if (IDiscountValue < 0)
                 {
                     lblMessage.Text = "Discount Percentage cannot exceed 100.";
                     return;
                 }
 
-                PSaleOrderItem_Insert item_Insert = new PSaleOrderItem_Insert();
-                item_Insert.SaleOrderItemID = Convert.ToInt64(lblSaleOrderItemID.Text);
-                item_Insert.Quantity = Convert.ToDecimal(txtBoxQuantity.Text);
-                item_Insert.ItemDiscountPercentage = IDiscount;
-                item_Insert.StatusID = 19;
-
-                string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", item_Insert);
-                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
-                if (Result.Status == PApplication.Failure)
+                //PSaleOrderItem_Insert item_Insert = new PSaleOrderItem_Insert();
+                //item_Insert.SaleOrderItemID = Convert.ToInt64(lblSaleOrderItemID.Text);
+                //item_Insert.Quantity = Convert.ToDecimal(txtBoxQuantity.Text); 
+                try
                 {
-                    lblMessage.Text = Result.Message;
-                    return;
-                }
-                lblMessage.Text = Result.Message;
-                lblMessage.ForeColor = Color.Green;
-                fillViewSO(SaleOrderByID.SaleOrderID);
-                lnkBtnEdit.Visible = true;
-                lnkBtnUpdate.Visible = false;
-                lnkBtnCancel.Visible = false;
-                lnkBtnDelete.Visible = true;
-                //lblMaterialRemove.Visible = true;
+                    PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(lblMaterialID.Text), null, null, null, null)[0];
+                    int Quantity = Convert.ToInt32(Convert.ToDecimal( txtBoxQuantity.Text.Trim()));
+                    PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(m, Quantity, SaleOrderByID.Customer.CustomerCode
+                        , SaleOrderByID.Dealer.DealerCode, SaleOrderByID.HeaderDiscountPercentage, IDiscountValue, SaleOrderByID.TaxType);
+                    item_Insert.SaleOrderItemID = Convert.ToInt64(lblSaleOrderItemID.Text);
+                    item_Insert.StatusID = (short)AjaxOneStatus.SaleOrderItem_Created;
+                    string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", item_Insert);
+                    PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
-                txtBoxQuantity.Visible = false;
-                lblQuantity.Visible = true;
+                    if (Result.Status == PApplication.Failure)
+                    {
+                        lblMessage.Text = Result.Message;
+                        return;
+                    }
+                    lblMessage.Text = Result.Message;
+                    lblMessage.ForeColor = Color.Green;
+                    fillViewSO(SaleOrderByID.SaleOrderID);
+                    lnkBtnEdit.Visible = true;
+                    lnkBtnUpdate.Visible = false;
+                    lnkBtnCancel.Visible = false;
+                    lnkBtnDelete.Visible = true;
+                    //lblMaterialRemove.Visible = true; 
+                    txtBoxQuantity.Visible = false;
+                    lblQuantity.Visible = true;
+                }
+                catch (Exception e1)
+                {
+                    lblMessage.Text = e1.Message;
+                    return;  
+                } 
             }
             else if (lbActions.ID == "lnkBtnCancel")
             {
@@ -882,8 +870,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 //lblMaterialRemove.Visible = true;
                 txtBoxQuantity.Visible = false;
                 lblQuantity.Visible = true;
-                txtBoxDiscountPercent.Visible = false;
-                lblDiscountPercent.Visible = true;
+                txtItemDiscountValue.Visible = false;
+                lblItemDiscountValue.Visible = true;
             }
             else if (lbActions.ID == "lnkBtnDelete")
             { 
