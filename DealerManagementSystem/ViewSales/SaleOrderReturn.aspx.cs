@@ -16,6 +16,8 @@ namespace DealerManagementSystem.ViewSales
     {
         public override SubModule SubModuleName { get { return SubModule.ViewSales_SaleOrderReturn; } }
         int? DealerID = null;
+        int? OfficeCodeID = null;
+        int? DivisionID = null;
         string CustomerCode = null;
         string SaleOrderReturnNo = null;
         DateTime? SaleOrderReturnDateF = null;
@@ -85,6 +87,8 @@ namespace DealerManagementSystem.ViewSales
                     ddlDealerCode.Enabled = true;
                     fillDealer();
                 }
+                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerCode.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
+                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 lblRowCountSoReturn.Visible = false;
                 ibtnArrowLeftSoReturn.Visible = false;
                 ibtnArrowRightSoReturn.Visible = false;
@@ -97,6 +101,10 @@ namespace DealerManagementSystem.ViewSales
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
+        }
+        protected void ddlDealerCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerCode.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -117,7 +125,7 @@ namespace DealerManagementSystem.ViewSales
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BSalesOrderReturn().GetSaleOrderReturnHeader(DealerID, CustomerCode, SaleOrderReturnID, SaleOrderReturnNo, SaleOrderReturnDateF
+                PApiResult Result = new BSalesOrderReturn().GetSaleOrderReturnHeader(DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderReturnID, SaleOrderReturnNo, SaleOrderReturnDateF
                     , SaleOrderReturnDateT, SaleOrderReturnStatusID, PageIndex, gvSoReturn.PageSize);
                 gvSoReturn.PageIndex = 0;
                 gvSoReturn.DataSource = JsonConvert.DeserializeObject<List<PSaleOrderReturn>>(JsonConvert.SerializeObject(Result.Data)); ;
@@ -147,6 +155,8 @@ namespace DealerManagementSystem.ViewSales
         void Search()
         {
             DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            OfficeCodeID = ddlOfficeName.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlOfficeName.SelectedValue);
+            DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
             SaleOrderReturnDateF = null;
             SaleOrderReturnDateF = string.IsNullOrEmpty(txtSoReturnDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtSoReturnDateFrom.Text.Trim());
             SaleOrderReturnDateT = string.IsNullOrEmpty(txtSoReturnDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtSoReturnDateTo.Text.Trim());

@@ -258,11 +258,11 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetPurchaseOrderReturnHeader(int? DealerID, string PurchaseOrderReturnNo, DateTime? PurchaseOrderReturnDateF, DateTime? PurchaseOrderReturnDateT
-            , int? PageIndex = null, int? PageSize = null)
+            , int? LocationID, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "PurchaseOrder/PurchaseOrderReturnHeader?DealerID=" + DealerID + "&PurchaseOrderReturnNo=" + PurchaseOrderReturnNo
                  + "&PurchaseOrderReturnDateF=" + PurchaseOrderReturnDateF + "&PurchaseOrderReturnDateT=" + PurchaseOrderReturnDateT
-                 + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                 + "&LocationID=" + LocationID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PPurchaseOrderReturn GetPurchaseOrderReturnByID(long PurchaseOrderReturnID)

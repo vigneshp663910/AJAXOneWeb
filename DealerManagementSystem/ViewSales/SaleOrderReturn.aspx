@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="SaleOrderReturn.aspx.cs" Inherits="DealerManagementSystem.ViewSales.SaleOrderReturn" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="SaleOrderReturn.aspx.cs" Inherits="DealerManagementSystem.ViewSales.SaleOrderReturn" MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register Src="~/ViewSales/UserControls/SaleOrderReturnView.ascx" TagPrefix="UC" TagName="UC_SaleOrderReturnView" %>
 <%@ Register Src="~/ViewSales/UserControls/SaleOrderReturnCreate.ascx" TagPrefix="UC" TagName="UC_SaleOrderReturnCreate" %>
@@ -91,7 +91,15 @@
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer Code</label>
-                            <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
+                            <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer Office</label>
+                            <asp:DropDownList ID="ddlOfficeName" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Division</label>
+                            <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Customer Code</label>
@@ -119,21 +127,21 @@
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
-                            <asp:Button ID="btnCreateSoReturn" runat="server" CssClass="btn Save" Text="Create SO Return" OnClick="btnCreateSoReturn_Click" Width="150px"></asp:Button>
+                            <asp:Button ID="btnCreateSoReturn" runat="server" CssClass="btn Save" Text="Create Sales Return" OnClick="btnCreateSoReturn_Click" Width="150px"></asp:Button>
                         </div>
                     </div>
                 </fieldset>
             </div>
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Sales Return Report</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12">
                         <div class="boxHead">
                             <div class="logheading">
                                 <div style="float: left">
                                     <table>
                                         <tr>
-                                            <td>Sales Return:</td>
+                                            <td>Sales Return(s):</td>
                                             <td>
                                                 <asp:Label ID="lblRowCountSoReturn" runat="server" CssClass="label"></asp:Label></td>
                                             <td>
@@ -153,7 +161,7 @@
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="SO Return Number">
+                                <asp:TemplateField HeaderText="Sales Return Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblSaleOrderReturnID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderReturnID")%>' runat="server" Visible="false" />
@@ -176,6 +184,12 @@
                                         <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.SaleOrder.Dealer.DealerOffice.OfficeName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Division">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.SaleOrder.Division.DivisionCode")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Customer Name">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -226,13 +240,13 @@
             <div class="col-md-12">
                 <%--<fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>--%>
-                    <UC:UC_SaleOrderReturnCreate ID="UC_SaleOrderReturnCreate" runat="server"></UC:UC_SaleOrderReturnCreate>
-                    <div class="col-md-12 text-center" id="divCreateSalesReturn" runat="server">
-                        <asp:Button ID="btnCreateSalesReturn" runat="server" Text="Create Sales Return" CssClass="btn Search" OnClick="btnCreateSalesReturn_Click" Width="150px" />
-                    </div>
-                    <div class="col-md-12 text-center" id="divSave" runat="server" visible="false">
-                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" Width="100px" />
-                    </div>
+                <UC:UC_SaleOrderReturnCreate ID="UC_SaleOrderReturnCreate" runat="server"></UC:UC_SaleOrderReturnCreate>
+                <div class="col-md-12 text-center" id="divCreateSalesReturn" runat="server">
+                    <asp:Button ID="btnCreateSalesReturn" runat="server" Text="Create Sales Return" CssClass="btn Search" OnClick="btnCreateSalesReturn_Click" Width="150px" />
+                </div>
+                <div class="col-md-12 text-center" id="divSave" runat="server" visible="false">
+                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" Width="100px" />
+                </div>
                 <%--</fieldset>--%>
             </div>
         </div>

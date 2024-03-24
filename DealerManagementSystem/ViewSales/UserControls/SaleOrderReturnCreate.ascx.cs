@@ -105,6 +105,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             txtInvoiceNo.Text = "";
             lblMessageSoReturnCreate.Visible = false;
             lblMessageSoReturnCreate.Text = "";
+            divInvoiceDetails.Visible = false;
+            divRemarks.Visible = false;
         }
         public void FillMaster()
         {
@@ -132,6 +134,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 return;
             }
             SoDeliveryList = JsonConvert.DeserializeObject<List<PSaleOrderDelivery>>(JsonConvert.SerializeObject(Result.Data));
+
+            lblDealer.Text = SoDeliveryList[0].SaleOrder.Dealer.DealerCode + " " + SoDeliveryList[0].SaleOrder.Dealer.DealerName;
+            lblDealerOffice.Text = SoDeliveryList[0].SaleOrder.Dealer.DealerOffice.OfficeName_OfficeCode;
+            lblCustomer.Text = SoDeliveryList[0].SaleOrder.Customer.CustomerCode + " " + SoDeliveryList[0].SaleOrder.Customer.CustomerName;
+            lblInvoiceNumberDate.Text = SoDeliveryList[0].InvoiceNumber + " " + SoDeliveryList[0].InvoiceDate.ToString();
+
+            divInvoiceDetails.Visible = true;
+            divRemarks.Visible = true;
             gvSoDelivery.DataSource = SoDeliveryList;
             gvSoDelivery.DataBind();
             fillSoDelivery();
@@ -152,11 +162,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             gvSoDelivery.DataBind();
             foreach (GridViewRow row in gvSoDelivery.Rows)
             {
-                CheckBox cbIsChecked = (CheckBox)row.FindControl("cbIsChecked");
+                CheckBox cbInvoice = (CheckBox)row.FindControl("cbSeleccbInvoicetChild");
                 Label lblSaleOrderDeliveryItemID = (Label)row.FindControl("lblSaleOrderDeliveryItemID");
                 if (gvSoDeliverySelected.Contains(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text)))
                 {
-                    cbIsChecked.Checked = true;
+                    cbInvoice.Checked = true;
                 }
             }
             
@@ -234,10 +244,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             foreach (GridViewRow row in gvSoDelivery.Rows)
             {
-                CheckBox cbIsChecked = (CheckBox)row.FindControl("cbIsChecked");
+                CheckBox cbInvoice = (CheckBox)row.FindControl("cbInvoice");
                 Label lblSaleOrderDeliveryItemID = (Label)row.FindControl("lblSaleOrderDeliveryItemID");
 
-                if (cbIsChecked.Checked)
+                if (cbInvoice.Checked)
                 {
                     if (!gvSoDeliverySelected.Contains(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text)))
                     {
@@ -314,10 +324,37 @@ namespace DealerManagementSystem.ViewSales.UserControls
                         SaleOrderDeliveryID = SaleOrderDeliveryID,
                         SaleOrderDeliveryItemID = SaleOrderDeliveryItemID,
                         Qty = Qty,
+                        Remarks = txtRemarks.Text.Trim(),
                     });
                 }
             }
             return soReturn;
+        }
+        protected void cbInvoiceH_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cbInvoiceH = (CheckBox)sender;
+            foreach (GridViewRow row in gvSoDelivery.Rows)
+            {
+                if (row.RowType == DataControlRowType.DataRow)
+                {
+                    CheckBox cbInvoice = row.FindControl("cbInvoice") as CheckBox;
+                    cbInvoice.Checked = (cbInvoiceH.Checked) ? true : false;
+                }
+            }
+        }
+        protected void cbInvoice_CheckedChanged(object sender, EventArgs e)
+        {
+            bool ChkHeader = true;
+            CheckBox cbInvoiceH = (CheckBox)gvSoDelivery.HeaderRow.FindControl("cbInvoiceH");
+            foreach (GridViewRow row in gvSoDelivery.Rows)
+            {
+                CheckBox cbInvoice = row.FindControl("cbInvoice") as CheckBox;
+                if (cbInvoice.Checked == false)
+                {
+                    ChkHeader = false;
+                }
+            }
+            cbInvoiceH.Checked = ChkHeader;
         }
     }
 }

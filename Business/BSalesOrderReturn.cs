@@ -47,10 +47,10 @@ namespace Business
             //return JsonConvert.DeserializeObject<List<PSaleOrderDelivery>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public PApiResult GetSaleOrderReturnHeader(int? DealerID, string CustomerCode, long? SaleOrderReturnID, string SaleOrderReturnNo, DateTime? SaleOrderReturnDateF, DateTime? SaleOrderReturnDateT, int? SaleOrderReturnStatusID
+        public PApiResult GetSaleOrderReturnHeader(int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, long? SaleOrderReturnID, string SaleOrderReturnNo, DateTime? SaleOrderReturnDateF, DateTime? SaleOrderReturnDateT, int? SaleOrderReturnStatusID
             , int? PageIndex = null, int? PageSize = null)
         {
-            string endPoint = "SaleOrderReturn/SaleOrderReturnHeader?DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&SaleOrderReturnID=" + SaleOrderReturnID + "&SaleOrderReturnNo=" + SaleOrderReturnNo
+            string endPoint = "SaleOrderReturn/SaleOrderReturnHeader?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID + "&CustomerCode=" + CustomerCode + "&SaleOrderReturnID=" + SaleOrderReturnID + "&SaleOrderReturnNo=" + SaleOrderReturnNo
                  + "&SaleOrderReturnDateF=" + SaleOrderReturnDateF + "&SaleOrderReturnDateT=" + SaleOrderReturnDateT + "&SaleOrderReturnStatusID=" + SaleOrderReturnStatusID
                  + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));

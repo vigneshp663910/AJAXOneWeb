@@ -15,27 +15,31 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Dealer Code</label>
-                            <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">PO Return Number</label>
+                            <label class="modal-label">Dealer Office</label>
+                            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Purchase Return Number</label>
                             <asp:TextBox ID="txtPoReturnNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">PO Return Date From</label>
+                            <label class="modal-label">Purchase Return Date From</label>
                             <asp:TextBox ID="txtPoReturnDateFrom" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                             <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtPoReturnDateFrom" PopupButtonID="txtPoReturnDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
                             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtPoReturnDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">PO Return Date To</label>
+                            <label class="modal-label">Purchase Return Date To</label>
                             <asp:TextBox ID="txtPoReturnDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                             <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtPoReturnDateTo" PopupButtonID="txtPoReturnDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
                             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtPOReturnDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">PO Return Status</label>
+                            <label class="modal-label">Purchase Return Status</label>
                             <asp:DropDownList ID="ddlPoReturnStatus" runat="server" CssClass="form-control">
                                 <asp:ListItem Value="0">All</asp:ListItem>
                                 <asp:ListItem Value="DRAFT">Draft</asp:ListItem>
@@ -43,7 +47,7 @@
                                 <asp:ListItem Value="APPROVED">Approved</asp:ListItem>
                                 <asp:ListItem Value="REJECTED">Rejected</asp:ListItem>
                                 <asp:ListItem Value="DELV_CREATED">Delivery Created</asp:ListItem>
-                            </asp:DropDownList> 
+                            </asp:DropDownList>
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
@@ -54,20 +58,23 @@
             </div>
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">PO Return Report</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12">
                         <div class="boxHead">
                             <div class="logheading">
                                 <div style="float: left">
                                     <table>
                                         <tr>
-                                            <td>PO Return:</td>
+                                            <td>Purchase Return(s):</td>
                                             <td>
-                                                <asp:Label ID="lblRowCountPoReturn" runat="server" CssClass="label"></asp:Label></td>
+                                                <asp:Label ID="lblRowCountPoReturn" runat="server" CssClass="label"></asp:Label>
+                                            </td>
                                             <td>
-                                                <asp:ImageButton ID="ibtnArrowLeftPoReturn" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeftPoReturn_Click" /></td>
+                                                <asp:ImageButton ID="ibtnArrowLeftPoReturn" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeftPoReturn_Click" />
+                                            </td>
                                             <td>
-                                                <asp:ImageButton ID="ibtnArrowRightPoReturn" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRightPoReturn_Click" /></td>
+                                                <asp:ImageButton ID="ibtnArrowRightPoReturn" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRightPoReturn_Click" />
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -81,7 +88,12 @@
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="PO Return Number">
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnViewPoReturn" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPoReturn_Click" Width="75px" Height="25px" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>   
+                                <asp:TemplateField HeaderText="Purchase Return Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblPurchaseOrderReturnID" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnID")%>' runat="server" Visible="false" />
@@ -112,7 +124,7 @@
                                         <asp:Label ID="lblVendorName" Text='<%# DataBinder.Eval(Container.DataItem, "Vendor.DealerName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="PO Return Status">
+                                <asp:TemplateField HeaderText="Purchase Return Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblPOReturnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnStatus.ProcurementStatus")%>' runat="server"></asp:Label>
@@ -122,11 +134,6 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "Remarks")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnViewPoReturn" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPoReturn_Click" Width="75px" Height="25px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
