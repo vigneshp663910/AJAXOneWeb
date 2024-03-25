@@ -408,6 +408,101 @@ namespace Business
             { }
             return Services;
         }
+        public List<PSaleOrderDelivery> GetSaleInvoiceForRequestEInvoice(string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
+        {
+            List<PSaleOrderDelivery> Ws = new List<PSaleOrderDelivery>();
+            PSaleOrderDelivery W = null;
+
+            DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", string.IsNullOrEmpty(InvoiceNumber) ? null : InvoiceNumber, DbType.String);
+            DbParameter InvoiceDateFP = provider.CreateParameter("InvoiceDateF", InvoiceDateF, DbType.DateTime);
+            DbParameter InvoiceDateTP = provider.CreateParameter("InvoiceDateT", InvoiceDateT, DbType.DateTime);
+            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+            DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
+
+            DbParameter[] Params = new DbParameter[5] { InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, DealerIDP, CustomerCodeP };
+            try
+            {
+                long InvoiceID = 0;
+                using (DataSet EmployeeDataSet = provider.Select("GetSaleInvoiceForRequestEInvoice", Params))
+                {
+                    if (EmployeeDataSet != null)
+                    {
+                        foreach (DataRow dr in EmployeeDataSet.Tables[0].Rows)
+                        {
+                            if (InvoiceID != Convert.ToInt64(dr["SaleOrderDeliveryID"]))
+                            {
+                                W = new PSaleOrderDelivery();
+                                Ws.Add(W);
+                                W.SaleOrderDeliveryID = Convert.ToInt64(dr["SaleOrderDeliveryID"]);
+                                W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
+                                W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
+                                W.SaleOrder = new PSaleOrder();
+                                W.SaleOrder.Dealer = new PDMS_Dealer()
+                                {
+                                    DealerCode = Convert.ToString(dr["UserName"]),
+                                    DealerName = Convert.ToString(dr["ContactName"]),
+                                    IsEInvoice = DBNull.Value == dr["IsEInvoice"] ? false : Convert.ToBoolean(dr["IsEInvoice"]),
+                                    EInvoiceDate = DBNull.Value == dr["EInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["EInvoiceDate"]),
+                                    //EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]),
+                                    //EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]),
+                                    //EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"])
+                                };
+                                W.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
+                                W.SaleOrderDeliveryItems = new List<PSaleOrderDeliveryItem>();
+                                InvoiceID = W.SaleOrderDeliveryID;
+                                W.InvoiceType = new PDMS_WarrantyInvoiceType() { InvoiceTypeID = Convert.ToInt32(dr["InvoiceTypeID"]), InvoiceType = Convert.ToString(dr["InvoiceType"]) };
+
+                                W.InvoiceDetails = new PInvoiceDetails();
+                                W.InvoiceDetails.SupplierGSTIN = Convert.ToString(dr["SupplierGSTIN"]);
+                                W.InvoiceDetails.Supplier_addr1 = Convert.ToString(dr["Supplier_addr1"]);
+                                W.InvoiceDetails.SupplierLocation = Convert.ToString(dr["SupplierLocation"]);
+                                W.InvoiceDetails.SupplierPincode = Convert.ToString(dr["SupplierPincode"]);
+                                W.InvoiceDetails.SupplierStateCode = Convert.ToString(dr["SupplierStateCode"]);
+
+                                W.InvoiceDetails.BuyerGSTIN = Convert.ToString(dr["BuyerGSTIN"]);
+                                W.InvoiceDetails.BuyerName = Convert.ToString(dr["BuyerName"]);
+                                W.InvoiceDetails.BuyerStateCode = Convert.ToString(dr["BuyerStateCode"]);
+                                W.InvoiceDetails.Buyer_addr1 = Convert.ToString(dr["Buyer_addr1"]);
+                                W.InvoiceDetails.Buyer_loc = Convert.ToString(dr["Buyer_loc"]);
+                                W.InvoiceDetails.BuyerPincode = Convert.ToString(dr["BuyerPincode"]);
+
+
+
+                                // W.InvoiceDetails = new PDMS_WarrantyClaimInvoiceDetails();
+                            }
+                            W.SaleOrderDeliveryItems.Add(new PSaleOrderDeliveryItem()
+                            {
+                                SaleOrderDeliveryItemID = Convert.ToInt64(dr["SaleOrderDeliveryItemID"]),
+                                Material = new PDMS_Material()
+                                {
+                                    MaterialCode = Convert.ToString(dr["MaterialCode"]),
+                                    MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
+                                    HSN  = Convert.ToString(dr["HSNCode"]),
+                                    BaseUnit = Convert.ToString(dr["UnitCode"])
+                                },
+                                Qty = Convert.ToInt32(dr["Qty"]),
+                                Value = Convert.ToDecimal(dr["Value"]),
+                                TaxableValue = Convert.ToDecimal(dr["TaxableValue"]),
+                                CGST = Convert.ToDecimal(dr["CGST"]),
+                                SGST = Convert.ToDecimal(dr["SGST"]),
+                                IGST = Convert.ToDecimal(dr["IGST"]),
+                                CGSTValue = Convert.ToDecimal(dr["CGSTValue"]),
+                                SGSTValue = Convert.ToDecimal(dr["SGSTValue"]),
+                                IGSTValue = Convert.ToDecimal(dr["IGSTValue"])
+
+                            });
+                            W.TCSValue = dr["TCSValue"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["TCSValue"]);
+                            W.TempTcsMatCount = W.TempTcsMatCount + (Convert.ToString(dr["HSNCode"]) == "998719" ? 0 : 1);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Ws;
+        }
 
         public string GetQRCodePath(string IRN, string InvoiceNumber)
         {
@@ -1989,7 +2084,6 @@ namespace Business
             }
             return EInvoice;
         }
-
         public PEInvoice ConvertWarrantyInvoice(PDMS_WarrantyClaimInvoice Pinv)
         {
             PEInvoice EInvoice = new PEInvoice();
@@ -2167,7 +2261,143 @@ namespace Business
 
            
         }
+        public PEInvoice ConvertSaleInvoice(PSaleOrderDelivery Pinv)
+        {
+            PEInvoice EInvoice = new PEInvoice();
+            try
+            {
+                int TOTALLINEITEMS = 0;
+                EInvoice.TranDtls = new PTranDtls()
+                { 
+                    IgstOnIntra = "N"
+                };
+                EInvoice.DocDtls = new PDocDtls()
+                {
+                    Typ = "INV",
+                    No = Pinv.InvoiceNumber,
+                    Dt =((DateTime) Pinv.InvoiceDate).ToShortDateString() 
+                };
+                EInvoice.SellerDtls = new PSellerDtls()
+                {
 
+                    Gstin = Pinv.InvoiceDetails.SupplierGSTIN.Trim(),
+                    LglNm = Pinv.SaleOrder.Dealer.DealerName, 
+                    Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(), 
+                    Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
+                    Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(), 
+                }; 
+                EInvoice.BuyerDtls = new PBuyerDtls()
+                {
+                    Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
+                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(), 
+                    Pos = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(), 
+                    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
+                    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(), 
+                };
+                EInvoice.DispDtls = new PDispDtls()
+                {
+                    Nm = Pinv.SaleOrder.Dealer.DealerName,
+                    Addr1 = Pinv.InvoiceDetails.Supplier_addr1.Trim(),
+                    Loc = Pinv.InvoiceDetails.SupplierLocation.Trim(),
+                    Pin = Pinv.InvoiceDetails.SupplierPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.SupplierStateCode.Trim(),
+                };
+
+                EInvoice.ShipDtls = new PShipDtls()
+                {
+                    Gstin = Pinv.InvoiceDetails.BuyerGSTIN.Trim(),
+                    LglNm = Pinv.InvoiceDetails.BuyerName.Trim(), 
+                    Addr1 = Pinv.InvoiceDetails.Buyer_addr1.Trim(), 
+                    Loc = Pinv.InvoiceDetails.Buyer_loc.Trim(),
+                    Pin = Pinv.InvoiceDetails.BuyerPincode.Trim(),
+                    Stcd = Pinv.InvoiceDetails.BuyerStateCode.Trim(),
+                };
+
+                EInvoice.ItemList = new List<PItemList>();
+                decimal AccumulatedTotalAmount = 0, AccumulatedAssTotalAmount = 0, AccumulatedSgstVal = 0, AccumulatedIgstVal = 0, AccumulatedCgstVal = 0,
+                AccumulatedCesVal = 0, AccumulatedOtherCharges = 0, AccumulatedTotItemVal = 0;
+                TOTALLINEITEMS = 0;
+
+                foreach (PSaleOrderDeliveryItem Pinvi in Pinv.SaleOrderDeliveryItems)
+                {
+                    TOTALLINEITEMS = TOTALLINEITEMS + 1;
+
+                    AccumulatedTotalAmount = AccumulatedTotalAmount + Pinvi.TaxableValue;
+                    AccumulatedAssTotalAmount = AccumulatedAssTotalAmount + Pinvi.TaxableValue;
+                    AccumulatedSgstVal = AccumulatedSgstVal + Pinvi.SGSTValue;
+                    AccumulatedIgstVal = AccumulatedIgstVal + Pinvi.IGSTValue;
+                    AccumulatedCgstVal = AccumulatedCgstVal + Pinvi.CGSTValue;
+                    AccumulatedCesVal = AccumulatedCesVal + 0; 
+                    AccumulatedTotItemVal = AccumulatedAssTotalAmount + AccumulatedSgstVal + AccumulatedIgstVal + AccumulatedCgstVal + AccumulatedCesVal;
+
+                    EInvoice.ItemList.Add(new PItemList()
+                    {
+                        SlNo = Convert.ToString(TOTALLINEITEMS),
+                        PrdDesc = Pinvi.Material.MaterialDescription,
+                        IsServc = Pinvi.Material.HSN == "998719" ? "Y" : "N",
+                        HsnCd = Pinvi.Material.HSN,
+                        //Barcde = "",
+                        Qty = Pinvi.Qty.ToString(),
+                        FreeQty = "0",
+                        Unit = "NOS",
+                        UnitPrice = Math.Round(Pinvi.Value, 2).ToString(),
+                        TotAmt = Math.Round(Pinvi.TaxableValue, 2).ToString(),
+                        Discount = Convert.ToString(Pinvi.DiscountValue),
+                        PreTaxVal = "0",
+                        AssAmt = Math.Round(Pinvi.TaxableValue, 2).ToString(),
+                        GstRt = Convert.ToString(Math.Round(Pinvi.CGST + Pinvi.IGST + Pinvi.SGST, 2)),
+                        IgstAmt = Convert.ToString(Math.Round(Pinvi.IGSTValue, 2)),
+                        CgstAmt = Convert.ToString(Math.Round(Pinvi.CGSTValue, 2)),
+                        SgstAmt = Convert.ToString(Math.Round(Pinvi.SGSTValue, 2)),
+                        CesRt = "",
+                        CesAmt = "0",
+                        CesNonAdvlAmt = "",
+                        StateCesRt = "",
+                        StateCesAmt = "",
+                        StateCesNonAdvlAmt = "",
+                        OthChrg = "",
+                        TotItemVal = Convert.ToString(Math.Round(Pinvi.TaxableValue + Pinvi.SGSTValue + Pinvi.IGSTValue + Pinvi.CGSTValue + 0, 2)),
+                        OrdLineRef = Convert.ToString(TOTALLINEITEMS),
+                        OrgCntry = "IN",
+                        PrdSlNo = Convert.ToString(TOTALLINEITEMS), 
+                    }); 
+                }
+
+                EInvoice.ValDtls = new PValDtls()
+                {
+                    AssVal = Convert.ToString(Math.Round(AccumulatedTotalAmount, 2)),
+                    CgstVal = Convert.ToString(Math.Round(AccumulatedCgstVal, 2)),
+                    SgstVal = Convert.ToString(Math.Round(AccumulatedSgstVal, 2)),
+                    IgstVal = Convert.ToString(Math.Round(AccumulatedIgstVal, 2)),
+                    CesVal = Convert.ToString(Math.Round(AccumulatedCesVal, 2)),
+                    StCesVal = "0",
+                    Discount = "0",
+                    OthChrg = Convert.ToString(AccumulatedOtherCharges),
+                    RndOffAmt = Convert.ToString(Math.Round(Math.Round(AccumulatedTotItemVal, 2) - AccumulatedTotItemVal, 2)),
+                    TotInvVal = Convert.ToString(Math.Round(AccumulatedTotItemVal)),
+                    TotInvValFc = Convert.ToString(Math.Round(AccumulatedTotItemVal, 2))
+ 
+                }; 
+                EInvoice.PayDtls = new PPayDtls() { };
+                EInvoice.RefDtls = new PRefDtls() { };
+                EInvoice.AddlDocDtls = new List<PAddlDocDtls>();
+                EInvoice.ExpDtls = new PExpDtls()
+                {
+
+                };
+                EInvoice.EwbDtls = new PEwbDtls() { };
+                string SS = JsonConvert.SerializeObject(EInvoice);
+            }
+            catch (Exception ex)
+            {
+            }
+            return EInvoice;
+
+
+        }
         public string GeneratEInvoice(string InvoiceNumber, string InvType)
         {
             PEInvoice EInvoice = new PEInvoice();
@@ -2200,6 +2430,13 @@ namespace Business
                 PSalesCommissionClaimInvoice Pinv = GetSalesCommissionClaimInvoiceForRequestEInvoice(null,InvoiceNumber, null, null, null)[0];
                 Dealer = new BDealer().GetDealerByID(null, Pinv.Dealer.DealerCode);
                 EInvoice = ConvertSalesCommissionClaimInvoice(Pinv);
+                IRN = Pinv.IRN;
+            }
+            else if (InvType == "SalesInv")
+            {
+                PSaleOrderDelivery Pinv = GetSaleInvoiceForRequestEInvoice(InvoiceNumber, null, null, null, "")[0];
+                Dealer = new BDealer().GetDealerByID(null, Pinv.SaleOrder.Dealer.DealerCode);
+                EInvoice = ConvertSaleInvoice(Pinv);
                 IRN = Pinv.IRN;
             }
             string Message = ValidationEInvoice(EInvoice);
@@ -2361,6 +2598,33 @@ namespace Business
             { }
             return Inv;
         }
-
+        public PDMS_EInvoiceSigned GetSaleInvoiceESigned(long InvoiceID)
+        {
+            PDMS_EInvoiceSigned InvoiceE = new PDMS_EInvoiceSigned();
+            try
+            {
+                DbParameter InvoiceIDP = provider.CreateParameter("InvoiceID", InvoiceID, DbType.Int64);
+                DbParameter[] Params = new DbParameter[1] { InvoiceIDP };
+                using (DataSet DataSet = provider.Select("ZDMS_GetPaidServiceInvoiceESigned", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            InvoiceE.RefInvoiceID = Convert.ToInt64(dr["RefInvoiceID"]);
+                            InvoiceE.IRN = Convert.ToString(dr["IRN"]);
+                            InvoiceE.SignedQRCode = Convert.ToString(dr["SignedQRCode"]);
+                            InvoiceE.SignedInvoice = Convert.ToString(dr["SignedInvoice"]);
+                            InvoiceE.Comments = Convert.ToString(dr["Comments"]);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return InvoiceE;
+        }
     }
 }

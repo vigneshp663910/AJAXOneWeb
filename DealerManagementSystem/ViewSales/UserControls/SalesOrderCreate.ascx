@@ -321,6 +321,24 @@
                             <asp:Label ID="lblNetAmount" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
+                     <asp:TemplateField HeaderText="On Order Qty">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblOnOrderQty" Text='<%# DataBinder.Eval(Container.DataItem, "OnOrderQty","{0:n}")%>' runat="server"></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                     <asp:TemplateField HeaderText="Transit Qty">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblTransitQty" Text='<%# DataBinder.Eval(Container.DataItem, "TransitQty","{0:n}")%>' runat="server"></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                     <asp:TemplateField HeaderText="Unrestricted Qty">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblUnrestrictedQty" Text='<%# DataBinder.Eval(Container.DataItem, "UnrestrictedQty","{0:n}")%>' runat="server"></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
                         <ItemTemplate>
                             <asp:LinkButton ID="lnkBtnSoItemDelete" runat="server" OnClick="lnkBtnSoItemDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>

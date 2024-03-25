@@ -209,87 +209,94 @@ namespace Business
  
         public List<PDMS_Material> GetMaterialSupersede(int? MaterialID, string MaterialCode)
         {
-            TraceLogger.Log(DateTime.Now);
-            List<PDMS_Material> SOIs = new List<PDMS_Material>();
-            PDMS_Material SOI = new PDMS_Material();
-            try
-            {
-                DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
-                DbParameter MaterialCodeP = provider.CreateParameter("MaterialCode", string.IsNullOrEmpty(MaterialCode) ? null : MaterialCode, DbType.String);
-                DbParameter[] Params = new DbParameter[2] { MaterialIDP, MaterialCodeP };
+            string endPoint = "Material/GetMaterialSupersede?MaterialID=" + MaterialID + "&MaterialCode=" + MaterialCode;
+            return JsonConvert.DeserializeObject<List<PDMS_Material>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //TraceLogger.Log(DateTime.Now);
+            //List<PDMS_Material> SOIs = new List<PDMS_Material>();
+            //PDMS_Material SOI = new PDMS_Material();
+            //try
+            //{
+            //    DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MaterialID, DbType.Int32);
+            //    DbParameter MaterialCodeP = provider.CreateParameter("MaterialCode", string.IsNullOrEmpty(MaterialCode) ? null : MaterialCode, DbType.String);
+            //    DbParameter[] Params = new DbParameter[2] { MaterialIDP, MaterialCodeP };
 
-                using (DataSet DataSet = provider.Select("GetMaterialSupersede", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
+            //    using (DataSet DataSet = provider.Select("GetMaterialSupersede", Params))
+            //    {
+            //        if (DataSet != null)
+            //        {
+            //            foreach (DataRow dr in DataSet.Tables[0].Rows)
+            //            {
 
-                            SOI = new PDMS_Material();
-                            SOI.MaterialID = Convert.ToInt32(dr["MaterialID"]);
-                            SOI.MaterialCode = Convert.ToString(dr["MaterialCode"]);
-                            SOI.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
-                            SOI.Supersede = new PSupersede();
-                            SOI.Supersede.MaterialID = Convert.ToInt32(dr["SupersedeMaterialID"]);
-                            SOI.Supersede.Material = Convert.ToString(dr["SupersedeCode"]);
-                            SOI.Supersede.MaterialDescription = Convert.ToString(dr["SupersedeMaterailDescription"]);
-                            SOI.Supersede.ValidFrom = Convert.ToDateTime(dr["ValidFrom"]);
-                            SOI.Supersede.ValidTo = Convert.ToDateTime(dr["ValidTo"]);
-                            SOI.Supersede.Description = Convert.ToString(dr["SupersedeRemarks"]);
-                            SOIs.Add(SOI);
-                        }
-                        return SOIs;
-                        TraceLogger.Log(DateTime.Now);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Material", "GetMaterialSupersede", ex);
-                throw ex;
-            }
-            return SOIs;
+            //                SOI = new PDMS_Material();
+            //                SOI.MaterialID = Convert.ToInt32(dr["MaterialID"]);
+            //                SOI.MaterialCode = Convert.ToString(dr["MaterialCode"]);
+            //                SOI.MaterialDescription = Convert.ToString(dr["MaterialDescription"]);
+            //                SOI.Supersede = new PSupersede();
+            //                SOI.Supersede.MaterialID = Convert.ToInt32(dr["SupersedeMaterialID"]);
+            //                SOI.Supersede.Material = Convert.ToString(dr["SupersedeCode"]);
+            //                SOI.Supersede.MaterialDescription = Convert.ToString(dr["SupersedeMaterailDescription"]);
+            //                SOI.Supersede.ValidFrom = Convert.ToDateTime(dr["ValidFrom"]);
+            //                SOI.Supersede.ValidTo = Convert.ToDateTime(dr["ValidTo"]);
+            //                SOI.Supersede.Description = Convert.ToString(dr["SupersedeRemarks"]);
+            //                SOIs.Add(SOI);
+            //            }
+            //            return SOIs;
+            //            TraceLogger.Log(DateTime.Now);
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    new FileLogger().LogMessage("BDMS_Material", "GetMaterialSupersede", ex);
+            //    throw ex;
+            //}
+            //return SOIs;
         }
         public int GetMaterialSupersedeFinalByID(int MaterialID)
         {
-            int cout = 0;
-            int smaterial = MaterialID;
-            do
-            {
-                cout = cout + 1;
-                if(cout==100)
-                {
-                    throw new Exception("Material Has supersede issue Please contact support team.");
-                }
-                MaterialID = smaterial;
-                List<PDMS_Material> d = GetMaterialSupersede(MaterialID, null);
-                if (d.Count == 1)
-                {
-                    smaterial = d[0].Supersede.MaterialID;
-                }
-            } while (smaterial != MaterialID);
-            return MaterialID;
+            string endPoint = "Material/GetMaterialSupersedeFinalByID?MaterialID=" + MaterialID ;
+            return JsonConvert.DeserializeObject<int>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+            //int cout = 0;
+            //int smaterial = MaterialID;
+            //do
+            //{
+            //    cout = cout + 1;
+            //    if(cout==100)
+            //    {
+            //        throw new Exception("Material Has supersede issue Please contact support team.");
+            //    }
+            //    MaterialID = smaterial;
+            //    List<PDMS_Material> d = GetMaterialSupersede(MaterialID, null);
+            //    if (d.Count == 1)
+            //    {
+            //        smaterial = d[0].Supersede.MaterialID;
+            //    }
+            //} while (smaterial != MaterialID);
+            //return MaterialID;
         }
         public string GetMaterialSupersedeFinalByCode(string MaterialCode)
         {
-            int cout = 0;
-            string smaterial = MaterialCode;
-            do
-            {
-                cout = cout + 1;
-                if (cout == 100)
-                {
-                    throw new Exception("Material Has supersede issue Please contact support team.");
-                }
+            string endPoint = "Material/GetMaterialSupersedeFinalByCode?MaterialCode=" + MaterialCode;
+            return JsonConvert.DeserializeObject<string>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            //int cout = 0;
+            //string smaterial = MaterialCode;
+            //do
+            //{
+            //    cout = cout + 1;
+            //    if (cout == 100)
+            //    {
+            //        throw new Exception("Material Has supersede issue Please contact support team.");
+            //    }
 
-                MaterialCode = smaterial;
-                List<PDMS_Material> d = GetMaterialSupersede(null, MaterialCode);
-                if (d.Count == 1)
-                {
-                    smaterial = d[0].Supersede.Material;
-                }
-            } while (smaterial != MaterialCode);
-            return MaterialCode;
+            //    MaterialCode = smaterial;
+            //    List<PDMS_Material> d = GetMaterialSupersede(null, MaterialCode);
+            //    if (d.Count == 1)
+            //    {
+            //        smaterial = d[0].Supersede.Material;
+            //    }
+            //} while (smaterial != MaterialCode);
+            //return MaterialCode;
         }
         public PMaterial MaterialPriceFromSap(string Customer, string Vendor, string OrderType, int Item, string Material, decimal Quantity, string IV_SEC_SALES, string PriceDate, string IsWarrenty)
         {

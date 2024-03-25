@@ -453,8 +453,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     return;
                 }
                 PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null)[0];
-                PSaleOrderItem_Insert pSaleOrderItem = new BDMS_SalesOrder().ReadItem(m, Convert.ToInt32(txtQty.Text.Trim()), SaleOrderByID.Customer.CustomerCode
+                PSaleOrderItem_Insert pSaleOrderItem = new BDMS_SalesOrder().ReadItem(m, SaleOrderByID.Dealer.DealerID, SaleOrderByID.DealerOffice.OfficeID
+                    , Convert.ToInt32(txtQty.Text.Trim()), SaleOrderByID.Customer.CustomerCode
                     , SaleOrderByID.Dealer.DealerCode, SaleOrderByID.HeaderDiscountPercentage, 0, SaleOrderByID.TaxType);
+
                 pSaleOrderItem.SaleOrderID = SaleOrderByID.SaleOrderID;
                // pSaleOrderItem = ReadItem();
                 string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", pSaleOrderItem);
@@ -832,7 +834,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(lblMaterialID.Text), null, null, null, null)[0];
                     int Quantity = Convert.ToInt32(Convert.ToDecimal( txtBoxQuantity.Text.Trim()));
-                    PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(m, Quantity, SaleOrderByID.Customer.CustomerCode
+                    PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(m, SaleOrderByID.Dealer.DealerID, SaleOrderByID.DealerOffice.OfficeID, Quantity, SaleOrderByID.Customer.CustomerCode
                         , SaleOrderByID.Dealer.DealerCode, SaleOrderByID.HeaderDiscountPercentage, IDiscountValue, SaleOrderByID.TaxType);
                     item_Insert.SaleOrderItemID = Convert.ToInt64(lblSaleOrderItemID.Text);
                     item_Insert.StatusID = (short)AjaxOneStatus.SaleOrderItem_Created;

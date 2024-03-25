@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.Text = Results.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSODelivery(SODeliveryID);
-            } 
+            }
+            if (lbActions.ID == "lbDowloadInvoice")
+            {
+                ibPDF_Click();
+            }
         }
         public void fillViewSODelivery(long SaleOrderDeliveryID)
         {
@@ -68,11 +73,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             decimal Value = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderDeliveryItem DeliveryItem in SaleOrderDelivery.SaleOrderDeliveryItems)
             {
-                Value = Value + DeliveryItem.SaleOrderItem.Value;
-                TaxableValue = TaxableValue + DeliveryItem.SaleOrderItem.TaxableValue;
-                TaxValue = TaxValue + DeliveryItem.SaleOrderItem.Material.CGSTValue + DeliveryItem.SaleOrderItem.Material.SGSTValue + DeliveryItem.SaleOrderItem.Material.IGSTValue;
-                NetAmount = NetAmount + DeliveryItem.SaleOrderItem.TaxableValue + DeliveryItem.SaleOrderItem.Material.CGSTValue + DeliveryItem.SaleOrderItem.Material.SGSTValue + DeliveryItem.SaleOrderItem.Material.IGSTValue;
-                DeliveryItem.SaleOrderItem.NetAmount = DeliveryItem.SaleOrderItem.TaxableValue + DeliveryItem.SaleOrderItem.Material.CGSTValue + DeliveryItem.SaleOrderItem.Material.SGSTValue + DeliveryItem.SaleOrderItem.Material.IGSTValue;
+                Value = Value + DeliveryItem.Value;
+                TaxableValue = TaxableValue + DeliveryItem.TaxableValue;
+                TaxValue = TaxValue + DeliveryItem.CGSTValue + DeliveryItem.SGSTValue + DeliveryItem.IGSTValue;
+                NetAmount = NetAmount + DeliveryItem.TaxableValue + DeliveryItem.CGSTValue + DeliveryItem.SGSTValue + DeliveryItem.IGSTValue;
+                DeliveryItem.SaleOrderItem.NetAmount = DeliveryItem.TaxableValue + DeliveryItem.CGSTValue + DeliveryItem.SGSTValue + DeliveryItem.IGSTValue;
             }
 
             lblValue.Text = Value.ToString();
@@ -149,6 +154,48 @@ namespace DealerManagementSystem.ViewSales.UserControls
             if (!string.IsNullOrEmpty(SaleOrderDelivery.InvoiceNumber))
             {
                 lbGenerateInvoice.Visible = false;
+            }
+        }
+        void ibPDF_Click()
+        {
+            try
+            { 
+                //if ((SoDelivery.SaleOrder.Dealer.IsEInvoice) && (SoDelivery.SaleOrder.Dealer.EInvoiceDate <= SoDelivery.InvoiceDate))
+                //{
+                //    if (SoDelivery.InvoiceDetails.BuyerGSTIN.Trim() == "URD")
+                //    {
+
+                //    }
+                //    else if (string.IsNullOrEmpty(SoDelivery.IRN))
+                //    {
+                //        PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleInvoiceESigned(SoDelivery.SaleOrderDeliveryID);
+                //        if (!string.IsNullOrEmpty(EInvoiceSigned.Comments))
+                //        {
+                //            lblMessage.Text = EInvoiceSigned.Comments;
+                //        }
+                //        else
+                //        {
+                //            lblMessage.Text = "E Invoice Not generated.";
+                //        }
+
+                //        lblMessage.ForeColor = Color.Red;
+                //        lblMessage.Visible = true;
+                //        return;
+                //    }
+                //}
+
+                PAttachedFile UploadedFile = new BDMS_SalesOrder().GetServiceInvoiceFile(SODeliveryID); 
+                Response.AddHeader("Content-type", UploadedFile.FileType);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblInvoiceNumber.Text + ".pdf" );
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                new BXcel().PdfDowload();
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            {
             }
         }
       

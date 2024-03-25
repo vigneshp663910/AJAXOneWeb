@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
 using Properties;
 using System;
@@ -7,10 +8,12 @@ using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Transactions;
+using System.Web;
 using System.Web.Script.Serialization;
 
 namespace Business
@@ -1227,25 +1230,25 @@ namespace Business
 
         public PApiResult GetSaleOrderDeliveryHeader(long? SaleOrderDeliveryID, string DateFrom, string DateTo, string DeliveryNumber, string SaleOrderNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderTypeID, int? PageIndex = null, int? PageSize = null)
         {
-            string endPoint = "Sne/GetSaleOrderDeliveryHeader?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo 
+            string endPoint = "SaleOrder/GetSaleOrderDeliveryHeader?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo 
                 + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID
                 + "&DivisionID=" + DivisionID + "&CustomerCode=" + CustomerCode + "&SaleOrderTypeID=" + SaleOrderTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetSaleOrderDeliveryReport(long? SaleOrderDeliveryID, string DateFrom, string DateTo, string DeliveryNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderTypeID)
         {
-            string endPoint = "Sne/GetSaleOrderDeliveryReport?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&DeliveryNumber=" + DeliveryNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
+            string endPoint = "SaleOrder/GetSaleOrderDeliveryReport?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&DeliveryNumber=" + DeliveryNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
                 + "&CustomerCode=" + CustomerCode + "&SaleOrderTypeID=" + SaleOrderTypeID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PSaleOrderDelivery GetSaleOrderDeliveryByID(long SaleOrderDeliveryID)
         {
-            string endPoint = "Sne/SaleOrderDeliveryByID?SaleOrderDeliveryID=" + SaleOrderDeliveryID;
+            string endPoint = "SaleOrder/SaleOrderDeliveryByID?SaleOrderDeliveryID=" + SaleOrderDeliveryID;
             return JsonConvert.DeserializeObject<PSaleOrderDelivery>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PSaleOrderItem> GetSaleOrderItemByDeliveryID(long SaleOrderDeliveryID)
         {
-            string endPoint = "Sne/GetSaleOrderItemByDeliveryID?SaleOrderDeliveryID=" + SaleOrderDeliveryID;
+            string endPoint = "SaleOrder/GetSaleOrderItemByDeliveryID?SaleOrderDeliveryID=" + SaleOrderDeliveryID;
             return JsonConvert.DeserializeObject<List<PSaleOrderItem>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public PApiResult GenerateSaleInvoice(long SaleOrderDeliveryID)
@@ -1254,7 +1257,7 @@ namespace Business
 
         }
 
-        public PSaleOrderItem_Insert ReadItem(PDMS_Material m,int Qty,string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, string TaxType)
+        public PSaleOrderItem_Insert ReadItem(PDMS_Material m,int DealerID, int DealerOfficeID, int Qty,string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, string TaxType)
         {
             PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert(); 
             SoI.MaterialID = m.MaterialID;
@@ -1360,7 +1363,12 @@ namespace Business
            
 
             SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
-            
+
+            PDealerStock s = new BInventory().GetDealerStockCountByID(DealerID, DealerOfficeID, SoI.MaterialID);
+            SoI.OnOrderQty = s.OnOrderQty;
+            SoI.TransitQty = s.TransitQty;
+            SoI.UnrestrictedQty = s.UnrestrictedQty;
+
             return SoI;
         }
 
@@ -1466,6 +1474,165 @@ namespace Business
 
             SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
             return SoI;
+        }
+
+        public PAttachedFile GetServiceInvoiceFile(long ID)
+        { 
+            PAttachedFile Files = null;
+            try
+            { 
+                string endPoint = "SaleOrder/DowloadSalesInvoice?FileName=" + ID;
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
+
+                if (Files.AttachedFile == null)
+                {
+                    new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", Invoicefile(ID));
+                    Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                    Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
+                }
+                return Files;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Service", "GetServiceInvoiceFile", ex);
+                return null;
+            } 
+        }
+        private PAttachedFile  Invoicefile(long  ID)
+        {
+            try
+            {
+                PSaleOrderDelivery D = GetSaleOrderDeliveryByID(ID);
+                 
+                //PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Dealer.DealerCode);
+                PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
+                PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
+                PDMS_Dealer DealerBank = new BDMS_Dealer().GetDealerBankDetails(Dealer.DealerID, null, null)[0];
+                string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
+                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+                 
+                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Customer.CustomerCode);
+                string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                 
+
+                DataTable CommissionDT = new DataTable();
+                CommissionDT.Columns.Add("SNO");
+                CommissionDT.Columns.Add("Material");
+                CommissionDT.Columns.Add("Description");
+                CommissionDT.Columns.Add("HSN");
+                CommissionDT.Columns.Add("Qty");
+                CommissionDT.Columns.Add("Rate");
+                CommissionDT.Columns.Add("Value", typeof(decimal));
+                CommissionDT.Columns.Add("CGST");
+                CommissionDT.Columns.Add("SGST");
+                CommissionDT.Columns.Add("CGSTValue", typeof(decimal));
+                CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
+                CommissionDT.Columns.Add("Amount", typeof(decimal));
+                //  decimal GrandTotal = 0;
+                string StateCode = Dealer.StateN.StateCode;
+                string GST_Header = "";
+                int i = 0;
+                decimal CessValue = 0;
+
+                decimal CessSubTotal = 0;
+                foreach (PSaleOrderDeliveryItem item in D.SaleOrderDeliveryItems)
+                {
+                    i = i + 1;
+                    if (item.SGST != 0)
+                    {
+                        GST_Header = "CGST & SGST";
+                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Value, item.TaxableValue, item.CGST, item.SGST, item.CGSTValue, item.SGSTValue, item.TaxableValue + item.CGSTValue + item.SGSTValue);
+
+                        CessValue = CessValue + item.CessValue;
+                        CessSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue + item.CessValue;
+                    }
+                    else
+                    {
+                        GST_Header = "IGST";
+                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.Material.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
+
+                        CessValue = CessValue + item.CessValue;
+                        CessSubTotal = item.TaxableValue + item.IGSTValue + item.CessValue;
+
+                    }
+                }
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                var CC = CultureInfo.CurrentCulture;
+                string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + ".pdf";
+                string extension;
+                string encoding;
+                string mimeType;
+                string[] streams;
+                Warning[] warnings;
+                LocalReport report = new LocalReport();
+                report.EnableExternalImages = true;
+
+                ReportParameter[] P = null;
+                //if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
+                //{
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetPaidServiceInvoiceESigned(ID);
+                //    P = new ReportParameter[26];
+                //    P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
+                //    P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
+                //    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
+                //}
+                //else
+                //{
+                P = new ReportParameter[24];
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoice.rdlc");
+               // }
+                decimal GrandTotal = 0;
+
+                //   ViewState["Month"] = ddlMonth.SelectedValue;
+                P[0] = new ReportParameter("DealerCode", DealerN.DealerCode, false);
+                P[1] = new ReportParameter("DealerName", DealerN.DealerName, false);
+                P[2] = new ReportParameter("Address1", DealerAddress1, false);
+                P[3] = new ReportParameter("Address2", DealerAddress2, false);
+                P[4] = new ReportParameter("Contact", "Contact", false);
+                P[5] = new ReportParameter("GSTIN", Dealer.GSTIN, false);
+                P[6] = new ReportParameter("GST_Header", GST_Header, false);
+                P[7] = new ReportParameter("GrandTotal", (GrandTotal).ToString(), false);
+                P[8] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                P[9] = new ReportParameter("InvoiceNumber", D.InvoiceNumber, false);
+
+                P[10] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
+                P[11] = new ReportParameter("CustomerName", Customer.CustomerName, false);
+                P[12] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
+                P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
+                P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
+                P[15] = new ReportParameter("CustomerStateCode", Customer.State.StateCode, false);
+                P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false); 
+                P[17] = new ReportParameter("KindAttn", D.SaleOrder.Attn, false);
+                P[18] = new ReportParameter("Ref", D.SaleOrder.RefNumber, false);
+                P[19] = new ReportParameter("RefDate", Convert.ToString(D.SaleOrder.RefDate), false);
+                P[20] = new ReportParameter("BankDetails", "Our Bank details are : A/C No " + DealerBank.DealerBank.AcNumber + ", Bank : " + DealerBank.DealerBank.BankName + ", Branch : " + DealerBank.DealerBank.Branch + ", IFSC Code : " + DealerBank.DealerBank.IfscCode, false);
+                P[21] = new ReportParameter("InvDate", Convert.ToString(D.InvoiceDate), false);
+                P[22] = new ReportParameter("CessValue", Convert.ToString(CessValue), false);
+                P[23] = new ReportParameter("CessSubTotal", Convert.ToString(CessSubTotal), false);
+
+
+                ReportDataSource rds = new ReportDataSource();
+                rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  
+                rds.Value = CommissionDT;
+                report.DataSources.Add(rds);
+                report.SetParameters(P);
+                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+                PAttachedFile InvF = new PAttachedFile();
+
+                InvF.FileType = mimeType;
+                InvF.AttachedFile = mybytes;
+                InvF.AttachedFileID = 0;
+                InvF.FileName = Convert.ToString(ID);
+                return InvF;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
         }
     }
 }

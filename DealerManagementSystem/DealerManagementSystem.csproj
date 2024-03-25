@@ -3433,6 +3433,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Print\PartsInvoice.rdlc" />
     <EmbeddedResource Include="Print\PhysicalInventoryPosting.rdlc" />
     <EmbeddedResource Include="Print\PurchaseOrder.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />

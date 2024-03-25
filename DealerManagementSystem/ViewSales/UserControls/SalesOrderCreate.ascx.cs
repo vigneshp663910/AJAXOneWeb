@@ -118,7 +118,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 string Dealer  = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
                 decimal HDiscountPercent = Convert.ToDecimal(txtHeaderDiscountPercent.Text.Trim()); 
                 int Qty = Convert.ToInt32(txtQty.Text.Trim()); 
-                SOItem_Insert.Add(new BDMS_SalesOrder().ReadItem(m, Qty, Customer, Dealer, HDiscountPercent, 0, ddlTaxType.SelectedItem.Text));
+                SOItem_Insert.Add(new BDMS_SalesOrder().ReadItem(m, Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlOfficeName.SelectedValue), Qty, Customer, Dealer, HDiscountPercent, 0, ddlTaxType.SelectedItem.Text));
                 //Message = AddMat(m, txtQty.Text.Trim());
                 //if (!string.IsNullOrEmpty(Message))
                 //{
@@ -491,7 +491,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblMessageMaterialUpload.Text = "Please check the file format.";
                     return;
                 }
-                List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, null, null, null, null);
+                List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, null, (short)Division.Parts, null, null);
 
                 using (XLWorkbook workBook = new XLWorkbook(fileUpload.PostedFile.InputStream))
                 {
@@ -552,7 +552,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                                         string Dealer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
                                         decimal HDiscountPercent = Convert.ToDecimal(txtHeaderDiscountPercent.Text.Trim());
                                         int Qty1 = Convert.ToInt32(Convert.ToString(Cells[2].Value)); 
-                                        PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(Material[0], Qty1, Customer, Dealer, HDiscountPercent, 0, ddlTaxType.SelectedItem.Text);
+                                        PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(Material[0], Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlOfficeName.SelectedValue), Qty1, Customer, Dealer, HDiscountPercent, 0, ddlTaxType.SelectedItem.Text);
                                     }
                                     catch(Exception e1)
                                     {

@@ -13,6 +13,7 @@
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <%--<asp:LinkButton ID="lbGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbGenerateInvoice" runat="server" OnClick="lbActions_Click">Generate Invoice</asp:LinkButton>
+                 <asp:LinkButton ID="lbDowloadInvoice" runat="server" OnClick="lbActions_Click">Dowload Invoice</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -100,20 +101,20 @@
                         <asp:TemplateField HeaderText="Material">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>
-                                <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.MaterialCode")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
                                 <asp:Label ID="lblSaleOrderDeliveryItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItemID")%>' runat="server" Visible="false"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Material Desc">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>
-                                <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.MaterialDescription")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="HSN Code">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>
-                                <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.HSN")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "Material.HSN")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Qty">
@@ -125,43 +126,43 @@
                         <asp:TemplateField HeaderText="UOM">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>
-                                <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.BaseUnit")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "Material.BaseUnit")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Value">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Value","{0:n}")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "Value","{0:n}")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Discount">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblDiscountValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.DiscountValue","{0:n}")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblDiscountValue" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountValue","{0:n}")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Taxable Amount">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTaxableValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.TaxableValue","{0:n}")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTaxableValue" Text='<%# DataBinder.Eval(Container.DataItem, "TaxableValue","{0:n}")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="CGST">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblCGST" Text='<%#  DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.CGST")  %>' runat="server"></asp:Label>
+                                <asp:Label ID="lblCGST" Text='<%#  DataBinder.Eval(Container.DataItem, "CGST")  %>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="SGST">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblCGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.SGST")  %>' runat="server"></asp:Label>
+                                <asp:Label ID="lblCGST" Text='<%# DataBinder.Eval(Container.DataItem, "SGST")  %>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="IGST">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblCGST" Text='<%#  DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.IGST") %>' runat="server"></asp:Label>
+                                <asp:Label ID="lblCGST" Text='<%#  DataBinder.Eval(Container.DataItem, "IGST") %>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <%--   <asp:TemplateField HeaderText="Tax">
@@ -173,19 +174,19 @@
                         <asp:TemplateField HeaderText="CGST Value">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.CGSTValue") %>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "CGSTValue") %>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                          <asp:TemplateField HeaderText="SGST Value">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.SGSTValue") %>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "SGSTValue") %>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                          <asp:TemplateField HeaderText="IGST Value">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
-                                <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItem.Material.IGSTValue") %>' runat="server"></asp:Label>
+                                <asp:Label ID="lblTaxValue" Text='<%# DataBinder.Eval(Container.DataItem, "IGSTValue") %>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Net Amount">

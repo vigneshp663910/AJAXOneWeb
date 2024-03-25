@@ -250,7 +250,7 @@ namespace DealerManagementSystem.ViewSales
         [WebMethod]
         public static string GetCustomer(string CustS)
         {
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 0);
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 1);
             return JsonConvert.SerializeObject(Customer);
         }
         [WebMethod]

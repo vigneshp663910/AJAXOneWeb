@@ -33,6 +33,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbGenerateInvoice;
 
         /// <summary>
+        /// lbDowloadInvoice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbDowloadInvoice;
+
+        /// <summary>
         /// lblDeliveryNumber control.
         /// </summary>
         /// <remarks>

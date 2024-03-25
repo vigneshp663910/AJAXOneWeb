@@ -297,6 +297,36 @@ namespace Properties
         public PSaleOrderDeliveryItem SaleOrderDeliveryItem { get; set; }
         public List<PSaleOrderDeliveryItem> SaleOrderDeliveryItems { get; set; }
         public PDMS_EquipmentHeader Equipment { get; set; }
+        public int GrandTotal { get; set; }
+        public PDMS_WarrantyInvoiceType InvoiceType { get; set; }
+        public PInvoiceDetails InvoiceDetails { get; set; }
+        public string IRN { get; set; }
+        public int TempTcsMatCount { get; set; }
+        public decimal TCSValue { get; set; }
+        public decimal TCSTax { get; set; }
+    }
+    [Serializable]
+    public class PInvoiceDetails
+    {
+        public long InvoiceDetailsID { get; set; }
+        public long PaidServiceInvoiceID { get; set; }
+        public string SupplierGSTIN { get; set; }
+        public string Supplier_addr1 { get; set; }
+        public string SupplierLocation { get; set; }
+        public string SupplierPincode { get; set; }
+        public string SupplierStateCode { get; set; }
+
+        public string BuyerGSTIN { get; set; }
+        public string BuyerName { get; set; }
+        public string BuyerStateCode { get; set; }
+        public string Buyer_addr1 { get; set; }
+        public string Buyer_loc { get; set; }
+        public string BuyerPincode { get; set; }
+        public string disp_sup_trade_Name { get; set; }
+        public string disp_sup_addr1 { get; set; }
+        public string disp_sup_loc { get; set; }
+        public string disp_sup_pin { get; set; }
+        public string disp_sup_stcd { get; set; }
     }
     [Serializable]
     public class PSaleOrderDeliveryItem
@@ -305,7 +335,18 @@ namespace Properties
         public PDMS_Material Material { get; set; }
         public PSaleOrderItem SaleOrderItem { get; set; } 
         public decimal Qty { get; set; }
-        
+        public decimal Value { get; set; } 
+        public decimal DiscountValue { get; set; }
+        public decimal TaxableValue { get; set; }
+        public decimal CGST { get; set; }
+        public decimal SGST { get; set; }
+        public decimal IGST { get; set; }
+
+        public decimal CGSTValue { get; set; }
+        public decimal SGSTValue { get; set; }
+        public decimal IGSTValue { get; set; }
+        public decimal CessValue { get; set; }
+
     }
     [Serializable]
     public class PSaleOrderReturn
@@ -391,6 +432,9 @@ namespace Properties
         public int StatusID { get; set; }
       //  public int UserID { get; set; }
         public decimal NetAmount { get; set; }
+        public Decimal OnOrderQty { get; set; }
+        public Decimal TransitQty { get; set; }
+        public Decimal UnrestrictedQty { get; set; }
     }
     [Serializable]
     public class PSaleOrderReturnItem_Insert
