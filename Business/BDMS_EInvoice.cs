@@ -450,7 +450,7 @@ namespace Business
                                 W.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
                                 W.SaleOrderDeliveryItems = new List<PSaleOrderDeliveryItem>();
                                 InvoiceID = W.SaleOrderDeliveryID;
-                                W.InvoiceType = new PDMS_WarrantyInvoiceType() { InvoiceTypeID = Convert.ToInt32(dr["InvoiceTypeID"]), InvoiceType = Convert.ToString(dr["InvoiceType"]) };
+                                //W.InvoiceType = new PDMS_WarrantyInvoiceType() { InvoiceTypeID = Convert.ToInt32(dr["InvoiceTypeID"]), InvoiceType = Convert.ToString(dr["InvoiceType"]) };
 
                                 W.InvoiceDetails = new PInvoiceDetails();
                                 W.InvoiceDetails.SupplierGSTIN = Convert.ToString(dr["SupplierGSTIN"]);

@@ -328,7 +328,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
                 Item.NetValue = Item.CGSTValue + Item.SGSTValue + Item.IGSTValue + Item.TaxableAmount;
             }
-            lblPrice.Text = Price.ToString();
+           // lblPrice.Text = Price.ToString();
             lblDiscount.Text = Discount.ToString();
             lblTaxableAmount.Text = TaxableAmount.ToString();
             lblTaxAmount.Text = TaxAmount.ToString();

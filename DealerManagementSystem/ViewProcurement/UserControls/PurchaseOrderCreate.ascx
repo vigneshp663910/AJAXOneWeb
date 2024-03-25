@@ -82,10 +82,10 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="col-md-12">
+          <%--  <div class="col-md-12">
                 <label>Price : </label>
                 <asp:Label ID="lblPrice" runat="server" CssClass="label"></asp:Label>
-            </div>
+            </div>--%>
             <div class="col-md-12">
                 <label>Discount : </label>
                 <asp:Label ID="lblDiscount" runat="server" CssClass="label"></asp:Label>

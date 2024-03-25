@@ -169,6 +169,10 @@
                         <label>Quantity</label>
                         <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
+                    <div class="col-md-12">
+                        <label>Remark</label>
+                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
+                    </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSave" runat="server" CssClass="btn Search" Text="Save" OnClick="btnSave_Click" OnClientClick="return ConfirmStockTranfer();"></asp:Button>
                     </div>

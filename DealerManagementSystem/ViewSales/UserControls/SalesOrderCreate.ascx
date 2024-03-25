@@ -152,15 +152,15 @@
             </div>
             <div class="col-md-2">
                 <div class="col-sm-12">
-                    <label>Discount Value : </label>
+                    <label>Discount Amount : </label>
                     <asp:Label ID="lblDiscountValue" runat="server" BorderColor="Silver"></asp:Label>
                 </div>
                 <div class="col-sm-12">
-                    <label>Taxable Value : </label>
+                    <label>Taxable Amount : </label>
                     <asp:Label ID="lblTaxableValue" runat="server" BorderColor="Silver"></asp:Label>
                 </div>
                 <div class="col-sm-12">
-                    <label>Tax Value : </label>
+                    <label>Tax Amount : </label>
                     <asp:Label ID="lblTaxValue" runat="server" BorderColor="Silver"></asp:Label>
                     <%--   </div>
                 <div class="col-sm-12">
@@ -168,7 +168,7 @@
                     <asp:Label ID="txtCessValue" runat="server" BorderColor="Silver"></asp:Label>
                 </div>--%>
                     <div class="col-sm-12">
-                        <label>TCS Value : </label>
+                        <label>TCS Amount : </label>
                         <asp:Label ID="lblTCSValue" runat="server" BorderColor="Silver"></asp:Label>
                     </div>
                     <%--  <div class="col-sm-12">
@@ -177,7 +177,7 @@
                 </div>--%>
 
                     <div class="col-sm-12">
-                        <label>Total Value : </label>
+                        <label>Gross Amount : </label>
                         <asp:Label ID="lblTotalValue" runat="server" BorderColor="Silver"></asp:Label>
                     </div>
                 </div>

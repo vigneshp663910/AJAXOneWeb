@@ -409,7 +409,7 @@
             </div>
             <div class="col-md-2">
                 <div class="col-md-12">
-                    <label>Discount Value : </label>
+                    <label>Discount Amount : </label>
                     <asp:Label ID="lblDiscount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <%--<div class="col-md-12">
@@ -417,15 +417,15 @@
                     <asp:Label ID="lblDiscount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>--%>
                 <div class="col-md-12">
-                    <label>Taxable Value : </label>
+                    <label>Taxable Amount : </label>
                     <asp:Label ID="lblTaxableValue" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Tax Value : </label>
+                    <label>Tax Amount : </label>
                     <asp:Label ID="lblTaxValue" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Gross Value : </label>
+                    <label>Gross Amount : </label>
                     <asp:Label ID="lblNetAmount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
