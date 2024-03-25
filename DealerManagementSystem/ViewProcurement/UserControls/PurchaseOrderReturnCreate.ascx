@@ -18,7 +18,7 @@
             <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
         </div>
         <div class="col-md-2 col-sm-12">
-            <label class="modal-label">Receiving Location<samp style="color: red">*</samp></label>
+            <label class="modal-label">Location<samp style="color: red">*</samp></label>
             <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
         </div>
         <div class="col-md-2 text-left">
@@ -73,7 +73,7 @@
                                 <asp:Label ID="lblMaterialDescGR" Text='<%# DataBinder.Eval(Container.DataItem, "GRItem.AsnItem.PurchaseOrderItem.Material.MaterialDescription")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Quantity">
+                        <asp:TemplateField HeaderText="Restricted Qty">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
                                 <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "GRItem.RestrictedQty","{0:n}")%>' runat="server"></asp:Label>

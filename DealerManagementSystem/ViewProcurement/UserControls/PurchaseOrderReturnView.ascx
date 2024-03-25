@@ -53,7 +53,7 @@
                             <div class="table-responsive">
                                 <asp:GridView ID="gvPOReturnItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                                     <Columns>
-                                        <asp:TemplateField HeaderText="ASN Number Date">
+                                        <asp:TemplateField HeaderText="ASN Number">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblAsnNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.AsnNumber")%>' runat="server"></asp:Label>
@@ -61,7 +61,7 @@
                                                 <asp:Label ID="lblAsnDate" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.AsnDate","{0:d}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="GR Number Date">
+                                        <asp:TemplateField HeaderText="GR Number">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblGrNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Gr.GrNumber")%>' runat="server"></asp:Label>
@@ -69,7 +69,7 @@
                                                 <asp:Label ID="lblGrDate" Text='<%# DataBinder.Eval(Container.DataItem, "Gr.GrDate","{0:d}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Purchase Number Date">
+                                        <asp:TemplateField HeaderText="PO Number">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblPoNumber" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.PurchaseOrderNumber")%>' runat="server"></asp:Label>

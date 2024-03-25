@@ -278,7 +278,7 @@ namespace Business
         public List<PPurchaseOrderReturnDelivery> GetPurchaseOrderReturnDeliveryByPoReturnID(long PurchaseOrderReturnID)
         {
 
-            string endPoint = "PurchaseOrder/GetPurchaseOrderReturnDeliveryByPoReturnID?DealerID=" + PurchaseOrderReturnID;
+            string endPoint = "PurchaseOrder/GetPurchaseOrderReturnDeliveryByPoReturnID?PurchaseOrderReturnID=" + PurchaseOrderReturnID;
             return JsonConvert.DeserializeObject<List< PPurchaseOrderReturnDelivery>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }

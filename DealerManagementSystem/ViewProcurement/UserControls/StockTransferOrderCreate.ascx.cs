@@ -129,22 +129,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             if (ddlDealer.SelectedValue == "0")
             {
                 ddlDealer.BorderColor = Color.Red;
-                return "Please select the Dealer";
+                return "Please select the Dealer.";
             }
             if (ddlDestinationOffice.SelectedValue == "0")
             {
                 ddlDestinationOffice.BorderColor = Color.Red;
-                return "Please select the Receiving Location";
+                return "Please select the Receiving Location.";
             }
             if (ddlSourceOffice.SelectedValue == "0")
             {
                 ddlSourceOffice.BorderColor = Color.Red;
-                return "Please select the Source Location";
+                return "Please select the Source Location.";
             }
             if (ddlSourceOffice.SelectedValue == ddlDestinationOffice.SelectedValue)
             {
                 ddlSourceOffice.BorderColor = Color.Red;
-                return "Please select the Receiving Location and Source Location";
+                return "Please select different Receiving and Source Location.";
             }
             return Message;
         }
