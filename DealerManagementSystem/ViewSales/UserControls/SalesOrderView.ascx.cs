@@ -834,7 +834,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(lblMaterialID.Text), null, null, null, null)[0];
                     int Quantity = Convert.ToInt32(Convert.ToDecimal( txtBoxQuantity.Text.Trim()));
-                    PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(m, SaleOrderByID.Dealer.DealerID, SaleOrderByID.DealerOffice.OfficeID, Quantity, SaleOrderByID.Customer.CustomerCode
+                    PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(m, SaleOrderByID.Dealer.DealerID, SaleOrderByID.Dealer.DealerOffice.OfficeID, Quantity, SaleOrderByID.Customer.CustomerCode
                         , SaleOrderByID.Dealer.DealerCode, SaleOrderByID.HeaderDiscountPercentage, IDiscountValue, SaleOrderByID.TaxType);
                     item_Insert.SaleOrderItemID = Convert.ToInt64(lblSaleOrderItemID.Text);
                     item_Insert.StatusID = (short)AjaxOneStatus.SaleOrderItem_Created;

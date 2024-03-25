@@ -161,6 +161,11 @@
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnViewSoReturn" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSoReturn_Click" Width="75px" Height="25px" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Sales Return Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -198,15 +203,10 @@
                                         <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.SaleOrder.Customer.CustomerName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="SO Return Status">
+                                <asp:TemplateField HeaderText="Sales Return Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblSoReturnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderReturnStatus.Status")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnViewSoReturn" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSoReturn_Click" Width="75px" Height="25px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
