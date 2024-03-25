@@ -185,7 +185,8 @@ namespace DealerManagementSystem.ViewInventory
            
             
             string endPoint = "Inventory/InsertMaterialTransfer?DealerID=" + lblDealerID.Text + "&OfficeID=" + lblOfficeID.Text
-                + "&MaterialID=" + lblMaterialID.Text + "&Quantity=" + txtQuantity.Text.Trim() + "&StockMovementTypeID=" + ddlStockMovementType.SelectedValue;
+                + "&MaterialID=" + lblMaterialID.Text + "&Quantity=" + txtQuantity.Text.Trim() + "&StockMovementTypeID=" + ddlStockMovementType.SelectedValue
+                + "&Remarks=" + txtRemarks.Text.Trim();
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
 
             if (Result.Status == PApplication.Failure)

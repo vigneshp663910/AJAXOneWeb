@@ -98,7 +98,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 TaxableAmount = TaxableAmount + Item.TaxableValue;
                 TaxAmount = TaxAmount + Item.TaxValue;
             }
-            lblPrice.Text = Price.ToString();
+            //lblPrice.Text = Price.ToString();
             lblDiscount.Text = Discount.ToString();
             lblTaxableAmount.Text = TaxableAmount.ToString();
             lblTaxAmount.Text = TaxAmount.ToString();
