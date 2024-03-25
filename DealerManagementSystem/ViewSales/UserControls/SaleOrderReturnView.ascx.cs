@@ -65,7 +65,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "SO Return Cancel")
+            if (lbActions.Text == "Cancel")
             {
                 CancelSalesReturnOrder();
             }

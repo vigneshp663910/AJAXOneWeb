@@ -453,7 +453,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     return;
                 }
                 PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null)[0];
-                PSaleOrderItem_Insert pSaleOrderItem = new BDMS_SalesOrder().ReadItem(m, SaleOrderByID.Dealer.DealerID, SaleOrderByID.DealerOffice.OfficeID
+                PSaleOrderItem_Insert pSaleOrderItem = new BDMS_SalesOrder().ReadItem(m, SaleOrderByID.Dealer.DealerID, SaleOrderByID.Dealer.DealerOffice.OfficeID
                     , Convert.ToInt32(txtQty.Text.Trim()), SaleOrderByID.Customer.CustomerCode
                     , SaleOrderByID.Dealer.DealerCode, SaleOrderByID.HeaderDiscountPercentage, 0, SaleOrderByID.TaxType);
 

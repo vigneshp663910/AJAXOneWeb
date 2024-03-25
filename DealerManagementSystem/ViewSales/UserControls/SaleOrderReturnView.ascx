@@ -9,7 +9,7 @@
             <div class="dropdown btnactions" id="customerAction">
                 <div class="btn Approval">Actions</div>
                 <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                    <asp:LinkButton ID="lbSoReturnCancel" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmCancelSalesReturn();">SO Return Cancel</asp:LinkButton>
+                    <asp:LinkButton ID="lbSoReturnCancel" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmCancelSalesReturn();">Cancel</asp:LinkButton>
                     <asp:LinkButton ID="lbSoReturnDeliveryCreate" runat="server" OnClick="lbActions_Click">Create Delivery</asp:LinkButton>
                 </div>
             </div>
