@@ -442,7 +442,7 @@ namespace Properties
         public long SaleOrderDeliveryID { get; set; }
         public long SaleOrderDeliveryItemID { get; set; }
         public decimal Qty { get; set; }
-        //public string Remarks { get; set; }
+        public string Remarks { get; set; }
     }
     [Serializable]
     public class PSaleOrderType

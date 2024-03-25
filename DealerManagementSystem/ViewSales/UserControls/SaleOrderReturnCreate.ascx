@@ -18,6 +18,33 @@
         </div>
     </fieldset>
 </div>
+<div class="col-md-12" id="divInvoiceDetails" runat="server" visible="false">
+    <fieldset class="fieldset-border">
+        <legend style="background: none; color: #007bff; font-size: 17px;">Invoice Details</legend>
+        <div class="col-md-12 View">
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Dealer : </label>
+                    <asp:Label ID="lblDealer" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Dealer Office : </label>
+                    <asp:Label ID="lblDealerOffice" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Customer : </label>
+                    <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Invoice No. & Date: </label>
+                    <asp:Label ID="lblInvoiceNumberDate" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
 <div class="col-md-12" id="divSoDelivery" runat="server">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Invoice Item(s)</legend>
@@ -38,15 +65,18 @@
                         </div>
                     </div>
                     <asp:GridView ID="gvSoDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" AllowPaging="true" PageSize="10" EmptyDataText="No Data Found"
-                        DataKeyNmes="SaleOrderDeliveryItem.SaleOrderDeliveryItemID" OnPageIndexChanging="gvSoDelivery_PageIndexChanging">
+                        DataKeyNmes="SaleOrderDeliveryID,SaleOrderDeliveryItem.SaleOrderDeliveryItemID" OnPageIndexChanging="gvSoDelivery_PageIndexChanging">
                         <Columns>
-                            <asp:TemplateField HeaderText="Select Invoice Item">
+                            <asp:TemplateField HeaderText="Select">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <HeaderTemplate>
+                                    <asp:CheckBox ID="cbInvoiceH" Text="Select All" runat="server" AutoPostBack="true" OnCheckedChanged="cbInvoiceH_CheckedChanged" />
+                                </HeaderTemplate>
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="cbIsChecked" runat="server"></asp:CheckBox>
+                                    <asp:CheckBox ID="cbInvoice" runat="server" AutoPostBack="true" OnCheckedChanged="cbInvoice_CheckedChanged" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Dealer">
+                            <%--<asp:TemplateField HeaderText="Dealer">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrder.Dealer.DealerCode")%>' runat="server"></asp:Label>
@@ -60,7 +90,7 @@
                                     <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrder.Dealer.DealerOffice.OfficeName")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Customer Name">
+                            <asp:TemplateField HeaderText="Customer">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrder.Customer.CustomerCode")%>' runat="server"></asp:Label>
@@ -81,11 +111,13 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblInvoiceDate" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceDate","{0:d}")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
                             <asp:TemplateField HeaderText="Material Code">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.MaterialCode")%>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblSaleOrderDeliveryID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryID")%>' runat="server" Visible="false"></asp:Label>
+                                    <asp:Label ID="lblSaleOrderDeliveryItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderDeliveryItemID")%>' runat="server" Visible="false"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Material Description">
@@ -116,7 +148,7 @@
 <div class="col-md-12" id="divSoDeliveryItem" runat="server" visible="false">
     <div class="col-md-12 Report">
         <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">SO Invoice Item</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">Sales Invoice Item</legend>
             <div class="col-md-12">
                 <div class="boxHead">
                     <div class="logheading">
@@ -132,9 +164,9 @@
                     </div>
                 </div>
                 <asp:GridView ID="gvSoDeliveryItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" EmptyDataText="No Data Found"
-                    DataKeyNmes="SaleOrderDeliveryItemID">
+                    DataKeyNmes="lblSaleOrderDeliveryID,SaleOrderDeliveryItem.SaleOrderDeliveryItemID">
                     <Columns>
-                        <asp:TemplateField HeaderText="InvoiceNumber">
+                        <%--<asp:TemplateField HeaderText="InvoiceNumber">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblInvoiceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceNumber")%>' runat="server"></asp:Label>
@@ -146,12 +178,16 @@
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             <ItemTemplate>
                                 <asp:Label ID="lblInvoiceDate" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceDate","{0:d}")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblSaleOrderDeliveryID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryID")%>' runat="server" Visible="false"></asp:Label>
+                                <asp:Label ID="lblSaleOrderDeliveryItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderDeliveryItemID")%>' runat="server" Visible="false"></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                         <asp:TemplateField HeaderText="Material Code">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>
                                 <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.MaterialCode")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblSaleOrderDeliveryID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryID")%>' runat="server" Visible="false"></asp:Label>
+                                <asp:Label ID="lblSaleOrderDeliveryItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderDeliveryItemID")%>' runat="server" Visible="false"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Material Description">
@@ -187,5 +223,11 @@
                 </asp:GridView>
             </div>
         </fieldset>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12" runat="server" id="divRemarks" visible="false">
+    <div class="col-md-12 col-sm-12">
+        <label class="modal-label">Remarks</label>
+        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" Rows="5" AutoCompleteType="Disabled"></asp:TextBox>
     </div>
 </div>

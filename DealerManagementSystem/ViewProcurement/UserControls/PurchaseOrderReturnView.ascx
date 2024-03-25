@@ -18,11 +18,11 @@
     </div>
     <div class="col-md-12 field-margin-top" runat="server" id="divPoReturnView">
         <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">PO Return Details</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">Purchase Return</legend>
             <div class="col-md-12 View">
                 <div class="col-md-4">
                     <div class="col-md-12">
-                        <label>PO Return Number : </label>
+                        <label>Purchase Return Number : </label>
                         <asp:Label ID="lblPurchaseOrderReturnNumber" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-12">
@@ -32,21 +32,21 @@
                 </div>
                 <div class="col-md-4">
                     <div class="col-md-12">
-                        <label>PO Return Date : </label>
+                        <label>Purchase Return Date : </label>
                         <asp:Label ID="lblPurchaseOrderReturnDate" runat="server" CssClass="label"></asp:Label>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="col-md-12">
-                        <label>PO Return Status : </label>
+                        <label>Purchase Return Status : </label>
                         <asp:Label ID="lblPurchaseOrderReturnStatus" runat="server" CssClass="label"></asp:Label>
                     </div>
                 </div>
             </div>
         </fieldset>
         <asp:Label ID="lblMessagePoReturn" runat="server" Text="" CssClass="message" Visible="false" />
-        <asp1:TabContainer ID="tbpPoReturn" runat="server" ToolTip="PO Return Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
-            <asp1:TabPanel ID="tpnlPoReturnItem" runat="server" HeaderText="PO Return Item" Font-Bold="True" ToolTip="">
+        <asp1:TabContainer ID="tbpPoReturn" runat="server" ToolTip="Purchase Return Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
+            <asp1:TabPanel ID="tpnlPoReturnItem" runat="server" HeaderText="Purchase Return Item" Font-Bold="True" ToolTip="">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
@@ -69,7 +69,7 @@
                                                 <asp:Label ID="lblGrDate" Text='<%# DataBinder.Eval(Container.DataItem, "Gr.GrDate","{0:d}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="PO Number Date">
+                                        <asp:TemplateField HeaderText="Purchase Number Date">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblPoNumber" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.PurchaseOrderNumber")%>' runat="server"></asp:Label>

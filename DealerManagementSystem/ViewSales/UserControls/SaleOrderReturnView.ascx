@@ -17,7 +17,7 @@
     </div>
     <div class="col-md-12 field-margin-top" runat="server" id="divPoReturnView">
         <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">PO Return Details</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">Sales Return</legend>
             <div class="col-md-12 View">
                 <div class="col-md-4">
                     <div class="col-md-12">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="col-md-12">
-                        <label>SO Return Date : </label>
+                        <label>Sales Return Date : </label>
                         <asp:Label ID="lblSaleOrderReturnDate" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-12">
@@ -53,7 +53,7 @@
                         <asp:Label ID="lblSODealer" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-12">
-                        <label>SO Return Status : </label>
+                        <label>Sales Return Status : </label>
                         <asp:Label ID="lblSaleOrderReturnStatus" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-12">
@@ -65,7 +65,7 @@
         </fieldset>
         <asp:Label ID="lblMessageSoReturn" runat="server" Text="" CssClass="message" Visible="false" />
         <asp1:TabContainer ID="tbpSoReturn" runat="server" ToolTip="SO Return Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
-            <asp1:TabPanel ID="tpnlPoReturnItem" runat="server" HeaderText="SO Return Item" Font-Bold="True" ToolTip="">
+            <asp1:TabPanel ID="tpnlPoReturnItem" runat="server" HeaderText="Sales Return Item" Font-Bold="True" ToolTip="">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
@@ -85,7 +85,7 @@
                                                 <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.MaterialDescription")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="HSN">
+                                        <asp:TemplateField HeaderText="HSN Code">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.HSN")%>' runat="server"></asp:Label>
@@ -109,7 +109,7 @@
                                                 <asp:Label ID="lblCGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.CGST")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="CGSTValue">
+                                        <asp:TemplateField HeaderText="CGST Value">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblCGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.CGSTValue")%>' runat="server"></asp:Label>
@@ -121,7 +121,7 @@
                                                 <asp:Label ID="lblSGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.SGST")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="SGSTValue">
+                                        <asp:TemplateField HeaderText="SGST Value">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblSGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.SGSTValue")%>' runat="server"></asp:Label>
@@ -133,7 +133,7 @@
                                                 <asp:Label ID="lblIGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.IGST")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="IGSTValue">
+                                        <asp:TemplateField HeaderText="IGST Value">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblIGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.IGSTValue")%>' runat="server"></asp:Label>
@@ -154,19 +154,19 @@
                                         <asp:TemplateField HeaderText="Discount">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
-                                                <asp:Label ID="lblDiscount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Discount","{0:n}")%>' runat="server"></asp:Label>
+                                                <asp:Label ID="lblDiscount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.ItemDiscountValue","{0:n}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Freight Amount">
+                                        <%--<asp:TemplateField HeaderText="Freight Amount">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblFreightAmount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.FreightAmount","{0:n}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Taxable Amount">
+                                        </asp:TemplateField>--%>
+                                        <asp:TemplateField HeaderText="Taxable Value">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
-                                                <asp:Label ID="lblTaxableAmount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.TaxableAmount","{0:n}")%>' runat="server"></asp:Label>
+                                                <asp:Label ID="lblTaxableAmount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.TaxableValue","{0:n}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">

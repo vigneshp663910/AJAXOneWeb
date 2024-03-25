@@ -17,6 +17,7 @@ namespace DealerManagementSystem.ViewProcurement
     {
         public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrderReturn; } }
         int? DealerID = null;
+        int? DealerOfficeID = null;
         string PurchaseOrderReturnNo = null;
         DateTime? PurchaseOrderReturnDateF = null;
         DateTime? PurchaseOrderReturnDateT = null;
@@ -61,7 +62,7 @@ namespace DealerManagementSystem.ViewProcurement
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Order Return');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Return');</script>");
             lblMessagePoReturn.Visible = false;
 
             if (PSession.User == null)
@@ -76,7 +77,8 @@ namespace DealerManagementSystem.ViewProcurement
                 txtPoReturnDateTo.Text = DateTime.Now.ToShortDateString();
                 //new DDLBind(ddlPoReturnStatus, new BDMS_PurchaseOrder().GetPurchaseOrderReturnStatus(null, null), "PurchaseOrderReturnStatusDescription", "PurchaseOrderReturnStatusID");
                 
-                    fillDealer(); 
+                fillDealer();
+                ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
                 lblRowCountPoReturn.Visible = false;
                 ibtnArrowLeftPoReturn.Visible = false;
                 ibtnArrowRightPoReturn.Visible = false;
@@ -89,6 +91,19 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
+        }
+        protected void ddlDealerCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillDealerOffice();
+        }
+        private void FillDealerOffice()
+        {
+            DealerID = Convert.ToInt32(ddlDealerCode.SelectedValue);
+            ddlDealerOffice.DataTextField = "OfficeName_OfficeCode";
+            ddlDealerOffice.DataValueField = "OfficeID";
+            ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(DealerID, null, null);
+            ddlDealerOffice.DataBind();
+            ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -110,7 +125,7 @@ namespace DealerManagementSystem.ViewProcurement
                 TraceLogger.Log(DateTime.Now);
                 Search();
                 PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderReturnHeader(DealerID, PurchaseOrderReturnNo, PurchaseOrderReturnDateF
-                    , PurchaseOrderReturnDateT, PageIndex, gvPoReturn.PageSize);
+                    , PurchaseOrderReturnDateT, DealerOfficeID, PageIndex, gvPoReturn.PageSize);
                 gvPoReturn.PageIndex = 0;
                 gvPoReturn.DataSource = JsonConvert.DeserializeObject<List<PPurchaseOrderReturn>>(JsonConvert.SerializeObject(Result.Data)); ;
                 gvPoReturn.DataBind();
@@ -139,6 +154,7 @@ namespace DealerManagementSystem.ViewProcurement
         void Search()
         {
             DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            DealerOfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
             PurchaseOrderReturnDateF = null;
             PurchaseOrderReturnDateF = string.IsNullOrEmpty(txtPoReturnDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtPoReturnDateFrom.Text.Trim());
             PurchaseOrderReturnDateT = string.IsNullOrEmpty(txtPoReturnDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtPoReturnDateTo.Text.Trim());
