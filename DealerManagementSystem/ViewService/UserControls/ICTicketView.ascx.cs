@@ -2632,7 +2632,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnFsrSignature.Visible = false;
             }
             
-            ControlBaseOn60Days();
+           // ControlBaseOn60Days();
 
             DisableAllGridEditDelete();
         }

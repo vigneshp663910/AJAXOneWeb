@@ -211,7 +211,7 @@
                             <asp:TemplateField HeaderText="Generate Invoice" HeaderStyle-Width="55px">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
-                                    <asp:Button ID="btnGenerateInvoice" runat="server" Text="Generate Invoice" BackColor="Aqua" CssClass="InputButton" OnClick="btnGenerateInvoice_Click" OnClientClick="return ConfirmCreate();" />
+                                    <asp:Button ID="btnGenerateInvoice" runat="server" Text="Generate Invoice" BackColor="Aqua" CssClass="InputButton" OnClick="btnGenerateInvoice_Click" OnClientClick="return ConfirmCreate();" Width="100px" Height="30px" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Claim Status">

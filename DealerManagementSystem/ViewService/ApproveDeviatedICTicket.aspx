@@ -51,7 +51,7 @@
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">IC Ticket Deviated For</label>
                         <asp:DropDownList ID="ddlICTicketDeviationType" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="1">BaseOn60</asp:ListItem>
+                           <%-- <asp:ListItem Value="1">BaseOn60</asp:ListItem>--%>
                             <asp:ListItem Value="2">Commissioning</asp:ListItem>
                         </asp:DropDownList>
                     </div>
