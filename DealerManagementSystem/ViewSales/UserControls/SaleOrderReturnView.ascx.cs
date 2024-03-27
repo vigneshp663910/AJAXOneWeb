@@ -39,7 +39,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblSaleOrderReturnNumber.Text = SoReturn.SaleOrderReturnNumber;
             lblSaleOrderReturnDate.Text = SoReturn.SaleOrderReturnDate.ToString();
             lblSODealer.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerName;
-            lblDealerOffice.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerName;
+            //lblDealerOffice.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerName;
             lblDealerOffice.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerOffice.OfficeName;
             lblContactPerson.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.ContactPerson;
             lblCustomer.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.CustomerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Customer.CustomerName;

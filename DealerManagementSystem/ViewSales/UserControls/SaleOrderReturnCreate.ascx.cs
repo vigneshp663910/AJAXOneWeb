@@ -136,7 +136,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SoDeliveryList = JsonConvert.DeserializeObject<List<PSaleOrderDelivery>>(JsonConvert.SerializeObject(Result.Data));
 
             lblDealer.Text = SoDeliveryList[0].SaleOrder.Dealer.DealerCode + " " + SoDeliveryList[0].SaleOrder.Dealer.DealerName;
-            lblDealerOffice.Text = SoDeliveryList[0].SaleOrder.Dealer.DealerOffice.OfficeName_OfficeCode;
+            lblDealerOffice.Text = SoDeliveryList[0].SaleOrder.Dealer.DealerOffice.OfficeName;
             lblCustomer.Text = SoDeliveryList[0].SaleOrder.Customer.CustomerCode + " " + SoDeliveryList[0].SaleOrder.Customer.CustomerName;
             lblInvoiceNumberDate.Text = SoDeliveryList[0].InvoiceNumber + " " + SoDeliveryList[0].InvoiceDate.ToString();
 
