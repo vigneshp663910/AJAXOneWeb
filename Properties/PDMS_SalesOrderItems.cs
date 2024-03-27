@@ -291,6 +291,7 @@ namespace Properties
         public long SaleOrderDeliveryID { get; set; }
         public string DeliveryNumber { get; set; }
         public DateTime DeliveryDate { get; set; }
+        public PAjaxOneStatus Status { get; set; }
         public PSaleOrder SaleOrder { get; set; }
         public string InvoiceNumber { get; set; }
         public DateTime? InvoiceDate { get; set; }
@@ -430,7 +431,7 @@ namespace Properties
         public decimal SGSTValue { get; set; }
         public decimal IGSTValue { get; set; }
         public int StatusID { get; set; }
-      //  public int UserID { get; set; }
+        public decimal Tcs { get; set; }
         public decimal NetAmount { get; set; }
         public Decimal OnOrderQty { get; set; }
         public Decimal TransitQty { get; set; }
@@ -457,6 +458,7 @@ namespace Properties
         public long SaleOrderID { get; set; }
         public long? ShiftToID { get; set; }
         public long SaleOrderItemID { get; set; }
+        public int MaterialID { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialDescription { get; set; }
         public string UOM { get; set; }

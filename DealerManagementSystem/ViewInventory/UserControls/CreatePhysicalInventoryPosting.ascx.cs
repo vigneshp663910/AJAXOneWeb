@@ -224,6 +224,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
         }
         protected void btnDownload_Click(object sender, EventArgs e)
         {
+            lblMessage.ForeColor = System.Drawing.Color.Red;
 
             if (ddlDealer.SelectedValue == "0")
             {
@@ -331,6 +332,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             }
             catch (Exception e1)
             {
+                lblMessage.Text = e1.Message;
             }
             finally
             {

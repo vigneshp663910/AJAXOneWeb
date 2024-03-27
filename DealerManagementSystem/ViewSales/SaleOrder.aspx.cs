@@ -94,7 +94,7 @@ namespace DealerManagementSystem.ViewSales
                 fillDealer(); 
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerCode.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
-                new DDLBind(ddlSOStatus, new BDMS_Master().GetAjaxOneStatus(3), "Status", "StatusID");
+                new DDLBind(ddlSOStatus, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.SaleOrder), "Status", "StatusID");
                 new DDLBind(ddlSOType, new BDMS_SalesOrder().GetSaleOrderType(null, null), "SaleOrderType", "SaleOrderTypeID");
                 //fillSalesOrder();
                 if (Session["SaleOrderID"] != null)

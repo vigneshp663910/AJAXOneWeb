@@ -911,7 +911,7 @@
         <span id="PopupDialogueCreateSODelivery">Delivery</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="PopupDeliveryClose" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <asp:Label ID="lblMessageCreateSODelivery" runat="server" Text="" CssClass="message" Visible="false" />
+    <asp:Label ID="lblMessageCreateSODelivery" runat="server" Text="" CssClass="message"   />
     <div class="col-md-12">
         <div class="model-scroll">
 
@@ -1024,7 +1024,8 @@
                             <asp:TemplateField HeaderText="Material">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
+                                     <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialID")%>' runat="server" Visible="false"></asp:Label>
+                                    <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
                                     <asp:Label ID="lblSaleOrderItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItemID")%>' runat="server" Visible="false"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>

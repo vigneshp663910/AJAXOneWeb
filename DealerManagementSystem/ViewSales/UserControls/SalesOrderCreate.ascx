@@ -272,7 +272,7 @@
                             <asp:TextBox ID="txtItemDiscountValue" runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountValue","{0:n}")%>' AutoPostBack="true" OnTextChanged="txtBoxDiscountPercent_TextChanged"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Discount">
+                    <asp:TemplateField HeaderText="(Header + Item) Discount">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                         <ItemTemplate>
                             <asp:Label ID="lblDiscountValue" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountValue","{0:n}")%>' runat="server"></asp:Label>

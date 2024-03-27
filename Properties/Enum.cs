@@ -822,7 +822,14 @@ namespace Properties
         DealerBusinessExcellence = 1,
         DealerBalanceConfirmation = 2,
         SaleOrder = 3,
-        PostingInventoryType = 4
+        PostingInventoryType = 4,
+        SaleOrderItem = 5,
+        StockTransferOrder = 6,
+        StockTransferOrderItem = 7,
+        StockTransferOrderDelivery = 8,
+        StockTransferOrderGrRestricted = 9,
+        PostingInventoryStatus = 10,
+        SaleOrderDelivery = 11
     }
     public enum AjaxOneStatus
     {
@@ -866,7 +873,10 @@ namespace Properties
         StockTransferOrderGrRestricted_MissingQty = 38,
         StockTransferOrderGrRestricted_DamagedQty = 39,
         PostingInventoryStatus_Requested = 40,
-        PostingInventoryStatus_Posted = 41
+        PostingInventoryStatus_Posted = 41,
+        SaleOrderDelivery_InvoicePending = 42,
+        SaleOrderDelivery_Invoiced = 43,
+        SaleOrderDelivery_Shipped = 44,
     }
     public enum ProcurementStatus
     {

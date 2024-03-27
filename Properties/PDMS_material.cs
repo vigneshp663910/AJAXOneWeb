@@ -183,6 +183,7 @@ namespace Properties
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
         public PDMS_Model Model { get; set; }
+        public decimal Tcs { get; set; }
         public bool IsActive { get; set; }
     }
     [Serializable]
