@@ -114,13 +114,13 @@ namespace DealerManagementSystem.ViewService
         protected global::System.Web.UI.WebControls.TextBox txtICTicketNumber;
 
         /// <summary>
-        /// txtICLoginDateFrom control.
+        /// txtICDateF control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtICLoginDateFrom;
+        protected global::System.Web.UI.WebControls.TextBox txtICDateF;
 
         /// <summary>
         /// CalendarExtender1 control.
@@ -141,13 +141,13 @@ namespace DealerManagementSystem.ViewService
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender1;
 
         /// <summary>
-        /// txtICLoginDateTo control.
+        /// txtICDateT control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtICLoginDateTo;
+        protected global::System.Web.UI.WebControls.TextBox txtICDateT;
 
         /// <summary>
         /// CalendarExtender2 control.

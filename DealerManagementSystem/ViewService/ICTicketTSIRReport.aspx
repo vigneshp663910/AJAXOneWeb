@@ -72,15 +72,15 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">IC Ticket Date From</label>
-                        <asp:TextBox ID="txtICLoginDateFrom" runat="server" AutoComplete="Off" CssClass="form-control"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtICLoginDateFrom" PopupButtonID="txtICLoginDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtICLoginDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        <asp:TextBox ID="txtICDateF" runat="server" AutoComplete="Off" CssClass="form-control"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtICDateF" PopupButtonID="txtICDateF" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtICDateF" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">IC Ticket Date To</label>
-                        <asp:TextBox ID="txtICLoginDateTo" runat="server" AutoComplete="Off" CssClass="form-control"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtICLoginDateTo" PopupButtonID="txtICLoginDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtICLoginDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        <asp:TextBox ID="txtICDateT" runat="server" AutoComplete="Off" CssClass="form-control"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtICDateT" PopupButtonID="txtICDateT" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtICDateT" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">SRO Code</label>
