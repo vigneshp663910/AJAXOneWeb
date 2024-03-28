@@ -472,7 +472,12 @@ namespace Properties
         public decimal IGST { get; set; }
         public decimal CGSTValue { get; set; }
         public decimal SGSTValue { get; set; }
-        public decimal IGSTValue { get; set; }
+        public decimal IGSTValue { get; set; } 
+        public long? EquipmentHeaderID { get; set; } 
+    }
+    public class PSaleOrderDeliveryShipping
+    {
+        public long SaleOrderDeliveryID { get; set; }
         public decimal NetWeight { get; set; }
         public DateTime DispatchDate { get; set; }
         public string CourierID { get; set; }
@@ -484,7 +489,6 @@ namespace Properties
         public string PackingRemarks { get; set; }
         public string TransportDetails { get; set; }
         public string TransportMode { get; set; }
-        public long? EquipmentHeaderID { get; set; }
         public DateTime PickupDate { get; set; }
         public string Remarks { get; set; }
     }

@@ -1220,7 +1220,11 @@ namespace Business
             string endPoint = "SaleOrder/InsertSaleOrderDelivery";
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, obj));
         }
-
+        public PApiResult InsertSaleOrderDeliveryShipping(object obj)
+        {
+            string endPoint = "SaleOrder/InsertSaleOrderDeliveryShipping";
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, obj));
+        }
         public PApiResult UpdateSaleOrderStatus(long SaleOrderID, int StatusID)
         {
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SaleOrderID + "&StatusID=" + StatusID));

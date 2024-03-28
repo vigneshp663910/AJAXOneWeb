@@ -303,14 +303,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 MPE_Delivery.Show();
                 List<PDMS_EquipmentHeader> EQs = new BDMS_Equipment().GetEquipmentForCreateICTicket(Convert.ToInt64(SOrder.Dealer.DealerID), null, null);
                 new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
-                cxDispatchDate.StartDate = DateTime.Now;
-                txtBoxDispatchDate.Text = DateTime.Now.ToShortDateString();
+                //cxDispatchDate.StartDate = DateTime.Now;
+                //txtBoxDispatchDate.Text = DateTime.Now.ToShortDateString();
 
-                cxCourierDate.StartDate = DateTime.Now;
-                txtBoxCourierDate.Text = DateTime.Now.ToShortDateString();
+                //cxCourierDate.StartDate = DateTime.Now;
+                //txtBoxCourierDate.Text = DateTime.Now.ToShortDateString();
 
-                cxPickupDate.StartDate = DateTime.Now;
-                txtBoxPickupDate.Text = DateTime.Now.ToShortDateString();
+                //cxPickupDate.StartDate = DateTime.Now;
+                //txtBoxPickupDate.Text = DateTime.Now.ToShortDateString();
 
                 if(SOrder.SaleOrderType.SaleOrderTypeID == 4)
                 {
@@ -361,6 +361,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 gvDelivery.DataSource = SODelivery_Insert;
                 gvDelivery.DataBind();
+                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder || SOrder.Division.DivisionID == (short)SaleOrderType.WarrantyOrder)
+                {
+                    gvDelivery.Columns[4].Visible = false;
+                }
+                else
+                {
+                    gvDelivery.Columns[4].Visible = true;
+                }
             }
         } 
         public void Edit()
@@ -905,20 +913,20 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 foreach (PSaleOrderDeliveryItem_Insert T in SODelivery_Insert)
                 {
                     T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue);
-                    T.NetWeight = Convert.ToDecimal("0"+txtBoxNetWeight.Text);
-                    T.Remarks = txtBoxRemarks.Text.Trim();
-                    T.DispatchDate = Convert.ToDateTime(txtBoxDispatchDate.Text.Trim());
-                    T.CourierID = txtBoxCourierId.Text.Trim();
-                    T.CourierDate = Convert.ToDateTime(txtBoxCourierDate.Text.Trim());
-                    T.CourierCompanyName = txtBoxCourierCompanyName.Text.Trim();
-                    T.CourierPerson = txtBoxCourierPerson.Text.Trim();
-                    T.LRNo = txtBoxLRNo.Text.Trim();
-                    T.PackingDescription = txtBoxPackingDescription.Text.Trim();
-                    T.PackingRemarks = txtBoxPackingRemarks.Text.Trim();
-                    T.TransportDetails = txtBoxTransportDetails.Text.Trim();
-                    T.TransportMode = ddlTransportMode.SelectedItem.Text;
+                //    T.NetWeight = Convert.ToDecimal("0"+txtBoxNetWeight.Text);
+                   // T.Remarks = txtBoxRemarks.Text.Trim();
+                 //   T.DispatchDate = Convert.ToDateTime(txtBoxDispatchDate.Text.Trim());
+                    //T.CourierID = txtBoxCourierId.Text.Trim();
+                    //T.CourierDate = Convert.ToDateTime(txtBoxCourierDate.Text.Trim());
+                    //T.CourierCompanyName = txtBoxCourierCompanyName.Text.Trim();
+                    //T.CourierPerson = txtBoxCourierPerson.Text.Trim();
+                    //T.LRNo = txtBoxLRNo.Text.Trim();
+                    //T.PackingDescription = txtBoxPackingDescription.Text.Trim();
+                    //T.PackingRemarks = txtBoxPackingRemarks.Text.Trim();
+                    //T.TransportDetails = txtBoxTransportDetails.Text.Trim();
+                    //T.TransportMode = ddlTransportMode.SelectedItem.Text;
                     T.EquipmentHeaderID = ddlEquipment.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlEquipment.SelectedValue);
-                    T.PickupDate = Convert.ToDateTime(txtBoxPickupDate.Text.Trim());
+                  //  T.PickupDate = Convert.ToDateTime(txtBoxPickupDate.Text.Trim());
                 }
                 
                 PApiResult Result = new BDMS_SalesOrder().InsertSaleOrderDelivery(SODelivery_Insert);

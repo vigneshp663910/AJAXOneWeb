@@ -28,6 +28,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 ViewState["SaleOrderDeliveryID"] = value;
             }
         }
+        public PSaleOrderDeliveryShipping Shipping_Insert
+        {
+            get
+            {
+                if (ViewState["SaleOrderDelivery_Insert"] == null)
+                {
+                    ViewState["SaleOrderDelivery_Insert"] = new PSaleOrderDeliveryShipping();
+                }
+                return (PSaleOrderDeliveryShipping)ViewState["SaleOrderDelivery_Insert"];
+            }
+            set
+            {
+                ViewState["SaleOrderDelivery_Insert"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
@@ -51,9 +66,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.ForeColor = Color.Green;
                 fillViewSODelivery(SODeliveryID);
             }
-            if (lbActions.ID == "lbDowloadInvoice")
+            else if (lbActions.ID == "lbDowloadInvoice")
             {
                 ibPDF_Click();
+            }
+            else if (lbActions.ID == "lbDelivery")
+            {
+                MPE_Delivery.Show(); 
+                cxDispatchDate.StartDate = DateTime.Now;
+                txtBoxDispatchDate.Text = DateTime.Now.ToShortDateString();
+
+                cxCourierDate.StartDate = DateTime.Now;
+                txtBoxCourierDate.Text = DateTime.Now.ToShortDateString();
+
+                cxPickupDate.StartDate = DateTime.Now;
+                txtBoxPickupDate.Text = DateTime.Now.ToShortDateString();
+
             }
         }
         public void fillViewSODelivery(long SaleOrderDeliveryID)
@@ -151,10 +179,32 @@ namespace DealerManagementSystem.ViewSales.UserControls
         void ActionControlMange(PSaleOrderDelivery SaleOrderDelivery)
         {
             lbGenerateInvoice.Visible = true;
-            if (!string.IsNullOrEmpty(SaleOrderDelivery.InvoiceNumber))
+            lbUpdateShippingDetails.Visible = true;
+            lbPreviewInvoiceDC.Visible = true;
+            lbDowloadInvoice.Visible = true;
+            if (SaleOrderDelivery.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_InvoicePending)
+            {
+                if (SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderTypeID != (short)SaleOrderType.WarrantyOrder)
+                {
+                    lbUpdateShippingDetails.Visible = false;
+                } 
+                else
+                {
+                    lbGenerateInvoice.Visible = false;
+                }
+                lbPreviewInvoiceDC.Visible = false;
+                lbDowloadInvoice.Visible = false;
+            }
+            else if (SaleOrderDelivery.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Invoiced)
             {
                 lbGenerateInvoice.Visible = false;
             }
+            else if (SaleOrderDelivery.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Shipped)
+            {
+                lbGenerateInvoice.Visible = false;
+                lbUpdateShippingDetails.Visible = false;
+            } 
+
         }
         void ibPDF_Click()
         {
@@ -198,6 +248,43 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
             }
         }
-      
+
+        protected void btnSaveShipping_Click(object sender, EventArgs e)
+        {
+            lblMessageCreateSODelivery.ForeColor = Color.Red;
+            MPE_Delivery.Show();
+            try
+            {
+                Shipping_Insert.NetWeight = Convert.ToDecimal("0"+txtBoxNetWeight.Text);
+                Shipping_Insert.Remarks = txtBoxRemarks.Text.Trim();
+                Shipping_Insert.DispatchDate = Convert.ToDateTime(txtBoxDispatchDate.Text.Trim());
+                Shipping_Insert.CourierID = txtBoxCourierId.Text.Trim();
+                Shipping_Insert.CourierDate = Convert.ToDateTime(txtBoxCourierDate.Text.Trim());
+                Shipping_Insert.CourierCompanyName = txtBoxCourierCompanyName.Text.Trim();
+                Shipping_Insert.CourierPerson = txtBoxCourierPerson.Text.Trim();
+                Shipping_Insert.LRNo = txtBoxLRNo.Text.Trim();
+                Shipping_Insert.PackingDescription = txtBoxPackingDescription.Text.Trim();
+                Shipping_Insert.PackingRemarks = txtBoxPackingRemarks.Text.Trim();
+                Shipping_Insert.TransportDetails = txtBoxTransportDetails.Text.Trim();
+                Shipping_Insert.TransportMode = ddlTransportMode.SelectedItem.Text;
+                Shipping_Insert.PickupDate = Convert.ToDateTime(txtBoxPickupDate.Text.Trim()); 
+
+                PApiResult Result = new BDMS_SalesOrder().InsertSaleOrderDeliveryShipping(Shipping_Insert);
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessageCreateSODelivery.Text = Result.Message;
+                    return;
+                }
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Green; 
+
+                MPE_Delivery.Hide();
+            }
+            catch (Exception e1)
+            {
+                lblMessageCreateSODelivery.Text = e1.Message;
+            }
+        }
+
     }
 }

@@ -40,7 +40,7 @@
         font-weight: 700;
     }
 </style>
-<%--<style>
+<style>
     .Popup {
         width: 95%;
         height: 95%;
@@ -52,7 +52,7 @@
             height: 80vh;
             overflow: auto;
         }
-</style>--%>
+</style>
 <script>
     function GetCustomers() {
         $("#MainContent_UC_SalesOrderView_hdfCustomerId").val('');
@@ -528,7 +528,7 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
-                                              <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialID")%>' runat="server"  Visible="false"></asp:Label>
+                                            <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialID")%>' runat="server" Visible="false"></asp:Label>
                                             <asp:Label ID="lblSaleOrderItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItemID")%>' runat="server" Visible="false"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -884,7 +884,7 @@
                 <fieldset class="fieldset-border" runat="server">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Add Item</legend>
                     <div class="col-md-12">
-                      
+
                         <div class="col-md-6 col-sm-12">
                             <asp:HiddenField ID="hdfMaterialID" runat="server" />
                             <asp:HiddenField ID="hdfMaterialCode" runat="server" />
@@ -911,7 +911,7 @@
         <span id="PopupDialogueCreateSODelivery">Delivery</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="PopupDeliveryClose" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
-    <asp:Label ID="lblMessageCreateSODelivery" runat="server" Text="" CssClass="message"   />
+    <asp:Label ID="lblMessageCreateSODelivery" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="model-scroll">
 
@@ -932,7 +932,8 @@
                         <asp:Label ID="lblDeliveryAddress" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
                 </div>
-                <div class="col-md-3">
+
+                <%--                <div class="col-md-2">
                     <div class="col-md-12">
                         <label class="modal-label">Net Weight</label>
                         <asp:TextBox ID="txtBoxNetWeight" runat="server" CssClass="form-control"></asp:TextBox>
@@ -954,14 +955,9 @@
                         <asp1:CalendarExtender ID="cxCourierDate" runat="server" TargetControlID="txtBoxCourierDate" PopupButtonID="txtBoxCourierDate" Format="dd/MM/yyyy" />
                         <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderCourierDate" runat="server" TargetControlID="txtBoxCourierDate" WatermarkText="DD/MM/YYYY" />
                     </div>
-                    <div class="col-md-12">
-                        <label class="modal-label">Pickup Date</label>
-                        <asp:TextBox ID="txtBoxPickupDate" runat="server" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
-                        <asp1:CalendarExtender ID="cxPickupDate" runat="server" TargetControlID="txtBoxPickupDate" PopupButtonID="txtBoxPickupDate" Format="dd/MM/yyyy" />
-                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderPickupDate" runat="server" TargetControlID="txtBoxPickupDate" WatermarkText="DD/MM/YYYY" />
-                    </div>
-                </div>
-                <div class="col-md-4">
+
+                </div>--%>
+             <%--   <div class="col-md-3">
                     <div class="col-md-12">
                         <label>Courier Company Name</label>
                         <asp:TextBox ID="txtBoxCourierCompanyName" runat="server" CssClass="form-control"></asp:TextBox>
@@ -975,16 +971,13 @@
                         <asp:TextBox ID="txtBoxLRNo" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-12">
-                        <label class="modal-label">Transport Mode</label>
-                        <asp:DropDownList ID="ddlTransportMode" runat="server" CssClass="form-control" BorderColor="Silver">
-                            <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
-                            <asp:ListItem Value="BY ROAD">BY ROAD</asp:ListItem>
-                            <asp:ListItem Value="BY TRAIN">BY TRAIN</asp:ListItem>
-                            <asp:ListItem Value="BY AIR">BY AIR</asp:ListItem>
-                        </asp:DropDownList>
+                        <label class="modal-label">Pickup Date</label>
+                        <asp:TextBox ID="txtBoxPickupDate" runat="server" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
+                        <asp1:CalendarExtender ID="cxPickupDate" runat="server" TargetControlID="txtBoxPickupDate" PopupButtonID="txtBoxPickupDate" Format="dd/MM/yyyy" />
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderPickupDate" runat="server" TargetControlID="txtBoxPickupDate" WatermarkText="DD/MM/YYYY" />
                     </div>
-                </div>
-                <div class="col-md-4">
+                </div>--%>
+              <%--  <div class="col-md-3">
                     <div class="col-md-12">
                         <label class="modal-label">Transport Details</label>
                         <asp:TextBox ID="txtBoxTransportDetails" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
@@ -998,14 +991,26 @@
                         <asp:TextBox ID="txtBoxPackingRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
                     </div>
 
-                    <div class="col-sm-10" id="divEquipment" runat="server" visible="false">
+
+                </div>--%>
+                <div class="col-md-3">
+                   <%-- <div class="col-md-12">
+                        <label class="modal-label">Transport Mode</label>
+                        <asp:DropDownList ID="ddlTransportMode" runat="server" CssClass="form-control" BorderColor="Silver">
+                            <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
+                            <asp:ListItem Value="BY ROAD">BY ROAD</asp:ListItem>
+                            <asp:ListItem Value="BY TRAIN">BY TRAIN</asp:ListItem>
+                            <asp:ListItem Value="BY AIR">BY AIR</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>--%>
+                    <div class="col-sm-12" id="divEquipment" runat="server" visible="false">
                         <label>Equipment Serial No</label>
                         <asp:DropDownList ID="ddlEquipment" runat="server" CssClass="form-control" />
                     </div>
-                    <div class="col-md-12 col-sm-12">
+                  <%--  <div class="col-md-12 col-sm-12">
                         <label>Remarks</label>
                         <asp:TextBox ID="txtBoxRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
+                    </div>--%>
                 </div>
             </div>
 
@@ -1013,7 +1018,7 @@
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid"
-                        EmptyDataText="No Data Found" AllowPaging="true" PageSize="2" OnPageIndexChanging="gvDelivery_PageIndexChanging">
+                        EmptyDataText="No Data Found" AllowPaging="true" PageSize="10" OnPageIndexChanging="gvDelivery_PageIndexChanging">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
@@ -1024,7 +1029,7 @@
                             <asp:TemplateField HeaderText="Material">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                     <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialID")%>' runat="server" Visible="false"></asp:Label>
+                                    <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialID")%>' runat="server" Visible="false"></asp:Label>
                                     <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
                                     <asp:Label ID="lblSaleOrderItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderItemID")%>' runat="server" Visible="false"></asp:Label>
                                 </ItemTemplate>
