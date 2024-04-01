@@ -4,6 +4,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -70,9 +71,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 ibPDF_Click();
             }
-            else if (lbActions.ID == "lbDelivery")
+            else if (lbActions.ID == "lbUpdateShippingDetails")
             {
-                MPE_Delivery.Show(); 
+                MPE_Delivery.Show();
                 cxDispatchDate.StartDate = DateTime.Now;
                 txtBoxDispatchDate.Text = DateTime.Now.ToShortDateString();
 
@@ -82,6 +83,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 cxPickupDate.StartDate = DateTime.Now;
                 txtBoxPickupDate.Text = DateTime.Now.ToShortDateString();
 
+            }
+            else if (lbActions.ID == "lbPreviewInvoice")
+            {
+                PAttachedFile UploadedFile = new BDMS_SalesOrder().GetServiceInvoiceFile(SODeliveryID);
+                UploadedFile.FileName = "A.pdf";
+                //string Name = new FileManager().FileView(UploadedFile);
+                // Response.Redirect(Name + "?FileName=SaleOrder Invoice&Title=Pre-Sales » SaleOrder", false);
+                string FileName = PSession.User.UserID + DateTime.Now.ToShortDateString().Replace("/", "") + DateTime.Now.ToLongTimeString().Replace(":", "") + ".pdf";
+
+                var uploadPath = Server.MapPath("~/Backup");
+                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                File.WriteAllBytes(tempfilenameandlocation, UploadedFile.AttachedFile);
+                Response.Redirect("../PDF.aspx?FileName=" + FileName + "&Title=Pre-Sales » Quotation", false);
+
+                //Response.Redirect("../View/ViewFile.aspx?FileName=" + Name + "&Title= Sales » Invoice", false);
             }
         }
         public void fillViewSODelivery(long SaleOrderDeliveryID)
@@ -180,19 +196,19 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             lbGenerateInvoice.Visible = true;
             lbUpdateShippingDetails.Visible = true;
-            lbPreviewInvoiceDC.Visible = true;
+            lbPreviewInvoice.Visible = true;
             lbDowloadInvoice.Visible = true;
             if (SaleOrderDelivery.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_InvoicePending)
             {
-                if (SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderTypeID != (short)SaleOrderType.WarrantyOrder)
+                if (SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder)
                 {
-                    lbUpdateShippingDetails.Visible = false;
+                    lbGenerateInvoice.Visible = false; 
                 } 
                 else
                 {
-                    lbGenerateInvoice.Visible = false;
+                    lbUpdateShippingDetails.Visible = false;
                 }
-                lbPreviewInvoiceDC.Visible = false;
+                lbPreviewInvoice.Visible = false;
                 lbDowloadInvoice.Visible = false;
             }
             else if (SaleOrderDelivery.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Invoiced)
@@ -255,6 +271,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             MPE_Delivery.Show();
             try
             {
+                Shipping_Insert.SaleOrderDeliveryID = SODeliveryID;
                 Shipping_Insert.NetWeight = Convert.ToDecimal("0"+txtBoxNetWeight.Text);
                 Shipping_Insert.Remarks = txtBoxRemarks.Text.Trim();
                 Shipping_Insert.DispatchDate = Convert.ToDateTime(txtBoxDispatchDate.Text.Trim());

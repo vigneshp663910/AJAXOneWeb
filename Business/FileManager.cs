@@ -8,7 +8,8 @@ using System.Xml.Serialization;
 using System.Xml.Xsl; 
 using System.Data;
 using System.Data.OleDb;
- 
+using Properties;
+using Newtonsoft.Json;
 
 namespace Business
 {
@@ -131,6 +132,23 @@ namespace Business
                 //  throw new VPSException(ErrorCode.GENE, ex);
             }
         }
- 
+
+        public string FileView(object obj)
+        {
+            try
+            {
+                string endPoint = "File/FileView";
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, obj));
+                if (Result.Status == PApplication.Failure)
+                {
+                    new Exception(Result.Message); 
+                }
+                return  Convert.ToString(Result.Data);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

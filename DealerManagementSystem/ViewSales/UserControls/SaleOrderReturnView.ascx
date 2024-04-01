@@ -9,8 +9,11 @@
             <div class="dropdown btnactions" id="customerAction">
                 <div class="btn Approval">Actions</div>
                 <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                    <asp:LinkButton ID="lbSoReturnCancel" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmCancelSalesReturn();">Cancel</asp:LinkButton>
-                    <asp:LinkButton ID="lbSoReturnDeliveryCreate" runat="server" OnClick="lbActions_Click">Create Delivery</asp:LinkButton>
+                    <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmCancel();">Cancel</asp:LinkButton>
+                    <asp:LinkButton ID="lbApprove" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmApprove();">Approve</asp:LinkButton>
+                    <asp:LinkButton ID="lbCreateCreditNote" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmApprove();">Create Credit Note</asp:LinkButton>
+                    <asp:LinkButton ID="lbPreviewCreditNote" runat="server" OnClick="lbActions_Click">Preview Credit Note</asp:LinkButton>
+                    <asp:LinkButton ID="lbDowloadCreditNote" runat="server" OnClick="lbActions_Click">Dowload Credit Note</asp:LinkButton>
                 </div>
             </div>
         </div>
@@ -25,6 +28,18 @@
                         <asp:Label ID="lblSaleOrderReturnNumber" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-12">
+                        <label>Sales Return Date : </label>
+                        <asp:Label ID="lblSaleOrderReturnDate" runat="server" CssClass="label"></asp:Label>
+                    </div> 
+                    <div class="col-md-12">
+                        <label>Credit Note Number : </label>
+                        <asp:Label ID="lblCreditNoteNumber" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Credit Note Date : </label>
+                        <asp:Label ID="lblCreditNoteDate" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
                         <label>Dealer Office : </label>
                         <asp:Label ID="lblDealerOffice" runat="server" CssClass="label"></asp:Label>
                     </div>
@@ -34,10 +49,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="col-md-12">
-                        <label>Sales Return Date : </label>
-                        <asp:Label ID="lblSaleOrderReturnDate" runat="server" CssClass="label"></asp:Label>
-                    </div>
+                    
                     <div class="col-md-12">
                         <label>Customer : </label>
                         <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
@@ -63,7 +75,7 @@
                 </div>
             </div>
         </fieldset>
-        <asp:Label ID="lblMessageSoReturn" runat="server" Text="" CssClass="message" Visible="false" />
+        <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
         <asp1:TabContainer ID="tbpSoReturn" runat="server" ToolTip="SO Return Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
             <asp1:TabPanel ID="tpnlPoReturnItem" runat="server" HeaderText="Sales Return Item" Font-Bold="True" ToolTip="">
                 <ContentTemplate>
@@ -175,11 +187,6 @@
                                                 <asp:Label ID="lblTaxableAmount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.TaxableValue","{0:n}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
-                                            <ItemTemplate>
-                                                <asp:LinkButton ID="lnkBtnDeleteSalesReturnItem" runat="server" OnClick="lnkBtnDeleteSalesReturnItem_Click" OnClientClick="return ConfirmDeleteSalesReturnItem();"> <i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
                                     </Columns>
                                     <AlternatingRowStyle BackColor="#ffffff" />
                                     <FooterStyle ForeColor="White" />
@@ -197,16 +204,24 @@
 </asp:Panel>
 
 <script type="text/javascript">
-    function ConfirmCancelSalesReturn() {
-        var x = confirm("Are you sure you want to cancel this Sales Return?");
+    function ConfirmCancel() {
+        var x = confirm("Are you sure you want to Cancel?");
         if (x) {
             return true;
         }
         else
             return false;
     }
-    function ConfirmDeleteSalesReturnItem() {
-        var x = confirm("Are you sure you want to Delete?");
+    function ConfirmDeleteItem() {
+        var x = confirm("Are you sure you want to Delete Item?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmApprove() {
+        var x = confirm("Are you sure you want to Approve?");
         if (x) {
             return true;
         }

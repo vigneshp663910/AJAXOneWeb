@@ -74,9 +74,8 @@ namespace DealerManagementSystem.ViewSales
                 PageCount = 0;
                 PageIndex = 1;
                 txtSoReturnDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
-                txtSoReturnDateTo.Text = DateTime.Now.ToShortDateString();
-                new DDLBind(ddlSoReturnStatus, new BSalesOrderReturn().GetSaleOrderReturnStatus(null, null), "Status", "StatusID");
-
+                txtSoReturnDateTo.Text = DateTime.Now.ToShortDateString(); 
+                new DDLBind(ddlReturnStatus, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.SaleOrderReturn), "Status", "StatusID");
                 if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
                 {
                     ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
@@ -163,7 +162,7 @@ namespace DealerManagementSystem.ViewSales
 
             CustomerCode = string.IsNullOrEmpty(txtCustomer.Text.Trim()) ? null : txtCustomer.Text.Trim();
             SaleOrderReturnNo = txtSoReturnNumber.Text.Trim();
-            SaleOrderReturnStatusID = ddlSoReturnStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSoReturnStatus.SelectedValue);
+            SaleOrderReturnStatusID = ddlReturnStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReturnStatus.SelectedValue);
         }
         protected void ibtnArrowLeftSoReturn_Click(object sender, ImageClickEventArgs e)
         {

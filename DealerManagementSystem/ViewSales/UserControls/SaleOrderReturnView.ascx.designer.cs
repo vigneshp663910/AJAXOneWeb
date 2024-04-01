@@ -24,22 +24,49 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Panel PnlSaleOrderReturnView;
 
         /// <summary>
-        /// lbSoReturnCancel control.
+        /// lbCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbSoReturnCancel;
+        protected global::System.Web.UI.WebControls.LinkButton lbCancel;
 
         /// <summary>
-        /// lbSoReturnDeliveryCreate control.
+        /// lbApprove control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbSoReturnDeliveryCreate;
+        protected global::System.Web.UI.WebControls.LinkButton lbApprove;
+
+        /// <summary>
+        /// lbCreateCreditNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbCreateCreditNote;
+
+        /// <summary>
+        /// lbPreviewCreditNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbPreviewCreditNote;
+
+        /// <summary>
+        /// lbDowloadCreditNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbDowloadCreditNote;
 
         /// <summary>
         /// divPoReturnView control.
@@ -60,6 +87,33 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblSaleOrderReturnNumber;
 
         /// <summary>
+        /// lblSaleOrderReturnDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSaleOrderReturnDate;
+
+        /// <summary>
+        /// lblCreditNoteNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreditNoteNumber;
+
+        /// <summary>
+        /// lblCreditNoteDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCreditNoteDate;
+
+        /// <summary>
         /// lblDealerOffice control.
         /// </summary>
         /// <remarks>
@@ -76,15 +130,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblContactPerson;
-
-        /// <summary>
-        /// lblSaleOrderReturnDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSaleOrderReturnDate;
 
         /// <summary>
         /// lblCustomer control.
@@ -132,13 +177,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblDivision;
 
         /// <summary>
-        /// lblMessageSoReturn control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessageSoReturn;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
         /// tbpSoReturn control.

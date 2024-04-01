@@ -15,7 +15,7 @@
                 <asp:LinkButton ID="lbDowloadDC" runat="server" OnClick="lbActions_Click">Dowload DC</asp:LinkButton>
                 <asp:LinkButton ID="lbGenerateInvoice" runat="server" OnClick="lbActions_Click">Generate Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbUpdateShippingDetails" runat="server" OnClick="lbActions_Click">Update Shipping Details</asp:LinkButton>
-                <asp:LinkButton ID="lbPreviewInvoiceDC" runat="server" OnClick="lbActions_Click">Preview Invoice /DC</asp:LinkButton>
+                <asp:LinkButton ID="lbPreviewInvoice" runat="server" OnClick="lbActions_Click">Preview Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbDowloadInvoice" runat="server" OnClick="lbActions_Click">Dowload Invoice</asp:LinkButton>
 
             </div>

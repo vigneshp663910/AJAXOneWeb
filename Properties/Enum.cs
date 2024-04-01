@@ -829,7 +829,8 @@ namespace Properties
         StockTransferOrderDelivery = 8,
         StockTransferOrderGrRestricted = 9,
         PostingInventoryStatus = 10,
-        SaleOrderDelivery = 11
+        SaleOrderDelivery = 11,
+        SaleOrderReturn = 12,
     }
     public enum AjaxOneStatus
     {
@@ -877,6 +878,10 @@ namespace Properties
         SaleOrderDelivery_InvoicePending = 42,
         SaleOrderDelivery_Invoiced = 43,
         SaleOrderDelivery_Shipped = 44,
+        SaleOrderReturn_ApprovalPending = 45,
+        SaleOrderReturn_Approved = 46,
+        SaleOrderReturn_Cancelled = 47,
+        SaleOrderReturn_CreditNote = 48,
     }
     public enum ProcurementStatus
     {

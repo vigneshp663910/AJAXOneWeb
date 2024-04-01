@@ -90,8 +90,8 @@ namespace DealerManagementSystem.ViewSales
                 txtDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtDateTo.Text = DateTime.Now.ToShortDateString();
 
-                 
-                    fillDealer(); 
+
+                fillDealer();
                 int? CDealerID = Convert.ToInt32(ddlDealer.SelectedValue);
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");

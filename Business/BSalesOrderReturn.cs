@@ -23,12 +23,7 @@ namespace Business
             {
                 new FileLogger().LogMessageService("BSalesOrderReturn", "provider : " + e1.Message, null);
             }
-        }
-        public List<PSaleOrderReturnStatus> GetSaleOrderReturnStatus(int? SaleOrderReturnStatusID, string SaleOrderReturnStatus)
-        {
-            string endPoint = "SaleOrderReturn/SaleOrderReturnStatus?SaleOrderReturnStatusID=" + SaleOrderReturnStatusID + "&SaleOrderReturnStatus=" + SaleOrderReturnStatus;
-            return JsonConvert.DeserializeObject<List<PSaleOrderReturnStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }
+        } 
         //public PApiResult GetSaleOrderDeliveryForSoReturnCreation(int DealerID, int DealerOfficeID, long CustomerCode, int? DivisionID, string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT)
         //{
         //    string endPoint = "SaleOrderReturn/SaleOrderDeliveryForSoReturnCreation?DealerID=" + DealerID + "&CustomerCode=" + CustomerCode
@@ -60,5 +55,12 @@ namespace Business
             string endPoint = "SaleOrderReturn/SaleOrderReturnByID?SaleOrderReturnID=" + SaleOrderReturnID;
             return JsonConvert.DeserializeObject<PSaleOrderReturn>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public PApiResult UpdateSaleOrderReturnStatus(long SaleOrderReturnID,int StatusID)
+        {
+            string endPoint = "SaleOrderReturn/UpdateSaleOrderReturnStatus?SaleOrderReturnID=" + SaleOrderReturnID + "&StatusID=" + StatusID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+         
     }
 }

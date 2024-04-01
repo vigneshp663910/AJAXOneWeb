@@ -12,106 +12,127 @@ using System.Web.UI.WebControls;
 namespace DealerManagementSystem.ViewSales.UserControls
 {
     public partial class SaleOrderReturnView : System.Web.UI.UserControl
-    {
-        public PSaleOrderReturn SoReturn
+    { 
+        public int StatusID
         {
             get
             {
-                if (ViewState["PSaleOrderReturn"] == null)
+                if (ViewState["StatusID"] == null)
                 {
-                    ViewState["PSaleOrderReturn"] = new PSaleOrderReturn();
+                    ViewState["StatusID"] = 0;
                 }
-                return (PSaleOrderReturn)ViewState["PSaleOrderReturn"];
+                return (int)ViewState["StatusID"];
             }
             set
             {
-                ViewState["PSaleOrderReturn"] = value;
+                ViewState["StatusID"] = value;
             }
         }
+        public long SaleOrderReturnID
+        {
+            get
+            {
+                if (ViewState["SaleOrderReturnID"] == null)
+                {
+                    ViewState["SaleOrderReturnID"] = 0;
+                }
+                return (int)ViewState["SaleOrderReturnID"];
+            }
+            set
+            {
+                ViewState["SaleOrderReturnID"] = value;
+            }
+        } 
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessageSoReturn.Text = "";
+            lblMessage.Text = "";
         }
-        public void fillViewSoReturn(long SaleOrderReturnID)
+        public void fillViewSoReturn(long SaleOrderReturnID_)
         {
-            SoReturn = new BSalesOrderReturn().GetSaleOrderReturnByID(SaleOrderReturnID);
-
+            PSaleOrderReturn SoReturn = new BSalesOrderReturn().GetSaleOrderReturnByID(SaleOrderReturnID_);
+            SaleOrderReturnID = SaleOrderReturnID_;
+            StatusID = SoReturn.ReturnStatus.StatusID;
             lblSaleOrderReturnNumber.Text = SoReturn.SaleOrderReturnNumber;
-            lblSaleOrderReturnDate.Text = SoReturn.SaleOrderReturnDate.ToString();
+            lblSaleOrderReturnDate.Text = SoReturn.SaleOrderReturnDate.ToShortDateString();
+            lblCreditNoteNumber.Text = SoReturn.CreditNoteNumber;
+            lblCreditNoteDate.Text = SoReturn.CreditNoteDate == null ? "" : ((DateTime)SoReturn.CreditNoteDate).ToShortDateString();
+
             lblSODealer.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerName;
             //lblDealerOffice.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerName;
             lblDealerOffice.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerOffice.OfficeName;
             lblContactPerson.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.ContactPerson;
             lblCustomer.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.CustomerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Customer.CustomerName;
             lblContactPersonNumber.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.Mobile;
-            lblSaleOrderReturnStatus.Text = SoReturn.SaleOrderReturnStatus.Status;
-            lblDivision.Text = SoReturn.SaleOrderDelivery.SaleOrder.Division.DivisionCode;
-
+            lblSaleOrderReturnStatus.Text = SoReturn.ReturnStatus.Status;
+            lblDivision.Text = SoReturn.SaleOrderDelivery.SaleOrder.Division.DivisionCode; 
             gvSoReturnItem.DataSource = SoReturn.SaleOrderReturnItems;
-            gvSoReturnItem.DataBind();
-
+            gvSoReturnItem.DataBind(); 
             ActionControlMange();
         }
         void ActionControlMange()
         {
-            lbSoReturnCancel.Visible = true;
-            lbSoReturnDeliveryCreate.Visible = true;
-            if (SoReturn.SaleOrderReturnStatus.StatusID != 1)
+            lbCancel.Visible = true;
+            lbApprove.Visible = true;
+            lbCreateCreditNote.Visible = true;
+            lbPreviewCreditNote.Visible = true;
+            lbDowloadCreditNote.Visible = true;
+            if (StatusID == (short)AjaxOneStatus.SaleOrderReturn_ApprovalPending)
             {
-                lbSoReturnCancel.Visible = false;
-                lbSoReturnDeliveryCreate.Visible = false;
+                lbCreateCreditNote.Visible = false;
+                lbPreviewCreditNote.Visible = false;
+                lbDowloadCreditNote.Visible = false;
+            }
+            else if (StatusID == (short)AjaxOneStatus.SaleOrderReturn_Approved || StatusID == (short)AjaxOneStatus.SaleOrderReturn_Cancelled)
+            {
+                lbCancel.Visible = false;
+                lbApprove.Visible = false;
+                lbPreviewCreditNote.Visible = false;
+                lbDowloadCreditNote.Visible = false;
+            }
+            else if (StatusID == (short)AjaxOneStatus.SaleOrderReturn_Approved)
+            {
+                lbCancel.Visible = false;
+                lbApprove.Visible = false;
+                lbPreviewCreditNote.Visible = false;
+                lbDowloadCreditNote.Visible = false;
+            }
+            else if (StatusID == (short)AjaxOneStatus.SaleOrderReturn_CreditNote)
+            {
+                lbCancel.Visible = false;
+                lbApprove.Visible = false;
+                lbCreateCreditNote.Visible = false;
             }
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Cancel")
+            if (lbActions.ID == "lbCancel")
             {
-                CancelSalesReturnOrder();
+                UpdateSaleOrderReturnStatus((short)AjaxOneStatus.SaleOrderReturn_Cancelled);
+            }
+            else if (lbActions.ID == "lbApprove")
+            {
+                UpdateSaleOrderReturnStatus((short)AjaxOneStatus.SaleOrderReturn_Approved);
+            }
+            else if (lbActions.ID == "lbCreateCreditNote")
+            {
+                UpdateSaleOrderReturnStatus((short)AjaxOneStatus.SaleOrderReturn_CreditNote);
             }
         }
-        protected void CancelSalesReturnOrder()
-        {
-            long SaleOrderReturnID = SoReturn.SaleOrderReturnID;
+        protected void UpdateSaleOrderReturnStatus(int StatusID)
+        { 
             PSaleOrderReturn SaleOrderReturn = new PSaleOrderReturn();
             SaleOrderReturn.SaleOrderReturnID = SaleOrderReturnID;
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrderReturn/CancelSaleOrderReturn?SaleOrderReturnID=" + SoReturn.SaleOrderReturnID));
-            
+            PApiResult Result = new BSalesOrderReturn().UpdateSaleOrderReturnStatus(SaleOrderReturnID, StatusID);            
             if (Result.Status == PApplication.Failure)
             {
-                lblMessageSoReturn.Text = Result.Message;
-                lblMessageSoReturn.ForeColor = Color.Red;
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Red;
                 return;
             }
-            lblMessageSoReturn.Text = Result.Message;
-            lblMessageSoReturn.Visible = true;
-            lblMessageSoReturn.ForeColor = Color.Green;
-            fillViewSoReturn(SoReturn.SaleOrderReturnID);
-        }
-        protected void lnkBtnDeleteSalesReturnItem_Click(object sender, EventArgs e)
-        {
-            LinkButton lbActions = ((LinkButton)sender);
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-
-            LinkButton lnkBtnDelete = (LinkButton)gvRow.FindControl("lnkBtnDeleteSalesReturnItem");
-
-            //lblMessageSoReturn.Visible = true;
-
-            //long SaleOrderReturnID = SoReturn.SaleOrderReturnID;
-            //PSaleOrderReturn SaleOrderReturn = new PSaleOrderReturn();
-            //SaleOrderReturn.SaleOrderReturnID = SaleOrderReturnID;
-            //PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrderReturn/CancelSaleOrderReturn?SaleOrderReturnID=" + SoReturn.SaleOrderReturnID));
-
-            //if (Result.Status == PApplication.Failure)
-            //{
-            //    lblMessageSoReturn.Text = Result.Message;
-            //    lblMessageSoReturn.ForeColor = Color.Red;
-            //    return;
-            //}
-            //lblMessageSoReturn.Text = Result.Message;
-            //lblMessageSoReturn.Visible = true;
-            //lblMessageSoReturn.ForeColor = Color.Green;
-            //fillViewSoReturn(SoReturn.SaleOrderReturnID);
-        }
+            lblMessage.Text = Result.Message;
+            lblMessage.ForeColor = Color.Green;
+            fillViewSoReturn(SaleOrderReturnID);
+        } 
     }
 }

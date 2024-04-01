@@ -123,7 +123,7 @@
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Sales Return Status</label>
-                            <asp:DropDownList ID="ddlSoReturnStatus" runat="server" CssClass="form-control" />
+                            <asp:DropDownList ID="ddlReturnStatus" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
@@ -206,7 +206,7 @@
                                 <asp:TemplateField HeaderText="Sales Return Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblSoReturnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderReturnStatus.Status")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblSoReturnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ReturnStatus.Status")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

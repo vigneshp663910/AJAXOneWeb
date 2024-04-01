@@ -355,10 +355,16 @@ namespace Properties
         public long SaleOrderReturnID { get; set; }
         public string SaleOrderReturnNumber { get; set; }
         public DateTime SaleOrderReturnDate { get; set; }
+        public string CreditNoteNumber { get; set; }
+        public DateTime? CreditNoteDate { get; set; }
+        public PUser ApprovedBy { get; set; }
+        public DateTime? ApprovedOn { get; set; }
+        public PUser CancelledBy { get; set; }
+        public DateTime? CancelledOn { get; set; }
         public PSaleOrderDelivery SaleOrderDelivery { get; set; } 
         public PSaleOrderReturnItem SaleOrderReturnItem { get; set; }
         public List<PSaleOrderReturnItem> SaleOrderReturnItems { get; set; }
-        public PSaleOrderReturnStatus SaleOrderReturnStatus { get; set; }
+        public PAjaxOneStatus ReturnStatus { get; set; }
     }
     [Serializable]
     public class PSaleOrderReturnItem
@@ -374,12 +380,7 @@ namespace Properties
         public int StatusID { get; set; }
         public string Status { get; set; }
     }
-    [Serializable]
-    public class PSaleOrderReturnStatus
-    {
-        public int StatusID { get; set; }
-        public string Status { get; set; }
-    }
+    
     [Serializable]
     public class PSaleOrder_Insert
     {
@@ -475,6 +476,7 @@ namespace Properties
         public decimal IGSTValue { get; set; } 
         public long? EquipmentHeaderID { get; set; } 
     }
+    [Serializable]
     public class PSaleOrderDeliveryShipping
     {
         public long SaleOrderDeliveryID { get; set; }
