@@ -203,18 +203,10 @@ namespace DealerManagementSystem.ViewSales
             UC_SaleOrderReturnCreate.FillMaster();
         }
         private void Clear()
-        {
-            divCreateSalesReturn.Visible = true;
-            divSave.Visible = false;
+        { 
             UC_SaleOrderReturnCreate.Clear();
         }
-        protected void btnCreateSalesReturn_Click(object sender, EventArgs e)
-        {
-            lblMessageSoReturnCreate.Text = "";
-            UC_SaleOrderReturnCreate.ReadSoDelivery();
-            divSave.Visible = true;
-            divCreateSalesReturn.Visible = false;
-        }
+      
         protected void btnViewSoReturn_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
@@ -224,36 +216,7 @@ namespace DealerManagementSystem.ViewSales
             divSoReturnDetailsView.Visible = true;
             UC_SaleOrderReturnView.fillViewSoReturn(Convert.ToInt64(lblPurchaseOrderReturnID.Text));
         }
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            lblMessageSoReturnCreate.Visible = true;
-            lblMessageSoReturnCreate.ForeColor = Color.Red;
-            string message = UC_SaleOrderReturnCreate.RValidateReturnDelivery();
-            if (!string.IsNullOrEmpty(message))
-            {
-                lblMessageSoReturnCreate.Text = message;
-                return;
-            }
-
-            List<PSaleOrderReturnItem_Insert> pSoReturnItem = UC_SaleOrderReturnCreate.ReadSoDeliveryItem();
-            string result = new BAPI().ApiPut("SaleOrderReturn/SaleOrderReturnCreate", pSoReturnItem);
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
-            if (Result.Status == PApplication.Failure)
-            {
-                lblMessageSoReturnCreate.Text = Result.Message;
-                return;
-            }
-
-            divList.Visible = false;
-            divSoReturnDetailsView.Visible = true;
-            divSaleOrderReturnCreate.Visible = false;
-            Label lblMessageSoReturn = (Label)UC_SaleOrderReturnView.FindControl("lblMessageSoReturn");
-            lblMessageSoReturn.Text = Result.Message;
-            lblMessageSoReturn.Visible = true;
-            lblMessageSoReturn.ForeColor = Color.Green;
-            UC_SaleOrderReturnView.fillViewSoReturn(Convert.ToInt64(Result.Data));
-        }
+       
 
         [WebMethod]
         public static string GetCustomer(string CustS)

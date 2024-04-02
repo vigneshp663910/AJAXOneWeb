@@ -240,13 +240,7 @@
             <div class="col-md-12">
                 <%--<fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>--%>
-                <UC:UC_SaleOrderReturnCreate ID="UC_SaleOrderReturnCreate" runat="server"></UC:UC_SaleOrderReturnCreate>
-                <div class="col-md-12 text-center" id="divCreateSalesReturn" runat="server">
-                    <asp:Button ID="btnCreateSalesReturn" runat="server" Text="Create Sales Return" CssClass="btn Search" OnClick="btnCreateSalesReturn_Click" Width="150px" />
-                </div>
-                <div class="col-md-12 text-center" id="divSave" runat="server" visible="false">
-                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" Width="100px" />
-                </div>
+                <UC:UC_SaleOrderReturnCreate ID="UC_SaleOrderReturnCreate" runat="server"></UC:UC_SaleOrderReturnCreate> 
                 <%--</fieldset>--%>
             </div>
         </div>

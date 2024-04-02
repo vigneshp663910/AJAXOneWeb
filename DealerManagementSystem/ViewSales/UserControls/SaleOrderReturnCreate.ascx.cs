@@ -28,22 +28,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 ViewState["SoDeliveryList"] = value;
             }
-        }
-        //private List<string> gvSoDeliverySelected
-        //{
-        //    get
-        //    {
-        //        if (ViewState["gvSoDeliverySelected"] == null)
-        //        {
-        //            ViewState["gvSoDeliverySelected"] = new List<string>();
-        //        }
-        //        return (List<string>)ViewState["gvSoDeliverySelected"];
-        //    }
-        //    set
-        //    {
-        //        ViewState["gvSoDeliverySelected"] = value;
-        //    }
-        //}
+        } 
         private List<long> gvSoDeliverySelected
         {
             get
@@ -58,22 +43,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 ViewState["gvSoDeliverySelected"] = value;
             }
-        }
-        //private List<PSaleOrderDelivery> SoDeliveryItemList
-        //{
-        //    get
-        //    {
-        //        if (ViewState["SoDeliveryItemList"] == null)
-        //        {
-        //            ViewState["SoDeliveryItemList"] = new List<PSaleOrderDelivery>();
-        //        }
-        //        return (List<PSaleOrderDelivery>)ViewState["SoDeliveryItemList"];
-        //    }
-        //    set
-        //    {
-        //        ViewState["SoDeliveryItemList"] = value;
-        //    }
-        //}
+        } 
         private DataTable SoDeliveryItemList
         {
             get
@@ -89,12 +59,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 ViewState["SoDeliveryItemList"] = value;
             }
         }
+         
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblMessageSoReturnCreate.Text = "";
         }
         public void Clear()
         {
+            divInvoiceSearch.Visible = true;
+
             gvSoDelivery.DataSource = null;
             gvSoDelivery.DataBind();
             gvSoDeliveryItem.DataSource = null;
@@ -109,52 +82,38 @@ namespace DealerManagementSystem.ViewSales.UserControls
             divRemarks.Visible = false;
         }
         public void FillMaster()
-        {
+        {  
             Clear();
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            lblMessageSoReturnCreate.Visible = true;
+            lblMessageSoReturnCreate.ForeColor = Color.Red;
             gvSoDelivery.DataSource = null;
-            gvSoDelivery.DataBind();
-            string message = Validation();
-            if (!string.IsNullOrEmpty(message))
+            gvSoDelivery.DataBind(); 
+            if (string.IsNullOrEmpty(txtInvoiceNo.Text))
             {
-                lblMessageSoReturnCreate.Text = message;
-                lblMessageSoReturnCreate.ForeColor = Color.Red;
+                txtInvoiceNo.BorderColor = Color.Red;
+                lblMessageSoReturnCreate.Text = "Please enter Invoice Number.";
                 return;
-            }
-            ViewState["InvoiceNumber"] = txtInvoiceNo.Text.Trim();
-            PApiResult Result = new BSalesOrderReturn().GetSaleOrderDeliveryForSoReturnCreation(Convert.ToString(ViewState["InvoiceNumber"]));
-            
+            } 
+            PApiResult Result = new BSalesOrderReturn().GetSaleOrderDeliveryForSoReturnCreation(txtInvoiceNo.Text.Trim()); 
             if (Result.Status == PApplication.Failure)
             {
-                lblMessageSoReturnCreate.Text = Result.Message;
-                lblMessageSoReturnCreate.ForeColor = Color.Red;
+                lblMessageSoReturnCreate.Text = Result.Message; 
                 return;
             }
             SoDeliveryList = JsonConvert.DeserializeObject<List<PSaleOrderDelivery>>(JsonConvert.SerializeObject(Result.Data));
-
+            if (SoDeliveryList.Count ==0)
+            {
+                lblMessageSoReturnCreate.Text = "Please verify Invoice"; 
+                return;
+            }
             lblDealer.Text = SoDeliveryList[0].SaleOrder.Dealer.DealerCode + " " + SoDeliveryList[0].SaleOrder.Dealer.DealerName;
             lblDealerOffice.Text = SoDeliveryList[0].SaleOrder.Dealer.DealerOffice.OfficeName;
             lblCustomer.Text = SoDeliveryList[0].SaleOrder.Customer.CustomerCode + " " + SoDeliveryList[0].SaleOrder.Customer.CustomerName;
-            lblInvoiceNumberDate.Text = SoDeliveryList[0].InvoiceNumber + " " + SoDeliveryList[0].InvoiceDate.ToString();
-
-            divInvoiceDetails.Visible = true;
-            divRemarks.Visible = true;
-            gvSoDelivery.DataSource = SoDeliveryList;
-            gvSoDelivery.DataBind();
+            lblInvoiceNumberDate.Text = SoDeliveryList[0].InvoiceNumber + " " + SoDeliveryList[0].InvoiceDate.ToString(); 
             fillSoDelivery();
-        }
-        public string Validation()
-        {
-           if (string.IsNullOrEmpty(txtInvoiceNo.Text))
-            {
-                txtInvoiceNo.BorderColor = Color.Red;
-                return "Please enter Invoice Number.";
-            }
-            return "";
-        }
+        } 
         public void fillSoDelivery()
         {
             //Clear();
@@ -162,111 +121,33 @@ namespace DealerManagementSystem.ViewSales.UserControls
             gvSoDelivery.DataBind();
             foreach (GridViewRow row in gvSoDelivery.Rows)
             {
-                CheckBox cbInvoice = (CheckBox)row.FindControl("cbSeleccbInvoicetChild");
+                CheckBox cbInvoice = (CheckBox)row.FindControl("cbInvoice");
                 Label lblSaleOrderDeliveryItemID = (Label)row.FindControl("lblSaleOrderDeliveryItemID");
                 if (gvSoDeliverySelected.Contains(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text)))
                 {
                     cbInvoice.Checked = true;
                 }
-            }
-            
+            } 
             if (SoDeliveryList.Count == 0)
             {
                 lblRowCountSoDelivery.Visible = false;
                 divSoDelivery.Visible = false;
+                divInvoiceSearch.Visible = true;
+                divInvoiceDetails.Visible = false;
             }
             else
             {
                 lblRowCountSoDelivery.Visible = true;
                 lblRowCountSoDelivery.Text = (((gvSoDelivery.PageIndex) * gvSoDelivery.PageSize) + 1) + " - " + (((gvSoDelivery.PageIndex) * gvSoDelivery.PageSize) + gvSoDelivery.Rows.Count) + " of " + SoDeliveryList.Count;
                 divSoDelivery.Visible = true;
+                divInvoiceSearch.Visible = false;
+                divInvoiceDetails.Visible = true;
             }
-        }
-        public List<PSaleOrderDelivery> ReadSoDelivery()
-        {
-            List<PSaleOrderDelivery> pSoDeliveryItem = new List<PSaleOrderDelivery>();
-            selectedGv();
-            if (gvSoDeliverySelected.Count == 0)
-            {
-                lblMessageSoReturnCreate.Visible = true;
-                lblMessageSoReturnCreate.Text = "Please select the Invoice.";
-                lblMessageSoReturnCreate.ForeColor = Color.Red;
-            }
-            foreach (int Item in gvSoDeliverySelected)
-            {
-                foreach (PSaleOrderDelivery SoDelivery in SoDeliveryList)
-                {
-                    if (Item == SoDelivery.SaleOrderDeliveryItem.SaleOrderDeliveryItemID)
-                    {
-                        SoDeliveryItemList = new BSalesOrderReturn().GetSaleOrderDeliveryItemForSoReturnCreation(SoDelivery.SaleOrderDeliveryItem.SaleOrderDeliveryItemID);
-
-                        for (int i = 0; i < SoDeliveryItemList.Rows.Count; i++)
-                        {
-                            pSoDeliveryItem.Add(new PSaleOrderDelivery()
-                            {
-                                SaleOrderDeliveryID = Convert.ToInt64(SoDeliveryItemList.Rows[i]["SaleOrderDeliveryID"]),
-                                InvoiceNumber = SoDeliveryItemList.Rows[i]["InvoiceNumber"].ToString().Trim(),
-                                InvoiceDate = Convert.ToDateTime(SoDeliveryItemList.Rows[i]["InvoiceDate"]),
-                                SaleOrderDeliveryItem = new PSaleOrderDeliveryItem()
-                                {
-                                    SaleOrderDeliveryItemID = Convert.ToInt64(SoDeliveryItemList.Rows[i]["SaleOrderDeliveryItemID"]),
-                                    SaleOrderItem = new PSaleOrderItem()
-                                    {
-                                        Material = new PDMS_Material()
-                                        {
-                                            MaterialID = Convert.ToInt32(SoDeliveryItemList.Rows[i]["MaterialID"]),
-                                            MaterialCode = SoDeliveryItemList.Rows[i]["MaterialCode"].ToString().Trim(),
-                                            MaterialDescription = SoDeliveryItemList.Rows[i]["MaterialDescription"].ToString().Trim(),
-                                            BaseUnit = SoDeliveryItemList.Rows[i]["BaseUnit"].ToString().Trim(),
-                                        },
-                                    },
-                                    Qty = Convert.ToDecimal(SoDeliveryItemList.Rows[i]["Qty"]),
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-
-            if (pSoDeliveryItem != null)
-            {
-                if (pSoDeliveryItem.Count > 0)
-                {
-                    gvSoDeliveryItem.DataSource = pSoDeliveryItem;
-                    gvSoDeliveryItem.DataBind();
-                    divSoDelivery.Visible = false;
-                    divSoDeliveryItem.Visible = true;
-                }
-            }
-            return pSoDeliveryItem;
-        }
-        void selectedGv()
-        {
-            foreach (GridViewRow row in gvSoDelivery.Rows)
-            {
-                CheckBox cbInvoice = (CheckBox)row.FindControl("cbInvoice");
-                Label lblSaleOrderDeliveryItemID = (Label)row.FindControl("lblSaleOrderDeliveryItemID");
-
-                if (cbInvoice.Checked)
-                {
-                    if (!gvSoDeliverySelected.Contains(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text)))
-                    {
-                        gvSoDeliverySelected.Add(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text));
-                    }
-                }
-                else
-                {
-                    if (gvSoDeliverySelected.Contains(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text)))
-                    {
-                        gvSoDeliverySelected.Remove(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text));
-                    }
-                }
-            }
-        }
+        }        
+        
         protected void gvSoDelivery_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvSoDelivery.PageIndex = e.NewPageIndex;
-            selectedGv();
+            gvSoDelivery.PageIndex = e.NewPageIndex; 
             fillSoDelivery();
         }
         public string RValidateReturnDelivery()
@@ -345,16 +226,105 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected void cbInvoice_CheckedChanged(object sender, EventArgs e)
         {
             bool ChkHeader = true;
-            CheckBox cbInvoiceH = (CheckBox)gvSoDelivery.HeaderRow.FindControl("cbInvoiceH");
+           
+
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent; 
+            Label lblSaleOrderDeliveryItemID = (Label)gvRow.FindControl("lblSaleOrderDeliveryItemID");
+            CheckBox cbInvoice = (CheckBox)gvRow.FindControl("cbInvoice");
+            if (cbInvoice.Checked)
+            {
+                if (!gvSoDeliverySelected.Contains(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text)))
+                {
+                    gvSoDeliverySelected.Add(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text));
+                }
+            }
+            else
+            {
+                if (gvSoDeliverySelected.Contains(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text)))
+                {
+                    gvSoDeliverySelected.Remove(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text));
+                }
+            }
+
             foreach (GridViewRow row in gvSoDelivery.Rows)
             {
-                CheckBox cbInvoice = row.FindControl("cbInvoice") as CheckBox;
+                cbInvoice = row.FindControl("cbInvoice") as CheckBox;
                 if (cbInvoice.Checked == false)
                 {
                     ChkHeader = false;
                 }
             }
+            CheckBox cbInvoiceH = (CheckBox)gvSoDelivery.HeaderRow.FindControl("cbInvoiceH");
             cbInvoiceH.Checked = ChkHeader;
+        }
+
+        protected void btnCreateSalesReturn_Click(object sender, EventArgs e)
+        {
+            List<PSaleOrderDelivery> pSoDeliveryItem = new List<PSaleOrderDelivery>(); 
+            if (gvSoDeliverySelected.Count == 0)
+            {
+                lblMessageSoReturnCreate.Visible = true;
+                lblMessageSoReturnCreate.Text = "Please select the Invoice.";
+                lblMessageSoReturnCreate.ForeColor = Color.Red;
+            }
+            foreach (long Item in gvSoDeliverySelected)
+            {
+                foreach (PSaleOrderDelivery SoDelivery in SoDeliveryList)
+                {
+                    if (Item == SoDelivery.SaleOrderDeliveryItem.SaleOrderDeliveryItemID)
+                    {
+                        pSoDeliveryItem.Add(new PSaleOrderDelivery()
+                        {
+                            SaleOrderDeliveryID = SoDelivery.SaleOrderDeliveryID,
+                            InvoiceNumber = SoDelivery.InvoiceNumber,
+                            InvoiceDate = SoDelivery.InvoiceDate,
+                            SaleOrderDeliveryItem = new PSaleOrderDeliveryItem()
+                            {
+                                SaleOrderDeliveryItemID = SoDelivery.SaleOrderDeliveryItem.SaleOrderDeliveryItemID,
+                                Material = new PDMS_Material()
+                                {
+                                    MaterialID = SoDelivery.SaleOrderDeliveryItem.Material.MaterialID,
+                                    MaterialCode = SoDelivery.SaleOrderDeliveryItem.Material.MaterialCode,
+                                    MaterialDescription = SoDelivery.SaleOrderDeliveryItem.Material.MaterialDescription,
+                                    BaseUnit = SoDelivery.SaleOrderDeliveryItem.Material.BaseUnit,
+                                }, 
+                                Qty = SoDelivery.SaleOrderDeliveryItem.Qty,
+                            }
+                        });
+                    }
+                }
+            } 
+          
+            if (pSoDeliveryItem.Count > 0)
+            {
+                gvSoDeliveryItem.DataSource = pSoDeliveryItem;
+                gvSoDeliveryItem.DataBind();
+                divSoDelivery.Visible = false;
+                divSoDeliveryItem.Visible = true;
+            }
+        }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            lblMessageSoReturnCreate.Visible = true;
+            lblMessageSoReturnCreate.ForeColor = Color.Red;
+            string message = RValidateReturnDelivery();
+            if (!string.IsNullOrEmpty(message))
+            {
+                lblMessageSoReturnCreate.Text = message;
+                return;
+            } 
+            List<PSaleOrderReturnItem_Insert> pSoReturnItem = ReadSoDeliveryItem();
+            string result = new BAPI().ApiPut("SaleOrderReturn/SaleOrderReturnCreate", pSoReturnItem);
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+            if (Result.Status == PApplication.Failure)
+            {
+                lblMessageSoReturnCreate.Text = Result.Message;
+                return;
+            } 
+            lblMessageSoReturnCreate.Text = Result.Message;
+            lblMessageSoReturnCreate.ForeColor = Color.Green;
+            //fillViewSoReturn(Convert.ToInt64(Result.Data));
         }
     }
 }

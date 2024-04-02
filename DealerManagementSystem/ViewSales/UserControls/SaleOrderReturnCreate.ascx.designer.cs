@@ -24,6 +24,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblMessageSoReturnCreate;
 
         /// <summary>
+        /// divInvoiceSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divInvoiceSearch;
+
+        /// <summary>
         /// txtInvoiceNo control.
         /// </summary>
         /// <remarks>
@@ -114,6 +123,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.GridView gvSoDelivery;
 
         /// <summary>
+        /// btnCreateSalesReturn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCreateSalesReturn;
+
+        /// <summary>
         /// divSoDeliveryItem control.
         /// </summary>
         /// <remarks>
@@ -141,15 +159,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.GridView gvSoDeliveryItem;
 
         /// <summary>
-        /// divRemarks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRemarks;
-
-        /// <summary>
         /// txtRemarks control.
         /// </summary>
         /// <remarks>
@@ -157,5 +166,23 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
+
+        /// <summary>
+        /// divRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRemarks;
     }
 }

@@ -443,6 +443,10 @@ namespace Properties
     {
         public long SaleOrderDeliveryID { get; set; }
         public long SaleOrderDeliveryItemID { get; set; }
+        public int MaterialID { get; set; }
+        public string MaterialCode { get; set; }
+        public string MaterialDescription { get; set; }
+        public string UOM { get; set; }
         public decimal Qty { get; set; }
         public string Remarks { get; set; }
     }

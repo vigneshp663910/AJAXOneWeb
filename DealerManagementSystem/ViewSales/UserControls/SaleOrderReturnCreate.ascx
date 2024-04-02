@@ -2,9 +2,9 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
-<asp:Label ID="lblMessageSoReturnCreate" runat="server" Text="" CssClass="message" Visible="false" />
+<asp:Label ID="lblMessageSoReturnCreate" runat="server" Text="" CssClass="message"   />
 
-<div class="col-md-12">
+<div class="col-md-12" id="divInvoiceSearch" runat="server">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
         <div class="col-md-12">
@@ -18,7 +18,7 @@
         </div>
     </fieldset>
 </div>
-<div class="col-md-12" id="divInvoiceDetails" runat="server" visible="false">
+<div class="col-md-12" id="divInvoiceDetails" runat="server" visible="false" >
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Invoice Details</legend>
         <div class="col-md-12 View">
@@ -44,9 +44,10 @@
             </div>
         </div>
     </fieldset>
+   
 </div>
-<div class="col-md-12" id="divSoDelivery" runat="server">
-    <fieldset class="fieldset-border">
+<div class="col-md-12" id="divSoDelivery" runat="server" visible="false">
+     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">Invoice Item(s)</legend>
         <div class="col-md-12 Report">
             <div class="col-md-12">
@@ -64,7 +65,7 @@
                             </div>
                         </div>
                     </div>
-                    <asp:GridView ID="gvSoDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" AllowPaging="true" PageSize="10" EmptyDataText="No Data Found"
+                    <asp:GridView ID="gvSoDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" AllowPaging="true" PageSize="3" EmptyDataText="No Data Found"
                         DataKeyNmes="SaleOrderDeliveryID,SaleOrderDeliveryItem.SaleOrderDeliveryItemID" OnPageIndexChanging="gvSoDelivery_PageIndexChanging">
                         <Columns>
                             <asp:TemplateField HeaderText="Select">
@@ -115,7 +116,7 @@
                             <asp:TemplateField HeaderText="Material Code">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.MaterialCode")%>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.MaterialCode")%>' runat="server"></asp:Label>
                                     <asp:Label ID="lblSaleOrderDeliveryID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryID")%>' runat="server" Visible="false"></asp:Label>
                                     <asp:Label ID="lblSaleOrderDeliveryItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderDeliveryItemID")%>' runat="server" Visible="false"></asp:Label>
                                 </ItemTemplate>
@@ -123,13 +124,19 @@
                             <asp:TemplateField HeaderText="Material Description">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.MaterialDescription")%>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.MaterialDescription")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Qty">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Qty","{0:n}")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="UOM">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblUOM" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.BaseUnit")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
@@ -140,11 +147,16 @@
                         <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                         <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                     </asp:GridView>
+                    <asp:Button ID="btnCreateSalesReturn" runat="server" Text="Create Sales Return" CssClass="btn Search" OnClick="btnCreateSalesReturn_Click" Width="150px" />
                 </div>
             </div>
         </div>
     </fieldset>
 </div>
+
+
+
+
 <div class="col-md-12" id="divSoDeliveryItem" runat="server" visible="false">
     <div class="col-md-12 Report">
         <fieldset class="fieldset-border">
@@ -185,7 +197,7 @@
                         <asp:TemplateField HeaderText="Material Code">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>
-                                <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.MaterialCode")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.MaterialCode")%>' runat="server"></asp:Label>
                                 <asp:Label ID="lblSaleOrderDeliveryID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryID")%>' runat="server" Visible="false"></asp:Label>
                                 <asp:Label ID="lblSaleOrderDeliveryItemID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderDeliveryItemID")%>' runat="server" Visible="false"></asp:Label>
                             </ItemTemplate>
@@ -193,7 +205,7 @@
                         <asp:TemplateField HeaderText="Material Description">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>
-                                <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.MaterialDescription")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.MaterialDescription")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Qty">
@@ -205,7 +217,7 @@
                         <asp:TemplateField HeaderText="UOM">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>
-                                <asp:Label ID="lblUOM" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Material.BaseUnit")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblUOM" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.BaseUnit")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Return Qty">
@@ -221,13 +233,14 @@
                     <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                     <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                 </asp:GridView>
+                <div class="col-md-12 col-sm-12">
+                    <label class="modal-label">Remarks</label>
+                    <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" Rows="5" AutoCompleteType="Disabled"></asp:TextBox>
+                </div>
+                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" Width="100px" />
             </div>
         </fieldset>
     </div>
 </div>
 <div class="col-md-12 col-sm-12" runat="server" id="divRemarks" visible="false">
-    <div class="col-md-12 col-sm-12">
-        <label class="modal-label">Remarks</label>
-        <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" Rows="5" AutoCompleteType="Disabled"></asp:TextBox>
-    </div>
 </div>

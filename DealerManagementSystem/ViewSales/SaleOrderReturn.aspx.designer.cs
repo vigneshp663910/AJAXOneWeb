@@ -256,41 +256,5 @@ namespace DealerManagementSystem.ViewSales
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DealerManagementSystem.ViewSales.UserControls.SaleOrderReturnCreate UC_SaleOrderReturnCreate;
-
-        /// <summary>
-        /// divCreateSalesReturn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCreateSalesReturn;
-
-        /// <summary>
-        /// btnCreateSalesReturn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreateSalesReturn;
-
-        /// <summary>
-        /// divSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSave;
-
-        /// <summary>
-        /// btnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
     }
 }
