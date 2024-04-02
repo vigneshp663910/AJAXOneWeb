@@ -248,10 +248,10 @@ namespace DealerManagementSystem.ViewSales
             divList.Visible = false;
             divSoReturnDetailsView.Visible = true;
             divSaleOrderReturnCreate.Visible = false;
-            Label lblMessagePOReturn = (Label)UC_SaleOrderReturnView.FindControl("lblMessageSoReturn");
-            lblMessagePOReturn.Text = Result.Message;
-            lblMessagePOReturn.Visible = true;
-            lblMessagePOReturn.ForeColor = Color.Green;
+            Label lblMessageSoReturn = (Label)UC_SaleOrderReturnView.FindControl("lblMessageSoReturn");
+            lblMessageSoReturn.Text = Result.Message;
+            lblMessageSoReturn.Visible = true;
+            lblMessageSoReturn.ForeColor = Color.Green;
             UC_SaleOrderReturnView.fillViewSoReturn(Convert.ToInt64(Result.Data));
         }
 

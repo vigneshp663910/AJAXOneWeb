@@ -58,6 +58,22 @@
                         <label>Contact Person Number : </label>
                         <asp:Label ID="lblContactPersonNumber" runat="server" CssClass="label"></asp:Label>
                     </div>
+                    <div class="col-md-12">
+                        <label>Approved By : </label>
+                        <asp:Label ID="lblApprovedBy" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Approved Date : </label>
+                        <asp:Label ID="lblApprovedDate" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Cancelled By : </label>
+                        <asp:Label ID="lblCancelledBy" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Cancelled On : </label>
+                        <asp:Label ID="lblCancelledOn" runat="server" CssClass="label"></asp:Label>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="col-md-12">
@@ -75,7 +91,7 @@
                 </div>
             </div>
         </fieldset>
-        <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
+        <asp:Label ID="lblMessageSoReturn" runat="server" Text="" CssClass="message" />
         <asp1:TabContainer ID="tbpSoReturn" runat="server" ToolTip="SO Return Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
             <asp1:TabPanel ID="tpnlPoReturnItem" runat="server" HeaderText="Sales Return Item" Font-Bold="True" ToolTip="">
                 <ContentTemplate>

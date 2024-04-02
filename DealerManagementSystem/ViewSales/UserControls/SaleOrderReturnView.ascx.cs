@@ -36,7 +36,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     ViewState["SaleOrderReturnID"] = 0;
                 }
-                return (int)ViewState["SaleOrderReturnID"];
+                return (long)ViewState["SaleOrderReturnID"];
             }
             set
             {
@@ -45,7 +45,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         } 
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessage.Text = "";
+            lblMessageSoReturn.Text = "";
         }
         public void fillViewSoReturn(long SaleOrderReturnID_)
         {
@@ -64,7 +64,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblCustomer.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.CustomerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Customer.CustomerName;
             lblContactPersonNumber.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.Mobile;
             lblSaleOrderReturnStatus.Text = SoReturn.ReturnStatus.Status;
-            lblDivision.Text = SoReturn.SaleOrderDelivery.SaleOrder.Division.DivisionCode; 
+            lblDivision.Text = SoReturn.SaleOrderDelivery.SaleOrder.Division.DivisionCode;
+            lblApprovedBy.Text = SoReturn.ApprovedBy == null ? "" : SoReturn.ApprovedBy.ContactName.ToString();
+            lblApprovedDate.Text = SoReturn.ApprovedOn == null ? "" : ((DateTime)SoReturn.ApprovedOn).ToShortDateString();
+            lblCancelledBy.Text = SoReturn.CancelledBy == null ? "" : SoReturn.CancelledBy.ContactName.ToString();
+            lblCancelledOn.Text = SoReturn.CancelledOn == null ? "" : ((DateTime)SoReturn.CancelledOn).ToShortDateString();
             gvSoReturnItem.DataSource = SoReturn.SaleOrderReturnItems;
             gvSoReturnItem.DataBind(); 
             ActionControlMange();
@@ -82,12 +86,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbPreviewCreditNote.Visible = false;
                 lbDowloadCreditNote.Visible = false;
             }
-            else if (StatusID == (short)AjaxOneStatus.SaleOrderReturn_Approved || StatusID == (short)AjaxOneStatus.SaleOrderReturn_Cancelled)
+            else if (StatusID == (short)AjaxOneStatus.SaleOrderReturn_Cancelled)
             {
                 lbCancel.Visible = false;
                 lbApprove.Visible = false;
                 lbPreviewCreditNote.Visible = false;
                 lbDowloadCreditNote.Visible = false;
+                lbCreateCreditNote.Visible = false;
             }
             else if (StatusID == (short)AjaxOneStatus.SaleOrderReturn_Approved)
             {
@@ -126,12 +131,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             PApiResult Result = new BSalesOrderReturn().UpdateSaleOrderReturnStatus(SaleOrderReturnID, StatusID);            
             if (Result.Status == PApplication.Failure)
             {
-                lblMessage.Text = Result.Message;
-                lblMessage.ForeColor = Color.Red;
+                lblMessageSoReturn.Text = Result.Message;
+                lblMessageSoReturn.ForeColor = Color.Red;
                 return;
             }
-            lblMessage.Text = Result.Message;
-            lblMessage.ForeColor = Color.Green;
+            lblMessageSoReturn.Text = Result.Message;
+            lblMessageSoReturn.ForeColor = Color.Green;
             fillViewSoReturn(SaleOrderReturnID);
         } 
     }

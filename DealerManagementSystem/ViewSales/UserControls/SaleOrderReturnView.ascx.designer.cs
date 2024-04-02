@@ -150,6 +150,42 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblContactPersonNumber;
 
         /// <summary>
+        /// lblApprovedBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApprovedBy;
+
+        /// <summary>
+        /// lblApprovedDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApprovedDate;
+
+        /// <summary>
+        /// lblCancelledBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCancelledBy;
+
+        /// <summary>
+        /// lblCancelledOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCancelledOn;
+
+        /// <summary>
         /// lblSODealer control.
         /// </summary>
         /// <remarks>
@@ -177,13 +213,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblDivision;
 
         /// <summary>
-        /// lblMessage control.
+        /// lblMessageSoReturn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Label lblMessageSoReturn;
 
         /// <summary>
         /// tbpSoReturn control.
