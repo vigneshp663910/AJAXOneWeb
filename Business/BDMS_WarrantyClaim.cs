@@ -322,159 +322,79 @@ namespace Business
             { }
             return Ws;
         }
-
-
-
-        public List<PDMS_WarrantyInvoiceHeader_New> GetWarrantyClaimReport_New(string ICTicketID, DateTime? ICTicketDateF, DateTime? ICTicketDateT, string InvoiceNumber,
-      DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, int? StatusID,
-        DateTime? AnnexureF, DateTime? AnnexureT, string TSIRNumber, string CustomerCode, string MachineSerialNumber, Boolean IsAbove50K, int? UserID)
+         
+        public List<PDMS_WarrantyInvoiceHeader_New> GetWarrantyClaimReport_New1(PWarrantyClaim_Filter Filter)
+        { 
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Warranty/GetWarrantyClaimReport", Filter));
+            if (Results.Status == PApplication.Failure)
+            {
+                throw new Exception(Results.Message);
+            } 
+            return JsonConvert.DeserializeObject<List<PDMS_WarrantyInvoiceHeader_New>>(JsonConvert.SerializeObject(Results.Data)); 
+        }
+        public List<PDMS_WarrantyInvoiceHeader_1> GetWarrantyClaimHeader(long? ICTicketID,long? WarrantyInvoiceHeaderID, string InvoiceNumber   )
         {
-            List<PDMS_WarrantyInvoiceHeader_New> Ws = new List<PDMS_WarrantyInvoiceHeader_New>();
-            PDMS_WarrantyInvoiceHeader_New W = null;
-            DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", string.IsNullOrEmpty(ICTicketID) ? null : ICTicketID, DbType.String);
-            DbParameter ICTicketDateFP = provider.CreateParameter("ICTicketDateF", ICTicketDateF, DbType.DateTime);
-            DbParameter ICTicketDateTP = provider.CreateParameter("ICTicketDateT", ICTicketDateT, DbType.DateTime);
-
-            DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", string.IsNullOrEmpty(InvoiceNumber) ? null : InvoiceNumber, DbType.String);
-            DbParameter InvoiceDateFP = provider.CreateParameter("InvoiceDateF", InvoiceDateF, DbType.DateTime);
-            DbParameter InvoiceDateTP = provider.CreateParameter("InvoiceDateT", InvoiceDateT, DbType.DateTime);
-
-            DbParameter DealerCodeP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-            DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int32);
-
-
-            DbParameter AnnexureFP = provider.CreateParameter("AnnexureF", AnnexureF, DbType.DateTime);
-            DbParameter AnnexureTP = provider.CreateParameter("AnnexureT", AnnexureT, DbType.DateTime);
-
-            DbParameter TSIRNumberP = provider.CreateParameter("TSIRNumber", string.IsNullOrEmpty(TSIRNumber) ? null : TSIRNumber, DbType.String);
-
-            DbParameter CustomerCodeP = provider.CreateParameter("CustomerCode", string.IsNullOrEmpty(CustomerCode) ? null : CustomerCode, DbType.String);
-            DbParameter MachineSerialNumberP = provider.CreateParameter("MachineSerialNumber", string.IsNullOrEmpty(MachineSerialNumber) ? null : MachineSerialNumber, DbType.String);
-            DbParameter UserIDP = provider.CreateParameter("IsAbove50K", IsAbove50K, DbType.Boolean);
-            DbParameter IsAbove50KP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[15] { ICTicketIDP, ICTicketDateFP, ICTicketDateTP, InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, DealerCodeP, StatusIDP,
-               AnnexureFP,AnnexureTP , TSIRNumberP,CustomerCodeP,MachineSerialNumberP,IsAbove50KP, UserIDP };
+            List<PDMS_WarrantyInvoiceHeader_1> Ws = new List<PDMS_WarrantyInvoiceHeader_1>();
+            PDMS_WarrantyInvoiceHeader_1 W = null;
+            DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
+            DbParameter WarrantyInvoiceHeaderIDP = provider.CreateParameter("WarrantyInvoiceHeaderID", WarrantyInvoiceHeaderID, DbType.Int64);
+            DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", string.IsNullOrEmpty(InvoiceNumber) ? null : InvoiceNumber, DbType.String); 
+            DbParameter[] Params = new DbParameter[3] { ICTicketIDP, WarrantyInvoiceHeaderIDP, InvoiceNumberP };
             try
             {
-                using (DataSet EmployeeDataSet = provider.Select("ZDMS_GetWarrantyClaimReportAPI", Params, (20) * 60))
+                using (DataSet EmployeeDataSet = provider.Select("ZDMS_GetWarrantyClaimHeader", Params))
                 {
                     if (EmployeeDataSet != null)
-                    {
-                        long HeaderID = -1;
+                    { 
                         foreach (DataRow dr in EmployeeDataSet.Tables[0].Rows)
-                        {
-
-                            if (HeaderID != Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]))
+                        { 
+                            W = new PDMS_WarrantyInvoiceHeader_1();
+                            Ws.Add(W);
+                            //W.WarrantyInvoiceHeaderID = Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]);
+                            //W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
+                            //W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]); 
+                            W.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+                            W.CustomerName = Convert.ToString(dr["CustomerName"]);
+                            //W.DealerCode = Convert.ToString(dr["DealerCode"]);
+                            //W.DealerName = Convert.ToString(dr["DealerName"]);
+                            W.ICTicket = new PDMS_ICTicket()
                             {
-                                W = new PDMS_WarrantyInvoiceHeader_New();
-                                Ws.Add(W);
-                                W.WarrantyInvoiceHeaderID = Convert.ToInt64(dr["WarrantyInvoiceHeaderID"]);
-                                W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
-
-                                W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
-                                W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
-                                W.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
-                                W.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-
-                                W.CustomerCode = Convert.ToString(dr["CustomerCode"]);
-                                W.CustomerName = Convert.ToString(dr["CustomerName"]);
-                                W.DealerCode = Convert.ToString(dr["DealerCode"]);
-                                W.DealerName = Convert.ToString(dr["DealerName"]);
-                                W.ICTicket = new PDMS_ICTicket()
-                                {
-                                    ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) },
-                                    ComplaintDescription = Convert.ToString(dr["ComplaintDescription"]),
-                                    Equipment = new PDMS_EquipmentHeader() { CommissioningOn = DBNull.Value == dr["CommissioningOn"] ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]) },
-
-                                };
-
-                                W.Approved1By = new PUser();
-                                if (dr["Approved1By"] != DBNull.Value)
-                                {
-                                    W.Approved1By.ContactName = Convert.ToString(dr["Approved1By"]);
-                                }
-                                // W.Approved1By = new PUser() { UserID = DBNull.Value == dr["Approved1By"] ? (int?)null : Convert.ToInt32(dr["Approved1By"]) };
-                                W.Approved1On = DBNull.Value == dr["Approved1On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved1On"]);
-
-                                //  W.Approved2By = DBNull.Value == dr["Approved2By"] ? (int?)null : Convert.ToInt32(dr["Approved2By"]);
-
-                                W.Approved2By = new PUser();
-                                if (dr["Approved2By"] != DBNull.Value)
-                                {
-                                    W.Approved2By.ContactName = Convert.ToString(dr["Approved2By"]);
-                                }
-                                W.Approved2On = DBNull.Value == dr["Approved2On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved2On"]);
-
-                                W.Approved3By = new PUser();
-                                if (dr["Approved3By"] != DBNull.Value)
-                                {
-                                    W.Approved3By.ContactName = Convert.ToString(dr["Approved3By"]);
-                                }
-                                W.Approved3On = DBNull.Value == dr["Approved3On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved3On"]);
-
-                                W.ClaimStatus = Convert.ToString(dr["Status"]).Trim();
-                                W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
-                                W.MarginWarranty = DBNull.Value == dr["MarginWarranty"] ? (Boolean?)null : Convert.ToBoolean(dr["MarginWarranty"]);
-                                W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
-                                W.EquipmentHeaderID = DBNull.Value == dr["EquipmentHeaderID"] ? (long?)null : Convert.ToInt64(dr["EquipmentHeaderID"]);
-                                W.Model = Convert.ToString(dr["Model"]);
-                                W.PscID = Convert.ToString(dr["PscID"]);
-                                //  W.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
-                                W.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
-                                W.AnnexureNumber = Convert.ToString(dr["AnnexureNumber"]);
-                                W.AnnexureDate = DBNull.Value == dr["AnnexureDate"] ? (DateTime?)null : Convert.ToDateTime(dr["AnnexureDate"]);
-                                W.AcInvoiceNumber = Convert.ToString(dr["AcInvoiceNumber"]);
-                                W.AcInvoiceDate = DBNull.Value == dr["AcInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["AcInvoiceDate"]);
-                                HeaderID = W.WarrantyInvoiceHeaderID;
-
-                                W.InvoiceItems = new List<PDMS_WarrantyInvoiceItem>();
-                            }
-                            PDMS_WarrantyInvoiceItem item = new PDMS_WarrantyInvoiceItem();
-                            item.WarrantyInvoiceItemID = Convert.ToInt64(dr["WarrantyInvoiceItemID"]);
-
-                            item.Item = Convert.ToString(dr["Item"]);
-                            item.RefDocID = Convert.ToString(dr["RefDocID"]);
-                            item.Material = Convert.ToString(dr["Material"]);
-                            item.MaterialDesc = Convert.ToString(dr["MaterialDesc"]);
-                            item.DeliveryNumber = Convert.ToString(dr["DeliveryNumber"]);
-                            item.Category = Convert.ToString(dr["Category"]);
-
-                            item.HSNCode = Convert.ToString(dr["HSNCode"]);
-                            item.Qty = Convert.ToDecimal(dr["Qty"]);
-                            item.Per = DBNull.Value == dr["Per"] ? (decimal?)null : Convert.ToDecimal(dr["Per"]);
-                            item.UnitOM = Convert.ToString(dr["UnitOM"]);
-                            item.MaterialStatus = Convert.ToString(dr["MaterialStatus"]);
-                            item.MaterialStatusRemarks1 = Convert.ToString(dr["MaterialStatusRemarks1"]);
-                            item.MaterialStatusRemarks2 = Convert.ToString(dr["MaterialStatusRemarks2"]);
-                            item.Amount = DBNull.Value == dr["Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Amount"]);
-                            item.BaseTax = DBNull.Value == dr["BaseTax"] ? (decimal?)null : Convert.ToDecimal(dr["BaseTax"]);
-                            item.Approved1Amount = DBNull.Value == dr["Approved1Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved1Amount"]);
-                            item.Approved1Remarks = Convert.ToString(dr["Approved1Remarks"]);
-
-                            item.Approved2Amount = DBNull.Value == dr["Approved2Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved2Amount"]);
-                            item.Approved2Remarks = Convert.ToString(dr["Approved2Remarks"]);
-                            item.Approved3Amount = DBNull.Value == dr["Approved3Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved3Amount"]);
-                            item.Approved3Remarks = Convert.ToString(dr["Approved3Remarks"]);
-
-
-                            //   item.InvoiceNumberNew = Convert.ToString(dr["InvoiceNumberNew"]);                           
-
-                            item.SAPDoc = Convert.ToString(dr["SAPDoc"]);
-                            item.SAPPostingDate = DBNull.Value == dr["SAPPostingDate"] ? (DateTime?)null : Convert.ToDateTime(dr["SAPPostingDate"]);
-                            item.SAPInvoiceValue = DBNull.Value == dr["SAPInvoiceValue"] ? (decimal?)null : Convert.ToDecimal(dr["SAPInvoiceValue"]);
-                            item.SAPClearingDocument = Convert.ToString(dr["SAPClearingDocument"]);
-                            item.DeliveryNumber = Convert.ToString(dr["DeliveryNumber"]);
-                            item.AnnexureNumber = Convert.ToString(dr["AnnexureNumber"]);
-                            item.WarrantyMaterialReturnStatus = new PDMS_WarrantyMaterialReturnStatus();
-                            if (DBNull.Value != dr["WarrantyMaterialReturnStatusID"])
+                                ICTicketID = Convert.ToInt64(dr["ICTicketID"]),
+                                ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]),
+                                ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]),
+                                //ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) },
+                                //Equipment = new PDMS_EquipmentHeader() { CommissioningOn = DBNull.Value == dr["CommissioningOn"] ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]) }
+                            };
+                            W.Approved1By = new PUser();
+                            if (dr["Approved1By"] != DBNull.Value)
                             {
-                                item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatusID = Convert.ToInt32(dr["WarrantyMaterialReturnStatusID"]);
-                                item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatus = Convert.ToString(dr["WarrantyMaterialReturnStatus"]);
+                                W.Approved1By.ContactName = Convert.ToString(dr["Approved1By"]);
                             }
-                            item.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
-                            item.TsirID = Convert.ToString(dr["TsirID"]);
-                            //  item.TSIRDate = DBNull.Value == dr["TSIRDate"] ? (DateTime?)null : Convert.ToDateTime(dr["TSIRDate"]);
-                            W.InvoiceItems.Add(item);
+                            //W.Approved1On = DBNull.Value == dr["Approved1On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved1On"]);
+                            W.Approved2By = new PUser();
+                            if (dr["Approved2By"] != DBNull.Value)
+                            {
+                                W.Approved2By.ContactName = Convert.ToString(dr["Approved2By"]);
+                            }
+                           // W.Approved2On = DBNull.Value == dr["Approved2On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved2On"]);
+                            //W.Approved3By = new PUser();
+                            //if (dr["Approved3By"] != DBNull.Value)
+                            //{
+                            //    W.Approved3By.ContactName = Convert.ToString(dr["Approved3By"]);
+                            //}
+                            //W.Approved3On = DBNull.Value == dr["Approved3On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved3On"]);
+
+
+                            //W.ClaimStatus = Convert.ToString(dr["Status"]).Trim();
+                            W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
+                            //W.MarginWarranty = DBNull.Value == dr["MarginWarranty"] ? (Boolean?)null : Convert.ToBoolean(dr["MarginWarranty"]);
+                            W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
+                            W.Model = Convert.ToString(dr["Model"]);
+                            //W.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
+                            //W.AnnexureNumber = Convert.ToString(dr["AnnexureNumber"]);
+                            //W.AnnexureDate = DBNull.Value == dr["AnnexureDate"] ? (DateTime?)null : Convert.ToDateTime(dr["AnnexureDate"]);
+                            //W.AcInvoiceNumber = Convert.ToString(dr["AcInvoiceNumber"]);
+                            //W.AcInvoiceDate = DBNull.Value == dr["AcInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["AcInvoiceDate"]); 
                         }
                     }
                 }
@@ -485,17 +405,6 @@ namespace Business
             { }
             return Ws;
         }
-
-        public List<PDMS_WarrantyInvoiceHeader_New> GetWarrantyClaimReport_New1(PWarrantyClaim_Filter Filter)
-        { 
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Warranty/GetWarrantyClaimReport", Filter));
-            if (Results.Status == PApplication.Failure)
-            {
-                throw new Exception(Results.Message);
-            } 
-            return JsonConvert.DeserializeObject<List<PDMS_WarrantyInvoiceHeader_New>>(JsonConvert.SerializeObject(Results.Data)); 
-        }
-
         public DataTable GetWarrantyClaimReporExcel(PWarrantyClaim_Filter Filter)
         {
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Warranty/GetWarrantyClaimReportExcel", Filter));
@@ -1155,13 +1064,10 @@ namespace Business
             return Ws;
         }
 
-       
         public Boolean CancelWarrantyClaims(string InvoiceNumber, int CanceledBy)
         {
             try
-            {
-                PDMS_WarrantyInvoiceHeader SOIs = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, InvoiceNumber, null, null, "", null, null, null, "", "", "", false, PSession.User.UserID)[0];
-
+            { 
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
                     DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", InvoiceNumber, DbType.String);
@@ -1170,57 +1076,103 @@ namespace Business
                     DbParameter[] Params = new DbParameter[3] { InvoiceNumberP, CanceledByP, CancelT };
                     provider.Insert("ZDMS_CancelWarrantyClaim", Params);
                     scope.Complete();
-                }
-                List<string> querys = new List<string>();
-                //querys.Add("update dsinr_inv_hdr set s_status = 'CANCELLED'  where p_inv_id = '" + InvoiceNumber.Trim() + "'");
-                //foreach (PDMS_WarrantyInvoiceItem Item in SOIs.InvoiceItems)
-                //{
-                //    if (!string.IsNullOrEmpty(Item.DeliveryNumber))
-                //    {
-                //        string f_office = new NpgsqlServer(true).ExecuteScalar("select  f_office from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
-                //        querys.Add("update dmstr_stock set r_total_qty=r_total_qty+" + Item.Qty + ",r_available_qty=r_available_qty+" + Item.Qty + "  where s_tenant_id = " + SOIs.DealerCode + " and p_material = '" + Item.Material + "' and p_office='" + f_office + "' and p_stock_type='SALE'");
-                //        querys.Add("update dmstr_stock_batch set r_total_qty=r_total_qty+" + Item.Qty + ",r_available_qty=r_available_qty+" + Item.Qty + "  where s_tenant_id = " + SOIs.DealerCode + " and p_material = '" + Item.Material + "' and p_office='" + f_office + "' and p_stock_type='SALE'");
-                //        querys.Add("update dmmr_stock_summary set r_total_qty=r_total_qty+" + Item.Qty + "  where s_tenant_id = " + SOIs.DealerCode + " and p_material_id = '" + Item.Material + "' and p_office_id='" + f_office + "' and p_stock_type='SALE' and p_month = '" + DateTime.Now.Month + "' and p_year = '" + DateTime.Now.Year + "'");
-                //    }                    
-                //}
-                foreach (PDMS_WarrantyInvoiceItem Item in SOIs.InvoiceItems)
-                {
-                    if (!string.IsNullOrEmpty(Item.DeliveryNumber))
-                    {
-                         
-                       // string f_office = new NpgsqlServer().ExecuteScalar("select  f_office from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
-                      //  string p_location = new NpgsqlServer().ExecuteScalar("select  f_location from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
-
-                        string f_office = new BPG().outputSingle("select  f_office from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
-                        string p_location = new BPG().outputSingle("select  f_location from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
-
-                        querys.Add("INSERT INTO public.af_stock_ledger_icticket(" +
-                          "s_establishment, s_tenant_id, p_location, p_office, p_material, p_stock_type,  p_batch, r_document_type, r_document_id, r_posting_date, f_ref_id1, r_opening_qty, r_inward_qty, r_outward_qty, r_closing_qty, r_current_stock, nes_flag, s_status, created_by, created_on)"
-            + "VALUES (1000, " + SOIs.DealerCode + ", '" + p_location + "','" + f_office + "', '" + Item.Material + "', 'SALE', 'B1', 'DLV','" + Item.DeliveryNumber.Trim() + "', now(),'" + SOIs.ICTicketID + "', 0,+" + Item.Qty + ", 0, 0, 0, 'N','Created','sa',now() )");
-                    }
-                }
-
-                // if (!new NpgsqlServer().UpdateTransactions(querys))
-                if (!new BPG().UpdateTransactions(querys))
-                {
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                    {
-                        DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", InvoiceNumber, DbType.String);
-                        DbParameter CanceledByP = provider.CreateParameter("CanceledBy", CanceledBy, DbType.Int32);
-                        DbParameter CancelT = provider.CreateParameter("CancelT", false, DbType.Boolean);
-                        DbParameter[] Params = new DbParameter[3] { InvoiceNumberP, CanceledByP, CancelT };
-                        provider.Insert("ZDMS_CancelWarrantyClaim", Params);
-                        scope.Complete();
-                    }
-                }
+                } 
                 return true;
             }
             catch (Exception d)
             {
             }
             return false;
-        } 
-         
+        }
+        //public Boolean CancelWarrantyClaims(string InvoiceNumber, int CanceledBy)
+        //{
+        //    try
+        //    {
+        //        //   PDMS_WarrantyInvoiceHeader SOIs = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, InvoiceNumber, null, null, "", null, null, null, "", "", "", false, PSession.User.UserID)[0];
+
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
+        //            DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", InvoiceNumber, DbType.String);
+        //            DbParameter CanceledByP = provider.CreateParameter("CanceledBy", CanceledBy, DbType.Int32);
+        //            DbParameter CancelT = provider.CreateParameter("CancelT", true, DbType.Boolean);
+        //            DbParameter[] Params = new DbParameter[3] { InvoiceNumberP, CanceledByP, CancelT };
+        //            provider.Insert("ZDMS_CancelWarrantyClaim", Params);
+        //            scope.Complete();
+        //        }
+        //    //    List<string> querys = new List<string>();
+        //    //    //querys.Add("update dsinr_inv_hdr set s_status = 'CANCELLED'  where p_inv_id = '" + InvoiceNumber.Trim() + "'");
+        //    //    //foreach (PDMS_WarrantyInvoiceItem Item in SOIs.InvoiceItems)
+        //    //    //{
+        //    //    //    if (!string.IsNullOrEmpty(Item.DeliveryNumber))
+        //    //    //    {
+        //    //    //        string f_office = new NpgsqlServer(true).ExecuteScalar("select  f_office from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
+        //    //    //        querys.Add("update dmstr_stock set r_total_qty=r_total_qty+" + Item.Qty + ",r_available_qty=r_available_qty+" + Item.Qty + "  where s_tenant_id = " + SOIs.DealerCode + " and p_material = '" + Item.Material + "' and p_office='" + f_office + "' and p_stock_type='SALE'");
+        //    //    //        querys.Add("update dmstr_stock_batch set r_total_qty=r_total_qty+" + Item.Qty + ",r_available_qty=r_available_qty+" + Item.Qty + "  where s_tenant_id = " + SOIs.DealerCode + " and p_material = '" + Item.Material + "' and p_office='" + f_office + "' and p_stock_type='SALE'");
+        //    //    //        querys.Add("update dmmr_stock_summary set r_total_qty=r_total_qty+" + Item.Qty + "  where s_tenant_id = " + SOIs.DealerCode + " and p_material_id = '" + Item.Material + "' and p_office_id='" + f_office + "' and p_stock_type='SALE' and p_month = '" + DateTime.Now.Month + "' and p_year = '" + DateTime.Now.Year + "'");
+        //    //    //    }                    
+        //    //    //}
+
+        //    //    string ICTicketNumber = "";
+        //    //    string DealerCode = "";
+        //    //    string ss = "select ICTicketID, DeliveryNumber, i.Material, Qty , DealerCode from ZDMS_WarrantyInvoiceHeader H "
+        //    //        + " inner join  ZDMS_WarrantyInvoiceItem i on h.WarrantyInvoiceHeaderID = i.WarrantyInvoiceHeaderID "
+        //    //        + "where DeliveryNumber is not null  and  H.InvoiceNumber = '" + InvoiceNumber + "'";
+        //    //    List<PDMS_WarrantyInvoiceItem> InvoiceItems = new List<PDMS_WarrantyInvoiceItem>();
+        //    //    using (DataSet ds = provider.SelectUsingQuery(ss))
+        //    //    {
+        //    //        if (ds != null)
+        //    //        {
+        //    //            foreach (DataRow dr in ds.Tables[0].Rows)
+        //    //            {
+        //    //                ICTicketNumber = Convert.ToString(dr["ICTicketID"]);
+        //    //                DealerCode = Convert.ToString(dr["DealerCode"]);
+        //    //                InvoiceItems.Add(new PDMS_WarrantyInvoiceItem()
+        //    //                {
+        //    //                    DeliveryNumber = Convert.ToString(dr["DeliveryNumber"]),
+        //    //                    Material = Convert.ToString(dr["Material"]),
+        //    //                    Qty = Convert.ToDecimal(dr["Qty"])
+        //    //                });
+        //    //            }
+        //    //        }
+        //    //    }
+        //    //    foreach (PDMS_WarrantyInvoiceItem Item in InvoiceItems)
+        //    //    {
+        //    //        if (!string.IsNullOrEmpty(Item.DeliveryNumber))
+        //    //        {
+
+        //    //            // string f_office = new NpgsqlServer().ExecuteScalar("select  f_office from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
+        //    //            //  string p_location = new NpgsqlServer().ExecuteScalar("select  f_location from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
+
+        //    //            string f_office = new BPG().outputSingle("select  f_office from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
+        //    //            string p_location = new BPG().outputSingle("select  f_location from dsder_delv_item  where p_del_id ='" + Item.DeliveryNumber.Trim() + "' and f_material_id='" + Item.Material + "' limit 1");
+
+        //    //            querys.Add("INSERT INTO public.af_stock_ledger_icticket(" +
+        //    //              "s_establishment, s_tenant_id, p_location, p_office, p_material, p_stock_type,  p_batch, r_document_type, r_document_id, r_posting_date, f_ref_id1, r_opening_qty, r_inward_qty, r_outward_qty, r_closing_qty, r_current_stock, nes_flag, s_status, created_by, created_on)"
+        //    //+ "VALUES (1000, " + DealerCode + ", '" + p_location + "','" + f_office + "', '" + Item.Material + "', 'SALE', 'B1', 'DLV','" + Item.DeliveryNumber.Trim() + "', now(),'" + ICTicketNumber + "', 0,+" + Item.Qty + ", 0, 0, 0, 'N','Created','sa',now() )");
+        //    //        }
+        //    //    }
+
+        //    //    // if (!new NpgsqlServer().UpdateTransactions(querys))
+        //    //    if (!new BPG().UpdateTransactions(querys))
+        //    //    {
+        //    //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //    //        {
+        //    //            DbParameter InvoiceNumberP = provider.CreateParameter("InvoiceNumber", InvoiceNumber, DbType.String);
+        //    //            DbParameter CanceledByP = provider.CreateParameter("CanceledBy", CanceledBy, DbType.Int32);
+        //    //            DbParameter CancelT = provider.CreateParameter("CancelT", false, DbType.Boolean);
+        //    //            DbParameter[] Params = new DbParameter[3] { InvoiceNumberP, CanceledByP, CancelT };
+        //    //            provider.Insert("ZDMS_CancelWarrantyClaim", Params);
+        //    //            scope.Complete();
+        //    //        }
+        //    //    }
+        //        return true;
+        //    }
+        //    catch (Exception d)
+        //    {
+        //    }
+        //    return false;
+        //}
+
         //public Boolean InsertDeviatedClaimRequestForApproval(long WarrantyInvoiceHeaderID, int UserID)
         //{
 
@@ -1446,8 +1398,8 @@ namespace Business
         //                    item.MaterialStatusRemarks2 = Convert.ToString(dr["MaterialStatusRemarks2"]);
         //                    item.Amount = DBNull.Value == dr["Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Amount"]);
         //                    item.BaseTax = DBNull.Value == dr["BaseTax"] ? (decimal?)null : Convert.ToDecimal(dr["BaseTax"]);
-                          
-                           
+
+
         //                    item.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
         //                    W.InvoiceItems.Add(item);
         //                }
