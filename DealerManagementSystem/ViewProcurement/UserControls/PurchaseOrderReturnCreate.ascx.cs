@@ -45,7 +45,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            lblMessagePoReturnCreate.Text = "";
         }
         public void FillMaster()
         {

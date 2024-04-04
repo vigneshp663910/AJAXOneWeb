@@ -53,8 +53,7 @@ namespace DealerManagementSystem.ViewProcurement
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            Session["previousUrl"] = "DMS_PurchaseOrderReturn.aspx";
+        { 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -63,12 +62,7 @@ namespace DealerManagementSystem.ViewProcurement
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Return');</script>");
-            lblMessagePoReturn.Visible = false;
-
-            if (PSession.User == null)
-            {
-                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
+            lblMessagePoReturn.Text = ""; 
             if (!IsPostBack)
             {
                 PageCount = 0;
