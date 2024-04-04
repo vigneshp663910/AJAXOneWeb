@@ -58,8 +58,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 ViewState["SoDeliveryItemList"] = value;
             }
-        }
-         
+        }         
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessageSoReturnCreate.Text = "";
@@ -67,7 +66,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         public void Clear()
         {
             divInvoiceSearch.Visible = true;
-
             gvSoDelivery.DataSource = null;
             gvSoDelivery.DataBind();
             gvSoDeliveryItem.DataSource = null;
@@ -76,10 +74,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             divSoDelivery.Visible = false;
             divSoDeliveryItem.Visible = false;
             txtInvoiceNo.Text = "";
-            lblMessageSoReturnCreate.Visible = false;
             lblMessageSoReturnCreate.Text = "";
             divInvoiceDetails.Visible = false;
-            divRemarks.Visible = false;
         }
         public void FillMaster()
         {  
@@ -105,13 +101,18 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SoDeliveryList = JsonConvert.DeserializeObject<List<PSaleOrderDelivery>>(JsonConvert.SerializeObject(Result.Data));
             if (SoDeliveryList.Count ==0)
             {
-                lblMessageSoReturnCreate.Text = "Please verify Invoice"; 
+                lblMessageSoReturnCreate.Text = "Please verify Invoice."; 
                 return;
             }
             lblDealer.Text = SoDeliveryList[0].SaleOrder.Dealer.DealerCode + " " + SoDeliveryList[0].SaleOrder.Dealer.DealerName;
             lblDealerOffice.Text = SoDeliveryList[0].SaleOrder.Dealer.DealerOffice.OfficeName;
             lblCustomer.Text = SoDeliveryList[0].SaleOrder.Customer.CustomerCode + " " + SoDeliveryList[0].SaleOrder.Customer.CustomerName;
-            lblInvoiceNumberDate.Text = SoDeliveryList[0].InvoiceNumber + " " + SoDeliveryList[0].InvoiceDate.ToString(); 
+            lblDivision.Text = SoDeliveryList[0].SaleOrder.Division.DivisionCode;
+            lblSaleOrderType.Text = SoDeliveryList[0].SaleOrder.SaleOrderType.SaleOrderType.ToString();
+            lblDeliveryNumber.Text = SoDeliveryList[0].DeliveryNumber;
+            lblDeliveryDate.Text = ((DateTime)SoDeliveryList[0].DeliveryDate).ToShortDateString();
+            lblInvoiceNumber.Text = SoDeliveryList[0].InvoiceNumber;
+            lblInvoiceDate.Text = ((DateTime)SoDeliveryList[0].InvoiceDate).ToShortDateString();
             fillSoDelivery();
         } 
         public void fillSoDelivery()
@@ -119,6 +120,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             //Clear();
             gvSoDelivery.DataSource = SoDeliveryList;
             gvSoDelivery.DataBind();
+
+            CheckBox cbInvoiceH = (CheckBox)gvSoDelivery.HeaderRow.FindControl("cbInvoiceH");
+            cbInvoiceH.Checked = true;
+
             foreach (GridViewRow row in gvSoDelivery.Rows)
             {
                 CheckBox cbInvoice = (CheckBox)row.FindControl("cbInvoice");
@@ -126,6 +131,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 if (gvSoDeliverySelected.Contains(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text)))
                 {
                     cbInvoice.Checked = true;
+                }
+                else
+                {
+                    cbInvoiceH.Checked = false;
+                    cbInvoice.Checked = false;
                 }
             } 
             if (SoDeliveryList.Count == 0)
@@ -143,8 +153,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 divInvoiceSearch.Visible = false;
                 divInvoiceDetails.Visible = true;
             }
-        }        
-        
+        }                
         protected void gvSoDelivery_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvSoDelivery.PageIndex = e.NewPageIndex; 
@@ -152,30 +161,29 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         public string RValidateReturnDelivery()
         {
-            lblMessageSoReturnCreate.Visible = true;
             lblMessageSoReturnCreate.ForeColor = Color.Red;
 
             foreach (GridViewRow row in gvSoDeliveryItem.Rows)
             {
                 TextBox txtReturnQty = (TextBox)row.FindControl("txtReturnQty");
-                if (!string.IsNullOrEmpty(txtReturnQty.Text))
+                if (string.IsNullOrEmpty(txtReturnQty.Text))
                 {
-                    decimal ReturnQty = Convert.ToDecimal(((TextBox)row.FindControl("txtReturnQty")).Text);
-                    if (ReturnQty == 0)
-                    {
-                        return "Please enter Return Quantity.";
-                    }
-                    else if (ReturnQty > (Convert.ToDecimal(((Label)row.FindControl("lblQty")).Text)))
-                    {
-                        return "Please enter valid Return Quantity.";
-                    }
+                    return "Please enter the Return Quantity for all the selected Items.";
+                }
+                decimal ReturnQty = Convert.ToDecimal(((TextBox)row.FindControl("txtReturnQty")).Text);
+                if (ReturnQty == 0)
+                {
+                    return "Please enter Return Quantity.";
+                }
+                else if (ReturnQty > (Convert.ToDecimal(((Label)row.FindControl("lblQty")).Text)))
+                {
+                    return "Please enter valid Return Quantity.";
                 }
             }
             return "";
         }
         public List<PSaleOrderReturnItem_Insert> ReadSoDeliveryItem()
         {
-            lblMessageSoReturnCreate.Visible = true;
             lblMessageSoReturnCreate.ForeColor = Color.Red;
             List<PSaleOrderReturnItem_Insert> soReturn = new List<PSaleOrderReturnItem_Insert>();
 
@@ -216,10 +224,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
             CheckBox cbInvoiceH = (CheckBox)sender;
             foreach (GridViewRow row in gvSoDelivery.Rows)
             {
-                if (row.RowType == DataControlRowType.DataRow)
+                CheckBox cbInvoice = row.FindControl("cbInvoice") as CheckBox;
+                cbInvoice.Checked = cbInvoiceH.Checked;
+                Label lblSaleOrderDeliveryItemID = (Label)row.FindControl("lblSaleOrderDeliveryItemID");
+                if (cbInvoice.Checked)
                 {
-                    CheckBox cbInvoice = row.FindControl("cbInvoice") as CheckBox;
-                    cbInvoice.Checked = (cbInvoiceH.Checked) ? true : false;
+                    if (!gvSoDeliverySelected.Contains(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text)))
+                    {
+                        gvSoDeliverySelected.Add(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text));
+                    }
+                }
+                else
+                {
+                    if (gvSoDeliverySelected.Contains(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text)))
+                    {
+                        gvSoDeliverySelected.Remove(Convert.ToInt64(lblSaleOrderDeliveryItemID.Text));
+                    }
                 }
             }
         }
@@ -227,7 +247,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             bool ChkHeader = true;
            
-
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent; 
             Label lblSaleOrderDeliveryItemID = (Label)gvRow.FindControl("lblSaleOrderDeliveryItemID");
             CheckBox cbInvoice = (CheckBox)gvRow.FindControl("cbInvoice");
@@ -257,13 +276,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             CheckBox cbInvoiceH = (CheckBox)gvSoDelivery.HeaderRow.FindControl("cbInvoiceH");
             cbInvoiceH.Checked = ChkHeader;
         }
-
         protected void btnCreateSalesReturn_Click(object sender, EventArgs e)
         {
             List<PSaleOrderDelivery> pSoDeliveryItem = new List<PSaleOrderDelivery>(); 
             if (gvSoDeliverySelected.Count == 0)
             {
-                lblMessageSoReturnCreate.Visible = true;
                 lblMessageSoReturnCreate.Text = "Please select the Invoice.";
                 lblMessageSoReturnCreate.ForeColor = Color.Red;
             }
@@ -305,7 +322,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            lblMessageSoReturnCreate.Visible = true;
             lblMessageSoReturnCreate.ForeColor = Color.Red;
             string message = RValidateReturnDelivery();
             if (!string.IsNullOrEmpty(message))
@@ -321,10 +337,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 lblMessageSoReturnCreate.Text = Result.Message;
                 return;
-            } 
-            lblMessageSoReturnCreate.Text = Result.Message;
-            lblMessageSoReturnCreate.ForeColor = Color.Green;
+            }
+            //lblMessageSoReturnCreate.Text = Result.Message;
+            //lblMessageSoReturnCreate.ForeColor = Color.Green;
             //fillViewSoReturn(Convert.ToInt64(Result.Data));
+            Session["SaleOrderReturnID"] = Result.Data;
+            Response.Redirect("SaleOrderReturn.aspx");
         }
     }
 }

@@ -102,6 +102,12 @@
             <div class="col-md-12 Report">
                 <asp:GridView ID="gvSODeliveryItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                     <Columns>
+                        <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center">
+                            <ItemTemplate>
+                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Material">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>
@@ -139,7 +145,7 @@
                                 <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "Value","{0:n}")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Discount">
+                        <asp:TemplateField HeaderText="Item Discount Value">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                             <ItemTemplate>
                                 <asp:Label ID="lblDiscountValue" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountValue","{0:n}")%>' runat="server"></asp:Label>
@@ -303,6 +309,12 @@
                     <div class="col-md-12 Report">
                         <asp:GridView ID="gvSOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                             <Columns>
+                                <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Material Code">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
@@ -327,7 +339,7 @@
                                         <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "Value")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Discount">
+                                <asp:TemplateField HeaderText="Item Discount Value">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDiscount" Text='<%# DataBinder.Eval(Container.DataItem, "DiscountValue")%>' runat="server"></asp:Label>
@@ -351,7 +363,7 @@
                                         <asp:Label ID="lblTaxValue" Text='<%# (Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.CGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.SGSTValue")) + Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Material.IGSTValue"))).ToString("N2") %>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Net Value">
+                                <asp:TemplateField HeaderText="Net Amount">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblNetValue" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>

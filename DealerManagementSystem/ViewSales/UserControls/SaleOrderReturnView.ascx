@@ -100,7 +100,7 @@
                             <div class="table-responsive">
                                 <asp:GridView ID="gvSoReturnItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                                     <Columns>
-                                        <asp:TemplateField HeaderText="Sl. No." ItemStyle-HorizontalAlign="Right">
+                                        <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Right">
                                             <ItemTemplate>
                                                 <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                 <itemstyle width="25px" horizontalalign="Right"></itemstyle>
@@ -185,7 +185,7 @@
                                                 <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.Value","{0:n}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Discount">
+                                        <asp:TemplateField HeaderText="Item Discount Value">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblDiscount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.ItemDiscountValue","{0:n}")%>' runat="server"></asp:Label>
