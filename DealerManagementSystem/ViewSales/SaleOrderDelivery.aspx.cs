@@ -19,6 +19,7 @@ namespace DealerManagementSystem.ViewSales
         DateTime? DateFrom = null;
         DateTime? DateTo = null;
         string DeliveryNo = null;
+        string InvoiceNo = null;
         string SaleOrderNumber = null;
         int? DealerID = null;
         int? OfficeCodeID = null;
@@ -89,14 +90,21 @@ namespace DealerManagementSystem.ViewSales
                 PageIndex = 1;
                 txtDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtDateTo.Text = DateTime.Now.ToShortDateString();
-
-
-                fillDealer();
-                int? CDealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID", true, "Select");
+                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
+                {
+                    ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
+                    ddlDealer.Enabled = false;
+                }
+                else
+                {
+                    ddlDealer.Enabled = true;
+                    fillDealer();
+                }
+                new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 new DDLBind(ddlSaleOrderType, new BDMS_SalesOrder().GetSaleOrderType(null, null), "SaleOrderType", "SaleOrderTypeID");
                 new DDLBind(ddlDeliveryStatus, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.SaleOrderDelivery), "Status", "StatusID");
+                
                 if (Session["SaleOrderDeliveryID"] != null)
                 {
                     divSODeliveryList.Visible = false;
@@ -118,8 +126,7 @@ namespace DealerManagementSystem.ViewSales
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int? CDealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(CDealerID, null, null), "OfficeName", "OfficeID", true, "Select");
+            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
         }
         protected void btnSearchSODelivery_Click(object sender, EventArgs e)
         {
@@ -141,7 +148,7 @@ namespace DealerManagementSystem.ViewSales
                 TraceLogger.Log(DateTime.Now);
                 Search();
                 long? SaleOrderDeliveryID = null;
-                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderDeliveryHeader(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, SaleOrderNumber, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID, DeliveryStatusID, PageIndex, gvSODelivery.PageSize);
+                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderDeliveryHeader(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, InvoiceNo, SaleOrderNumber, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID, DeliveryStatusID, PageIndex, gvSODelivery.PageSize);
                 SalesOrderDelivery = JsonConvert.DeserializeObject<List<PSaleOrderDelivery>>(JsonConvert.SerializeObject(Result.Data));
 
                 gvSODelivery.PageIndex = 0;
@@ -175,6 +182,7 @@ namespace DealerManagementSystem.ViewSales
             DateFrom = string.IsNullOrEmpty(txtDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateFrom.Text.Trim());
             DateTo = string.IsNullOrEmpty(txtDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDateTo.Text.Trim());
             DeliveryNo = txtDeliveryNumber.Text.Trim();
+            InvoiceNo = txtInvoiceNumber.Text.Trim();
             SaleOrderNumber = txtSaleOrderNumber.Text.Trim();
             DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             OfficeCodeID = ddlOfficeName.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlOfficeName.SelectedValue);

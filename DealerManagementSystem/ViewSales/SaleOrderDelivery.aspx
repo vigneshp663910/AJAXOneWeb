@@ -35,6 +35,10 @@
                         <asp:TextBox ID="txtDeliveryNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Invoice Number</label>
+                        <asp:TextBox ID="txtInvoiceNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Sale Order Number</label>
                         <asp:TextBox ID="txtSaleOrderNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
@@ -44,7 +48,7 @@
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtCustomer" WatermarkText="Customer" WatermarkCssClass="WatermarkCssClass" />
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">Order Type</label>
+                        <label class="modal-label">Sale Order Type</label>
                         <asp:DropDownList ID="ddlSaleOrderType" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
                     <div class="col-md-2 col-sm-12">
@@ -91,10 +95,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <asp:GridView ID="gvSODelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"
+                            <asp:GridView ID="gvSODelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
                                 OnPageIndexChanging="gvSODelivery_PageIndexChanging">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="Sl. No." ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
@@ -105,7 +109,7 @@
                                             <asp:Button ID="btnViewSODelivery" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSODelivery_Click" Width="75px" Height="25px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Delivery">
+                                    <asp:TemplateField HeaderText="Delivery Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblSaleOrderDeliveryID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryID")%>' runat="server" Visible="false" />
@@ -114,7 +118,7 @@
                                             <asp:Label ID="lblDeliveryDate" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryDate","{0:d}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Invoice">
+                                     <asp:TemplateField HeaderText="Invoice Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                              <asp:Label ID="lblInvoiceNumberNumber" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceNumber")%>' runat="server" />
@@ -122,7 +126,7 @@
                                             <asp:Label ID="lblInvoiceDateDate" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceDate","{0:d}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Sale Order">
+                                    <asp:TemplateField HeaderText="Sale Order Number">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                              <asp:Label ID="lblSaleOrderNumber" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrder.SaleOrderNumber")%>' runat="server" />
@@ -158,10 +162,16 @@
                                             <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrder.Customer.CustomerName")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Order Type">
+                                    <asp:TemplateField HeaderText="Sale Order Type">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblSOType" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrder.SaleOrderType.SaleOrderType")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Delivery Order Status">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDeliveryOrderStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>

@@ -46,6 +46,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessageSoReturn.Text = "";
+            if (Session["SaleOrderReturnID"] != null)
+            {
+                lblMessageSoReturn.Text = "Sale Order Return Created.";
+                lblMessageSoReturn.ForeColor = Color.Green;
+                Session["SaleOrderReturnID"] = null;
+            }
         }
         public void fillViewSoReturn(long SaleOrderReturnID_)
         {

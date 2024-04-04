@@ -102,12 +102,12 @@
                             <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Customer Code</label>
-                            <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        </div>
-                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Sales Return Number</label>
                             <asp:TextBox ID="txtSoReturnNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Customer Code</label>
+                            <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Sales Return Date From</label>
@@ -141,7 +141,7 @@
                                 <div style="float: left">
                                     <table>
                                         <tr>
-                                            <td>Sales Return(s):</td>
+                                            <td>Sales Return:</td>
                                             <td>
                                                 <asp:Label ID="lblRowCountSoReturn" runat="server" CssClass="label"></asp:Label></td>
                                             <td>
@@ -155,7 +155,7 @@
                         </div>
                         <asp:GridView ID="gvSoReturn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found">
                             <Columns>
-                                <asp:TemplateField HeaderText="Sl. No." ItemStyle-HorizontalAlign="Center">
+                                <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
@@ -193,6 +193,12 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.SaleOrder.Division.DivisionCode")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Sale Order Type">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblSaleOrderType" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderType")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Customer">

@@ -88,6 +88,14 @@ namespace DealerManagementSystem.ViewSales
                 }
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerCode.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
+
+                if (Session["SaleOrderReturnID"] != null)
+                {
+                    divList.Visible = false;
+                    divSoReturnDetailsView.Visible = true;
+                    UC_SaleOrderReturnView.fillViewSoReturn(Convert.ToInt64(Session["SaleOrderReturnID"]));
+                }
+
                 lblRowCountSoReturn.Visible = false;
                 ibtnArrowLeftSoReturn.Visible = false;
                 ibtnArrowRightSoReturn.Visible = false;

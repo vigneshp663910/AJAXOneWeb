@@ -20,7 +20,7 @@
 </div>
 <div class="col-md-12" id="divInvoiceDetails" runat="server" visible="false" >
     <fieldset class="fieldset-border">
-        <legend style="background: none; color: #007bff; font-size: 17px;">Invoice Details</legend>
+        <legend style="background: none; color: #007bff; font-size: 17px;">Invoice</legend>
         <div class="col-md-12 View">
             <div class="col-md-4">
                 <div class="col-md-12">
@@ -38,17 +38,38 @@
                     <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Invoice No. & Date: </label>
-                    <asp:Label ID="lblInvoiceNumberDate" runat="server" CssClass="label"></asp:Label>
+                    <label>Division : </label>
+                    <asp:Label ID="lblDivision" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Order Type : </label>
+                    <asp:Label ID="lblSaleOrderType" runat="server" CssClass="label"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>Delivery No: </label>
+                    <asp:Label ID="lblDeliveryNumber" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Delivery Date: </label>
+                    <asp:Label ID="lblDeliveryDate" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Invoice No: </label>
+                    <asp:Label ID="lblInvoiceNumber" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Invoice Date: </label>
+                    <asp:Label ID="lblInvoiceDate" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
         </div>
-    </fieldset>
-   
+    </fieldset>  
 </div>
 <div class="col-md-12" id="divSoDelivery" runat="server" visible="false">
      <fieldset class="fieldset-border">
-        <legend style="background: none; color: #007bff; font-size: 17px;">Invoice Item(s)</legend>
+        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
         <div class="col-md-12 Report">
             <div class="col-md-12">
                 <div class="col-md-12">
@@ -153,21 +174,17 @@
         </div>
     </fieldset>
 </div>
-
-
-
-
 <div class="col-md-12" id="divSoDeliveryItem" runat="server" visible="false">
     <div class="col-md-12 Report">
         <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Sales Invoice Item</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
             <div class="col-md-12">
                 <div class="boxHead">
                     <div class="logheading">
                         <div style="float: left">
                             <table>
                                 <tr>
-                                    <td>Sale Order Invoice Item(s):</td>
+                                    <td>Invoice Item(s):</td>
                                     <td>
                                         <asp:Label ID="lblRowCountSoDeliveryItemDelivery" runat="server" CssClass="label"></asp:Label></td>
                                 </tr>
@@ -242,5 +259,4 @@
         </fieldset>
     </div>
 </div>
-<div class="col-md-12 col-sm-12" runat="server" id="divRemarks" visible="false">
-</div>
+
