@@ -40,13 +40,7 @@
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Purchase Return Status</label>
-                            <asp:DropDownList ID="ddlPoReturnStatus" runat="server" CssClass="form-control">
-                                <asp:ListItem Value="0">All</asp:ListItem>
-                                <asp:ListItem Value="DRAFT">Draft</asp:ListItem>
-                                <asp:ListItem Value="REQUESTED">Request For Approval</asp:ListItem>
-                                <asp:ListItem Value="APPROVED">Approved</asp:ListItem>
-                                <asp:ListItem Value="REJECTED">Rejected</asp:ListItem>
-                                <asp:ListItem Value="DELV_CREATED">Delivery Created</asp:ListItem>
+                            <asp:DropDownList ID="ddlPoReturnStatus" runat="server" CssClass="form-control"> 
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-12 text-center">

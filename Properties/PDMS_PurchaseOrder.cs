@@ -435,14 +435,14 @@ namespace Properties
         public long PurchaseOrderReturnItemID { get; set; }
         public PPurchaseOrder PurchaseOrder { get; set; }
         public int Item { get; set; }
-        public PGrItem GrItem { get; set; }
-        //  public PAsnItem AsnItem { get; set; }
-        public PGr Gr { get; set; }
-        public PAsn Asn { get; set; }
-
         public PMaterial Material { get; set; }
         public decimal Quantity { get; set; }
+        public decimal Value { get; set; }
+        public decimal TaxableValue { get; set; }
         public decimal DeliveredQty { get; set; }
+        public PGrItem GrItem { get; set; }
+        public PGr Gr { get; set; }
+        public PAsn Asn { get; set; }
     }
     [Serializable]
     public class PPurchaseOrderReturnDelivery

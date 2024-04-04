@@ -883,6 +883,14 @@ namespace Properties
         SaleOrderReturn_Cancelled = 47,
         SaleOrderReturn_CreditNote = 48,
     }
+    public enum ProcurementStatusHeader
+    {
+        PurchaseOrder = 1,
+        PurchaseOrderAsn = 2,
+        PurchaseOrderAsnGr = 3,
+        PurchaseOrderReturn = 4,
+        PurchaseOrderAsnGrBlocked = 5 
+    }
     public enum ProcurementStatus
     {
         PoDraft = 1,

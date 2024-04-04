@@ -69,10 +69,11 @@ namespace DealerManagementSystem.ViewProcurement
                 PageIndex = 1;
                 txtPoReturnDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtPoReturnDateTo.Text = DateTime.Now.ToShortDateString();
-                //new DDLBind(ddlPoReturnStatus, new BDMS_PurchaseOrder().GetPurchaseOrderReturnStatus(null, null), "PurchaseOrderReturnStatusDescription", "PurchaseOrderReturnStatusID");
                 
                 fillDealer();
                 ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
+                new DDLBind(ddlPoReturnStatus, new BDMS_PurchaseOrder().GetProcurementStatus((short)ProcurementStatusHeader.PurchaseOrderReturn), "ProcurementStatus", "ProcurementStatusID");
+                
                 lblRowCountPoReturn.Visible = false;
                 ibtnArrowLeftPoReturn.Visible = false;
                 ibtnArrowRightPoReturn.Visible = false;

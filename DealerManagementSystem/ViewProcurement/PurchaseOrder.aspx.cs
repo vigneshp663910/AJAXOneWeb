@@ -89,8 +89,9 @@ namespace DealerManagementSystem.ViewProcurement
                 txtPoDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtPoDateTo.Text = DateTime.Now.ToShortDateString();
 
-                fillDealer();
-                fillProcurementStatus();
+                fillDealer(); 
+                new DDLBind(ddlPOStatus, new BDMS_PurchaseOrder().GetProcurementStatus((short)ProcurementStatusHeader.PurchaseOrder), "ProcurementStatus", "ProcurementStatusID");
+
                 //FillGetDealerOffice();
                 ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
                 fillPurchaseOrderType();
@@ -238,14 +239,7 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
-        void fillProcurementStatus()
-        {
-            ddlPOStatus.DataTextField = "ProcurementStatus";
-            ddlPOStatus.DataValueField = "ProcurementStatusID";
-            ddlPOStatus.DataSource = new BDMS_PurchaseOrder().GetProcurementStatus(1);
-            ddlPOStatus.DataBind();
-            ddlPOStatus.Items.Insert(0, new ListItem("Select", "0"));
-        }
+        
 
         //protected void BtnView_Click(object sender, EventArgs e)
         //{
