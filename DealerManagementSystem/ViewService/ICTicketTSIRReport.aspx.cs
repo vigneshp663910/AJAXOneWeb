@@ -200,9 +200,14 @@ namespace DealerManagementSystem.ViewService
             //    lblRowCount.Text = (((gvTsir.PageIndex) * gvTsir.PageSize) + 1) + " - " + (((gvTsir.PageIndex) * gvTsir.PageSize) + gvTsir.Rows.Count) + " of " + TSIRs.Count;
             //}
         }
+
+        protected void btnExportExcelTsirPopup_Click(object sender, EventArgs e)
+        {
+            MPE_TsirApproveDate.Show();
+        }
         protected void btnExportExcel_Click(object sender, EventArgs e)
         { 
-            int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue); 
             int? TechnicianID = null;
             if (PSession.User.IsTechnician)
             {
@@ -213,8 +218,15 @@ namespace DealerManagementSystem.ViewService
             int? TsirStatusID = ddlTsirStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTsirStatus.SelectedValue);
             DataTable dt = new BDMS_ICTicketTSIR().GetICTicketTSIRDetailReportExcel(DealerID, txtCustomerCode.Text.Trim(), txtTSIRNo.Text.Trim(), txtTSIRDateFrom.Text.Trim(), txtTSIRDateTo.Text.Trim()
                 , txtICTicketNumber.Text.Trim(), txtICDateF.Text.Trim(), txtICDateT.Text.Trim(), txtSroCode.Text.Trim(), TechnicianID
-                , TypeOfWarrantyID, ModelID, txtMachineSerialNumber.Text.Trim(), TsirStatusID);
-            new BXcel().ExporttoExcel(dt, "TSIR Details");
+                , TypeOfWarrantyID, ModelID, txtMachineSerialNumber.Text.Trim(), TsirStatusID,txtTsirApproveDateFrom.Text.Trim(),txtTsirApproveDateTo.Text.Trim());
+            try
+            {
+                new BXcel().ExporttoExcel(dt, "TSIR Details");
+            }
+            catch
+            { }
+            MPE_TsirApproveDate.Hide();
+
             //DataTable dt = new DataTable();
             //dt.Columns.Add("TSIR");
             //dt.Columns.Add("TSIR Date");

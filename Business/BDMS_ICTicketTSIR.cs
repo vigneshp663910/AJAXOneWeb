@@ -203,13 +203,14 @@ namespace Business
         }
         public DataTable GetICTicketTSIRDetailReportExcel(int? DealerID, string CustomerCode, string TsirNo, string TsirDateF, string TsirDateT
           , string ICTicketNumber, string ICTicketDateF, string ICTicketDateT, String SroCode, int? TechnicianID, int? TypeOfWarrantyID
-           , int? ModelID, String MachineSerialNumber, int? TsirStatusID)
+           , int? ModelID, String MachineSerialNumber, int? TsirStatusID, string TsirApproveF, string TsirApproveT)
         { 
             TraceLogger.Log(DateTime.Now);
             string endPoint = "ICTicketTsir/GetICTicketTSIRDetailReportExcel?DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&TsirNo=" + TsirNo
                 + "&TsirDateF=" + TsirDateF + "&TsirDateT=" + TsirDateT + "&ICTicketNumber=" + ICTicketNumber
                 + "&ICTicketDateF=" + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&SroCode=" + SroCode + "&TechnicianID=" + TechnicianID
-                + "&TypeOfWarrantyID=" + TypeOfWarrantyID + "&ModelID=" + ModelID + "&MachineSerialNumber=" + MachineSerialNumber + "&TsirStatusID=" + TsirStatusID;
+                + "&TypeOfWarrantyID=" + TypeOfWarrantyID + "&ModelID=" + ModelID + "&MachineSerialNumber=" + MachineSerialNumber + "&TsirStatusID=" + TsirStatusID
+                + "&TsirApproveF=" + TsirApproveF + "&TsirApproveT=" + TsirApproveT;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public long InsertOrUpdateICTicketTSIR(PDMS_ICTicketTSIR TSIR, int UserID)
