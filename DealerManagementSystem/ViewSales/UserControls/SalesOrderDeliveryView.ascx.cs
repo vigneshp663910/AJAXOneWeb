@@ -105,14 +105,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
             PSaleOrderDelivery SaleOrderDelivery = new BDMS_SalesOrder().GetSaleOrderDeliveryByID(SaleOrderDeliveryID);
             SODeliveryID = SaleOrderDeliveryID;
             lblDeliveryNumber.Text = SaleOrderDelivery.DeliveryNumber;
-            lblDeliveryDate.Text = SaleOrderDelivery.DeliveryDate.ToString("dd/MM/yyyy");
+            lblDeliveryDate.Text = SaleOrderDelivery.DeliveryDate.ToShortDateString();
             lblInvoiceNumber.Text = SaleOrderDelivery.InvoiceNumber;
-            lblInvoiceDate.Text = SaleOrderDelivery.InvoiceDate.ToString();
+            lblInvoiceDate.Text = SaleOrderDelivery.InvoiceDate == null ? "" : ((DateTime)SaleOrderDelivery.InvoiceDate).ToShortDateString();
             lblDealer.Text = SaleOrderDelivery.SaleOrder.Dealer.DealerCode + " " + SaleOrderDelivery.SaleOrder.Dealer.DealerName;
             lblDealerOffice.Text = SaleOrderDelivery.SaleOrder.Dealer.DealerOffice.OfficeName;
             lblDivision.Text = SaleOrderDelivery.SaleOrder.Division.DivisionCode;
-            lblCustomer.Text = SaleOrderDelivery.SaleOrder.Customer.CustomerCode + " " + SaleOrderDelivery.SaleOrder.Customer.CustomerName;
             lblSaleOrderType.Text = SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderType;
+            lblDeliveryOrderStatus.Text = SaleOrderDelivery.Status.Status;
+            lblCustomer.Text = SaleOrderDelivery.SaleOrder.Customer.CustomerCode + " " + SaleOrderDelivery.SaleOrder.Customer.CustomerName;
             lblEquipment.Text = SaleOrderDelivery.Equipment.EquipmentSerialNo;
             decimal Value = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderDeliveryItem DeliveryItem in SaleOrderDelivery.SaleOrderDeliveryItems)
@@ -133,14 +134,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
             gvSODeliveryItem.DataBind();
 
             lblQuotationNumber.Text = SaleOrderDelivery.SaleOrder.QuotationNumber;
-            lblQuotationDate.Text = SaleOrderDelivery.SaleOrder.QuotationDate.ToString("dd/MM/yyyy");
+            lblQuotationDate.Text = SaleOrderDelivery.SaleOrder.QuotationDate.ToShortDateString();
             lblSaleOrderNumber.Text = SaleOrderDelivery.SaleOrder.SaleOrderNumber;
-            lblSaleOrderDate.Text = (SaleOrderDelivery.SaleOrder.SaleOrderDate == null) ? null : Convert.ToDateTime(SaleOrderDelivery.SaleOrder.SaleOrderDate).ToString("dd/MM/yyyy");
+            lblSaleOrderDate.Text = (SaleOrderDelivery.SaleOrder.SaleOrderDate == null) ? null : ((DateTime)SaleOrderDelivery.SaleOrder.SaleOrderDate).ToShortDateString();
             lblProformaInvoiceNumber.Text = SaleOrderDelivery.SaleOrder.ProformaInvoiceNumber;
-            lblProformaInvoiceDate.Text = (SaleOrderDelivery.SaleOrder.ProformaInvoiceDate == null) ? null : Convert.ToDateTime(SaleOrderDelivery.SaleOrder.ProformaInvoiceDate).ToString("dd/MM/yyy");
-            lblSOExpectedDeliveryDate.Text = SaleOrderDelivery.SaleOrder.ExpectedDeliveryDate.ToString("dd/MM/yyyy");
+            lblProformaInvoiceDate.Text = (SaleOrderDelivery.SaleOrder.ProformaInvoiceDate == null) ? null : ((DateTime)SaleOrderDelivery.SaleOrder.ProformaInvoiceDate).ToShortDateString();
+            lblSOExpectedDeliveryDate.Text = SaleOrderDelivery.SaleOrder.ExpectedDeliveryDate.ToShortDateString();
             lblRefNumber.Text = SaleOrderDelivery.SaleOrder.RefNumber;
-            lblRefDate.Text = SaleOrderDelivery.SaleOrder.RefDate == null ? "" : Convert.ToDateTime(SaleOrderDelivery.SaleOrder.RefDate).ToString("dd/MM/yyyy");
+            lblRefDate.Text = (SaleOrderDelivery.SaleOrder.RefDate == null) ? "" : ((DateTime)SaleOrderDelivery.SaleOrder.RefDate).ToShortDateString();
             lblContactPersonNumber.Text = SaleOrderDelivery.SaleOrder.ContactPersonNumber;
             lblProduct.Text = SaleOrderDelivery.SaleOrder.Product == null ? "" : SaleOrderDelivery.SaleOrder.Product.Product;
             lblEquipmentSerialNo.Text = SaleOrderDelivery.Equipment.EquipmentSerialNo;
@@ -148,7 +149,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblInsurancePaidBy.Text = SaleOrderDelivery.SaleOrder.InsurancePaidBy;
             lblRemarks.Text = SaleOrderDelivery.SaleOrder.Remarks;
             lblAttn.Text = SaleOrderDelivery.SaleOrder.Attn;
-            lblSalesEngnieer.Text = SaleOrderDelivery.SaleOrder.SalesEngineer == null?"": SaleOrderDelivery.SaleOrder.SalesEngineer.ContactName;
+            lblSalesEngnieer.Text = (SaleOrderDelivery.SaleOrder.SalesEngineer == null) ? "": SaleOrderDelivery.SaleOrder.SalesEngineer.ContactName;
             lblTaxType.Text = SaleOrderDelivery.SaleOrder.TaxType;
             lblHeaderDiscountPercent.Text = SaleOrderDelivery.SaleOrder.HeaderDiscountPercentage.ToString();
             lblGrossAmount.Text = SaleOrderDelivery.SaleOrder.GrossAmount.ToString();

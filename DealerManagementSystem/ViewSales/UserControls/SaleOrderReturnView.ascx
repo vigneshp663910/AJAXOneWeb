@@ -22,78 +22,132 @@
         <fieldset class="fieldset-border">
             <legend style="background: none; color: #007bff; font-size: 17px;">Sales Return</legend>
             <div class="col-md-12 View">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="col-md-12">
                         <label>Sales Return Number : </label>
-                        <asp:Label ID="lblSaleOrderReturnNumber" runat="server" CssClass="label"></asp:Label>
+                        <asp:Label ID="lblSaleOrderReturnNumber" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
                     <div class="col-md-12">
                         <label>Sales Return Date : </label>
-                        <asp:Label ID="lblSaleOrderReturnDate" runat="server" CssClass="label"></asp:Label>
-                    </div> 
-                    <div class="col-md-12">
-                        <label>Credit Note Number : </label>
-                        <asp:Label ID="lblCreditNoteNumber" runat="server" CssClass="label"></asp:Label>
+                        <asp:Label ID="lblSaleOrderReturnDate" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
                     <div class="col-md-12">
-                        <label>Credit Note Date : </label>
-                        <asp:Label ID="lblCreditNoteDate" runat="server" CssClass="label"></asp:Label>
+                        <label>SO Invoice Number : </label>
+                        <asp:Label ID="lblInvoiceNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>SO Invoice Date : </label>
+                        <asp:Label ID="lblInvoiceDate" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <label>Dealer : </label>
+                        <asp:Label ID="lblSODealer" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
                     <div class="col-md-12">
                         <label>Dealer Office : </label>
-                        <asp:Label ID="lblDealerOffice" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Contact Person : </label>
-                        <asp:Label ID="lblContactPerson" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    
-                    <div class="col-md-12">
-                        <label>Customer : </label>
-                        <asp:Label ID="lblCustomer" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Contact Person Number : </label>
-                        <asp:Label ID="lblContactPersonNumber" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Approved By : </label>
-                        <asp:Label ID="lblApprovedBy" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Approved Date : </label>
-                        <asp:Label ID="lblApprovedDate" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Cancelled By : </label>
-                        <asp:Label ID="lblCancelledBy" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Cancelled On : </label>
-                        <asp:Label ID="lblCancelledOn" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="col-md-12">
-                        <label>Dealer : </label>
-                        <asp:Label ID="lblSODealer" runat="server" CssClass="label"></asp:Label>
-                    </div>
-                    <div class="col-md-12">
-                        <label>Sales Return Status : </label>
-                        <asp:Label ID="lblSaleOrderReturnStatus" runat="server" CssClass="label"></asp:Label>
+                        <asp:Label ID="lblDealerOffice" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
                     <div class="col-md-12">
                         <label>Division : </label>
-                        <asp:Label ID="lblDivision" runat="server" CssClass="label"></asp:Label>
+                        <asp:Label ID="lblDivision" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Order Type : </label>
+                        <asp:Label ID="lblSaleOrderType" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <label>Return Status : </label>
+                        <asp:Label ID="lblSaleOrderReturnStatus" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Customer : </label>
+                        <asp:Label ID="lblCustomer" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Contact Person : </label>
+                        <asp:Label ID="lblContactPerson" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Contact Person Number : </label>
+                        <asp:Label ID="lblContactPersonNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12">
+                        <label>Value : </label>
+                        <asp:Label ID="lblValue" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Taxable Value : </label>
+                        <asp:Label ID="lblTaxableValue" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Tax Value : </label>
+                        <asp:Label ID="lblTaxValue" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Net Value : </label>
+                        <asp:Label ID="lblNetValue" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
                 </div>
             </div>
         </fieldset>
         <asp:Label ID="lblMessageSoReturn" runat="server" Text="" CssClass="message" />
-        <asp1:TabContainer ID="tbpSoReturn" runat="server" ToolTip="SO Return Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
-            <asp1:TabPanel ID="tpnlPoReturnItem" runat="server" HeaderText="Sales Return Item" Font-Bold="True" ToolTip="">
+        <asp1:TabContainer ID="tbpSalesReturn" runat="server" ToolTip="Sales Return Info." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
+            <asp1:TabPanel ID="tbPSalesReturnHeader" runat="server" HeaderText="Sales Return Header" Font-Bold="True" ToolTip="">
+                <ContentTemplate>
+                    <div class="col-md-12 field-margin-top">
+                        <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">SO Header</legend>
+                            <div class="col-md-12 View">
+                                <div class="col-md-4">
+                                    <div class="col-md-12">
+                                        <label>Created By : </label>
+                                        <asp:Label ID="lblCreatedBy" runat="server" CssClass="LabelValue"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Credit Note Number : </label>
+                                        <asp:Label ID="lblCreditNoteNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Credit Note Date : </label>
+                                        <asp:Label ID="lblCreditNoteDate" runat="server" CssClass="LabelValue"></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-12">
+                                        <label>Remarks : </label>
+                                        <asp:Label ID="lblRemarks" runat="server" CssClass="LabelValue"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Approved By : </label>
+                                        <asp:Label ID="lblApprovedBy" runat="server" CssClass="LabelValue"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Approved Date : </label>
+                                        <asp:Label ID="lblApprovedDate" runat="server" CssClass="LabelValue"></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-12">
+                                        <label>Cancelled By : </label>
+                                        <asp:Label ID="lblCancelledBy" runat="server" CssClass="LabelValue"></asp:Label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Cancelled Date : </label>
+                                        <asp:Label ID="lblCancelledDate" runat="server" CssClass="LabelValue"></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </ContentTemplate>
+            </asp1:TabPanel>
+            <asp1:TabPanel ID="tpnlSOReturnItem" runat="server" HeaderText="Sales Return Item" Font-Bold="True" ToolTip="">
                 <ContentTemplate>
                     <div class="col-md-12">
                         <div class="col-md-12 Report">
@@ -125,52 +179,16 @@
                                                 <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.HSN")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Delivered Qty">
+                                        <%--<asp:TemplateField HeaderText="Delivered Qty">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Qty")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Return Qty">
+                                        </asp:TemplateField>--%>
+                                        <asp:TemplateField HeaderText="Qty">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
                                                 <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="CGST">
-                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblCGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.CGST")%>' runat="server"></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="CGST Value">
-                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblCGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.CGSTValue")%>' runat="server"></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="SGST">
-                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblSGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.SGST")%>' runat="server"></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="SGST Value">
-                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblSGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.SGSTValue")%>' runat="server"></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="IGST">
-                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblIGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.IGST")%>' runat="server"></asp:Label>
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="IGST Value">
-                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                            <ItemTemplate>
-                                                <asp:Label ID="lblIGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Material.IGSTValue")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="UOM">
@@ -185,6 +203,48 @@
                                                 <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.Value","{0:n}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Taxable Value">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblTaxableAmount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.TaxableValue","{0:n}")%>' runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="CGST">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblCGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.CGST")%>' runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="CGST Value">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblCGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.CGSTValue")%>' runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="SGST">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblSGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SGST")%>' runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="SGST Value">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblSGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SGSTValue")%>' runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="IGST">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblIGST" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.IGST")%>' runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="IGST Value">
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblIGSTValue" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.IGSTValue")%>' runat="server"></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <%--<asp:TemplateField HeaderText="Item Discount Value">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
@@ -197,10 +257,10 @@
                                                 <asp:Label ID="lblFreightAmount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.FreightAmount","{0:n}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>--%>
-                                        <asp:TemplateField HeaderText="Taxable Value">
+                                        <asp:TemplateField HeaderText="Net Value">
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                             <ItemTemplate>
-                                                <asp:Label ID="lblTaxableAmount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.TaxableValue","{0:n}")%>' runat="server"></asp:Label>
+                                                <asp:Label ID="lblNetAmount" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDeliveryItem.SaleOrderItem.NetAmount","{0:n}")%>' runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

@@ -357,10 +357,12 @@ namespace Properties
         public DateTime SaleOrderReturnDate { get; set; }
         public string CreditNoteNumber { get; set; }
         public DateTime? CreditNoteDate { get; set; }
+        public PUser CreatedBy { get; set; }
         public PUser ApprovedBy { get; set; }
         public DateTime? ApprovedOn { get; set; }
         public PUser CancelledBy { get; set; }
         public DateTime? CancelledOn { get; set; }
+        public string Remarks { get; set; }
         public PSaleOrderDelivery SaleOrderDelivery { get; set; } 
         public PSaleOrderReturnItem SaleOrderReturnItem { get; set; }
         public List<PSaleOrderReturnItem> SaleOrderReturnItems { get; set; }

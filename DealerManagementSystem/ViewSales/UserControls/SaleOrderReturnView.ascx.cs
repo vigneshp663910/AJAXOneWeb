@@ -60,21 +60,45 @@ namespace DealerManagementSystem.ViewSales.UserControls
             StatusID = SoReturn.ReturnStatus.StatusID;
             lblSaleOrderReturnNumber.Text = SoReturn.SaleOrderReturnNumber;
             lblSaleOrderReturnDate.Text = SoReturn.SaleOrderReturnDate.ToShortDateString();
+            lblInvoiceNumber.Text = SoReturn.SaleOrderDelivery.InvoiceNumber;
+            lblInvoiceDate.Text = SoReturn.SaleOrderDelivery.InvoiceDate == null ? "" : ((DateTime)SoReturn.SaleOrderDelivery.InvoiceDate).ToShortDateString();
+
+            lblSODealer.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerName;
+            lblDealerOffice.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerOffice.OfficeName;
+            lblDivision.Text = SoReturn.SaleOrderDelivery.SaleOrder.Division.DivisionCode;
+            lblSaleOrderType.Text = SoReturn.SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderType;
+
+            lblSaleOrderReturnStatus.Text = SoReturn.ReturnStatus.Status;
+            lblCustomer.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.CustomerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Customer.CustomerName;
+            lblContactPerson.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.ContactPerson;
+            lblContactPersonNumber.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.Mobile;
+
+            lblCreatedBy.Text = SoReturn.CreatedBy.ContactName;
             lblCreditNoteNumber.Text = SoReturn.CreditNoteNumber;
             lblCreditNoteDate.Text = SoReturn.CreditNoteDate == null ? "" : ((DateTime)SoReturn.CreditNoteDate).ToShortDateString();
 
-            lblSODealer.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerName;
-            //lblDealerOffice.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerName;
-            lblDealerOffice.Text = SoReturn.SaleOrderDelivery.SaleOrder.Dealer.DealerOffice.OfficeName;
-            lblContactPerson.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.ContactPerson;
-            lblCustomer.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.CustomerCode + " " + SoReturn.SaleOrderDelivery.SaleOrder.Customer.CustomerName;
-            lblContactPersonNumber.Text = SoReturn.SaleOrderDelivery.SaleOrder.Customer.Mobile;
-            lblSaleOrderReturnStatus.Text = SoReturn.ReturnStatus.Status;
-            lblDivision.Text = SoReturn.SaleOrderDelivery.SaleOrder.Division.DivisionCode;
-            lblApprovedBy.Text = SoReturn.ApprovedBy == null ? "" : SoReturn.ApprovedBy.ContactName.ToString();
+            lblRemarks.Text = SoReturn.Remarks;
+            lblApprovedBy.Text = SoReturn.ApprovedBy == null ? "" : SoReturn.ApprovedBy.ContactName;
             lblApprovedDate.Text = SoReturn.ApprovedOn == null ? "" : ((DateTime)SoReturn.ApprovedOn).ToShortDateString();
-            lblCancelledBy.Text = SoReturn.CancelledBy == null ? "" : SoReturn.CancelledBy.ContactName.ToString();
-            lblCancelledOn.Text = SoReturn.CancelledOn == null ? "" : ((DateTime)SoReturn.CancelledOn).ToShortDateString();
+            
+            lblCancelledBy.Text = SoReturn.CancelledBy == null ? "" : SoReturn.CancelledBy.ContactName;
+            lblCancelledDate.Text = SoReturn.CancelledOn == null ? "" : ((DateTime)SoReturn.CancelledOn).ToShortDateString();
+
+            decimal Value = 0, TaxableValue = 0, TaxValue = 0, NetValue = 0;
+            foreach (PSaleOrderReturnItem saleOrderReturnItem in SoReturn.SaleOrderReturnItems)
+            {
+                Value = Value + saleOrderReturnItem.SaleOrderDeliveryItem.Value;
+                TaxableValue = TaxableValue + saleOrderReturnItem.SaleOrderDeliveryItem.TaxableValue;
+                TaxValue = TaxValue + saleOrderReturnItem.SaleOrderDeliveryItem.CGSTValue + saleOrderReturnItem.SaleOrderDeliveryItem.SGSTValue + saleOrderReturnItem.SaleOrderDeliveryItem.IGSTValue;
+                NetValue = NetValue + saleOrderReturnItem.SaleOrderDeliveryItem.TaxableValue + saleOrderReturnItem.SaleOrderDeliveryItem.CGSTValue + saleOrderReturnItem.SaleOrderDeliveryItem.SGSTValue + saleOrderReturnItem.SaleOrderDeliveryItem.IGSTValue;
+                saleOrderReturnItem.SaleOrderDeliveryItem.SaleOrderItem.NetAmount = saleOrderReturnItem.SaleOrderDeliveryItem.TaxableValue + saleOrderReturnItem.SaleOrderDeliveryItem.CGSTValue + saleOrderReturnItem.SaleOrderDeliveryItem.SGSTValue + saleOrderReturnItem.SaleOrderDeliveryItem.IGSTValue;
+            }
+
+            lblValue.Text = Value.ToString();
+            lblTaxableValue.Text = TaxableValue.ToString();
+            lblTaxValue.Text = TaxValue.ToString();
+            lblNetValue.Text = NetValue.ToString();
+
             gvSoReturnItem.DataSource = SoReturn.SaleOrderReturnItems;
             gvSoReturnItem.DataBind(); 
             ActionControlMange();

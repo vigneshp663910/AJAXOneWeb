@@ -98,7 +98,7 @@
                             <asp:GridView ID="gvSODelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
                                 OnPageIndexChanging="gvSODelivery_PageIndexChanging">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="Sl. No." ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
