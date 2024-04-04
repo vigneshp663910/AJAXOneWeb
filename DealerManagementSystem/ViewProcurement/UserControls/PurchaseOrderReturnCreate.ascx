@@ -9,6 +9,10 @@
             <label class="modal-label">Dealer<samp style="color: red">*</samp></label>
             <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
         </div>
+          <div class="col-md-2 col-sm-12">
+            <label class="modal-label">Location<samp style="color: red">*</samp></label>
+            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
+        </div>
         <div class="col-md-2 col-sm-12">
             <label class="modal-label">Vendor<samp style="color: red">*</samp></label>
             <asp:DropDownList ID="ddlVendor" runat="server" CssClass="form-control" />
@@ -17,10 +21,7 @@
             <label class="modal-label">Division</label>
             <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
         </div>
-        <div class="col-md-2 col-sm-12">
-            <label class="modal-label">Location<samp style="color: red">*</samp></label>
-            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
-        </div>
+      
         <div class="col-md-2 text-left">
             <label class="modal-label">-</label>
             <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />

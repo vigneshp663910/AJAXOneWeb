@@ -19,7 +19,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 if (ViewState["PPurchaseOrderReturn"] == null)
                 {
-                    ViewState["PPurchaseOrderReturn"] = new PurchaseOrderReturn();
+                    ViewState["PPurchaseOrderReturn"] = new PPurchaseOrderReturn();
                 }
                 return (PPurchaseOrderReturn)ViewState["PPurchaseOrderReturn"];
             }

@@ -33,6 +33,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
+        /// ddlDealerOffice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerOffice;
+
+        /// <summary>
         /// ddlVendor control.
         /// </summary>
         /// <remarks>
@@ -49,15 +58,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
-
-        /// <summary>
-        /// ddlDealerOffice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealerOffice;
 
         /// <summary>
         /// btnSearch control.
