@@ -75,7 +75,7 @@ namespace DealerManagementSystem.ViewProcurement
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Purchase Order ASN');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Advanced Shipping Notice');</script>");
             lblMessage.Visible = false;
 
             if (PSession.User == null)
