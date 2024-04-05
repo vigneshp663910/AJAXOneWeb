@@ -526,9 +526,15 @@ namespace Business
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
-                PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "","","", false, 1)[0];
+                //   PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "","","", false, 1)[0];
+
+                PDMS_WarrantyInvoiceHeader_1 WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimHeader(null, null, ClaimInvoice.AnnexureNumber)[0];
+               // string CustomerCode = "", CustomerName="", ICTicketID="", Model="", HMR="", MachineSerialNumber="";
+               // DateTime ICTicketDate = DateTime.Now;
 
                 //PDMS_Customer Customer = new SCustomer().getCustomerAddress(WarrantyInvoiceHeader.CustomerCode);
+
+                // PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(WarrantyInvoiceHeader.CustomerCode);
                 PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(WarrantyInvoiceHeader.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
@@ -611,21 +617,27 @@ namespace Business
                 P[9] = new ReportParameter("InvoiceNumber", ClaimInvoice.InvoiceNumber, false);
 
                 P[10] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
+                //P[11] = new ReportParameter("CustomerName", WarrantyInvoiceHeader.CustomerName, false);
                 P[11] = new ReportParameter("CustomerName", WarrantyInvoiceHeader.CustomerName, false);
                 P[12] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
                 P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
                 P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
                 P[15] = new ReportParameter("CustomerStateCode", Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "", false);
                 P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
-                P[17] = new ReportParameter("ICTicketNo", WarrantyInvoiceHeader.ICTicketID, false);
+                // P[17] = new ReportParameter("ICTicketNo", WarrantyInvoiceHeader.ICTicketID, false);
+                P[17] = new ReportParameter("ICTicketNo", WarrantyInvoiceHeader.ICTicket.ICTicketNumber, false);
+                //  P[18] = new ReportParameter("Model", WarrantyInvoiceHeader.Model, false);
                 P[18] = new ReportParameter("Model", WarrantyInvoiceHeader.Model, false);
                 P[19] = new ReportParameter("DateOfComm", "", false);
-                P[20] = new ReportParameter("HMR", Convert.ToString(WarrantyInvoiceHeader.HMR), false);
+                 P[20] = new ReportParameter("HMR", Convert.ToString(WarrantyInvoiceHeader.HMR), false); 
                 P[21] = new ReportParameter("Through", ClaimInvoice.Through, false);
                 P[22] = new ReportParameter("LR", ClaimInvoice.LRNumber, false);
-                P[23] = new ReportParameter("TSIR", WarrantyInvoiceHeader.TSIRNumber, false);
+               // P[23] = new ReportParameter("TSIR", WarrantyInvoiceHeader.TSIRNumber, false);
+                P[23] = new ReportParameter("TSIR", "", false);
+                //P[24] = new ReportParameter("MachineSerialNo", WarrantyInvoiceHeader.MachineSerialNumber, false);
                 P[24] = new ReportParameter("MachineSerialNo", WarrantyInvoiceHeader.MachineSerialNumber, false);
-                P[25] = new ReportParameter("DateOfFailure", ((DateTime)WarrantyInvoiceHeader.ICTicketDate).ToShortDateString(), false);
+               // P[25] = new ReportParameter("DateOfFailure", ((DateTime)WarrantyInvoiceHeader.ICTicketDate).ToShortDateString(), false);
+                P[25] = new ReportParameter("DateOfFailure", WarrantyInvoiceHeader.ICTicket.ICTicketDate.ToShortDateString(), false);
                 P[26] = new ReportParameter("InvDate", ((DateTime)ClaimInvoice.InvoiceDate).ToShortDateString(), false);
                 DateTime NewLogoDate = Convert.ToDateTime(ConfigurationManager.AppSettings["NewLogoDate"]);
                 string NewLogo = "0";
@@ -1078,8 +1090,8 @@ namespace Business
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
-                PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "", "", "", false, 1)[0];
-
+                //  PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "", "", "", false, 1)[0];
+                PDMS_WarrantyInvoiceHeader_1 WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimHeader(null, null, ClaimInvoice.AnnexureNumber)[0];
                 PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(WarrantyInvoiceHeader.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
@@ -1168,15 +1180,16 @@ namespace Business
                 P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
                 P[15] = new ReportParameter("CustomerStateCode", Customer.GSTIN.Length > 2 ? Customer.GSTIN.Substring(0, 2) : "", false);
                 P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
-                P[17] = new ReportParameter("ICTicketNo", WarrantyInvoiceHeader.ICTicketID, false);
+                P[17] = new ReportParameter("ICTicketNo", WarrantyInvoiceHeader.ICTicket.ICTicketNumber, false);
                 P[18] = new ReportParameter("Model", WarrantyInvoiceHeader.Model, false);
                 P[19] = new ReportParameter("DateOfComm", "", false);
                 P[20] = new ReportParameter("HMR", Convert.ToString(WarrantyInvoiceHeader.HMR), false);
                 P[21] = new ReportParameter("Through", ClaimInvoice.Through, false);
                 P[22] = new ReportParameter("LR", ClaimInvoice.LRNumber, false);
-                P[23] = new ReportParameter("TSIR", WarrantyInvoiceHeader.TSIRNumber, false);
+                //  P[23] = new ReportParameter("TSIR", WarrantyInvoiceHeader.TSIRNumber, false);
+                P[23] = new ReportParameter("TSIR", "", false);
                 P[24] = new ReportParameter("MachineSerialNo", WarrantyInvoiceHeader.MachineSerialNumber, false);
-                P[25] = new ReportParameter("DateOfFailure", ((DateTime)WarrantyInvoiceHeader.ICTicketDate).ToShortDateString(), false);
+                P[25] = new ReportParameter("DateOfFailure", WarrantyInvoiceHeader.ICTicket.ICTicketDate.ToShortDateString(), false);
                 P[26] = new ReportParameter("InvDate", ((DateTime)ClaimInvoice.InvoiceDate).ToShortDateString(), false);
                 DateTime NewLogoDate = Convert.ToDateTime(ConfigurationManager.AppSettings["NewLogoDate"]);
                 string NewLogo = "0";

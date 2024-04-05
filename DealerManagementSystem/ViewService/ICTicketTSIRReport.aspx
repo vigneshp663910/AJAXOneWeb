@@ -72,15 +72,15 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">IC Ticket Date From</label>
-                        <asp:TextBox ID="txtICLoginDateFrom" runat="server" AutoComplete="Off" CssClass="form-control"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtICLoginDateFrom" PopupButtonID="txtICLoginDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtICLoginDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        <asp:TextBox ID="txtICDateF" runat="server" AutoComplete="Off" CssClass="form-control"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtICDateF" PopupButtonID="txtICDateF" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtICDateF" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">IC Ticket Date To</label>
-                        <asp:TextBox ID="txtICLoginDateTo" runat="server" AutoComplete="Off" CssClass="form-control"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtICLoginDateTo" PopupButtonID="txtICLoginDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtICLoginDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        <asp:TextBox ID="txtICDateT" runat="server" AutoComplete="Off" CssClass="form-control"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtICDateT" PopupButtonID="txtICDateT" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtICDateT" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">SRO Code</label>
@@ -105,7 +105,7 @@
                     <div class="col-md-10 text-left">
                         <label class="modal-label">-</label>
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px"/>
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcelTsirPopup_Click" Width="100px"/>
                     </div>
                 </div>
             </fieldset>
@@ -278,4 +278,40 @@
             </fieldset>
         </div>
     </div>
+
+
+    
+<asp:Panel ID="pnlTsirApproveDate" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Tsir Approve Date</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button14" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblNextFollowUpDateMessage" runat="server" Text="" CssClass="message" Visible="false" />
+            <div class="col-md-6 col-sm-12">
+                <label>Tsir Approve Date From</label>
+                <asp:TextBox ID="txtTsirApproveDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                <asp:CalendarExtender ID="cxEditNextFollowUpDate" runat="server" TargetControlID="txtTsirApproveDateFrom" PopupButtonID="txtTsirApproveDateFrom" Format="dd/MM/yyyy" />
+                  <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID="txtTsirApproveDateFrom" WatermarkText="DD/MM/YYYY" />
+            </div>
+              <div class="col-md-6 col-sm-12">
+                <label>Tsir Approve Date To</label>
+                <asp:TextBox ID="txtTsirApproveDateTo" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtTsirApproveDateTo" PopupButtonID="txtTsirApproveDateTo" Format="dd/MM/yyyy" />
+                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtTsirApproveDateTo" WatermarkText="DD/MM/YYYY" />
+            </div>
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnUpdateNextFollowUpDate" runat="server"  Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Save" OnClick="btnExportExcel_Click"  Width="100px" />
+            </div>
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_TsirApproveDate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlTsirApproveDate"  BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<div style="display: none">
+    <%-- <div  >--%>
+    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+</div>
 </asp:Content>

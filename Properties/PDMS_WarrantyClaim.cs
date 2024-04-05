@@ -413,6 +413,33 @@ namespace Properties
         public Boolean? DeviatedIsRejected { get; set; }
     }
     [Serializable]
+    public class PDMS_WarrantyInvoiceHeader_1
+    {
+        //public long WarrantyInvoiceHeaderID { get; set; }
+        //public string InvoiceNumber { get; set; }
+        //public DateTime? InvoiceDate { get; set; } 
+        public string CustomerCode { get; set; }
+        public string CustomerName { get; set; }
+        //public string DealerCode { get; set; }
+        //public string DealerName { get; set; }
+
+        public PDMS_ICTicket ICTicket { get; set; }
+
+
+        public PUser Approved1By { get; set; } 
+        public PUser Approved2By { get; set; } 
+        public int? HMR { get; set; }
+        //public Boolean? MarginWarranty { get; set; }
+        public string MachineSerialNumber { get; set; }
+        public string Model { get; set; } 
+        //public string ClaimStatus { get; set; } 
+        //public DateTime? RestoreDate { get; set; }  
+        //public string AcInvoiceNumber { get; set; }
+        //public DateTime? AcInvoiceDate { get; set; }
+        //public string AnnexureNumber { get; set; }
+        //public DateTime? AnnexureDate { get; set; } 
+    }
+    [Serializable]
     public class PDMS_WarrantyInvoiceItem
     {
         public long WarrantyInvoiceItemID { get; set; }

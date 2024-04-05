@@ -551,7 +551,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 PDMS_ICTicket ICTicket = new BDMS_ICTicket().GetICTicketByICTIcketID(TSIR.ICTicket.ICTicketID);
                 PDMS_ICTicketFSR FSR = new BDMS_ICTicketFSR().GetICTicketFSRByFsrID(null, TSIR.ICTicket.ICTicketID, null, null, null, null, null, null);
 
-                List<PDMS_WarrantyInvoiceHeader> ClaimList = new BDMS_WarrantyClaim().GetWarrantyClaimReport(TSIR.ICTicket.ICTicketNumber, null, null, "", null, null, "", null, null, null, "", "", "", false, null);
+                List<PDMS_WarrantyInvoiceHeader_1> ClaimList = new BDMS_WarrantyClaim().GetWarrantyClaimHeader(TSIR.ICTicket.ICTicketID, null, null);
                 string TL_ContactDetails = "";
                 string SM_ContactDetails = "";
                 if (ClaimList.Count != 0)
