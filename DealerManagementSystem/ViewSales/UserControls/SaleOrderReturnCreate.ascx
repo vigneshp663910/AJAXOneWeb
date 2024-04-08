@@ -9,8 +9,12 @@
         <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
         <div class="col-md-12">
             <div class="col-md-2 col-sm-12">
-                <label class="modal-label">Invoice Number<samp style="color: red">*</samp></label>
+                <label class="modal-label">Invoice Number</label>
                 <asp:TextBox ID="txtInvoiceNo" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+            </div>
+            <div class="col-md-2 col-sm-12">
+                <label class="modal-label">Delivery Number</label>
+                <asp:TextBox ID="txtDeliveryNo" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
             </div>
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />

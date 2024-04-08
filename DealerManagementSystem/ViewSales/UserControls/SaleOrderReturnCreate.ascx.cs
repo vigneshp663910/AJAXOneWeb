@@ -86,13 +86,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblMessageSoReturnCreate.ForeColor = Color.Red;
             gvSoDelivery.DataSource = null;
             gvSoDelivery.DataBind(); 
-            if (string.IsNullOrEmpty(txtInvoiceNo.Text))
+            if (string.IsNullOrEmpty(txtInvoiceNo.Text) && string.IsNullOrEmpty(txtDeliveryNo.Text.Trim()))
             {
                 txtInvoiceNo.BorderColor = Color.Red;
-                lblMessageSoReturnCreate.Text = "Please enter Invoice Number.";
+                txtInvoiceNo.BorderColor = Color.Red;
+                lblMessageSoReturnCreate.Text = "Please enter Invoice Number or Delivery Number.";
                 return;
             } 
-            PApiResult Result = new BSalesOrderReturn().GetSaleOrderDeliveryForSoReturnCreation(txtInvoiceNo.Text.Trim()); 
+            PApiResult Result = new BSalesOrderReturn().GetSaleOrderDeliveryForSoReturnCreation(txtInvoiceNo.Text.Trim(), txtDeliveryNo.Text.Trim()); 
             if (Result.Status == PApplication.Failure)
             {
                 lblMessageSoReturnCreate.Text = Result.Message; 
@@ -112,7 +113,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblDeliveryNumber.Text = SoDeliveryList[0].DeliveryNumber;
             lblDeliveryDate.Text = ((DateTime)SoDeliveryList[0].DeliveryDate).ToShortDateString();
             lblInvoiceNumber.Text = SoDeliveryList[0].InvoiceNumber;
-            lblInvoiceDate.Text = ((DateTime)SoDeliveryList[0].InvoiceDate).ToShortDateString();
+            lblInvoiceDate.Text = SoDeliveryList[0].InvoiceDate == null ? null : ((DateTime)SoDeliveryList[0].InvoiceDate).ToShortDateString();
             fillSoDelivery();
         } 
         public void fillSoDelivery()

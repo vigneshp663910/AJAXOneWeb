@@ -31,9 +31,9 @@ namespace Business
         //         + "&InvoiceDateF=" + InvoiceDateF + "&InvoiceDateT=" + InvoiceDateT;
         //    return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         //}
-        public PApiResult GetSaleOrderDeliveryForSoReturnCreation(string InvoiceNumber)
+        public PApiResult GetSaleOrderDeliveryForSoReturnCreation(string InvoiceNumber, string DeliveryNumber)
         {
-            string endPoint = "SaleOrderReturn/SaleOrderDeliveryForSoReturnCreation?InvoiceNumber=" + InvoiceNumber;
+            string endPoint = "SaleOrderReturn/SaleOrderDeliveryForSoReturnCreation?InvoiceNumber=" + InvoiceNumber + "&DeliveryNumber=" + DeliveryNumber;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public DataTable GetSaleOrderDeliveryItemForSoReturnCreation(long SaleOrderDeliveryItemID)
