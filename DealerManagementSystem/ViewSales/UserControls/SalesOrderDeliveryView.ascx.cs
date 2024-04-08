@@ -199,13 +199,17 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lbUpdateShippingDetails.Visible = true;
             lbPreviewInvoice.Visible = true;
             lbDowloadInvoice.Visible = true;
+
+            if (SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder)
+            {
+                lbGenerateInvoice.Visible = false;
+                lbPreviewInvoice.Visible = false;
+                lbDowloadInvoice.Visible = false;
+            } 
+
             if (SaleOrderDelivery.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_InvoicePending)
             {
-                if (SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder)
-                {
-                    lbGenerateInvoice.Visible = false; 
-                } 
-                else
+                if (SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderTypeID != (short)SaleOrderType.WarrantyOrder)  
                 {
                     lbUpdateShippingDetails.Visible = false;
                 }

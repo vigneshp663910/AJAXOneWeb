@@ -342,7 +342,7 @@
             </div>
         </div>--%>
         <div class="col-md-12 View">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="col-md-12">
                     <label>Quot No : </label>
                     <asp:Label ID="lblQuotationNumber" runat="server" CssClass="LabelValue"></asp:Label>
@@ -407,7 +407,7 @@
                     <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <div class="col-md-12">
                     <label>Discount Amount : </label>
                     <asp:Label ID="lblDiscount" runat="server" CssClass="LabelValue"></asp:Label>
@@ -550,7 +550,7 @@
                                             <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' runat="server"></asp:Label>
                                             <asp:TextBox ID="txtBoxQuantity" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField> 
                                     <asp:TemplateField HeaderText="UOM">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -678,10 +678,10 @@
                                             <asp:Label ID="lblNetAmount" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Delivered Quantity">
+                                    <asp:TemplateField HeaderText="Balance Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lblDeliveredQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveredQuantity","{0:n}")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblBalanceQuantity" Text='<%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Quantity")) - Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "DeliveredQuantity"))%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">

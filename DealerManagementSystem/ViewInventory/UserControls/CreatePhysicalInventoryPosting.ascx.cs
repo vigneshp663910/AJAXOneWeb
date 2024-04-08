@@ -169,11 +169,15 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                     //Loop through the Worksheet rows.
                     int sno = 0;
                     foreach (IXLRow row in workSheet.Rows())
-                    {
+                    { 
                         sno += 1;
                         if (sno > 1)
                         {
                             List<IXLCell> IXLCell_ = row.Cells().ToList();
+                            if (string.IsNullOrEmpty(Convert.ToString(IXLCell_[0].Value)))
+                            {
+                                continue;
+                            }
                             if (IXLCell_.Count != 0)
                                 MaterialUpload.Add(new PPhysicalInventoryPosting_Post()
                                 {
