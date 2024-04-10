@@ -174,24 +174,27 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                         if (sno > 1)
                         {
                             List<IXLCell> IXLCell_ = row.Cells().ToList();
-                            if (string.IsNullOrEmpty(Convert.ToString(IXLCell_[0].Value)))
-                            {
-                                continue;
-                            }
+
                             if (IXLCell_.Count != 0)
+                            {
+                                if (string.IsNullOrEmpty(Convert.ToString(IXLCell_[0].Value)))
+                                {
+                                    continue;
+                                }
                                 MaterialUpload.Add(new PPhysicalInventoryPosting_Post()
                                 {
                                     ID = Convert.ToInt32(IXLCell_[0].Value),
                                     DealerID = DealerID,
                                     OfficeID = OfficeID,
-                                    DocumentDate= Convert.ToDateTime(txtDocumentDate.Text.Trim()),
-                                    DocumentNumber= txtDocumentNumber.Text.Trim(),
+                                    DocumentDate = Convert.ToDateTime(txtDocumentDate.Text.Trim()),
+                                    DocumentNumber = txtDocumentNumber.Text.Trim(),
                                     MaterialCode = Convert.ToString(IXLCell_[1].Value),
-                                    PhysicalStock = Convert.ToDecimal(IXLCell_[3].Value) ,
+                                    PhysicalStock = Convert.ToDecimal(IXLCell_[3].Value),
                                     PostingTypeID = Convert.ToInt32(ddlPostingInventoryType.SelectedValue),
-                                    ReasonOfPosting =txtReasonOfPosting.Text.Trim()
-                                    
-                        });
+                                    ReasonOfPosting = txtReasonOfPosting.Text.Trim()
+
+                                });
+                            }
                         }
                     }
                    
