@@ -85,20 +85,20 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbReject.Visible = false; 
                 lbDeliveryCreate.Visible = false;
             }
-            else if (StatusID == (short)ProcurementStatus.PoReturnWaitingForApproval)
+            else if (StatusID == (short)ProcurementStatus.PoReturn_WaitingForApproval)
             {
                 lbCancel.Visible = false;
                 lbRequestForApproval.Visible = false; 
                 lbDeliveryCreate.Visible = false;
             }
-            else if (StatusID == (short)ProcurementStatus.PoReturnApproved)
+            else if (StatusID == (short)ProcurementStatus.PoReturn_Approved || StatusID == (short)ProcurementStatus.PoReturn_PartiallyDelivered)
             {
                 lbRequestForApproval.Visible = false;
                 lbApprove.Visible = false;
                 lbReject.Visible = false;
                 lbCancel.Visible = false; 
             }
-            else if (StatusID == (short)ProcurementStatus.PoReturnRejected || StatusID == (short)ProcurementStatus.PoReturnCancelled || StatusID == (short)ProcurementStatus.PoReturnDeliveryCreated)
+            else if (StatusID == (short)ProcurementStatus.PoReturn_Rejected || StatusID == (short)ProcurementStatus.PoReturn_Cancelled || StatusID == (short)ProcurementStatus.PoReturn_Delivered)
             {
                 lbRequestForApproval.Visible = false;
                 lbApprove.Visible = false;
@@ -112,7 +112,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.ID == "lbRequestForApproval")
             {
-                PApiResult Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturnWaitingForApproval, "");
+                PApiResult Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturn_WaitingForApproval, "");
                 if (Result.Status == PApplication.Failure)
                 {
                     lblMessage.ForeColor = Color.Red;
@@ -125,7 +125,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if (lbActions.ID == "lbApprove")
             {
-                PApiResult Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturnApproved, "");
+                PApiResult Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturn_Approved, "");
                 if (Result.Status == PApplication.Failure)
                 {
                     lblMessage.ForeColor = Color.Red;
@@ -141,19 +141,19 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 txtRejectRemarks.Text = "";
                 MPE_PoReturnReject.Show();
             }
-            else if(lbActions.ID == "lbCancel")
+            else if (lbActions.ID == "lbCancel")
             {
                 txtCancelRemarks.Text = "";
                 MPE_PoReturnCancel.Show();
             }
-            else if(lbActions.ID == "lbDeliveryCreate")
+            else if (lbActions.ID == "lbDeliveryCreate")
             {
-                Clear(); 
+                Clear();
                 divProceeedDelivery.Visible = false;
                 MPE_PoReturnDeliveryCreate.Show();
                 UC_PurchaseOrderReturnDeliveryCreate.fillPOReturnItem(PoReturn.PurchaseOrderReturnID);
                 PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderReturnItemForDeliveryCreation(PoReturn.PurchaseOrderReturnID);
-                if(JsonConvert.DeserializeObject<List<PPurchaseOrderReturn>>(JsonConvert.SerializeObject(Result.Data)).Count>0)
+                if (JsonConvert.DeserializeObject<List<PPurchaseOrderReturn>>(JsonConvert.SerializeObject(Result.Data)).Count > 0)
                 {
                     divProceeedDelivery.Visible = true;
                 }
@@ -166,12 +166,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             if (lbActions.ID == "btnPoReject")
             {
                 MPE_PoReturnReject.Show();
-                Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturnRejected, txtRejectRemarks.Text.Trim());
+                Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturn_Rejected, txtRejectRemarks.Text.Trim());
             }
             else if (lbActions.ID == "btnPoCancel")
             {
                 MPE_PoReturnCancel.Show();
-                Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturnCancelled, txtCancelRemarks.Text.Trim()); 
+                Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturn_Cancelled, txtCancelRemarks.Text.Trim()); 
             }
              
             if (Result.Status == PApplication.Failure)

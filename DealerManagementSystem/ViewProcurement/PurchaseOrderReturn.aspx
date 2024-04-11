@@ -23,23 +23,23 @@
                             <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Purchase Return Number</label>
+                            <label class="modal-label">PO Return Number</label>
                             <asp:TextBox ID="txtPoReturnNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Purchase Return Date From</label>
+                            <label class="modal-label">PO Return Date From</label>
                             <asp:TextBox ID="txtPoReturnDateFrom" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                             <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtPoReturnDateFrom" PopupButtonID="txtPoReturnDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
                             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtPoReturnDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Purchase Return Date To</label>
+                            <label class="modal-label">PO Return Date To</label>
                             <asp:TextBox ID="txtPoReturnDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                             <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtPoReturnDateTo" PopupButtonID="txtPoReturnDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
                             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtPOReturnDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Purchase Return Status</label>
+                            <label class="modal-label">PO Return Status</label>
                             <asp:DropDownList ID="ddlPoReturnStatus" runat="server" CssClass="form-control"> 
                             </asp:DropDownList>
                         </div>

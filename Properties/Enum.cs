@@ -907,13 +907,14 @@ namespace Properties
         GrCreated = 12,
         GrCancelled = 13,
         PoReturnDraft = 14,
-        PoReturnWaitingForApproval = 15,
-        PoReturnApproved = 16,
-        PoReturnRejected = 17,
-        PoReturnDeliveryCreated = 18,
+        PoReturn_WaitingForApproval = 15,
+        PoReturn_Approved = 16,
+        PoReturn_Rejected = 17,
+        PoReturn_PartiallyDelivered = 18,
         PoAsnGrBlocked_Damaged = 19,
         PoAsnGrBlocked_Missed = 20,
-        PoReturnCancelled = 21
+        PoReturn_Cancelled = 21,
+        PoReturn_Delivered = 22
     }
     public enum PurchaseOrderType
     {
