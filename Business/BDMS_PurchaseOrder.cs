@@ -307,5 +307,10 @@ namespace Business
                 + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&DivisionID=" + DivisionID + "&LocationID=" + LocationID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public PApiResult UpdatePurchaseOrderReturnStatus(long PurchaseOrderReturnID, int StatusID, string Remarks)
+        {
+            string endPoint = "PurchaseOrder/UpdatePurchaseOrderReturnStatus?PurchaseOrderReturnID=" + PurchaseOrderReturnID + "&StatusID=" + StatusID + "&Remarks=" + Remarks;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

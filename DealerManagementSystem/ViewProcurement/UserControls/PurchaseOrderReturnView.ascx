@@ -10,12 +10,16 @@
             <div class="dropdown btnactions" id="customerAction">
                 <div class="btn Approval">Actions</div>
                 <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                    <asp:LinkButton ID="lbPoReturnCancel" runat="server" OnClick="lbActions_Click">PO Return Cancel</asp:LinkButton>
-                    <asp:LinkButton ID="lbPoReturnDeliveryCreate" runat="server" OnClick="lbActions_Click">Create Delivery</asp:LinkButton>
+                    <asp:LinkButton ID="lbRequestForApproval" runat="server" OnClick="lbActions_Click">Request For Approval</asp:LinkButton>
+                    <asp:LinkButton ID="lbApprove" runat="server" OnClick="lbActions_Click">Approve</asp:LinkButton>
+                    <asp:LinkButton ID="lbReject" runat="server" OnClick="lbActions_Click">Reject</asp:LinkButton>
+                    <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click">PO Return Cancel</asp:LinkButton>
+                    <asp:LinkButton ID="lbDeliveryCreate" runat="server" OnClick="lbActions_Click">Create Delivery</asp:LinkButton>
                 </div>
             </div>
         </div>
     </div>
+  
     <div class="col-md-12 field-margin-top" runat="server" id="divPoReturnView">
         <fieldset class="fieldset-border">
             <legend style="background: none; color: #007bff; font-size: 17px;">Purchase Return</legend>
@@ -44,7 +48,7 @@
                 </div>
             </div>
         </fieldset>
-        <asp:Label ID="lblMessagePoReturn" runat="server" Text="" CssClass="message" Visible="false" />
+          <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
         <asp1:TabContainer ID="tbpPoReturn" runat="server" ToolTip="Purchase Return Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
             <asp1:TabPanel ID="tpnlPoReturnItem" runat="server" HeaderText="Purchase Return Item" Font-Bold="True" ToolTip="">
                 <ContentTemplate>
@@ -252,10 +256,10 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessagePoReturnDeliveryCreate" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageDeliveryCreate" runat="server" Text="" CssClass="message" />
             <fieldset class="fieldset-border">
                 <UC:UC_PurchaseOrderReturnDeliveryCreate ID="UC_PurchaseOrderReturnDeliveryCreate" runat="server"></UC:UC_PurchaseOrderReturnDeliveryCreate>
-                <div class="col-md-12 text-center" id="divProceeedDelivery" runat="server" visible="false">
+                <div class="col-md-12 text-center" id="divProceeedDelivery" runat="server">
                     <asp:Button ID="btnProceedDelivery" runat="server" Text="Proceed Delivery" CssClass="btn Search" OnClick="btnProceedDelivery_Click" Width="150px" />
                 </div>
                 <div class="col-md-12 text-center" id="divSave" runat="server" visible="false">
@@ -273,19 +277,39 @@
             <asp:Button ID="PoReturnCancelPopupClose" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
-        <asp:Label ID="lblMessagePoReturnCancel" runat="server" Text="" CssClass="message" Visible="false" />
+        <asp:Label ID="lblMessageCancel" runat="server" Text="" CssClass="message" />
         <div class="col-md-12">
             <div class="col-md-12 col-sm-12">
                 <label>Remarks</label>
-                <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                <asp:TextBox ID="txtCancelRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnPoReturnCancel" runat="server" Text="Save" CssClass="btn Save" OnClick="btnPoReturnCancel_Click" />
+            <asp:Button ID="btnPoCancel" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateStatus_Click" />
         </div>
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_PoReturnCancel" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlPoReturnCancel" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlPoReturnReject" runat="server" CssClass="Popup" Style="display: none;">
+    <div class="PopupHeader clearfix">
+        <span id="PoReturnCancelPopupDialogue">PO Return Reject</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="Label1" runat="server" Text="" CssClass="message" />
+        <div class="col-md-12">
+            <div class="col-md-12 col-sm-12">
+                <label>Remarks</label>
+                <asp:TextBox ID="txtRejectRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+            </div>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnReject" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateStatus_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_PoReturnReject" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlPoReturnReject" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />

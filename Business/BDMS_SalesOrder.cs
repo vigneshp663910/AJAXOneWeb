@@ -1194,7 +1194,7 @@ namespace Business
         }
         public PApiResult GetSaleOrderHeader(long? SaleOrderID, string DateFrom, string DateTo, string QuotationNumber, string SaleOrderNumber, string EquipmentSerialNo, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderStatusID, int? SaleOrderTypeID, int? PageIndex = null, int? PageSize = null)
         {
-            string endPoint = "SaleOrder/GetSaleOrderHeader?SaleOrderID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo 
+            string endPoint = "SaleOrder/GetSaleOrderHeader?SaleOrderID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo
                 + "&QuotationNumber=" + QuotationNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&EquipmentSerialNo=" + EquipmentSerialNo + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
                 + "&CustomerCode=" + CustomerCode + "&SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderTypeID=" + SaleOrderTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
@@ -1232,14 +1232,14 @@ namespace Business
         }
         public PApiResult GetSaleOrderDeliveryHeader(long? SaleOrderDeliveryID, string DateFrom, string DateTo, string DeliveryNumber, string InvoiceNumber, string SaleOrderNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderTypeID, int? DeliveryStatusID, int? PageIndex = null, int? PageSize = null)
         {
-            string endPoint = "SaleOrder/GetSaleOrderDeliveryHeader?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo 
+            string endPoint = "SaleOrder/GetSaleOrderDeliveryHeader?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo
                 + "&DeliveryNumber=" + DeliveryNumber + "&InvoiceNumber=" + InvoiceNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID
                 + "&DivisionID=" + DivisionID + "&CustomerCode=" + CustomerCode + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetSaleOrderDeliveryReport(long? SaleOrderDeliveryID, string DateFrom, string DateTo, string DeliveryNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderTypeID, int? DeliveryStatusID)
         {
-            string endPoint = "SaleOrder/GetSaleOrderDeliveryReport?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom 
+            string endPoint = "SaleOrder/GetSaleOrderDeliveryReport?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom
                 + "&DateTo=" + DateTo + "&DeliveryNumber=" + DeliveryNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
                 + "&CustomerCode=" + CustomerCode + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
@@ -1260,13 +1260,13 @@ namespace Business
 
         }
 
-        public PSaleOrderItem_Insert ReadItem(PDMS_Material m,int DealerID, int DealerOfficeID, int Qty,string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, string TaxType)
+        public PSaleOrderItem_Insert ReadItem(PDMS_Material m, int DealerID, int DealerOfficeID, int Qty, string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, string TaxType)
         {
-            PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert(); 
+            PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
             SoI.MaterialID = m.MaterialID;
             SoI.MaterialCode = m.MaterialCode;
             SoI.Quantity = Qty;
-             
+
             if (string.IsNullOrEmpty(m.HSN))
             {
                 throw new Exception("HSN Code is not updated for this Material. Please contact Parts Admin.");
@@ -1280,7 +1280,7 @@ namespace Business
             {
                 PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
                 MaterialPrice.Customer = CustomerCode;
-                MaterialPrice.Vendor = DealerCode; 
+                MaterialPrice.Vendor = DealerCode;
                 MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
                 MaterialPrice.Division = "SP";
                 MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
@@ -1317,7 +1317,7 @@ namespace Business
                     Mat.CGSTValue = 0;
 
                     Mat.IGST = m.TaxPercentage * 2;
-                    Mat.IGSTValue = Mat.IGST * Mat.CurrentPrice  / 100;
+                    Mat.IGSTValue = Mat.IGST * Mat.CurrentPrice / 100;
                 }
             }
             if (Mat.CurrentPrice <= 0)
@@ -1336,7 +1336,7 @@ namespace Business
             SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
             SoI.Value = Mat.CurrentPrice;
             SoI.ItemDiscountValue = IDiscountValue;
-            SoI.DiscountValue = (SoI.Value * HDiscountPercentage / 100)+ IDiscountValue;
+            SoI.DiscountValue = (SoI.Value * HDiscountPercentage / 100) + IDiscountValue;
             SoI.TaxableValue = SoI.Value - SoI.DiscountValue;
 
             if (TaxType == "SGST & CGST")
@@ -1363,7 +1363,7 @@ namespace Business
             SoI.CGSTValue = SoI.TaxableValue * (SoI.CGST / 100);
             SoI.IGSTValue = SoI.TaxableValue * (SoI.IGST / 100);
 
-           
+
 
             SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
             SoI.Tcs = Mat.Tcs;
@@ -1374,13 +1374,13 @@ namespace Business
 
             return SoI;
         }
-         
+
 
         public PAttachedFile GetServiceInvoiceFile(long ID)
-        { 
+        {
             PAttachedFile Files = null;
             try
-            { 
+            {
                 string endPoint = "SaleOrder/DowloadSalesInvoice?FileName=" + ID;
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
@@ -1397,25 +1397,25 @@ namespace Business
             {
                 new FileLogger().LogMessage("BDMS_Service", "GetServiceInvoiceFile", ex);
                 return null;
-            } 
+            }
         }
-        private PAttachedFile  Invoicefile(long  ID)
+        private PAttachedFile Invoicefile(long ID)
         {
             try
             {
                 PSaleOrderDelivery D = GetSaleOrderDeliveryByID(ID);
-                 
+
                 //PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Dealer.DealerCode);
                 PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
                 PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
                 PDMS_Dealer DealerBank = new BDMS_Dealer().GetDealerBankDetails(Dealer.DealerID, null, null)[0];
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
-                 
+
                 PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Customer.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-                 
+
 
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
@@ -1473,7 +1473,7 @@ namespace Business
                 ReportParameter[] P = null;
                 //if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
                 //{
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetPaidServiceInvoiceESigned(ID);
+                PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetPaidServiceInvoiceESigned(ID);
                 //    P = new ReportParameter[26];
                 //    P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
                 //    P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
@@ -1482,8 +1482,8 @@ namespace Business
                 //else
                 //{
                 P = new ReportParameter[24];
-                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoice.rdlc");
-               // }
+                report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoice.rdlc");
+                // }
                 decimal GrandTotal = 0;
 
                 //   ViewState["Month"] = ddlMonth.SelectedValue;
@@ -1504,7 +1504,7 @@ namespace Business
                 P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
                 P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
                 P[15] = new ReportParameter("CustomerStateCode", Customer.State.StateCode, false);
-                P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false); 
+                P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
                 P[17] = new ReportParameter("KindAttn", D.SaleOrder.Attn, false);
                 P[18] = new ReportParameter("Ref", D.SaleOrder.RefNumber, false);
                 P[19] = new ReportParameter("RefDate", Convert.ToString(D.SaleOrder.RefDate), false);

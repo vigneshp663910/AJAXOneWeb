@@ -910,7 +910,10 @@ namespace Properties
         PoReturnWaitingForApproval = 15,
         PoReturnApproved = 16,
         PoReturnRejected = 17,
-        PoReturnDeliveryCreated = 18
+        PoReturnDeliveryCreated = 18,
+        PoAsnGrBlocked_Damaged = 19,
+        PoAsnGrBlocked_Missed = 20,
+        PoReturnCancelled = 21
     }
     public enum PurchaseOrderType
     {

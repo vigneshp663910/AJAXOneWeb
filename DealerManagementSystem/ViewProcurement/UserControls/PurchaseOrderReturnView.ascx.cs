@@ -45,7 +45,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         //}
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessagePoReturn.Text = "";
+            lblMessage.Text = ""; 
+            lblMessageDeliveryCreate.Text = "";
+            lblMessageCancel.Text = "";
         }
         public void fillViewPoReturn(long PurchaseOrderReturnID)
         {
@@ -69,24 +71,84 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         void ActionControlMange()
         {
-            lbPoReturnCancel.Visible = true;
-            if (PoReturn.PurchaseOrderReturnStatus.ProcurementStatusID != (short)ProcurementStatus.PoReturnDraft)
+            lbRequestForApproval.Visible = true;
+            lbApprove.Visible = true;
+            lbReject.Visible = true;
+            lbCancel.Visible = true;
+            lbDeliveryCreate.Visible = true;
+
+            int StatusID = PoReturn.PurchaseOrderReturnStatus.ProcurementStatusID;
+            if (StatusID == (short)ProcurementStatus.PoReturnDraft)
             {
-                lbPoReturnCancel.Visible = false;
+                lbCancel.Visible = false;
+                lbApprove.Visible = false;
+                lbReject.Visible = false; 
+                lbDeliveryCreate.Visible = false;
             }
+            else if (StatusID == (short)ProcurementStatus.PoReturnWaitingForApproval)
+            {
+                lbCancel.Visible = false;
+                lbRequestForApproval.Visible = false; 
+                lbDeliveryCreate.Visible = false;
+            }
+            else if (StatusID == (short)ProcurementStatus.PoReturnApproved)
+            {
+                lbRequestForApproval.Visible = false;
+                lbApprove.Visible = false;
+                lbReject.Visible = false;
+                lbCancel.Visible = false; 
+            }
+            else if (StatusID == (short)ProcurementStatus.PoReturnRejected || StatusID == (short)ProcurementStatus.PoReturnCancelled || StatusID == (short)ProcurementStatus.PoReturnDeliveryCreated)
+            {
+                lbRequestForApproval.Visible = false;
+                lbApprove.Visible = false;
+                lbReject.Visible = false;
+                lbCancel.Visible = false;
+                lbDeliveryCreate.Visible = false;
+            } 
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "PO Return Cancel")
+            if (lbActions.ID == "lbRequestForApproval")
             {
+                PApiResult Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturnWaitingForApproval, "");
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = Result.Message;
+                    return;
+                }
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = Result.Message;
+                fillViewPoReturn(PoReturn.PurchaseOrderReturnID);
+            }
+            else if (lbActions.ID == "lbApprove")
+            {
+                PApiResult Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturnApproved, "");
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = Result.Message;
+                    return;
+                }
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = Result.Message;
+                fillViewPoReturn(PoReturn.PurchaseOrderReturnID);
+            }
+            else if (lbActions.ID == "lbReject")
+            {
+                txtRejectRemarks.Text = "";
+                MPE_PoReturnReject.Show();
+            }
+            else if(lbActions.ID == "lbCancel")
+            {
+                txtCancelRemarks.Text = "";
                 MPE_PoReturnCancel.Show();
             }
-            if(lbActions.Text == "Create Delivery")
+            else if(lbActions.ID == "lbDeliveryCreate")
             {
-                Clear();
-                lblMessagePoReturnDeliveryCreate.Text = "";
-                lblMessagePoReturnDeliveryCreate.Visible = false;
+                Clear(); 
                 divProceeedDelivery.Visible = false;
                 MPE_PoReturnDeliveryCreate.Show();
                 UC_PurchaseOrderReturnDeliveryCreate.fillPOReturnItem(PoReturn.PurchaseOrderReturnID);
@@ -97,21 +159,30 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 }
             }
         }
-        protected void btnPoReturnCancel_Click(object sender, EventArgs e)
+        protected void btnUpdateStatus_Click(object sender, EventArgs e)
         {
-            long PurchaseOrderReturnID = PoReturn.PurchaseOrderReturnID;
-            PPurchaseOrder PurchaseOrderReturn = new PPurchaseOrder();
-            PurchaseOrderReturn.PurchaseOrderID = PurchaseOrderReturnID;
-            PurchaseOrderReturn.Remarks = txtRemarks.Text.Trim();
-            string result = new BAPI().ApiPut("PurchaseOrder/CancelPurchaseOrderReturn", PurchaseOrderReturn);
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
+            Button lbActions = ((Button)sender);
+            PApiResult Result = null;
+            if (lbActions.ID == "btnPoReject")
+            {
+                MPE_PoReturnReject.Show();
+                Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturnRejected, txtRejectRemarks.Text.Trim());
+            }
+            else if (lbActions.ID == "btnPoCancel")
+            {
+                MPE_PoReturnCancel.Show();
+                Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturnCancelled, txtCancelRemarks.Text.Trim()); 
+            }
+             
             if (Result.Status == PApplication.Failure)
             {
-                lblMessagePoReturnCancel.Text = Result.Message;
+                lblMessageCancel.Text = Result.Message;
                 return;
             }
-            fillViewPoReturn(PurchaseOrderReturnID);
+            MPE_PoReturnReject.Hide();
+            MPE_PoReturnCancel.Hide();
+            
+            fillViewPoReturn(PoReturn.PurchaseOrderReturnID);
         }        
         protected void btnPurchaseOrderReturnDeliveryCreateBack_Click(object sender, EventArgs e)
         {
@@ -121,22 +192,20 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             pnlPoReturnDeliveryCreate.Visible = false;
         }
         protected void btnProceedDelivery_Click(object sender, EventArgs e)
-        {
-            lblMessagePoReturnDeliveryCreate.Text = "";
+        { 
             UC_PurchaseOrderReturnDeliveryCreate.ReadPoReturnItem();
             divSave.Visible = true;
             divProceeedDelivery.Visible = false;
             MPE_PoReturnDeliveryCreate.Show();
         }
         protected void btnSave_Click(object sender, EventArgs e)
-        {
-            lblMessagePoReturnDeliveryCreate.Visible = true;
-            lblMessagePoReturnDeliveryCreate.ForeColor = Color.Red;
+        { 
+            lblMessageDeliveryCreate.ForeColor = Color.Red;
             MPE_PoReturnDeliveryCreate.Show();
             string message = UC_PurchaseOrderReturnDeliveryCreate.RValidateReturnDelivery();
             if (!string.IsNullOrEmpty(message))
             {
-                lblMessagePoReturnDeliveryCreate.Text = message;
+                lblMessageDeliveryCreate.Text = message;
                 return;
             }
 
@@ -146,13 +215,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             if (Result.Status == PApplication.Failure)
             {
-                lblMessagePoReturnDeliveryCreate.Text = Result.Message;
+                lblMessageDeliveryCreate.Text = Result.Message;
                 return;
             }
             
-            lblMessagePoReturn.Text = Result.Message;
-            lblMessagePoReturn.Visible = true;
-            lblMessagePoReturn.ForeColor = Color.Green;
+            lblMessage.Text = Result.Message; 
+            lblMessage.ForeColor = Color.Green;
             fillViewPoReturn(PoReturn.PurchaseOrderReturnID);
             tbpPoReturn.ActiveTabIndex = 1;
             Clear();

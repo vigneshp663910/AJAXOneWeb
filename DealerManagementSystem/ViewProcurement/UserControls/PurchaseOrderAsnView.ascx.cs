@@ -151,14 +151,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 Label lblAsnID = (Label)row.FindControl("lblAsnID");
                 Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
-                Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
+                //Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
                 Label lblUnrestrictedQty = (Label)row.FindControl("lblUnrestrictedQty");
                 Label lblRestrictedQty = (Label)row.FindControl("lblRestrictedQty");
 
                 PAsnView.Gr.GrItemS.Add(new PGrItem()
                 {
                     AsnItem = new PAsnItem() { AsnItemID = Convert.ToInt64(lblAsnItemID.Text.Trim()) },
-                    ReceivedQty = Convert.ToDecimal("0" + lblReceivedQty.Text),
+                    //ReceivedQty = Convert.ToDecimal("0" + lblReceivedQty.Text),
                     UnrestrictedQty = Convert.ToDecimal("0" + lblUnrestrictedQty.Text),
                     RestrictedQty = Convert.ToDecimal("0" + lblRestrictedQty.Text),
                     GrBlocked = new List<PGrBlocked>()
@@ -235,17 +235,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 Label lblUnrestrictedQty = (Label)row.FindControl("lblUnrestrictedQty");
                 Label lblRestrictedQty = (Label)row.FindControl("lblRestrictedQty");
 
-                decimal ReceivedQty = 0, UnrestrictedQty = 0, RestrictedQty = 0;
-                decimal.TryParse(lblReceivedQty.Text, out ReceivedQty);
+                decimal Qty = 0, UnrestrictedQty = 0, RestrictedQty = 0;
+                decimal.TryParse(lblQty.Text, out Qty);
                 decimal.TryParse(lblUnrestrictedQty.Text, out UnrestrictedQty);
                 decimal.TryParse(lblRestrictedQty.Text, out RestrictedQty);
 
-                if (Convert.ToDecimal("0" + lblQty.Text) != ReceivedQty)
-                {
-                    lblMessageGrCreation.Text = "Please Equal To AsnQty with Received Qty From Item No : " + lblAsnItem.Text;
-                    Result = true;
-                }
-                if (ReceivedQty != (UnrestrictedQty + RestrictedQty))
+                 
+                if (Qty != (UnrestrictedQty + RestrictedQty))
                 {
                     lblMessageGrCreation.Text = "Please Equal To Received Qty with (UnRestricted + Restricted) From Item No : " + lblAsnItem.Text;
                     Result = true;
