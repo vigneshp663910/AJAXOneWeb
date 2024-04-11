@@ -231,7 +231,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 Label lblQty = (Label)row.FindControl("lblQty");
                 Label lblAsnItem = (Label)row.FindControl("lblAsnItem");
 
-                Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
+                //Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
                 Label lblUnrestrictedQty = (Label)row.FindControl("lblUnrestrictedQty");
                 Label lblRestrictedQty = (Label)row.FindControl("lblRestrictedQty");
 
@@ -260,12 +260,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
             Label lblAsnID = (Label)row.FindControl("lblAsnID");
             Label lblAsnItem = (Label)row.FindControl("lblAsnItem");
-            Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
+            Label lblQty = (Label)row.FindControl("lblQty");
 
             HidAsnItemID.Value = lblAsnItemID.Text;
             HidAsnID.Value = lblAsnID.Text;
             HidAsnItem.Value = lblAsnItem.Text;
-            HidReceivedQty.Value = lblReceivedQty.Text;
+            HidReceivedQty.Value = lblQty.Text;
 
             if (string.IsNullOrEmpty(txtMissingQty.Text) && string.IsNullOrEmpty(txtDamagedQty.Text))
             {
