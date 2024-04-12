@@ -417,7 +417,8 @@ namespace Properties
         ViewPreSale_LeadN = 172,
         Account_CompanyProfile = 173,
         Account_MyProfile = 174,
-        //        UnderCons = 175, 
+        ViewDashboard_BIQuality = 175,
+
         //**** Menu Level-2 ****************************** =  176,
         ViewPreSale_EnquiryIndiamart = 177,
         ViewSales_SalesCommissionClaimCreate = 178,

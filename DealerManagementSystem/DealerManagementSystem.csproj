@@ -444,6 +444,7 @@
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
     <Content Include="ViewDashboard\BIAdmin.aspx" />
     <Content Include="ViewDashboard\BiEnquiry.aspx" />
+    <Content Include="ViewDashboard\BIQuality.aspx" />
     <Content Include="ViewDashboard\BIService.aspx" />
     <Content Include="ViewDashboard\EnquiryChart.aspx" />
     <Content Include="ViewDashboard\LeadChart.aspx" />
@@ -1298,6 +1299,13 @@
     </Compile>
     <Compile Include="ViewDashboard\BiEnquiry.aspx.designer.cs">
       <DependentUpon>BiEnquiry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\BIQuality.aspx.cs">
+      <DependentUpon>BIQuality.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\BIQuality.aspx.designer.cs">
+      <DependentUpon>BIQuality.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDashboard\BIService.aspx.cs">
       <DependentUpon>BIService.aspx</DependentUpon>
