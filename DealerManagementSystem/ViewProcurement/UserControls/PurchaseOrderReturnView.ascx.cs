@@ -80,14 +80,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             int StatusID = PoReturn.PurchaseOrderReturnStatus.ProcurementStatusID;
             if (StatusID == (short)ProcurementStatus.PoReturnDraft)
             {
-                lbCancel.Visible = false;
                 lbApprove.Visible = false;
                 lbReject.Visible = false; 
                 lbDeliveryCreate.Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoReturn_WaitingForApproval)
             {
-                lbCancel.Visible = false;
                 lbRequestForApproval.Visible = false; 
                 lbDeliveryCreate.Visible = false;
             }
@@ -163,12 +161,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             Button lbActions = ((Button)sender);
             PApiResult Result = null;
-            if (lbActions.ID == "btnPoReject")
+            if (lbActions.ID == "btnReject")
             {
                 MPE_PoReturnReject.Show();
                 Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturn_Rejected, txtRejectRemarks.Text.Trim());
             }
-            else if (lbActions.ID == "btnPoCancel")
+            else if (lbActions.ID == "btnCancel")
             {
                 MPE_PoReturnCancel.Show();
                 Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturn_Cancelled, txtCancelRemarks.Text.Trim()); 

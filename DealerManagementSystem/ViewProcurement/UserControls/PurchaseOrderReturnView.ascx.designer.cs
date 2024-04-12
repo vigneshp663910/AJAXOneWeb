@@ -285,13 +285,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtCancelRemarks;
 
         /// <summary>
-        /// btnPoCancel control.
+        /// btnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPoCancel;
+        protected global::System.Web.UI.WebControls.Button btnCancel;
 
         /// <summary>
         /// MPE_PoReturnCancel control.
@@ -366,12 +366,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lnkMPE;
 
         /// <summary>
-        /// btnCancel control.
+        /// btnCancel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
+        protected global::System.Web.UI.WebControls.Button btnCancel1;
     }
 }

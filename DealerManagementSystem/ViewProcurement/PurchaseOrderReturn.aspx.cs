@@ -221,7 +221,7 @@ namespace DealerManagementSystem.ViewProcurement
             divList.Visible = false;
             divPoReturnDetailsView.Visible = true;
             divPurchaseOrderReturnCreate.Visible = false;
-            Label lblMessagePOReturn = (Label)UC_PurchaseOrderReturnView.FindControl("lblMessagePOReturn");
+            Label lblMessagePOReturn = (Label)UC_PurchaseOrderReturnView.FindControl("lblMessage");
             lblMessagePOReturn.Text = Result.Message;
             lblMessagePOReturn.Visible = true;
             lblMessagePOReturn.ForeColor = Color.Green;

@@ -274,16 +274,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     , Convert.ToDateTime(To), null, null, null, null, null, null);
             List<PPurchaseOrder> PurchaseOrderList = JsonConvert.DeserializeObject<List<PPurchaseOrder>>(JsonConvert.SerializeObject(ResultPOList.Data));
 
-            PApiResult ResultStockCount = new BDMS_PurchaseOrder().GetDealerStockOrderControl(Convert.ToInt32(ddlDealer.SelectedValue), null, null);
-            List<PDealerStockOrderControl> StockOrderControl = JsonConvert.DeserializeObject<List<PDealerStockOrderControl>>(JsonConvert.SerializeObject(ResultStockCount.Data));
+            //PApiResult ResultStockCount = new BDMS_PurchaseOrder().GetDealerStockOrderControl(Convert.ToInt32(ddlDealer.SelectedValue), null, null);
+            //List<PDealerStockOrderControl> StockOrderControl = JsonConvert.DeserializeObject<List<PDealerStockOrderControl>>(JsonConvert.SerializeObject(ResultStockCount.Data));
 
-            if (ddlPurchaseOrderType.SelectedValue == "1")
-            {   
-                if(StockOrderControl[0].MaxCount > PurchaseOrderList.Count)
-                {
-                    return "Stock order count exceeded";
-                }
-            }
+            //if (ddlPurchaseOrderType.SelectedValue == "1")
+            //{   
+            //    if(StockOrderControl[0].MaxCount > PurchaseOrderList.Count)
+            //    {
+            //        return "Stock order count exceeded";
+            //    }
+            //}
 
             //if (string.IsNullOrEmpty(txtExpectedDeliveryDate.Text.Trim()))
             //{

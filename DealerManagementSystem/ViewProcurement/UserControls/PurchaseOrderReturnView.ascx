@@ -13,7 +13,7 @@
                     <asp:LinkButton ID="lbRequestForApproval" runat="server" OnClick="lbActions_Click">Request For Approval</asp:LinkButton>
                     <asp:LinkButton ID="lbApprove" runat="server" OnClick="lbActions_Click">Approve</asp:LinkButton>
                     <asp:LinkButton ID="lbReject" runat="server" OnClick="lbActions_Click">Reject</asp:LinkButton>
-                    <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click">PO Return Cancel</asp:LinkButton>
+                    <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
                     <asp:LinkButton ID="lbDeliveryCreate" runat="server" OnClick="lbActions_Click">Create Delivery</asp:LinkButton>
                 </div>
             </div>
@@ -285,7 +285,7 @@
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnPoCancel" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateStatus_Click" />
+            <asp:Button ID="btnCancel" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateStatus_Click" />
         </div>
     </div>
 </asp:Panel>
@@ -312,5 +312,5 @@
 <ajaxToolkit:ModalPopupExtender ID="MPE_PoReturnReject" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlPoReturnReject" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
-    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel1" runat="server" Text="Cancel" />
 </div>
