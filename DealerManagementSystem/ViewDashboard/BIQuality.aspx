@@ -9,6 +9,9 @@
         }
     </style> 
 
-   <iframe id="iframeID" title="Quality"   src="https://app.powerbi.com/reportEmbed?reportId=b0e2bb43-7c89-4df9-b32e-3b65a7395236&appId=4c3aae15-afa4-4ec2-80dd-7eafbc640466&autoAuth=true&ctid=c5850684-0690-45ce-b83b-66b28e82830b" frameborder="0" allowFullScreen="true"></iframe>
+   <iframe id="iframeID" title="Quality"   src="https://app.powerbi.com/reportEmbed?reportId=7ba897d7-c3e7-4a93-8d59-2c42e26ecd99&appId=cc14a4ba-9e32-48d8-996c-7f67ffe772bd&autoAuth=true&ctid=c5850684-0690-45ce-b83b-66b28e82830b" frameborder="0" allowFullScreen="true"></iframe>
+
+
+
 
 </asp:Content>
