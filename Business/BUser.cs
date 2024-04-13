@@ -969,8 +969,9 @@ namespace Business
             {
                 DateTime tracerStart = DateTime.Now;
                 DbParameter UserMobileIDP = provider.CreateParameter("UserMobileID", UserMobileID, DbType.Int32);
+                DbParameter UserIDP = provider.CreateParameter("UserID", PSession.User.UserID, DbType.Int32);
                 DbParameter RemarksP = provider.CreateParameter("Remarks", Remarks, DbType.String);
-                DbParameter[] userParams = new DbParameter[2] { UserMobileIDP, RemarksP };
+                DbParameter[] userParams = new DbParameter[3] { UserMobileIDP, UserIDP, RemarksP };
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
                     provider.Select("RejectUserMobile", userParams);
