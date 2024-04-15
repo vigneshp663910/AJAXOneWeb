@@ -270,9 +270,11 @@ namespace Properties
         public int AsnItem { get; set; }
         public long AsnID { get; set; }
         public PPurchaseOrderItem PurchaseOrderItem { get; set; }
-        public PGrItem GrItem { get; set; }
+        //public PGrItem GrItem { get; set; }
         public PDMS_Material Material { get; set; }
         public decimal Qty { get; set; }
+        public decimal GrQty { get; set; }
+        public decimal ReturnedQty { get; set; }
         public decimal NetWeight { get; set; }
         public string UomWeight { get; set; }
         public decimal PackCount { get; set; }
@@ -305,8 +307,7 @@ namespace Properties
     {
         public long GrID { get; set; }
         public long GrItemID { get; set; }
-        public PAsnItem AsnItem { get; set; }
-        public decimal DeliveredQty { get; set; }
+        public PAsnItem AsnItem { get; set; } 
         public decimal ReceivedQty { get; set; }
         public decimal UnrestrictedQty { get; set; }
         public decimal RestrictedQty { get; set; }
@@ -380,14 +381,15 @@ namespace Properties
     [Serializable]
     public class PGr_Insert
     {
-        public string AsnItemID { get; set; }
+        public long AsnItemID { get; set; }
         public long AsnID { get; set; }
-        public decimal DeliveredQty { get; set; }
-        //public decimal ReceivedQty { get; set; }
+        public string MaterialCode { get; set; }
+        public string MaterialDescription { get; set; }
+        public decimal AsnBalanceQty { get; set; }
         public decimal UnrestrictedQty { get; set; }
         public decimal RestrictedQty { get; set; }
-        public string GrRemarks { get; set; }
-        public string ItemRemarks { get; set; }
+        public string RemarksHeader { get; set; }
+        public string RemarksItem { get; set; }
         public List<PGrBlocked_Insert> BlockedList { get; set; }
 
     }
@@ -395,8 +397,7 @@ namespace Properties
     public class PGrBlocked_Insert
     {
         public decimal Qty { get; set; }
-        public int statusID { get; set; }
-        public string Remarks { get; set; }
+        public int statusID { get; set; } 
     }
 
 

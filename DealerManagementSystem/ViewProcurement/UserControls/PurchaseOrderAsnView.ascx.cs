@@ -28,9 +28,27 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PAsnView"] = value;
             }
         }
+
+        public List<PGr_Insert> Gr_Insert
+        {
+            get
+            {
+                if (ViewState["PGr_Insert"] == null)
+                {
+                    ViewState["PGr_Insert"] = new List<PGr_Insert>();
+                }
+                return (List<PGr_Insert>)ViewState["PGr_Insert"];
+            }
+            set
+            {
+                ViewState["PGr_Insert"] = value;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
+            lblMessageRestrictedQty.Text = "";
+            lblMessageGrCreation.Text = "";
         }
         public void fillViewPOAsn(long AsnID)
         {
@@ -89,8 +107,26 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.Text == "Gr Creation")
             {
-                MPE_GrCreate.Show();
-                FillGr(PAsnView);
+                MPE_GrCreate.Show(); 
+                Gr_Insert = new List<PGr_Insert>();
+                foreach (PAsnItem Item in PAsnView.AsnItemS)
+                {
+                    if (Item.Qty - Item.GrQty != 0)
+                    {
+                        Gr_Insert.Add(new PGr_Insert()
+                        {
+                            AsnID = PAsnView.AsnID,
+                            AsnItemID = Item.AsnItemID,
+                            AsnBalanceQty = Item.Qty - Item.GrQty,
+                            UnrestrictedQty = Item.Qty - Item.GrQty,
+                            RestrictedQty = 0,
+                            BlockedList = new List<PGrBlocked_Insert>()
+                        }); ;
+                    }
+                }
+                gvPOAsnGrItem.DataSource = Gr_Insert;
+                gvPOAsnGrItem.DataBind();
+                //FillGr(PAsnView);
             }
         }
         void ActionControlMange()
@@ -114,9 +150,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 MPE_GrCreate.Show();
                 return;
             }
-            List<PGr_Insert> GrList = GrRead();
-
-            string result = new BAPI().ApiPut("PurchaseOrder/InsertPOAsnGr", GrList);
+            // List<PGr_Insert> GrList = GrRead();
+            foreach (PGr_Insert Item in Gr_Insert)
+            {
+                Item.RemarksHeader = txtRemarksHeader.Text.Trim();
+            }
+                string result = new BAPI().ApiPut("PurchaseOrder/InsertPOAsnGr", Gr_Insert);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
             if (Result.Status == PApplication.Failure)
@@ -124,7 +163,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.Text = Result.Message;
                 return;
             }
-            fillViewPOAsn(GrList[0].AsnID);
+            fillViewPOAsn(PAsnView.AsnID);
             lblMessage.Text = Result.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
@@ -134,13 +173,10 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ViewState["AsnID"] = Convert.ToInt64(PAsnView.AsnID);
 
             lblGrAsnNumber.Text = PAsnView.AsnNumber;
-            lblGrAsnID.Text = PAsnView.AsnID.ToString();
+            lblGrAsnID.Text = PAsnView.AsnID.ToString(); 
 
-            gvPOAsnGrItem.DataSource = null;
-            gvPOAsnGrItem.DataBind();
-
-            gvPOAsnGrItem.DataSource = PAsnView.AsnItemS;
-            gvPOAsnGrItem.DataBind();
+            //gvPOAsnGrItem.DataSource = PAsnView.AsnItemS;
+            //gvPOAsnGrItem.DataBind();
 
             PAsnView.Gr = new PGr();
             PAsnView.Gr.GrItemS = new List<PGrItem>();
@@ -165,59 +201,59 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 });
             }
         }
-        public List<PGr_Insert> GrRead()
-        {
-            List<PGr_Insert> GrList = new List<PGr_Insert>();
+        //public List<PGr_Insert> GrRead()
+        //{
+        //    List<PGr_Insert> GrList = new List<PGr_Insert>();
 
-            foreach (PAsnItem asnItem in PAsnView.AsnItemS)
-            {
-                PGr_Insert pGr = new PGr_Insert();
-                if (asnItem.GrItem != null)
-                {
-                    pGr.AsnItemID = asnItem.AsnItemID.ToString();
-                    pGr.AsnID = Convert.ToInt64(asnItem.AsnID);
-                    pGr.DeliveredQty = asnItem.GrItem.ReceivedQty;
-                    pGr.UnrestrictedQty = asnItem.GrItem.UnrestrictedQty;
-                    pGr.RestrictedQty = asnItem.GrItem.RestrictedQty;
-                    pGr.GrRemarks = txtRemarks.Text;
+        //    foreach (PAsnItem asnItem in PAsnView.AsnItemS)
+        //    {
+        //        PGr_Insert pGr = new PGr_Insert();
+        //        if (asnItem.GrItem != null)
+        //        {
+        //            pGr.AsnItemID = asnItem.AsnItemID.ToString();
+        //            pGr.AsnID = Convert.ToInt64(asnItem.AsnID);
+        //            pGr.DeliveredQty = asnItem.GrItem.ReceivedQty;
+        //            pGr.UnrestrictedQty = asnItem.GrItem.UnrestrictedQty;
+        //            pGr.RestrictedQty = asnItem.GrItem.RestrictedQty;
+        //            pGr.GrRemarks = txtRemarks.Text;
 
-                    pGr.BlockedList = new List<PGrBlocked_Insert>();
-                    foreach (PGrBlocked pgb in asnItem.GrItem.GrBlocked)
-                    {
-                        PGrBlocked_Insert pGrBlocked_ = new PGrBlocked_Insert();
-                        pGrBlocked_.Qty = pgb.Qty;
-                        pGrBlocked_.Remarks = pgb.Remark;
-                        pGrBlocked_.statusID = pgb.GrBlockedStatus.ProcurementStatusID;
-                        pGr.BlockedList.Add(pGrBlocked_);
-                    }
-                }
-                else
-                {
-                    pGr.AsnItemID = asnItem.AsnItemID.ToString();
-                    pGr.AsnID = Convert.ToInt64(asnItem.AsnID);
-                    pGr.DeliveredQty = asnItem.Qty;
-                    pGr.UnrestrictedQty = asnItem.Qty;
-                    pGr.RestrictedQty = 0;
-                    pGr.GrRemarks = txtRemarks.Text;
+        //            pGr.BlockedList = new List<PGrBlocked_Insert>();
+        //            foreach (PGrBlocked pgb in asnItem.GrItem.GrBlocked)
+        //            {
+        //                PGrBlocked_Insert pGrBlocked_ = new PGrBlocked_Insert();
+        //                pGrBlocked_.Qty = pgb.Qty;
+        //                pGrBlocked_.Remarks = pgb.Remark;
+        //                pGrBlocked_.statusID = pgb.GrBlockedStatus.ProcurementStatusID;
+        //                pGr.BlockedList.Add(pGrBlocked_);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            pGr.AsnItemID = asnItem.AsnItemID.ToString();
+        //            pGr.AsnID = Convert.ToInt64(asnItem.AsnID);
+        //            pGr.DeliveredQty = asnItem.Qty;
+        //            pGr.UnrestrictedQty = asnItem.Qty;
+        //            pGr.RestrictedQty = 0;
+        //            pGr.GrRemarks = txtRemarks.Text;
 
-                    pGr.BlockedList = new List<PGrBlocked_Insert>();
+        //            pGr.BlockedList = new List<PGrBlocked_Insert>();
 
-                    PGrBlocked_Insert pGrBlocked_ = new PGrBlocked_Insert();
-                    pGrBlocked_.Qty = 0;
-                    pGrBlocked_.Remarks = "";
-                    pGrBlocked_.statusID = 19;
-                    pGr.BlockedList.Add(pGrBlocked_);
+        //            PGrBlocked_Insert pGrBlocked_ = new PGrBlocked_Insert();
+        //            pGrBlocked_.Qty = 0;
+        //            pGrBlocked_.Remarks = "";
+        //            pGrBlocked_.statusID = 19;
+        //            pGr.BlockedList.Add(pGrBlocked_);
 
-                    pGrBlocked_ = new PGrBlocked_Insert();
-                    pGrBlocked_.Qty = 0;
-                    pGrBlocked_.Remarks = "";
-                    pGrBlocked_.statusID = 20;
-                    pGr.BlockedList.Add(pGrBlocked_);
-                }
-                GrList.Add(pGr);
-            }
-            return GrList;
-        }
+        //            pGrBlocked_ = new PGrBlocked_Insert();
+        //            pGrBlocked_.Qty = 0;
+        //            pGrBlocked_.Remarks = "";
+        //            pGrBlocked_.statusID = 20;
+        //            pGr.BlockedList.Add(pGrBlocked_);
+        //        }
+        //        GrList.Add(pGr);
+        //    }
+        //    return GrList;
+        //}
         public Boolean ValidationGrItem()
         {
             lblMessageGrCreation.ForeColor = Color.Red;
@@ -250,92 +286,95 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             return Result;
         }
         protected void lnkSetRestrictedQty_Click(object sender, EventArgs e)
-        {
-            lblMessageGrCreation.Text = string.Empty;
-            lblMessageGrCreation.ForeColor = Color.Red;
-            lblMessageGrCreation.Visible = true;
+        { 
             LinkButton lnkSetRestrictedQty = (LinkButton)sender;
             GridViewRow row = (GridViewRow)(lnkSetRestrictedQty.NamingContainer);
 
             Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
-            Label lblAsnID = (Label)row.FindControl("lblAsnID");
-            Label lblAsnItem = (Label)row.FindControl("lblAsnItem");
-            Label lblQty = (Label)row.FindControl("lblQty");
+            HidAsnItemID.Value = lblAsnItemID.Text; 
+            
+            txtDamagedQty.Text = "0";
+            txtMissingQty.Text = "0";
 
-            HidAsnItemID.Value = lblAsnItemID.Text;
-            HidAsnID.Value = lblAsnID.Text;
-            HidAsnItem.Value = lblAsnItem.Text;
-            HidReceivedQty.Value = lblQty.Text;
-
-            if (string.IsNullOrEmpty(txtMissingQty.Text) && string.IsNullOrEmpty(txtDamagedQty.Text))
+            foreach (PGr_Insert Item in Gr_Insert)
             {
-                txtUnrestrictedQty.Text = HidReceivedQty.Value;
-                txtDamagedQty.Text = "0";
-                txtMissingQty.Text = "0";
+                if (Item.AsnItemID == Convert.ToInt64(HidAsnItemID.Value))
+                {
+                    txtUnrestrictedQty.Text = Item.AsnBalanceQty.ToString();
+                    if (Item.BlockedList.Count != 0)
+                    {
+                        txtUnrestrictedQty.Text = Item.UnrestrictedQty.ToString();
+                        foreach (PGrBlocked_Insert Block in Item.BlockedList)
+                        {
+                            if (Block.statusID == (short)ProcurementStatus.PoAsnGrBlocked_Missed)
+                            {
+                                txtMissingQty.Text = Block.Qty.ToString();
+                                
+                            }
+                            else if (Block.statusID == (short)ProcurementStatus.PoAsnGrBlocked_Damaged)
+                            {
+                                txtDamagedQty.Text = Block.Qty.ToString();
+                            }
+                        }
+                    }
+                }
             }
             MPE_UpdateRestrictedQty.Show();
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            lblMessageRestrictedQty.Text = "";
-            lblMessageRestrictedQty.ForeColor = Color.Red;
-            lblMessageRestrictedQty.Visible = true;
+            MPE_UpdateRestrictedQty.Show();
+            lblMessageRestrictedQty.ForeColor = Color.Red; 
             if (string.IsNullOrEmpty(txtUnrestrictedQty.Text))
             {
-                lblMessageRestrictedQty.Text = "Please UnRestricted Quantity...!";
-                MPE_UpdateRestrictedQty.Show();
+                lblMessageRestrictedQty.Text = "Please UnRestricted Quantity...!"; 
                 return;
             }
             if (string.IsNullOrEmpty(txtMissingQty.Text))
             {
-                lblMessageRestrictedQty.Text = "Please Missing Quantity...!";
-                MPE_UpdateRestrictedQty.Show();
+                lblMessageRestrictedQty.Text = "Please Missing Quantity...!"; 
                 return;
             }
             if (string.IsNullOrEmpty(txtDamagedQty.Text))
             {
-                lblMessageRestrictedQty.Text = "Please Damaged Quantity...!";
-                MPE_UpdateRestrictedQty.Show();
+                lblMessageRestrictedQty.Text = "Please Damaged Quantity...!"; 
                 return;
             }
-            if (Convert.ToDecimal(HidReceivedQty.Value) != (Convert.ToDecimal(txtUnrestrictedQty.Text) + Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text)))
+            
+            foreach (PGr_Insert Item in Gr_Insert)
             {
-                lblMessageRestrictedQty.Text = "Received Qty Not match with (UnRestricted+Missing+Damage) Quantity...!";
-                MPE_UpdateRestrictedQty.Show();
-                return;
-            }
-            foreach (PAsnItem asn in PAsnView.AsnItemS)
-            {
-                if (asn.AsnItemID == Convert.ToInt64(HidAsnItemID.Value))
+                if (Item.AsnItemID == Convert.ToInt64(HidAsnItemID.Value))
                 {
-                    asn.GrItem = (asn.GrItem == null) ? new PGrItem() : asn.GrItem;
-                    asn.GrItem.GrBlocked = new List<PGrBlocked>();
-                    PGrBlocked pgrb = new PGrBlocked();
-                    pgrb.GrItemID = Convert.ToInt64(HidAsnItemID.Value);
-                    pgrb.Qty = Convert.ToDecimal(txtMissingQty.Text);
-                    pgrb.GrBlockedStatus = new PProcurementStatus() { ProcurementStatusID = 20 };
-                    pgrb.Remark = txtRemark.Text;
-                    asn.GrItem.GrBlocked.Add(pgrb);
-
-                    pgrb = new PGrBlocked();
-                    pgrb.GrItemID = Convert.ToInt64(HidAsnItemID.Value);
-                    pgrb.Qty = Convert.ToDecimal(txtDamagedQty.Text);
-                    pgrb.GrBlockedStatus = new PProcurementStatus() { ProcurementStatusID = 19 };
-                    pgrb.Remark = txtRemark.Text;
-                    asn.GrItem.GrBlocked.Add(pgrb);
-
-                    asn.GrItem.ReceivedQty = Convert.ToDecimal(HidReceivedQty.Value);
-                    asn.GrItem.UnrestrictedQty = Convert.ToDecimal(txtUnrestrictedQty.Text);
-                    asn.GrItem.RestrictedQty = (Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text));
+                    Item.BlockedList = new List<PGrBlocked_Insert>();
+                    if (Item.AsnBalanceQty != (Convert.ToDecimal(txtUnrestrictedQty.Text) + Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text)))
+                    {
+                        lblMessageRestrictedQty.Text = "Received Qty Not match with (UnRestricted+Missing+Damage) Quantity...!"; 
+                        return;
+                    }
+                    Item.RemarksItem =txtRemarksItem.Text;
+                    Item.UnrestrictedQty = Convert.ToDecimal(txtUnrestrictedQty.Text);
+                    Item.RestrictedQty = Convert.ToDecimal(txtMissingQty.Text) + Convert.ToDecimal(txtDamagedQty.Text);
+                    PGrBlocked_Insert pgrb = null;
+                    if (txtMissingQty.Text.Trim() != "0")
+                    {
+                        pgrb = new PGrBlocked_Insert();
+                        pgrb.Qty = Convert.ToDecimal(txtMissingQty.Text);
+                        pgrb.statusID = (short)ProcurementStatus.PoAsnGrBlocked_Missed; 
+                        Item.BlockedList.Add(pgrb);
+                    }
+                    if (txtDamagedQty.Text.Trim() != "0")
+                    {
+                        pgrb = new PGrBlocked_Insert();
+                        pgrb.Qty = Convert.ToDecimal(txtDamagedQty.Text);
+                        pgrb.statusID = (short)ProcurementStatus.PoAsnGrBlocked_Damaged; 
+                        Item.BlockedList.Add(pgrb); 
+                    } 
                 }
-            }
+            } 
             MPE_GrCreate.Show();
-            MPE_UpdateRestrictedQty.Hide();
-            gvPOAsnGrItem.DataSource = null;
-            gvPOAsnGrItem.DataBind();
-
-            gvPOAsnGrItem.DataSource = PAsnView.AsnItemS;
+            MPE_UpdateRestrictedQty.Hide(); 
+            gvPOAsnGrItem.DataSource = Gr_Insert;
             gvPOAsnGrItem.DataBind();
         }
     }

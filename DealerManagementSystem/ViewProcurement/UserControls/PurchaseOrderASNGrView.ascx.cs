@@ -68,9 +68,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblPostedOn.Text = GrView.PostedOn.ToString();
             lblCancelledBy.Text = (GrView.CancelledBy == null) ? "" : GrView.CancelledBy.ContactName;
             lblCancelledOn.Text = (GrView.CancelledBy == null) ? "" : GrView.CancelledOn.ToString();
-
-            GVGr.DataSource = null;
-            GVGr.DataBind();
+             
             GVGr.DataSource = GrView.GrItemS;
             GVGr.DataBind();
 
@@ -88,9 +86,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblPOVendor.Text = GrView.ASN.PurchaseOrder.Vendor.DealerName;
             lblExpectedDeliveryDate.Text = GrView.ASN.PurchaseOrder.ExpectedDeliveryDate.ToString();
             lblGrossAmount.Text = GrView.ASN.PurchaseOrder.NetAmount.ToString();
-
-            GVGrPO.DataSource = null;
-            GVGrPO.DataBind();
+             
             List<PGrItem> GrPOItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrByIDPOItem(GrID);
             GVGrPO.DataSource = GrPOItemView;
             GVGrPO.DataBind();
