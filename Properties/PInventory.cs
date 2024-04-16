@@ -42,7 +42,9 @@ namespace Properties
         public Decimal UnrestrictedQty { get; set; }
         public Decimal RestrictedQty { get; set; }
         public Decimal BlockedQty { get; set; }
-        public Decimal ReservedQty { get; set; } 
+        public Decimal ReservedQty { get; set; }
+        public Decimal PerUnitPrice { get; set; }
+        public Decimal Value { get; set; }
     }
 
     [Serializable]
