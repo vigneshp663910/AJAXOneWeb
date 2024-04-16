@@ -1,9 +1,13 @@
 ﻿using Business;
+using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -77,13 +81,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             lblMessage.Text = "";
             lblMessageAddSOItem.Text = "";
-            lblMessageSOEdit.Text = "";  
+            lblMessageSOEdit.Text = "";
             lblMessageCreateSODelivery.Text = "";
 
             if (!IsPostBack)
-            {  
+            {
             }
-        }         
+        }
         public void fillViewSO(long SaleOrderID)
         {
             SOrder = new BDMS_SalesOrder().GetSaleOrderByID(SaleOrderID);
@@ -91,17 +95,17 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblQuotationNumber.Text = SOrder.QuotationNumber;
             lblQuotationDate.Text = SOrder.QuotationDate.ToString("dd/MM/yyyy");
             lblSaleOrderNumber.Text = SOrder.SaleOrderNumber;
-            lblSaleOrderDate.Text =  (SOrder.SaleOrderDate == null) ? null: Convert.ToDateTime(SOrder.SaleOrderDate).ToString("dd/MM/yyyy");
+            lblSaleOrderDate.Text = (SOrder.SaleOrderDate == null) ? null : Convert.ToDateTime(SOrder.SaleOrderDate).ToString("dd/MM/yyyy");
             lblProformaInvoiceNumber.Text = SOrder.ProformaInvoiceNumber;
             lblProformaInvoiceDate.Text = (SOrder.ProformaInvoiceDate == null) ? null : Convert.ToDateTime(SOrder.ProformaInvoiceDate).ToString("dd/MM/yyyy");
             lblDealerOffice.Text = SOrder.DealerOffice.OfficeName;
             //lblContactPerson.Text = SOrder.ContactPerson;
-            lblRemarks.Text = SOrder.Remarks; 
+            lblRemarks.Text = SOrder.Remarks;
             lblFrieghtPaidBy.Text = SOrder.FrieghtPaidBy;
             lblTaxType.Text = SOrder.TaxType;
             //lblCustomer.Text = SOrder.Customer.CustomerCode + " " + SOrder.Customer.CustomerName;
             lblContactPersonNumber.Text = SOrder.ContactPersonNumber;
-            lblExpectedDeliveryDate.Text = SOrder.ExpectedDeliveryDate.ToString("dd/MM/yyyy"); 
+            lblExpectedDeliveryDate.Text = SOrder.ExpectedDeliveryDate.ToString("dd/MM/yyyy");
             lblAttn.Text = SOrder.Attn;
             lblSODealer.Text = SOrder.Dealer.DealerCode + " " + SOrder.Dealer.DealerName;
             lblStatus.Text = SOrder.SaleOrderStatus.Status;
@@ -148,23 +152,23 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lbEditSaleOrder.Visible = true;
             lbCancelSaleOrder.Visible = true;
             lbAddSaleOrderItem.Visible = true;
-           // lbGenerateQuotation.Visible = true;
+            // lbGenerateQuotation.Visible = true;
             lbGenerateProformaInvoice.Visible = true;
             lbReleaseSaleOrder.Visible = true;
             lbDelivery.Visible = true;
-            
+
             int StatusID = SOrder.SaleOrderStatus.StatusID;
-            
-            if (StatusID == (short)AjaxOneStatus.SaleOrder_Quotation  ) // Draft
+
+            if (StatusID == (short)AjaxOneStatus.SaleOrder_Quotation) // Draft
             {
                 lbDelivery.Visible = false;
             }
-           else if (StatusID == (short)AjaxOneStatus.SaleOrder_ProformaInvoice) // Draft
+            else if (StatusID == (short)AjaxOneStatus.SaleOrder_ProformaInvoice) // Draft
             {
                 lbDelivery.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
             }
-            else if(StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced) //Order Placed
+            else if (StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced) //Order Placed
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
@@ -172,7 +176,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbReleaseSaleOrder.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
             }
-            else if(StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled) //Cancelled
+            else if (StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled) //Cancelled
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
@@ -182,17 +186,17 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbGenerateProformaInvoice.Visible = false;
                 lbDelivery.Visible = false;
             }
-            else if(StatusID == (short)AjaxOneStatus.SaleOrder_Delivered) //Delivered
+            else if (StatusID == (short)AjaxOneStatus.SaleOrder_Delivered) //Delivered
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
                 lbAddSaleOrderItem.Visible = false;
                 lbReleaseSaleOrder.Visible = false;
-               // lbGenerateQuotation.Visible = false;
+                // lbGenerateQuotation.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
                 lbDelivery.Visible = false;
             }
-            else if(StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyDelivered) //Partially Delivered
+            else if (StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyDelivered) //Partially Delivered
             {
                 lbEditSaleOrder.Visible = false;
                 //lbCancelSaleOrder.Visible = false;
@@ -206,7 +210,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder
                 )
-            { 
+            {
                 lbAddSaleOrderItem.Visible = false;
                 txtRefDate.Enabled = false;
                 txtRefNumber.Enabled = false;
@@ -221,9 +225,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
         private void DisableSOItemEditDelete()
         {
             int StatusID = SOrder.SaleOrderStatus.StatusID;
-            if (StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced 
-                || StatusID == (short)AjaxOneStatus.SaleOrder_Delivered 
-                || StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled 
+            if (StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced
+                || StatusID == (short)AjaxOneStatus.SaleOrder_Delivered
+                || StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder
                 )
@@ -244,10 +248,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red;  
+            lblMessage.ForeColor = Color.Red;
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.ID == "lbCancelSaleOrder")
-            { 
+            {
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/CancelSaleOrder?SaleOrderID=" + SOrder.SaleOrderID));
                 // PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SOrder.SaleOrderID + "&StatusID=" + 23));
                 PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SOrder.SaleOrderID, (short)AjaxOneStatus.SaleOrder_Cancelled);
@@ -256,12 +260,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblMessage.Text = Results.Message;
                     return;
                 }
-                lblMessage.Text = Results.Message; 
+                lblMessage.Text = Results.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SOrder.SaleOrderID);
             }
             else if (lbActions.ID == "lbEditSaleOrder")
-            {                
+            {
                 Edit();
                 MPE_SaleOrderEdit.Show();
             }
@@ -273,28 +277,28 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 MPE_SaleOrderItemAdd.Show();
             }
             else if (lbActions.ID == "lbReleaseSaleOrder")
-            { 
+            {
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SOrder.SaleOrderID));
                 // PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SOrder.SaleOrderID + "&StatusID=" + 13));
-                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SOrder.SaleOrderID,(short)AjaxOneStatus.SaleOrder_OrderPlaced);
+                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SOrder.SaleOrderID, (short)AjaxOneStatus.SaleOrder_OrderPlaced);
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
                     return;
                 }
-                lblMessage.Text = Results.Message; 
+                lblMessage.Text = Results.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SOrder.SaleOrderID);
-            } 
+            }
             else if (lbActions.ID == "lbGenerateProformaInvoice")
-            { 
+            {
                 PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SOrder.SaleOrderID, (short)AjaxOneStatus.SaleOrder_ProformaInvoice);
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
                     return;
                 }
-                lblMessage.Text = Results.Message; 
+                lblMessage.Text = Results.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SOrder.SaleOrderID);
             }
@@ -312,7 +316,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 //cxPickupDate.StartDate = DateTime.Now;
                 //txtBoxPickupDate.Text = DateTime.Now.ToShortDateString();
 
-                if(SOrder.SaleOrderType.SaleOrderTypeID == 4)
+                if (SOrder.SaleOrderType.SaleOrderTypeID == 4)
                 {
                     divEquipment.Visible = true;
                 }
@@ -326,7 +330,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                         {
                             SaleOrderID = SOrder.SaleOrderID,
                             SaleOrderItemID = Item.SaleOrderItemID,
-                            MaterialID= Item.Material.MaterialID,
+                            MaterialID = Item.Material.MaterialID,
                             MaterialCode = Item.Material.MaterialCode,
                             MaterialDescription = Item.Material.MaterialDescription,
                             UOM = Item.Material.BaseUnit,
@@ -351,10 +355,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 }
                 new DDLBind(ddlShiftTo, ShipTos, "Address1", "CustomerShipToID", true, "Select");
 
-                lblBillingAddress.Text = SOrder.Customer.Address1 + "," 
-                    + SOrder.Customer.Address2 + "," 
-                    + SOrder.Customer.Address3 + "," 
-                    + SOrder.Customer.District.District + "," 
+                lblBillingAddress.Text = SOrder.Customer.Address1 + ","
+                    + SOrder.Customer.Address2 + ","
+                    + SOrder.Customer.Address3 + ","
+                    + SOrder.Customer.District.District + ","
                     + SOrder.Customer.State.State;
 
                 lblDeliveryAddress.Text = lblBillingAddress.Text;
@@ -370,25 +374,372 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     gvDelivery.Columns[4].Visible = true;
                 }
             }
-        } 
+            else if (lbActions.ID == "lbPreviewQuotation")
+            {
+                ViewSalesPartsQuotation();
+            }
+            else if (lbActions.ID == "lbDownloadQuotation")
+            {
+                DownloadSalesPartsQuotation();
+            }
+            else if (lbActions.ID == "lbPreviewProformaInvoice")
+            {
+                ViewSalesProformaInvoice();
+            }
+            else if (lbActions.ID == "lbDownloadProformaInvoice")
+            {
+                DownloadSalesProformaInvoice();
+            }
+        }
+        void DownloadSalesPartsQuotation()
+        {
+            try
+            {
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                string FileName = SOrder.QuotationNumber + ".pdf";
+                string mimeType;
+                Byte[] mybytes = SalesPartsQuotationRdlc(out mimeType);
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
+                Response.Flush(); // send it to the client to download
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        void ViewSalesPartsQuotation()
+        {
+            try
+            {
+                string mimeType = string.Empty;
+                Byte[] mybytes = SalesPartsQuotationRdlc(out mimeType);
+                string FileName = SOrder.QuotationNumber + ".pdf";
+                var uploadPath = Server.MapPath("~/Backup");
+                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                File.WriteAllBytes(tempfilenameandlocation, mybytes);
+                Context.Response.Write("<script language='javascript'>window.open('../PDF.aspx?FileName=" + FileName + "&Title=Sales » Sales Order','_newtab');</script>");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        Byte[] SalesPartsQuotationRdlc(out string mimeType)
+        {
+            var CC = CultureInfo.CurrentCulture;
+            Random r = new Random();
+            string extension;
+            string encoding;
+            string[] streams;
+            Warning[] warnings;
+            LocalReport report = new LocalReport();
+            report.EnableExternalImages = true;
+
+            PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SOrder.Dealer.DealerID, null, null, null)[0];
+            string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
+            string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+
+            PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SOrder.Customer.CustomerID);
+            string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+            string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
+            //PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(SOrder.Dealer.DealerCode);
+            //string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
+            //string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+
+            //PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(SOrder.Customer.CustomerCode);
+            //string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+            //string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
+            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, SOrder.Dealer.DealerCode, null);
+
+            ReportParameter[] P = new ReportParameter[36];
+            P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
+            P[1] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
+            P[2] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
+            P[3] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Dealer.GSTIN);
+            P[4] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.PAN);
+            P[5] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
+            P[6] = new ReportParameter("QuotationNo", SOrder.QuotationNumber, false);
+            P[7] = new ReportParameter("QuotationDate", SOrder.QuotationDate.ToString(), false);
+            P[8] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
+            P[9] = new ReportParameter("CustomerName", Customer.CustomerName, false);
+            P[10] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
+            P[11] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
+            P[12] = new ReportParameter("CustomerStateCode", Customer.State.StateCode, false);
+            P[13] = new ReportParameter("ReceiverGSTINUINNo", Customer.GSTIN, false);
+            P[14] = new ReportParameter("CustomerPAN", Customer.PAN, false);
+            P[15] = new ReportParameter("KindAtten", SOrder.Attn, false);
+            P[16] = new ReportParameter("ContactNo", SOrder.ContactPersonNumber, false);
+            P[17] = new ReportParameter("RefNo", SOrder.RefNumber, false);
+            P[18] = new ReportParameter("RefDate", SOrder.RefDate.ToString(), false);
+            P[19] = new ReportParameter("Model", SOrder.Product.Product, false);
+            P[20] = new ReportParameter("MCSerNo", SOrder.Equipment.EquipmentSerialNo, false);
+
+            DataTable dtItem = new DataTable();
+            dtItem.Columns.Add("ItemNo");
+            dtItem.Columns.Add("PartNo");
+            dtItem.Columns.Add("Description");
+            dtItem.Columns.Add("HSN");
+            dtItem.Columns.Add("Qty");
+            dtItem.Columns.Add("UOM");
+            dtItem.Columns.Add("UnitPrice");
+            dtItem.Columns.Add("Discount");
+            dtItem.Columns.Add("Taxable");
+            dtItem.Columns.Add("CGSTPer");
+            dtItem.Columns.Add("CGSTVal");
+            dtItem.Columns.Add("SGSTPer");
+            dtItem.Columns.Add("SGSTVal");
+
+            decimal SubTotal = 0, GrandTotal = 0, TotalDiscount = 0, TotalTaxable = 0, TotalSGSTVal = 0, TotalCGSTVal = 0;
+
+            int sno = 0;
+            foreach (PSaleOrderItem Item in SOrder.SaleOrderItems)
+            {
+                if (SOrder.TaxType.Contains("SGST & CGST"))
+                {
+                    dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Material.HSN, Item.Quantity.ToString("0")
+                        , Item.Material.BaseUnit, String.Format("{0:n}", Item.Value), String.Format("{0:n}", Item.DiscountValue), String.Format("{0:n}", Item.TaxableValue)
+                        , String.Format("{0:n}", Item.Material.CGST), String.Format("{0:n}", Item.Material.CGSTValue), String.Format("{0:n}", Item.Material.SGST), String.Format("{0:n}", Item.Material.SGSTValue));
+                    SubTotal += (Item.TaxableValue + Item.Material.CGSTValue + Item.Material.SGSTValue);
+                    TotalDiscount += Item.DiscountValue;
+                    TotalTaxable += Item.TaxableValue;
+                    TotalCGSTVal += Item.Material.CGSTValue;
+                    TotalSGSTVal += Item.Material.SGSTValue;
+
+                    P[21] = new ReportParameter("CGST_Header", "%", false);
+                    P[22] = new ReportParameter("CGSTVal_Header", "CGST", false);
+                    P[23] = new ReportParameter("SGST_Header", "%", false);
+                    P[24] = new ReportParameter("SGSTVal_Header", "SGST", false);
+                }
+                else
+                {
+                    dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Material.HSN, Item.Quantity.ToString("0")
+                        , Item.Material.BaseUnit, String.Format("{0:n}", Item.Value), String.Format("{0:n}", Item.DiscountValue), String.Format("{0:n}", Item.TaxableValue)
+                        , String.Format("{0:n}", 0), String.Format("{0:n}", 0), String.Format("{0:n}", Item.Material.IGST), String.Format("{0:n}", Item.Material.IGSTValue));
+                    SubTotal += (Item.TaxableValue + Item.Material.IGSTValue + Item.Material.IGSTValue);
+                    TotalDiscount += Item.DiscountValue;
+                    TotalTaxable += Item.TaxableValue;
+                    TotalSGSTVal += Item.Material.IGSTValue;
+
+                    P[21] = new ReportParameter("CGST_Header", "", false);
+                    P[22] = new ReportParameter("CGSTVal_Header", "", false);
+                    P[23] = new ReportParameter("SGST_Header", "%", false);
+                    P[24] = new ReportParameter("SGSTVal_Header", "IGST", false);
+                }
+            }
+            GrandTotal = Math.Round(SubTotal);
+
+            P[21] = new ReportParameter("CGST_Header", "%", false);
+            P[22] = new ReportParameter("CGSTVal_Header", "CGST", false);
+            P[23] = new ReportParameter("SGST_Header", "%", false);
+            P[24] = new ReportParameter("SGSTVal_Header", "SGST", false);
+            P[25] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
+            P[26] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
+            P[27] = new ReportParameter("GrandTotalInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)).ToUpper(), false);
+            P[28] = new ReportParameter("DealerAccNo", DealerBank[0].DealerBank.AcNumber, false);
+            P[29] = new ReportParameter("DealerBank", DealerBank[0].DealerBank.BankName, false);
+            P[30] = new ReportParameter("DealerBranch", DealerBank[0].DealerBank.Branch, false);
+            P[31] = new ReportParameter("DealerIfscCode", DealerBank[0].DealerBank.IfscCode, false);
+            P[32] = new ReportParameter("TotalDiscount", String.Format("{0:n}", TotalDiscount), false);
+            P[33] = new ReportParameter("TotalTaxable", String.Format("{0:n}", TotalTaxable), false);
+            P[34] = new ReportParameter("TotalCGSTVal", String.Format("{0:n}", TotalCGSTVal), false);
+            P[35] = new ReportParameter("TotalSGSTVal", String.Format("{0:n}", TotalSGSTVal), false);
+
+            report.ReportPath = Server.MapPath("~/Print/SalesPartsQuotation.rdlc");
+            report.SetParameters(P);
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "SalesPartsQuotation";//This refers to the dataset name in the RDLC file  
+            rds.Value = dtItem;
+            report.DataSources.Add(rds);
+            Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+            return mybytes;
+        }
+        void DownloadSalesProformaInvoice()
+        {
+            try
+            {
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                string FileName = SOrder.ProformaInvoiceNumber + ".pdf";
+                string mimeType;
+                Byte[] mybytes = SalesProformaInvoiceRdlc(out mimeType);
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
+                Response.Flush(); // send it to the client to download
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        void ViewSalesProformaInvoice()
+        {
+            try
+            {
+                string mimeType = string.Empty;
+                Byte[] mybytes = SalesProformaInvoiceRdlc(out mimeType);
+                string FileName = SOrder.ProformaInvoiceNumber + ".pdf";
+                var uploadPath = Server.MapPath("~/Backup");
+                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                File.WriteAllBytes(tempfilenameandlocation, mybytes);
+                Context.Response.Write("<script language='javascript'>window.open('../PDF.aspx?FileName=" + FileName + "&Title=Sales » Sales Order','_newtab');</script>");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        Byte[] SalesProformaInvoiceRdlc(out string mimeType)
+        {
+            var CC = CultureInfo.CurrentCulture;
+            Random r = new Random();
+            string extension;
+            string encoding;
+            string[] streams;
+            Warning[] warnings;
+            LocalReport report = new LocalReport();
+            report.EnableExternalImages = true;
+
+            PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SOrder.Dealer.DealerID, null, null, null)[0];
+            string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
+            string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+
+            PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SOrder.Customer.CustomerID);
+            string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+            string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
+            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, SOrder.Dealer.DealerCode, null);
+
+            ReportParameter[] P = new ReportParameter[34];
+            P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
+            P[1] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
+            P[2] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
+            P[3] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Dealer.GSTIN);
+            P[4] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
+            P[5] = new ReportParameter("InvoiceNo", SOrder.ProformaInvoiceNumber, false);
+            P[6] = new ReportParameter("InvoiceDate", SOrder.ProformaInvoiceDate.ToString(), false);
+            P[7] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
+            P[8] = new ReportParameter("CustomerName", Customer.CustomerName, false);
+            P[9] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
+            P[10] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
+            P[11] = new ReportParameter("CustomerStateCode", Customer.State.StateCode, false);
+            P[12] = new ReportParameter("ReceiverGSTINUINNo", Customer.GSTIN, false);
+            P[13] = new ReportParameter("CustomerPAN", Customer.PAN, false);
+            P[14] = new ReportParameter("KindAtten", SOrder.Attn, false);
+            P[15] = new ReportParameter("RefNo", SOrder.RefNumber, false);
+            P[16] = new ReportParameter("RefDate", SOrder.RefDate.ToString(), false);
+            P[17] = new ReportParameter("Model", SOrder.Product.Product, false);
+            P[18] = new ReportParameter("MCSerNo", SOrder.Equipment.EquipmentSerialNo, false);
+
+            DataTable dtItem = new DataTable();
+            dtItem.Columns.Add("ItemNo");
+            dtItem.Columns.Add("PartNo");
+            dtItem.Columns.Add("Description");
+            dtItem.Columns.Add("HSN");
+            dtItem.Columns.Add("Qty");
+            dtItem.Columns.Add("UOM");
+            dtItem.Columns.Add("UnitPrice");
+            dtItem.Columns.Add("Discount");
+            dtItem.Columns.Add("Taxable");
+            dtItem.Columns.Add("CGSTPer");
+            dtItem.Columns.Add("CGSTVal");
+            dtItem.Columns.Add("SGSTPer");
+            dtItem.Columns.Add("SGSTVal");
+
+            decimal SubTotal = 0, GrandTotal = 0, TotalDiscount = 0, TotalTaxable = 0, TotalSGSTVal = 0, TotalCGSTVal = 0;
+
+            int sno = 0;
+            foreach (PSaleOrderItem Item in SOrder.SaleOrderItems)
+            {
+                if (SOrder.TaxType.Contains("SGST & CGST"))
+                {
+                    dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Material.HSN, Item.Quantity.ToString("0")
+                        , Item.Material.BaseUnit, String.Format("{0:n}", Item.Value), String.Format("{0:n}", Item.DiscountValue), String.Format("{0:n}", Item.TaxableValue)
+                        , String.Format("{0:n}", Item.Material.CGST), String.Format("{0:n}", Item.Material.CGSTValue), String.Format("{0:n}", Item.Material.SGST), String.Format("{0:n}", Item.Material.SGSTValue));
+                    SubTotal += (Item.TaxableValue + Item.Material.CGSTValue + Item.Material.SGSTValue);
+                    TotalDiscount += Item.DiscountValue;
+                    TotalTaxable += Item.TaxableValue;
+                    TotalCGSTVal += Item.Material.CGSTValue;
+                    TotalSGSTVal += Item.Material.SGSTValue;
+
+                    P[19] = new ReportParameter("CGST_Header", "%", false);
+                    P[20] = new ReportParameter("CGSTVal_Header", "CGST", false);
+                    P[21] = new ReportParameter("SGST_Header", "%", false);
+                    P[22] = new ReportParameter("SGSTVal_Header", "SGST", false);
+                }
+                else
+                {
+                    dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Material.HSN, Item.Quantity.ToString("0")
+                        , Item.Material.BaseUnit, String.Format("{0:n}", Item.Value), String.Format("{0:n}", Item.DiscountValue), String.Format("{0:n}", Item.TaxableValue)
+                        , String.Format("{0:n}", 0), String.Format("{0:n}", 0), String.Format("{0:n}", Item.Material.IGST), String.Format("{0:n}", Item.Material.IGSTValue));
+                    SubTotal += (Item.TaxableValue + Item.Material.IGSTValue + Item.Material.IGSTValue);
+                    TotalDiscount += Item.DiscountValue;
+                    TotalTaxable += Item.TaxableValue;
+                    TotalSGSTVal += Item.Material.IGSTValue;
+
+                    P[19] = new ReportParameter("CGST_Header", "", false);
+                    P[20] = new ReportParameter("CGSTVal_Header", "", false);
+                    P[21] = new ReportParameter("SGST_Header", "%", false);
+                    P[22] = new ReportParameter("SGSTVal_Header", "IGST", false);
+                }
+            }
+            GrandTotal = Math.Round(SubTotal);
+            P[23] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
+            P[24] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
+            P[25] = new ReportParameter("GrandTotalInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)).ToUpper(), false);
+            P[26] = new ReportParameter("DealerAccNo", DealerBank[0].DealerBank.AcNumber, false);
+            P[27] = new ReportParameter("DealerBank", DealerBank[0].DealerBank.BankName, false);
+            P[28] = new ReportParameter("DealerBranch", DealerBank[0].DealerBank.Branch, false);
+            P[29] = new ReportParameter("DealerIfscCode", DealerBank[0].DealerBank.IfscCode, false);
+            P[30] = new ReportParameter("TotalDiscount", String.Format("{0:n}", TotalDiscount), false);
+            P[31] = new ReportParameter("TotalTaxable", String.Format("{0:n}", TotalTaxable), false);
+            P[32] = new ReportParameter("TotalCGSTVal", String.Format("{0:n}", TotalCGSTVal), false);
+            P[33] = new ReportParameter("TotalSGSTVal", String.Format("{0:n}", TotalSGSTVal), false);
+
+            report.ReportPath = Server.MapPath("~/Print/SalesProformaInvoice.rdlc");
+            report.SetParameters(P);
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "SalesProformaInvoice";//This refers to the dataset name in the RDLC file  
+            rds.Value = dtItem;
+            report.DataSources.Add(rds);
+            Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+            return mybytes;
+        }
         public void Edit()
         {
-            cxExpectedDeliveryDate.StartDate = DateTime.Now; 
+            cxExpectedDeliveryDate.StartDate = DateTime.Now;
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
             new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(SOrder.Dealer.DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
             ddlOfficeName.SelectedValue = SOrder.DealerOffice.OfficeID.ToString();
 
             ddlProduct.BorderColor = Color.Silver;
-            txtExpectedDeliveryDate.BorderColor = Color.Silver;  
-             
+            txtExpectedDeliveryDate.BorderColor = Color.Silver;
+
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, SOrder.Dealer.DealerID, true, null, null, null);
             new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
             ddlSalesEngineer.SelectedValue = SOrder.SalesEngineer == null ? "0" : SOrder.SalesEngineer.UserID.ToString();
-             
-            txtContactPersonNumber.Text = SOrder.ContactPersonNumber;  
+
+            txtContactPersonNumber.Text = SOrder.ContactPersonNumber;
             txtRemarks.Text = SOrder.Remarks;
             txtExpectedDeliveryDate.Text = SOrder.ExpectedDeliveryDate.ToString("dd/MM/yyyy");
-            if (!string.IsNullOrEmpty( SOrder.InsurancePaidBy))
+            if (!string.IsNullOrEmpty(SOrder.InsurancePaidBy))
                 ddlInsurancePaidBy.SelectedValue = ddlInsurancePaidBy.Items.FindByText(SOrder.InsurancePaidBy).Value;
             if (!string.IsNullOrEmpty(SOrder.FrieghtPaidBy))
                 ddlFrieghtPaidBy.SelectedValue = ddlFrieghtPaidBy.Items.FindByText(SOrder.FrieghtPaidBy).Value;
@@ -409,9 +760,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void btnUpdateSO_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red; 
-            lblMessage.Text = "";
-            lblMessageSOEdit.ForeColor = Color.Red; 
+            lblMessageSOEdit.ForeColor = Color.Red;
             lblMessageSOEdit.Text = "";
             try
             {
@@ -435,7 +784,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     MPE_SaleOrderEdit.Show();
                     return;
                 }
-                lblMessage.Text = Result.Message; 
+                lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SOrder.SaleOrderID);
             }
@@ -443,14 +792,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 lblMessageSOEdit.Text = ex.Message.ToString();
                 MPE_SaleOrderEdit.Show();
-                return;
             }
         }
         protected void btnSaveSOItem_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red; 
-            lblMessage.Text = "";
-            lblMessageAddSOItem.ForeColor = Color.Red; 
+            lblMessageAddSOItem.ForeColor = Color.Red;
             lblMessageAddSOItem.Text = "";
             try
             {
@@ -467,7 +813,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     , SOrder.Dealer.DealerCode, SOrder.HeaderDiscountPercentage, 0, SOrder.TaxType);
 
                 pSaleOrderItem.SaleOrderID = SOrder.SaleOrderID;
-               // pSaleOrderItem = ReadItem();
+                // pSaleOrderItem = ReadItem();
                 string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", pSaleOrderItem);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
@@ -477,16 +823,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     MPE_SaleOrderItemAdd.Show();
                     return;
                 }
-                lblMessage.Text = Result.Message; 
+                lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SOrder.SaleOrderID);
-                
+
             }
             catch (Exception ex)
             {
                 lblMessageAddSOItem.Text = ex.Message.ToString();
                 MPE_SaleOrderItemAdd.Show();
-                return;
             }
         }
         protected void lblMaterialRemove_Click(object sender, EventArgs e)
@@ -515,7 +860,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.Quantity = Item.Quantity;
                 SoI.PerRate = Item.PerRate;
                 SoI.Value = Item.Value;
-               // SoI.ItemDiscountPercentage = Item.ItemDiscountPercentage;
+                // SoI.ItemDiscountPercentage = Item.ItemDiscountPercentage;
                 SoI.TaxableValue = Item.TaxableValue;
                 SoI.SGST = Item.Material.SGST;
                 SoI.SGSTValue = Item.Material.SGSTValue;
@@ -523,14 +868,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.CGSTValue = Item.Material.CGSTValue;
                 SoI.IGST = Item.Material.IGST;
                 SoI.IGSTValue = Item.Material.IGSTValue;
-                SoI.StatusID = (short) AjaxOneStatus.SaleOrderItem_Cancelled ;
+                SoI.StatusID = (short)AjaxOneStatus.SaleOrderItem_Cancelled;
 
                 PSaleOrder_Insert SO = new PSaleOrder_Insert();
                 SO.SaleOrderID = Convert.ToInt64(SOrder.SaleOrderID);
                 SO.DealerID = Convert.ToInt32(SOrder.Dealer.DealerID);
                 SO.CustomerID = Convert.ToInt32(SOrder.Customer.CustomerID);
                 SO.StatusID = 23;
-                SO.OfficeID = Convert.ToInt32(SOrder.DealerOffice.OfficeID); 
+                SO.OfficeID = Convert.ToInt32(SOrder.DealerOffice.OfficeID);
                 SO.ContactPersonNumber = SOrder.ContactPersonNumber.Trim();
                 SO.DivisionID = Convert.ToInt32(SOrder.Division.DivisionID);
                 SO.Remarks = SOrder.Remarks.Trim();
@@ -538,7 +883,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SO.InsurancePaidBy = SOrder.InsurancePaidBy.Trim();
                 SO.FrieghtPaidBy = SOrder.FrieghtPaidBy.Trim();
                 SO.Attn = SOrder.Attn.Trim();
-                SO.ProductID = Convert.ToInt32(SOrder.Product.ProductID); 
+                SO.ProductID = Convert.ToInt32(SOrder.Product.ProductID);
                 SO.TaxType = SOrder.TaxType.Trim();
                 SO.SaleOrderTypeID = SOrder.SaleOrderType.SaleOrderTypeID;
                 SO.SalesEngineerID = SOrder.SalesEngineer.UserID;
@@ -552,17 +897,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 if (Result.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Result.Message; 
+                    lblMessage.Text = Result.Message;
                     return;
                 }
-                lblMessage.Text = Result.Message; 
+                lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SOrder.SaleOrderID);
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message.ToString();
-                return;
             }
         }
         public PSaleOrder_Insert Read()
@@ -570,9 +914,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             PSaleOrder_Insert SO = new PSaleOrder_Insert();
             SO.SaleOrderID = SOrder.SaleOrderID;
             SO.DealerID = SOrder.Dealer.DealerID;
-           // SO.CustomerID = Convert.ToInt32(hdfCustomerId.Value);
+            // SO.CustomerID = Convert.ToInt32(hdfCustomerId.Value);
             SO.StatusID = 11;
-            SO.OfficeID = Convert.ToInt32(ddlOfficeName.SelectedValue); 
+            SO.OfficeID = Convert.ToInt32(ddlOfficeName.SelectedValue);
             SO.ContactPersonNumber = txtContactPersonNumber.Text.Trim();
             //SO.DivisionID = Convert.ToInt32(ddlDivision.SelectedValue); 
             SO.Remarks = txtRemarks.Text.Trim();
@@ -580,7 +924,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.InsurancePaidBy = ddlInsurancePaidBy.SelectedItem.Text;
             SO.FrieghtPaidBy = ddlFrieghtPaidBy.SelectedItem.Text;
             SO.Attn = txtAttn.Text.Trim();
-            SO.ProductID = Convert.ToInt32(ddlProduct.SelectedValue); 
+            SO.ProductID = Convert.ToInt32(ddlProduct.SelectedValue);
             SO.TaxType = ddlTaxType.SelectedItem.Text;
             SO.SaleOrderTypeID = SOrder.SaleOrderType.SaleOrderTypeID;
             SO.SalesEngineerID = Convert.ToInt32(ddlSalesEngineer.SelectedValue);
@@ -612,15 +956,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
             if (string.IsNullOrEmpty(m.HSN))
             {
                 throw new Exception("HSN Code is not updated for this Material. Please contact Parts Admin.");
-            } 
+            }
             List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
             Material_SapS.Add(new PMaterial_Api()
             {
                 MaterialCode = SoI.MaterialCode,
                 Quantity = SoI.Quantity,
                 Item = (Material_SapS.Count + 1) * 10
-            }); 
-            
+            });
+
             PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
             MaterialPrice.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(SOrder.Customer.CustomerID)).CustomerCode;
             MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(SOrder.Dealer.DealerID), "").DealerCode;
@@ -634,8 +978,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 Quantity = SoI.Quantity
             });
             List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-            PMaterial Mat = Mats[0]; 
-           
+            PMaterial Mat = Mats[0];
+
             if (Mat.CurrentPrice <= 0)
             {
                 throw new Exception("Please maintain the Price for Material " + SoI.MaterialCode + " in SAP.");
@@ -650,12 +994,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
 
             SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
-            SoI.Value = Mat.CurrentPrice;  
+            SoI.Value = Mat.CurrentPrice;
 
             SoI.DiscountValue = SOrder.HeaderDiscountPercentage > 0 ? (Mat.CurrentPrice * (SOrder.HeaderDiscountPercentage / 100)) : Mat.Discount;
 
             SoI.TaxableValue = SOrder.HeaderDiscountPercentage > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (SOrder.HeaderDiscountPercentage / 100))) : Mat.TaxablePrice;
-           
+
             if (SOrder.TaxType == "SGST & CGST")
             {
                 SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
@@ -665,7 +1009,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.IGST = 0;
                 SoI.IGSTValue = 0;
             }
-            else 
+            else
             {
                 SoI.SGST = 0;
                 SoI.SGSTValue = 0;
@@ -675,14 +1019,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SoI.IGSTValue = SOrder.HeaderDiscountPercentage > 0 ? (SoI.TaxableValue * (SoI.IGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue);
             }
 
-            SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue; 
+            SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
             SoI.MaterialDescription = m.MaterialDescription;
             SoI.HSN = m.HSN;
             SoI.UOM = m.BaseUnit;
             return SoI;
         }
         public string Validation()
-        { 
+        {
             ddlOfficeName.BorderColor = Color.Silver;
             //txtCustomer.BorderColor = Color.Silver;
             txtContactPersonNumber.BorderColor = Color.Silver;
@@ -773,7 +1117,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void lnkBtnItemAction_Click(object sender, EventArgs e)
         {
-            lblMessage.ForeColor = Color.Red; 
+            lblMessage.ForeColor = Color.Red;
             //if (SOrder.SaleOrderStatus.StatusID == 23)
             //{
             //    lblMessage.Text = "Sale Order is Cancelled.";
@@ -799,7 +1143,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             Label lblQuantity = (Label)gvRow.FindControl("lblQuantity");
             TextBox txtItemDiscountValue = (TextBox)gvRow.FindControl("txtItemDiscountValue");
             Label lblItemDiscountValue = (Label)gvRow.FindControl("lblItemDiscountValue");
-            
+
             if (lbActions.ID == "lnkBtnEdit")
             {
                 lnkBtnEdit.Visible = false;
@@ -842,7 +1186,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 try
                 {
                     PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(lblMaterialID.Text), null, null, null, null)[0];
-                    int Quantity = Convert.ToInt32(Convert.ToDecimal( txtBoxQuantity.Text.Trim()));
+                    int Quantity = Convert.ToInt32(Convert.ToDecimal(txtBoxQuantity.Text.Trim()));
                     PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(m, SOrder.Dealer.DealerID, SOrder.Dealer.DealerOffice.OfficeID, Quantity, SOrder.Customer.CustomerCode
                         , SOrder.Dealer.DealerCode, SOrder.HeaderDiscountPercentage, IDiscountValue, SOrder.TaxType);
                     item_Insert.SaleOrderItemID = Convert.ToInt64(lblSaleOrderItemID.Text);
@@ -869,8 +1213,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 catch (Exception e1)
                 {
                     lblMessage.Text = e1.Message;
-                    return;  
-                } 
+                    return;
+                }
             }
             else if (lbActions.ID == "lnkBtnCancel")
             {
@@ -885,7 +1229,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblItemDiscountValue.Visible = true;
             }
             else if (lbActions.ID == "lnkBtnDelete")
-            { 
+            {
                 Label lblSaleOrderItemID = (Label)gvRow.FindControl("lblSaleOrderItemID");
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/CancelSaleOrderItem?SaleOrderItemID=" + Convert.ToInt64(lblSaleOrderItemID.Text)));
                 if (Results.Status == PApplication.Failure)
@@ -899,11 +1243,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         protected void btnSaveDelivery_Click(object sender, EventArgs e)
         {
-            lblMessageCreateSODelivery.ForeColor = Color.Red;  
+            lblMessageCreateSODelivery.ForeColor = Color.Red;
             MPE_Delivery.Show();
             try
             {
-                if(SOrder.SaleOrderType.SaleOrderTypeID == 4)
+                if (SOrder.SaleOrderType.SaleOrderTypeID == 4)
                 {
                     lblMessageCreateSODelivery.Text = "Please select the Equipment.";
                     return;
@@ -913,22 +1257,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 foreach (PSaleOrderDeliveryItem_Insert T in SODelivery_Insert)
                 {
                     T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue);
-                //    T.NetWeight = Convert.ToDecimal("0"+txtBoxNetWeight.Text);
-                   // T.Remarks = txtBoxRemarks.Text.Trim();
-                 //   T.DispatchDate = Convert.ToDateTime(txtBoxDispatchDate.Text.Trim());
-                    //T.CourierID = txtBoxCourierId.Text.Trim();
-                    //T.CourierDate = Convert.ToDateTime(txtBoxCourierDate.Text.Trim());
-                    //T.CourierCompanyName = txtBoxCourierCompanyName.Text.Trim();
-                    //T.CourierPerson = txtBoxCourierPerson.Text.Trim();
-                    //T.LRNo = txtBoxLRNo.Text.Trim();
-                    //T.PackingDescription = txtBoxPackingDescription.Text.Trim();
-                    //T.PackingRemarks = txtBoxPackingRemarks.Text.Trim();
-                    //T.TransportDetails = txtBoxTransportDetails.Text.Trim();
-                    //T.TransportMode = ddlTransportMode.SelectedItem.Text;
                     T.EquipmentHeaderID = ddlEquipment.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlEquipment.SelectedValue);
-                  //  T.PickupDate = Convert.ToDateTime(txtBoxPickupDate.Text.Trim());
                 }
-                
+
                 PApiResult Result = new BDMS_SalesOrder().InsertSaleOrderDelivery(SODelivery_Insert);
                 if (Result.Status == PApplication.Failure)
                 {
@@ -966,7 +1297,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 Label lblMaterialID = (Label)row.FindControl("lblMaterialID");
                 PDealerStock Stock = new BInventory().GetDealerStockCountByID(SOrder.Dealer.DealerID, SOrder.DealerOffice.OfficeID, Convert.ToInt32(lblMaterialID.Text));
 
-               
+
                 Label lblMaterialCode = (Label)row.FindControl("lblMaterialCode");
 
                 if (DeliveryQuantity > Stock.UnrestrictedQty)
@@ -991,10 +1322,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 MPE_Delivery.Show();
                 readSaleOrderDelivery();
-            gvDelivery.DataSource = SODelivery_Insert;
-            gvDelivery.PageIndex = e.NewPageIndex;
-            gvDelivery.DataBind();
-            
+                gvDelivery.DataSource = SODelivery_Insert;
+                gvDelivery.PageIndex = e.NewPageIndex;
+                gvDelivery.DataBind();
+
             }
             catch (Exception e1)
             {
