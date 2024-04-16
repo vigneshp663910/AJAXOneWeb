@@ -38,6 +38,7 @@
                 <asp:LinkButton ID="lbReleaseApprove" runat="server" OnClientClick="return ConfirmReleasePO();" OnClick="lbActions_Click">Release Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbCancelApprove" runat="server" OnClientClick="return ConfirmCancelPO();" OnClick="lbActions_Click">Cancel Approve</asp:LinkButton>
                 <asp:LinkButton ID="lbViewPurchaseOrder" runat="server" OnClick="lbActions_Click">PO Preview</asp:LinkButton>
+                <asp:LinkButton ID="lbDownloadPurchaseOrder" runat="server" OnClick="lbActions_Click">PO Download</asp:LinkButton>
             </div>
         </div>
     </div>
