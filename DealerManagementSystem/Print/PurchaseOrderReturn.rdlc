@@ -11,7 +11,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="PurchaseOrder">
+    <DataSet Name="ReturnPurchaseOrder">
       <Query>
         <DataSourceName>DS</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -57,7 +57,7 @@
       <rd:DataSetInfo>
         <rd:DataSetName>DS</rd:DataSetName>
         <rd:SchemaPath>D:\AJAX_ENGG\AJAXOneWeb\DealerManagementSystem\Print\DS.xsd</rd:SchemaPath>
-        <rd:TableName>PurchaseOrder</rd:TableName>
+        <rd:TableName>ReturnPurchaseOrder</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -72,13 +72,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.17416cm</Width>
+                  <Width>4.72436cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.26603cm</Width>
+                  <Width>3.81623cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>10.27943cm</Width>
+                  <Width>9.82963cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -94,33 +94,14 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Purchase Order No : </Value>
+                                  <Value>Return Purchase Order No : </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!PurchaseOrderNumber.Value</Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Order Date              : </Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!PurchaseOrderDate.Value</Value>
+                                  <Value>=Parameters!ReturnPurchaseOrderNumber.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
@@ -132,14 +113,14 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Order Type             : </Value>
+                                  <Value>Order Date                            : </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!PurchaseOrderType.Value</Value>
+                                  <Value>=Parameters!ReturnPurchaseOrderDate.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
@@ -173,33 +154,14 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>SAP Sale Order No         : </Value>
+                                  <Value>Status                  : </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!SaleOrderNumber.Value</Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Expected Delivery Date  : </Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!ExpectedDeliveryDate.Value</Value>
+                                  <Value>=Parameters!Status.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
@@ -211,7 +173,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Receiving Location         : </Value>
+                                  <Value>From Location    : </Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Normal</FontWeight>
@@ -329,7 +291,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>2.73095cm</Height>
+                  <Height>1.85783cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -386,60 +348,6 @@
                                 </TextRun>
                               </TextRuns>
                               <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Phone No : </Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!SupplierMobile.Value</Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Email : </Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!SupplierEMail.Value</Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
@@ -534,67 +442,6 @@
                               </TextRuns>
                               <Style />
                             </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Phone No : </Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!BillToMobile.Value</Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Email : </Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!BillToEMail.Value</Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value xml:space="preserve">   </Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox47</rd:DefaultName>
                           <Style>
@@ -629,10 +476,10 @@
             </TablixRowHierarchy>
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
-            <Top>0.13424cm</Top>
-            <Left>0.08285cm</Left>
-            <Height>4.7337cm</Height>
-            <Width>19.71962cm</Width>
+            <Top>0.07056cm</Top>
+            <Left>0.71785cm</Left>
+            <Height>3.86058cm</Height>
+            <Width>18.37021cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -643,31 +490,31 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.75127in</Width>
+                  <Width>0.69224in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.99005in</Width>
+                  <Width>0.93102in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.84111in</Width>
+                  <Width>1.78208in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.63302in</Width>
+                  <Width>0.57399in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.58152in</Width>
+                  <Width>0.52249in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.69625in</Width>
+                  <Width>0.63722in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.72648in</Width>
+                  <Width>0.66745in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.67425in</Width>
+                  <Width>0.61522in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.86967in</Width>
+                  <Width>0.81064in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -683,7 +530,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Item No</Value>
+                                  <Value>SNo</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -1990,11 +1837,11 @@
             </TablixRowHierarchy>
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
-            <DataSetName>PurchaseOrder</DataSetName>
-            <Top>1.90262in</Top>
-            <Left>0.08284cm</Left>
+            <DataSetName>ReturnPurchaseOrder</DataSetName>
+            <Top>1.56929in</Top>
+            <Left>0.71785cm</Left>
             <Height>1.08157in</Height>
-            <Width>7.76362in</Width>
+            <Width>7.23236in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -2003,13 +1850,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>3.04412in</Height>
+        <Height>3.06495in</Height>
         <Style />
       </Body>
       <Width>7.8275in</Width>
       <Page>
         <PageHeader>
-          <Height>1.80826cm</Height>
+          <Height>2.4168cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2028,10 +1875,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.28469cm</Top>
-              <Left>0.08285cm</Left>
+              <Top>0.91969cm</Top>
+              <Left>0.71785cm</Left>
               <Height>1.24135cm</Height>
-              <Width>19.71958cm</Width>
+              <Width>18.37021cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2044,10 +1891,10 @@
               </Style>
             </Textbox>
             <Line Name="Line2">
-              <Top>1.72889cm</Top>
-              <Left>19.80247cm</Left>
+              <Top>2.36389cm</Top>
+              <Left>19.14101cm</Left>
               <Height>0cm</Height>
-              <Width>-19.7993cm</Width>
+              <Width>-18.44996cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -2062,7 +1909,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>PURCHASE ORDER</Value>
+                      <Value>RETURN PURCHASE ORDER</Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                         <Color>Purple</Color>
@@ -2075,10 +1922,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
-              <Top>0.65828cm</Top>
-              <Left>7.86094cm</Left>
+              <Top>1.29328cm</Top>
+              <Left>6.27344cm</Left>
               <Height>0.6cm</Height>
-              <Width>4.48377cm</Width>
+              <Width>5.30398cm</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -2109,8 +1956,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>PODate</rd:DefaultName>
-              <Top>0.60219cm</Top>
-              <Left>15.02396cm</Left>
+              <Top>1.23719cm</Top>
+              <Left>14.07146cm</Left>
               <Height>0.6cm</Height>
               <Width>4.49381cm</Width>
               <ZIndex>3</ZIndex>
@@ -2128,8 +1975,8 @@
               <Source>Embedded</Source>
               <Value>AjaxLogo</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.60219cm</Top>
-              <Left>0.40035cm</Left>
+              <Top>1.23719cm</Top>
+              <Left>1.03535cm</Left>
               <Height>0.65609cm</Height>
               <Width>0.87634cm</Width>
               <ZIndex>4</ZIndex>
@@ -2158,13 +2005,13 @@
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="PurchaseOrderNumber">
+    <ReportParameter Name="ReturnPurchaseOrderNumber">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="PurchaseOrderDate">
+    <ReportParameter Name="ReturnPurchaseOrderDate">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
@@ -2188,18 +2035,6 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="SupplierMobile">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="SupplierEMail">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
     <ReportParameter Name="BillToCustomerName">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
@@ -2213,36 +2048,6 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="BillToCustomerAddress2">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="BillToMobile">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="BillToEMail">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="PurchaseOrderType">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="SaleOrderNumber">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="ExpectedDeliveryDate">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
@@ -2290,21 +2095,27 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="Status">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>22</NumberOfRows>
+      <NumberOfRows>23</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>0</RowIndex>
-          <ParameterName>PurchaseOrderNumber</ParameterName>
+          <ParameterName>ReturnPurchaseOrderNumber</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>0</RowIndex>
-          <ParameterName>PurchaseOrderDate</ParameterName>
+          <ParameterName>ReturnPurchaseOrderDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>3</ColumnIndex>
@@ -2322,16 +2133,6 @@
           <ParameterName>SupplierAddress2</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
-          <RowIndex>2</RowIndex>
-          <ParameterName>SupplierMobile</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>3</RowIndex>
-          <ParameterName>SupplierEMail</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>6</RowIndex>
           <ParameterName>BillToCustomerName</ParameterName>
@@ -2345,31 +2146,6 @@
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>7</RowIndex>
           <ParameterName>BillToCustomerAddress2</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
-          <RowIndex>8</RowIndex>
-          <ParameterName>BillToMobile</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
-          <RowIndex>8</RowIndex>
-          <ParameterName>BillToEMail</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
-          <RowIndex>19</RowIndex>
-          <ParameterName>PurchaseOrderType</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
-          <RowIndex>19</RowIndex>
-          <ParameterName>SaleOrderNumber</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>20</RowIndex>
-          <ParameterName>ExpectedDeliveryDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
@@ -2405,6 +2181,11 @@
           <ColumnIndex>3</ColumnIndex>
           <RowIndex>21</RowIndex>
           <ParameterName>BillToCode</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>22</RowIndex>
+          <ParameterName>Status</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
