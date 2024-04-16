@@ -389,7 +389,7 @@
                                                                 <asp:TemplateField HeaderText="Delivered Qty">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                                     <ItemTemplate>
-                                                                        <asp:Label ID="lblDeliveredQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.DeliveredQty")%>' runat="server"></asp:Label>
+                                                                        <asp:Label ID="lblDeliveredQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrQty")%>' runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                             <%--    <asp:TemplateField HeaderText="Received Qty">
@@ -401,7 +401,7 @@
                                                                 <asp:TemplateField HeaderText="Returned Qty">
                                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                                     <ItemTemplate>
-                                                                        <asp:Label ID="lblReturnedQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.ReturnedQty")%>' runat="server"></asp:Label>
+                                                                        <asp:Label ID="lblReturnedQty" Text='<%# DataBinder.Eval(Container.DataItem, "ReturnedQty")%>' runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField HeaderText="Net Weight">
