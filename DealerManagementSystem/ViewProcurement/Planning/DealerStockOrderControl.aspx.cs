@@ -187,8 +187,8 @@ namespace DealerManagementSystem.ViewProcurement.Planning
             GridViewRow row = (GridViewRow)(LnkEdit.NamingContainer);
             TextBox txtMaxCount = (TextBox)row.FindControl("txtMaxCount");
             txtMaxCount.Enabled = true;
-            TextBox txtMaxValue = (TextBox)row.FindControl("txtMaxValue");
-            txtMaxValue.Enabled = true;
+            TextBox txtMinimumValue = (TextBox)row.FindControl("txtMinimumValue");
+            txtMinimumValue.Enabled = true;
             LinkButton LnkUpdate = (LinkButton)row.FindControl("LnkUpdate");
             LnkUpdate.Visible = true;
         }
@@ -203,7 +203,7 @@ namespace DealerManagementSystem.ViewProcurement.Planning
             GridViewRow row = (GridViewRow)(LnkDelete.NamingContainer);
 
             TextBox txtMaxCount = (TextBox)row.FindControl("txtMaxCount");
-            TextBox txtMaxValue = (TextBox)row.FindControl("txtMaxValue");
+            TextBox txtMinimumValue = (TextBox)row.FindControl("txtMinimumValue");
             Label lblDealerStockOrderControlID = (Label)row.FindControl("lblDealerStockOrderControlID");
             Label lblDealerID = (Label)row.FindControl("lblDealerID");
 
@@ -211,7 +211,7 @@ namespace DealerManagementSystem.ViewProcurement.Planning
             orderControl.DealerStockOrderControlID = Convert.ToInt32(lblDealerStockOrderControlID.Text);
             orderControl.Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(lblDealerID.Text) };
             orderControl.MaxCount = (string.IsNullOrEmpty(txtMaxCount.Text)) ? 0 : Convert.ToInt32(txtMaxCount.Text);
-            orderControl.MaxValue = (string.IsNullOrEmpty(txtMaxValue.Text)) ? 0 : Convert.ToInt32(txtMaxValue.Text);
+            orderControl.MinimumValue = (string.IsNullOrEmpty(txtMinimumValue.Text)) ? 0 : Convert.ToInt32(txtMinimumValue.Text);
             orderControl.IsActive = false;
 
             string result = new BAPI().ApiPut("PurchaseOrder/InsertOrUpdateDealerStockOrderControl", orderControl);
@@ -239,8 +239,8 @@ namespace DealerManagementSystem.ViewProcurement.Planning
 
             TextBox txtMaxCount = (TextBox)row.FindControl("txtMaxCount");
             txtMaxCount.Enabled = false;
-            TextBox txtMaxValue = (TextBox)row.FindControl("txtMaxValue");
-            txtMaxValue.Enabled = false;
+            TextBox txtMinimumValue = (TextBox)row.FindControl("txtMinimumValue");
+            txtMinimumValue.Enabled = false;
             Label lblDealerStockOrderControlID = (Label)row.FindControl("lblDealerStockOrderControlID");
             Label lblDealerID = (Label)row.FindControl("lblDealerID");
 
@@ -248,7 +248,7 @@ namespace DealerManagementSystem.ViewProcurement.Planning
             orderControl.DealerStockOrderControlID = Convert.ToInt32(lblDealerStockOrderControlID.Text);
             orderControl.Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(lblDealerID.Text) };
             orderControl.MaxCount = (string.IsNullOrEmpty(txtMaxCount.Text)) ? 0 : Convert.ToInt32(txtMaxCount.Text);
-            orderControl.MaxValue = (string.IsNullOrEmpty(txtMaxValue.Text)) ? 0 : Convert.ToInt32(txtMaxValue.Text);
+            orderControl.MinimumValue = (string.IsNullOrEmpty(txtMinimumValue.Text)) ? 0 : Convert.ToInt32(txtMinimumValue.Text);
             orderControl.IsActive = true;
 
             string result = new BAPI().ApiPut("PurchaseOrder/InsertOrUpdateDealerStockOrderControl", orderControl);

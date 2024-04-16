@@ -488,7 +488,7 @@ namespace Properties
         public int DealerStockOrderControlID { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public int MaxCount { get; set; }
-        public int MaxValue { get; set; }
+        public int MinimumValue { get; set; }
         public int DefaultCount { get; set; }
         public int CountValue { get; set; }
         public bool IsActive { get; set; }

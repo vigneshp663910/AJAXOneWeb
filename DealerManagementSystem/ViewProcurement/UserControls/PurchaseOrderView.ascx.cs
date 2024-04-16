@@ -123,9 +123,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
                 if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == 1)
                 {
-                    if (Convert.ToDecimal(lblTaxableAmount.Text) < Convert.ToDecimal(DealerStockOrderControlList[0].MaxValue))
+                    if (Convert.ToDecimal(lblTaxableAmount.Text) < Convert.ToDecimal(DealerStockOrderControlList[0].MinimumValue))
                     {
-                        lblMessage.Text = "Taxable Value is Less than stock order defined value...!";
+                        lblMessage.Text = "Taxable Value is Less than stock order defined value ("+ DealerStockOrderControlList[0].MinimumValue + ")";
                         lblMessage.ForeColor = Color.Red;
                         return;
                     }

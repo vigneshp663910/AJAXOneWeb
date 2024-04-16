@@ -66,10 +66,10 @@
                                         <asp:TextBox ID="txtMaxCount" runat="server" CssClass="form-control" TextMode="Number" Text='<%# DataBinder.Eval(Container.DataItem, "MaxCount")%>' Enabled="false"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Max Value">
+                                <asp:TemplateField HeaderText="Minimum Value">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                     <ItemTemplate>
-                                        <asp:TextBox ID="txtMaxValue" runat="server" CssClass="form-control" TextMode="Number" Text='<%# DataBinder.Eval(Container.DataItem, "MaxValue")%>' Enabled="false"></asp:TextBox>
+                                        <asp:TextBox ID="txtMinimumValue" runat="server" CssClass="form-control" TextMode="Number" Text='<%# DataBinder.Eval(Container.DataItem, "MinimumValue")%>' Enabled="false"></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Default Count">
