@@ -10,6 +10,9 @@
             <div class="dropdown btnactions" id="customerAction">
                 <div class="btn Approval">Actions</div>
                 <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+
+                    <asp:LinkButton ID="lbPreviewPoReturn" runat="server" OnClick="lbActions_Click">PO Return Preview</asp:LinkButton>
+                    <asp:LinkButton ID="lbDownloadPoReturn" runat="server" OnClick="lbActions_Click">PO Return Download</asp:LinkButton>
                     <asp:LinkButton ID="lbRequestForApproval" runat="server" OnClick="lbActions_Click">Request For Approval</asp:LinkButton>
                     <asp:LinkButton ID="lbApprove" runat="server" OnClick="lbActions_Click">Approve</asp:LinkButton>
                     <asp:LinkButton ID="lbReject" runat="server" OnClick="lbActions_Click">Reject</asp:LinkButton>

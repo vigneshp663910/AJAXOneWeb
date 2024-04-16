@@ -84,8 +84,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblExpectedDeliveryDate.Text = PurchaseOrder.ExpectedDeliveryDate.ToShortDateString();
             lblOrderTo.Text = PurchaseOrder.PurchaseOrderTo.PurchaseOrderTo.ToString();
             lblCreatedBy.Text = PurchaseOrder.Created.ContactName;
-            lblCancelledBy.Text = (PurchaseOrder.Cancelled==null)?"":PurchaseOrder.Cancelled.ContactName;
-            lblCancelledOn.Text = (PurchaseOrder.CancelledOn==null)?"":PurchaseOrder.CancelledOn.ToString();
+            lblCancelledBy.Text = (PurchaseOrder.Cancelled == null) ? "" : PurchaseOrder.Cancelled.ContactName;
+            lblCancelledOn.Text = (PurchaseOrder.CancelledOn == null) ? "" : PurchaseOrder.CancelledOn.ToString();
 
             gvPOItem.DataSource = PurchaseOrder.PurchaseOrderItems;
             gvPOItem.DataBind();
@@ -107,7 +107,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvPAsn.DataSource = Asns;
             gvPAsn.DataBind();
             ActionControlMange();
-            
+
         }
 
         protected void lbActions_Click(object sender, EventArgs e)
@@ -115,7 +115,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.ID == "lbReleasePO")
             {
-                lblMessage.Visible = true;
+
 
                 int DealerID = PurchaseOrder.Dealer.DealerID;
                 PApiResult Result = new BDMS_PurchaseOrder().GetDealerStockOrderControl(DealerID, null, null);
@@ -156,7 +156,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if (lbActions.ID == "lbCancelPO")
             {
-                lblMessage.Visible = true;
+
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelPurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
                 if (Results.Status == PApplication.Failure)
                 {
@@ -178,7 +178,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if (lbActions.ID == "lbReleaseApprove")
             {
-                lblMessage.Visible = true;
+
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/ReleaseApprovePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
                 if (Results.Status == PApplication.Failure)
                 {
@@ -192,7 +192,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if (lbActions.ID == "lbCancelApprove")
             {
-                lblMessage.Visible = true;
+
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelApprovePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
                 if (Results.Status == PApplication.Failure)
                 {
@@ -208,6 +208,10 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             else if (lbActions.ID == "lbViewPurchaseOrder")
             {
                 ViewPurchaseOrder();
+            }
+            else if (lbActions.ID == "lbDownloadPurchaseOrder")
+            {
+                DownloadPurchaseOrder();
             }
             else if (lbActions.ID == "lbAddMaterial")
             {
@@ -301,14 +305,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbCancelApprove.Visible = false;
             }
         }
-        public void fillEnquiryStatusHistory()
-        {
-
-        }
-
         protected void btnCancelPoItem_Click(object sender, EventArgs e)
         {
-            lblMessage.Visible = true;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblPurchaseOrderItemID = (Label)gvRow.FindControl("lblPurchaseOrderItemID");
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelPurchaseOrderItem?PurchaseOrderItemID=" + lblPurchaseOrderItemID.Text));
@@ -349,16 +347,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if (lbActions.ID == "lnkBtnupdate")
             {
-                lblMessage.Text = "";
-                lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
-
-                if(string.IsNullOrEmpty(txtQuantity.Text))
+                if (string.IsNullOrEmpty(txtQuantity.Text))
                 {
                     lblMessage.Text = "Please Enter the Quantity.";
                     return;
                 }
-
                 decimal value;
                 if (!decimal.TryParse(txtQuantity.Text, out value))
                 {
@@ -369,8 +363,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 {
                     lblMessage.Text = "Please enter qty more than zero";
                     return;
-                } 
-
+                }
                 if (Convert.ToDecimal(txtQuantity.Text) < 1)
                 {
                     lblMessage.Text = "Please Enter Quantity greater than zero.";
@@ -380,7 +373,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 Label lblMaterial = (Label)gvRow.FindControl("lblMaterial");
                 List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, lblMaterial.Text, null, null, null);
                 if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
-                { 
+                {
                     if (Convert.ToDecimal(txtQuantity.Text) != 1 && Materials[0].MaterialType == "FERT")
                     {
                         lblMessage.Text = "In machine Order you allowed to add one quantity for FERT material : " + Materials[0].MaterialCode;
@@ -389,15 +382,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 }
 
                 Label lblPurchaseOrderItemID = (Label)gvRow.FindControl("lblPurchaseOrderItemID");
-               
-
                 PPurchaseOrderItem_Insert POi = new PPurchaseOrderItem_Insert();
                 POi.PurchaseOrderID = PurchaseOrder.PurchaseOrderID;
                 POi.PurchaseOrderItemID = Convert.ToInt64(lblPurchaseOrderItemID.Text);
                 POi.Quantity = Convert.ToDecimal(txtQuantity.Text);
                 POi.MaterialCode = lblMaterial.Text;
-
-                
 
                 PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
                 MaterialPrice.Customer = PurchaseOrder.Dealer.DealerCode;
@@ -413,10 +402,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 });
 
                 List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-
                 PMaterial Mat = Mats[0];
-
-
                 POi.Price = Mat.CurrentPrice;
                 POi.DiscountAmount = Mat.Discount;
                 POi.TaxableAmount = Mat.TaxablePrice;
@@ -448,7 +434,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
                 txtQuantity.Visible = false;
                 lblQuantity.Visible = true;
-
             }
             else if (lbActions.ID == "lnkBtnCancel")
             {
@@ -490,9 +475,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 {
                     lblMessage.Text = "Waiting For Cancel Approval";
                 }
-                
+
                 fillViewPO(PurchaseOrder.PurchaseOrderID);
-            } 
+            }
         }
 
         protected void gvPAsn_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -520,22 +505,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             try
             {
-                lblMessage.Text = "";
                 PPurchaseOrder PO = PurchaseOrder;
                 if (string.IsNullOrEmpty(PO.SaleOrderNumber))
                 {
                     lblMessage.Text = "SaleOrder Number Not Generated...!";
-                    lblMessage.Visible = true;
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Red;
                 string mimeType = string.Empty;
                 Byte[] mybytes = PurchaseOrderRdlc(out mimeType);
-                string CustomerName = (PO.Dealer.DisplayName);
-
-                string FileName = (PO.Dealer.DealerCode + "_PO_" + CustomerName + "_" + Convert.ToDateTime(PO.PurchaseOrderDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
+                string FileName = PurchaseOrder.PurchaseOrderNumber + ".pdf";
                 var uploadPath = Server.MapPath("~/Backup");
                 var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
                 File.WriteAllBytes(tempfilenameandlocation, mybytes);
@@ -544,14 +523,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message.ToString();
-                lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
-                return;
             }
         }
         Byte[] PurchaseOrderRdlc(out string mimeType)
         {
-
             PPurchaseOrder PO = PurchaseOrder;
             var CC = CultureInfo.CurrentCulture;
             Random r = new Random();
@@ -562,49 +538,32 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-
-            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
-            string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
-            string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
-
-            PDMS_Customer Supplier = new BDMS_Customer().getCustomerAddressFromSAP(PO.Vendor.DealerCode);
+            PDMS_Dealer Supplier = new BDMS_Dealer().GetDealer(null, PO.Vendor.DealerCode, null, null)[0];
             string SupplierAddress1 = (Supplier.Address1 + (string.IsNullOrEmpty(Supplier.Address2) ? "" : "," + Supplier.Address2) + (string.IsNullOrEmpty(Supplier.Address3) ? "" : "," + Supplier.Address3)).Trim(',', ' ');
-            string SupplierAddress2 = (Supplier.City + (string.IsNullOrEmpty(Supplier.State.State) ? "" : "," + Supplier.State.State) + (string.IsNullOrEmpty(Supplier.Pincode) ? "" : "-" + Supplier.Pincode)).Trim(',', ' ');
+            string SupplierAddress2 = (Supplier.City + (string.IsNullOrEmpty(Supplier.StateN.State) ? "" : "," + Supplier.StateN.State) + (string.IsNullOrEmpty(Supplier.Pincode) ? "" : "-" + Supplier.Pincode)).Trim(',', ' ');
 
-            PDMS_Customer BillTo = new BDMS_Customer().getCustomerAddressFromSAP(PO.Dealer.DealerCode);
+            PDMS_Dealer BillTo = new BDMS_Dealer().GetDealer(PO.Dealer.DealerID, null, null, null)[0];
             string BillToAddress1 = (BillTo.Address1 + (string.IsNullOrEmpty(BillTo.Address2) ? "" : "," + BillTo.Address2) + (string.IsNullOrEmpty(BillTo.Address3) ? "" : "," + BillTo.Address3)).Trim(',', ' ');
-            string BillToAddress2 = (BillTo.City + (string.IsNullOrEmpty(BillTo.State.State) ? "" : "," + BillTo.State.State) + (string.IsNullOrEmpty(BillTo.Pincode) ? "" : "-" + BillTo.Pincode)).Trim(',', ' ');
+            string BillToAddress2 = (BillTo.City + (string.IsNullOrEmpty(BillTo.StateN.State) ? "" : "," + BillTo.StateN.State) + (string.IsNullOrEmpty(BillTo.Pincode) ? "" : "-" + BillTo.Pincode)).Trim(',', ' ');
 
-
-            //lblMessage.Visible = true;
-            //lblMessage.ForeColor = Color.Red;
-
-
-
-            ReportParameter[] P = new ReportParameter[28];
+            ReportParameter[] P = new ReportParameter[22];
             P[0] = new ReportParameter("PurchaseOrderNumber", PO.PurchaseOrderNumber, false);
-            P[1] = new ReportParameter("PurchaseOrderDate", PO.PurchaseOrderDate.ToString(), false);
-            P[2] = new ReportParameter("SupplierName", Supplier.CustomerFullName, false);
+            P[1] = new ReportParameter("PurchaseOrderDate", PO.PurchaseOrderDate.ToShortDateString(), false);
+            P[2] = new ReportParameter("SupplierName", Supplier.DealerName, false);
             P[3] = new ReportParameter("SupplierAddress1", SupplierAddress1, false);
             P[4] = new ReportParameter("SupplierAddress2", SupplierAddress2, false);
             P[5] = new ReportParameter("SupplierMobile", Supplier.Mobile, false);
             P[6] = new ReportParameter("SupplierEMail", Supplier.Email, false);
-            P[7] = new ReportParameter("BillToCustomerName", BillTo.CustomerFullName, false);
+            P[7] = new ReportParameter("BillToCustomerName", BillTo.DealerName, false);
             P[8] = new ReportParameter("BillToCustomerAddress1", BillToAddress1, false);
             P[9] = new ReportParameter("BillToCustomerAddress2", BillToAddress2, false);
             P[10] = new ReportParameter("BillToMobile", BillTo.Mobile, false);
             P[11] = new ReportParameter("BillToEMail", BillTo.Email, false);
-            P[12] = new ReportParameter("CompanyName", Ajax.CustomerName.ToUpper(), false);
-            P[13] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
-            P[14] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-            P[15] = new ReportParameter("CompanyCINandGST", "CIN : " + Ajax.CIN + ", GST : " + Ajax.GSTIN);
-            P[16] = new ReportParameter("CompanyPAN", "PAN : " + Ajax.PAN + ", T : " + Ajax.Mobile);
-            P[17] = new ReportParameter("CompanyTelephoneandEmail", "Email : " + Ajax.Email + ", Web : " + Ajax.Web);
-            P[18] = new ReportParameter("PurchaseOrderType", PO.PurchaseOrderType.PurchaseOrderType, false);
-            P[19] = new ReportParameter("SaleOrderNumber", PO.SaleOrderNumber, false);
-            P[20] = new ReportParameter("ExpectedDeliveryDate", PO.ExpectedDeliveryDate.ToString(), false);
-            P[21] = new ReportParameter("ReceivingLocation", PO.Location.OfficeName, false);
-            P[22] = new ReportParameter("SystemDate", DateTime.Now.ToString(), false);
+            P[12] = new ReportParameter("PurchaseOrderType", PO.PurchaseOrderType.PurchaseOrderType, false);
+            P[13] = new ReportParameter("SaleOrderNumber", PO.SaleOrderNumber, false);
+            P[14] = new ReportParameter("ExpectedDeliveryDate", PO.ExpectedDeliveryDate.ToShortDateString(), false);
+            P[15] = new ReportParameter("ReceivingLocation", PO.Location.OfficeName, false);
+            P[16] = new ReportParameter("SystemDate", DateTime.Now.ToString(), false);
 
 
             DataTable dtItem = new DataTable();
@@ -627,11 +586,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 TaxTotal += Item.TaxValue;
                 GrandTotal += (Item.TaxableValue + Item.TaxValue);
             }
-            P[23] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxTotal.ToString()), false);
-            P[24] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
-            P[25] = new ReportParameter("Remarks", PO.Remarks, false);
-            P[26] = new ReportParameter("SupplierCode", Supplier.CustomerCode, false);
-            P[27] = new ReportParameter("BillToCode", BillTo.CustomerCode, false);
+            P[17] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxTotal.ToString()), false);
+            P[18] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
+            P[19] = new ReportParameter("Remarks", PO.Remarks, false);
+            P[20] = new ReportParameter("SupplierCode", Supplier.DealerCode, false);
+            P[21] = new ReportParameter("BillToCode", BillTo.DealerCode, false);
             report.ReportPath = Server.MapPath("~/Print/PurchaseOrder.rdlc");
             report.SetParameters(P);
             ReportDataSource rds = new ReportDataSource();
@@ -639,21 +598,41 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             rds.Value = dtItem;
             report.DataSources.Add(rds);
             Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
-
             return mybytes;
         }
-
+        void DownloadPurchaseOrder()
+        {
+            try
+            {
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                string FileName = PurchaseOrder.PurchaseOrderNumber + ".pdf";
+                string mimeType;
+                Byte[] mybytes = PurchaseOrderRdlc(out mimeType);
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
+                Response.Flush(); // send it to the client to download
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
         protected void btnSubmitMaterial_Click(object sender, EventArgs e)
         {
-            MPE_AddMaterial.Show(); 
-            lblAddMaterialMessage.ForeColor = Color.Red; 
-            lblMessage.ForeColor = Color.Red; 
-
+            MPE_AddMaterial.Show();
+            lblAddMaterialMessage.ForeColor = Color.Red;
+            lblMessage.ForeColor = Color.Red;
             try
             {
                 if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
                 {
-                    lblAddMaterialMessage.Text = "Material Already Available...!"; 
+                    lblAddMaterialMessage.Text = "Material Already Available...!";
                     return;
                 }
 
@@ -676,7 +655,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 POi.PurchaseOrderID = Convert.ToInt64(PurchaseOrder.PurchaseOrderID);
                 POi.Quantity = Convert.ToDecimal(txtQty.Text);
                 POi.MaterialCode = hdfMaterialCode.Value;
-                  
+
                 PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
                 MaterialPrice.Customer = PurchaseOrder.Dealer.DealerCode;
                 MaterialPrice.Vendor = PurchaseOrder.Vendor.DealerCode;
@@ -712,18 +691,18 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
                 if (Result.Status == PApplication.Failure)
                 {
-                    lblAddMaterialMessage.Text = Result.Message; 
+                    lblAddMaterialMessage.Text = Result.Message;
                     return;
                 }
                 lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Green;
                 MPE_AddMaterial.Hide();
                 tbp.ActiveTabIndex = 1;
-                fillViewPO(PurchaseOrder.PurchaseOrderID); 
+                fillViewPO(PurchaseOrder.PurchaseOrderID);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                lblAddMaterialMessage.Text = ex.Message;  
+                lblAddMaterialMessage.Text = ex.Message;
             }
         }
     }

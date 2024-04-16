@@ -3444,9 +3444,13 @@
     <Content Include="Print\PartsInvoice.rdlc" />
     <EmbeddedResource Include="Print\PhysicalInventoryPosting.rdlc" />
     <EmbeddedResource Include="Print\PurchaseOrder.rdlc" />
+    <EmbeddedResource Include="Print\PurchaseOrderReturn.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
     <Content Include="Print\SalesMachineQuotation.rdlc" />
+    <EmbeddedResource Include="Print\SalesDeliveryChallan.rdlc" />
+    <EmbeddedResource Include="Print\SalesPartsQuotation.rdlc" />
+    <EmbeddedResource Include="Print\SalesProformaInvoice.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_L.900.508.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_101030080000.rdlc" />
     <EmbeddedResource Include="Print\SalesTaxQuotation.rdlc" />
