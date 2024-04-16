@@ -69,6 +69,42 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbDelivery;
 
         /// <summary>
+        /// lbPreviewQuotation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbPreviewQuotation;
+
+        /// <summary>
+        /// lbDownloadQuotation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbDownloadQuotation;
+
+        /// <summary>
+        /// lbPreviewProformaInvoice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbPreviewProformaInvoice;
+
+        /// <summary>
+        /// lbDownloadProformaInvoice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbDownloadProformaInvoice;
+
+        /// <summary>
         /// lblQuotationNumber control.
         /// </summary>
         /// <remarks>

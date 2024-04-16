@@ -251,6 +251,10 @@
                 <asp:LinkButton ID="lbGenerateProformaInvoice" runat="server" OnClick="lbActions_Click">Generate Proforma Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbReleaseSaleOrder" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmReleaseSaleOrder();">Release</asp:LinkButton>
                 <asp:LinkButton ID="lbDelivery" runat="server" OnClick="lbActions_Click">Create Delivery</asp:LinkButton>
+                <asp:LinkButton ID="lbPreviewQuotation" runat="server" OnClick="lbActions_Click">Preview Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbDownloadQuotation" runat="server" OnClick="lbActions_Click">Download Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbPreviewProformaInvoice" runat="server" OnClick="lbActions_Click">Preview Proforma Invoice</asp:LinkButton>
+                <asp:LinkButton ID="lbDownloadProformaInvoice" runat="server" OnClick="lbActions_Click">Download Proforma Invoice</asp:LinkButton>
             </div>
         </div>
     </div>
