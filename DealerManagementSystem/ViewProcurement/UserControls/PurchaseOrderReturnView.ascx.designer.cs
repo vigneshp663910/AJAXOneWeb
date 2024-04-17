@@ -114,6 +114,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblPurchaseOrderReturnDate;
 
         /// <summary>
+        /// lblPurchaseOrderReturnStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPurchaseOrderReturnStatus;
+
+        /// <summary>
         /// lblRemarks control.
         /// </summary>
         /// <remarks>
@@ -123,13 +132,58 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Label lblRemarks;
 
         /// <summary>
-        /// lblPurchaseOrderReturnStatus control.
+        /// lblPurchaseOrderReturnDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPurchaseOrderReturnStatus;
+        protected global::System.Web.UI.WebControls.Label lblPurchaseOrderReturnDealer;
+
+        /// <summary>
+        /// lblLocation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLocation;
+
+        /// <summary>
+        /// lblPurchaseOrderReturnVendor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPurchaseOrderReturnVendor;
+
+        /// <summary>
+        /// lblTaxableAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTaxableAmount;
+
+        /// <summary>
+        /// lblTaxAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTaxAmount;
+
+        /// <summary>
+        /// lblGrossAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGrossAmount;
 
         /// <summary>
         /// lblMessage control.

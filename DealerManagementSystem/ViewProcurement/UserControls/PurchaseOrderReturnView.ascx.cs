@@ -53,17 +53,28 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         public void fillViewPoReturn(long PurchaseOrderReturnID)
         {
             PoReturn = new BDMS_PurchaseOrder().GetPurchaseOrderReturnByID(PurchaseOrderReturnID);
-
             lblPurchaseOrderReturnNumber.Text = PoReturn.PurchaseOrderReturnNumber;
             lblPurchaseOrderReturnDate.Text = PoReturn.PurchaseOrderReturnDate.ToString();
             lblPurchaseOrderReturnStatus.Text = PoReturn.PurchaseOrderReturnStatus.ProcurementStatus;
+            lblPurchaseOrderReturnDealer.Text = PoReturn.Dealer.DealerCode + " " + PoReturn.Dealer.DealerName;
+            lblPurchaseOrderReturnVendor.Text = PoReturn.Vendor.DealerCode + " " + PoReturn.Vendor.DealerName;
+            lblLocation.Text = PoReturn.Location.OfficeName;            
             lblRemarks.Text = PoReturn.Remarks;
+
+            decimal TaxableAmt = 0, TaxAmt = 0, GrossAmt = 0;
+            foreach (PPurchaseOrderReturnItem Item in PoReturn.PurchaseOrderReturnItems)
+            {
+                TaxableAmt += Item.TaxableValue;
+                TaxAmt += Item.Material.CGSTValue + Item.Material.SGSTValue + Item.Material.IGSTValue;
+            }
+            GrossAmt = TaxableAmt + TaxAmt;
+            lblTaxableAmount.Text = TaxableAmt.ToString();
+            lblTaxAmount.Text = TaxAmt.ToString();
+            lblGrossAmount.Text = GrossAmt.ToString();
 
             gvPOReturnItem.DataSource = PoReturn.PurchaseOrderReturnItems;
             gvPOReturnItem.DataBind();
 
-            gvPoReturnDelivery.DataSource = null;
-            gvPoReturnDelivery.DataBind();
             List<PPurchaseOrderReturnDelivery>  PurchaseOrderReturnDeliveryList = new BDMS_PurchaseOrder().GetPurchaseOrderReturnDeliveryByPoReturnID(PurchaseOrderReturnID);
             gvPoReturnDelivery.DataSource = PurchaseOrderReturnDeliveryList;
             gvPoReturnDelivery.DataBind();

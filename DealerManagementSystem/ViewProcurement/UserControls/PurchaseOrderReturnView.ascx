@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-  
+
     <div class="col-md-12 field-margin-top" runat="server" id="divPoReturnView">
         <fieldset class="fieldset-border">
             <legend style="background: none; color: #007bff; font-size: 17px;">Purchase Return</legend>
@@ -37,21 +37,45 @@
                         <asp:Label ID="lblPurchaseOrderReturnDate" runat="server" CssClass="label"></asp:Label>
                     </div>
                     <div class="col-md-12">
+                        <label>PO Return Status : </label>
+                        <asp:Label ID="lblPurchaseOrderReturnStatus" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
                         <label>Remarks : </label>
                         <asp:Label ID="lblRemarks" runat="server" CssClass="label"></asp:Label>
                     </div>
                 </div>
                 <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>Dealer : </label>
+                        <asp:Label ID="lblPurchaseOrderReturnDealer" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Location : </label>
+                        <asp:Label ID="lblLocation" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Vendor : </label>
+                        <asp:Label ID="lblPurchaseOrderReturnVendor" runat="server" CssClass="label"></asp:Label>
+                    </div>                    
                 </div>
                 <div class="col-md-4">
                     <div class="col-md-12">
-                        <label>PO Return Status : </label>
-                        <asp:Label ID="lblPurchaseOrderReturnStatus" runat="server" CssClass="label"></asp:Label>
+                        <label>Taxable Amount : </label>
+                        <asp:Label ID="lblTaxableAmount" runat="server" CssClass="label"></asp:Label>
                     </div>
+                    <div class="col-md-12">
+                        <label>Tax Amount : </label>
+                        <asp:Label ID="lblTaxAmount" runat="server" CssClass="label"></asp:Label>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Gross Amount : </label>
+                        <asp:Label ID="lblGrossAmount" runat="server" CssClass="label"></asp:Label>
+                    </div>                    
                 </div>
             </div>
         </fieldset>
-          <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
+        <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
         <asp1:TabContainer ID="tbpPoReturn" runat="server" ToolTip="Purchase Return Info..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
             <asp1:TabPanel ID="tpnlPoReturnItem" runat="server" HeaderText="Purchase Return Item" Font-Bold="True" ToolTip="">
                 <ContentTemplate>
