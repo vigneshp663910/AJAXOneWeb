@@ -109,6 +109,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 MPE_GrCreate.Show(); 
                 Gr_Insert = new List<PGr_Insert>();
+                lblGrAsnNumber.Text = PAsnView.AsnNumber;
                 foreach (PAsnItem Item in PAsnView.AsnItemS)
                 {
                     if (Item.Qty - Item.GrQty != 0)
@@ -117,6 +118,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                         {
                             AsnID = PAsnView.AsnID,
                             AsnItemID = Item.AsnItemID,
+                            MaterialCode= Item.Material.MaterialCode,
+                            MaterialDescription = Item.Material.MaterialDescription,
                             AsnBalanceQty = Item.Qty - Item.GrQty,
                             UnrestrictedQty = Item.Qty - Item.GrQty,
                             RestrictedQty = 0,
