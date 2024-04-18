@@ -63,9 +63,16 @@ namespace Business
             PDealer Dealer= new BDealer().GetDealerByID(DealerID,"");
             PSapMatPrice_Input InPut = new PSapMatPrice_Input();
             InPut.Customer = Dealer.DealerCode;
-            //InPut.Vendor = Dealer.DealerCode;
+            InPut.Vendor = Dealer.DealerCode;
             InPut.OrderType = "DEFAULT_SEC_AUART";
             //InPut.PriceDate = DateTime.Now;
+            InPut.Item = new List<PSapMatPriceItem_Input>();
+            InPut.Item.Add(new PSapMatPriceItem_Input()
+            {
+                ItemNo = "10",
+                Material = PoI.MaterialCode,
+                Quantity = PoI.Quantity
+            });
 
             //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Dealer.DealerCode, Dealer.DealerCode, "DEFAULT_SEC_AUART", 1, PoI.MaterialCode, PoI.Quantity, "", "", "false");
             List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(InPut);
