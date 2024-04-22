@@ -44,6 +44,7 @@ namespace Properties
 
         public PDMS_Region Region { get; set; }
         public Boolean IsPartsPortal { get; set; }
+        public PAddress Address { get; set; }
     }
 
     [Serializable]
@@ -57,6 +58,7 @@ namespace Properties
         public string SapLocationCode { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
+        public string Address3 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
@@ -417,5 +419,22 @@ namespace Properties
         public decimal Target { get; set; }
         public decimal Actual { get; set; }
         public string Remarks { get; set; } 
+    }
+    [Serializable]
+    public class PAddress
+    {
+        public int AddressID { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string City { get; set; }
+        public PDMS_District District { get; set; }
+        public PDMS_State State { get; set; }
+        public PDMS_Country Country { get; set; }
+        public string Pincode { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string GSTIN { get; set; }
+        public string PAN { get; set; }
     }
 }

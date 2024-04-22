@@ -100,6 +100,7 @@ namespace Business
                                 SapLocationCode = Convert.ToString(dr["SapLocationCode"]),
                                 Address1 = Convert.ToString(dr["Address1"]),
                                 Address2 = Convert.ToString(dr["Address2"]),
+                                Address3 = Convert.ToString(dr["Address3"]),
                                 Country = Convert.ToString(dr["Country"]),
                                 State = Convert.ToString(dr["State"]),
                                 City = Convert.ToString(dr["City"]),
