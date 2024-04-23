@@ -19,9 +19,9 @@ namespace DealerManagementSystem.ViewEquipment
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            new BAPI().ApiGetWithOutToken("Equipment/IntegrationEquipmentFromSAP_new?EquipmentSerNo=" + txtEquipment.Text.Trim());
+            new BAPI().ApiGetWithOutToken("Sap/InsertMissingEquipment?EquipmentSerNo=" + txtEquipment.Text.Trim());
             int RowCount = 0;
-            gvEquipment.DataSource = new BDMS_Equipment().GetEquipmentHeader(null, txtEquipment.Text.Trim(), null, null, null, null, null, null, PSession.User.UserID, 1, 10, out RowCount); ;
+            gvEquipment.DataSource = new BDMS_Equipment().GetEquipmentHeader(null, txtEquipment.Text.Trim(), null, null, null, null, null, null, PSession.User.UserID, 1, 10, out RowCount);
             gvEquipment.DataBind();
         }
     }
