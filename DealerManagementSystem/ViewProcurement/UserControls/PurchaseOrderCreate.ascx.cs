@@ -994,29 +994,36 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ItemNo = "10",
                 Material = PoI.MaterialCode,
                 Quantity = PoI.Quantity
-            }); 
+            });
 
-            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-            PMaterial Mat = Mats[0]; 
-            if (Mat.CurrentPrice == 0)
+            try
             {
-                return "Price is Not updated for this material " + PoI.MaterialCode + ". Please contact Admin."; 
+                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                PMaterial Mat = Mats[0];
+                if (Mat.CurrentPrice == 0)
+                {
+                    return "Price is Not updated for this material " + PoI.MaterialCode + ". Please contact Admin.";
+                }
+                PoI.UnitPrice = Mat.CurrentPrice / PoI.Quantity;
+                PoI.Price = Mat.CurrentPrice;
+                PoI.DiscountAmount = Mat.Discount;
+                PoI.TaxableAmount = Mat.TaxablePrice;
+                PoI.SGST = Mat.SGST;
+                PoI.SGSTValue = Mat.SGSTValue;
+                PoI.CGST = Mat.SGST;
+                PoI.CGSTValue = Mat.SGSTValue;
+                PoI.IGST = Mat.IGST;
+                PoI.IGSTValue = Mat.IGSTValue;
+                PoI.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
+                PoI.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
+                PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
+                PurchaseOrderItem_Insert.Add(PoI);
+                PoI.Item = PurchaseOrderItem_Insert.Count * 10;
             }
-            PoI.UnitPrice = Mat.CurrentPrice / PoI.Quantity;
-            PoI.Price = Mat.CurrentPrice;
-            PoI.DiscountAmount = Mat.Discount;
-            PoI.TaxableAmount = Mat.TaxablePrice;
-            PoI.SGST = Mat.SGST;
-            PoI.SGSTValue = Mat.SGSTValue;
-            PoI.CGST = Mat.SGST;
-            PoI.CGSTValue = Mat.SGSTValue;
-            PoI.IGST = Mat.IGST;
-            PoI.IGSTValue = Mat.IGSTValue;
-            PoI.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
-            PoI.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
-            PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
-            PurchaseOrderItem_Insert.Add(PoI);
-            PoI.Item = PurchaseOrderItem_Insert.Count * 10;
+            catch(Exception e)
+            {
+                return e.Message;
+            }
             fillItem(); 
             return "";
         } 
