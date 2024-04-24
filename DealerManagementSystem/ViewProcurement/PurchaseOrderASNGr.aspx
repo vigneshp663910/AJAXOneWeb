@@ -13,8 +13,12 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Dealer Code</label>
-                            <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control"  AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged" />
+                        </div>
+                           <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer Office</label>
+                            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Gr Number</label>
@@ -32,11 +36,11 @@
                             <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtGrDateTo" PopupButtonID="txtPoDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
                             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtGrDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                         </div>
-                        <div class="col-md-2 col-sm-12">
+                      <%--  <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Gr Status</label>
                             <asp:DropDownList ID="ddlGrStatus" runat="server" CssClass="form-control">
                             </asp:DropDownList>
-                        </div>
+                        </div>--%>
                         <div class="col-md-2 text-left">
                             <label class="modal-label">-</label>
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
@@ -107,6 +111,12 @@
                                         <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.Dealer.DealerName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Dealer Office">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.Location.OfficeName")%>' runat="server"></asp:Label>
+                                       </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Vendor">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
@@ -115,12 +125,12 @@
                                         <asp:Label ID="lblVendorName" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.Vendor.DealerName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Gr Status">
+                             <%--   <asp:TemplateField HeaderText="Gr Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblAsnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.ProcurementStatus")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Remarks">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>

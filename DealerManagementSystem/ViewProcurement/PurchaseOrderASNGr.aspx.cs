@@ -15,11 +15,12 @@ namespace DealerManagementSystem.ViewProcurement
     {
         public override SubModule SubModuleName { get { return SubModule.ViewProcurement_PurchaseOrderAsnGR; } }
         int? DealerID = null;
+        int? DealerOfficeID = null;
         string VendorID = null;
         string GrNumber = null;
         DateTime? GrDateF = null;
         DateTime? GrDateT = null;
-        int? GrStatusID = null;
+        
         public List<PGr> GrHeader
         {
             get
@@ -87,9 +88,10 @@ namespace DealerManagementSystem.ViewProcurement
                 PageIndex = 1;
                 txtGrDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtGrDateTo.Text = DateTime.Now.ToShortDateString();
-                new DDLBind(ddlGrStatus, new BDMS_PurchaseOrder().GetProcurementStatus(1), "ProcurementStatus", "ProcurementStatusID");
-                 
-                    fillDealer(); 
+                // new DDLBind(ddlGrStatus, new BDMS_PurchaseOrder().GetProcurementStatus((short)ProcurementStatusHeader.PurchaseOrderAsnGr), "ProcurementStatus", "ProcurementStatusID");
+
+                fillDealer();
+                FillGetDealerOffice();
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
@@ -108,14 +110,28 @@ namespace DealerManagementSystem.ViewProcurement
                 lblMessage.Visible = true;
             }
         }
+        protected void ddlDealerCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillGetDealerOffice();
+        }
+        private void FillGetDealerOffice()
+        {
+            DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+            ddlDealerOffice.DataTextField = "OfficeName_OfficeCode";
+            ddlDealerOffice.DataValueField = "OfficeID";
+            ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(DealerID, null, null);
+            ddlDealerOffice.DataBind();
+            ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
+        }
         void Search()
         {
-            DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            DealerOfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
             //   VendorID = null; 
             GrDateF = null;
             GrDateF = string.IsNullOrEmpty(txtGrDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtGrDateFrom.Text.Trim());
             GrDateT = string.IsNullOrEmpty(txtGrDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtGrDateTo.Text.Trim());
-            GrStatusID = ddlGrStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlGrStatus.SelectedValue);
+           
             GrNumber = string.IsNullOrEmpty(txtGrNumber.Text) ? null : txtGrNumber.Text.Trim();
         }
         void fillPurchaseOrderASNGr()
@@ -124,7 +140,7 @@ namespace DealerManagementSystem.ViewProcurement
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrHeader(DealerID, VendorID, GrNumber, GrDateF, GrDateT, GrStatusID, PageIndex, gvAsnGr.PageSize);
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrHeader(DealerID, DealerOfficeID, VendorID, GrNumber, GrDateF, GrDateT,  PageIndex, gvAsnGr.PageSize);
                 GrHeader = JsonConvert.DeserializeObject<List<PGr>>(JsonConvert.SerializeObject(Result.Data));
                 gvAsnGr.PageIndex = 0;
                 gvAsnGr.DataSource = GrHeader;
@@ -177,11 +193,11 @@ namespace DealerManagementSystem.ViewProcurement
         }
         void fillDealer()
         {
-            ddlDealerCode.DataTextField = "CodeWithName";
-            ddlDealerCode.DataValueField = "DID";
-            ddlDealerCode.DataSource = PSession.User.Dealer;
-            ddlDealerCode.DataBind();
-            ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
+            ddlDealer.DataTextField = "CodeWithName";
+            ddlDealer.DataValueField = "DID";
+            ddlDealer.DataSource = PSession.User.Dealer;
+            ddlDealer.DataBind();
+            ddlDealer.Items.Insert(0, new ListItem("All", "0"));
         }
         protected void btnPurchaseOrderASNGrViewBack_Click(object sender, EventArgs e)
         {

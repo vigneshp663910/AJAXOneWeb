@@ -707,6 +707,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessageCopyOrder.ForeColor = Color.Red;
             Dictionary<string, string> MaterialIssue = new Dictionary<string, string>();
             List<PDMS_Material> Supersede = new List<PDMS_Material>();
+            ClearIssueGV();
             try
             {
                 if (gvMaterialCopyOrder.Rows.Count == 0)
@@ -749,7 +750,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     {
                         Label lblMaterial = (Label)gvMaterialCopyOrder.Rows[j].FindControl("lblMaterial");
                         TextBox txtPartQty = (TextBox)gvMaterialCopyOrder.Rows[j].FindControl("txtPartQty");
-                        string MaterialCode = lblMaterial.Text;
+                        string MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(lblMaterial.Text); 
                         if (MaterialCode != lblMaterial.Text)
                         {
                             Supersede.Add(new PDMS_Material()
@@ -758,6 +759,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                                 Supersede = new PSupersede() { Material = MaterialCode }
                             });
                         }
+                        //string MaterialCode = lblMaterial.Text;
+                        //if (MaterialCode != lblMaterial.Text)
+                        //{
+                        //    Supersede.Add(new PDMS_Material()
+                        //    {
+                        //        MaterialCode = lblMaterial.Text,
+                        //        Supersede = new PSupersede() { Material = MaterialCode }
+                        //    });
+                        //}
                         List<PDMS_Material> Material = Materials.Where(s => s.MaterialCode == MaterialCode && s.Model.Division.DivisionID == Convert.ToInt32(ddlDivision.SelectedValue) && s.IsActive == true).ToList();
                         if (Material.Count == 0)
                         {
@@ -792,6 +802,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessageMaterialUpload.ForeColor = Color.Red;
             Dictionary<string, string> MaterialIssue = new Dictionary<string, string>();
             List<PDMS_Material> Supersede = new List<PDMS_Material>();
+            ClearIssueGV();
             try
             {
                 if (fileUpload.HasFile != true)
@@ -876,6 +887,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.ForeColor = Color.Red;
             Dictionary<string, string> MaterialIssue = new Dictionary<string, string>();
             List<PDMS_Material> Supersede = new List<PDMS_Material>();
+            ClearIssueGV();
             try
             {
                 List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(null, null, null, null, null);
@@ -1047,6 +1059,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvPOItem.DataBind();
             hdfItemCount.Value = PurchaseOrderItem_Insert.Count().ToString();
             fillItem();
+        }
+
+        void ClearIssueGV()
+        {
+            gvSupersede.DataSource = null;
+            gvSupersede.DataBind();
+            gvMaterialIssue.DataSource = null;
+            gvMaterialIssue.DataBind();
         }
     }
 }
