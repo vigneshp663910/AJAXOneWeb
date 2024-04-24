@@ -443,21 +443,38 @@ namespace DealerManagementSystem.ViewSales.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-            PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SOrder.Dealer.DealerID, null, null, null)[0];
-            string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-            string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+            PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SOrder.Dealer.DealerID)[0];
+            string DealerCustomerAddress1 = (Dealer.Address.Address1 + (string.IsNullOrEmpty(Dealer.Address.Address2) ? "" : "," + Dealer.Address.Address2) + (string.IsNullOrEmpty(Dealer.Address.Address3) ? "" : "," + Dealer.Address.Address3)).Trim(',', ' ');
+            string DealerCustomerAddress2 = (Dealer.Address.City + (string.IsNullOrEmpty(Dealer.Address.State.State) ? "" : "," + Dealer.Address.State.State) + (string.IsNullOrEmpty(Dealer.Address.Pincode) ? "" : "-" + Dealer.Address.Pincode)).Trim(',', ' ');
 
-            PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SOrder.Customer.CustomerID);
-            string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-            string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+            string CustomerAddress1 = "", CustomerAddress2 = "", StateCode = "", GSTIN = "", PAN = "", CustomerCode = "", CustomerName = "";
 
-            //PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(SOrder.Dealer.DealerCode);
-            //string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-            //string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
-
-            //PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(SOrder.Customer.CustomerCode);
-            //string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-            //string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+            if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.IntraDealerOrder)
+            {
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderHeader(null, null, SOrder.RefNumber, null, null, null, null, null, null, null, null);
+                long PurchaseOrderID = JsonConvert.DeserializeObject<List<PPurchaseOrder>>(JsonConvert.SerializeObject(Result.Data))[0].PurchaseOrderID;
+                PPurchaseOrder PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrderByID(PurchaseOrderID);
+                PDMS_DealerOffice Customer = new BDMS_Dealer().GetDealerOffice(PurchaseOrder.Dealer.DealerID, PurchaseOrder.Location.OfficeID, null)[0];
+                CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+                CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State) ? "" : "," + Customer.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                PDMS_Dealer DealerAddress = new BDealer().GetDealerAddress(PurchaseOrder.Dealer.DealerID)[0];
+                StateCode = DealerAddress.Address.State.StateCode;
+                GSTIN = DealerAddress.Address.GSTIN;
+                PAN = DealerAddress.Address.PAN;
+                CustomerName = PurchaseOrder.Dealer.DealerName;
+                CustomerCode = PurchaseOrder.Dealer.DealerCode;
+            }
+            else
+            {
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SOrder.Customer.CustomerID);
+                CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+                CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                StateCode = Customer.State.StateCode;
+                GSTIN = Customer.GSTIN;
+                PAN = Customer.PAN;
+                CustomerName = Customer.CustomerName;
+                CustomerCode = Customer.CustomerCode;
+            }
 
             List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, SOrder.Dealer.DealerCode, null);
 
@@ -465,23 +482,23 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
             P[1] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
             P[2] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
-            P[3] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Dealer.GSTIN);
-            P[4] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.PAN);
-            P[5] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
+            P[3] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.Address.PAN + ",GST:" + Dealer.Address.GSTIN);
+            P[4] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.Address.PAN);
+            P[5] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Address.Mobile + ",Email:" + Dealer.Address.Email);
             P[6] = new ReportParameter("QuotationNo", SOrder.QuotationNumber, false);
             P[7] = new ReportParameter("QuotationDate", SOrder.QuotationDate.ToString(), false);
-            P[8] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
-            P[9] = new ReportParameter("CustomerName", Customer.CustomerName, false);
+            P[8] = new ReportParameter("CustomerCode", CustomerCode, false);
+            P[9] = new ReportParameter("CustomerName", CustomerName, false);
             P[10] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
             P[11] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-            P[12] = new ReportParameter("CustomerStateCode", Customer.State.StateCode, false);
-            P[13] = new ReportParameter("ReceiverGSTINUINNo", Customer.GSTIN, false);
-            P[14] = new ReportParameter("CustomerPAN", Customer.PAN, false);
+            P[12] = new ReportParameter("CustomerStateCode", StateCode, false);
+            P[13] = new ReportParameter("ReceiverGSTINUINNo", GSTIN, false);
+            P[14] = new ReportParameter("CustomerPAN", PAN, false);
             P[15] = new ReportParameter("KindAtten", SOrder.Attn, false);
             P[16] = new ReportParameter("ContactNo", SOrder.ContactPersonNumber, false);
             P[17] = new ReportParameter("RefNo", SOrder.RefNumber, false);
             P[18] = new ReportParameter("RefDate", SOrder.RefDate.ToString(), false);
-            P[19] = new ReportParameter("Model", SOrder.Product.Product, false);
+            P[19] = new ReportParameter("Model", (SOrder.Product == null) ? "" : SOrder.Product.Product, false);
             P[20] = new ReportParameter("MCSerNo", SOrder.Equipment.EquipmentSerialNo, false);
 
             DataTable dtItem = new DataTable();
@@ -616,35 +633,60 @@ namespace DealerManagementSystem.ViewSales.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-            PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SOrder.Dealer.DealerID, null, null, null)[0];
-            string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-            string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+            PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SOrder.Dealer.DealerID)[0];
+            string DealerCustomerAddress1 = (Dealer.Address.Address1 + (string.IsNullOrEmpty(Dealer.Address.Address2) ? "" : "," + Dealer.Address.Address2) + (string.IsNullOrEmpty(Dealer.Address.Address3) ? "" : "," + Dealer.Address.Address3)).Trim(',', ' ');
+            string DealerCustomerAddress2 = (Dealer.Address.City + (string.IsNullOrEmpty(Dealer.Address.State.State) ? "" : "," + Dealer.Address.State.State) + (string.IsNullOrEmpty(Dealer.Address.Pincode) ? "" : "-" + Dealer.Address.Pincode)).Trim(',', ' ');
 
-            PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SOrder.Customer.CustomerID);
-            string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-            string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+            string CustomerAddress1 = "", CustomerAddress2 = "", StateCode = "", GSTIN = "", PAN = "", CustomerCode = "", CustomerName = "";
 
-            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, SOrder.Dealer.DealerCode, null);
+            if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.IntraDealerOrder)
+            {
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderHeader(null, null, SOrder.RefNumber, null, null, null, null, null, null, null, null);
+                long PurchaseOrderID = JsonConvert.DeserializeObject<List<PPurchaseOrder>>(JsonConvert.SerializeObject(Result.Data))[0].PurchaseOrderID;
+                PPurchaseOrder PurchaseOrder = new BDMS_PurchaseOrder().GetPurchaseOrderByID(PurchaseOrderID);
+                PDMS_DealerOffice Customer = new BDMS_Dealer().GetDealerOffice(PurchaseOrder.Dealer.DealerID, PurchaseOrder.Location.OfficeID, null)[0];
+                CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+                CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State) ? "" : "," + Customer.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                PDMS_Dealer DealerAddress = new BDealer().GetDealerAddress(PurchaseOrder.Dealer.DealerID)[0];
+                StateCode = DealerAddress.Address.State.StateCode;
+                GSTIN = DealerAddress.Address.GSTIN;
+                PAN = DealerAddress.Address.PAN;
+                CustomerName = PurchaseOrder.Dealer.DealerName;
+                CustomerCode = PurchaseOrder.Dealer.DealerCode;
+            }
+            else
+            {
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SOrder.Customer.CustomerID);
+                CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+                CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                StateCode = Customer.State.StateCode;
+                GSTIN = Customer.GSTIN;
+                PAN = Customer.PAN;
+                CustomerName = Customer.CustomerName;
+                CustomerCode = Customer.CustomerCode;
+            }
+
+            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(SOrder.Dealer.DealerID, null, null);
 
             ReportParameter[] P = new ReportParameter[34];
             P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
             P[1] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
             P[2] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
-            P[3] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Dealer.GSTIN);
-            P[4] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
+            P[3] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.Address.PAN + ",GST:" + Dealer.Address.GSTIN);
+            P[4] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Address.Mobile + ",Email:" + Dealer.Address.Email);
             P[5] = new ReportParameter("InvoiceNo", SOrder.ProformaInvoiceNumber, false);
             P[6] = new ReportParameter("InvoiceDate", SOrder.ProformaInvoiceDate.ToString(), false);
-            P[7] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
-            P[8] = new ReportParameter("CustomerName", Customer.CustomerName, false);
+            P[7] = new ReportParameter("CustomerCode", CustomerCode, false);
+            P[8] = new ReportParameter("CustomerName", CustomerName, false);
             P[9] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
             P[10] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-            P[11] = new ReportParameter("CustomerStateCode", Customer.State.StateCode, false);
-            P[12] = new ReportParameter("ReceiverGSTINUINNo", Customer.GSTIN, false);
-            P[13] = new ReportParameter("CustomerPAN", Customer.PAN, false);
+            P[11] = new ReportParameter("CustomerStateCode", StateCode, false);
+            P[12] = new ReportParameter("ReceiverGSTINUINNo", GSTIN, false);
+            P[13] = new ReportParameter("CustomerPAN", PAN, false);
             P[14] = new ReportParameter("KindAtten", SOrder.Attn, false);
             P[15] = new ReportParameter("RefNo", SOrder.RefNumber, false);
             P[16] = new ReportParameter("RefDate", SOrder.RefDate.ToString(), false);
-            P[17] = new ReportParameter("Model", SOrder.Product.Product, false);
+            P[17] = new ReportParameter("Model", (SOrder.Product == null) ? "" : SOrder.Product.Product, false);
             P[18] = new ReportParameter("MCSerNo", SOrder.Equipment.EquipmentSerialNo, false);
 
             DataTable dtItem = new DataTable();

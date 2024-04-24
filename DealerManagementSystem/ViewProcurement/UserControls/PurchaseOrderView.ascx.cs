@@ -538,13 +538,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-            PDMS_Dealer Supplier = new BDMS_Dealer().GetDealer(null, PO.Vendor.DealerCode, null, null)[0];
-            string SupplierAddress1 = (Supplier.Address1 + (string.IsNullOrEmpty(Supplier.Address2) ? "" : "," + Supplier.Address2) + (string.IsNullOrEmpty(Supplier.Address3) ? "" : "," + Supplier.Address3)).Trim(',', ' ');
-            string SupplierAddress2 = (Supplier.City + (string.IsNullOrEmpty(Supplier.StateN.State) ? "" : "," + Supplier.StateN.State) + (string.IsNullOrEmpty(Supplier.Pincode) ? "" : "-" + Supplier.Pincode)).Trim(',', ' ');
+            PDMS_Dealer Supplier = new BDealer().GetDealerAddress(PO.Vendor.DealerID)[0];
+            string SupplierAddress1 = (Supplier.Address.Address1 + (string.IsNullOrEmpty(Supplier.Address.Address2) ? "" : "," + Supplier.Address.Address2) + (string.IsNullOrEmpty(Supplier.Address.Address3) ? "" : "," + Supplier.Address.Address3)).Trim(',', ' ');
+            string SupplierAddress2 = (Supplier.Address.City + (string.IsNullOrEmpty(Supplier.Address.State.State) ? "" : "," + Supplier.Address.State.State) + (string.IsNullOrEmpty(Supplier.Address.Pincode) ? "" : "-" + Supplier.Address.Pincode)).Trim(',', ' ');
 
-            PDMS_Dealer BillTo = new BDMS_Dealer().GetDealer(PO.Dealer.DealerID, null, null, null)[0];
+            PDMS_DealerOffice BillTo = new BDMS_Dealer().GetDealerOffice(PO.Dealer.DealerID, PO.Location.OfficeID, null)[0];
             string BillToAddress1 = (BillTo.Address1 + (string.IsNullOrEmpty(BillTo.Address2) ? "" : "," + BillTo.Address2) + (string.IsNullOrEmpty(BillTo.Address3) ? "" : "," + BillTo.Address3)).Trim(',', ' ');
-            string BillToAddress2 = (BillTo.City + (string.IsNullOrEmpty(BillTo.StateN.State) ? "" : "," + BillTo.StateN.State) + (string.IsNullOrEmpty(BillTo.Pincode) ? "" : "-" + BillTo.Pincode)).Trim(',', ' ');
+            string BillToAddress2 = (BillTo.City + (string.IsNullOrEmpty(BillTo.State) ? "" : "," + BillTo.State) + (string.IsNullOrEmpty(BillTo.Pincode) ? "" : "-" + BillTo.Pincode)).Trim(',', ' ');
 
             ReportParameter[] P = new ReportParameter[22];
             P[0] = new ReportParameter("PurchaseOrderNumber", PO.PurchaseOrderNumber, false);
@@ -552,9 +552,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             P[2] = new ReportParameter("SupplierName", Supplier.DealerName, false);
             P[3] = new ReportParameter("SupplierAddress1", SupplierAddress1, false);
             P[4] = new ReportParameter("SupplierAddress2", SupplierAddress2, false);
-            P[5] = new ReportParameter("SupplierMobile", Supplier.Mobile, false);
-            P[6] = new ReportParameter("SupplierEMail", Supplier.Email, false);
-            P[7] = new ReportParameter("BillToCustomerName", BillTo.DealerName, false);
+            P[5] = new ReportParameter("SupplierMobile", Supplier.Address.Mobile, false);
+            P[6] = new ReportParameter("SupplierEMail", Supplier.Address.Email, false);
+            P[7] = new ReportParameter("BillToCustomerName", PO.Dealer.DealerName, false);
             P[8] = new ReportParameter("BillToCustomerAddress1", BillToAddress1, false);
             P[9] = new ReportParameter("BillToCustomerAddress2", BillToAddress2, false);
             P[10] = new ReportParameter("BillToMobile", BillTo.Mobile, false);
@@ -590,7 +590,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             P[18] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
             P[19] = new ReportParameter("Remarks", PO.Remarks, false);
             P[20] = new ReportParameter("SupplierCode", Supplier.DealerCode, false);
-            P[21] = new ReportParameter("BillToCode", BillTo.DealerCode, false);
+            P[21] = new ReportParameter("BillToCode", PO.Dealer.DealerCode, false);
             report.ReportPath = Server.MapPath("~/Print/PurchaseOrder.rdlc");
             report.SetParameters(P);
             ReportDataSource rds = new ReportDataSource();

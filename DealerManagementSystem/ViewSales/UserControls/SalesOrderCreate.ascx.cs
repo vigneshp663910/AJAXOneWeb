@@ -345,7 +345,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             List<PDMS_EquipmentHeader> EQs = new BDMS_Equipment().GetEquipmentForCreateICTicket(Convert.ToInt64(hdfCustomerId.Value), null, null);
             new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
-
         }
 
         protected void BtnAvailability_Click(object sender, EventArgs e)

@@ -24,6 +24,24 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbGrCreate;
 
         /// <summary>
+        /// lbPreviewDC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbPreviewDC;
+
+        /// <summary>
+        /// lbDowloadDC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbDowloadDC;
+
+        /// <summary>
         /// lblDeliveryNumber control.
         /// </summary>
         /// <remarks>

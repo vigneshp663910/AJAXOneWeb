@@ -46,7 +46,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         //}
         protected void Page_Load(object sender, EventArgs e)
         {
-            lblMessage.Text = ""; 
+            lblMessage.Text = "";
             lblMessageDeliveryCreate.Text = "";
             lblMessageCancel.Text = "";
         }
@@ -58,7 +58,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblPurchaseOrderReturnStatus.Text = PoReturn.PurchaseOrderReturnStatus.ProcurementStatus;
             lblPurchaseOrderReturnDealer.Text = PoReturn.Dealer.DealerCode + " " + PoReturn.Dealer.DealerName;
             lblPurchaseOrderReturnVendor.Text = PoReturn.Vendor.DealerCode + " " + PoReturn.Vendor.DealerName;
-            lblLocation.Text = PoReturn.Location.OfficeName;            
+            lblLocation.Text = PoReturn.Location.OfficeName;
             lblRemarks.Text = PoReturn.Remarks;
 
             decimal TaxableAmt = 0, TaxAmt = 0, GrossAmt = 0;
@@ -75,7 +75,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvPOReturnItem.DataSource = PoReturn.PurchaseOrderReturnItems;
             gvPOReturnItem.DataBind();
 
-            List<PPurchaseOrderReturnDelivery>  PurchaseOrderReturnDeliveryList = new BDMS_PurchaseOrder().GetPurchaseOrderReturnDeliveryByPoReturnID(PurchaseOrderReturnID);
+            List<PPurchaseOrderReturnDelivery> PurchaseOrderReturnDeliveryList = new BDMS_PurchaseOrder().GetPurchaseOrderReturnDeliveryByPoReturnID(PurchaseOrderReturnID);
             gvPoReturnDelivery.DataSource = PurchaseOrderReturnDeliveryList;
             gvPoReturnDelivery.DataBind();
 
@@ -93,12 +93,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             if (StatusID == (short)ProcurementStatus.PoReturnDraft)
             {
                 lbApprove.Visible = false;
-                lbReject.Visible = false; 
+                lbReject.Visible = false;
                 lbDeliveryCreate.Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoReturn_WaitingForApproval)
             {
-                lbRequestForApproval.Visible = false; 
+                lbRequestForApproval.Visible = false;
                 lbDeliveryCreate.Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoReturn_Approved || StatusID == (short)ProcurementStatus.PoReturn_PartiallyDelivered)
@@ -106,7 +106,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbRequestForApproval.Visible = false;
                 lbApprove.Visible = false;
                 lbReject.Visible = false;
-                lbCancel.Visible = false; 
+                lbCancel.Visible = false;
             }
             else if (StatusID == (short)ProcurementStatus.PoReturn_Rejected || StatusID == (short)ProcurementStatus.PoReturn_Cancelled || StatusID == (short)ProcurementStatus.PoReturn_Delivered)
             {
@@ -115,7 +115,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbReject.Visible = false;
                 lbCancel.Visible = false;
                 lbDeliveryCreate.Visible = false;
-            } 
+            }
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -189,18 +189,18 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             else if (lbActions.ID == "btnCancel")
             {
                 MPE_PoReturnCancel.Show();
-                Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturn_Cancelled, txtCancelRemarks.Text.Trim()); 
+                Result = new BDMS_PurchaseOrder().UpdatePurchaseOrderReturnStatus(PoReturn.PurchaseOrderReturnID, (short)ProcurementStatus.PoReturn_Cancelled, txtCancelRemarks.Text.Trim());
             }
-             
+
             if (Result.Status == PApplication.Failure)
             {
                 lblMessageCancel.Text = Result.Message;
                 return;
             }
             MPE_PoReturnReject.Hide();
-            MPE_PoReturnCancel.Hide();            
+            MPE_PoReturnCancel.Hide();
             fillViewPoReturn(PoReturn.PurchaseOrderReturnID);
-        }        
+        }
         protected void btnPurchaseOrderReturnDeliveryCreateBack_Click(object sender, EventArgs e)
         {
             PnlPurchaseOrderReturnView.Visible = true;
@@ -209,14 +209,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             pnlPoReturnDeliveryCreate.Visible = false;
         }
         protected void btnProceedDelivery_Click(object sender, EventArgs e)
-        { 
+        {
             UC_PurchaseOrderReturnDeliveryCreate.ReadPoReturnItem();
             divSave.Visible = true;
             divProceeedDelivery.Visible = false;
             MPE_PoReturnDeliveryCreate.Show();
         }
         protected void btnSave_Click(object sender, EventArgs e)
-        { 
+        {
             lblMessageDeliveryCreate.ForeColor = Color.Red;
             MPE_PoReturnDeliveryCreate.Show();
             string message = UC_PurchaseOrderReturnDeliveryCreate.RValidateReturnDelivery();
@@ -235,8 +235,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessageDeliveryCreate.Text = Result.Message;
                 return;
             }
-            
-            lblMessage.Text = Result.Message; 
+
+            lblMessage.Text = Result.Message;
             lblMessage.ForeColor = Color.Green;
             fillViewPoReturn(PoReturn.PurchaseOrderReturnID);
             tbpPoReturn.ActiveTabIndex = 1;
@@ -276,19 +276,26 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             Warning[] warnings;
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
-            PDMS_Dealer Supplier = new BDMS_Dealer().GetDealer(null, PoReturn.Vendor.DealerCode, null, null)[0];
-            string SupplierAddress1 = (Supplier.Address1 + (string.IsNullOrEmpty(Supplier.Address2) ? "" : "," + Supplier.Address2) + (string.IsNullOrEmpty(Supplier.Address3) ? "" : "," + Supplier.Address3)).Trim(',', ' ');
-            string SupplierAddress2 = (Supplier.City + (string.IsNullOrEmpty(Supplier.StateN.State) ? "" : "," + Supplier.StateN.State) + (string.IsNullOrEmpty(Supplier.Pincode) ? "" : "-" + Supplier.Pincode)).Trim(',', ' ');
-            PDMS_Dealer BillTo = new BDMS_Dealer().GetDealer(null, PoReturn.Dealer.DealerCode, null, null)[0];
+
+            PDMS_Dealer Supplier = new BDealer().GetDealerAddress(PoReturn.Vendor.DealerID)[0];
+            string SupplierAddress1 = (Supplier.Address.Address1 + (string.IsNullOrEmpty(Supplier.Address.Address2) ? "" : "," + Supplier.Address.Address2) + (string.IsNullOrEmpty(Supplier.Address.Address3) ? "" : "," + Supplier.Address.Address3)).Trim(',', ' ');
+            string SupplierAddress2 = (Supplier.Address.City + (string.IsNullOrEmpty(Supplier.Address.State.State) ? "" : "," + Supplier.Address.State.State) + (string.IsNullOrEmpty(Supplier.Address.Pincode) ? "" : "-" + Supplier.Address.Pincode)).Trim(',', ' ');
+
+            PDMS_DealerOffice BillTo = new BDMS_Dealer().GetDealerOffice(PoReturn.Dealer.DealerID, PoReturn.Location.OfficeID, null)[0];
             string BillToAddress1 = (BillTo.Address1 + (string.IsNullOrEmpty(BillTo.Address2) ? "" : "," + BillTo.Address2) + (string.IsNullOrEmpty(BillTo.Address3) ? "" : "," + BillTo.Address3)).Trim(',', ' ');
-            string BillToAddress2 = (BillTo.City + (string.IsNullOrEmpty(BillTo.StateN.State) ? "" : "," + BillTo.StateN.State) + (string.IsNullOrEmpty(BillTo.Pincode) ? "" : "-" + BillTo.Pincode)).Trim(',', ' ');
+            string BillToAddress2 = (BillTo.City + (string.IsNullOrEmpty(BillTo.State) ? "" : "," + BillTo.State) + (string.IsNullOrEmpty(BillTo.Pincode) ? "" : "-" + BillTo.Pincode)).Trim(',', ' ');
+
+            //PDMS_Dealer BillTo = new BDealer().GetDealerAddress(PoReturn.Dealer.DealerID)[0];
+            //string BillToAddress1 = (BillTo.Address.Address1 + (string.IsNullOrEmpty(BillTo.Address.Address2) ? "" : "," + BillTo.Address.Address2) + (string.IsNullOrEmpty(BillTo.Address.Address3) ? "" : "," + BillTo.Address.Address3)).Trim(',', ' ');
+            //string BillToAddress2 = (BillTo.Address.City + (string.IsNullOrEmpty(BillTo.Address.State.State) ? "" : "," + BillTo.Address.State.State) + (string.IsNullOrEmpty(BillTo.Address.Pincode) ? "" : "-" + BillTo.Address.Pincode)).Trim(',', ' ');
+
             ReportParameter[] P = new ReportParameter[16];
             P[0] = new ReportParameter("ReturnPurchaseOrderNumber", PoReturn.PurchaseOrderReturnNumber, false);
             P[1] = new ReportParameter("ReturnPurchaseOrderDate", PoReturn.PurchaseOrderReturnDate.ToShortDateString(), false);
             P[2] = new ReportParameter("SupplierName", Supplier.DealerName, false);
             P[3] = new ReportParameter("SupplierAddress1", SupplierAddress1, false);
             P[4] = new ReportParameter("SupplierAddress2", SupplierAddress2, false);
-            P[5] = new ReportParameter("BillToCustomerName", BillTo.DealerName, false);
+            P[5] = new ReportParameter("BillToCustomerName", PoReturn.Dealer.DealerName, false);
             P[6] = new ReportParameter("BillToCustomerAddress1", BillToAddress1, false);
             P[7] = new ReportParameter("BillToCustomerAddress2", BillToAddress2, false);
             P[8] = new ReportParameter("ReceivingLocation", PoReturn.Location.OfficeName, false);
@@ -323,7 +330,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             P[11] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
             P[12] = new ReportParameter("Remarks", PoReturn.Remarks, false);
             P[13] = new ReportParameter("SupplierCode", Supplier.DealerCode, false);
-            P[14] = new ReportParameter("BillToCode", BillTo.DealerCode, false);
+            P[14] = new ReportParameter("BillToCode", PoReturn.Dealer.DealerCode, false);
             P[15] = new ReportParameter("Status", PoReturn.PurchaseOrderReturnStatus.ProcurementStatus, false);
             report.ReportPath = Server.MapPath("~/Print/PurchaseOrderReturn.rdlc");
             report.SetParameters(P);

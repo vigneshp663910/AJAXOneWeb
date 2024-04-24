@@ -72,18 +72,18 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.17416cm</Width>
+                  <Width>4.85854cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.26603cm</Width>
+                  <Width>3.95041cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>10.27943cm</Width>
+                  <Width>9.96381cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>2.1965cm</Height>
+                  <Height>2.61703cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -265,9 +265,9 @@
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
             <Top>0.13424cm</Top>
-            <Left>0.08285cm</Left>
-            <Height>2.1965cm</Height>
-            <Width>19.71962cm</Width>
+            <Left>0.70901cm</Left>
+            <Height>2.61703cm</Height>
+            <Width>18.77275cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -278,31 +278,31 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.49366in</Width>
+                  <Width>0.45224in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.99005in</Width>
+                  <Width>0.94863in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.21578in</Width>
+                  <Width>2.17436in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.75525in</Width>
+                  <Width>0.71383in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.48719in</Width>
+                  <Width>0.44577in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.58152in</Width>
+                  <Width>0.5401in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.69625in</Width>
+                  <Width>0.65483in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.67425in</Width>
+                  <Width>0.63283in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.86967in</Width>
+                  <Width>0.82825in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1169,6 +1169,63 @@
                     </TablixCell>
                   </TablixCells>
                 </TablixRow>
+                <TablixRow>
+                  <Height>0.2883in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox9">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Printed On : </Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Globals!ExecutionTime</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>dd/MM/yyyy hh:mm:sss</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>9</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
@@ -1195,15 +1252,18 @@
                 <TablixMember>
                   <KeepWithGroup>Before</KeepWithGroup>
                 </TablixMember>
+                <TablixMember>
+                  <KeepWithGroup>Before</KeepWithGroup>
+                </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
             <DataSetName>SalesDeliveryChallan</DataSetName>
-            <Top>1.02762in</Top>
-            <Left>0.08284cm</Left>
-            <Height>0.77243in</Height>
-            <Width>7.76362in</Width>
+            <Top>1.15262in</Top>
+            <Left>0.709cm</Left>
+            <Height>1.06073in</Height>
+            <Width>7.39084in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -1212,13 +1272,13 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>1.89829in</Height>
+        <Height>2.28371in</Height>
         <Style />
       </Body>
-      <Width>7.83791in</Width>
+      <Width>7.70943in</Width>
       <Page>
         <PageHeader>
-          <Height>3.35166cm</Height>
+          <Height>4.03958cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1237,10 +1297,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>2.53365cm</Top>
-              <Left>0.08285cm</Left>
+              <Top>3.16865cm</Top>
+              <Left>0.70901cm</Left>
               <Height>0.62963cm</Height>
-              <Width>19.71958cm</Width>
+              <Width>18.77275cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1253,10 +1313,10 @@
               </Style>
             </Textbox>
             <Line Name="Line2">
-              <Top>3.31639cm</Top>
-              <Left>19.80247cm</Left>
+              <Top>3.95139cm</Top>
+              <Left>19.45953cm</Left>
               <Height>0cm</Height>
-              <Width>-19.7993cm</Width>
+              <Width>-18.65456cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -1284,10 +1344,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
-              <Top>2.56328cm</Top>
-              <Left>7.86094cm</Left>
+              <Top>3.19828cm</Top>
+              <Left>7.5346cm</Left>
               <Height>0.6cm</Height>
-              <Width>4.48377cm</Width>
+              <Width>4.06861cm</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
@@ -1303,10 +1363,10 @@
               <Source>Embedded</Source>
               <Value>AjaxNewLogo</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.28469cm</Top>
-              <Left>0.48294cm</Left>
-              <Height>1.52287cm</Height>
-              <Width>4.96604cm</Width>
+              <Top>0.91969cm</Top>
+              <Left>0.7916cm</Left>
+              <Height>1.41704cm</Height>
+              <Width>4.76004cm</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <Border>
@@ -1396,10 +1456,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox5</rd:DefaultName>
-              <Top>0.28469cm</Top>
-              <Left>10.79008cm</Left>
-              <Height>2.13458cm</Height>
-              <Width>9.01235cm</Width>
+              <Top>0.60219cm</Top>
+              <Left>11.41624cm</Left>
+              <Height>2.39007cm</Height>
+              <Width>8.06552cm</Width>
               <ZIndex>4</ZIndex>
               <Style>
                 <Border>

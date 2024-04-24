@@ -147,9 +147,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-            PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
-            string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-            string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+            PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID)[0];
+            string DealerCustomerAddress1 = (Dealer.Address.Address1 + (string.IsNullOrEmpty(Dealer.Address.Address2) ? "" : "," + Dealer.Address.Address2) + (string.IsNullOrEmpty(Dealer.Address.Address3) ? "" : "," + Dealer.Address.Address3)).Trim(',', ' ');
+            string DealerCustomerAddress2 = (Dealer.Address.City + (string.IsNullOrEmpty(Dealer.Address.State.State) ? "" : "," + Dealer.Address.State.State) + (string.IsNullOrEmpty(Dealer.Address.Pincode) ? "" : "-" + Dealer.Address.Pincode)).Trim(',', ' ');
 
             PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
             string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');

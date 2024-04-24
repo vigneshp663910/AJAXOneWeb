@@ -99,6 +99,12 @@ namespace Properties
         public PStockTransferOrderDeliveryItem Item { get; set; }
         public List<PStockTransferOrderDeliveryItem> Items { get; set; }
         public PAjaxOneStatus Status { get; set; }
+        public string KindAtten { get; set; }
+        public string Ref { get; set; }
+        public string TransRemark { get; set; }
+        public string PackingDesc { get; set; }
+        public string TransMode { get; set; }
+        public string TransDetail { get; set; }
     }
     [Serializable]
     public class PStockTransferOrderDeliveryItem

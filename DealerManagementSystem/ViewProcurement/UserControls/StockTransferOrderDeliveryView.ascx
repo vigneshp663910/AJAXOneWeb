@@ -19,6 +19,8 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbGrCreate" runat="server" OnClick="lbActions_Click">GR Create</asp:LinkButton>
+                <asp:LinkButton ID="lbPreviewDC" runat="server" OnClick="lbActions_Click">Preview DC</asp:LinkButton>
+                <asp:LinkButton ID="lbDowloadDC" runat="server" OnClick="lbActions_Click">Dowload DC</asp:LinkButton>
             </div>
         </div>
     </div>

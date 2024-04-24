@@ -47,7 +47,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["Deliverys"] = value;
             }
         }
-        public List< PStockTransferOrderItemGr_Insert> Gr_Insert
+        public List<PStockTransferOrderItemGr_Insert> Gr_Insert
         {
             get
             {
@@ -79,7 +79,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //StockTransferOrder = JsonConvert.DeserializeObject<PStockTransferOrder>(JsonConvert.SerializeObject(Result.Data));
 
             PApiResult DeliveryResult = new BStockTransferOrder().GetStockTransferOrderDeliveryByID(null, DeliveryID);
-            Deliverys = (JsonConvert.DeserializeObject< List<PStockTransferOrderDelivery>>(JsonConvert.SerializeObject(DeliveryResult.Data)))[0];
+            Deliverys = (JsonConvert.DeserializeObject<List<PStockTransferOrderDelivery>>(JsonConvert.SerializeObject(DeliveryResult.Data)))[0];
 
             PApiResult Result = new BStockTransferOrder().GetStockTransferOrderByID(Deliverys.StockTransferOrder.StockTransferOrderID);
             StockTransferOrder = JsonConvert.DeserializeObject<PStockTransferOrder>(JsonConvert.SerializeObject(Result.Data));
@@ -142,8 +142,117 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 }
                 FillGr();
             }
-        } 
+            else if (lbActions.ID == "lbPreviewDC")
+            {
+                ViewDeliveryChallan();
+            }
+            else if (lbActions.ID == "lbDowloadDC")
+            {
+                DownloadDeliveryChallan();
+            }
+        }
+        void ViewDeliveryChallan()
+        {
+            try
+            {
+                string mimeType = string.Empty;
+                Byte[] mybytes = DeliveryChallanRdlc(out mimeType);
+                string FileName = Deliverys.DeliveryNumber + ".pdf";
+                var uploadPath = Server.MapPath("~/Backup");
+                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                File.WriteAllBytes(tempfilenameandlocation, mybytes);
+                Context.Response.Write("<script language='javascript'>window.open('../PDF.aspx?FileName=" + FileName + "&Title=Procurement » Stock Transfer Order Delivery Challan','_newtab');</script>");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        Byte[] DeliveryChallanRdlc(out string mimeType)
+        {
+            string extension;
+            string encoding;
+            string[] streams;
+            Warning[] warnings;
+            LocalReport report = new LocalReport();
+            report.EnableExternalImages = true;
 
+            PDMS_DealerOffice DealerFrom = new BDMS_Dealer().GetDealerOffice(Deliverys.StockTransferOrder.Dealer.DealerID, Deliverys.StockTransferOrder.SourceOffice.OfficeID, null)[0];
+            string FromAddress1 = (DealerFrom.Address1 + (string.IsNullOrEmpty(DealerFrom.Address2) ? "" : "," + DealerFrom.Address2) + (string.IsNullOrEmpty(DealerFrom.Address3) ? "" : "," + DealerFrom.Address3)).Trim(',', ' ');
+            string FromAddress2 = (DealerFrom.City + (string.IsNullOrEmpty(DealerFrom.State) ? "" : "," + DealerFrom.State) + (string.IsNullOrEmpty(DealerFrom.Pincode) ? "" : "-" + DealerFrom.Pincode)).Trim(',', ' ');
+
+            PDMS_DealerOffice DealerTo = new BDMS_Dealer().GetDealerOffice(Deliverys.StockTransferOrder.Dealer.DealerID, Deliverys.StockTransferOrder.DestinationOffice.OfficeID, null)[0];
+            string ToAddress1 = (DealerTo.Address1 + (string.IsNullOrEmpty(DealerTo.Address2) ? "" : "," + DealerTo.Address2) + (string.IsNullOrEmpty(DealerTo.Address3) ? "" : "," + DealerTo.Address3)).Trim(',', ' ');
+            string ToAddress2 = (DealerTo.City + (string.IsNullOrEmpty(DealerTo.State) ? "" : "," + DealerTo.State) + (string.IsNullOrEmpty(DealerTo.Pincode) ? "" : "-" + DealerTo.Pincode)).Trim(',', ' ');
+
+
+            ReportParameter[] P = new ReportParameter[18];
+            P[0] = new ReportParameter("DeliveryChallanNo", Deliverys.DeliveryNumber, false);
+            P[1] = new ReportParameter("DeliveryChallanDate", Deliverys.DeliveryDate.ToShortDateString(), false);
+            P[2] = new ReportParameter("DealerName", Deliverys.StockTransferOrder.Dealer.DealerName.ToUpper(), false);
+            P[3] = new ReportParameter("FromAddress1", FromAddress1, false);
+            P[4] = new ReportParameter("FromAddress2", FromAddress2, false);
+            P[5] = new ReportParameter("ToAddress1", ToAddress1, false);
+            P[6] = new ReportParameter("ToAddress2", ToAddress2, false);
+            P[7] = new ReportParameter("From", DealerFrom.OfficeName_OfficeCode, false);
+            P[8] = new ReportParameter("To", DealerTo.OfficeName_OfficeCode, false);
+            P[9] = new ReportParameter("KindAtten", Deliverys.KindAtten, false);
+            P[10] = new ReportParameter("Ref", Deliverys.Ref, false);
+            P[11] = new ReportParameter("StockTransferOrderNo", Deliverys.StockTransferOrder.StockTransferOrderNumber, false);
+            P[12] = new ReportParameter("StockTransferOrderDate", Deliverys.StockTransferOrder.StockTransferOrderDate.ToShortDateString(), false);
+            P[13] = new ReportParameter("TransRemarks", Deliverys.TransRemark, false);
+            P[14] = new ReportParameter("PackingDesc", Deliverys.PackingDesc, false);
+            P[15] = new ReportParameter("TransMode", Deliverys.TransMode, false);
+            P[16] = new ReportParameter("TransDetail", Deliverys.TransDetail, false);
+            P[17] = new ReportParameter("Remarks", Deliverys.StockTransferOrder.Remarks, false);
+
+            DataTable dtItem = new DataTable();
+            dtItem.Columns.Add("ItemNo");
+            dtItem.Columns.Add("PartNo");
+            dtItem.Columns.Add("Description");
+            dtItem.Columns.Add("Hsn");
+            dtItem.Columns.Add("Qty");
+            dtItem.Columns.Add("Uom");
+
+            int sno = 0;
+            foreach (PStockTransferOrderDeliveryItem Item in Deliverys.Items)
+            {
+                dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Material.HSN, Item.DeliveryQuantity.ToString("0"), Item.Material.BaseUnit);
+            }
+            report.ReportPath = Server.MapPath("~/Print/StockTransferOrderDeliveryChallan.rdlc");
+            report.SetParameters(P);
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "StoDeliveryChallan";//This refers to the dataset name in the RDLC file  
+            rds.Value = dtItem;
+            report.DataSources.Add(rds);
+            Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+            return mybytes;
+        }
+        void DownloadDeliveryChallan()
+        {
+            try
+            {
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                string FileName = Deliverys.DeliveryNumber + ".pdf";
+                string mimeType;
+                Byte[] mybytes = DeliveryChallanRdlc(out mimeType);
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
+                Response.Flush(); // send it to the client to download
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
         void ShowMessage(PApiResult Results)
         {
             lblMessage.Text = Results.Message;
@@ -153,9 +262,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         void ActionControlMange()
         {
-
-            lbGrCreate.Visible = true; 
-
+            lbGrCreate.Visible = true;
             int StatusID = Deliverys.Status.StatusID;
             if (StatusID == (short)AjaxOneStatus.StockTransferOrderDelivery_Delivery)
             {
@@ -183,10 +290,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //    lbRelease.Visible = false;
             //    lbCancel.Visible = false;
             //}
-
-
         }
-          
+
         protected void lnkBtnItemAction_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
@@ -431,16 +536,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //fillViewPO(PurchaseOrder.PurchaseOrderID);
         }
         public void FillGr()
-        {  
+        {
             lblGrAsnNumber.Text = Deliverys.DeliveryNumber;
-            lblGrAsnID.Text = Deliverys.DeliveryID.ToString(); 
+            lblGrAsnID.Text = Deliverys.DeliveryID.ToString();
 
             gvPOAsnGrItem.DataSource = Gr_Insert;
             gvPOAsnGrItem.DataBind();
 
             //PGr Gr = new PGr();
             // Gr.GrItemS = new List<PGrItem>();
-             
+
 
             //foreach (GridViewRow row in gvPOAsnGrItem.Rows)
             //{
@@ -462,9 +567,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
 
         protected void btnGrCreate_Click(object sender, EventArgs e)
-        { 
+        {
             MPE_GrCreate.Show();
-            lblMessageGrCreation.ForeColor = Color.Red; 
+            lblMessageGrCreation.ForeColor = Color.Red;
             Boolean Validation = ValidationGrItem();
             if (Validation)
             {
@@ -478,7 +583,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 return;
             }
             fillViewDelivery(Deliverys.DeliveryID);
-            lblMessage.Text = Result.Message; 
+            lblMessage.Text = Result.Message;
             lblMessage.ForeColor = Color.Green;
             MPE_GrCreate.Hide();
         }
@@ -531,7 +636,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             Label lblAsnItem = (Label)row.FindControl("lblAsnItem");
             Label lblReceivedQty = (Label)row.FindControl("lblReceivedQty");
 
-            HidAsnItemID.Value = lblDeliveryItemID.Text; 
+            HidAsnItemID.Value = lblDeliveryItemID.Text;
             HidReceivedQty.Value = lblReceivedQty.Text;
 
             txtUnrestrictedQty.Text = HidReceivedQty.Value;
@@ -543,21 +648,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            MPE_UpdateRestrictedQty.Show(); 
-            lblMessageRestrictedQty.ForeColor = Color.Red; 
+            MPE_UpdateRestrictedQty.Show();
+            lblMessageRestrictedQty.ForeColor = Color.Red;
             if (string.IsNullOrEmpty(txtUnrestrictedQty.Text))
             {
-                lblMessageRestrictedQty.Text = "Please UnRestricted Quantity...!"; 
+                lblMessageRestrictedQty.Text = "Please UnRestricted Quantity...!";
                 return;
             }
             if (string.IsNullOrEmpty(txtMissingQty.Text))
             {
-                lblMessageRestrictedQty.Text = "Please Missing Quantity...!"; 
+                lblMessageRestrictedQty.Text = "Please Missing Quantity...!";
                 return;
             }
             if (string.IsNullOrEmpty(txtDamagedQty.Text))
             {
-                lblMessageRestrictedQty.Text = "Please Damaged Quantity...!"; 
+                lblMessageRestrictedQty.Text = "Please Damaged Quantity...!";
                 return;
             }
             Decimal UnrestrictedQty = Convert.ToDecimal(txtUnrestrictedQty.Text);
@@ -565,7 +670,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             Decimal DamagedQty = Convert.ToDecimal(txtDamagedQty.Text);
             if (Convert.ToDecimal(HidReceivedQty.Value) != (UnrestrictedQty + MissingQty + DamagedQty))
             {
-                lblMessageRestrictedQty.Text = "Received Qty Not match with (UnRestricted+Missing+Damage) Quantity...!"; 
+                lblMessageRestrictedQty.Text = "Received Qty Not match with (UnRestricted+Missing+Damage) Quantity...!";
                 return;
             }
             foreach (PStockTransferOrderItemGr_Insert asn in Gr_Insert)
@@ -573,7 +678,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 if (asn.DeliveryItemID == Convert.ToInt64(HidAsnItemID.Value))
                 {
                     asn.Remark = txtRemark.Text;
-                    asn.RestrictedItem = new List<PGrRestricted_Insert>(); 
+                    asn.RestrictedItem = new List<PGrRestricted_Insert>();
                     if (MissingQty != 0)
                     {
                         asn.RestrictedItem.Add(new PGrRestricted_Insert() { Qty = MissingQty, RestrictedStatusID = (short)AjaxOneStatus.StockTransferOrderGrRestricted_MissingQty });
@@ -585,7 +690,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     asn.UnrestrictedQty = UnrestrictedQty;
                     asn.RestrictedQty = MissingQty + DamagedQty;
                 }
-            } 
+            }
             gvPOAsnGrItem.DataSource = Gr_Insert;
             gvPOAsnGrItem.DataBind();
             MPE_UpdateRestrictedQty.Hide();
