@@ -1330,11 +1330,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 TextBox txtDeliveryQuantity = (TextBox)row.FindControl("txtDeliveryQuantity");
 
                 decimal OrderQty = Convert.ToDecimal(lblOrderQty.Text);
-                decimal DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text);
-                if (string.IsNullOrEmpty(txtDeliveryQuantity.Text))
+                decimal DeliveryQuantity = 0;
+
+                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder || SOrder.Division.DivisionID == (short)SaleOrderType.WarrantyOrder)
                 {
-                    throw new Exception("Please enter the Delivery Quantity.");
+                    DeliveryQuantity = OrderQty;
+                } 
+                else
+                {
+                    if (string.IsNullOrEmpty(txtDeliveryQuantity.Text))
+                    {
+                        throw new Exception("Please enter the Delivery Quantity.");
+                    }
+                    DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text);
                 }
+              
                 if (DeliveryQuantity > OrderQty || DeliveryQuantity < 1)
                 {
                     throw new Exception("Please check the Delivery Quantity.");
