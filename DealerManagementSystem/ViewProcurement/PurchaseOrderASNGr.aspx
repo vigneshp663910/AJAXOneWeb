@@ -114,7 +114,7 @@
                                  <asp:TemplateField HeaderText="Dealer Office">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.Location.OfficeName")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblOfficeName" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.PurchaseOrder.Location.OfficeName")%>' runat="server"></asp:Label>
                                        </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Vendor">

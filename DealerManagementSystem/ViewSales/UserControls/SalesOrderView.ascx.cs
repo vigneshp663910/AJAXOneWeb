@@ -1289,10 +1289,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             MPE_Delivery.Show();
             try
             {
-                if (SOrder.SaleOrderType.SaleOrderTypeID == 4)
+                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
                 {
-                    lblMessageCreateSODelivery.Text = "Please select the Equipment.";
-                    return;
+                    if (ddlEquipment.SelectedValue == "0")
+                    {
+                        lblMessageCreateSODelivery.Text = "Please select the Equipment.";
+                        return;
+                    }
                 }
 
                 readSaleOrderDelivery();

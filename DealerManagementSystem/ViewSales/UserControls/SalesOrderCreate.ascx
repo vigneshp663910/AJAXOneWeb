@@ -209,6 +209,7 @@
             </div>
         </div>
         <div class="col-md-12 Report">
+
             <asp:GridView ID="gvSOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                 <Columns>
                     <asp:TemplateField HeaderText="SL No" ItemStyle-HorizontalAlign="Center">

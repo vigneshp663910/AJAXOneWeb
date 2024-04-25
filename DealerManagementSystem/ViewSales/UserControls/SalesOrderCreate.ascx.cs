@@ -343,6 +343,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
         protected void txtCustomer_TextChanged(object sender, EventArgs e)
         {
+            if(hdfCustomerId.Value =="" || hdfCustomerId.Value == "0") 
+            {
+                lblMessage.Text = "Please check the Customer.";
+                lblMessage.ForeColor = Color.Red;
+                txtCustomer.Text = "";
+                return;
+            }
             List<PDMS_EquipmentHeader> EQs = new BDMS_Equipment().GetEquipmentForCreateICTicket(Convert.ToInt64(hdfCustomerId.Value), null, null);
             new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
         }
