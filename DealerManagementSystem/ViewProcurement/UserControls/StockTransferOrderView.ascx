@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-md-12">
                     <label>Source Location : </label>
-                    <asp:Label ID="Label1" runat="server" CssClass="LabelValue"></asp:Label>
+                    <asp:Label ID="lblSourceLocation" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
             <div class="col-md-3">

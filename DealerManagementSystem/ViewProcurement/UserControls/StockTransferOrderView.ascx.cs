@@ -103,7 +103,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
 
             lblReceivingLocation.Text = StockTransferOrder.DestinationOffice.OfficeName;
-            //   lblReceivingLocation.Text = StockTransferOrder.DestinationOffice.OfficeName;
+            lblSourceLocation.Text = StockTransferOrder.SourceOffice.OfficeName;
             lblPORemarks.Text = StockTransferOrder.Remarks;
 
             lblPODealer.Text = StockTransferOrder.Dealer.DealerName;

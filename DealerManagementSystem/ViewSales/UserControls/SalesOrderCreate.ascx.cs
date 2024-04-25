@@ -242,46 +242,46 @@ namespace DealerManagementSystem.ViewSales.UserControls
             txtMaterial.Text = "";
             txtQty.Text = "";
         }
-        protected void btnSaveSOItem_Click(object sender, EventArgs e)
-        {
-            lblMessage.ForeColor = Color.Red;
-            try
-            {
-                string Message = Validation();
-                if (!string.IsNullOrEmpty(Message))
-                {
-                    lblMessage.Text = Message;
-                    return;
-                }
-                if (SOItem_Insert.Count == 0)
-                {
-                    lblMessage.Text = "Please add Material.";
-                    return;
-                }
-                SO_Insert = Read();
-                SO_Insert.SaleOrderItems = SOItem_Insert;
-                string result = new BAPI().ApiPut("SaleOrder", SO_Insert);
-                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+        //protected void btnSaveSOItem_Click(object sender, EventArgs e)
+        //{
+        //    lblMessage.ForeColor = Color.Red;
+        //    try
+        //    {
+        //        string Message = Validation();
+        //        if (!string.IsNullOrEmpty(Message))
+        //        {
+        //            lblMessage.Text = Message;
+        //            return;
+        //        }
+        //        if (SOItem_Insert.Count == 0)
+        //        {
+        //            lblMessage.Text = "Please add Material.";
+        //            return;
+        //        }
+        //        SO_Insert = Read();
+        //        SO_Insert.SaleOrderItems = SOItem_Insert;
+        //        string result = new BAPI().ApiPut("SaleOrder", SO_Insert);
+        //        PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
-                if (Result.Status == PApplication.Failure)
-                {
-                    lblMessage.Text = Result.Message;
-                    return;
-                }
+        //        if (Result.Status == PApplication.Failure)
+        //        {
+        //            lblMessage.Text = Result.Message;
+        //            return;
+        //        }
 
-                Session["SaleOrderID"] = Result.Data;
-                Response.Redirect("PurchaseOrder.aspx");
+        //        Session["SaleOrderID"] = Result.Data;
+        //        Response.Redirect("PurchaseOrder.aspx");
 
-                //lblMessage.Text = Result.Message;
-                //lblMessage.ForeColor = Color.Green;
-                //ClearHeader();
-                //ClearItem();
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-            }
-        }
+        //        //lblMessage.Text = Result.Message;
+        //        //lblMessage.ForeColor = Color.Green;
+        //        //ClearHeader();
+        //        //ClearItem();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lblMessage.Text = ex.Message;
+        //    }
+        //}
         protected void txtHeaderDiscountPercent_TextChanged(object sender, EventArgs e)
         {
             lblMessage.ForeColor = Color.Red; 
