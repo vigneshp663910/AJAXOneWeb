@@ -24,6 +24,8 @@
                 <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
                 <asp:LinkButton ID="lbDelivery" runat="server" OnClick="lbActions_Click">Delivery</asp:LinkButton>
                 <asp:LinkButton ID="lbPDF" runat="server" OnClick="lbActions_Click">PO Preview</asp:LinkButton>
+                <asp:LinkButton ID="lbPreviewSTO" runat="server" OnClick="lbActions_Click">Preview STO</asp:LinkButton>
+                <asp:LinkButton ID="lbDowloadSTO" runat="server" OnClick="lbActions_Click">Dowload STO</asp:LinkButton>
             </div>
         </div>
     </div>

@@ -152,7 +152,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 else if (lbActions.ID == "lbCancel")
                 {
                     StatusID = (short)AjaxOneStatus.StockTransferOrder_Cancelled;
-                }
+                }                
                 lblMessage.Visible = true;
                 PApiResult Results = new BStockTransferOrder().UpdateStockTransferOrderStatus(StockTransferOrder.StockTransferOrderID, StatusID);
                 if (Results.Status == PApplication.Failure)
@@ -193,6 +193,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 gvDelivery.DataSource = Delivery_Insert;
                 gvDelivery.DataBind();
 
+            }
+            else if (lbActions.ID == "lbPreviewSTO")
+            {
+                ViewStockTransferOrder();
+            }
+            else if (lbActions.ID == "lbDowloadSTO")
+            {
+                DownloadStockTransferOrder();
             }
         }
 
@@ -243,7 +251,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 lbAddMaterial.Visible = false;
                 lbRelease.Visible = false;
-                lbCancel.Visible = false; 
+                lbCancel.Visible = false;
                 lbDelivery.Visible = false;
                 lbPDF.Visible = false;
             }
@@ -556,6 +564,111 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             catch (Exception ex)
             {
 
+            }
+        }
+        void ViewStockTransferOrder()
+        {
+            try
+            {
+                string mimeType = string.Empty;
+                Byte[] mybytes = StockTransferOrderRdlc(out mimeType);
+                string FileName = StockTransferOrder.StockTransferOrderNumber + ".pdf";
+                var uploadPath = Server.MapPath("~/Backup");
+                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                File.WriteAllBytes(tempfilenameandlocation, mybytes);
+                Context.Response.Write("<script language='javascript'>window.open('../PDF.aspx?FileName=" + FileName + "&Title=Procurement » Stock Transfer Order','_newtab');</script>");
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+        Byte[] StockTransferOrderRdlc(out string mimeType)
+        {
+            string extension;
+            string encoding;
+            string[] streams;
+            Warning[] warnings;
+            LocalReport report = new LocalReport();
+            report.EnableExternalImages = true;
+
+            PDMS_DealerOffice DealerFrom = new BDMS_Dealer().GetDealerOffice(StockTransferOrder.Dealer.DealerID, StockTransferOrder.SourceOffice.OfficeID, null)[0];
+            string FromAddress1 = (DealerFrom.Address1 + (string.IsNullOrEmpty(DealerFrom.Address2) ? "" : "," + DealerFrom.Address2) + (string.IsNullOrEmpty(DealerFrom.Address3) ? "" : "," + DealerFrom.Address3)).Trim(',', ' ');
+            string FromAddress2 = (DealerFrom.City + (string.IsNullOrEmpty(DealerFrom.State) ? "" : "," + DealerFrom.State) + (string.IsNullOrEmpty(DealerFrom.Pincode) ? "" : "-" + DealerFrom.Pincode)).Trim(',', ' ');
+
+            PDMS_DealerOffice DealerTo = new BDMS_Dealer().GetDealerOffice(StockTransferOrder.Dealer.DealerID, StockTransferOrder.DestinationOffice.OfficeID, null)[0];
+            string ToAddress1 = (DealerTo.Address1 + (string.IsNullOrEmpty(DealerTo.Address2) ? "" : "," + DealerTo.Address2) + (string.IsNullOrEmpty(DealerTo.Address3) ? "" : "," + DealerTo.Address3)).Trim(',', ' ');
+            string ToAddress2 = (DealerTo.City + (string.IsNullOrEmpty(DealerTo.State) ? "" : "," + DealerTo.State) + (string.IsNullOrEmpty(DealerTo.Pincode) ? "" : "-" + DealerTo.Pincode)).Trim(',', ' ');
+
+
+            ReportParameter[] P = new ReportParameter[13];
+            P[0] = new ReportParameter("DealerName", StockTransferOrder.Dealer.DealerName.ToUpper(), false);
+            P[1] = new ReportParameter("FromAddress1", FromAddress1, false);
+            P[2] = new ReportParameter("FromAddress2", FromAddress2, false);
+            P[3] = new ReportParameter("ToAddress1", ToAddress1, false);
+            P[4] = new ReportParameter("ToAddress2", ToAddress2, false);
+            P[5] = new ReportParameter("From", DealerFrom.OfficeName_OfficeCode, false);
+            P[6] = new ReportParameter("To", DealerTo.OfficeName_OfficeCode, false);
+            P[7] = new ReportParameter("StockTransferOrderNo", StockTransferOrder.StockTransferOrderNumber, false);
+            P[8] = new ReportParameter("StockTransferOrderDate", StockTransferOrder.StockTransferOrderDate.ToShortDateString(), false);
+            P[9] = new ReportParameter("Remarks", StockTransferOrder.Remarks, false);
+            P[10] = new ReportParameter("DealerCode", StockTransferOrder.Dealer.DealerCode, false);
+
+
+            DataTable dtItem = new DataTable();
+            dtItem.Columns.Add("ItemNo");
+            dtItem.Columns.Add("PartNo");
+            dtItem.Columns.Add("Description");
+            dtItem.Columns.Add("Qty");
+            dtItem.Columns.Add("Uom");
+            dtItem.Columns.Add("UnitPrice");
+            dtItem.Columns.Add("Gross");
+            dtItem.Columns.Add("Tax");
+            dtItem.Columns.Add("Net");
+
+            int sno = 0;
+            decimal TaxableValue = 0, TaxAmount = 0, NetAmount = 0;
+            foreach (PStockTransferOrderItem Item in StockTransferOrder.Items)
+            {
+                dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Quantity.ToString("0"), Item.Material.BaseUnit, String.Format("{0:n}", (Item.TaxableValue/Item.Quantity)), String.Format("{0:n}", Item.TaxableValue), String.Format("{0:n}", (Item.CGSTValue + Item.SGSTValue + Item.IGSTValue)), String.Format("{0:n}", (Item.TaxableValue + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue)));
+                TaxableValue += Item.TaxableValue;
+                TaxAmount += Item.CGSTValue + Item.SGSTValue + Item.IGSTValue;
+                NetAmount += TaxableValue + TaxAmount;
+            }
+            P[11] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxAmount), false);
+            P[12] = new ReportParameter("NetAmount", String.Format("{0:n}", NetAmount), false);
+            report.ReportPath = Server.MapPath("~/Print/StockTransferOrder.rdlc");
+            report.SetParameters(P);
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "StockTransferOrder";//This refers to the dataset name in the RDLC file  
+            rds.Value = dtItem;
+            report.DataSources.Add(rds);
+            Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+            return mybytes;
+        }
+        void DownloadStockTransferOrder()
+        {
+            try
+            {
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                string FileName = StockTransferOrder.StockTransferOrderNumber + ".pdf";
+                string mimeType;
+                Byte[] mybytes = StockTransferOrderRdlc(out mimeType);
+                Response.Buffer = true;
+                Response.Clear();
+                Response.ContentType = mimeType;
+                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+                Response.BinaryWrite(mybytes); // create the file
+                new BXcel().PdfDowload();
+                Response.Flush(); // send it to the client to download
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
             }
         }
     }

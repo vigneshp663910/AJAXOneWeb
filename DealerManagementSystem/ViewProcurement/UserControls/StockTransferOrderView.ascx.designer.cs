@@ -60,6 +60,24 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.LinkButton lbPDF;
 
         /// <summary>
+        /// lbPreviewSTO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbPreviewSTO;
+
+        /// <summary>
+        /// lbDowloadSTO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbDowloadSTO;
+
+        /// <summary>
         /// lblPurchaseOrderNumber control.
         /// </summary>
         /// <remarks>
