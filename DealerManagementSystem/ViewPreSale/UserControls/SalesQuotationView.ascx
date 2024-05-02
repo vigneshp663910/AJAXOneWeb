@@ -7,28 +7,32 @@
 
 <%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
 <%@ Register Src="~/ViewPreSale/UserControls/LeadViewHeader.ascx" TagPrefix="UC" TagName="UC_LeadView" %>
+<%@ Register Src="~/ViewPreSale/UserControls/AddVariant.ascx" TagPrefix="UC" TagName="UC_AddVariant" %>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
         <div class="dropdown btnactions" id="customerAction">
             <div class="btn Approval">Actions</div>
-            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px; overflow-x: auto; max-height: 300px">
                 <asp:LinkButton ID="lbtnEditQuotation" runat="server" OnClick="lbActions_Click">Edit Quotation Basic Info</asp:LinkButton>
                 <asp:LinkButton ID="lbtnEditFinancier" runat="server" OnClick="lbActions_Click">Edit Financier Info</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
+              <%--  <asp:LinkButton ID="lbtnAddVariant" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnAddCompetitor" runat="server" OnClick="lbActions_Click">Add Competitor</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddQuotationNote" runat="server" OnClick="lbActions_Click">Add Quotation Note</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddFollowUp" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
-                <%--                <asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
+                <%--<asp:LinkButton ID="lbtnAddEffort" runat="server" OnClick="lbActions_Click">Add Effort</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddExpense" runat="server" OnClick="lbActions_Click">Add Expense</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnGenerateQuotation" runat="server" OnClick="lbActions_Click">Generate Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnSaleOrderConfirmation" runat="server" OnClick="lbActions_Click">Sale Order Confirmation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnViewMachineQuotation" runat="server" OnClick="lbActions_Click">View Machine Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDownloadMachineQuotation" runat="server" OnClick="lbActions_Click">Download Machine Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnViewTaxQuotation" runat="server" OnClick="lbActions_Click">View Tax Quotation</asp:LinkButton>
-                <asp:LinkButton ID="lbtnDownloadTaxQuotation" runat="server" OnClick="lbActions_Click">Download Tax Quotation</asp:LinkButton>  
-                <asp:LinkButton ID="lbtnDownloadConsolidatedTaxQuotation" runat="server" OnClick="lbActions_Click">Download Consolidated Tax Quotation</asp:LinkButton> 
-                <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
+                <asp:LinkButton ID="lbtnDownloadTaxQuotation" runat="server" OnClick="lbActions_Click">Download Tax Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnDownloadConsolidatedTaxQuotation" runat="server" OnClick="lbActions_Click">Download Consolidated Tax Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton> 
+                <asp:LinkButton ID="lbtnAddDiscount" runat="server" OnClick="lbActions_Click">Add Discount</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddCustomerSingedQuotation" runat="server" OnClick="lbActions_Click">Add Customer Singed Quotation</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -99,6 +103,10 @@
                 <div class="col-md-12">
                     <label>User Status : </label>
                     <asp:Label ID="lblUserStatus" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                 <div class="col-md-12">
+                    <label>Product : </label>
+                    <asp:Label ID="lblProduct" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
             <%--  <div class="col-md-4">
@@ -174,12 +182,12 @@
                                     <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Plant">
+                            <%--<asp:TemplateField HeaderText="Plant">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblPlantCode" Text='<%# DataBinder.Eval(Container.DataItem, "Plant.PlantCode")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
                             <asp:TemplateField HeaderText="Unit">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
@@ -606,15 +614,15 @@
                                     <asp:Label ID="lblLocation" Text='<%# DataBinder.Eval(Container.DataItem, "Location")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            
-                            <asp:TemplateField  HeaderText="Person Met">
+
+                            <asp:TemplateField HeaderText="Person Met">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.ContactName")%>' runat="server" /> 
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.ContactName")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                             <asp:TemplateField  HeaderText="Person Designation">
+                            <asp:TemplateField HeaderText="Person Designation">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.Designation.Designation")%>' runat="server" /> 
+                                    <asp:Label ID="lblContactPerson" Text='<%# DataBinder.Eval(Container.DataItem, "PersonMet.Designation.Designation")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Remark">
@@ -682,7 +690,7 @@
                                     <asp:Label ID="lblApproved2On" Text='<%# DataBinder.Eval(Container.DataItem, "Approved1On")%>' runat="server" />
                                 </ItemTemplate>
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField> 
+                            </asp:TemplateField>
                         </Columns>
                         <FooterStyle ForeColor="White" />
                         <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
@@ -758,8 +766,8 @@
                                         <asp:Label ID="lblApproved2Remarks" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimItem.Approved2Remarks")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                
-                                 
+
+
                             </Columns>
                             <FooterStyle ForeColor="White" />
                             <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
@@ -768,6 +776,22 @@
                         </asp:GridView>
                     </div>
                 </div>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
+    <asp:TabPanel ID="TabPanel2" runat="server" HeaderText="Customer Singed Quotation" Font-Bold="True" ToolTip="">
+        <ContentTemplate>
+            <br />
+            <div class="col-md-12 View">
+                 <div class="col-md-4">
+                    <label>Customer Agreed Price : </label>
+                    <asp:Label ID="lblCustomerAgreedPrice" runat="server" CssClass="LabelValue"></asp:Label>
+                     <asp:Label ID="lblSalesQuotationCustomerSingedID" runat="server" CssClass="LabelValue" Visible="false"></asp:Label>
+                </div>
+                <div class="col-md-4">
+                    <label></label> 
+                    <asp:LinkButton ID="lbtnCustomerSingedQuotationDownload" runat="server" OnClick="lbtnCustomerSingedQuotationDownload_Click"></asp:LinkButton>
+                </div> 
             </div>
         </ContentTemplate>
     </asp:TabPanel>
@@ -832,10 +856,10 @@
     <div class="col-md-12">
         <fieldset class="fieldset-border" id="Fieldset1" runat="server">
             <div class="col-md-12">
-                <div class="col-md-6 col-sm-12">
+                <%--<div class="col-md-6 col-sm-12">
                     <label class="modal-label">Plant</label>
                     <asp:DropDownList ID="ddlPlant" runat="server" CssClass="form-control" />
-                </div>
+                </div>--%>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Material</label>
                     <asp:TextBox ID="txtMaterial" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
@@ -999,9 +1023,9 @@
 
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Cold Visit Date</label>
-                        <asp:TextBox ID="txtVisitDate" runat="server" CssClass="form-control" BorderColor="Silver"  ></asp:TextBox> 
-                            <asp:CalendarExtender ID="ceVisitDate" runat="server" TargetControlID="txtVisitDate" PopupButtonID="txtVisitDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtVisitDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        <asp:TextBox ID="txtVisitDate" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        <asp:CalendarExtender ID="ceVisitDate" runat="server" TargetControlID="txtVisitDate" PopupButtonID="txtVisitDate" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtVisitDate" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Action Type</label>
@@ -1023,7 +1047,7 @@
                         <label class="modal-label">Remark</label>
                         <asp:TextBox ID="txtVisitRemark" runat="server" CssClass="form-control" BorderColor="Silver" Rows="6" TextMode="MultiLine"></asp:TextBox>
                     </div>
-                    
+
                 </div>
             </fieldset>
         </div>
@@ -1033,6 +1057,82 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Visit" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlVisit" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="pnlAddVariant" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button9" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageVariant" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <UC:UC_AddVariant ID="UC_AddVariant" runat="server"></UC:UC_AddVariant>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveVariant" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveVariant_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Variant" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddVariant" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlDiscount" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Add Visit</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button10" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageDiscount" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <div class="col-md-12">
+
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Discount Amount</label>
+                        <asp:TextBox ID="txtHeaderDiscount" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                    </div>
+
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnHeaderDiscount" runat="server" Text="Save" CssClass="btn Save" OnClick="btnHeaderDiscount_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_HeaderDiscount" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDiscount" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+
+<asp:Panel ID="Panel1" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Customer Singed Copy</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button11" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageCustomerSingedCopy" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border">
+                <div class="col-md-12"> 
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Customer Agreed Price</label>
+                        <asp:TextBox ID="txtCustomerAgreedPrice" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
+                    </div> 
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Singed  Document</label>
+                         <asp:FileUpload ID="fuCustomerSinged" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
+                    </div> 
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnCustomerSingedCopy" runat="server" Text="Save" CssClass="btn Save" OnClick="btnCustomerSingedCopy_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_CustomerSingedCopy" runat="server" TargetControlID="lnkMPE" PopupControlID="Panel1" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 
 <%--<fieldset class="fieldset-border" id="Fieldset4" runat="server">
     <div class="col-md-12">

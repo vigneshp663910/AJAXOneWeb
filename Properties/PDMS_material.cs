@@ -108,6 +108,16 @@ namespace Properties
         public bool IsActive { get; set; } 
     }
     [Serializable]
+    public class PMaterialDrawing
+    {
+        public long MaterialDrawingID { get; set; }
+        public PDMS_Material Material { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public bool IsActive { get; set; }
+    }
+    [Serializable]
     public class PMaterial
     {
         public long MaterialID { get; set; }
@@ -213,31 +223,25 @@ namespace Properties
         public decimal RoqQty { get; set; }
 
     }
-     
-    [Serializable]
-    public class PMainModel
-    {
-        public int ModelMainID { get; set; }
-        public string ModelMain { get; set; } 
-    }
+      
 
     [Serializable]
     public class PMaterialVariantType
     {
-        public int VariantsTypeID { get; set; }
+        public int VariantTypeID { get; set; }
         public string VariantName { get; set; }
-        public PMainModel MainModel { get; set; }
-        public int CountToSelect { get; set; }  
-        public bool IsActive { get; set; }
-        public PDMS_Material Material { get; set; }
+        public PProductType ProductType { get; set; }
+        public int MaxToSelect { get; set; }  
+        public bool IsActive { get; set; } 
     }
 
     [Serializable]
-    public class PMaterialVariantsMapping
+    public class PMaterialVariantTypeMapping
     {
-        public int MaterialVariantsMappingID { get; set; }
-        public PMaterialVariantType VariantsType { get; set; }
-        public PDMS_Material Material { get; set; } 
+        public long MaterialVariantTypeMappingID { get; set; }
+        public PProduct Product { get; set; }
+        public PMaterialVariantType VariantType { get; set; }
+        public PDMS_Material Material { get; set; }  
         public bool IsActive { get; set; }
     }
     [Serializable]

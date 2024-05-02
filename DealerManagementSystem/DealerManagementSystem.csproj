@@ -507,6 +507,8 @@
     <Content Include="ViewMaster\MaterialSync.aspx" />
     <Content Include="ViewMaster\UserControls\CustomerVerification.ascx" />
     <Content Include="ViewMaster\UserControls\LocationDistrict.ascx" />
+    <Content Include="ViewMaster\UserControls\MaterialView.ascx" />
+    <Content Include="ViewMaster\UserControls\ModelView.ascx" />
     <Content Include="ViewMaster\UserLocationTrackMap.aspx" />
     <Content Include="ViewMaster\SalesCommissionClaimPrice.aspx" />
     <Content Include="ViewMaster\LocationMap.aspx" />
@@ -598,6 +600,7 @@
     <Content Include="ViewPreSale\UserControls\AddLead.ascx" />
     <Content Include="ViewPreSale\UserControls\AddLeadProduct.ascx" />
     <Content Include="ViewPreSale\UserControls\AddQuotation.ascx" />
+    <Content Include="ViewPreSale\UserControls\AddVariant.ascx" />
     <Content Include="ViewPreSale\UserControls\AssignSE.ascx" />
     <Content Include="ViewPreSale\UserControls\ColdVisitsView.ascx" />
     <Content Include="ViewPreSale\UserControls\Effort.ascx" />
@@ -1741,6 +1744,20 @@
     <Compile Include="ViewMaster\UserControls\LocationDistrict.ascx.designer.cs">
       <DependentUpon>LocationDistrict.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewMaster\UserControls\MaterialView.ascx.cs">
+      <DependentUpon>MaterialView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\MaterialView.ascx.designer.cs">
+      <DependentUpon>MaterialView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\ModelView.ascx.cs">
+      <DependentUpon>ModelView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\ModelView.ascx.designer.cs">
+      <DependentUpon>ModelView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewMaster\UserLocationTrackMap.aspx.cs">
       <DependentUpon>UserLocationTrackMap.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2212,6 +2229,13 @@
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AddQuotation.ascx.designer.cs">
       <DependentUpon>AddQuotation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddVariant.ascx.cs">
+      <DependentUpon>AddVariant.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\UserControls\AddVariant.ascx.designer.cs">
+      <DependentUpon>AddVariant.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\UserControls\AssignSE.ascx.cs">
       <DependentUpon>AssignSE.ascx</DependentUpon>
@@ -3330,9 +3354,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
+    <EmbeddedResource Include="Print\SalesMachineQuotationStd.rdlc" />
+    <EmbeddedResource Include="Print\SalesMachineQuotation.rdlc" />
     <Content Include="Print\SalesMachineQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_L.900.508.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_101030080000.rdlc" />
+    <EmbeddedResource Include="Print\SalesTaxQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\SalesTaxQuotation.rdlc" />
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>

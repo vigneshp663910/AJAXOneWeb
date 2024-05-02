@@ -18,21 +18,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class SalesQuotationView : System.Web.UI.UserControl
     {
-        //private PLead Lead
-        //{
-        //    get
-        //    {
-        //        if (Session["PLead"] == null)
-        //        {
-        //            Session["PLead"] = new PLead();
-        //        }
-        //        return (PLead)Session["PLead"];
-        //    }
-        //    set
-        //    {
-        //        Session["PLead"] = value;
-        //    }
-        //}
+
         public PSalesQuotation Quotation
         {
             get
@@ -48,6 +34,23 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ViewState["SalesQuotationView"] = value;
             }
         }
+
+        public PSalesQuotationCustomerSinged Singed
+        {
+            get
+            {
+                if (ViewState["PSalesQuotationCustomerSinged"] == null)
+                {
+                    ViewState["PSalesQuotationCustomerSinged"] = new PSalesQuotationCustomerSinged();
+                }
+                return (PSalesQuotationCustomerSinged)ViewState["PSalesQuotationCustomerSinged"];
+            }
+            set
+            {
+                ViewState["PSalesQuotationCustomerSinged"] = value;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Visible = false;
@@ -106,10 +109,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
                 MPE_Financier.Show();
             }
-            else if (lbActions.Text == "Add Product")
+            else if (lbActions.ID == "lbtnAddProduct")
             {
-                new DDLBind(ddlPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID");
-                MPE_Product.Show();
+                // new DDLBind(ddlPlant, new BDMS_Master().GetPlant(null, null), "PlantCode", "PlantID");
+                if (Quotation.IsStandard)
+                {
+                    UC_AddVariant.FillMaster(Quotation.Lead.ProductType.ProductTypeID, Quotation);
+                    MPE_Variant.Show();
+                }
+                else
+                {
+                    MPE_Product.Show();
+                }
             }
             else if (lbActions.Text == "Add Competitor")
             {
@@ -250,7 +261,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
                 new DDLBind(ddlPersonMet, new BDMS_Customer().GetCustomerRelation(Quotation.Lead.Customer.CustomerID, null), "ContactName", "CustomerRelationID");
             }
-
+            else if (lbActions.Text == "Add Customer Singed Quotation")
+            {
+                MPE_CustomerSingedCopy.Show();
+            }
             //else if (lbActions.Text == "Generate Commission Claim")
             //{ 
             //    lblMessage.Visible = true;
@@ -369,7 +383,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 //PSalesQuotationItem MaterialTax = new SQuotation().getMaterialTaxForQuotation(Quotation, Material, IsWarrenty, Qty);
 
                 PSalesQuotationItem MaterialTax = new BSalesQuotation().getMaterialTaxForQuotation(Quotation, Material, IsWarrenty, Qty);
-                
+
+                if (MaterialTax == null)
+                {
+                    lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
+                    return;
+                }
                 if (MaterialTax.Rate <= 0)
                 {
                     lblMessageProduct.Text = "Please maintain the price for Material " + Material + " in SAP";
@@ -383,7 +402,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 MaterialTax.Material.MaterialID = MM.MaterialID;
                 //Item.Material.MaterialDescription = MM.MaterialDescription;
 
-                MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
+                //MaterialTax.Plant = new PPlant() { PlantID = Convert.ToInt32(ddlPlant.SelectedValue) };
                 MaterialTax.Qty = Convert.ToInt32(txtQty.Text);
                 //MaterialTax.Rate = MaterialTax.Rate;
                 decimal P = (MaterialTax.Rate * Convert.ToDecimal(txtQty.Text));
@@ -682,44 +701,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             MPE_FollowUp.Hide();
             fillFollowUp();
         }
-        //protected void btnSaveFollowUp_Click(object sender, EventArgs e)
-        //{
-        //    MPE_FollowUp.Show();
-        //    string Message = UC_FollowUp.ValidationFollowUp();
-        //    lblMessageFollowUp.ForeColor = Color.Red;
-        //    lblMessageFollowUp.Visible = true;
-        //    if (!string.IsNullOrEmpty(Message))
-        //    {
-        //        lblMessageFollowUp.Text = Message;
-        //        return;
-        //    }
-        //    PLeadFollowUp FollowUp = new PLeadFollowUp();
-        //    FollowUp = UC_FollowUp.ReadFollowUp();
-        //    FollowUp.LeadFollowUpID = 0;
-        //    FollowUp.LeadID = Quotation.QuotationID;
 
-
-        //    PSalesQuotationFollowUp SalesQuotation = new PSalesQuotationFollowUp();
-
-        //    SalesQuotation.FollowUpDate = FollowUp.FollowUpDate;
-        //    SalesQuotation.FollowUpNote = FollowUp.FollowUpNote;
-        //    SalesQuotation.SalesEngineer = FollowUp.SalesEngineer;
-        //    SalesQuotation.CreatedBy = Lead.CreatedBy;
-
-        //    SalesQuotation.SalesQuotationFollowUpID = 0;
-        //    SalesQuotation.SalesQuotationID = Quotation.QuotationID;
-        //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/FollowUp", SalesQuotation));
-        //    if (Results.Status == PApplication.Failure)
-        //    {
-        //        lblMessageEffort.Text = Results.Message;
-        //        return;
-        //    }
-        //    lblMessage.Text = "Updated Successfully";
-        //    lblMessage.Visible = true;
-        //    lblMessage.ForeColor = Color.Green;
-        //    MPE_FollowUp.Hide();
-        //    fillFollowUp();
-        //}
         protected void btnSaveEffort_Click(object sender, EventArgs e)
         {
 
@@ -832,9 +814,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
-
-           // lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
-           // lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
+            lblProduct.Text = Quotation.LeadProduct.Product.Product;
+            // lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
+            // lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
             cbCommissionAgent.Checked = Quotation.CommissionAgent;
             fillFinancier();
             fillProduct();
@@ -843,7 +825,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillFollowUp();
             //fillEffort();
             //fillExpense();
-            ActionControlMange();
+          
 
             UC_LeadView.fillViewLead(Quotation.Lead);
             CustomerViewSoldTo.fillCustomer(Quotation.Lead.Customer);
@@ -851,6 +833,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillShifTo();
             fillVisit();
             fillSalesCommissionClaim();
+            fillCustomerSingedCopy();
+
+            ActionControlMange();
         }
         public string ValidationFinancier()
         {
@@ -895,11 +880,12 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public string ValidationProduct()
         {
             string Message = "";
-            if (ddlPlant.SelectedValue == "0")
-            {
-                Message = "Please select the Plant";
-            }
-            else if (string.IsNullOrEmpty(txtMaterial.Text.Trim()))
+            //if (ddlPlant.SelectedValue == "0")
+            //{
+            //    Message = "Please select the Plant";
+            //}
+            //else
+            if (string.IsNullOrEmpty(txtMaterial.Text.Trim()))
             {
                 Message = "Please enter the note Material";
             }
@@ -1019,18 +1005,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             gvFollowUp.DataSource = FollowUp;
             gvFollowUp.DataBind();
         }
-        //void fillEffort()
-        //{
-        //    gvEffort.DataSource = new BSalesQuotation().GetSalesQuotationEffort(Quotation.QuotationID, PSession.User.UserID);
-        //    gvEffort.DataBind();
-        //}
-        //void fillExpense()
-        //{
-        //    gvExpense.DataSource = new BSalesQuotation().GetSalesQuotationExpense(Quotation.QuotationID, PSession.User.UserID);
-        //    gvExpense.DataBind();
 
-
-        //}
         Byte[] MachineQuotationRdlc(out string mimeType)
         {
 
@@ -1128,7 +1103,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 {
                     //DTMaterialText = new SQuotation().getMaterialTextForQuotation(Q.QuotationItems[i].Material.MaterialCode);
                     DTMaterialText = new BSalesQuotation().getMaterialTextForQuotation(Q.QuotationItems[i].Material.MaterialCode);
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -1149,23 +1124,23 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                     count = count + 1;
                     if (count < 10)
                     {
-                        MaterialText1 += string.IsNullOrEmpty(MaterialText1)? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); 
+                        MaterialText1 += string.IsNullOrEmpty(MaterialText1) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");
                     }
                     else if (count < 20)
                     {
-                        MaterialText2 += string.IsNullOrEmpty(MaterialText2) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
+                        MaterialText2 += string.IsNullOrEmpty(MaterialText2) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");
                     }
                     else if (count < 30)
                     {
-                        MaterialText3 += string.IsNullOrEmpty(MaterialText3) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
+                        MaterialText3 += string.IsNullOrEmpty(MaterialText3) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");
                     }
                     else if (count < 40)
                     {
-                        MaterialText4 += string.IsNullOrEmpty(MaterialText4) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
+                        MaterialText4 += string.IsNullOrEmpty(MaterialText4) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");
                     }
                     else
                     {
-                        MaterialText5 += string.IsNullOrEmpty(MaterialText5) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");  
+                        MaterialText5 += string.IsNullOrEmpty(MaterialText5) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#");
                     }
                 }
 
@@ -1179,7 +1154,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
 
             }
-             
+
 
             if ((Q.Lead.ProductType.Division.DivisionCode == "CM") || (Q.Lead.ProductType.Division.DivisionCode == "DP"))
             {
@@ -1187,7 +1162,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             else
             {
-                P[24] = new ReportParameter("TCSTaxTerms", "", false); 
+                P[24] = new ReportParameter("TCSTaxTerms", "", false);
             }
             if (Q.Lead.ProductType.Division.DivisionCode == "BP")
             {
@@ -1231,6 +1206,193 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             return mybytes;
         }
+
+        Byte[] MachineQuotationStdRdlc(List<PProductDrawing> ProductDrawing, out string mimeType)
+        {
+            PSalesQuotation Q = Quotation;
+            var CC = CultureInfo.CurrentCulture;
+            Random r = new Random();
+            string extension;
+            string encoding;
+            string[] streams;
+            Warning[] warnings;
+            LocalReport report = new LocalReport();
+            report.EnableExternalImages = true;
+
+            PDMS_Customer Customer = Q.Lead.Customer;
+            string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : ", " + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : ", " + Customer.Address3)).Trim(',', ' ');
+            string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : ", " + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : ", " + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
+            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
+
+            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+            string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
+            string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
+
+            PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(Q.Lead.Dealer.DealerCode);
+            string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
+            string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+
+            List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
+
+            string Reference = "", KindAttention = "", QNote = "" //, Hypothecation = "", TermsOfPayment = ""
+                                                                  , Delivery = ""//, Validity = "", Foc = "", MarginMoney = "", Subject = ""
+                , Name = "", Designation = "", PhoneNumber = "";
+            foreach (PSalesQuotationNote Note in Q.Notes)
+            {
+                if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Reference) { Reference = Note.Remark; }
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.KindAttention) { KindAttention = Note.Remark; }
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Note) { QNote = Note.Remark; }
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Delivery) { Delivery = Note.Remark; }
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Name) { Name = Note.Remark; }
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Designation) { Designation = Note.Remark; }
+                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.PhoneNumber) { PhoneNumber = Note.Remark; }
+            }
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red;
+
+
+
+            ReportParameter[] P = new ReportParameter[38];
+            P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
+            P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
+            P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
+            P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName/* Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2*/, false);
+            P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
+            P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
+            P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
+            P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
+            P[8] = new ReportParameter("Attention", KindAttention, false);
+            P[9] = new ReportParameter("Subject", Q.QuotationItems[0].Material.MaterialDescription, false);
+            P[10] = new ReportParameter("Reference", Reference, false);
+            P[11] = new ReportParameter("Annexure", "A-I", false);
+            P[12] = new ReportParameter("AnnexureRef", Q.SapQuotationNo, false);
+            P[13] = new ReportParameter("AnnexureDate", Q.SapQuotationDate.ToString(), false);
+            P[14] = new ReportParameter("TCSTax", "TCSTax Persent", false);
+            P[15] = new ReportParameter("Delivery", Delivery, false);
+            P[18] = new ReportParameter("Note", QNote, false);
+            P[19] = new ReportParameter("WarrantyDeliveryHours", Q.QuotationItems[0].Material.Model.Division.WarrantyDeliveryHours, false);//2000 
+            P[20] = new ReportParameter("ConcernName", Name, false);
+            P[21] = new ReportParameter("ConcernDesignation", Designation, false);
+            P[22] = new ReportParameter("ConcernMobile", PhoneNumber, false);
+
+
+            DataTable dtItem = new DataTable();
+            dtItem.Columns.Add("TechnicalSpecification");
+            dtItem.Columns.Add("Units");
+            dtItem.Columns.Add("UnitPriceINR");
+            dtItem.Columns.Add("AmountINR");
+            decimal GrandTotal = 0;
+
+
+            for (int i = 0; i < Q.QuotationItems.Count(); i++)
+            {
+                P[23] = new ReportParameter("MaterialText", "", false);
+
+
+                dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty + " " + Q.QuotationItems[i].Material.BaseUnit, String.Format("{0:n}", Q.QuotationItems[i].Rate - Q.QuotationItems[i].Discount), String.Format("{0:n}", (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Q.QuotationItems[i].Discount));
+                GrandTotal += (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Convert.ToDecimal(Q.QuotationItems[i].Discount);
+
+                P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
+
+            }
+
+
+            if ((Q.Lead.ProductType.Division.DivisionCode == "CM") || (Q.Lead.ProductType.Division.DivisionCode == "DP"))
+            {
+                P[24] = new ReportParameter("TCSTaxTerms", "If TCS is applicable, it will be calculated on sale consideration Plus GST.", false);
+            }
+            else
+            {
+                P[24] = new ReportParameter("TCSTaxTerms", "", false);
+            }
+            if (Q.Lead.ProductType.Division.DivisionCode == "BP")
+            {
+                P[25] = new ReportParameter("ErectionCommissoningHead", "ERECTION AND COMMISSONING :", false);
+                P[26] = new ReportParameter("ErectionCommissoning", "Erection and Commissioning will be in customer scope. Ajax shall be deputing service engineer for supervision of Erection and commissioning of the machine, on receipt of your confirmation of receipt of equipment and readiness of your site.The standard time for erection and commissioning is 1 day and additional 1 day for trail run &Training to your operation staff.The period of stay shall be restricted to 2 working days beyond that the services shall be on chargeable basis.Customer shall provide him all lodging, boarding & local conveyance facility.Customer shall provide all pulling tools, tackles, crane, skilled / unskilled labour, consumables like oil, welding machine, electrod etc., ", false);
+            }
+            else
+            {
+                P[25] = new ReportParameter("ErectionCommissoningHead", "", false);
+                P[26] = new ReportParameter("ErectionCommissoning", "", false);
+            }
+
+
+            if (Quotation.CommissionAgent)
+            {
+                P[27] = new ReportParameter("CompanyName", Ajax.CustomerName.ToUpper(), false);
+                P[28] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
+                P[29] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
+                P[30] = new ReportParameter("CompanyCINandGST", "CIN : " + Ajax.CIN + ", GST : " + Ajax.GSTIN);
+                P[31] = new ReportParameter("CompanyPAN", "PAN : " + Ajax.PAN + ", T : " + Ajax.Mobile);
+                P[32] = new ReportParameter("CompanyTelephoneandEmail", "Email : " + Ajax.Email + ", Web : " + Ajax.Web);
+            }
+            else
+            {
+                P[27] = new ReportParameter("CompanyName", Dealer.CustomerFullName, false);
+                P[28] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
+                P[29] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
+                P[30] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Dealer.GSTIN);
+                P[31] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.PAN);
+                P[32] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
+            }
+            //string   BatchingPlantImage1 = new Uri(Server.MapPath("~/d/TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
+            //string BatchingPlantImage2 = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
+            //string BatchingPlantTechSpec = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
+
+            string img1 = "", Image1Spec = "", img2 = "", Image2Spec = "", Spec = "";
+            if (!Directory.Exists(Server.MapPath(UIHelper.ProductDrawingFolder)))
+            {
+                Directory.CreateDirectory(Server.MapPath(UIHelper.ProductDrawingFolder));
+            }
+            foreach (PProductDrawing D in ProductDrawing)
+            {
+                string imgName = D.ProductDrawingID + "." + D.FileName.Split('.')[D.FileName.Split('.').Count() - 1];
+                if (!File.Exists(Server.MapPath(UIHelper.ProductDrawingFolder + "/" + imgName)))
+                {
+                    PAttachedFile Files = new BDMS_Master().GetAttachedFileProductDrawingForDownload(D.ProductDrawingID + Path.GetExtension(D.FileName));
+                    File.WriteAllBytes(Server.MapPath(UIHelper.ProductDrawingFolder + "/" + imgName), Files.AttachedFile);
+                }
+                if (D.ProductDrawingType.ProductDrawingTypeID == 1)
+                {
+                    img1 = imgName;
+                    Image1Spec = D.DrawingDescription;
+                }
+                if (D.ProductDrawingType.ProductDrawingTypeID == 2)
+                {
+                    img2 = imgName;
+                    Image2Spec = D.DrawingDescription;
+                }
+                if (D.ProductDrawingType.ProductDrawingTypeID == 3)
+                {
+                    Spec = imgName;
+                }
+            }
+
+
+            string BatchingPlantImage1 = new Uri(Server.MapPath(UIHelper.ProductDrawingFolder + "/" + img1)).AbsoluteUri;
+            string BatchingPlantImage2 = new Uri(Server.MapPath(UIHelper.ProductDrawingFolder + "/" + img2)).AbsoluteUri;
+            string BatchingPlantTechSpec = new Uri(Server.MapPath(UIHelper.ProductDrawingFolder + "/" + Spec)).AbsoluteUri;
+
+
+
+            P[33] = new ReportParameter("BatchingPlantImage1", BatchingPlantImage1);
+            P[34] = new ReportParameter("BatchingPlantImage1Spec", Image1Spec);
+            P[35] = new ReportParameter("BatchingPlantImage2", BatchingPlantImage2);
+            P[36] = new ReportParameter("BatchingPlantImage2Spec", Image2Spec);
+            P[37] = new ReportParameter("BatchingPlantTechSpec", BatchingPlantTechSpec);
+
+            report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotationStd.rdlc");
+            report.SetParameters(P);
+            ReportDataSource rds = new ReportDataSource();
+            rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
+            rds.Value = dtItem;
+            report.DataSources.Add(rds); ;
+            Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+            return mybytes;
+        }
         void ViewMachineQuotation()
         {
             try
@@ -1247,11 +1409,29 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
                 string mimeType = string.Empty;
-                Byte[] mybytes = MachineQuotationRdlc(out mimeType);
+                Byte[] mybytes = null;
+                if (Quotation.IsStandard)
+                {
+                    List<PProductDrawing> ProductDrawing = new BDMS_Master().GetProductDrawing(Q.LeadProduct.Product.ProductID);
+                    if (ProductDrawing.Count != 3)
+                    {
+                        lblMessage.Text = "Drawing is not available";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+
+
+                    mybytes = MachineQuotationStdRdlc(ProductDrawing, out mimeType);
+                }
+                else
+                {
+                    mybytes = MachineQuotationRdlc(out mimeType);
+                }
                 // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
                 string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
 
-                string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
+                string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model.Replace('#', ' ') + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
                 string contentType = "application/pdf";
                 var uploadPath = Server.MapPath("~/Backup");
                 var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
@@ -1288,13 +1468,29 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
 
                 string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
-                 
-                
+
+
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
                 string mimeType;
-                Byte[] mybytes = MachineQuotationRdlc(out mimeType);
-                
+                Byte[] mybytes = null;
+                if (Quotation.IsStandard)
+                {
+                    List<PProductDrawing> ProductDrawing = new BDMS_Master().GetProductDrawing(Q.LeadProduct.Product.ProductID);
+                    if (ProductDrawing.Count != 3)
+                    {
+                        lblMessage.Text = "Drawing is not available";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    mybytes = MachineQuotationStdRdlc(ProductDrawing, out mimeType);
+                }
+                else
+                {
+                    mybytes = MachineQuotationRdlc(out mimeType);
+                }
+
                 Response.Buffer = true;
                 Response.Clear();
                 Response.ContentType = mimeType;
@@ -1313,501 +1509,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return;
             }
         }
-        //void ViewMachineQuotation()
-        //{
-        //    try
-        //    {
-        //        lblMessage.Text = "";
-        //        PSalesQuotation Q = Quotation;
-        //        if (string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
-        //        {
-        //            lblMessage.Text = "Quotation Not Generated...!";
-        //            lblMessage.Visible = true;
-        //            lblMessage.ForeColor = Color.Red;
-        //            return;
-        //        }
-        //        string contentType = string.Empty;
-        //        contentType = "application/pdf";
-        //        var CC = CultureInfo.CurrentCulture;
-        //        Random r = new Random();
-        //        string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
-        //        string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
-        //        string extension;
-        //        string encoding;
-        //        string mimeType;
-        //        string[] streams;
-        //        Warning[] warnings;
-        //        LocalReport report = new LocalReport();
-        //        report.EnableExternalImages = true;
 
-        //        PDMS_Customer Customer = Q.Lead.Customer;
-        //        string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : ", " + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : ", " + Customer.Address3)).Trim(',', ' ');
-        //        string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : ", " + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : ", " + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-
-        //        List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
-
-        //        PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
-        //        string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
-        //        string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
-
-        //        PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Q.Lead.Dealer.DealerCode);
-        //        string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-        //        string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
-
-        //        List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
-
-        //        string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
-        //        foreach (PSalesQuotationNote Note in Q.Notes)
-        //        {
-        //            if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 10) { Subject = Note.Remark; }
-        //        }
-        //        lblMessage.Visible = true;
-        //        lblMessage.ForeColor = Color.Red;
-
-        //        //if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
-        //        //if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
-        //        //if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
-        //        //if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
-        //        //if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
-        //        //if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
-        //        //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
-        //        //if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
-
-        //        ReportParameter[] P = new ReportParameter[38];
-        //        //Q.Lead.Dealer.
-        //        P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
-        //        P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
-        //        P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
-        //        P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName/* Q.Lead.Customer.CustomerName + " " + Q.Lead.Customer.CustomerName2*/, false);
-        //        P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
-        //        P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-        //        P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
-        //        P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
-        //        P[8] = new ReportParameter("Attention", KindAttention, false);
-        //        P[9] = new ReportParameter("Subject", Q.QuotationItems[0].Material.MaterialDescription, false);
-        //        P[10] = new ReportParameter("Reference", Reference, false);
-        //        P[11] = new ReportParameter("Annexure", "A-I", false);
-        //        P[12] = new ReportParameter("AnnexureRef", Q.SapQuotationNo, false);
-        //        P[13] = new ReportParameter("AnnexureDate", Q.SapQuotationDate.ToString(), false);
-        //        P[14] = new ReportParameter("TCSTax", "TCSTax Persent", false);
-        //        P[15] = new ReportParameter("Delivery", Delivery, false);
-        //        //P[16] = new ReportParameter("InWordsTotalAmount", "ZERO RUPEES Only", false);
-        //        //P[17] = new ReportParameter("TotalAmount", "00000.000", false);
-        //        P[18] = new ReportParameter("Note", QNote, false);
-        //        P[19] = new ReportParameter("WarrantyDeliveryHours", Q.QuotationItems[0].Material.Model.Division.WarrantyDeliveryHours, false);//2000
-        //        //if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "CM")
-        //        //{
-        //        //    P[19] = new ReportParameter("WarrantyDeliveryHours", "2000", false);//2000
-        //        //}
-        //        //else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "DP")
-        //        //{
-        //        //    P[19] = new ReportParameter("WarrantyDeliveryHours", "2000", false);//2000
-        //        //}
-        //        //else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
-        //        //{
-        //        //    P[19] = new ReportParameter("WarrantyDeliveryHours", "1000", false);//1000
-        //        //}
-        //        //else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "CP")
-        //        //{
-        //        //    P[19] = new ReportParameter("WarrantyDeliveryHours", "1000", false);//1000
-        //        //}
-        //        //else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "TM")
-        //        //{
-        //        //    P[19] = new ReportParameter("WarrantyDeliveryHours", "1000", false);//1000
-        //        //}
-        //        //else
-        //        //{
-        //        //    lblMessage.Text = "Division Not Available";
-        //        //    lblMessage.Visible = true;
-        //        //    lblMessage.ForeColor = Color.Red;
-        //        //    return;
-        //        //}
-
-        //        P[20] = new ReportParameter("ConcernName", Q.Lead.AssignedTo.ContactName, false);
-        //        P[21] = new ReportParameter("ConcernDesignation", Q.Lead.AssignedTo.Designation.DealerDesignation, false);
-        //        P[22] = new ReportParameter("ConcernMobile", Q.Lead.AssignedTo.ContactNumber, false);
-
-
-        //        DataTable dtItem = new DataTable();
-        //        dtItem.Columns.Add("TechnicalSpecification");
-        //        dtItem.Columns.Add("Units");
-        //        dtItem.Columns.Add("UnitPriceINR");
-        //        dtItem.Columns.Add("AmountINR");
-        //        dtItem.Columns.Add("MaterialText");
-        //        decimal GrandTotal = 0;
-        //        DataTable DTMaterialText = new DataTable();
-        //        for (int i = 0; i < Q.QuotationItems.Count(); i++)
-        //        {
-        //            try
-        //            {
-        //                DTMaterialText = new SQuotation().getMaterialTextForQuotation(Q.QuotationItems[i].Material.MaterialCode);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                lblMessage.Text = ex.Message.ToString();
-        //                lblMessage.Visible = true;
-        //                lblMessage.ForeColor = Color.Red;
-        //            }
-        //            string MaterialText = string.Empty;
-        //            int sno = 0;
-        //            foreach (DataRow dr in DTMaterialText.Rows)
-        //            {
-        //                MaterialText += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
-        //            }
-        //            P[23] = new ReportParameter("MaterialText", "", false);
-
-
-        //            dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty + " " + Q.QuotationItems[i].Material.BaseUnit, String.Format("{0:n}", Q.QuotationItems[i].Rate - Q.QuotationItems[i].Discount), String.Format("{0:n}", (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Q.QuotationItems[i].Discount), MaterialText);
-        //            GrandTotal += (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Convert.ToDecimal(Q.QuotationItems[i].Discount);
-
-        //            P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-        //            P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
-
-        //        }
-
-        //        List<PPlant> Plant = new BDMS_Master().GetPlant(null, Q.QuotationItems[0].Plant.PlantCode);
-        //        string PlantAddress1 = (Plant[0].Address1 + (string.IsNullOrEmpty(Plant[0].Address2) ? "" : "," + Plant[0].Address2) + (string.IsNullOrEmpty(Plant[0].Address3) ? "" : "," + Plant[0].Address3)).Trim(',', ' ');
-        //        string PlantAddress2 = (Plant[0].City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Plant[0].State.State) + (string.IsNullOrEmpty(Plant[0].Country.Country) ? "" : "," + Plant[0].Country.Country)).Trim(',', ' ');
-
-        //        if (Q.QuotationItems[0].Plant.PlantCode == "P003")
-        //        {
-        //            P[24] = new ReportParameter("FactoryName", Plant[0].PlantName, false);
-        //            P[25] = new ReportParameter("FactoryAddress", PlantAddress1 + PlantAddress2, false);
-        //            P[26] = new ReportParameter("FactoryPhoneno", Ajax.Mobile, false);
-        //            P[27] = new ReportParameter("FactoryFax", "", false);
-        //            P[28] = new ReportParameter("FactoryWebsite", "www.ajax-engg.com", false);
-        //            P[29] = new ReportParameter("TCSTaxTerms", "If TCS is applicable, it will be calculated on sale consideration Plus GST.", false);
-        //        }
-        //        else /*if (Q.QuotationItems[0].Plant.PlantCode == "P001")*/
-        //        {
-        //            P[24] = new ReportParameter("FactoryName", Plant[0].PlantName, false);
-        //            P[25] = new ReportParameter("FactoryAddress", PlantAddress1 + PlantAddress2, false);
-        //            P[26] = new ReportParameter("FactoryPhoneno", Ajax.Mobile, false);
-        //            P[27] = new ReportParameter("FactoryFax", "", false);
-        //            P[28] = new ReportParameter("FactoryWebsite", "www.ajax-engg.com", false);
-        //            P[29] = new ReportParameter("TCSTaxTerms", "", false);
-        //        }
-
-        //        if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
-        //        {
-        //            P[30] = new ReportParameter("ErectionCommissoningHead", "ERECTION AND COMMISSONING :", false);
-        //            P[31] = new ReportParameter("ErectionCommissoning", "Erection and Commissioning will be in customer scope. Ajax shall be deputing service engineer for supervision of Erection and commissioning of the machine, on receipt of your confirmation of receipt of equipment and readiness of your site.The standard time for erection and commissioning is 1 day and additional 1 day for trail run &Training to your operation staff.The period of stay shall be restricted to 2 working days beyond that the services shall be on chargeable basis.Customer shall provide him all lodging, boarding & local conveyance facility.Customer shall provide all pulling tools, tackles, crane, skilled / unskilled labour, consumables like oil, welding machine, electrod etc., ", false);
-        //        }
-        //        else
-        //        {
-        //            P[30] = new ReportParameter("ErectionCommissoningHead", "", false);
-        //            P[31] = new ReportParameter("ErectionCommissoning", "", false);
-        //        }
-
-
-        //        if (Quotation.CommissionAgent)
-        //        {
-        //            P[32] = new ReportParameter("CompanyName", Ajax.CustomerName.ToUpper(), false);
-        //            P[33] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
-        //            P[34] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-        //            P[35] = new ReportParameter("CompanyCINandGST", "CIN : " + Ajax.CIN + ", GST : " + Ajax.GSTIN);
-        //            P[36] = new ReportParameter("CompanyPAN", "PAN : " + Ajax.PAN + ", T : " + Ajax.Mobile);
-        //            P[37] = new ReportParameter("CompanyTelephoneandEmail", "Email : " + Ajax.Email + ", Web : " + Ajax.Web);
-        //        }
-        //        else
-        //        {
-        //            P[32] = new ReportParameter("CompanyName", Dealer.CustomerFullName, false);
-        //            P[33] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
-        //            P[34] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
-        //            P[35] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Dealer.GSTIN);
-        //            P[36] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.PAN);
-        //            P[37] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
-        //        }
-
-        //        //if (File.Exists(Server.MapPath("~/Print/SalesSpec_Machine_" + Q.QuotationItems[0].Material.MaterialCode + ".rdlc")))
-        //        //{
-        //        //    report.ReportPath = Server.MapPath("~/Print/SalesSpec_Machine_" + Q.QuotationItems[0].Material.MaterialCode + ".rdlc");
-        //        //}
-        //        //else
-        //        //{
-        //            report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotation.rdlc");
-        //        //}
-        //        report.SetParameters(P);
-        //        ReportDataSource rds = new ReportDataSource();
-        //        rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
-        //        rds.Value = dtItem;
-        //        report.DataSources.Add(rds); ;
-
-        //        Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
-
-        //        //Response.Buffer = true;
-        //        //Response.Clear();
-        //        //Response.ContentType = mimeType;
-        //        //Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-        //        //Response.BinaryWrite(mybytes); // create the file
-        //        //Response.Flush(); // send it to the client to download
-        //        var uploadPath = Server.MapPath("~/Backup");
-        //        var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
-        //        File.WriteAllBytes(tempfilenameandlocation, mybytes);
-        //        Response.Redirect("../PDF.aspx?FileName=" + FileName + "&Title=Pre-Sales » Quotation", false);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        lblMessage.Text = ex.Message.ToString();
-        //        lblMessage.Visible = true;
-        //        lblMessage.ForeColor = Color.Red;
-        //        return;
-        //    }
-        //}
-        //void DownloadMachineQuotation()
-        //{
-        //    try
-        //    {
-        //        lblMessage.Text = "";
-        //        PSalesQuotation Q = Quotation;
-        //        if (string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
-        //        {
-        //            lblMessage.Text = "Quotation Not Generated...!";
-        //            lblMessage.Visible = true;
-        //            lblMessage.ForeColor = Color.Red;
-        //            return;
-        //        }
-        //        string contentType = string.Empty;
-        //        contentType = "application/pdf";
-        //        var CC = CultureInfo.CurrentCulture;
-        //        Random r = new Random();
-        //        string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
-        //        string FileName = (Q.Lead.Dealer.DealerCode + "_MC_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
-        //        string extension;
-        //        string encoding;
-        //        string mimeType;
-        //        string[] streams;
-        //        Warning[] warnings;
-        //        LocalReport report = new LocalReport();
-        //        report.EnableExternalImages = true;
-
-        //        PDMS_Customer Customer = Q.Lead.Customer;
-        //        string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : ", " + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : ", " + Customer.Address3)).Trim(',', ' ');
-        //        string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : ", " + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : ", " + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-
-        //        List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
-
-        //        PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
-        //        string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
-        //        string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
-
-        //        PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Q.Lead.Dealer.DealerCode);
-        //        string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-        //        string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
-
-        //        List<PLeadProduct> leadProducts = new BLead().GetLeadProduct(Q.Lead.LeadID, PSession.User.UserID);
-
-        //        string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "", Subject = "";
-        //        foreach (PSalesQuotationNote Note in Q.Notes)
-        //        {
-        //            if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 10) { Subject = Note.Remark; }
-        //        }
-        //        lblMessage.Visible = true;
-        //        lblMessage.ForeColor = Color.Red;
-
-        //        //if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
-        //        //if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
-        //        //if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
-        //        //if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
-        //        //if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
-        //        //if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
-        //        //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
-        //        //if (Subject == "") { lblMessage.Text = "Subject Not Found"; return; }
-
-        //        ReportParameter[] P = new ReportParameter[38];
-        //        //Q.Lead.Dealer.
-        //        P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
-        //        P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
-        //        P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
-        //        P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName/* + " " + Q.Lead.Customer.CustomerName2*/, false);
-        //        P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
-        //        P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-        //        P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
-        //        P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
-        //        P[8] = new ReportParameter("Attention", KindAttention, false);
-        //        P[9] = new ReportParameter("Subject", Q.QuotationItems[0].Material.MaterialDescription, false);
-        //        P[10] = new ReportParameter("Reference", Reference, false);
-        //        P[11] = new ReportParameter("Annexure", "A-I", false);
-        //        P[12] = new ReportParameter("AnnexureRef", Q.SapQuotationNo, false);
-        //        P[13] = new ReportParameter("AnnexureDate", Q.SapQuotationDate.ToString(), false);
-        //        P[14] = new ReportParameter("TCSTax", "TCSTax Persent", false);
-        //        P[15] = new ReportParameter("Delivery", Delivery, false);
-        //        //P[16] = new ReportParameter("InWordsTotalAmount", "ZERO RUPEES Only", false);
-        //        //P[17] = new ReportParameter("TotalAmount", "00000.000", false);
-        //        P[18] = new ReportParameter("Note", QNote, false);
-        //        P[19] = new ReportParameter("WarrantyDeliveryHours", Q.QuotationItems[0].Material.Model.Division.WarrantyDeliveryHours, false);//2000
-        //        //if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "CM")
-        //        //{
-        //        //    P[19] = new ReportParameter("WarrantyDeliveryHours", "2000", false);//2000
-        //        //}
-        //        //else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "DP")
-        //        //{
-        //        //    P[19] = new ReportParameter("WarrantyDeliveryHours", "2000", false);//2000
-        //        //}
-        //        //else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
-        //        //{
-        //        //    P[19] = new ReportParameter("WarrantyDeliveryHours", "1000", false);//1000
-        //        //}
-        //        //else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "CP")
-        //        //{
-        //        //    P[19] = new ReportParameter("WarrantyDeliveryHours", "1000", false);//1000
-        //        //}
-        //        //else if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "TM")
-        //        //{
-        //        //    P[19] = new ReportParameter("WarrantyDeliveryHours", "1000", false);//1000
-        //        //}
-        //        //else
-        //        //{
-        //        //    lblMessage.Text = "Division Not Available";
-        //        //    lblMessage.Visible = true;
-        //        //    lblMessage.ForeColor = Color.Red;
-        //        //    return;
-        //        //}
-
-        //        P[20] = new ReportParameter("ConcernName", Q.Lead.AssignedTo.ContactName, false);
-        //        P[21] = new ReportParameter("ConcernDesignation", Q.Lead.AssignedTo.Designation.DealerDesignation, false);
-        //        P[22] = new ReportParameter("ConcernMobile", Q.Lead.AssignedTo.ContactNumber, false);
-
-
-        //        DataTable dtItem = new DataTable();
-        //        dtItem.Columns.Add("TechnicalSpecification");
-        //        dtItem.Columns.Add("Units");
-        //        dtItem.Columns.Add("UnitPriceINR");
-        //        dtItem.Columns.Add("AmountINR");
-        //        dtItem.Columns.Add("MaterialText");
-        //        decimal GrandTotal = 0;
-        //        DataTable DTMaterialText = new DataTable();
-        //        for (int i = 0; i < Q.QuotationItems.Count(); i++)
-        //        {
-        //            try
-        //            {
-        //                DTMaterialText = new SQuotation().getMaterialTextForQuotation(Q.QuotationItems[i].Material.MaterialCode);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                lblMessage.Text = ex.Message.ToString();
-        //                lblMessage.Visible = true;
-        //                lblMessage.ForeColor = Color.Red;
-        //            }
-        //            string MaterialText = string.Empty;
-        //            int sno = 0;
-        //            foreach (DataRow dr in DTMaterialText.Rows)
-        //            {
-        //                MaterialText += (sno == 0) ? dr["TDLINE"].ToString().Replace("•", "#") : "\n" + dr["TDLINE"].ToString().Replace("•", "#"); sno++;
-        //            }
-        //            P[23] = new ReportParameter("MaterialText", "", false);
-
-
-        //            dtItem.Rows.Add(Q.QuotationItems[i].Material.MaterialDescription, Q.QuotationItems[i].Qty + " " + Q.QuotationItems[i].Material.BaseUnit, String.Format("{0:n}", Q.QuotationItems[i].Rate - Q.QuotationItems[i].Discount), String.Format("{0:n}", (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Q.QuotationItems[i].Discount), MaterialText);
-        //            GrandTotal += (Q.QuotationItems[i].Qty * Q.QuotationItems[i].Rate) - Convert.ToDecimal(Q.QuotationItems[i].Discount);
-
-        //            P[16] = new ReportParameter("InWordsTotalAmount", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-        //            P[17] = new ReportParameter("TotalAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
-
-        //        }
-        //        List<PPlant> Plant = new BDMS_Master().GetPlant(null, Q.QuotationItems[0].Plant.PlantCode);
-        //        string PlantAddress1 = (Plant[0].Address1 + (string.IsNullOrEmpty(Plant[0].Address2) ? "" : "," + Plant[0].Address2) + (string.IsNullOrEmpty(Plant[0].Address3) ? "" : "," + Plant[0].Address3)).Trim(',', ' ');
-        //        string PlantAddress2 = (Plant[0].City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Plant[0].State.State) + (string.IsNullOrEmpty(Plant[0].Country.Country) ? "" : "," + Plant[0].Country.Country)).Trim(',', ' ');
-
-        //        if (Q.QuotationItems[0].Plant.PlantCode == "P003")
-        //        {
-        //            P[24] = new ReportParameter("FactoryName", Plant[0].PlantName, false);
-        //            P[25] = new ReportParameter("FactoryAddress", PlantAddress1 + PlantAddress2, false);
-        //            P[26] = new ReportParameter("FactoryPhoneno", Ajax.Mobile, false);
-        //            P[27] = new ReportParameter("FactoryFax", "", false);
-        //            P[28] = new ReportParameter("FactoryWebsite", "www.ajax-engg.com", false);
-        //            P[29] = new ReportParameter("TCSTaxTerms", "If TCS is applicable, it will be calculated on sale consideration Plus GST.", false);
-        //        }
-        //        else /*if (Q.QuotationItems[0].Plant.PlantCode == "P001")*/
-        //        {
-        //            P[24] = new ReportParameter("FactoryName", Plant[0].PlantName, false);
-        //            P[25] = new ReportParameter("FactoryAddress", PlantAddress1 + PlantAddress2, false);
-        //            P[26] = new ReportParameter("FactoryPhoneno", Ajax.Mobile, false);
-        //            P[27] = new ReportParameter("FactoryFax", "", false);
-        //            P[28] = new ReportParameter("FactoryWebsite", "www.ajax-engg.com", false);
-        //            P[29] = new ReportParameter("TCSTaxTerms", "", false);
-        //        }
-
-        //        if (Q.QuotationItems[0].Material.Model.Division.DivisionCode == "BP")
-        //        {
-        //            P[30] = new ReportParameter("ErectionCommissoningHead", "ERECTION AND COMMISSONING :", false);
-        //            P[31] = new ReportParameter("ErectionCommissoning", "Erection and Commissioning will be in customer scope. Ajax shall be deputing service engineer for supervision of Erection and commissioning of the machine, on receipt of your confirmation of receipt of equipment and readiness of your site.The standard time for erection and commissioning is 1 day and additional 1 day for trail run &Training to your operation staff.The period of stay shall be restricted to 2 working days beyond that the services shall be on chargeable basis.Customer shall provide him all lodging, boarding & local conveyance facility.Customer shall provide all pulling tools, tackles, crane, skilled / unskilled labour, consumables like oil, welding machine, electrod etc., ", false);
-        //        }
-        //        else
-        //        {
-        //            P[30] = new ReportParameter("ErectionCommissoningHead", "", false);
-        //            P[31] = new ReportParameter("ErectionCommissoning", "", false);
-        //        }
-
-
-        //        if (Quotation.CommissionAgent)
-        //        {
-        //            P[32] = new ReportParameter("CompanyName", Ajax.CustomerName.ToUpper(), false);
-        //            P[33] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
-        //            P[34] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-        //            P[35] = new ReportParameter("CompanyCINandGST", "CIN : " + Ajax.CIN + ", GST : " + Ajax.GSTIN);
-        //            P[36] = new ReportParameter("CompanyPAN", "PAN : " + Ajax.PAN + ", T : " + Ajax.Mobile);
-        //            P[37] = new ReportParameter("CompanyTelephoneandEmail", "Email : " + Ajax.Email + ", Web : " + Ajax.Web);
-        //        }
-        //        else
-        //        {
-        //            P[32] = new ReportParameter("CompanyName", Dealer.CustomerFullName, false);
-        //            P[33] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
-        //            P[34] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
-        //            P[35] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Dealer.GSTIN);
-        //            P[36] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.PAN);
-        //            P[37] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
-        //        }
-
-
-        //        report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotation.rdlc");
-        //        report.SetParameters(P);
-        //        ReportDataSource rds = new ReportDataSource();
-        //        rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
-        //        rds.Value = dtItem;
-        //        report.DataSources.Add(rds);
-
-        //        Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
-
-        //        Response.Buffer = true;
-        //        Response.Clear();
-        //        Response.ContentType = mimeType;
-        //        Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-        //        Response.BinaryWrite(mybytes); // create the file
-        //        new BXcel().PdfDowload();
-        //        Response.Flush(); // send it to the client to download
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        lblMessage.Text = ex.Message.ToString();
-        //        lblMessage.Visible = true;
-        //        lblMessage.ForeColor = Color.Red;
-        //        return;
-        //    }
-        //}
-
-
-       
         Byte[] TaxQuotationRdlc(out string mimeType, Boolean Consolidated)
         {
 
@@ -1831,7 +1533,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
             string extension;
             string encoding;
-            
+
             string[] streams;
             Warning[] warnings;
             LocalReport report = new LocalReport();
@@ -2024,18 +1726,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         Description = item.Material.MaterialDescription;
                         HSN = item.Material.HSN;
                         UOM = item.Material.BaseUnit;
-                        Qty = item.Qty; 
+                        Qty = item.Qty;
                     }
 
                     Rate = Rate + (item.TaxableValue / item.Qty);
                     Discount = Discount + item.Discount == null ? 0 : (decimal)item.Discount;
 
-                   // Total = Total + item.TaxableValue;                    
-                   // Value = Value + item.TaxableValue;
-                    
-                   // CGSTVal = CGSTVal + item.SGSTValue;
-                   
-                   
+                    // Total = Total + item.TaxableValue;                    
+                    // Value = Value + item.TaxableValue;
+
+                    // CGSTVal = CGSTVal + item.SGSTValue;
+
+
 
                     if (item.SGST != 0)
                     {
@@ -2046,7 +1748,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[48] = new ReportParameter("CGSTVal_Header", "CGST Value", false);
                         P[49] = new ReportParameter("SGST_Header", "SGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
- 
+
                         decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
                         decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
                         decimal SGSTValues = (from x in Q.QuotationItems select x.SGSTValue).Sum();
@@ -2070,7 +1772,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         P[48] = new ReportParameter("CGSTVal_Header", "", false);
                         P[49] = new ReportParameter("SGST_Header", "IGST %", false);
                         P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
-                        
+
                         decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
                         decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
 
@@ -2120,7 +1822,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
                         Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
-                        GrandTotal = SubTotal + Lifetimetax; 
+                        GrandTotal = SubTotal + Lifetimetax;
                     }
                     else
                     {
@@ -2138,10 +1840,10 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
                         SubTotal = TaxSubTotal + TCSSubTotal;
                         Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
-                        GrandTotal = SubTotal + Lifetimetax; 
+                        GrandTotal = SubTotal + Lifetimetax;
                     }
                 }
-           }
+            }
 
             P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
             P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
@@ -2163,7 +1865,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 lblMessage.Text = "Revision Not Updated...!";
                 lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Red; 
+                lblMessage.ForeColor = Color.Red;
                 return null;
             }
 
@@ -2195,8 +1897,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
             }
 
-
-            report.ReportPath = Server.MapPath("~/Print/SalesTaxQuotation.rdlc");
+            if (Quotation.IsStandard)
+            {
+                report.ReportPath = Server.MapPath("~/Print/SalesTaxQuotationStd.rdlc");
+            }
+            else
+            {
+                report.ReportPath = Server.MapPath("~/Print/SalesTaxQuotation.rdlc");
+            }
             report.SetParameters(P);
 
             ReportDataSource rds = new ReportDataSource();
@@ -2218,18 +1926,18 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 PSalesQuotation Q = Quotation;
                 string contentType = string.Empty;
                 contentType = "application/pdf";
-                 
+
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
-  
-                 
-               // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
-                string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName ).Substring(0, 20) : (Q.Lead.Customer.CustomerName );
+
+
+                // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
 
                 string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
 
                 string mimeType = string.Empty;
-                Byte[] mybytes = TaxQuotationRdlc(out  mimeType, Consolidated);
+                Byte[] mybytes = TaxQuotationRdlc(out mimeType, Consolidated);
                 if (mybytes == null)
                 {
                     return;
@@ -2255,7 +1963,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 PSalesQuotation Q = Quotation;
                 lblMessage.Visible = true;
                 lblMessage.ForeColor = Color.Red;
-               // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
+                // string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
                 string CustomerName = ((Q.Lead.Customer.CustomerName).Length > 20) ? (Q.Lead.Customer.CustomerName).Substring(0, 20) : (Q.Lead.Customer.CustomerName);
 
                 string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
@@ -2284,624 +1992,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return;
             }
         }
-        //void ViewTaxQuotation()
-        //{
-        //    try
-        //    {
-        //        lblMessage.Text = "";
-        //        PSalesQuotation Q = Quotation;
-        //        if (string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
-        //        {
-        //            lblMessage.Text = "Quotation Not Generated...!";
-        //            lblMessage.Visible = true;
-        //            lblMessage.ForeColor = Color.Red;
-        //            return;
-        //        }
-        //        string contentType = string.Empty;
-        //        contentType = "application/pdf";
-        //        var CC = CultureInfo.CurrentCulture;
-        //        Random r = new Random();
-        //        string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
-        //        string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
-        //        string extension;
-        //        string encoding;
-        //        string mimeType;
-        //        string[] streams;
-        //        Warning[] warnings;
-        //        LocalReport report = new LocalReport();
-        //        report.EnableExternalImages = true;
-        //        ReportParameter[] P = new ReportParameter[58];
 
-        //        PDMS_Customer Customer = Q.Lead.Customer;
-        //        string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : ", " + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : ", " + Customer.Address3)).Trim(',', ' ');
-        //        string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : ", " + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : ", " + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-
-
-        //        PDMS_Customer CustomerShipTo = new PDMS_Customer();
-        //        if (Q.ShipTo != null) { CustomerShipTo = CustomerShipTo = new BDMS_Customer().GetCustomerByID(Q.ShipTo.CustomerID); } else { CustomerShipTo = Q.Lead.Customer; }
-        //    ;
-        //        string CustomerAddressShipTo1 = (CustomerShipTo.Address1 + (string.IsNullOrEmpty(CustomerShipTo.Address2) ? "" : ", " + CustomerShipTo.Address2) + (string.IsNullOrEmpty(CustomerShipTo.Address3) ? "" : ", " + CustomerShipTo.Address3)).Trim(',', ' ');
-        //        string CustomerAddressShipTo2 = (CustomerShipTo.City + (string.IsNullOrEmpty(CustomerShipTo.State.State) ? "" : ", " + CustomerShipTo.State.State) + (string.IsNullOrEmpty(CustomerShipTo.Country.Country) ? "" : ", " + CustomerShipTo.Country.Country) + (string.IsNullOrEmpty(CustomerShipTo.Pincode) ? "" : "-" + CustomerShipTo.Pincode)).Trim(',', ' ');
-
-        //        string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "";
-
-        //        foreach (PSalesQuotationNote Note in Q.Notes)
-        //        {
-        //            if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
-        //        }
-
-        //        lblMessage.Visible = true;
-        //        lblMessage.ForeColor = Color.Red;
-
-        //        //if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
-        //        //if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
-        //        //if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
-        //        //if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
-        //        //if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
-        //        //if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
-        //        //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
-
-
-        //        List<PDMS_Dealer> DealerBank;
-        //        if (Quotation.CommissionAgent)
-        //        {
-        //            DealerBank = new BDMS_Dealer().GetDealerBankDetails(53, null, null);
-        //        }
-        //        else
-        //        {
-        //            DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
-        //        }
-
-
-
-
-        //        P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
-        //        P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
-        //        P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
-        //        P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName, false);
-        //        P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
-        //        P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-        //        P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
-        //        P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
-        //        P[8] = new ReportParameter("KindAttn", KindAttention, false);
-        //        P[9] = new ReportParameter("CustomerStateCode", Q.Lead.Customer.State.StateCode, false);
-        //        P[10] = new ReportParameter("CustomerGST", Q.Lead.Customer.GSTIN.ToUpper(), false);
-        //        P[11] = new ReportParameter("CustomerPAN", Q.Lead.Customer.PAN.ToUpper(), false);
-
-        //        P[19] = new ReportParameter("YourRef", Reference, false);
-        //        P[20] = new ReportParameter("RevNo", Q.RevisionNumber, false);
-        //        P[21] = new ReportParameter("ShipToCustomerName", Q.Lead.Customer.CustomerFullName, false);
-        //        P[22] = new ReportParameter("ShipToCustomerAddress1", CustomerAddressShipTo1, false);
-        //        P[23] = new ReportParameter("ShipToCustomerAddress2", CustomerAddressShipTo2, false);
-        //        P[24] = new ReportParameter("ShipToMobile", CustomerShipTo.Mobile, false);
-        //        P[25] = new ReportParameter("ShipToEMail", CustomerShipTo.Email, false);
-        //        P[26] = new ReportParameter("ShipToCustomerStateCode", CustomerShipTo.State.StateCode, false);
-        //        P[27] = new ReportParameter("ShipToCustomerGST", Q.Lead.Customer.GSTIN.ToUpper(), false);
-        //        P[28] = new ReportParameter("SoldToPartyBPCode", Q.Lead.Customer.CustomerCode, false);
-        //        P[29] = new ReportParameter("ShipToPartyBPCode", CustomerShipTo.CustomerCode, false);
-        //        P[30] = new ReportParameter("Hypothecation", Hypothecation, false);
-        //        string Div = Q.Lead.ProductType.Division.DivisionCode;
-        //        if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM" || Div == "CP" || Div == "SB")
-        //        {
-        //            P[31] = new ReportParameter("TermsandConditionHead", "TERMS & CONDITIONS:", false);
-        //            P[32] = new ReportParameter("PaymentTerms", "Payment Terms :", false);
-        //            P[33] = new ReportParameter("TermsOfPayment", TermsOfPayment + " along with order, balance payment against proforma invoice prior to dispatch . All payment to be made in favour of :", false);
-        //            if (DealerBank.Count > 0)
-        //            {
-        //                P[34] = new ReportParameter("PaymentTermAccName", "NAME                 : " + DealerBank[0].DealerName, false);
-        //                P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME     : " + DealerBank[0].DealerBank.BankName, false);
-        //                P[36] = new ReportParameter("PaymentTermBankAddress", DealerBank[0].DealerBank.Branch);
-        //                P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.  : " + DealerBank[0].DealerBank.AcNumber, false);
-        //                P[38] = new ReportParameter("PaymentTermIFSCCode", "IFSC CODE         : " + DealerBank[0].DealerBank.IfscCode, false);
-        //            }
-        //            else
-        //            {
-        //                lblMessage.Text = "Bank Details Not Found";
-        //                lblMessage.Visible = true;
-        //                lblMessage.ForeColor = Color.Red;
-        //                return;
-        //            }
-        //            P[39] = new ReportParameter("Delivery", "Delivery : " + Delivery, false);
-        //            P[40] = new ReportParameter("TransitInsurance", "Transit Insurance: Customer to arrange and send the same before dispatch", false);
-        //            P[41] = new ReportParameter("Transportation", "Transportation : To-pay basis to customer's account.", false);
-        //            P[42] = new ReportParameter("Validity", "Validity :This offer is valid till : " + Validity, false);
-        //            P[43] = new ReportParameter("Note", "Note : " + QNote, false);
-        //        }
-        //        //else if (Div == "CP")
-        //        //{
-        //        //    P[31] = new ReportParameter("TermsandConditionHead", "", false);
-        //        //    P[32] = new ReportParameter("PaymentTerms", "", false);
-        //        //    P[33] = new ReportParameter("TermsOfPayment", "", false);
-        //        //    P[34] = new ReportParameter("PaymentTermAccName", "", false);
-        //        //    P[35] = new ReportParameter("PaymentTermBankName", "", false);
-        //        //    P[36] = new ReportParameter("PaymentTermBankAddress", "");
-        //        //    P[37] = new ReportParameter("PaymentTermAccNo", "", false);
-        //        //    P[38] = new ReportParameter("PaymentTermIFSCCode", "", false);
-        //        //    P[39] = new ReportParameter("Delivery", "", false);
-        //        //    P[40] = new ReportParameter("TransitInsurance", "", false);
-        //        //    P[41] = new ReportParameter("Transportation", "", false);
-        //        //    P[42] = new ReportParameter("Validity", "", false);
-        //        //    P[43] = new ReportParameter("Note", "", false);
-        //        //}
-        //        else if (!string.IsNullOrEmpty(Div))
-        //        {
-        //            lblMessage.Text = "Please Change First Line Item of Material";
-        //            lblMessage.Visible = true;
-        //            lblMessage.ForeColor = Color.Red;
-        //            return;
-        //        }
-        //        else
-        //        {
-        //            lblMessage.Text = "Division Not Available";
-        //            lblMessage.Visible = true;
-        //            lblMessage.ForeColor = Color.Red;
-        //            return;
-        //        }
-
-        //        P[44] = new ReportParameter("Name", Q.Lead.AssignedTo.ContactName, false);
-        //        P[45] = new ReportParameter("Designation", Q.Lead.AssignedTo.Designation.DealerDesignation, false);
-        //        P[46] = new ReportParameter("MobileNo", Q.Lead.AssignedTo.ContactNumber, false);
-
-
-        //        DataTable dtItem = new DataTable();
-        //        dtItem.Columns.Add("SNO");
-        //        dtItem.Columns.Add("Material");
-        //        dtItem.Columns.Add("Description");
-        //        dtItem.Columns.Add("HSN");
-        //        dtItem.Columns.Add("UOM");
-        //        dtItem.Columns.Add("Qty");
-        //        dtItem.Columns.Add("Rate");
-        //        dtItem.Columns.Add("Total");
-        //        dtItem.Columns.Add("Discount");
-        //        dtItem.Columns.Add("Value");
-        //        dtItem.Columns.Add("CGSTPer");
-        //        dtItem.Columns.Add("CGSTVal");
-        //        dtItem.Columns.Add("SGSTPer");
-        //        dtItem.Columns.Add("SGSTVal");
-
-        //        int i = 0;
-        //        decimal TaxSubTotal = 0;
-        //        decimal TCSSubTotal = 0;
-        //        decimal SubTotal = 0;
-        //        decimal Lifetimetax = 0;
-        //        decimal GrandTotal = 0;
-        //        foreach (PSalesQuotationItem item in Q.QuotationItems)
-        //        {
-        //            i = i + 1;
-        //            if (item.SGST != 0)
-        //            {
-        //                P[47] = new ReportParameter("CGST_Header", "CGST %", false);
-        //                P[48] = new ReportParameter("CGSTVal_Header", "CGST Value", false);
-        //                P[49] = new ReportParameter("SGST_Header", "SGST %", false);
-        //                P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
-        //                dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-        //                    String.Format("{0:n}", item.TaxableValue / item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.SGSTValue), item.SGST, String.Format("{0:n}", item.SGSTValue));
-
-        //                decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
-        //                decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
-        //                decimal SGSTValues = (from x in Q.QuotationItems select x.SGSTValue).Sum();
-
-        //                TaxSubTotal = TaxableValues + CGSTValues + SGSTValues;
-        //                TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
-        //                SubTotal = TaxSubTotal + TCSSubTotal;
-        //                Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
-        //                GrandTotal = SubTotal + Lifetimetax;
-        //                P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-        //                P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
-        //                P[14] = new ReportParameter("Tax", "", false);
-        //                P[15] = new ReportParameter("TCS", String.Format("{0:n}", TCSSubTotal), false);
-        //                P[16] = new ReportParameter("SubTotal", String.Format("{0:n}", SubTotal), false);
-        //                P[17] = new ReportParameter("LifeTimeTax", String.Format("{0:n}", Lifetimetax), false);
-        //                P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
-        //            }
-        //            else
-        //            {
-        //                P[47] = new ReportParameter("CGST_Header", "", false);
-        //                P[48] = new ReportParameter("CGSTVal_Header", "", false);
-        //                P[49] = new ReportParameter("SGST_Header", "IGST %", false);
-        //                P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
-        //                dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-        //                    String.Format("{0:n}", item.TaxableValue / item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), null, null, item.IGST, String.Format("{0:n}", item.IGSTValue));
-
-        //                decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
-        //                decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
-
-        //                TaxSubTotal = TaxableValues + IGSTValues;
-        //                TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
-        //                SubTotal = TaxSubTotal + TCSSubTotal;
-        //                Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
-        //                GrandTotal = SubTotal + Lifetimetax;
-        //                P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-        //                P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
-        //                P[14] = new ReportParameter("Tax", "", false);
-        //                P[15] = new ReportParameter("TCS", String.Format("{0:n}", TCSSubTotal), false);
-        //                P[16] = new ReportParameter("SubTotal", String.Format("{0:n}", SubTotal), false);
-        //                P[17] = new ReportParameter("LifeTimeTax", String.Format("{0:n}", Lifetimetax), false);
-        //                P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
-        //            }
-        //        }
-        //        P[54] = new ReportParameter("TCSPer", Q.QuotationItems[0].TCSTax.ToString(), false);
-        //        Boolean Success = false;
-
-        //        Success = new BSalesQuotation().InsertSalesQuotationRevision(Q, CustomerAddress1, CustomerAddress2, CustomerAddressShipTo1, CustomerAddressShipTo2,
-        //            KindAttention, Hypothecation, Reference, TermsOfPayment, Delivery, QNote, Validity, Convert.ToDecimal(GrandTotal));
-        //        if (Success == false)
-        //        {
-        //            return;
-        //        }
-
-        //        PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
-        //        string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
-        //        string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
-
-        //        PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Q.Lead.Dealer.DealerCode);
-        //        string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-        //        string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
-
-        //        //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Q.Lead.Dealer.DealerCode);
-        //        if (Quotation.CommissionAgent)
-        //        {
-        //            P[51] = new ReportParameter("CompanyName", Ajax.CustomerName.ToUpper(), false);
-        //            P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
-        //            P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-        //            P[55] = new ReportParameter("CompanyCINandGST", "CIN : " + Ajax.CIN + ", GST : " + Ajax.GSTIN);
-        //            P[56] = new ReportParameter("CompanyPAN", "PAN : " + Ajax.PAN + ", T : " + Ajax.Mobile);
-        //            P[57] = new ReportParameter("CompanyTelephoneandEmail", "Email : " + Ajax.Email + ", Web : " + Ajax.Web);
-        //        }
-        //        else
-        //        {
-        //            P[51] = new ReportParameter("CompanyName", Dealer.CustomerFullName.ToUpper(), false);
-        //            P[52] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
-        //            P[53] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
-        //            P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Ajax.GSTIN);
-        //            P[56] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.PAN);
-        //            P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
-        //        }
-
-
-        //        report.ReportPath = Server.MapPath("~/Print/SalesTaxQuotation.rdlc");
-        //        report.SetParameters(P);
-
-        //        ReportDataSource rds = new ReportDataSource();
-        //        rds.Name = "SalesTaxQuotationItem";//This refers to the dataset name in the RDLC file  
-        //        rds.Value = dtItem;
-        //        report.DataSources.Add(rds); ;
-
-        //        Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
-
-        //        //Response.Buffer = true;
-        //        //Response.Clear();
-        //        //Response.ContentType = mimeType;
-        //        //Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-        //        //Response.BinaryWrite(mybytes); // create the file
-        //        //Response.Flush(); // send it to the client to download
-        //        var uploadPath = Server.MapPath("~/Backup");
-        //        var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
-        //        File.WriteAllBytes(tempfilenameandlocation, mybytes);
-        //        Response.Redirect("../PDF.aspx?FileName=" + FileName + "&Title=Pre-Sales » Quotation", false);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        lblMessage.Text = ex.Message.ToString();
-        //        lblMessage.Visible = true;
-        //        lblMessage.ForeColor = Color.Red;
-        //        return;
-        //    }
-        //}
-        //void DownloadTaxQuotation()
-        //{
-        //    try
-        //    {
-        //        lblMessage.Text = "";
-        //        PSalesQuotation Q = Quotation;
-        //        if (string.IsNullOrEmpty(Q.SapQuotationNo) && string.IsNullOrEmpty(Q.PgQuotationNo))
-        //        {
-        //            lblMessage.Text = "Quotation Not Generated...!";
-        //            lblMessage.Visible = true;
-        //            lblMessage.ForeColor = Color.Red;
-        //            return;
-        //        }
-        //        string contentType = string.Empty;
-        //        contentType = "application/pdf";
-        //        var CC = CultureInfo.CurrentCulture;
-        //        Random r = new Random();
-        //        string CustomerName = ((Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Length > 20) ? (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2).Substring(0, 20) : (Q.Lead.Customer.CustomerName + "_" + Q.Lead.Customer.CustomerName2);
-        //        string FileName = (Q.Lead.Dealer.DealerCode + "_TAX_" + CustomerName + "_" + Q.Lead.Customer.CustomerCode + "_" + Q.Model.Model + "_" + Convert.ToDateTime(Q.SapQuotationDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
-        //        string extension;
-        //        string encoding;
-        //        string mimeType;
-        //        string[] streams;
-        //        Warning[] warnings;
-        //        LocalReport report = new LocalReport();
-        //        report.EnableExternalImages = true;
-        //        ReportParameter[] P = new ReportParameter[58];
-
-        //        PDMS_Customer Customer = Q.Lead.Customer;
-        //        string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : ", " + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : ", " + Customer.Address3)).Trim(',', ' ');
-        //        string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : ", " + Customer.State.State) + (string.IsNullOrEmpty(Customer.Country.Country) ? "" : ", " + Customer.Country.Country) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-
-
-        //        PDMS_Customer CustomerShipTo = new PDMS_Customer();
-        //        if (Q.ShipTo != null) { CustomerShipTo = CustomerShipTo = new BDMS_Customer().GetCustomerByID(Q.ShipTo.CustomerID); } else { CustomerShipTo = Q.Lead.Customer; }
-        //    ;
-        //        string CustomerAddressShipTo1 = (CustomerShipTo.Address1 + (string.IsNullOrEmpty(CustomerShipTo.Address2) ? "" : ", " + CustomerShipTo.Address2) + (string.IsNullOrEmpty(CustomerShipTo.Address3) ? "" : ", " + CustomerShipTo.Address3)).Trim(',', ' ');
-        //        string CustomerAddressShipTo2 = (CustomerShipTo.City + (string.IsNullOrEmpty(CustomerShipTo.State.State) ? "" : ", " + CustomerShipTo.State.State) + (string.IsNullOrEmpty(CustomerShipTo.Country.Country) ? "" : ", " + CustomerShipTo.Country.Country) + (string.IsNullOrEmpty(CustomerShipTo.Pincode) ? "" : "-" + CustomerShipTo.Pincode)).Trim(',', ' ');
-
-        //        string Reference = "", KindAttention = "", QNote = "", Hypothecation = "", TermsOfPayment = "", Delivery = "", Validity = "", Foc = "", MarginMoney = "";
-
-        //        foreach (PSalesQuotationNote Note in Q.Notes)
-        //        {
-        //            if (Note.Note.SalesQuotationNoteListID == 1) { Reference = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 2) { KindAttention = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 3) { QNote = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 4) { Hypothecation = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 5) { TermsOfPayment = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 6) { Delivery = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 7) { Validity = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 8) { Foc = Note.Remark; }
-        //            if (Note.Note.SalesQuotationNoteListID == 9) { MarginMoney = Note.Remark; }
-        //        }
-
-        //        lblMessage.Visible = true;
-        //        lblMessage.ForeColor = Color.Red;
-
-        //        //if (Reference == "") { lblMessage.Text = "Reference Not Found"; return; }
-        //        //if (KindAttention == "") { lblMessage.Text = "KindAttention Not Found"; return; }
-        //        //if (QNote == "") { lblMessage.Text = "Note Not Found"; return; }
-        //        //if (Hypothecation == "") { lblMessage.Text = "Hypothecation Not Found"; return; }
-        //        //if (TermsOfPayment == "") { lblMessage.Text = "TermsOfPayment Not Found"; return; }
-        //        //if (Delivery == "") { lblMessage.Text = "Delivery Not Found"; return; }
-        //        //if (Validity == "") { lblMessage.Text = "Validity Not Found"; return; }
-
-        //        List<PDMS_Dealer> DealerBank;
-        //        if (Quotation.CommissionAgent)
-        //        {
-        //            DealerBank = new BDMS_Dealer().GetDealerBankDetails(53, null, null);
-        //        }
-        //        else
-        //        {
-        //            DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
-        //        }
-
-        //        P[0] = new ReportParameter("QuotationType", "TAX QUOTATION", false);
-        //        P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
-        //        P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
-        //        P[3] = new ReportParameter("CustomerName", Q.Lead.Customer.CustomerFullName, false);
-        //        P[4] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
-        //        P[5] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
-        //        P[6] = new ReportParameter("Mobile", Q.Lead.Customer.Mobile, false);
-        //        P[7] = new ReportParameter("EMail", Q.Lead.Customer.Email, false);
-        //        P[8] = new ReportParameter("KindAttn", KindAttention, false);
-        //        P[9] = new ReportParameter("CustomerStateCode", Q.Lead.Customer.State.StateCode, false);
-        //        P[10] = new ReportParameter("CustomerGST", Q.Lead.Customer.GSTIN.ToUpper(), false);
-        //        P[11] = new ReportParameter("CustomerPAN", Q.Lead.Customer.PAN.ToUpper(), false);
-
-        //        P[19] = new ReportParameter("YourRef", Reference, false);
-        //        P[20] = new ReportParameter("RevNo", Q.RevisionNumber, false);
-        //        P[21] = new ReportParameter("ShipToCustomerName", Q.Lead.Customer.CustomerFullName, false);
-        //        P[22] = new ReportParameter("ShipToCustomerAddress1", CustomerAddressShipTo1, false);
-        //        P[23] = new ReportParameter("ShipToCustomerAddress2", CustomerAddressShipTo2, false);
-        //        P[24] = new ReportParameter("ShipToMobile", CustomerShipTo.Mobile, false);
-        //        P[25] = new ReportParameter("ShipToEMail", CustomerShipTo.Email, false);
-        //        P[26] = new ReportParameter("ShipToCustomerStateCode", CustomerShipTo.State.StateCode, false);
-        //        P[27] = new ReportParameter("ShipToCustomerGST", Q.Lead.Customer.GSTIN.ToUpper(), false);
-        //        P[28] = new ReportParameter("SoldToPartyBPCode", Q.Lead.Customer.CustomerCode, false);
-        //        P[29] = new ReportParameter("ShipToPartyBPCode", CustomerShipTo.CustomerCode, false);
-        //        P[30] = new ReportParameter("Hypothecation", Hypothecation, false);
-        //        string Div = Q.Lead.ProductType.Division.DivisionCode;
-        //        if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM" || Div == "CP" || Div == "SB")
-        //        {
-        //            P[31] = new ReportParameter("TermsandConditionHead", "TERMS & CONDITIONS:", false);
-        //            P[32] = new ReportParameter("PaymentTerms", "Payment Terms :", false);
-        //            P[33] = new ReportParameter("TermsOfPayment", TermsOfPayment + " along with order, balance payment against proforma invoice prior to dispatch . All payment to be made in favour of :", false);
-        //            if (DealerBank.Count > 0)
-        //            {
-        //                P[34] = new ReportParameter("PaymentTermAccName", "NAME                 : " + DealerBank[0].DealerName, false);
-        //                P[35] = new ReportParameter("PaymentTermBankName", "BANK NAME     : " + DealerBank[0].DealerBank.BankName, false);
-        //                P[36] = new ReportParameter("PaymentTermBankAddress", DealerBank[0].DealerBank.Branch);
-        //                P[37] = new ReportParameter("PaymentTermAccNo", "ACCOUNT NO.  : " + DealerBank[0].DealerBank.AcNumber, false);
-        //                P[38] = new ReportParameter("PaymentTermIFSCCode", "IFSC CODE         : " + DealerBank[0].DealerBank.IfscCode, false);
-        //            }
-        //            else
-        //            {
-        //                lblMessage.Text = "Bank Details Not Found";
-        //                lblMessage.Visible = true;
-        //                lblMessage.ForeColor = Color.Red;
-        //                return;
-        //            }
-        //            P[39] = new ReportParameter("Delivery", "Delivery : " + Delivery, false);
-        //            P[40] = new ReportParameter("TransitInsurance", "Transit Insurance: Customer to arrange and send the same before dispatch", false);
-        //            P[41] = new ReportParameter("Transportation", "Transportation : To-pay basis to customer's account.", false);
-        //            P[42] = new ReportParameter("Validity", "Validity :This offer is valid till : " + Validity, false);
-        //            P[43] = new ReportParameter("Note", "Note : " + QNote, false);
-        //        }
-        //        //else if (Div == "CP")
-        //        //{
-        //        //    P[31] = new ReportParameter("TermsandConditionHead", "", false);
-        //        //    P[32] = new ReportParameter("PaymentTerms", "", false);
-        //        //    P[33] = new ReportParameter("TermsOfPayment", "", false);
-        //        //    P[34] = new ReportParameter("PaymentTermAccName", "", false);
-        //        //    P[35] = new ReportParameter("PaymentTermBankName", "", false);
-        //        //    P[36] = new ReportParameter("PaymentTermBankAddress", "");
-        //        //    P[37] = new ReportParameter("PaymentTermAccNo", "", false);
-        //        //    P[38] = new ReportParameter("PaymentTermIFSCCode", "", false);
-        //        //    P[39] = new ReportParameter("Delivery", "", false);
-        //        //    P[40] = new ReportParameter("TransitInsurance", "", false);
-        //        //    P[41] = new ReportParameter("Transportation", "", false);
-        //        //    P[42] = new ReportParameter("Validity", "", false);
-        //        //    P[43] = new ReportParameter("Note", "", false);
-        //        //}
-        //        else if (!string.IsNullOrEmpty(Div))
-        //        {
-        //            lblMessage.Text = "Please Change First Line Item of Material";
-        //            lblMessage.Visible = true;
-        //            lblMessage.ForeColor = Color.Red;
-        //            return;
-        //        }
-        //        else
-        //        {
-        //            lblMessage.Text = "Division Not Available";
-        //            lblMessage.Visible = true;
-        //            lblMessage.ForeColor = Color.Red;
-        //            return;
-        //        }
-
-        //        P[44] = new ReportParameter("Name", Q.Lead.AssignedTo.ContactName, false);
-        //        P[45] = new ReportParameter("Designation", Q.Lead.AssignedTo.Designation.DealerDesignation, false);
-        //        P[46] = new ReportParameter("MobileNo", Q.Lead.AssignedTo.ContactNumber, false);
-
-
-
-        //        DataTable dtItem = new DataTable();
-        //        dtItem.Columns.Add("SNO");
-        //        dtItem.Columns.Add("Material");
-        //        dtItem.Columns.Add("Description");
-        //        dtItem.Columns.Add("HSN");
-        //        dtItem.Columns.Add("UOM");
-        //        dtItem.Columns.Add("Qty");
-        //        dtItem.Columns.Add("Rate");
-        //        dtItem.Columns.Add("Total");
-        //        dtItem.Columns.Add("Discount");
-        //        dtItem.Columns.Add("Value");
-        //        dtItem.Columns.Add("CGSTPer");
-        //        dtItem.Columns.Add("CGSTVal");
-        //        dtItem.Columns.Add("SGSTPer");
-        //        dtItem.Columns.Add("SGSTVal");
-
-        //        int i = 0;
-        //        decimal TaxSubTotal = 0;
-        //        decimal TCSSubTotal = 0;
-        //        decimal SubTotal = 0;
-        //        decimal Lifetimetax = 0;
-        //        decimal GrandTotal = 0;
-        //        foreach (PSalesQuotationItem item in Q.QuotationItems)
-        //        {
-        //            i = i + 1;
-        //            if (item.SGST != 0)
-        //            {
-        //                P[47] = new ReportParameter("CGST_Header", "CGST %", false);
-        //                P[48] = new ReportParameter("CGSTVal_Header", "CGST Value", false);
-        //                P[49] = new ReportParameter("SGST_Header", "SGST %", false);
-        //                P[50] = new ReportParameter("SGSTVal_Header", "SGST Value", false);
-        //                dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-        //                    String.Format("{0:n}", item.TaxableValue / item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), item.SGST, String.Format("{0:n}", item.SGSTValue), item.SGST, String.Format("{0:n}", item.SGSTValue));
-
-        //                decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
-        //                decimal CGSTValues = (from x in Q.QuotationItems select x.CGSTValue).Sum();
-        //                decimal SGSTValues = (from x in Q.QuotationItems select x.SGSTValue).Sum();
-
-        //                TaxSubTotal = TaxableValues + CGSTValues + SGSTValues;
-        //                TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
-        //                SubTotal = TaxSubTotal + TCSSubTotal;
-        //                Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
-        //                GrandTotal = SubTotal + Lifetimetax;
-        //                P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-        //                P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
-        //                P[14] = new ReportParameter("Tax", "", false);
-        //                P[15] = new ReportParameter("TCS", String.Format("{0:n}", TCSSubTotal), false);
-        //                P[16] = new ReportParameter("SubTotal", String.Format("{0:n}", SubTotal), false);
-        //                P[17] = new ReportParameter("LifeTimeTax", String.Format("{0:n}", Lifetimetax), false);
-        //                P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
-        //            }
-        //            else
-        //            {
-        //                P[47] = new ReportParameter("CGST_Header", "", false);
-        //                P[48] = new ReportParameter("CGSTVal_Header", "", false);
-        //                P[49] = new ReportParameter("SGST_Header", "IGST %", false);
-        //                P[50] = new ReportParameter("SGSTVal_Header", "IGST Value", false);
-        //                dtItem.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty,
-        //                    String.Format("{0:n}", item.TaxableValue / item.Qty), String.Format("{0:n}", item.TaxableValue), item.Discount, String.Format("{0:n}", item.TaxableValue), null, null, item.IGST, String.Format("{0:n}", item.IGSTValue));
-
-        //                decimal TaxableValues = (from x in Q.QuotationItems select x.TaxableValue).Sum();
-        //                decimal IGSTValues = (from x in Q.QuotationItems select x.IGSTValue).Sum();
-
-        //                TaxSubTotal = TaxableValues + IGSTValues;
-        //                TCSSubTotal = TaxSubTotal * item.TCSTax / 100;// Q.TCSValue;
-        //                SubTotal = TaxSubTotal + TCSSubTotal;
-        //                Lifetimetax = SubTotal * Q.LifeTimeTax / 100;//Q.LifeTimeValue;
-        //                GrandTotal = SubTotal + Lifetimetax;
-        //                P[12] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-        //                P[13] = new ReportParameter("TotalAmount", String.Format("{0:n}", TaxSubTotal), false);
-        //                P[14] = new ReportParameter("Tax", "", false);
-        //                P[15] = new ReportParameter("TCS", String.Format("{0:n}", TCSSubTotal), false);
-        //                P[16] = new ReportParameter("SubTotal", String.Format("{0:n}", SubTotal), false);
-        //                P[17] = new ReportParameter("LifeTimeTax", String.Format("{0:n}", Lifetimetax), false);
-        //                P[18] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
-        //            }
-        //        }
-        //        P[54] = new ReportParameter("TCSPer", Q.QuotationItems[0].TCSTax.ToString(), false);
-        //        Boolean Success = false;
-
-        //        Success = new BSalesQuotation().InsertSalesQuotationRevision(Q, CustomerAddress1, CustomerAddress2, CustomerAddressShipTo1, CustomerAddressShipTo2,
-        //            KindAttention, Hypothecation, Reference, TermsOfPayment, Delivery, QNote, Validity, Convert.ToDecimal(GrandTotal));
-        //        if (Success == false)
-        //        {
-        //            return;
-        //        }
-
-        //        PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
-        //        string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
-        //        string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
-
-        //        PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Q.Lead.Dealer.DealerCode);
-        //        string DealerCustomerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-        //        string DealerCustomerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
-
-        //        //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Q.Lead.Dealer.DealerCode);
-        //        if (Quotation.CommissionAgent)
-        //        {
-        //            P[51] = new ReportParameter("CompanyName", Ajax.CustomerName.ToUpper(), false);
-        //            P[52] = new ReportParameter("CompanyAddress1", AjaxCustomerAddress1, false);
-        //            P[53] = new ReportParameter("CompanyAddress2", AjaxCustomerAddress2, false);
-        //            P[55] = new ReportParameter("CompanyCINandGST", "CIN : " + Ajax.CIN + ", GST : " + Ajax.GSTIN);
-        //            P[56] = new ReportParameter("CompanyPAN", "PAN : " + Ajax.PAN + ", T : " + Ajax.Mobile);
-        //            P[57] = new ReportParameter("CompanyTelephoneandEmail", "Email : " + Ajax.Email + ", Web : " + Ajax.Web);
-        //        }
-        //        else
-        //        {
-        //            P[51] = new ReportParameter("CompanyName", Dealer.CustomerFullName.ToUpper(), false);
-        //            P[52] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
-        //            P[53] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
-        //            P[55] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.PAN + ",GST:" + Ajax.GSTIN);
-        //            P[56] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.PAN);
-        //            P[57] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
-        //        }
-
-        //        report.ReportPath = Server.MapPath("~/Print/SalesTaxQuotation.rdlc");
-        //        report.SetParameters(P);
-
-        //        ReportDataSource rds = new ReportDataSource();
-        //        rds.Name = "SalesTaxQuotationItem";//This refers to the dataset name in the RDLC file  
-        //        rds.Value = dtItem;
-        //        report.DataSources.Add(rds); ;
-
-        //        Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
-
-        //        Response.Buffer = true;
-        //        Response.Clear();
-        //        Response.ContentType = mimeType;
-        //        Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-        //        Response.BinaryWrite(mybytes); // create the file
-        //        new BXcel().PdfDowload();
-        //        Response.Flush(); // send it to the client to download
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        lblMessage.Text = ex.Message.ToString();
-        //        lblMessage.Visible = true;
-        //        lblMessage.ForeColor = Color.Red;
-        //        return;
-        //    }
-        //}
         void ActionControlMange()
         {
             lbtnEditQuotation.Visible = true;
@@ -2922,9 +2013,13 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
 
 
+
             lbtnSaleOrderConfirmation.Visible = true;
 
             lbtnAddVisit.Visible = true;
+            lbtnAddDiscount.Visible = true;
+
+            lbtnAddCustomerSingedQuotation.Visible = true;
 
 
             if (Quotation.CommissionAgent)
@@ -2958,6 +2053,11 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnAddVisit.Visible = false;
             }
 
+            if (!Quotation.IsStandard)
+            {
+                lbtnAddDiscount.Visible = false;
+            }
+
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.TaxQuotationPrint).Count() == 0)
             {
@@ -2975,6 +2075,26 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnAddFollowUp.Visible = false;
                 lbtnGenerateQuotation.Visible = false;
                 lbtnSaleOrderConfirmation.Visible = false;
+            }
+            if (!string.IsNullOrEmpty(Singed.FileName))
+            {
+
+                lbtnEditQuotation.Visible = false;
+                lbtnEditFinancier.Visible = false;
+                lbtnAddProduct.Visible = false;
+                lbtnAddCompetitor.Visible = false;
+                lbtnAddQuotationNote.Visible = false;
+                lbtnAddFollowUp.Visible = false;
+                lbtnGenerateQuotation.Visible = false; 
+                lbtnViewTaxQuotation.Visible = false;
+                lbtnDownloadTaxQuotation.Visible = false;
+                lbtnDownloadConsolidatedTaxQuotation.Visible = false;
+                lbtnViewMachineQuotation.Visible = false;
+                lbtnDownloadMachineQuotation.Visible = false; 
+                lbtnSaleOrderConfirmation.Visible = false; 
+                lbtnAddVisit.Visible = false;
+                lbtnAddDiscount.Visible = false;
+                lbtnAddCustomerSingedQuotation.Visible = false;
             }
 
             lbtnAddFollowUp.Visible = false;
@@ -3139,5 +2259,164 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             return Message;
         }
 
+        protected void btnSaveVariant_Click(object sender, EventArgs e)
+        { 
+            try
+            {
+                MPE_Variant.Show();
+                List<PSalesQuotationItem> MaterialTax = UC_AddVariant.ReadMaterial(); 
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/QuotationItems", MaterialTax));
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessageVariant.Text = Results.Message;
+                    return;
+                }
+                MPE_Variant.Hide();
+                tbpSaleQuotation.ActiveTabIndex = 1;
+                fillViewQuotation(Quotation.QuotationID);
+                lblMessage.Text = "Updated Successfully";
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Green;
+            }
+            catch (Exception ex)
+            {
+                lblMessageVariant.Text = ex.Message.ToString();
+                lblMessageVariant.ForeColor = Color.Red;
+                lblMessageVariant.Visible = true;
+                return;
+            }
+        }
+
+        protected void btnHeaderDiscount_Click(object sender, EventArgs e)
+        {
+            MPE_HeaderDiscount.Show();
+            lblMessageVariant.Visible = true;
+            lblMessageVariant.ForeColor = Color.Red;
+            txtHeaderDiscount.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtHeaderDiscount.Text.Trim()))
+            {
+                txtHeaderDiscount.BorderColor = Color.Red;
+                lblMessageVariant.Text = "Please enter the Discount";
+            }
+            decimal decimalValue;
+            if (decimal.TryParse(txtHeaderDiscount.Text.Trim(), out decimalValue))
+            {
+                txtHeaderDiscount.BorderColor = Color.Red;
+                lblMessageVariant.Text = "Please enter the Correct Discount Value";
+            }
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SalesQuotation/UpdateSalesQuotationHeaderDiscount?SalesQuotationID=" + Quotation.QuotationID + "&HeaderDiscount=" + txtHeaderDiscount.Text));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageVariant.Text = Results.Message;
+                return;
+            }
+            MPE_HeaderDiscount.Hide();
+            tbpSaleQuotation.ActiveTabIndex = 1;
+            fillViewQuotation(Quotation.QuotationID);
+            lblMessage.Text = "Updated Successfully";
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+        }
+
+        protected void btnCustomerSingedCopy_Click(object sender, EventArgs e)
+        {
+            MPE_CustomerSingedCopy.Show();
+            lblMessageCustomerSingedCopy.Visible = true;
+            lblMessageCustomerSingedCopy.ForeColor = Color.Red;
+
+            txtCustomerAgreedPrice.BorderColor = Color.Silver;
+            if (string.IsNullOrEmpty(txtCustomerAgreedPrice.Text.Trim()))
+            {
+                txtCustomerAgreedPrice.BorderColor = Color.Red;
+                lblMessageCustomerSingedCopy.Text = "Please enter the Discount";
+            }
+            decimal decimalValue;
+            if (decimal.TryParse(txtCustomerAgreedPrice.Text.Trim(), out decimalValue))
+            {
+                txtCustomerAgreedPrice.BorderColor = Color.Red;
+                lblMessageCustomerSingedCopy.Text = "Please enter the Correct Discount Value";
+            }
+            
+
+            if (fuCustomerSinged.PostedFile != null)
+            {
+                if (fuCustomerSinged.PostedFile.FileName.Length > 0)
+                {
+                    if (fuCustomerSinged.PostedFile.FileName.Length == 0)
+                    {
+                        lblMessageCustomerSingedCopy.Text = "Please select the file...!"; 
+                        return;
+                    }
+                }
+            }
+
+            HttpPostedFile file = fuCustomerSinged.PostedFile;
+          //  int size = file.ContentLength;
+            string name = file.FileName;
+            int position = name.LastIndexOf("\\");
+            name = name.Substring(position + 1);
+
+            byte[] fileData = new byte[file.ContentLength];
+            file.InputStream.Read(fileData, 0, file.ContentLength);
+
+            PSalesQuotationCustomerSinged Singed = new PSalesQuotationCustomerSinged();
+            Singed.SalesQuotationID = Quotation.QuotationID;
+            Singed.FileName = name;
+            Singed.FileType = file.ContentType;
+            Singed.AttachedFile = fileData;
+            Singed.IsActive = true;
+            Singed.CustomerAgreedPrice = Convert.ToDecimal(txtCustomerAgreedPrice.Text.Trim());
+            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/InsertOrUpdateSalesQuotationCustomerSinged" , Singed));
+            if (Results.Status == PApplication.Failure)
+            {
+                lblMessageCustomerSingedCopy.Text = Results.Message;
+                return;
+            }
+            MPE_CustomerSingedCopy.Hide();
+           // tbpSaleQuotation.ActiveTabIndex = 1;
+            fillCustomerSingedCopy();
+            lblMessage.Text = "Updated Successfully";
+            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green;
+        }
+        void fillCustomerSingedCopy()
+        {
+            Singed = new BSalesQuotation().GetSalesQuotationCustomerSinged(Quotation.QuotationID);
+            if (!string.IsNullOrEmpty( Singed.FileName))
+            {
+                lblSalesQuotationCustomerSingedID.Text = Singed.SalesQuotationCustomerSingedID.ToString();
+                lblCustomerAgreedPrice.Text = Convert.ToString(Singed.CustomerAgreedPrice);
+                lbtnCustomerSingedQuotationDownload.Text = Singed.FileName;
+            }
+            else
+            {
+                lblSalesQuotationCustomerSingedID.Text = "";
+                lblCustomerAgreedPrice.Text = "";
+                lbtnCustomerSingedQuotationDownload.Text = "";
+            }
+            // gvVisit.DataSource = Visit;
+            // gvVisit.DataBind();
+        }
+
+        protected void lbtnCustomerSingedQuotationDownload_Click(object sender, EventArgs e)
+        {
+           // PSalesQuotationCustomerSinged Singed = new BSalesQuotation().GetSalesQuotationCustomerSinged(Quotation.QuotationID);
+
+            PAttachedFile Att = new BSalesQuotation().AttachedFileSalesQuotationCustomerSingedForDownload(lblSalesQuotationCustomerSingedID.Text + Path.GetExtension(lbtnCustomerSingedQuotationDownload.Text));
+            Response.AddHeader("Content-type", Singed.FileType); 
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + Singed.FileName);
+            HttpContext.Current.Response.Charset = "utf-16";
+            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250"); 
+            Response.BinaryWrite(Att.AttachedFile);
+            // Append cookie
+            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+            cookie.Value = "Flag";
+            cookie.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.AppendCookie(cookie);
+            // end 
+            Response.Flush();
+            Response.End();
+        }
     }
 }
+ 

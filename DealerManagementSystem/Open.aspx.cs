@@ -88,7 +88,7 @@ namespace DealerManagementSystem
 
         protected void BtnMaterial_Click(object sender, EventArgs e)
         {
-            new BAPI().ApiGetWithOutToken("Material/MaterialIntegrationFromSap");
+            new BAPI().ApiGetWithOutToken("Material/MaterialIntegrationFromSap?MaterialCode = " + txtMaterialCode.Text.Trim());
         }
 
         protected void BtnMaterialSupersede_Click(object sender, EventArgs e)

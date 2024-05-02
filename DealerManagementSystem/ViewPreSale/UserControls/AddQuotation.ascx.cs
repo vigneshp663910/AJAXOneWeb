@@ -77,7 +77,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Sq.RequestedDeliveryDate = string.IsNullOrEmpty(txtRequestedDeliveryDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRequestedDeliveryDate.Text.Trim());
             Sq.CommissionAgent = cbCommissionAgent.Checked;
             Sq.CustomerShipToID = ddlShipParty.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShipParty.SelectedValue);
-             
+            if (rbIsStandardYes.Checked)
+            {
+                Sq.IsStandard = true;
+            }
+            else
+            { 
+                Sq.IsStandard = false; 
+            }
             return Sq;
         }
         public string ValidationSalesQuotation()
@@ -125,6 +132,25 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlShipParty.SelectedValue = Sq.ShipTo == null ? "0" : Convert.ToString(Sq.ShipTo.CustomerShipToID);
 
             txtLifeTimeTax.Text = Convert.ToString(Sq.LifeTimeTax);
+
+            if (Sq.IsStandard)
+            {
+                rbIsStandardYes.Checked = true;
+            }
+            else
+            {
+                rbIsStandardNo.Checked = true;
+            }
+
+           
+            if(Sq.Lead.ProductType.ProductTypeID !=3 )
+            {
+                divStandardProduct.Visible = false;
+            }
+            else
+            {
+                divStandardProduct.Visible = true;
+            }
         }
 
     }

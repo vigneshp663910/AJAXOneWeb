@@ -1,12 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="Material.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.Material" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="Material.aspx.cs" Inherits="DealerManagementSystem.ViewMaster.Material" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Src="~/ViewMaster/UserControls/MaterialView.ascx" TagPrefix="UC" TagName="UC_MaterialView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
-    <div class="col-md-12">
+    <div class="col-md-12" id="divList" runat="server">
         <asp:TabContainer ID="tabConMaterial" runat="server" ToolTip="Material" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
             <asp:TabPanel ID="tabbPnlDivision" runat="server" HeaderText="Division" Font-Bold="True" ToolTip="Division...">
                 <ContentTemplate>
@@ -332,20 +333,26 @@
                                                             <asp:TemplateField HeaderText="CST %">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                 <ItemTemplate>
-                                                                    <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "CST","{0:n}")%>' runat="server"></asp:Label>
+                                                                    <asp:Label ID="lblCST" Text='<%# DataBinder.Eval(Container.DataItem, "CST","{0:n}")%>' runat="server"></asp:Label>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                             <asp:TemplateField HeaderText="SST %">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                 <ItemTemplate>
-                                                                    <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "SST","{0:n}")%>' runat="server"></asp:Label>
+                                                                    <asp:Label ID="lblSST" Text='<%# DataBinder.Eval(Container.DataItem, "SST","{0:n}")%>' runat="server"></asp:Label>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
 
                                                             <asp:TemplateField HeaderText="GST %">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                 <ItemTemplate>
-                                                                    <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "GST","{0:n}")%>' runat="server"></asp:Label>
+                                                                    <asp:Label ID="lblGST" Text='<%# DataBinder.Eval(Container.DataItem, "GST","{0:n}")%>' runat="server"></asp:Label>
+                                                                </ItemTemplate>
+                                                            </asp:TemplateField>
+
+                                                            <asp:TemplateField>
+                                                                <ItemTemplate>
+                                                                    <asp:Button ID="btnViewMaterial" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MaterialID")%>' Text="View" CssClass="btn Back" OnClick="btnViewMaterial_Click" Width="75px" Height="25px" />
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
                                                         </Columns>
@@ -627,8 +634,299 @@
                     </div>
                 </ContentTemplate>
             </asp:TabPanel>
+            <asp:TabPanel ID="tblPnlMaterialVariant" runat="server" HeaderText="Material Category Type" Font-Bold="True" ToolTip="Material Category...">
+                <ContentTemplate>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <fieldset class="fieldset-border">
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                                <div class="col-md-12">
+                                    <div class="col-md-2 col-sm-12">
+                                        <label>Product Type</label>
+                                        <asp:DropDownList ID="ddlSProductType" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-2 text-left">
+                                        <label class="modal-label">-</label>
+                                        <asp:Button ID="btnMatVariantTypeSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="btnMatVariantTypeSearch_Click" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12 Report">
+                            <fieldset class="fieldset-border">
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                                <div class="col-md-12 Report">
+                                    <tr>
+                                        <td>
+                                            <div class="boxHead">
+                                                <div class="logheading">
+                                                    <div style="float: left">
+                                                        <table>
+                                                            <tr>
+                                                                <td>Material Category(s) :</td>
 
+                                                                <td>
+                                                                    <asp:Label ID="lblMatVariantTypeRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                                <td>
+                                                                    <asp:ImageButton ID="ibtnMatVariantTypeArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnMatVariantTypeArrowLeft_Click" /></td>
+                                                                <td>
+                                                                    <asp:ImageButton ID="ibtnMatVariantTypeArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnMatVariantTypeArrowRight_Click" /></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="background-color: white">
+                                                <asp:GridView ID="GVMatVariantType" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
+                                                    OnPageIndexChanging="GVMatVariantType_PageIndexChanging" ShowFooter="true" Width="100%">
+                                                    <Columns>
+                                                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Product Type">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
+                                                                <asp:Label ID="lblProductTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductTypeID")%>' runat="server" Visible="false" />
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                            </FooterTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Material Category">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblVariantName" Text='<%# DataBinder.Eval(Container.DataItem, "VariantName")%>' runat="server" />
+                                                                <asp:Label ID="lblVariantTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "VariantTypeID")%>' runat="server" Visible="false" />
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                <asp:TextBox ID="txtVariantName" runat="server" placeholder="Material Category" CssClass="form-control"></asp:TextBox>
+                                                            </FooterTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Max To Select">
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblMaxToSelect" Text='<%# DataBinder.Eval(Container.DataItem, "MaxToSelect")%>' runat="server"></asp:Label>
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                <asp:TextBox ID="txtMaxToSelect" runat="server" placeholder="Max To Select" TextMode="Number" CssClass="form-control"></asp:TextBox>
+                                                            </FooterTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                                            <ItemTemplate>
+                                                                <asp:LinkButton ID="lblMatVariantTypeEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "VariantTypeID")%>' OnClick="lblMatVariantTypeEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                                <asp:LinkButton ID="lblMatVariantTypeDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "VariantTypeID")%>' OnClientClick="return ConfirmDeleteMaterialVariantType();" OnClick="lblMatVariantTypeDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                <asp:Button ID="BtnAddMatVariantType" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddMatVariantType_Click" Width="70px" Height="33px" />
+                                                            </FooterTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                    <AlternatingRowStyle BackColor="#ffffff" />
+                                                    <FooterStyle ForeColor="White" />
+                                                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                                </asp:GridView>
+                                                <asp:HiddenField ID="HidMatVariantType" runat="server" Visible="false" />
+                                            </div>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:TabPanel>
+            <asp:TabPanel ID="tblPnlMaterialVariantTypeMapping" runat="server" HeaderText="Material Category Mapping" Font-Bold="True" ToolTip="Material Category Mapping...">
+                <ContentTemplate>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <fieldset class="fieldset-border">
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                                <div class="col-md-12">
+                                    <div class="col-md-2 col-sm-12">
+                                        <label>Product Type</label>
+                                        <asp:DropDownList ID="ddlSMProductType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlSMProductType_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12">
+                                        <label>Product</label>
+                                        <asp:DropDownList ID="ddlSMProduct" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12">
+                                        <label>Material Category</label>
+                                        <asp:DropDownList ID="ddlSMVariantName" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    </div> 
+                                    <div class="col-md-2 col-sm-12">
+                                        <label class="modal-label">Material Code</label>
+                                        <asp:TextBox ID="txtSMMaterial" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                                    </div>
+                                    <div class="col-md-2 text-left">
+                                        <label class="modal-label">-</label>
+                                        <asp:Button ID="btnMatVariantTypeMappingSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="btnMatVariantTypeMappingSearch_Click" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
 
+                    <div class="col-md-12">
+                        <div class="col-md-12 Report">
+                            <fieldset class="fieldset-border">
+                                <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                                <div class="col-md-12 Report">
+                                    <tr>
+                                        <td>
+                                            <div class="boxHead">
+                                                <div class="logheading">
+                                                    <div style="float: left">
+                                                        <table>
+                                                            <tr>
+                                                                <td>Material Category Mapping(s) :</td>
+
+                                                                <td>
+                                                                    <asp:Label ID="lblMatVariantTypeMappingRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                                <td>
+                                                                    <asp:ImageButton ID="ibtnMatVariantTypeMappingArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnMatVariantTypeMappingArrowLeft_Click" /></td>
+                                                                <td>
+                                                                    <asp:ImageButton ID="ibtnMatVariantTypeMappingArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnMatVariantTypeMappingArrowRight_Click" /></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="background-color: white">
+                                                <asp:GridView ID="GVMatVariantTypeMapping" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
+                                                    OnPageIndexChanging="GVMatVariantTypeMapping_PageIndexChanging" ShowFooter="true" Width="100%">
+                                                    <Columns>
+                                                        <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Product Type">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblMappingProductType" Text='<%# DataBinder.Eval(Container.DataItem, "VariantType.ProductType.ProductType")%>' runat="server" />
+                                                                <asp:Label ID="lblMappingProductTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "VariantType.ProductType.ProductTypeID")%>' runat="server" Visible="false" />
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                <asp:DropDownList ID="ddlAddProductType" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlAddProductType_SelectedIndexChanged"></asp:DropDownList>
+                                                            </FooterTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Material Category">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblVariantName" Text='<%# DataBinder.Eval(Container.DataItem, "VariantType.VariantName")%>' runat="server" />
+                                                                <asp:Label ID="lblVariantTypeID" Text='<%# DataBinder.Eval(Container.DataItem, "VariantType.VariantTypeID")%>' runat="server" Visible="false" />
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                <asp:DropDownList ID="ddlAddVariantType" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                            </FooterTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Product">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblProduct" Text='<%# DataBinder.Eval(Container.DataItem,"Product") == null ? "ALL" : DataBinder.Eval(Container.DataItem,"Product.Product") %>' runat="server" />
+                                                                <asp:Label ID="lblProductID" Text='<%# DataBinder.Eval(Container.DataItem,"Product") == null ? null : DataBinder.Eval(Container.DataItem,"Product.ProductID") %>' runat="server" Visible="false" />
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                <asp:DropDownList ID="ddlAddProduct" runat="server" CssClass="form-control"></asp:DropDownList>
+                                                            </FooterTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Material">
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode") + " " + DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
+                                                                <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialID")%>' runat="server" Visible="false"></asp:Label>
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                <asp:TextBox ID="txtAddMaterial" runat="server" placeholder="Material" CssClass="form-control"></asp:TextBox>
+                                                            </FooterTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                                            <ItemTemplate>
+                                                                <asp:LinkButton ID="lblMatVariantTypeMappingEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MaterialVariantTypeMappingID")%>' OnClick="lblMatVariantTypeMappingEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                                <asp:LinkButton ID="lblMatVariantTypeMappingDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "MaterialVariantTypeMappingID")%>' OnClientClick="return ConfirmDeleteMaterialVariantTypeMapping();" OnClick="lblMatVariantTypeMappingDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                                            </ItemTemplate>
+                                                            <FooterTemplate>
+                                                                <asp:Button ID="BtnAddMatVariantTypeMapping" runat="server" Text="Add" CssClass="btn Back" OnClick="BtnAddMatVariantTypeMapping_Click" Width="70px" Height="33px" />
+                                                            </FooterTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                    <AlternatingRowStyle BackColor="#ffffff" />
+                                                    <FooterStyle ForeColor="White" />
+                                                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                    <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                                </asp:GridView>
+                                                <asp:HiddenField ID="HidMatVariantTypeMapping" runat="server" Visible="false" />
+                                            </div>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </ContentTemplate>
+            </asp:TabPanel>
         </asp:TabContainer>
     </div>
+    <div class="col-md-12" id="divMaterialView" runat="server" visible="false">
+        <div class="" id="boxHere"></div>
+        <div class="back-buttton" id="backBtn">
+            <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+        </div>
+        <div class="col-md-12" runat="server" id="tblDashboard">
+            <UC:UC_MaterialView ID="UC_MaterialView" runat="server"></UC:UC_MaterialView>
+            <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>            
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#MainContent_tabConMaterial_tblPnlMaterialVariantTypeMapping_GVMatVariantTypeMapping_txtAddMaterial").autocomplete({
+                source: function (request, response) {
+                    var param = { input: $('#MainContent_tabConMaterial_tblPnlMaterialVariantTypeMapping_GVMatVariantTypeMapping_txtAddMaterial').val() };
+                    $.ajax({
+                        url: "Material.aspx/SearchMaterial",
+                        data: JSON.stringify(param),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+                            response($.map(data.d, function (item) {
+                                return {
+                                    value: item
+                                }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            var err = eval("(" + XMLHttpRequest.responseText + ")");
+                            alert(err.Message)
+                        }
+                    });
+                },
+                minLength: 2
+            });
+        });
+        function ConfirmDeleteMaterialVariantType() {
+            var x = confirm("Are you sure you want to Delete Material Category?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+        function ConfirmDeleteMaterialVariantTypeMapping() {
+            var x = confirm("Are you sure you want to Delete Material Category Mapping?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+    </script>
 </asp:Content>

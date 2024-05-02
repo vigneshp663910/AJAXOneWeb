@@ -60,6 +60,24 @@ namespace Properties
         public PProductType ProductType { get; set; }
     }
     [Serializable]
+    public class PProductDrawing
+    {
+        public long ProductDrawingID { get; set; }
+        public PProduct Product { get; set; }
+        public PProductDrawingType ProductDrawingType { get; set; }
+        public string DrawingDescription { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public bool IsActive { get; set; }
+    }
+    [Serializable]
+    public class PProductDrawingType
+    {
+        public int ProductDrawingTypeID { get; set; }
+        public string ProductDrawingTypeName { get; set; }
+    }
+    [Serializable]
     public class PImportance
     {
         public int ImportanceID { get; set; }

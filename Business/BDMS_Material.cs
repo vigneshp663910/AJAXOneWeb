@@ -19,14 +19,14 @@ namespace Business
         public BDMS_Material()
         {
             provider = new ProviderFactory().GetProvider();
-        } 
-        
+        }
 
-        public List<string> GetMaterialAutocomplete(string Material, string MaterialType,int? DivisionID)
+
+        public List<string> GetMaterialAutocomplete(string Material, string MaterialType, int? DivisionID)
         {
             List<string> Materials = new List<string>();
             try
-            { 
+            {
                 DbParameter MaterialP;
                 DbParameter MaterialTypeP;
 
@@ -71,7 +71,7 @@ namespace Business
             {
                 endPoint = "Material/MaterialFinishedGoodsAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID;
             }
-            else  
+            else
             {
                 endPoint = "Material/MaterialAccessoriesAutocomplete?Material=" + Material + "&MaterialType=" + MaterialType + "&DivisionID=" + DivisionID;
             }
@@ -159,14 +159,14 @@ namespace Business
             return Materials;
         }
 
-        public List<PDMS_Material> GetMaterialListSQL(int? MaterialID, string MaterialCode,int? DivisionID,int? ModelID,string IsActive)
+        public List<PDMS_Material> GetMaterialListSQL(int? MaterialID, string MaterialCode, int? DivisionID, int? ModelID, string IsActive)
         {
-            string endPoint = "Material/Material?MaterialID=" + MaterialID + "&MaterialCode=" + MaterialCode 
+            string endPoint = "Material/Material?MaterialID=" + MaterialID + "&MaterialCode=" + MaterialCode
                 + "&DivisionID=" + DivisionID + "&ModelID=" + ModelID + "&IsActive=" + IsActive;
             return JsonConvert.DeserializeObject<List<PDMS_Material>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-             
+
         }
- 
+
         public List<PDMS_Material> GetMaterialSupersede(int? MaterialID, string MaterialCode)
         {
             TraceLogger.Log(DateTime.Now);
@@ -213,6 +213,130 @@ namespace Business
             string endPoint = "Material/MaterialPriceFromSap?Customer=" + Customer + "&Vendor=" + Vendor + "&OrderType=" + OrderType + "&Item=" + Item
                 + "&Material=" + Material + "&Quantity=" + Quantity + "&IV_SEC_SALES=" + IV_SEC_SALES + "&PriceDate=" + PriceDate + "&IsWarrenty=" + IsWarrenty;
             return JsonConvert.DeserializeObject<PMaterial>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+
+        public List<PMaterialVariantType> GetMaterialVariantType(int? ProductTypeID)
+        {
+            try
+            {
+                string endPoint = "Material/GetMaterialVariantType?ProductTypeID=" + ProductTypeID;
+                return JsonConvert.DeserializeObject<List<PMaterialVariantType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantType", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantType", ex);
+                throw ex;
+            }
+        }
+        public List<PMaterialVariantTypeMapping> GetMaterialByProductIDAndMaterialCategoryID(int ProductID, int MaterialCategoryID)
+        {
+            try
+            {
+                string endPoint = "Material/GetMaterialByProductIDAndMaterialCategoryID?ProductID=" + ProductID + "&MaterialCategoryID=" + MaterialCategoryID;
+                return JsonConvert.DeserializeObject<List<PMaterialVariantTypeMapping>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantTypeMappingProductID", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantTypeMappingProductID", ex);
+                throw ex;
+            }
+        }
+        public Boolean InsertOrUpdateMaterialVariantType(PMaterialVariantType MVT, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            Boolean success = false;
+            try
+            {
+                DbParameter VariantTypeIDP = provider.CreateParameter("VariantTypeID", MVT.VariantTypeID, DbType.Int32);
+                DbParameter VariantNameP = provider.CreateParameter("VariantName", MVT.VariantName, DbType.String);
+                DbParameter ProductTypeID = provider.CreateParameter("ProductTypeID", MVT.ProductType.ProductTypeID, DbType.Int32);
+                DbParameter MaxToSelect = provider.CreateParameter("MaxToSelect", MVT.MaxToSelect, DbType.Int32);
+                DbParameter IsActiveP = provider.CreateParameter("IsActive", MVT.IsActive, DbType.Boolean);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
+                DbParameter[] Params = new DbParameter[7] { VariantTypeIDP, VariantNameP, ProductTypeID, MaxToSelect, IsActiveP, UserIDP, OutValue };
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("InsertOrUpdateMaterialVariantType", Params);
+                    scope.Complete();
+                }
+                success = true;
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "InsertOrUpdateMaterialVariantType", e1);
+                throw e1;
+            }
+            TraceLogger.Log(DateTime.Now);
+            return success;
+        }
+        public List<PMaterialVariantTypeMapping> GetMaterialVariantTypeMapping(int? ProductTypeID, int? ProductID, int? VariantTypeID, string MaterialCode)
+        {
+            try
+            {
+                string endPoint = "Material/GetMaterialVariantTypeMapping?ProductTypeID=" + ProductTypeID + "&ProductID=" + ProductID + "&VariantTypeID=" + VariantTypeID + "&MaterialCode=" + MaterialCode;
+                return JsonConvert.DeserializeObject<List<PMaterialVariantTypeMapping>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+            }
+            catch (SqlException sqlEx)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantTypeMapping", sqlEx);
+                throw sqlEx;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "GetMaterialVariantTypeMapping", ex);
+                throw ex;
+            }
+        }
+        public Boolean InsertOrUpdateMaterialVariantTypeMapping(PMaterialVariantTypeMapping MVTM, int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            Boolean success = false;
+            try
+            {
+                DbParameter MaterialVariantTypeMappingIDP = provider.CreateParameter("MaterialVariantTypeMappingID", MVTM.MaterialVariantTypeMappingID, DbType.Int32);
+                DbParameter ProductIDP = provider.CreateParameter("ProductID", (MVTM.Product.ProductID == 0) ? (Int32?)null : MVTM.Product.ProductID, DbType.Int32);
+                DbParameter VariantTypeIDP = provider.CreateParameter("VariantTypeID", MVTM.VariantType.VariantTypeID, DbType.Int32);
+                DbParameter MaterialIDP = provider.CreateParameter("MaterialID", MVTM.Material.MaterialID, DbType.Int32);
+                DbParameter IsActiveP = provider.CreateParameter("IsActive", MVTM.IsActive, DbType.Boolean);
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[6] { MaterialVariantTypeMappingIDP, ProductIDP, VariantTypeIDP, MaterialIDP, IsActiveP, UserIDP };
+
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+                {
+                    provider.Insert("InsertOrUpdateMaterialVariantTypeMapping", Params);
+                    scope.Complete();
+                }
+                success = true;
+            }
+            catch (Exception e1)
+            {
+                new FileLogger().LogMessage("BDMS_Material", "InsertOrUpdateMaterialVariantTypeMapping", e1);
+                throw e1;
+            }
+            TraceLogger.Log(DateTime.Now);
+            return success;
+        }
+        public List<PMaterialDrawing> GetMaterialDrawing(long? MaterialID)
+        {
+            string endPoint = "Material/GetMaterialDrawing?MaterialID=" + MaterialID;
+            return JsonConvert.DeserializeObject<List<PMaterialDrawing>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PAttachedFile GetAttachedFileMaterialDrawingForDownload(string DocumentName)
+        {
+            string endPoint = "Material/AttachedFileMaterialDrawingForDownload?DocumentName=" + DocumentName;
+            return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
         }
     }
 }

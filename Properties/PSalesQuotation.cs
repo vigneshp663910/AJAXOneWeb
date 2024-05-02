@@ -57,6 +57,9 @@ namespace Properties
         public decimal TotalExpense { get; set; }
         public decimal LifeTimeTax { get; set; }
 
+        public Boolean IsStandard { get; set; }
+        public PSalesQuotationApprovalStatus ApprovalStatus { get; set; }
+
         //public Decimal? DiscountSales { get; set; }
         //public Decimal? FreightValue { get; set; }
         //public Decimal? InsuranceValue { get; set; }
@@ -116,6 +119,7 @@ namespace Properties
         public Boolean CommissionAgent { get; set; }
         public PPriceGroup PriceGroup { get; set; }  
         public decimal LifeTimeTax { get; set; }
+        public Boolean IsStandard { get; set; }
 
     }
 
@@ -127,6 +131,7 @@ namespace Properties
         public int Item { get; set; }
         public PDMS_Material Material { get; set; }
         public int Qty { get; set; }
+        public Decimal AspPrice { get; set; }
         public Decimal Rate { get; set; }
         public Decimal? Discount { get; set; }
         public Decimal TaxableValue { get; set; }
@@ -144,7 +149,7 @@ namespace Properties
         //public Decimal TaxPersent { get; set; }
         //public Decimal TaxValue { get; set; }
         public Decimal NetValue { get; set; }
-        public PPlant Plant { get; set; }
+      //  public PPlant Plant { get; set; }
         public PSaleQuotationRejectionReason RejectionReason { get; set; }
         public PUser CreatedBy { get; set; }
         public string SapFlag { get; set; }
@@ -287,5 +292,31 @@ namespace Properties
         public DateTime? DocumentDate { get; set; }
         public string Material { get; set; }
         public string MachineSerialNumber { get; set; }  
+    }
+    [Serializable]
+    public class PSalesQuotationApprovalStatus
+    {
+        public int StatusID { get; set; }
+        public string Status { get; set; }
+    }
+    [Serializable]
+    public class PSalesQuotationApprovedBy
+    {
+        public int ApprovedByID { get; set; }
+        public PUser ApprovedBy { get; set; }
+        public PSalesQuotationApprovalStatus ApprovalLevel { get; set; }
+        public DateTime ApprovedDate { get; set; }
+        public string Remark { get; set; }
+    }
+    [Serializable]
+    public class PSalesQuotationCustomerSinged
+    {
+        public long SalesQuotationCustomerSingedID { get; set; }
+        public long SalesQuotationID { get; set; }
+        public decimal CustomerAgreedPrice { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public bool IsActive { get; set; }
     }
 }

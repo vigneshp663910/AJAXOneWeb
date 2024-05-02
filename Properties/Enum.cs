@@ -804,6 +804,19 @@ namespace Properties
         DealerShip = 2,
         CallCenter = 3
     }
+    public enum ProductType
+    {
+        SelfLoadingConcreteMixer = 1,
+        ConcretePumps = 2,
+        BatchingPlant = 3,
+        TransitMixers = 4,
+        BoomPump = 5,
+        SlipFormPaver = 6,
+        Dumper = 7,
+        DumperOld = 11,
+        SpareParts = 12,
+        PlacingEquipment = 13
+    }
     public enum AjaxOneStatus
     {
         DealerBusinessExcellence_Requested = 1,
@@ -825,3 +838,4 @@ namespace Properties
         ClaimCreationDelay = 4,
     }
 }
+
