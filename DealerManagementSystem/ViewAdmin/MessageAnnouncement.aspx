@@ -22,24 +22,33 @@
                         <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                         <div class="col-md-12">
                             <div class="col-md-2 text-left">
-                                <label>Dealer</label>
-                                <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" AutoPostBack="true" />
+                                <label>Notification No</label>
+                                <asp:TextBox ID="txtNotificationNo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             </div>
                             <div class="col-md-2 text-left">
-                                <label>Department</label>
-                                <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
+                                <label>Subject</label>
+                                <asp:TextBox ID="txtSubject" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                             </div>
                             <div class="col-md-2 text-left">
-                                <label>Designation</label>
-                                <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDesignation_SelectedIndexChanged" AutoPostBack="true" />
+                                <label>Sent From</label>
+                                <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDateFrom" PopupButtonID="txtDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtDateFrom" WatermarkText="Date From"></asp:TextBoxWatermarkExtender>
+                            </div>
+                            <div class="col-md-2 text-left">
+                                <label>Sent To</label>
+                                <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                                <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateTo" PopupButtonID="txtDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                                <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateTo" WatermarkText="Date To"></asp:TextBoxWatermarkExtender>
                             </div>
                             <div class="col-md-2 col-sm-12">
-                                <label>Employee</label>
+                                <label>Sent By</label>
                                 <asp:DropDownList ID="ddlDealerEmployee" runat="server" CssClass="form-control" />
                             </div>
-                            <div class="col-md-2 col-sm-12" id="ChkMessage" runat="server">
-                                <br />
+                            <div class="col-md-2 col-sm-12" runat="server" id="divChkIT">
                                 <asp:CheckBox ID="ChkGetAllMessage" runat="server" Text="Get All Message" />
+                                <br />
+                                <asp:CheckBox ID="ChkIT" Text="IT" runat="server" OnCheckedChanged="ChkIT_CheckedChanged" AutoPostBack="true" Font-Bold="true" />
                             </div>
                             <div class="col-md-12 text-center">
                                 <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClientClick="return dateValidation();" OnClick="btnSearch_Click" />
@@ -95,28 +104,21 @@
                                             <asp:Label ID="lblNotificationNo" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementHeaderID")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    
-                                    
+
+
                                     <asp:TemplateField HeaderText="Created On" HeaderStyle-Width="180px">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    
+
                                     <asp:TemplateField HeaderText="Subject">
-                                        <ItemStyle VerticalAlign="Middle"/>
+                                        <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblSubject" Text='<%# DataBinder.Eval(Container.DataItem, "Subject")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <%--<asp:TemplateField HeaderText="Message">
-                                        <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblMessage" Text='<%# DataBinder.Eval(Container.DataItem, "Message")%>' runat="server" />
-                                            <asp:Label ID="lblMessageAnnouncementId" Text='<%# DataBinder.Eval(Container.DataItem, "MessageAnnouncementHeaderID")%>' runat="server" Visible="false" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>   --%> 
                                     <asp:TemplateField HeaderText="Status" HeaderStyle-Width="45px">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>

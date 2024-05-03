@@ -302,7 +302,7 @@ namespace DealerManagementSystem
         private void FillNotification()
         {
             PApiResult Result = new PApiResult();
-            Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, null, null, null, PSession.User.UserID, false, DateTime.Now.ToString("yyyy-MM-dd"), null, null);
+            Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, null, null, null, null, false, DateTime.Now.ToString("yyyy-MM-dd"), null, null);
             List<PMessageAnnouncementHeader> MsgList = JsonConvert.DeserializeObject<List<PMessageAnnouncementHeader>>(JsonConvert.SerializeObject(Result.Data));
             NotificationCount.Visible = false;
             //ChkReadMessage.Visible = false;
