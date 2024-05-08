@@ -313,16 +313,24 @@ namespace DealerManagementSystem.ViewSales.UserControls
             Label lblNetAmount = (Label)gvRow.FindControl("lblNetAmount");
 
             decimal HDiscountPercent = Convert.ToDecimal(txtHeaderDiscountPercent.Text.Trim());
-            decimal IDiscountValue = Convert.ToDecimal(((TextBox)gvRow.FindControl("txtItemDiscountValue")).Text.Trim());
-            if (IDiscountValue < 0)
-            {
-                lblMessage.Text = "Item Discount Value cannot be less than 0.";
-                return;
-            } 
+            
+            
             foreach (PSaleOrderItem_Insert SOI in SOItem_Insert)
             { 
                 if (SOI.MaterialID == Convert.ToInt64(MaterialID.Text))
                 {
+                    TextBox txtItemDiscountPercentage = (TextBox)gvRow.FindControl("txtItemDiscountPercentage");
+
+                    decimal ItemDiscountPercentage = Convert.ToDecimal(txtItemDiscountPercentage.Text.Trim());
+                    TextBox txtItemDiscountValue =  (TextBox)gvRow.FindControl("txtItemDiscountValue");
+                    if (ItemDiscountPercentage < 0)
+                    {
+                        lblMessage.Text = "Item Discount Percentage cannot be less than 0.";
+                        return;
+                    }
+                    decimal IDiscountValue = (SOI.Value * ItemDiscountPercentage) / 100;
+                    txtItemDiscountValue.Text = Convert.ToString(IDiscountValue);
+                    txtItemDiscountPercentage.Text = "";
                     decimal HDiscountValue = (SOI.Value * HDiscountPercent) / 100;
                     SOI.ItemDiscountValue = IDiscountValue;
                     SOI.DiscountValue = HDiscountValue + IDiscountValue;
@@ -340,7 +348,43 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             FillAmountCall();
         }
+        protected void txtBoxDiscountValue_TextChanged(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label MaterialID = (Label)gvRow.FindControl("lblMaterialID");
+            Label lblDiscountValue = (Label)gvRow.FindControl("lblDiscountValue");
+            Label lblTaxableValue = (Label)gvRow.FindControl("lblTaxableValue");
+            Label lblTaxValue = (Label)gvRow.FindControl("lblTaxValue");
+            Label lblNetAmount = (Label)gvRow.FindControl("lblNetAmount");
 
+            decimal HDiscountPercent = Convert.ToDecimal(txtHeaderDiscountPercent.Text.Trim());
+            decimal IDiscountValue = Convert.ToDecimal(((TextBox)gvRow.FindControl("txtItemDiscountValue")).Text.Trim());
+            if (IDiscountValue < 0)
+            {
+                lblMessage.Text = "Item Discount Value cannot be less than 0.";
+                return;
+            }
+            foreach (PSaleOrderItem_Insert SOI in SOItem_Insert)
+            {
+                if (SOI.MaterialID == Convert.ToInt64(MaterialID.Text))
+                {
+                    decimal HDiscountValue = (SOI.Value * HDiscountPercent) / 100;
+                    SOI.ItemDiscountValue = IDiscountValue;
+                    SOI.DiscountValue = HDiscountValue + IDiscountValue;
+                    SOI.TaxableValue = SOI.Value - SOI.DiscountValue;
+                    SOI.SGSTValue = SOI.TaxableValue * (SOI.SGST / 100);
+                    SOI.CGSTValue = SOI.TaxableValue * (SOI.CGST / 100);
+                    SOI.IGSTValue = SOI.TaxableValue * (SOI.IGST / 100);
+                    SOI.NetAmount = SOI.TaxableValue + SOI.SGSTValue + SOI.CGSTValue + SOI.IGSTValue;
+
+                    lblDiscountValue.Text = SOI.DiscountValue.ToString();
+                    lblTaxableValue.Text = SOI.TaxableValue.ToString();
+                    lblTaxValue.Text = Convert.ToString(SOI.SGSTValue + SOI.CGSTValue + SOI.IGSTValue);
+                    lblNetAmount.Text = SOI.NetAmount.ToString();
+                }
+            }
+            FillAmountCall();
+        }
         protected void txtCustomer_TextChanged(object sender, EventArgs e)
         {
             if(hdfCustomerId.Value =="" || hdfCustomerId.Value == "0") 

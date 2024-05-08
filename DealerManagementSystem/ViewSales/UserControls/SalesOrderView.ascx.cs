@@ -1183,7 +1183,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             TextBox txtBoxQuantity = (TextBox)gvRow.FindControl("txtBoxQuantity");
             Label lblQuantity = (Label)gvRow.FindControl("lblQuantity");
-            TextBox txtItemDiscountValue = (TextBox)gvRow.FindControl("txtItemDiscountValue");
+            //TextBox txtItemDiscountValue = (TextBox)gvRow.FindControl("txtItemDiscountValue");
+            GridView gvItemDiscount = (GridView)gvRow.FindControl("gvItemDiscount");
+            
             Label lblItemDiscountValue = (Label)gvRow.FindControl("lblItemDiscountValue");
 
             if (lbActions.ID == "lnkBtnEdit")
@@ -1196,7 +1198,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 txtBoxQuantity.Visible = true;
                 lblQuantity.Visible = false;
-                txtItemDiscountValue.Visible = true;
+                gvItemDiscount.Visible = true;
                 lblItemDiscountValue.Visible = false;
             }
             else if (lbActions.ID == "lnkBtnUpdate")
@@ -1267,7 +1269,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 //lblMaterialRemove.Visible = true;
                 txtBoxQuantity.Visible = false;
                 lblQuantity.Visible = true;
-                txtItemDiscountValue.Visible = false;
+                gvItemDiscount.Visible = false;
                 lblItemDiscountValue.Visible = true;
             }
             else if (lbActions.ID == "lnkBtnDelete")

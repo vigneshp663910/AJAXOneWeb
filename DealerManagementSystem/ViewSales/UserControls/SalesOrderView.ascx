@@ -554,7 +554,7 @@
                                             <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' runat="server"></asp:Label>
                                             <asp:TextBox ID="txtBoxQuantity" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
                                         </ItemTemplate>
-                                    </asp:TemplateField> 
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="UOM">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -577,7 +577,16 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblItemDiscountValue" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountValue","{0:n}")%>' runat="server"></asp:Label>
-                                            <asp:TextBox ID="txtItemDiscountValue" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountValue","{0:n}")%>' CssClass="form-control" Visible="false"></asp:TextBox>
+                                            <table>
+                                                <tr>
+                                                    <td>Percentage</td>
+                                                    <td> <asp:TextBox ID="txtItemDiscountPercentage" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountValue","{0:n}")%>' CssClass="form-control"></asp:TextBox></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Value</td>
+                                                    <td><asp:TextBox ID="txtItemDiscountValue" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountValue","{0:n}")%>' CssClass="form-control"></asp:TextBox></td>
+                                                </tr>
+                                            </table> 
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Discount">
@@ -961,7 +970,7 @@
                     </div>
 
                 </div>--%>
-             <%--   <div class="col-md-3">
+                <%--   <div class="col-md-3">
                     <div class="col-md-12">
                         <label>Courier Company Name</label>
                         <asp:TextBox ID="txtBoxCourierCompanyName" runat="server" CssClass="form-control"></asp:TextBox>
@@ -981,7 +990,7 @@
                         <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderPickupDate" runat="server" TargetControlID="txtBoxPickupDate" WatermarkText="DD/MM/YYYY" />
                     </div>
                 </div>--%>
-              <%--  <div class="col-md-3">
+                <%--  <div class="col-md-3">
                     <div class="col-md-12">
                         <label class="modal-label">Transport Details</label>
                         <asp:TextBox ID="txtBoxTransportDetails" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
@@ -998,7 +1007,7 @@
 
                 </div>--%>
                 <div class="col-md-3">
-                   <%-- <div class="col-md-12">
+                    <%-- <div class="col-md-12">
                         <label class="modal-label">Transport Mode</label>
                         <asp:DropDownList ID="ddlTransportMode" runat="server" CssClass="form-control" BorderColor="Silver">
                             <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
@@ -1011,7 +1020,7 @@
                         <label>Equipment Serial No</label>
                         <asp:DropDownList ID="ddlEquipment" runat="server" CssClass="form-control" />
                     </div>
-                  <%--  <div class="col-md-12 col-sm-12">
+                    <%--  <div class="col-md-12 col-sm-12">
                         <label>Remarks</label>
                         <asp:TextBox ID="txtBoxRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
                     </div>--%>
