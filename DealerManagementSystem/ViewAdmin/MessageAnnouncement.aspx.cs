@@ -21,7 +21,6 @@ namespace DealerManagementSystem.ViewAdmin
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
         }
-        public int? DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID;
         private int PageCount
         {
             get
@@ -67,6 +66,11 @@ namespace DealerManagementSystem.ViewAdmin
                 ViewState["PMessageAnnouncement"] = value;
             }
         }
+        long? MessageAnnouncementHeaderID = null;
+        string Subject = null;
+        string SentFrom = null;
+        string SentTo = null;
+        int? SentBy = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Notification');</script>");
@@ -75,24 +79,18 @@ namespace DealerManagementSystem.ViewAdmin
             {
                 PageCount = 0;
                 PageIndex = 1;
-                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
-                DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-                new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
-                DealerDepartmentID = (ddlDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
-                new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, DealerDepartmentID, null, null);
-                DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
-                List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
+                List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
                 new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
-                DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+                SentBy = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
 
                 List<PUser> User = new BMessageAnnouncement().GetMessageAnnouncementAccess();
 
                 if (User.Count() == 0)
                 {
                     ChkGetAllMessage.Visible = false;
+                    divChkIT.Visible = false;
                     btnMessage.Visible = false;
                 }
-                Fill();
                 if (Session["MessageAnnouncementId"] != null)
                 {
                     divMessageAnnouncementView.Visible = true;
@@ -102,13 +100,17 @@ namespace DealerManagementSystem.ViewAdmin
                 }
             }
         }
+        void Search()
+        {
+            MessageAnnouncementHeaderID = string.IsNullOrEmpty(txtNotificationNo.Text) ? (long?)null: Convert.ToInt32(txtNotificationNo.Text.Trim());
+            Subject = txtSubject.Text.Trim();
+            SentFrom = txtDateFrom.Text.Trim();
+            SentTo = txtDateTo.Text.Trim();
+            SentBy = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+        }
         void Fill()
         {
-            PageIndex = 1;
-            DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            DealerDepartmentID = (ddlDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
-            DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
-            DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
+            Search();
 
             PApiResult Result = new PApiResult();
 
@@ -116,18 +118,17 @@ namespace DealerManagementSystem.ViewAdmin
 
             if (ChkGetAllMessage.Checked)
             {
-                //Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null, PageIndex, gvMessageAnnouncement.PageSize);
-                Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderAllNotification(null, DealerID, DealerDepartmentID, DealerDesignationID, DealerEmployeeID, null, null, PageIndex, gvMessageAnnouncement.PageSize);
+                Result = new BMessageAnnouncement().GetMessageAnnouncementHeaderAllNotification(MessageAnnouncementHeaderID, Subject, SentFrom, SentTo, SentBy, null, null, PageIndex, gvMessageAnnouncement.PageSize);
                 Message = JsonConvert.DeserializeObject<List<PMessageAnnouncementHeader>>(JsonConvert.SerializeObject(Result.Data));
             }
             else
             {
-                //Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, PSession.User.UserID, null, DateTime.Now.ToString("yyyy-MM-dd"), PageIndex, gvMessageAnnouncement.PageSize);
-                Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(null, DealerID, DealerDepartmentID, DealerDesignationID, PSession.User.UserID, null, DateTime.Now.ToString("yyyy-MM-dd"), PageIndex, gvMessageAnnouncement.PageSize);
+                Result = new BMessageAnnouncement().GetMessageAnnouncementHeader(MessageAnnouncementHeaderID, Subject, SentFrom, SentTo, SentBy, null, DateTime.Now.ToString("yyyy-MM-dd"), PageIndex, gvMessageAnnouncement.PageSize);
                 Message = JsonConvert.DeserializeObject<List<PMessageAnnouncementHeader>>(JsonConvert.SerializeObject(Result.Data));
             }
             gvMessageAnnouncement.DataSource = Message;
             gvMessageAnnouncement.DataBind();
+
 
             if (Result.RowCount == 0)
             {
@@ -141,7 +142,7 @@ namespace DealerManagementSystem.ViewAdmin
                 lblRowCount.Visible = true;
                 ibtnArrowLeft.Visible = true;
                 ibtnArrowRight.Visible = true;
-                lblRowCount.Text = (((gvMessageAnnouncement.PageIndex) * gvMessageAnnouncement.PageSize) + 1) + " - " + (((gvMessageAnnouncement.PageIndex) * gvMessageAnnouncement.PageSize) + gvMessageAnnouncement.Rows.Count) + " of " + Result.RowCount;
+                lblRowCount.Text = (((PageIndex - 1) * gvMessageAnnouncement.PageSize) + 1) + " - " + (((PageIndex - 1) * gvMessageAnnouncement.PageSize) + gvMessageAnnouncement.Rows.Count) + " of " + Result.RowCount;
             }
             foreach (GridViewRow row in gvMessageAnnouncement.Rows)
             {
@@ -167,28 +168,6 @@ namespace DealerManagementSystem.ViewAdmin
                 }
             }
         }
-        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
-            DealerDepartmentID = (ddlDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
-            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, DealerDepartmentID, null, null);
-            DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
-            List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
-            new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
-            DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-        }
-
-        protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DealerDepartmentID = (ddlDepartment.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
-            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, DealerDepartmentID, null, null);
-            DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
-            List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
-            new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
-            DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-        }
-
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (PageIndex > 1)
@@ -246,17 +225,10 @@ namespace DealerManagementSystem.ViewAdmin
                 Fill();
             }
         }
-
-        protected void ddlDesignation_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DealerDesignationID = (ddlDesignation.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
-            List<PUser> user = new BUser().GetUsers(null, null, null, null, DealerID, true, null, DealerDepartmentID, DealerDesignationID);
-            new DDLBind(ddlDealerEmployee, user, "ContactName", "UserID");
-            DealerEmployeeID = (ddlDealerEmployee.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
-        }
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            PageCount = 0;
+            PageIndex = 1;
             Fill();
         }
         protected void LnkDraftEdit_Click(object sender, EventArgs e)
@@ -267,6 +239,14 @@ namespace DealerManagementSystem.ViewAdmin
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblMessageAnnouncementHeaderId = (Label)gvRow.FindControl("lblNotificationNo");
             UC_MessageAnnouncementCreate.FillMasterEdit(Convert.ToInt32(lblMessageAnnouncementHeaderId.Text), "Draft");
+        }
+        protected void ChkIT_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkIT.Checked)
+            {
+                List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, null, true, null, (short)DealerDepartment.BusinessSystem, null);
+                new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+            }
         }
     }
 }

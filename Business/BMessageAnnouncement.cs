@@ -21,14 +21,14 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public PApiResult GetMessageAnnouncementHeader(long? MessageAnnouncementHeaderID, int? DealerID, int? DealerDepartmentID, int? DealerDesignationID, int? DealerEmployeeID, bool? ReadStatus, string LoginEntryDate, int? PageIndex, int? PageSize)
+        public PApiResult GetMessageAnnouncementHeader(long? MessageAnnouncementHeaderID, string Subject, string SentFrom, string SentTo, int? SentBy, bool? ReadStatus, string LoginEntryDate, int? PageIndex, int? PageSize)
         {
-            string endPoint = "MessageNotification/GetMessageAnnouncementHeader?MessageAnnouncementHeaderID=" + MessageAnnouncementHeaderID + "&DealerID=" + DealerID + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&DealerEmployeeID=" + DealerEmployeeID + "&ReadStatus=" + ReadStatus + "&LoginEntryDate=" + LoginEntryDate + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            string endPoint = "MessageNotification/GetMessageAnnouncementHeader?MessageAnnouncementHeaderID=" + MessageAnnouncementHeaderID + "&Subject=" + Subject + "&SentFrom=" + SentFrom + "&SentTo=" + SentTo + "&SentBy=" + SentBy + "&ReadStatus=" + ReadStatus + "&LoginEntryDate=" + LoginEntryDate + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetMessageAnnouncementHeaderAllNotification(long? MessageAnnouncementHeaderID, int? DealerID, int? DealerDepartmentID, int? DealerDesignationID, int? DealerEmployeeID, bool? ReadStatus, string LoginEntryDate, int? PageIndex, int? PageSize)
+        public PApiResult GetMessageAnnouncementHeaderAllNotification(long? MessageAnnouncementHeaderID, string Subject, string SentFrom, string SentTo, int? SentBy, bool? ReadStatus, string LoginEntryDate, int? PageIndex, int? PageSize)
         {
-            string endPoint = "MessageNotification/GetMessageAnnouncementHeaderAllNotification?MessageAnnouncementHeaderID=" + MessageAnnouncementHeaderID + "&DealerID=" + DealerID + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&DealerEmployeeID=" + DealerEmployeeID + "&ReadStatus=" + ReadStatus + "&LoginEntryDate=" + LoginEntryDate + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            string endPoint = "MessageNotification/GetMessageAnnouncementHeaderAllNotification?MessageAnnouncementHeaderID=" + MessageAnnouncementHeaderID + "&Subject=" + Subject + "&SentFrom=" + SentFrom + "&SentTo=" + SentTo + "&SentBy=" + SentBy + "&ReadStatus=" + ReadStatus + "&LoginEntryDate=" + LoginEntryDate + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetMessageAnnouncementHeaderByID(long? MessageAnnouncementHeaderID, bool? ReadStatus, int? PageIndex, int? PageSize)
