@@ -94,7 +94,7 @@ namespace DealerManagementSystem.ViewProcurement
 
                 //FillGetDealerOffice();
                 ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
-                fillPurchaseOrderType();
+                 new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID"); 
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 //ddlDivision.Items.Insert(0, new ListItem("Select", "0"));
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
@@ -314,20 +314,7 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(DealerID, null, null);
             ddlDealerOffice.DataBind();
             ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
-        }
-        void fillPurchaseOrderType()
-        {
-            ddlPurchaseOrderType.Items.Clear();
-            ddlPurchaseOrderType.DataTextField = "PurchaseOrderType";
-            ddlPurchaseOrderType.DataValueField = "PurchaseOrderTypeID";
-            ddlPurchaseOrderType.Items.Insert(0, new ListItem("Select", "0"));
-
-            ddlPurchaseOrderType.Items.Insert(1, new ListItem("Stock Order-Within 15 Days", "1"));
-            ddlPurchaseOrderType.Items.Insert(2, new ListItem("Emergency Order-Within 3 Days", "2"));
-            ddlPurchaseOrderType.Items.Insert(3, new ListItem("Break Down Order-Within 3 Days", "7"));
-            ddlPurchaseOrderType.Items.Insert(4, new ListItem("Machine Order-Within 3 Days", "5"));
-            ddlPurchaseOrderType.Items.Insert(5, new ListItem("Intra-Dealer Order-Within 3 Days", "6"));
-        }
+        } 
         protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
             ddlDivision.Items.Clear();

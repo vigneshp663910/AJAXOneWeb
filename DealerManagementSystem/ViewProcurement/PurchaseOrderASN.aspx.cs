@@ -97,7 +97,7 @@ namespace DealerManagementSystem.ViewProcurement
                 new DDLBind(ddlAsnStatus, new BDMS_PurchaseOrder().GetProcurementStatus(2), "ProcurementStatus", "ProcurementStatusID");
                 fillDealer();
                 FillGetDealerOffice();
-                fillPurchaseOrderType();
+                new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
@@ -132,19 +132,7 @@ namespace DealerManagementSystem.ViewProcurement
             DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
             PurchaseOrderTypeID = ddlPurchaseOrderType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);
         }
-        void fillPurchaseOrderType()
-        {
-            ddlPurchaseOrderType.Items.Clear();
-            ddlPurchaseOrderType.DataTextField = "PurchaseOrderType";
-            ddlPurchaseOrderType.DataValueField = "PurchaseOrderTypeID";
-            ddlPurchaseOrderType.Items.Insert(0, new ListItem("Select", "0"));
-
-            ddlPurchaseOrderType.Items.Insert(1, new ListItem("Stock Order-Within 15 Days", "1"));
-            ddlPurchaseOrderType.Items.Insert(2, new ListItem("Emergency Order-Within 3 Days", "2"));
-            ddlPurchaseOrderType.Items.Insert(3, new ListItem("Break Down Order-Within 3 Days", "7"));
-            ddlPurchaseOrderType.Items.Insert(4, new ListItem("Machine Order-Within 3 Days", "5"));
-            ddlPurchaseOrderType.Items.Insert(5, new ListItem("Intra-Dealer Order-Within 3 Days", "6"));
-        }
+        
         protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
             ddlDivision.Items.Clear();

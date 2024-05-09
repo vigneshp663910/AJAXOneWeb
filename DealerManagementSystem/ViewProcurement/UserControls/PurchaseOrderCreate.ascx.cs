@@ -72,7 +72,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         public void FillMaster()
         {
             fillDealer();
-            new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
+            //new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
             fillVendor(ddlOrderTo.SelectedValue);
             fillPurchaseOrderType(ddlOrderTo.SelectedValue);
             ddlPurchaseOrderType_SelectedIndexChanged(null, null);
@@ -423,6 +423,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ddlPurchaseOrderType.Items.Insert(2, new ListItem("Emergency Order-Within 3 Days", "2"));
                 ddlPurchaseOrderType.Items.Insert(3, new ListItem("Break Down Order-Within 3 Days", "7"));
                 ddlPurchaseOrderType.Items.Insert(4, new ListItem("Machine Order-Within 3 Days", "5"));
+                ddlPurchaseOrderType.Items.Insert(5, new ListItem("Merchandising-Within 3 Days", "8"));
 
             }
             else
