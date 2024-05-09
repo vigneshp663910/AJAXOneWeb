@@ -73,7 +73,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             {
                 if (!string.IsNullOrEmpty(Convert.ToString(ViewState["TicketNo"])))
                 {
-                    int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
+                    long TicketNo = Convert.ToInt64(ViewState["TicketNo"]);
                     FillTickets(TicketNo);
                     FillChat(TicketNo);
                     FillChatTemp(TicketNo);
@@ -254,7 +254,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             List<PUser> user = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
             new DDLBind(ddlapprovar, user, "ContactName", "UserID");
         }
-        void FillAllFields(int TicketNo)
+        void FillAllFields(long TicketNo)
         {
             ddlCategory.SelectedValue = Convert.ToString(Ticket[0].Category.CategoryID);
             FillSubCategory();
@@ -340,7 +340,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
             return true;
         }
-        public void FillTickets(int? TicketNO)
+        public void FillTickets(long? TicketNO)
         {
             ViewState["TicketNo"] = TicketNO;
             PApiResult Result = new BTickets().GetTicketByID(TicketNO);
@@ -412,7 +412,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
 
             ActionControlMange();
         }
-        public void FillChat(int TicketNO)
+        public void FillChat(long TicketNO)
         {
             List<PMessage> PMessages = new List<PMessage>();
             PMessage Message = null;
@@ -502,7 +502,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             if (LastMessageID != 0)
                 new BForum().UdateMessageViewStatus(TicketNO, PSession.User.UserID, LastMessageID);
         }
-        public void FillChatTemp(int TicketNO)
+        public void FillChatTemp(long TicketNO)
         {
             List<PMessageTemp> PMessages = new List<PMessageTemp>();
             PMessageTemp Message = null;
@@ -561,7 +561,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 FillEditSubCategory();
                 FillTicketType();
                 FillTicketSeverity();
-                FillEditInfo(Convert.ToInt32(ViewState["TicketNo"]));
+                FillEditInfo(Convert.ToInt64(ViewState["TicketNo"]));
                 btnUpdateHeaderInfo.Visible = true;
                 MPE_EditHeaderInfo.Show();
             }
@@ -617,7 +617,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 FillCategory();
                 FillTicketSeverity();
                 FillAssignTo();
-                FillAllFields(Convert.ToInt32(ViewState["TicketNo"]));
+                FillAllFields(Convert.ToInt64(ViewState["TicketNo"]));
                 MPE_AssignTo.Show();
             }
             else if (lbActions.Text == "Reassign")
@@ -627,7 +627,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 FillCategory();
                 FillTicketSeverity();
                 FillAssignTo();
-                FillAllFields(Convert.ToInt32(ViewState["TicketNo"]));
+                FillAllFields(Convert.ToInt64(ViewState["TicketNo"]));
                 MPE_AssignTo.Show();
             }
             else if (lbActions.Text == "In Progress")
@@ -685,7 +685,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected void btnSend_Click(object sender, EventArgs e)
         {
             PForum_Insert Forum = new PForum_Insert();
-            Forum.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
+            Forum.HeaderID = Convert.ToInt64(ViewState["TicketNo"]);
 
             if (txtMessage.Visible == true)
             {
@@ -1135,7 +1135,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
 
             PTaskItem_Insert TaskItem = new PTaskItem_Insert();
-            TaskItem.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
+            TaskItem.HeaderID = Convert.ToInt64(ViewState["TicketNo"]);
             TaskItem.SubCategoryID = Convert.ToInt32(ddlSubcategory.SelectedValue);
             TaskItem.SeverityID = Convert.ToInt32(ddlSeverity.SelectedValue);
             TaskItem.AssignerRemark = txtAssignerRemark.Text.Trim();
@@ -1171,7 +1171,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             lblMessage.ForeColor = Color.Green;
             lblMessage.Visible = true;
 
-            int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
+            long TicketNo = Convert.ToInt64(ViewState["TicketNo"]);
             FillTickets(TicketNo);
             FillChat(TicketNo);
             FillChatTemp(TicketNo);
@@ -1259,7 +1259,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 Approver = Convert.ToInt32(ddlapprovar.SelectedValue);
             }
             PTaskItem_Insert Item = new PTaskItem_Insert();
-            Item.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
+            Item.HeaderID = Convert.ToInt64(ViewState["TicketNo"]);
             Item.AssignedTo = Approver;
 
             //int success = new BTickets().insertTicketApprovalDetails(PSession.User.UserID, Convert.ToInt32(ViewState["TicketNo"]), Approver);
@@ -1268,7 +1268,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
 
             if (Result.Status == PApplication.Failure)
             {
-                lblSendApproval.Text = "Ticket No " + Convert.ToInt32(ViewState["TicketNo"]) + "  is not successfully updated.";
+                lblSendApproval.Text = "Ticket No " + Convert.ToInt64(ViewState["TicketNo"]) + "  is not successfully updated.";
                 lblSendApproval.ForeColor = Color.Red;
                 lblSendApproval.Visible = true;
                 MPE_SendApproval.Show();
@@ -1276,11 +1276,11 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
             else
             {
-                lblMessage.Text = "Ticket No " + Convert.ToInt32(ViewState["TicketNo"]) + " is successfully updated.";
+                lblMessage.Text = "Ticket No " + Convert.ToInt64(ViewState["TicketNo"]) + " is successfully updated.";
                 btnSendForApproval.Visible = false;
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Visible = true;
-                int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
+                long TicketNo = Convert.ToInt64(ViewState["TicketNo"]);
                 FillTickets(TicketNo);
                 FillChat(TicketNo);
                 FillChatTemp(TicketNo);
@@ -1354,7 +1354,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lblMessage.Text = "Ticket No " + TaskItem.HeaderID + " is successfully updated.";
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Visible = true;
-                int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
+                long TicketNo = Convert.ToInt64(ViewState["TicketNo"]);
                 FillTickets(TicketNo);
                 FillChat(TicketNo);
                 FillChatTemp(TicketNo);
@@ -1419,7 +1419,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 lblMessage.Text = "Ticket No " + TaskItem.HeaderID + " is successfully updated.";
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Visible = true;
-                int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
+                long TicketNo = Convert.ToInt64(ViewState["TicketNo"]);
                 FillTickets(TicketNo);
                 FillChat(TicketNo);
                 FillChatTemp(TicketNo);
@@ -1487,7 +1487,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     lblMessage.Text = "Ticket No " + Ticket[0].HeaderID + " is successfully updated.";
                     lblMessage.ForeColor = Color.Green;
                     lblMessage.Visible = true;
-                    int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
+                    long TicketNo = Convert.ToInt64(ViewState["TicketNo"]);
                     FillTickets(TicketNo);
                     FillChat(TicketNo);
                     FillChatTemp(TicketNo);
@@ -1507,7 +1507,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     lblMessage.Text = "Ticket No " + Ticket[0].HeaderID + " is successfully updated.";
                     lblMessage.ForeColor = Color.Green;
                     lblMessage.Visible = true;
-                    int TicketNo = Ticket[0].HeaderID;
+                    long TicketNo = Ticket[0].HeaderID;
                     FillTickets(TicketNo);
                     FillChat(TicketNo);
                     FillChatTemp(TicketNo);
@@ -1618,7 +1618,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     if (AttchedFile.Count == 1)
                     {
                         PForum_Insert Forum = new PForum_Insert();
-                        Forum.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
+                        Forum.HeaderID = Convert.ToInt64(ViewState["TicketNo"]);
                         Forum.Message = AttchedFile[0].FileName;
                         Forum.AttchedFile = AttchedFile[0];
                         new BAPI().ApiPut("Task/Forum", Forum);
@@ -1631,7 +1631,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             lblMessage.ForeColor = Color.Green;
             lblMessage.Visible = true;
 
-            int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
+            long TicketNo = Convert.ToInt64(ViewState["TicketNo"]);
             FillTickets(TicketNo);
             FillChat(TicketNo);
             FillChatTemp(TicketNo);
@@ -1970,7 +1970,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                 return;
             }
             PTask_Insert TaskHeader = new PTask_Insert();
-            TaskHeader.HeaderID = Convert.ToInt32(ViewState["TicketNo"]);
+            TaskHeader.HeaderID = Convert.ToInt64(ViewState["TicketNo"]);
             TaskHeader.CategoryID = Convert.ToInt32(ddlEditCategory.SelectedValue);
             TaskHeader.SubCategoryID = Convert.ToInt32(ddlEditSubCategory.SelectedValue);
             TaskHeader.TicketTypeID = Convert.ToInt32(ddlEditTicketType.SelectedValue);
@@ -1990,10 +1990,10 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             }
             else
             {
-                lblMessage.Text = "Ticket No " + Convert.ToInt32(ViewState["TicketNo"]) + " is successfully updated.";
+                lblMessage.Text = "Ticket No " + Convert.ToInt64(ViewState["TicketNo"]) + " is successfully updated.";
                 lblMessage.ForeColor = Color.Green;
                 lblMessage.Visible = true;
-                int TicketNo = Convert.ToInt32(ViewState["TicketNo"]);
+                long TicketNo = Convert.ToInt64(ViewState["TicketNo"]);
                 FillTickets(TicketNo);
                 FillChat(TicketNo);
                 FillChatTemp(TicketNo);
@@ -2004,7 +2004,7 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
             FillEditSubCategory();
             MPE_EditHeaderInfo.Show();
         }
-        void FillEditInfo(int TicketNo)
+        void FillEditInfo(long TicketNo)
         {
             ddlEditCategory.SelectedValue = Convert.ToString(Ticket[0].Category.CategoryID);
             FillEditSubCategory();

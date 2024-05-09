@@ -17,9 +17,9 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-        public int GetMessageViewStatusCound(int HeaderID, int? UserID)
+        public int GetMessageViewStatusCound(long HeaderID, int? UserID)
         {
-            DbParameter HeaderIDP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int32);
+            DbParameter HeaderIDP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int64);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
 
             DbParameter[] Params = new DbParameter[2] { HeaderIDP, UserIDP };
@@ -40,9 +40,9 @@ namespace Business
             return 0;
         }
 
-        public void UdateMessageViewStatus(int HeaderID, int UserID, long LastMessageID)
+        public void UdateMessageViewStatus(long HeaderID, int UserID, long LastMessageID)
         {
-            DbParameter HeaderIDP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int32);
+            DbParameter HeaderIDP = provider.CreateParameter("HeaderID", HeaderID, DbType.Int64);
             DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
             DbParameter LastMessageIDP = provider.CreateParameter("LastMessageID", LastMessageID, DbType.Int64);
             DbParameter[] Params = new DbParameter[3] { HeaderIDP, UserIDP, LastMessageIDP };

@@ -88,7 +88,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         }
         void FillTickets()
         {
-            long? HeaderId = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (int?)null : Convert.ToInt32(txtTicketNo.Text.Trim());
+            long? HeaderId = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtTicketNo.Text.Trim());
             DateTime? RequestedDateFrom = null;
             if (!string.IsNullOrEmpty(txtRequestedDateFrom.Text))
             {
@@ -135,7 +135,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
                 ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
 
-                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), UserID);
+                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt64(lblTicketID.Text), UserID);
                 if (count == 0)
                 {
                     ibMessage.ImageUrl = "~/Images/Message.jpg";
@@ -170,9 +170,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             divSupportTicketView.Visible = true;
             btnBackToList.Visible = true;
             divList.Visible = false;
-            UC_SupportTicketView.FillTickets(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
-            UC_SupportTicketView.FillChat(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
-            UC_SupportTicketView.FillChatTemp(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillTickets(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChat(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChatTemp(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
         }
         protected void btnBackToList_Click(object sender, EventArgs e)
         {

@@ -41,7 +41,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 //new BEmployees().CheckPermition(0);
                 if (!string.IsNullOrEmpty(Request.QueryString["TicketNo"]))
                 {
-                    int TicketNo = Convert.ToInt32(Request.QueryString["TicketNo"]);
+                    long TicketNo = Convert.ToInt64(Request.QueryString["TicketNo"]);
                     FillTickets(TicketNo);
                     FillChat(TicketNo);
                     FillChatTemp(TicketNo);
@@ -75,7 +75,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 btnSend.Focus();
             }
         }
-        void FillTickets(int? TicketNO)
+        void FillTickets(long? TicketNO)
         {
             PApiResult Result = new BTickets().GetTicketByID(TicketNO);
             List<PTicketHeader> Ticket = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
@@ -102,7 +102,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             gvApprover.DataBind();
         }
 
-        void FillChat(int TicketNO)
+        void FillChat(long TicketNO)
         {
             List<PMessage> PMessages = new List<PMessage>();
             PMessage Message = null;
@@ -193,7 +193,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             if (LastMessageID != 0)
                 new BForum().UdateMessageViewStatus(TicketNO, PSession.User.UserID, LastMessageID);
         }
-        void FillChatTemp(int TicketNO)
+        void FillChatTemp(long TicketNO)
         {
             List<PMessageTemp> PMessages = new List<PMessageTemp>();
             PMessageTemp Message = null;
