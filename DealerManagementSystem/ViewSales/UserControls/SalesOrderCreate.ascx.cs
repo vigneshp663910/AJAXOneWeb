@@ -118,7 +118,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 string Dealer  = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
                 decimal HDiscountPercent = Convert.ToDecimal(txtHeaderDiscountPercent.Text.Trim()); 
                 int Qty = Convert.ToInt32(txtQty.Text.Trim()); 
-                SOItem_Insert.Add(new BDMS_SalesOrder().ReadItem(m, Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlOfficeName.SelectedValue), Qty, Customer, Dealer, HDiscountPercent, 0, ddlTaxType.SelectedItem.Text));
+                SOItem_Insert.Add(new BDMS_SalesOrder().ReadItem(m, Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlOfficeName.SelectedValue), Qty, Customer, Dealer, HDiscountPercent, 0,0, ddlTaxType.SelectedItem.Text));
                 //Message = AddMat(m, txtQty.Text.Trim());
                 //if (!string.IsNullOrEmpty(Message))
                 //{
@@ -602,7 +602,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                                         string Dealer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
                                         decimal HDiscountPercent = Convert.ToDecimal(txtHeaderDiscountPercent.Text.Trim());
                                         int Qty1 = Convert.ToInt32(Convert.ToString(Cells[2].Value)); 
-                                        PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(Material[0], Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlOfficeName.SelectedValue), Qty1, Customer, Dealer, HDiscountPercent, 0, ddlTaxType.SelectedItem.Text);
+                                        PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(Material[0], Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlOfficeName.SelectedValue), Qty1, Customer, Dealer, HDiscountPercent, 0,0, ddlTaxType.SelectedItem.Text);
                                     }
                                     catch(Exception e1)
                                     {
@@ -852,6 +852,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 return "Please enter correct format in Qty.";
             }
+            if (Convert.ToDecimal(txtQty.Text.Trim()) < 1)
+            {
+                return "Quantity cannot be less than 1.";
+            }
+
             return "";
         }
     }

@@ -852,7 +852,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null)[0];
                 PSaleOrderItem_Insert pSaleOrderItem = new BDMS_SalesOrder().ReadItem(m, SOrder.Dealer.DealerID, SOrder.DealerOffice.OfficeID
                     , Convert.ToInt32(txtQty.Text.Trim()), SOrder.Customer.CustomerCode
-                    , SOrder.Dealer.DealerCode, SOrder.HeaderDiscountPercentage, 0, SOrder.TaxType);
+                    , SOrder.Dealer.DealerCode, SOrder.HeaderDiscountPercentage, 0,0, SOrder.TaxType);
 
                 pSaleOrderItem.SaleOrderID = SOrder.SaleOrderID;
                 // pSaleOrderItem = ReadItem();
@@ -1141,6 +1141,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 return "Please enter the Qty.";
             }
+            if (Convert.ToDecimal(txtQty.Text.Trim()) < 1)
+            {
+                return "Quantity cannot be less than 1."; 
+            }
 
             foreach (PSaleOrderItem Item in SOrder.SaleOrderItems)
             {
@@ -1184,7 +1188,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             TextBox txtBoxQuantity = (TextBox)gvRow.FindControl("txtBoxQuantity");
             Label lblQuantity = (Label)gvRow.FindControl("lblQuantity");
             //TextBox txtItemDiscountValue = (TextBox)gvRow.FindControl("txtItemDiscountValue");
-            GridView gvItemDiscount = (GridView)gvRow.FindControl("gvItemDiscount");
+            Panel pnlItemDiscount = (Panel)gvRow.FindControl("pnlItemDiscount");
             
             Label lblItemDiscountValue = (Label)gvRow.FindControl("lblItemDiscountValue");
 
@@ -1198,7 +1202,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 txtBoxQuantity.Visible = true;
                 lblQuantity.Visible = false;
-                gvItemDiscount.Visible = true;
+                pnlItemDiscount.Visible = true;
                 lblItemDiscountValue.Visible = false;
             }
             else if (lbActions.ID == "lnkBtnUpdate")
@@ -1206,22 +1210,52 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 Label lblSaleOrderItemID = (Label)gvRow.FindControl("lblSaleOrderItemID");
                 Label lblMaterialID = (Label)gvRow.FindControl("lblMaterialID");
 
+                
+
+                TextBox txtItemDiscountPercentage = (TextBox)gvRow.FindControl("txtItemDiscountPercentage");
+                decimal IDiscountValue = 0;
+                decimal IDiscountPercentage = 0;
+
                 decimal value;
-                if (!decimal.TryParse(txtBoxQuantity.Text, out value))
+                if (!decimal.TryParse(txtBoxQuantity.Text.Trim(), out value))
                 {
                     lblMessage.Text = "Please enter correct format in Qty.";
                     return;
                 }
-                if (!decimal.TryParse(txtItemDiscountValue.Text, out value))
+                if (Convert.ToDecimal(txtBoxQuantity.Text.Trim()) < 1)
                 {
-                    lblMessage.Text = "Please enter correct format in Discount Percent.";
+                    lblMessage.Text = "Quantity cannot be less than 1.";
                     return;
                 }
-                decimal IDiscountValue = Convert.ToDecimal(txtItemDiscountValue.Text);
-                if (IDiscountValue < 0)
+
+                if (!string.IsNullOrEmpty(txtItemDiscountPercentage.Text.Trim()))
+                { 
+                    if (!decimal.TryParse(txtItemDiscountPercentage.Text.Trim(), out value))
+                    {
+                        lblMessage.Text = "Please enter correct format in Discount Percent.";
+                        return;
+                    }
+                    IDiscountPercentage = Convert.ToDecimal(txtItemDiscountPercentage.Text.Trim()) ;
+                    if (0 > IDiscountPercentage || IDiscountPercentage > 100)
+                    {
+                        lblMessage.Text = "Discount Percentage cannot be less than 0 or  exceed 100.";
+                        return;
+                    }
+                }
+                else
                 {
-                    lblMessage.Text = "Discount Percentage cannot exceed 100.";
-                    return;
+                    TextBox txtItemDiscountValue = (TextBox)gvRow.FindControl("txtItemDiscountValue");
+                    if (!decimal.TryParse(txtItemDiscountValue.Text.Trim(), out value))
+                    {
+                        lblMessage.Text = "Please enter correct format in Discount Percent.";
+                        return;
+                    }
+                    IDiscountValue = Convert.ToDecimal(txtItemDiscountValue.Text.Trim());
+                    if (IDiscountValue < 0)
+                    {
+                        lblMessage.Text = "Discount value cannot be less than 0.";
+                        return;
+                    }
                 }
 
                 //PSaleOrderItem_Insert item_Insert = new PSaleOrderItem_Insert();
@@ -1232,7 +1266,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(lblMaterialID.Text), null, null, null, null)[0];
                     int Quantity = Convert.ToInt32(Convert.ToDecimal(txtBoxQuantity.Text.Trim()));
                     PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(m, SOrder.Dealer.DealerID, SOrder.Dealer.DealerOffice.OfficeID, Quantity, SOrder.Customer.CustomerCode
-                        , SOrder.Dealer.DealerCode, SOrder.HeaderDiscountPercentage, IDiscountValue, SOrder.TaxType);
+                        , SOrder.Dealer.DealerCode, SOrder.HeaderDiscountPercentage, IDiscountValue, IDiscountPercentage, SOrder.TaxType);
                     item_Insert.SaleOrderItemID = Convert.ToInt64(lblSaleOrderItemID.Text);
                     item_Insert.StatusID = (short)AjaxOneStatus.SaleOrderItem_Created;
                     string result = new BAPI().ApiPut("SaleOrder/UpdateSaleOrderItem", item_Insert);
@@ -1269,7 +1303,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 //lblMaterialRemove.Visible = true;
                 txtBoxQuantity.Visible = false;
                 lblQuantity.Visible = true;
-                gvItemDiscount.Visible = false;
+                pnlItemDiscount.Visible = false;
                 lblItemDiscountValue.Visible = true;
             }
             else if (lbActions.ID == "lnkBtnDelete")

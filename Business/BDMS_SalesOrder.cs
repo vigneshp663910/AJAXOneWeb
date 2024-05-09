@@ -1260,7 +1260,7 @@ namespace Business
 
         }
 
-        public PSaleOrderItem_Insert ReadItem(PDMS_Material m, int DealerID, int DealerOfficeID, int Qty, string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, string TaxType)
+        public PSaleOrderItem_Insert ReadItem(PDMS_Material m, int DealerID, int DealerOfficeID, int Qty, string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, decimal IDiscountPercentage, string TaxType)
         {
             PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
             SoI.MaterialID = m.MaterialID;
@@ -1335,8 +1335,8 @@ namespace Business
 
             SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
             SoI.Value = Mat.CurrentPrice;
-            SoI.ItemDiscountValue = IDiscountValue;
-            SoI.DiscountValue = (SoI.Value * HDiscountPercentage / 100) + IDiscountValue;
+            SoI.ItemDiscountValue = IDiscountValue + (SoI.Value * IDiscountPercentage / 100);
+            SoI.DiscountValue = (SoI.Value * HDiscountPercentage / 100) + SoI.ItemDiscountValue;
             SoI.TaxableValue = SoI.Value - SoI.DiscountValue;
 
             if (TaxType == "SGST & CGST")

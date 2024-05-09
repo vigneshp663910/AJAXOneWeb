@@ -918,8 +918,15 @@ namespace Properties
     }
     public enum PurchaseOrderType
     {
-        MachineOrder = 5
-    }
+        StockOrder = 1,
+        EmergencyOrder = 2,
+        AutoPOOrder = 3,
+        WarrantyOrder = 4,
+        MachineOrder = 5,
+        IntraDealerOrder = 6,
+        BreakDownOrder = 7,
+        MERCHANDISING = 8
+     }
     public enum StockMovementType
     {
         UnrestrictedToRestricted = 24,

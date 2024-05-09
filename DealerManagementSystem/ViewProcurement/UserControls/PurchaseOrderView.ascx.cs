@@ -283,6 +283,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 gvPOItem.Columns[15].Visible = false;
             }
 
+            int PurchaseOrderTypeID = PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID;
+            if (PurchaseOrderTypeID == (short)PurchaseOrderType.WarrantyOrder || PurchaseOrderTypeID == (short)PurchaseOrderType.IntraDealerOrder)
+            {
+                lbAddMaterial.Visible = false;
+                gvPOItem.Columns[15].Visible = false;
+            }
+
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderCreate).Count() == 0)
             {
