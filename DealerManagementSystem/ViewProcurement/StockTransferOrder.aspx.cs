@@ -71,19 +71,18 @@ namespace DealerManagementSystem.ViewProcurement
                 txtPoDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtPoDateTo.Text = DateTime.Now.ToShortDateString();
 
-                fillDealer();
-
-                fillProcurementStatus();
+                fillDealer(); 
+                new DDLBind(ddlPOStatus, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.StockTransferOrder), "Status", "StatusID");
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
                 if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderCreate).Count() == 0)
                 {
                     btnCreatePO.Visible = false;
                 }
-                if (Session["PurchaseOrderID"] != null)
+                if (Session["StockTransferOrderID"] != null)
                 {
                     divList.Visible = false;
                     divDetailsView.Visible = true;
-                    UC_StockTransferOrderView.fillViewPO(Convert.ToInt64(Session["PurchaseOrderID"]));
+                    UC_StockTransferOrderView.fillViewPO(Convert.ToInt64(Session["StockTransferOrderID"]));
                 }
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
@@ -242,14 +241,7 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
             FillGetDealerOffice();
         }
-        void fillProcurementStatus()
-        {
-            ddlPOStatus.DataTextField = "ProcurementStatus";
-            ddlPOStatus.DataValueField = "ProcurementStatusID";
-            ddlPOStatus.DataSource = new BDMS_PurchaseOrder().GetProcurementStatus(1);
-            ddlPOStatus.DataBind();
-            ddlPOStatus.Items.Insert(0, new ListItem("Select", "0"));
-        } 
+       
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
             divList.Visible = true;
