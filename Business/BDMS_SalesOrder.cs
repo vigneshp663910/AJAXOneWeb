@@ -1385,7 +1385,7 @@ namespace Business
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
 
-                if (Files.AttachedFile == null)
+                if (Files.AttachedFile == null || Files.AttachedFile.Length == 0)
                 {
                     new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", Invoicefile(ID));
                     Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));

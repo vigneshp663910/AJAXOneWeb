@@ -384,6 +384,39 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 //lblMessage.ForeColor = Color.Green;
                 //fillViewPO(PurchaseOrder.PurchaseOrderID);
             }
+            else if (lbActions.ID == "lnkBtnupdate")
+            {
+                PStockTransferOrderItem_Insert PoI = new PStockTransferOrderItem_Insert();
+
+
+
+                Label lblStockTransferOrderItemID = (Label)gvRow.FindControl("lblStockTransferOrderItemID");
+                Label lblMaterialID = (Label)gvRow.FindControl("lblMaterialID");
+                Label lblMaterial = (Label)gvRow.FindControl("lblMaterial");
+                Label lblMaterialDescription = (Label)gvRow.FindControl("lblMaterialDescription");
+
+                PoI.StockTransferOrderItemID = Convert.ToInt64(lblStockTransferOrderItemID.Text);
+                PoI.MaterialID = Convert.ToInt32(lblMaterialID.Text);
+                PoI.MaterialCode = lblMaterial.Text;
+                PoI.StockTransferOrderID = StockTransferOrder.StockTransferOrderID;
+                PoI.Quantity = Convert.ToDecimal(txtQuantity.Text.Trim());
+
+
+                PoI.MaterialDescription = lblMaterialDescription.Text;
+
+                PoI = new BStockTransferOrder().GetMaterialPriceForStockTransferOrder(StockTransferOrder.Dealer.DealerID, PoI);
+                PurchaseOrderItem_Insert.Add(PoI);
+                PApiResult Result = new BStockTransferOrder().InsertOrUpdateStockTransferOrderItem(PoI);
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessageAddMaterial.Text = Result.Message;
+                    return;
+                }
+                lblMessage.Text = Result.Message;
+                lblMessage.ForeColor = Color.Green;
+                MPE_AddMaterial.Hide();
+                fillViewPO(StockTransferOrder.StockTransferOrderID);
+            }
 
         }
 

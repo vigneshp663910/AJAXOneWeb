@@ -371,7 +371,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             string OrderType = ddlPurchaseOrderType.SelectedValue;
 
-            if ((OrderType == "1") || (OrderType == "2") || (OrderType == "7"))
+            if ((OrderType == "1") || (OrderType == "2") || (OrderType == "7") || (OrderType == "8"))
             {
                 ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
             }

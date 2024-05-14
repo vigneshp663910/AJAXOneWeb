@@ -107,13 +107,14 @@
                                     <asp:TemplateField HeaderText="Material">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
+                                              <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialID")%>' runat="server"></asp:Label>
                                             <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Material Desc">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                            <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialDescription")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="HSN">
@@ -126,7 +127,7 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' runat="server"></asp:Label>
-                                            <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                                            <asp:TextBox ID="txtQuantity" runat="server" CssClass="form-control"  Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' Visible="false"></asp:TextBox>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Taxable Value">
@@ -360,16 +361,17 @@
             <asp:GridView ID="gvDelivery" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                 EmptyDataText="No Data Found" PageSize="10" OnSelectedIndexChanged="gvDelivery_SelectedIndexChanged">
                 <Columns>
-                    <asp:TemplateField HeaderText="Item">
+                   <%-- <asp:TemplateField HeaderText="Item">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         <ItemTemplate>
-                            <asp:Label ID="lblStockTransferOrderItemID" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrderItemID")%>' runat="server" Visible="false"></asp:Label>
-                            <%--<asp:Label ID="lblItem" Text='<%# DataBinder.Eval(Container.DataItem, "ItemNo")%>' runat="server"></asp:Label>--%>
+                              <asp:Label ID="lblItem" Text='<%# DataBinder.Eval(Container.DataItem, "ItemNo")%>' runat="server"></asp:Label> 
                         </ItemTemplate>
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Material">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
+                            <asp:Label ID="lblStockTransferOrderItemID" Text='<%# DataBinder.Eval(Container.DataItem, "StockTransferOrderItemID")%>' runat="server" Visible="false"></asp:Label>
+                         
                             <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -388,13 +390,13 @@
                     <asp:TemplateField HeaderText="Order Qty">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                         <ItemTemplate>
-                            <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' CssClass="form-control" runat="server"></asp:Label>
+                            <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>'   runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Balance Qty">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                         <ItemTemplate>
-                            <asp:Label ID="lblBalanceQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "BalanceQuantity","{0:n}")%>' CssClass="form-control" runat="server"></asp:Label>
+                            <asp:Label ID="lblBalanceQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "BalanceQuantity","{0:n}")%>'   runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Delivery Qty">
