@@ -289,7 +289,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //string BillToAddress1 = (BillTo.Address.Address1 + (string.IsNullOrEmpty(BillTo.Address.Address2) ? "" : "," + BillTo.Address.Address2) + (string.IsNullOrEmpty(BillTo.Address.Address3) ? "" : "," + BillTo.Address.Address3)).Trim(',', ' ');
             //string BillToAddress2 = (BillTo.Address.City + (string.IsNullOrEmpty(BillTo.Address.State.State) ? "" : "," + BillTo.Address.State.State) + (string.IsNullOrEmpty(BillTo.Address.Pincode) ? "" : "-" + BillTo.Address.Pincode)).Trim(',', ' ');
 
-            ReportParameter[] P = new ReportParameter[16];
+            ReportParameter[] P = new ReportParameter[15];
             P[0] = new ReportParameter("ReturnPurchaseOrderNumber", PoReturn.PurchaseOrderReturnNumber, false);
             P[1] = new ReportParameter("ReturnPurchaseOrderDate", PoReturn.PurchaseOrderReturnDate.ToShortDateString(), false);
             P[2] = new ReportParameter("SupplierName", Supplier.DealerName, false);
@@ -299,7 +299,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             P[6] = new ReportParameter("BillToCustomerAddress1", BillToAddress1, false);
             P[7] = new ReportParameter("BillToCustomerAddress2", BillToAddress2, false);
             P[8] = new ReportParameter("ReceivingLocation", PoReturn.Location.OfficeName, false);
-            P[9] = new ReportParameter("SystemDate", DateTime.Now.ToString(), false);
             DataTable dtItem = new DataTable();
             dtItem.Columns.Add("ItemNo");
             dtItem.Columns.Add("PartNo");
@@ -326,12 +325,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     GrandTotal += (Item.TaxableValue + Item.Material.IGSTValue);
                 }
             }
-            P[10] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxTotal.ToString()), false);
-            P[11] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
-            P[12] = new ReportParameter("Remarks", PoReturn.Remarks, false);
-            P[13] = new ReportParameter("SupplierCode", Supplier.DealerCode, false);
-            P[14] = new ReportParameter("BillToCode", PoReturn.Dealer.DealerCode, false);
-            P[15] = new ReportParameter("Status", PoReturn.PurchaseOrderReturnStatus.ProcurementStatus, false);
+            P[9] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxTotal.ToString()), false);
+            P[10] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
+            P[11] = new ReportParameter("Remarks", PoReturn.Remarks, false);
+            P[12] = new ReportParameter("SupplierCode", Supplier.DealerCode, false);
+            P[13] = new ReportParameter("BillToCode", PoReturn.Dealer.DealerCode, false);
+            P[14] = new ReportParameter("Status", PoReturn.PurchaseOrderReturnStatus.ProcurementStatus, false);
             report.ReportPath = Server.MapPath("~/Print/PurchaseOrderReturn.rdlc");
             report.SetParameters(P);
             ReportDataSource rds = new ReportDataSource();

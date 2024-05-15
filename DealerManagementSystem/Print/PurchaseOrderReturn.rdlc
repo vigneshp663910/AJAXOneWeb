@@ -1944,9 +1944,11 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Parameters!SystemDate.Value</Value>
+                      <Value>=Globals!ExecutionTime</Value>
                       <Style>
+                        <FontFamily>Times New Roman</FontFamily>
                         <FontWeight>Bold</FontWeight>
+                        <Format>dd/MM/yyyy hh:mm:sss</Format>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -2059,12 +2061,6 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="SystemDate">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
     <ReportParameter Name="TaxAmount">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
@@ -2151,11 +2147,6 @@
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>20</RowIndex>
           <ParameterName>ReceivingLocation</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
-          <RowIndex>20</RowIndex>
-          <ParameterName>SystemDate</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>3</ColumnIndex>

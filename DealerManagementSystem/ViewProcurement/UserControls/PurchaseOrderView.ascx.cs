@@ -553,7 +553,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             string BillToAddress1 = (BillTo.Address1 + (string.IsNullOrEmpty(BillTo.Address2) ? "" : "," + BillTo.Address2) + (string.IsNullOrEmpty(BillTo.Address3) ? "" : "," + BillTo.Address3)).Trim(',', ' ');
             string BillToAddress2 = (BillTo.City + (string.IsNullOrEmpty(BillTo.State) ? "" : "," + BillTo.State) + (string.IsNullOrEmpty(BillTo.Pincode) ? "" : "-" + BillTo.Pincode)).Trim(',', ' ');
 
-            ReportParameter[] P = new ReportParameter[22];
+            ReportParameter[] P = new ReportParameter[21];
             P[0] = new ReportParameter("PurchaseOrderNumber", PO.PurchaseOrderNumber, false);
             P[1] = new ReportParameter("PurchaseOrderDate", PO.PurchaseOrderDate.ToShortDateString(), false);
             P[2] = new ReportParameter("SupplierName", Supplier.DealerName, false);
@@ -570,7 +570,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             P[13] = new ReportParameter("SaleOrderNumber", PO.SaleOrderNumber, false);
             P[14] = new ReportParameter("ExpectedDeliveryDate", PO.ExpectedDeliveryDate.ToShortDateString(), false);
             P[15] = new ReportParameter("ReceivingLocation", PO.Location.OfficeName, false);
-            P[16] = new ReportParameter("SystemDate", DateTime.Now.ToString(), false);
 
 
             DataTable dtItem = new DataTable();
@@ -593,11 +592,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 TaxTotal += Item.TaxValue;
                 GrandTotal += (Item.TaxableValue + Item.TaxValue);
             }
-            P[17] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxTotal.ToString()), false);
-            P[18] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
-            P[19] = new ReportParameter("Remarks", PO.Remarks, false);
-            P[20] = new ReportParameter("SupplierCode", Supplier.DealerCode, false);
-            P[21] = new ReportParameter("BillToCode", PO.Dealer.DealerCode, false);
+            P[16] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxTotal.ToString()), false);
+            P[17] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
+            P[18] = new ReportParameter("Remarks", PO.Remarks, false);
+            P[19] = new ReportParameter("SupplierCode", Supplier.DealerCode, false);
+            P[20] = new ReportParameter("BillToCode", PO.Dealer.DealerCode, false);
             report.ReportPath = Server.MapPath("~/Print/PurchaseOrder.rdlc");
             report.SetParameters(P);
             ReportDataSource rds = new ReportDataSource();
