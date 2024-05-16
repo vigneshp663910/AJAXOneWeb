@@ -8,6 +8,7 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbGrCreation" runat="server" OnClick="lbActions_Click">Gr Creation</asp:LinkButton>
+                  <asp:LinkButton ID="lbDowloadInvoice" runat="server" OnClick="lbActions_Click">Dowload Invoice</asp:LinkButton>
             </div>
         </div>
     </div>

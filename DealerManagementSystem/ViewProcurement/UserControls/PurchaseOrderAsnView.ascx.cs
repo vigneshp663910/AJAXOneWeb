@@ -105,9 +105,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
-            if (lbActions.Text == "Gr Creation")
+            if (lbActions.ID == "lbGrCreation")
             {
-                MPE_GrCreate.Show(); 
+                MPE_GrCreate.Show();
                 Gr_Insert = new List<PGr_Insert>();
                 lblGrAsnNumber.Text = PAsnView.AsnNumber;
                 foreach (PAsnItem Item in PAsnView.AsnItemS)
@@ -118,7 +118,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                         {
                             AsnID = PAsnView.AsnID,
                             AsnItemID = Item.AsnItemID,
-                            MaterialCode= Item.Material.MaterialCode,
+                            MaterialCode = Item.Material.MaterialCode,
                             MaterialDescription = Item.Material.MaterialDescription,
                             AsnBalanceQty = Item.Qty - Item.GrQty,
                             UnrestrictedQty = Item.Qty - Item.GrQty,
@@ -130,6 +130,10 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 gvPOAsnGrItem.DataSource = Gr_Insert;
                 gvPOAsnGrItem.DataBind();
                 //FillGr(PAsnView);
+            }
+            else if (lbActions.ID == "lbDowloadInvoice")
+            {
+                ibPDF_Click();
             }
         }
         void ActionControlMange()
@@ -379,6 +383,36 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             MPE_UpdateRestrictedQty.Hide(); 
             gvPOAsnGrItem.DataSource = Gr_Insert;
             gvPOAsnGrItem.DataBind();
+        }
+
+        void ibPDF_Click()
+        {
+            try
+            {
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnInvoiceNumber(PAsnView.InvoiceNumber);
+                if (string.IsNullOrEmpty(Convert.ToString(Result.Data)))
+                {
+                    lblMessage.Text = "Invoice Not generated. Please contact Parts Team.";
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+
+                Response.AddHeader("Content-type", "application/pdf");
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + PAsnView.InvoiceNumber + ".pdf");
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(Convert.FromBase64String(Convert.ToString(Result.Data)));
+                new BXcel().PdfDowload();
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+            }
         }
     }
 }

@@ -73,6 +73,8 @@ namespace Properties
         public Decimal SystemStock { get; set; }
         public Decimal PhysicalStock { get; set; }
         public Boolean IsPosted { get; set; }
+        public String Remarks { get; set; }
+        
     }
     [Serializable]
     public class PPhysicalInventoryPosting_Post
