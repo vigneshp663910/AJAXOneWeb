@@ -228,14 +228,13 @@ namespace DealerManagementSystem.ViewInventory
                         sno += 1;
                         if (sno > 1)
                         {
-                            List<IXLCell> IXLCell_ = row.Cells().ToList();
-                            if(string.IsNullOrEmpty(Convert.ToString(IXLCell_[0].Value)))
-                            {
-                                continue;
-                            }
-
+                            List<IXLCell> IXLCell_ = row.Cells().ToList(); 
                             if (IXLCell_.Count != 0)
                             {
+                                if (string.IsNullOrEmpty(Convert.ToString(IXLCell_[0].Value)))
+                                {
+                                    continue;
+                                }
                                 PInitialStock_Post S = new PInitialStock_Post();
                                 MaterialUpload.Add(S);
 
