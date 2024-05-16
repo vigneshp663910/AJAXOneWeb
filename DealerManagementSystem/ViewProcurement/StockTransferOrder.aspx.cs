@@ -83,6 +83,7 @@ namespace DealerManagementSystem.ViewProcurement
                     divList.Visible = false;
                     divDetailsView.Visible = true;
                     UC_StockTransferOrderView.fillViewPO(Convert.ToInt64(Session["StockTransferOrderID"]));
+                    Session["StockTransferOrderID"] = null;
                 }
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
