@@ -513,12 +513,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             try
             {
                 PPurchaseOrder PO = PurchaseOrder;
-                if (string.IsNullOrEmpty(PO.SaleOrderNumber))
-                {
-                    lblMessage.Text = "SaleOrder Number Not Generated...!";
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
+                //if (string.IsNullOrEmpty(PO.SaleOrderNumber))
+                //{
+                //    lblMessage.Text = "SaleOrder Number Not Generated...!";
+                //    lblMessage.ForeColor = Color.Red;
+                //    return;
+                //}
                 string mimeType = string.Empty;
                 Byte[] mybytes = PurchaseOrderRdlc(out mimeType);
                 string FileName = PurchaseOrder.PurchaseOrderNumber + ".pdf";
