@@ -150,6 +150,10 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 DownloadDeliveryChallan();
             }
+            else if(lbActions.ID == "lbUpdateShipmentDetails")
+            {
+                MPE_Delivery.Show();
+            }
         }
         void ViewDeliveryChallan()
         {
@@ -695,6 +699,28 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvPOAsnGrItem.DataBind();
             MPE_UpdateRestrictedQty.Hide();
             MPE_GrCreate.Show();
+        }
+
+        protected void btnSaveShipping_Click(object sender, EventArgs e)
+        {
+            lblMessageCreateSTODelivery.ForeColor = Color.Red;
+            MPE_Delivery.Show();
+            try
+            {
+                PApiResult Results = new BStockTransferOrder().UpdateStockTransferOrderDeliveryShipping(Deliverys.DeliveryID, txtKindAtten.Text, txtRef.Text, txtTransRemarks.Text, txtPackingDesc.Text, ddlTransportMode.SelectedValue, txtTransDetail.Text);
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessageCreateSTODelivery.Text = Results.Message;
+                    return;
+                }
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Green;
+                MPE_Delivery.Hide();
+            }
+            catch (Exception e1)
+            {
+                lblMessageCreateSTODelivery.Text = e1.Message;
+            }
         }
     }
 }

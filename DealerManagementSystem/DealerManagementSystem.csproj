@@ -3442,6 +3442,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Print\PartsInvoice.rdlc" />
+    <EmbeddedResource Include="Print\SalesInvoiceCreditNote.rdlc" />
     <EmbeddedResource Include="Print\StockTransferOrder.rdlc" />
     <EmbeddedResource Include="Print\PhysicalInventoryPosting.rdlc" />
     <EmbeddedResource Include="Print\StockTransferOrderDeliveryChallan.rdlc" />

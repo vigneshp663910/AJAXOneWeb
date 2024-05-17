@@ -179,7 +179,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-            ReportParameter[] P = new ReportParameter[14];
+            ReportParameter[] P = new ReportParameter[12];
             P[0] = new ReportParameter("DocRef", PIP.DocumentNumber, false);
             P[1] = new ReportParameter("CountDate", PIP.DocumentDate.ToShortDateString(), false);
             P[2] = new ReportParameter("Dealer", PIP.Dealer.DealerName, false);
@@ -190,10 +190,8 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             P[7] = new ReportParameter("Diff", "", false);
             P[8] = new ReportParameter("CreatedBy", PIP.CreatedBy.ContactName, false);
             P[9] = new ReportParameter("CreatedDate", PIP.CreatedOn.ToString(), false);
-            P[10] = new ReportParameter("ApprovedBy", "", false);
-            P[11] = new ReportParameter("ApprovedDate", "", false);
-            P[12] = new ReportParameter("PostedBy", PIP.PostingBy.ContactName, false);
-            P[13] = new ReportParameter("PostedDate", PIP.PostingDate.ToString(), false);
+            P[10] = new ReportParameter("PostedBy", PIP.PostingBy.ContactName, false);
+            P[11] = new ReportParameter("PostedDate", PIP.PostingDate.ToString(), false);
 
 
             DataTable dtItem = new DataTable();
@@ -210,7 +208,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             DataTable DTMaterialText = new DataTable();
             foreach (PPhysicalInventoryPostingItem Item in PIP.Items)
             {
-                dtItem.Rows.Add(sno+=1, PIP.InventoryPostingType.Status, Item.Material.MaterialCode + " " + Item.Material.MaterialDescription, Item.SystemStock, Item.PhysicalStock, Item.SystemStock - Item.PhysicalStock, "");
+                dtItem.Rows.Add(sno+=1, PIP.InventoryPostingType.Status, Item.Material.MaterialCode + " " + Item.Material.MaterialDescription, Item.SystemStock, Item.PhysicalStock, Item.SystemStock - Item.PhysicalStock, Item.Remarks);
                 Book += Item.SystemStock;
                 Physical += Item.PhysicalStock;
                 Diff += Item.SystemStock - Item.PhysicalStock;

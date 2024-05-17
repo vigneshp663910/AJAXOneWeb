@@ -87,5 +87,9 @@ namespace Business
 
             return PoI;
         }
+        public PApiResult UpdateStockTransferOrderDeliveryShipping(long DeliveryID,string KindAtten,string Ref, string TransRemark, string PackingDesc, string TransMode, string TransDetail)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("StockTransferOrder/UpdateStockTransferOrderDeliveryShipping?DeliveryID=" + DeliveryID + "&KindAtten=" + KindAtten + "&Ref=" + Ref + "&TransRemark=" + TransRemark + "&PackingDesc=" + PackingDesc + "&TransMode=" + TransMode + "&TransDetail=" + TransDetail));
+        }
     }
 }
