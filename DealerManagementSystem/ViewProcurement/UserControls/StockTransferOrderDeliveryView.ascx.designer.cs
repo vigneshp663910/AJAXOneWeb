@@ -168,13 +168,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::AjaxControlToolkit.TabContainer tbpEnquiry;
 
         /// <summary>
-        /// tpnlLead control.
+        /// tpnlDeliveryItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpnlLead;
+        protected global::AjaxControlToolkit.TabPanel tpnlDeliveryItem;
 
         /// <summary>
         /// gvDeliveryViewItem control.
@@ -186,13 +186,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.GridView gvDeliveryViewItem;
 
         /// <summary>
-        /// tpnlCustomer control.
+        /// tpnlSTOItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpnlCustomer;
+        protected global::AjaxControlToolkit.TabPanel tpnlSTOItem;
 
         /// <summary>
         /// gvPOItem control.
@@ -202,6 +202,69 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvPOItem;
+
+        /// <summary>
+        /// tpnlShipment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tpnlShipment;
+
+        /// <summary>
+        /// lblKindAttn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblKindAttn;
+
+        /// <summary>
+        /// lblPackingDesc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPackingDesc;
+
+        /// <summary>
+        /// lblRef control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRef;
+
+        /// <summary>
+        /// lblTransportMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTransportMode;
+
+        /// <summary>
+        /// lblTransportDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTransportDetails;
+
+        /// <summary>
+        /// lblRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRemarks;
 
         /// <summary>
         /// pnlGrCreate control.

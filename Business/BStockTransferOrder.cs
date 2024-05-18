@@ -47,9 +47,9 @@ namespace Business
             string endPoint = "StockTransferOrder/GetStockTransferOrderDeliveryByID?StockTransferOrderID=" + StockTransferOrderID + "&DeliveryID=" + DeliveryID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetStockTransferOrderDeliveryHeader(int? DealerID, string DeliveryNumber, string StockTransferOrderNo, string DateFrom, string DateTo, int? StatusID, int? PageIndex = null, int? PageSize = null)
+        public PApiResult GetStockTransferOrderDeliveryHeader(int? DealerID, int? OfficeID, string DeliveryNumber, string StockTransferOrderNo, string DateFrom, string DateTo, int? StatusID, int? PageIndex = null, int? PageSize = null)
         {
-            string endPoint = "StockTransferOrder/GetStockTransferOrderDeliveryHeader?DealerID=" + DealerID + "&DeliveryNumber=" + DeliveryNumber + "&StockTransferOrderNo=" + StockTransferOrderNo
+            string endPoint = "StockTransferOrder/GetStockTransferOrderDeliveryHeader?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&DeliveryNumber=" + DeliveryNumber + "&StockTransferOrderNo=" + StockTransferOrderNo
               + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&StatusID=" + StatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
@@ -90,6 +90,11 @@ namespace Business
         public PApiResult UpdateStockTransferOrderDeliveryShipping(long DeliveryID,string KindAtten,string Ref, string TransRemark, string PackingDesc, string TransMode, string TransDetail)
         {
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("StockTransferOrder/UpdateStockTransferOrderDeliveryShipping?DeliveryID=" + DeliveryID + "&KindAtten=" + KindAtten + "&Ref=" + Ref + "&TransRemark=" + TransRemark + "&PackingDesc=" + PackingDesc + "&TransMode=" + TransMode + "&TransDetail=" + TransDetail));
+        }
+        public PApiResult UpdateStockTransferOrderItemStatus(long StockTransferOrderItemID, int StatusID)
+        {
+            string endPoint = "StockTransferOrder/UpdateStockTransferOrderItemStatus?StockTransferOrderItemID=" + StockTransferOrderItemID + "&StatusID=" + StatusID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
     }
 }

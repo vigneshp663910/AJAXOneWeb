@@ -771,6 +771,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlOfficeName.BorderColor = Color.Silver;
             txtCustomer.BorderColor = Color.Silver;
             txtContactPersonNumber.BorderColor = Color.Silver;
+            ddlSalesEngineer.BorderColor = Color.Silver;
             ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
             txtExpectedDeliveryDate.BorderColor = Color.Silver;
@@ -802,6 +803,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     return "Contact Number should be 10 Digit.";
                 }
             }
+            if (ddlSalesEngineer.SelectedValue == "0")
+            {
+                ddlSalesEngineer.BorderColor = Color.Red;
+                return "Please select the Sales Engnieer.";
+            }
             if (ddlDivision.SelectedValue == "0")
             {
                 ddlDivision.BorderColor = Color.Red;
@@ -828,6 +834,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 txtHeaderDiscountPercent.BackColor = Color.Red;
                 return "Please enter correct format in Header Discount Percent.";
             }
+            
             return Message;
         }
         public string ValidationItem()

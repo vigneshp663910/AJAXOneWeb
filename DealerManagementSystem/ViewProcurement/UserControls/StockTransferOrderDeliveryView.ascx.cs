@@ -84,7 +84,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             PApiResult Result = new BStockTransferOrder().GetStockTransferOrderByID(Deliverys.StockTransferOrder.StockTransferOrderID);
             StockTransferOrder = JsonConvert.DeserializeObject<PStockTransferOrder>(JsonConvert.SerializeObject(Result.Data));
 
-
             lblPurchaseOrderNumber.Text = StockTransferOrder.StockTransferOrderNumber;
             lblPurchaseOrderDate.Text = StockTransferOrder.StockTransferOrderDate.ToString();
 
@@ -93,7 +92,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             lblGrNumber.Text = Deliverys.GrNumber;
             lblGrDate.Text = Convert.ToString(Deliverys.GrDate);
-
 
             lblStatus.Text = Deliverys.Status.Status;
 
@@ -104,6 +102,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             lblPODealer.Text = StockTransferOrder.Dealer.DealerName;
 
+            lblKindAttn.Text = Deliverys.KindAtten;
+            lblPackingDesc.Text = Deliverys.PackingDesc;
+            lblRef.Text = Deliverys.Ref;
+            lblTransportMode.Text = Deliverys.TransMode;
+            lblTransportDetails.Text = Deliverys.TransDetail;
+            lblRemarks.Text = Deliverys.TransRemark;
 
             gvPOItem.DataSource = StockTransferOrder.Items;
             gvPOItem.DataBind();
@@ -112,7 +116,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvDeliveryViewItem.DataBind();
             ActionControlMange();
         }
-
         protected void lbActions_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
@@ -152,6 +155,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if(lbActions.ID == "lbUpdateShipmentDetails")
             {
+                txtKindAtten.Text = Deliverys.KindAtten;
+                txtPackingDesc.Text = Deliverys.PackingDesc;
+                txtRef.Text = Deliverys.Ref;
+                ddlTransportMode.SelectedValue = Deliverys.TransMode;
+                txtTransDetail.Text = Deliverys.TransDetail;
+                txtTransRemarks.Text = Deliverys.TransRemark;
                 MPE_Delivery.Show();
             }
         }
@@ -263,7 +272,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
         }
-
         void ActionControlMange()
         {
             lbGrCreate.Visible = true;
@@ -295,7 +303,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //    lbCancel.Visible = false;
             //}
         }
-
         protected void lnkBtnItemAction_Click(object sender, EventArgs e)
         {
             LinkButton lbActions = ((LinkButton)sender);
@@ -353,7 +360,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
 
         }
-
         void ViewPurchaseOrder()
         {
             //try
@@ -480,7 +486,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         //    return mybytes;
         //}
-
         protected void btnSubmitMaterial_Click(object sender, EventArgs e)
         {
             //lblAddMaterialMessage.Text = "";
@@ -569,7 +574,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //    });
             //}
         }
-
         protected void btnGrCreate_Click(object sender, EventArgs e)
         {
             MPE_GrCreate.Show();
@@ -626,7 +630,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             return Result;
         }
-
         protected void lnkSetRestrictedQty_Click(object sender, EventArgs e)
         {
             lblMessageGrCreation.Text = string.Empty;
@@ -649,7 +652,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             MPE_UpdateRestrictedQty.Show();
         }
-
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             MPE_UpdateRestrictedQty.Show();
@@ -700,7 +702,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             MPE_UpdateRestrictedQty.Hide();
             MPE_GrCreate.Show();
         }
-
         protected void btnSaveShipping_Click(object sender, EventArgs e)
         {
             lblMessageCreateSTODelivery.ForeColor = Color.Red;
