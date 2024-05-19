@@ -1,16 +1,17 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="StockTransferOrderDeliveryView.ascx.cs" Inherits="DealerManagementSystem.ViewProcurement.UserControls.StockTransferOrderDeliveryView" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <style>
-    .Popup {
+    /*.Popup {
         width: 95%;
         height: 95%;
         top: 128px;
         left: 283px;
-    }
-        .Popup .model-scroll {
+    }*/
+
+        /*.Popup .model-scroll {
             height: 80vh;
             overflow: auto;
-        }
+        }*/
 </style>
 <div class="col-md-12">
     <div class="action-btn">
@@ -19,6 +20,7 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbGrCreate" runat="server" OnClick="lbActions_Click">GR Create</asp:LinkButton>
+                <asp:LinkButton ID="lbUpdateShipmentDetails" runat="server" OnClick="lbActions_Click">Update Shipment Details</asp:LinkButton>
                 <asp:LinkButton ID="lbPreviewDC" runat="server" OnClick="lbActions_Click">Preview DC</asp:LinkButton>
                 <asp:LinkButton ID="lbDowloadDC" runat="server" OnClick="lbActions_Click">Dowload DC</asp:LinkButton>
             </div>
@@ -28,7 +30,7 @@
 
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
-        <legend style="background: none; color: #007bff; font-size: 17px;">STO</legend>
+        <legend style="background: none; color: #007bff; font-size: 17px;">STO Delivery</legend>
         <div class="col-md-12 View">
             <div class="col-md-3">
                 <div class="col-md-12">
@@ -88,11 +90,11 @@
 
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <asp1:TabContainer ID="tbpEnquiry" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
-    <asp1:TabPanel ID="tpnlLead" runat="server" HeaderText="Delivery Item" Font-Bold="True">
+    <asp1:TabPanel ID="tpnlDeliveryItem" runat="server" HeaderText="Delivery Item" Font-Bold="True">
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
-                    <fieldset class="fieldset-border"> 
+                    <fieldset class="fieldset-border">
                         <div class="col-md-12 Report">
 
                             <asp:GridView ID="gvDeliveryViewItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
@@ -189,11 +191,11 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
-    <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="STO Item" Font-Bold="True" ToolTip="">
+    <asp1:TabPanel ID="tpnlSTOItem" runat="server" HeaderText="STO Item" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
-                    <fieldset class="fieldset-border"> 
+                    <fieldset class="fieldset-border">
                         <div class="col-md-12 Report">
                             <asp:GridView ID="gvPOItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                                 <Columns>
@@ -294,6 +296,46 @@
                         </div>
                     </fieldset>
                 </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlShipment" runat="server" HeaderText="Shipment" Font-Bold="True" ToolTip="">
+        <ContentTemplate>
+            <div class="col-md-12 field-margin-top">
+                <fieldset class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Shipment</legend>
+                    <div class="col-md-12 View">
+                        <div class="col-md-4">
+                            <div class="col-md-12">
+                                <label>Kind Attn : </label>
+                                <asp:Label ID="lblKindAttn" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Packing Desc : </label>
+                                <asp:Label ID="lblPackingDesc" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Ref : </label>
+                                <asp:Label ID="lblRef" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="col-md-12">
+                                <label>Transport Mode : </label>
+                                <asp:Label ID="lblTransportMode" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Transport Details : </label>
+                                <asp:Label ID="lblTransportDetails" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Remarks : </label>
+                                <asp:Label ID="lblRemarks" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
@@ -435,6 +477,55 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_UpdateRestrictedQty" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateRestrictedQty" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
+<asp:Panel ID="pnlCreateSTODelivery" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueCreateSTODelivery">Update Shipment Details</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="PopupDeliveryClose" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageCreateSTODelivery" runat="server" Text="" CssClass="message" />
+            <fieldset class="fieldset-border" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Update Shipment Details</legend>
+                <div class="col-md-12">
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Kind Attn</label>
+                        <asp:TextBox ID="txtKindAtten" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Packing Desc</label>
+                        <asp:TextBox ID="txtPackingDesc" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Ref</label>
+                        <asp:TextBox ID="txtRef" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Transport Mode</label>
+                        <asp:DropDownList ID="ddlTransportMode" runat="server" CssClass="form-control" BorderColor="Silver">
+                            <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
+                            <asp:ListItem Value="BY ROAD">BY ROAD</asp:ListItem>
+                            <asp:ListItem Value="BY TRAIN">BY TRAIN</asp:ListItem>
+                            <asp:ListItem Value="BY AIR">BY AIR</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Transport Details</label>
+                        <asp:TextBox ID="txtTransDetail" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label>Remarks</label>
+                        <asp:TextBox ID="txtTransRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveShipping" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveShipping_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Delivery" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCreateSTODelivery" BackgroundCssClass="modalBackground" />
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>

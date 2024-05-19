@@ -38,26 +38,34 @@
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Code</label>
-                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
+                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged"/>
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer Office</label>
+                        <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Delivery Number</label>
+                        <asp:TextBox ID="txtDeliveryNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">STO Number</label>
                         <asp:TextBox ID="txtPoNumber" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">STO Date From</label>
+                        <label class="modal-label">Delivery Date From</label>
                         <asp:TextBox ID="txtPoDateFrom" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                         <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtPoDateFrom" PopupButtonID="txtPoDateFrom" Format="dd/MM/yyyy"></asp:CalendarExtender>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtPoDateFrom" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">STO Date To</label>
+                        <label class="modal-label">Delivery Date To</label>
                         <asp:TextBox ID="txtPoDateTo" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
                         <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtPoDateTo" PopupButtonID="txtPoDateTo" Format="dd/MM/yyyy"></asp:CalendarExtender>
                         <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtPoDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                     </div>
                     <div class="col-md-2 col-sm-12">
-                        <label class="modal-label">STO Status</label>
+                        <label class="modal-label">Delivery Status</label>
                         <asp:DropDownList ID="ddlPOStatus" runat="server" CssClass="form-control"> 
                         </asp:DropDownList>
                     </div>
@@ -70,13 +78,14 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">STO Report</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
                             <div class="boxHead">
                                 <div class="logheading">
                                     <div style="float: left">
                                         <table>
                                             <tr>
+                                                <td>STO Delivery:</td>
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
@@ -88,7 +97,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20">
+                            <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found">
                                 <Columns>
                                     <asp:TemplateField>
                                         <ItemTemplate>

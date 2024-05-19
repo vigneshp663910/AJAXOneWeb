@@ -331,10 +331,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
         protected void lnkBtnItemAction_Click(object sender, EventArgs e)
         {
+            lblMessage.ForeColor = Color.Red;
+
             LinkButton lbActions = ((LinkButton)sender);
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-
-
+            
             LinkButton lnkBtnEdit = (LinkButton)gvRow.FindControl("lnkBtnEdit");
             LinkButton lnkBtnupdate = (LinkButton)gvRow.FindControl("lnkBtnupdate");
             LinkButton lnkBtnCancel = (LinkButton)gvRow.FindControl("lnkBtnCancel");
@@ -342,6 +343,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             TextBox txtQuantity = (TextBox)gvRow.FindControl("txtQuantity");
             Label lblQuantity = (Label)gvRow.FindControl("lblQuantity");
+
             if (lbActions.ID == "lnkBtnEdit")
             {
                 lnkBtnEdit.Visible = false;
@@ -363,32 +365,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if (lbActions.ID == "lnkBtnDelete")
             {
-                //lblMessage.Visible = true;
-                //Label lblPurchaseOrderItemID = (Label)gvRow.FindControl("lblPurchaseOrderItemID");
-                //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelPurchaseOrderItem?PurchaseOrderItemID=" + Convert.ToInt64(lblPurchaseOrderItemID.Text)));
-                //if (Results.Status == PApplication.Failure)
-                //{
-                //    lblMessage.Text = Results.Message;
-                //    lblMessage.ForeColor = Color.Red;
-                //    return;
-                //}
-                //int StatusID = PurchaseOrder.PurchaseOrderStatus.ProcurementStatusID;
-                //if (StatusID == (short)ProcurementStatus.PoDraft)
-                //{
-                //    lblMessage.Text = "Updated Successfully";
-                //}
-                //else
-                //{
-                //    lblMessage.Text = "Waiting For Cancel Approval";
-                //}
-                //lblMessage.ForeColor = Color.Green;
-                //fillViewPO(PurchaseOrder.PurchaseOrderID);
+                lblMessage.Visible = true;
+                Label lblStockTransferOrderItemID = (Label)gvRow.FindControl("lblStockTransferOrderItemID");
+                int StatusID = (short)AjaxOneStatus.StockTransferOrderItem_Cancelled;
+                PApiResult Results = new BStockTransferOrder().UpdateStockTransferOrderItemStatus(Convert.ToInt64(lblStockTransferOrderItemID.Text), StatusID);
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                ShowMessage(Results);
+                fillViewPO(StockTransferOrder.StockTransferOrderID);
             }
             else if (lbActions.ID == "lnkBtnupdate")
             {
                 PStockTransferOrderItem_Insert PoI = new PStockTransferOrderItem_Insert();
-
-
 
                 Label lblStockTransferOrderItemID = (Label)gvRow.FindControl("lblStockTransferOrderItemID");
                 Label lblMaterialID = (Label)gvRow.FindControl("lblMaterialID");
@@ -400,10 +392,20 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 PoI.MaterialCode = lblMaterial.Text;
                 PoI.StockTransferOrderID = StockTransferOrder.StockTransferOrderID;
                 PoI.Quantity = Convert.ToDecimal(txtQuantity.Text.Trim());
-
-
                 PoI.MaterialDescription = lblMaterialDescription.Text;
 
+                decimal value;
+                if (!decimal.TryParse(txtQuantity.Text.Trim(), out value))
+                {
+                    lblMessage.Text = "Please enter correct format in Qty.";
+                    return;
+                }
+                if (Convert.ToDecimal(txtQuantity.Text.Trim()) < 1)
+                {
+                    lblMessage.Text = "Quantity cannot be less than 1.";
+                    return;
+                }
+                
                 PoI = new BStockTransferOrder().GetMaterialPriceForStockTransferOrder(StockTransferOrder.Dealer.DealerID, PoI);
                 PurchaseOrderItem_Insert.Add(PoI);
                 PApiResult Result = new BStockTransferOrder().InsertOrUpdateStockTransferOrderItem(PoI);
@@ -417,7 +419,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 MPE_AddMaterial.Hide();
                 fillViewPO(StockTransferOrder.StockTransferOrderID);
             }
-
         }
 
 

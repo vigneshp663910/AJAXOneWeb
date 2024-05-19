@@ -46,8 +46,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 ViewState["PPurchaseOrder_Insert"] = value;
             }
-        }
- 
+        } 
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = string.Empty;
@@ -61,11 +60,18 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
+            lblMessage.ForeColor = Color.Red;
             try
             {
                 LinkButton lbActions = ((LinkButton)sender);
                 if (lbActions.ID == "lbUploadMaterial")
                 {
+                    string Message = Validation();
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessage.Text = Message;
+                        return;
+                    }
                     MPE_MaterialUpload.Show();
                 }
                 else if (lbActions.ID == "lbDownloadMaterialTemplate")
@@ -74,6 +80,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 }
                 else if (lbActions.ID == "lbSave")
                 {
+                    lblMessage.ForeColor = Color.Red;
+                    if (PurchaseOrderItem_Insert.Count == 0)
+                    {
+                        lblMessage.Text = "Please select the Material.";
+                        return;
+                    }
                     Save();
                 }                 
             }
@@ -156,8 +168,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlDealer.DataBind();
             //ddlDealer.Items.Insert(0, new ListItem("All", "0"));
             FillGetDealerOffice();
-        }
-        
+        }        
         void fillItem()
         {
             gvPOItem.DataSource = PurchaseOrderItem_Insert;
@@ -191,7 +202,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlSourceOffice.DataBind();
             ddlSourceOffice.Items.Insert(0, new ListItem("Select", "0"));
         }
-
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
             try
@@ -271,9 +281,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 lblMessage.Text = e1.Message;
             }
-        }
-       
-        
+        }               
         void ClearItem()
         {
             hdfMaterialID.Value = "";
@@ -297,16 +305,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             if (string.IsNullOrEmpty(MaterialID))
             {
-                return "Please select the Material";
+                return "Please select the Material.";
             }
             if (string.IsNullOrEmpty(Qty))
             {
-                return "Please enter the Qty";
+                return "Please enter the Qty.";
             }
             decimal value;
             if (!decimal.TryParse(Qty, out value))
             {
-                return "Please enter correct format in Qty";
+                return "Please enter correct format in Qty.";
             }
             return "";
         }
@@ -327,7 +335,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.Text = Result.Message;
             lblMessage.ForeColor = Color.Green;
         }
-
         protected void lnkBtnPoItemDelete_Click(object sender, EventArgs e)
         {
             try
@@ -342,7 +349,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     if (Item.MaterialCode == Material)
                     {
                         PurchaseOrderItem_Insert.RemoveAt(i);
-                        lblMessage.Text = "Material Removed successfully";
+                        lblMessage.Text = "Material removed successfully.";
                         lblMessage.ForeColor = Color.Green;
                         int ItemNo = 0;
                         foreach (PStockTransferOrderItem_Insert ItemN in PurchaseOrderItem_Insert)
@@ -355,21 +362,27 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     }
                     i = i + 1;
                 }
-                lblMessage.Text = "Please Contact admin.";
+                lblMessage.Text = "Please Contact Admin.";
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message.ToString();
             }
             lblMessage.ForeColor = Color.Red;
-        }
-         
+        }         
         void Upload()
         {
             try
             {
                 if (fileUpload.HasFile == true)
                 {
+                    string validExcel = ".xlsx";
+                    string FileExtension = System.IO.Path.GetExtension(fileUpload.PostedFile.FileName);
+                    if (validExcel != FileExtension)
+                    {
+                        lblMessageMaterialUpload.Text = "Please check the File format.";
+                        return;
+                    }
                     using (XLWorkbook workBook = new XLWorkbook(fileUpload.PostedFile.InputStream))
                     {
                         //Read the first Sheet from Excel file.
@@ -403,6 +416,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                         }
                     }
                 }
+                else
+                {
+                    lblMessageMaterialUpload.Text = "Please check the file.";
+                    return;
+                }
             }
             catch (Exception ex)
             {
@@ -410,7 +428,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessageMaterialUpload.ForeColor = Color.Red;
             }
         }
-
         protected void btnUploadMaterial_Click(object sender, EventArgs e)
         {
             Upload();
@@ -435,7 +452,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             // end
             response.End();
         }
-
         protected void btnAvailability_Click(object sender, EventArgs e)
         {
             lblMessage.ForeColor = Color.Red; 
@@ -447,7 +463,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             if (string.IsNullOrEmpty(hdfMaterialCode.Value.Trim()))
             {
-                lblMessage.Text = "Please select the Material";
+                lblMessage.Text = "Please select the Material.";
                 return;
             } 
             PApiResult Result = new BInventory().GetDealerStock(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlSourceOffice.SelectedValue), null, null, hdfMaterialCode.Value.Trim());
@@ -459,7 +475,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else
             {
-                lblMessage.Text = "Material is not available";
+                lblMessage.Text = "Material is not available.";
             }
         }
     }

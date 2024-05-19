@@ -20,8 +20,8 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbAddMaterial" runat="server" OnClick="lbActions_Click">Add Material</asp:LinkButton>
-                <asp:LinkButton ID="lbRelease" runat="server" OnClick="lbActions_Click">Release</asp:LinkButton>
-                <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
+                <asp:LinkButton ID="lbRelease" runat="server" OnClientClick="return ConfirmReleaseSTO();" OnClick="lbActions_Click">Release</asp:LinkButton>
+                <asp:LinkButton ID="lbCancel" runat="server" OnClientClick="return ConfirmCancelSTO();" OnClick="lbActions_Click">Cancel</asp:LinkButton>
                 <asp:LinkButton ID="lbDelivery" runat="server" OnClick="lbActions_Click">Delivery</asp:LinkButton>
                 <asp:LinkButton ID="lbPDF" runat="server" OnClick="lbActions_Click">PO Preview</asp:LinkButton>
                 <asp:LinkButton ID="lbPreviewSTO" runat="server" OnClick="lbActions_Click">Preview STO</asp:LinkButton>
@@ -33,7 +33,7 @@
 
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
-        <legend style="background: none; color: #007bff; font-size: 17px;">PO</legend>
+        <legend style="background: none; color: #007bff; font-size: 17px;">Stock Transfer Order</legend>
         <div class="col-md-12 View">
             <div class="col-md-3">
                 <div class="col-md-12">
@@ -72,15 +72,15 @@
             <div class="col-md-3">
                 <div class="col-md-12">
                     <label>Taxable Amount : </label>
-                    <asp:Label ID="lblTaxableAmount" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblTaxableAmount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Tax Amount : </label>
-                    <asp:Label ID="lblTaxAmount" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblTaxAmount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Gross Amount : </label>
-                    <asp:Label ID="lblGrossAmount" runat="server" CssClass="label"></asp:Label>
+                    <asp:Label ID="lblGrossAmount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
 
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <asp1:TabContainer ID="tbpEnquiry" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
-    <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="Item" Font-Bold="True" ToolTip="">
+    <asp1:TabPanel ID="tpnlCustomer" runat="server" HeaderText="STO Item" Font-Bold="True" ToolTip="">
         <ContentTemplate>
             <div class="col-md-12">
                 <div class="col-md-12 Report">
@@ -107,7 +107,7 @@
                                     <asp:TemplateField HeaderText="Material">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
-                                              <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialID")%>' runat="server"></asp:Label>
+                                              <asp:Label ID="lblMaterialID" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialID")%>' runat="server" Visible="false"></asp:Label>
                                             <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "Material.MaterialCode")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -352,7 +352,7 @@
 
 <asp:Panel ID="pnlItems" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Details</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Delivery</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
@@ -425,7 +425,6 @@
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Delivery" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlItems" BackgroundCssClass="modalBackground" />
 
-
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
@@ -441,6 +440,22 @@
     }
     function ConfirmItemDelete() {
         var x = confirm("Are you sure you want to Delete?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmReleaseSTO() {
+        var x = confirm("Are you sure you want to Release?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmCancelSTO() {
+        var x = confirm("Are you sure you want to Cancel?");
         if (x) {
             return true;
         }

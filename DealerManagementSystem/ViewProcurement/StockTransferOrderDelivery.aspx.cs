@@ -16,6 +16,7 @@ namespace DealerManagementSystem.ViewProcurement
     {
         public override SubModule SubModuleName { get { return SubModule.ViewProcurement_StockTransferOrderDelivery; } }
         int? DealerID = null;
+        int? DealerOfficeID = null;
         string DeliveryNumber = "";
         string StockTransferOrderNo = "";
         string DateFrom = null;
@@ -70,14 +71,28 @@ namespace DealerManagementSystem.ViewProcurement
                 txtPoDateTo.Text = DateTime.Now.ToShortDateString();
 
                 fillDealer();
-                fillProcurementStatus();
+                ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
+                //fillProcurementStatus();
+                new DDLBind(ddlPOStatus, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.StockTransferOrderDelivery), "Status", "StatusID");
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-               
                 
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
             }
+        }
+        protected void ddlDealerCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillGetDealerOffice();
+        }
+        private void FillGetDealerOffice()
+        {
+            DealerID = Convert.ToInt32(ddlDealerCode.SelectedValue);
+            ddlDealerOffice.DataTextField = "OfficeName_OfficeCode";
+            ddlDealerOffice.DataValueField = "OfficeID";
+            ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(DealerID, null, null);
+            ddlDealerOffice.DataBind();
+            ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -95,10 +110,12 @@ namespace DealerManagementSystem.ViewProcurement
         void Search()
         {
             DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
+            DealerOfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
             DateFrom = txtPoDateFrom.Text.Trim();
             DateTo = txtPoDateTo.Text.Trim();
             StatusID = ddlPOStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPOStatus.SelectedValue);
             StockTransferOrderNo = txtPoNumber.Text.Trim();
+            DeliveryNumber = txtDeliveryNumber.Text.Trim();
         }
         void fillStockTransferOrderDelivery()
         {
@@ -106,7 +123,7 @@ namespace DealerManagementSystem.ViewProcurement
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BStockTransferOrder().GetStockTransferOrderDeliveryHeader(DealerID, DeliveryNumber, StockTransferOrderNo, DateFrom, DateTo, StatusID, PageIndex, gvICTickets.PageSize);
+                PApiResult Result = new BStockTransferOrder().GetStockTransferOrderDeliveryHeader(DealerID, DealerOfficeID, DeliveryNumber, StockTransferOrderNo, DateFrom, DateTo, StatusID, PageIndex, gvICTickets.PageSize);
                 List<PStockTransferOrderDelivery> PO = JsonConvert.DeserializeObject<List<PStockTransferOrderDelivery>>(JsonConvert.SerializeObject(Result.Data));
                 gvICTickets.PageIndex = 0;
                 gvICTickets.DataSource = PO;
@@ -133,7 +150,6 @@ namespace DealerManagementSystem.ViewProcurement
                 throw e1;
             }
         }
-
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (PageIndex > 1)
@@ -142,7 +158,6 @@ namespace DealerManagementSystem.ViewProcurement
                 fillStockTransferOrderDelivery();
             }
         }
-
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (PageCount > PageIndex)
@@ -151,7 +166,6 @@ namespace DealerManagementSystem.ViewProcurement
                 fillStockTransferOrderDelivery();
             }
         }
-
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
             //DataTable dt = new DataTable();
@@ -219,8 +233,6 @@ namespace DealerManagementSystem.ViewProcurement
             //}
             //new BXcel().ExporttoExcel(dt, "PurchaseOrder Report");
         }
-
-
         void fillDealer()
         {
             ddlDealerCode.DataTextField = "CodeWithName";
@@ -242,19 +254,15 @@ namespace DealerManagementSystem.ViewProcurement
             divList.Visible = true;
             divDetailsView.Visible = false; 
         }
-
         protected void btnPurchaseOrderCreateBack_Click(object sender, EventArgs e)
         {
             divList.Visible = true; 
         }
-
         protected void btnPurchaseOrderViewBack_Click(object sender, EventArgs e)
         {
             divList.Visible = true;
             divDetailsView.Visible = false;
-        }
-         
-         
+        }                  
         protected void btnViewPO_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;

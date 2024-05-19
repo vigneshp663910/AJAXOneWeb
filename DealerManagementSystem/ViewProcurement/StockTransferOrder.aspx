@@ -76,13 +76,14 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">STO Report</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
                             <div class="boxHead">
                                 <div class="logheading">
                                     <div style="float: left">
                                         <table>
                                             <tr>
+                                                <td>Stock Transfer Order(s):</td>
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
@@ -94,7 +95,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"                                >
+                            <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" 
+                                EmptyDataText="No Data Found">
                                 <Columns>
                                     <asp:TemplateField>
                                         <ItemTemplate>
