@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -125,6 +126,26 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
 
             fillViewPOAsn(GrID);
+        }
+        protected void lnkDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton lnkFSRDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkFSRDownload.Parent.Parent;
+                Label lblGrItemID = (Label)gvRow.FindControl("lblGrItemID");
+                Label lblFileName = (Label)gvRow.FindControl("lblFileName");
+                PAttachedFile UploadedFile = new BDMS_PurchaseOrder().AttachmentsForDownload(lblGrItemID.Text + Path.GetExtension(lblFileName.Text));
+                Response.AddHeader("Content-type", UploadedFile.FileType);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblFileName.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            { }
         }
     }
 }

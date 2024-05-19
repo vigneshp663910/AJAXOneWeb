@@ -393,6 +393,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblRefDate;
 
         /// <summary>
+        /// lblSalesType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSalesType;
+
+        /// <summary>
         /// tpnlSOItem control.
         /// </summary>
         /// <remarks>
@@ -636,6 +645,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
 
         /// <summary>
+        /// ddlSalesType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalesType;
+
+        /// <summary>
         /// btnUpdateSO control.
         /// </summary>
         /// <remarks>
@@ -778,6 +796,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlShiftTo;
+
+        /// <summary>
+        /// ddlPaymentMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPaymentMode;
 
         /// <summary>
         /// lblDeliveryAddress control.

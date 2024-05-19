@@ -121,6 +121,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblRefDate.Text = SOrder.RefDate == null ? "" : ((DateTime)SOrder.RefDate).ToString("dd/MM/yyyy");
 
             lblSoCreatedBy.Text = SOrder.CreatedBy.ContactName;
+            lblSalesType.Text = SOrder.SalesType == null ? "" : SOrder.SalesType.Status;
 
             decimal Discount = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderItem SaleOrderItem in SOrder.SaleOrderItems)
@@ -307,6 +308,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 MPE_Delivery.Show();
                 List<PDMS_EquipmentHeader> EQs = new BDMS_Equipment().GetEquipmentForCreateICTicket(Convert.ToInt64(SOrder.Dealer.DealerID), null, null);
                 new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
+                new DDLBind(ddlPaymentMode, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.PaymentMode), "Status", "StatusID", true, "Select");
                 //cxDispatchDate.StartDate = DateTime.Now;
                 //txtBoxDispatchDate.Text = DateTime.Now.ToShortDateString();
 
@@ -769,6 +771,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             cxExpectedDeliveryDate.StartDate = DateTime.Now;
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
             new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(SOrder.Dealer.DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
+            new DDLBind(ddlSalesType, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.SalesType), "Status", "StatusID", true, "Select");
             ddlOfficeName.SelectedValue = SOrder.DealerOffice.OfficeID.ToString();
 
             ddlProduct.BorderColor = Color.Silver;
@@ -793,6 +796,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             txtRefNumber.Text = SOrder.RefNumber;
             txtRefDate.Text = SOrder.RefDate == null ? "" : ((DateTime)SOrder.RefDate).ToString("dd/MM/yyyy");
+
+            if (SOrder.SalesType != null)
+                ddlSalesType.SelectedValue = SOrder.SalesType.StatusID.ToString(); 
 
         }
         protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
@@ -984,6 +990,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SO.RefNumber = txtRefNumber.Text.Trim();
                 SO.RefDate = string.IsNullOrEmpty(txtRefDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRefDate.Text.Trim());
             }
+            SO.SalesTypeID = ddlSalesType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesType.SelectedValue);
             return SO;
         }
         public PSaleOrderItem_Insert ReadItem()
@@ -1339,6 +1346,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue);
                     T.EquipmentHeaderID = ddlEquipment.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlEquipment.SelectedValue);
+                    T.PaymentModeID = ddlPaymentMode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPaymentMode.SelectedValue);
                 }
 
                 PApiResult Result = new BDMS_SalesOrder().InsertSaleOrderDelivery(SODelivery_Insert);

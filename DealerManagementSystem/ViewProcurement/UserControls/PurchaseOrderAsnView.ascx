@@ -1,6 +1,25 @@
-﻿    <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PurchaseOrderAsnView.ascx.cs" Inherits="DealerManagementSystem.ViewProcurement.UserControls.PurchaseOrderAsnView" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PurchaseOrderAsnView.ascx.cs" Inherits="DealerManagementSystem.ViewProcurement.UserControls.PurchaseOrderAsnView" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewProcurement/UserControls/GrCreate.ascx" TagPrefix="UC" TagName="UC_GrCreate" %>
+
+<script type="text/javascript">
+    function GrValidation() {
+        debugger;
+        var UnrestrictedQty, MissingQty, DamagedQty, AsnBalanceQty;
+        UnrestrictedQty = document.getElementById("MainContent_UC_PurchaseOrderASNView_txtUnrestrictedQty").value;
+        MissingQty = document.getElementById("MainContent_UC_PurchaseOrderASNView_txtMissingQty").value;
+        DamagedQty = document.getElementById("MainContent_UC_PurchaseOrderASNView_txtDamagedQty").value;
+        AsnBalanceQty = document.getElementById("MainContent_UC_PurchaseOrderASNView_hfAsnBalanceQty").value;
+        if (UnrestrictedQty == '' || MissingQty == '' || DamagedQty == '') {
+            alert("Enter All Fields");
+            return false;
+        }
+        if (parseFloat(AsnBalanceQty) != (parseFloat(UnrestrictedQty) + parseFloat(MissingQty) + parseFloat(DamagedQty))) {
+            alert("Received Qty Not match with (UnRestricted+Missing+Damage) Quantity...!");
+            return false;
+        }
+    }
+</script>
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -8,7 +27,7 @@
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbGrCreation" runat="server" OnClick="lbActions_Click">Gr Creation</asp:LinkButton>
-                  <asp:LinkButton ID="lbDowloadInvoice" runat="server" OnClick="lbActions_Click">Dowload Invoice</asp:LinkButton>
+                <asp:LinkButton ID="lbDowloadInvoice" runat="server" OnClick="lbActions_Click">Dowload Invoice</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -114,7 +133,7 @@
                                             <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Gr Qty">
+                                    <asp:TemplateField HeaderText="Gr Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrQty")%>' runat="server"></asp:Label>
@@ -125,14 +144,14 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblDeliveredQty" Text='<%# DataBinder.Eval(Container.DataItem, "ReturnedQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField> 
-                                   <%-- <asp:TemplateField HeaderText=" Qty">
+                                    </asp:TemplateField>
+                                    <%-- <asp:TemplateField HeaderText=" Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblReceivedQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?DataBinder.Eval(Container.DataItem, "Qty"):DataBinder.Eval(Container.DataItem, "GrItem.ReceivedQty")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                  <%--  <asp:TemplateField HeaderText="Unrestricted Qty">
+                                    <%--  <asp:TemplateField HeaderText="Unrestricted Qty">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblUnrestrictedQty" Text='<%# (DataBinder.Eval(Container.DataItem, "GrItem.GrID")==null)?0:DataBinder.Eval(Container.DataItem, "GrItem.UnrestrictedQty")%>' runat="server"></asp:Label>
@@ -180,7 +199,7 @@
                                             <asp:Label ID="lblPackCount" Text='<%# DataBinder.Eval(Container.DataItem, "PackCount")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                   <%-- <asp:TemplateField HeaderText="Stock Type">
+                                    <%-- <asp:TemplateField HeaderText="Stock Type">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblStockType" Text='<%# DataBinder.Eval(Container.DataItem, "StockType")%>' runat="server"></asp:Label>
@@ -279,6 +298,15 @@
                                             <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "Remarks")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="File Name">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblGrItemID" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.GrItemID")%>' runat="server" Visible="false"></asp:Label>
+                                            <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click">
+                                                <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.FileName")%>' runat="server"></asp:Label>
+                                            </asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <%--<asp:TemplateField HeaderText="Status">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -297,7 +325,7 @@
                                             <asp:Label ID="lblPostedOn" Text='<%# DataBinder.Eval(Container.DataItem, "PostedOn","{0:d}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                   <%-- <asp:TemplateField HeaderText="Cancelled By">
+                                    <%-- <asp:TemplateField HeaderText="Cancelled By">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCancelledBy" Text='<%# DataBinder.Eval(Container.DataItem, "CancelledBy.ContactName")%>' runat="server" />
@@ -510,7 +538,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageGrCreation" runat="server" Text="" CssClass="message"  />
+            <asp:Label ID="lblMessageGrCreation" runat="server" Text="" CssClass="message" />
             <%--<UC:UC_GrCreate ID="UC_GrCreate" runat="server"></UC:UC_GrCreate>--%>
             <fieldset class="fieldset-border" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Gr Details</legend>
@@ -527,7 +555,7 @@
                     <div class="col-md-12 col-sm-12">
                         <asp:GridView ID="gvPOAsnGrItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid">
                             <Columns>
-                            <%--    <asp:TemplateField HeaderText="Item">
+                                <%--    <asp:TemplateField HeaderText="Item">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate> 
                                    <asp:Label ID="lblAsnItem" Text='<%# DataBinder.Eval(Container.DataItem, "AsnItem")%>' runat="server"></asp:Label> 
@@ -536,7 +564,7 @@
                                 <asp:TemplateField HeaderText="Material">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                          <asp:Label ID="lblAsnItemID" Text='<%# DataBinder.Eval(Container.DataItem, "AsnItemID")%>' runat="server" Visible="false"></asp:Label>
+                                        <asp:Label ID="lblAsnItemID" Text='<%# DataBinder.Eval(Container.DataItem, "AsnItemID")%>' runat="server" Visible="false"></asp:Label>
                                         <asp:Label ID="lblAsnID" Text='<%# DataBinder.Eval(Container.DataItem, "AsnID")%>' runat="server" Visible="false"></asp:Label>
                                         <asp:Label ID="lblMaterial" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
@@ -553,7 +581,7 @@
                                         <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "AsnBalanceQty")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                              <%--  <asp:TemplateField HeaderText="Received Qty">
+                                <%--  <asp:TemplateField HeaderText="Received Qty">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblReceivedQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
@@ -568,7 +596,7 @@
                                 <asp:TemplateField HeaderText="Restricted Qty">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                         <asp:Label ID="lblRestrictedQty" Text='<%# DataBinder.Eval(Container.DataItem, "RestrictedQty")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblRestrictedQty" Text='<%# DataBinder.Eval(Container.DataItem, "RestrictedQty")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action">
@@ -584,7 +612,7 @@
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                             <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
-                        <asp:HiddenField ID="HidAsnItemID" runat="server" Visible="false" />  
+                        <asp:HiddenField ID="HidAsnItemID" runat="server" Visible="false" />
                     </div>
                 </div>
             </fieldset>
@@ -605,6 +633,7 @@
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:Label ID="lblMessageRestrictedQty" runat="server" Text="" CssClass="message" />
+            <asp:HiddenField ID="hfAsnBalanceQty" runat="server" />
             <fieldset class="fieldset-border" id="Fieldset7" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Gr Creation</legend>
                 <div class="col-md-12">
@@ -628,8 +657,13 @@
                         <label class="modal-label">Remark<samp style="color: red">*</samp></label>
                         <asp:TextBox ID="txtRemarksItem" runat="server" CssClass="form-control" Rows="5" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
                     </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">File</label>
+                        <asp:FileUpload ID="fileUpload" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
+                        <%-- <asp:Button ID="btnAddFile" runat="server" CssClass="btn Approval" Text="Add" OnClick="btnAddFile_Click" />--%>
+                    </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnAdd" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAdd_Click" />
+                        <asp:Button ID="btnAdd" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAdd_Click" OnClientClick="return GrValidation();" />
                     </div>
                 </div>
             </fieldset>

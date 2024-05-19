@@ -71,6 +71,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         public void FillMaster()
         {
+
             fillDealer();
             //new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
             fillVendor(ddlOrderTo.SelectedValue);
@@ -337,7 +338,18 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillGetDealerOffice();
+            try
+            {
+                PDealer P = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), null);
+                lblEdfsCashBalance.Text = Convert.ToString(new BSap().GetEdfsCashBalance(P.DealerCode));
+                FillGetDealerOffice();
+            }
+            catch (Exception e1)
+            {
+                lblMessage.Text = e1.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+            
         }
         private void FillGetDealerOffice()
         {
@@ -396,14 +408,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ddlDivision.Items.Insert(7, new ListItem("Mobile Concrete Equipment", "14"));
                 ddlDivision.Items.Insert(8, new ListItem("Placing Equipment", "19"));
             }
-            if (OrderType == "1" || OrderType == "6")
-            {
-                Btn_MatAvailability.Visible = true;
-            }
-            else
-            {
-                Btn_MatAvailability.Visible = false;
-            }
+            //if (OrderType == "1" || OrderType == "6")
+            //{
+            //    Btn_MatAvailability.Visible = true;
+            //}
+            //else
+            //{
+            //    Btn_MatAvailability.Visible = false;
+            //}
         }
         protected void ddlOrderTo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -631,16 +643,28 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             try
             {
                 lblMessage.Text = "";
-                lblMessage.ForeColor = Color.Red; 
-                PDealerStock s = new BInventory().GetDealerStockCountByID(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlDealerOffice.SelectedValue), Convert.ToInt64(hdfMaterialID.Value));
-                if (s.UnrestrictedQty < Convert.ToDecimal(txtQty.Text))
+                lblMessage.ForeColor = Color.Red;
+                decimal Stock = 0;
+                if (ddlOrderTo.SelectedValue == "1")
                 {
-                    lblMessage.Text = "These Material Stock is available " + s.UnrestrictedQty;
-                    lblMessage.ForeColor = Color.Red;
+                    Stock = new BSap().GetMaterialStock(hdfMaterialCode.Value);
                 }
                 else
                 {
-                    lblMessage.Text = "These Material Stock is available " + s.UnrestrictedQty;
+                    List < PDMS_DealerOffice > VendorOffice = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlVendor.SelectedValue), null, null);
+                    foreach (PDMS_DealerOffice Office in VendorOffice)
+                    {
+                        PDealerStock s = new BInventory().GetDealerStockCountByID(Convert.ToInt32(ddlVendor.SelectedValue), Office.OfficeID, Convert.ToInt64(hdfMaterialID.Value));
+                        Stock = Stock + s.UnrestrictedQty;
+                    }
+                }
+                lblMessage.Text = "These Material Stock is available " + Stock; 
+                if (Stock < Convert.ToDecimal(txtQty.Text))
+                { 
+                    lblMessage.ForeColor = Color.Red;
+                }
+                else
+                { 
                     lblMessage.ForeColor = Color.Green;
                 }
             }

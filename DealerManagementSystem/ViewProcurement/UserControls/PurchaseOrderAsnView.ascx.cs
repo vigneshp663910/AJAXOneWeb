@@ -4,6 +4,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -66,14 +67,10 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             lblRemarks.Text = PAsnView.Remarks;
 
-            gvPOAsnItem.DataSource = null;
-            gvPOAsnItem.DataBind();
             //List<PAsnItem> PAsnItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnItemByID(AsnID);
             gvPOAsnItem.DataSource = PAsnView.AsnItemS;
             gvPOAsnItem.DataBind();
 
-            GVGr.DataSource = null;
-            GVGr.DataBind();
             List<PGr> GrList = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrDetByID(AsnID);
             GVGr.DataSource = GrList;
             GVGr.DataBind();
@@ -93,9 +90,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblExpectedDeliveryDate.Text = PAsnView.PurchaseOrder.ExpectedDeliveryDate.ToString();
             lblGrossAmount.Text = PAsnView.PurchaseOrder.NetAmount.ToString();
 
-
-            GVAsnPO.DataSource = null;
-            GVAsnPO.DataBind();
+             
             List<PAsnItem> AsnPOItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnByIDPOItem(AsnID);
             GVAsnPO.DataSource = AsnPOItemView;
             GVAsnPO.DataBind();
@@ -174,6 +169,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.Text = Result.Message;
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Green;
+             
         }
         public void FillGr(PAsn PAsnView)
         {
@@ -203,8 +199,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     AsnItem = new PAsnItem() { AsnItemID = Convert.ToInt64(lblAsnItemID.Text.Trim()) },
                     //ReceivedQty = Convert.ToDecimal("0" + lblReceivedQty.Text),
                     UnrestrictedQty = Convert.ToDecimal("0" + lblUnrestrictedQty.Text),
-                    RestrictedQty = Convert.ToDecimal("0" + lblRestrictedQty.Text),
-                    GrBlocked = new List<PGrBlocked>()
+                    RestrictedQty = Convert.ToDecimal("0" + lblRestrictedQty.Text) 
                 });
             }
         }
@@ -308,9 +303,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 if (Item.AsnItemID == Convert.ToInt64(HidAsnItemID.Value))
                 {
                     txtUnrestrictedQty.Text = Item.AsnBalanceQty.ToString();
+                    hfAsnBalanceQty.Value = txtUnrestrictedQty.Text;
                     if (Item.BlockedList.Count != 0)
                     {
                         txtUnrestrictedQty.Text = Item.UnrestrictedQty.ToString();
+                       
                         foreach (PGrBlocked_Insert Block in Item.BlockedList)
                         {
                             if (Block.statusID == (short)ProcurementStatus.PoAsnGrBlocked_Missed)
@@ -376,20 +373,36 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                         pgrb.Qty = Convert.ToDecimal(txtDamagedQty.Text);
                         pgrb.statusID = (short)ProcurementStatus.PoAsnGrBlocked_Damaged; 
                         Item.BlockedList.Add(pgrb); 
-                    } 
+                    }
+
+                    if (fileUpload.FileName.Length != 0)
+                    {
+                        int size = fileUpload.PostedFile.ContentLength; 
+                        byte[] fileData = new byte[size];
+                        fileUpload.PostedFile.InputStream.Read(fileData, 0, size);
+                        Item.fileData = fileData; 
+                        Item.FileName = fileUpload.PostedFile.FileName;
+                        int position = Item.FileName.LastIndexOf("\\");
+                        Item.FileName = Item.FileName.Substring(position + 1);
+                    }
                 }
             } 
             MPE_GrCreate.Show();
             MPE_UpdateRestrictedQty.Hide(); 
             gvPOAsnGrItem.DataSource = Gr_Insert;
             gvPOAsnGrItem.DataBind();
+
+
+           
+             
+
         }
 
         void ibPDF_Click()
         {
             try
             {
-                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnInvoiceNumber(PAsnView.InvoiceNumber);
+                PApiResult Result = new BSap().GetPurchaseOrderAsnInvoiceNumber(PAsnView.InvoiceNumber);
                 if (string.IsNullOrEmpty(Convert.ToString(Result.Data)))
                 {
                     lblMessage.Text = "Invoice Not generated. Please contact Parts Team.";
@@ -414,5 +427,27 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.ForeColor = Color.Red;
             }
         }
+
+        protected void lnkDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton lnkFSRDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkFSRDownload.Parent.Parent;
+                Label lblGrItemID = (Label)gvRow.FindControl("lblGrItemID");
+                Label lblFileName = (Label)gvRow.FindControl("lblFileName");
+                PAttachedFile UploadedFile = new BDMS_PurchaseOrder().AttachmentsForDownload(lblGrItemID.Text + Path.GetExtension(lblFileName.Text));
+                Response.AddHeader("Content-type", UploadedFile.FileType);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblFileName.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            { }
+        }
+
     }
 }

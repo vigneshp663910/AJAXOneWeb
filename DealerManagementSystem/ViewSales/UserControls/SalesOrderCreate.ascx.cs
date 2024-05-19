@@ -66,6 +66,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
             new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, null, null), "Product", "ProductID", true, "Select");
+
+            new DDLBind(ddlSalesType, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.SalesType), "Status", "StatusID", true, "Select");
             cxExpectedDeliveryDate.StartDate = DateTime.Now;
             txtExpectedDeliveryDate.Text = DateTime.Now.ToShortDateString();
             ddlDivision.SelectedValue = "15"; 
@@ -159,6 +161,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.HeaderDiscountPercentage = Convert.ToDecimal(txtHeaderDiscountPercent.Text.Trim());
             SO.RefNumber = txtRefNumber.Text.Trim();
             SO.RefDate = string.IsNullOrEmpty(txtRefDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
+            SO.SalesTypeID = ddlSalesType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesType.SelectedValue);
             return SO;
         }
 

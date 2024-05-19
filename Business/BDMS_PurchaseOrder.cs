@@ -312,10 +312,10 @@ namespace Business
             string endPoint = "PurchaseOrder/UpdatePurchaseOrderReturnStatus?PurchaseOrderReturnID=" + PurchaseOrderReturnID + "&StatusID=" + StatusID + "&Remarks=" + Remarks;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetPurchaseOrderAsnInvoiceNumber(string InvoiceNumber)
+        public PAttachedFile AttachmentsForDownload(string FileName)
         {
-            string endPoint = "Sap/GetPurchaseOrderAsnInvoiceNumber?InvoiceNumber=" + InvoiceNumber;
-            return  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            string endPoint = "PurchaseOrder/AttachmentsForDownload?FileName=" + FileName ;
+            return JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

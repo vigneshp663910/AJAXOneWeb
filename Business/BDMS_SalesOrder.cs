@@ -1484,7 +1484,7 @@ namespace Business
                 P = new ReportParameter[24];
                 report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoice.rdlc");
                 // }
-                decimal GrandTotal = 0;
+                long GrandTotal = Convert.ToInt64(Math.Round(CessSubTotal));
 
                 //   ViewState["Month"] = ddlMonth.SelectedValue;
                 P[0] = new ReportParameter("DealerCode", DealerN.DealerCode, false);

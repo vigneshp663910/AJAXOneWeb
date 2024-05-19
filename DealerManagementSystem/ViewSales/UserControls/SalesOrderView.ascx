@@ -506,7 +506,10 @@
                                 <label>Ref Date : </label>
                                 <asp:Label ID="lblRefDate" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
-
+                            <div class="col-md-12">
+                                <label>Sales Type : </label>
+                                <asp:Label ID="lblSalesType" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -580,12 +583,15 @@
                                             <asp:Panel ID="pnlItemDiscount" runat="server" Visible="false">
                                                 <table>
                                                     <tr>
-                                                        <td>Percentage</td><td>Value</td>
-                                                        
+                                                        <td>Percentage</td>
+                                                        <td>Value</td>
+
                                                     </tr>
                                                     <tr>
-                                                        <td><asp:TextBox ID="txtItemDiscountPercentage" runat="server" CssClass="form-control"></asp:TextBox></td>
-                                                        <td><asp:TextBox ID="txtItemDiscountValue" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountValue","{0:n}")%>' CssClass="form-control" Width="100px"></asp:TextBox></td>
+                                                        <td>
+                                                            <asp:TextBox ID="txtItemDiscountPercentage" runat="server" CssClass="form-control"></asp:TextBox></td>
+                                                        <td>
+                                                            <asp:TextBox ID="txtItemDiscountValue" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "ItemDiscountValue","{0:n}")%>' CssClass="form-control" Width="100px"></asp:TextBox></td>
                                                     </tr>
                                                 </table>
                                             </asp:Panel>
@@ -876,6 +882,10 @@
                             <asp1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtRefDate" PopupButtonID="txtRefDate" Format="dd/MM/yyyy" />
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRefDate" WatermarkText="DD/MM/YYYY" />
                         </div>
+                        <div class="col-sm-12">
+                            <label>Sales Type</label>
+                            <asp:DropDownList ID="ddlSalesType" runat="server" CssClass="form-control" />
+                        </div>
                     </div>
                 </fieldset>
             </div>
@@ -940,6 +950,11 @@
                     <div class="col-md-2">
                         <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
                         <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlShiftTo_SelectedIndexChanged" />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="modal-label">Payment Mode
+                            <samp style="color: red">*</samp></label>
+                        <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-5">
                         <label>Delivery Address</label>

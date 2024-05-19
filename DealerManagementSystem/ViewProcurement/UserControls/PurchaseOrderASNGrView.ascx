@@ -155,6 +155,15 @@
                                             <asp:Label ID="lblUomPackCount" Text='<%# DataBinder.Eval(Container.DataItem, "AsnItem.UomPackCount")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="File Name">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblGrItemID" Text='<%# DataBinder.Eval(Container.DataItem, "GrItemID")%>' runat="server" Visible="false"></asp:Label>
+                                            <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click">
+                                                <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
+                                            </asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

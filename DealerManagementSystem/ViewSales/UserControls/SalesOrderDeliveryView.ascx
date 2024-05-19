@@ -77,6 +77,10 @@
                     <label>Equipment : </label>
                     <asp:Label ID="lblEquipment" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Payment Mode : </label>
+                    <asp:Label ID="lblPaymentMode" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">

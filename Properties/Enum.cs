@@ -831,6 +831,8 @@ namespace Properties
         PostingInventoryStatus = 10,
         SaleOrderDelivery = 11,
         SaleOrderReturn = 12,
+        SalesType=13,
+        PaymentMode = 14
     }
     public enum AjaxOneStatus
     {

@@ -180,6 +180,10 @@
                         <label>Gross Amount : </label>
                         <asp:Label ID="lblTotalValue" runat="server" BorderColor="Silver"></asp:Label>
                     </div>
+                    <div class="col-sm-12">
+                        <label>Sales Type</label>
+                        <asp:DropDownList ID="ddlSalesType" runat="server" CssClass="form-control" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -264,11 +268,11 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Item Discount %">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
-                                    <ItemTemplate>
-                                        <asp:TextBox ID="txtItemDiscountPercentage"  runat="server"  OnTextChanged="txtBoxDiscountPercent_TextChanged"  CssClass="form-control" AutoPostBack="true"></asp:TextBox>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtItemDiscountPercentage" runat="server" OnTextChanged="txtBoxDiscountPercent_TextChanged" CssClass="form-control" AutoPostBack="true"></asp:TextBox>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Item Discount Value">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>

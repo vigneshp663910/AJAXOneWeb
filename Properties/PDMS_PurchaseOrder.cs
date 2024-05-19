@@ -313,7 +313,8 @@ namespace Properties
         public decimal RestrictedQty { get; set; }
         public decimal ReturnedQty { get; set; } 
         public string Remark { get; set; }
-        public List<PGrBlocked> GrBlocked { get; set; }
+       // public List<PGrBlocked> GrBlocked { get; set; }
+        public string FileName { get; set; }
     }
     [Serializable]
     public class PGrBlocked
@@ -391,7 +392,8 @@ namespace Properties
         public string RemarksHeader { get; set; }
         public string RemarksItem { get; set; }
         public List<PGrBlocked_Insert> BlockedList { get; set; }
-
+        public string FileName { get; set; }
+        public byte[] fileData { get; set; } 
     }
     [Serializable]
     public class PGrBlocked_Insert

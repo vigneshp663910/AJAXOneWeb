@@ -36,6 +36,10 @@
 
         <div class="col-md-9">
             <div class="col-md-3 col-sm-12">
+                <label class="modal-label">EDFS Cash Balance</label>
+                <asp:Label ID="lblEdfsCashBalance" runat="server" CssClass="form-control"   />
+            </div>
+            <div class="col-md-3 col-sm-12">
                 <label class="modal-label">Dealer</label>
                 <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
             </div>
@@ -129,7 +133,7 @@
                     <label class="modal-label">.</label>
                     <asp:Button ID="btnAddMaterial" runat="server" Text="Add" CssClass="btn Search" OnClick="btnAddMaterial_Click" />
 
-                    <asp:Button ID="Btn_MatAvailability" runat="server" Text="Availability" CssClass="btn Save" OnClick="Btn_MatAvailability_Click" Visible="false" />
+                    <asp:Button ID="Btn_MatAvailability" runat="server" Text="Availability" CssClass="btn Save" OnClick="Btn_MatAvailability_Click"   />
                 </div>
             </div>
         </div>

@@ -236,6 +236,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblDeliveryOrderStatus.Text = SaleOrderDeliveryByID.Status.Status;
             lblCustomer.Text = SaleOrderDeliveryByID.SaleOrder.Customer.CustomerCode + " " + SaleOrderDeliveryByID.SaleOrder.Customer.CustomerName;
             lblEquipment.Text = SaleOrderDeliveryByID.Equipment.EquipmentSerialNo;
+            lblPaymentMode.Text = SaleOrderDeliveryByID.PaymentMode == null ? "" : SaleOrderDeliveryByID.PaymentMode.Status;
             decimal Value = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderDeliveryItem DeliveryItem in SaleOrderDeliveryByID.SaleOrderDeliveryItems)
             {
