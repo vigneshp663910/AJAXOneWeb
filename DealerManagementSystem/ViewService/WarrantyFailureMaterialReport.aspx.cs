@@ -381,12 +381,27 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("Storage Loc");
             dt.Columns.Add("Serial Number");
             dt.Columns.Add("UD Code");
-            dt.Columns.Add("Reason For Mov"); dt.Columns.Add("Cost Center"); dt.Columns.Add("UD Stort Text");
+            dt.Columns.Add("Reason For Mov"); 
+            dt.Columns.Add("Cost Center"); 
+            dt.Columns.Add("UD Stort Text");
 
-            dt.Columns.Add("Partner"); dt.Columns.Add("Text- Eqip.Model"); dt.Columns.Add("Text-Equip Sr No"); dt.Columns.Add("FSR No"); dt.Columns.Add("TR Date");
-            dt.Columns.Add("Approved1 By"); dt.Columns.Add("Approved2 By"); dt.Columns.Add("Site Location"); dt.Columns.Add("HMR");
-            dt.Columns.Add("Warranty Expiry"); dt.Columns.Add("Date Of Comm"); dt.Columns.Add("Kind Attention"); dt.Columns.Add("Reason for Failure");
-            dt.Columns.Add("Warr Claim Date"); dt.Columns.Add("Number of Days"); dt.Columns.Add("Application"); dt.Columns.Add("TSIR");
+            dt.Columns.Add("Partner"); 
+            dt.Columns.Add("Text- Eqip.Model"); 
+            dt.Columns.Add("Text-Equip Sr No"); 
+            dt.Columns.Add("FSR No"); 
+            dt.Columns.Add("TR Date");
+            dt.Columns.Add("Approved1 By"); 
+            //dt.Columns.Add("Approved2 By"); 
+            dt.Columns.Add("Site Location"); 
+            dt.Columns.Add("HMR");
+            dt.Columns.Add("Warranty Expiry"); 
+            dt.Columns.Add("Date Of Comm"); 
+            dt.Columns.Add("Kind Attention"); 
+            dt.Columns.Add("Reason for Failure");
+            dt.Columns.Add("Warr Claim Date"); 
+            dt.Columns.Add("Number of Days"); 
+            dt.Columns.Add("Application"); 
+            dt.Columns.Add("TSIR");
             foreach (PDMS_WarrantyInvoiceHeader M in SDMS_WarrantyClaimHeader)
             {
                 foreach (PDMS_WarrantyInvoiceItem Item in M.InvoiceItems)
@@ -412,7 +427,7 @@ namespace DealerManagementSystem.ViewService
                             , M.FSRNumber
                             , ""
                             , M.Approved1By == null ? "" : M.Approved1By.ContactName
-                            , M.Approved2By == null ? "" : M.Approved2By.ContactName
+                            //, M.Approved2By == null ? "" : M.Approved2By.ContactName
                             , M.Location
                             , M.HMR
                             , M.WarrantyEndDate == null ? "" : ((DateTime)M.WarrantyEndDate).ToShortDateString()

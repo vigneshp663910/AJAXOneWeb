@@ -81,9 +81,9 @@
                 </div>
                  <div class="col-md-12 col-sm-12" id="divStandardProduct" runat="server">
                     <label class="modal-label">Standard Product (Predefined Product with selection of STD, Common, optional accessories)</label>
-                     <asp:RadioButton ID="rbIsStandardYes" runat="server" GroupName="Standard"  Checked="true"/>
+                     <asp:RadioButton ID="rbIsStandardYes" runat="server" GroupName="Standard" />
                       <label class="modal-label">Variant Product (Select all required subassemblies to build Product)</label>
-                     <asp:RadioButton ID="rbIsStandardNo" runat="server"  GroupName="Standard"   />
+                     <asp:RadioButton ID="rbIsStandardNo" runat="server"  GroupName="Standard"   Checked="true" />
                    <%--  <asp:CheckBox ID="cbIsStandard" runat="server" />--%>
                 </div>
                 <div class="col-md-12 col-sm-12">
