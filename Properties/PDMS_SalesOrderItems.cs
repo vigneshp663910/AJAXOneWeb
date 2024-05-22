@@ -307,6 +307,7 @@ namespace Properties
         public decimal TCSValue { get; set; }
         public decimal TCSTax { get; set; }
         public PAjaxOneStatus PaymentMode { get; set; }
+        public PSaleOrderDeliveryShipping Shipping { get; set; }
     }
     [Serializable]
     public class PInvoiceDetails

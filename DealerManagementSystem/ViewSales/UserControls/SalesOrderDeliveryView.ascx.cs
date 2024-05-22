@@ -307,9 +307,24 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblDeliveryAddress.Text = lblBillingAddress.Text;
             }
 
+            if (SaleOrderDeliveryByID.Shipping != null)
+            {
+                lblNetWeight.Text = SaleOrderDeliveryByID.Shipping.NetWeight.ToString();
+                lblDispatchDate.Text = SaleOrderDeliveryByID.Shipping.DispatchDate.ToShortDateString();
+                lblCourierID.Text = SaleOrderDeliveryByID.Shipping.CourierID.ToString();
+                lblCourierDate.Text = SaleOrderDeliveryByID.Shipping.CourierDate.ToShortDateString();
+                lblCourierCompanyName.Text = SaleOrderDeliveryByID.Shipping.CourierCompanyName.ToString();
+                lblCourierPerson.Text = SaleOrderDeliveryByID.Shipping.CourierPerson.ToString();
+                lblLRNo.Text = SaleOrderDeliveryByID.Shipping.LRNo.ToString();
+                lblPackingDescription.Text = SaleOrderDeliveryByID.Shipping.PackingDescription.ToString();
+                lblPackingRemarks.Text = SaleOrderDeliveryByID.Shipping.PackingRemarks.ToString();
+                lblTransportDetails.Text = SaleOrderDeliveryByID.Shipping.TransportDetails.ToString();
+                lblTransportMode.Text = SaleOrderDeliveryByID.Shipping.TransportMode.ToString();
+                lblPickupDate.Text = SaleOrderDeliveryByID.Shipping.PickupDate.ToShortDateString();
+                lblShippingRemarks.Text = SaleOrderDeliveryByID.Shipping.Remarks.ToString();
+            }
             ActionControlMange(SaleOrderDeliveryByID);
         }
-
         void ActionControlMange(PSaleOrderDelivery SaleOrderDeliveryByID)
         {
             lbGenerateInvoice.Visible = true;
@@ -361,7 +376,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
             }
         }
-
         protected void btnSaveShipping_Click(object sender, EventArgs e)
         {
             lblMessageCreateSODelivery.ForeColor = Color.Red;
@@ -393,6 +407,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.ForeColor = Color.Green;
 
                 MPE_Delivery.Hide();
+                fillViewSODelivery(SODeliveryID);
             }
             catch (Exception e1)
             {
