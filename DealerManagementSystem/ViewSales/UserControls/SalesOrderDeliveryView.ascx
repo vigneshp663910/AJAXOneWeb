@@ -17,7 +17,6 @@
                 <asp:LinkButton ID="lbUpdateShippingDetails" runat="server" OnClick="lbActions_Click">Update Shipping Details</asp:LinkButton>
                 <asp:LinkButton ID="lbPreviewInvoice" runat="server" OnClick="lbActions_Click">Preview Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbDowloadInvoice" runat="server" OnClick="lbActions_Click">Dowload Invoice</asp:LinkButton>
-
             </div>
         </div>
     </div>
@@ -35,7 +34,6 @@
                 <div class="col-md-12">
                     <label>Delivery Date: </label>
                     <asp:Label ID="lblDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
-
                 </div>
                 <div class="col-md-12">
                     <label>Invoice No: </label>
@@ -282,7 +280,6 @@
                                     <label>Remarks : </label>
                                     <asp:Label ID="lblRemarks" runat="server" CssClass="LabelValue"></asp:Label>
                                 </div>
-
                             </div>
                             <div class="col-md-4">
                                 <div class="col-md-12">
@@ -417,12 +414,85 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlShippingDetails" runat="server" HeaderText="Shipment Details" Font-Bold="True">
+        <ContentTemplate>
+            <div class="col-md-12">
+                <div class="col-md-12 field-margin-top">
+                    <fieldset class="fieldset-border">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">Shipment Details</legend>
+                        <div class="col-md-12 View">
+                            <div class="col-md-3">
+                                <div class="col-md-12">
+                                    <label>Net Weight: </label>
+                                    <asp:Label ID="lblNetWeight" runat="server" CssClass="LabelValue"></asp:Label><asp:Label ID="Label2" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Dispatch Date : </label>
+                                    <asp:Label ID="lblDispatchDate" runat="server" CssClass="LabelValue"></asp:Label><asp:Label ID="Label4" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Courier ID : </label>
+                                    <asp:Label ID="lblCourierID" runat="server" CssClass="LabelValue"></asp:Label><asp:Label ID="Label6" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Courier Date : </label>
+                                    <asp:Label ID="lblCourierDate" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-12">
+                                    <label>Courier Company Name : </label>
+                                    <asp:Label ID="lblCourierCompanyName" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Courier Person : </label>
+                                    <asp:Label ID="lblCourierPerson" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>LR No. : </label>
+                                    <asp:Label ID="lblLRNo" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Pickup Date : </label>
+                                    <asp:Label ID="lblPickupDate" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-12">
+                                    <label>Transport Details : </label>
+                                    <asp:Label ID="lblTransportDetails" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Packing Description : </label>
+                                    <asp:Label ID="lblPackingDescription" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Packing Remarks: </label>
+                                    <asp:Label ID="lblPackingRemarks" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-md-12">
+                                    <label>Transport Mode : </label>
+                                    <asp:Label ID="lblTransportMode" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Remarks : </label>
+                                    <asp:Label ID="lblShippingRemarks" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
 </asp1:TabContainer>
 
 
 <asp:Panel ID="pnlCreateSODelivery" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogueCreateSODelivery">Delivery</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogueCreateSODelivery">Update Shipping Details</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="PopupDeliveryClose" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <asp:Label ID="lblMessageCreateSODelivery" runat="server" Text="" CssClass="message" />
