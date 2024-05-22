@@ -171,10 +171,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     return "Please enter the Return Quantity for all the selected Items.";
                 }
-                decimal ReturnQty = Convert.ToDecimal(((TextBox)row.FindControl("txtReturnQty")).Text);
-                if (ReturnQty == 0)
+                //decimal ReturnQty = Convert.ToDecimal(((TextBox)row.FindControl("txtReturnQty")).Text);
+
+                Decimal.TryParse("0" + ((TextBox)row.FindControl("txtReturnQty")).Text, out decimal ReturnQty);
+
+                if (ReturnQty <= 0)
                 {
-                    return "Please enter Return Quantity.";
+                    return "Please enter Valid Return Quantity.";
                 }
                 else if (ReturnQty > (Convert.ToDecimal(((Label)row.FindControl("lblQty")).Text)))
                 {

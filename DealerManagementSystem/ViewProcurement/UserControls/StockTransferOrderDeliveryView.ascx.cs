@@ -671,9 +671,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessageRestrictedQty.Text = "Please Damaged Quantity...!";
                 return;
             }
-            Decimal UnrestrictedQty = Convert.ToDecimal(txtUnrestrictedQty.Text);
-            Decimal MissingQty = Convert.ToDecimal(txtMissingQty.Text);
-            Decimal DamagedQty = Convert.ToDecimal(txtDamagedQty.Text);
+
+            Decimal.TryParse("0" + txtUnrestrictedQty.Text, out decimal UnrestrictedQty);
+            Decimal.TryParse("0" + txtMissingQty.Text, out decimal MissingQty);
+            Decimal.TryParse("0" + txtDamagedQty.Text, out decimal DamagedQty);
+
             if (Convert.ToDecimal(HidReceivedQty.Value) != (UnrestrictedQty + MissingQty + DamagedQty))
             {
                 lblMessageRestrictedQty.Text = "Received Qty Not match with (UnRestricted+Missing+Damage) Quantity...!";

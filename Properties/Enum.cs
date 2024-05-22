@@ -600,6 +600,8 @@ namespace Properties
         CreateInitialStock = 87,
         CreatePhysicalInventory = 88,
         PostingPhysicalInventory = 89,
+        DealerStockOrderControlAdminPermission = 90,
+        DealerStockOrderControlBasicPermission = 91,
     }
     public enum DMS_WarrantyClaimStatus
     {

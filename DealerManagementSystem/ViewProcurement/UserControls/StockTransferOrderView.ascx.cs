@@ -387,6 +387,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 Label lblMaterial = (Label)gvRow.FindControl("lblMaterial");
                 Label lblMaterialDescription = (Label)gvRow.FindControl("lblMaterialDescription");
 
+                Decimal.TryParse("0" + txtQuantity.Text, out decimal value);
+                if (value <= 0)
+                {
+                    lblMessage.Text = "Please enter valid Qty.";
+                    return;
+                }
+
                 PoI.StockTransferOrderItemID = Convert.ToInt64(lblStockTransferOrderItemID.Text);
                 PoI.MaterialID = Convert.ToInt32(lblMaterialID.Text);
                 PoI.MaterialCode = lblMaterial.Text;
@@ -394,18 +401,18 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 PoI.Quantity = Convert.ToDecimal(txtQuantity.Text.Trim());
                 PoI.MaterialDescription = lblMaterialDescription.Text;
 
-                decimal value;
-                if (!decimal.TryParse(txtQuantity.Text.Trim(), out value))
-                {
-                    lblMessage.Text = "Please enter correct format in Qty.";
-                    return;
-                }
-                if (Convert.ToDecimal(txtQuantity.Text.Trim()) < 1)
-                {
-                    lblMessage.Text = "Quantity cannot be less than 1.";
-                    return;
-                }
-                
+                //decimal value;
+                //if (!decimal.TryParse(txtQuantity.Text.Trim(), out value))
+                //{
+                //    lblMessage.Text = "Please enter correct format in Qty.";
+                //    return;
+                //}
+                //if (Convert.ToDecimal(txtQuantity.Text.Trim()) < 1)
+                //{
+                //    lblMessage.Text = "Quantity cannot be less than 1.";
+                //    return;
+                //}
+
                 PoI = new BStockTransferOrder().GetMaterialPriceForStockTransferOrder(StockTransferOrder.Dealer.DealerID, PoI);
                 PurchaseOrderItem_Insert.Add(PoI);
                 PApiResult Result = new BStockTransferOrder().InsertOrUpdateStockTransferOrderItem(PoI);
@@ -471,6 +478,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     MPE_AddMaterial.Show();
                     return;
                 }
+
+                Decimal.TryParse("0" + txtQty.Text, out decimal value);
+                if (value <= 0)
+                {
+                    lblMessageAddMaterial.Text = "Please enter valid Qty.";
+                    MPE_AddMaterial.Show();
+                    return;
+                }
+
                 PStockTransferOrderItem_Insert PoI = new PStockTransferOrderItem_Insert();
                 PoI.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
                 PoI.MaterialCode = hdfMaterialCode.Value;
@@ -549,7 +565,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             catch (Exception e1)
             {
-                lblMessage.Text = e1.Message;
+                lblMessageDelivery.Text = e1.Message;
             }
         }
         void readDeviveryGrid()
@@ -560,8 +576,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 Label lblBalanceQuantity = (Label)row.FindControl("lblBalanceQuantity");
                 TextBox txtDeliveryQuantity = (TextBox)row.FindControl("txtDeliveryQuantity");
 
+                Decimal.TryParse("0" + txtDeliveryQuantity.Text, out decimal DeliveryQuantity);
+                if (DeliveryQuantity <= 0)
+                {
+                    throw new Exception("Please enter valid Qty.");
+                }
+
                 decimal BalanceQuantity = Convert.ToDecimal(lblBalanceQuantity.Text);
-                decimal DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text);
                 if (DeliveryQuantity > BalanceQuantity)
                 {
                     throw new Exception("Please check the Delivery Quantity");

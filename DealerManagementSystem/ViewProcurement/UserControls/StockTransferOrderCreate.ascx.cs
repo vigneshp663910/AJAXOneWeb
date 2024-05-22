@@ -311,10 +311,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 return "Please enter the Qty.";
             }
-            decimal value;
-            if (!decimal.TryParse(Qty, out value))
+            //decimal value;
+            //if (!decimal.TryParse(Qty, out value))
+            //{
+            //    return "Please enter correct format in Qty.";
+            //}
+            Decimal.TryParse("0" + Qty, out decimal value);
+            if (value <= 0)
             {
-                return "Please enter correct format in Qty.";
+                return "Please enter Valid Qty.";
             }
             return "";
         }
