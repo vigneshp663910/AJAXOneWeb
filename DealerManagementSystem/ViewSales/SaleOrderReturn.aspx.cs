@@ -76,16 +76,8 @@ namespace DealerManagementSystem.ViewSales
                 txtSoReturnDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtSoReturnDateTo.Text = DateTime.Now.ToShortDateString(); 
                 new DDLBind(ddlReturnStatus, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.SaleOrderReturn), "Status", "StatusID");
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealerCode.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealerCode.Enabled = false;
-                }
-                else
-                {
-                    ddlDealerCode.Enabled = true;
-                    fillDealer();
-                }
+
+                fillDealer();
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerCode.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
 
@@ -96,6 +88,11 @@ namespace DealerManagementSystem.ViewSales
                     UC_SaleOrderReturnView.fillViewSoReturn(Convert.ToInt64(Session["SaleOrderReturnID"]));
                 }
 
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SaleReturnCreate).Count() == 0)
+                {
+                    btnCreateSoReturn.Visible = false;
+                }
                 lblRowCountSoReturn.Visible = false;
                 ibtnArrowLeftSoReturn.Visible = false;
                 ibtnArrowRightSoReturn.Visible = false;

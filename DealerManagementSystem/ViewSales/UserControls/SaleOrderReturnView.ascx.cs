@@ -155,6 +155,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbApprove.Visible = false;
                 lbCreateCreditNote.Visible = false;
             }
+
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SaleReturnCreate).Count() == 0)
+            {
+                lbCreateCreditNote.Visible = false;
+            }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SaleReturnApprove).Count() == 0)
+            {
+                lbApprove.Visible = false;
+                lbCreateCreditNote.Visible = false;
+            }  
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SaleReturnCancel).Count() == 0)
+            {
+                lbCancel.Visible = false; 
+            }
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {

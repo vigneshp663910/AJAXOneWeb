@@ -602,6 +602,9 @@ namespace Properties
         PostingPhysicalInventory = 89,
         DealerStockOrderControlAdminPermission = 90,
         DealerStockOrderControlBasicPermission = 91,
+        SaleReturnCreate = 92,
+        SaleReturnApprove = 93,
+        SaleReturnCancel = 94
     }
     public enum DMS_WarrantyClaimStatus
     {
