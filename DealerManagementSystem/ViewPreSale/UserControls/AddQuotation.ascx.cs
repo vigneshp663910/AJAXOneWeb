@@ -56,6 +56,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //new DDLBind(ddlBankName, new BDMS_Master().GetBankName(null, null), "BankName", "BankNameID");
              
             new DDLBind(ddlShipParty, new BDMS_Customer().GetCustomerShopTo(null, Lead.Customer.CustomerID), "CustomerCode", "CustomerShipToID");
+            if (Lead.ProductType.ProductTypeID != 3)
+            {
+                divStandardProduct.Visible = false;
+            }
+            else
+            {
+                divStandardProduct.Visible = true;
+            }
         }
 
 
@@ -140,17 +148,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             else
             {
                 rbIsStandardNo.Checked = true;
-            }
-
-           
-            if(Sq.Lead.ProductType.ProductTypeID !=3 )
-            {
-                divStandardProduct.Visible = false;
-            }
-            else
-            {
-                divStandardProduct.Visible = true;
-            }
+            } 
         }
 
     }
