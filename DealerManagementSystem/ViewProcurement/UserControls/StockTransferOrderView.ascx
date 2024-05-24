@@ -22,8 +22,7 @@
                 <asp:LinkButton ID="lbAddMaterial" runat="server" OnClick="lbActions_Click">Add Material</asp:LinkButton>
                 <asp:LinkButton ID="lbRelease" runat="server" OnClientClick="return ConfirmReleaseSTO();" OnClick="lbActions_Click">Release</asp:LinkButton>
                 <asp:LinkButton ID="lbCancel" runat="server" OnClientClick="return ConfirmCancelSTO();" OnClick="lbActions_Click">Cancel</asp:LinkButton>
-                <asp:LinkButton ID="lbDelivery" runat="server" OnClick="lbActions_Click">Delivery</asp:LinkButton>
-                <asp:LinkButton ID="lbPDF" runat="server" OnClick="lbActions_Click">PO Preview</asp:LinkButton>
+                <asp:LinkButton ID="lbDelivery" runat="server" OnClick="lbActions_Click">Delivery</asp:LinkButton> 
                 <asp:LinkButton ID="lbPreviewSTO" runat="server" OnClick="lbActions_Click">Preview STO</asp:LinkButton>
                 <asp:LinkButton ID="lbDowloadSTO" runat="server" OnClick="lbActions_Click">Dowload STO</asp:LinkButton>
             </div>

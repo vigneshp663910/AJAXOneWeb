@@ -100,6 +100,12 @@
                     <asp:Label ID="lblSystemStock" Text='<%# DataBinder.Eval(Container.DataItem, "DeferenceQuantity")%>' runat="server"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
+            <asp:TemplateField HeaderText="Remarks">
+                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                <ItemTemplate>
+                    <asp:Label ID="lblRemarksItem" Text='<%# DataBinder.Eval(Container.DataItem, "RemarksItem")%>' runat="server"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
         <AlternatingRowStyle BackColor="#ffffff" />
         <FooterStyle ForeColor="White" />

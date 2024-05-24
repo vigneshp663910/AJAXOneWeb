@@ -105,6 +105,7 @@
                     <asp:BoundField HeaderText="System Stock" DataField="SystemStock" />
                     <asp:BoundField HeaderText="Physical Stock" DataField="PhysicalStock" />
                     <asp:BoundField HeaderText="Is Posted" DataField="IsPosted" />
+                     <asp:BoundField HeaderText="Remarks" DataField="Remarks" />
                 </Columns>
                 <AlternatingRowStyle BackColor="#ffffff" />
                 <FooterStyle ForeColor="White" />

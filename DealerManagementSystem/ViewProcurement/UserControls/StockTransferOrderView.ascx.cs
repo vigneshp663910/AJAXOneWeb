@@ -163,11 +163,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 }
                 ShowMessage(Results);
                 fillViewPO(StockTransferOrder.StockTransferOrderID);
-            }
-            else if (lbActions.ID == "lbPDF")
-            {
-                ViewPurchaseOrder();
-            }
+            } 
             else if (lbActions.ID == "lbAddMaterial")
             {
                 MPE_AddMaterial.Show();
@@ -218,13 +214,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lbAddMaterial.Visible = true;
             lbRelease.Visible = true;
             lbCancel.Visible = true;
-            lbPDF.Visible = true;
+           // lbPDF.Visible = true;
             lbDelivery.Visible = true;
 
             int StatusID = StockTransferOrder.Status.StatusID;
             if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Draft)
             {
-                lbPDF.Visible = false;
+               // lbPDF.Visible = false;
                 lbDelivery.Visible = false;
             }
             else if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Release)
@@ -253,7 +249,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbRelease.Visible = false;
                 lbCancel.Visible = false;
                 lbDelivery.Visible = false;
-                lbPDF.Visible = false;
+               // lbPDF.Visible = false;
             }
 
             //else if ((StatusID == (short)ProcurementStatus.PoCompleted)
@@ -429,41 +425,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
         }
 
-
-        void ViewPurchaseOrder()
-        {
-            //try
-            //{
-            //    lblMessage.Text = "";
-            //    PPurchaseOrder PO = PurchaseOrder;
-            //    if (string.IsNullOrEmpty(PO.SaleOrderNumber))
-            //    {
-            //        lblMessage.Text = "SaleOrder Number Not Generated...!";
-            //        lblMessage.Visible = true;
-            //        lblMessage.ForeColor = Color.Red;
-            //        return;
-            //    }
-            //    lblMessage.Visible = true;
-            //    lblMessage.ForeColor = Color.Red;
-            //    string mimeType = string.Empty;
-            //    Byte[] mybytes = PurchaseOrderRdlc(out mimeType);
-            //    string CustomerName = (PO.Dealer.DisplayName);
-
-            //    string FileName = (PO.Dealer.DealerCode + "_PO_" + CustomerName + "_" + Convert.ToDateTime(PO.PurchaseOrderDate).ToString("dd.MM.yyyy") + ".pdf").Replace("&", "");
-            //    var uploadPath = Server.MapPath("~/Backup");
-            //    var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
-            //    File.WriteAllBytes(tempfilenameandlocation, mybytes);
-            //    Context.Response.Write("<script language='javascript'>window.open('../PDF.aspx?FileName=" + FileName + "&Title=Procurement » Purchase Order','_newtab');</script>");
-            //}
-            //catch (Exception ex)
-            //{
-            //    lblMessage.Text = ex.Message.ToString();
-            //    lblMessage.Visible = true;
-            //    lblMessage.ForeColor = Color.Red;
-            //    return;
-            //}
-        }
-
+         
 
         protected void btnSubmitMaterial_Click(object sender, EventArgs e)
         {

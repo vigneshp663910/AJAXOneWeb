@@ -142,8 +142,10 @@ namespace DealerManagementSystem.ViewInventory.UserControls
             if (Result.Status == PApplication.Failure)
             { 
                 return;
-            } 
-            lblMessage.ForeColor = System.Drawing.Color.Green; 
+            }
+            Session["PhysicalInventoryPostingID"] = Result.Data;
+            Response.Redirect("PhysicalInventoryPosting.aspx");
+            //lblMessage.ForeColor = System.Drawing.Color.Green; 
         }
 
         
@@ -190,6 +192,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                                     DocumentNumber = txtDocumentNumber.Text.Trim(),
                                     MaterialCode = Convert.ToString(IXLCell_[1].Value),
                                     PhysicalStock = Convert.ToDecimal(IXLCell_[3].Value),
+                                    RemarksItem = Convert.ToString(IXLCell_[4].Value),
                                     PostingTypeID = Convert.ToInt32(ddlPostingInventoryType.SelectedValue),
                                     ReasonOfPosting = txtReasonOfPosting.Text.Trim()
 
@@ -254,7 +257,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
 
             List<PDealerStock> DealerStocks = JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
 
-            string Name = Server.MapPath("~") + "Template/PhysicalInventoryPostingTemplate" + DateTime.Now.ToLongTimeString().Replace(':', '_') + ".xlsx";
+            string Name = Server.MapPath("~") + "Templates/PhysicalInventoryPostingTemplate" + DateTime.Now.ToLongTimeString().Replace(':', '_') + ".xlsx";
             try
             {
 
@@ -292,6 +295,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                 row.Append(new Cell() { CellReference = "B1", DataType = CellValues.String, CellValue = new CellValue("MaterialCode") });
                 row.Append(new Cell() { CellReference = "C1", DataType = CellValues.String, CellValue = new CellValue("SystemStock") });
                 row.Append(new Cell() { CellReference = "D1", DataType = CellValues.String, CellValue = new CellValue("PhysicalStock") });
+                row.Append(new Cell() { CellReference = "E1", DataType = CellValues.String, CellValue = new CellValue("Remarks") });
                 sheetData.Append(row);
                 int ExcelRow = 1;
 

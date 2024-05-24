@@ -50,6 +50,13 @@ namespace DealerManagementSystem.ViewInventory
             {
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 ActionControlMange();
+                if (Session["PhysicalInventoryPostingID"] != null)
+                {
+                    divList.Visible = false;
+                    divView.Visible = true;
+                    UC_View.fillViewPhysicalInventory(Convert.ToInt64(Session["PhysicalInventoryPostingID"]));
+                    Session["PhysicalInventoryPostingID"] = null;
+                }
             }
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
@@ -116,7 +123,7 @@ namespace DealerManagementSystem.ViewInventory
 
             divList.Visible = false;
             divView.Visible = true;
-             UC_View.fillViewEnquiry(Convert.ToInt64(lblPhysicalInventoryPostingID.Text));
+             UC_View.fillViewPhysicalInventory(Convert.ToInt64(lblPhysicalInventoryPostingID.Text));
         }
         protected void btnBackToList_Click(object sender, EventArgs e)
         {

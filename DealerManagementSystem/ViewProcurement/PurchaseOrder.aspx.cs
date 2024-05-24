@@ -107,6 +107,7 @@ namespace DealerManagementSystem.ViewProcurement
                     divList.Visible = false;
                     divDetailsView.Visible = true;
                     UC_PurchaseOrderView.fillViewPO(Convert.ToInt64(Session["PurchaseOrderID"]));
+                    Session["PurchaseOrderID"] = null;
                 }
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;

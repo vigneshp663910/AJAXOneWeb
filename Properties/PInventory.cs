@@ -92,5 +92,6 @@ namespace Properties
         public Decimal SystemStock { get; set; }
         public Decimal PhysicalStock { get; set; }
         public Decimal DeferenceQuantity { get; set; }
+        public string RemarksItem { get; set; }
     }
 }

@@ -66,7 +66,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
         {
             lblMessage.Text = ""; 
         }
-        public void fillViewEnquiry(long PhysicalInventoryPostingID)
+        public void fillViewPhysicalInventory(long PhysicalInventoryPostingID)
         {
             InventoryID = PhysicalInventoryPostingID;
             PhysicalInventoryPostingByID = new BInventory().GetDealerPhysicalInventoryPostingByID(PhysicalInventoryPostingID);
@@ -101,7 +101,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                     return;
                 }
                 lblMessage.ForeColor = Color.Green;
-                fillViewEnquiry(InventoryID);
+                fillViewPhysicalInventory(InventoryID);
             }
             else if (lbActions.ID == "lbtnViewPDF")
             {

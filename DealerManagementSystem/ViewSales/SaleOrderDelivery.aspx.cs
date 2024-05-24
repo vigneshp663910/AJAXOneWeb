@@ -90,16 +90,8 @@ namespace DealerManagementSystem.ViewSales
                 PageIndex = 1;
                 txtDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year; ;
                 txtDateTo.Text = DateTime.Now.ToShortDateString();
-                if (PSession.User.SystemCategoryID == (short)SystemCategory.Dealer && PSession.User.UserTypeID != (short)UserTypes.Manager)
-                {
-                    ddlDealer.Items.Add(new ListItem(PSession.User.ExternalReferenceID));
-                    ddlDealer.Enabled = false;
-                }
-                else
-                {
-                    ddlDealer.Enabled = true;
-                    fillDealer();
-                }
+
+                fillDealer();
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 new DDLBind(ddlSaleOrderType, new BDMS_SalesOrder().GetSaleOrderType(null, null), "SaleOrderType", "SaleOrderTypeID");
@@ -110,6 +102,7 @@ namespace DealerManagementSystem.ViewSales
                     divSODeliveryList.Visible = false;
                     divSODeliveryDetailsView.Visible = true;
                     UC_SalesOrderDeliveryView.fillViewSODelivery(Convert.ToInt64(Session["SaleOrderDeliveryID"]));
+                    Session["SaleOrderDeliveryID"] = null;
                 }
                 lblRowCountSODelivery.Visible = false;
                 ibtnArrowLeftSODelivery.Visible = false;

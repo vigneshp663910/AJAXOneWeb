@@ -592,8 +592,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 TaxTotal += Item.TaxValue;
                 GrandTotal += (Item.TaxableValue + Item.TaxValue);
             }
-            P[16] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxTotal.ToString()), false);
-            P[17] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal.ToString()), false);
+            P[16] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxTotal), false);
+            P[17] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal), false);
             P[18] = new ReportParameter("Remarks", PO.Remarks, false);
             P[19] = new ReportParameter("SupplierCode", Supplier.DealerCode, false);
             P[20] = new ReportParameter("BillToCode", PO.Dealer.DealerCode, false);
