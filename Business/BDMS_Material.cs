@@ -302,33 +302,33 @@ namespace Business
                 + "&Material=" + Material + "&Quantity=" + Quantity + "&IV_SEC_SALES=" + IV_SEC_SALES + "&PriceDate=" + PriceDate + "&IsWarrenty=" + IsWarrenty;
             return JsonConvert.DeserializeObject<PMaterial>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        //public List<PMaterial> MaterialPriceFromSapMulti(PMaterialTax_Api MaterialTax_Sap)
-        //{
-        //    string endPoint = "Material/MaterialPriceFromSapMulti";
+        public List<PMaterial> MaterialPriceFromSapMulti(PMaterialTax_Api MaterialTax_Sap)
+        {
+            string endPoint = "Material/MaterialPriceFromSapMulti";
 
-        //    PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialTax_Sap));
-        //    if (Result.Status == PApplication.Failure)
-        //    {
-        //        throw new Exception(Result.Message);
-        //    }
-        //    return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
-        //}
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialTax_Sap));
+            if (Result.Status == PApplication.Failure)
+            {
+                throw new Exception(Result.Message);
+            }
+            return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
+        }
 
-        //public List<PMaterial> MaterialPriceFromSapApi(PSapMatPrice_Input MaterialPrice)
-        //{
-        //    string endPoint = "Material/MaterialPriceFromSapApi";
+        public List<PMaterial> MaterialPriceFromSapApi(PSapMatPrice_Input MaterialPrice)
+        {
+            string endPoint = "Material/MaterialPriceFromSapApi";
 
-        //    PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialPrice));
-        //    if (Result.Status == PApplication.Failure)
-        //    {
-        //        throw new Exception(Result.Message);
-        //    }
-        //    return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
-        //}
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialPrice));
+            if (Result.Status == PApplication.Failure)
+            {
+                throw new Exception(Result.Message);
+            }
+            return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
+        }
 
 
         // **********************
-         
+
         //public List<PDMS_Material> GetMaterialAutocompleteN(string Material, string MaterialType, int? DivisionID)
         //{
         //    TraceLogger.Log(DateTime.Now);
@@ -347,7 +347,7 @@ namespace Business
         //    }
         //    return JsonConvert.DeserializeObject<List<PDMS_Material>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         //}
-                
+
 
         //public List<PDMS_Material> GetMaterialListSQL(int? MaterialID, string MaterialCode, int? DivisionID, int? ModelID, string IsActive)
         //{
@@ -398,7 +398,7 @@ namespace Business
         //    }
         //    return SOIs;
         //}
-         
+
 
         public List<PMaterialVariantType> GetMaterialVariantType(int? ProductTypeID)
         {

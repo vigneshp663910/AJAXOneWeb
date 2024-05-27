@@ -100,7 +100,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 MaterialTax.SalesQuotationID = Quotation.QuotationID;
                 MaterialTax.Material = new PDMS_Material();
                 MaterialTax.Material.MaterialCode = lblMaterialCode.Text;
-                MaterialTax.Material.MaterialID = Convert.ToInt64(lblMaterialID.Text); 
+                MaterialTax.Material.MaterialID = Convert.ToInt32(lblMaterialID.Text); 
                 MaterialTax.Qty = Convert.ToInt32(txtQty.Text);
                // decimal P = (MaterialTax.Rate * Qty);
                 MaterialTax.Discount = 0;

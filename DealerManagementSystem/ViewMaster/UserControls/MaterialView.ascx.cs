@@ -106,7 +106,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 file.InputStream.Read(fileData, 0, size);
 
                 PMaterialDrawing MD = new PMaterialDrawing();
-                MD.Material = new PDMS_Material() { MaterialID = Convert.ToInt64(MaterialByID.MaterialID) };
+                MD.Material = new PDMS_Material() { MaterialID = Convert.ToInt32(MaterialByID.MaterialID) };
                 MD.FileName = name;
                 MD.FileType = file.ContentType;
                 MD.AttachedFile = fileData;

@@ -5,10 +5,11 @@ using System.Text;
 
 namespace Properties
 {
+
     [Serializable]
     public class PDMS_Material
     {
-        public long MaterialID { get; set; }
+        public int MaterialID { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialCodeWithZero
         {
@@ -47,11 +48,12 @@ namespace Properties
             }
         }
         public string MaterialDescription { get; set; }
-        public string MaterialCode_MaterialDescription {
+        public string MaterialCode_MaterialDescription
+        {
             get
-            { 
-                return MaterialCode +" "+ MaterialDescription;
-            } 
+            {
+                return MaterialCode + " " + MaterialDescription;
+            }
         }
         public string MaterialSerialNumber { get; set; }
         public string BaseUnit { get; set; }
@@ -105,17 +107,8 @@ namespace Properties
         public PDMS_Model Model { get; set; }
         public string SubCategory { get; set; }
         public string SerialProfile { get; set; }
-        public bool IsActive { get; set; } 
-    }
-    [Serializable]
-    public class PMaterialDrawing
-    {
-        public long MaterialDrawingID { get; set; }
-        public PDMS_Material Material { get; set; }
-        public byte[] AttachedFile { get; set; }
-        public string FileName { get; set; }
-        public string FileType { get; set; }
         public bool IsActive { get; set; }
+
     }
     [Serializable]
     public class PMaterial
@@ -192,11 +185,13 @@ namespace Properties
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
         public PDMS_Model Model { get; set; }
+        public decimal Tcs { get; set; }
         public bool IsActive { get; set; }
     }
     [Serializable]
     public class PSupersede
     {
+        public int MaterialID { get; set; }
         public string Material { get; set; }
         public string MaterialDescription { get; set; }
         public string Description { get; set; }
@@ -223,25 +218,31 @@ namespace Properties
         public decimal RoqQty { get; set; }
 
     }
-      
 
     [Serializable]
-    public class PMaterialVariantType
+    public class PMainModel
     {
-        public int VariantTypeID { get; set; }
-        public string VariantName { get; set; }
-        public PProductType ProductType { get; set; }
-        public int MaxToSelect { get; set; }  
-        public bool IsActive { get; set; } 
+        public int ModelMainID { get; set; }
+        public string ModelMain { get; set; }
     }
 
+    //[Serializable]
+    //public class PMaterialVariantType
+    //{
+    //    public int VariantsTypeID { get; set; }
+    //    public string VariantName { get; set; }
+    //    public PMainModel MainModel { get; set; }
+    //    public int CountToSelect { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public PDMS_Material Material { get; set; }
+    //}
+
     [Serializable]
-    public class PMaterialVariantTypeMapping
+    public class PMaterialVariantsMapping
     {
-        public long MaterialVariantTypeMappingID { get; set; }
-        public PProduct Product { get; set; }
-        public PMaterialVariantType VariantType { get; set; }
-        public PDMS_Material Material { get; set; }  
+        public int MaterialVariantsMappingID { get; set; }
+        public PMaterialVariantType VariantsType { get; set; }
+        public PDMS_Material Material { get; set; }
         public bool IsActive { get; set; }
     }
     [Serializable]
@@ -257,9 +258,64 @@ namespace Properties
     }
     [Serializable]
     public class PMaterial_Api
-    { 
+    {
         public int Item { get; set; }
-        public string MaterialCode { get; set; } 
+        public string MaterialCode { get; set; }
         public decimal Quantity { get; set; }
     }
+
+    [Serializable]
+    public class PSapMatPrice_Input
+    {
+        public string Customer { get; set; }
+        public string Vendor { get; set; }
+        public string OrderType { get; set; }
+        public string Division { get; set; }
+        public DateTime? PriceDate { get; set; }
+        public List<PSapMatPriceItem_Input> Item { get; set; }
+    }
+    [Serializable]
+    public class PSapMatPriceItem_Input
+    {
+        public string ItemNo { get; set; }
+        public string Material { get; set; }
+        public Decimal Quantity { get; set; }
+        public Decimal TotalValue { get; set; }
+        public Decimal netValue { get; set; }
+    }
+
+    //****************************
+    
+    [Serializable]
+    public class PMaterialDrawing
+    {
+        public long MaterialDrawingID { get; set; }
+        public PDMS_Material Material { get; set; }
+        public byte[] AttachedFile { get; set; }
+        public string FileName { get; set; }
+        public string FileType { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+
+    [Serializable]
+    public class PMaterialVariantType
+    {
+        public int VariantTypeID { get; set; }
+        public string VariantName { get; set; }
+        public PProductType ProductType { get; set; }
+        public int MaxToSelect { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    [Serializable]
+    public class PMaterialVariantTypeMapping
+    {
+        public long MaterialVariantTypeMappingID { get; set; }
+        public PProduct Product { get; set; }
+        public PMaterialVariantType VariantType { get; set; }
+        public PDMS_Material Material { get; set; }  
+        public bool IsActive { get; set; }
+    }
+     
 }
