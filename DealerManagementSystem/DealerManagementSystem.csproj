@@ -474,11 +474,14 @@
     <Content Include="ViewFinance\DealerBalanceConfirmationUpdate.aspx" />
     <Content Include="ViewFinance\Reports\DealerBalanceConfirmationReport.aspx" />
     <Content Include="ViewInventory\InitialStock.aspx" />
-    <Content Include="ViewInventory\MaterialStockAnalysis.aspx" />
-    <Content Include="ViewInventory\StockAdjustment.aspx" />
-    <Content Include="ViewInventory\StockForPostingDate.aspx" />
+    <Content Include="ViewInventory\PhysicalInventoryPosting.aspx" />
+    <Content Include="ViewInventory\StockAgeingReport.aspx" />
     <Content Include="ViewInventory\StockInTransit.aspx" />
-    <Content Include="ViewInventory\WarehouseStockOnHand.aspx" />
+    <Content Include="ViewInventory\StockLedger.aspx" />
+    <Content Include="ViewInventory\StockTransfer.aspx" />
+    <Content Include="ViewInventory\UserControls\CreatePhysicalInventoryPosting.ascx" />
+    <Content Include="ViewInventory\UserControls\ViewPhysicalInventoryPosting.ascx" />
+    <Content Include="ViewInventory\WarehouseStock.aspx" />
     <Content Include="ViewMarketing\ABPModelWise.aspx" />
     <Content Include="ViewMarketing\ABPSparePart.aspx" />
     <Content Include="ViewMarketing\ABPSparePart_Retail.aspx" />
@@ -615,11 +618,16 @@
     <Content Include="ViewPreSale\VisitCoverageReport.aspx" />
     <Content Include="ViewPreSale\VisitReport.aspx" />
     <Content Include="ViewPreSale\VisitTargetManage.aspx" />
+    <Content Include="ViewProcurement\Planning\DealerStockOrderControl.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderASN.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderAsnGR.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderPG.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderReturn.aspx" />
     <Content Include="ViewProcurement\PurchaseOrderReturnInvoice.aspx" />
+    <Content Include="ViewProcurement\StockTransferOrder.aspx" />
+    <Content Include="ViewProcurement\StockTransferOrderASN.aspx" />
+    <Content Include="ViewProcurement\StockTransferOrderAsnGR.aspx" />
+    <Content Include="ViewProcurement\StockTransferOrderDelivery.aspx" />
     <Content Include="ViewProcurement\UserControls\GrCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderASNGrView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderAsnView.ascx" />
@@ -628,6 +636,9 @@
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnDeliveryCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderView.ascx" />
+    <Content Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx" />
+    <Content Include="ViewProcurement\UserControls\StockTransferOrderDeliveryView.ascx" />
+    <Content Include="ViewProcurement\UserControls\StockTransferOrderView.ascx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
     <Content Include="ViewSales\SaleInvoicePending.aspx" />
     <Content Include="ViewSales\SaleOrder.aspx" />
@@ -660,9 +671,12 @@
     <Content Include="ViewSales\SalesInvoice.aspx" />
     <Content Include="ViewSales\SalesOrderItems.aspx" />
     <Content Include="ViewSales\SalesOrderPerformance.aspx" />
+    <Content Include="ViewSales\UserControls\SaleOrderReturnCreate.ascx" />
+    <Content Include="ViewSales\UserControls\SaleOrderReturnView.ascx" />
     <Content Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx" />
     <Content Include="ViewSales\UserControls\SalesCommissionClaimView.ascx" />
     <Content Include="ViewSales\UserControls\SalesOrderCreate.ascx" />
+    <Content Include="ViewSales\UserControls\SalesOrderDeliveryView.ascx" />
     <Content Include="ViewSales\UserControls\SalesOrderView.ascx" />
     <Content Include="ViewService\ApprovalForDeviatedCliamReques.aspx" />
     <Content Include="ViewService\ApprovalForDeviatedICTicketRequest.aspx" />
@@ -789,11 +803,14 @@
     <Content Include="View\Project.aspx" />
     <Content Include="View\UserControls\AddProject.ascx" />
     <Content Include="View\UserControls\ProjectView.ascx" />
+    <Content Include="View\ViewFile.aspx" />
     <Content Include="View\ViewUserManual.aspx" />
     <Content Include="VoiceText.aspx" />
     <Content Include="VoiceText1.aspx" />
     <Content Include="Bundle.config" />
     <Content Include="Web.config" />
+    <Content Include="Templates\InitialStock.xlsx" />
+    <Content Include="Templates\Material.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1513,26 +1530,19 @@
     <Compile Include="ViewInventory\InitialStock.aspx.designer.cs">
       <DependentUpon>InitialStock.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewInventory\MaterialStockAnalysis.aspx.cs">
-      <DependentUpon>MaterialStockAnalysis.aspx</DependentUpon>
+    <Compile Include="ViewInventory\PhysicalInventoryPosting.aspx.cs">
+      <DependentUpon>PhysicalInventoryPosting.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewInventory\MaterialStockAnalysis.aspx.designer.cs">
-      <DependentUpon>MaterialStockAnalysis.aspx</DependentUpon>
+    <Compile Include="ViewInventory\PhysicalInventoryPosting.aspx.designer.cs">
+      <DependentUpon>PhysicalInventoryPosting.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewInventory\StockAdjustment.aspx.cs">
-      <DependentUpon>StockAdjustment.aspx</DependentUpon>
+    <Compile Include="ViewInventory\StockAgeingReport.aspx.cs">
+      <DependentUpon>StockAgeingReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewInventory\StockAdjustment.aspx.designer.cs">
-      <DependentUpon>StockAdjustment.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewInventory\StockForPostingDate.aspx.cs">
-      <DependentUpon>StockForPostingDate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewInventory\StockForPostingDate.aspx.designer.cs">
-      <DependentUpon>StockForPostingDate.aspx</DependentUpon>
+    <Compile Include="ViewInventory\StockAgeingReport.aspx.designer.cs">
+      <DependentUpon>StockAgeingReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory\StockInTransit.aspx.cs">
       <DependentUpon>StockInTransit.aspx</DependentUpon>
@@ -1541,12 +1551,40 @@
     <Compile Include="ViewInventory\StockInTransit.aspx.designer.cs">
       <DependentUpon>StockInTransit.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewInventory\WarehouseStockOnHand.aspx.cs">
-      <DependentUpon>WarehouseStockOnHand.aspx</DependentUpon>
+    <Compile Include="ViewInventory\StockLedger.aspx.cs">
+      <DependentUpon>StockLedger.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewInventory\WarehouseStockOnHand.aspx.designer.cs">
-      <DependentUpon>WarehouseStockOnHand.aspx</DependentUpon>
+    <Compile Include="ViewInventory\StockLedger.aspx.designer.cs">
+      <DependentUpon>StockLedger.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\StockTransfer.aspx.cs">
+      <DependentUpon>StockTransfer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\StockTransfer.aspx.designer.cs">
+      <DependentUpon>StockTransfer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\UserControls\CreatePhysicalInventoryPosting.ascx.cs">
+      <DependentUpon>CreatePhysicalInventoryPosting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\UserControls\CreatePhysicalInventoryPosting.ascx.designer.cs">
+      <DependentUpon>CreatePhysicalInventoryPosting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\UserControls\ViewPhysicalInventoryPosting.ascx.cs">
+      <DependentUpon>ViewPhysicalInventoryPosting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\UserControls\ViewPhysicalInventoryPosting.ascx.designer.cs">
+      <DependentUpon>ViewPhysicalInventoryPosting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewInventory\WarehouseStock.aspx.cs">
+      <DependentUpon>WarehouseStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewInventory\WarehouseStock.aspx.designer.cs">
+      <DependentUpon>WarehouseStock.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMarketing\ABPModelWise.aspx.cs">
       <DependentUpon>ABPModelWise.aspx</DependentUpon>
@@ -2335,6 +2373,13 @@
     <Compile Include="ViewPreSale\VisitTargetManage.aspx.designer.cs">
       <DependentUpon>VisitTargetManage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewProcurement\Planning\DealerStockOrderControl.aspx.cs">
+      <DependentUpon>DealerStockOrderControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\Planning\DealerStockOrderControl.aspx.designer.cs">
+      <DependentUpon>DealerStockOrderControl.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderASN.aspx.cs">
       <DependentUpon>PurchaseOrderASN.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2369,6 +2414,34 @@
     </Compile>
     <Compile Include="ViewProcurement\PurchaseOrderReturnInvoice.aspx.designer.cs">
       <DependentUpon>PurchaseOrderReturnInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrder.aspx.cs">
+      <DependentUpon>StockTransferOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrder.aspx.designer.cs">
+      <DependentUpon>StockTransferOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderASN.aspx.cs">
+      <DependentUpon>StockTransferOrderASN.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderASN.aspx.designer.cs">
+      <DependentUpon>StockTransferOrderASN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderAsnGR.aspx.cs">
+      <DependentUpon>StockTransferOrderAsnGR.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderAsnGR.aspx.designer.cs">
+      <DependentUpon>StockTransferOrderAsnGR.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderDelivery.aspx.cs">
+      <DependentUpon>StockTransferOrderDelivery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\StockTransferOrderDelivery.aspx.designer.cs">
+      <DependentUpon>StockTransferOrderDelivery.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\GrCreate.ascx.cs">
       <DependentUpon>GrCreate.ascx</DependentUpon>
@@ -2425,6 +2498,27 @@
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderView.ascx.designer.cs">
       <DependentUpon>PurchaseOrderView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx.cs">
+      <DependentUpon>StockTransferOrderCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx.designer.cs">
+      <DependentUpon>StockTransferOrderCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderDeliveryView.ascx.cs">
+      <DependentUpon>StockTransferOrderDeliveryView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderDeliveryView.ascx.designer.cs">
+      <DependentUpon>StockTransferOrderDeliveryView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderView.ascx.cs">
+      <DependentUpon>StockTransferOrderView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderView.ascx.designer.cs">
+      <DependentUpon>StockTransferOrderView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewReport\CustomerVisitReport.aspx.cs">
       <DependentUpon>CustomerVisitReport.aspx</DependentUpon>
@@ -2650,6 +2744,20 @@
     <Compile Include="ViewSales\SalesOrderPerformance.aspx.designer.cs">
       <DependentUpon>SalesOrderPerformance.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSales\UserControls\SaleOrderReturnCreate.ascx.cs">
+      <DependentUpon>SaleOrderReturnCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SaleOrderReturnCreate.ascx.designer.cs">
+      <DependentUpon>SaleOrderReturnCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SaleOrderReturnView.ascx.cs">
+      <DependentUpon>SaleOrderReturnView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SaleOrderReturnView.ascx.designer.cs">
+      <DependentUpon>SaleOrderReturnView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSales\UserControls\SalesCommissionClaimInvoiceView.ascx.cs">
       <DependentUpon>SalesCommissionClaimInvoiceView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2670,6 +2778,13 @@
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesOrderCreate.ascx.designer.cs">
       <DependentUpon>SalesOrderCreate.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SalesOrderDeliveryView.ascx.cs">
+      <DependentUpon>SalesOrderDeliveryView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\UserControls\SalesOrderDeliveryView.ascx.designer.cs">
+      <DependentUpon>SalesOrderDeliveryView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\UserControls\SalesOrderView.ascx.cs">
       <DependentUpon>SalesOrderView.ascx</DependentUpon>
@@ -3286,6 +3401,13 @@
     <Compile Include="View\UserControls\ProjectView.ascx.designer.cs">
       <DependentUpon>ProjectView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewFile.aspx.cs">
+      <DependentUpon>ViewFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\ViewFile.aspx.designer.cs">
+      <DependentUpon>ViewFile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewUserManual.aspx.cs">
       <DependentUpon>ViewUserManual.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3352,11 +3474,21 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Print\PartsInvoice.rdlc" />
+    <EmbeddedResource Include="Print\SalesInvoiceCreditNote.rdlc" />
+    <EmbeddedResource Include="Print\StockTransferOrder.rdlc" />
+    <EmbeddedResource Include="Print\PhysicalInventoryPosting.rdlc" />
+    <EmbeddedResource Include="Print\StockTransferOrderDeliveryChallan.rdlc" />
+    <EmbeddedResource Include="Print\PurchaseOrder.rdlc" />
+    <EmbeddedResource Include="Print\PurchaseOrderReturn.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
     <EmbeddedResource Include="Print\SalesMachineQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\SalesMachineQuotation.rdlc" />
     <Content Include="Print\SalesMachineQuotation.rdlc" />
+    <EmbeddedResource Include="Print\SalesDeliveryChallan.rdlc" />
+    <EmbeddedResource Include="Print\SalesPartsQuotation.rdlc" />
+    <EmbeddedResource Include="Print\SalesProformaInvoice.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_L.900.508.rdlc" />
     <EmbeddedResource Include="Print\SalesSpec_Machine_101030080000.rdlc" />
     <EmbeddedResource Include="Print\SalesTaxQuotationStd.rdlc" />

@@ -33,13 +33,22 @@ namespace DealerManagementSystem.ViewInventory
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
-        /// ddlDealer control.
+        /// ddlDealerF control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerF;
+
+        /// <summary>
+        /// ddlDealerOfficeF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerOfficeF;
 
         /// <summary>
         /// ddlDivision control.
@@ -139,6 +148,24 @@ namespace DealerManagementSystem.ViewInventory
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl FldUpload;
+
+        /// <summary>
+        /// ddlDealerO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerO;
+
+        /// <summary>
+        /// ddlDealerOfficeO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerOfficeO;
 
         /// <summary>
         /// Div1 control.

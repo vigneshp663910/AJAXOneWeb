@@ -195,7 +195,7 @@ namespace DealerManagementSystem.ViewAdmin
             catch (Exception Ex)
             {
                 lblMessage.Visible = true;
-                lblMessage.Text = Ex.ToString();
+                lblMessage.Text = Ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
         }

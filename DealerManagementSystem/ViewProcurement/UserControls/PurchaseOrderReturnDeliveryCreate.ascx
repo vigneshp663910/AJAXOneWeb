@@ -5,14 +5,14 @@
 
 <div class="col-md-12" id="divPOReturnItem" runat="server">
     <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-        <legend style="background: none; color: #007bff; font-size: 17px;">PO Return Item</legend>
+        <legend style="background: none; color: #007bff; font-size: 17px;">Purchase Return Item</legend>
         <div class="col-md-12">
             <div class="boxHead">
                 <div class="logheading">
                     <div style="float: left">
                         <table>
                             <tr>
-                                <td>Purchase Order Return Item(s):</td>
+                                <td>Purchase Return Item(s):</td>
                                 <td>
                                     <asp:Label ID="lblRowCountPoReturnItem" runat="server" CssClass="label"></asp:Label></td>
                             </tr>
@@ -23,16 +23,18 @@
             <asp:GridView ID="gvPoReturnItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%" AllowPaging="true" PageSize="10" EmptyDataText="No Data Found"
                 DataKeyNmes="PurchaseOrderReturnItemID" OnPageIndexChanging="gvPoReturnItem_PageIndexChanging">
                 <Columns>
-                    <asp:TemplateField HeaderText="Select PO Return">
+                    <asp:TemplateField HeaderText="Select Purchase Return">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         <ItemTemplate>
                             <asp:CheckBox ID="cbIsChecked" runat="server"></asp:CheckBox>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="PO Return Number">
+                    <asp:TemplateField HeaderText="Purchase Return Number">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
                             <asp:Label ID="lblPurchaseOrderReturnNumber" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnNumber")%>' runat="server"></asp:Label>
+                            <br />
+                            <asp:Label ID="lblPurchaseOrderReturnDate" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnDate","{0:d}")%>' runat="server"></asp:Label>
                             <asp:Label ID="lblPurchaseOrderReturnID" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderReturnID")%>' runat="server" Visible="false"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -80,7 +82,7 @@
 <div class="col-md-12" id="divDeliveryEntry" runat="server" visible="false">
     <div class="col-md-12 Report">
         <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">PO Return Item</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">Purchase Return Item</legend>
             <div class="col-md-12">
                 <div class="boxHead">
                     <div class="logheading">

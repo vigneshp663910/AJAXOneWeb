@@ -261,10 +261,10 @@ namespace Properties
         ViewSales_SaleOrderInvoicePartsReport = 16,
         ViewSales_SaleOrder = 17,
         ViewSales_SalesOrderPG = 18,
-        ViewSales_SalesReturn = 19,
+        ViewSales_SaleOrderReturn = 19,
         //**** Menu Level-2 ****************************** =  20, 
-        //1 =  21,
-        ViewSales_SalesOrderDeliveryPending = 22,
+        ViewProcurement_StockTransferOrder =  21,
+        ViewSales_SaleOrderDeliveryPending = 22,
         ViewSales_SaleInvoicePending = 23,
         ViewSales_SalesOrderPerformance = 24,
         ViewService_MTTR_Report = 25,
@@ -276,15 +276,15 @@ namespace Properties
         ViewService_WarrantyClaimInvoiceCreate = 31,
         ViewService_WarrantyClaimAnnexureReport = 32,
         ViewInventory_InitialStock = 33,
-        ViewInventory_StockAdjustment = 34,
+        ViewInventory_PhysicalInventoryPosting = 34,
         ViewInventory_StockInTransit = 35,
         ViewSupportTicket_RequestSupportTicket = 36,
         //**** Menu Level-2 ****************************** =  37,
         //       UnderCons = 38,
-        ViewInventory_WarehouseStockOnHand = 39,
-        ViewInventory_StockForPostingDate = 40,
+        ViewInventory_WarehouseStock = 39,
+        ViewInventory_StockAgeingReport = 40,
         ViewInventory_MaterialStockAnalysis = 41,
-        //=  42,
+        ViewProcurement_StockTransferOrderDelivery =  42,
         ViewService_TicketTracking = 43,
         ViewService_WarrantyClaimAnnexureCreate = 44,
         ViewService_WarrantyDeliveryReport = 45,
@@ -485,7 +485,8 @@ namespace Properties
         ViewService_ICTicketMarginWarrantyApproval = 239,
         ViewEquipment_EquipmentClient = 240,
         ViewSupportTicket_DeviationProcessReport = 241,
-        ViewMaster_CustomerGSTApproval = 243, 
+        ViewSales_SaleOrderDelivery = 242,
+        ViewMaster_CustomerGSTApproval = 243,
         ViewPreSale_LeadReportForDefinedPeriod = 244,
         ViewAdmin_MessageAnnouncement = 245,
         ViewDashboard_BIAdmin = 246,
@@ -501,8 +502,13 @@ namespace Properties
         ViewPreSale_Reports_DealerBusinessExcellenceApprove = 256,
         ViewFinance_Reports_DealerBalanceConfirmationReport = 257,
         ViewFinance_DealerBalanceConfirmationUpdate = 258,
+        //**** Menu Level-2 ****************************** =  259,
+        ViewInventory_StockTransfer = 260,
+        ViewProcurement_DealerStockOrderControl = 261,
         ViewPreSale_Reports_DealerBusinessExcellenceQuarterWise = 262,
-        ViewPreSale_Reports_LeadNextFollowUpAgeingReport = 263
+        ViewPreSale_Reports_LeadNextFollowUpAgeingReport = 263 
+       
+        
     }
     public enum SubModuleChildMaster
     {
@@ -576,17 +582,30 @@ namespace Properties
         ICTicketRemoveRestoreDate,
         ClaimApprove4 = 69,
         ClaimApprove5 = 70,
-        MarginWarrantyApproval,
+        MarginWarrantyApproval = 71,
         EquipmentClientUpdate = 72,
-        EquipmentClientAddEditDelete,
+        EquipmentClientAddEditDelete = 73,
         CustomerGstChange = 74,
-        TsirMailToSupplier=75,
-        MailNotificationCreation=76,
+        TsirMailToSupplier = 75,
+        MailNotificationCreation = 76,
         DealerBusinessExcellenceSubmit = 77,
         DealerBusinessExcellenceApproveL1 = 78,
         DealerBusinessExcellenceApproveL2 = 79,
         DealerBusinessExcellenceApproveL3 = 80,
         DealerBusinessExcellenceApproveL4 = 81,
+        PurchaseOrderCreate = 82,
+        PurchaseOrderReleasePO = 83,
+        PurchaseOrderCancelPO = 84,
+        PurchaseOrderReleaseApprove = 85,
+        PurchaseOrderCancelApprove = 86,
+        CreateInitialStock = 87,
+        CreatePhysicalInventory = 88,
+        PostingPhysicalInventory = 89,
+        DealerStockOrderControlAdminPermission = 90,
+        DealerStockOrderControlBasicPermission = 91,
+        SaleReturnCreate = 92,
+        SaleReturnApprove = 93,
+        SaleReturnCancel = 94
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -643,29 +662,29 @@ namespace Properties
     {
         SendSMS = 1,
         SendMail = 2,
-       // ICTicketIntegrationFromCRM = 3,
+        // ICTicketIntegrationFromCRM = 3,
         MaterialIntegrationFromPostgre = 4,
         SAPDocumentForWarrantyInvoiceFromSAP = 5,
         SaleOrderNumberForSrviceQuatationFromSAP = 6,
-      //  TechnicianIntegrationFromSAP = 7,
-      //  UpdateICTicketToSAP = 8,
-      //  ModelForClaim = 9,
-     //   Category = 10,
-     //   ICTicketIntegrationVerification = 11,
-      //  QuotationForJSN = 12,
-      //  IntegrationSalesOrder = 13,
+        //  TechnicianIntegrationFromSAP = 7,
+        //  UpdateICTicketToSAP = 8,
+        //  ModelForClaim = 9,
+        //   Category = 10,
+        //   ICTicketIntegrationVerification = 11,
+        //  QuotationForJSN = 12,
+        //  IntegrationSalesOrder = 13,
         IntegrationSalesOrderInvoice = 14,
         IntegrationClaimAnnexure = 15,
         EInvoice = 16,
         SendMailMttrEscalationMatrix = 17,
-       // IntegrationEquipmentFromSAP = 18,
-       // IntegrationMaterialFromEccSap = 19,
+        // IntegrationEquipmentFromSAP = 18,
+        // IntegrationMaterialFromEccSap = 19,
         GetPurchaseOrderIntegration = 20,
         MaterialIntegrationFromSAP = 21,
-     //   CustomerIntegration = 22,
+        //   CustomerIntegration = 22,
         //  UpdateSalesQuotationDeliveryDetails = 23 ,
         SalesQuotationFlowFromSap = 24,
-     //   EnquiryFromCRM = 25,
+        //   EnquiryFromCRM = 25,
         LeadQualificationByExpectedDateOfSale = 26,
         IntegrationEquipmentFromSAP_New = 27,
         EnquiryIndiamart = 28,
@@ -744,21 +763,21 @@ namespace Properties
         Administration = 4,
         FinanceAccounting = 5,
         TopManagement = 6,
-        BusinessSystem=7,
+        BusinessSystem = 7,
         Quality = 8,
         Engineering = 9,
-        Marketing=10,
-        Operations=11,
+        Marketing = 10,
+        Operations = 11,
         TrainingDevelopment = 12,
         IC = 13
     }
     public enum DealerDesignation
     {
         GmSales = 1,
-        SalesManager=2,
+        SalesManager = 2,
         SalesExecutive = 4,
         DealerServiceManager = 5,
-        ServiceTechnician = 8,  
+        ServiceTechnician = 8,
         BusinessSystemManager = 31,
         BusinessSystemExecutive = 32,
         BusinessSystemHead = 51
@@ -817,6 +836,23 @@ namespace Properties
         SpareParts = 12,
         PlacingEquipment = 13
     }
+    public enum AjaxOneStatusHeader
+    {
+        DealerBusinessExcellence = 1,
+        DealerBalanceConfirmation = 2,
+        SaleOrder = 3,
+        PostingInventoryType = 4,
+        SaleOrderItem = 5,
+        StockTransferOrder = 6,
+        StockTransferOrderItem = 7,
+        StockTransferOrderDelivery = 8,
+        StockTransferOrderGrRestricted = 9,
+        PostingInventoryStatus = 10,
+        SaleOrderDelivery = 11,
+        SaleOrderReturn = 12,
+        SalesType=13,
+        PaymentMode = 14
+    }
     public enum AjaxOneStatus
     {
         DealerBusinessExcellence_Requested = 1,
@@ -828,7 +864,109 @@ namespace Properties
         DealerBalanceConfirmation_Initiated = 7,
         DealerBalanceConfirmation_Confirmed = 8,
         DealerBalanceConfirmation_UnConfirmed = 9,
-        DealerBalanceConfirmation_NeedReconciliation = 10,
+        DealerBalanceConfirmation_NeedReconciliation = 10,       
+        SaleOrder_Quotation = 11,
+        SaleOrder_ProformaInvoice = 12,
+        SaleOrder_OrderPlaced = 13,
+        SaleOrder_PartiallyDelivered = 14,
+        SaleOrder_Delivered = 15,
+        PostingInventoryType_PostingUnrestricted = 16,
+        PostingInventoryType_PostingRestricted = 17,
+        PostingInventoryType_PostingBlocked = 18,
+        SaleOrderItem_Created = 19,
+        SaleOrderItem_Cancelled = 20,
+        SaleOrderItem_PariallyDelivered = 21,
+        SaleOrderItem_Delivered = 22,
+        SaleOrder_Cancelled = 23,
+        SaleOrder_PartiallyClosed = 24,
+        StockTransferOrder_Draft = 25,
+        StockTransferOrder_Release = 26,
+        StockTransferOrder_PartiallyDelivered = 27,
+        StockTransferOrder_Delivered = 28,
+        StockTransferOrder_PartiallyClosed = 29,
+        StockTransferOrder_Cancelled = 30,
+        StockTransferOrderItem_Created = 31,
+        StockTransferOrderItem_PartiallyDelivered = 32,
+        StockTransferOrderItem_Delivered = 33,
+        StockTransferOrderItem_PartiallyClosed = 34,
+        StockTransferOrderItem_Cancelled = 35,
+        StockTransferOrderDelivery_Delivery = 36,
+        StockTransferOrderDelivery_GR = 37,
+        StockTransferOrderGrRestricted_MissingQty = 38,
+        StockTransferOrderGrRestricted_DamagedQty = 39,
+        PostingInventoryStatus_Requested = 40,
+        PostingInventoryStatus_Posted = 41,
+        SaleOrderDelivery_InvoicePending = 42,
+        SaleOrderDelivery_Invoiced = 43,
+        SaleOrderDelivery_Shipped = 44,
+        SaleOrderReturn_ApprovalPending = 45,
+        SaleOrderReturn_Approved = 46,
+        SaleOrderReturn_Cancelled = 47,
+        SaleOrderReturn_CreditNote = 48,
+    }
+    public enum ProcurementStatusHeader
+    {
+        PurchaseOrder = 1,
+        PurchaseOrderAsn = 2,
+        PurchaseOrderAsnGr = 3,
+        PurchaseOrderReturn = 4,
+        PurchaseOrderAsnGrBlocked = 5 
+    }
+    public enum ProcurementStatus
+    {
+        PoDraft = 1,
+        PoReleased = 2,
+        PoPartialReceived = 3,
+        PoCompleted = 4,
+        PoForceClosed = 5,
+        PoCancelld = 6,
+        PoWaitingForReleaseApproval = 7,
+        PoWaitingForCancelApproval = 8,
+        AsnGRPending = 9,
+        AsnGRDone = 10,
+        AsnCancelled = 11,
+        GrCreated = 12,
+        GrCancelled = 13,
+        PoReturnDraft = 14,
+        PoReturn_WaitingForApproval = 15,
+        PoReturn_Approved = 16,
+        PoReturn_Rejected = 17,
+        PoReturn_PartiallyDelivered = 18,
+        PoAsnGrBlocked_Damaged = 19,
+        PoAsnGrBlocked_Missed = 20,
+        PoReturn_Cancelled = 21,
+        PoReturn_Delivered = 22
+    }
+    public enum PurchaseOrderType
+    {
+        StockOrder = 1,
+        EmergencyOrder = 2,
+        AutoPOOrder = 3,
+        WarrantyOrder = 4,
+        MachineOrder = 5,
+        IntraDealerOrder = 6,
+        BreakDownOrder = 7,
+        MERCHANDISING = 8
+     }
+    public enum StockMovementType
+    {
+        UnrestrictedToRestricted = 24,
+        UnrestrictedToBlocked = 25,
+        RestrictedToUnrestricted = 26,
+        RestrictedToBlocked = 27,
+        BlockedToUnrestricted = 28,
+        BlockedToRestricted = 29
+    }
+    public enum Division
+    {
+        Parts = 15
+    }
+    public enum SaleOrderType
+    {
+        CustomerOrder = 1,
+        IntraDealerOrder = 2,
+        WarrantyOrder = 3,
+        MachineOrder = 4 
     }
     public enum ICTicketDeviationType
     {

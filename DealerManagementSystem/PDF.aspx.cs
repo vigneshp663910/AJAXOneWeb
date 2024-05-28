@@ -28,6 +28,8 @@ namespace DealerManagementSystem
                 int numberOfPages = pdfReader.NumberOfPages;
                 ifrm_dcbform.Attributes["height"] = numberOfPages * 1140 + "px";
                 ifrm_dcbform.Src = Path.Combine("~/Backup", Path.GetFileName(tempfilename));
+
+
             }
             
         }

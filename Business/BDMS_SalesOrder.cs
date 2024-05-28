@@ -1,4 +1,6 @@
 ﻿using DataAccess;
+using Microsoft.Reporting.WebForms;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -6,10 +8,12 @@ using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Transactions;
+using System.Web;
 using System.Web.Script.Serialization;
 
 namespace Business
@@ -1183,5 +1187,352 @@ namespace Business
         //+ ",s_object_type,r_approved_qty,s_channel) values ";
         //    public string dssor_sales_order_cond = "insert into dssor_sales_order_cond (s_establishment,p_so_item,p_so_id,s_tenant_id,p_condition_type,f_currency,"
         //   + "r_cond_amt,r_order_qty,r_pric_date,s_created_by,s_created_on,d_cond_desc,r_cond_cls,f_percentage,channel) values ";
+        public List<PAjaxOneStatus> GetSaleOrderStatus(int? SaleOrderStatusID, string SaleOrderStatus)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderStatus?SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderStatus=" + SaleOrderStatus;
+            return JsonConvert.DeserializeObject<List<PAjaxOneStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PApiResult GetSaleOrderHeader(long? SaleOrderID, string DateFrom, string DateTo, string QuotationNumber, string SaleOrderNumber, string EquipmentSerialNo, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderStatusID, int? SaleOrderTypeID, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderHeader?SaleOrderID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo
+                + "&QuotationNumber=" + QuotationNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&EquipmentSerialNo=" + EquipmentSerialNo + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
+                + "&CustomerCode=" + CustomerCode + "&SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderTypeID=" + SaleOrderTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PSaleOrder GetSaleOrderByID(long SaleOrderID)
+        {
+            string endPoint = "SaleOrder/SaleOrderByID?SaleOrderID=" + SaleOrderID;
+            return JsonConvert.DeserializeObject<PSaleOrder>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PApiResult GetSaleOrderReport(long? SaleOrderID, string DateFrom, string DateTo, string QuotationNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderStatusID, int? SaleOrderTypeID)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderReport?SaleOrderID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SaleOrderNumber=" + QuotationNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
+                + "&CustomerCode=" + CustomerCode + "&SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderTypeID=" + SaleOrderTypeID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public List<PSaleOrderType> GetSaleOrderType(int? SaleOrderTypeID, string SaleOrderType)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderType?SaleOrderTypeID=" + SaleOrderTypeID + "&SaleOrderType=" + SaleOrderType;
+            return JsonConvert.DeserializeObject<List<PSaleOrderType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PApiResult InsertSaleOrderDelivery(object obj)
+        {
+            string endPoint = "SaleOrder/InsertSaleOrderDelivery";
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, obj));
+        }
+        public PApiResult InsertSaleOrderDeliveryShipping(object obj)
+        {
+            string endPoint = "SaleOrder/InsertSaleOrderDeliveryShipping";
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, obj));
+        }
+        public PApiResult UpdateSaleOrderStatus(long SaleOrderID, int StatusID)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SaleOrderID + "&StatusID=" + StatusID));
+
+        }
+        public PApiResult GetSaleOrderDeliveryHeader(long? SaleOrderDeliveryID, string DateFrom, string DateTo, string DeliveryNumber, string InvoiceNumber, string SaleOrderNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderTypeID, int? DeliveryStatusID, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderDeliveryHeader?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo
+                + "&DeliveryNumber=" + DeliveryNumber + "&InvoiceNumber=" + InvoiceNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID
+                + "&DivisionID=" + DivisionID + "&CustomerCode=" + CustomerCode + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetSaleOrderDeliveryReport(long? SaleOrderDeliveryID, string DateFrom, string DateTo, string DeliveryNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderTypeID, int? DeliveryStatusID)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderDeliveryReport?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom
+                + "&DateTo=" + DateTo + "&DeliveryNumber=" + DeliveryNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
+                + "&CustomerCode=" + CustomerCode + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PSaleOrderDelivery GetSaleOrderDeliveryByID(long SaleOrderDeliveryID)
+        {
+            string endPoint = "SaleOrder/SaleOrderDeliveryByID?SaleOrderDeliveryID=" + SaleOrderDeliveryID;
+            return JsonConvert.DeserializeObject<PSaleOrderDelivery>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public List<PSaleOrderItem> GetSaleOrderItemByDeliveryID(long SaleOrderDeliveryID)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderItemByDeliveryID?SaleOrderDeliveryID=" + SaleOrderDeliveryID;
+            return JsonConvert.DeserializeObject<List<PSaleOrderItem>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PApiResult GenerateSaleInvoice(long SaleOrderDeliveryID)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/GenerateSaleInvoice?SaleOrderDeliveryID=" + SaleOrderDeliveryID));
+
+        }
+
+        public PSaleOrderItem_Insert ReadItem(PDMS_Material m, int DealerID, int DealerOfficeID, int Qty, string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, decimal IDiscountPercentage, string TaxType)
+        {
+            PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
+            SoI.MaterialID = m.MaterialID;
+            SoI.MaterialCode = m.MaterialCode;
+            SoI.Quantity = Qty;
+
+            if (string.IsNullOrEmpty(m.HSN))
+            {
+                throw new Exception("HSN Code is not updated for this Material. Please contact Parts Admin.");
+            }
+            SoI.MaterialDescription = m.MaterialDescription;
+            SoI.HSN = m.HSN;
+            SoI.UOM = m.BaseUnit;
+
+            PMaterial Mat = null;
+            if (m.MaterialGroup != "887")
+            {
+                PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
+                MaterialPrice.Customer = CustomerCode;
+                MaterialPrice.Vendor = DealerCode;
+                MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
+                MaterialPrice.Division = "SP";
+                MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
+                MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
+                {
+                    ItemNo = "10",
+                    Material = SoI.MaterialCode,
+                    Quantity = SoI.Quantity
+                });
+                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                Mat = Mats[0];
+            }
+            else
+            {
+                Mat = new PMaterial();
+                Mat.Discount = 0;
+                Mat.CurrentPrice = m.CurrentPrice * SoI.Quantity;
+                Mat.TaxablePrice = m.CurrentPrice * SoI.Quantity;
+                if (TaxType == "SGST & CGST")
+                {
+                    Mat.SGST = m.TaxPercentage;
+                    Mat.CGST = m.TaxPercentage;
+                    Mat.SGSTValue = Mat.SGST * Mat.CurrentPrice / 100;
+                    Mat.CGSTValue = Mat.CGST * Mat.CurrentPrice / 100;
+
+                    Mat.IGST = 0;
+                    SoI.IGSTValue = 0;
+                }
+                else
+                {
+                    Mat.SGST = 0;
+                    Mat.CGST = 0;
+                    Mat.SGSTValue = 0;
+                    Mat.CGSTValue = 0;
+
+                    Mat.IGST = m.TaxPercentage * 2;
+                    Mat.IGSTValue = Mat.IGST * Mat.CurrentPrice / 100;
+                }
+            }
+            if (Mat.CurrentPrice <= 0)
+            {
+                throw new Exception("Please maintain the Price for Material " + SoI.MaterialCode + " in SAP.");
+            }
+            if (Mat.SGST <= 0 && Mat.IGST <= 0)
+            {
+                throw new Exception("Please maintain the Tax for Material " + SoI.MaterialCode + " in SAP.");
+            }
+            if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
+            {
+                throw new Exception("GST Tax value not found this Material " + SoI.MaterialCode + " in SAP.");
+            }
+
+            SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
+            SoI.Value = Mat.CurrentPrice;
+            SoI.ItemDiscountValue = IDiscountValue + (SoI.Value * IDiscountPercentage / 100);
+            SoI.DiscountValue = (SoI.Value * HDiscountPercentage / 100) + SoI.ItemDiscountValue;
+            SoI.TaxableValue = SoI.Value - SoI.DiscountValue;
+
+            if (TaxType == "SGST & CGST")
+            {
+                SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
+                SoI.SGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                SoI.CGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
+                SoI.CGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                SoI.IGST = 0;
+                SoI.IGSTValue = 0;
+            }
+            else
+            {
+                SoI.SGST = 0;
+                SoI.SGSTValue = 0;
+                SoI.CGST = 0;
+                SoI.CGSTValue = 0;
+                SoI.IGST = Mat.SGST + Mat.CGST + Mat.IGST;
+                SoI.IGSTValue = Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue;
+            }
+
+
+            SoI.SGSTValue = SoI.TaxableValue * (SoI.SGST / 100);
+            SoI.CGSTValue = SoI.TaxableValue * (SoI.CGST / 100);
+            SoI.IGSTValue = SoI.TaxableValue * (SoI.IGST / 100);
+
+
+
+            SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
+            SoI.Tcs = Mat.Tcs;
+            PDealerStock s = new BInventory().GetDealerStockCountByID(DealerID, DealerOfficeID, SoI.MaterialID);
+            SoI.OnOrderQty = s.OnOrderQty;
+            SoI.TransitQty = s.TransitQty;
+            SoI.UnrestrictedQty = s.UnrestrictedQty;
+
+            return SoI;
+        }
+
+
+        public PAttachedFile GetServiceInvoiceFile(long ID)
+        {
+            PAttachedFile Files = null;
+            try
+            {
+                string endPoint = "SaleOrder/DowloadSalesInvoice?FileName=" + ID;
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
+
+                if (Files.AttachedFile == null || Files.AttachedFile.Length == 0)
+                {
+                    new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", Invoicefile(ID));
+                    Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                    Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
+                }
+                return Files;
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Service", "GetServiceInvoiceFile", ex);
+                return null;
+            }
+        }
+        private PAttachedFile Invoicefile(long ID)
+        {
+            try
+            {
+                PSaleOrderDelivery D = GetSaleOrderDeliveryByID(ID);
+
+                //PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Dealer.DealerCode);
+                PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
+                PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
+                PDMS_Dealer DealerBank = new BDMS_Dealer().GetDealerBankDetails(Dealer.DealerID, null, null)[0];
+                string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
+                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+
+                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Customer.CustomerCode);
+                string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
+
+                DataTable CommissionDT = new DataTable();
+                CommissionDT.Columns.Add("SNO");
+                CommissionDT.Columns.Add("Material");
+                CommissionDT.Columns.Add("Description");
+                CommissionDT.Columns.Add("HSN");
+                CommissionDT.Columns.Add("Qty");
+                CommissionDT.Columns.Add("Rate");
+                CommissionDT.Columns.Add("Value", typeof(decimal));
+                CommissionDT.Columns.Add("CGST");
+                CommissionDT.Columns.Add("SGST");
+                CommissionDT.Columns.Add("CGSTValue", typeof(decimal));
+                CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
+                CommissionDT.Columns.Add("Amount", typeof(decimal));
+                //  decimal GrandTotal = 0;
+                string StateCode = Dealer.StateN.StateCode;
+                string GST_Header = "";
+                int i = 0;
+                decimal CessValue = 0;
+
+                decimal CessSubTotal = 0;
+                foreach (PSaleOrderDeliveryItem item in D.SaleOrderDeliveryItems)
+                {
+                    i = i + 1;
+                    if (item.SGST != 0)
+                    {
+                        GST_Header = "CGST & SGST";
+                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Value, item.TaxableValue, item.CGST, item.SGST, item.CGSTValue, item.SGSTValue, item.TaxableValue + item.CGSTValue + item.SGSTValue);
+
+                        CessValue = CessValue + item.CessValue;
+                        CessSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue + item.CessValue;
+                    }
+                    else
+                    {
+                        GST_Header = "IGST";
+                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.Material.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
+
+                        CessValue = CessValue + item.CessValue;
+                        CessSubTotal = item.TaxableValue + item.IGSTValue + item.CessValue;
+
+                    }
+                }
+                string contentType = string.Empty;
+                contentType = "application/pdf";
+                var CC = CultureInfo.CurrentCulture;
+                string FileName = "File_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + ".pdf";
+                string extension;
+                string encoding;
+                string mimeType;
+                string[] streams;
+                Warning[] warnings;
+                LocalReport report = new LocalReport();
+                report.EnableExternalImages = true;
+
+                ReportParameter[] P = null;
+                //if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
+                //{
+                PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetPaidServiceInvoiceESigned(ID);
+                //    P = new ReportParameter[26];
+                //    P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
+                //    P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
+                //    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
+                //}
+                //else
+                //{
+                P = new ReportParameter[24];
+                report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoice.rdlc");
+                // }
+                long GrandTotal = Convert.ToInt64(Math.Round(CessSubTotal));
+
+                //   ViewState["Month"] = ddlMonth.SelectedValue;
+                P[0] = new ReportParameter("DealerCode", DealerN.DealerCode, false);
+                P[1] = new ReportParameter("DealerName", DealerN.DealerName, false);
+                P[2] = new ReportParameter("Address1", DealerAddress1, false);
+                P[3] = new ReportParameter("Address2", DealerAddress2, false);
+                P[4] = new ReportParameter("Contact", "Contact", false);
+                P[5] = new ReportParameter("GSTIN", Dealer.GSTIN, false);
+                P[6] = new ReportParameter("GST_Header", GST_Header, false);
+                P[7] = new ReportParameter("GrandTotal", (GrandTotal).ToString(), false);
+                P[8] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
+                P[9] = new ReportParameter("InvoiceNumber", D.InvoiceNumber, false);
+
+                P[10] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
+                P[11] = new ReportParameter("CustomerName", Customer.CustomerName, false);
+                P[12] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
+                P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
+                P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
+                P[15] = new ReportParameter("CustomerStateCode", Customer.State.StateCode, false);
+                P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);
+                P[17] = new ReportParameter("KindAttn", D.SaleOrder.Attn, false);
+                P[18] = new ReportParameter("Ref", D.SaleOrder.RefNumber, false);
+                P[19] = new ReportParameter("RefDate", Convert.ToString(D.SaleOrder.RefDate), false);
+                P[20] = new ReportParameter("BankDetails", "Our Bank details are : A/C No " + DealerBank.DealerBank.AcNumber + ", Bank : " + DealerBank.DealerBank.BankName + ", Branch : " + DealerBank.DealerBank.Branch + ", IFSC Code : " + DealerBank.DealerBank.IfscCode, false);
+                P[21] = new ReportParameter("InvDate", Convert.ToString(D.InvoiceDate), false);
+                P[22] = new ReportParameter("CessValue", Convert.ToString(CessValue), false);
+                P[23] = new ReportParameter("CessSubTotal", Convert.ToString(CessSubTotal), false);
+
+
+                ReportDataSource rds = new ReportDataSource();
+                rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  
+                rds.Value = CommissionDT;
+                report.DataSources.Add(rds);
+                report.SetParameters(P);
+                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+                PAttachedFile InvF = new PAttachedFile();
+
+                InvF.FileType = mimeType;
+                InvF.AttachedFile = mybytes;
+                InvF.AttachedFileID = 0;
+                InvF.FileName = Convert.ToString(ID);
+                return InvF;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
     }
 }

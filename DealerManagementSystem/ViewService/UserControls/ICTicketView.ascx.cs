@@ -1738,7 +1738,7 @@ namespace DealerManagementSystem.ViewService.UserControls
         
         protected void lblMaterialRemove_Click(object sender, EventArgs e)
         { 
-            lblMessage.Visible = true; 
+            lblMessage.Visible = true;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
 
             long ServiceMaterialID = Convert.ToInt64(gvMaterial.DataKeys[gvRow.RowIndex].Value);
@@ -1747,11 +1747,13 @@ namespace DealerManagementSystem.ViewService.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)); 
             if (Results.Status == PApplication.Failure)
             {
-                lblMessageAssignEngineer.Text = Results.Message;
+                lblMessage.Text = Results.Message; 
+                lblMessage.ForeColor = Color.Red;
                 return;
             }
             ShowMessage(Results);
-            tbpCust.ActiveTabIndex = 5;
+            tbpCust.ActiveTabIndex = 7;
+            SS_ServiceMaterialAll = new BDMS_Service().GetServiceMaterials(SDMS_ICTicket.ICTicketID, null, null, "", null, "");
             FillServiceMaterial();
         }
         protected void cbEdit_CheckedChanged(object sender, EventArgs e)
@@ -2827,7 +2829,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                         }
                     }
                     lbtnServiceClaim.Visible = false;
-                    lbtnMaterialClaim.Visible = false;
+                    lbtnMaterialClaim.Visible = false; 
                 }
 
                 //if (SDMS_ICTicket.ICTicketDate.AddDays(Days) < DateTime.Now)

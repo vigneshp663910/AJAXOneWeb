@@ -36,21 +36,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["PAsnView"] = value;
             }
         }
-        public List<PAsnItem> PAsnItemView
-        {
-            get
-            {
-                if (ViewState["PAsnItemView"] == null)
-                {
-                    ViewState["PAsnItemView"] = new List<PAsnItem>();
-                }
-                return (List<PAsnItem>)ViewState["PAsnItemView"];
-            }
-            set
-            {
-                ViewState["PAsnItemView"] = value;
-            }
-        }
+        //public List<PAsnItem> PAsnItemView
+        //{
+        //    get
+        //    {
+        //        if (ViewState["PAsnItemView"] == null)
+        //        {
+        //            Session["PAsnItemView"] = new List<PAsnItem>();
+        //        }
+        //        return (List<PAsnItem>)ViewState["PAsnItemView"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["PAsnItemView"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -59,42 +59,39 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
         }
         public void FillMaster(PAsn PAsnView)
-        {
-            ViewState["AsnID"] = Convert.ToInt64(PAsnView.AsnID);
+        { 
             lblAsnNumber.Text = PAsnView.AsnNumber;
-            lblAsnID.Text = PAsnView.AsnID.ToString();
+            lblAsnID.Text = PAsnView.AsnID.ToString(); 
 
-            gvPOAsnItem.DataSource = null;
-            gvPOAsnItem.DataBind();
-            PAsnItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnItemByID(PAsnView.AsnID);
-            gvPOAsnItem.DataSource = PAsnItemView;
+           // PAsnItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnItemByID(PAsnView.AsnID);
+            gvPOAsnItem.DataSource = PAsnView.AsnItemS;
             gvPOAsnItem.DataBind();
         }
-        public List<PGr_Insert> Read()
-        {
-            List<PGr_Insert> GrList = new List<PGr_Insert>();
-            foreach (GridViewRow row in gvPOAsnItem.Rows)
-            {
-                Label lblAsnID = (Label)row.FindControl("lblAsnID");
-                Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
-                TextBox txtDeliveredQty = (TextBox)row.FindControl("txtDeliveredQty");
-                TextBox txtReceivedQty = (TextBox)row.FindControl("txtReceivedQty");
-                TextBox txtDamagedQty = (TextBox)row.FindControl("txtDamagedQty");
-                TextBox txtMissingQty = (TextBox)row.FindControl("txtMissingQty");
+        //public List<PGr_Insert> Read()
+        //{
+        //    List<PGr_Insert> GrList = new List<PGr_Insert>();
+        //    foreach (GridViewRow row in gvPOAsnItem.Rows)
+        //    {
+        //        Label lblAsnID = (Label)row.FindControl("lblAsnID");
+        //        Label lblAsnItemID = (Label)row.FindControl("lblAsnItemID");
+        //        TextBox txtDeliveredQty = (TextBox)row.FindControl("txtDeliveredQty");
+        //        TextBox txtReceivedQty = (TextBox)row.FindControl("txtReceivedQty");
+        //        TextBox txtDamagedQty = (TextBox)row.FindControl("txtDamagedQty");
+        //        TextBox txtMissingQty = (TextBox)row.FindControl("txtMissingQty");
 
-                GrList.Add(new PGr_Insert()
-                {
-                    AsnItemID = lblAsnItemID.Text.Trim(),
-                    AsnID = Convert.ToInt64(lblAsnID.Text),
-                    DeliveredQty = Convert.ToDecimal("0" + txtDeliveredQty.Text),
-                    ReceivedQty = Convert.ToDecimal("0" + txtReceivedQty.Text),
-                    DamagedQty = Convert.ToDecimal("0" + txtDamagedQty.Text),
-                    MissingQty = Convert.ToDecimal("0" + txtMissingQty.Text),
-                    GrRemarks = txtRemarks.Text
-                });
-            }
-            return GrList;
-        }
+        //        GrList.Add(new PGr_Insert()
+        //        {
+        //            AsnItemID = Convert.ToInt64(lblAsnItemID.Text),
+        //            AsnID = Convert.ToInt64(lblAsnID.Text),
+        //            DeliveredQty = Convert.ToDecimal("0" + txtDeliveredQty.Text),
+        //            //ReceivedQty = Convert.ToDecimal("0" + txtReceivedQty.Text),
+        //            //DamagedQty = Convert.ToDecimal("0" + txtDamagedQty.Text),
+        //            //MissingQty = Convert.ToDecimal("0" + txtMissingQty.Text),
+        //            GrRemarks = txtRemarks.Text
+        //        });
+        //    }
+        //    return GrList;
+        //}
         public Boolean ValidationItem()
         {
             Boolean Result = false;
@@ -130,6 +127,17 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 }
             }
             return Result;
+        }
+
+        protected void btnSetBlockedQty_Click(object sender, EventArgs e)
+        {
+            new DDLBind(ddlStatus, new BDMS_PurchaseOrder().GetProcurementStatus(2), "ProcurementStatus", "ProcurementStatusID");
+            MPE_UpdateBlockedQty.Show();
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

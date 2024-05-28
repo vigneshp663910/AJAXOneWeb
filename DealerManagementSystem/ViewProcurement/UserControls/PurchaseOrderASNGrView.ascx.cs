@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -27,21 +28,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ViewState["GrView"] = value;
             }
         }
-        public List<PGrItem> GrPOItemView
-        {
-            get
-            {
-                if (ViewState["GrPOItemView"] == null)
-                {
-                    ViewState["GrPOItemView"] = new PGr();
-                }
-                return (List<PGrItem>)ViewState["GrPOItemView"];
-            }
-            set
-            {
-                ViewState["GrPOItemView"] = value;
-            }
-        }
+        //public List<PGrItem> GrPOItemView
+        //{
+        //    get
+        //    {
+        //        if (Session["GrPOItemView"] == null)
+        //        {
+        //            Session["GrPOItemView"] = new PGr();
+        //        }
+        //        return (List<PGrItem>)Session["GrPOItemView"];
+        //    }
+        //    set
+        //    {
+        //        Session["GrPOItemView"] = value;
+        //    }
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
@@ -58,7 +59,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblPoDate.Text = GrView.ASN.PurchaseOrder.PurchaseOrderDate.ToString();
             lblVendor.Text = GrView.ASN.PurchaseOrder.Vendor.DealerName;
 
-            lblAsnStatus.Text = GrView.Status.GrStatus;
+            lblAsnStatus.Text = GrView.Status.ProcurementStatus;
 
             lblGrNumber.Text = GrView.GrNumber;
             lblGrDate.Text = GrView.GrDate.ToString();
@@ -68,9 +69,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblPostedOn.Text = GrView.PostedOn.ToString();
             lblCancelledBy.Text = (GrView.CancelledBy == null) ? "" : GrView.CancelledBy.ContactName;
             lblCancelledOn.Text = (GrView.CancelledBy == null) ? "" : GrView.CancelledOn.ToString();
-
-            GVGr.DataSource = null;
-            GVGr.DataBind();
+             
             GVGr.DataSource = GrView.GrItemS;
             GVGr.DataBind();
 
@@ -87,10 +86,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblPODealer.Text = GrView.ASN.PurchaseOrder.Dealer.DealerName;
             lblPOVendor.Text = GrView.ASN.PurchaseOrder.Vendor.DealerName;
             lblExpectedDeliveryDate.Text = GrView.ASN.PurchaseOrder.ExpectedDeliveryDate.ToString();
-
-            GVGrPO.DataSource = null;
-            GVGrPO.DataBind();
-            GrPOItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrByIDPOItem(GrID);
+            lblGrossAmount.Text = GrView.ASN.PurchaseOrder.NetAmount.ToString();
+             
+            List<PGrItem> GrPOItemView = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrByIDPOItem(GrID);
             GVGrPO.DataSource = GrPOItemView;
             GVGrPO.DataBind();
 
@@ -106,11 +104,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         void ActionControlMange()
         {
-            lbGrCancel.Visible = true;
-            if (GrView.Status.GrStatusID != 1)
-            {
-                lbGrCancel.Visible = false;
-            }
+            //lbGrCancel.Visible = true;
+            //if (GrView.Status.ProcurementStatusID != (short)ProcurementStatus.GrCreated)
+            //{
+            //    lbGrCancel.Visible = false;
+            //}
         }
         protected void btnGrCancel_Click(object sender, EventArgs e)
         {
@@ -128,6 +126,26 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
 
             fillViewPOAsn(GrID);
+        }
+        protected void lnkDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton lnkFSRDownload = (LinkButton)sender;
+                GridViewRow gvRow = (GridViewRow)lnkFSRDownload.Parent.Parent;
+                Label lblGrItemID = (Label)gvRow.FindControl("lblGrItemID");
+                Label lblFileName = (Label)gvRow.FindControl("lblFileName");
+                PAttachedFile UploadedFile = new BDMS_PurchaseOrder().AttachmentsForDownload(lblGrItemID.Text + Path.GetExtension(lblFileName.Text));
+                Response.AddHeader("Content-type", UploadedFile.FileType);
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblFileName.Text);
+                HttpContext.Current.Response.Charset = "utf-16";
+                HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                Response.BinaryWrite(UploadedFile.AttachedFile);
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            { }
         }
     }
 }

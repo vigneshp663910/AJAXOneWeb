@@ -15,15 +15,6 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
     {
 
         /// <summary>
-        /// lbGrCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbGrCancel;
-
-        /// <summary>
         /// lblGrNumber control.
         /// </summary>
         /// <remarks>
@@ -292,6 +283,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblExpectedDeliveryDate;
+
+        /// <summary>
+        /// lblGrossAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGrossAmount;
 
         /// <summary>
         /// GVGrPO control.

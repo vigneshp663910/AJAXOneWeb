@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12 Report" id="divList" runat="server">
             <div class="col-md-12">
@@ -14,11 +14,15 @@
                         <div class="col-md-12">
                             <div class="col-md-2 col-sm-12">
                                 <label class="modal-label">Dealer</label>
-                                <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+                                <asp:DropDownList ID="ddlDealerF" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerF_SelectedIndexChanged" />
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                <label class="modal-label">Dealer Office</label>
+                                <asp:DropDownList ID="ddlDealerOfficeF" runat="server" CssClass="form-control" />
                             </div>
                             <div class="col-md-2 text-left">
                                 <label>Division</label>
-                                <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" OnSelectedIndexChanged="btnMaterialSearch_Click" AutoPostBack="true"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control"></asp:DropDownList>
                             </div>
                             <div class="col-md-2 text-left">
                                 <label>Material Model</label>
@@ -78,112 +82,74 @@
                                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Dealer Name">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Name")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Dealer">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Code")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Office Name">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblOfficeName" Text='<%# DataBinder.Eval(Container.DataItem, "OfficeName")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
                                                     <asp:TemplateField HeaderText="Material" HeaderStyle-Width="120px">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-
                                                     <asp:TemplateField HeaderText="Material Desc">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, BaseUnit%>">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblBaseUnit" Text='<%# DataBinder.Eval(Container.DataItem, "BaseUnit")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, MaterialType%>">
+                                                    <asp:TemplateField HeaderText="Division">
                                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                         <ItemTemplate>
-                                                            <asp:Label ID="lblMaterialType" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialType")%>' runat="server"></asp:Label>
+                                                            <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "Division")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Per Unit Price">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblPerUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "PerUnitPrice")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Open Stock">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblOpenStock" Text='<%# DataBinder.Eval(Container.DataItem, "OpenStock")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Price">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblPrice" Text='<%# DataBinder.Eval(Container.DataItem, "Price")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Posted By">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblPostedBy" Text='<%# DataBinder.Eval(Container.DataItem, "Posted By")%>' runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Posted On">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblPostedBy" Text='<%# DataBinder.Eval(Container.DataItem, "Posted On")%>' runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderText="Division Code">
-                                                        <%--<ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblMaterialGroup" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialGroup")%>' runat="server"></asp:Label>
-                                                            </ItemTemplate>--%>
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblDivisionCode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Division.DivisionCode")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Mode Code">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblModeCode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.ModelCode")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Mode">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblMode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Model")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Model Description">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblModelDescription" Text='<%# DataBinder.Eval(Container.DataItem, "Model.ModelDescription")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, GrossWeight%>">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblGrossWeight" Text='<%# DataBinder.Eval(Container.DataItem, "GrossWeight","{0:n}")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, NetWeight%>">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblNetWeight" Text='<%# DataBinder.Eval(Container.DataItem, "NetWeight","{0:n}")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-
-                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, WeightUnit%>">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblWeightUnit" Text='<%# DataBinder.Eval(Container.DataItem, "WeightUnit")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-
-                                                    <asp:TemplateField HeaderText="<%$ Resources:Reso, MaterialDivision%>">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblMaterialDivision" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDivision")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="HSN">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "HSN")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-
-                                                    <asp:TemplateField HeaderText="CST %">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "CST","{0:n}")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="SST %">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "SST","{0:n}")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-
-                                                    <asp:TemplateField HeaderText="GST %">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                        <ItemTemplate>
-                                                            <asp:Label ID="lblHSN" Text='<%# DataBinder.Eval(Container.DataItem, "GST","{0:n}")%>' runat="server"></asp:Label>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
                                                 </Columns>
                                                 <AlternatingRowStyle BackColor="#ffffff" />
                                                 <FooterStyle ForeColor="White" />
@@ -205,10 +171,22 @@
             <fieldset class="fieldset-border" id="FldUpload" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Upload File</legend>
                 <div class="col-md-12">
-                    <div class="col-md-2 col-sm-12" id="Div1" runat="server">
-                        <asp:FileUpload ID="fileUpload" runat="server" />
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer</label>
+                        <asp:DropDownList ID="ddlDealerO" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerO_SelectedIndexChanged" />
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Dealer Office</label>
+                        <asp:DropDownList ID="ddlDealerOfficeO" runat="server" CssClass="form-control" AutoPostBack="true" />
+                    </div>
+
+
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-2 col-sm-12" id="Div1" runat="server">
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <asp:FileUpload ID="fileUpload" runat="server" />
                         <asp:Button ID="btnView" runat="server" Text="View" CssClass="btn Save" OnClick="btnView_Click" Width="100px" />
                         <asp:Button ID="BtnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="BtnSave_Click" Width="100px" />
                         <asp:Button ID="BtnBack" runat="server" Text="Back" CssClass="btn Back" OnClick="BtnBack_Click" />
@@ -216,7 +194,40 @@
                     </div>
                 </div>
                 <asp:GridView ID="GVUpload" CssClass="table table-bordered table-condensed Grid" runat="server" ShowHeaderWhenEmpty="true"
-                    EmptyDataText="No Data Found" AutoGenerateColumns="true" Width="100%">
+                    EmptyDataText="No Data Found" AutoGenerateColumns="false" Width="100%">
+                    <Columns>
+                        <asp:TemplateField HeaderText="ID" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                            <ItemTemplate>
+                                <asp:Label ID="lblRowNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ID")%>' runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Material Code">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblMaterialCode" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialCode")%>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Material Desc">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblMaterialDescription" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Quantity">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity")%>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Per Unit Price">
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <ItemTemplate>
+                                <asp:Label ID="lblPerUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "PerUnitPrice")%>' runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+
+                    </Columns>
                     <AlternatingRowStyle BackColor="#ffffff" />
                     <FooterStyle ForeColor="White" />
                     <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />

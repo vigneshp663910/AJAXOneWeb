@@ -112,6 +112,17 @@ namespace DealerManagementSystem.ViewMaster
                     InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertSalesCommissionClaimInvoice(inv), InvType = "SalesCom" });
                 }
 
+                List<PSaleOrderDelivery> SalesInv = new BDMS_EInvoice().GetSaleInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, "");
+                foreach (PSaleOrderDelivery inv in SalesInv)
+                {
+                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertSaleInvoice(inv), InvType = "SalesInv" });
+                }
+                List<PSaleOrderDelivery> SalesReturnDeb = new BDMS_EInvoice().GetSaleReturnCreditNoteForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, "");
+                foreach (PSaleOrderDelivery inv in SalesReturnDeb)
+                {
+                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertSaleReturnCreditNote(inv), InvType = "SalesReCre" });
+                }
+
                 gvInv.PageIndex = 0;
                 gvInv.DataSource = InvoiceGrid;
                 gvInv.DataBind();

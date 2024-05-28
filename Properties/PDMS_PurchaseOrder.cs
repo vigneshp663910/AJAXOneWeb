@@ -94,25 +94,34 @@ namespace Properties
         public string PurchaseOrderType { get; set; }
         public string SapOrderType { get; set; }
     }
+
     [Serializable]
-    public class PPurchaseOrderStatus
+    public class PProcurementStatus
     {
-        public int PurchaseOrderStatusID { get; set; }
+        public int ProcurementStatusID { get; set; }
         public string Code { get; set; }
-        public string PurchaseOrderStatus { get; set; }
+        public string ProcurementStatus { get; set; }
     }
-    [Serializable]
-    public class PPurchaseOrderAsnStatus
-    {
-        public int AsnStatusID { get; set; }
-        public string AsnStatus { get; set; }
-    }
-    [Serializable]
-    public class PPurchaseOrderAsnGrStatus
-    {
-        public int GrStatusID { get; set; }
-        public string GrStatus { get; set; }
-    }
+
+    //[Serializable]
+    //public class PPurchaseOrderStatus
+    //{
+    //    public int PurchaseOrderStatusID { get; set; }
+    //    public string Code { get; set; }
+    //    public string PurchaseOrderStatus { get; set; }
+    //}
+    //[Serializable]
+    //public class PPurchaseOrderAsnStatus
+    //{
+    //    public int AsnStatusID { get; set; }
+    //    public string AsnStatus { get; set; }
+    //}
+    //[Serializable]
+    //public class PPurchaseOrderAsnGrStatus
+    //{
+    //    public int GrStatusID { get; set; }
+    //    public string GrStatus { get; set; }
+    //}
     [Serializable]
     public class PPurchaseOrderTo
     {
@@ -130,7 +139,7 @@ namespace Properties
         public PPurchaseOrderTo PurchaseOrderTo { get; set; }
         public PDMS_Dealer Vendor { get; set; }
         public PPurchaseOrderType PurchaseOrderType { get; set; }
-        public PPurchaseOrderStatus PurchaseOrderStatus { get; set; }
+        public PProcurementStatus PurchaseOrderStatus { get; set; }
         public PDMS_Division Division { get; set; }
 
         public DateTime ExpectedDeliveryDate { get; set; }
@@ -146,6 +155,9 @@ namespace Properties
         public List<PPurchaseOrderItem> PurchaseOrderItems { get; set; }
 
         public string SaleOrderNumber { get; set; }
+        public PUser Created { get; set; }
+        public PUser Cancelled { get; set; }
+        public DateTime? CancelledOn { get; set; }
     }
 
     [Serializable]
@@ -159,16 +171,20 @@ namespace Properties
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
         public decimal TaxableValue { get; set; }
-        public PPurchaseOrderStatus PurchaseOrderStatus { get; set; }
         public decimal Tax { get { return Material.CGST + Material.SGST + Material.IGST; } }
         public decimal TaxValue { get { return Material.CGSTValue + Material.SGSTValue + Material.IGSTValue; } }
-        //public decimal NetAmount { get; set; }
+        public decimal TransitQuantity { get; set; }
+        public decimal DeliveredQuantity { get; set; }
+        public decimal NetAmount { get { return TaxableValue + TaxValue; } }
+        public PUser CancelledBy { get; set; }
+        public DateTime? CencelledOn { get; set; }
         //public decimal GrossAmount { get; set; }
         //public decimal ShipedQuantity { get; set; } 
         //public decimal ApprovedQuantity { get; set; }
         //public decimal Fright { get; set; }
         //public decimal Insurance { get; set; }
-        //public decimal PackingAndForwarding { get; set; } 
+        //public decimal PackingAndForwarding { get; set; }  
+        // public PPurchaseOrderStatus PurchaseOrderStatus { get; set; }
     }
 
     [Serializable]
@@ -181,7 +197,7 @@ namespace Properties
         public int VendorID { get; set; }
         public int PurchaseOrderTypeID { get; set; }
         public int DivisionID { get; set; }
-        public DateTime ExpectedDeliveryDate { get; set; }
+        //public DateTime ExpectedDeliveryDate { get; set; }
         public string ReferenceNo { get; set; }
         public string Remarks { get; set; }
         public List<PPurchaseOrderItem_Insert> PurchaseOrderItems { get; set; }
@@ -197,8 +213,11 @@ namespace Properties
         public int MaterialID { get; set; }
         public string MaterialCode { get; set; }
         public string MaterialDescription { get; set; }
+        public string MaterialType { get; set; }
+        
         public decimal Quantity { get; set; }
         public string UOM { get; set; }
+        public decimal UnitPrice { get; set; }
         public decimal Price { get; set; }
         public decimal DiscountAmount { get; set; }
         public decimal TaxableAmount { get; set; }
@@ -209,6 +228,9 @@ namespace Properties
         public decimal CGSTValue { get; set; }
         public decimal SGSTValue { get; set; }
         public decimal IGSTValue { get; set; }
+        public decimal Tax { get; set; }
+        public decimal TaxValue { get; set; }
+        public decimal NetValue { get; set; }
     }
 
     [Serializable]
@@ -231,7 +253,7 @@ namespace Properties
         public string TrackID { get; set; }
         public string CourierID { get; set; }
         public DateTime? CourierDate { get; set; }
-        public PPurchaseOrderAsnStatus AsnStatus { get; set; }
+        public PProcurementStatus AsnStatus { get; set; }
         public string ShipingAddress { get; set; }
         public decimal? CourierCharge { get; set; }
         public string LRNo { get; set; }
@@ -248,9 +270,11 @@ namespace Properties
         public int AsnItem { get; set; }
         public long AsnID { get; set; }
         public PPurchaseOrderItem PurchaseOrderItem { get; set; }
-        public PGrItem GrItem { get; set; }
+        //public PGrItem GrItem { get; set; }
         public PDMS_Material Material { get; set; }
         public decimal Qty { get; set; }
+        public decimal GrQty { get; set; }
+        public decimal ReturnedQty { get; set; }
         public decimal NetWeight { get; set; }
         public string UomWeight { get; set; }
         public decimal PackCount { get; set; }
@@ -270,7 +294,7 @@ namespace Properties
         public PAsn ASN { get; set; }
         public List<PGrItem> GrItemS { get; set; }
         public PGrItem GrItem { get; set; }
-        public PPurchaseOrderAsnGrStatus Status { get; set; }
+        public PProcurementStatus Status { get; set; }
         public string Remarks { get; set; }
         public PUser PostedBy { get; set; }
         public DateTime? PostedOn { get; set; }
@@ -283,15 +307,24 @@ namespace Properties
     {
         public long GrID { get; set; }
         public long GrItemID { get; set; }
-        public PAsnItem AsnItem { get; set; }
-        public decimal DeliveredQty { get; set; }
+        public PAsnItem AsnItem { get; set; } 
         public decimal ReceivedQty { get; set; }
-        public decimal DamagedQty { get; set; }
-        public decimal ReturnedQty { get; set; }
-        public decimal MissingQty { get; set; }
+        public decimal UnrestrictedQty { get; set; }
+        public decimal RestrictedQty { get; set; }
+        public decimal ReturnedQty { get; set; } 
+        public string Remark { get; set; }
+       // public List<PGrBlocked> GrBlocked { get; set; }
+        public string FileName { get; set; }
+    }
+    [Serializable]
+    public class PGrBlocked
+    {
+        public long GrBlockedID { get; set; }
+        public long GrItemID { get; set; } 
+        public decimal Qty { get; set; }
+        public PProcurementStatus GrBlockedStatus { get; set; } 
         public string Remark { get; set; }
     }
-
     [Serializable]
     public class PPurchaseOrderInvoice
     {
@@ -349,16 +382,25 @@ namespace Properties
     [Serializable]
     public class PGr_Insert
     {
-        public string AsnItemID { get; set; }
+        public long AsnItemID { get; set; }
         public long AsnID { get; set; }
-        public decimal DeliveredQty { get; set; }
-        public decimal ReceivedQty { get; set; }
-        public decimal DamagedQty { get; set; }
-        public decimal MissingQty { get; set; }
-        public string GrRemarks { get; set; }
-        public string ItemRemarks { get; set; }
+        public string MaterialCode { get; set; }
+        public string MaterialDescription { get; set; }
+        public decimal AsnBalanceQty { get; set; }
+        public decimal UnrestrictedQty { get; set; }
+        public decimal RestrictedQty { get; set; }
+        public string RemarksHeader { get; set; }
+        public string RemarksItem { get; set; }
+        public List<PGrBlocked_Insert> BlockedList { get; set; }
+        public string FileName { get; set; }
+        public byte[] fileData { get; set; } 
     }
-
+    [Serializable]
+    public class PGrBlocked_Insert
+    {
+        public decimal Qty { get; set; }
+        public int statusID { get; set; } 
+    }
 
 
     [Serializable]
@@ -368,13 +410,13 @@ namespace Properties
         public long GrItemID { get; set; }
         public string Remarks { get; set; }
     }
-    [Serializable]    
-    public class PPurchaseOrderReturnStatus
-    {
-        public int PurchaseOrderReturnStatusID { get; set; }
-        public string PurchaseOrderReturnStatusCode { get; set; }
-        public string PurchaseOrderReturnStatusDescription { get; set; }
-    }
+    //[Serializable]    
+    //public class PPurchaseOrderReturnStatus
+    //{
+    //    public int PurchaseOrderReturnStatusID { get; set; }
+    //    public string PurchaseOrderReturnStatusCode { get; set; }
+    //    public string PurchaseOrderReturnStatusDescription { get; set; }
+    //}
     [Serializable]
     public class PPurchaseOrderReturn
     {
@@ -384,7 +426,7 @@ namespace Properties
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerOffice Location { get; set; }
         public PDMS_Dealer Vendor { get; set; }
-        public PPurchaseOrderReturnStatus PurchaseOrderReturnStatus { get; set; }
+        public PProcurementStatus PurchaseOrderReturnStatus { get; set; }
         public string Remarks { get; set; }
         public PPurchaseOrderReturnItem PurchaseOrderReturnItem { get; set; }
         public List<PPurchaseOrderReturnItem> PurchaseOrderReturnItems { get; set; }
@@ -396,14 +438,14 @@ namespace Properties
         public long PurchaseOrderReturnItemID { get; set; }
         public PPurchaseOrder PurchaseOrder { get; set; }
         public int Item { get; set; }
-        public PGrItem GrItem { get; set; }
-        //  public PAsnItem AsnItem { get; set; }
-        public PGr Gr { get; set; }
-        public PAsn Asn { get; set; }
-
         public PMaterial Material { get; set; }
         public decimal Quantity { get; set; }
+        public decimal Value { get; set; }
+        public decimal TaxableValue { get; set; }
         public decimal DeliveredQty { get; set; }
+        public PGrItem GrItem { get; set; }
+        public PGr Gr { get; set; }
+        public PAsn Asn { get; set; }
     }
     [Serializable]
     public class PPurchaseOrderReturnDelivery
@@ -442,4 +484,28 @@ namespace Properties
         public decimal DeliveryQty { get; set; }
         public string Remarks { get; set; }
     }
+    [Serializable]
+    public class PDealerStockOrderControl
+    {
+        public int DealerStockOrderControlID { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
+        public int MaxCount { get; set; }
+        public int MinimumValue { get; set; }
+        public int DefaultCount { get; set; }
+        public int CountValue { get; set; }
+        public bool IsActive { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+    }
+    [Serializable]
+    public class PDealerStockOrderControlHistory
+    {
+        public int DealerStockOrderControlHistoryID { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
+        public int MaxCount { get; set; }
+        public int MaxValue { get; set; }
+        public PUser CreatedBy { get; set; }
+        public DateTime CreatedOn { get; set; }
+    }
+    
 }

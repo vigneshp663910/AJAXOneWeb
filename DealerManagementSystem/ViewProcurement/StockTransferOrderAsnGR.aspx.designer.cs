@@ -8,9 +8,9 @@
 //------------------------------------------------------------------------------
 
 
-namespace DealerManagementSystem.ViewInventory
+namespace DealerManagementSystem.ViewProcurement
 {
-    public partial class WarehouseStockOnHand
+    public partial class StockTransferOrderAsnGR
     {
     }
 }

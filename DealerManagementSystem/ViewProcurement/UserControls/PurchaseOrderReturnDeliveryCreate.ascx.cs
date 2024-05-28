@@ -259,11 +259,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     return "Please enter the Delivery Quantity for all selected Items.";
                 }
                 decimal DeliveryQty = Convert.ToDecimal(((TextBox)row.FindControl("txtDeliveredQty")).Text);
-                if (DeliveryQty == 0)
+                if (DeliveryQty <= 0)
                 {
                     return "Please enter Delivery Quantity.";
                 }
-                else if (DeliveryQty > (Convert.ToDecimal(((Label)row.FindControl("lblQty")).Text)))
+                if (DeliveryQty > (Convert.ToDecimal(((Label)row.FindControl("lblQty")).Text)))
                 {
                     return "Please enter valid Delivery Quantity.";
                 }

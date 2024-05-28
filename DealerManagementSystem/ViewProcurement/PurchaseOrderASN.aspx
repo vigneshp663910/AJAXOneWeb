@@ -27,12 +27,24 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Dealer Code</label>
-                            <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
+                            <label class="modal-label">Dealer</label>
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control"  AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged"/>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Dealer Office</label>
+                            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Asn Number</label>
                             <asp:TextBox ID="txtAsnNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">PO Number</label>
+                            <asp:TextBox ID="txtPoNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">SO Number</label>
+                            <asp:TextBox ID="txtSoNumber" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Asn Date From</label>
@@ -47,28 +59,36 @@
                             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtAsnDateTo" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                         </div>
                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Order Type</label>
+                            <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlPurchaseOrderType_SelectedIndexChanged" AutoPostBack="true" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Division</label>
+                            <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Asn Status</label>
                             <asp:DropDownList ID="ddlAsnStatus" runat="server" CssClass="form-control">
                             </asp:DropDownList>
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label class="modal-label">-</label>
+                        <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
-                            <%--<asp:Button ID="btnCreatePO" runat="server" CssClass="btn Save" Text="Create PO" OnClick="btnCreatePO_Click" Width="150px"></asp:Button>
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
+                            <%--<asp:Button ID="btnCreatePO" runat="server" CssClass="btn Save" Text="Create PO" OnClick="btnCreatePO_Click" Width="150px"></asp:Button>--%>
+                            <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
                         </div>
                     </div>
                 </fieldset>
             </div>
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Asn Report</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Asn List</legend>
                     <div class="col-md-12 Report">
                         <div class="boxHead">
                             <div class="logheading">
                                 <div style="float: left">
                                     <table>
                                         <tr>
+                                            <td>Asn(s):</td>
                                             <td>
                                                 <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                             <td>
@@ -83,6 +103,11 @@
                         <asp:GridView ID="gvPAsn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"
                             OnPageIndexChanging="gvPAsn_PageIndexChanging">
                             <Columns>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:Button ID="btnViewPO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPO_Click" Width="75px" Height="25px" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Asn Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -116,12 +141,24 @@
                                         <asp:Label ID="lblDeliveryDate" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Order Type">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblPurchaseOrderType" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.PurchaseOrderType.PurchaseOrderType")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Dealer.DealerCode")%>' runat="server"></asp:Label>
                                         <br />
                                         <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Dealer.DealerName")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Receiving Location">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblReceivingLocation" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Location.OfficeName")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Vendor">
@@ -138,10 +175,16 @@
                                         <asp:Label ID="lblLRNo" Text='<%# DataBinder.Eval(Container.DataItem, "LRNo")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Division">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Division.DivisionCode")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Asn Status">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblAsnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "AsnStatus.AsnStatus")%>' runat="server"></asp:Label>
+                                        <asp:Label ID="lblAsnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "AsnStatus.ProcurementStatus")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Remarks">
@@ -150,11 +193,7 @@
                                         <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "Remarks")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField>
-                                    <ItemTemplate>
-                                        <asp:Button ID="btnViewPO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPO_Click" Width="75px" Height="25px" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />
@@ -169,7 +208,7 @@
         <div class="col-md-12" id="divDetailsView" runat="server" visible="false">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
-                <div class="back-buttton" id="backBtn" style="text-align:right">
+                <div class="back-buttton" id="backBtn" style="text-align: right">
                     <asp:Button ID="btnPurchaseOrderViewBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnPurchaseOrderViewBack_Click" />
                 </div>
             </div>

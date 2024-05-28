@@ -42,13 +42,6 @@
                             <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Delivered Qty">
-                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                        <ItemTemplate>
-                            <asp:Label ID="lblDeliveredQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.DeliveredQty")%>' runat="server" Visible="false"></asp:Label>
-                            <asp:TextBox ID="txtDeliveredQty" runat="server" CssClass="form-control" TextMode="Number" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>'></asp:TextBox>
-                        </ItemTemplate>
-                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Received Qty">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
@@ -56,18 +49,24 @@
                             <asp:TextBox ID="txtReceivedQty" runat="server" CssClass="form-control" TextMode="Number" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>'></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Damaged Qty">
+                    <asp:TemplateField HeaderText="Saleable Qty">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblDamagedQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.DamagedQty")%>' runat="server" Visible="false"></asp:Label>
-                            <asp:TextBox ID="txtDamagedQty" runat="server" CssClass="form-control" TextMode="Number" Text='0'></asp:TextBox>
+                            <asp:Label ID="lblSaleableQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.SaleableQty")%>' runat="server" Visible="false"></asp:Label>
+                            <asp:TextBox ID="txtSaleableQty" runat="server" CssClass="form-control" TextMode="Number" Text='0'></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Missing Qty">
+                    <asp:TemplateField HeaderText="Action">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
-                            <asp:Label ID="lblMissingQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.MissingQty")%>' runat="server" Visible="false"></asp:Label>
-                            <asp:TextBox ID="txtMissingQty" runat="server" CssClass="form-control" TextMode="Number" Text='0'></asp:TextBox>
+                            <asp:Button ID="btnSetBlockedQty" runat="server" Text="Set Blocked Qty" CssClass="btn Save" Width="120px" Height="25px" OnClick="btnSetBlockedQty_Click" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Blocked Qty">
+                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblBlockedQty" Text='<%# DataBinder.Eval(Container.DataItem, "GrItem.BlockedQty")%>' runat="server" Visible="false"></asp:Label>
+                            <asp:TextBox ID="txtBlockedQty" runat="server" CssClass="form-control" TextMode="Number" Text='0' Enabled="false"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -79,4 +78,40 @@
             </asp:GridView>
         </div>
     </div>
+
+
+    <asp:Panel ID="pnlUpdateBlockedQty" runat="server" CssClass="Popup" Style="display: none">
+        <div class="PopupHeader clearfix">
+            <span id="PopupDialogue">Blocked Qty</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button8" runat="server" Text="X" CssClass="PopupClose" />
+            </a>
+        </div>
+
+        <div class="col-md-12">
+            <div class="model-scroll">
+                <asp:Label ID="lblMessageBlockedQty" runat="server" Text="" CssClass="message" Visible="false" />
+                <fieldset class="fieldset-border" id="Fieldset7" runat="server">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Blocked Qty</legend>
+                    <div class="col-md-12">
+                        <div class="col-md-3 col-sm-12">
+                            <label class="modal-label">Qty<samp style="color: red">*</samp></label>
+                            <asp:TextBox ID="txtQty" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Number"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <label class="modal-label">Remark<samp style="color: red">*</samp></label>
+                            <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <label class="modal-label">Status<samp style="color: red">*</samp></label>
+                            <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control"></asp:DropDownList>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn Save" OnClick="btnAdd_Click" />
+            </div>
+        </div>
+    </asp:Panel>
+    <ajaxToolkit:ModalPopupExtender ID="MPE_UpdateBlockedQty" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlUpdateBlockedQty" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 </fieldset>

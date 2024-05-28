@@ -33,13 +33,22 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
-        /// ddlDealerCode control.
+        /// ddlDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealerCode;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
+
+        /// <summary>
+        /// ddlDealerOffice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerOffice;
 
         /// <summary>
         /// txtAsnNumber control.
@@ -49,6 +58,24 @@ namespace DealerManagementSystem.ViewProcurement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAsnNumber;
+
+        /// <summary>
+        /// txtPoNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPoNumber;
+
+        /// <summary>
+        /// txtSoNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSoNumber;
 
         /// <summary>
         /// txtAsnDateFrom control.
@@ -105,6 +132,24 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
 
         /// <summary>
+        /// ddlPurchaseOrderType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPurchaseOrderType;
+
+        /// <summary>
+        /// ddlDivision control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
+
+        /// <summary>
         /// ddlAsnStatus control.
         /// </summary>
         /// <remarks>
@@ -121,6 +166,15 @@ namespace DealerManagementSystem.ViewProcurement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSearch;
+
+        /// <summary>
+        /// btnExportExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportExcel;
 
         /// <summary>
         /// lblRowCount control.

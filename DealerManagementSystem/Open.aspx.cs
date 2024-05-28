@@ -260,7 +260,7 @@ namespace DealerManagementSystem
 
         protected void btnAsnDetailsFromSap_Click(object sender, EventArgs e)
         {
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/GetASNFromSAP?InvoiceNo=" + txtInvoiceNumber.Text));
+            new BAPI().ApiGet("Sap/GetASNFromSAP?InvoiceNo=" + txtInvoiceNumber.Text);
             //new BDMS_PurchaseOrder().InsertOrUpdatePurchaseOrderAsn(txtInvoiceNumber.Text);
         }
 

@@ -68,7 +68,7 @@ namespace DealerManagementSystem.Help
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
         }
@@ -82,7 +82,7 @@ namespace DealerManagementSystem.Help
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
         }
@@ -121,7 +121,7 @@ namespace DealerManagementSystem.Help
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
         }
@@ -261,7 +261,7 @@ namespace DealerManagementSystem.Help
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.ToString();
+                lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
         }
