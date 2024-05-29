@@ -156,12 +156,19 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if (lbActions.ID == "lbCancelPO")
             {
+                lblMessage.ForeColor = Color.Red;
 
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnHeader(null, null, null, null, null, null, (short)ProcurementStatus.AsnGRPending, PurchaseOrder.PurchaseOrderNumber, null, null, null, 1, 10);
+                List<PAsn>  PAsnHeader = JsonConvert.DeserializeObject<List<PAsn>>(JsonConvert.SerializeObject(Result.Data)); 
+                if (PAsnHeader.Count != 0)
+                {
+                    lblMessage.Text = "ASN Pending for GR so that you cannot cancel the PO";
+                    return;
+                }
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelPurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = Results.Message; 
                     return;
                 }
                 int StatusID = PurchaseOrder.PurchaseOrderStatus.ProcurementStatusID;
@@ -192,12 +199,19 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if (lbActions.ID == "lbCancelApprove")
             {
+                lblMessage.ForeColor = Color.Red;
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnHeader(null, null, null, null, null, null, (short)ProcurementStatus.AsnGRPending, PurchaseOrder.PurchaseOrderNumber, null, null, null, 1, 10);
+                List<PAsn> PAsnHeader = JsonConvert.DeserializeObject<List<PAsn>>(JsonConvert.SerializeObject(Result.Data));
+                if (PAsnHeader.Count != 0)
+                {
+                    lblMessage.Text = "ASN Pending for GR so that you cannot cancel the PO";
+                    return;
+                }
 
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("PurchaseOrder/CancelApprovePurchaseOrder?PurchaseOrderID=" + PurchaseOrder.PurchaseOrderID.ToString()));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = Results.Message; 
                     return;
                 }
 
