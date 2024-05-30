@@ -667,7 +667,7 @@ namespace Properties
         SAPDocumentForWarrantyInvoiceFromSAP = 5,
         SaleOrderNumberForSrviceQuatationFromSAP = 6,
         //  TechnicianIntegrationFromSAP = 7,
-        //  UpdateICTicketToSAP = 8,
+        RebuildIndex = 8,
         //  ModelForClaim = 9,
         //   Category = 10,
         //   ICTicketIntegrationVerification = 11,

@@ -219,7 +219,7 @@ namespace Business
                             Dealer.Country = new PDMS_Country() { CountryID = Convert.ToInt32(dr["CountryID"]) };
                             Dealer.State = new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]) };
 
-                            Dealer.EInvAPI = Convert.ToBoolean(dr["EInvAPI"]);
+                            Dealer.EInvAPI = dr["EInvAPI"] == DBNull.Value ? false : Convert.ToBoolean(dr["EInvAPI"]);
                             Dealer.GspCode = Convert.ToString(dr["GspCode"]);
                             Dealer.Gstin = Convert.ToString(dr["Gstin"]);
                             Dealer.ApiUserName = Convert.ToString(dr["ApiUserName"]);
