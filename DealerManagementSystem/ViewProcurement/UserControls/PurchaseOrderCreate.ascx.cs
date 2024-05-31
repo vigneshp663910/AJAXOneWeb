@@ -335,6 +335,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblTaxAmount.Text = TaxAmount.ToString();
             lblGrossAmount.Text = (TaxableAmount + TaxAmount).ToString();
 
+            HeaderFieldVisibleConrol();
+
         }
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1092,6 +1094,31 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             gvSupersede.DataBind();
             gvMaterialIssue.DataSource = null;
             gvMaterialIssue.DataBind();
+        }
+        void HeaderFieldVisibleConrol()
+        {
+            if(PurchaseOrderItem_Insert.Count == 0)
+            {
+                ddlDealer.Enabled = true;
+                ddlDealerOffice.Enabled = true;
+                ddlOrderTo.Enabled = true;
+                ddlVendor.Enabled = true;
+                ddlPurchaseOrderType.Enabled = true;
+                ddlDivision.Enabled = true;
+                txtReferenceNo.Enabled = true;
+                txtRemarks.Enabled = true;
+            }
+            else
+            {
+                ddlDealer.Enabled = false;
+                ddlDealerOffice.Enabled = false;
+                ddlOrderTo.Enabled = false;
+                ddlVendor.Enabled = false;
+                ddlPurchaseOrderType.Enabled = false;
+                ddlDivision.Enabled = false;
+                txtReferenceNo.Enabled = false;
+                txtRemarks.Enabled = false;
+            }
         }
     }
 }
