@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="SaleOrder.aspx.cs" Inherits="DealerManagementSystem.ViewSales.SaleOrder" EnableEventValidation="false" %> 
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="SaleOrder.aspx.cs" Inherits="DealerManagementSystem.ViewSales.SaleOrder" EnableEventValidation="false" %> 
 
 <%@ Register Src="~/ViewSales/UserControls/SalesOrderView.ascx" TagPrefix="UC" TagName="UC_SalesOrderView" %>
 <%@ Register Src="~/ViewSales/UserControls/SalesOrderCreate.ascx" TagPrefix="UC" TagName="UC_SalesOrderCreate" %>

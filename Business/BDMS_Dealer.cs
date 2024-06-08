@@ -105,6 +105,8 @@ namespace Business
                                 State = Convert.ToString(dr["State"]),
                                 City = Convert.ToString(dr["City"]),
                                 Pincode = Convert.ToString(dr["Pincode"]),
+                                Mobile= Convert.ToString(dr["Mobile"]),
+                                Email= Convert.ToString(dr["Email"])
                             });
                         }
                     }

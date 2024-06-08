@@ -87,6 +87,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlOfficeName;
 
         /// <summary>
+        /// ddlSalesType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalesType;
+
+        /// <summary>
         /// ddlSalesEngineer control.
         /// </summary>
         /// <remarks>
@@ -319,15 +328,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalValue;
-
-        /// <summary>
-        /// ddlSalesType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSalesType;
 
         /// <summary>
         /// Fieldset1 control.

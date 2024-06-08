@@ -45,6 +45,8 @@ namespace Properties
         public Decimal ReservedQty { get; set; }
         public Decimal PerUnitPrice { get; set; }
         public Decimal Value { get; set; }
+        public Decimal TotalInventoryValue { get; set; }
+        public string BinName { get; set; }
     }
 
     [Serializable]

@@ -30,7 +30,7 @@ namespace Business
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (string.IsNullOrEmpty(Convert.ToString(Result.Data)))
             {
-                throw new Exception("Invoice Not generated. Please contact Parts Team.");
+                throw new Exception(Result.Message);
             }
             return Convert.ToDecimal(Result.Data);
         }

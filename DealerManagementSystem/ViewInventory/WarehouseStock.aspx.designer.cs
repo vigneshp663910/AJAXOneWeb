@@ -60,6 +60,15 @@ namespace DealerManagementSystem.ViewInventory
         protected global::System.Web.UI.WebControls.TextBox txtMaterial;
 
         /// <summary>
+        /// ddlDivision control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
+
+        /// <summary>
         /// BtnSearch control.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace DealerManagementSystem.ViewInventory
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnSearch;
+
+        /// <summary>
+        /// BtnExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnExcel;
 
         /// <summary>
         /// lblRowCount control.
@@ -94,6 +112,15 @@ namespace DealerManagementSystem.ViewInventory
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
+
+        /// <summary>
+        /// lblTotalInventoryValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalInventoryValue;
 
         /// <summary>
         /// gvStock control.

@@ -105,6 +105,7 @@ namespace Properties
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTo { get; set; }
         public PDMS_Model Model { get; set; }
+        public PDMS_Division Division { get; set; }
         public string SubCategory { get; set; }
         public string SerialProfile { get; set; }
         public bool IsActive { get; set; }

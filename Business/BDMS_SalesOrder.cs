@@ -1406,12 +1406,23 @@ namespace Business
                 PSaleOrderDelivery D = GetSaleOrderDeliveryByID(ID);
 
                 //PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Dealer.DealerCode);
-                PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
-                PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
-                PDMS_Dealer DealerBank = new BDMS_Dealer().GetDealerBankDetails(Dealer.DealerID, null, null)[0];
-                string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
-                string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+               PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
+               
+                
+                 
+                PDMS_Dealer Dealer = new BDealer().GetDealerAddress(D.SaleOrder.Dealer.DealerID)[0];
 
+                //string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
+                // string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.StateN.State) ? "" : "," + Dealer.StateN.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
+
+                PDMS_DealerOffice DealerOffice = new BDMS_Dealer().GetDealerOffice(null, D.SaleOrder.Dealer.DealerOffice.OfficeID, null)[0];
+
+                string DealerAddress1 = (DealerOffice.Address1 + (string.IsNullOrEmpty(DealerOffice.Address2) ? "" : "," + DealerOffice.Address2) + (string.IsNullOrEmpty(DealerOffice.Address3) ? "" : "," + DealerOffice.Address3)).Trim(',', ' ');
+                string DealerAddress2 = (DealerOffice.City + (string.IsNullOrEmpty(DealerOffice.State) ? "" : "," + DealerOffice.State) + (string.IsNullOrEmpty(DealerOffice.Pincode) ? "" : "-" + DealerOffice.Pincode)).Trim(',', ' ');
+
+
+                PDMS_Dealer DealerBank = new BDMS_Dealer().GetDealerBankDetails(D.SaleOrder.Dealer.DealerID, null, null)[0];
+               
                 PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Customer.CustomerCode);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
@@ -1422,6 +1433,7 @@ namespace Business
                 CommissionDT.Columns.Add("Material");
                 CommissionDT.Columns.Add("Description");
                 CommissionDT.Columns.Add("HSN");
+                CommissionDT.Columns.Add("Uom");
                 CommissionDT.Columns.Add("Qty");
                 CommissionDT.Columns.Add("Rate");
                 CommissionDT.Columns.Add("Value", typeof(decimal));
@@ -1431,7 +1443,7 @@ namespace Business
                 CommissionDT.Columns.Add("SGSTValue", typeof(decimal));
                 CommissionDT.Columns.Add("Amount", typeof(decimal));
                 //  decimal GrandTotal = 0;
-                string StateCode = Dealer.StateN.StateCode;
+                string StateCode = Dealer.Address.State.StateCode;
                 string GST_Header = "";
                 int i = 0;
                 decimal CessValue = 0;
@@ -1443,18 +1455,18 @@ namespace Business
                     if (item.SGST != 0)
                     {
                         GST_Header = "CGST & SGST";
-                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Value, item.TaxableValue, item.CGST, item.SGST, item.CGSTValue, item.SGSTValue, item.TaxableValue + item.CGSTValue + item.SGSTValue);
+                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Value, item.TaxableValue, item.CGST, item.SGST, item.CGSTValue, item.SGSTValue, item.TaxableValue + item.CGSTValue + item.SGSTValue);
 
                         CessValue = CessValue + item.CessValue;
-                        CessSubTotal = item.TaxableValue + item.CGSTValue + item.SGSTValue + item.CessValue;
+                        CessSubTotal = CessSubTotal + item.TaxableValue + item.CGSTValue + item.SGSTValue + item.CessValue;
                     }
                     else
                     {
                         GST_Header = "IGST";
-                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.Material.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
+                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.Material.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
 
                         CessValue = CessValue + item.CessValue;
-                        CessSubTotal = item.TaxableValue + item.IGSTValue + item.CessValue;
+                        CessSubTotal = CessSubTotal + item.TaxableValue + item.IGSTValue + item.CessValue;
 
                     }
                 }
@@ -1471,28 +1483,28 @@ namespace Business
                 report.EnableExternalImages = true;
 
                 ReportParameter[] P = null;
-                //if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
-                //{
-                PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetPaidServiceInvoiceESigned(ID);
-                //    P = new ReportParameter[26];
-                //    P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
-                //    P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
-                //    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
-                //}
-                //else
-                //{
-                P = new ReportParameter[24];
-                report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoice.rdlc");
-                // }
+                if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
+                {
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
+                    P = new ReportParameter[26];
+                    P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
+                    P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
+                }
+                else
+                {
+                    P = new ReportParameter[24];
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoice.rdlc");
+                }
                 long GrandTotal = Convert.ToInt64(Math.Round(CessSubTotal));
 
                 //   ViewState["Month"] = ddlMonth.SelectedValue;
-                P[0] = new ReportParameter("DealerCode", DealerN.DealerCode, false);
-                P[1] = new ReportParameter("DealerName", DealerN.DealerName, false);
+                P[0] = new ReportParameter("DealerCode", Dealer.DealerCode, false);
+                P[1] = new ReportParameter("DealerName", Dealer.DealerName, false);
                 P[2] = new ReportParameter("Address1", DealerAddress1, false);
                 P[3] = new ReportParameter("Address2", DealerAddress2, false);
                 P[4] = new ReportParameter("Contact", "Contact", false);
-                P[5] = new ReportParameter("GSTIN", Dealer.GSTIN, false);
+                P[5] = new ReportParameter("GSTIN", Dealer.Address.GSTIN, false);
                 P[6] = new ReportParameter("GST_Header", GST_Header, false);
                 P[7] = new ReportParameter("GrandTotal", (GrandTotal).ToString(), false);
                 P[8] = new ReportParameter("AmountInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);

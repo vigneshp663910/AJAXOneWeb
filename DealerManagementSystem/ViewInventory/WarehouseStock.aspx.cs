@@ -50,6 +50,7 @@ namespace DealerManagementSystem.ViewInventory
             if (!IsPostBack)
             {
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
+                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
             }
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
@@ -66,12 +67,14 @@ namespace DealerManagementSystem.ViewInventory
             {
                 DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
                 OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
-            } 
+            }            
             string MaterialCode = txtMaterial.Text.Trim();
-            PApiResult Result = new BInventory().GetDealerStock(DealerID, OfficeID, null, null, MaterialCode, PageIndex, gvStock.PageSize);
-
-            gvStock.DataSource = JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
+            int? DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
+            PApiResult Result = new BInventory().GetDealerStock(DealerID, OfficeID, DivisionID, null, MaterialCode, PageIndex, gvStock.PageSize);
+            List<PDealerStock> DealerStock = JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
+            gvStock.DataSource = DealerStock;
             gvStock.DataBind();
+            lblTotalInventoryValue.Text = DealerStock.Count == 0 ? "0" : Convert.ToString(DealerStock[0].TotalInventoryValue);
 
             if (Result.RowCount == 0)
             {
@@ -108,6 +111,32 @@ namespace DealerManagementSystem.ViewInventory
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID");
+        }
+
+        protected void BtnExcel_Click(object sender, EventArgs e)
+        {
+            int? DealerID = null;
+            int? OfficeID = null;
+            if (ddlDealer.SelectedValue != "0")
+            {
+                DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+                OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            }
+            string MaterialCode = txtMaterial.Text.Trim();
+            int? DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
+            PApiResult Result = new BInventory().GetDealerStockExcel(DealerID, OfficeID, DivisionID, null, MaterialCode);
+
+            //gvStock.DataSource = ;
+            try
+            {
+                new BXcel().ExporttoExcel(JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data)), "Dealer Stock");
+            }
+            catch
+            {
+            }
+            finally
+            {
+            }
         }
     }
 }

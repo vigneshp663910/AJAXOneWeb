@@ -328,6 +328,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     if (Item.Quantity != Item.DeliveredQuantity)
                     {
+                         
+                        PDealerStock Stock = new BInventory().GetDealerStockCountByID(SOrder.Dealer.DealerID, SOrder.DealerOffice.OfficeID, Item.Material.MaterialID); 
                         SODelivery_Insert.Add(new PSaleOrderDeliveryItem_Insert()
                         {
                             SaleOrderID = SOrder.SaleOrderID,
@@ -346,7 +348,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                             SGSTValue = Item.Material.SGSTValue,
                             IGST = Item.Material.IGST,
                             IGSTValue = Item.Material.IGSTValue,
-                        });
+                            StockAvailable = Stock == null ? 0 : Stock.UnrestrictedQty
+                        }); ;
                     }
                 }
 
@@ -445,9 +448,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-            PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SOrder.Dealer.DealerID)[0];
-            string DealerCustomerAddress1 = (Dealer.Address.Address1 + (string.IsNullOrEmpty(Dealer.Address.Address2) ? "" : "," + Dealer.Address.Address2) + (string.IsNullOrEmpty(Dealer.Address.Address3) ? "" : "," + Dealer.Address.Address3)).Trim(',', ' ');
-            string DealerCustomerAddress2 = (Dealer.Address.City + (string.IsNullOrEmpty(Dealer.Address.State.State) ? "" : "," + Dealer.Address.State.State) + (string.IsNullOrEmpty(Dealer.Address.Pincode) ? "" : "-" + Dealer.Address.Pincode)).Trim(',', ' ');
+           PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SOrder.Dealer.DealerID)[0];
+            //string DealerCustomerAddress1 = (Dealer.Address.Address1 + (string.IsNullOrEmpty(Dealer.Address.Address2) ? "" : "," + Dealer.Address.Address2) + (string.IsNullOrEmpty(Dealer.Address.Address3) ? "" : "," + Dealer.Address.Address3)).Trim(',', ' ');
+            //string DealerCustomerAddress2 = (Dealer.Address.City + (string.IsNullOrEmpty(Dealer.Address.State.State) ? "" : "," + Dealer.Address.State.State) + (string.IsNullOrEmpty(Dealer.Address.Pincode) ? "" : "-" + Dealer.Address.Pincode)).Trim(',', ' ');
+
+            PDMS_DealerOffice DealerOffice = new BDMS_Dealer().GetDealerOffice(null, SOrder.DealerOffice.OfficeID, null)[0];
+            string DealerCustomerAddress1 = (DealerOffice.Address1 + (string.IsNullOrEmpty(DealerOffice.Address2) ? "" : "," + DealerOffice.Address2) + (string.IsNullOrEmpty(DealerOffice.Address3) ? "" : "," + DealerOffice.Address3)).Trim(',', ' ');
+            string DealerCustomerAddress2 = (DealerOffice.City + (string.IsNullOrEmpty(DealerOffice.State) ? "" : "," + DealerOffice.State) + (string.IsNullOrEmpty(DealerOffice.Pincode) ? "" : "-" + DealerOffice.Pincode)).Trim(',', ' ');
 
             string CustomerAddress1 = "", CustomerAddress2 = "", StateCode = "", GSTIN = "", PAN = "", CustomerCode = "", CustomerName = "";
 
@@ -484,9 +491,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
             P[1] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
             P[2] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
-            P[3] = new ReportParameter("CompanyCINandGST", "CIN:" + Dealer.Address.PAN + ",GST:" + Dealer.Address.GSTIN);
+            P[3] = new ReportParameter("CompanyCINandGST", "GSTIN No : " + Dealer.Address.GSTIN);
             P[4] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.Address.PAN);
-            P[5] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Address.Mobile + ",Email:" + Dealer.Address.Email);
+            P[5] = new ReportParameter("CompanyTelephoneandEmail", "T:" + DealerOffice.Mobile + ",Email:" + DealerOffice.Email);
             P[6] = new ReportParameter("QuotationNo", SOrder.QuotationNumber, false);
             P[7] = new ReportParameter("QuotationDate", SOrder.QuotationDate.ToString(), false);
             P[8] = new ReportParameter("CustomerCode", CustomerCode, false);
@@ -1325,6 +1332,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SOrder.SaleOrderID);
             }
+            else if (lbActions.ID == "lnkBtnStockAvailability")
+            {
+                Label lblMaterialID = (Label)gvRow.FindControl("lblMaterialID");
+                PDealerStock s = new BInventory().GetDealerStockCountByID(SOrder.Dealer.DealerID, SOrder.DealerOffice.OfficeID, Convert.ToInt32(lblMaterialID.Text));
+
+                if (s != null)
+                {
+                    lblMessage.ForeColor = Color.Green;
+                    lblMessage.Text = "On Order Qty : " + s.OnOrderQty.ToString() + ", Transit Qty : " + s.TransitQty.ToString() + ", Unrestricted Qty : " + s.UnrestrictedQty.ToString();
+                }
+                else
+                {
+                    lblMessage.Text = "Stock is not available";
+                }
+            }
         }
         protected void btnSaveDelivery_Click(object sender, EventArgs e)
         {
@@ -1348,6 +1370,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     T.EquipmentHeaderID = ddlEquipment.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlEquipment.SelectedValue);
                     T.PaymentModeID = ddlPaymentMode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPaymentMode.SelectedValue);
                 }
+                SODelivery_Insert.RemoveAll(r => r.DeliveryQuantity == 0);
 
                 PApiResult Result = new BDMS_SalesOrder().InsertSaleOrderDelivery(SODelivery_Insert);
                 if (Result.Status == PApplication.Failure)
@@ -1389,7 +1412,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text);
                 }
               
-                if (DeliveryQuantity > OrderQty || DeliveryQuantity < 1)
+                if (DeliveryQuantity > OrderQty || DeliveryQuantity < 0)
                 {
                     throw new Exception("Please check the Delivery Quantity.");
                 }

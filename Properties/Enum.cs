@@ -864,7 +864,7 @@ namespace Properties
         DealerBalanceConfirmation_Initiated = 7,
         DealerBalanceConfirmation_Confirmed = 8,
         DealerBalanceConfirmation_UnConfirmed = 9,
-        DealerBalanceConfirmation_NeedReconciliation = 10,       
+        DealerBalanceConfirmation_NeedReconciliation = 10,
         SaleOrder_Quotation = 11,
         SaleOrder_ProformaInvoice = 12,
         SaleOrder_OrderPlaced = 13,
@@ -903,6 +903,10 @@ namespace Properties
         SaleOrderReturn_Approved = 46,
         SaleOrderReturn_Cancelled = 47,
         SaleOrderReturn_CreditNote = 48,
+        PartsSalesType_Workshop = 49,
+        PartsSalesType_CounterSale = 50,
+        PaymentMode_Cash = 51,
+        PartsSalesType_Engineer = 52
     }
     public enum ProcurementStatusHeader
     {

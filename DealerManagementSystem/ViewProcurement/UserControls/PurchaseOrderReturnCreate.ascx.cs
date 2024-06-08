@@ -66,9 +66,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         }
         void fillVendor()
         {
-            ddlVendor.DataTextField = "CodeWithName";
+            ddlVendor.DataTextField = "CodeWithDisplayName";
             ddlVendor.DataValueField = "DID";
-            ddlVendor.DataSource = PSession.User.Dealer;
+            ddlVendor.DataSource = new BDealer().GetDealerList(null, null, null);
             ddlVendor.DataBind();
             ddlVendor.Items.Insert(0, new ListItem("Select", "0"));
         }

@@ -53,6 +53,10 @@
                     <asp:DropDownList ID="ddlOfficeName" runat="server" CssClass="form-control" />
                 </div>
                 <div class="col-sm-10">
+                    <label>Sales Type</label>
+                    <asp:DropDownList ID="ddlSalesType" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-sm-10">
                     <label class="modal-label">Sales Engineer<samp style="color: red">*</samp></label>
                     <asp:DropDownList ID="ddlSalesEngineer" runat="server" CssClass="form-control" AutoPostBack="true" />
                 </div>
@@ -180,10 +184,7 @@
                         <label>Gross Amount : </label>
                         <asp:Label ID="lblTotalValue" runat="server" BorderColor="Silver"></asp:Label>
                     </div>
-                    <div class="col-sm-12">
-                        <label>Sales Type</label>
-                        <asp:DropDownList ID="ddlSalesType" runat="server" CssClass="form-control" />
-                    </div>
+
                 </div>
             </div>
         </div>

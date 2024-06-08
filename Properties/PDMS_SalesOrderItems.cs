@@ -486,6 +486,7 @@ namespace Properties
         public decimal IGSTValue { get; set; } 
         public long? EquipmentHeaderID { get; set; }
         public int? PaymentModeID { get; set; }
+        public decimal StockAvailable { get; set; }
     }
     [Serializable]
     public class PSaleOrderDeliveryShipping

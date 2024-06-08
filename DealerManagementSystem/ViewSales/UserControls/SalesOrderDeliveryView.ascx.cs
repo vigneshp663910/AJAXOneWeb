@@ -92,6 +92,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.Text = Results.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSODelivery(SODeliveryID);
+                PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
+                if ((Dealer.IsEInvoice) && (Dealer.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate) )
+                {
+                    new BDMS_EInvoice().GeneratEInvoice(SaleOrderDeliveryByID.InvoiceNumber, "SalesInv");
+                }
+                fillViewSODelivery(SODeliveryID);
             }
             else if (lbActions.ID == "lbDowloadInvoice")
             {
@@ -147,9 +153,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-            PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID)[0];
-            string DealerCustomerAddress1 = (Dealer.Address.Address1 + (string.IsNullOrEmpty(Dealer.Address.Address2) ? "" : "," + Dealer.Address.Address2) + (string.IsNullOrEmpty(Dealer.Address.Address3) ? "" : "," + Dealer.Address.Address3)).Trim(',', ' ');
-            string DealerCustomerAddress2 = (Dealer.Address.City + (string.IsNullOrEmpty(Dealer.Address.State.State) ? "" : "," + Dealer.Address.State.State) + (string.IsNullOrEmpty(Dealer.Address.Pincode) ? "" : "-" + Dealer.Address.Pincode)).Trim(',', ' ');
+           PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID)[0];
+            //string DealerCustomerAddress1 = (Dealer.Address.Address1 + (string.IsNullOrEmpty(Dealer.Address.Address2) ? "" : "," + Dealer.Address.Address2) + (string.IsNullOrEmpty(Dealer.Address.Address3) ? "" : "," + Dealer.Address.Address3)).Trim(',', ' ');
+            //string DealerCustomerAddress2 = (Dealer.Address.City + (string.IsNullOrEmpty(Dealer.Address.State.State) ? "" : "," + Dealer.Address.State.State) + (string.IsNullOrEmpty(Dealer.Address.Pincode) ? "" : "-" + Dealer.Address.Pincode)).Trim(',', ' ');
+
+
+            PDMS_DealerOffice DealerOffice = new BDMS_Dealer().GetDealerOffice(null, SaleOrderDeliveryByID.SaleOrder.Dealer.DealerOffice.OfficeID, null)[0];
+
+            string DealerCustomerAddress1 = (DealerOffice.Address1 + (string.IsNullOrEmpty(DealerOffice.Address2) ? "" : "," + DealerOffice.Address2) + (string.IsNullOrEmpty(DealerOffice.Address3) ? "" : "," + DealerOffice.Address3)).Trim(',', ' ');
+            string DealerCustomerAddress2 = (DealerOffice.City + (string.IsNullOrEmpty(DealerOffice.State) ? "" : "," + DealerOffice.State) + (string.IsNullOrEmpty(DealerOffice.Pincode) ? "" : "-" + DealerOffice.Pincode)).Trim(',', ' ');
 
             PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
             string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
@@ -159,7 +171,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
             P[1] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
             P[2] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
-            P[3] = new ReportParameter("DeliveryLocation", Dealer.State, false);
+            P[3] = new ReportParameter("DeliveryLocation", DealerOffice.State, false);
             P[4] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
             P[5] = new ReportParameter("CustomerName", Customer.CustomerName, false);
             P[6] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);

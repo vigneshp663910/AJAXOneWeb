@@ -3241,16 +3241,6 @@
                         <TextDecoration>None</TextDecoration>
                       </Style>
                     </TextRun>
-                  </TextRuns>
-                  <LeftIndent>0cm</LeftIndent>
-                  <RightIndent>0.15486in</RightIndent>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                    <LineHeight>11pt</LineHeight>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
                     <TextRun>
                       <Value>=Parameters!CompanyAddress2.Value</Value>
                       <Style>
@@ -3302,26 +3292,6 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Parameters!CompanyPAN.Value</Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontFamily>Calibri</FontFamily>
-                        <FontSize>9pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <LeftIndent>0cm</LeftIndent>
-                  <RightIndent>0.15486in</RightIndent>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                    <LineHeight>11pt</LineHeight>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
                       <Value>=Parameters!CompanyTelephoneandEmail.Value</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
@@ -3344,7 +3314,7 @@
               <Top>0.91969cm</Top>
               <Left>0.72098cm</Left>
               <Height>2.87541cm</Height>
-              <Width>13.50193cm</Width>
+              <Width>12.34023cm</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>

@@ -59,9 +59,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
             //cxExpectedDeliveryDate.StartDate = DateTime.Now; 
             //ddlDivision.SelectedValue = "15"; ddlDivision.Enabled = false;
 
-            new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID", true, "Select");
-
-            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
+            new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID", false, "Select");
+            int? DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
             //new DDLBind(ddlSalesEngineer, 0, "ContactName", "UserID");
 
             new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
@@ -217,7 +217,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         }
         void ClearHeader()
         {
-            ddlDealer.SelectedValue = "0";
+           // ddlDealer.SelectedValue = "0";
             txtCustomer.Text = "";
             hdfCustomerId.Value = "";
             ddlOfficeName.SelectedValue = "0";
@@ -403,22 +403,40 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
         protected void BtnAvailability_Click(object sender, EventArgs e)
         {
-            string Message = Validation();
-            if (!string.IsNullOrEmpty(Message))
+            lblMessage.ForeColor = Color.Red;
+            ddlDealer.BorderColor = Color.Silver;
+            ddlOfficeName.BorderColor = Color.Silver; 
+            string Message = "";
+             
+            if (ddlDealer.SelectedValue == "0")
             {
-                lblMessage.Text = Message;
+                ddlDealer.BorderColor = Color.Red;
+                lblMessage.Text = "Please select the Dealer.";
                 return;
             }
+            if (ddlOfficeName.SelectedValue == "0")
+            {
+                ddlOfficeName.BorderColor = Color.Red;
+                lblMessage.Text = "Please select the Dealer Office.";
+                return;
+            }
+            if (string.IsNullOrEmpty(hdfMaterialID.Value))
+            {
+                lblMessage.Text = "Please select the Material.";
+            }
+             
             PDealerStock s = new BInventory().GetDealerStockCountByID(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlOfficeName.SelectedValue), Convert.ToInt64(hdfMaterialID.Value));
 
             if (s != null)
             {
+                lblMessage.ForeColor = Color.Green;
                 lblMessage.Text = "On Order Qty : " + s.OnOrderQty.ToString() + ", Transit Qty : " + s.TransitQty.ToString() + ", Unrestricted Qty : " + s.UnrestrictedQty.ToString();
             }
             else
             {
                 lblMessage.Text = "Stock is not available";
             }
+            
         }
         protected void lbActions_Click(object sender, EventArgs e)
         {
@@ -532,6 +550,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             Dictionary<string, string> MaterialIssue = new Dictionary<string, string>();
             try
             {
+                SOItem_Insert = new List<PSaleOrderItem_Insert>();
                 if (fileUpload.HasFile != true)
                 {
                     lblMessageMaterialUpload.Text = "Please check the file.";
@@ -565,16 +584,17 @@ namespace DealerManagementSystem.ViewSales.UserControls
                             List<IXLCell> Cells = row.Cells().ToList();
                             if (Cells.Count != 0)
                             {
+                                string ExcelMaterialCode = Convert.ToString(Cells[1].Value).TrimEnd('\0');
 
-                                string MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(Convert.ToString(Cells[1].Value));
+                                string MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(ExcelMaterialCode);
                                 MaterialCode = MaterialCode.Trim();
                                 // PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, TMaterialCode, null, null, null)[0];
 
-                                if (MaterialCode != Convert.ToString(Cells[1].Value))
+                                if (MaterialCode != ExcelMaterialCode)
                                 {
                                     Supersede.Add(new PDMS_Material()
                                     {
-                                        MaterialCode = Convert.ToString(Cells[1].Value),
+                                        MaterialCode = ExcelMaterialCode,
                                         Supersede = new PSupersede() { Material = MaterialCode }
                                     });
                                 }
@@ -606,6 +626,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                                         decimal HDiscountPercent = Convert.ToDecimal(txtHeaderDiscountPercent.Text.Trim());
                                         int Qty1 = Convert.ToInt32(Convert.ToString(Cells[2].Value)); 
                                         PSaleOrderItem_Insert item_Insert = new BDMS_SalesOrder().ReadItem(Material[0], Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlOfficeName.SelectedValue), Qty1, Customer, Dealer, HDiscountPercent, 0,0, ddlTaxType.SelectedItem.Text);
+                                        SOItem_Insert.Add(item_Insert);
                                     }
                                     catch(Exception e1)
                                     {
@@ -774,6 +795,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             ddlOfficeName.BorderColor = Color.Silver;
             txtCustomer.BorderColor = Color.Silver;
             txtContactPersonNumber.BorderColor = Color.Silver;
+            ddlSalesType.BorderColor = Color.Silver;
             ddlSalesEngineer.BorderColor = Color.Silver;
             ddlDivision.BorderColor = Color.Silver;
             ddlProduct.BorderColor = Color.Silver;
@@ -806,10 +828,18 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     return "Contact Number should be 10 Digit.";
                 }
             }
-            if (ddlSalesEngineer.SelectedValue == "0")
+            if (ddlSalesType.SelectedValue == "0")
             {
-                ddlSalesEngineer.BorderColor = Color.Red;
-                return "Please select the Sales Engnieer.";
+                ddlSalesType.BorderColor = Color.Red;
+                return "Please select the Sales Type.";
+            }
+            if (Convert.ToInt32(ddlSalesType.SelectedValue) == (short)AjaxOneStatus.PartsSalesType_Engineer)
+            {
+                if (ddlSalesEngineer.SelectedValue == "0")
+                {
+                    ddlSalesEngineer.BorderColor = Color.Red;
+                    return "Please select the Sales Engnieer.";
+                }
             }
             if (ddlDivision.SelectedValue == "0")
             {

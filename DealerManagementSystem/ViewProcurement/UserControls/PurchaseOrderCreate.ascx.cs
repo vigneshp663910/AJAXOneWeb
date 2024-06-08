@@ -73,6 +73,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
 
             fillDealer();
+            PDealer P = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), null);
+            lblEdfsCashBalance.Text = Convert.ToString(new BSap().GetEdfsCashBalance(P.DealerCode));
             //new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
             fillVendor(ddlOrderTo.SelectedValue);
             fillPurchaseOrderType(ddlOrderTo.SelectedValue);
@@ -660,15 +662,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                         Stock = Stock + s.UnrestrictedQty;
                     }
                 }
-                lblMessage.Text = "These Material Stock is available " + Stock; 
-                if (Stock < Convert.ToDecimal(txtQty.Text))
-                { 
-                    lblMessage.ForeColor = Color.Red;
-                }
-                else
-                { 
-                    lblMessage.ForeColor = Color.Green;
-                }
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = "These Material Stock is available : " + Stock;  
             }
             catch (Exception e1)
             {
@@ -863,13 +858,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                             List<IXLCell> Cells = row.Cells().ToList();
                             if (Cells.Count != 0)
                             {
-                                string MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(Convert.ToString(Cells[1].Value));
+                                string ExcelMaterialCode = Convert.ToString(Cells[1].Value).TrimEnd('\0');
+                                string MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(ExcelMaterialCode);
                                 MaterialCode = MaterialCode.Trim(); 
-                                if (MaterialCode != Convert.ToString(Cells[1].Value))
+                                if (MaterialCode != Convert.ToString(ExcelMaterialCode))
                                 {
                                     Supersede.Add(new PDMS_Material()
                                     {
-                                        MaterialCode = Convert.ToString(Cells[1].Value),
+                                        MaterialCode = Convert.ToString(ExcelMaterialCode),
                                         Supersede = new PSupersede() { Material = MaterialCode }
                                     });
                                 } 

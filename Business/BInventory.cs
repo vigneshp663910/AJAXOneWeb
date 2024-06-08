@@ -36,6 +36,12 @@ namespace Business
             + "&MaterialCode=" + MaterialCode + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public PApiResult GetDealerStockExcel(int? DealerID, int? OfficeID, int? DivisionID, int? ModelID, string MaterialCode)
+        {
+            string endPoint = "Inventory/GetDealerStockExcel?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&DivisionID=" + DivisionID + "&ModelID=" + ModelID
+            + "&MaterialCode=" + MaterialCode ;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
         public PApiResult GetDealerStockMovement(int DealerID, int OfficeID, string MaterialCode, string FromDate ,string ToDate, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "Inventory/GetDealerStockMovement?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&MaterialCode=" + MaterialCode
