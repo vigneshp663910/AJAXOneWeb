@@ -282,16 +282,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //}
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderCreate).Count() == 0)
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.StockTransferOrderCreate).Count() == 0)
             {
                 lbAddMaterial.Visible = false;
                 lbDelivery.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderReleasePO).Count() == 0)
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.StockTransferOrderRelease).Count() == 0)
             {
                 lbRelease.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderCancelPO).Count() == 0)
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.StockTransferOrderCancel).Count() == 0)
             {
                 lbCancel.Visible = false;
             }

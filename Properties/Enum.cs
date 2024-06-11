@@ -605,7 +605,10 @@ namespace Properties
         DealerStockOrderControlBasicPermission = 91,
         SaleReturnCreate = 92,
         SaleReturnApprove = 93,
-        SaleReturnCancel = 94
+        SaleReturnCancel = 94,
+        StockTransferOrderCreate = 95,
+        StockTransferOrderRelease = 96,
+        StockTransferOrderCancel = 97
     }
     public enum DMS_WarrantyClaimStatus
     {

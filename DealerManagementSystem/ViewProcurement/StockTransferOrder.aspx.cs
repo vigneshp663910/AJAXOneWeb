@@ -74,7 +74,7 @@ namespace DealerManagementSystem.ViewProcurement
                 fillDealer(); 
                 new DDLBind(ddlPOStatus, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.StockTransferOrder), "Status", "StatusID");
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.PurchaseOrderCreate).Count() == 0)
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.StockTransferOrderCreate).Count() == 0)
                 {
                     btnCreatePO.Visible = false;
                 }
