@@ -1424,9 +1424,11 @@ namespace Business
                 PDMS_Dealer DealerBank = new BDMS_Dealer().GetDealerBankDetails(D.SaleOrder.Dealer.DealerID, null, null)[0];
                
                 PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Customer.CustomerCode);
-                string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                string CustomerAddress = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+                  CustomerAddress = CustomerAddress+","+(Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
+                string ShippingAddress = string.IsNullOrEmpty(D.ShippingAddress.Trim()) ? CustomerAddress : D.ShippingAddress.Trim();
+                
 
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
@@ -1482,24 +1484,42 @@ namespace Business
                 LocalReport report = new LocalReport();
                 report.EnableExternalImages = true;
 
-                ReportParameter[] P = null;
+                ReportParameter[] P = new ReportParameter[26];
+                report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
+
+                P[24] = new ReportParameter("QRCodeImg", "", false);
+                P[25] = new ReportParameter("IRN", "", false);
                 if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
                 {
                     if (string.IsNullOrEmpty(D.IRN))
                     {
                         throw new Exception("E Invoice not generated. Please contact IT Team.");
                     }
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
-                    P = new ReportParameter[26];
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);                   
                     P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
                     P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
-                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
+                    
                 }
-                else
-                {
-                    P = new ReportParameter[24];
-                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoice.rdlc");
-                }
+                
+
+                // ReportParameter[] P = null;
+                //if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
+                //{
+                //    if (string.IsNullOrEmpty(D.IRN))
+                //    {
+                //        throw new Exception("E Invoice not generated. Please contact IT Team.");
+                //    }
+                //    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
+                //    P = new ReportParameter[26];
+                //    P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
+                //    P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
+                //    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
+                //}
+                //else
+                //{
+                //    P = new ReportParameter[24];
+                //    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoice.rdlc");
+                //}
                 long GrandTotal = Convert.ToInt64(Math.Round(CessSubTotal));
 
                 //   ViewState["Month"] = ddlMonth.SelectedValue;
@@ -1516,8 +1536,8 @@ namespace Business
 
                 P[10] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
                 P[11] = new ReportParameter("CustomerName", Customer.CustomerName, false);
-                P[12] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
-                P[13] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
+                P[12] = new ReportParameter("CustomerAddress", CustomerAddress, false);
+                P[13] = new ReportParameter("ShippingAddress", ShippingAddress, false);
                 P[14] = new ReportParameter("CustomerMail", Customer.Email, false);
                 P[15] = new ReportParameter("CustomerStateCode", Customer.State.StateCode, false);
                 P[16] = new ReportParameter("CustomerGST", Customer.GSTIN, false);

@@ -482,11 +482,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             string DealerAddress2 = (DealerOffice.City + (string.IsNullOrEmpty(DealerOffice.State) ? "" : "," + DealerOffice.State) + (string.IsNullOrEmpty(DealerOffice.Pincode) ? "" : "-" + DealerOffice.Pincode)).Trim(',', ' ');
 
             PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
-            string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-            string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+            string CustomerAddress = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+              CustomerAddress = CustomerAddress+"," + (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
-            string  CustomerShipToAddress1 = SaleOrderDeliveryByID.ShippingAddress, CustomerShipToAddress2 = "";
-             
+          //  string  CustomerShipToAddress = SaleOrderDeliveryByID.ShippingAddress;
+            string ShippingAddress = string.IsNullOrEmpty(SaleOrderDeliveryByID.ShippingAddress.Trim()) ? CustomerAddress : SaleOrderDeliveryByID.ShippingAddress.Trim();
+
             //if (SaleOrderDeliveryByID.SaleOrder.ShipTo != null)
             //{
             //    List<PDMS_CustomerShipTo> CustomerShipTo = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
@@ -525,13 +526,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[5] = new ReportParameter("CompanyGSTIN", Dealer.Address.GSTIN, false);
             P[6] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
             P[7] = new ReportParameter("CustomerName", Customer.CustomerName, false);
-            P[8] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
-            P[9] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
+            P[8] = new ReportParameter("CustomerAddress", CustomerAddress, false);
+            P[9] = new ReportParameter("CustomerAddress2", "", false);
             P[10] = new ReportParameter("Hypothecation", Hypothecation, false);
             P[11] = new ReportParameter("CustomerShipToCode", Customer.CustomerCode, false);
             P[12] = new ReportParameter("CustomerShipToName", Customer.CustomerName, false);
-            P[13] = new ReportParameter("CustomerShipToAddress1", CustomerShipToAddress1, false);
-            P[14] = new ReportParameter("CustomerShipToAddress2", CustomerShipToAddress2, false);
+            P[13] = new ReportParameter("ShippingAddress", ShippingAddress, false);
+            P[14] = new ReportParameter("CustomerShipToAddress2", "", false);
             P[15] = new ReportParameter("CustomerShipToPAN", Customer.PAN, false);
             P[16] = new ReportParameter("CustomerShipToGSTIN", Customer.GSTIN, false);
             P[17] = new ReportParameter("InvoiceNo", SaleOrderDeliveryByID.InvoiceNumber, false);

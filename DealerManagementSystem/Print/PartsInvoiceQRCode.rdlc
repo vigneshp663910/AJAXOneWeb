@@ -2233,13 +2233,19 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
+                                  <Value xml:space="preserve">  </Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
                                   <Value>=Parameters!CustomerName.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <LeftIndent>0.12778in</LeftIndent>
+                              <LeftIndent>0cm</LeftIndent>
                               <Style>
                                 <TextAlign>Left</TextAlign>
                                 <LineHeight>11pt</LineHeight>
@@ -2248,36 +2254,19 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve">   </Value>
+                                  <Value xml:space="preserve">  </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!CustomerAddress1.Value</Value>
+                                  <Value>=Parameters!CustomerAddress.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>,</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value xml:space="preserve">   </Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!CustomerAddress2.Value</Value>
+                                  <Value xml:space="preserve"> </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -2288,7 +2277,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>   GST State Code : </Value>
+                                  <Value>  GST State Code : </Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -2305,7 +2294,13 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>   GSTIN/UIN No : </Value>
+                                  <Value xml:space="preserve">  </Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>GSTIN/UIN No : </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -2408,30 +2403,7 @@
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Parameters!CustomerAddress1.Value</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>,</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value xml:space="preserve">  </Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Parameters!CustomerAddress2.Value</Value>
+                                  <Value>=Parameters!ShippingAddress.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -2702,7 +2674,7 @@
             <FixedRowHeaders>true</FixedRowHeaders>
             <Top>0.04939cm</Top>
             <Left>0.10678cm</Left>
-            <Height>4.69333cm</Height>
+            <Height>4.69332cm</Height>
             <Width>15.03378cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -4516,7 +4488,7 @@
             <DataSetName>DataSet1</DataSetName>
             <Top>1.97222in</Top>
             <Height>1.25866in</Height>
-            <Width>7.93645in</Width>
+            <Width>7.93644in</Width>
             <ZIndex>6</ZIndex>
             <Visibility>
               <Hidden>=IIF(Parameters!GST_Header.Value&lt;&gt;"CGST &amp; SGST",false,True)</Hidden>
@@ -4936,13 +4908,13 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="CustomerAddress1">
+    <ReportParameter Name="CustomerAddress">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="CustomerAddress2">
+    <ReportParameter Name="ShippingAddress">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
@@ -5089,12 +5061,12 @@
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>6</RowIndex>
-          <ParameterName>CustomerAddress1</ParameterName>
+          <ParameterName>CustomerAddress</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>6</RowIndex>
-          <ParameterName>CustomerAddress2</ParameterName>
+          <ParameterName>ShippingAddress</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
