@@ -101,15 +101,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else if (lbActions.ID == "lbDowloadInvoice")
             {
-                if (SaleOrderDeliveryByID.SaleOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
+                try
                 {
-                    DownloadSalesMachineInvoice();
+                    if (SaleOrderDeliveryByID.SaleOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
+                    {
+                        DownloadSalesMachineInvoice();
+                    }
+                    else
+                    {
+                        ibPDF_Click();
+                    }
                 }
-                else
+                catch (Exception e1)
                 {
-                    ibPDF_Click();
+                    lblMessage.Text = e1.Message;
+                    lblMessage.ForeColor = Color.Red;
                 }
-                
             }
             else if (lbActions.ID == "lbUpdateShippingDetails")
             {
@@ -125,25 +132,32 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else if (lbActions.ID == "lbPreviewInvoice")
             {
-                // string FileName = PSession.User.UserID + DateTime.Now.ToShortDateString().Replace("/", "") + DateTime.Now.ToLongTimeString().Replace(":", "") + ".pdf";
-                string FileName = SaleOrderDeliveryByID.InvoiceNumber + ".pdf";
-                var uploadPath = Server.MapPath("~/Backup");
-                var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
-                if (SaleOrderDeliveryByID.SaleOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
+                try
                 {
-                    string mimeType = string.Empty;
-                    Byte[] mybytes = SalesMachineInvoiceRdlc(out mimeType);               
-                    File.WriteAllBytes(tempfilenameandlocation, mybytes);  
+                    // string FileName = PSession.User.UserID + DateTime.Now.ToShortDateString().Replace("/", "") + DateTime.Now.ToLongTimeString().Replace(":", "") + ".pdf";
+                    string FileName = SaleOrderDeliveryByID.InvoiceNumber + ".pdf";
+                    var uploadPath = Server.MapPath("~/Backup");
+                    var tempfilenameandlocation = Path.Combine(uploadPath, Path.GetFileName(FileName));
+                    if (SaleOrderDeliveryByID.SaleOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
+                    {
+                        string mimeType = string.Empty;
+                        Byte[] mybytes = SalesMachineInvoiceRdlc(out mimeType);
+                        File.WriteAllBytes(tempfilenameandlocation, mybytes);
+                    }
+                    else
+                    {
+                        PAttachedFile UploadedFile = new BDMS_SalesOrder().GetServiceInvoiceFile(SODeliveryID);
+                        // UploadedFile.FileName = "A.pdf";  
+                        File.WriteAllBytes(tempfilenameandlocation, UploadedFile.AttachedFile);
+                        //  Response.Redirect("../PDF.aspx?FileName=" + FileName + "&Title=Pre-Sales » Quotation", false);
+                    }
+                    Context.Response.Write("<script language='javascript'>window.open('../PDF.aspx?FileName=" + FileName + "&Title=Sales » Sales Order Delivery','_newtab');</script>");
                 }
-                else
+                catch (Exception e1)
                 {
-                    PAttachedFile UploadedFile = new BDMS_SalesOrder().GetServiceInvoiceFile(SODeliveryID);
-                  // UploadedFile.FileName = "A.pdf";  
-                    File.WriteAllBytes(tempfilenameandlocation, UploadedFile.AttachedFile);
-                  //  Response.Redirect("../PDF.aspx?FileName=" + FileName + "&Title=Pre-Sales » Quotation", false);
+                    lblMessage.Text = e1.Message;
+                    lblMessage.ForeColor = Color.Red;
                 }
-                Context.Response.Write("<script language='javascript'>window.open('../PDF.aspx?FileName=" + FileName + "&Title=Sales » Sales Order Delivery','_newtab');</script>");
-
             }
         }
         void ViewSalesDeliveryChallan()
@@ -324,20 +338,23 @@ namespace DealerManagementSystem.ViewSales.UserControls
              + SaleOrderDeliveryByID.SaleOrder.Customer.State.State + ","
              + SaleOrderDeliveryByID.SaleOrder.Customer.Pincode;
 
-            if (SaleOrderDeliveryByID.SaleOrder.ShipTo != null)
-            {
-                List<PDMS_CustomerShipTo> ShipTos = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
-                lblDeliveryAddress.Text = ShipTos[0].Address1 + ","
-                    + ShipTos[0].Address2 + ","
-                    + ShipTos[0].Address3 + ","
-                    + ShipTos[0].District.District + ","
-                    + ShipTos[0].State.State + ","
-                    + ShipTos[0].Pincode;
-            }
-            else
-            {
-                lblDeliveryAddress.Text = lblBillingAddress.Text;
-            }
+            lblDeliveryAddress.Text = SaleOrderDeliveryByID.ShippingAddress;
+
+
+            //if (SaleOrderDeliveryByID.SaleOrder.ShipTo != null)
+            //{
+            //    List<PDMS_CustomerShipTo> ShipTos = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
+            //    lblDeliveryAddress.Text = ShipTos[0].Address1 + ","
+            //        + ShipTos[0].Address2 + ","
+            //        + ShipTos[0].Address3 + ","
+            //        + ShipTos[0].District.District + ","
+            //        + ShipTos[0].State.State + ","
+            //        + ShipTos[0].Pincode;
+            //}
+            //else
+            //{
+            //    lblDeliveryAddress.Text = lblBillingAddress.Text;
+            //}
 
             if (SaleOrderDeliveryByID.Shipping != null)
             {
@@ -468,20 +485,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
             string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
             string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
-            string CustomerShipToCode = "", CustomerShipToName = "", CustomerShipToAddress1 = "", CustomerShipToAddress2 = "", CustomerShipToPAN = "", CustomerShipToGSTIN = "";
-            if (SaleOrderDeliveryByID.SaleOrder.ShipTo != null)
-            {
-                List<PDMS_CustomerShipTo> CustomerShipTo = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
-                CustomerShipToCode = CustomerShipTo[0].CustomerCode;
-                CustomerShipToAddress1 = (CustomerShipTo[0].Address1 + (string.IsNullOrEmpty(CustomerShipTo[0].Address2) ? "" : "," + CustomerShipTo[0].Address2) + (string.IsNullOrEmpty(CustomerShipTo[0].Address3) ? "" : "," + CustomerShipTo[0].Address3)).Trim(',', ' ');
-                CustomerShipToAddress2 = (CustomerShipTo[0].City + (string.IsNullOrEmpty(CustomerShipTo[0].State.State) ? "" : "," + CustomerShipTo[0].State.State) + (string.IsNullOrEmpty(CustomerShipTo[0].Pincode) ? "" : "-" + CustomerShipTo[0].Pincode)).Trim(',', ' ');
-            }
-            else
-            {
-                CustomerShipToCode = Customer.CustomerCode;
-                CustomerShipToAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address1) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                CustomerShipToAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-            }
+            string  CustomerShipToAddress1 = SaleOrderDeliveryByID.ShippingAddress, CustomerShipToAddress2 = "";
+             
+            //if (SaleOrderDeliveryByID.SaleOrder.ShipTo != null)
+            //{
+            //    List<PDMS_CustomerShipTo> CustomerShipTo = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
+            //    CustomerShipToCode = CustomerShipTo[0].CustomerCode;
+            //    CustomerShipToAddress1 = (CustomerShipTo[0].Address1 + (string.IsNullOrEmpty(CustomerShipTo[0].Address2) ? "" : "," + CustomerShipTo[0].Address2) + (string.IsNullOrEmpty(CustomerShipTo[0].Address3) ? "" : "," + CustomerShipTo[0].Address3)).Trim(',', ' ');
+            //    CustomerShipToAddress2 = (CustomerShipTo[0].City + (string.IsNullOrEmpty(CustomerShipTo[0].State.State) ? "" : "," + CustomerShipTo[0].State.State) + (string.IsNullOrEmpty(CustomerShipTo[0].Pincode) ? "" : "-" + CustomerShipTo[0].Pincode)).Trim(',', ' ');
+            //}
+            //else
+            //{
+            //    CustomerShipToCode = Customer.CustomerCode;
+            //    CustomerShipToAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address1) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+            //    CustomerShipToAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+            //}
 
             PApiResult Result = new BSalesQuotation().GetSalesQuotationBasic(null, SaleOrderDeliveryByID.SaleOrder.QuotationNumber, null, null
                , null, null, null, null, null, null, null, null, null, null, null);
@@ -510,7 +528,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[8] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
             P[9] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
             P[10] = new ReportParameter("Hypothecation", Hypothecation, false);
-            P[11] = new ReportParameter("CustomerShipToCode", CustomerShipToCode, false);
+            P[11] = new ReportParameter("CustomerShipToCode", Customer.CustomerCode, false);
             P[12] = new ReportParameter("CustomerShipToName", Customer.CustomerName, false);
             P[13] = new ReportParameter("CustomerShipToAddress1", CustomerShipToAddress1, false);
             P[14] = new ReportParameter("CustomerShipToAddress2", CustomerShipToAddress2, false);
@@ -591,6 +609,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             if ((Dealer.IsEInvoice) && (Dealer.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate) && (Customer.GSTIN != "URD"))
             {
+                if(string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
+                {
+                    throw new Exception("E Invoice not generated. Please contact IT Team.");
+                }
                 PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(SaleOrderDeliveryByID.SaleOrderDeliveryID);
                 //P = new ReportParameter[26];                
                 P[40] = new ReportParameter("IRNo", "IRN : " + SaleOrderDeliveryByID.IRN, false);

@@ -1396,7 +1396,7 @@ namespace Business
             catch (Exception ex)
             {
                 new FileLogger().LogMessage("BDMS_Service", "GetServiceInvoiceFile", ex);
-                return null;
+                throw;
             }
         }
         private PAttachedFile Invoicefile(long ID)
@@ -1485,6 +1485,10 @@ namespace Business
                 ReportParameter[] P = null;
                 if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
                 {
+                    if (string.IsNullOrEmpty(D.IRN))
+                    {
+                        throw new Exception("E Invoice not generated. Please contact IT Team.");
+                    }
                     PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
                     P = new ReportParameter[26];
                     P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);

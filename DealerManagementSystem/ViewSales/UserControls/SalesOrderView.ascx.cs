@@ -366,7 +366,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     + SOrder.Customer.District.District + ","
                     + SOrder.Customer.State.State;
 
-                lblDeliveryAddress.Text = lblBillingAddress.Text;
+                txtShippingAddress.Text = SOrder.Customer.Address1 + ","
+                   + SOrder.Customer.Address2 + ","
+                   + SOrder.Customer.Address3 + " ,"
+                   + SOrder.Customer.Pincode + " ,"
+                   + SOrder.Customer.District.District + ","
+                   + SOrder.Customer.State.State;
+
+                // lblDeliveryAddress.Text = lblBillingAddress.Text;
 
                 gvDelivery.DataSource = SODelivery_Insert;
                 gvDelivery.DataBind();
@@ -1369,6 +1376,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue);
                     T.EquipmentHeaderID = ddlEquipment.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlEquipment.SelectedValue);
                     T.PaymentModeID = ddlPaymentMode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPaymentMode.SelectedValue);
+                    T.ShippingAddress = txtShippingAddress.Text; 
                 }
                 SODelivery_Insert.RemoveAll(r => r.DeliveryQuantity == 0);
 
@@ -1454,17 +1462,40 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.Text = e1.Message;
             }
         }
+        //protected void ddlShiftTo_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    MPE_Delivery.Show();
+        //    if (ddlShiftTo.SelectedValue == "0")
+        //    {
+        //        lblDeliveryAddress.Text = lblBillingAddress.Text;
+        //    }
+        //    else
+        //    {
+        //        PDMS_CustomerShipTo ShiftTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(ddlShiftTo.SelectedValue), SOrder.Customer.CustomerID)[0];
+        //        lblDeliveryAddress.Text = ShiftTo.Address1 + "," + ShiftTo.Address2 + "," + ShiftTo.Address3 + "," + ShiftTo.District.District + "," + ShiftTo.State.State;
+        //    }
+        //}
         protected void ddlShiftTo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MPE_Delivery.Show();
+            MPE_Delivery.Show(); 
             if (ddlShiftTo.SelectedValue == "0")
-            {
-                lblDeliveryAddress.Text = lblBillingAddress.Text;
+            { 
+                txtShippingAddress.Text = SOrder.Customer.Address1 + ","
+                    + SOrder.Customer.Address2 + ","
+                    + SOrder.Customer.Address3 + " ,"
+                    + SOrder.Customer.Pincode + " ,"
+                    + SOrder.Customer.District.District + ","
+                    + SOrder.Customer.State.State;                
             }
             else
             {
-                PDMS_CustomerShipTo ShiftTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(ddlShiftTo.SelectedValue), SOrder.Customer.CustomerID)[0];
-                lblDeliveryAddress.Text = ShiftTo.Address1 + "," + ShiftTo.Address2 + "," + ShiftTo.Address3 + "," + ShiftTo.District.District + "," + ShiftTo.State.State;
+                PDMS_CustomerShipTo ShiftTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(ddlShiftTo.SelectedValue), SOrder.Customer.CustomerID)[0];                
+                txtShippingAddress.Text = ShiftTo.Address1 + ","
+                    + ShiftTo.Address2 + ","
+                    + ShiftTo.Address3 + " ,"
+                    + ShiftTo.Pincode
+                     + ShiftTo.District.District + ","
+                    + ShiftTo.State.State;                
             }
         }
     }
