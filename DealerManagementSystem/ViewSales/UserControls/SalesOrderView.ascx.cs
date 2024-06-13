@@ -306,9 +306,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else if (lbActions.ID == "lbDelivery")
             {
                 MPE_Delivery.Show();
-                List<PDMS_EquipmentHeader> EQs = new BDMS_Equipment().GetEquipmentForCreateICTicket(Convert.ToInt64(SOrder.Dealer.DealerID), null, null);
-                new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
-                new DDLBind(ddlPaymentMode, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.PaymentMode), "Status", "StatusID", true, "Select");
+              
+                 new DDLBind(ddlPaymentMode, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.PaymentMode), "Status", "StatusID", true, "Select");
                 //cxDispatchDate.StartDate = DateTime.Now;
                 //txtBoxDispatchDate.Text = DateTime.Now.ToShortDateString();
 
@@ -318,9 +317,16 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 //cxPickupDate.StartDate = DateTime.Now;
                 //txtBoxPickupDate.Text = DateTime.Now.ToShortDateString();
 
-                if (SOrder.SaleOrderType.SaleOrderTypeID == 4)
+                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
                 {
                     divEquipment.Visible = true;
+                    int RRowCount = 0;
+                    List<PDMS_Equipment> EQs = new BDMS_Equipment().GetEquipmentHeader(null, null, SOrder.Dealer.DealerCode, null, null, null, null, null, PSession.User.UserID, 1, 100, out RRowCount);
+                    new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
+                }
+                else
+                {
+                    divEquipment.Visible = false;
                 }
 
                 SODelivery_Insert = new List<PSaleOrderDeliveryItem_Insert>();
@@ -1361,20 +1367,29 @@ namespace DealerManagementSystem.ViewSales.UserControls
             MPE_Delivery.Show();
             try
             {
+                long? EquipmentID = null;
                 if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
                 {
+                    if(ddlEquipment== null)
+                    {
+                        lblMessageCreateSODelivery.Text = "Equipment is not available.";
+                        return;
+                    }
+
                     if (ddlEquipment.SelectedValue == "0")
                     {
                         lblMessageCreateSODelivery.Text = "Please select the Equipment.";
                         return;
                     }
+                    EquipmentID = Convert.ToInt64(ddlEquipment.SelectedValue);
                 }
+                
 
                 readSaleOrderDelivery();
                 foreach (PSaleOrderDeliveryItem_Insert T in SODelivery_Insert)
                 {
                     T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue);
-                    T.EquipmentHeaderID = ddlEquipment.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlEquipment.SelectedValue);
+                    T.EquipmentHeaderID = EquipmentID;
                     T.PaymentModeID = ddlPaymentMode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPaymentMode.SelectedValue);
                     T.ShippingAddress = txtShippingAddress.Text; 
                 }
