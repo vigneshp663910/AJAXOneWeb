@@ -251,10 +251,10 @@ namespace Business
          
             
             
-        public PApiResult GetPurchaseOrderAsnGrForPoReturnCreation(int DealerID, int VendorID, int LocationID, int? DivisionID)
+        public PApiResult GetPurchaseOrderAsnGrForPoReturnCreation(int DealerID, int? VendorID, int? LocationID, int? DivisionID,string GrNumber)
         {
             string endPoint = "PurchaseOrder/GetPurchaseOrderAsnGrForPoReturnCreation?DealerID=" + DealerID + "&VendorID=" + VendorID
-                + "&LocationID=" + LocationID + "&DivisionID=" + DivisionID;
+                + "&LocationID=" + LocationID + "&DivisionID=" + DivisionID + "&GrNumber=" + GrNumber;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetPurchaseOrderReturnHeader(int? DealerID, string PurchaseOrderReturnNo, DateTime? PurchaseOrderReturnDateF, DateTime? PurchaseOrderReturnDateT

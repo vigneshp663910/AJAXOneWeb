@@ -33,31 +33,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
-        /// ddlDealerOffice control.
+        /// txtGrNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealerOffice;
-
-        /// <summary>
-        /// ddlVendor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlVendor;
-
-        /// <summary>
-        /// ddlDivision control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
+        protected global::System.Web.UI.WebControls.TextBox txtGrNumber;
 
         /// <summary>
         /// btnSearch control.

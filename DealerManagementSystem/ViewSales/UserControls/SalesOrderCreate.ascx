@@ -140,9 +140,8 @@
                 </div>
                 <div class="col-sm-12">
                     <label>Tax<samp style="color: red">*</samp></label>
-                    <asp:DropDownList ID="ddlTaxType" runat="server" CssClass="form-control" BorderColor="Silver">
-                        <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
-                        <asp:ListItem Value="1">SGST & CGST</asp:ListItem>
+                    <asp:DropDownList ID="ddlTaxType" runat="server" CssClass="form-control" BorderColor="Silver"> 
+                        <asp:ListItem Value="1" Selected="True">SGST & CGST</asp:ListItem>
                         <asp:ListItem Value="2">IGST</asp:ListItem>
                     </asp:DropDownList>
                 </div>

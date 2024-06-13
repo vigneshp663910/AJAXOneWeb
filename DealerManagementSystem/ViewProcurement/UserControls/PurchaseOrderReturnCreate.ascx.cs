@@ -50,10 +50,10 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         public void FillMaster()
         {
             fillDealer();
-            fillVendor();
-            FillGetDealerOffice();
+            //fillVendor();
+            //FillGetDealerOffice();
             //new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
-            fillDivision();
+           // fillDivision();
             Clear();
         }
         void fillDealer()
@@ -61,22 +61,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlDealer.DataTextField = "CodeWithName";
             ddlDealer.DataValueField = "DID";
             ddlDealer.DataSource = PSession.User.Dealer;
-            ddlDealer.DataBind();
-            ddlDealer.Items.Insert(0, new ListItem("Select", "0"));
+            ddlDealer.DataBind(); 
         }
-        void fillVendor()
-        {
-            ddlVendor.DataTextField = "CodeWithDisplayName";
-            ddlVendor.DataValueField = "DID";
-            ddlVendor.DataSource = new BDealer().GetDealerList(null, null, null);
-            ddlVendor.DataBind();
-            ddlVendor.Items.Insert(0, new ListItem("Select", "0"));
-        }
-        void fillDivision()
-        {
-            ddlDivision.Items.Clear();
-            ddlDivision.Items.Add( new ListItem("Parts", "15"));
-        }
+        //void fillVendor()
+        //{
+        //    ddlVendor.DataTextField = "CodeWithDisplayName";
+        //    ddlVendor.DataValueField = "DID";
+        //    ddlVendor.DataSource = new BDealer().GetDealerList(null, null, null);
+        //    ddlVendor.DataBind();
+        //    ddlVendor.Items.Insert(0, new ListItem("Select", "0"));
+        //}
+        //void fillDivision()
+        //{
+        //    ddlDivision.Items.Clear();
+        //    ddlDivision.Items.Add( new ListItem("Parts", "15"));
+        //}
         void Clear()
         {
             gvGr.PageIndex = 0;
@@ -88,18 +87,18 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessagePoReturnCreate.Text = "";
             lblMessagePoReturnCreate.Visible = false;
         }
-        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FillGetDealerOffice();
-        }
-        private void FillGetDealerOffice()
-        {
-            ddlDealerOffice.DataTextField = "OfficeName_OfficeCode";
-            ddlDealerOffice.DataValueField = "OfficeID";
-            ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null);
-            ddlDealerOffice.DataBind();
-            ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
-        }
+        //protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    FillGetDealerOffice();
+        //}
+        //private void FillGetDealerOffice()
+        //{
+        //    ddlDealerOffice.DataTextField = "OfficeName_OfficeCode";
+        //    ddlDealerOffice.DataValueField = "OfficeID";
+        //    ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null);
+        //    ddlDealerOffice.DataBind();
+        //    ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
+        //}
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             gvGr.DataSource = null;
@@ -111,12 +110,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessagePoReturnCreate.Visible = true;
                 lblMessagePoReturnCreate.ForeColor = Color.Red;
                 return;
-            }
-            ViewState["DealerID"] = ddlDealer.SelectedValue;
-            ViewState["VendorID"] = ddlVendor.SelectedValue;
-            ViewState["LocationID"] = ddlDealerOffice.SelectedValue;
-            ViewState["DivisionID"] = ddlDivision.SelectedValue;
-            PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrForPoReturnCreation(Convert.ToInt32(ViewState["DealerID"]), Convert.ToInt32(ViewState["VendorID"]), Convert.ToInt32(ViewState["LocationID"]), Convert.ToInt32(ViewState["DivisionID"]));
+            } 
+            //ViewState["VendorID"] = ddlVendor.SelectedValue;
+            //ViewState["LocationID"] = ddlDealerOffice.SelectedValue;
+            //ViewState["DivisionID"] = ddlDivision.SelectedValue;
+              
+            PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnGrForPoReturnCreation(Convert.ToInt32(ddlDealer.SelectedValue), null, null, null, txtGrNumber.Text.Trim());
             GrList = JsonConvert.DeserializeObject<List<PGr>>(JsonConvert.SerializeObject(Result.Data));
             gvGr.DataSource = GrList;
             gvGr.DataBind();
@@ -125,23 +124,24 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         public string Validation()
         {
             ddlDealer.BorderColor = Color.Silver;
-            ddlVendor.BorderColor = Color.Silver;
-            ddlDealerOffice.BorderColor = Color.Silver;
+            txtGrNumber.BorderColor = Color.Silver;
+            //ddlVendor.BorderColor = Color.Silver;
+            //ddlDealerOffice.BorderColor = Color.Silver;
             if (ddlDealer.SelectedValue == "0")
             {
                 ddlDealer.BorderColor = Color.Red;
                 return "Please select the Dealer.";
             }
-            if (ddlVendor.SelectedValue == "0")
+            if (string.IsNullOrEmpty(txtGrNumber.Text.Trim()))
             {
-                ddlVendor.BorderColor = Color.Red;
-                return "Please select the Vendor.";
+                txtGrNumber.BorderColor = Color.Red;
+                return "Please select the GR Number.";
             }
-            if (ddlDealerOffice.SelectedValue == "0")
-            {
-                ddlDealer.BorderColor = Color.Red;
-                return "Please select the Receiving Location.";
-            }
+            //if (ddlDealerOffice.SelectedValue == "0")
+            //{
+            //    ddlDealer.BorderColor = Color.Red;
+            //    return "Please select the Receiving Location.";
+            //}
             return "";
         }
         public void fillPendingGr()
