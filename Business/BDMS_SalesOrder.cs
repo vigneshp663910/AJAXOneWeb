@@ -1406,10 +1406,10 @@ namespace Business
                 PSaleOrderDelivery D = GetSaleOrderDeliveryByID(ID);
 
                 //PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Dealer.DealerCode);
-               PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
-               
-                
-                 
+                PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(D.SaleOrder.Dealer.DealerID, null, null, null)[0];
+
+
+
                 PDMS_Dealer Dealer = new BDealer().GetDealerAddress(D.SaleOrder.Dealer.DealerID)[0];
 
                 //string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
@@ -1425,10 +1425,10 @@ namespace Business
                 PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(D.SaleOrder.Customer.CustomerID);
                 // PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Customer.CustomerCode);
                 string CustomerAddress = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-                  CustomerAddress = CustomerAddress+","+(Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+                CustomerAddress = CustomerAddress + "," + (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
                 string ShippingAddress = string.IsNullOrEmpty(D.ShippingAddress.Trim()) ? CustomerAddress : D.ShippingAddress.Trim();
-                
+
 
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
@@ -1495,12 +1495,12 @@ namespace Business
                     {
                         throw new Exception("E Invoice not generated. Please contact IT Team.");
                     }
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);                   
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
                     P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
                     P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
-                    
+
                 }
-                
+
 
                 // ReportParameter[] P = null;
                 //if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
@@ -1569,6 +1569,18 @@ namespace Business
 
             }
             return null;
+        }
+        public PApiResult GetSaleOrderInvoiceReport(int? DealerID, int? OfficeCodeID, string CustomerCode, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, string DeliveryNumber, string SaleOrderNumber, int? SaleOrderTypeID, int? DeliveryStatusID, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderInvoiceReport?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&CustomerCode=" + CustomerCode + "&InvoiceNumber=" + InvoiceNumber + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo
+                + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetSaleOrderInvoiceReportByExcelDownload(int? DealerID, int? OfficeCodeID, string CustomerCode, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, string DeliveryNumber, string SaleOrderNumber, int? SaleOrderTypeID, int? DeliveryStatusID)
+        {
+            string endPoint = "SaleOrder/GetSaleOrderInvoiceReportByExcelDownload?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&CustomerCode=" + CustomerCode + "&InvoiceNumber=" + InvoiceNumber + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo
+                + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
     }
 }

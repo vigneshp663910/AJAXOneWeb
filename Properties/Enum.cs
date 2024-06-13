@@ -263,7 +263,7 @@ namespace Properties
         ViewSales_SalesOrderPG = 18,
         ViewSales_SaleOrderReturn = 19,
         //**** Menu Level-2 ****************************** =  20, 
-        ViewProcurement_StockTransferOrder =  21,
+        ViewProcurement_StockTransferOrder = 21,
         ViewSales_SaleOrderDeliveryPending = 22,
         ViewSales_SaleInvoicePending = 23,
         ViewSales_SalesOrderPerformance = 24,
@@ -284,7 +284,7 @@ namespace Properties
         ViewInventory_WarehouseStock = 39,
         ViewInventory_StockAgeingReport = 40,
         ViewInventory_MaterialStockAnalysis = 41,
-        ViewProcurement_StockTransferOrderDelivery =  42,
+        ViewProcurement_StockTransferOrderDelivery = 42,
         ViewService_TicketTracking = 43,
         ViewService_WarrantyClaimAnnexureCreate = 44,
         ViewService_WarrantyDeliveryReport = 45,
@@ -506,9 +506,9 @@ namespace Properties
         ViewInventory_StockTransfer = 260,
         ViewProcurement_DealerStockOrderControl = 261,
         ViewPreSale_Reports_DealerBusinessExcellenceQuarterWise = 262,
-        ViewPreSale_Reports_LeadNextFollowUpAgeingReport = 263 
-       
-        
+        ViewPreSale_Reports_LeadNextFollowUpAgeingReport = 263,
+        ViewSales_SalesInvoiceReport = 264
+
     }
     public enum SubModuleChildMaster
     {
@@ -853,7 +853,7 @@ namespace Properties
         PostingInventoryStatus = 10,
         SaleOrderDelivery = 11,
         SaleOrderReturn = 12,
-        SalesType=13,
+        SalesType = 13,
         PaymentMode = 14
     }
     public enum AjaxOneStatus
@@ -917,7 +917,7 @@ namespace Properties
         PurchaseOrderAsn = 2,
         PurchaseOrderAsnGr = 3,
         PurchaseOrderReturn = 4,
-        PurchaseOrderAsnGrBlocked = 5 
+        PurchaseOrderAsnGrBlocked = 5
     }
     public enum ProcurementStatus
     {
@@ -954,7 +954,7 @@ namespace Properties
         IntraDealerOrder = 6,
         BreakDownOrder = 7,
         MERCHANDISING = 8
-     }
+    }
     public enum StockMovementType
     {
         UnrestrictedToRestricted = 24,
@@ -973,7 +973,7 @@ namespace Properties
         CustomerOrder = 1,
         IntraDealerOrder = 2,
         WarrantyOrder = 3,
-        MachineOrder = 4 
+        MachineOrder = 4
     }
     public enum ICTicketDeviationType
     {
