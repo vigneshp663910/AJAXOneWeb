@@ -235,7 +235,7 @@ namespace Properties
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerOffice DealerOffice { get; set; }
         public PDMS_Customer Customer { get; set; }
-        public PDMS_CustomerShipTo ShipTo { get; set; }
+        //public PDMS_CustomerShipTo ShipTo { get; set; }
         //public PSaleOrderStatus SaleOrderStatus { get; set; }
         public PAjaxOneStatus SaleOrderStatus { get; set; }
         public PSaleOrderItem SaleOrderItem { get; set; }
@@ -300,14 +300,17 @@ namespace Properties
         public List<PSaleOrderDeliveryItem> SaleOrderDeliveryItems { get; set; }
         public PDMS_EquipmentHeader Equipment { get; set; }
         public int GrandTotal { get; set; }
-        public PDMS_WarrantyInvoiceType InvoiceType { get; set; }
-        public PInvoiceDetails InvoiceDetails { get; set; }
+        public PAjaxOneStatus PaymentMode { get; set; }
+        //   public PDMS_WarrantyInvoiceType InvoiceType { get; set; }      
+        public PSaleOrderDeliveryShipping Shipping { get; set; }
+        public string ShippingAddress { get; set; }
         public string IRN { get; set; }
         public int TempTcsMatCount { get; set; }
         public decimal TCSValue { get; set; }
         public decimal TCSTax { get; set; }
-        public PAjaxOneStatus PaymentMode { get; set; }
-        public PSaleOrderDeliveryShipping Shipping { get; set; }
+        public PInvoiceDetails InvoiceDetails { get; set; }
+
+
     }
     [Serializable]
     public class PInvoiceDetails
@@ -487,6 +490,7 @@ namespace Properties
         public long? EquipmentHeaderID { get; set; }
         public int? PaymentModeID { get; set; }
         public decimal StockAvailable { get; set; }
+        public string ShippingAddress { get; set; } 
     }
     [Serializable]
     public class PSaleOrderDeliveryShipping

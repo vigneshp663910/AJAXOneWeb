@@ -242,7 +242,7 @@ namespace DealerManagementSystem.ViewSales
             Search();
             long? SaleOrderID = null;
             DataTable dt = new DataTable();
-            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderReport(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), QuotationNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID);
+            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderReport(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), QuotationNo, SaleOrderNumber, EquipmentSerialNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID);
             dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
             new BXcel().ExporttoExcel(dt, "Sales Order Report");

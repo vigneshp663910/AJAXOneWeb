@@ -789,15 +789,6 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblBillingAddress;
 
         /// <summary>
-        /// ddlShiftTo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlShiftTo;
-
-        /// <summary>
         /// ddlPaymentMode control.
         /// </summary>
         /// <remarks>
@@ -807,13 +798,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlPaymentMode;
 
         /// <summary>
-        /// lblDeliveryAddress control.
+        /// ddlShiftTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDeliveryAddress;
+        protected global::System.Web.UI.WebControls.DropDownList ddlShiftTo;
 
         /// <summary>
         /// divEquipment control.
@@ -832,6 +823,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEquipment;
+
+        /// <summary>
+        /// txtShippingAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtShippingAddress;
 
         /// <summary>
         /// gvDelivery control.

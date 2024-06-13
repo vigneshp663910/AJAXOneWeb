@@ -7,25 +7,25 @@
     <div class="col-md-12">
         <div class="col-md-2 col-sm-12">
             <label class="modal-label">Dealer<samp style="color: red">*</samp></label>
-            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
+            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control"  />
         </div>
-          <div class="col-md-2 col-sm-12">
+        <%--<div class="col-md-2 col-sm-12">
             <label class="modal-label">Location<samp style="color: red">*</samp></label>
             <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
-        </div>
-        <div class="col-md-2 col-sm-12">
+        </div>--%>
+        <%--  <div class="col-md-2 col-sm-12">
             <label class="modal-label">Vendor<samp style="color: red">*</samp></label>
             <asp:DropDownList ID="ddlVendor" runat="server" CssClass="form-control" />
-        </div>
-       <%--   <div class="col-md-2 col-sm-12">
-            <label class="modal-label">GR Number</label>
-            <asp:TextBox ID="txtGrNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
         </div>--%>
         <div class="col-md-2 col-sm-12">
+            <label class="modal-label">GR Number<samp style="color: red">*</samp></label>
+            <asp:TextBox ID="txtGrNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+        </div>
+        <%-- <div class="col-md-2 col-sm-12">
             <label class="modal-label">Division</label>
             <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
-        </div>
-      
+        </div>--%>
+
         <div class="col-md-2 text-left">
             <label class="modal-label">-</label>
             <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
@@ -81,7 +81,7 @@
                                 <br />
                                 <asp:Label ID="lblDeliveryDate" Text='<%# DataBinder.Eval(Container.DataItem, "ASN.DeliveryDate")%>' runat="server"></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField> 
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Invoice">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>
@@ -94,11 +94,11 @@
                                 <asp:Label ID="lblGrNumber" Text='<%# DataBinder.Eval(Container.DataItem, "GRNumber")%>' runat="server"></asp:Label>
                                 <asp:Label ID="lblGrID" Text='<%# DataBinder.Eval(Container.DataItem, "GrID")%>' runat="server" Visible="false"></asp:Label>
                                 <asp:Label ID="lblGrItemID" Text='<%# DataBinder.Eval(Container.DataItem, "GRItem.GrItemID")%>' runat="server" Visible="false"></asp:Label>
-                                 <br />
+                                <br />
                                 <asp:Label ID="lblGrDate" Text='<%# DataBinder.Eval(Container.DataItem, "GrDate")%>' runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        
+
                         <asp:TemplateField HeaderText="Material">
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             <ItemTemplate>

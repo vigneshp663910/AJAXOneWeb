@@ -942,110 +942,57 @@
         <div class="model-scroll">
 
             <div class="col-md-12">
-                <div class="col-md-12">
-                    <div class="col-md-5">
+                <div class="col-md-3">
+                    <div class="col-md-6 col-sm-12">
                         <label>Billing Address </label>
                         <br />
                         <asp:Label ID="lblBillingAddress" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
-                    <div class="col-md-2">
-                        <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
-                        <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlShiftTo_SelectedIndexChanged" />
-                    </div>
-                    <div class="col-md-2">
+
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-12 col-sm-12">
                         <label class="modal-label">
                             Payment Mode
                             <samp style="color: red">*</samp></label>
                         <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="form-control" />
                     </div>
-                    <div class="col-md-5">
-                        <label>Delivery Address</label>
-                        <br />
-                        <asp:Label ID="lblDeliveryAddress" runat="server" CssClass="LabelValue"></asp:Label>
+
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
+                        <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlShiftTo_SelectedIndexChanged" />
                     </div>
                 </div>
-
-                <%--                <div class="col-md-2">
-                    <div class="col-md-12">
-                        <label class="modal-label">Net Weight</label>
-                        <asp:TextBox ID="txtBoxNetWeight" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-
-                    <div class="col-md-12">
-                        <label class="modal-label">Dispatch Date</label>
-                        <asp:TextBox ID="txtBoxDispatchDate" runat="server" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
-                        <asp1:CalendarExtender ID="cxDispatchDate" runat="server" TargetControlID="txtBoxDispatchDate" PopupButtonID="txtBoxDispatchDate" Format="dd/MM/yyyy" />
-                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderDispatchDate" runat="server" TargetControlID="txtBoxDispatchDate" WatermarkText="DD/MM/YYYY" />
-                    </div>
-                    <div class="col-md-12">
-                        <label class="modal-label">Courier Id</label>
-                        <asp:TextBox ID="txtBoxCourierId" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="modal-label">Courier Date</label>
-                        <asp:TextBox ID="txtBoxCourierDate" runat="server" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
-                        <asp1:CalendarExtender ID="cxCourierDate" runat="server" TargetControlID="txtBoxCourierDate" PopupButtonID="txtBoxCourierDate" Format="dd/MM/yyyy" />
-                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderCourierDate" runat="server" TargetControlID="txtBoxCourierDate" WatermarkText="DD/MM/YYYY" />
-                    </div>
-
-                </div>--%>
-                <%--   <div class="col-md-3">
-                    <div class="col-md-12">
-                        <label>Courier Company Name</label>
-                        <asp:TextBox ID="txtBoxCourierCompanyName" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="modal-label">Courier Person</label>
-                        <asp:TextBox ID="txtBoxCourierPerson" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="modal-label">LR No.</label>
-                        <asp:TextBox ID="txtBoxLRNo" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="modal-label">Pickup Date</label>
-                        <asp:TextBox ID="txtBoxPickupDate" runat="server" CssClass="form-control" AutoCompleteType="Disabled"></asp:TextBox>
-                        <asp1:CalendarExtender ID="cxPickupDate" runat="server" TargetControlID="txtBoxPickupDate" PopupButtonID="txtBoxPickupDate" Format="dd/MM/yyyy" />
-                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtenderPickupDate" runat="server" TargetControlID="txtBoxPickupDate" WatermarkText="DD/MM/YYYY" />
-                    </div>
-                </div>--%>
-                <%--  <div class="col-md-3">
-                    <div class="col-md-12">
-                        <label class="modal-label">Transport Details</label>
-                        <asp:TextBox ID="txtBoxTransportDetails" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="modal-label">Packing Description</label>
-                        <asp:TextBox ID="txtBoxPackingDescription" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="modal-label">Packing Remarks</label>
-                        <asp:TextBox ID="txtBoxPackingRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
-
-
-                </div>--%>
-                <div class="col-md-3">
-                    <%-- <div class="col-md-12">
-                        <label class="modal-label">Transport Mode</label>
-                        <asp:DropDownList ID="ddlTransportMode" runat="server" CssClass="form-control" BorderColor="Silver">
-                            <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
-                            <asp:ListItem Value="BY ROAD">BY ROAD</asp:ListItem>
-                            <asp:ListItem Value="BY TRAIN">BY TRAIN</asp:ListItem>
-                            <asp:ListItem Value="BY AIR">BY AIR</asp:ListItem>
-                        </asp:DropDownList>
-                    </div>--%>
-                    <div class="col-sm-12" id="divEquipment" runat="server" visible="false">
+                <div class="col-md-4">
+                    <div class="col-md-12 col-sm-12" id="divEquipment" runat="server" visible="false">
                         <label>Equipment Serial No</label>
                         <asp:DropDownList ID="ddlEquipment" runat="server" CssClass="form-control" />
                     </div>
-                    <%--  <div class="col-md-12 col-sm-12">
-                        <label>Remarks</label>
-                        <asp:TextBox ID="txtBoxRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                    <%-- <div class="col-md-5">
+                        <label>Delivery Address</label>
+                        <br />
+                        <asp:Label ID="lblDeliveryAddress" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>--%>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">
+                            Address
+                        </label>
+                        <asp:TextBox ID="txtShippingAddress" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
+                    </div>
+                    <%--   <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">
+                            State
+                        <samp style="color: red">*</samp></label>
+                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">
+                            District
+                        <samp style="color: red">*</samp></label>
+                        <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
                     </div>--%>
                 </div>
             </div>
-
             <br />
             <div class="col-md-12 Report">
                 <div class="table-responsive">
@@ -1072,24 +1019,24 @@
                                     <asp:Label ID="lbld_material_desc" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDescription")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                          
+
                             <asp:TemplateField HeaderText="Order Qty">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblOrderQty" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                           
+
                             <asp:TemplateField HeaderText="Delivery Qty">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtDeliveryQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' CssClass="form-control" runat="server"></asp:TextBox>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                             <asp:TemplateField HeaderText="Stock Available">
+                            <asp:TemplateField HeaderText="Stock Available">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
-                                     <asp:Label ID="lblStockAvailable" Text='<%# DataBinder.Eval(Container.DataItem, "StockAvailable")%>' runat="server"></asp:Label> 
+                                    <asp:Label ID="lblStockAvailable" Text='<%# DataBinder.Eval(Container.DataItem, "StockAvailable")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

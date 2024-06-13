@@ -232,7 +232,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             txtAttn.Text = "";
             ddlProduct.SelectedValue = "0";
             //txtSelectTax.Text = "";
-            ddlTaxType.SelectedValue = "0";
+            ddlTaxType.SelectedValue = "1";
             cxExpectedDeliveryDate.StartDate = DateTime.Now;
             ddlSalesEngineer.SelectedValue = "0";
             gvSOItem.DataSource = null;

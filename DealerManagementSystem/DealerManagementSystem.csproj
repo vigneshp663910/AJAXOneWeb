@@ -652,6 +652,7 @@
     <Content Include="ViewSales\SalesCommissionClaimInvoiceCreate.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimInvoiceVerify.aspx" />
     <Content Include="ViewSales\SalesCommissionClaimPerformanceReport.aspx" />
+    <Content Include="ViewSales\SalesInvoiceReport.aspx" />
     <Content Include="ViewSales\SalesOrderPG.aspx" />
     <Content Include="ViewSales\SalesReturn.aspx" />
     <Content Include="ViewSales\tab_ASNPages.aspx" />
@@ -2611,6 +2612,13 @@
     <Compile Include="ViewSales\SalesCommissionClaimPerformanceReport.aspx.designer.cs">
       <DependentUpon>SalesCommissionClaimPerformanceReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSales\SalesInvoiceReport.aspx.cs">
+      <DependentUpon>SalesInvoiceReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\SalesInvoiceReport.aspx.designer.cs">
+      <DependentUpon>SalesInvoiceReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSales\SalesOrderPG.aspx.cs">
       <DependentUpon>SalesOrderPG.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3476,6 +3484,7 @@
   <ItemGroup>
     <Content Include="Print\PartsInvoice.rdlc" />
     <Content Include="Print\PartsInvoiceQRCode.rdlc" />
+    <Content Include="Print\SalesMachineInvoice.rdlc" />
     <EmbeddedResource Include="Print\SalesInvoiceCreditNote.rdlc" />
     <EmbeddedResource Include="Print\StockTransferOrder.rdlc" />
     <EmbeddedResource Include="Print\PhysicalInventoryPosting.rdlc" />
