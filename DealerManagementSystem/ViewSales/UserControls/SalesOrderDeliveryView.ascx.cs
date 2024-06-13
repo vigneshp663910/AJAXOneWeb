@@ -546,7 +546,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[25] = new ReportParameter("SGSTVal_Header", "", false);
             P[26] = new ReportParameter("DateOfPreparationOfInvoice", (SaleOrderDeliveryByID.InvoiceDate == null) ? "" : Convert.ToDateTime(SaleOrderDeliveryByID.InvoiceDate).ToShortDateString(), false);
             P[27] = new ReportParameter("DateOfRemovalOfGoods", (SaleOrderDeliveryByID.InvoiceDate == null) ? "" : Convert.ToDateTime(SaleOrderDeliveryByID.InvoiceDate).ToShortDateString(), false);
-            P[28] = new ReportParameter("MannerOfTransport", SaleOrderDeliveryByID.Shipping.TransportDetails, false);
+            //P[28] = new ReportParameter("MannerOfTransport", SaleOrderDeliveryByID.Shipping.TransportDetails, false);
+            P[28] = new ReportParameter("MannerOfTransport", "", false);
             P[29] = new ReportParameter("Destination", SaleOrderDeliveryByID.SaleOrder.Dealer.DealerOffice.OfficeName, false);
             P[30] = new ReportParameter("SubTotal", "", false);
             P[31] = new ReportParameter("TCSTotal", "", false);
@@ -556,7 +557,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[35] = new ReportParameter("MachineSlno", SaleOrderDeliveryByID.Equipment.EquipmentSerialNo, false);
             P[36] = new ReportParameter("EngineNo", "", false);
             P[37] = new ReportParameter("ChassisNo", "", false);
-            P[38] = new ReportParameter("Remarks", SaleOrderDeliveryByID.Shipping.Remarks, false);
+            P[38] = new ReportParameter("Remarks", "", false);
             P[39] = new ReportParameter("DeliveryNo", SaleOrderDeliveryByID.DeliveryNumber, false);
             P[40] = new ReportParameter("IRNo", "", false);
             P[41] = new ReportParameter("TCSTaxPer", "", false);
