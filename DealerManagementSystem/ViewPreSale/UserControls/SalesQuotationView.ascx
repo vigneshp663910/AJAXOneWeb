@@ -31,7 +31,7 @@
                 <asp:LinkButton ID="lbtnDownloadTaxQuotation" runat="server" OnClick="lbActions_Click">Download Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDownloadConsolidatedTaxQuotation" runat="server" OnClick="lbActions_Click">Download Consolidated Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton> 
-                <asp:LinkButton ID="lbtnAddDiscount" runat="server" OnClick="lbActions_Click">Add Discount</asp:LinkButton>
+              <%--  <asp:LinkButton ID="lbtnAddDiscount" runat="server" OnClick="lbActions_Click">Add Discount</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnAddCustomerSingedQuotation" runat="server" OnClick="lbActions_Click">Add Customer Singed Quotation</asp:LinkButton>
             </div>
         </div>

@@ -2017,7 +2017,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lbtnSaleOrderConfirmation.Visible = true;
 
             lbtnAddVisit.Visible = true;
-            lbtnAddDiscount.Visible = true;
+           // lbtnAddDiscount.Visible = true;
 
             lbtnAddCustomerSingedQuotation.Visible = true;
 
@@ -2055,7 +2055,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             if (!Quotation.IsStandard)
             {
-                lbtnAddDiscount.Visible = false;
+              //  lbtnAddDiscount.Visible = false;
             }
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
@@ -2093,7 +2093,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnDownloadMachineQuotation.Visible = false; 
                 lbtnSaleOrderConfirmation.Visible = false; 
                 lbtnAddVisit.Visible = false;
-                lbtnAddDiscount.Visible = false;
+              //  lbtnAddDiscount.Visible = false;
                 lbtnAddCustomerSingedQuotation.Visible = false;
             }
 
