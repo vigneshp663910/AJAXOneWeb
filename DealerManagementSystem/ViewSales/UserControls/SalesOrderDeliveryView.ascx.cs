@@ -232,6 +232,20 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Material.HSN, Item.Qty.ToString("0"), Item.Material.BaseUnit, String.Format("{0:n}", Item.Value), String.Format("{0:n}", Item.SGST + Item.CGST + Item.IGST), String.Format("{0:n}", (Item.TaxableValue + (Item.SGSTValue + Item.CGSTValue + Item.IGSTValue))));
                 TotalValue += (Item.TaxableValue + (Item.SGSTValue + Item.CGSTValue + Item.IGSTValue));
             }
+            if (SaleOrderDeliveryByID.Freight != 0)
+            {
+                decimal TaxValue = SaleOrderDeliveryByID.Freight * 18 / 100;
+                dtItem.Rows.Add(sno += 1, "Freight", "Freight Charges", "998719", "", "LE", String.Format("{0:n}", SaleOrderDeliveryByID.Freight)
+                    , String.Format("{0:n}", 18), String.Format("{0:n}", TaxValue), SaleOrderDeliveryByID.Freight + TaxValue);
+                TotalValue += SaleOrderDeliveryByID.Freight + TaxValue;
+            }
+            if (SaleOrderDeliveryByID.PackingAndForward != 0)
+            {
+                decimal TaxValue = SaleOrderDeliveryByID.Freight * 18 / 100;
+                dtItem.Rows.Add(sno += 1, "Packing", "Packing Charges", "998719", "", "LE", String.Format("{0:n}", SaleOrderDeliveryByID.Freight)
+                    , String.Format("{0:n}", 18), String.Format("{0:n}", TaxValue), SaleOrderDeliveryByID.Freight + TaxValue);
+                TotalValue += SaleOrderDeliveryByID.Freight + TaxValue; 
+            }
 
             P[10] = new ReportParameter("TotalValue", String.Format("{0:n}", TotalValue), false);
             report.ReportPath = Server.MapPath("~/Print/SalesDeliveryChallan.rdlc");
@@ -608,8 +622,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[32] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
             P[33] = new ReportParameter("GrandTotalInwords", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
             P[41] = new ReportParameter("TCSTaxPer", String.Format("{0:n}", SaleOrderDeliveryByID.TCSTax), false);
-
-            if ((Dealer.IsEInvoice) && (Dealer.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate) && (Customer.GSTIN != "URD"))
+            PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
+            if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate) && (Customer.GSTIN != "URD"))
             {
                 if(string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
                 {

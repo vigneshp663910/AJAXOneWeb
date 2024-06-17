@@ -1469,8 +1469,43 @@ namespace Business
 
                         CessValue = CessValue + item.CessValue;
                         CessSubTotal = CessSubTotal + item.TaxableValue + item.IGSTValue + item.CessValue;
-
                     }
+                }
+                if (D.Freight != 0)
+                {
+                    i = i + 1;
+                    if (GST_Header == "CGST & SGST")
+                    {
+                        decimal GSTValue = D.Freight * 9 / 100;
+                        CommissionDT.Rows.Add(i, "Freight", "Freight Charges", "998719", "LE", "", String.Format("{0:n}", D.Freight), String.Format("{0:n}", D.Freight)
+                            , String.Format("{0:n}", 9),  String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", GSTValue), D.Freight+ GSTValue+ GSTValue);
+                        CessSubTotal = CessSubTotal + (D.Freight + GSTValue + GSTValue);
+                    }
+                    else
+                    {
+                        decimal GSTValue = D.Freight * 18 / 100;
+                        CommissionDT.Rows.Add(i, "Freight", "Freight Charges", "998719", "", "LE", String.Format("{0:n}", D.Freight),  String.Format("{0:n}", D.Freight)
+                            , null, String.Format("{0:n}", 18), null, String.Format("{0:n}", GSTValue), D.Freight + GSTValue);
+                        CessSubTotal = CessSubTotal + (D.Freight + GSTValue);
+                    }
+                }
+                if (D.PackingAndForward != 0)
+                {
+                    i = i + 1;
+                    if (GST_Header == "CGST & SGST")
+                    {
+                        decimal GSTValue = D.PackingAndForward * 9 / 100;
+                        CommissionDT.Rows.Add(i, "Packing", "Packing Charges", "998719", "LE", "", String.Format("{0:n}", D.PackingAndForward), String.Format("{0:n}", D.PackingAndForward)
+                            , String.Format("{0:n}", 9), String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", GSTValue), D.PackingAndForward + GSTValue + GSTValue);
+                        CessSubTotal = CessSubTotal + (D.PackingAndForward + GSTValue + GSTValue);
+                    }
+                    else
+                    {
+                        decimal GSTValue = D.PackingAndForward * 18 / 100;
+                        CommissionDT.Rows.Add(i, "Packing", "Packing Charges", "998719", "", "LE", String.Format("{0:n}", D.PackingAndForward), String.Format("{0:n}", D.PackingAndForward)
+                            , null, String.Format("{0:n}", 18), null, String.Format("{0:n}", GSTValue), D.PackingAndForward + GSTValue);
+                        CessSubTotal = CessSubTotal + (D.PackingAndForward + GSTValue);
+                    } 
                 }
                 string contentType = string.Empty;
                 contentType = "application/pdf";
@@ -1566,7 +1601,7 @@ namespace Business
             }
             catch (Exception ex)
             {
-
+                throw;
             }
             return null;
         }

@@ -116,6 +116,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblSaleOrderType.Text = SOrder.SaleOrderType.SaleOrderType;
             lblSalesEngnieer.Text = SOrder.SalesEngineer == null ? "" : SOrder.SalesEngineer.ContactName;
             lblHeaderDiscount.Text = SOrder.HeaderDiscountPercentage.ToString();
+            lblFreight.Text = SOrder.Freight.ToString();
+            lblPackingAndForward.Text = SOrder.PackingAndForward.ToString();
+            lblTcsTax.Text = SOrder.TcsTax.ToString();
+            lblTcsValue.Text = SOrder.TcsValue.ToString();
 
             lblRefNumber.Text = SOrder.RefNumber;
             lblRefDate.Text = SOrder.RefDate == null ? "" : ((DateTime)SOrder.RefDate).ToString("dd/MM/yyyy");
@@ -306,8 +310,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else if (lbActions.ID == "lbDelivery")
             {
                 MPE_Delivery.Show();
-              
-                 new DDLBind(ddlPaymentMode, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.PaymentMode), "Status", "StatusID", true, "Select");
+
+                txtDeliveryFreight.Text = SOrder.Freight.ToString();
+                txtDeliveryPackingAndForward.Text = SOrder.PackingAndForward.ToString();
+                new DDLBind(ddlPaymentMode, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.PaymentMode), "Status", "StatusID", true, "Select");
                 //cxDispatchDate.StartDate = DateTime.Now;
                 //txtBoxDispatchDate.Text = DateTime.Now.ToShortDateString();
 
@@ -564,7 +570,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Material.HSN, Item.Quantity.ToString("0")
                         , Item.Material.BaseUnit, String.Format("{0:n}", Item.Value), String.Format("{0:n}", Item.DiscountValue), String.Format("{0:n}", Item.TaxableValue)
                         , String.Format("{0:n}", 0), String.Format("{0:n}", 0), String.Format("{0:n}", Item.Material.IGST), String.Format("{0:n}", Item.Material.IGSTValue));
-                    SubTotal += (Item.TaxableValue + Item.Material.IGSTValue + Item.Material.IGSTValue);
+                    SubTotal += (Item.TaxableValue + Item.Material.IGSTValue);
                     TotalDiscount += Item.DiscountValue;
                     TotalTaxable += Item.TaxableValue;
                     TotalSGSTVal += Item.Material.IGSTValue;
@@ -573,6 +579,52 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     P[22] = new ReportParameter("CGSTVal_Header", "", false);
                     P[23] = new ReportParameter("SGST_Header", "%", false);
                     P[24] = new ReportParameter("SGSTVal_Header", "IGST", false);
+                }
+            }
+            if(SOrder.Freight!=0)
+            {
+                if (SOrder.TaxType.Contains("SGST & CGST"))
+                {
+                    decimal GSTValue = SOrder.Freight * 9 / 100;
+                    dtItem.Rows.Add(sno += 1, "Freight", "Freight Charges", "998719", "" , "LE", String.Format("{0:n}", SOrder.Freight), String.Format("{0:n}", 0), String.Format("{0:n}", SOrder.Freight)
+                        , String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue));
+                    SubTotal += (SOrder.Freight + GSTValue + GSTValue); 
+                    TotalTaxable += SOrder.Freight;
+                    TotalCGSTVal += GSTValue;
+                    TotalSGSTVal += GSTValue; 
+                }
+                else
+                {
+                    decimal GSTValue = SOrder.Freight * 18 / 100;
+                    dtItem.Rows.Add(sno += 1, "Freight", "Freight Charges", "998719", "", "LE", String.Format("{0:n}", SOrder.Freight), String.Format("{0:n}", 0), String.Format("{0:n}", SOrder.Freight)
+                        , String.Format("{0:n}", 0), String.Format("{0:n}", 0), String.Format("{0:n}", 18), String.Format("{0:n}", GSTValue));
+
+                    SubTotal += (SOrder.Freight + GSTValue);                   
+                    TotalTaxable += SOrder.Freight;
+                    TotalSGSTVal += GSTValue; 
+                }
+            }
+            if (SOrder.PackingAndForward != 0)
+            {
+                if (SOrder.TaxType.Contains("SGST & CGST"))
+                {
+                    decimal GSTValue = SOrder.PackingAndForward * 9 / 100;
+                    dtItem.Rows.Add(sno += 1, "Packing", "Packing Charges", "998719", "", "LE", String.Format("{0:n}", SOrder.PackingAndForward), String.Format("{0:n}", 0), String.Format("{0:n}", SOrder.PackingAndForward)
+                        , String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue));
+                    SubTotal += (SOrder.PackingAndForward + GSTValue + GSTValue);
+                    TotalTaxable += SOrder.PackingAndForward;
+                    TotalCGSTVal += GSTValue;
+                    TotalSGSTVal += GSTValue;
+                }
+                else
+                {
+                    decimal GSTValue = SOrder.PackingAndForward * 18 / 100;
+                    dtItem.Rows.Add(sno += 1, "Packing", "Packing Charges", "998719", "", "LE", String.Format("{0:n}", SOrder.PackingAndForward), String.Format("{0:n}", 0), String.Format("{0:n}", SOrder.PackingAndForward)
+                        , String.Format("{0:n}", 0), String.Format("{0:n}", 0), String.Format("{0:n}", 18), String.Format("{0:n}", GSTValue));
+
+                    SubTotal += (SOrder.PackingAndForward + GSTValue);
+                    TotalTaxable += SOrder.PackingAndForward;
+                    TotalSGSTVal += GSTValue;
                 }
             }
             GrandTotal = Math.Round(SubTotal);
@@ -813,7 +865,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 ddlProduct.SelectedValue = SOrder.Product.ProductID.ToString();
             ddlTaxType.SelectedValue = ddlTaxType.Items.FindByText(SOrder.TaxType).Value;
             txtBoxHeaderDiscountPercent.Text = SOrder.HeaderDiscountPercentage.ToString();
-
+            txtFreight.Text = SOrder.Freight.ToString();
+            txtPackingAndForward.Text = SOrder.PackingAndForward.ToString();
             txtRefNumber.Text = SOrder.RefNumber;
             txtRefDate.Text = SOrder.RefDate == null ? "" : ((DateTime)SOrder.RefDate).ToString("dd/MM/yyyy");
 
@@ -1011,6 +1064,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 SO.RefDate = string.IsNullOrEmpty(txtRefDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtRefDate.Text.Trim());
             }
             SO.SalesTypeID = ddlSalesType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesType.SelectedValue);
+            SO.Freight = string.IsNullOrEmpty(txtFreight.Text.Trim()) ? 0 : Convert.ToDecimal(txtFreight.Text.Trim());
+            SO.PackingAndForward = string.IsNullOrEmpty(txtPackingAndForward.Text.Trim()) ? 0 : Convert.ToDecimal(txtPackingAndForward.Text.Trim());
             return SO;
         }
         public PSaleOrderItem_Insert ReadItem()
@@ -1391,7 +1446,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     T.ShiftToID = ddlShiftTo.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlShiftTo.SelectedValue);
                     T.EquipmentHeaderID = EquipmentID;
                     T.PaymentModeID = ddlPaymentMode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPaymentMode.SelectedValue);
-                    T.ShippingAddress = txtShippingAddress.Text; 
+                    T.ShippingAddress = txtShippingAddress.Text;
+                    T.Freight = string.IsNullOrEmpty(txtDeliveryFreight.Text.Trim()) ? 0 : Convert.ToDecimal(txtDeliveryFreight.Text.Trim());
+                    T.PackingAndForward = string.IsNullOrEmpty(txtDeliveryPackingAndForward.Text.Trim()) ? 0 : Convert.ToDecimal(txtDeliveryPackingAndForward.Text.Trim());
+
                 }
                 SODelivery_Insert.RemoveAll(r => r.DeliveryQuantity == 0);
 

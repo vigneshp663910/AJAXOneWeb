@@ -368,6 +368,8 @@
 
 
 
+
+
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
@@ -384,8 +386,8 @@
                     <asp:Label ID="lblCustomer" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>--%>
                 <div class="col-md-12">
-                    <label>Contact No : </label>
-                    <asp:Label ID="lblContactPersonNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>Status : </label>
+                    <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
 
                 <div class="col-md-12">
@@ -395,8 +397,8 @@
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
-                    <label>Status : </label>
-                    <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>TCS Tax : </label>
+                    <asp:Label ID="lblTcsTax" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Tax : </label>
@@ -407,11 +409,19 @@
                     <asp:Label ID="lblHeaderDiscount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Exp Delivery Date : </label>
-                    <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>Freight : </label>
+                    <asp:Label ID="lblFreight" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Packing & Forward : </label>
+                    <asp:Label ID="lblPackingAndForward" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
             <div class="col-md-3">
+                <div class="col-md-12">
+                    <label>TCS Value : </label>
+                    <asp:Label ID="lblTcsValue" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
                 <div class="col-md-12">
                     <label>Discount Amount : </label>
                     <asp:Label ID="lblDiscount" runat="server" CssClass="LabelValue"></asp:Label>
@@ -509,6 +519,14 @@
                             <div class="col-md-12">
                                 <label>Sales Type : </label>
                                 <asp:Label ID="lblSalesType" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Contact No : </label>
+                                <asp:Label ID="lblContactPersonNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Exp Delivery Date : </label>
+                                <asp:Label ID="lblExpectedDeliveryDate" runat="server" CssClass="LabelValue"></asp:Label>
                             </div>
                         </div>
                     </div>
@@ -856,10 +874,13 @@
                         <div class="col-md-6 col-sm-12">
                             <label>Tax</label>
                             <asp:DropDownList ID="ddlTaxType" runat="server" CssClass="form-control" BorderColor="Silver">
-                                <asp:ListItem Value="0" Selected="True">Select</asp:ListItem>
                                 <asp:ListItem Value="1">SGST & CGST</asp:ListItem>
                                 <asp:ListItem Value="2">IGST</asp:ListItem>
                             </asp:DropDownList>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label>Sales Type</label>
+                            <asp:DropDownList ID="ddlSalesType" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <label>Sales Engineer</label>
@@ -883,9 +904,14 @@
                             <asp1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtRefDate" PopupButtonID="txtRefDate" Format="dd/MM/yyyy" />
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRefDate" WatermarkText="DD/MM/YYYY" />
                         </div>
-                        <div class="col-sm-12">
-                            <label>Sales Type</label>
-                            <asp:DropDownList ID="ddlSalesType" runat="server" CssClass="form-control" />
+
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Freight</label>
+                            <asp:TextBox ID="txtFreight" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Packing & Forward</label>
+                            <asp:TextBox ID="txtPackingAndForward" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                         </div>
                     </div>
                 </fieldset>
@@ -978,6 +1004,14 @@
                             Address
                         </label>
                         <asp:TextBox ID="txtShippingAddress" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Freight</label>
+                        <asp:TextBox ID="txtDeliveryFreight" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Packing & Forward</label>
+                        <asp:TextBox ID="txtDeliveryPackingAndForward" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                     </div>
                     <%--   <div class="col-md-12 col-sm-12">
                         <label class="modal-label">

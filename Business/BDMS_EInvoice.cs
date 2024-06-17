@@ -437,21 +437,19 @@ namespace Business
                                 W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
                                 W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
                                 W.SaleOrder = new PSaleOrder();
+                                W.SaleOrder.TaxType = Convert.ToString(dr["InvoiceNumber"]);
                                 W.SaleOrder.Dealer = new PDMS_Dealer()
                                 {
                                     DealerCode = Convert.ToString(dr["UserName"]),
                                     DealerName = Convert.ToString(dr["ContactName"]),
                                     IsEInvoice = DBNull.Value == dr["IsEInvoice"] ? false : Convert.ToBoolean(dr["IsEInvoice"]),
-                                    EInvoiceDate = DBNull.Value == dr["EInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["EInvoiceDate"]),
-                                    //EInvoiceFTPPath = Convert.ToString(dr["EInvoiceFTPPath"]),
-                                    //EInvoiceFTPUserID = Convert.ToString(dr["EInvoiceFTPUserID"]),
-                                    //EInvoiceFTPPassword = Convert.ToString(dr["EInvoiceFTPPassword"])
+                                    EInvoiceDate = DBNull.Value == dr["EInvoiceDate"] ? (DateTime?)null : Convert.ToDateTime(dr["EInvoiceDate"])
                                 };
+                                W.Freight = dr["Freight"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["Freight"]);
+                                W.PackingAndForward = dr["PackingAndForward"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["PackingAndForward"]);
                                 W.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
                                 W.SaleOrderDeliveryItems = new List<PSaleOrderDeliveryItem>();
-                                InvoiceID = W.SaleOrderDeliveryID;
-                                //W.InvoiceType = new PDMS_WarrantyInvoiceType() { InvoiceTypeID = Convert.ToInt32(dr["InvoiceTypeID"]), InvoiceType = Convert.ToString(dr["InvoiceType"]) };
-
+                                InvoiceID = W.SaleOrderDeliveryID; 
                                 W.InvoiceDetails = new PInvoiceDetails();
                                 W.InvoiceDetails.SupplierGSTIN = Convert.ToString(dr["SupplierGSTIN"]);
                                 W.InvoiceDetails.Supplier_addr1 = Convert.ToString(dr["Supplier_addr1"]);
@@ -467,7 +465,60 @@ namespace Business
                                 W.InvoiceDetails.BuyerPincode = Convert.ToString(dr["BuyerPincode"]);
 
 
-
+                                if (W.Freight != 0)
+                                {
+                                    PSaleOrderDeliveryItem Item = new PSaleOrderDeliveryItem();
+                                    W.SaleOrderDeliveryItems.Add(Item);
+                                    Item.Material = new PDMS_Material()
+                                    {
+                                        MaterialCode = "Freight",
+                                        MaterialDescription = "Freight Charges",
+                                        HSN = "998719",
+                                        BaseUnit = "LE"
+                                    };
+                                    Item.Qty = 1;
+                                    Item.Value = W.Freight;
+                                    Item.TaxableValue = W.Freight;
+                                    if (W.SaleOrder.TaxType != "IGST")
+                                    {
+                                        Item.CGST = 9;
+                                        Item.SGST = 9;
+                                        Item.CGSTValue = W.Freight * 9 / 100;
+                                        Item.SGSTValue = W.Freight * 9 / 100;
+                                    }
+                                    else
+                                    {
+                                        Item.IGST = 18;
+                                        Item.IGSTValue = W.Freight * 18 / 100;
+                                    }
+                                }
+                                if (W.PackingAndForward != 0)
+                                {
+                                    PSaleOrderDeliveryItem Item = new PSaleOrderDeliveryItem();
+                                    W.SaleOrderDeliveryItems.Add(Item);
+                                    Item.Material = new PDMS_Material()
+                                    {
+                                        MaterialCode = "Packing",
+                                        MaterialDescription = "Packing Charges",
+                                        HSN = "998719",
+                                        BaseUnit = "LE"
+                                    };
+                                    Item.Qty = 1;
+                                    Item.Value = W.PackingAndForward;
+                                    Item.TaxableValue = W.PackingAndForward;
+                                    if (W.SaleOrder.TaxType != "IGST")
+                                    {
+                                        Item.CGST = 9;
+                                        Item.SGST = 9;
+                                        Item.CGSTValue = W.PackingAndForward * 9 / 100;
+                                        Item.SGSTValue = W.PackingAndForward * 9 / 100;
+                                    }
+                                    else
+                                    {
+                                        Item.IGST = 18;
+                                        Item.IGSTValue = W.PackingAndForward * 18 / 100;
+                                    }
+                                }
                                 // W.InvoiceDetails = new PDMS_WarrantyClaimInvoiceDetails();
                             }
                             W.SaleOrderDeliveryItems.Add(new PSaleOrderDeliveryItem()
@@ -491,6 +542,8 @@ namespace Business
                                 IGSTValue = Convert.ToDecimal(dr["IGSTValue"])
 
                             });
+
+                           
                             W.TCSValue = dr["TCSValue"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["TCSValue"]);
                             W.TempTcsMatCount = W.TempTcsMatCount + (Convert.ToString(dr["HSNCode"]) == "998719" ? 0 : 1);
                         }
@@ -2486,7 +2539,8 @@ namespace Business
                         PrdSlNo = Convert.ToString(TOTALLINEITEMS), 
                     }); 
                 }
-
+                AccumulatedOtherCharges = AccumulatedOtherCharges + Pinv.TCSValue;
+                AccumulatedTotItemVal = AccumulatedTotItemVal + AccumulatedOtherCharges;
                 EInvoice.ValDtls = new PValDtls()
                 {
                     AssVal = Convert.ToString(Math.Round(AccumulatedTotalAmount, 2)),
