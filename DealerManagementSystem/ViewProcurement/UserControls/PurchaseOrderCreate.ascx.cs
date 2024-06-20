@@ -642,35 +642,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             MPE_CopyOrder.Show();
         }
 
-        protected void Btn_MatAvailability_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                lblMessage.Text = "";
-                lblMessage.ForeColor = Color.Red;
-                decimal Stock = 0;
-                if (ddlOrderTo.SelectedValue == "1")
-                {
-                    Stock = new BSap().GetMaterialStock(hdfMaterialCode.Value);
-                }
-                else
-                {
-                    List < PDMS_DealerOffice > VendorOffice = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlVendor.SelectedValue), null, null);
-                    foreach (PDMS_DealerOffice Office in VendorOffice)
-                    {
-                        PDealerStock s = new BInventory().GetDealerStockCountByID(Convert.ToInt32(ddlVendor.SelectedValue), Office.OfficeID, Convert.ToInt64(hdfMaterialID.Value));
-                        Stock = Stock + s.UnrestrictedQty;
-                    }
-                }
-                lblMessage.ForeColor = Color.Green;
-                lblMessage.Text = "These Material Stock is available : " + Stock;  
-            }
-            catch (Exception e1)
-            {
-                lblMessage.Text = e1.Message;
-            }
-        }
-
+        
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
             try
@@ -1114,6 +1086,79 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ddlDivision.Enabled = false;
                 txtReferenceNo.Enabled = false;
                 txtRemarks.Enabled = false;
+            }
+        }
+
+        protected void BtnVendorStock_Click(object sender, EventArgs e)
+        { 
+            try
+            {
+                lblMessage.Text = "";
+                lblMessage.ForeColor = Color.Red;
+                decimal Stock = 0;
+                if (ddlOrderTo.SelectedValue == "1")
+                {
+                    Stock = new BSap().GetMaterialStock(hdfMaterialCode.Value);
+                }
+                else
+                {
+                    List<PDMS_DealerOffice> VendorOffice = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlVendor.SelectedValue), null, null);
+                    foreach (PDMS_DealerOffice Office in VendorOffice)
+                    {
+                        PDealerStock s = new BInventory().GetDealerStockCountByID(Convert.ToInt32(ddlVendor.SelectedValue), Office.OfficeID, Convert.ToInt64(hdfMaterialID.Value));
+                        Stock = Stock + s.UnrestrictedQty;
+                    }
+                }
+                lblMessage.ForeColor = Color.Green;
+                lblMessage.Text = "These Material Stock is available : " + Stock;
+            }
+            catch (Exception e1)
+            {
+                lblMessage.Text = e1.Message;
+            }
+        }
+
+        protected void BtnCurrentStock_Click(object sender, EventArgs e)
+        {
+            try
+            { 
+                lblMessage.ForeColor = Color.Red;
+                 
+                if (ddlDealer.SelectedValue == "0")
+                {
+                    ddlDealer.BorderColor = Color.Red;
+                    lblMessage.Text = "Please select the Dealer.";
+                    return;
+                }
+                if (ddlDealerOffice.SelectedValue == "0")
+                {
+                    ddlDealerOffice.BorderColor = Color.Red;
+                    lblMessage.Text = "Please select the Dealer Office.";
+                    return;
+                }
+                if (string.IsNullOrEmpty(hdfMaterialID.Value))
+                {
+                    lblMessage.Text = "Please select the Material.";
+                }
+
+                PDealerStock s = new BInventory().GetDealerStockCountByID(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlDealerOffice.SelectedValue), Convert.ToInt64(hdfMaterialID.Value));
+
+                if (s != null)
+                {
+                    lblMessage.ForeColor = Color.Green;
+                    lblMessage.Text = "On Order Qty : " + s.OnOrderQty.ToString() 
+                        + ", Transit Qty : " + s.TransitQty.ToString() 
+                        + ", Unrestricted Qty : " + s.UnrestrictedQty.ToString()
+                        + ", Reserved Qty : " + s.ReservedQty.ToString();
+                }
+                else
+                {
+                    lblMessage.Text = "Stock is not available";
+                }                 
+            }
+            catch (Exception e1)
+            {
+                lblMessage.Text = e1.Message;
             }
         }
     }

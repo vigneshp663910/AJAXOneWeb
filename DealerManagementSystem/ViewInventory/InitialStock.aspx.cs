@@ -252,7 +252,11 @@ namespace DealerManagementSystem.ViewInventory
                                 MaterialPrice.Vendor = DealerCode;
                                 //MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
                                 MaterialPrice.OrderType = "101_DPPOR_PURC_ORDER_HDR";
-                                MaterialPrice.Division = Convert.ToString(IXLCell_[3].Value).TrimEnd('\0'); ;
+                                MaterialPrice.Division = Convert.ToString(IXLCell_[3].Value).TrimEnd('\0');
+                                if (!string.IsNullOrEmpty(MaterialPrice.Division))
+                                {
+                                    MaterialPrice.OrderType = "201_DPPOR_PURC_ORDER_HDR";
+                                }
                                 //   MaterialPrice.Division = new BDMS_Master().GetDivision(Convert.ToInt32(ddlDivision.SelectedValue), null)[0].DivisionCode;
                                 MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
                                 MaterialPrice.Item.Add(new PSapMatPriceItem_Input()

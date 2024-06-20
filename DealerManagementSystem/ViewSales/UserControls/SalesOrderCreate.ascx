@@ -97,11 +97,11 @@
                     <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
                     <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" />
                 </div>--%>
-                <div class="col-sm-10">
+                <div class="col-sm-10"  style="display:none">
                     <label class="modal-label">Freight</label>
                     <asp:TextBox ID="txtFreight" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                 </div>
-                <div class="col-sm-10">
+                <div class="col-sm-10"  style="display:none">
                     <label class="modal-label">Packing & Forward</label>
                     <asp:TextBox ID="txtPackingAndForward" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                 </div>

@@ -240,13 +240,22 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected global::System.Web.UI.WebControls.Button btnAddMaterial;
 
         /// <summary>
-        /// Btn_MatAvailability control.
+        /// BtnVendorStock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_MatAvailability;
+        protected global::System.Web.UI.WebControls.Button BtnVendorStock;
+
+        /// <summary>
+        /// BtnCurrentStock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnCurrentStock;
 
         /// <summary>
         /// gvPOItem control.

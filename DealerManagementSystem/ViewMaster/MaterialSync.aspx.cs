@@ -19,7 +19,19 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void BtnMaterialSync_Click(object sender, EventArgs e)
         {
-            new BAPI().ApiGetWithOutToken("Material/MaterialIntegrationFromSap?MaterialCode=" + txtMaterialCode.Text.Trim());
+            List<PDMS_Material> MaterialList = new List<PDMS_Material>();
+            string[] Materials = txtMaterialCode.Text.Split(',');
+            foreach (string MaterialCode in Materials)
+            {
+                new BAPI().ApiGetWithOutToken("Material/MaterialIntegrationFromSap?MaterialCode=" + MaterialCode.Trim());
+                List<PDMS_Material> Material = new BDMS_Material().GetMaterialListSQL(null, MaterialCode.Trim(), null, null, null);
+                if (Material.Count == 1)
+                {
+                    MaterialList.Add(Material[0]);
+                }
+            }
+            gvMaterial.DataSource = MaterialList;
+            gvMaterial.DataBind();
         }
     }
 }
