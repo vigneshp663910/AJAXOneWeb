@@ -162,6 +162,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.RefNumber = txtRefNumber.Text.Trim();
             SO.RefDate = string.IsNullOrEmpty(txtRefDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtExpectedDeliveryDate.Text.Trim());
             SO.SalesTypeID = ddlSalesType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesType.SelectedValue);
+            SO.Freight = string.IsNullOrEmpty(txtFreight.Text.Trim()) ? 0 : Convert.ToDecimal(txtFreight.Text.Trim());
+            SO.PackingAndForward = string.IsNullOrEmpty(txtPackingAndForward.Text.Trim()) ? 0 : Convert.ToDecimal(txtPackingAndForward.Text.Trim());
             return SO;
         }
 

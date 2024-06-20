@@ -159,13 +159,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblDealerOffice;
 
         /// <summary>
-        /// lblContactPersonNumber control.
+        /// lblStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblContactPersonNumber;
+        protected global::System.Web.UI.WebControls.Label lblStatus;
 
         /// <summary>
         /// lblSaleOrderType control.
@@ -177,13 +177,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblSaleOrderType;
 
         /// <summary>
-        /// lblStatus control.
+        /// lblTcsTax control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStatus;
+        protected global::System.Web.UI.WebControls.Label lblTcsTax;
 
         /// <summary>
         /// lblTaxType control.
@@ -204,13 +204,31 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblHeaderDiscount;
 
         /// <summary>
-        /// lblExpectedDeliveryDate control.
+        /// lblFreight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblExpectedDeliveryDate;
+        protected global::System.Web.UI.WebControls.Label lblFreight;
+
+        /// <summary>
+        /// lblPackingAndForward control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPackingAndForward;
+
+        /// <summary>
+        /// lblTcsValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTcsValue;
 
         /// <summary>
         /// lblDiscount control.
@@ -402,6 +420,24 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblSalesType;
 
         /// <summary>
+        /// lblContactPersonNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblContactPersonNumber;
+
+        /// <summary>
+        /// lblExpectedDeliveryDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExpectedDeliveryDate;
+
+        /// <summary>
         /// tpnlSOItem control.
         /// </summary>
         /// <remarks>
@@ -582,6 +618,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.DropDownList ddlTaxType;
 
         /// <summary>
+        /// ddlSalesType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalesType;
+
+        /// <summary>
         /// ddlSalesEngineer control.
         /// </summary>
         /// <remarks>
@@ -645,13 +690,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender2;
 
         /// <summary>
-        /// ddlSalesType control.
+        /// txtFreight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSalesType;
+        protected global::System.Web.UI.WebControls.TextBox txtFreight;
+
+        /// <summary>
+        /// txtPackingAndForward control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPackingAndForward;
 
         /// <summary>
         /// btnUpdateSO control.
@@ -832,6 +886,24 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtShippingAddress;
+
+        /// <summary>
+        /// txtDeliveryFreight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDeliveryFreight;
+
+        /// <summary>
+        /// txtDeliveryPackingAndForward control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDeliveryPackingAndForward;
 
         /// <summary>
         /// gvDelivery control.

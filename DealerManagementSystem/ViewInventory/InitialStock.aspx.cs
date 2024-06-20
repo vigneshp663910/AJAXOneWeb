@@ -241,21 +241,30 @@ namespace DealerManagementSystem.ViewInventory
                                 S.ID = Convert.ToInt32(IXLCell_[0].Value);
                                 S.DealerID = Convert.ToInt32(ddlDealerO.SelectedValue);
                                 S.OfficeID = Convert.ToInt32(ddlDealerOfficeO.SelectedValue);
-                                S.MaterialCode = Convert.ToString(IXLCell_[1].Value);
+                                string ExcelMaterialCode = Convert.ToString(IXLCell_[1].Value).TrimEnd('\0');
+                                S.MaterialCode = ExcelMaterialCode;
+
+                               // S.MaterialCode = Convert.ToString(IXLCell_[1].Value);
                                 S.Quantity = Convert.ToInt32(IXLCell_[2].Value);
 
                                 PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
                                 MaterialPrice.Customer = DealerCode;
                                 MaterialPrice.Vendor = DealerCode;
-                                MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
-
+                                //MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
+                                MaterialPrice.OrderType = "101_DPPOR_PURC_ORDER_HDR";
+                                MaterialPrice.Division = Convert.ToString(IXLCell_[3].Value).TrimEnd('\0');
+                                if (!string.IsNullOrEmpty(MaterialPrice.Division))
+                                {
+                                    MaterialPrice.OrderType = "201_DPPOR_PURC_ORDER_HDR";
+                                }
                                 //   MaterialPrice.Division = new BDMS_Master().GetDivision(Convert.ToInt32(ddlDivision.SelectedValue), null)[0].DivisionCode;
                                 MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
                                 MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
                                 {
                                     ItemNo = "10",
                                     Material = S.MaterialCode,
-                                    Quantity = 1
+                                    Quantity = 1,
+                                    
                                 });
 
                                 List<PMaterial> Ms = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
@@ -263,11 +272,11 @@ namespace DealerManagementSystem.ViewInventory
                                 {
                                     if (Ms[0].CurrentPrice < 0)
                                     {
-                                        lblMessage.Text = "Please Check Material Code : " + IXLCell_[1].Value + " Price is not valid!";
+                                        lblMessage.Text = "Please Check Material Code : " + ExcelMaterialCode + " Price is not valid!";
                                         lblMessage.ForeColor = Color.Red;
                                         return false;
                                     }
-                                    S.PerUnitPrice = Ms[0].CurrentPrice;
+                                    S.PerUnitPrice = Ms[0].CurrentPrice - Ms[0].Discount;
                                 }
                                 else
                                 {
@@ -278,7 +287,7 @@ namespace DealerManagementSystem.ViewInventory
 
                                     //if (Convert.ToDecimal(IXLCell_[3].Value) <= 0)
                                     //{
-                                    lblMessage.Text = "Please Check Material Code : " + IXLCell_[1].Value + " Price is not valid!";
+                                    lblMessage.Text = "Please Check Material Code : " + ExcelMaterialCode + " Price is not valid!";
                                     lblMessage.ForeColor = Color.Red;
                                     return false;
                                     // }

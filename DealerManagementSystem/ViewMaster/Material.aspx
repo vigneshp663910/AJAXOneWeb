@@ -316,13 +316,12 @@
                                                                     <asp:Label ID="lblWeightUnit" Text='<%# DataBinder.Eval(Container.DataItem, "WeightUnit")%>' runat="server"></asp:Label>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-
-                                                            <asp:TemplateField HeaderText="<%$ Resources:Reso, MaterialDivision%>">
+                                                            <%--<asp:TemplateField HeaderText="<%$ Resources:Reso, MaterialDivision%>">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblMaterialDivision" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDivision")%>' runat="server"></asp:Label>
                                                                 </ItemTemplate>
-                                                            </asp:TemplateField>
+                                                            </asp:TemplateField>--%>
                                                             <asp:TemplateField HeaderText="HSN">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                                 <ItemTemplate>
@@ -759,7 +758,7 @@
                                     <div class="col-md-2 col-sm-12">
                                         <label>Material Category</label>
                                         <asp:DropDownList ID="ddlSMVariantName" runat="server" CssClass="form-control"></asp:DropDownList>
-                                    </div> 
+                                    </div>
                                     <div class="col-md-2 col-sm-12">
                                         <label class="modal-label">Material Code</label>
                                         <asp:TextBox ID="txtSMMaterial" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
@@ -880,7 +879,7 @@
         </div>
         <div class="col-md-12" runat="server" id="tblDashboard">
             <UC:UC_MaterialView ID="UC_MaterialView" runat="server"></UC:UC_MaterialView>
-            <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>            
+            <asp:PlaceHolder ID="ph_usercontrols_1" runat="server"></asp:PlaceHolder>
         </div>
     </div>
 

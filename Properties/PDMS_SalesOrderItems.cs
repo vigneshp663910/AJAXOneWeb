@@ -264,7 +264,10 @@ namespace Properties
         public DateTime ForceClosedOn { get; set; }
         public List<PSaleOrderDelivery> Deliverys { get; set; }
         public PAjaxOneStatus SalesType { get; set; }
-
+        public decimal Freight { get; set; }
+        public decimal PackingAndForward { get; set; }
+        public decimal TcsTax { get; set; }
+        public decimal TcsValue { get; set; }        
     }
     [Serializable]
     public class PSaleOrderItem
@@ -308,6 +311,8 @@ namespace Properties
         public int TempTcsMatCount { get; set; }
         public decimal TCSValue { get; set; }
         public decimal TCSTax { get; set; }
+        public decimal Freight { get; set; }
+        public decimal PackingAndForward { get; set; }
         public PInvoiceDetails InvoiceDetails { get; set; }
 
 
@@ -415,6 +420,8 @@ namespace Properties
         public DateTime? RefDate { get; set; }
         public List<PSaleOrderItem_Insert> SaleOrderItems { get; set; }
         public int? SalesTypeID { get; set; }
+        public decimal Freight { get; set; }
+        public decimal PackingAndForward { get; set; }
 
     }
     [Serializable]
@@ -490,7 +497,9 @@ namespace Properties
         public long? EquipmentHeaderID { get; set; }
         public int? PaymentModeID { get; set; }
         public decimal StockAvailable { get; set; }
-        public string ShippingAddress { get; set; } 
+        public string ShippingAddress { get; set; }
+        public decimal Freight { get; set; }
+        public decimal PackingAndForward { get; set; }
     }
     [Serializable]
     public class PSaleOrderDeliveryShipping

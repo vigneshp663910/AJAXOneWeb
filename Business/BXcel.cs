@@ -1,8 +1,15 @@
-﻿using Microsoft.Reporting.Map.WebForms;
+﻿ 
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Reporting.Map.WebForms;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,56 +18,143 @@ namespace Business
 {
     public class BXcel : System.Web.UI.Page
     {
-        public void ExporttoExcel(DataTable table, string strFile)
-        {
-            HttpContext.Current.Response.Clear();
-            HttpContext.Current.Response.ClearContent();
-            HttpContext.Current.Response.ClearHeaders();
-            HttpContext.Current.Response.Buffer = true;
-            HttpContext.Current.Response.ContentType = "application/ms-excel";
-            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + strFile + ".xls");
-            HttpContext.Current.Response.Charset = "utf-16";
-            HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
-            HttpContext.Current.Response.Write("<font style='font-size:11.0pt; font-family:Calibri;'>");
-            HttpContext.Current.Response.Write("<BR><BR><BR>");
-            HttpContext.Current.Response.Write("<Table border='1' bgColor='#ffffff' borderColor='#000000' cellSpacing='0' cellPadding='0' style='font-size:11.0pt; font-family:Calibri; background:white;'> <TR>");
-            int columnscount = table.Columns.Count;
+        //public void ExporttoExcel(DataTable table, string strFile)
+        //{
+        //    HttpContext.Current.Response.Clear();
+        //    HttpContext.Current.Response.ClearContent();
+        //    HttpContext.Current.Response.ClearHeaders();
+        //    HttpContext.Current.Response.Buffer = true;
+        //    HttpContext.Current.Response.ContentType = "application/ms-excel";
+        //    HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + strFile + ".xls");
+        //    HttpContext.Current.Response.Charset = "utf-16";
+        //    HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+        //    HttpContext.Current.Response.Write("<font style='font-size:11.0pt; font-family:Calibri;'>");
+        //    HttpContext.Current.Response.Write("<BR><BR><BR>");
+        //    HttpContext.Current.Response.Write("<Table border='1' bgColor='#ffffff' borderColor='#000000' cellSpacing='0' cellPadding='0' style='font-size:11.0pt; font-family:Calibri; background:white;'> <TR>");
+        //    int columnscount = table.Columns.Count;
 
-            for (int j = 0; j < columnscount; j++)
+        //    for (int j = 0; j < columnscount; j++)
+        //    {
+        //        HttpContext.Current.Response.Write("<Td>");
+        //        HttpContext.Current.Response.Write("<B>");
+        //        HttpContext.Current.Response.Write(table.Columns[j].ToString());
+        //        HttpContext.Current.Response.Write("</B>");
+        //        HttpContext.Current.Response.Write("</Td>");
+        //    }
+        //    HttpContext.Current.Response.Write("</TR>");
+        //    foreach (DataRow row in table.Rows)
+        //    {
+        //        HttpContext.Current.Response.Write("<TR>");
+        //        for (int i = 0; i < table.Columns.Count; i++)
+        //        {
+        //            HttpContext.Current.Response.Write("<Td>");
+        //            HttpContext.Current.Response.Write(row[i].ToString());
+        //            HttpContext.Current.Response.Write("</Td>");
+        //        }
+
+        //        HttpContext.Current.Response.Write("</TR>");
+        //    }
+        //    HttpContext.Current.Response.Write("</Table>");
+        //    HttpContext.Current.Response.Write("</font>");
+
+        //    // Append cookie
+        //    HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+        //    cookie.Value = "Flag";
+        //    cookie.Expires = DateTime.Now.AddDays(1);
+        //    HttpContext.Current.Response.AppendCookie(cookie);
+        //    // end
+
+        //    HttpContext.Current.Response.Flush();
+        //    HttpContext.Current.Response.End();
+        //}
+        public void ExporttoExcel(DataTable dt, string strFile)
+        {
+            string Name = Server.MapPath("~") + "Templates/" + strFile + PSession.User.UserID.ToString() + DateTime.Now.ToLongTimeString().Replace(':', '_') + ".xlsx";
+            try
             {
-                HttpContext.Current.Response.Write("<Td>");
-                HttpContext.Current.Response.Write("<B>");
-                HttpContext.Current.Response.Write(table.Columns[j].ToString());
-                HttpContext.Current.Response.Write("</B>");
-                HttpContext.Current.Response.Write("</Td>");
-            }
-            HttpContext.Current.Response.Write("</TR>");
-            foreach (DataRow row in table.Rows)
-            {
-                HttpContext.Current.Response.Write("<TR>");
-                for (int i = 0; i < table.Columns.Count; i++)
+                SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(Name, SpreadsheetDocumentType.Workbook);
+                // Add a WorkbookPart to the document.
+                WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
+                workbookpart.Workbook = new Workbook();
+                // Add a WorksheetPart to the WorkbookPart.
+                WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
+                worksheetPart.Worksheet = new Worksheet(new SheetData());
+                // Add Sheets to the Workbook.
+                Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
+                // Append a new worksheet and associate it with the workbook.
+                Sheet sheet = new Sheet() { Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = strFile };
+                sheets.Append(sheet);
+                Worksheet worksheet = new Worksheet();
+                SheetData sheetData = new SheetData();
+                Row row = new Row();
+
+                row = new Row() { RowIndex = 1U, Spans = new ListValue<StringValue>() };
+                Cell cell = new Cell();
+                List<string> ExcelCName = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ" };
+                int i = 0;
+                foreach (DataColumn column in dt.Columns)
                 {
-                    HttpContext.Current.Response.Write("<Td>");
-                    HttpContext.Current.Response.Write(row[i].ToString());
-                    HttpContext.Current.Response.Write("</Td>");
+                    row.Append(new Cell() { CellReference = ExcelCName[i] + "1", DataType = CellValues.String, CellValue = new CellValue(column.ColumnName) });
+                    i = i + 1;
+                }
+                sheetData.Append(row);
+                int ExcelRow = 1;
+
+                foreach (DataRow row1 in dt.Rows)
+                {
+                    i = 0;
+                    ExcelRow = ExcelRow + 1;
+                    row = new Row() { Spans = new ListValue<StringValue>() };
+                    foreach (DataColumn column in dt.Columns)
+                    {
+                        row.Append(new Cell() { CellReference = ExcelCName[i] + ExcelRow.ToString(), DataType = CellValues.String, CellValue = new CellValue(Convert.ToString(row1[column])) });
+                        i = i + 1;
+                    }
+                    sheetData.Append(row);
+                    
                 }
 
-                HttpContext.Current.Response.Write("</TR>");
+                worksheet.Append(sheetData);
+                worksheetPart.Worksheet = worksheet;
+                if (!Directory.Exists(Server.MapPath("~") + "/Template"))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~") + "/Template");
+                }
+                workbookpart.Workbook.Save();
+                // Close the document.
+               spreadsheetDocument.Close();
+
+
+                //string Path = Server.MapPath("Templates\\InitialStock.xlsx");
+                WebClient req = new WebClient();
+                HttpResponse response = HttpContext.Current.Response;
+                response.Clear();
+                response.ClearContent();
+                response.ClearHeaders();
+                response.Buffer = true;
+                response.AddHeader("Content-Disposition", "attachment;filename=\"" + strFile + ".xlsx\"");
+                byte[] data = req.DownloadData(Name);
+                response.BinaryWrite(data);
+                // Append cookie
+                HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
+                cookie.Value = "Flag";
+                cookie.Expires = DateTime.Now.AddDays(1);
+                HttpContext.Current.Response.AppendCookie(cookie);
+                // end
+                response.End();
+                //  new BXcel().ExporttoExcel(dt, "PhysicalInventoryPostingTemplate");
             }
-            HttpContext.Current.Response.Write("</Table>");
-            HttpContext.Current.Response.Write("</font>");
-
-            // Append cookie
-            HttpCookie cookie = new HttpCookie("ExcelDownloadFlag");
-            cookie.Value = "Flag";
-            cookie.Expires = DateTime.Now.AddDays(1);
-            HttpContext.Current.Response.AppendCookie(cookie);
-            // end
-
-            HttpContext.Current.Response.Flush();
-            HttpContext.Current.Response.End();
+            catch (Exception e1)
+            { 
+            }
+            finally
+            {
+                if (File.Exists(Name))
+                {
+                    File.Delete(Name);
+                }
+            }
         }
-
         public void PdfDowload()
         { 
             // Append cookie
