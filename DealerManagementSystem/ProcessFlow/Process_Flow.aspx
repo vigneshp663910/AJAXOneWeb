@@ -133,6 +133,14 @@
             </ContentTemplate>
         </asp1:TabPanel>
 
+         <asp1:TabPanel ID="tpPartsImplement" runat="server" HeaderText="Parts Impln.">
+            <ContentTemplate>
+                <fieldset class="fieldset-border">
+                    <asp:Image ID="Image14" runat="server" ImageUrl="~/ProcessFlow/V0_Parts_Implement.png" />
+                </fieldset>
+            </ContentTemplate>
+        </asp1:TabPanel>
+
 
     </asp1:TabContainer>
     <%--    </div>--%>

@@ -119,20 +119,20 @@
                                                             <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "Division")%>' runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Per Unit Price">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                    <asp:TemplateField HeaderText="Unit Price">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblPerUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "PerUnitPrice")%>' runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="Open Stock">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblOpenStock" Text='<%# DataBinder.Eval(Container.DataItem, "OpenStock")%>' runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="Price">
-                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                    <asp:TemplateField HeaderText="Value">
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblPrice" Text='<%# DataBinder.Eval(Container.DataItem, "Price")%>' runat="server"></asp:Label>
                                                         </ItemTemplate>

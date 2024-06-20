@@ -331,6 +331,7 @@
     <Content Include="ProcessFlow\Ticketing.aspx" />
     <Content Include="ProcessFlow\V0_DMPM.png" />
     <Content Include="ProcessFlow\V0_Implementation.png" />
+    <Content Include="ProcessFlow\V0_Parts_Implement.png" />
     <Content Include="ProcessFlow\V0_Physical_Inventory.png" />
     <Content Include="ProcessFlow\V0_Procurment_Process_OE_CoDealer.png" />
     <Content Include="ProcessFlow\V0_Purchse_Return.png" />

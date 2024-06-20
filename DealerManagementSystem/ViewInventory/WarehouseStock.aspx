@@ -143,14 +143,14 @@
                                     <asp:Label ID="lblReservedQty" Text='<%# DataBinder.Eval(Container.DataItem, "ReservedQty","{0:0}")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Per Unit Price">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            <asp:TemplateField HeaderText="Unit Price">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblPerUnitPrice" Text='<%# DataBinder.Eval(Container.DataItem, "PerUnitPrice","{0:0}")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Value">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblValue" Text='<%# DataBinder.Eval(Container.DataItem, "Value","{0:0}")%>' runat="server" />
                                 </ItemTemplate>
