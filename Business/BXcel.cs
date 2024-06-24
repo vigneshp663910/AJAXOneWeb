@@ -69,10 +69,16 @@ namespace Business
         //}
         public void ExporttoExcel(DataTable dt, string strFile)
         {
+            if (!Directory.Exists(Server.MapPath("~") + "/Templates"))
+            {
+                Directory.CreateDirectory(Server.MapPath("~") + "/Templates");
+            }
             string Name = Server.MapPath("~") + "Templates/" + strFile + PSession.User.UserID.ToString() + DateTime.Now.ToLongTimeString().Replace(':', '_') + ".xlsx";
+            SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(Name, SpreadsheetDocumentType.Workbook);
             try
             {
-                SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(Name, SpreadsheetDocumentType.Workbook);
+                
+
                 // Add a WorkbookPart to the document.
                 WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
                 workbookpart.Workbook = new Workbook();
@@ -90,7 +96,9 @@ namespace Business
 
                 row = new Row() { RowIndex = 1U, Spans = new ListValue<StringValue>() };
                 Cell cell = new Cell();
-                List<string> ExcelCName = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ" };
+                List<string> ExcelCName = new List<string>() { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+                    , "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ"
+                    , "BA", "BB", "BC", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BK", "BL", "BM", "BN", "BO", "BP", "BQ", "BR", "BS", "BT", "BU", "BV", "BW", "BX", "BY", "BZ" };
                 int i = 0;
                 foreach (DataColumn column in dt.Columns)
                 {
@@ -116,16 +124,11 @@ namespace Business
 
                 worksheet.Append(sheetData);
                 worksheetPart.Worksheet = worksheet;
-                if (!Directory.Exists(Server.MapPath("~") + "/Template"))
-                {
-                    Directory.CreateDirectory(Server.MapPath("~") + "/Template");
-                }
+               
                 workbookpart.Workbook.Save();
                 // Close the document.
-               spreadsheetDocument.Close();
-
-
-                //string Path = Server.MapPath("Templates\\InitialStock.xlsx");
+              spreadsheetDocument.Close();
+             
                 WebClient req = new WebClient();
                 HttpResponse response = HttpContext.Current.Response;
                 response.Clear();
@@ -149,6 +152,7 @@ namespace Business
             }
             finally
             {
+                //spreadsheetDocument.Close();
                 if (File.Exists(Name))
                 {
                     File.Delete(Name);

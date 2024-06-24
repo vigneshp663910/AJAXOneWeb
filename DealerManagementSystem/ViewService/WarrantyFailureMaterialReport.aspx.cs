@@ -218,7 +218,8 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("Apr.1 On");
             dt.Columns.Add("Apr.2 By");
             dt.Columns.Add("Apr.2 On");
-
+            dt.Columns.Add("Apr.3 By");
+            dt.Columns.Add("Apr.3 On");
             //    dt.Columns.Add("Invoice Number");
             //   dt.Columns.Add("Invoice Date");
 
@@ -239,7 +240,7 @@ namespace DealerManagementSystem.ViewService
             dt.Columns.Add("Failure Mat Remarks 2");
             dt.Columns.Add("Apr.2 Amt");
             dt.Columns.Add("Apr.2 Remarks");
-
+            dt.Columns.Add("Apr.3 Amt");
 
             dt.Columns.Add("SAP Doc");
             dt.Columns.Add("SAP Invoice Value");
@@ -275,6 +276,8 @@ namespace DealerManagementSystem.ViewService
                         , M.Approved1On
                        , M.Approved2By.ContactName
                         , M.Approved2On
+                        , M.Approved3By.ContactName
+                        , M.Approved3On
                         // , M.InvoiceNumber
                         // , M.InvoiceDate == null ? "" : ((DateTime)M.InvoiceDate).ToShortDateString()
                         , M.TSIRNumber
@@ -293,6 +296,7 @@ namespace DealerManagementSystem.ViewService
                         , Item.MaterialStatusRemarks2
                         , Item.Approved2Amount
                         , Item.Approved2Remarks
+                         , Item.Approved3Amount
                         , Item.SAPDoc
                         , Item.SAPInvoiceValue
                         , M.AcInvoiceNumber

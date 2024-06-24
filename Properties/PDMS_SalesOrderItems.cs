@@ -313,6 +313,7 @@ namespace Properties
         public decimal TCSTax { get; set; }
         public decimal Freight { get; set; }
         public decimal PackingAndForward { get; set; }
+        public string Remarks { get; set; }
         public PInvoiceDetails InvoiceDetails { get; set; }
 
 
@@ -500,6 +501,7 @@ namespace Properties
         public string ShippingAddress { get; set; }
         public decimal Freight { get; set; }
         public decimal PackingAndForward { get; set; }
+        public string Remarks { get; set; }
     }
     [Serializable]
     public class PSaleOrderDeliveryShipping
@@ -517,6 +519,6 @@ namespace Properties
         public string TransportDetails { get; set; }
         public string TransportMode { get; set; }
         public DateTime PickupDate { get; set; }
-        public string Remarks { get; set; }
+        
     }
 }
