@@ -565,10 +565,7 @@
                             <asp:ListItem Value="BY AIR">BY AIR</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-                    <div class="col-md-12 col-sm-12">
-                        <label>Remarks</label>
-                        <asp:TextBox ID="txtBoxRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
-                    </div>
+                   
                 </div>
             </div>
         </div>

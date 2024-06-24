@@ -1005,6 +1005,10 @@
                         </label>
                         <asp:TextBox ID="txtShippingAddress" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
                     </div>
+                     <div class="col-md-12 col-sm-12">
+                        <label>Remarks</label>
+                        <asp:TextBox ID="txtBoxRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
+                    </div>
                     <div class="col-md-6 col-sm-12" style="display:none">
                         <label class="modal-label">Freight</label>
                         <asp:TextBox ID="txtDeliveryFreight" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>

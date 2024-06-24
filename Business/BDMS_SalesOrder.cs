@@ -1376,7 +1376,7 @@ namespace Business
         }
 
 
-        public PAttachedFile GetServiceInvoiceFile(long ID)
+        public PAttachedFile GetPartInvoiceFile(long ID)
         {
             PAttachedFile Files = null;
             try
@@ -1519,7 +1519,7 @@ namespace Business
                 LocalReport report = new LocalReport();
                 report.EnableExternalImages = true;
 
-                ReportParameter[] P = new ReportParameter[26];
+                ReportParameter[] P = new ReportParameter[27];
                 report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
 
                 P[24] = new ReportParameter("QRCodeImg", "", false);
@@ -1583,7 +1583,7 @@ namespace Business
                 P[21] = new ReportParameter("InvDate", Convert.ToString(D.InvoiceDate), false);
                 P[22] = new ReportParameter("CessValue", Convert.ToString(CessValue), false);
                 P[23] = new ReportParameter("CessSubTotal", Convert.ToString(CessSubTotal), false);
-
+                P[26] = new ReportParameter("Remarks", "Remarks : " + D.Remarks, false);
 
                 ReportDataSource rds = new ReportDataSource();
                 rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  

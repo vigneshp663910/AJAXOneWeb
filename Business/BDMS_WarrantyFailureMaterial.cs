@@ -114,8 +114,16 @@ namespace Business
                                }
 
                                W.Approved2On = DBNull.Value == dr["Approved2On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved2On"]);
-                               //   W.Status = Convert.ToString(dr["Status"]).Trim();
-                               W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
+
+                                W.Approved3By = new PUser();
+                                if (dr["Approved3By"] != DBNull.Value)
+                                {
+                                    W.Approved3By.ContactName = Convert.ToString(dr["Approved3By"]);
+                                }
+                                W.Approved3On = DBNull.Value == dr["Approved3On"] ? (DateTime?)null : Convert.ToDateTime(dr["Approved3On"]);
+
+                                //   W.Status = Convert.ToString(dr["Status"]).Trim();
+                                W.HMR = DBNull.Value == dr["HMR"] ? (int?)null : Convert.ToInt32(dr["HMR"]);
                                W.MarginWarranty = DBNull.Value == dr["MarginWarranty"] ? (Boolean?)null : Convert.ToBoolean(dr["MarginWarranty"]);
                                W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
                                W.Model = Convert.ToString(dr["Model"]);
@@ -155,7 +163,8 @@ namespace Business
 
                            item.Approved2Amount = DBNull.Value == dr["Approved2Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved2Amount"]);
                            item.Approved2Remarks = Convert.ToString(dr["Approved2Remarks"]);
-                           item.WarrantyMaterialReturnStatus = new PDMS_WarrantyMaterialReturnStatus();
+                            item.Approved3Amount = DBNull.Value == dr["Approved3Amount"] ? (decimal?)null : Convert.ToDecimal(dr["Approved3Amount"]);
+                            item.WarrantyMaterialReturnStatus = new PDMS_WarrantyMaterialReturnStatus();
                            if (DBNull.Value != dr["WarrantyMaterialReturnStatusID"])
                            {
                                item.WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatusID = Convert.ToInt32(dr["WarrantyMaterialReturnStatusID"]);

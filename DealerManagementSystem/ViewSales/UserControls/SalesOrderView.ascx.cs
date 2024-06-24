@@ -1449,7 +1449,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     T.ShippingAddress = txtShippingAddress.Text;
                     T.Freight = string.IsNullOrEmpty(txtDeliveryFreight.Text.Trim()) ? 0 : Convert.ToDecimal(txtDeliveryFreight.Text.Trim());
                     T.PackingAndForward = string.IsNullOrEmpty(txtDeliveryPackingAndForward.Text.Trim()) ? 0 : Convert.ToDecimal(txtDeliveryPackingAndForward.Text.Trim());
-
+                    T.Remarks = txtBoxRemarks.Text.Trim();
                 }
                 SODelivery_Insert.RemoveAll(r => r.DeliveryQuantity == 0);
 

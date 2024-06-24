@@ -146,7 +146,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     }
                     else
                     {
-                        PAttachedFile UploadedFile = new BDMS_SalesOrder().GetServiceInvoiceFile(SODeliveryID);
+                        PAttachedFile UploadedFile = new BDMS_SalesOrder().GetPartInvoiceFile(SODeliveryID);
                         // UploadedFile.FileName = "A.pdf";  
                         File.WriteAllBytes(tempfilenameandlocation, UploadedFile.AttachedFile);
                         //  Response.Redirect("../PDF.aspx?FileName=" + FileName + "&Title=Pre-Sales » Quotation", false);
@@ -354,7 +354,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             lblDeliveryAddress.Text = SaleOrderDeliveryByID.ShippingAddress;
 
-
+            lblShippingRemarks.Text = SaleOrderDeliveryByID.Remarks.ToString();
             //if (SaleOrderDeliveryByID.SaleOrder.ShipTo != null)
             //{
             //    List<PDMS_CustomerShipTo> ShipTos = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
@@ -383,8 +383,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblPackingRemarks.Text = SaleOrderDeliveryByID.Shipping.PackingRemarks.ToString();
                 lblTransportDetails.Text = SaleOrderDeliveryByID.Shipping.TransportDetails.ToString();
                 lblTransportMode.Text = SaleOrderDeliveryByID.Shipping.TransportMode.ToString();
-                lblPickupDate.Text = SaleOrderDeliveryByID.Shipping.PickupDate.ToShortDateString();
-                lblShippingRemarks.Text = SaleOrderDeliveryByID.Shipping.Remarks.ToString();
+                lblPickupDate.Text = SaleOrderDeliveryByID.Shipping.PickupDate.ToShortDateString(); 
             }
             ActionControlMange(SaleOrderDeliveryByID);
         }
@@ -425,7 +424,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             try
             {
-                PAttachedFile UploadedFile = new BDMS_SalesOrder().GetServiceInvoiceFile(SODeliveryID);
+                PAttachedFile UploadedFile = new BDMS_SalesOrder().GetPartInvoiceFile(SODeliveryID);
                 Response.AddHeader("Content-type", UploadedFile.FileType);
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + lblInvoiceNumber.Text + ".pdf");
                 HttpContext.Current.Response.Charset = "utf-16";
@@ -447,7 +446,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 Shipping_Insert.SaleOrderDeliveryID = SODeliveryID;
                 Shipping_Insert.NetWeight = Convert.ToDecimal("0" + txtBoxNetWeight.Text);
-                Shipping_Insert.Remarks = txtBoxRemarks.Text.Trim();
+                
                 Shipping_Insert.DispatchDate = Convert.ToDateTime(txtBoxDispatchDate.Text.Trim());
                 Shipping_Insert.CourierID = txtBoxCourierId.Text.Trim();
                 Shipping_Insert.CourierDate = Convert.ToDateTime(txtBoxCourierDate.Text.Trim());
