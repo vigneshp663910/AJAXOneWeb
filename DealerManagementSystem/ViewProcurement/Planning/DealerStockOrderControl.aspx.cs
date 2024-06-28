@@ -20,22 +20,7 @@ namespace DealerManagementSystem.ViewProcurement.Planning
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
-        }
-        public List<PDealerStockOrderControl> DealerStockOrderControlList
-        {
-            get
-            {
-                if (ViewState["DealerStockOrderControlList"] == null)
-                {
-                    ViewState["DealerStockOrderControlList"] = new List<PDealerStockOrderControl>();
-                }
-                return (List<PDealerStockOrderControl>)ViewState["DealerStockOrderControlList"];
-            }
-            set
-            {
-                ViewState["DealerStockOrderControlList"] = value;
-            }
-        }
+        } 
         private int PageCount
         {
             get
@@ -69,10 +54,7 @@ namespace DealerManagementSystem.ViewProcurement.Planning
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Planning » Dealer Stock Order Control');</script>");
-            if (PSession.User == null)
-            {
-                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
+            
             lblMessage.Text = string.Empty;
             lblMessageCreateDealerSOControl.Text = string.Empty;
             if (!IsPostBack)
@@ -83,7 +65,7 @@ namespace DealerManagementSystem.ViewProcurement.Planning
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
-                if (PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerStockOrderControlAdminPermission).Count() == 0 && PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerStockOrderControlBasicPermission).Count() == 0)
+                if (PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerStockOrderControlAdminPermission).Count() == 0)
                 {
                     btnCreate.Visible = false;
                 }
@@ -142,7 +124,7 @@ namespace DealerManagementSystem.ViewProcurement.Planning
                 int? DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
 
                 PApiResult Result = new BDMS_PurchaseOrder().GetDealerStockOrderControl(DealerID, PageIndex, gvDealerStockOrderControl.PageSize);
-                DealerStockOrderControlList = JsonConvert.DeserializeObject<List<PDealerStockOrderControl>>(JsonConvert.SerializeObject(Result.Data));
+                List<PDealerStockOrderControl> DealerStockOrderControlList = JsonConvert.DeserializeObject<List<PDealerStockOrderControl>>(JsonConvert.SerializeObject(Result.Data));
 
                 gvDealerStockOrderControl.DataSource = DealerStockOrderControlList;
                 gvDealerStockOrderControl.DataBind();
@@ -166,7 +148,15 @@ namespace DealerManagementSystem.ViewProcurement.Planning
                 {
                     LinkButton LnkEdit = (LinkButton)row.FindControl("LnkEdit");
                     LinkButton LnkDelete = (LinkButton)row.FindControl("LnkDelete");
-                    if (PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerStockOrderControlAdminPermission).Count() == 0 && PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerStockOrderControlBasicPermission).Count() == 0)
+                    if (PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerStockOrderControlAdminPermission).Count() != 0)
+                    {
+
+                    }
+                    else if (PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerStockOrderControlBasicPermission).Count() != 0)
+                    {
+                        LnkDelete.Visible = false;
+                    }
+                    else
                     {
                         LnkDelete.Visible = false;
                         LnkEdit.Visible = false;

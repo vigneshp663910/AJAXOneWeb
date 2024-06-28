@@ -79,8 +79,13 @@
                     <label>Payment Mode : </label>
                     <asp:Label ID="lblPaymentMode" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+
             </div>
             <div class="col-md-3">
+                <div class="col-md-12">
+                    <label>TCS Value : </label>
+                    <asp:Label ID="lblTcsValue" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
                 <div class="col-md-12">
                     <label>Value : </label>
                     <asp:Label ID="lblValue" runat="server" CssClass="LabelValue"></asp:Label>
@@ -565,7 +570,7 @@
                             <asp:ListItem Value="BY AIR">BY AIR</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-                   
+
                 </div>
             </div>
         </div>

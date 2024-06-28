@@ -11,7 +11,7 @@
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Dealer Code</label>
+                            <label class="modal-label">Dealer</label>
                             <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-12 text-center">
@@ -30,6 +30,9 @@
                                 <div style="float: left">
                                     <table>
                                         <tr>
+                                             <td>
+                                                <asp:Label ID="Label1" runat="server" Text="List" CssClass="label"></asp:Label></td>
+                                            <td>
                                             <td>
                                                 <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                             <td>
@@ -41,9 +44,9 @@
                                 </div>
                             </div>
                         </div>
-                        <asp:GridView ID="gvDealerStockOrderControl" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20">
+                        <asp:GridView ID="gvDealerStockOrderControl" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"  EmptyDataText="No Data Found">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="45px">
+                                <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="45px">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
