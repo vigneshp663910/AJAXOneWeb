@@ -785,13 +785,33 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.Text == "Service Invoice")
             {
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+                PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SDMS_ICTicket.Dealer.DealerID, null, null, null)[0];
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SDMS_ICTicket.Customer.CustomerID);
+                if (Dealer.IsEInvoice && Customer.GSTIN != "URD")
+                {
+                    if (string.IsNullOrEmpty(Customer.Address1))
+                    {
+                        lblMessage.Text = "Please update Customer Address."; 
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(Customer.City))
+                    {
+                        lblMessage.Text = "Please update Customer City."; 
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(Customer.Pincode))
+                    {
+                        lblMessage.Text = "Please update Customer Pincode.";
+                        return;
+                    }
+                }
                 string endPoint = "ICTicket/InsertServiceQuotationOrProformaOrInvoice?ICTicketID=" + SDMS_ICTicket.ICTicketID + "&Type=3";
                 PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Text = Results.Message; 
                     return;
                 }
                 List<PDMS_PaidServiceInvoice> Invoice = new BDMS_Service().GetPaidServiceInvoice(null, SDMS_ICTicket.ICTicketID, "", null, null, null, "", true);

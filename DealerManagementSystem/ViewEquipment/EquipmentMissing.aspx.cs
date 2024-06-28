@@ -19,9 +19,23 @@ namespace DealerManagementSystem.ViewEquipment
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            new BAPI().ApiGetWithOutToken("Sap/InsertMissingEquipment?EquipmentSerNo=" + txtEquipment.Text.Trim());
             int RowCount = 0;
-            gvEquipment.DataSource = new BDMS_Equipment().GetEquipmentHeader(null, txtEquipment.Text.Trim(), null, null, null, null, null, null, PSession.User.UserID, 1, 10, out RowCount);
+            List<PDMS_Equipment> EquipmentList = new List<PDMS_Equipment>();
+            string[] EquipS = txtEquipment.Text.Split(',');
+            foreach (string Equipment in EquipS)
+            {
+                new BAPI().ApiGetWithOutToken("Sap/InsertMissingEquipment?EquipmentSerNo=" + Equipment.Trim());
+                List<PDMS_Equipment> Material = new BDMS_Equipment().GetEquipmentHeader(null, Equipment.Trim(), null, null, null, null, null, null, PSession.User.UserID, 1, 10, out RowCount);
+                if (Material.Count == 1)
+                {
+                    EquipmentList.Add(Material[0]);
+                }
+            }
+
+            //  new BAPI().ApiGetWithOutToken("Sap/InsertMissingEquipment?EquipmentSerNo=" + txtEquipment.Text.Trim());
+
+            // gvEquipment.DataSource = new BDMS_Equipment().GetEquipmentHeader(null, txtEquipment.Text.Trim(), null, null, null, null, null, null, PSession.User.UserID, 1, 10, out RowCount);
+            gvEquipment.DataSource = EquipmentList;
             gvEquipment.DataBind();
         }
     }

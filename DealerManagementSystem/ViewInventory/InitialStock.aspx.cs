@@ -298,7 +298,7 @@ namespace DealerManagementSystem.ViewInventory
                     List<PDMS_Material> MaterialS = new BDMS_Material().GetMaterialListSQL(null, null, null, null, null);
                     foreach (PInitialStock_Post dr in MaterialUpload)
                     {
-                        bool containsItem = MaterialS.Any(item => item.MaterialCode == dr.MaterialCode);
+                        bool containsItem = MaterialS.Any(item => item.MaterialCode == dr.MaterialCode.Trim());
                         if (!containsItem)
                         {
                             lblMessage.Text = "Please Check Material Code : " + dr.MaterialCode + " Not Available...!";
@@ -306,7 +306,7 @@ namespace DealerManagementSystem.ViewInventory
                             Success = false;
                             return Success;
                         }
-                        List<PDMS_Material> Mats = MaterialS.Where(s => s.MaterialCode == dr.MaterialCode).ToList();
+                        List<PDMS_Material> Mats = MaterialS.Where(s => s.MaterialCode == dr.MaterialCode.Trim()).ToList();
                         dr.MaterialDescription = Mats[0].MaterialDescription; 
                     }
                     if (MaterialUpload.Count > 0)

@@ -83,6 +83,26 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else if (lbActions.ID == "lbGenerateInvoice")
             {
+                PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
+                if (Dealer.IsEInvoice && SaleOrderDeliveryByID.SaleOrder.Customer.GSTIN != "URD")
+                {
+                    if(string.IsNullOrEmpty(SaleOrderDeliveryByID.SaleOrder.Customer.Address1))
+                    {
+                        lblMessage.Text = "Please update Customer Address.";
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(SaleOrderDeliveryByID.SaleOrder.Customer.City))
+                    {
+                        lblMessage.Text = "Please update Customer City.";
+                        return;
+                    }
+                    if (string.IsNullOrEmpty(SaleOrderDeliveryByID.SaleOrder.Customer.Pincode))
+                    {
+                        lblMessage.Text = "Please update Customer Pincode.";
+                        return;
+                    }
+                }
+
                 PApiResult Results = new BDMS_SalesOrder().GenerateSaleInvoice(SODeliveryID);
                 if (Results.Status == PApplication.Failure)
                 {
@@ -92,8 +112,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.Text = Results.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSODelivery(SODeliveryID);
-                PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
-                if ((Dealer.IsEInvoice) && (Dealer.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate))
+                // PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
+                if (Dealer.IsEInvoice && SaleOrderDeliveryByID.SaleOrder.Customer.GSTIN != "URD")
                 {
                     new BDMS_EInvoice().GeneratEInvoice(SaleOrderDeliveryByID.InvoiceNumber, "SalesInv");
                 }
@@ -297,6 +317,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblCustomer.Text = SaleOrderDeliveryByID.SaleOrder.Customer.CustomerCode + " " + SaleOrderDeliveryByID.SaleOrder.Customer.CustomerName;
             lblEquipment.Text = SaleOrderDeliveryByID.Equipment.EquipmentSerialNo;
             lblPaymentMode.Text = SaleOrderDeliveryByID.PaymentMode == null ? "" : SaleOrderDeliveryByID.PaymentMode.Status;
+            lblTcsValue.Text = Convert.ToString(SaleOrderDeliveryByID.TCSValue);
             decimal Value = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderDeliveryItem DeliveryItem in SaleOrderDeliveryByID.SaleOrderDeliveryItems)
             {
