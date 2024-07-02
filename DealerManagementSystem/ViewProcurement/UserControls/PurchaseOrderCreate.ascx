@@ -133,8 +133,8 @@
                     <label class="modal-label">.</label>
                     <asp:Button ID="btnAddMaterial" runat="server" Text="Add" CssClass="btn Search" OnClick="btnAddMaterial_Click" />
 
-                    <asp:Button ID="BtnVendorStock" runat="server" Text="Vendor Stock" CssClass="btn Save" OnClick="BtnVendorStock_Click"   />
-                    <asp:Button ID="BtnCurrentStock" runat="server" Text="Current Stock" CssClass="btn Save" OnClick="BtnCurrentStock_Click"   />
+                    <asp:Button ID="BtnVendorStock" runat="server" Text="Vendor Stock" CssClass="btn Save" OnClick="BtnVendorStock_Click" Width="106px"  />
+                    <asp:Button ID="BtnCurrentStock" runat="server" Text="Current Stock" CssClass="btn Save" OnClick="BtnCurrentStock_Click"  Width="107px"  />
                 </div>
             </div>
         </div>

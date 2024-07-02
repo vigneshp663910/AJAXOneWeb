@@ -174,8 +174,8 @@ namespace DealerManagementSystem.ViewService
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
-
-            PApiResult Results = new BDMS_WarrantyClaim().ApproveOrRejectDeviatedClaimRequest(Convert.ToInt64(gvICTickets.DataKeys[index].Value), null, true);
+            Label lblClaimDeviationID = (Label)gvRow.FindControl("lblClaimDeviationID"); 
+            PApiResult Results = new BDMS_WarrantyClaim().ApproveOrRejectDeviatedClaimRequest(Convert.ToInt64(lblClaimDeviationID.Text), null, true);
 
             if (Results.Status == PApplication.Failure)
             {
