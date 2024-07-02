@@ -128,7 +128,7 @@ namespace Business
                                W.MachineSerialNumber = Convert.ToString(dr["MachineSerialNumber"]);
                                W.Model = Convert.ToString(dr["Model"]);
                                W.PscID = Convert.ToString(dr["PscID"]);
-                               W.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
+                               //W.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
                                W.RestoreDate = DBNull.Value == dr["RestoreDate"] ? (DateTime?)null : Convert.ToDateTime(dr["RestoreDate"]);
                                W.Location = Convert.ToString(dr["Location"]);
                                W.Application = Convert.ToString(dr["Application"]);
@@ -143,8 +143,8 @@ namespace Business
                            }
                            PDMS_WarrantyInvoiceItem item = new PDMS_WarrantyInvoiceItem();
                            item.WarrantyInvoiceItemID = Convert.ToInt64(dr["WarrantyInvoiceItemID"]);
-
-                           item.Item = Convert.ToString(dr["Item"]);
+                            item.TSIRNumber = Convert.ToString(dr["TSIRNumber"]);
+                            item.Item = Convert.ToString(dr["Item"]);
                            item.RefDocID = Convert.ToString(dr["RefDocID"]);
                            item.Material = Convert.ToString(dr["Material"]);
                            item.MaterialDesc = Convert.ToString(dr["MaterialDesc"]);

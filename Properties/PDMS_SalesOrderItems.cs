@@ -379,6 +379,7 @@ namespace Properties
         public PSaleOrderReturnItem SaleOrderReturnItem { get; set; }
         public List<PSaleOrderReturnItem> SaleOrderReturnItems { get; set; }
         public PAjaxOneStatus ReturnStatus { get; set; }
+        public string IRN { get; set; }
     }
     [Serializable]
     public class PSaleOrderReturnItem
