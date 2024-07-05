@@ -577,13 +577,13 @@ namespace Business
                     {
                         foreach (DataRow dr in EmployeeDataSet.Tables[0].Rows)
                         {
-                            if (InvoiceID != Convert.ToInt64(dr["SaleOrderDeliveryID"]))
+                            if (InvoiceID != Convert.ToInt64(dr["SaleOrderReturnID"]))
                             {
                                 W = new PSaleOrderDelivery();
                                 Ws.Add(W);
-                                W.SaleOrderDeliveryID = Convert.ToInt64(dr["SaleOrderDeliveryID"]);
-                                W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
-                                W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
+                                W.SaleOrderDeliveryID = Convert.ToInt64(dr["SaleOrderReturnItemID"]);
+                                W.InvoiceNumber = Convert.ToString(dr["CreditNoteNumber"]);
+                                W.InvoiceDate = Convert.ToDateTime(dr["CreditNoteDate"]);
                                 W.SaleOrder = new PSaleOrder();
                                 W.SaleOrder.Dealer = new PDMS_Dealer()
                                 {
@@ -617,7 +617,7 @@ namespace Business
                             }
                             W.SaleOrderDeliveryItems.Add(new PSaleOrderDeliveryItem()
                             {
-                                SaleOrderDeliveryItemID = Convert.ToInt64(dr["SaleOrderDeliveryItemID"]),
+                                SaleOrderDeliveryItemID = Convert.ToInt64(dr["SaleOrderReturnItemID"]),
                                 Material = new PDMS_Material()
                                 {
                                     MaterialCode = Convert.ToString(dr["MaterialCode"]),
@@ -1045,6 +1045,34 @@ namespace Business
                 DbParameter InvoiceIDP = provider.CreateParameter("InvoiceID", InvoiceID, DbType.Int64);
                 DbParameter[] Params = new DbParameter[1] { InvoiceIDP };
                 using (DataSet DataSet = provider.Select("GetSaleOrderDeliveryInvoiceESigned", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            InvoiceE.RefInvoiceID = Convert.ToInt64(dr["RefInvoiceID"]);
+                            InvoiceE.IRN = Convert.ToString(dr["IRN"]);
+                            InvoiceE.SignedQRCode = Convert.ToString(dr["SignedQRCode"]);
+                            InvoiceE.SignedInvoice = Convert.ToString(dr["SignedInvoice"]);
+                            InvoiceE.Comments = Convert.ToString(dr["Comments"]);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return InvoiceE;
+        }
+        public PDMS_EInvoiceSigned GetSaleOrderReturnCreditNoteESigned(long CreditNoteID)
+        {
+            PDMS_EInvoiceSigned InvoiceE = new PDMS_EInvoiceSigned();
+            try
+            {
+                DbParameter CreditNoteIDP = provider.CreateParameter("CreditNoteID", CreditNoteID, DbType.Int64);
+                DbParameter[] Params = new DbParameter[1] { CreditNoteIDP };
+                using (DataSet DataSet = provider.Select("GetSaleOrderReturnCreditNoteESigned", Params))
                 {
                     if (DataSet != null)
                     {

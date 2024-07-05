@@ -45,7 +45,7 @@
                             <div style="float: left">
                                 <table>
                                     <tr>
-                                        <td>Warehouse Stock : </td>
+                                        <td>Stock : </td>
                                         <td>
                                             <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                         <td>

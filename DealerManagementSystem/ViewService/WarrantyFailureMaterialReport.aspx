@@ -98,7 +98,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Material Return Status</label>
-                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control"/>
+                        <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" />
@@ -222,12 +222,12 @@
                                     <asp:Label ID="lblFSRNumber" Text='<%# DataBinder.Eval(Container.DataItem, "FSRNumber")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="TSIR No">
+                           <%-- <asp:TemplateField HeaderText="TSIR No">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblTSIRNumber" Text='<%# DataBinder.Eval(Container.DataItem, "TSIRNumber")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>
+                            </asp:TemplateField>--%>
                             <asp:TemplateField HeaderText="Apr.1 By" HeaderStyle-Width="55px" Visible="false">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
@@ -295,7 +295,7 @@
                                                                 <asp:Label ID="lblMaterialDesc" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDesc")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Category" HeaderStyle-Width="200px">
+                                                        <asp:TemplateField HeaderText="Category" >
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblCategory" Text='<%# DataBinder.Eval(Container.DataItem, "Category")%>' runat="server"></asp:Label>
@@ -307,58 +307,64 @@
                                                                 <asp:Label ID="lblQty" Text='<%# DataBinder.Eval(Container.DataItem, "Qty")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="UOM" HeaderStyle-Width="100px">
+                                                        <asp:TemplateField HeaderText="UOM" >
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblUnitOM" Text='<%# DataBinder.Eval(Container.DataItem, "UnitOM")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Amount" HeaderStyle-Width="90px">
+                                                        <asp:TemplateField HeaderText="Amount">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblAmount" Text='<%# DataBinder.Eval(Container.DataItem, "Amount")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Base+Tax" HeaderStyle-Width="55px" Visible="false">
+                                                        <asp:TemplateField HeaderText="Base+Tax" Visible="false">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblBaseTax" Text='<%# DataBinder.Eval(Container.DataItem, "BaseTax")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Failure Mat Remarks 1" HeaderStyle-Width="150px" Visible="false">
+                                                        <asp:TemplateField HeaderText="Failure Mat Remarks 1" Visible="false">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblMaterialStatusRemarks1" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialStatusRemarks1")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Apr. 1 Amt" HeaderStyle-Width="55px">
+                                                        <asp:TemplateField HeaderText="Apr. 1 Amt">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblApproved1Amount" Text='<%# DataBinder.Eval(Container.DataItem, "Approved1Amount")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Apr. 1 Remarks" HeaderStyle-Width="55px" Visible="false">
+                                                        <asp:TemplateField HeaderText="Apr. 1 Remarks" Visible="false">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblApproved1Remarks" Text='<%# DataBinder.Eval(Container.DataItem, "Approved1Remarks")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Failure Mat Remarks 2" HeaderStyle-Width="150px" Visible="false">
+                                                        <asp:TemplateField HeaderText="Failure Mat Remarks 2" Visible="false">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblMaterialStatusRemarks2" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialStatusRemarks2")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Apr 2 Amt" HeaderStyle-Width="55px">
+                                                        <asp:TemplateField HeaderText="Apr 2 Amt" >
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblApproved2Amount" Text='<%# DataBinder.Eval(Container.DataItem, "Approved2Amount")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Apr. 2 Remarks" HeaderStyle-Width="55px" Visible="false">
+                                                        <asp:TemplateField HeaderText="Apr. 2 Remarks"  Visible="false">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblApproved2Remarks" Text='<%# DataBinder.Eval(Container.DataItem, "Approved2Remarks")%>' runat="server"></asp:Label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                         <asp:TemplateField HeaderText="Apr 3 Amt"  >
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblApproved3Amount" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3Amount")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Material Return Status">
@@ -367,6 +373,12 @@
                                                                 <asp:Label ID="lblMaterialReturnStatus" Text='<%# DataBinder.Eval(Container.DataItem, "WarrantyMaterialReturnStatus.WarrantyMaterialReturnStatus")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="TSIR No">
+                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblTSIRNumber" Text='<%# DataBinder.Eval(Container.DataItem, "TSIRNumber")%>' runat="server"></asp:Label>
+                                                            </ItemTemplate>
+                                                            </asp:TemplateField>
                                                     </Columns>
                                                     <AlternatingRowStyle BackColor="#ffffff" />
                                                     <FooterStyle ForeColor="White" />

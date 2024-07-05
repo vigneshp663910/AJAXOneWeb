@@ -267,8 +267,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[15] = new ReportParameter("DealerName", SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerName.ToUpper(), false);
             P[16] = new ReportParameter("IRNNo", "", false);
             P[17] = new ReportParameter("QRCodeImg", "", false);
+             
+            PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerID, null, null, null)[0];
+            if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= SaleOrderReturnByID.CreditNoteDate) && (Customer.GSTIN != "URD"))
+            {
+                if (string.IsNullOrEmpty(SaleOrderReturnByID.IRN))
+                {
+                    throw new Exception("E Invoice not generated. Please contact IT Team.");
+                }
+                PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderReturnCreditNoteESigned(SaleOrderReturnByID.SaleOrderReturnID);
+                P[16] = new ReportParameter("IRNNo", "IRN : " + SaleOrderReturnByID.IRN, false);
+                P[17] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderReturnByID.CreditNoteNumber), false);
+               
 
-            DataTable dtItem = new DataTable();
+            }
+
+                DataTable dtItem = new DataTable();
             dtItem.Columns.Add("ItemNo");
             dtItem.Columns.Add("PartNo");
             dtItem.Columns.Add("Description");

@@ -280,7 +280,7 @@ namespace DealerManagementSystem.ViewService
                         , M.Approved3On
                         // , M.InvoiceNumber
                         // , M.InvoiceDate == null ? "" : ((DateTime)M.InvoiceDate).ToShortDateString()
-                        , M.TSIRNumber
+                        , Item.TSIRNumber
                         , M.Model
                         , Item.HSNCode
                         , "'" + Item.Material
@@ -441,7 +441,7 @@ namespace DealerManagementSystem.ViewService
                             , ""// M.ClaimDate == null ? "" : ((DateTime)M.ClaimDate).ToShortDateString()
                             , ""
                             , M.Application
-                            , M.TSIRNumber
+                            , Item.TSIRNumber
                            );
                     }
                 }
