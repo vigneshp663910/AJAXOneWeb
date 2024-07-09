@@ -589,8 +589,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[33] = new ReportParameter("GrandTotalInwords", "", false);
             P[34] = new ReportParameter("Model", Q.LeadProduct.Product.Product, false);
             P[35] = new ReportParameter("MachineSlno", SaleOrderDeliveryByID.Equipment.EquipmentSerialNo, false);
-            P[36] = new ReportParameter("EngineNo", "", false);
-            P[37] = new ReportParameter("ChassisNo", "", false);
+            P[36] = new ReportParameter("EngineNo", SaleOrderDeliveryByID.Equipment.EngineSerialNo, false);
+            P[37] = new ReportParameter("ChassisNo", SaleOrderDeliveryByID.Equipment.ChassisSlNo, false);
             P[38] = new ReportParameter("Remarks", "", false);
             P[39] = new ReportParameter("DeliveryNo", SaleOrderDeliveryByID.DeliveryNumber, false);
             P[40] = new ReportParameter("IRNo", "", false);
