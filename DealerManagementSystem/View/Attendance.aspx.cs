@@ -55,7 +55,7 @@ namespace DealerManagementSystem.View
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Activities » Attendance');</script>");
-
+            lblMessage.Text = "";
             if (!IsPostBack)
             {
                 txtDateFrom.Text = DateTime.Now.AddDays(1 + (-1 * DateTime.Now.Day)).ToString("yyyy-MM-dd");
@@ -94,9 +94,7 @@ namespace DealerManagementSystem.View
                 else
                 {
                     btnPunch.Visible = false;
-                }
-
-
+                } 
             }
         }
 
@@ -177,41 +175,49 @@ namespace DealerManagementSystem.View
         }
         protected void btnPunch_Click(object sender, EventArgs e)
         {
-            Boolean Success = true;
+            try
+            {
+                Boolean Success = true;
 
-            if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
-            {
-                lblMessage.Text = "Please Enable GeoLocation!";
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-                return;
+                if (string.IsNullOrEmpty(hfLatitude.Value) || string.IsNullOrEmpty(hfLongitude.Value))
+                {
+                    lblMessage.Text = "Please Enable GeoLocation!";
+                    lblMessage.ForeColor = Color.Red;
+                    lblMessage.Visible = true;
+                    return;
+                }
+                decimal Latitude = Convert.ToDecimal(hfLatitude.Value);
+                decimal Longitude = Convert.ToDecimal(hfLongitude.Value);
+                Success = new BAttendance().InsertOrUpdateAttendance(Latitude, Longitude);
+                if (Success)
+                {
+                    lblMessage.Text = "Attendance punched successfully.";
+                    lblMessage.ForeColor = Color.Green;
+                    FillAttendance();
+                    Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now, null, null);
+                    btnPunch.Text = "Punch In";
+                    if ((Attendance1.Rows.Count > 0) && (Attendance1.Rows[0]["PunchOut"] == DBNull.Value))
+                    {
+                        btnPunch.Text = "Punch Out";
+                    }
+                    else if (Attendance1.Rows.Count == 0)
+                    {
+                        btnPunch.Text = "Punch In";
+                    }
+                    else
+                    {
+                        btnPunch.Visible = false;
+                    }
+                }
+                else if (!Success)
+                {
+                    lblMessage.Text = "Attendance not punched.";
+                    lblMessage.ForeColor = Color.Red;
+                }
             }
-            decimal Latitude = Convert.ToDecimal(hfLatitude.Value);
-            decimal Longitude = Convert.ToDecimal(hfLongitude.Value);
-            Success = new BAttendance().InsertOrUpdateAttendance( Latitude, Longitude);
-            if(Success)
+            catch (Exception e1)
             {
-                lblMessage.Text = "Attendance punched successfully.";
-                lblMessage.ForeColor = Color.Green;
-                FillAttendance();
-                Attendance1 = new BAttendance().GetAttendance(null, DateTime.Now, DateTime.Now, null,null);
-                btnPunch.Text = "Punch In";
-                if ((Attendance1.Rows.Count > 0) && (Attendance1.Rows[0]["PunchOut"] == DBNull.Value))
-                {
-                    btnPunch.Text = "Punch Out";
-                }
-                else if (Attendance1.Rows.Count == 0)
-                {
-                    btnPunch.Text = "Punch In"; 
-                }
-                else
-                {
-                    btnPunch.Visible = false;
-                }
-            }
-            else if(!Success)
-            {
-                lblMessage.Text = "Attendance not punched.";
+                lblMessage.Text = e1.Message;
                 lblMessage.ForeColor = Color.Red;
             }
         }
