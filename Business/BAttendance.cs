@@ -1,5 +1,6 @@
 ﻿using DataAccess;
 using Newtonsoft.Json;
+using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -41,7 +42,14 @@ namespace Business
             try
             {
                 string endPoint = "Activity/InsertOrUpdateAttendance?Latitude=" + Latitude + "&Longitude=" + Longitude;
-                return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+                //  return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                if (Result.Status == PApplication.Failure)
+                {
+                    throw new Exception(Result.Message);
+                }
+                return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(Result.Data));
             }
             catch (Exception ex)
             {

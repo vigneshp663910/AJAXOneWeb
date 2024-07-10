@@ -49,7 +49,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:HiddenField ID="hfLatitude" runat="server" />
     <asp:HiddenField ID="hfLongitude" runat="server" />
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"  />
     <div class="col-md-12">
         <fieldset class="fieldset-border" id="Fieldset2" runat="server">
             <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
