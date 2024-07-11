@@ -237,6 +237,14 @@
         else
             return false;
     }
+    function ConfirmSaleOrderDelivery() {
+        var x = confirm("Are you sure you want to Delivery?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
 </script>
 <div class="col-md-12">
     <div class="action-btn">
@@ -1088,7 +1096,7 @@
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnSaveDelivery" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveDelivery_Click" />
+            <asp:Button ID="btnSaveDelivery" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveDelivery_Click"  OnClientClick="return ConfirmSaleOrderDelivery();" />
         </div>
     </div>
 </asp:Panel>

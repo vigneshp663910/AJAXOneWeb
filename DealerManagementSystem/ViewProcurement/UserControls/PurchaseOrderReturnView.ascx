@@ -3,6 +3,40 @@
 
 <%@ Register Src="~/ViewProcurement/UserControls/PurchaseOrderReturnDeliveryCreate.ascx" TagPrefix="UC" TagName="UC_PurchaseOrderReturnDeliveryCreate" %>
 
+<script>
+    function ConfirmPoReturnApprove() {
+        var x = confirm("Are you sure you want to Purchase Order Return Approve?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmPoReturnReject() {
+        var x = confirm("Are you sure you want to Purchase Order Return Reject?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmPoReturnCancel() {
+        var x = confirm("Are you sure you want to Purchase Order Return Cancel?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmPoReturnDelivery() {
+        var x = confirm("Are you sure you want to Purchase Order Return Delivery?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+</script>
 <asp:Panel ID="PnlPurchaseOrderReturnView" runat="server" class="col-md-12">
     <div class="col-md-12">
         <div class="action-btn">
@@ -10,14 +44,13 @@
             <div class="dropdown btnactions" id="customerAction">
                 <div class="btn Approval">Actions</div>
                 <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-
                     <asp:LinkButton ID="lbPreviewPoReturn" runat="server" OnClick="lbActions_Click">PO Return Preview</asp:LinkButton>
                     <asp:LinkButton ID="lbDownloadPoReturn" runat="server" OnClick="lbActions_Click">PO Return Download</asp:LinkButton>
                     <asp:LinkButton ID="lbRequestForApproval" runat="server" OnClick="lbActions_Click">Request For Approval</asp:LinkButton>
-                    <asp:LinkButton ID="lbApprove" runat="server" OnClick="lbActions_Click">Approve</asp:LinkButton>
-                    <asp:LinkButton ID="lbReject" runat="server" OnClick="lbActions_Click">Reject</asp:LinkButton>
-                    <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click">Cancel</asp:LinkButton>
-                    <asp:LinkButton ID="lbDeliveryCreate" runat="server" OnClick="lbActions_Click">Create Delivery</asp:LinkButton>
+                    <asp:LinkButton ID="lbApprove" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmPoReturnApprove();">Approve</asp:LinkButton>
+                    <asp:LinkButton ID="lbReject" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmPoReturnReject();">Reject</asp:LinkButton>
+                    <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmPoReturnCancel();">Cancel</asp:LinkButton>
+                    <asp:LinkButton ID="lbDeliveryCreate" runat="server" OnClick="lbActions_Click" OnClientClick="return ConfirmPoReturnDelivery();">Create Delivery</asp:LinkButton>
                 </div>
             </div>
         </div>

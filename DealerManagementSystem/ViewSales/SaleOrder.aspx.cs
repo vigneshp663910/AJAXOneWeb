@@ -125,6 +125,7 @@ namespace DealerManagementSystem.ViewSales
         {
             try
             {
+                PageIndex = 1;
                 fillSalesOrder();
             }
             catch (Exception e1)
@@ -160,7 +161,7 @@ namespace DealerManagementSystem.ViewSales
                 PApiResult Result = new BDMS_SalesOrder().GetSaleOrderHeader(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), QuotationNo, SaleOrderNumber, EquipmentSerialNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID, PageIndex, gvSaleOrder.PageSize);
                 SalesOrder = JsonConvert.DeserializeObject<List<PSaleOrder>>(JsonConvert.SerializeObject(Result.Data));
 
-                gvSaleOrder.PageIndex = 0;
+              
                 gvSaleOrder.DataSource = SalesOrder;
                 gvSaleOrder.DataBind();
                 if (Result.RowCount == 0)
@@ -208,13 +209,13 @@ namespace DealerManagementSystem.ViewSales
                 fillSalesOrder();
             }
         }
-        protected void gvSaleOrder_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvSaleOrder.PageIndex = e.NewPageIndex;
-            gvSaleOrder.DataSource = SalesOrder;
-            gvSaleOrder.DataBind();
-            lblRowCount.Text = (((gvSaleOrder.PageIndex) * gvSaleOrder.PageSize) + 1) + " - " + (((gvSaleOrder.PageIndex) * gvSaleOrder.PageSize) + gvSaleOrder.Rows.Count) + " of " + SalesOrder.Count;
-        }
+        //protected void gvSaleOrder_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        //{
+        //    gvSaleOrder.PageIndex = e.NewPageIndex;
+        //    gvSaleOrder.DataSource = SalesOrder;
+        //    gvSaleOrder.DataBind();
+        //    lblRowCount.Text = (((gvSaleOrder.PageIndex) * gvSaleOrder.PageSize) + 1) + " - " + (((gvSaleOrder.PageIndex) * gvSaleOrder.PageSize) + gvSaleOrder.Rows.Count) + " of " + SalesOrder.Count;
+        //}
         protected void btnViewSO_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;

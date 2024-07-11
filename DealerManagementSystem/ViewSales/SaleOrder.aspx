@@ -86,13 +86,13 @@
                         <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
                             <div class="boxHead">
-                                <div class="logheading">
+                                <div class="logheading"> 
                                     <div style="float: left">
                                         <table>
                                             <tr>
                                                 <td>Sale Order(s):</td>
                                                 <td>
-                                                    <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                    <asp:Label ID="lblRowCount" runat="server" CssClass="label" > </asp:Label></td>
                                                 <td>
                                                     <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
                                                 <td>
@@ -102,8 +102,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <asp:GridView ID="gvSaleOrder" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"
-                                OnPageIndexChanging="gvSaleOrder_PageIndexChanging">
+                            <asp:GridView ID="gvSaleOrder" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20">
                                 <Columns>
                                     <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>

@@ -294,13 +294,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             dtItem.Columns.Add("Net");
 
             int sno = 0;
-            decimal TaxableValue = 0, TaxAmount = 0, NetAmount = 0;
+            decimal  TaxAmount = 0, NetAmount = 0;
             foreach (PSaleOrderReturnItem Item in SaleOrderReturnByID.SaleOrderReturnItems)
             {
                 dtItem.Rows.Add(sno += 1, Item.SaleOrderDeliveryItem.Material.MaterialCode, Item.SaleOrderDeliveryItem.Material.MaterialDescription, Item.Qty.ToString("0"), Item.SaleOrderDeliveryItem.Material.BaseUnit, String.Format("{0:n}", (Item.SaleOrderDeliveryItem.TaxableValue / Item.Qty)), String.Format("{0:n}", Item.SaleOrderDeliveryItem.TaxableValue), String.Format("{0:n}", (Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue)), String.Format("{0:n}", (Item.SaleOrderDeliveryItem.TaxableValue + Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue)));
-                TaxableValue += Item.SaleOrderDeliveryItem.TaxableValue;
+               // TaxableValue += Item.SaleOrderDeliveryItem.TaxableValue;
                 TaxAmount += Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue;
-                NetAmount += TaxableValue + TaxAmount;
+                NetAmount += Item.SaleOrderDeliveryItem.TaxableValue + Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue;
             }
             P[5] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxAmount), false);
             P[6] = new ReportParameter("NetAmount", String.Format("{0:n}", NetAmount), false);
