@@ -42,7 +42,7 @@ namespace DealerManagementSystem.ViewSupportTicket
 
                 if (!string.IsNullOrEmpty(Request.QueryString["TicketNo"]))
                 {
-                    int TicketNo = Convert.ToInt32(Request.QueryString["TicketNo"]);
+                    long TicketNo = Convert.ToInt64(Request.QueryString["TicketNo"]);
                     FillAllFields(TicketNo);
                     txtTicketNo.Text = TicketNo.ToString();
                     int status = Convert.ToInt32(ddlStatus.SelectedValue);
@@ -146,9 +146,9 @@ namespace DealerManagementSystem.ViewSupportTicket
         }
         protected void txtTicketNo_TextChanged(object sender, EventArgs e)
         {
-            FillAllFields(Convert.ToInt32(txtTicketNo.Text.Trim()));
+            FillAllFields(Convert.ToInt64(txtTicketNo.Text.Trim()));
         }
-        void FillAllFields(int TicketNo)
+        void FillAllFields(long TicketNo)
         {
             PTicketHeader Tickets = new PTicketHeader();
 
@@ -213,7 +213,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
 
             PTaskItem_Insert TaskItem = new PTaskItem_Insert();
-            TaskItem.HeaderID = Convert.ToInt32(txtTicketNo.Text.Trim());
+            TaskItem.HeaderID = Convert.ToInt64(txtTicketNo.Text.Trim());
             TaskItem.SubCategoryID = Convert.ToInt32(ddlSubcategory.SelectedValue);
             TaskItem.SeverityID = Convert.ToInt32(ddlSeverity.SelectedValue);
             TaskItem.AssignerRemark = txtAssignerRemark.Text.Trim();
@@ -384,7 +384,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             FillAssignTo();
         }
 
-        void FillTickets(int? TicketNO)
+        void FillTickets(long? TicketNO)
         {
             //List<PTicketHeader> Ticket = new BTickets().GetTicketDetails(TicketNO, null, null, null, null, null, null, null, null, null);
             PApiResult Result = new BTickets().GetTicketByID(TicketNO);

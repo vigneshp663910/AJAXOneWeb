@@ -111,7 +111,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         }
         void FillTickets()
         {
-            long? HeaderId = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (int?)null : Convert.ToInt32(txtTicketNo.Text.Trim());
+            long? HeaderId = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (Int64?)null : Convert.ToInt64(txtTicketNo.Text.Trim());
             int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? TicketSubCategoryID = null;
             if (ddlSubcategory.Items.Count > 0)
@@ -151,7 +151,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblHeaderId");
                 ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
 
-                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), UserID);
+                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt64(lblTicketID.Text), UserID);
                 if (count == 0)
                 {
                     ibMessage.ImageUrl = "~/Images/Message.jpg";
@@ -199,9 +199,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             btnBackToList.Visible = true;
             pnSearch.Visible = false;
             divGrid.Visible = false;
-            UC_SupportTicketView.FillTickets(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblHeaderId")).Text));
-            UC_SupportTicketView.FillChat(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblHeaderId")).Text));
-            UC_SupportTicketView.FillChatTemp(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblHeaderId")).Text));
+            UC_SupportTicketView.FillTickets(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblHeaderId")).Text));
+            UC_SupportTicketView.FillChat(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblHeaderId")).Text));
+            UC_SupportTicketView.FillChatTemp(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblHeaderId")).Text));
         }
 
         //protected void btnReassign_Click(object sender, EventArgs e)

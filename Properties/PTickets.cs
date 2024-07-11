@@ -8,7 +8,7 @@ namespace Properties
 {
     public class PTask_Insert
     {
-        public int HeaderID { get; set; }
+        public long HeaderID { get; set; }
         public int CategoryID { get; set; }
         public int? SubCategoryID { get; set; }
         public string Subject { get; set; }
@@ -25,8 +25,8 @@ namespace Properties
     }
     public class PTaskItem_Insert
     {
-        public int HeaderID { get; set; }
-        public int ItemID { get; set; }
+        public long HeaderID { get; set; }
+        public long ItemID { get; set; }
         public int? SubCategoryID { get; set; }
         public int? SeverityID { get; set; }
         public int? AssignedTo { get; set; }
@@ -43,14 +43,14 @@ namespace Properties
     }
     public class PForum_Insert
     {
-        public int HeaderID { get; set; }
+        public long HeaderID { get; set; }
         public string Message { get; set; }
         public PAttachedFile AttchedFile { get; set; }
     }
     [Serializable]
     public class PTicketHeader
     {
-        public int HeaderID { get; set; }
+        public long HeaderID { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PCategory Category { get; set; }
         public PSubCategory SubCategory { get; set; }

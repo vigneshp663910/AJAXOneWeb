@@ -81,7 +81,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         void FillTickets()
         {
             string TicketNO = txtTicketNo.Text.Trim();
-            int? HeaderID = string.IsNullOrEmpty(TicketNO) ? (int?)null : Convert.ToInt32(TicketNO);
+            long? HeaderID = string.IsNullOrEmpty(TicketNO) ? (Int64?)null : Convert.ToInt64(TicketNO);
             int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
             int? TicketSubCategoryID = null;
             if (ddlSubcategory.Items.Count > 0)
@@ -114,7 +114,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
                 ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
 
-                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), PSession.User.UserID);
+                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt64(lblTicketID.Text), PSession.User.UserID);
                 if (count == 0)
                 {
                     ibMessage.ImageUrl = "~/Images/Message.jpg";
@@ -155,9 +155,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             divSupportTicketView.Visible = true;
             btnBackToList.Visible = true;
             divList.Visible = false;
-            UC_SupportTicketView.FillTickets(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
-            UC_SupportTicketView.FillChat(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
-            UC_SupportTicketView.FillChatTemp(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillTickets(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChat(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChatTemp(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
         }
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
@@ -170,7 +170,7 @@ namespace DealerManagementSystem.ViewSupportTicket
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
 
-            PApiResult Result = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null, null, null, 1, 10000);
+            PApiResult Result = new BTickets().GetTicketDetails(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null, null, null, 1, 10000);
             PTicketHeader H = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data))[0];
             //PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null, null, null, 1, 10000, out RowCount)[0];
 

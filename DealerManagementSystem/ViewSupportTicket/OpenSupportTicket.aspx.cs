@@ -109,7 +109,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             try
             {
-                int? HeaderId = null;
+                long? HeaderId = null;
                 int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
                 long? CreatedBy = ddlCreatedBy.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlCreatedBy.SelectedValue);
                 DateTime? RequestedDateFrom = null;
@@ -125,7 +125,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 if (!string.IsNullOrEmpty(txtTicketId.Text.Trim()))
                 {
 
-                    HeaderId = Convert.ToInt32(txtTicketId.Text);
+                    HeaderId = Convert.ToInt64(txtTicketId.Text);
                 }
                 List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
 
@@ -323,9 +323,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             divSupportTicketView.Visible = true;
             btnBackToList.Visible = true;
             divList.Visible = false;
-            UC_SupportTicketView.FillTickets(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
-            UC_SupportTicketView.FillChat(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
-            UC_SupportTicketView.FillChatTemp(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillTickets(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChat(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
+            UC_SupportTicketView.FillChatTemp(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text));
         }
 
         void FillMessageStatus()
@@ -335,7 +335,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
                 ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
 
-                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), PSession.User.UserID);
+                int count = new BForum().GetMessageViewStatusCound(Convert.ToInt64(lblTicketID.Text), PSession.User.UserID);
                 if (count == 0)
                 {
                     ibMessage.ImageUrl = "~/Images/Message.jpg";

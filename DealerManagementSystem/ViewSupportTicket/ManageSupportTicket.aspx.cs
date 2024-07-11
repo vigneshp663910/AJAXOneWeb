@@ -163,7 +163,6 @@ namespace DealerManagementSystem.ViewSupportTicket
                 {
                     TicketTo = Convert.ToDateTime(txtTicketTo.Text).AddDays(1);
                 }
-                PUser User = PSession.User;
                 List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
                 int? UserID = null;
                 if (Session["DashboardTaskUserID"] == null)
@@ -202,7 +201,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 {
                     Label lblTicketID = (Label)gvTickets.Rows[i].FindControl("lblTicketID");
                     ImageButton ibMessage = (ImageButton)gvTickets.Rows[i].FindControl("ibMessage");
-                    int count = new BForum().GetMessageViewStatusCound(Convert.ToInt32(lblTicketID.Text), (UserID == null) ? Convert.ToInt32(Session["DashboardTaskUserID"]) : UserID);
+                    int count = new BForum().GetMessageViewStatusCound(Convert.ToInt64(lblTicketID.Text), (UserID == null) ? Convert.ToInt32(Session["DashboardTaskUserID"]) : UserID);
                     if (count == 0)
                     {
                         ibMessage.ImageUrl = "~/Images/Message.jpg";
@@ -237,12 +236,10 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             int? TicketNO = string.IsNullOrEmpty(txtTicketNo.Text.Trim()) ? (int?)null : Convert.ToInt32(txtTicketNo.Text.Trim());
             int? CategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
-            int? SubCategoryID = null;
+            int? SubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
+            int? SeverityID = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
             int? TypeId = ddlTicketType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlTicketType.SelectedValue);
-            //int UserID = (ddlEmployee.SelectedValue == "0") ? PSession.User.UserID : Convert.ToInt32(ddlEmployee.SelectedValue);
-            int UserID = PSession.User.UserID;
             string TicketStatus = "";
-            DataTable dt = new DataTable(); ;
             foreach (ListItem li in lbStatus.Items)
             {
                 if (li.Selected)
@@ -250,24 +247,20 @@ namespace DealerManagementSystem.ViewSupportTicket
                     TicketStatus = TicketStatus + "," + li.Text;
                 }
             }
-            int Index = 0;
-            int Rowcount = 100;
-            int CRowcount = Rowcount;
-            while (Rowcount == CRowcount)
+            TicketStatus = TicketStatus.Replace(",Select", "");
+            int? UserID = null;
+            if (Session["DashboardTaskUserID"] == null)
             {
-                Index = Index + 1;
-
-                PApiResult Result = new BTickets().GetTicketDetails_Excel(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, UserID, TicketStatus, Index, Rowcount);
-                DataTable dtTickets = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
-                //DataTable dtTickets = new BTickets().GetTicketDetails_DT(TicketNO, null, CategoryID, SubCategoryID, null, TypeId, null, null, UserID, TicketStatus, Index, Rowcount);
-
-                CRowcount = 0;
-                dt.Merge(dtTickets);
-                CRowcount = dtTickets.Rows.Count;
+                UserID = PSession.User.UserID;
             }
-
+            int? CreatedBy = null, AssignedTo = null, ApprovalTo = null, DealerID = null;
+            CreatedBy = (ddlCreatedBy.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlCreatedBy.SelectedValue);
+            AssignedTo = (ddlAssignedTo.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlAssignedTo.SelectedValue);
+            ApprovalTo = (ddlApprovalTo.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlApprovalTo.SelectedValue);
+            DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
+            PApiResult Result = new BTickets().GetTicketDetailsByExcel(DealerID, TicketNO, CategoryID, SubCategoryID, SeverityID, TypeId, CreatedBy, AssignedTo, ApprovalTo, UserID, TicketStatus, txtTicketFrom.Text, txtTicketTo.Text);
+            DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
             new BXcel().ExporttoExcel(dt, "TicketReport");
-
         }
         protected void ibMessage_Click(object sender, ImageClickEventArgs e)
         {
