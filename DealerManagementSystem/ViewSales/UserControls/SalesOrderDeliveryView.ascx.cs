@@ -113,11 +113,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessage.ForeColor = Color.Green;
                 fillViewSODelivery(SODeliveryID);
                 // PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
-                if (Dealer.IsEInvoice && SaleOrderDeliveryByID.SaleOrder.Customer.GSTIN != "URD")
+                 
+                if (Dealer.IsEInvoice && SaleOrderDeliveryByID.SaleOrder.Customer.GSTIN != "URD" && (Dealer.ServicePaidEInvoice))
                 {
                     new BDMS_EInvoice().GeneratEInvoice(SaleOrderDeliveryByID.InvoiceNumber, "SalesInv");
-                }
-                fillViewSODelivery(SODeliveryID);
+                } 
             }
             else if (lbActions.ID == "lbDowloadInvoice")
             {
@@ -457,6 +457,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             catch (Exception ex)
             {
+                lblMessage.Text = ex.Message;
+                lblMessage.ForeColor = Color.Red;
             }
         }
         protected void btnSaveShipping_Click(object sender, EventArgs e)
