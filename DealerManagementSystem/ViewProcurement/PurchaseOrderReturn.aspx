@@ -163,10 +163,21 @@
                     <%--<legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>--%>
                     <UC:UC_PurchaseOrderReturnCreate ID="UC_PurchaseOrderReturnCreate" runat="server"></UC:UC_PurchaseOrderReturnCreate>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Search" OnClick="btnSave_Click" Width="150px" />
+                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Search" OnClick="btnSave_Click" Width="150px"   OnClientClick="return ConfirmPoReturn();" />
                     </div>
                 </fieldset>
             </div>
         </div>
     </div>
+    
+<script>
+    function ConfirmPoReturn() {
+        var x = confirm("Are you sure you want to Purchase Order Return?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+</script>
 </asp:Content>

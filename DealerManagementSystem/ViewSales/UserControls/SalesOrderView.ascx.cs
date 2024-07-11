@@ -389,7 +389,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 gvDelivery.DataSource = SODelivery_Insert;
                 gvDelivery.DataBind();
-                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder || SOrder.Division.DivisionID == (short)SaleOrderType.WarrantyOrder)
+                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder)
                 {
                     gvDelivery.Columns[4].Visible = false;
                 }

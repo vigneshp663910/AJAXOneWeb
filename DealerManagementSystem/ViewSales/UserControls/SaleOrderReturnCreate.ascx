@@ -258,9 +258,20 @@
                     <label class="modal-label">Remarks</label>
                     <asp:TextBox ID="txtRemarks" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine" Rows="5" AutoCompleteType="Disabled"></asp:TextBox>
                 </div>
-                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" Width="100px" />
+                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" Width="100px"  OnClientClick="return ConfirmSaleOrderReturn();"/>
             </div>
         </fieldset>
     </div>
 </div>
+
+<script>
+    function ConfirmSaleOrderReturn() {
+        var x = confirm("Are you sure you want to Delivery Return?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+</script>
 
