@@ -317,6 +317,7 @@
     <Content Include="MailFormat\UserResetPassword.htm" />
     <Content Include="Open.aspx" />
     <Content Include="PDF.aspx" />
+    <Content Include="ProcessFlow\A1_Modules.png" />
     <Content Include="ProcessFlow\AJAX_Org1.png" />
     <Content Include="ProcessFlow\DMM_Process.aspx" />
     <Content Include="ProcessFlow\DMM_Process.png" />

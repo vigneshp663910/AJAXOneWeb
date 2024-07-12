@@ -23,6 +23,13 @@
     <%--<div class="col-md-12">
         <div class="col-md-12">--%>
             <asp1:TabContainer ID="tbpOrgChart" runat="server" ToolTip="Project Team" Font-Bold="True" Font-Size="Medium">
+                <asp1:TabPanel ID="tbpnlAbout" runat="server" HeaderText="Modules" Font-Bold="True">
+                    <ContentTemplate>
+                        <fieldset class="fieldset-border">
+                            <asp:Image ID="Image3" runat="server" ImageUrl="~/ProcessFlow/A1_Modules.png" />
+                        </fieldset>
+                    </ContentTemplate>
+                </asp1:TabPanel>
                 <asp1:TabPanel ID="tbpnlAjaxOrg" runat="server" HeaderText="IT Team" Font-Bold="True">
                     <ContentTemplate>
                         <fieldset class="fieldset-border">
