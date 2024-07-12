@@ -30,6 +30,21 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 ViewState["DealerUserDetails"] = value;
             }
         }
+        private List<PMessageAnnouncementItem_Insert> AssignToItems
+        {
+            get
+            {
+                if (ViewState["AssignToItems"] == null)
+                {
+                    ViewState["AssignToItems"] = new List<PMessageAnnouncementItem_Insert>();
+                }
+                return (List<PMessageAnnouncementItem_Insert>)ViewState["AssignToItems"];
+            }
+            set
+            {
+                ViewState["AssignToItems"] = value;
+            }
+        }
         public PMessageAnnouncementHeader MessageByID
         {
             get
@@ -384,6 +399,20 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             }
             return false;
         }
+        public List<PMessageAnnouncementItem_Insert> ReadItem()
+        {
+            List<PMessageAnnouncementItem_Insert> Items = new List<PMessageAnnouncementItem_Insert>();
+            foreach (PMessageAnnouncementItem ss in DealerUserDetails)
+            {
+                if (ss.MailResponce == true)
+                {
+                    PMessageAnnouncementItem_Insert Item = new PMessageAnnouncementItem_Insert();
+                    Item.AssignTo = ss.AssignTo.UserID;
+                    Items.Add(Item);
+                }
+            }
+            return Items;
+        }
         public void SendMessage()
         {
             if (ValidationMessage())
@@ -391,7 +420,7 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 lblMessage.Visible = true;
                 return;
             }
-            PMessageAnnouncementHeader Msg = new PMessageAnnouncementHeader();
+            PMessageAnnouncementHeader_Insert Msg = new PMessageAnnouncementHeader_Insert();
             if (MessageByID.MessageAnnouncementHeaderID != 0)
             {
                 Msg.MessageAnnouncementHeaderID = MessageByID.MessageAnnouncementHeaderID;
@@ -401,9 +430,9 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
             Msg.ValidTo = Convert.ToDateTime(txtValidTo.Text);
             Msg.Subject = Convert.ToString(txtSubject.Text);
             Msg.Status = "Sent";
-            Msg.Item = DealerUserDetails;
-            string result = new BAPI().ApiPut("MessageNotification", Msg);
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
+
+            Msg.Items = ReadItem();
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("MessageNotification", Msg));
             if (Result.Status == PApplication.Failure)
             {
                 lblMessage.Text = Result.Message;
@@ -422,12 +451,12 @@ namespace DealerManagementSystem.ViewAdmin.UserControls
                 messageBody = messageBody.Replace("@@Designation", (ddlDesignation.SelectedValue == "0") ? "ALL" : ddlDesignation.SelectedItem.Text);
                 messageBody = messageBody.Replace("@@Employee", (ddlDealerEmployee.SelectedValue == "0") ? "ALL" : ddlDealerEmployee.SelectedItem.Text);
                 messageBody = messageBody.Replace("@@NotificationNo", Result.Data.ToString());
-                messageBody = messageBody.Replace("@@NotificationDate", (MessageByID.MessageAnnouncementHeaderID == 0)?DateTime.Now.ToString("dd-MM-yyyy"): MessageByID.CreatedOn.ToString("dd-MM-yyyy"));
+                messageBody = messageBody.Replace("@@NotificationDate", (MessageByID.MessageAnnouncementHeaderID == 0) ? DateTime.Now.ToString("dd-MM-yyyy") : MessageByID.CreatedOn.ToString("dd-MM-yyyy"));
                 messageBody = messageBody.Replace("@@Subject", txtSubject.Text);
                 messageBody = messageBody.Replace("@@fromName", "Team AJAXOne");
                 messageBody = messageBody.Replace("@@URL", ConfigurationManager.AppSettings["URL"]);
 
-                new EmailManager().MailSend(ConfigurationManager.AppSettings["TaskMailBcc"], "", ConfigurationManager.AppSettings["TaskMailBcc"], "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
+                new EmailManager().MailSend(ConfigurationManager.AppSettings["TaskMailBcc"], "", "", "AJAXOne - Message [Notification No. " + Result.Data + "]", messageBody, Convert.ToInt64(PSession.User.UserID));
 
                 foreach (PMessageAnnouncementItem ss in DealerUserDetails)
                 {

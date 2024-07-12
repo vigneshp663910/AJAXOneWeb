@@ -31,5 +31,21 @@ namespace Properties
         public PDealer Dealer { get; set; }
         public DateTime? SentOn { get; set; }
     }
+    [Serializable]
+    public class PMessageAnnouncementHeader_Insert
+    {
+        public long MessageAnnouncementHeaderID { get; set; }
+        public string Message { get; set; }
+        public string Subject { get; set; }
+        public DateTime ValidFrom { get; set; }
+        public DateTime ValidTo { get; set; }
+        public string Status { get; set; }
+        public List<PMessageAnnouncementItem_Insert> Items { get; set; }
+    }
 
+    [Serializable]
+    public class PMessageAnnouncementItem_Insert
+    {
+        public long AssignTo { get; set; }
+    }
 }
