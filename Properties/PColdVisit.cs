@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Properties
 {
+    [Serializable]
     public class PColdVisit
     {
         public long ColdVisitID { get; set; }
@@ -26,11 +27,14 @@ namespace Properties
         public decimal? Longitude { get; set; }
         public PDealer Dealer { get; set; }
     }
+    [Serializable]
     public class PColdVisit_Insert
     {
         public long ColdVisitID { get; set; }
         public DateTime ColdVisitDate { get; set; }
         public PActionType ActionType { get; set; }
+        public int CustomerVisitTypeID { get; set; }
+        public int CallTypeID { get; set; }
         public PImportance Importance { get; set; }
         public PDMS_Customer_Insert Customer { get; set; }
         public string Remark { get; set; }
@@ -41,11 +45,13 @@ namespace Properties
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
     }
+    [Serializable]
     public class PActionType
     {
         public int ActionTypeID { get; set; }
         public string ActionType { get; set; }
     }
+    [Serializable]
     public class PVisitTarget
     {
         public long VisitTargetID { get; set; }
@@ -80,5 +86,11 @@ namespace Properties
             }
         } 
         public PUser CreatedBy { get; set; }
+    }
+    [Serializable]
+    public class PPreSalesMasterItem
+    {
+        public int MasterItemID { get; set; }
+        public string ItemText { get; set; }
     }
 }

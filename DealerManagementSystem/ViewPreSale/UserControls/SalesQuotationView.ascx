@@ -17,7 +17,7 @@
                 <asp:LinkButton ID="lbtnEditQuotation" runat="server" OnClick="lbActions_Click">Edit Quotation Basic Info</asp:LinkButton>
                 <asp:LinkButton ID="lbtnEditFinancier" runat="server" OnClick="lbActions_Click">Edit Financier Info</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddProduct" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>
-              <%--  <asp:LinkButton ID="lbtnAddVariant" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>--%>
+                <%--  <asp:LinkButton ID="lbtnAddVariant" runat="server" OnClick="lbActions_Click">Add Product</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnAddCompetitor" runat="server" OnClick="lbActions_Click">Add Competitor</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddQuotationNote" runat="server" OnClick="lbActions_Click">Add Quotation Note</asp:LinkButton>
                 <asp:LinkButton ID="lbtnAddFollowUp" runat="server" OnClick="lbActions_Click">Add Follow-up</asp:LinkButton>
@@ -30,8 +30,8 @@
                 <asp:LinkButton ID="lbtnViewTaxQuotation" runat="server" OnClick="lbActions_Click">View Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDownloadTaxQuotation" runat="server" OnClick="lbActions_Click">Download Tax Quotation</asp:LinkButton>
                 <asp:LinkButton ID="lbtnDownloadConsolidatedTaxQuotation" runat="server" OnClick="lbActions_Click">Download Consolidated Tax Quotation</asp:LinkButton>
-                <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton> 
-              <%--  <asp:LinkButton ID="lbtnAddDiscount" runat="server" OnClick="lbActions_Click">Add Discount</asp:LinkButton>--%>
+                <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
+                <%--  <asp:LinkButton ID="lbtnAddDiscount" runat="server" OnClick="lbActions_Click">Add Discount</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnAddCustomerSingedQuotation" runat="server" OnClick="lbActions_Click">Add Customer Singed Quotation</asp:LinkButton>
             </div>
         </div>
@@ -104,7 +104,7 @@
                     <label>User Status : </label>
                     <asp:Label ID="lblUserStatus" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                 <div class="col-md-12">
+                <div class="col-md-12">
                     <label>Product : </label>
                     <asp:Label ID="lblProduct" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
@@ -783,15 +783,15 @@
         <ContentTemplate>
             <br />
             <div class="col-md-12 View">
-                 <div class="col-md-4">
+                <div class="col-md-4">
                     <label>Customer Agreed Price : </label>
                     <asp:Label ID="lblCustomerAgreedPrice" runat="server" CssClass="LabelValue"></asp:Label>
-                     <asp:Label ID="lblSalesQuotationCustomerSingedID" runat="server" CssClass="LabelValue" Visible="false"></asp:Label>
+                    <asp:Label ID="lblSalesQuotationCustomerSingedID" runat="server" CssClass="LabelValue" Visible="false"></asp:Label>
                 </div>
                 <div class="col-md-4">
-                    <label></label> 
+                    <label></label>
                     <asp:LinkButton ID="lbtnCustomerSingedQuotationDownload" runat="server" OnClick="lbtnCustomerSingedQuotationDownload_Click"></asp:LinkButton>
-                </div> 
+                </div>
             </div>
         </ContentTemplate>
     </asp:TabPanel>
@@ -1032,6 +1032,14 @@
                         <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Customer Visit Type</label>
+                        <asp:DropDownList ID="ddlCustomerVisitType" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Call Type</label>
+                        <asp:DropDownList ID="ddlCallType" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Importance</label>
                         <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
                     </div>
@@ -1114,15 +1122,15 @@
         <div class="model-scroll">
             <asp:Label ID="lblMessageCustomerSingedCopy" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border">
-                <div class="col-md-12"> 
+                <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Customer Agreed Price</label>
                         <asp:TextBox ID="txtCustomerAgreedPrice" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass"></asp:TextBox>
-                    </div> 
+                    </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Singed  Document</label>
-                         <asp:FileUpload ID="fuCustomerSinged" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
-                    </div> 
+                        <asp:FileUpload ID="fuCustomerSinged" runat="server" Style="position: relative;" CssClass="TextBox" ViewStateMode="Inherit" Width="200px" />
+                    </div>
                 </div>
             </fieldset>
         </div>

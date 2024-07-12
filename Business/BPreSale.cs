@@ -30,5 +30,10 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
 
         }
+        public List<PPreSalesMasterItem> GetPreSalesMasterItem(int MasterHeaderID)
+        {
+            string endPoint = "PreSale/GetPreSalesMasterItem?MasterHeaderID=" + MasterHeaderID;
+            return JsonConvert.DeserializeObject<List<PPreSalesMasterItem>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

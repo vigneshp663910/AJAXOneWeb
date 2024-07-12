@@ -970,6 +970,14 @@
                         <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Customer Visit Type</label>
+                        <asp:DropDownList ID="ddlCustomerVisitType" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Call Type</label>
+                        <asp:DropDownList ID="ddlCallType" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Importance</label>
                         <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />
                     </div>
@@ -1004,7 +1012,7 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-             <asp:Label ID="lblExpectedDateOfSaleMessage" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblExpectedDateOfSaleMessage" runat="server" Text="" CssClass="message" Visible="false" />
             <div class="col-md-6 col-sm-12">
                 <label>Expected Date of Sale</label>
                 <asp:TextBox ID="txtExpectedDateOfSale" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
