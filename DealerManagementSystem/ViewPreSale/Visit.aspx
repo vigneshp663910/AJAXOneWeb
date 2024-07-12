@@ -258,6 +258,14 @@
                             <label class="modal-label">Action Type</label>
                             <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-control" />
                         </div>
+                         <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Customer Visit Type</label>
+                            <asp:DropDownList ID="ddlCustomerVisitType" runat="server" CssClass="form-control" />
+                        </div>
+                         <div class="col-md-6 col-sm-12">
+                            <label class="modal-label">Call Type</label>
+                            <asp:DropDownList ID="ddlCallType" runat="server" CssClass="form-control" />
+                        </div>
                         <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Importance</label>
                             <asp:DropDownList ID="ddlImportance" runat="server" CssClass="form-control" />

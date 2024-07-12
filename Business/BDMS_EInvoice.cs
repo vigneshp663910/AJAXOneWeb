@@ -581,7 +581,7 @@ namespace Business
                             {
                                 W = new PSaleOrderDelivery();
                                 Ws.Add(W);
-                                W.SaleOrderDeliveryID = Convert.ToInt64(dr["SaleOrderReturnItemID"]);
+                                W.SaleOrderDeliveryID = Convert.ToInt64(dr["SaleOrderReturnID"]);
                                 W.InvoiceNumber = Convert.ToString(dr["CreditNoteNumber"]);
                                 W.InvoiceDate = Convert.ToDateTime(dr["CreditNoteDate"]);
                                 W.SaleOrder = new PSaleOrder();

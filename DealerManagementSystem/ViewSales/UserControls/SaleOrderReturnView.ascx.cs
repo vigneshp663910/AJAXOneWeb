@@ -185,6 +185,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else if (lbActions.ID == "lbCreateCreditNote")
             {
                 UpdateSaleOrderReturnStatus((short)AjaxOneStatus.SaleOrderReturn_CreditNote);
+                PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerID, null, null, null)[0];
+                if (Dealer.IsEInvoice && SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Customer.GSTIN != "URD" && (Dealer.ServicePaidEInvoice))
+                {
+                    new BDMS_EInvoice().GeneratEInvoice(SaleOrderReturnByID.CreditNoteNumber, "SalesReCre");
+                }
             }
             else if(lbActions.ID == "lbPreviewCreditNote")
             {

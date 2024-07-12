@@ -258,6 +258,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ceVisitDate.EndDate = DateTime.Now;
 
                 new DDLBind(ddlActionType, new BPreSale().GetActionType(null, null), "ActionType", "ActionTypeID");
+                new DDLBind(ddlCustomerVisitType, new BPreSale().GetPreSalesMasterItem(1), "ItemText", "MasterItemID");
+                new DDLBind(ddlCallType, new BPreSale().GetPreSalesMasterItem(2), "ItemText", "MasterItemID");
                 new DDLBind(ddlImportance, new BDMS_Master().GetImportance(null, null), "Importance", "ImportanceID");
                 new DDLBind(ddlPersonMet, new BDMS_Customer().GetCustomerRelation(Quotation.Lead.Customer.CustomerID, null), "ContactName", "CustomerRelationID");
             }
@@ -2155,6 +2157,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ColdVisitList.Customer = new PDMS_Customer_Insert() { CustomerID = Quotation.Lead.Customer.CustomerID };
             ColdVisitList.ColdVisitDate = Convert.ToDateTime(txtVisitDate.Text.Trim());
             ColdVisitList.ActionType = new PActionType() { ActionTypeID = Convert.ToInt32(ddlActionType.SelectedValue) };
+            ColdVisitList.CustomerVisitTypeID = Convert.ToInt32(ddlCustomerVisitType.SelectedValue);
+            ColdVisitList.CallTypeID = Convert.ToInt32(ddlCallType.SelectedValue);
             ColdVisitList.Importance = new PImportance() { ImportanceID = Convert.ToInt32(ddlImportance.SelectedValue) };
             ColdVisitList.PersonMet = ddlPersonMet.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlPersonMet.SelectedValue);
             ColdVisitList.Remark = txtVisitRemark.Text.Trim();
