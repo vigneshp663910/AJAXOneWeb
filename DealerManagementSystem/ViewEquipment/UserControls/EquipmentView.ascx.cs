@@ -447,7 +447,7 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
                     {
                         lblOldWarrantyType.Text = EquipmentViewDet.EquipmentWarrantyType == null ? "" : EquipmentViewDet.EquipmentWarrantyType.Description;
                         lblNewWarrantyType.Text = dr["NewValue"].ToString();
-                        lblOldWarrantyHMR.Text = EquipmentViewDet.WarrantyHMR == null ? "" : EquipmentViewDet.WarrantyHMR.ToString();
+                        lblOldWarrantyHMR.Text = EquipmentViewDet.WarrantyHMR.ToString();
                         lblNewWarrantyHMR.Text = dr["WarrantyHMR"].ToString();
                         lblWarrantyTypeChangeID.Text = dr["ChangeID"].ToString();
 

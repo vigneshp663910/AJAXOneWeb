@@ -450,12 +450,13 @@ namespace DealerManagementSystem.ViewService.UserControls
 
                     //Boolean Old = UCcbIsWarranty.Checked;
                     Boolean Old = SDMS_ICTicket.IsWarranty;
-                    int vHMR = 2000;
-                    DateTime cD = ((DateTime)SDMS_ICTicket.Equipment.WarrantyExpiryDate).AddYears(-1);
-                    if (cD < Convert.ToDateTime("01/11/2018"))
-                    {
-                        vHMR = 1000;
-                    }
+                    int vHMR = 0;
+                    //int vHMR = 2000;
+                    //DateTime cD = ((DateTime)SDMS_ICTicket.Equipment.WarrantyExpiryDate).AddYears(-1);
+                    //if (cD < Convert.ToDateTime("01/11/2018"))
+                    //{
+                    //    vHMR = 1000;
+                    //}
 
                     if (SDMS_ICTicket.Equipment.EquipmentWarrantyType != null)
                     {
@@ -463,6 +464,10 @@ namespace DealerManagementSystem.ViewService.UserControls
                         {
                             vHMR = SDMS_ICTicket.Equipment.EquipmentWarrantyType.HMR;
                         }
+                    } 
+                    else
+                    {
+                        vHMR = SDMS_ICTicket.Equipment.WarrantyHMR;
                     }
 
                     if ((Convert.ToInt32(txtHMRValue.Text.Trim()) > vHMR) || (((DateTime)SDMS_ICTicket.Equipment.WarrantyExpiryDate).AddDays(1) < SDMS_ICTicket.ICTicketDate))

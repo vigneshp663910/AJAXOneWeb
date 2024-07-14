@@ -216,7 +216,7 @@ namespace Business
                             Description = Convert.ToString(dr["Description"])
                         };
                         Equip.WarrantyStartDate = dr["WarrantyStartDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["WarrantyStartDate"]);
-                        Equip.WarrantyHMR = dr["WarrantyHMR"] == DBNull.Value ? (int?)null : Convert.ToInt32(dr["WarrantyHMR"]);
+                        Equip.WarrantyHMR =  Convert.ToInt32(dr["WarrantyHMR"]);
                         Equip.EquipmentClient = new PEquipmentClient()
                         {
                             Client = Convert.ToString(dr["Client"])

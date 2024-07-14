@@ -1480,7 +1480,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 decimal OrderQty = Convert.ToDecimal(lblOrderQty.Text);
                 decimal DeliveryQuantity = 0;
 
-                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder || SOrder.Division.DivisionID == (short)SaleOrderType.WarrantyOrder)
+                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder)
                 {
                     DeliveryQuantity = OrderQty;
                 } 
