@@ -646,13 +646,13 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             dtItem.Columns.Add("Net");
 
             int sno = 0;
-            decimal TaxableValue = 0, TaxAmount = 0, NetAmount = 0;
+            decimal  TaxAmount = 0, NetAmount = 0;
             foreach (PStockTransferOrderItem Item in StockTransferOrder.Items)
             {
                 dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Quantity.ToString("0"), Item.Material.BaseUnit, String.Format("{0:n}", (Item.TaxableValue/Item.Quantity)), String.Format("{0:n}", Item.TaxableValue), String.Format("{0:n}", (Item.CGSTValue + Item.SGSTValue + Item.IGSTValue)), String.Format("{0:n}", (Item.TaxableValue + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue)));
-                TaxableValue += Item.TaxableValue;
+                //TaxableValue += Item.TaxableValue;
                 TaxAmount += Item.CGSTValue + Item.SGSTValue + Item.IGSTValue;
-                NetAmount += TaxableValue + TaxAmount;
+                NetAmount += Item.TaxableValue + TaxAmount;
             }
             P[11] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxAmount), false);
             P[12] = new ReportParameter("NetAmount", String.Format("{0:n}", NetAmount), false);
