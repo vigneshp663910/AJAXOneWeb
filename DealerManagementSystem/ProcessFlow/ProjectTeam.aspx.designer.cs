@@ -33,6 +33,24 @@ namespace DealerManagementSystem.ProcessFlow
         protected global::AjaxControlToolkit.TabContainer tbpOrgChart;
 
         /// <summary>
+        /// tbpnlAbout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel tbpnlAbout;
+
+        /// <summary>
+        /// Image3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image3;
+
+        /// <summary>
         /// tbpnlAjaxOrg control.
         /// </summary>
         /// <remarks>
