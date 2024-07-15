@@ -1480,7 +1480,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 decimal OrderQty = Convert.ToDecimal(lblOrderQty.Text);
                 decimal DeliveryQuantity = 0;
 
-                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder || SOrder.Division.DivisionID == (short)SaleOrderType.WarrantyOrder)
+                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder)
                 {
                     DeliveryQuantity = OrderQty;
                 } 
@@ -1532,7 +1532,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             catch (Exception e1)
             {
-                lblMessage.Text = e1.Message;
+                lblMessageCreateSODelivery.Text = e1.Message;
             }
         }
         //protected void ddlShiftTo_SelectedIndexChanged(object sender, EventArgs e)
