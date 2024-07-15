@@ -1043,7 +1043,7 @@
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid"
-                        EmptyDataText="No Data Found" AllowPaging="true" PageSize="10" OnPageIndexChanging="gvDelivery_PageIndexChanging">
+                        EmptyDataText="No Data Found" AllowPaging="true" PageSize="2" OnPageIndexChanging="gvDelivery_PageIndexChanging">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
@@ -1076,7 +1076,7 @@
                             <asp:TemplateField HeaderText="Delivery Qty">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtDeliveryQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "Quantity","{0:n}")%>' CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="txtDeliveryQuantity" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryQuantity","{0:n}")%>' CssClass="form-control" runat="server"></asp:TextBox>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Stock Available">
