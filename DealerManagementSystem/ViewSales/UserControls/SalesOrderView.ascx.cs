@@ -1532,7 +1532,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             catch (Exception e1)
             {
-                lblMessage.Text = e1.Message;
+                lblMessageCreateSODelivery.Text = e1.Message;
             }
         }
         //protected void ddlShiftTo_SelectedIndexChanged(object sender, EventArgs e)
