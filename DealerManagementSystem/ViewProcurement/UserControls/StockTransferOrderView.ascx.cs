@@ -652,7 +652,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Quantity.ToString("0"), Item.Material.BaseUnit, String.Format("{0:n}", (Item.TaxableValue/Item.Quantity)), String.Format("{0:n}", Item.TaxableValue), String.Format("{0:n}", (Item.CGSTValue + Item.SGSTValue + Item.IGSTValue)), String.Format("{0:n}", (Item.TaxableValue + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue)));
                 //TaxableValue += Item.TaxableValue;
                 TaxAmount += Item.CGSTValue + Item.SGSTValue + Item.IGSTValue;
-                NetAmount += Item.TaxableValue + TaxAmount;
+                NetAmount += Item.TaxableValue + Item.CGSTValue + Item.SGSTValue + Item.IGSTValue;
             }
             P[11] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxAmount), false);
             P[12] = new ReportParameter("NetAmount", String.Format("{0:n}", NetAmount), false);
