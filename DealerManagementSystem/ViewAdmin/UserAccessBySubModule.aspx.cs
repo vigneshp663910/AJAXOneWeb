@@ -145,8 +145,7 @@ namespace DealerManagementSystem.ViewAdmin
 
                 PApiResult Result = new BUser().GetUserAccessBySubModule(SubModuleMasterID, DepartmentID, DesignationID, IsActive, IsEnabled, PageIndex, gvUsers.PageSize);
                 GetUserAccessBySubModule = JsonConvert.DeserializeObject<List<PUserAccessBySubModule>>(JsonConvert.SerializeObject(Result.Data));
-                //GetUserAccessBySubModuleUpdated = GetUserAccessBySubModule;
-
+                GetUserAccessBySubModuleUpdated = null;
                 gvUsers.DataSource = GetUserAccessBySubModule;
                 gvUsers.DataBind();
 

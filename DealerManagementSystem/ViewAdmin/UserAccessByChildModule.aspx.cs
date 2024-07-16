@@ -158,7 +158,7 @@ namespace DealerManagementSystem.ViewAdmin
 
                 PApiResult Result = new BUser().GetUserAccessByChildModule(SubModuleChildID, DepartmentID, DesignationID, IsActive, IsEnabled, PageIndex, gvUsers.PageSize);
                 GetUserAccessByChildModule = JsonConvert.DeserializeObject<List<PUserAccessByChildModule>>(JsonConvert.SerializeObject(Result.Data));
-                
+                GetUserAccessByChildModuleUpdated = null;
                 gvUsers.DataSource = GetUserAccessByChildModule;
                 gvUsers.DataBind();
 
