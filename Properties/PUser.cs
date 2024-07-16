@@ -180,6 +180,29 @@ namespace Properties
         #endregion
     }
     [Serializable]
+    public class PUserAccessBySubModule
+    {
+        #region Properties
+        public PUser User { get; set; }
+        public int UserModuleAccessID { get; set; }
+        public PModuleAccess ModuleAccess { get; set; }
+        public PSubModuleAccess SubModuleAccess { get; set; }
+        public bool IsActive { get; set; }
+        #endregion
+    }
+    [Serializable]
+    public class PUserAccessByChildModule
+    {
+        #region Properties
+        public PUser User { get; set; }
+        public int UserModuleAccessID { get; set; }
+        public PModuleAccess ModuleAccess { get; set; }
+        public PSubModuleAccess SubModuleAccess { get; set; }
+        public PSubModuleChild SubModuleChildAccess { get; set; }
+        public bool IsActive { get; set; }
+        #endregion
+    }
+    [Serializable]
     public class PSubModuleChild
     {
         #region Properties

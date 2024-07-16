@@ -21,7 +21,7 @@ namespace Business
             provider = new ProviderFactory().GetProvider();
         }
         #region Public Methods
-        
+
         public DataTable AuthenticateUser(string userName)
         {
             try
@@ -263,7 +263,7 @@ namespace Business
             }
         }
 
-         public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID)      
+        public List<PUser> GetUsers(long? UserID, string UserName, int? UserTypeID, string ExternalReferenceID, int? DealerID, bool? IsEnabled, string ContactName, int? DealerDepartmentID, int? DealerDesignationID)
         {
             string endPoint = "User/GetUsers?UserID=" + UserID + "&UserName=" + UserName + "&UserTypeID=" + UserTypeID + "&ExternalReferenceID=" + ExternalReferenceID + "&DealerID=" + DealerID
                  + "&IsEnabled=" + IsEnabled + "&ContactName=" + ContactName + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID;
@@ -504,7 +504,7 @@ namespace Business
                 DbParameter Browser = provider.CreateParameter("Browser", userAudit.Browser, DbType.String);
                 DbParameter SesionId = provider.CreateParameter("SesionId", userAudit.SesionId, DbType.String);
                 DbParameter IsSessionExpired = provider.CreateParameter("IsSessionExpired", userAudit.IsSessionExpired, DbType.Boolean);
-                DbParameter Latitude = provider.CreateParameter("Latitude", string.IsNullOrEmpty( userAudit.Latitude)?null: userAudit.Latitude, DbType.String);
+                DbParameter Latitude = provider.CreateParameter("Latitude", string.IsNullOrEmpty(userAudit.Latitude) ? null : userAudit.Latitude, DbType.String);
                 DbParameter Longitude = provider.CreateParameter("Longitude", string.IsNullOrEmpty(userAudit.Longitude) ? null : userAudit.Longitude, DbType.String);
                 DbParameter[] userParams = new DbParameter[9] { UserId, LoginDate, LogoutDate, IPAddress, Browser, SesionId, IsSessionExpired, Latitude, Longitude };
                 provider.Insert("InsertUpdateUserAuditDetails", userParams, false);
@@ -732,7 +732,7 @@ namespace Business
                 throw ex;
             }
         }
-        public List<PModuleAccess> GetDMSModuleByUser(Int64 UserId, int? ModuleMasterID, int? SubModuleMasterID,Boolean All = true)
+        public List<PModuleAccess> GetDMSModuleByUser(Int64 UserId, int? ModuleMasterID, int? SubModuleMasterID, Boolean All = true)
         {
             DateTime traceStartTime = DateTime.Now;
             List<PModuleAccess> MAs = new List<PModuleAccess>();
@@ -915,7 +915,7 @@ namespace Business
             return false;
         }
 
-       
+
         public List<PSubModuleChild> GetSubModuleChileAll(int? SubModuleMasterID)
         {
             string endPoint = "User/SubModuleChileAll?SubModuleMasterID=" + SubModuleMasterID;
@@ -950,7 +950,7 @@ namespace Business
             string endPoint = "User/GetTokenByID?userID=" + userID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
- 
+
         public List<PUserMobile> GetUserMobileForApproval()
         {
             string endPoint = "User/UserMobileForApproval";
@@ -960,7 +960,7 @@ namespace Business
         public PApiResult ApproveUserMobile(int UserMobileID)
         {
             string endPoint = "User/ApproveUserMobile?UserMobileID=" + UserMobileID;
-            return  JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public Boolean RejectUserMobile(int UserMobileID, string Remarks)
         {
@@ -994,9 +994,9 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public List<PUserMobile> GetUserMobileManage(int? DealerID,string  FromDate, string ToDate,Boolean isActive, int? DealerDepartmentID, int? DealerDesignationID, int? EngineerUserID)
+        public List<PUserMobile> GetUserMobileManage(int? DealerID, string FromDate, string ToDate, Boolean isActive, int? DealerDepartmentID, int? DealerDesignationID, int? EngineerUserID)
         {
-            string endPoint = "User/UserMobileManage?DealerID=" + DealerID+ "&FromDate="+ FromDate + "&ToDate=" + ToDate + "&isActive=" + isActive + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&EngineerUserID=" + EngineerUserID;
+            string endPoint = "User/UserMobileManage?DealerID=" + DealerID + "&FromDate=" + FromDate + "&ToDate=" + ToDate + "&isActive=" + isActive + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&EngineerUserID=" + EngineerUserID;
             return JsonConvert.DeserializeObject<List<PUserMobile>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
 
@@ -1008,7 +1008,7 @@ namespace Business
             PModuleAccess MA = null;
             try
             {
-                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64); 
+                DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
                 DbParameter[] Params = new DbParameter[1] { DealerDesignationIDP };
 
                 using (DataSet ds = provider.Select("GetDMSModuleByDealerDesignationID", Params))
@@ -1064,7 +1064,7 @@ namespace Business
             try
             {
                 DbParameter DealerDesignationIDP = provider.CreateParameter("DealerDesignationID", DealerDesignationID, DbType.Int64);
-                DbParameter CreatedByP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64); 
+                DbParameter CreatedByP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
 
                 DbParameter[] userParams = new DbParameter[2] { DealerDesignationIDP, CreatedByP };
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
@@ -1152,13 +1152,13 @@ namespace Business
             }
             return null;
         }
-        public DataTable GetUserLocationTrack(int UserID )
+        public DataTable GetUserLocationTrack(int UserID)
         {
             try
             {
-                 
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32); 
-                DbParameter[] Params = new DbParameter[1] {  UserIDP  };
+
+                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+                DbParameter[] Params = new DbParameter[1] { UserIDP };
 
                 using (DataSet ds = provider.Select("GetUserLocationTrack", Params))
                 {
@@ -1191,7 +1191,7 @@ namespace Business
             List<PUserMobileFeature> MAs = new List<PUserMobileFeature>();
             PUserMobileFeature MA = null;
             try
-            { 
+            {
 
                 using (DataSet ds = provider.Select("GetUserMobileFeature"))
                 {
@@ -1218,7 +1218,7 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public List<PSubModuleChild> GetSubModuleChildMaster(int? SubModuleMasterID,int? SubModuleChildID,string ChildName)
+        public List<PSubModuleChild> GetSubModuleChildMaster(int? SubModuleMasterID, int? SubModuleChildID, string ChildName)
         {
             DateTime traceStartTime = DateTime.Now;
             List<PSubModuleChild> MAs = new List<PSubModuleChild>();
@@ -1418,7 +1418,7 @@ namespace Business
                 DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
                 DbParameter UpdatedByP = provider.CreateParameter("UpdatedBy", UpdatedBy, DbType.Int64);
 
-                DbParameter[] userParams = new DbParameter[2] { UserIDP , UpdatedByP };
+                DbParameter[] userParams = new DbParameter[2] { UserIDP, UpdatedByP };
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
                     provider.Insert("UpdateUserResetPasswordByAdmin", userParams, false);
@@ -1476,6 +1476,18 @@ namespace Business
             {
                 throw new LMSException(ErrorCode.GENE, ex);
             }
+        }
+        public PApiResult GetUserAccessBySubModule(int? SubModuleAccessID, int? DealerDepartmentID, int? DealerDesignationID, bool? IsActive, bool? IsEnabled, int? PageIndex, int? PageSize)
+        {
+            string endPoint = "User/GetUserAccessBySubModule?SubModuleAccessID=" + SubModuleAccessID + "&DealerDepartmentID=" + DealerDepartmentID 
+                + "&DealerDesignationID=" + DealerDesignationID + "&IsActive=" + IsActive +  "&IsEnabled=" + IsEnabled  + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetUserAccessByChildModule(int? SubModuleChildID, int? DealerDepartmentID, int? DealerDesignationID, bool? IsActive, bool? IsEnabled, int? PageIndex, int? PageSize)
+        {
+            string endPoint = "User/GetUserAccessByChildModule?SubModuleChildID=" + SubModuleChildID + "&DealerDepartmentID=" + DealerDepartmentID
+                + "&DealerDesignationID=" + DealerDesignationID + "&IsActive=" + IsActive + "&IsEnabled=" + IsEnabled + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
     }
 }
