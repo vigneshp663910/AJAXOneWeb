@@ -189,14 +189,7 @@
                     <asp:Button ID="btnIntegrationEquipmentFromSAP" runat="server" Text="IntegrationEquipmentFromSAP" OnClick="btnIntegrationEquipmentFromSAP_Click" />
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <br />
-                    <asp:Label ID="Label10" runat="server" Text="Integration Equipment From SAP New"></asp:Label>
-                    <asp:Button ID="btnIntegrationEquipmentFromSAP_New" runat="server" Text="Integration Equipment From SAP New" OnClick="btnIntegrationEquipmentFromSAP_New_Click" />
-                </td>
-            </tr>
-
+            
             <tr>
                 <td>
                     <br />

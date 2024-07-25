@@ -1043,7 +1043,7 @@
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid"
-                        EmptyDataText="No Data Found" AllowPaging="true" PageSize="2" OnPageIndexChanging="gvDelivery_PageIndexChanging">
+                        EmptyDataText="No Data Found" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvDelivery_PageIndexChanging">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
