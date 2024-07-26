@@ -507,8 +507,9 @@ namespace Properties
         ViewProcurement_DealerStockOrderControl = 261,
         ViewPreSale_Reports_DealerBusinessExcellenceQuarterWise = 262,
         ViewPreSale_Reports_LeadNextFollowUpAgeingReport = 263,
-        ViewSales_SalesInvoiceReport = 264
-
+        ViewSales_SalesInvoiceReport = 264,
+        ViewAdmin_UserAccessBySubModule = 265,
+        ViewAdmin_UserAccessByChildModule = 266
     }
     public enum SubModuleChildMaster
     {

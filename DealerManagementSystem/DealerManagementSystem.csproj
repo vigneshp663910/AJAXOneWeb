@@ -430,6 +430,8 @@
     <Content Include="ViewAdmin\ModulePermissionList.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
+    <Content Include="ViewAdmin\UserAccessByChildModule.aspx" />
+    <Content Include="ViewAdmin\UserAccessBySubModule.aspx" />
     <Content Include="ViewAdmin\UserAccessManagement.aspx" />
     <Content Include="ViewAdmin\UserActivityTrackingReport.aspx" />
     <Content Include="ViewAdmin\UserControls\MessageAnnouncementCreate.ascx" />
@@ -1210,6 +1212,20 @@
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.designer.cs">
       <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserAccessByChildModule.aspx.cs">
+      <DependentUpon>UserAccessByChildModule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserAccessByChildModule.aspx.designer.cs">
+      <DependentUpon>UserAccessByChildModule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserAccessBySubModule.aspx.cs">
+      <DependentUpon>UserAccessBySubModule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserAccessBySubModule.aspx.designer.cs">
+      <DependentUpon>UserAccessBySubModule.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserAccessManagement.aspx.cs">
       <DependentUpon>UserAccessManagement.aspx</DependentUpon>

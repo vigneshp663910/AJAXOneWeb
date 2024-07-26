@@ -285,24 +285,6 @@ namespace DealerManagementSystem
         protected global::System.Web.UI.WebControls.Button btnIntegrationEquipmentFromSAP;
 
         /// <summary>
-        /// Label10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label10;
-
-        /// <summary>
-        /// btnIntegrationEquipmentFromSAP_New control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnIntegrationEquipmentFromSAP_New;
-
-        /// <summary>
         /// Label11 control.
         /// </summary>
         /// <remarks>
