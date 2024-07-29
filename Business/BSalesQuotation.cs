@@ -959,6 +959,11 @@ namespace Business
             string endPoint = "SalesQuotation/AttachedFileSalesQuotationCustomerSingedForDownload?DocumentName=" + DocumentName;
             return JsonConvert.DeserializeObject<PAttachedFile>(new BAPI().ApiGet(endPoint));
         }
+        public List<PQuotationSpecification> GetQuotationSpecification(long? SalesQuotationIDP)
+        {
+            string endPoint = "SalesQuotation/GetQuotationSpecification?SalesQuotationIDP=" + SalesQuotationIDP;
+            return JsonConvert.DeserializeObject<List<PQuotationSpecification>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
     [Serializable]
     public class PSalesQuotation_sap_MaterialTax

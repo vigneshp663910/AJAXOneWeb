@@ -319,4 +319,24 @@ namespace Properties
         public string FileType { get; set; }
         public bool IsActive { get; set; }
     }
+    [Serializable]
+    public class PQuotationSpecification
+    {
+        public long SpecificationID { get; set; }
+        public PSalesQuotation Quotation { get; set; }
+        public string SpecificationText { get; set; }
+        public string SpecificationDescription { get; set; }
+        public int OrderByNo { get; set; }
+        public bool IsActive { get; set; }
+    }
+    [Serializable]
+    public class PQuotationSpecification_Insert
+    {
+        public long SpecificationID { get; set; }
+        public long SalesQuotationID { get; set; }
+        public string SpecificationText { get; set; }
+        public string SpecificationDescription { get; set; }
+        public int OrderByNo { get; set; }
+        public bool IsActive { get; set; }
+    }
 }
