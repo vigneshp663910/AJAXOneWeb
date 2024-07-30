@@ -185,6 +185,10 @@ namespace Business
             string endPoint = "Master/GetAjaxOneStatus?StatusHeaderID=" + StatusHeaderID;
             return JsonConvert.DeserializeObject<List<PAjaxOneStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-
+        public List<PProductSpecification> GetProductSpecification(int? ProductID)
+        {
+            string endPoint = "Master/GetProductSpecification?ProductID=" + ProductID;
+            return JsonConvert.DeserializeObject<List<PProductSpecification>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 } 
