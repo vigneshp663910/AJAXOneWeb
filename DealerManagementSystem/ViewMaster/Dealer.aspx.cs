@@ -60,12 +60,10 @@ namespace DealerManagementSystem.ViewMaster
                 new DDLBind(ddlRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID");
             }
         }
-
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             SearchDealer();
         }
-
         protected void ibtnDealerArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealer.PageIndex > 0)
@@ -82,8 +80,6 @@ namespace DealerManagementSystem.ViewMaster
                 DealerBind(gvDealer, lblRowCount, DealerList);
             }
         }
-
-
         void DealerBind(GridView gv, Label lbl, List<PDMS_Dealer> DealerList)
         {
             gv.DataSource = DealerList;

@@ -3,7 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 
-<script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>s
+<script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
 <script type="text/javascript">  
     function FleAutoCustomer(CustomerID, CustomerName, ContactPerson, Mobile) {
 
@@ -73,22 +73,20 @@
             background-color: blue;
         }
 </style>
-
-
 <style type="text/css">
     .mycheckBig input {
         width: 25px;
         height: 25px;
     }
 </style>
+
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
         <div class="dropdown btnactions" id="dealerAction">
-            <%--<asp:Button ID="BtnActions" runat="server" CssClass="btn Approval" Text="Actions" />--%>
             <div class="btn Approval">Actions</div>
-            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
-                <%-- <asp:LinkButton ID="lnkBtnAddDealerOffice" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Office</asp:LinkButton>--%>
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px; overflow-x: auto; max-height: 300px">
+                <asp:LinkButton ID="lnkBtnAddBranchOffice" runat="server" OnClick="lnkBtnActions_Click">Add Branch Office</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnAddNotification" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Notification</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnEditBank" runat="server" OnClick="lnkBtnActions_Click">Edit Bank Details</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnEditDealerResponsibleUser" runat="server" OnClick="lnkBtnActions_Click">Edit Dealer Responsible User</asp:LinkButton>
@@ -109,7 +107,6 @@
                     <label>Email : </label>
                     <asp:Label ID="lblEmail" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-
                 <div class="col-md-12">
                     <label>State : </label>
                     <asp:Label ID="lblDealerState" runat="server" CssClass="LabelValue"></asp:Label>
@@ -118,7 +115,6 @@
                     <label>IFSC Code : </label>
                     <asp:Label ID="lblIFSCCode" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-
                 <%--<div class="col-md-12">
                     <label>Team Lead : </label>
                     <asp:Label ID="lblTeamLead" runat="server" CssClass="label"></asp:Label>
@@ -129,7 +125,6 @@
                     <label>Dealer Name : </label>
                     <asp:Label ID="lblDealerName" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-
                 <div class="col-md-12">
                     <label>Country : </label>
                     <asp:Label ID="lblDealerCountry" runat="server" CssClass="LabelValue"></asp:Label>
@@ -142,7 +137,6 @@
                     <label>Account Number : </label>
                     <asp:Label ID="lblAccountNo" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-
                 <%--<div class="col-md-12">
                     <label>Serivce Manager : </label>
                     <asp:Label ID="lblSerivceManager" runat="server" CssClass="label"></asp:Label>
@@ -170,6 +164,7 @@
     </fieldset>
 </div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+<asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
 <asp1:TabContainer ID="tbpDealer" runat="server" ToolTip="Dealer" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="1">
     <asp1:TabPanel ID="tpnlDealerOffice" runat="server" HeaderText="Dealer Office" Font-Bold="True" ToolTip="List of Dealer Office...">
         <ContentTemplate>
@@ -180,7 +175,6 @@
                             <table>
                                 <tr>
                                     <td>Branch Office(s):</td>
-
                                     <td>
                                         <asp:Label ID="lblRowCountDealerOffice" runat="server" CssClass="label"></asp:Label>
                                     </td>
@@ -201,7 +195,7 @@
                         <asp:GridView ID="gvDealerOffice" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
                             PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealerOffice_PageIndexChanging">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
+                                <asp:TemplateField HeaderText="Sl No" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
@@ -209,9 +203,15 @@
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Sap Location Code">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSapLocationCode" Text='<%# DataBinder.Eval(Container.DataItem, "SapLocationCode")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Office Code">
                                     <ItemTemplate>
                                         <asp:Label ID="lblOfficeCode" Text='<%# DataBinder.Eval(Container.DataItem, "OfficeCode")%>' runat="server" />
+                                        <asp:Label ID="lblOfficeCodeID" Text='<%# DataBinder.Eval(Container.DataItem, "OfficeID")%>' runat="server" Visible="false" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Office Name">
@@ -219,28 +219,55 @@
                                         <asp:Label ID="lblOfficeName" Text='<%# DataBinder.Eval(Container.DataItem, "OfficeName")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Sap Location Code">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblSapLocationCode" Text='<%# DataBinder.Eval(Container.DataItem, "SapLocationCode")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Address1">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address1")%>' runat="server" />
+                                        <asp:Label ID="lblDealerOfficeAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address1")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Address2">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblAddress2" Text='<%# DataBinder.Eval(Container.DataItem, "Address2")%>' runat="server" />
+                                        <asp:Label ID="lblDealerOfficeAddress2" Text='<%# DataBinder.Eval(Container.DataItem, "Address2")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <%--<asp:TemplateField HeaderText="Action">
+                                <asp:TemplateField HeaderText="Address3">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lnkbtnDealerOfficeDelete" runat="server" OnClick="lnkbtnDealerOfficeDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                        <asp:Label ID="lblDealerOfficeAddress3" Text='<%# DataBinder.Eval(Container.DataItem, "Address3")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="City">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerOfficeCity" Text='<%# DataBinder.Eval(Container.DataItem, "City")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="State">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerOfficeState" Text='<%# DataBinder.Eval(Container.DataItem, "State")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="District">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerOfficeDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District.District")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Pincode">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerOfficePincode" Text='<%# DataBinder.Eval(Container.DataItem, "Pincode")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Is Head Office">
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="chkbxIsHeadOffice" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsHeadOffice")%>' Enabled="false"></asp:CheckBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Action">
+                                    <ItemTemplate>
+                                        <%--<asp:LinkButton ID="lnkbtnDealerOfficeDelete" runat="server" OnClick="lnkbtnDealerOfficeDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>--%>
+                                        <asp:LinkButton ID="lnkBtnEdit" runat="server" OnClick="lnkBtnItemAction_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                        <asp:LinkButton ID="lnkBtnDelete" runat="server" OnClick="lnkBtnItemAction_Click" OnClientClick="return ConfirmDealerOfficeDelete();"><i class="fa fa-fw fa-times" style="font-size:18px" ></i></asp:LinkButton>
                                     </ItemTemplate>
                                     <HeaderStyle Width="50px" />
                                     <ItemStyle HorizontalAlign="Center" />
-                                </asp:TemplateField>--%>
+                                </asp:TemplateField>
                             </Columns>
                             <AlternatingRowStyle BackColor="White" />
                             <FooterStyle ForeColor="White" />
@@ -283,7 +310,7 @@
                         <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
                             PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                     <ItemTemplate>
                                         <itemstyle width="25px" horizontalalign="Center"></itemstyle>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
@@ -385,111 +412,145 @@
     <asp1:TabPanel ID="tpnlDealerNotification" runat="server" HeaderText="Dealer Notification" ToolTip="List of Dealer Notification...">
         <ContentTemplate>
             <div class="col-md-12">
-                <div class="boxHead">
-                    <div class="logheading">
-                        <div style="float: left">
-                            <table>
-                                <tr>
-                                    <td>Dealer Notification(s):</td>
-
-                                    <td>
-                                        <asp:Label ID="lblRowCountDealerNotification" runat="server" CssClass="label"></asp:Label>
-                                    </td>
-                                    <td>
-                                        <asp:ImageButton ID="ibtnDealerNotificationArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnDealerNotificationArrowLeft_Click" />
-                                    </td>
-                                    <td>
-                                        <asp:ImageButton ID="ibtnDealerNotificationArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnDealerNotificationArrowRight_Click" />
-                                    </td>
-                                </tr>
-                            </table>
+                <div class="col-md-12" id="divDealerNotification" runat="server" visible="false">
+                    <fieldset class="fieldset-border">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                        <div class="col-md-12">
+                            <div class="col-md-2 text-left">
+                                <label class="modal-label">Dealer</label>
+                                <asp:DropDownList ID="ddlDealerDN" runat="server" CssClass="form-control" />
+                            </div>
+                            <div class="col-md-2 text-left">
+                                <label class="modal-label">Department</label>
+                                <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
+                            </div>
+                            <div class="col-md-2 text-left">
+                                <label class="modal-label">Designation</label>
+                                <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
+                            </div>
+                            <div class="col-md-2 text-left">
+                                <label class="modal-label">Module</label>
+                                <asp:DropDownList ID="ddlDealerNotificationModuleG" runat="server" CssClass="form-control" />
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" OnClick="btnSearch_Click" />
+                            </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
-
                 <div class="col-md-12 Report">
-                    <div class="table-responsive">
-                        <asp:GridView ID="gvDealerNotification" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
-                            PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealerNotification_PageIndexChanging">
-                            <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
-                                    <ItemTemplate>
-                                        <itemstyle width="25px" horizontalalign="Center"></itemstyle>
-                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <asp:Label ID="lblDealerNotificationID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerNotificationID")%>' runat="server" Visible="false" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Module Name" ItemStyle-HorizontalAlign="Left">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblModuleName" Text='<%# DataBinder.Eval(Container.DataItem, "Module.ModuleName")%>' runat="server" />
-                                        <asp:Label ID="lblDealerNotificationModuleID" Text='<%# DataBinder.Eval(Container.DataItem, "Module.DealerNotificationModuleID")%>' runat="server" Visible="false" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Name">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "User.ContactName")%>' runat="server" />
-                                        <asp:Label ID="lblUserID" Text='<%# DataBinder.Eval(Container.DataItem, "User.UserID")%>' runat="server" Visible="false" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Login ID">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblUserName" Text='<%# DataBinder.Eval(Container.DataItem, "User.UserName")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Department">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblDealerDepartment" Text='<%# DataBinder.Eval(Container.DataItem, "User.Department.DealerDepartment")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Designation">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblDealerDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "User.Designation.DealerDesignation")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Contact">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblContactNumber" runat="server">
+                    <fieldset class="fieldset-border">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">Report</legend>
+                        <div class="col-md-12 Report">
+                            <div class="boxHead">
+                                <div class="logheading">
+                                    <div style="float: left">
+                                        <table>
+                                            <tr>
+                                                <td>Dealer Notification(s):</td>
+
+                                                <td>
+                                                    <asp:Label ID="lblRowCountDealerNotification" runat="server" CssClass="label"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnDealerNotificationArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnDealerNotificationArrowLeft_Click" />
+                                                </td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnDealerNotificationArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnDealerNotificationArrowRight_Click" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 Report">
+                                <div class="table-responsive">
+                                    <asp:GridView ID="gvDealerNotification" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
+                                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealerNotification_PageIndexChanging">
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                                <ItemTemplate>
+                                                    <itemstyle width="25px" horizontalalign="Center"></itemstyle>
+                                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                                    <asp:Label ID="lblDealerNotificationID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerNotificationID")%>' runat="server" Visible="false" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Module Name" ItemStyle-HorizontalAlign="Left">
+                                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblModuleName" Text='<%# DataBinder.Eval(Container.DataItem, "Module.ModuleName")%>' runat="server" />
+                                                    <asp:Label ID="lblDealerNotificationModuleID" Text='<%# DataBinder.Eval(Container.DataItem, "Module.DealerNotificationModuleID")%>' runat="server" Visible="false" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Name">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "User.ContactName")%>' runat="server" />
+                                                    <asp:Label ID="lblUserID" Text='<%# DataBinder.Eval(Container.DataItem, "User.UserID")%>' runat="server" Visible="false" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Login ID">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblUserName" Text='<%# DataBinder.Eval(Container.DataItem, "User.UserName")%>' runat="server" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Department">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblDealerDepartment" Text='<%# DataBinder.Eval(Container.DataItem, "User.Department.DealerDepartment")%>' runat="server" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Designation">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblDealerDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "User.Designation.DealerDesignation")%>' runat="server" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Contact">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblContactNumber" runat="server">
                                             <a href='tel:<%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "User.ContactNumber")%></a>
-                                        </asp:Label>
-                                        <br />
-                                        <asp:Label ID="lblMail" runat="server">
+                                                    </asp:Label>
+                                                    <br />
+                                                    <asp:Label ID="lblMail" runat="server">
                                             <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "User.Mail")%>'><%# DataBinder.Eval(Container.DataItem, "User.Mail")%></a>
-                                        </asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Dealer">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblDealerNotificationID" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="SMS">
-                                    <ItemTemplate>
-                                        <%--<asp:Label ID="lblIsSMS" Text='<%# DataBinder.Eval(Container.DataItem, "IsSMS")%>' runat="server" />--%>
-                                        <asp:CheckBox ID="chkbxIsSMS" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsSMS")%>' Enabled="false"></asp:CheckBox>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Mail">
-                                    <ItemTemplate>
-                                        <%-- <asp:Label ID="lblIsMail" Text='<%# DataBinder.Eval(Container.DataItem, "IsMail")%>' runat="server" />--%>
-                                        <asp:CheckBox ID="chkbxIsMail" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsMail")%>' Enabled="false"></asp:CheckBox>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkBtnNotificationDelete" runat="server" OnClick="lnkBtnNotificationDelete_Click"><i class="fa fa-fw fa-times" style="font-size: 18px"></i></asp:LinkButton>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                            </Columns>
-                            <AlternatingRowStyle BackColor="#ffffff" />
-                            <FooterStyle ForeColor="White" />
-                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                        </asp:GridView>
-                    </div>
+                                                    </asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Dealer">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblDealerNotificationID" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="SMS">
+                                                <ItemTemplate>
+                                                    <%--<asp:Label ID="lblIsSMS" Text='<%# DataBinder.Eval(Container.DataItem, "IsSMS")%>' runat="server" />--%>
+                                                    <asp:CheckBox ID="chkbxIsSMS" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsSMS")%>' Enabled="false"></asp:CheckBox>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Mail">
+                                                <ItemTemplate>
+                                                    <%-- <asp:Label ID="lblIsMail" Text='<%# DataBinder.Eval(Container.DataItem, "IsMail")%>' runat="server" />--%>
+                                                    <asp:CheckBox ID="chkbxIsMail" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsMail")%>' Enabled="false"></asp:CheckBox>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="lnkBtnNotificationDelete" runat="server" OnClick="lnkBtnNotificationDelete_Click" OnClientClick="return ConfirmNotificationDelete();"><i class="fa fa-fw fa-times" style="font-size: 18px"></i></asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                        <AlternatingRowStyle BackColor="#ffffff" />
+                                        <FooterStyle ForeColor="White" />
+                                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                    </asp:GridView>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
+
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlDealerResponsibleUser" runat="server" HeaderText="Dealer Responsible User" Font-Bold="True" ToolTip="List of Dealer Responsible Users...">
@@ -522,7 +583,7 @@
                         <asp:GridView ID="gvDealerResponsibleUser" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found"
                             PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealerResponsibleUser_PageIndexChanging">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
+                                <asp:TemplateField HeaderText="Sl No" ItemStyle-Width="25px" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
@@ -572,7 +633,7 @@
 
 <asp:Panel ID="pnlDealer" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Edit Customer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Edit Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
@@ -588,6 +649,100 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Dealer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDealer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlAddBranchOffice" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueAddBranchOffice" runat="server">Add Branch Office</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageAddBranchOffice" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset3" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-4 col-sm-12">
+                        <label class="modal-label">Is Head Office</label>
+                        <asp:CheckBox ID="cbIsHeadOffice" runat="server" BorderColor="Silver" />
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label class="modal-label">SAP Location Code</label>
+                        <asp:TextBox ID="txtSapLocationCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Office Code</label>
+                        <asp:TextBox ID="txtOfficeCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Office Name</label>
+                        <asp:TextBox ID="txtOfficeName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Address 1</label>
+                        <asp:TextBox ID="txtDealerOfficeAddress1" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender7" runat="server" TargetControlID="txtDealerOfficeAddress1" WatermarkText="Address 1" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Address 2</label>
+                        <asp:TextBox ID="txtDealerOfficeAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender8" runat="server" TargetControlID="txtDealerOfficeAddress2" WatermarkText="Address 2" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Address 3</label>
+                        <asp:TextBox ID="txtDealerOfficeAddress3" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender9" runat="server" TargetControlID="txtDealerOfficeAddress3" WatermarkText="Address 3" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">City</label>
+                        <asp:TextBox ID="txtDealerOfficeCity" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender11" runat="server" TargetControlID="txtDealerOfficeCity" WatermarkText="City" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">State</label>
+                        <asp:DropDownList ID="ddlDealerOfficeState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlDealerOfficeState_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">District</label>
+                        <asp:DropDownList ID="ddlDealerOfficeDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Pincode</label>
+                        <asp:TextBox ID="txtDealerOfficePincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="6"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender10" runat="server" TargetControlID="txtDealerOfficePincode" WatermarkText="Pincode" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">GSTIN</label>
+                        <asp:TextBox ID="txtDealerOfficeGSTIN" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtDealerOfficeGSTIN" WatermarkText="GSTIN" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">PAN</label>
+                        <asp:TextBox ID="txtDealerOfficePAN" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDealerOfficePAN" WatermarkText="PAN" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Mobile</label>
+                        <asp:TextBox ID="txtDealerOfficeMobile" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone" MaxLength="10"></asp:TextBox>
+                        <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender5" runat="server" TargetControlID="txtDealerOfficeMobile" WatermarkText="Mobile" WatermarkCssClass="WatermarkCssClass" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Email</label>
+                        <asp:TextBox ID="txtDealerOfficeEmail" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Email" MaxLength="40"></asp:TextBox>
+                        <%-- <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID ="txtDealerOfficeEmail" WatermarkText="Email"  />--%>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnAddUpdateBranchOffice" runat="server" Text="Save" CssClass="btn Save" OnClientClick = "return ConfirmDealerOfficeChanges();" OnClick="btnAddUpdateBranchOffice_Click" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_AddBranchOffice" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAddBranchOffice" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlAddNotification" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
@@ -626,7 +781,7 @@
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnAddNotification" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddNotification_Click" />
+            <asp:Button ID="btnAddNotification" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddNotification_Click" OnClientClick = "return ConfirmNotificationAdd();" />
         </div>
     </div>
 </asp:Panel>
@@ -662,7 +817,7 @@
                         <asp:TextBox ID="txtAccountNo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnEditBank" runat="server" Text="Save" CssClass="btn Save" OnClick="btnEditBank_Click" />
+                        <asp:Button ID="btnEditBank" runat="server" Text="Save" CssClass="btn Save" OnClick="btnEditBank_Click" OnClientClick="return ConfirmDealerBankChanges();" />
                     </div>
                 </div>
             </fieldset>
@@ -701,13 +856,75 @@
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnUpdateDealerResposibleUser" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateDealerResposibleUser_Click" />
+            <asp:Button ID="btnUpdateDealerResposibleUser" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateDealerResposibleUser_Click" OnClientClick = "return ConfirmDealerResposibleUserChanges();"/>
         </div>
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_EditDealerResposibleUser" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditDealerResponsibleUser" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
-
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
 </div>
+
+<script type="text/javascript">
+    function ConfirmDealerOfficeChanges() {
+
+        var cbIsHeadOffice = document.getElementById('MainContent_UC_DealerView_cbIsHeadOffice');
+        if (cbIsHeadOffice.checked) {
+            var x = confirm("Are you sure you want to make this location the Head Office?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+        else {
+            var x = confirm("Are you sure you want to confirm saving your changes?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+    }
+    function ConfirmDealerOfficeDelete() {
+        var x = confirm("Are you sure you want to delete Dealer Branch Office?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmNotificationAdd() {
+        var x = confirm("Are you sure you want to add the Notification?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmNotificationDelete() {
+        var x = confirm("Are you sure you want to delete the Notification?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmDealerBankChanges() {
+        var x = confirm("Are you sure you want to confirm saving the Bank Details Changes?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmDealerResposibleUserChanges() {
+        var x = confirm("Are you sure you want to confirm saving your Dealer Resposible User Changes?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+</script>

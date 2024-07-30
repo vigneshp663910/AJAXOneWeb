@@ -67,7 +67,7 @@
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                            <asp:Button ID="btnAddDealer" runat="server" CssClass="btn Save" Text="Create Dealer" OnClick="btnAddDealer_Click" Width="150px" Visible="false" ></asp:Button>
+                            <asp:Button ID="btnAddDealer" runat="server" CssClass="btn Save" Text="Create Dealer" OnClick="btnAddDealer_Click" Width="150px" Visible="false"></asp:Button>
                         </div>
                     </div>
                 </fieldset>
@@ -100,20 +100,24 @@
                             <asp:GridView ID="gvDealer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                 EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvDealer_PageIndexChanging">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                    <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-
-                                    <asp:TemplateField HeaderText="Code" ItemStyle-HorizontalAlign="Center" >
-                                        <ItemTemplate> 
-                                            <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" /> 
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnViewCustomer" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewDealer_Click" Width="75px" Height="25px" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Code" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" />
                                             <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Name">
+                                    <asp:TemplateField HeaderText="Name">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerName")%>' runat="server" />
@@ -135,7 +139,7 @@
                                                 <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Email")%>'><%# DataBinder.Eval(Container.DataItem, "Email")%></a>
                                             </asp:Label>
                                         </ItemTemplate>
-                                    </asp:TemplateField>                                    
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Country">
                                         <ItemStyle VerticalAlign="Middle" />
                                         <ItemTemplate>
@@ -166,12 +170,6 @@
                                             <asp:Label ID="lblSM" Text='<%# DataBinder.Eval(Container.DataItem, "SM.ContactName")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <asp:Button ID="btnViewCustomer" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewDealer_Click" Width="75px" Height="25px" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
@@ -185,15 +183,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12" id="divDealerView" runat="server" visible="false">
-            <div class="" id="boxHere"></div>
-            <div class="back-buttton" id="backBtn">
-                <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+        <div class="col-md-12" id="divDealerView" runat="server" visible="false" style="padding: 5px 15px">
+            <div class="col-md-12 lead-back-btn">
+                <div class="" id="boxHere"></div>
+                <div class="back-buttton" id="backBtn">
+                    <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
+                </div>
             </div>
-            <div class="col-md-12" runat="server" id="tblDashboard">
+            <%--<div class="col-md-12" runat="server" id="tblDashboard">--%>
                 <UC:UC_DealerView ID="UC_DealerView" runat="server"></UC:UC_DealerView>
-
-            </div>
+            <%--</div>--%>
         </div>
 
 
