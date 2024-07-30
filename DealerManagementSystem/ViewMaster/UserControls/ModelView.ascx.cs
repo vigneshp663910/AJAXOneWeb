@@ -40,6 +40,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblProductType.Text = ModelByID.ProductType.ProductType;
             lblModel.Text = ModelByID.Product;
             GetProductDrawing();
+            GetProductSpecification();
             //ActionControlMange();
         }
 
@@ -66,6 +67,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblEditProductMessage.Visible = true;
                 GetEditModel();
                 MPE_EditProduct.Show();
+            }
+            else if (lbActions.Text == "Add Specification")
+            {
+                lblProductSpecificationMessage.Text = "";
+                lblProductSpecificationMessage.ForeColor = Color.Red;
+                lblProductSpecificationMessage.Visible = true;
+                //GetEditModel();
+                txtSpecText.Text = "";
+                txtSpecDesc.Text = "";
+                txtOrderByNo.Text = "";
+                MPE_ProductSpecification.Show();
             }
         }
         protected void btnAddDrawing_Click(object sender, EventArgs e)
@@ -215,8 +227,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             catch (Exception ex)
             {
-                lblAddDrawingMessage.Text = ex.Message.ToString();
-                MPE_AddDrawing.Show();
+                lblMessage.Text = ex.Message.ToString();
             }
         }
 
@@ -301,6 +312,139 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
                 lblMessage.Visible = true;
+            }
+        }
+
+        protected void btnSaveProductSpecification_Click(object sender, EventArgs e)
+        {
+            lblProductSpecificationMessage.Text = "";
+            lblProductSpecificationMessage.ForeColor = Color.Red;
+            lblProductSpecificationMessage.Visible = true;
+            lblMessage.Text = "";
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            try
+            {
+
+                if (string.IsNullOrEmpty(txtSpecText.Text))
+                {
+                    lblProductSpecificationMessage.Text = "Please Enter Specification Text...!";
+                    MPE_ProductSpecification.Show();
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtSpecDesc.Text))
+                {
+                    lblProductSpecificationMessage.Text = "Please Enter Specification Description...!";
+                    MPE_ProductSpecification.Show();
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtOrderByNo.Text))
+                {
+                    lblProductSpecificationMessage.Text = "Please Enter OrderBy No...!";
+                    MPE_ProductSpecification.Show();
+                    return;
+                }
+
+                PProductSpecification PD = new PProductSpecification();
+                if(!string.IsNullOrEmpty(Hid_ProductSpecificationID.Value))
+                {
+                    PD.ProductSpecificationID = Convert.ToInt32(Hid_ProductSpecificationID.Value);
+                }                
+                PD.Product = new PProduct() { ProductID = Convert.ToInt32(ModelByID.ProductID) };
+                PD.SpecificationText = txtSpecText.Text.Trim();
+                PD.SpecificationDescription = txtSpecDesc.Text.Trim();
+                PD.OrderByNo = Convert.ToInt32(txtOrderByNo.Text);
+                PD.IsActive = true;
+                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Master/InsertOrUpdateProductSpecification", PD));
+                if (result.Status == PApplication.Failure)
+                {
+                    lblProductSpecificationMessage.Text = result.Message;
+                    MPE_ProductSpecification.Show();
+                    return;
+                }
+
+                lblProductSpecificationMessage.Text = result.Message;
+                lblProductSpecificationMessage.ForeColor = Color.Green;
+                lblMessage.Text = result.Message;
+                lblMessage.ForeColor = Color.Green;
+                Hid_ProductSpecificationID.Value = "";
+                GetProductSpecification();
+            }
+            catch (Exception ex)
+            {
+                lblProductSpecificationMessage.Text = ex.Message.ToString();
+                MPE_ProductSpecification.Show();
+            }
+        }
+        private void GetProductSpecification()
+        {
+            int? ProductID = ModelByID.ProductID;
+            List<PProductSpecification> ProductSpecification = new BDMS_Master().GetProductSpecification(ProductID);
+            GVProductSpecification.DataSource = null;
+            GVProductSpecification.DataBind();
+            if (ProductSpecification.Count > 0)
+            {
+                GVProductSpecification.DataSource = ProductSpecification;
+                GVProductSpecification.DataBind();
+            }
+        }
+        protected void lblProductSpecificationDelete_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "";
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            try
+            {
+                LinkButton lblProductSpecificationDelete = (LinkButton)sender;
+                int ProductSpecificationID = Convert.ToInt32(lblProductSpecificationDelete.CommandArgument);
+                GridViewRow row = (GridViewRow)(lblProductSpecificationDelete.NamingContainer);
+                string SpecificationText = Convert.ToString(((Label)row.FindControl("lblSpecificationText")).Text.Trim());
+                string SpecificationDescription = Convert.ToString(((Label)row.FindControl("lblSpecificationDescription")).Text.Trim());
+                int OrderByNo = Convert.ToInt32(((Label)row.FindControl("lblOrderByNo")).Text.Trim());
+
+                PProductSpecification PD = new PProductSpecification();
+                PD.ProductSpecificationID = Convert.ToInt32(ProductSpecificationID);
+                PD.Product = new PProduct() { ProductID = Convert.ToInt32(ModelByID.ProductID) };
+                PD.SpecificationText = SpecificationText;
+                PD.SpecificationDescription = SpecificationDescription;
+                PD.OrderByNo = OrderByNo;
+                PD.IsActive = false;
+
+                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Master/InsertOrUpdateProductSpecification", PD));
+                if (result.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = result.Message;
+                    return;
+                }
+
+                lblMessage.Text = result.Message;
+                lblMessage.ForeColor = Color.Green;
+                GetProductSpecification();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+            }
+        }
+        protected void lblProductSpecificationEdit_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "";
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            try
+            {
+                LinkButton lblProductSpecificationDelete = (LinkButton)sender;
+                Hid_ProductSpecificationID.Value = lblProductSpecificationDelete.CommandArgument;
+                GridViewRow row = (GridViewRow)(lblProductSpecificationDelete.NamingContainer);
+                txtSpecText.Text = Convert.ToString(((Label)row.FindControl("lblSpecificationText")).Text.Trim());
+                txtSpecDesc.Text = Convert.ToString(((Label)row.FindControl("lblSpecificationDescription")).Text.Trim());
+                txtOrderByNo.Text = Convert.ToString(((Label)row.FindControl("lblOrderByNo")).Text.Trim());
+                btnSaveProductSpecification.Text = "Update";
+                MPE_ProductSpecification.Show();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
             }
         }
     }

@@ -470,17 +470,18 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             {
                 lblMessage.Text = "Please select the Material.";
                 return;
-            } 
-            PApiResult Result = new BInventory().GetDealerStock(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlSourceOffice.SelectedValue), null, null, hdfMaterialCode.Value.Trim());
+            }
+            PDealerStock DealerStock = new BInventory().GetDealerStockCountByID(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlSourceOffice.SelectedValue), Convert.ToInt32(hdfMaterialID.Value));
 
-            List<PDealerStock> PDealerStock =  JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
-            if(PDealerStock.Count==1)
+           // List<PDealerStock> PDealerStock =  JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
+            if (DealerStock.UnrestrictedQty == 0)
             {
-                lblMessage.Text = "Available Material is : " + PDealerStock[0].UnrestrictedQty;
+                lblMessage.Text = "Material is not available.";
             }
             else
             {
-                lblMessage.Text = "Material is not available.";
+
+                lblMessage.Text = "Available Material is : " + DealerStock.UnrestrictedQty;
             }
         }
     }

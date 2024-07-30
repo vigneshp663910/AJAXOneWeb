@@ -33,6 +33,7 @@
                 <asp:LinkButton ID="lbtnAddVisit" runat="server" OnClick="lbActions_Click">Add Visit</asp:LinkButton>
                 <%--  <asp:LinkButton ID="lbtnAddDiscount" runat="server" OnClick="lbActions_Click">Add Discount</asp:LinkButton>--%>
                 <asp:LinkButton ID="lbtnAddCustomerSingedQuotation" runat="server" OnClick="lbActions_Click">Add Customer Singed Quotation</asp:LinkButton>
+                <asp:LinkButton ID="lbtnAddSpecification" runat="server" OnClick="lbActions_Click">Add Specification</asp:LinkButton>
             </div>
         </div>
     </div>
@@ -795,6 +796,51 @@
             </div>
         </ContentTemplate>
     </asp:TabPanel>
+    <asp:TabPanel ID="tbPnlSpecification" runat="server" HeaderText="Specification" Font-Bold="True" ToolTip="Specification">
+        <ContentTemplate>
+            <div class="col-md-12">
+                <div class="col-md-12 Report">
+                    <asp:GridView ID="GVSpecification" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                        EmptyDataText="No Data Found">
+                        <Columns>
+                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Specification Text">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSpecificationText" Text='<%# DataBinder.Eval(Container.DataItem, "SpecificationText")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Specification Description">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSpecificationDescription" Text='<%# DataBinder.Eval(Container.DataItem, "SpecificationDescription")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="OrderBy No">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblOrderByNo" Text='<%# DataBinder.Eval(Container.DataItem, "OrderByNo")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Action" HeaderStyle-Width="70px" ItemStyle-HorizontalAlign="Center">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lblSpecificationEdit" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SpecificationID")%>' OnClick="lblSpecificationEdit_Click"><i class="fa fa-fw fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                    <asp:LinkButton ID="lblSpecificationDelete" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SpecificationID")%>' OnClick="lblSpecificationDelete_Click"><i class="fa fa-fw fa-times" style="font-size:18px"></i></asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle ForeColor="White" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+                    <asp:HiddenField ID="Hid_SpecificationID" runat="server" />
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
 </asp:TabContainer>
 
 <asp:Panel ID="pnlFinancier" runat="server" CssClass="Popup" Style="display: none">
@@ -1140,7 +1186,39 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_CustomerSingedCopy" runat="server" TargetControlID="lnkMPE" PopupControlID="Panel1" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<asp:Panel ID="pnlSpecification" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueSpecification">Specification</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="btnSpecificationClose" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
 
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblSpecificationMessage" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset4" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <label class="modal-label">Specification Text</label>
+                        <asp:TextBox ID="txtSpecText" runat="server" placeholder="Specification Text" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="modal-label">OrderBy No</label>
+                        <asp:TextBox ID="txtOrderByNo" runat="server" placeholder="OrderBy No" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="modal-label">Specification Description</label>
+                        <asp:TextBox ID="txtSpecDesc" runat="server" placeholder="Specification Description" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnSaveSpecification" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveSpecification_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Specification" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSpecification" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <%--<fieldset class="fieldset-border" id="Fieldset4" runat="server">
     <div class="col-md-12">
