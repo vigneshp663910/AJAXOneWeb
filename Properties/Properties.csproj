@@ -103,6 +103,7 @@
     <Compile Include="PMenu.cs" />
     <Compile Include="PMessageAnnouncement.cs" />
     <Compile Include="PNotifications.cs" />
+    <Compile Include="POnboardEmployee.cs" />
     <Compile Include="PProject.cs" />
     <Compile Include="PQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

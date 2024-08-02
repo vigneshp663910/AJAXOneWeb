@@ -176,6 +176,7 @@
     <Compile Include="BMachineOperator.cs" />
     <Compile Include="BMessageAnnouncement.cs" />
     <Compile Include="BNotification.cs" />
+    <Compile Include="BOnboardEmployee.cs" />
     <Compile Include="BOrganization.cs" />
     <Compile Include="BPG.cs" />
     <Compile Include="BPreSale.cs" />

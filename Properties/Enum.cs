@@ -509,7 +509,9 @@ namespace Properties
         ViewPreSale_Reports_LeadNextFollowUpAgeingReport = 263,
         ViewSales_SalesInvoiceReport = 264,
         ViewAdmin_UserAccessBySubModule = 265,
-        ViewAdmin_UserAccessByChildModule = 266
+        ViewAdmin_UserAccessByChildModule = 266,
+        ViewDealerEmployee_OnboardEmployeeManage = 267,
+        ViewDealerEmployee_OnboardEmployeeApproval = 268,
     }
     public enum SubModuleChildMaster
     {
