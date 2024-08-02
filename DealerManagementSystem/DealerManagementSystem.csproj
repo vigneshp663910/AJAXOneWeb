@@ -644,6 +644,7 @@
     <Content Include="ViewProcurement\UserControls\StockTransferOrderDeliveryView.ascx" />
     <Content Include="ViewProcurement\UserControls\StockTransferOrderView.ascx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
+    <Content Include="ViewSales\Report\OofCustomerReport.aspx" />
     <Content Include="ViewSales\SaleInvoicePending.aspx" />
     <Content Include="ViewSales\SaleOrder.aspx" />
     <Content Include="ViewSales\SaleOrderDelivery.aspx" />
@@ -2545,6 +2546,13 @@
     </Compile>
     <Compile Include="ViewReport\CustomerVisitReport.aspx.designer.cs">
       <DependentUpon>CustomerVisitReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\Report\OofCustomerReport.aspx.cs">
+      <DependentUpon>OofCustomerReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\Report\OofCustomerReport.aspx.designer.cs">
+      <DependentUpon>OofCustomerReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleInvoicePending.aspx.cs">
       <DependentUpon>SaleInvoicePending.aspx</DependentUpon>
