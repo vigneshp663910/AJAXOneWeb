@@ -96,5 +96,10 @@ namespace Business
             string endPoint = "StockTransferOrder/UpdateStockTransferOrderItemStatus?StockTransferOrderItemID=" + StockTransferOrderItemID + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public List<PDealer> GetSourceDealerForStockTransferOrder(int DealerID)
+        {
+            string endPoint = "StockTransferOrder/GetSourceDealerForStockTransferOrder?DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<List<PDealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

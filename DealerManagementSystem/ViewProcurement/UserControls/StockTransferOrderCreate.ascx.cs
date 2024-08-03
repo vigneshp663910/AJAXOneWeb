@@ -168,6 +168,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlDealer.DataBind();
             //ddlDealer.Items.Insert(0, new ListItem("All", "0"));
             FillGetDealerOffice();
+            FillGetSourceDealer();
         }        
         void fillItem()
         {
@@ -187,6 +188,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             FillGetDealerOffice();
+            FillGetSourceDealer();
         }
         private void FillGetDealerOffice()
         {
@@ -196,11 +198,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlDestinationOffice.DataBind();
             ddlDestinationOffice.Items.Insert(0, new ListItem("Select", "0"));
 
-            ddlSourceOffice.DataTextField = "OfficeName_OfficeCode";
-            ddlSourceOffice.DataValueField = "OfficeID";
-            ddlSourceOffice.DataSource = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null);
-            ddlSourceOffice.DataBind();
-            ddlSourceOffice.Items.Insert(0, new ListItem("Select", "0"));
+            
         }
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
@@ -471,7 +469,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.Text = "Please select the Material.";
                 return;
             }
-            PDealerStock DealerStock = new BInventory().GetDealerStockCountByID(Convert.ToInt32(ddlDealer.SelectedValue), Convert.ToInt32(ddlSourceOffice.SelectedValue), Convert.ToInt32(hdfMaterialID.Value));
+            PDealerStock DealerStock = new BInventory().GetDealerStockCountByID(Convert.ToInt32(ddlSourceDealer.SelectedValue), Convert.ToInt32(ddlSourceOffice.SelectedValue), Convert.ToInt32(hdfMaterialID.Value));
 
            // List<PDealerStock> PDealerStock =  JsonConvert.DeserializeObject<List<PDealerStock>>(JsonConvert.SerializeObject(Result.Data));
             if (DealerStock.UnrestrictedQty == 0)
@@ -483,6 +481,26 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
                 lblMessage.Text = "Available Material is : " + DealerStock.UnrestrictedQty;
             }
+        }
+
+        private void FillGetSourceDealer()
+        {
+            ddlSourceDealer.DataTextField = "CodeWithDisplayName";
+            ddlSourceDealer.DataValueField = "DID";
+            ddlSourceDealer.DataSource = new BStockTransferOrder().GetSourceDealerForStockTransferOrder(Convert.ToInt32(ddlDealer.SelectedValue));
+            ddlSourceDealer.DataBind();
+        }
+        protected void ddlSourceDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillGetSourceDealerOffice();
+        } 
+        private void FillGetSourceDealerOffice()
+        {
+            ddlSourceOffice.DataTextField = "OfficeName_OfficeCode";
+            ddlSourceOffice.DataValueField = "OfficeID";
+            ddlSourceOffice.DataSource = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlSourceDealer.SelectedValue), null, null);
+            ddlSourceOffice.DataBind();
+            ddlSourceOffice.Items.Insert(0, new ListItem("Select", "0"));
         }
     }
 }
