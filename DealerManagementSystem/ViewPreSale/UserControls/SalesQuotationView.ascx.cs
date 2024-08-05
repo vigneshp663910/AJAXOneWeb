@@ -1443,7 +1443,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 if (Quotation.IsStandard)
                 {
                     List<PProductDrawing> ProductDrawing = new BDMS_Master().GetProductDrawing(Q.LeadProduct.Product.ProductID);
-                    if (ProductDrawing.Count != 3)
+                    if (ProductDrawing.Count != 2)
                     {
                         lblMessage.Text = "Drawing is not available";
                         lblMessage.Visible = true;
@@ -1507,7 +1507,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 if (Quotation.IsStandard)
                 {
                     List<PProductDrawing> ProductDrawing = new BDMS_Master().GetProductDrawing(Q.LeadProduct.Product.ProductID);
-                    if (ProductDrawing.Count != 3)
+                    if (ProductDrawing.Count != 2)
                     {
                         lblMessage.Text = "Drawing is not available";
                         lblMessage.Visible = true;
