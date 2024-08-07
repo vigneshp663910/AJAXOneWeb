@@ -489,6 +489,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlSourceDealer.DataValueField = "DID";
             ddlSourceDealer.DataSource = new BStockTransferOrder().GetSourceDealerForStockTransferOrder(Convert.ToInt32(ddlDealer.SelectedValue));
             ddlSourceDealer.DataBind();
+            FillGetSourceDealerOffice();
         }
         protected void ddlSourceDealer_SelectedIndexChanged(object sender, EventArgs e)
         {

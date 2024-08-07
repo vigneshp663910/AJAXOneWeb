@@ -644,6 +644,7 @@
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnDeliveryCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderView.ascx" />
+    <Content Include="ViewProcurement\UserControls\StockTransferOrderAsnView.ascx" />
     <Content Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\StockTransferOrderDeliveryView.ascx" />
     <Content Include="ViewProcurement\UserControls\StockTransferOrderView.ascx" />
@@ -2550,6 +2551,13 @@
     </Compile>
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderView.ascx.designer.cs">
       <DependentUpon>PurchaseOrderView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderAsnView.ascx.cs">
+      <DependentUpon>StockTransferOrderAsnView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderAsnView.ascx.designer.cs">
+      <DependentUpon>StockTransferOrderAsnView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx.cs">
       <DependentUpon>StockTransferOrderCreate.ascx</DependentUpon>

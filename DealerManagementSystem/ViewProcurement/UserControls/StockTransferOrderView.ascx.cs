@@ -215,15 +215,15 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lbRelease.Visible = true;
             lbCancel.Visible = true;
            // lbPDF.Visible = true;
-            lbDelivery.Visible = true;
+           // lbDelivery.Visible = true;
 
             int StatusID = StockTransferOrder.Status.StatusID;
-            if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Draft)
-            {
-               // lbPDF.Visible = false;
-                lbDelivery.Visible = false;
-            }
-            else if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Release)
+            //if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Draft)
+            //{
+            //   // lbPDF.Visible = false;
+            //    lbDelivery.Visible = false;
+            //}
+             if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Release)
             {
                 lbAddMaterial.Visible = false;
                 lbRelease.Visible = false;
@@ -241,14 +241,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lbRelease.Visible = false;
                 lbCancel.Visible = false;
 
-                lbDelivery.Visible = false;
+                //lbDelivery.Visible = false;
             }
             else if (StatusID == (short)AjaxOneStatus.StockTransferOrder_Cancelled)
             {
                 lbAddMaterial.Visible = false;
                 lbRelease.Visible = false;
                 lbCancel.Visible = false;
-                lbDelivery.Visible = false;
+                //lbDelivery.Visible = false;
                // lbPDF.Visible = false;
             }
 
@@ -285,7 +285,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.StockTransferOrderCreate).Count() == 0)
             {
                 lbAddMaterial.Visible = false;
-                lbDelivery.Visible = false;
+                //lbDelivery.Visible = false;
             }
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.StockTransferOrderRelease).Count() == 0)
             {

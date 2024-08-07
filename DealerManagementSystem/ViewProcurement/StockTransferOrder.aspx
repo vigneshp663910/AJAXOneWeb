@@ -126,6 +126,14 @@
                                             <asp:Label ID="lblDestinationOffice" Text='<%# DataBinder.Eval(Container.DataItem, "DestinationOffice.OfficeName")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="Source Dealer">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblSourceDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "SourceDealer.DealerCode")%>' runat="server"></asp:Label>
+                                            <br />
+                                            <asp:Label ID="lblSourceDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "SourceDealer.DealerName")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                      <asp:TemplateField HeaderText="Source Location">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
