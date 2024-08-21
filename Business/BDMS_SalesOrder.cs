@@ -1465,7 +1465,7 @@ namespace Business
                     else
                     {
                         GST_Header = "IGST";
-                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.Material.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
+                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
 
                         CessValue = CessValue + item.CessValue;
                         CessSubTotal = CessSubTotal + item.TaxableValue + item.IGSTValue + item.CessValue;
@@ -1526,11 +1526,19 @@ namespace Business
                 P[25] = new ReportParameter("IRN", "", false);
                 if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
                 {
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
+                    if(EInvoiceSigned != null)
+                    {
+                        if (string.IsNullOrEmpty(EInvoiceSigned.SignedQRCode))
+                        {
+                            throw new Exception("E Invoice not generated.: " + EInvoiceSigned.Comments);
+                        }
+                    }
                     if (string.IsNullOrEmpty(D.IRN))
                     {
                         throw new Exception("E Invoice not generated. Please contact IT Team.");
                     }
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
+                  
                     P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
                     P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
 
