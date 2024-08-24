@@ -73,8 +73,9 @@
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
-                            <%--<asp:Button ID="btnCreatePO" runat="server" CssClass="btn Save" Text="Create PO" OnClick="btnCreatePO_Click" Width="150px"></asp:Button>--%>
-                            <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                             <asp:Button ID="btnExportExcel" runat="server" Text="Export ASN" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                              <asp:Button ID="btnExportExcelDetails" runat="server" Text="Export ASN Details" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcelDetails_Click" Width="150px" />
+                              <asp:Button ID="btnMissingASN" runat="server" Text="Missing ASN" CssClass="btn Back" UseSubmitBehavior="true"   Width="100px" OnClick="btnMissingASN_Click" />
                         </div>
                     </div>
                 </fieldset>
@@ -101,8 +102,8 @@
                             </div>
                         </div>
                         <asp:GridView ID="gvPAsn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"
-                            OnPageIndexChanging="gvPAsn_PageIndexChanging">
-                            <Columns>
+                           >
+                            <Columns> 
                                 <asp:TemplateField>
                                     <ItemTemplate>
                                         <asp:Button ID="btnViewPO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPO_Click" Width="75px" Height="25px" />
@@ -215,4 +216,30 @@
             <UC:UC_PurchaseOrderASNView ID="UC_PurchaseOrderASNView" runat="server"></UC:UC_PurchaseOrderASNView>
         </div>
     </div>
+
+    
+<asp:Panel ID="pnlMissingASN" runat="server" CssClass="Popup" Style="display: none" Height="500px">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Missing ASN</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <asp:Label ID="lblAddMaterialMessage" runat="server" Text="" CssClass="message" />
+        <div class="col-md-12"> 
+            <div class="col-md-5 col-sm-12"> 
+                <label class="modal-label">Invoice Number</label>
+               <asp:TextBox ID="txtInvoiceNumber" runat="server"></asp:TextBox>
+            </div> 
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnMissingAsnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnMissingAsnSave_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_MissingASN" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMissingASN" BackgroundCssClass="modalBackground" />
+
+
+<div style="display: none">
+    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+</div>
 </asp:Content>

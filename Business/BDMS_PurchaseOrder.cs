@@ -317,5 +317,14 @@ namespace Business
             string endPoint = "PurchaseOrder/AttachmentsForDownload?FileName=" + FileName ;
             return JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public DataTable GetPurchaseOrderAsnExcel(int? DealerID, int? DealerOfficeID, string VendorID, string AsnNumber, DateTime? AsnDateF, DateTime? AsnDateT
+    , int? AsnStatusID, string PurchaseOrderNo, string SaleOrderNo, int? PurchaseOrderTypeID, int? DivisionID, int WithDetail)
+        {
+            string endPoint = "PurchaseOrder/GetPurchaseOrderAsnExcel?DealerID=" + DealerID + "&DealerOfficeID=" + DealerOfficeID + "&VendorID=" + VendorID + "&AsnNumber=" + AsnNumber
+                + "&AsnDateF=" + AsnDateF + "&AsnDateT=" + AsnDateT + "&AsnStatusID=" + AsnStatusID + "&PurchaseOrderNo=" + PurchaseOrderNo
+                + "&SaleOrderNo=" + SaleOrderNo + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&DivisionID=" + DivisionID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }
