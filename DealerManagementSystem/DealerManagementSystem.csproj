@@ -413,7 +413,6 @@
     <Content Include="TestDrop.aspx" />
     <Content Include="testDropWithMasteMain.aspx" />
     <Content Include="TestDropWithMaterSite.aspx" />
-    <Content Include="TestPageForMenu.aspx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
     <Content Include="UserControls\ICTicketButton.ascx" />
     <Content Include="UserControls\ICTicketTSIR.ascx" />
@@ -1099,13 +1098,6 @@
     </Compile>
     <Compile Include="TestDropWithMaterSite.aspx.designer.cs">
       <DependentUpon>TestDropWithMaterSite.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TestPageForMenu.aspx.cs">
-      <DependentUpon>TestPageForMenu.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestPageForMenu.aspx.designer.cs">
-      <DependentUpon>TestPageForMenu.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ICTicketBasicInformation.ascx.cs">
       <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
