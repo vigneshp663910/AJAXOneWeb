@@ -1893,7 +1893,7 @@ Yours faithfully,</Value>
             </TablixRowHierarchy>
             <KeepTogether>true</KeepTogether>
             <DataSetName>SalesQuotationItem</DataSetName>
-            <Top>36.86875cm</Top>
+            <Top>57.38104cm</Top>
             <Height>49.69517cm</Height>
             <Width>19.77618cm</Width>
             <ZIndex>1</ZIndex>
@@ -2475,24 +2475,10 @@ Yours faithfully,</Value>
                 <Source>External</Source>
                 <Value>=Parameters!BatchingPlantImage1.Value</Value>
                 <Sizing>FitProportional</Sizing>
-                <Top>0.24716cm</Top>
-                <Height>8.27565cm</Height>
-                <Width>19.57103cm</Width>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                </Style>
-              </Image>
-              <Image Name="Image12">
-                <Source>External</Source>
-                <Value>=Parameters!BatchingPlantImage2.Value</Value>
-                <Sizing>FitProportional</Sizing>
-                <Top>10.2943cm</Top>
-                <Left>0.06852cm</Left>
-                <Height>7.9685cm</Height>
-                <Width>19.50251cm</Width>
-                <ZIndex>1</ZIndex>
+                <Top>0.11192cm</Top>
+                <Left>0.13704cm</Left>
+                <Height>18.19918cm</Height>
+                <Width>19.63914cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2518,45 +2504,11 @@ Yours faithfully,</Value>
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox12</rd:DefaultName>
-                <Top>8.78275cm</Top>
-                <Left>0.06852cm</Left>
+                <Top>18.48748cm</Top>
+                <Left>0.13704cm</Left>
                 <Height>0.6cm</Height>
-                <Width>19.45868cm</Width>
-                <ZIndex>2</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                  <PaddingTop>2pt</PaddingTop>
-                  <PaddingBottom>2pt</PaddingBottom>
-                </Style>
-              </Textbox>
-              <Textbox Name="Textbox15">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>=Parameters!BatchingPlantImage2Spec.Value</Value>
-                        <Style>
-                          <FontWeight>Bold</FontWeight>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style>
-                      <TextAlign>Center</TextAlign>
-                    </Style>
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox15</rd:DefaultName>
-                <Top>18.43919cm</Top>
-                <Left>0.06852cm</Left>
-                <Height>0.6cm</Height>
-                <Width>19.45868cm</Width>
-                <ZIndex>3</ZIndex>
+                <Width>19.63913cm</Width>
+                <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2569,8 +2521,8 @@ Yours faithfully,</Value>
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>13.15664cm</Top>
-            <Height>19.82892cm</Height>
+            <Top>12.90948cm</Top>
+            <Height>19.08748cm</Height>
             <Width>19.77618cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
@@ -2846,8 +2798,7 @@ Yours faithfully,</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>QuotationSpecification</DataSetName>
-            <Top>33.12667cm</Top>
-            <Left>0.06852cm</Left>
+            <Top>53.32703cm</Top>
             <Height>3.43273cm</Height>
             <Width>19.5025cm</Width>
             <ZIndex>4</ZIndex>
@@ -2858,8 +2809,70 @@ Yours faithfully,</Value>
               <FontSize>12pt</FontSize>
             </Style>
           </Tablix>
+          <Rectangle Name="Rectangle3">
+            <ReportItems>
+              <Textbox Name="Textbox15">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=Parameters!BatchingPlantImage2Spec.Value</Value>
+                        <Style>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox15</rd:DefaultName>
+                <Top>18.86072cm</Top>
+                <Left>0.08114cm</Left>
+                <Height>0.6cm</Height>
+                <Width>19.55799cm</Width>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Image Name="Image12">
+                <Source>External</Source>
+                <Value>=Parameters!BatchingPlantImage2.Value</Value>
+                <Sizing>FitProportional</Sizing>
+                <Top>0.19922cm</Top>
+                <Left>0.08114cm</Left>
+                <Height>18.55566cm</Height>
+                <Width>19.69503cm</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                </Style>
+              </Image>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>32.37173cm</Top>
+            <Height>19.74461cm</Height>
+            <Width>19.77617cm</Width>
+            <ZIndex>5</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
         </ReportItems>
-        <Height>34.08028in</Height>
+        <Height>42.17792in</Height>
         <Style />
       </Body>
       <Width>7.7859in</Width>
@@ -3081,7 +3094,7 @@ Yours faithfully,</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>PageNumber</rd:DefaultName>
-              <Top>0.07052cm</Top>
+              <Top>0.0705cm</Top>
               <Left>6.60441cm</Left>
               <Height>0.6cm</Height>
               <Width>4.44733cm</Width>
@@ -3100,7 +3113,7 @@ Yours faithfully,</Value>
               <Source>Embedded</Source>
               <Value>FooterImage</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.78999cm</Top>
+              <Top>0.78997cm</Top>
               <Height>3.4103cm</Height>
               <Width>19.77618cm</Width>
               <ZIndex>1</ZIndex>

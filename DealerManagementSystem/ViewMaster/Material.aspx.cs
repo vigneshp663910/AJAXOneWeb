@@ -95,6 +95,7 @@ namespace DealerManagementSystem.ViewMaster
         }
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
@@ -103,6 +104,7 @@ namespace DealerManagementSystem.ViewMaster
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » Material');</script>");
+            lblMessage.Text = string.Empty;
             if (!IsPostBack)
             {
                 try
@@ -257,12 +259,40 @@ namespace DealerManagementSystem.ViewMaster
         protected void btnMaterialPriceSerach_Click(object sender, EventArgs e)
         {
             try
-            {
+            { 
+                lblMessage.ForeColor = Color.Red;
                 if (string.IsNullOrEmpty(txtMaterialCodePrice.Text.Trim()))
                 {
+                    lblMessage.Text = "Please Check Material Code";
                     return;
                 }
-                gvMaterialPrice.DataSource = new BDMS_Material().GetMaterialListSQL(null, txtMaterialCodePrice.Text.Trim(), null, null, null);
+                List<PDMS_Material> Material = new BDMS_Material().GetMaterialListSQL(null, txtMaterialCodePrice.Text.Trim(), null, null, null);
+                PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
+                MaterialPrice.Customer ="9001";
+                MaterialPrice.Vendor = "9001";
+                MaterialPrice.OrderType = "DEFAULT_SEC_AUART"; 
+                MaterialPrice.Division = Material[0].Model.Division.DivisionCode;
+                MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
+                MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
+                {
+                    ItemNo = "10",
+                    Material = txtMaterialCodePrice.Text.Trim(),
+                    Quantity = 1,
+
+                });
+
+                List<PMaterial> Ms = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                if (Ms.Count == 1)
+                {
+                    if (Ms[0].CurrentPrice < 0)
+                    {
+                        lblMessage.Text = "Please Check Material Code : " + txtMaterialCodePrice.Text.Trim() + " Price is not valid!";
+                        return;
+                    } 
+                }
+               
+                Material[0].CurrentPrice = Ms[0].CurrentPrice;
+                gvMaterialPrice.DataSource = Material;
                 gvMaterialPrice.DataBind();
             }
             catch (Exception e1)
@@ -378,20 +408,17 @@ namespace DealerManagementSystem.ViewMaster
         void DisplayErrorMessage(Exception e1)
         {
             lblMessage.Text = e1.ToString();
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red; 
         }
         void DisplayErrorMessage(String Message)
         {
             lblMessage.Text = Message;
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Red; 
         }
         void DisplayMessage(String Message)
         {
             lblMessage.Text = Message;
-            lblMessage.ForeColor = Color.Green;
-            lblMessage.Visible = true;
+            lblMessage.ForeColor = Color.Green; 
         }
 
 
@@ -445,8 +472,7 @@ namespace DealerManagementSystem.ViewMaster
             catch (Exception ex)
             {
                 lblMessage.Text = ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red; 
             }
         }
         void fillMaterialVariantType()
@@ -535,10 +561,8 @@ namespace DealerManagementSystem.ViewMaster
         protected void lblMatVariantTypeEdit_Click(object sender, EventArgs e)
         {
             try
-            {
-                lblMessage.Text = string.Empty;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+            { 
+                lblMessage.ForeColor = Color.Red; 
                 LinkButton lblMatVariantTypeEdit = (LinkButton)sender;
                 TextBox txtVariantName = (TextBox)GVMatVariantType.FooterRow.FindControl("txtVariantName");
                 DropDownList ddlProductType = (DropDownList)GVMatVariantType.FooterRow.FindControl("ddlProductType");
@@ -558,17 +582,14 @@ namespace DealerManagementSystem.ViewMaster
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message.ToString();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red; 
             }
         }
         protected void lblMatVariantTypeDelete_Click(object sender, EventArgs e)
         {
             try
-            {
-                lblMessage.Text = string.Empty;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+            { 
+                lblMessage.ForeColor = Color.Red; 
 
                 LinkButton lblMatVariantTypeDelete = (LinkButton)sender;
                 GridViewRow row = (GridViewRow)(lblMatVariantTypeDelete.NamingContainer);
@@ -588,23 +609,20 @@ namespace DealerManagementSystem.ViewMaster
                 if (Result)
                 {
                     lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "Material Category is Deleted Successfully..";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Material Category is Deleted Successfully.."; 
                     fillMaterialVariantType();
                 }
                 else
                 {
                     lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "Material Category is Not Deleted Successfully..!";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Material Category is Not Deleted Successfully..!"; 
                     return;
                 }
             }
             catch (Exception ex)
             {
                 lblMessage.ForeColor = Color.Red;
-                lblMessage.Text = ex.Message.ToString();
-                lblMessage.Visible = true;
+                lblMessage.Text = ex.Message.ToString(); 
                 return;
             }
         }
@@ -612,10 +630,8 @@ namespace DealerManagementSystem.ViewMaster
         protected void BtnAddMatVariantType_Click(object sender, EventArgs e)
         {
             try
-            {
-                lblMessage.Text = string.Empty;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+            { 
+                lblMessage.ForeColor = Color.Red; 
                 Button BtnAddMatVariantType = (Button)GVMatVariantType.FooterRow.FindControl("BtnAddMatVariantType");
 
                 TextBox txtVariantName = (TextBox)GVMatVariantType.FooterRow.FindControl("txtVariantName");
@@ -657,23 +673,20 @@ namespace DealerManagementSystem.ViewMaster
                 if (Result)
                 {
                     lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "Material Category is Created Successfully..";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Material Category is Created Successfully.."; 
                     fillMaterialVariantType();
                 }
                 else
                 {
                     lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "Material Category is Not Created Successfully..!";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Material Category is Not Created Successfully..!"; 
                     return;
                 }
             }
             catch (Exception ex)
             {
                 lblMessage.ForeColor = Color.Red;
-                lblMessage.Text = ex.Message.ToString();
-                lblMessage.Visible = true;
+                lblMessage.Text = ex.Message.ToString(); 
                 return;
             }
         }
@@ -687,8 +700,7 @@ namespace DealerManagementSystem.ViewMaster
             catch (Exception ex)
             {
                 lblMessage.Text = ex.ToString();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red; 
             }
         }
         void fillMaterialVariantTypeMapping()
@@ -787,10 +799,8 @@ namespace DealerManagementSystem.ViewMaster
         protected void lblMatVariantTypeMappingEdit_Click(object sender, EventArgs e)
         {
             try
-            {
-                lblMessage.Text = string.Empty;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+            { 
+                lblMessage.ForeColor = Color.Red; 
                 LinkButton lblMatVariantTypeMappingEdit = (LinkButton)sender;
 
                 DropDownList ddlAddProductType = (DropDownList)GVMatVariantTypeMapping.FooterRow.FindControl("ddlAddProductType");
@@ -820,17 +830,14 @@ namespace DealerManagementSystem.ViewMaster
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message.ToString();
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red; 
             }
         }
         protected void lblMatVariantTypeMappingDelete_Click(object sender, EventArgs e)
         {
             try
-            {
-                lblMessage.Text = string.Empty;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+            { 
+                lblMessage.ForeColor = Color.Red; 
 
                 LinkButton lblMatVariantTypeMappingDelete = (LinkButton)sender;
                 GridViewRow row = (GridViewRow)(lblMatVariantTypeMappingDelete.NamingContainer);
@@ -852,33 +859,28 @@ namespace DealerManagementSystem.ViewMaster
                 if (Result)
                 {
                     lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "Material Category Mapping is Deleted Successfully..";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Material Category Mapping is Deleted Successfully.."; 
                     fillMaterialVariantTypeMapping();
                 }
                 else
                 {
                     lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "Material Category Mapping is Not Deleted Successfully..!";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Material Category Mapping is Not Deleted Successfully..!"; 
                     return;
                 }
             }
             catch (Exception ex)
             {
                 lblMessage.ForeColor = Color.Red;
-                lblMessage.Text = ex.Message.ToString();
-                lblMessage.Visible = true;
+                lblMessage.Text = ex.Message.ToString(); 
                 return;
             }
         }
         protected void BtnAddMatVariantTypeMapping_Click(object sender, EventArgs e)
         {
             try
-            {
-                lblMessage.Text = string.Empty;
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
+            { 
+                lblMessage.ForeColor = Color.Red; 
                 Button BtnAddMatVariantTypeMapping = (Button)GVMatVariantTypeMapping.FooterRow.FindControl("BtnAddMatVariantTypeMapping");
 
                 DropDownList ddlAddProductType = (DropDownList)GVMatVariantTypeMapping.FooterRow.FindControl("ddlAddProductType");
@@ -928,23 +930,20 @@ namespace DealerManagementSystem.ViewMaster
                 if (Result)
                 {
                     lblMessage.ForeColor = Color.Green;
-                    lblMessage.Text = "Material Category Mapping is Created Successfully..";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Material Category Mapping is Created Successfully.."; 
                     fillMaterialVariantTypeMapping();
                 }
                 else
                 {
                     lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "Material Category Mapping is Not Created Successfully..!";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Material Category Mapping is Not Created Successfully..!"; 
                     return;
                 }
             }
             catch (Exception ex)
             {
                 lblMessage.ForeColor = Color.Red;
-                lblMessage.Text = ex.Message.ToString();
-                lblMessage.Visible = true;
+                lblMessage.Text = ex.Message.ToString(); 
                 return;
             }
         }

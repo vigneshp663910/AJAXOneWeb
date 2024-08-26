@@ -1471,42 +1471,42 @@ namespace Business
                         CessSubTotal = CessSubTotal + item.TaxableValue + item.IGSTValue + item.CessValue;
                     }
                 }
-                if (D.Freight != 0)
-                {
-                    i = i + 1;
-                    if (GST_Header == "CGST & SGST")
-                    {
-                        decimal GSTValue = D.Freight * 9 / 100;
-                        CommissionDT.Rows.Add(i, "Freight", "Freight Charges", "998719", "LE", "", String.Format("{0:n}", D.Freight), String.Format("{0:n}", D.Freight)
-                            , String.Format("{0:n}", 9),  String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", GSTValue), D.Freight+ GSTValue+ GSTValue);
-                        CessSubTotal = CessSubTotal + (D.Freight + GSTValue + GSTValue);
-                    }
-                    else
-                    {
-                        decimal GSTValue = D.Freight * 18 / 100;
-                        CommissionDT.Rows.Add(i, "Freight", "Freight Charges", "998719", "", "LE", String.Format("{0:n}", D.Freight),  String.Format("{0:n}", D.Freight)
-                            , null, String.Format("{0:n}", 18), null, String.Format("{0:n}", GSTValue), D.Freight + GSTValue);
-                        CessSubTotal = CessSubTotal + (D.Freight + GSTValue);
-                    }
-                }
-                if (D.PackingAndForward != 0)
-                {
-                    i = i + 1;
-                    if (GST_Header == "CGST & SGST")
-                    {
-                        decimal GSTValue = D.PackingAndForward * 9 / 100;
-                        CommissionDT.Rows.Add(i, "Packing", "Packing Charges", "998719", "LE", "", String.Format("{0:n}", D.PackingAndForward), String.Format("{0:n}", D.PackingAndForward)
-                            , String.Format("{0:n}", 9), String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", GSTValue), D.PackingAndForward + GSTValue + GSTValue);
-                        CessSubTotal = CessSubTotal + (D.PackingAndForward + GSTValue + GSTValue);
-                    }
-                    else
-                    {
-                        decimal GSTValue = D.PackingAndForward * 18 / 100;
-                        CommissionDT.Rows.Add(i, "Packing", "Packing Charges", "998719", "", "LE", String.Format("{0:n}", D.PackingAndForward), String.Format("{0:n}", D.PackingAndForward)
-                            , null, String.Format("{0:n}", 18), null, String.Format("{0:n}", GSTValue), D.PackingAndForward + GSTValue);
-                        CessSubTotal = CessSubTotal + (D.PackingAndForward + GSTValue);
-                    } 
-                }
+                //if (D.Freight != 0)
+                //{
+                //    i = i + 1;
+                //    if (GST_Header == "CGST & SGST")
+                //    {
+                //        decimal GSTValue = D.Freight * 9 / 100;
+                //        CommissionDT.Rows.Add(i, "Freight", "Freight Charges", "998719", "LE", "", String.Format("{0:n}", D.Freight), String.Format("{0:n}", D.Freight)
+                //            , String.Format("{0:n}", 9),  String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", GSTValue), D.Freight+ GSTValue+ GSTValue);
+                //        CessSubTotal = CessSubTotal + (D.Freight + GSTValue + GSTValue);
+                //    }
+                //    else
+                //    {
+                //        decimal GSTValue = D.Freight * 18 / 100;
+                //        CommissionDT.Rows.Add(i, "Freight", "Freight Charges", "998719", "", "LE", String.Format("{0:n}", D.Freight),  String.Format("{0:n}", D.Freight)
+                //            , null, String.Format("{0:n}", 18), null, String.Format("{0:n}", GSTValue), D.Freight + GSTValue);
+                //        CessSubTotal = CessSubTotal + (D.Freight + GSTValue);
+                //    }
+                //}
+                //if (D.PackingAndForward != 0)
+                //{
+                //    i = i + 1;
+                //    if (GST_Header == "CGST & SGST")
+                //    {
+                //        decimal GSTValue = D.PackingAndForward * 9 / 100;
+                //        CommissionDT.Rows.Add(i, "Packing", "Packing Charges", "998719", "LE", "", String.Format("{0:n}", D.PackingAndForward), String.Format("{0:n}", D.PackingAndForward)
+                //            , String.Format("{0:n}", 9), String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", GSTValue), D.PackingAndForward + GSTValue + GSTValue);
+                //        CessSubTotal = CessSubTotal + (D.PackingAndForward + GSTValue + GSTValue);
+                //    }
+                //    else
+                //    {
+                //        decimal GSTValue = D.PackingAndForward * 18 / 100;
+                //        CommissionDT.Rows.Add(i, "Packing", "Packing Charges", "998719", "", "LE", String.Format("{0:n}", D.PackingAndForward), String.Format("{0:n}", D.PackingAndForward)
+                //            , null, String.Format("{0:n}", 18), null, String.Format("{0:n}", GSTValue), D.PackingAndForward + GSTValue);
+                //        CessSubTotal = CessSubTotal + (D.PackingAndForward + GSTValue);
+                //    } 
+                //}
                 string contentType = string.Empty;
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
@@ -1526,14 +1526,23 @@ namespace Business
                 P[25] = new ReportParameter("IRN", "", false);
                 if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
                 {
-                    if (string.IsNullOrEmpty(D.IRN))
-                    {
-                        throw new Exception("E Invoice not generated. Please contact IT Team.");
-                    }
                     PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
-                    P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
-                    P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
-
+                    //if(EInvoiceSigned != null)
+                    //{
+                    //    if (string.IsNullOrEmpty(EInvoiceSigned.SignedQRCode))
+                    //    {
+                    //        throw new Exception("E Invoice not generated.: " + EInvoiceSigned.Comments);
+                    //    }
+                    //}
+                    //if (string.IsNullOrEmpty(D.IRN))
+                    //{
+                    //    throw new Exception("E Invoice not generated. Please contact IT Team.");
+                    //}
+                    if (!string.IsNullOrEmpty(D.IRN))
+                    {
+                        P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
+                        P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
+                    } 
                 }
 
 
@@ -1597,6 +1606,7 @@ namespace Business
                 InvF.AttachedFile = mybytes;
                 InvF.AttachedFileID = 0;
                 InvF.FileName = Convert.ToString(ID);
+                new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", InvF);
                 return InvF;
             }
             catch (Exception ex)
