@@ -207,18 +207,18 @@
         <div class="model-scroll">
             <asp:Label ID="lblProductSpecificationMessage" runat="server" Text="" CssClass="message" Visible="false" />
             <fieldset class="fieldset-border" id="Fieldset3" runat="server">
-                <div class="col-md-12">
-                    <div class="col-md-6">
-                        <label class="modal-label">Specification Text</label>
-                        <asp:TextBox ID="txtSpecText" runat="server" placeholder="Specification Text" CssClass="form-control"></asp:TextBox>
-                    </div>
+                <div class="col-md-12">                    
                     <div class="col-md-6">
                         <label class="modal-label">OrderBy No</label>
                         <asp:TextBox ID="txtOrderByNo" runat="server" placeholder="OrderBy No" CssClass="form-control" TextMode="Number"></asp:TextBox>
                     </div>
                     <div class="col-md-12">
+                        <label class="modal-label">Specification Text</label>
+                        <asp:TextBox ID="txtSpecText" runat="server" placeholder="Specification Text" CssClass="form-control" TextMode="MultiLine" Rows="4"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12">
                         <label class="modal-label">Specification Description</label>
-                        <asp:TextBox ID="txtSpecDesc" runat="server" placeholder="Specification Description" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                        <asp:TextBox ID="txtSpecDesc" runat="server" placeholder="Specification Description" CssClass="form-control" TextMode="MultiLine" Rows="4"></asp:TextBox>
                     </div>
                 </div>
             </fieldset>

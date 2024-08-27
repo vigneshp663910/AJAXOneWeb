@@ -59,26 +59,13 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 PageCount = 0;
                 PageIndex = 1;
-                //if (!string.IsNullOrEmpty(Request.QueryString["SendForApproval"]))
-                //{
-                //    FillAllFields(Convert.ToInt32(Request.QueryString["SendForApproval"]));
-                //    divList.Visible = false;
-                //    pnView.Visible = true;
-                //}
-                //else
-                //{
-                    FillCategory();
-                    //   FillStatus();
-                    FillCreatedBy();
-                    FillOpenTickets();
-                //}
-                //FillApproval();
-
-
-                //  txtRequestedDateFrom.Text = d.DataDespesa.ToString("yyyy-MM-dd");
+                FillCategory();
+                FillCreatedBy(null);
+                FillOpenTickets();
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
             }
         }
-        void FillCreatedBy()
+        void FillCreatedBy(int? DealerId)
         {
             ddlCreatedBy.DataTextField = "ContactName";
             ddlCreatedBy.DataValueField = "UserID";
@@ -113,6 +100,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 int? TicketCategoryID = ddlCategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCategory.SelectedValue);
                 long? CreatedBy = ddlCreatedBy.SelectedValue == "0" ? (long?)null : Convert.ToInt64(ddlCreatedBy.SelectedValue);
                 DateTime? RequestedDateFrom = null;
+                int? DealerId = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
                 if (!string.IsNullOrEmpty(txtRequestedDateFrom.Text))
                 {
                     RequestedDateFrom = Convert.ToDateTime(txtRequestedDateFrom.Text);
@@ -129,7 +117,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 }
                 List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
 
-                PApiResult Result = new BTickets().GetOpenTickets(HeaderId, TicketCategoryID, null, CreatedBy, txtRequestedDateFrom.Text.Trim(), txtRequestedDateTo.Text.Trim(), PSession.User.UserID, PageIndex, gvTickets.PageSize);
+                PApiResult Result = new BTickets().GetOpenTickets(HeaderId, DealerId, TicketCategoryID, null, CreatedBy, txtRequestedDateFrom.Text.Trim(), txtRequestedDateTo.Text.Trim(), PSession.User.UserID, PageIndex, gvTickets.PageSize);
                 TicketHeader = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
                 //TicketHeader = new BTickets().GetOpenTickets(HeaderId, TicketCategoryID, null, CreatedBy, RequestedDateFrom, RequestedDateTo, PSession.User.UserID, PageIndex, gvTickets.PageSize, out RowCount);
 
@@ -390,6 +378,14 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 PageIndex = PageIndex + 1;
                 FillOpenTickets();
+            }
+        }
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlDealer.SelectedValue != "0")
+            {
+                FillCreatedBy(Convert.ToInt32(ddlDealer.SelectedValue));
             }
         }
     }

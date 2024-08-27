@@ -70,7 +70,7 @@
             }
         });
     </script>--%>
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Width="100%" Visible="false"/>
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Width="100%" Visible="false" />
     <div class="col-md-12" id="divList" runat="server">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
@@ -168,6 +168,14 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "HeaderID")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Dealer">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server"></asp:Label>
+                                    <br />
+                                    <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerName")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Category">

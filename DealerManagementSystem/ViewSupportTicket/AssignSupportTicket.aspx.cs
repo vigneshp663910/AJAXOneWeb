@@ -152,7 +152,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             PTicketHeader Tickets = new PTicketHeader();
 
-            PApiResult Result = new BTickets().GetOpenTickets(TicketNo, null, null, null, null, null, PSession.User.UserID, null, null);
+            PApiResult Result = new BTickets().GetOpenTickets(TicketNo, null, null, null, null, null, null, PSession.User.UserID, null, null);
             Tickets = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data))[0];
 
             txtRequestedOn.Text = Convert.ToString(Tickets.CreatedOn);

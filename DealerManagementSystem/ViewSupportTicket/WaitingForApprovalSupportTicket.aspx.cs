@@ -59,6 +59,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 FillCategory();
                 FillSubCategory();
                 FillTicketSeverity();
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 FillTickets();
             }
         }
@@ -107,9 +108,10 @@ namespace DealerManagementSystem.ViewSupportTicket
             }
             int? TicketSeverity = ddlSeverity.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSeverity.SelectedValue);
             int UserID = PSession.User.UserID;
+            int? DealerId = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             //int RowCount = 0;
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            PApiResult Result = new BTickets().GetTicketsApprovaldetails(HeaderId, txtRequestedDateFrom.Text.Trim(), txtRequestedDateTo.Text.Trim(), TicketCategoryID, TicketSubCategoryID, TicketSeverity, UserID, PageIndex, gvTickets.PageSize);
+            PApiResult Result = new BTickets().GetTicketsApprovaldetails(HeaderId, DealerId, txtRequestedDateFrom.Text.Trim(), txtRequestedDateTo.Text.Trim(), TicketCategoryID, TicketSubCategoryID, TicketSeverity, UserID, PageIndex, gvTickets.PageSize);
             TicketHeader = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
             //TicketHeader = new BTickets().GetTicketsApprovaldetails(HeaderId, RequestedDateFrom, RequestedDateTo, TicketCategoryID, TicketSubCategoryID, TicketSeverity, UserID, PageIndex, gvTickets.PageSize, out RowCount);
             if (Result.RowCount == 0)
