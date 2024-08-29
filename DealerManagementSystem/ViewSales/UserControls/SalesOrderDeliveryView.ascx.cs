@@ -573,8 +573,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[16] = new ReportParameter("CustomerShipToGSTIN", Customer.GSTIN, false);
             P[17] = new ReportParameter("InvoiceNo", SaleOrderDeliveryByID.InvoiceNumber, false);
             P[18] = new ReportParameter("InvoiceDate", (SaleOrderDeliveryByID.InvoiceDate == null) ? "" : Convert.ToDateTime(SaleOrderDeliveryByID.InvoiceDate).ToShortDateString(), false);
-            P[19] = new ReportParameter("Attn", KindAttention, false);
-            P[20] = new ReportParameter("Mobile", PhoneNumber, false);
+            P[19] = new ReportParameter("Attn", Customer.ContactPerson, false);
+            P[20] = new ReportParameter("Mobile", Customer.Mobile, false);
             P[21] = new ReportParameter("Ref", SaleOrderDeliveryByID.SaleOrder.RefNumber, false);
             P[22] = new ReportParameter("CGST_Header", "", false);
             P[23] = new ReportParameter("CGSTVal_Header", "", false);
@@ -647,15 +647,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
             PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
             if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate) && (Customer.GSTIN != "URD"))
             {
-                if(string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
-                {
-                    throw new Exception("E Invoice not generated. Please contact IT Team.");
-                }
+                //if(string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
+                //{
+                //    throw new Exception("E Invoice not generated. Please contact IT Team.");
+                //}
                 PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(SaleOrderDeliveryByID.SaleOrderDeliveryID);
                 //P = new ReportParameter[26];                
-                P[40] = new ReportParameter("IRNo", "IRN : " + SaleOrderDeliveryByID.IRN, false);
-                P[42] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderDeliveryByID.InvoiceNumber), false);
+               
                 //report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
+
+                if (!string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
+                {
+                    P[40] = new ReportParameter("IRNo", "IRN : " + SaleOrderDeliveryByID.IRN, false);
+                    P[42] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderDeliveryByID.InvoiceNumber), false); 
+                }
+
             }
             else
             {
