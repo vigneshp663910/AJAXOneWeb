@@ -49,20 +49,14 @@
             <asp:ListItem Text="Italy" Value="Italy"></asp:ListItem>
             <asp:ListItem Text="Germany" Value="Germany"></asp:ListItem>
         </asp:DropDownList>
-
-
-
         <table>
-
             <tr>
                 <td>
                     <asp:Label ID="Label2" runat="server" Text="API Test"></asp:Label></td>
                 <td>
                     <asp:Button ID="btnAPITest" runat="server" Text="API Test" OnClick="btnAPITest_Click" />
                 </td>
-                <td>
-                   
-                </td>
+                <td></td>
                 <td>
                     <asp:Button ID="BtnMaterialSupersede" runat="server" Text="MaterialSupersede" OnClick="BtnMaterialSupersede_Click" />
                 </td>
@@ -73,50 +67,10 @@
             </tr>
             <tr>
                 <td>
-                    <br />
-                    <asp:TextBox ID="txtCustomerId" runat="server"></asp:TextBox>
-                    <asp:Button ID="BtnCreateCustomer" runat="server" Text="Create Customer" OnClick="BtnCreateCustomer_Click" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <br />
-                    <asp:TextBox ID="txtQuotationID" runat="server"></asp:TextBox>
-                    <asp:Button ID="BtnCreateQuotation" runat="server" Text="Create Quotation" OnClick="BtnCreateQuotation_Click" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label34" runat="server" Text="Enquiry Indiamart"></asp:Label>
-                </td>
-
-                <td>
-                    <asp:Button ID="btnEnquiryIndiamart" runat="server" Text="Enquiry Indiamart" OnClick="btnEnquiryIndiamart_Click" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label1" runat="server" Text="Enquiry Indiamart"></asp:Label>
-                </td>
-
-                <td>
-                    <asp:Button ID="btnUpdateAddressFromSapToSql" runat="server" Text="Update Address From SapToSql" OnClick="btnUpdateAddressFromSapToSql_Click" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Label ID="Label3" runat="server" Text="SMS"></asp:Label>
-                </td>
-
-                <td>
                     <asp:Button ID="btnSMS" runat="server" Text="Update SMS" OnClick="btnSMS_Click" />
                 </td>
             </tr>
             <tr>
-                <td>
-                    <asp:Label ID="Label4" runat="server" Text="Mail"></asp:Label>
-                </td>
-
                 <td>
                     <asp:Button ID="btnMail" runat="server" Text="Update Mail" OnClick="btnMail_Click" />
                 </td>
@@ -126,31 +80,6 @@
                     <asp:Button ID="BtnSalesQuotationDetails" runat="server" Text="SalesQuotationDocumentDetails" OnClick="BtnSalesQuotationDetails_Click" />
                 </td>
             </tr>
-            <%--    <tr>
-                <td>
-                    <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
-                    <asp1:CalendarExtender ID="calendarextender2" runat="server" TargetControlID="txtFromDate" PopupButtonID="txtFromDate" Format="dd/MM/yyyy" />
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtFromDate" WatermarkText="From" />
-                </td>
-                <td>
-                    <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoCompleteType="Disabled"></asp:TextBox>
-                    <asp1:CalendarExtender ID="calendarextender3" runat="server" TargetControlID="txtToDate" PopupButtonID="txtToDate" Format="dd/MM/yyyy" />
-                    <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtToDate" WatermarkText="To" />
-                </td>
-
-                <td>
-                    <asp:TextBox ID="txtEnquiryNo" runat="server" PlaceHolder="EnquiryNo"></asp:TextBox></td>
-                <td>
-                    <asp:TextBox ID="txtDelaerCode" runat="server" PlaceHolder="DealerCode"></asp:TextBox></td>
-                <td>
-                    <asp:TextBox ID="txtCustomerCode" runat="server" PlaceHolder="CustomerCode"></asp:TextBox></td>
-            </tr>
-            <tr>
-                <td>
-                    <asp:Button ID="BtnEnquiryDetails" runat="server" Text="EnquiryDetails" OnClick="BtnEnquiryDetails_Click" />
-                </td>
-            </tr>--%>
-
             <tr>
                 <td>
                     <br />
@@ -159,73 +88,36 @@
                     <asp:Button ID="btnCustomerMiss" runat="server" Text="Customer Miss" OnClick="btnCustomerMiss_Click" />
                 </td>
             </tr>
-
             <tr>
                 <td>
                     <br />
-                    <asp:Label ID="Label6" runat="server" Text="API E Invoice"></asp:Label>
-                    <asp:Button ID="btnAPIEInvoice" runat="server" Text="API E Invoice" OnClick="btnAPIEInvoice_Click" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <br />
-                    <asp:Label ID="Label7" runat="server" Text="Dealer Address from SAP"></asp:Label>
                     <asp:Button ID="btnDealerAddress" runat="server" Text="Dealer Address from SAP" OnClick="btnDealerAddress_Click" />
                 </td>
             </tr>
             <tr>
                 <td>
                     <br />
-                    <asp:Label ID="Label8" runat="server" Text="Dealer Address from SAP"></asp:Label>
-                    <asp:Button ID="btnIntegrationWarrantyClaimAnnexureToSAP" runat="server" Text="IntegrationWarrantyClaimAnnexureToSAP" OnClick="btnIntegrationWarrantyClaimAnnexureToSAP_Click" />
+                    <asp:Button ID="btnIntegrationWarrantyClaimAnnexureToSAP" runat="server" Text="Integration Warranty Claim Annexure To SAP" OnClick="btnIntegrationWarrantyClaimAnnexureToSAP_Click" />
                 </td>
             </tr>
-
             <tr>
                 <td>
                     <br />
-                    <asp:Label ID="Label9" runat="server" Text="Integration Equipment From SAP"></asp:Label>
-                    <asp:Button ID="btnIntegrationEquipmentFromSAP" runat="server" Text="IntegrationEquipmentFromSAP" OnClick="btnIntegrationEquipmentFromSAP_Click" />
-                </td>
-            </tr>
-            
-            <tr>
-                <td>
-                    <br />
-                    <asp:Label ID="Label11" runat="server" Text="Sales Quotation Flow From Sap"></asp:Label>
                     <asp:Button ID="Button1" runat="server" Text="Sales Quotation Flow From Sap" OnClick="Button1_Click" />
                 </td>
             </tr>
             <tr>
                 <td>
                     <br />
-                    <asp:Label ID="Label12" runat="server" Text="Update Service Delivery number"></asp:Label>
                     <asp:Button ID="btnUpdateServiceDeliveryNumber" runat="server" Text="Update Service Delivery number" OnClick="btnUpdateServiceDeliveryNumber_Click" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="Label13" runat="server" Text="Invoice No"></asp:Label>
-                    <asp:TextBox ID="txtInvoiceNumber" runat="server"></asp:TextBox>
-                    <asp:Button ID="btnAsnDetailsFromSap" runat="server" Text="Create Asn Details" OnClick="btnAsnDetailsFromSap_Click" />
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <asp:Label ID="Label14" runat="server" Text="MaterialCode"></asp:Label>
-                    <asp:TextBox ID="txtMaterialCode" runat="server"></asp:TextBox>
-                    <asp:Button ID="BtnMaterial" runat="server" Text="Material From SAP" OnClick="BtnMaterial_Click" />
-                </td>
-            </tr>
-             <tr>
-                <td> 
-                    <asp:Button ID="btnMttrEscalation" runat="server" Text="Create Asn Details" OnClick="btnMttrEscalation_Click" />
+                    <asp:Button ID="btnMttrEscalation" runat="server" Text="Mttr Escalation" OnClick="btnMttrEscalation_Click" />
                 </td>
             </tr>
         </table>
-
         <div id="chart" style="width: 100%; height: 500px;"></div>
     </form>
 </body>

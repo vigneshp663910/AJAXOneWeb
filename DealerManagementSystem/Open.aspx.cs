@@ -85,54 +85,14 @@ namespace DealerManagementSystem
             chartData.Add(new object[] { 2016, 1030, 866 });
             return chartData;
         }
-
-        protected void BtnMaterial_Click(object sender, EventArgs e)
-        {
-            new BAPI().ApiGetWithOutToken("Material/MaterialIntegrationFromSap?MaterialCode = " + txtMaterialCode.Text.Trim());
-        }
+ 
 
         protected void BtnMaterialSupersede_Click(object sender, EventArgs e)
         {
             new BAPI().ApiGetWithOutToken("Material/MaterialIntegrationFromSap"); 
         }
-        protected void btnEnquiryIndiamart_Click(object sender, EventArgs e)
-        { 
-        }
-
-        protected void BtnCreateCustomer_Click(object sender, EventArgs e)
-        {
-            //List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerFromSQL(Convert.ToInt32(txtCustomerId.Text), null);
-            //string CustomerCode = Customer[0].CustomerCode;
-            //if (string.IsNullOrEmpty(CustomerCode))
-            //{
-            //    CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
-            //    if (!string.IsNullOrEmpty(CustomerCode))
-            //    {
-                   // new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Convert.ToInt64(txtCustomerId.Text));
-            //    }
-            //}
-        }
-
-        protected void BtnCreateQuotation_Click(object sender, EventArgs e)
-        {
-            //List<> Customer = new BDMS_Customer().GetCustomerFromSQL(Convert.ToInt32(txtCustomerId.Text), null);
-            //string CustomerCode = Customer[0].CustomerCode;
-            //if (string.IsNullOrEmpty(CustomerCode))
-            //{
-            //CustomerCode = new SapIntegration.SCustomer().CreateCustomerInSAP(Customer);
-            //string QuotationNo=new SapIntegration.SQuotation().getQuotationIntegration();
-            //if (!string.IsNullOrEmpty(CustomerCode))
-            //{
-            //    new BDMS_Customer().UpdateCustomerCodeFromSapToSql(Convert.ToInt32(txtCustomerId.Text), CustomerCode);
-            //}
-            //}
-        }
-
-        protected void btnUpdateAddressFromSapToSql_Click(object sender, EventArgs e)
-        {
-            new BDMS_Customer().UpdateCustomerAddressFromSapToSql();
-        }
-
+       
+       
         protected void btnSMS_Click(object sender, EventArgs e)
         {
             new BSmsManager().Start();
@@ -156,10 +116,7 @@ namespace DealerManagementSystem
             new BAPI().ApiGetWithOutToken("Customer/CustomerMiss?CustomerCode=" + txtCustomerCodeMiss.Text.Trim());
         }
 
-        protected void btnAPIEInvoice_Click(object sender, EventArgs e)
-        {
-            new BDMS_EInvoice().StartGeneratEInvoice();
-        }
+        
 
         protected void btnDealerAddress_Click(object sender, EventArgs e)
         {
@@ -216,14 +173,7 @@ namespace DealerManagementSystem
         protected void btnIntegrationWarrantyClaimAnnexureToSAP_Click(object sender, EventArgs e)
         {
             new BAPI().ApiGetWithOutToken("Warranty/CreateWarrantyClaimAnnexureToSAP"); 
-        }
-
-        protected void btnIntegrationEquipmentFromSAP_Click(object sender, EventArgs e)
-        {
-            //new BDMS_Equipment().IntegrationEquipmentFromSAP();
-        }
-
-        
+        } 
         protected void Button1_Click(object sender, EventArgs e)
         {
             new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow");
@@ -253,11 +203,7 @@ namespace DealerManagementSystem
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result); 
         }
 
-        protected void btnAsnDetailsFromSap_Click(object sender, EventArgs e)
-        {
-            new BAPI().ApiGet("Sap/GetASNFromSAP?InvoiceNo=" + txtInvoiceNumber.Text);
-            //new BDMS_PurchaseOrder().InsertOrUpdatePurchaseOrderAsn(txtInvoiceNumber.Text);
-        }
+       
 
         protected void btnMttrEscalation_Click(object sender, EventArgs e)
         {
