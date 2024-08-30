@@ -3719,7 +3719,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="CGSTValue2">
+                        <Textbox Name="CGSTValue1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -3727,19 +3727,6 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!CGSTValue.Value</Value>
-                                  <Style>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!SGSTValue.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -4527,7 +4514,7 @@
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
             <DataSetName>DataSet1</DataSetName>
-            <Top>1.97222in</Top>
+            <Top>2.03889in</Top>
             <Height>1.25866in</Height>
             <Width>7.93644in</Width>
             <ZIndex>6</ZIndex>
@@ -4544,7 +4531,7 @@
         <Height>12.24192cm</Height>
         <Style />
       </Body>
-      <Width>20.21112cm</Width>
+      <Width>20.22206cm</Width>
       <Page>
         <PageHeader>
           <Height>4.21103cm</Height>

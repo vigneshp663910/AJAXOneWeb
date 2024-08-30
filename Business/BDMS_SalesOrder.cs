@@ -1465,7 +1465,7 @@ namespace Business
                     else
                     {
                         GST_Header = "IGST";
-                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.Material.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
+                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
 
                         CessValue = CessValue + item.CessValue;
                         CessSubTotal = CessSubTotal + item.TaxableValue + item.IGSTValue + item.CessValue;
