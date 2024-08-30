@@ -1617,5 +1617,11 @@ namespace Business
                 + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public PApiResult GetOOFCustomerReport(int? DealerID, string SaleOrderDate, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "SaleOrder/GetOOFCustomerReport?DealerID=" + DealerID + "&SaleOrderDate=" + SaleOrderDate
+                + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }
