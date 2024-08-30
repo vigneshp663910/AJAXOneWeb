@@ -1387,9 +1387,10 @@ namespace Business
 
                 if (Files.AttachedFile == null || Files.AttachedFile.Length == 0)
                 {
-                    new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", Invoicefile(ID));
-                    Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-                    Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
+                    return Invoicefile(ID);
+                    //  new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", Invoicefile(ID));
+                    //  Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                    // Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
                 }
                 return Files;
             }
@@ -1606,7 +1607,10 @@ namespace Business
                 InvF.AttachedFile = mybytes;
                 InvF.AttachedFileID = 0;
                 InvF.FileName = Convert.ToString(ID);
-                new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", InvF);
+                if ((Customer.GSTIN == "URD") || !string.IsNullOrEmpty(D.IRN))
+                {
+                    new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", InvF);
+                }
                 return InvF;
             }
             catch (Exception ex)

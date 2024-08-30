@@ -183,6 +183,13 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                                 {
                                     continue;
                                 }
+
+                                string RemarksItem = "";
+                                try
+                                {
+                                    RemarksItem = Convert.ToString(IXLCell_[4].Value);
+                                }
+                                catch { }
                                 MaterialUpload.Add(new PPhysicalInventoryPosting_Post()
                                 {
                                     ID = Convert.ToInt32(IXLCell_[0].Value),
@@ -192,7 +199,7 @@ namespace DealerManagementSystem.ViewInventory.UserControls
                                     DocumentNumber = txtDocumentNumber.Text.Trim(),
                                     MaterialCode = Convert.ToString(IXLCell_[1].Value),
                                     PhysicalStock = Convert.ToDecimal(IXLCell_[3].Value),
-                                    RemarksItem = IXLCell_[4].Value == null?"": Convert.ToString(IXLCell_[4].Value),
+                                    RemarksItem = RemarksItem,
                                     PostingTypeID = Convert.ToInt32(ddlPostingInventoryType.SelectedValue),
                                     ReasonOfPosting = txtReasonOfPosting.Text.Trim()
 
