@@ -106,7 +106,7 @@ namespace Business
                                 Country = DBNull.Value == dr["CountryID"] ? null : new PDMS_Country() { CountryID = Convert.ToInt32(dr["CountryID"]), Country = Convert.ToString(dr["Country"]) },
                                 State = Convert.ToString(dr["State"]),
                                 StateN = DBNull.Value == dr["State"] ? null : new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]), State = Convert.ToString(dr["State"]) },
-                                District = DBNull.Value == dr["District"] ? null : new PDMS_District() { DistrictID = Convert.ToInt32(dr["DistrictID"]), District = Convert.ToString(dr["District"]) },
+                                District = DBNull.Value == dr["DistrictID"] ? null : new PDMS_District() { DistrictID = Convert.ToInt32(dr["DistrictID"]), District = Convert.ToString(dr["District"]) },
                                 City = Convert.ToString(dr["City"]),
                                 Pincode = Convert.ToString(dr["Pincode"]),
                                 Mobile= Convert.ToString(dr["Mobile"]),
