@@ -1644,15 +1644,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset4;
 
         /// <summary>
-        /// txtSpecText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSpecText;
-
-        /// <summary>
         /// txtOrderByNo control.
         /// </summary>
         /// <remarks>
@@ -1660,6 +1651,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOrderByNo;
+
+        /// <summary>
+        /// txtSpecText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSpecText;
 
         /// <summary>
         /// txtSpecDesc control.

@@ -74,6 +74,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 FillCategory();
                 FillTicketSeverity();
                 FillTicketType();
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 FillTickets();
             }            
         }
@@ -123,8 +124,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             int UserID = PSession.User.UserID;
             string AssignedTo = PSession.User.UserName;
             int RowCount = 0;
+            int? DealerId = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            PApiResult Result = new BTickets().GetInProgressTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity, PageIndex, gvTickets.PageSize);
+            PApiResult Result = new BTickets().GetInProgressTickets(HeaderId, DealerId, TicketCategoryID, TicketSubCategoryID, TicketSeverity, PageIndex, gvTickets.PageSize);
             TicketHeader = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
             //TicketHeader = new BTickets().GetInProgressTickets(HeaderId, TicketCategoryID, TicketSubCategoryID, TicketSeverity, UserID, PageIndex, gvTickets.PageSize, out RowCount);
 

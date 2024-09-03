@@ -58,6 +58,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 PageCount = 0;
                 PageIndex = 1;
                 FillCategory();
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 FillTickets();
             }
         }
@@ -88,8 +89,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 TicketSubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             }
+            int? DealerId = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            PApiResult Result = new BTickets().GetTicketToClose(HeaderID, TicketCategoryID, TicketSubCategoryID, PageIndex, gvTickets.PageSize);
+            PApiResult Result = new BTickets().GetTicketToClose(HeaderID, DealerId, TicketCategoryID, TicketSubCategoryID, PageIndex, gvTickets.PageSize);
             TicketHeader = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
             if (Result.RowCount == 0)
             {

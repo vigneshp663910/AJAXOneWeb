@@ -3544,6 +3544,7 @@
     <Content Include="Print\PartsInvoiceQRCode.rdlc" />
     <Content Include="Print\SalesMachineInvoice.rdlc" />
     <EmbeddedResource Include="Print\SalesInvoiceCreditNote.rdlc" />
+    <EmbeddedResource Include="Print\SalesMachineQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\StockTransferOrder.rdlc" />
     <EmbeddedResource Include="Print\PhysicalInventoryPosting.rdlc" />
     <EmbeddedResource Include="Print\StockTransferOrderDeliveryChallan.rdlc" />
@@ -3551,7 +3552,6 @@
     <EmbeddedResource Include="Print\PurchaseOrderReturn.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
-    <EmbeddedResource Include="Print\SalesMachineQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\SalesMachineQuotation.rdlc" />
     <Content Include="Print\SalesMachineQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesDeliveryChallan.rdlc" />
