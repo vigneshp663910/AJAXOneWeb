@@ -659,7 +659,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null);
                 if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
                 {
-                    if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialType == Materials[0].MaterialType))
+                    if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialType == Materials[0].MaterialType && Materials[0].MaterialType == "FERT"))
                     {
                         lblAddMaterialMessage.Text = "Already FERT Material Available : " + Materials[0].MaterialCode;
                         return;
