@@ -439,20 +439,20 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             ddlDealerNotificationModule.BorderColor = Color.Silver;
             if ((ddlDealerNotificationModule.SelectedValue == "0") || (ddlDealerNotificationModule.SelectedValue == ""))
             {
-                Message = Message + "<br/>Please select the Module";
+                Message = Message + "<br/>Please select the Module.";
                 ddlDealerNotificationModule.BorderColor = Color.Red;
                 goto msg;
             }
             ddlEmployee.BorderColor = Color.Silver;
             if ((ddlEmployee.SelectedValue == "0") || (ddlEmployee.SelectedValue == ""))
             {
-                Message = Message + "<br/>Please select the Employee";
+                Message = Message + "<br/>Please select the Employee.";
                 ddlEmployee.BorderColor = Color.Red;
                 goto msg;
             }
             if(cbSendSMS.Checked==false && cbSendEmail.Checked == false)
             {
-                Message = Message + "<br/>Please Check Email or SMS";
+                Message = Message + "<br/>Please Check Email or SMS.";
                 cbSendSMS.BorderColor = Color.Red;
                 cbSendEmail.BorderColor = Color.Red;
                 goto msg;

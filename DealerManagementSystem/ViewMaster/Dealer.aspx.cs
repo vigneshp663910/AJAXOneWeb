@@ -99,7 +99,6 @@ namespace DealerManagementSystem.ViewMaster
             gvDealer.DataSource = DealerList;
             gvDealer.DataBind();
 
-
             if (DealerList.Count == 0)
             {
                 lblRowCount.Visible = false;
@@ -113,11 +112,8 @@ namespace DealerManagementSystem.ViewMaster
                 ibtnDealerArrowRight.Visible = true;
                 lblRowCount.Text = (((gvDealer.PageIndex) * gvDealer.PageSize) + 1) + " - " + (((gvDealer.PageIndex) * gvDealer.PageSize) + gvDealer.Rows.Count) + " of " + DealerList.Count;
             }
-
         }
-        
-       
-
+              
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
             divDealerView.Visible = false;
@@ -145,7 +141,6 @@ namespace DealerManagementSystem.ViewMaster
 
             UC_DealerView.filldealer(Convert.ToInt32(lblDealerID.Text));
         }
-
         protected void gvDealer_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDealer.PageIndex = e.NewPageIndex;
