@@ -43,6 +43,10 @@
                     <label>Invoice Date: </label>
                     <asp:Label ID="lblInvoiceDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Delivery Order Status : </label>
+                    <asp:Label ID="lblDeliveryOrderStatus" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
@@ -61,12 +65,13 @@
                     <label>Order Type : </label>
                     <asp:Label ID="lblSaleOrderType" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Payment Mode : </label>
+                    <asp:Label ID="lblPaymentMode" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <div class="col-md-3">
-                <div class="col-md-12">
-                    <label>Delivery Order Status : </label>
-                    <asp:Label ID="lblDeliveryOrderStatus" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
+                
                 <div class="col-md-12">
                     <label>Customer : </label>
                     <asp:Label ID="lblCustomer" runat="server" CssClass="LabelValue"></asp:Label>
@@ -76,31 +81,39 @@
                     <asp:Label ID="lblEquipment" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Payment Mode : </label>
-                    <asp:Label ID="lblPaymentMode" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>TCS Tax : </label>
+                    <asp:Label ID="lblTcsTax" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                 <div class="col-md-12">
+                    <label>TCS Value : </label>
+                    <asp:Label ID="lblTcsValue" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
 
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
-                    <label>TCS Value : </label>
-                    <asp:Label ID="lblTcsValue" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>Discount Amount : </label>
+                    <asp:Label ID="lblDiscount" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
+               <%-- <div class="col-md-12">
                     <label>Value : </label>
                     <asp:Label ID="lblValue" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
+                </div>--%>
                 <div class="col-md-12">
-                    <label>Taxable Value : </label>
+                    <label>Taxable Amount : </label>
                     <asp:Label ID="lblTaxableValue" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Tax Value : </label>
+                    <label>Tax Amount : </label>
                     <asp:Label ID="lblTaxValue" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Net Value : </label>
+                    <label>Gross Amount : </label>
                     <asp:Label ID="lblNetAmount" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                 <div class="col-md-12">
+                    <label>Gross Amt with TCS : </label>
+                    <asp:Label ID="lblNetAmountWithTCS" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
         </div>

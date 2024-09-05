@@ -317,21 +317,23 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblCustomer.Text = SaleOrderDeliveryByID.SaleOrder.Customer.CustomerCode + " " + SaleOrderDeliveryByID.SaleOrder.Customer.CustomerName;
             lblEquipment.Text = SaleOrderDeliveryByID.Equipment.EquipmentSerialNo;
             lblPaymentMode.Text = SaleOrderDeliveryByID.PaymentMode == null ? "" : SaleOrderDeliveryByID.PaymentMode.Status;
+            lblTcsTax.Text = Convert.ToString(SaleOrderDeliveryByID.TCSTax);
             lblTcsValue.Text = Convert.ToString(SaleOrderDeliveryByID.TCSValue);
-            decimal Value = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
+            decimal Discount = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderDeliveryItem DeliveryItem in SaleOrderDeliveryByID.SaleOrderDeliveryItems)
             {
-                Value = Value + DeliveryItem.Value;
+                Discount = Discount + + DeliveryItem.DiscountValue;
                 TaxableValue = TaxableValue + DeliveryItem.TaxableValue;
                 TaxValue = TaxValue + DeliveryItem.CGSTValue + DeliveryItem.SGSTValue + DeliveryItem.IGSTValue;
                 NetAmount = NetAmount + DeliveryItem.TaxableValue + DeliveryItem.CGSTValue + DeliveryItem.SGSTValue + DeliveryItem.IGSTValue;
                 DeliveryItem.SaleOrderItem.NetAmount = DeliveryItem.TaxableValue + DeliveryItem.CGSTValue + DeliveryItem.SGSTValue + DeliveryItem.IGSTValue;
             }
 
-            lblValue.Text = Value.ToString();
+            lblDiscount.Text = Discount.ToString();
             lblTaxableValue.Text = TaxableValue.ToString();
             lblTaxValue.Text = TaxValue.ToString();
             lblNetAmount.Text = NetAmount.ToString();
+            lblNetAmountWithTCS.Text = (NetAmount + SaleOrderDeliveryByID.TCSValue).ToString();
 
             gvSODeliveryItem.DataSource = SaleOrderDeliveryByID.SaleOrderDeliveryItems;
             gvSODeliveryItem.DataBind();
@@ -645,18 +647,21 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[33] = new ReportParameter("GrandTotalInwords", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
             P[41] = new ReportParameter("TCSTaxPer", String.Format("{0:n}", SaleOrderDeliveryByID.TCSTax), false);
             PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
-            if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate) && (Customer.GSTIN != "URD"))
+            if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate) && (Customer.GSTIN != "URD"))
             {
-                //if(string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
-                //{
-                //    throw new Exception("E Invoice not generated. Please contact IT Team.");
-                //}
                 PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(SaleOrderDeliveryByID.SaleOrderDeliveryID);
-                //P = new ReportParameter[26];                
-               
-                //report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
-
-                if (!string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
+                if (EInvoiceSigned != null)
+                {
+                    if (string.IsNullOrEmpty(EInvoiceSigned.SignedQRCode))
+                    {
+                        throw new Exception("E Invoice not generated.: " + EInvoiceSigned.Comments);
+                    }
+                }
+                if (string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
+                {
+                    throw new Exception("E Invoice not generated. Please contact IT Team.");
+                } 
+                else
                 {
                     P[40] = new ReportParameter("IRNo", "IRN : " + SaleOrderDeliveryByID.IRN, false);
                     P[42] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderDeliveryByID.InvoiceNumber), false); 

@@ -1525,20 +1525,20 @@ namespace Business
 
                 P[24] = new ReportParameter("QRCodeImg", "", false);
                 P[25] = new ReportParameter("IRN", "", false);
-                if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
+                if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
                 {
                     PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
-                    //if(EInvoiceSigned != null)
-                    //{
-                    //    if (string.IsNullOrEmpty(EInvoiceSigned.SignedQRCode))
-                    //    {
-                    //        throw new Exception("E Invoice not generated.: " + EInvoiceSigned.Comments);
-                    //    }
-                    //}
-                    //if (string.IsNullOrEmpty(D.IRN))
-                    //{
-                    //    throw new Exception("E Invoice not generated. Please contact IT Team.");
-                    //}
+                    if (EInvoiceSigned != null)
+                    {
+                        if (string.IsNullOrEmpty(EInvoiceSigned.SignedQRCode))
+                        {
+                            throw new Exception("E Invoice not generated.: " + EInvoiceSigned.Comments);
+                        }
+                    }
+                    if (string.IsNullOrEmpty(D.IRN))
+                    {
+                        throw new Exception("E Invoice not generated. Please contact IT Team.");
+                    }
                     if (!string.IsNullOrEmpty(D.IRN))
                     {
                         P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);

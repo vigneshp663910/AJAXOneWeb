@@ -50,9 +50,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             get
             {
-                if (ViewState["SaleOrderReturnByID"] == null)
+                if (ViewState["StockTransferOrderView"] == null)
                 {
-                    ViewState["SaleOrderReturnByID"] = new PSaleOrderReturn();
+                    ViewState["StockTransferOrderView"] = new PSaleOrderReturn();
                 }
                 return (PSaleOrderReturn)ViewState["StockTransferOrderView"];
             }
@@ -274,16 +274,26 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[17] = new ReportParameter("QRCodeImg", "", false);
              
             PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerID, null, null, null)[0];
-            if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= SaleOrderReturnByID.CreditNoteDate) && (Customer.GSTIN != "URD"))
+            if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= SaleOrderReturnByID.CreditNoteDate) && (Customer.GSTIN != "URD"))
             {
+                PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderReturnCreditNoteESigned(SaleOrderReturnByID.SaleOrderReturnID);
+                if (EInvoiceSigned != null)
+                {
+                    if (string.IsNullOrEmpty(EInvoiceSigned.SignedQRCode))
+                    {
+                        throw new Exception("E Invoice not generated.: " + EInvoiceSigned.Comments);
+                    }
+                }
+
                 if (string.IsNullOrEmpty(SaleOrderReturnByID.IRN))
                 {
                     throw new Exception("E Invoice not generated. Please contact IT Team.");
                 }
-                PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderReturnCreditNoteESigned(SaleOrderReturnByID.SaleOrderReturnID);
-                P[16] = new ReportParameter("IRNNo", "IRN : " + SaleOrderReturnByID.IRN, false);
-                P[17] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderReturnByID.CreditNoteNumber), false);
-               
+                else
+                {                    
+                    P[16] = new ReportParameter("IRNNo", "IRN : " + SaleOrderReturnByID.IRN, false);
+                    P[17] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderReturnByID.CreditNoteNumber), false);
+                }
 
             }
 

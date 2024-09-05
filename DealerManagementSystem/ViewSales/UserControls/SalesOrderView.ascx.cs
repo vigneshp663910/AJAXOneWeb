@@ -138,10 +138,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
 
             lblDiscount.Text = Discount.ToString();
-            lblTaxableValue.Text = TaxableValue.ToString();
-            lblTaxValue.Text = TaxValue.ToString();
+            lblTaxableValue.Text = (TaxableValue + SOrder.Freight + SOrder.PackingAndForward).ToString();
+            lblTaxValue.Text = (TaxValue + (SOrder.Freight * 18 / 100) + (SOrder.PackingAndForward * 18 / 10)).ToString();
             lblNetAmount.Text = NetAmount.ToString();
-
+            lblNetAmountWithTCS.Text = (NetAmount+ SOrder.TcsValue).ToString();
             gvSOItem.DataSource = SOrder.SaleOrderItems;
             gvSOItem.DataBind();
             gvSODelivery.DataSource = SOrder.Deliverys;
