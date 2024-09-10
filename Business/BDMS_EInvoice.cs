@@ -437,7 +437,7 @@ namespace Business
                                 W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
                                 W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
                                 W.SaleOrder = new PSaleOrder();
-                                W.SaleOrder.TaxType = Convert.ToString(dr["InvoiceNumber"]);
+                                W.SaleOrder.TaxType = Convert.ToString(dr["TaxType"]);
                                 W.SaleOrder.Dealer = new PDMS_Dealer()
                                 {
                                     DealerCode = Convert.ToString(dr["UserName"]),
@@ -465,60 +465,60 @@ namespace Business
                                 W.InvoiceDetails.BuyerPincode = Convert.ToString(dr["BuyerPincode"]);
 
 
-                                if (W.Freight != 0)
-                                {
-                                    PSaleOrderDeliveryItem Item = new PSaleOrderDeliveryItem();
-                                    W.SaleOrderDeliveryItems.Add(Item);
-                                    Item.Material = new PDMS_Material()
-                                    {
-                                        MaterialCode = "Freight",
-                                        MaterialDescription = "Freight Charges",
-                                        HSN = "998719",
-                                        BaseUnit = "LE"
-                                    };
-                                    Item.Qty = 1;
-                                    Item.Value = W.Freight;
-                                    Item.TaxableValue = W.Freight;
-                                    if (W.SaleOrder.TaxType != "IGST")
-                                    {
-                                        Item.CGST = 9;
-                                        Item.SGST = 9;
-                                        Item.CGSTValue = W.Freight * 9 / 100;
-                                        Item.SGSTValue = W.Freight * 9 / 100;
-                                    }
-                                    else
-                                    {
-                                        Item.IGST = 18;
-                                        Item.IGSTValue = W.Freight * 18 / 100;
-                                    }
-                                }
-                                if (W.PackingAndForward != 0)
-                                {
-                                    PSaleOrderDeliveryItem Item = new PSaleOrderDeliveryItem();
-                                    W.SaleOrderDeliveryItems.Add(Item);
-                                    Item.Material = new PDMS_Material()
-                                    {
-                                        MaterialCode = "Packing",
-                                        MaterialDescription = "Packing Charges",
-                                        HSN = "998719",
-                                        BaseUnit = "LE"
-                                    };
-                                    Item.Qty = 1;
-                                    Item.Value = W.PackingAndForward;
-                                    Item.TaxableValue = W.PackingAndForward;
-                                    if (W.SaleOrder.TaxType != "IGST")
-                                    {
-                                        Item.CGST = 9;
-                                        Item.SGST = 9;
-                                        Item.CGSTValue = W.PackingAndForward * 9 / 100;
-                                        Item.SGSTValue = W.PackingAndForward * 9 / 100;
-                                    }
-                                    else
-                                    {
-                                        Item.IGST = 18;
-                                        Item.IGSTValue = W.PackingAndForward * 18 / 100;
-                                    }
-                                }
+                                //if (W.Freight != 0)
+                                //{
+                                //    PSaleOrderDeliveryItem Item = new PSaleOrderDeliveryItem();
+                                //    W.SaleOrderDeliveryItems.Add(Item);
+                                //    Item.Material = new PDMS_Material()
+                                //    {
+                                //        MaterialCode = "Freight",
+                                //        MaterialDescription = "Freight Charges",
+                                //        HSN = "998719",
+                                //        BaseUnit = "LE"
+                                //    };
+                                //    Item.Qty = 1;
+                                //    Item.Value = W.Freight;
+                                //    Item.TaxableValue = W.Freight;
+                                //    if (W.SaleOrder.TaxType != "IGST")
+                                //    {
+                                //        Item.CGST = 9;
+                                //        Item.SGST = 9;
+                                //        Item.CGSTValue = W.Freight * 9 / 100;
+                                //        Item.SGSTValue = W.Freight * 9 / 100;
+                                //    }
+                                //    else
+                                //    {
+                                //        Item.IGST = 18;
+                                //        Item.IGSTValue = W.Freight * 18 / 100;
+                                //    }
+                                //}
+                                //if (W.PackingAndForward != 0)
+                                //{
+                                //    PSaleOrderDeliveryItem Item = new PSaleOrderDeliveryItem();
+                                //    W.SaleOrderDeliveryItems.Add(Item);
+                                //    Item.Material = new PDMS_Material()
+                                //    {
+                                //        MaterialCode = "Packing",
+                                //        MaterialDescription = "Packing Charges",
+                                //        HSN = "998719",
+                                //        BaseUnit = "LE"
+                                //    };
+                                //    Item.Qty = 1;
+                                //    Item.Value = W.PackingAndForward;
+                                //    Item.TaxableValue = W.PackingAndForward;
+                                //    if (W.SaleOrder.TaxType != "IGST")
+                                //    {
+                                //        Item.CGST = 9;
+                                //        Item.SGST = 9;
+                                //        Item.CGSTValue = W.PackingAndForward * 9 / 100;
+                                //        Item.SGSTValue = W.PackingAndForward * 9 / 100;
+                                //    }
+                                //    else
+                                //    {
+                                //        Item.IGST = 18;
+                                //        Item.IGSTValue = W.PackingAndForward * 18 / 100;
+                                //    }
+                                //}
                                 // W.InvoiceDetails = new PDMS_WarrantyClaimInvoiceDetails();
                             }
                             W.SaleOrderDeliveryItems.Add(new PSaleOrderDeliveryItem()
