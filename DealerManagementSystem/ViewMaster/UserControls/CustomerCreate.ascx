@@ -136,10 +136,10 @@
                         <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
                         <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender9" runat="server" TargetControlID="txtAddress3" WatermarkText="Address 3" WatermarkCssClass="WatermarkCssClass" />
                     </div>
-                    <div class="col-md-6 col-sm-12" id="divDealer" runat="server">
+                   <%-- <div class="col-md-6 col-sm-12" id="divDealer" runat="server">
                         <label>Dealer</label>
                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" AutoPostBack="true" />
-                    </div>
+                    </div>--%>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">
                             Country

@@ -176,6 +176,7 @@ namespace DealerManagementSystem.ViewSales
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
+            Search();
             PApiResult Result = new BDMS_SalesOrder().GetSaleOrderInvoiceReportByExcelDownload(DealerID, OfficeCodeID, CustomerCode, InvoiceNo, InvoiceDateFrom.ToString(), InvoiceDateTo.ToString(), DeliveryNumber, SaleOrderNumber, SaleOrderTypeID, DeliveryStatusID);
             DataTable SalesOrderInvoiceReport = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
