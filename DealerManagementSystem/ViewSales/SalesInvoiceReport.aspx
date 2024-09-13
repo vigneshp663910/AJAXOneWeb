@@ -61,6 +61,10 @@
                         <label class="modal-label">Delivery Order Status</label>
                         <asp:DropDownList ID="ddlDeliveryStatus" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Division</label>
+                        <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control"></asp:DropDownList>
+                    </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
                         <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" Width="100px" OnClick="btnExportExcel_Click"/>

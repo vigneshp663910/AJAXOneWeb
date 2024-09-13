@@ -20,6 +20,7 @@ namespace DealerManagementSystem.ViewProcurement
         string VendorID = null;
         string AsnNumber = null;
         string PurchaseOrderNo = null;
+        string invoiceNo = null;
         string SaleOrderNo = null;
         DateTime? AsnDateF = null;
         DateTime? AsnDateT = null;
@@ -113,6 +114,7 @@ namespace DealerManagementSystem.ViewProcurement
             AsnStatusID = ddlAsnStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlAsnStatus.SelectedValue);
             AsnNumber = txtAsnNumber.Text.Trim();
             PurchaseOrderNo = txtPoNumber.Text.Trim();
+            invoiceNo=txtInvoiceNo.Text.Trim();
             SaleOrderNo = txtSoNumber.Text.Trim();
             DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
             PurchaseOrderTypeID = ddlPurchaseOrderType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);
@@ -163,7 +165,7 @@ namespace DealerManagementSystem.ViewProcurement
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnHeader(DealerID, DealerOfficeID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo, PurchaseOrderTypeID, DivisionID, PageIndex, gvPAsn.PageSize);
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnHeader(DealerID, DealerOfficeID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo, invoiceNo, PurchaseOrderTypeID, DivisionID, PageIndex, gvPAsn.PageSize);
                 List<PAsn> PAsnHeader = JsonConvert.DeserializeObject<List<PAsn>>(JsonConvert.SerializeObject(Result.Data));
                 gvPAsn.PageIndex = 0;
                 gvPAsn.DataSource = PAsnHeader;
@@ -244,13 +246,15 @@ namespace DealerManagementSystem.ViewProcurement
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            DataTable Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnExcel(DealerID, DealerOfficeID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo, PurchaseOrderTypeID, DivisionID, 0);
+            Search();
+            DataTable Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnExcel(DealerID, DealerOfficeID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo, invoiceNo, PurchaseOrderTypeID, DivisionID, 0);
             new BXcel().ExporttoExcel(Result, "Asn Report"); 
         } 
 
         protected void btnExportExcelDetails_Click(object sender, EventArgs e)
         {
-            DataTable Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnExcel(DealerID, DealerOfficeID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo, PurchaseOrderTypeID, DivisionID, 1);
+            Search();
+            DataTable Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnExcel(DealerID, DealerOfficeID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo,invoiceNo, PurchaseOrderTypeID, DivisionID, 1);
             new BXcel().ExporttoExcel(Result, "Asn Report");
         }
 

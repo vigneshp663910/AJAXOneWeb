@@ -78,6 +78,15 @@ namespace DealerManagementSystem.ViewProcurement
         protected global::System.Web.UI.WebControls.TextBox txtSoNumber;
 
         /// <summary>
+        /// txtInvoiceNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtInvoiceNo;
+
+        /// <summary>
         /// txtAsnDateFrom control.
         /// </summary>
         /// <remarks>

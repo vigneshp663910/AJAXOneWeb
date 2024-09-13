@@ -197,11 +197,11 @@ namespace Business
             return null;
         }
         public PApiResult GetPurchaseOrderAsnHeader(int? DealerID, int? DealerOfficeID, string VendorID, string AsnNumber, DateTime? AsnDateF, DateTime? AsnDateT
-            , int? AsnStatusID, string PurchaseOrderNo, string SaleOrderNo, int? PurchaseOrderTypeID, int? DivisionID, int? PageIndex = null, int? PageSize = null)
+            , int? AsnStatusID, string PurchaseOrderNo, string SaleOrderNo, string InvoiceNo, int? PurchaseOrderTypeID, int? DivisionID, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "PurchaseOrder/PurchaseOrderAsnHeader?DealerID=" + DealerID + "&DealerOfficeID=" + DealerOfficeID + "&VendorID=" + VendorID + "&AsnNumber=" + AsnNumber
                 + "&AsnDateF=" + AsnDateF + "&AsnDateT=" + AsnDateT + "&AsnStatusID=" + AsnStatusID + "&PurchaseOrderNo=" + PurchaseOrderNo
-                + "&SaleOrderNo=" + SaleOrderNo + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&DivisionID=" + DivisionID
+                + "&SaleOrderNo=" + SaleOrderNo + "&InvoiceNo=" + InvoiceNo + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&DivisionID=" + DivisionID
                 + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
@@ -319,7 +319,7 @@ namespace Business
         }
 
         public DataTable GetPurchaseOrderAsnExcel(int? DealerID, int? DealerOfficeID, string VendorID, string AsnNumber, DateTime? AsnDateF, DateTime? AsnDateT
-    , int? AsnStatusID, string PurchaseOrderNo, string SaleOrderNo, int? PurchaseOrderTypeID, int? DivisionID, int WithDetail)
+    , int? AsnStatusID, string PurchaseOrderNo, string SaleOrderNo, string InvoiceNo, int? PurchaseOrderTypeID, int? DivisionID, int WithDetail)
         {
             string endPoint = "PurchaseOrder/GetPurchaseOrderAsnExcel?DealerID=" + DealerID + "&DealerOfficeID=" + DealerOfficeID + "&VendorID=" + VendorID + "&AsnNumber=" + AsnNumber
                 + "&AsnDateF=" + AsnDateF + "&AsnDateT=" + AsnDateT + "&AsnStatusID=" + AsnStatusID + "&PurchaseOrderNo=" + PurchaseOrderNo

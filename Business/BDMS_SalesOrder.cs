@@ -1619,16 +1619,16 @@ namespace Business
             }
             return null;
         }
-        public PApiResult GetSaleOrderInvoiceReport(int? DealerID, int? OfficeCodeID, string CustomerCode, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, string DeliveryNumber, string SaleOrderNumber, int? SaleOrderTypeID, int? DeliveryStatusID, int? PageIndex = null, int? PageSize = null)
+        public PApiResult GetSaleOrderInvoiceReport(int? DealerID, int? OfficeCodeID, string CustomerCode, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, string DeliveryNumber, string SaleOrderNumber, int? SaleOrderTypeID, int? DeliveryStatusID, int? DivisionID, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "SaleOrder/GetSaleOrderInvoiceReport?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&CustomerCode=" + CustomerCode + "&InvoiceNumber=" + InvoiceNumber + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo
-                + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&DivisionID=" + DivisionID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetSaleOrderInvoiceReportByExcelDownload(int? DealerID, int? OfficeCodeID, string CustomerCode, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, string DeliveryNumber, string SaleOrderNumber, int? SaleOrderTypeID, int? DeliveryStatusID)
+        public PApiResult GetSaleOrderInvoiceReportByExcelDownload(int? DealerID, int? OfficeCodeID, string CustomerCode, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, string DeliveryNumber, string SaleOrderNumber, int? SaleOrderTypeID, int? DeliveryStatusID, int? DivisionID)
         {
             string endPoint = "SaleOrder/GetSaleOrderInvoiceReportByExcelDownload?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&CustomerCode=" + CustomerCode + "&InvoiceNumber=" + InvoiceNumber + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo
-                + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID;
+                + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&DivisionID=" + DivisionID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetOOFCustomerReport(int? DealerID, string SaleOrderDate, int? PageIndex = null, int? PageSize = null)

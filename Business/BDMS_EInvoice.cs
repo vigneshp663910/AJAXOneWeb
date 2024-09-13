@@ -2973,5 +2973,55 @@ namespace Business
             { }
             return InvoiceE;
         }
+
+        public string GetInvoiceError(string InvoiceNumber, string InvTyp)
+        { 
+            try
+            {
+                string Quer = "";
+                if (InvTyp == "PAY")
+                {
+                    Quer = "select E.Comments from ZDMS_TServiceInvoice H left join ZDMS_TServiceInvoiceE  E on E.ServiceInvoiceID = H.ServiceInvoiceID where  H.InvoiceNumber ='"+ InvoiceNumber + "'";
+                }
+                else if(InvTyp == "ATY")
+                {
+                    Quer = "select E.Comments from YDMS_ActivityInvoiceHdr H left join YDMS_ActivityInvoiceHdrE_Z  E on E.AIH_PkHdrID = H.AIH_PkHdrID where  H.AIH_InvoiceNo ='" + InvoiceNumber + "'";
+                } 
+                else if (InvTyp == "WARR")
+                {
+                    Quer = "select E.Comments from ZDMS_WarrantyClaimInvoiceHeader H left join ZDMS_WarrantyClaimInvoiceE  E on E.WarrantyClaimInvoiceID = H.WarrantyClaimInvoiceID where  H.InvoiceNumber ='"+ InvoiceNumber + "'";
+                }
+                else if (InvTyp == "SalesCom")
+                {
+                    Quer = "select E.Comments from TSalesCommissionClaimInvoice H left join TSalesCommissionClaimInvoiceE  E on E.SalesCommissionClaimInvoiceID = H.SalesCommissionClaimInvoiceID where  H.InvoiceNumber ='" + InvoiceNumber + "'";
+                }
+                else if (InvTyp == "SalesInv")
+                {
+                    Quer = "select E.Comments from TSaleOrderDelivery H left join TSaleOrderDeliveryE  E on E.SaleOrderDeliveryID = H.SaleOrderDeliveryID where  H.InvoiceNumber ='" + InvoiceNumber + "'";
+
+                }
+                else if (InvTyp == "SalesReCre")
+                {
+                    Quer = "select E.Comments from TSaleOrderReturn H left join TSaleOrderReturnE  E on E.SaleOrderReturnID = H.SaleOrderReturnID where  H.CreditNoteNumber ='" + InvoiceNumber + "'";
+
+                }
+
+                using (DataSet DataSet = provider.SelectUsingQuery(Quer))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            return Convert.ToString(dr["Comments"]);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return "";
+        }
     }
 }

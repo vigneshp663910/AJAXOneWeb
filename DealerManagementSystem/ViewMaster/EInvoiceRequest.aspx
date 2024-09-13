@@ -66,6 +66,18 @@
                         <asp:Button ID="Button1" runat="server" Text="Export Excel for SAP" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelForSAP_Click" Visible="false" />
 
                     </div>
+                    <div class="col-md-2 col-sm-12">
+                        <label class="modal-label">Inv Type</label>
+                        <asp:DropDownList ID="ddlInvType" runat="server" CssClass="form-control">
+                            <asp:ListItem Value="Select">Select</asp:ListItem>
+                            <asp:ListItem Value="PAY">PAY</asp:ListItem>
+                            <asp:ListItem Value="ATY">ATY</asp:ListItem>
+                            <asp:ListItem Value="WARR">WARR</asp:ListItem>
+                            <asp:ListItem Value="SalesCom">SalesCom</asp:ListItem>
+                            <asp:ListItem Value="SalesInv">SalesInv</asp:ListItem>
+                            <asp:ListItem Value="SalesReCre">SalesReCre</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
                 </div>
             </fieldset>
 
@@ -359,6 +371,8 @@
                                         <tr>
                                             <td colspan="100%" style="padding-left: 96px">
                                                 <div id="EInvoiceID-<%# Eval("EInvoice.DocDtls.No") %>" style="display: block; position: relative;">
+                                                     <asp:Label ID="lblErrorEinv" Text='<%# DataBinder.Eval(Container.DataItem, "EInvoice.BuyerDtls.Addr1")%>' runat="server" ForeColor="Red"></asp:Label>
+                                       
                                                     <asp:GridView ID="gvInvItem" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" Width="100%">
                                                         <Columns>
                                                             <asp:TemplateField HeaderText="SlNo">

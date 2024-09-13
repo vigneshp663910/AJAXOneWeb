@@ -88,41 +88,54 @@ namespace DealerManagementSystem.ViewMaster
                 string CustomerCode = txtCustomerCode.Text.Trim();
 
                 InvoiceGrid = new List<PEInvoiceGrid>();
-                List<PDMS_PaidServiceInvoice> Paidinvs = new BDMS_EInvoice().GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
-                foreach (PDMS_PaidServiceInvoice inv in Paidinvs)
+                if (ddlInvType.SelectedValue == "Select" || ddlInvType.SelectedValue == "PAY")
                 {
-                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertPaidServiceInvoice(inv), InvType = "PAY" });
-                } 
-
-                List<PDMS_WarrantyClaimInvoice> Pinv = new BDMS_EInvoice().getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
-                foreach (PDMS_WarrantyClaimInvoice inv in Pinv)
-                {
-                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertActivityInvoice(inv), InvType = "ATY" });
+                    List<PDMS_PaidServiceInvoice> Paidinvs = new BDMS_EInvoice().GetPaidServiceInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
+                    foreach (PDMS_PaidServiceInvoice inv in Paidinvs)
+                    {
+                        InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertPaidServiceInvoice(inv), InvType = "PAY" });
+                    }
                 }
-
-                List<PDMS_WarrantyClaimInvoice> PinvW = new BDMS_EInvoice().getWarrantyClaimInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID,"");
-                foreach (PDMS_WarrantyClaimInvoice inv in PinvW)
+                if (ddlInvType.SelectedValue == "Select" || ddlInvType.SelectedValue == "ATY")
                 {
-                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertActivityInvoice(inv), InvType = "WARR" });
+                    List<PDMS_WarrantyClaimInvoice> Pinv = new BDMS_EInvoice().getActivityInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
+                    foreach (PDMS_WarrantyClaimInvoice inv in Pinv)
+                    {
+                        InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertActivityInvoice(inv), InvType = "ATY" });
+                    }
                 }
-                 
-                List<PSalesCommissionClaimInvoice> PinvC = new BDMS_EInvoice().GetSalesCommissionClaimInvoiceForRequestEInvoice(null, InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
-                foreach (PSalesCommissionClaimInvoice inv in PinvC)
+                if (ddlInvType.SelectedValue == "Select" || ddlInvType.SelectedValue == "WARR")
                 {
-                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertSalesCommissionClaimInvoice(inv), InvType = "SalesCom" });
+                    List<PDMS_WarrantyClaimInvoice> PinvW = new BDMS_EInvoice().getWarrantyClaimInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, "");
+                    foreach (PDMS_WarrantyClaimInvoice inv in PinvW)
+                    {
+                        InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertActivityInvoice(inv), InvType = "WARR" });
+                    }
                 }
-
-                List<PSaleOrderDelivery> SalesInv = new BDMS_EInvoice().GetSaleInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, "");
-                foreach (PSaleOrderDelivery inv in SalesInv)
+                if (ddlInvType.SelectedValue == "Select" || ddlInvType.SelectedValue == "SalesCom")
                 {
-                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertSaleInvoice(inv), InvType = "SalesInv" });
+                    List<PSalesCommissionClaimInvoice> PinvC = new BDMS_EInvoice().GetSalesCommissionClaimInvoiceForRequestEInvoice(null, InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID);
+                    foreach (PSalesCommissionClaimInvoice inv in PinvC)
+                    {
+                        InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertSalesCommissionClaimInvoice(inv), InvType = "SalesCom" });
+                    }
                 }
-                List<PSaleOrderDelivery> SalesReturnDeb = new BDMS_EInvoice().GetSaleReturnCreditNoteForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, "");
-                foreach (PSaleOrderDelivery inv in SalesReturnDeb)
+                if (ddlInvType.SelectedValue == "Select" || ddlInvType.SelectedValue == "SalesInv")
                 {
-                    InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertSaleReturnCreditNote(inv), InvType = "SalesReCre" });
+                    List<PSaleOrderDelivery> SalesInv = new BDMS_EInvoice().GetSaleInvoiceForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, "");
+                    foreach (PSaleOrderDelivery inv in SalesInv)
+                    {
+                        InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertSaleInvoice(inv), InvType = "SalesInv" });
+                    }
                 }
-
+                if (ddlInvType.SelectedValue == "Select" || ddlInvType.SelectedValue == "SalesReCre")
+                {
+                    List<PSaleOrderDelivery> SalesReturnDeb = new BDMS_EInvoice().GetSaleReturnCreditNoteForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, "");
+                    foreach (PSaleOrderDelivery inv in SalesReturnDeb)
+                    {
+                        InvoiceGrid.Add(new PEInvoiceGrid() { EInvoice = new BDMS_EInvoice().ConvertSaleReturnCreditNote(inv), InvType = "SalesReCre" });
+                    }
+                }
                 gvInv.PageIndex = 0;
                 gvInv.DataSource = InvoiceGrid;
                 gvInv.DataBind();
@@ -221,8 +234,11 @@ namespace DealerManagementSystem.ViewMaster
                     List<PItemList> Lines = new List<PItemList>();
                     Lines = InvoiceGrid.Find(s => s.EInvoice.DocDtls.No == lblBillingDocument.Text).EInvoice.ItemList;
                     gvInvItem.DataSource = Lines;
-                    gvInvItem.DataBind();
+                    gvInvItem.DataBind(); 
 
+                    Label lblInvType = (Label)e.Row.FindControl("lblInvType");
+                    Label lblErrorEinv = (Label)e.Row.FindControl("lblErrorEinv");
+                    lblErrorEinv.Text= new BDMS_EInvoice().GetInvoiceError(lblBillingDocument.Text, lblInvType.Text);
                 }
                 TraceLogger.Log(traceStartTime);
             }

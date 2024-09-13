@@ -296,24 +296,7 @@ namespace Business
             //} while (smaterial != MaterialCode);
             //return MaterialCode;
         }
-        public PMaterial MaterialPriceFromSap(string Customer, string Vendor, string OrderType, int Item, string Material, decimal Quantity, string IV_SEC_SALES, string PriceDate, string IsWarrenty)
-        {
-            string endPoint = "Material/MaterialPriceFromSap?Customer=" + Customer + "&Vendor=" + Vendor + "&OrderType=" + OrderType + "&Item=" + Item
-                + "&Material=" + Material + "&Quantity=" + Quantity + "&IV_SEC_SALES=" + IV_SEC_SALES + "&PriceDate=" + PriceDate + "&IsWarrenty=" + IsWarrenty;
-            return JsonConvert.DeserializeObject<PMaterial>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }
-        public List<PMaterial> MaterialPriceFromSapMulti(PMaterialTax_Api MaterialTax_Sap)
-        {
-            string endPoint = "Material/MaterialPriceFromSapMulti";
-
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialTax_Sap));
-            if (Result.Status == PApplication.Failure)
-            {
-                throw new Exception(Result.Message);
-            }
-            return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
-        }
-
+        
         public List<PMaterial> MaterialPriceFromSapApi(PSapMatPrice_Input MaterialPrice)
         {
             string endPoint = "Material/MaterialPriceFromSapApi";

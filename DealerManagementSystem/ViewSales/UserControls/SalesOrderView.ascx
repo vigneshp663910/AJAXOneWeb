@@ -913,11 +913,11 @@
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRefDate" WatermarkText="DD/MM/YYYY" />
                         </div>
 
-                        <div class="col-md-6 col-sm-12"  style="display:none">
+                        <div class="col-md-6 col-sm-12"  >
                             <label class="modal-label">Freight</label>
                             <asp:TextBox ID="txtFreight" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                         </div>
-                        <div class="col-md-6 col-sm-12"  style="display:none">
+                        <div class="col-md-6 col-sm-12"  >
                             <label class="modal-label">Packing & Forward</label>
                             <asp:TextBox ID="txtPackingAndForward" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                         </div>

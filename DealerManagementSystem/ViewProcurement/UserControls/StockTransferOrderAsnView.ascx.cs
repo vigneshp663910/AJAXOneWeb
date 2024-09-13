@@ -488,61 +488,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         //}
         protected void btnSubmitMaterial_Click(object sender, EventArgs e)
         {
-            //lblAddMaterialMessage.Text = "";
-            //lblAddMaterialMessage.ForeColor = Color.Red;
-            //lblAddMaterialMessage.Visible = true;
-            //lblMessage.Text = "";
-            //lblMessage.ForeColor = Color.Red;
-            //lblMessage.Visible = true;
-
-            //if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
-            //{
-            //    lblAddMaterialMessage.Text = "Material Already Available...!";
-            //    MPE_AddMaterial.Show();
-            //    return;
-            //}
-
-            //PPurchaseOrderItem_Insert POi = new PPurchaseOrderItem_Insert();
-            //POi.PurchaseOrderID = Convert.ToInt64(PurchaseOrder.PurchaseOrderID);
-            //POi.Quantity = Convert.ToDecimal(txtQty.Text);
-            //POi.MaterialCode = hdfMaterialCode.Value;
-
-            //string Customer = PurchaseOrder.Dealer.DealerCode;
-            //string Vendor = PurchaseOrder.Vendor.DealerCode;
-            //string OrderType = PurchaseOrder.PurchaseOrderType.SapOrderType;
-            //string Material = POi.MaterialCode;
-            //string IV_SEC_SALES = "";
-            ////string PriceDate = DateTime.Now.ToShortDateString();
-            //string PriceDate = "";
-            //string IsWarrenty = "false";
-
-            //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Customer, Vendor, OrderType, 1, Material, POi.Quantity, IV_SEC_SALES, PriceDate, IsWarrenty);
-            //POi.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
-            //POi.Price = Mat.CurrentPrice;
-            //POi.DiscountAmount = Mat.Discount;
-            //POi.TaxableAmount = Mat.TaxablePrice;
-            //POi.SGST = Mat.SGST;
-            //POi.SGSTValue = Mat.SGSTValue;
-            //POi.CGST = Mat.SGST;
-            //POi.CGSTValue = Mat.SGSTValue;
-            //POi.IGST = Mat.IGST;
-            //POi.IGSTValue = Mat.IGSTValue;
-            //POi.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
-            //POi.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
-            //POi.NetValue = POi.TaxableAmount + POi.SGSTValue + POi.CGSTValue + POi.IGSTValue;
-
-            //string result = new BAPI().ApiPut("PurchaseOrder/UpdatePurchaseOrderItem", POi);
-            //PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
-
-            //if (Result.Status == PApplication.Failure)
-            //{
-            //    lblAddMaterialMessage.Text = Result.Message;
-            //    MPE_AddMaterial.Show();
-            //    return;
-            //}
-            //lblMessage.Text = Result.Message;
-            //lblMessage.ForeColor = Color.Green;
-            //fillViewPO(PurchaseOrder.PurchaseOrderID);
+           
         }
         public void FillGr()
         {

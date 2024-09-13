@@ -1116,6 +1116,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 lbtnUpdateGst.Visible = false;
             }
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerEdit).Count() == 0)
+            {
+                lbEditCustomer.Visible = false;
+            }
         }
 
         protected void FillProduct(object sender, EventArgs e)

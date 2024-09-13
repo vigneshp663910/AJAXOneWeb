@@ -80,7 +80,6 @@ namespace Business
                 Quantity = PoI.Quantity
             });
 
-            //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Dealer.DealerCode, Dealer.DealerCode, "DEFAULT_SEC_AUART", 1, PoI.MaterialCode, PoI.Quantity, "", "", "false");
             List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(InPut);
             PMaterial Mat = Mats[0];
             PoI.TaxableValue = Mat.CurrentPrice;
