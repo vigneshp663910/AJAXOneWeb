@@ -906,7 +906,9 @@ namespace Business
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
                 //PDMS_Customer Customer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
-                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
+                //PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
+                PDMS_Customer CustomerC = new BDMS_Customer().GetCustomerByCode(null, PaidServiceInvoice.ICTicket.Customer.CustomerCode)[0];
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(CustomerC.CustomerID);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 

@@ -134,7 +134,7 @@ namespace Business
              {
                  PDMS_PaidServiceInvoice PaidServiceInvoice = GetOverhaulServiceQuotation(ServiceQuotationID, null, "", null, null, null, "")[0];
                 //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Dealer.DealerCode);
-                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getDealerAddressFromSAP(PaidServiceInvoice.ICTicket.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                  string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
@@ -389,7 +389,7 @@ namespace Business
              {
                  PDMS_PaidServiceInvoice PaidServiceInvoice = GetOverhaulServiceInvoice(ServiceInvoiceHeaderID, null, "", null, null, null, "")[0];
                  //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Dealer.DealerCode);
-                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getDealerAddressFromSAP(PaidServiceInvoice.ICTicket.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                  string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 

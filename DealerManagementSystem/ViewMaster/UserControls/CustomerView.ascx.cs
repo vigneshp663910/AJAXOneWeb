@@ -1116,9 +1116,12 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 lbtnUpdateGst.Visible = false;
             }
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerEdit).Count() == 0)
+            if (Customer.IsVerified)
             {
-                lbEditCustomer.Visible = false;
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerEdit).Count() == 0)
+                {
+                    lbEditCustomer.Visible = false;
+                }
             }
         }
 

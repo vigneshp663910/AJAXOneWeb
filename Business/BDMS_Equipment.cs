@@ -499,6 +499,36 @@ namespace Business
             return true;
         }
 
+        public List<PDMS_Equipment> GetEquipmentForSale(string Customer,int UserID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            List<PDMS_Equipment> pDMS_Equipment = new List<PDMS_Equipment>();
+            try
+            {
+               DbParameter CustomerP = provider.CreateParameter("Customer",  Customer, DbType.String); 
+                using (DataSet ds = provider.SelectUsingQuery("select E.EquipmentHeaderID, EquipmentSerialNo  from ZDMS_MEquipmentHeader E  inner join ZDMS_MCustomer C on C.CustomerID = E.CustomerID where C.CustomerCode = '"+ Customer+"'"))
+                {
+                    if (ds != null)
+                    {
+                        DataTable dt = ds.Tables[0];
+
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            PDMS_Equipment Equip = new PDMS_Equipment();
+                            Equip.EquipmentHeaderID = Convert.ToInt32(dr["EquipmentHeaderID"]); 
+                            Equip.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);  
+                            pDMS_Equipment.Add(Equip); 
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new FileLogger().LogMessage("BDMS_Equipment", "GetEquipmentForSale", ex);
+                throw ex;
+            }
+            return pDMS_Equipment;
+        }
 
         //public void IntegrationEquipmentFromSAP()
         //{

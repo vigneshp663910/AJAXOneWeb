@@ -325,9 +325,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
                 {
-                    divEquipment.Visible = true;
-                    int RRowCount = 0;
-                    List<PDMS_Equipment> EQs = new BDMS_Equipment().GetEquipmentHeader(null, null, SOrder.Dealer.DealerCode, null, null, null, null, null, PSession.User.UserID, 1, 100, out RRowCount);
+                    divEquipment.Visible = true; 
+                    List<PDMS_Equipment> EQs = new BDMS_Equipment().GetEquipmentForSale(SOrder.Dealer.DealerCode, PSession.User.UserID);
                     new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
                 }
                 else
