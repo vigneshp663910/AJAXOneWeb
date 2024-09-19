@@ -116,13 +116,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 txtCustomerName2.Enabled = false;
             } 
 
-            txtGSTIN.Enabled = false;
-            txtPAN.Enabled = false;
-            if (string.IsNullOrEmpty(Customer.GSTIN) || (Customer.GSTIN == "URD") || string.IsNullOrEmpty(Customer.CustomerCode))
-            {
-                txtGSTIN.Enabled = true;
-                txtPAN.Enabled = true;
-            }
+            //txtGSTIN.Enabled = false;
+            //txtPAN.Enabled = false;
+            //if (string.IsNullOrEmpty(Customer.GSTIN) || (Customer.GSTIN == "URD") || string.IsNullOrEmpty(Customer.CustomerCode))
+            //{
+            //    txtGSTIN.Enabled = true;
+            //    txtPAN.Enabled = true;
+            //}
             ddlTitle.SelectedValue = Convert.ToString(Customer.Title.TitleID);
             txtCustomerName.Text = Customer.CustomerName;
             //  txtCustomerName2.Text = Customer.CustomerName2;

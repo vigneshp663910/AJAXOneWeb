@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -115,7 +116,8 @@ namespace Business
                     row = new Row() { Spans = new ListValue<StringValue>() };
                     foreach (DataColumn column in dt.Columns)
                     {
-                        row.Append(new Cell() { CellReference = ExcelCName[i] + ExcelRow.ToString(), DataType = CellValues.String, CellValue = new CellValue(Convert.ToString(row1[column])) });
+                       string Text = Regex.Replace(Convert.ToString(row1[column]), @"[\p{C}-[\t\r\n]]+", "");
+                        row.Append(new Cell() { CellReference = ExcelCName[i] + ExcelRow.ToString(), DataType = CellValues.String, CellValue = new CellValue(Text) });
                         i = i + 1;
                     }
                     sheetData.Append(row);

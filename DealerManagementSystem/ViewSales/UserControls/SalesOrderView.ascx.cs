@@ -176,7 +176,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else if (StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced) //Order Placed
             {
                 lbEditSaleOrder.Visible = false;
-                lbCancelSaleOrder.Visible = false;
+                //lbCancelSaleOrder.Visible = false;
                 lbAddSaleOrderItem.Visible = false;
                 lbReleaseSaleOrder.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
