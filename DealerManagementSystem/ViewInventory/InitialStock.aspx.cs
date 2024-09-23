@@ -49,6 +49,7 @@ namespace DealerManagementSystem.ViewInventory
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Inventory » Initial / Opening Stock');</script>");
             if (!IsPostBack)
             {
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
