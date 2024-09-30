@@ -628,10 +628,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             GrandTotal = Math.Round(SubTotal);
 
-            P[21] = new ReportParameter("CGST_Header", "%", false);
-            P[22] = new ReportParameter("CGSTVal_Header", "CGST", false);
-            P[23] = new ReportParameter("SGST_Header", "%", false);
-            P[24] = new ReportParameter("SGSTVal_Header", "SGST", false);
+            //P[21] = new ReportParameter("CGST_Header", "%", false);
+            //P[22] = new ReportParameter("CGSTVal_Header", "CGST", false);
+            //P[23] = new ReportParameter("SGST_Header", "%", false);
+            //P[24] = new ReportParameter("SGSTVal_Header", "SGST", false);
             P[25] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
             P[26] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
             P[27] = new ReportParameter("GrandTotalInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)).ToUpper(), false);

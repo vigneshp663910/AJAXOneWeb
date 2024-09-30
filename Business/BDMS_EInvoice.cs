@@ -694,7 +694,7 @@ namespace Business
             PDMS_EInvoice EInvoice = new PDMS_EInvoice();
             int TOTALLINEITEMS = 0;
             List<PDMS_WarrantyClaimDebitNote> Invoice = getWarrantyClaimDebitNoteForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
-            int i = 0;
+            int i = 0; 
             foreach (PDMS_WarrantyClaimDebitNote Pinv in Invoice)
             {
                 i = i + 1;
@@ -708,7 +708,8 @@ namespace Business
                     InvoiceDate = Pinv.DebitNoteDate,
 
                     // SupplierCode = Pinv.Dealer.DealerCode,
-                    SupplierTrade_Name = "Ajax Engineering Private Limited",
+                     
+                    SupplierTrade_Name = new BDMS_Customer().GetCustomerAE(Pinv.DebitNoteDate).CustomerName,
                     SupplierGSTIN = "29AABCA2035K1ZT",
                     Supplier_addr1 = Pinv.DebitNoteDetails.Supplier_addr1.Trim(),
                     SupplierLocation = Pinv.DebitNoteDetails.SupplierLocation.Trim(),

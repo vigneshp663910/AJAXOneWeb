@@ -327,7 +327,7 @@ namespace DealerManagementSystem.ViewService
                 });
 
             }
-            PDMS_Customer Supplier = new BDMS_Customer().GetCustomerAE();
+            PDMS_Customer Supplier = new BDMS_Customer().GetCustomerAE(DateTime.Now);
             PDMS_Customer Buyer = new BDMS_Customer().getCustomerAddressFromSAP(lblDealerCode.Text);
             decimal? TCSValue = null;
             decimal? TCSTax = null;

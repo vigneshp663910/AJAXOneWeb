@@ -1038,7 +1038,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
 
-            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE(Q.RefQuotationDate);
             string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
             string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
 
@@ -1237,7 +1237,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
 
-            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE(Q.RefQuotationDate);
             string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
             string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
 
@@ -1899,7 +1899,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return null;
             }
 
-            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE(Q.RefQuotationDate);
             string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
             string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
 

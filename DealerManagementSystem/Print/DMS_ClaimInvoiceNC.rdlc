@@ -1714,9 +1714,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Label>Name</Label>
-                                  <Value>Ajax Engineering Private Limited</Value>
-                                  <ToolTip>ff</ToolTip>
+                                  <Value>=Parameters!Name.Value</Value>
                                   <MarkupType>HTML</MarkupType>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
@@ -2117,11 +2115,17 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="Name">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>2</NumberOfColumns>
-      <NumberOfRows>7</NumberOfRows>
+      <NumberOfRows>8</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -2192,6 +2196,11 @@
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>6</RowIndex>
           <ParameterName>NewLogo</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>Name</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

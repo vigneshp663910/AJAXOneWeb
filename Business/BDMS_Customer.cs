@@ -117,14 +117,21 @@ namespace Business
             return Customer;
         }
 
-        public PDMS_Customer GetCustomerAE()
+        public PDMS_Customer GetCustomerAE(DateTime DocumentDate)
         {
             TraceLogger.Log(DateTime.Now);
             PDMS_Customer Customer = new PDMS_Customer();
             try
             {
-                Customer.CustomerName = ConfigurationManager.AppSettings["EOrgName"];
-                //  Customer.OrgName = ConfigurationManager.AppSettings["EOrgName"];
+                if (DocumentDate <= Convert.ToDateTime("2024-10-01"))
+                {
+                    Customer.CustomerName = ConfigurationManager.AppSettings["EOrgName"];
+                }
+                else
+                {
+                    Customer.CustomerName = ConfigurationManager.AppSettings["EOrgNameLimited"];
+                }
+                 
                 Customer.Address1 = ConfigurationManager.AppSettings["EAddress1"];
                 Customer.Address2 = ConfigurationManager.AppSettings["EAddress2"];
                 Customer.City = ConfigurationManager.AppSettings["ECity"];

@@ -306,7 +306,7 @@ namespace DealerManagementSystem.ViewService
                 //}
                 //else
                 //{
-                    P = new ReportParameter[19];
+                    P = new ReportParameter[20];
                     report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimDebitNote.rdlc");
                 //}
 
@@ -328,14 +328,19 @@ namespace DealerManagementSystem.ViewService
                 P[14] = new ReportParameter("PAN", Dealer.PAN, false);
                 DateTime NewLogoDate = Convert.ToDateTime(ConfigurationManager.AppSettings["NewLogoDate"]);
                 string NewLogo = "0";
+                string Name = "Ajax Fiori Eng (I) Pvt Ltd";
                 if (NewLogoDate <= DebitNote.DebitNoteDate)
                 {
                     NewLogo = "1";
+                    Name = new BDMS_Customer().GetCustomerAE(DebitNote.DebitNoteDate).CustomerName;
                 }
-                P[15] = new ReportParameter("NewLogo", NewLogo, false);
+               P[15] = new ReportParameter("NewLogo", NewLogo, false);
+             
                 P[16] = new ReportParameter("TCSValue", Convert.ToString(DebitNote.TCSValue), false);
                 P[17] = new ReportParameter("TCSSubTotal", Convert.ToString((TCSTotalValue * -1) + DebitNote.TCSValue), false);
                 P[18] = new ReportParameter("TCSTax", Convert.ToString(DebitNote.TCSTax), false);
+                P[19] = new ReportParameter("Name", Name, false);
+
 
                 ReportDataSource rds = new ReportDataSource();
                 rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  

@@ -86,7 +86,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
                 if (Dealer.IsEInvoice && SaleOrderDeliveryByID.SaleOrder.Customer.GSTIN != "URD")
                 {
-                    if(string.IsNullOrEmpty(SaleOrderDeliveryByID.SaleOrder.Customer.Address1))
+                    if (string.IsNullOrEmpty(SaleOrderDeliveryByID.SaleOrder.Customer.Address1))
                     {
                         lblMessage.Text = "Please update Customer Address.";
                         return;
@@ -99,6 +99,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     if (string.IsNullOrEmpty(SaleOrderDeliveryByID.SaleOrder.Customer.Pincode))
                     {
                         lblMessage.Text = "Please update Customer Pincode.";
+                        return;
+                    }
+                    string Message = ValidationEInvoice(SaleOrderDeliveryByID.SaleOrder.Customer.GSTIN, SaleOrderDeliveryByID.SaleOrder.Customer.Pincode, SaleOrderDeliveryByID.SaleOrder.Customer.State.StateCode);
+
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessage.Text = Message;
                         return;
                     }
                 }
@@ -179,6 +186,36 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblMessage.ForeColor = Color.Red;
                 }
             }
+        }
+        public string ValidationEInvoice(string Gstin,string Pin,string Stcd)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Gstin))
+                {
+                    return "Please update Buyer GST Number";
+                }
+                String regexS = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$";
+                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(regexS);
+                if (regex.Match(Gstin).Success)
+                {
+                    if (Gstin.Trim().Substring(0, 2) != Stcd.Trim())
+                    {
+                        return "Please verify the GST number with State";
+                    }
+                }
+                else
+                {
+                    return "Please update correct GST Number";
+                } 
+                if (!new BDMS_EInvoice().ValidatePincode(Pin.Substring(0, 2), Stcd))
+                {
+                    return "Please check Buyer Pincode and Statecode";
+                } 
+            }
+            catch (Exception e)
+            { }
+            return "";
         }
         void ViewSalesDeliveryChallan()
         {
