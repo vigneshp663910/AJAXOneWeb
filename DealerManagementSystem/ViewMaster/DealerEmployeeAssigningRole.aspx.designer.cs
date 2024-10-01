@@ -465,13 +465,13 @@ namespace DealerManagementSystem.ViewMaster
         protected global::System.Web.UI.WebControls.DropDownList ddlReportingTo;
 
         /// <summary>
-        /// GVAssignDistrict control.
+        /// divDistrict control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GVAssignDistrict;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDistrict;
 
         /// <summary>
         /// ddlDistrict control.
@@ -490,6 +490,15 @@ namespace DealerManagementSystem.ViewMaster
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField HiddenDistrictID;
+
+        /// <summary>
+        /// GVAssignDistrict control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GVAssignDistrict;
 
         /// <summary>
         /// btnAssignRole control.
