@@ -123,7 +123,8 @@ namespace Business
             PDMS_Customer Customer = new PDMS_Customer();
             try
             {
-                if (DocumentDate <= Convert.ToDateTime("2024-10-01"))
+                DateTime EOrgNameLimitedDate = Convert.ToDateTime(ConfigurationManager.AppSettings["EOrgNameLimitedDate"]);
+                if (DocumentDate <= EOrgNameLimitedDate)
                 {
                     Customer.CustomerName = ConfigurationManager.AppSettings["EOrgName"];
                 }

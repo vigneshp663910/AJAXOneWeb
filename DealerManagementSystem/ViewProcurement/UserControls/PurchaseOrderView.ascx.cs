@@ -559,9 +559,29 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-            PDMS_Dealer Supplier = new BDealer().GetDealerAddress(PO.Vendor.DealerID)[0];
-            string SupplierAddress1 = (Supplier.Address.Address1 + (string.IsNullOrEmpty(Supplier.Address.Address2) ? "" : "," + Supplier.Address.Address2) + (string.IsNullOrEmpty(Supplier.Address.Address3) ? "" : "," + Supplier.Address.Address3)).Trim(',', ' ');
-            string SupplierAddress2 = (Supplier.Address.City + (string.IsNullOrEmpty(Supplier.Address.State.State) ? "" : "," + Supplier.Address.State.State) + (string.IsNullOrEmpty(Supplier.Address.Pincode) ? "" : "-" + Supplier.Address.Pincode)).Trim(',', ' ');
+
+            string SupplierAddress1 = "", SupplierAddress2 = "", SupplierName="", SupplierCode="", SupplierMobile="", SupplierEMail="";
+            if (PO.PurchaseOrderTo.PurchaseOrderToID == 1)
+            {
+
+                PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE(PO.PurchaseOrderDate);
+                SupplierName = Ajax.CustomerName;
+                SupplierCode = PO.Vendor.DealerCode;
+                SupplierMobile = Ajax.Mobile;
+                SupplierEMail = Ajax.Email;
+                SupplierAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
+                SupplierAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
+            }
+            else
+            {
+                PDMS_Dealer Supplier = new BDealer().GetDealerAddress(PO.Vendor.DealerID)[0];
+                SupplierName = Supplier.DealerName;
+                SupplierCode = Supplier.DealerCode;
+                SupplierMobile = Supplier.Address.Mobile;
+                SupplierEMail = Supplier.Address.Email;
+                SupplierAddress1 = (Supplier.Address.Address1 + (string.IsNullOrEmpty(Supplier.Address.Address2) ? "" : "," + Supplier.Address.Address2) + (string.IsNullOrEmpty(Supplier.Address.Address3) ? "" : "," + Supplier.Address.Address3)).Trim(',', ' ');
+                SupplierAddress2 = (Supplier.Address.City + (string.IsNullOrEmpty(Supplier.Address.State.State) ? "" : "," + Supplier.Address.State.State) + (string.IsNullOrEmpty(Supplier.Address.Pincode) ? "" : "-" + Supplier.Address.Pincode)).Trim(',', ' ');
+            }
 
             PDMS_DealerOffice BillTo = new BDMS_Dealer().GetDealerOffice(PO.Dealer.DealerID, PO.Location.OfficeID, null)[0];
             string BillToAddress1 = (BillTo.Address1 + (string.IsNullOrEmpty(BillTo.Address2) ? "" : "," + BillTo.Address2) + (string.IsNullOrEmpty(BillTo.Address3) ? "" : "," + BillTo.Address3)).Trim(',', ' ');
@@ -570,11 +590,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ReportParameter[] P = new ReportParameter[21];
             P[0] = new ReportParameter("PurchaseOrderNumber", PO.PurchaseOrderNumber, false);
             P[1] = new ReportParameter("PurchaseOrderDate", PO.PurchaseOrderDate.ToShortDateString(), false);
-            P[2] = new ReportParameter("SupplierName", Supplier.DealerName, false);
+            P[2] = new ReportParameter("SupplierName", SupplierName, false);
             P[3] = new ReportParameter("SupplierAddress1", SupplierAddress1, false);
             P[4] = new ReportParameter("SupplierAddress2", SupplierAddress2, false);
-            P[5] = new ReportParameter("SupplierMobile", Supplier.Address.Mobile, false);
-            P[6] = new ReportParameter("SupplierEMail", Supplier.Address.Email, false);
+            P[5] = new ReportParameter("SupplierMobile", SupplierMobile , false);
+            P[6] = new ReportParameter("SupplierEMail", SupplierEMail, false);
             P[7] = new ReportParameter("BillToCustomerName", PO.Dealer.DealerName, false);
             P[8] = new ReportParameter("BillToCustomerAddress1", BillToAddress1, false);
             P[9] = new ReportParameter("BillToCustomerAddress2", BillToAddress2, false);
@@ -609,7 +629,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             P[16] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxTotal), false);
             P[17] = new ReportParameter("NetAmount", String.Format("{0:n}", GrandTotal), false);
             P[18] = new ReportParameter("Remarks", PO.Remarks, false);
-            P[19] = new ReportParameter("SupplierCode", Supplier.DealerCode, false);
+            P[19] = new ReportParameter("SupplierCode", SupplierCode, false);
             P[20] = new ReportParameter("BillToCode", PO.Dealer.DealerCode, false);
             report.ReportPath = Server.MapPath("~/Print/PurchaseOrder.rdlc");
             report.SetParameters(P);
