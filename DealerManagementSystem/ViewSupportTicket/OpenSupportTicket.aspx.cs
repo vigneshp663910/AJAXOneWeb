@@ -69,7 +69,7 @@ namespace DealerManagementSystem.ViewSupportTicket
         {
             ddlCreatedBy.DataTextField = "ContactName";
             ddlCreatedBy.DataValueField = "UserID";
-            ddlCreatedBy.DataSource = new BUser().GetUsers(null, null, null, null, null, true, null, null, null);
+            ddlCreatedBy.DataSource = new BUser().GetUsers(null, null, null, null, DealerId, true, null, null, null);
             ddlCreatedBy.DataBind();
             ddlCreatedBy.Items.Insert(0, new ListItem("Select", "0"));
         }

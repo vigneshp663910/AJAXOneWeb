@@ -512,7 +512,10 @@ namespace Properties
         ViewAdmin_UserAccessByChildModule = 266,
         ViewDealerEmployee_OnboardEmployeeManage = 267,
         ViewDealerEmployee_OnboardEmployeeApproval = 268,
+        ViewAdmin_DealerOfficeUserMapping = 269,
         ViewSales_Report_OofCustomerReport = 270,
+        ViewSupportTicket_TaskMeasurement = 271,
+        ViewSupportTicket_TaskSummaryDetails = 272,
     }
     public enum SubModuleChildMaster
     {
