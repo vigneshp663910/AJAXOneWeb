@@ -283,6 +283,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else if (lbActions.ID == "lbReleaseSaleOrder")
             {
+             string   Message = new BDMS_SalesOrder().ValidationCustomerGST(SOrder.Customer.CustomerID, SOrder.Dealer.DealerID, ddlTaxType.SelectedItem.Text);
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    return;
+                }
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SOrder.SaleOrderID));
                 // PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SOrder.SaleOrderID + "&StatusID=" + 13));
                 PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SOrder.SaleOrderID, (short)AjaxOneStatus.SaleOrder_OrderPlaced);
@@ -889,6 +895,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     lblMessageSOEdit.Text = Message;
                     MPE_SaleOrderEdit.Show();
+                    return;
+                }
+                Message = new BDMS_SalesOrder().ValidationCustomerGST(SOrder.Customer.CustomerID, SOrder.Dealer.DealerID, ddlTaxType.SelectedItem.Text);
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
                     return;
                 }
 

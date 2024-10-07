@@ -258,9 +258,18 @@ namespace DealerManagementSystem.ViewInventory
                                 {
                                     MaterialPrice.OrderType = "101_DPPOR_PURC_ORDER_HDR";
                                 }
-                                else if (!string.IsNullOrEmpty(MaterialPrice.Division))
+                                else if (MaterialPrice.Division=="CM")
                                 {
                                     MaterialPrice.OrderType = "201_DPPOR_PURC_ORDER_HDR";
+                                }
+                                //else if (!string.IsNullOrEmpty(MaterialPrice.Division))
+                                //{
+                                //    MaterialPrice.OrderType = "201_DPPOR_PURC_ORDER_HDR";
+                                //}
+                                else
+                                {
+                                    MaterialPrice.Division = "SP";
+                                    MaterialPrice.OrderType = "402_DPPOR_PURC_ORDER_HDR";
                                 }
                                 //   MaterialPrice.Division = new BDMS_Master().GetDivision(Convert.ToInt32(ddlDivision.SelectedValue), null)[0].DivisionCode;
                                 MaterialPrice.Item = new List<PSapMatPriceItem_Input>();

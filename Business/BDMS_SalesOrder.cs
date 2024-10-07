@@ -1637,5 +1637,30 @@ namespace Business
                 + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+
+        public string ValidationCustomerGST(long CustomerId,int DealerID,string TaxType)
+        {
+            string Message = "";
+            PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(CustomerId);
+            PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(DealerID, null, null, null)[0];
+            if (Customer.GSTIN != "URD")
+            {
+                if (TaxType == "IGST")
+                {
+                    if (Customer.State.StateID == Dealer.StateN.StateID)
+                    {
+                        return "Please check the Tax Type w.r.t to Customer.";
+                    }
+                }
+                else
+                {
+                    if (Customer.State.StateID != Dealer.StateN.StateID)
+                    {
+                        return "Please check the Tax Type w.r.t to Customer.";
+                    }
+                }
+            }
+            return Message;
+        }
     }
 }

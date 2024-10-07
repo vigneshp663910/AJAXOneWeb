@@ -69,6 +69,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.HiddenField hfShiptToID;
 
         /// <summary>
+        /// lblDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDealer;
+
+        /// <summary>
         /// ddlDealer control.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
+
+        /// <summary>
+        /// lblOfficeName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOfficeName;
 
         /// <summary>
         /// ddlOfficeName control.
@@ -121,6 +139,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+
+        /// <summary>
+        /// lblCustomer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCustomer;
 
         /// <summary>
         /// txtCustomer control.
@@ -283,6 +310,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlFrieghtPaidBy;
+
+        /// <summary>
+        /// lblTaxType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTaxType;
 
         /// <summary>
         /// ddlTaxType control.
