@@ -46,6 +46,7 @@
     <Compile Include="AppSetting.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="PDealerBusiness.cs" />
+    <Compile Include="PDealerOfficeUserMapping.cs" />
     <Compile Include="PDeviationProcess.cs" />
     <Compile Include="PInventory.cs" />
     <Compile Include="PActivity.cs" />

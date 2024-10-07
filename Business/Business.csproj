@@ -121,6 +121,7 @@
     <Compile Include="BDealer.cs" />
     <Compile Include="BDealerBusiness.cs" />
     <Compile Include="BDealerBusinessExcellence.cs" />
+    <Compile Include="BDealerOfficeUserMapping.cs" />
     <Compile Include="BDealerOperatorDetails.cs" />
     <Compile Include="BDeviationProcess.cs" />
     <Compile Include="BDMS_Address.cs" />

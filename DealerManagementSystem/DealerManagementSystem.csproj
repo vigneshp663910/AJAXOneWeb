@@ -421,6 +421,7 @@
     <Content Include="ViewActivity\UserControls\AddActivity.ascx" />
     <Content Include="ViewActivity\UserControls\ViewActivity.ascx" />
     <Content Include="ViewAdmin\DealerCustomerMapping.aspx" />
+    <Content Include="ViewAdmin\DealerOfficeUserMapping.aspx" />
     <Content Include="ViewAdmin\DealerSalesConfiguration.aspx" />
     <Content Include="ViewAdmin\DealerServiceConfiguration.aspx" />
     <Content Include="ViewAdmin\DealerStateMapping.aspx" />
@@ -1154,6 +1155,13 @@
     </Compile>
     <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerOfficeUserMapping.aspx.cs">
+      <DependentUpon>DealerOfficeUserMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerOfficeUserMapping.aspx.designer.cs">
+      <DependentUpon>DealerOfficeUserMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DealerSalesConfiguration.aspx.cs">
       <DependentUpon>DealerSalesConfiguration.aspx</DependentUpon>
