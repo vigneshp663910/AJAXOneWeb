@@ -1175,7 +1175,7 @@ namespace Business
 
         public List<PDealerNotification> GetDealerNotification(int? DealerID, int? UsersDealerID, int? DealerDepartmentID, int? DealerDesignationID, int? DealerNotificationModuleID)
         {
-            string endPoint = "Dealer/DealerNotification?DealerID=" + DealerID + "&UsersDealerID=" + UsersDealerID + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&DealerNotificationModuleID=" + DealerNotificationModuleID;
+            string endPoint = "Dealer/GetDealerNotification?DealerID=" + DealerID + "&UsersDealerID=" + UsersDealerID + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&DealerNotificationModuleID=" + DealerNotificationModuleID;
             return JsonConvert.DeserializeObject<List<PDealerNotification>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PDealerNotificationModule> GetDealerNotificationModule()
