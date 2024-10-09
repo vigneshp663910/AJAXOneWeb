@@ -12,7 +12,7 @@ namespace DealerManagementSystem.ViewSales
 {
     public partial class SalesInvoice : BasePage
     {
-       // public override SubModule SubModuleName { get { return SubModule.ViewSales_SalesInvoice; } }
+      //  public override SubModule SubModuleName { get { return SubModule.ViewSales_SalesInvoice; } }
         public List<PDMS_SalesInvoice> SDMS_SalesInvoice
         {
             get
@@ -30,6 +30,7 @@ namespace DealerManagementSystem.ViewSales
         }
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);

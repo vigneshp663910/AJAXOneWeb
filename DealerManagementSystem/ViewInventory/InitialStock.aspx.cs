@@ -236,13 +236,21 @@ namespace DealerManagementSystem.ViewInventory
                                 {
                                     continue;
                                 }
+                                string ExcelMaterialCode = Convert.ToString(IXLCell_[1].Value).TrimEnd('\0');
+
+                                if ((MaterialUpload.Any(z => z.MaterialCode == ExcelMaterialCode)))
+                                {
+                                    lblMessage.Text = "Duplicate Material Code : " + ExcelMaterialCode;
+                                    lblMessage.ForeColor = Color.Red;
+                                    return false;
+                                } 
                                 PInitialStock_Post S = new PInitialStock_Post();
                                 MaterialUpload.Add(S);
 
                                 S.ID = Convert.ToInt32(IXLCell_[0].Value);
                                 S.DealerID = Convert.ToInt32(ddlDealerO.SelectedValue);
                                 S.OfficeID = Convert.ToInt32(ddlDealerOfficeO.SelectedValue);
-                                string ExcelMaterialCode = Convert.ToString(IXLCell_[1].Value).TrimEnd('\0');
+                                
                                 S.MaterialCode = ExcelMaterialCode;
 
                                // S.MaterialCode = Convert.ToString(IXLCell_[1].Value);

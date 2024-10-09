@@ -15,6 +15,7 @@ namespace DealerManagementSystem.ViewMarketing
        // public override SubModule SubModuleName { get { return SubModule.ViewMarketing_ActivityInvoice; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);

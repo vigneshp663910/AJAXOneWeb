@@ -12,15 +12,14 @@ namespace DealerManagementSystem.ViewService
 {
     public partial class WarrantyFailureMaterialReturn : BasePage
     {
-       // public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyFailureMaterialReturn; } }
+        //  public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyFailureMaterialReturn; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            Session["previousUrl"] = "DMS_FailedMaterialReturn.aspx";
+            Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
         public List<PDMS_WarrantyInvoiceHeader> SDMS_WarrantyClaimHeader
         {

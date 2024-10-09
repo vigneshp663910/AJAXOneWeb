@@ -258,7 +258,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
             string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
-            ReportParameter[] P = new ReportParameter[11];
+            ReportParameter[] P = new ReportParameter[12];
             P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
             P[1] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
             P[2] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
@@ -269,7 +269,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[7] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
             P[8] = new ReportParameter("DeliveryNo", SaleOrderDeliveryByID.DeliveryNumber, false);
             P[9] = new ReportParameter("DeliveryDate", SaleOrderDeliveryByID.DeliveryDate.ToString(), false);
-
+            P[11] = new ReportParameter("DeliveryAddress", SaleOrderDeliveryByID.ShippingAddress, false);
             DataTable dtItem = new DataTable();
             dtItem.Columns.Add("ItemNo");
             dtItem.Columns.Add("PartNo");

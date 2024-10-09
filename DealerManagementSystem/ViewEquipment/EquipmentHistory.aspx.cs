@@ -39,6 +39,15 @@ namespace DealerManagementSystem.ViewEquipment
                 Session["EquipmentHistory1"] = value;
             }
         }
+
+        protected void Page_PreInit(object sender, EventArgs e)
+        {
+            Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            if (PSession.User == null)
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -290,33 +299,10 @@ namespace DealerManagementSystem.ViewEquipment
             lblEngineSerialNumber.Visible = false;
             txtEngineSerialNumber.Visible = true;
             btnEdit.Visible = false;
-            btnUpdate.Visible = true;
+            //btnUpdate.Visible = true;
 
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-
-            Boolean Status = new BDMS_Equipment().InsertOrUpdateEquipment(Convert.ToInt64(lblEquipmentHeaderID.Text)
-                , txtEquipmentModelNumber.Text.Trim(), txtEngineModel.Text.Trim(), txtEngineSerialNumber.Text.Trim(), PSession.User.UserID);
-
-            if (Status)
-            {
-                lblEquipmentModelNumber.Visible = true;
-                txtEquipmentModelNumber.Visible = false;
-                lblEngineModel.Visible = true;
-                txtEngineModel.Visible = false;
-                lblEngineSerialNumber.Visible = true;
-                txtEngineSerialNumber.Visible = false;
-
-                btnEdit.Visible = true;
-                btnUpdate.Visible = false;
-
-                lblEquipmentModelNumber.Text = txtEquipmentModelNumber.Text.Trim();
-                lblEngineModel.Text = txtEngineModel.Text.Trim();
-                lblEngineSerialNumber.Text = txtEngineSerialNumber.Text.Trim();
-            }
-
-        }
+        
     }
 }

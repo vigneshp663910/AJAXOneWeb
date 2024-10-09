@@ -26,7 +26,7 @@ namespace Business
         public void BindActivityActualDataForApproval(GridView gvData, int DealerID, string FromDate, string ToDate)
         {
             TraceLogger.Log(DateTime.Now);
-            string endPoint = "Marketing/MarketingActivityActualForApproval?DealerID=" + DealerID + "&FromDate=" + FromDate + "&ToDate=" + ToDate ;
+            string endPoint = "Marketing/MarketingActivityActualForApproval?DealerID=" + DealerID + "&FromDate=" + FromDate + "&ToDate=" + ToDate;
             DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             gvData.DataSource = dt;
             gvData.DataBind();
@@ -36,7 +36,7 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Marketing/MarketingActivityActualForApproval?DealerID=" + DealerID + "&FromDate=" + FromDate + "&ToDate=" + ToDate;
             DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-             
+
             return dt;
         }
 
@@ -87,43 +87,8 @@ namespace Business
             try
             {
 
-               
+
                 using (DataSet DataSet = provider.SelectUsingQuery("select MaterialID,MaterialDescription,MaterialCode from ZDMS_MMaterial where materialgroup='889'"))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            listActivityMaster.Add(new PDMS_ActivityMaster()
-                            {
-                                ActivityID = Convert.ToInt32(dr["MaterialID"]),
-                                ActivityName = dr["MaterialDescription"].ToString(),
-                                ActivityCode= dr["MaterialCode"].ToString()
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            ddl.DataValueField = "ActivityID";
-            ddl.DataTextField = "ActivityName";
-            ddl.DataSource = listActivityMaster;
-            ddl.DataBind();
-            ddl.Items.Insert(0, new ListItem("Select", "0"));
-        }
-        public void GetActivity(DropDownList ddl,string ActType)
-        {
-            List<PDMS_ActivityMaster> listActivityMaster = new List<PDMS_ActivityMaster>();
-            try
-            {
-
-
-                using (DataSet DataSet = provider.SelectUsingQuery(@"select MaterialID,MaterialDescription,MaterialCode from ZDMS_MMaterial A 
-                                                                    inner join YDMS_MActivityInfo b on AI_FKMaterialID=MaterialID
-                                                                    where materialgroup = '889' and AI_ActivityType = '"+ActType+"'"))
                 {
                     if (DataSet != null)
                     {
@@ -149,14 +114,49 @@ namespace Business
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
-        public void GetPlannedActivity(DropDownList ddl,int DID)
+        public void GetActivity(DropDownList ddl, string ActType)
+        {
+            List<PDMS_ActivityMaster> listActivityMaster = new List<PDMS_ActivityMaster>();
+            try
+            {
+
+
+                using (DataSet DataSet = provider.SelectUsingQuery(@"select MaterialID,MaterialDescription,MaterialCode from ZDMS_MMaterial A 
+                                                                    inner join YDMS_MActivityInfo b on AI_FKMaterialID=MaterialID
+                                                                    where materialgroup = '889' and AI_ActivityType = '" + ActType + "'"))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            listActivityMaster.Add(new PDMS_ActivityMaster()
+                            {
+                                ActivityID = Convert.ToInt32(dr["MaterialID"]),
+                                ActivityName = dr["MaterialDescription"].ToString(),
+                                ActivityCode = dr["MaterialCode"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            ddl.DataValueField = "ActivityID";
+            ddl.DataTextField = "ActivityName";
+            ddl.DataSource = listActivityMaster;
+            ddl.DataBind();
+            ddl.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        public void GetPlannedActivity(DropDownList ddl, int DID)
         {
             List<PDMS_PlannedActivity> listActivityMaster = new List<PDMS_PlannedActivity>();
             try
             {
                 DbParameter DIDDP = provider.CreateParameter("DID", DID, DbType.Int32);
-                DbParameter[] Params = new DbParameter[1] { DIDDP};
-                using (DataSet DataSet = provider.Select("YDMS_SP_GetPendingPlannedActivity",Params))
+                DbParameter[] Params = new DbParameter[1] { DIDDP };
+                using (DataSet DataSet = provider.Select("YDMS_SP_GetPendingPlannedActivity", Params))
                 {
                     if (DataSet != null)
                     {
@@ -166,7 +166,7 @@ namespace Business
                             {
                                 PkPlanID = Convert.ToInt32(dr["PkPlanID"]),
                                 ActivityID = Convert.ToInt32(dr["ActivityID"]),
-                                ActivityName = dr["Activity"].ToString()                                
+                                ActivityName = dr["Activity"].ToString()
                             });
                         }
                     }
@@ -182,7 +182,7 @@ namespace Business
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
-        public void GetCommonMaster(DropDownList ddl,string Tag,int ParentID)
+        public void GetCommonMaster(DropDownList ddl, string Tag, int ParentID)
         {
             List<PDMS_CommonMaster> listCommonMaster = new List<PDMS_CommonMaster>();
             try
@@ -191,7 +191,7 @@ namespace Business
                 DbParameter ParentIDDP = provider.CreateParameter("ParentID", ParentID, DbType.Int32);
                 DbParameter[] Params = new DbParameter[2] { TagDP, ParentIDDP };
 
-                using (DataSet DataSet = provider.Select("YDMS_GetCommonMaster",Params))
+                using (DataSet DataSet = provider.Select("YDMS_GetCommonMaster", Params))
                 {
                     if (DataSet != null)
                     {
@@ -216,7 +216,7 @@ namespace Business
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
-        public String SaveActivityInfo(int ActivityID, int FunctionaAreaID, int UnitID, double dblBudget, double dblAjaxSharing, double dblDealerSharing,string SAC,double GST,long UserID,string ActivityType="")
+        public String SaveActivityInfo(int ActivityID, int FunctionaAreaID, int UnitID, double dblBudget, double dblAjaxSharing, double dblDealerSharing, string SAC, double GST, long UserID, string ActivityType = "")
         {
             string sReturn = "";
             try
@@ -229,13 +229,13 @@ namespace Business
                 DbParameter AI_AjaxSharing = provider.CreateParameter("AI_AjaxSharing", dblAjaxSharing, DbType.Double);
                 DbParameter AI_DealerSharing = provider.CreateParameter("AI_DealerSharing", dblDealerSharing, DbType.Double);
                 DbParameter AI_SAC = provider.CreateParameter("AI_SAC", SAC, DbType.String);
-                DbParameter AI_GST= provider.CreateParameter("AI_GST", GST, DbType.Double);
-                DbParameter AI_ActivityType = provider.CreateParameter("AI_ActivityType", ActivityType, DbType.String); 
-                DbParameter[] Params = new DbParameter[10] { AI_FKMaterialID, AI_Budget, AI_FKFunctionaAreaID, AI_CreatedBy, AI_FKUnitID, AI_AjaxSharing, AI_DealerSharing,AI_SAC,AI_GST, AI_ActivityType };
+                DbParameter AI_GST = provider.CreateParameter("AI_GST", GST, DbType.Double);
+                DbParameter AI_ActivityType = provider.CreateParameter("AI_ActivityType", ActivityType, DbType.String);
+                DbParameter[] Params = new DbParameter[10] { AI_FKMaterialID, AI_Budget, AI_FKFunctionaAreaID, AI_CreatedBy, AI_FKUnitID, AI_AjaxSharing, AI_DealerSharing, AI_SAC, AI_GST, AI_ActivityType };
                 provider.Insert("YDMS_SP_MActivityInfo_Save", Params, false);
                 sReturn = "Saved";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 sReturn = ex.Message;
             }
@@ -245,10 +245,10 @@ namespace Business
         public List<PDMS_ActivityMaster> GetActivityMaster()
         {
             List<PDMS_ActivityMaster> listActivityMaster = new List<PDMS_ActivityMaster>();
-            
+
             return listActivityMaster;
         }
-        public void GetActivityInfoData(GridView gridView,int ActivityID)
+        public void GetActivityInfoData(GridView gridView, int ActivityID)
         {
             DataTable dt = new DataTable();
             DbParameter ActivityIDDP = provider.CreateParameter("ActivityID", ActivityID, DbType.Int32);
@@ -262,7 +262,7 @@ namespace Business
                     gridView.DataBind();
                 }
             }
-            
+
         }
         public DataTable GetActivityInfoData(int ActivityID)
         {
@@ -301,13 +301,13 @@ namespace Business
                             SAC = dr["SAC"].ToString(),
                             GST = Convert.ToDouble(dr["GST"]),
                             ActivityType = dr["ActivityType"].ToString()
-                        }) ;
+                        });
                     }
                 }
             }
             return listActivityInfo;
         }
-        public String SaveActivityPlan(int PKPlanID,int ActivityID, int DealerID, int NoofUnits, string FromDate, string ToDate, string Location,string Remarks, long UserID)
+        public String SaveActivityPlan(int PKPlanID, int ActivityID, int DealerID, int NoofUnits, string FromDate, string ToDate, string Location, string Remarks, long UserID)
         {
             string sReturn = "";
             try
@@ -322,9 +322,9 @@ namespace Business
                 DbParameter AP_Remarks = provider.CreateParameter("AP_Remarks", Remarks, DbType.String);
 
                 DbParameter AP_CreatedBy = provider.CreateParameter("AP_CreatedBy", UserID, DbType.Int64);
-                
-                 
-                DbParameter[] Params = new DbParameter[9] { AP_PKPlanID, AP_FKDealerID, AP_FKActivityID, AP_NoofUnits, AP_FromDate, AP_ToDate, AP_Location,AP_Remarks, AP_CreatedBy };
+
+
+                DbParameter[] Params = new DbParameter[9] { AP_PKPlanID, AP_FKDealerID, AP_FKActivityID, AP_NoofUnits, AP_FromDate, AP_ToDate, AP_Location, AP_Remarks, AP_CreatedBy };
 
                 sReturn = "Saved|" + Convert.ToString(provider.GetScalar("YDMS_SP_TActivityPlan_Save", Params));
             }
@@ -335,14 +335,14 @@ namespace Business
 
             return sReturn;
         }
-        public void BindActivityPlanData(GridView gvData,int DealerID, int ActivityID, string FromDate, string ToDate,long UserID,int Status)
+        public void BindActivityPlanData(GridView gvData, int DealerID, int ActivityID, string FromDate, string ToDate, long UserID, int Status)
         {
             DataTable dt = new DataTable();
             DbParameter DealerIDDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter ActivityIDDP = provider.CreateParameter("ActivityID", ActivityID, DbType.Int32);
             DbParameter FromDateDP = provider.CreateParameter("FromDate", FromDate, DbType.String);
             DbParameter ToDateDP = provider.CreateParameter("ToDate", ToDate, DbType.String);
-            DbParameter UserIDDP= provider.CreateParameter("UserID", UserID, DbType.Int64);
+            DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
             DbParameter StatusDP = provider.CreateParameter("Status", Status, DbType.Int64);
             DbParameter[] Params = new DbParameter[6] { DealerIDDP, ActivityIDDP, FromDateDP, ToDateDP, UserIDDP, StatusDP };
 
@@ -351,10 +351,10 @@ namespace Business
                 dt = DataSet.Tables[0];
                 gvData.DataSource = dt;
                 gvData.DataBind();
-                for(int i=0;i<gvData.Rows.Count;i++)
+                for (int i = 0; i < gvData.Rows.Count; i++)
                 {
                     LinkButton lnkEdit = gvData.Rows[i].FindControl("lnkEdit") as LinkButton;
-                    if(dt.Rows[i]["IsUpdated"].ToString()=="Y" && PSession.User.UserTypeID == 7 )
+                    if (dt.Rows[i]["IsUpdated"].ToString() == "Y" && PSession.User.UserTypeID == 7)
                     {
                         lnkEdit.Visible = false;
                     }
@@ -364,9 +364,9 @@ namespace Business
                     }
                 }
             }
-            
+
         }
-        public DataTable GetActivityPlanData(int DealerID,int ActivityID,string FromDate,string ToDate,int Status)
+        public DataTable GetActivityPlanData(int DealerID, int ActivityID, string FromDate, string ToDate, int Status)
         {
             DataTable dt = new DataTable();
             DbParameter DealerIDDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
@@ -409,7 +409,7 @@ namespace Business
                             AP_ExpBudget = Convert.ToDouble(dr["ExpBudget"].ToString()),
                             AP_AjaxSharing = Convert.ToDouble(dr["AP_AjaxSharing"].ToString()),
                             AI_AjaxSharing = Convert.ToDouble(dr["AI_AjaxSharing"].ToString()),
-                            AP_Unit= (dr["Unit"].ToString()),
+                            AP_Unit = (dr["Unit"].ToString()),
 
                         });
                     }
@@ -417,7 +417,7 @@ namespace Business
             }
             return listActivityPlan;
         }
-        public String SaveActivityActual(int PKPlanID, int NoofUnits, string FromDate, string ToDate, string Location, string Remarks, long UserID, int Status, string NDRemarks,double dblExpenses)
+        public String SaveActivityActual(int PKPlanID, int NoofUnits, string FromDate, string ToDate, string Location, string Remarks, long UserID, int Status, string NDRemarks, double dblExpenses)
         {
             string sReturn = "";
             try
@@ -434,7 +434,7 @@ namespace Business
                 DbParameter AA_Expense = provider.CreateParameter("AA_Expenses", dblExpenses, DbType.Double);
 
 
-                DbParameter[] Params = new DbParameter[10] { AA_FKPlanID, AA_NoofUnits, AA_FromDate, AA_ToDate, AA_Location, AA_Remarks, AA_CreatedBy,AA_Status,AA_NDRemarks, AA_Expense };
+                DbParameter[] Params = new DbParameter[10] { AA_FKPlanID, AA_NoofUnits, AA_FromDate, AA_ToDate, AA_Location, AA_Remarks, AA_CreatedBy, AA_Status, AA_NDRemarks, AA_Expense };
                 provider.Insert("YDMS_SP_TActivityActual_Save", Params, false);
                 sReturn = "Saved";
             }
@@ -445,7 +445,7 @@ namespace Business
 
             return sReturn;
         }
-        public String SaveActivityClaim(int PKActualID,int DealerID, int ActivityID, int NoofUnits, string FromDate, string ToDate, string Location, string Remarks, long UserID, double dblExpenses)
+        public String SaveActivityClaim(int PKActualID, int DealerID, int ActivityID, int NoofUnits, string FromDate, string ToDate, string Location, string Remarks, long UserID, double dblExpenses)
         {
             string sReturn = "";
             try
@@ -458,13 +458,13 @@ namespace Business
                 DbParameter AA_ToDate = provider.CreateParameter("AA_ToDate", ToDate, DbType.Date);
                 DbParameter AA_Location = provider.CreateParameter("AA_Location", Location, DbType.String);
                 DbParameter AA_Remarks = provider.CreateParameter("AA_Remarks", Remarks, DbType.String);
-                
+
                 DbParameter AA_CreatedBy = provider.CreateParameter("AA_CreatedBy", UserID, DbType.Int64);
                 DbParameter AA_Expense = provider.CreateParameter("AA_Expenses", dblExpenses, DbType.Double);
 
 
-                DbParameter[] Params = new DbParameter[10] { AA_PKActualID,AA_FKDEALERID,AA_FKActivityID, AA_NoofUnits, AA_FromDate, AA_ToDate, AA_Location, AA_Remarks, AA_CreatedBy, AA_Expense };
-                sReturn = Convert.ToInt32(provider.GetScalar("YDMS_SP_DirectActivityClaim_Save", Params)).ToString();                
+                DbParameter[] Params = new DbParameter[10] { AA_PKActualID, AA_FKDEALERID, AA_FKActivityID, AA_NoofUnits, AA_FromDate, AA_ToDate, AA_Location, AA_Remarks, AA_CreatedBy, AA_Expense };
+                sReturn = Convert.ToInt32(provider.GetScalar("YDMS_SP_DirectActivityClaim_Save", Params)).ToString();
             }
             catch (Exception ex)
             {
@@ -473,7 +473,7 @@ namespace Business
 
             return sReturn;
         }
-        public string SaveActivityAttachments(int PKPlanID, List<PDMS_ActivityDocs> lstDocs )
+        public string SaveActivityAttachments(int PKPlanID, List<PDMS_ActivityDocs> lstDocs)
         {
             string sReturn = "";
             try
@@ -483,7 +483,7 @@ namespace Business
                     DbParameter AA_FKPlanID = provider.CreateParameter("AA_FKPlanID", PKPlanID, DbType.Int32);
                     DbParameter AD_Sno = provider.CreateParameter("AD_Sno", obj.AD_Sno, DbType.Int32);
                     DbParameter AD_ContentType = provider.CreateParameter("AD_ContentType", obj.AD_ContentType, DbType.String);
-                    DbParameter AD_Description = provider.CreateParameter("AD_Description", obj.AD_Description, DbType.String);                    
+                    DbParameter AD_Description = provider.CreateParameter("AD_Description", obj.AD_Description, DbType.String);
                     DbParameter AD_FileName = provider.CreateParameter("AD_FileName", obj.AD_FileName, DbType.String);
                     DbParameter AD_AttachedFile = provider.CreateParameter("AD_AttachedFile", obj.AD_AttachedFile, DbType.Binary);
                     DbParameter AD_FileSize = provider.CreateParameter("AD_FileSize", obj.AD_FileSize, DbType.Int32);
@@ -493,7 +493,7 @@ namespace Business
 
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 sReturn = ex.Message;
             }
@@ -535,11 +535,11 @@ namespace Business
                 DbParameter AA_FKPlanID = provider.CreateParameter("AA_FKPlanID", PKPlanID, DbType.Int32);
                 DbParameter AD_Sno = provider.CreateParameter("AD_Sno", iSno, DbType.Int32);
 
-                    
-                DbParameter[] Params = new DbParameter[2] { AA_FKPlanID, AD_Sno};
+
+                DbParameter[] Params = new DbParameter[2] { AA_FKPlanID, AD_Sno };
                 provider.Insert("YDMS_SP_TActivityDocs_Delete", Params, false);
                 sReturn = "Saved";
-                
+
             }
             catch (Exception ex)
             {
@@ -548,7 +548,7 @@ namespace Business
 
             return sReturn;
         }
-        public void BindActivityActualData(GridView gvData, int DealerID,string DateOn, string FromDate, string ToDate, long  UserID)
+        public void BindActivityActualData(GridView gvData, int DealerID, string DateOn, string FromDate, string ToDate, long UserID)
         {
             DataTable dt = new DataTable();
             DbParameter DealerIDDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
@@ -577,15 +577,15 @@ namespace Business
 
             using (DataSet DataSet = provider.Select("YDMS_SP_GetData_ActivityClaim_WOPlan", Params))
             {
-                dt = DataSet.Tables[0];                
+                dt = DataSet.Tables[0];
             }
             return dt;
         }
 
-        public void BindActivityActualDataForApproval(GridView gvData, int DealerID, string FromDate, string ToDate,int AppStatus, long UserID,int AppLevel,int FAID)
+        public void BindActivityActualDataForApproval(GridView gvData, int DealerID, string FromDate, string ToDate, int AppStatus, long UserID, int AppLevel, int FAID)
         {
             DataTable dt = new DataTable();
-            DbParameter DealerIDDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);            
+            DbParameter DealerIDDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter FromDateDP = provider.CreateParameter("FromDate", FromDate, DbType.String);
             DbParameter ToDateDP = provider.CreateParameter("ToDate", ToDate, DbType.String);
             DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
@@ -634,10 +634,10 @@ namespace Business
             }
             return dt;
         }
-        public DataTable GetActivityActualDataForApproval( int DealerID, string FromDate, string ToDate, int AppStatus, long UserID, int AppLevel)
+        public DataTable GetActivityActualDataForApproval(int DealerID, string FromDate, string ToDate, int AppStatus, long UserID, int AppLevel)
         {
             DataTable dt = new DataTable();
-            
+
             DbParameter DealerIDDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter FromDateDP = provider.CreateParameter("FromDate", FromDate, DbType.String);
             DbParameter ToDateDP = provider.CreateParameter("ToDate", ToDate, DbType.String);
@@ -650,10 +650,10 @@ namespace Business
             {
                 dt = DataSet.Tables[0];
             }
-            
+
             return dt;
         }
-        public DataTable GetActivityActualDataForApproval_ForExcel(int DealerID, string FromDate, string ToDate, int AppStatus, long UserID, int AppLevel,int FAID)
+        public DataTable GetActivityActualDataForApproval_ForExcel(int DealerID, string FromDate, string ToDate, int AppStatus, long UserID, int AppLevel, int FAID)
         {
             DataTable dt = new DataTable();
 
@@ -687,13 +687,13 @@ namespace Business
 
 
         }
-        public DataSet GetActualDataByID( int PlanID )
+        public DataSet GetActualDataByID(int PlanID)
         {
             DbParameter PlanIDDP = provider.CreateParameter("PKPlanID", PlanID, DbType.Int32);
             DbParameter[] Params = new DbParameter[1] { PlanIDDP };
             DataSet dsReturn = provider.Select("YDMS_SP_ActivityActualDetail_ByID", Params);
             return dsReturn;
-            
+
         }
         public DataSet GetActivityActualDataByActualID(int ActualID)
         {
@@ -703,7 +703,7 @@ namespace Business
             return dsReturn;
 
         }
-        public string SaveActivityApproval(int AAP_FKActualID,int AAP_ApprovalLevel,long AAP_UpdatedBy,int AAP_Status,double AAP_Amount, string AAP_Remarks)
+        public string SaveActivityApproval(int AAP_FKActualID, int AAP_ApprovalLevel, long AAP_UpdatedBy, int AAP_Status, double AAP_Amount, string AAP_Remarks)
         {
             string sReturn = "";
             try
@@ -714,11 +714,11 @@ namespace Business
                 DbParameter AAP_StatusDP = provider.CreateParameter("AAP_Status", AAP_Status, DbType.Int32);
                 DbParameter AAP_AmountDP = provider.CreateParameter("AAP_Amount", AAP_Amount, DbType.Double);
                 DbParameter AAP_RemarksDP = provider.CreateParameter("AAP_Remarks", AAP_Remarks, DbType.String);
-                DbParameter[] Params = new DbParameter[6] { AAP_FKActualIDDP,AAP_ApprovalLevelDP, AAP_UpdatedByDP, AAP_StatusDP, AAP_AmountDP, AAP_RemarksDP};
+                DbParameter[] Params = new DbParameter[6] { AAP_FKActualIDDP, AAP_ApprovalLevelDP, AAP_UpdatedByDP, AAP_StatusDP, AAP_AmountDP, AAP_RemarksDP };
                 provider.Insert("YDMS_SP_ActivityApproval_Save", Params, false);
                 sReturn = "Saved";
 
-                
+
             }
             catch (Exception ex)
             {
@@ -734,9 +734,9 @@ namespace Business
             {
                 DbParameter PkActualIDDP = provider.CreateParameter("PkActualID", PkActualID, DbType.Int32);
                 DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                DbParameter[] Params = new DbParameter[2] {PkActualIDDP,UserIDDP};
-                sReturn =provider.GetScalar("YDMS_Activity_GenerateInvoice", Params).ToString();
-                
+                DbParameter[] Params = new DbParameter[2] { PkActualIDDP, UserIDDP };
+                sReturn = provider.GetScalar("YDMS_Activity_GenerateInvoice", Params).ToString();
+
 
 
             }
@@ -841,7 +841,7 @@ namespace Business
             return dsReturn;
 
         }
-        public  string Encrypt(string clearText)
+        public string Encrypt(string clearText)
         {
 
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
@@ -884,20 +884,20 @@ namespace Business
             }
             return cipherText;
         }
-        public DataTable GetInvoiceReportData_grid(int DealerID, string FromDate, string ToDate, long UserID,int Status,string ActivityType="")
+        public DataTable GetInvoiceReportData_grid(int DealerID, string FromDate, string ToDate, long UserID, int Status, string ActivityType = "")
         {
             DataTable dt = new DataTable();
             DbParameter DealerIDDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
             DbParameter FromDateDP = provider.CreateParameter("FromDate", FromDate, DbType.String);
             DbParameter ToDateDP = provider.CreateParameter("ToDate", ToDate, DbType.String);
             DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-            DbParameter StatusDP= provider.CreateParameter("Status", Status, DbType.Int32);
+            DbParameter StatusDP = provider.CreateParameter("Status", Status, DbType.Int32);
             DbParameter ActivityTypeDP = provider.CreateParameter("ActivityType", ActivityType, DbType.String);
             DbParameter[] Params = new DbParameter[6] { DealerIDDP, FromDateDP, ToDateDP, UserIDDP, StatusDP, ActivityTypeDP };
 
             using (DataSet DataSet = provider.Select("YDMS_ActivityInvoiceReport_Grid", Params))
             {
-                dt = DataSet.Tables[0];                
+                dt = DataSet.Tables[0];
             }
             return dt;
 
@@ -920,7 +920,7 @@ namespace Business
             return dt;
 
         }
-        public void UpdateInvoice_SapData(int HdrID,string SAP_Doc,string AE_Inv_Accounted_Date,string Payment_Voucher_No,DateTime? Payment_Date,double Payment_Value,double TDS)
+        public void UpdateInvoice_SapData(int HdrID, string SAP_Doc, string AE_Inv_Accounted_Date, string Payment_Voucher_No, DateTime? Payment_Date, double Payment_Value, double TDS)
         {
             DbParameter AIH_SAP_Doc = provider.CreateParameter("AIH_SAP_Doc", SAP_Doc, DbType.String);
             DbParameter AIH_AE_Inv_Accounted_Date = provider.CreateParameter("AIH_AE_Inv_Accounted_Date", AE_Inv_Accounted_Date, DbType.String);
@@ -949,8 +949,12 @@ namespace Business
             }
             return dt;
 
+        } 
+        public PAttachedFile DowloadActivityDocs(String FileName)
+        {
+            string endPoint = "MarketingActivity/DowloadActivityDocs?FileName=" + FileName;
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+            return JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
         }
     }
-    
-
 }
