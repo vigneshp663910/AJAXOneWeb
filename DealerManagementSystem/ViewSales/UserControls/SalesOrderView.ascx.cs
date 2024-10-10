@@ -283,7 +283,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else if (lbActions.ID == "lbReleaseSaleOrder")
             {
-             string   Message = new BDMS_SalesOrder().ValidationCustomerGST(SOrder.Customer.CustomerID, SOrder.Dealer.DealerID, ddlTaxType.SelectedItem.Text);
+             string   Message = new BDMS_SalesOrder().ValidationCustomerGST(SOrder.Customer.CustomerID, SOrder.Dealer.DealerID, SOrder.TaxType);
                 if (!string.IsNullOrEmpty(Message))
                 {
                     lblMessage.Text = Message;
@@ -888,6 +888,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             lblMessageSOEdit.ForeColor = Color.Red;
             lblMessageSOEdit.Text = "";
+            MPE_SaleOrderEdit.Show();
             try
             {
                 string Message = Validation();
@@ -900,7 +901,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 Message = new BDMS_SalesOrder().ValidationCustomerGST(SOrder.Customer.CustomerID, SOrder.Dealer.DealerID, ddlTaxType.SelectedItem.Text);
                 if (!string.IsNullOrEmpty(Message))
                 {
-                    lblMessage.Text = Message;
+                    lblMessageSOEdit.Text = Message;
                     return;
                 }
 
@@ -913,9 +914,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 if (Result.Status == PApplication.Failure)
                 {
                     lblMessageSOEdit.Text = Result.Message;
-                    MPE_SaleOrderEdit.Show();
+                   
                     return;
                 }
+                MPE_SaleOrderEdit.Hide();
                 lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SOrder.SaleOrderID);

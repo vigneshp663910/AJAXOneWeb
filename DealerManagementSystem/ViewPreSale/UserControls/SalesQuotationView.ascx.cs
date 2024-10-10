@@ -1657,7 +1657,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             P[29] = new ReportParameter("ShipToPartyBPCode", CustomerShipTo.CustomerCode, false);
             P[30] = new ReportParameter("Hypothecation", Hypothecation, false);
             string Div = Q.Lead.ProductType.Division.DivisionCode;
-            if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM" || Div == "CP" || Div == "SB")
+            if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM" || Div == "CP" || Div == "SB" || Div == "PS")
             {
                 P[31] = new ReportParameter("TermsandConditionHead", "TERMS & CONDITIONS:", false);
                 P[32] = new ReportParameter("PaymentTerms", "Payment Terms :", false);
