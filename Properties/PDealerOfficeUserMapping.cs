@@ -10,6 +10,12 @@ namespace Properties
     public class PDealerOfficeUserMapping
     {
         public PUser User { get; set; }
+        public PDealer Dealer { get; set; }
+        public PDMS_DealerOffice DealerOffice { get; set; }
         public Boolean IsActive { get; set; }
+        public PUser ActionGivenBy { get; set; }
+        public DateTime? ActionGivenOn { get; set; }
+        public PUser ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
     }
 }
