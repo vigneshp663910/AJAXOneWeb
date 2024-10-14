@@ -46,7 +46,7 @@ namespace Business
                             Dealer.AuthorityName = Convert.ToString(Dr["AuthorityName"]);
                             Dealer.AuthorityDesignation = Convert.ToString(Dr["AuthorityDesignation"]);
                             Dealer.AuthorityMobile = Convert.ToString(Dr["AuthorityMobile"]);
-
+                            Dealer.GSTIN = Convert.ToString(Dr["Gstin"]);
                             Dealer.IsEInvoice = Dr["EInvoiceDate"] == DBNull.Value ? false : Convert.ToBoolean(Dr["IsEInvoice"]);
                             Dealer.EInvoiceDate = Dr["EInvoiceDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(Dr["EInvoiceDate"]);
                             Dealer.ServicePaidEInvoice = Dr["ServicePaidEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(Dr["ServicePaidEInvoice"]);

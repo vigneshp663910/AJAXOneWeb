@@ -1525,7 +1525,7 @@ namespace Business
 
                 P[24] = new ReportParameter("QRCodeImg", "", false);
                 P[25] = new ReportParameter("IRN", "", false);
-                if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
+                if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD")&& (Customer.GSTIN != DealerN.GSTIN))
                 {
                     PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
                     if (EInvoiceSigned != null)
