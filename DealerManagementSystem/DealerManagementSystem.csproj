@@ -248,6 +248,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CSS\jquery-ui.css" />
+    <Content Include="CSS\Rating.css" />
     <Content Include="CSS\StyleSheet1.css" />
     <Content Include="Dashboard\FirstTimeRightForWarrantyService.aspx" />
     <Content Include="Dashboard\ICTicketEscalationOnBreakdownLevel.ascx" />
@@ -805,6 +806,8 @@
     <Content Include="ViewSupportTicket\RequestSupportTicket.aspx" />
     <Content Include="ViewAdmin\UserList.aspx" />
     <Content Include="ViewSupportTicket\SupportTicketView.aspx" />
+    <Content Include="ViewSupportTicket\TaskMeasurement.aspx" />
+    <Content Include="ViewSupportTicket\TaskSummaryDetails.aspx" />
     <Content Include="ViewSupportTicket\Task_DashboardMonthwise.aspx" />
     <Content Include="ViewSupportTicket\UserControls\SupportTicketView.ascx" />
     <Content Include="ViewSupportTicket\WaitingForApprovalSupportTicket.aspx" />
@@ -3411,6 +3414,20 @@
     </Compile>
     <Compile Include="ViewSupportTicket\SupportTicketView.aspx.designer.cs">
       <DependentUpon>SupportTicketView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\TaskMeasurement.aspx.cs">
+      <DependentUpon>TaskMeasurement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\TaskMeasurement.aspx.designer.cs">
+      <DependentUpon>TaskMeasurement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\TaskSummaryDetails.aspx.cs">
+      <DependentUpon>TaskSummaryDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\TaskSummaryDetails.aspx.designer.cs">
+      <DependentUpon>TaskSummaryDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSupportTicket\Task_DashboardMonthwise.aspx.cs">
       <DependentUpon>Task_DashboardMonthwise.aspx</DependentUpon>
