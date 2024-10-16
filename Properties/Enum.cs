@@ -616,7 +616,8 @@ namespace Properties
         StockTransferOrderCreate = 95,
         StockTransferOrderRelease = 96,
         StockTransferOrderCancel = 97,
-        CustomerEdit = 98
+        CustomerEdit = 98,
+        DealerOfficeUserMappingUpdate = 99
     }
     public enum DMS_WarrantyClaimStatus
     {

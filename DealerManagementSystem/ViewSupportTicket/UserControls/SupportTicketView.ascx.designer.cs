@@ -204,6 +204,15 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         protected global::System.Web.UI.WebControls.Label lblDescription;
 
         /// <summary>
+        /// Rating1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.Rating Rating1;
+
+        /// <summary>
         /// lblDealer control.
         /// </summary>
         /// <remarks>
@@ -256,6 +265,15 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblClosedBy;
+
+        /// <summary>
+        /// lblFeedback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFeedback;
 
         /// <summary>
         /// lblSubject control.
@@ -1183,5 +1201,113 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_Resolve;
+
+        /// <summary>
+        /// pnlClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlClose;
+
+        /// <summary>
+        /// Label10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label10;
+
+        /// <summary>
+        /// Button6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button6;
+
+        /// <summary>
+        /// lblMsgClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsgClose;
+
+        /// <summary>
+        /// Fieldset6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset6;
+
+        /// <summary>
+        /// lblCFeedBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCFeedBack;
+
+        /// <summary>
+        /// txtFeedBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFeedBack;
+
+        /// <summary>
+        /// lblRating control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRating;
+
+        /// <summary>
+        /// Rating control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.Rating Rating;
+
+        /// <summary>
+        /// HidRating control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HidRating;
+
+        /// <summary>
+        /// btnClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnClose;
+
+        /// <summary>
+        /// MPE_Close control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_Close;
     }
 }

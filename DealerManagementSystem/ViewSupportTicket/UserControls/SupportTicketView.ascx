@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SupportTicketView.ascx.cs" Inherits="DealerManagementSystem.ViewSupportTicket.UserControls.SupportTicketView" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<link rel="stylesheet" href="../../CSS/Rating.css">
 <div class="col-md-12">
     <div class="action-btn">
         <div class="" id="boxHere"></div>
@@ -55,6 +56,13 @@
                     <label>Description: </label>
                     <asp:Label ID="lblDescription" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Rating: </label>
+                    <ajaxToolkit:Rating runat="server" ID="Rating1" Enabled="false"
+                        MaxRating="5" CssClass="ratingStar" StarCssClass="ratingItem" WaitingStarCssClass="Saved" 
+                        FilledStarCssClass="Filled" EmptyStarCssClass="Empty">
+                    </ajaxToolkit:Rating>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
@@ -80,6 +88,10 @@
                 <div class="col-md-12">
                     <label>ClosedBy : </label>
                     <asp:Label ID="lblClosedBy" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Feedback : </label>
+                    <asp:Label ID="lblFeedback" runat="server" CssClass="label"></asp:Label>
                 </div>
             </div>
             <div class="col-md-4">
@@ -221,6 +233,30 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblAssignedByContactNumber" Text='<%# DataBinder.Eval(Container.DataItem, "AssignedBy.ContactNumber")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Creation To AssignedHrs">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCreationToAssignedHrs" Text='<%# DataBinder.Eval(Container.DataItem, "CreationToAssignedHrs")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Creation To ResolvedHrs">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCreationToResolvedHrs" Text='<%# DataBinder.Eval(Container.DataItem, "CreationToResolvedHrs")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Assigned To ResolvedHrs">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblAssignedToResolvedHrs" Text='<%# DataBinder.Eval(Container.DataItem, "AssignedToResolvedHrs")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Inprogress To ResolvedHrs">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblInprogressToResolvedHrs" Text='<%# DataBinder.Eval(Container.DataItem, "InprogressToResolvedHrs")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Active">
@@ -496,7 +532,7 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_SendApproval" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlSendApproval" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-<asp:Panel ID="pnResolve" runat="server" CssClass="Popup" Style="display: none;overflow-y: scroll;">
+<asp:Panel ID="pnResolve" runat="server" CssClass="Popup" Style="display: none; overflow-y: scroll;">
     <div class="PopupHeader clearfix">
         <span id="PopupDialogue">
             <asp:Label ID="Label14" runat="server" Text="Resolve"></asp:Label></span><a href="#" role="button">
@@ -624,3 +660,33 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_Resolve" runat="server" TargetControlID="lnkMPE" PopupControlID="pnResolve" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<asp:Panel ID="pnlClose" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">
+            <asp:Label ID="Label10" runat="server" Text="Close"></asp:Label></span><a href="#" role="button">
+                <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <asp:Label ID="lblMsgClose" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <fieldset class="fieldset-border" id="Fieldset6" runat="server">
+            <div class="col-md-12">
+                <div class="col-md-12 col-sm-12">
+                    <asp:Label ID="lblCFeedBack" runat="server" Text="FeedBack" CssClass="label"></asp:Label>
+                    <asp:TextBox ID="txtFeedBack" runat="server" TextMode="MultiLine" CssClass="TextBox form-control"></asp:TextBox>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <asp:Label ID="lblRating" runat="server" Text="Rating" CssClass="label"></asp:Label>
+                    <ajaxToolkit:Rating runat="server" ID="Rating" Width="125px" MaxRating="5" CurrentRating="5"
+                        CssClass="ratingStar" StarCssClass="ratingItem" WaitingStarCssClass="Saved"
+                        FilledStarCssClass="Filled" EmptyStarCssClass="Empty" AutoPostBack="True" OnClick="Rating_Click">
+                    </ajaxToolkit:Rating>
+                    <asp:HiddenField ID="HidRating" runat="server" Value="5" />
+                </div>
+            </div>
+        </fieldset>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnClose" runat="server" Text="Close" CssClass="InputButton btn Save" Width="100px" OnClick="btnClose_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_Close" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlClose" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />

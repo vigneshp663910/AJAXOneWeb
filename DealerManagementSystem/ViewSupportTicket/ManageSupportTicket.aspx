@@ -6,70 +6,6 @@
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <%--<script type="text/javascript">
-        $(document).ready(function () {
-
-            var asnQunatity = 0;
-            var gvTickets = document.getElementById('MainContent_gvTickets');
-
-            if (gvTickets != null) {
-                for (var i = 0; i < gvTickets.rows.length - 1; i++) {
-
-                    var lblTicketSeverity = document.getElementById('MainContent_gvTickets_lblTicketSeverity_' + i);
-                    var lblTicketStatus = document.getElementById('MainContent_gvTickets_lblTicketStatus_' + i);
-                    var lblCreatedOn = document.getElementById('MainContent_gvTickets_lblCreatedOn_' + i);
-
-                    if (lblCreatedOn != null) {
-
-
-
-                        var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
-
-                        var dt = new Date(lblCreatedOn.innerText.replace(pattern, '$3-$2-$1'));
-                        if (dt == "Invalid Date") {
-                            var CreatedOn = lblCreatedOn.innerText.split('/');
-                            dt = new Date(CreatedOn[2].split(' ')[0], CreatedOn[1] - 1, CreatedOn[0]);
-                        }
-
-                        var someDate = new Date();
-
-                        if (lblTicketSeverity.innerHTML == "SEVERITY  1 -  Address The call within 4 hrs") {
-                            if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
-                                someDate.setDate(someDate.getDate() - 1);
-                                if (dt < someDate) {
-                                    lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
-                                }
-                            }
-                        }
-                        else if (lblTicketSeverity.innerHTML == "SEVERITY  2  -  Address the call with 2days") {
-                            if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
-                                someDate.setDate(someDate.getDate() - 2);
-                                if (dt < someDate) {
-                                    lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
-                                }
-                            }
-                        }
-                        else if (lblTicketSeverity.innerHTML == "SEVERITY  3  - Address the call with in 1 week") {
-                            if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
-                                someDate.setDate(someDate.getDate() - 7);
-                                if (dt < someDate) {
-                                    lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f";
-                                }
-                            }
-                        }
-                        else if (lblTicketSeverity.innerHTML == "SEVERITY  4  - Address the call with in 1 month") {
-                            if ((lblTicketStatus.innerHTML == "Assigned") || (lblTicketStatus.innerHTML == "In Progress")) {
-                                someDate.setDate(someDate.getDate() - 31);
-                                if (dt < someDate) {
-                                    lblTicketSeverity.parentNode.parentNode.style.background = "#ef5f5f"; ss
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>--%>
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Width="100%" Visible="false" />
     <div class="col-md-12" id="divList" runat="server">
         <div class="col-md-12">
@@ -135,7 +71,6 @@
             <fieldset class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                 <div class="col-md-12 Report">
-
                     <div class="boxHead">
                         <div class="logheading">
                             <div style="float: left">
@@ -154,11 +89,10 @@
                             </div>
                         </div>
                     </div>
-
                     <asp:GridView ID="gvTickets" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvTickets_PageIndexChanging">
                         <Columns>
-                            <asp:TemplateField HeaderText="Ticket ID">
+                            <asp:TemplateField HeaderText="">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 <ItemTemplate>
                                     <asp:ImageButton ID="ibMessage" runat="server" Width="30px" OnClick="ibMessage_Click" />

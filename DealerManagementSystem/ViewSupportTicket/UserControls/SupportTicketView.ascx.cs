@@ -399,8 +399,10 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
 
             lblDescription.Text = Ticket[0].Description;
             lblClosedBy.Text = (Ticket[0].ClosedBy == null) ? "" : Ticket[0].ClosedBy.ContactName;
-            lblClosedOn.Text = (Ticket[0].ClosedBy == null) ? "" : Ticket[0].ClosedOn.ToString();
+            lblClosedOn.Text = (Ticket[0].ClosedOn == null) ? "" : Ticket[0].ClosedOn.ToString();
 
+            lblFeedback.Text = Ticket[0].Feedback;
+            Rating1.CurrentRating = (Ticket[0].Rating == null) ? 0 : Convert.ToInt32(Ticket[0].Rating);            
             //gvTickets.DataSource = Ticket;
             //gvTickets.DataBind();
 
@@ -1476,10 +1478,17 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
         }
         void Close()
         {
+            MPE_Close.Show();
+        }
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
             if (Ticket[0].Status.StatusID == 4)
             {
-                //int Success = new BTickets().UpdateTicketClosedStatus(Ticket[0].HeaderID, PSession.User.UserID);
-                string result = new BAPI().ApiPut("Task/UpdateTicketClosedStatus", Ticket[0].HeaderID);
+                PTask_Insert Task = new PTask_Insert();
+                Task.HeaderID = Ticket[0].HeaderID;
+                Task.Feedback = txtFeedBack.Text;
+                Task.Rating = Convert.ToInt32(Rating.CurrentRating);
+                string result = new BAPI().ApiPut("Task/UpdateTicketClosedStatus", Task);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
 
                 if (Result.Status == PApplication.Success)
@@ -1493,6 +1502,19 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
                     FillChatTemp(TicketNo);
                 }
             }
+        }
+        protected void Rating_Click(object sender, AjaxControlToolkit.RatingEventArgs e)
+        {
+            HidRating.Value = Evaluate(int.Parse(e.Value), Rating.MaxRating, 0, 5);
+            Rating.CurrentRating = Convert.ToInt32(Math.Round(Convert.ToDecimal(HidRating.Value)));
+            MPE_Close.Show();
+        }
+        public static string Evaluate(int value, int maximalValue, int minimumRange, int maximumRange)
+        {
+            int stepDelta = (minimumRange == 0) ? 1 : 0;
+            double delta = (double)(maximumRange - minimumRange) / (maximalValue - 1);
+            double result = (delta * value - delta * stepDelta);
+            return String.Format("{0:g}", value);
         }
         void Reopen()
         {
@@ -1660,9 +1682,9 @@ namespace DealerManagementSystem.ViewSupportTicket.UserControls
 
                 string CC = string.Empty;
                 int mailindex = 0;
-                foreach(PUser user in AjaxEmployee)
+                foreach (PUser user in AjaxEmployee)
                 {
-                    CC += (mailindex==0)? user.Mail : "," + user.Mail;
+                    CC += (mailindex == 0) ? user.Mail : "," + user.Mail;
                     mailindex += 1;
                 }
 

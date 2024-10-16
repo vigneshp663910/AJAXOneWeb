@@ -21,6 +21,8 @@ namespace Properties
         public string ContactName { get; set; }
         public int? PriorityLevel { get; set; }
         public int? UATBy { get; set; }
+        public string Feedback { get; set; }
+        public int Rating { get; set; }
         public List<PAttachedFile> AttchedFile { get; set; }
     }
     public class PTaskItem_Insert
@@ -84,6 +86,8 @@ namespace Properties
         public DateTime? UATOn { get; set; }
         public string UATRemark { get; set; }
         public string SLA { get; set; }
+        public string Feedback { get; set; }
+        public int? Rating { get; set; }
     }
     [Serializable]
     public class PTicketItem
@@ -113,6 +117,10 @@ namespace Properties
         public DateTime? InProgressOn { get; set; }
         public DateTime? ResolvedOn { get; set; }
         public bool? InActive { get; set; }
+        public decimal? CreationToAssignedHrs { get; set; }
+        public decimal? CreationToResolvedHrs { get; set; }
+        public decimal? AssignedToResolvedHrs { get; set; }
+        public decimal? InprogressToResolvedHrs { get; set; }
     }
     [Serializable]
     public class PForum

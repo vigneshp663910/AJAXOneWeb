@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewAdmin
+namespace DealerManagementSystem.ViewSupportTicket
 {
 
 
-    public partial class DealerOfficeUserMapping
+    public partial class TaskMeasurement
     {
 
         /// <summary>
@@ -24,141 +24,6 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// tbpDealerOfficeUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer tbpDealerOfficeUser;
-
-        /// <summary>
-        /// tpnlDealerOfficeUserReport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpnlDealerOfficeUserReport;
-
-        /// <summary>
-        /// divRpt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRpt;
-
-        /// <summary>
-        /// ddlRDealer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRDealer;
-
-        /// <summary>
-        /// ddlEmployee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEmployee;
-
-        /// <summary>
-        /// ddlROffice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlROffice;
-
-        /// <summary>
-        /// ddlRDepartment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRDepartment;
-
-        /// <summary>
-        /// ddlRDesignation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRDesignation;
-
-        /// <summary>
-        /// btnRSearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRSearch;
-
-        /// <summary>
-        /// btnExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExcel;
-
-        /// <summary>
-        /// lblRRowCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRRowCount;
-
-        /// <summary>
-        /// ibtnRArrowLeft control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnRArrowLeft;
-
-        /// <summary>
-        /// ibtnRArrowRight control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnRArrowRight;
-
-        /// <summary>
-        /// gvDealerOfficeUserReport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDealerOfficeUserReport;
-
-        /// <summary>
-        /// tpnlDealerOfficeUserMapping control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel tpnlDealerOfficeUserMapping;
-
-        /// <summary>
         /// divList control.
         /// </summary>
         /// <remarks>
@@ -166,6 +31,60 @@ namespace DealerManagementSystem.ViewAdmin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
+
+        /// <summary>
+        /// txtTicketNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTicketNo;
+
+        /// <summary>
+        /// txtTicketFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTicketFrom;
+
+        /// <summary>
+        /// txtTicketTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtTicketTo;
+
+        /// <summary>
+        /// ddlCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+
+        /// <summary>
+        /// ddlSubcategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubcategory;
+
+        /// <summary>
+        /// lbStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lbStatus;
 
         /// <summary>
         /// ddlDealer control.
@@ -177,13 +96,22 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
-        /// ddlOffice control.
+        /// ddlCreatedBy control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlOffice;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCreatedBy;
+
+        /// <summary>
+        /// ddlAssignedTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlAssignedTo;
 
         /// <summary>
         /// ddlDepartment control.
@@ -195,22 +123,22 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.DropDownList ddlDepartment;
 
         /// <summary>
-        /// ddlDesignation control.
+        /// ddlSLA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSLA;
 
         /// <summary>
-        /// ddlIsActive control.
+        /// ddlRating control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlIsActive;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRating;
 
         /// <summary>
         /// btnSearch control.
@@ -249,21 +177,12 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
 
         /// <summary>
-        /// gvDealerOfficeUserMapping control.
+        /// gvTickets control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDealerOfficeUserMapping;
-
-        /// <summary>
-        /// BtnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSave;
+        protected global::System.Web.UI.WebControls.GridView gvTickets;
     }
 }
