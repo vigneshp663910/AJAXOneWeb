@@ -61,6 +61,10 @@ namespace Business
             string endPoint = "SaleOrderReturn/UpdateSaleOrderReturnStatus?SaleOrderReturnID=" + SaleOrderReturnID + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-         
+        public SalesReturnCreditFileDetails GetSaleOrderReturnCreditNoteFileDetails(long SaleOrderReturnID)
+        {
+            string endPoint = "SaleOrderReturn/GetSaleOrderReturnCreditNoteFileDetails?SaleOrderReturnID=" + SaleOrderReturnID;
+            return JsonConvert.DeserializeObject<SalesReturnCreditFileDetails>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

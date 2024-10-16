@@ -233,8 +233,107 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lblMessageSoReturn.ForeColor = Color.Red;
             }
         }
+        //Byte[] SalesReturnCreditNoteRdlc(out string mimeType)
+        //{
+        //    string extension;
+        //    string encoding;
+        //    string[] streams;
+        //    Warning[] warnings;
+        //    LocalReport report = new LocalReport();
+        //    report.EnableExternalImages = true;
+
+        //    PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerID)[0];
+        //    string DealerAddress1 = (Dealer.Address.Address1 + (string.IsNullOrEmpty(Dealer.Address.Address2) ? "" : "," + Dealer.Address.Address2) + (string.IsNullOrEmpty(Dealer.Address.Address3) ? "" : "," + Dealer.Address.Address3)).Trim(',', ' ');
+        //    string DealerAddress2 = (Dealer.Address.City + (string.IsNullOrEmpty(Dealer.Address.State.State) ? "" : "," + Dealer.Address.State.State) + (string.IsNullOrEmpty(Dealer.Address.Pincode) ? "" : "-" + Dealer.Address.Pincode)).Trim(',', ' ');
+
+        //    string CustomerAddress1 = "", CustomerAddress2 = "", StateCode = "", GSTIN = "", PAN = "", CustomerCode = "", CustomerName = "";
+
+        //    PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Customer.CustomerID);
+        //    CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+        //    CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
+        //    ReportParameter[] P = new ReportParameter[18];
+
+        //    P[0] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
+        //    P[1] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
+        //    P[2] = new ReportParameter("DealerAddress1", DealerAddress1, false);
+        //    P[3] = new ReportParameter("DealerAddress2", DealerAddress2, false);
+        //    P[4] = new ReportParameter("Remarks", SaleOrderReturnByID.Remarks, false);
+        //    P[5] = new ReportParameter("TaxAmount", "", false);
+        //    P[6] = new ReportParameter("NetAmount", "", false);
+        //    P[7] = new ReportParameter("SalesReturnOrderNo", SaleOrderReturnByID.SaleOrderReturnNumber, false);
+        //    P[8] = new ReportParameter("OrderDate", SaleOrderReturnByID.SaleOrderReturnDate.ToShortDateString(), false);
+        //    P[9] = new ReportParameter("RefInvoice", SaleOrderReturnByID.SaleOrderDelivery.InvoiceNumber, false);
+        //    P[10] = new ReportParameter("InvoiceCreditNoteNo", SaleOrderReturnByID.CreditNoteNumber, false);
+        //    P[11] = new ReportParameter("Date", (SaleOrderReturnByID.CreditNoteDate == null) ? "" : Convert.ToDateTime(SaleOrderReturnByID.CreditNoteDate).ToShortDateString(), false);
+        //    P[12] = new ReportParameter("Customer", SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Customer.CustomerCode, false);
+        //    P[13] = new ReportParameter("Dealer", SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerCode, false);
+        //    P[14] = new ReportParameter("CustomerName", Customer.CustomerName.ToUpper(), false);
+        //    P[15] = new ReportParameter("DealerName", SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerName.ToUpper(), false);
+        //    P[16] = new ReportParameter("IRNNo", "", false);
+        //    P[17] = new ReportParameter("QRCodeImg", "", false);
+
+        //    PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerID, null, null, null)[0];
+        //    if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= SaleOrderReturnByID.CreditNoteDate) && (Customer.GSTIN != "URD"))
+        //    {
+        //        PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderReturnCreditNoteESigned(SaleOrderReturnByID.SaleOrderReturnID);
+        //        if (EInvoiceSigned != null)
+        //        {
+        //            if (string.IsNullOrEmpty(EInvoiceSigned.SignedQRCode))
+        //            {
+        //                throw new Exception("E Invoice not generated.: " + EInvoiceSigned.Comments);
+        //            }
+        //        }
+
+        //        if (string.IsNullOrEmpty(SaleOrderReturnByID.IRN))
+        //        {
+        //            throw new Exception("E Invoice not generated. Please contact IT Team.");
+        //        }
+        //        else
+        //        {                    
+        //            P[16] = new ReportParameter("IRNNo", "IRN : " + SaleOrderReturnByID.IRN, false);
+        //            P[17] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderReturnByID.CreditNoteNumber), false);
+        //        }
+
+        //    }
+
+        //        DataTable dtItem = new DataTable();
+        //    dtItem.Columns.Add("ItemNo");
+        //    dtItem.Columns.Add("PartNo");
+        //    dtItem.Columns.Add("Description");
+        //    dtItem.Columns.Add("Qty");
+        //    dtItem.Columns.Add("Uom");
+        //    dtItem.Columns.Add("UnitPrice");
+        //    dtItem.Columns.Add("Gross");
+        //    dtItem.Columns.Add("Tax");
+        //    dtItem.Columns.Add("Net");
+
+        //    int sno = 0;
+        //    decimal  TaxAmount = 0, NetAmount = 0;
+        //    foreach (PSaleOrderReturnItem Item in SaleOrderReturnByID.SaleOrderReturnItems)
+        //    {
+        //        dtItem.Rows.Add(sno += 1, Item.SaleOrderDeliveryItem.Material.MaterialCode, Item.SaleOrderDeliveryItem.Material.MaterialDescription, Item.Qty.ToString("0"), Item.SaleOrderDeliveryItem.Material.BaseUnit, String.Format("{0:n}", (Item.SaleOrderDeliveryItem.TaxableValue / Item.Qty)), String.Format("{0:n}", Item.SaleOrderDeliveryItem.TaxableValue), String.Format("{0:n}", (Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue)), String.Format("{0:n}", (Item.SaleOrderDeliveryItem.TaxableValue + Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue)));
+        //       // TaxableValue += Item.SaleOrderDeliveryItem.TaxableValue;
+        //        TaxAmount += Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue;
+        //        NetAmount += Item.SaleOrderDeliveryItem.TaxableValue + Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue;
+        //    }
+        //    P[5] = new ReportParameter("TaxAmount", String.Format("{0:n}", TaxAmount), false);
+        //    P[6] = new ReportParameter("NetAmount", String.Format("{0:n}", NetAmount), false);
+
+        //    report.ReportPath = Server.MapPath("~/Print/SalesInvoiceCreditNote.rdlc");
+        //    report.SetParameters(P);
+        //    ReportDataSource rds = new ReportDataSource();
+        //    rds.Name = "SalesInvoiceCreditNote";//This refers to the dataset name in the RDLC file  
+        //    rds.Value = dtItem;
+        //    report.DataSources.Add(rds);
+        //    Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
+
+        //    return mybytes;
+        //}
         Byte[] SalesReturnCreditNoteRdlc(out string mimeType)
         {
+
+            SalesReturnCreditFileDetails CreditFile =  new BSalesOrderReturn().GetSaleOrderReturnCreditNoteFileDetails(SaleOrderReturnByID.SaleOrderReturnID);
             string extension;
             string encoding;
             string[] streams;
@@ -246,12 +345,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             string DealerAddress1 = (Dealer.Address.Address1 + (string.IsNullOrEmpty(Dealer.Address.Address2) ? "" : "," + Dealer.Address.Address2) + (string.IsNullOrEmpty(Dealer.Address.Address3) ? "" : "," + Dealer.Address.Address3)).Trim(',', ' ');
             string DealerAddress2 = (Dealer.Address.City + (string.IsNullOrEmpty(Dealer.Address.State.State) ? "" : "," + Dealer.Address.State.State) + (string.IsNullOrEmpty(Dealer.Address.Pincode) ? "" : "-" + Dealer.Address.Pincode)).Trim(',', ' ');
 
-            string CustomerAddress1 = "", CustomerAddress2 = "", StateCode = "", GSTIN = "", PAN = "", CustomerCode = "", CustomerName = "";
+            //string CustomerAddress1 = "", CustomerAddress2 = "", StateCode = "", GSTIN = "", PAN = "", CustomerCode = "", CustomerName = "";
 
             PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Customer.CustomerID);
-            CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-            CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-            
+            string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
+            string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
+
             ReportParameter[] P = new ReportParameter[18];
 
             P[0] = new ReportParameter("CustomerAddress1", CustomerAddress1, false);
@@ -268,13 +367,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[11] = new ReportParameter("Date", (SaleOrderReturnByID.CreditNoteDate == null) ? "" : Convert.ToDateTime(SaleOrderReturnByID.CreditNoteDate).ToShortDateString(), false);
             P[12] = new ReportParameter("Customer", SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Customer.CustomerCode, false);
             P[13] = new ReportParameter("Dealer", SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerCode, false);
-            P[14] = new ReportParameter("CustomerName", Customer.CustomerName.ToUpper(), false);
+            P[14] = new ReportParameter("CustomerName", CreditFile.CustomerName.ToUpper(), false);
             P[15] = new ReportParameter("DealerName", SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerName.ToUpper(), false);
             P[16] = new ReportParameter("IRNNo", "", false);
             P[17] = new ReportParameter("QRCodeImg", "", false);
-             
+
             PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(SaleOrderReturnByID.SaleOrderDelivery.SaleOrder.Dealer.DealerID, null, null, null)[0];
-            if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= SaleOrderReturnByID.CreditNoteDate) && (Customer.GSTIN != "URD"))
+            if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= SaleOrderReturnByID.CreditNoteDate) && (CreditFile.CustomerGSTIN != "URD"))
             {
                 PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderReturnCreditNoteESigned(SaleOrderReturnByID.SaleOrderReturnID);
                 if (EInvoiceSigned != null)
@@ -290,14 +389,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     throw new Exception("E Invoice not generated. Please contact IT Team.");
                 }
                 else
-                {                    
+                {
                     P[16] = new ReportParameter("IRNNo", "IRN : " + SaleOrderReturnByID.IRN, false);
                     P[17] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderReturnByID.CreditNoteNumber), false);
                 }
 
             }
 
-                DataTable dtItem = new DataTable();
+            DataTable dtItem = new DataTable();
             dtItem.Columns.Add("ItemNo");
             dtItem.Columns.Add("PartNo");
             dtItem.Columns.Add("Description");
@@ -309,11 +408,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
             dtItem.Columns.Add("Net");
 
             int sno = 0;
-            decimal  TaxAmount = 0, NetAmount = 0;
+            decimal TaxAmount = 0, NetAmount = 0;
             foreach (PSaleOrderReturnItem Item in SaleOrderReturnByID.SaleOrderReturnItems)
             {
                 dtItem.Rows.Add(sno += 1, Item.SaleOrderDeliveryItem.Material.MaterialCode, Item.SaleOrderDeliveryItem.Material.MaterialDescription, Item.Qty.ToString("0"), Item.SaleOrderDeliveryItem.Material.BaseUnit, String.Format("{0:n}", (Item.SaleOrderDeliveryItem.TaxableValue / Item.Qty)), String.Format("{0:n}", Item.SaleOrderDeliveryItem.TaxableValue), String.Format("{0:n}", (Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue)), String.Format("{0:n}", (Item.SaleOrderDeliveryItem.TaxableValue + Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue)));
-               // TaxableValue += Item.SaleOrderDeliveryItem.TaxableValue;
+                // TaxableValue += Item.SaleOrderDeliveryItem.TaxableValue;
                 TaxAmount += Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue;
                 NetAmount += Item.SaleOrderDeliveryItem.TaxableValue + Item.SaleOrderDeliveryItem.CGSTValue + Item.SaleOrderDeliveryItem.SGSTValue + Item.SaleOrderDeliveryItem.IGSTValue;
             }
@@ -330,6 +429,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             return mybytes;
         }
+
+
         void DownloadSalesReturnCreditNote()
         {
             try

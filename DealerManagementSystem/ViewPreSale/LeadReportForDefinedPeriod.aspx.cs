@@ -530,7 +530,8 @@ namespace DealerManagementSystem.ViewPreSale
             S.LeadDateFrom = string.IsNullOrEmpty(txtLeadDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateFrom.Text.Trim());
             S.LeadDateTo = string.IsNullOrEmpty(txtLeadDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtLeadDateTo.Text.Trim());
 
-            S.DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); //Convert.ToInt32(lblDealerID.Text);
+            //S.DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue); //Convert.ToInt32(lblDealerID.Text);
+            S.DealerID = Convert.ToInt32(lblDealerID.Text);
             S.SalesEngineerID = Convert.ToInt32(lblEnggUserID.Text);
 
             S.ProductTypeID = 0;
