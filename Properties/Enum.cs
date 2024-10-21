@@ -617,7 +617,9 @@ namespace Properties
         StockTransferOrderRelease = 96,
         StockTransferOrderCancel = 97,
         CustomerEdit = 98,
-        DealerOfficeUserMappingUpdate = 99
+        DealerOfficeUserMappingUpdate = 99,
+        UserPurchaseOrderTypeMappingUpdate = 100,
+        SaleOrderDeliveryCancel = 101,
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -918,7 +920,9 @@ namespace Properties
         PartsSalesType_Workshop = 49,
         PartsSalesType_CounterSale = 50,
         PaymentMode_Cash = 51,
-        PartsSalesType_Engineer = 52
+        PartsSalesType_Engineer = 52,
+        PaymentMode_Credit = 53,
+        SaleOrderDelivery_Cancelled=54
     }
     public enum ProcurementStatusHeader
     {

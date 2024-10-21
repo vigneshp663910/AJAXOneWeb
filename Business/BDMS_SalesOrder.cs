@@ -1259,7 +1259,11 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/GenerateSaleInvoice?SaleOrderDeliveryID=" + SaleOrderDeliveryID));
 
         }
+        public PApiResult UpdateSaleOrderDeliveryCancel(long SaleOrderDeliveryID)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderDeliveryCancel?SaleOrderDeliveryID=" + SaleOrderDeliveryID));
 
+        }
         public PSaleOrderItem_Insert ReadItem(PDMS_Material m, int DealerID, int DealerOfficeID, int Qty, string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, decimal IDiscountPercentage, string TaxType)
         {
             PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();

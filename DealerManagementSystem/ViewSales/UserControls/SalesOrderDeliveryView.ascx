@@ -13,6 +13,7 @@
             <div class="dropdown-content" style="font-size: small; margin-left: -105px">
                 <asp:LinkButton ID="lbPreviewDC" runat="server" OnClick="lbActions_Click">Preview DC</asp:LinkButton>
                 <asp:LinkButton ID="lbDowloadDC" runat="server" OnClick="lbActions_Click">Dowload DC</asp:LinkButton>
+                <asp:LinkButton ID="lbCancel" runat="server" OnClick="lbActions_Click">Cancel Delivery</asp:LinkButton>
                 <asp:LinkButton ID="lbGenerateInvoice" runat="server" OnClick="lbActions_Click">Generate Invoice</asp:LinkButton>
                 <asp:LinkButton ID="lbUpdateShippingDetails" runat="server" OnClick="lbActions_Click">Update Shipping Details</asp:LinkButton>
                 <asp:LinkButton ID="lbPreviewInvoice" runat="server" OnClick="lbActions_Click">Preview Invoice</asp:LinkButton>

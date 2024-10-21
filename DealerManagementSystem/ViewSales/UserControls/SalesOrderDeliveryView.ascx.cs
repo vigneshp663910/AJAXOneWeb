@@ -81,6 +81,19 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 DownloadSalesDeliveryChallan();
             }
+            else if (lbActions.ID == "lbCancel")
+            {
+                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderDeliveryCancel(SODeliveryID);
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Green;
+                fillViewSODelivery(SODeliveryID);
+            }
             else if (lbActions.ID == "lbGenerateInvoice")
             {
                 PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
@@ -453,13 +466,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lbUpdateShippingDetails.Visible = true;
             lbPreviewInvoice.Visible = true;
             lbDowloadInvoice.Visible = true;
+            lbCancel.Visible = true;
             if (SaleOrderDeliveryByID.SaleOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder)
             {
                 lbGenerateInvoice.Visible = false;
                 lbPreviewInvoice.Visible = false;
                 lbDowloadInvoice.Visible = false;
             }
-
             if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_InvoicePending)
             {
                 if (SaleOrderDeliveryByID.SaleOrder.SaleOrderType.SaleOrderTypeID != (short)SaleOrderType.WarrantyOrder)
@@ -472,13 +485,30 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Invoiced)
             {
                 lbGenerateInvoice.Visible = false;
+                lbCancel.Visible = false;
             }
             else if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Shipped)
             {
                 lbGenerateInvoice.Visible = false;
                 lbUpdateShippingDetails.Visible = false;
+                lbCancel.Visible = false;
+            }
+            else if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Cancelled)
+            {
+                lbGenerateInvoice.Visible = false;
+                lbUpdateShippingDetails.Visible = false;
+                lbPreviewInvoice.Visible = false;
+                lbDowloadInvoice.Visible = false;
+                lbCancel.Visible = false;
+                lbPreviewDC.Visible = false;
+                lbDowloadDC.Visible = false;
             }
 
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SaleOrderDeliveryCancel).Count() == 0)
+            {
+                lbCancel.Visible = false;
+            }
         }
         void ibPDF_Click()
         {
