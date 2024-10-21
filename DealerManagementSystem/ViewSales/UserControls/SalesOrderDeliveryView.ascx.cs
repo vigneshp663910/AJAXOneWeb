@@ -484,14 +484,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Invoiced)
             {
-                lbGenerateInvoice.Visible = false;
-                lbCancel.Visible = false;
+                lbGenerateInvoice.Visible = false; 
             }
             else if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Shipped)
             {
                 lbGenerateInvoice.Visible = false;
-                lbUpdateShippingDetails.Visible = false;
-                lbCancel.Visible = false;
+                lbUpdateShippingDetails.Visible = false; 
             }
             else if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Cancelled)
             {
@@ -502,6 +500,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbCancel.Visible = false;
                 lbPreviewDC.Visible = false;
                 lbDowloadDC.Visible = false;
+            }
+            if (!string.IsNullOrEmpty(SaleOrderDeliveryByID.InvoiceNumber))
+            {
+                lbCancel.Visible = false;
             }
 
             List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;

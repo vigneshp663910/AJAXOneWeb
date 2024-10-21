@@ -392,6 +392,8 @@ namespace Business
                 + RowTH.Replace("@@RowTH", "Model")
                 + RowTH.Replace("@@RowTH", "Serial No")
                 + RowTH.Replace("@@RowTH", "Warranty Status")
+                + RowTH.Replace("@@RowTH", "State")
+                + RowTH.Replace("@@RowTH", "Respective TSM Name")
                 + "</tr></thead><tbody>";
             string Row = "";
             foreach (PDMS_MTTR_New MTTR in MTTRs)
@@ -419,6 +421,8 @@ namespace Business
                     + RowTD.Replace("@@RowTD", MTTR.ICTicket.Equipment.EquipmentModel.Model)
                     + RowTD.Replace("@@RowTD", MTTR.ICTicket.Equipment.EquipmentSerialNo)
                     + RowTD.Replace("@@RowTD", MTTR.ICTicket.IsWarranty == true ? "Yes" : "No")
+                    + RowTD.Replace("@@RowTD", MTTR.ICTicket.Address.State.State)
+                    + RowTD.Replace("@@RowTD", MTTR.ICTicket.Dealer.TL.ContactName)
                     + "</tr>";
             }
             string Bottom = "</tbody></table><p>Thank You !</p></div></form></div></body></html>";
@@ -491,7 +495,12 @@ namespace Business
                             W.ICTicketID = Convert.ToInt64(dr["ICTicketID"]);
                             W.ICTicket.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
                             W.ICTicket.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-                            W.ICTicket.Dealer = new PDMS_Dealer() { DealerCode = Convert.ToString(dr["DealerCode"]), DealerName = Convert.ToString(dr["DealerName"]) };
+                            W.ICTicket.Dealer = new PDMS_Dealer()
+                            {
+                                DealerCode = Convert.ToString(dr["DealerCode"]),
+                                DealerName = Convert.ToString(dr["DealerName"]),
+                                TL = new PUser() { ContactName = Convert.ToString(dr["TLContactName"]) }
+                            };
                             W.ICTicket.Customer = new PDMS_Customer() { CustomerCode = Convert.ToString(dr["CustomerCode"]), CustomerName = Convert.ToString(dr["CustomerName"]) };
                             W.ICTicket.ContactPerson = Convert.ToString(dr["ContactPerson"]);
                             W.ICTicket.PresentContactNumber = Convert.ToString(dr["PresentContactNumber"]);
@@ -500,6 +509,10 @@ namespace Business
                             W.ICTicket.Equipment.EquipmentModel = new PDMS_Model() { Model = Convert.ToString(dr["Model"]) };
                             W.ICTicket.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
                             W.ICTicket.IsWarranty = Convert.ToBoolean(dr["IsWarranty"]);
+                            W.ICTicket.Address = new PDMS_Address()
+                            {
+                                State = new PDMS_State() { State = Convert.ToString(dr["State"]) }
+                            }; 
                         }
                     }
                 }
