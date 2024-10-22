@@ -2192,7 +2192,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnArrivalBack.Visible = false;
             }
 
-            if ((Boolean)SDMS_ICTicket.IsLocked)
+            if ((Boolean)SDMS_ICTicket.IsLocked || SDMS_ICTicket.ICTicketDate <= Convert.ToDateTime("2022.03.31"))
             {
                 lbtnAddTechnician.Visible = false;
                 lbtnEditCallInformation.Visible = false;
@@ -2668,6 +2668,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             
            // ControlBaseOn60Days();
+            
 
             DisableAllGridEditDelete();
         }
