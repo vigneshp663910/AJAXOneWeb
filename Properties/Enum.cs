@@ -280,7 +280,7 @@ namespace Properties
         ViewInventory_StockInTransit = 35,
         ViewSupportTicket_RequestSupportTicket = 36,
         //**** Menu Level-2 ****************************** =  37,
-        //       UnderCons = 38,
+        //**** Menu Level-2 ****************************** = 38,
         ViewInventory_WarehouseStock = 39,
         ViewInventory_StockAgeingReport = 40,
         ViewInventory_MaterialStockAnalysis = 41,
@@ -291,7 +291,7 @@ namespace Properties
         ViewService_WarrantyClaimApprovalRequest = 46,
         ViewService_WarrantyClaimInvoiceCreate5k = 47,
         ViewService_WarrantyClaimDebitNoteCreate = 48,
-        //=  49,
+        ViewProcurement_StockTransferOrderASN=49,
         ViewService_ICTicket = 50,
         ViewService_PaidServiceQuotation = 51,
         ViewService_PaidServiceProformaInvoice = 52,
@@ -507,8 +507,15 @@ namespace Properties
         ViewProcurement_DealerStockOrderControl = 261,
         ViewPreSale_Reports_DealerBusinessExcellenceQuarterWise = 262,
         ViewPreSale_Reports_LeadNextFollowUpAgeingReport = 263,
-        ViewSales_SalesInvoiceReport = 264
-
+        ViewSales_SalesInvoiceReport = 264,
+        ViewAdmin_UserAccessBySubModule = 265,
+        ViewAdmin_UserAccessByChildModule = 266,
+        ViewDealerEmployee_OnboardEmployeeManage = 267,
+        ViewDealerEmployee_OnboardEmployeeApproval = 268,
+        ViewAdmin_DealerOfficeUserMapping = 269,
+        ViewSales_Report_OofCustomerReport = 270,
+        ViewSupportTicket_TaskMeasurement = 271,
+        ViewSupportTicket_TaskSummaryDetails = 272,
     }
     public enum SubModuleChildMaster
     {
@@ -608,7 +615,11 @@ namespace Properties
         SaleReturnCancel = 94,
         StockTransferOrderCreate = 95,
         StockTransferOrderRelease = 96,
-        StockTransferOrderCancel = 97
+        StockTransferOrderCancel = 97,
+        CustomerEdit = 98,
+        DealerOfficeUserMappingUpdate = 99,
+        UserPurchaseOrderTypeMappingUpdate = 100,
+        SaleOrderDeliveryCancel = 101,
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -909,7 +920,9 @@ namespace Properties
         PartsSalesType_Workshop = 49,
         PartsSalesType_CounterSale = 50,
         PaymentMode_Cash = 51,
-        PartsSalesType_Engineer = 52
+        PartsSalesType_Engineer = 52,
+        PaymentMode_Credit = 53,
+        SaleOrderDelivery_Cancelled=54
     }
     public enum ProcurementStatusHeader
     {

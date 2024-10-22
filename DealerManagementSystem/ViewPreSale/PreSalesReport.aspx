@@ -29,15 +29,15 @@
                         </div>
 
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Quotation</label>
+                            <label class="modal-label">SAP Quotation</label>
                             <asp:TextBox ID="txtQuotation" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Quotation Date From</label>
+                            <label class="modal-label">SAP Quote Date From</label>
                             <asp:TextBox ID="txtQuotationDateFrom" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Quotation Date To</label>
+                            <label class="modal-label">SAP Quote Date To</label>
                             <asp:TextBox ID="txtQuotationDateTo" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Date"></asp:TextBox>
                         </div>
 

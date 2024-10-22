@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"/>
     <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
     <div class="col-md-12" id="divList" runat="server">
         <asp:TabContainer ID="tabConMaterial" runat="server" ToolTip="Material" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
@@ -279,13 +279,13 @@
                                                                     <asp:Label ID="lblDivisionCode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Division.DivisionCode")%>' runat="server"></asp:Label>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Mode Code">
+                                                            <asp:TemplateField HeaderText="Model Code">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblModeCode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.ModelCode")%>' runat="server"></asp:Label>
                                                                 </ItemTemplate>
                                                             </asp:TemplateField>
-                                                            <asp:TemplateField HeaderText="Mode">
+                                                            <asp:TemplateField HeaderText="Model">
                                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                                 <ItemTemplate>
                                                                     <asp:Label ID="lblMode" Text='<%# DataBinder.Eval(Container.DataItem, "Model.Model")%>' runat="server"></asp:Label>
@@ -438,7 +438,7 @@
                                                         <asp:TemplateField HeaderText="Tax%">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
-                                                                <asp:Label ID="lblTaxPercentage" Text='<%# DataBinder.Eval(Container.DataItem, "TaxPercentage","{0:n}")%>' runat="server"></asp:Label>
+                                                                <asp:Label ID="lblTaxPercentage" Text='<%# DataBinder.Eval(Container.DataItem, "GST","{0:n}")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Price">
@@ -492,14 +492,7 @@
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblWeightUnit" Text='<%# DataBinder.Eval(Container.DataItem, "WeightUnit")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
-                                                        </asp:TemplateField>
-
-                                                        <asp:TemplateField HeaderText="<%$ Resources:Reso, MaterialDivision%>">
-                                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblMaterialDivision" Text='<%# DataBinder.Eval(Container.DataItem, "MaterialDivision")%>' runat="server"></asp:Label>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
+                                                        </asp:TemplateField> 
                                                     </Columns>
                                                     <AlternatingRowStyle BackColor="#ffffff" />
                                                     <FooterStyle ForeColor="White" />

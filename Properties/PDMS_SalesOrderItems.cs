@@ -522,4 +522,19 @@ namespace Properties
         public DateTime PickupDate { get; set; }
         
     }
+
+
+    [Serializable]
+    public class SalesReturnCreditFileDetails
+    { 
+        public string DealerGSTIN { get; set; }
+        //public string DealerAddress1 { get; set; }
+        //public string DealerAddress2 { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerGSTIN { get; set; }
+        
+        public string CustomerAddress1 { get; set; }
+        public string CustomerAddress2 { get; set; }
+    }
+    
 }

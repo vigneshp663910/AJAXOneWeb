@@ -28,7 +28,7 @@
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer</label>
-                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control"  AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged"/>
+                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealerCode_SelectedIndexChanged" />
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer Office</label>
@@ -45,6 +45,10 @@
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">SO Number</label>
                             <asp:TextBox ID="txtSoNumber" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                         <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Invoice Number</label>
+                            <asp:TextBox ID="txtInvoiceNo" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Asn Date From</label>
@@ -71,10 +75,12 @@
                             <asp:DropDownList ID="ddlAsnStatus" runat="server" CssClass="form-control">
                             </asp:DropDownList>
                         </div>
+                       
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
-                            <%--<asp:Button ID="btnCreatePO" runat="server" CssClass="btn Save" Text="Create PO" OnClick="btnCreatePO_Click" Width="150px"></asp:Button>--%>
-                            <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                            <asp:Button ID="btnExportExcel" runat="server" Text="Export ASN" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                            <asp:Button ID="btnExportExcelDetails" runat="server" Text="Export ASN Details" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcelDetails_Click" Width="150px" />
+                            <asp:Button ID="btnMissingASN" runat="server" Text="Missing ASN" CssClass="btn Back" UseSubmitBehavior="true" Width="100px" OnClick="btnMissingASN_Click" />
                         </div>
                     </div>
                 </fieldset>
@@ -100,8 +106,7 @@
                                 </div>
                             </div>
                         </div>
-                        <asp:GridView ID="gvPAsn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"
-                            OnPageIndexChanging="gvPAsn_PageIndexChanging">
+                        <asp:GridView ID="gvPAsn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20">
                             <Columns>
                                 <asp:TemplateField>
                                     <ItemTemplate>
@@ -140,6 +145,12 @@
                                         <br />
                                         <asp:Label ID="lblDeliveryDate" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
+                                </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Invoice">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblInvoiceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceNumber")%>' runat="server" />
+                                       </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Order Type">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -214,5 +225,31 @@
             </div>
             <UC:UC_PurchaseOrderASNView ID="UC_PurchaseOrderASNView" runat="server"></UC:UC_PurchaseOrderASNView>
         </div>
+    </div>
+
+
+    <asp:Panel ID="pnlMissingASN" runat="server" CssClass="Popup" Style="display: none" Height="500px">
+        <div class="PopupHeader clearfix">
+            <span id="PopupDialogue">Missing ASN</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
+        </div>
+        <div class="col-md-12">
+            <asp:Label ID="lblAddMaterialMessage" runat="server" Text="" CssClass="message" />
+            <div class="col-md-12">
+                <div class="col-md-5 col-sm-12">
+                    <label class="modal-label">Invoice Number</label>
+                    <asp:TextBox ID="txtInvoiceNumber" runat="server"></asp:TextBox>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <asp:Button ID="btnMissingAsnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnMissingAsnSave_Click" />
+            </div>
+        </div>
+    </asp:Panel>
+    <ajaxToolkit:ModalPopupExtender ID="MPE_MissingASN" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlMissingASN" BackgroundCssClass="modalBackground" />
+
+
+    <div style="display: none">
+        <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
     </div>
 </asp:Content>

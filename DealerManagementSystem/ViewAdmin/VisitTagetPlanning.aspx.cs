@@ -14,9 +14,10 @@ namespace DealerManagementSystem.ViewAdmin
 {
     public partial class VisitTagetPlanning : BasePage
     {
-       // public override SubModule SubModuleName { get { return SubModule.ViewAdmin_VisitTagetPlanning; } }
+       //public override SubModule SubModuleName { get { return SubModule.ViewAdmin_VisitTagetPlanning; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);

@@ -79,8 +79,7 @@
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblEquipmentHeaderID" runat="server" CssClass="label" Visible="false"></asp:Label>
-                            <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="btn Save" OnClick="btnEdit_Click" />
-                            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn Save" Visible="false" OnClick="btnUpdate_Click" />
+                            <asp:Button ID="btnEdit" runat="server" Text="Edit" CssClass="btn Save" OnClick="btnEdit_Click" /> 
                         </div>
                     </div>
                 </fieldset>

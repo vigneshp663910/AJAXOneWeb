@@ -224,11 +224,11 @@ namespace DealerManagementSystem.ViewService
                 TextBox txtLRNumber = (TextBox)gvClaimByClaimID.Rows[gvRow.RowIndex].FindControl("txtLRNumber");
                 TraceLogger.Log(DateTime.Now);
                 PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(ddlDealerCode.SelectedValue);
-                PDMS_Customer CustomerAE = new BDMS_Customer().GetCustomerAE();
+                PDMS_Customer CustomerAE = new BDMS_Customer().GetCustomerAE(DateTime.Now);
 
                 PDMS_ICTicket IC = new BDMS_ICTicket().GetICTicket(null, null, lblICTicketID.Text, null, null, null, null)[0];
 
-                long WarrantyClaimInvoiceID = new BDMS_WarrantyClaimInvoice().InsertWarrantyClaimInvoiceAbove5K(ddlDealerCode.SelectedValue, lblInvoiceNumber.Text, PSession.User.UserID, Server.MapPath("~/Print/DMS_ClaimInvoice50K.rdlc"), txtThrough.Text, txtLRNumber.Text, Dealer, CustomerAE, (IC.AEPayPercentage == 100 || IC.AEPayPercentage == null) ? false : true);
+                long WarrantyClaimInvoiceID = new BDMS_WarrantyClaimInvoice().InsertWarrantyClaimInvoiceAbove5K(ddlDealerCode.SelectedValue, lblInvoiceNumber.Text, PSession.User.UserID,  txtThrough.Text, txtLRNumber.Text, Dealer, CustomerAE, (IC.AEPayPercentage == 100 || IC.AEPayPercentage == null) ? false : true);
 
                 //   new BDMS_WarrantyClaimInvoice().insertWarrantyClaimInvoiceFile(WarrantyClaimInvoiceID, InvoiceAbove50K(WarrantyClaimInvoiceID));
 

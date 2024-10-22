@@ -46,10 +46,12 @@
             <div class="col-md-3">
                 <div class="col-sm-10">
                     <label class="modal-label">Dealer<samp style="color: red">*</samp></label>
+                       <asp:Label ID="lblDealer" runat="server" BorderColor="Silver" Visible="false"  CssClass="form-control"></asp:Label>
                     <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
                 </div>
                 <div class="col-sm-10">
                     <label class="modal-label">Dealer Office<samp style="color: red">*</samp></label>
+                    <asp:Label ID="lblOfficeName" runat="server" BorderColor="Silver" Visible="false"  CssClass="form-control"></asp:Label>
                     <asp:DropDownList ID="ddlOfficeName" runat="server" CssClass="form-control" />
                 </div>
                 <div class="col-sm-10">
@@ -74,7 +76,7 @@
             <div class="col-md-3">
                 <div class="col-sm-10">
                     <label class="modal-label">Customer<samp style="color: red">*</samp></label>
-
+                      <asp:Label ID="lblCustomer" runat="server" BorderColor="Silver" Visible="false"  CssClass="form-control"></asp:Label>
                     <asp:TextBox ID="txtCustomer" runat="server" CssClass="form-control" BorderColor="Silver" WatermarkCssClass="WatermarkCssClass" AutoPostBack="true"
                         onKeyUp="GetCustomers()" OnTextChanged="txtCustomer_TextChanged"></asp:TextBox>
 
@@ -97,11 +99,11 @@
                     <label class="modal-label">Shift Address<samp style="color: red">*</samp></label>
                     <asp:DropDownList ID="ddlShiftTo" runat="server" CssClass="form-control" />
                 </div>--%>
-                <div class="col-sm-10"  style="display:none">
+                <div class="col-sm-10"  >
                     <label class="modal-label">Freight</label>
                     <asp:TextBox ID="txtFreight" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                 </div>
-                <div class="col-sm-10"  style="display:none">
+                <div class="col-sm-10" >
                     <label class="modal-label">Packing & Forward</label>
                     <asp:TextBox ID="txtPackingAndForward" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                 </div>
@@ -148,6 +150,7 @@
                 </div>
                 <div class="col-sm-12">
                     <label>Tax<samp style="color: red">*</samp></label>
+                     <asp:Label ID="lblTaxType" runat="server" BorderColor="Silver" Visible="false"  CssClass="form-control"></asp:Label>
                     <asp:DropDownList ID="ddlTaxType" runat="server" CssClass="form-control" BorderColor="Silver">
                         <asp:ListItem Value="1" Selected="True">SGST & CGST</asp:ListItem>
                         <asp:ListItem Value="2">IGST</asp:ListItem>

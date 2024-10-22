@@ -33,7 +33,7 @@
     <fieldset class="fieldset-border">
         <div class="col-md-9">
             <div class="col-md-3 col-sm-12">
-                <label class="modal-label">Dealer</label>
+                <label class="modal-label">Receiving Dealer</label>
                 <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
             </div>
             <div class="col-md-3 col-sm-12">
@@ -41,6 +41,10 @@
                     Receiving Location
             <samp style="color: red">*</samp></label>
                 <asp:DropDownList ID="ddlDestinationOffice" runat="server" CssClass="form-control" />
+            </div>
+             <div class="col-md-3 col-sm-12">
+                <label class="modal-label">Source Dealer</label>
+                <asp:DropDownList ID="ddlSourceDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlSourceDealer_SelectedIndexChanged" />
             </div>
             <div class="col-md-3 col-sm-12">
                 <label class="modal-label">

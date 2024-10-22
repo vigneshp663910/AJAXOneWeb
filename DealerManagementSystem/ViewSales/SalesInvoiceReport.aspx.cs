@@ -26,6 +26,8 @@ namespace DealerManagementSystem.ViewSales
         string SaleOrderNumber = null;
         int? SaleOrderTypeID = null;
         int? DeliveryStatusID = null;
+        int? DivisionID = null;
+        
         private int PageCount
         {
             get
@@ -78,7 +80,7 @@ namespace DealerManagementSystem.ViewSales
                 new DDLBind(ddlOfficeName, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID", true, "Select");
                 new DDLBind(ddlSaleOrderType, new BDMS_SalesOrder().GetSaleOrderType(null, null), "SaleOrderType", "SaleOrderTypeID");
                 new DDLBind(ddlDeliveryStatus, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.SaleOrderDelivery), "Status", "StatusID");
-
+                new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
@@ -132,7 +134,7 @@ namespace DealerManagementSystem.ViewSales
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderInvoiceReport(DealerID, OfficeCodeID, CustomerCode, InvoiceNo, InvoiceDateFrom.ToString(), InvoiceDateTo.ToString(), DeliveryNumber, SaleOrderNumber, SaleOrderTypeID, DeliveryStatusID, PageIndex, gvSOInvoice.PageSize);
+                PApiResult Result = new BDMS_SalesOrder().GetSaleOrderInvoiceReport(DealerID, OfficeCodeID, CustomerCode, InvoiceNo, InvoiceDateFrom.ToString(), InvoiceDateTo.ToString(), DeliveryNumber, SaleOrderNumber, SaleOrderTypeID, DeliveryStatusID, DivisionID, PageIndex, gvSOInvoice.PageSize);
                 DataTable SalesOrderInvoiceReport = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
                 gvSOInvoice.PageIndex = 0;
@@ -172,11 +174,13 @@ namespace DealerManagementSystem.ViewSales
             CustomerCode = string.IsNullOrEmpty(txtCustomer.Text.Trim()) ? null : txtCustomer.Text.Trim();
             SaleOrderTypeID = ddlSaleOrderType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSaleOrderType.SelectedValue);
             DeliveryStatusID = ddlDeliveryStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDeliveryStatus.SelectedValue);
+            DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
         }
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderInvoiceReportByExcelDownload(DealerID, OfficeCodeID, CustomerCode, InvoiceNo, InvoiceDateFrom.ToString(), InvoiceDateTo.ToString(), DeliveryNumber, SaleOrderNumber, SaleOrderTypeID, DeliveryStatusID);
+            Search();
+            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderInvoiceReportByExcelDownload(DealerID, OfficeCodeID, CustomerCode, InvoiceNo, InvoiceDateFrom.ToString(), InvoiceDateTo.ToString(), DeliveryNumber, SaleOrderNumber, SaleOrderTypeID, DeliveryStatusID, DivisionID);
             DataTable SalesOrderInvoiceReport = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
             new BXcel().ExporttoExcel(SalesOrderInvoiceReport, "SalesInvoiceReport");

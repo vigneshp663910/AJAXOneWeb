@@ -46,6 +46,7 @@
     <Compile Include="AppSetting.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="PDealerBusiness.cs" />
+    <Compile Include="PDealerOfficeUserMapping.cs" />
     <Compile Include="PDeviationProcess.cs" />
     <Compile Include="PInventory.cs" />
     <Compile Include="PActivity.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="PMenu.cs" />
     <Compile Include="PMessageAnnouncement.cs" />
     <Compile Include="PNotifications.cs" />
+    <Compile Include="POnboardEmployee.cs" />
     <Compile Include="PProject.cs" />
     <Compile Include="PQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -64,7 +64,7 @@ namespace DealerManagementSystem.Account
             PDMS_Customer Dealer = new PDMS_Customer();
             if (Role[0].Dealer.DealerCode == "2000")
             {
-                Dealer = new BDMS_Customer().GetCustomerAE();
+                Dealer = new BDMS_Customer().GetCustomerAE(DateTime.Now);
             }
             else 
             {

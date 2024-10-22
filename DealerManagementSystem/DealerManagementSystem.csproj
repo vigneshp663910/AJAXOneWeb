@@ -248,6 +248,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CSS\jquery-ui.css" />
+    <Content Include="CSS\Rating.css" />
     <Content Include="CSS\StyleSheet1.css" />
     <Content Include="Dashboard\FirstTimeRightForWarrantyService.aspx" />
     <Content Include="Dashboard\ICTicketEscalationOnBreakdownLevel.ascx" />
@@ -315,6 +316,7 @@
     <Content Include="MailFormat\TicketRequestForApproval.htm" />
     <Content Include="MailFormat\TicketResolved.htm" />
     <Content Include="MailFormat\UserResetPassword.htm" />
+    <Content Include="OnboardEmployeeRegistration.aspx" />
     <Content Include="Open.aspx" />
     <Content Include="PDF.aspx" />
     <Content Include="ProcessFlow\A1_Modules.png" />
@@ -412,7 +414,6 @@
     <Content Include="TestDrop.aspx" />
     <Content Include="testDropWithMasteMain.aspx" />
     <Content Include="TestDropWithMaterSite.aspx" />
-    <Content Include="TestPageForMenu.aspx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
     <Content Include="UserControls\ICTicketButton.ascx" />
     <Content Include="UserControls\ICTicketTSIR.ascx" />
@@ -421,6 +422,7 @@
     <Content Include="ViewActivity\UserControls\AddActivity.ascx" />
     <Content Include="ViewActivity\UserControls\ViewActivity.ascx" />
     <Content Include="ViewAdmin\DealerCustomerMapping.aspx" />
+    <Content Include="ViewAdmin\DealerOfficeUserMapping.aspx" />
     <Content Include="ViewAdmin\DealerSalesConfiguration.aspx" />
     <Content Include="ViewAdmin\DealerServiceConfiguration.aspx" />
     <Content Include="ViewAdmin\DealerStateMapping.aspx" />
@@ -430,6 +432,8 @@
     <Content Include="ViewAdmin\ModulePermissionList.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
+    <Content Include="ViewAdmin\UserAccessByChildModule.aspx" />
+    <Content Include="ViewAdmin\UserAccessBySubModule.aspx" />
     <Content Include="ViewAdmin\UserAccessManagement.aspx" />
     <Content Include="ViewAdmin\UserActivityTrackingReport.aspx" />
     <Content Include="ViewAdmin\UserControls\MessageAnnouncementCreate.ascx" />
@@ -461,8 +465,11 @@
     <Content Include="ViewDealerEmployee\MachineOperatorApproval.aspx" />
     <Content Include="ViewDealerEmployee\MachineOperatorManage.aspx" />
     <Content Include="ViewDealerEmployee\MachineOperatorRegister.aspx" />
+    <Content Include="ViewDealerEmployee\OnboardEmployeeApprove.aspx" />
+    <Content Include="ViewDealerEmployee\OnboardEmployeeManage.aspx" />
     <Content Include="ViewDealerEmployee\SalesIncentive.aspx" />
     <Content Include="ViewDealerEmployee\UserControls\MachineOperatorView.ascx" />
+    <Content Include="ViewDealerEmployee\UserControls\OnboardEmployeeView.ascx" />
     <Content Include="ViewDealerEmployee\UserMonthlyVerification.aspx" />
     <Content Include="ViewEquipment\Equipment.aspx" />
     <Content Include="ViewEquipment\EquipmentChangeApproval.aspx" />
@@ -638,10 +645,12 @@
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnDeliveryCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderReturnView.ascx" />
     <Content Include="ViewProcurement\UserControls\PurchaseOrderView.ascx" />
+    <Content Include="ViewProcurement\UserControls\StockTransferOrderAsnView.ascx" />
     <Content Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx" />
     <Content Include="ViewProcurement\UserControls\StockTransferOrderDeliveryView.ascx" />
     <Content Include="ViewProcurement\UserControls\StockTransferOrderView.ascx" />
     <Content Include="ViewReport\CustomerVisitReport.aspx" />
+    <Content Include="ViewSales\Report\OofCustomerReport.aspx" />
     <Content Include="ViewSales\SaleInvoicePending.aspx" />
     <Content Include="ViewSales\SaleOrder.aspx" />
     <Content Include="ViewSales\SaleOrderDelivery.aspx" />
@@ -797,6 +806,8 @@
     <Content Include="ViewSupportTicket\RequestSupportTicket.aspx" />
     <Content Include="ViewAdmin\UserList.aspx" />
     <Content Include="ViewSupportTicket\SupportTicketView.aspx" />
+    <Content Include="ViewSupportTicket\TaskMeasurement.aspx" />
+    <Content Include="ViewSupportTicket\TaskSummaryDetails.aspx" />
     <Content Include="ViewSupportTicket\Task_DashboardMonthwise.aspx" />
     <Content Include="ViewSupportTicket\UserControls\SupportTicketView.ascx" />
     <Content Include="ViewSupportTicket\WaitingForApprovalSupportTicket.aspx" />
@@ -982,6 +993,13 @@
     <Compile Include="HomeWithTiles.aspx.designer.cs">
       <DependentUpon>HomeWithTiles.aspx</DependentUpon>
     </Compile>
+    <Compile Include="OnboardEmployeeRegistration.aspx.cs">
+      <DependentUpon>OnboardEmployeeRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnboardEmployeeRegistration.aspx.designer.cs">
+      <DependentUpon>OnboardEmployeeRegistration.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Open.aspx.cs">
       <DependentUpon>Open.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1085,13 +1103,6 @@
     <Compile Include="TestDropWithMaterSite.aspx.designer.cs">
       <DependentUpon>TestDropWithMaterSite.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TestPageForMenu.aspx.cs">
-      <DependentUpon>TestPageForMenu.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TestPageForMenu.aspx.designer.cs">
-      <DependentUpon>TestPageForMenu.aspx</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ICTicketBasicInformation.ascx.cs">
       <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1147,6 +1158,13 @@
     </Compile>
     <Compile Include="ViewAdmin\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerOfficeUserMapping.aspx.cs">
+      <DependentUpon>DealerOfficeUserMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\DealerOfficeUserMapping.aspx.designer.cs">
+      <DependentUpon>DealerOfficeUserMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\DealerSalesConfiguration.aspx.cs">
       <DependentUpon>DealerSalesConfiguration.aspx</DependentUpon>
@@ -1210,6 +1228,20 @@
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.designer.cs">
       <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserAccessByChildModule.aspx.cs">
+      <DependentUpon>UserAccessByChildModule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserAccessByChildModule.aspx.designer.cs">
+      <DependentUpon>UserAccessByChildModule.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserAccessBySubModule.aspx.cs">
+      <DependentUpon>UserAccessBySubModule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserAccessBySubModule.aspx.designer.cs">
+      <DependentUpon>UserAccessBySubModule.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserAccessManagement.aspx.cs">
       <DependentUpon>UserAccessManagement.aspx</DependentUpon>
@@ -1428,6 +1460,20 @@
     <Compile Include="ViewDealerEmployee\MachineOperatorRegister.aspx.designer.cs">
       <DependentUpon>MachineOperatorRegister.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewDealerEmployee\OnboardEmployeeApprove.aspx.cs">
+      <DependentUpon>OnboardEmployeeApprove.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\OnboardEmployeeApprove.aspx.designer.cs">
+      <DependentUpon>OnboardEmployeeApprove.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\OnboardEmployeeManage.aspx.cs">
+      <DependentUpon>OnboardEmployeeManage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\OnboardEmployeeManage.aspx.designer.cs">
+      <DependentUpon>OnboardEmployeeManage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewDealerEmployee\SalesIncentive.aspx.cs">
       <DependentUpon>SalesIncentive.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1441,6 +1487,13 @@
     </Compile>
     <Compile Include="ViewDealerEmployee\UserControls\MachineOperatorView.ascx.designer.cs">
       <DependentUpon>MachineOperatorView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\UserControls\OnboardEmployeeView.ascx.cs">
+      <DependentUpon>OnboardEmployeeView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDealerEmployee\UserControls\OnboardEmployeeView.ascx.designer.cs">
+      <DependentUpon>OnboardEmployeeView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\UserMonthlyVerification.aspx.cs">
       <DependentUpon>UserMonthlyVerification.aspx</DependentUpon>
@@ -2502,6 +2555,13 @@
     <Compile Include="ViewProcurement\UserControls\PurchaseOrderView.ascx.designer.cs">
       <DependentUpon>PurchaseOrderView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderAsnView.ascx.cs">
+      <DependentUpon>StockTransferOrderAsnView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewProcurement\UserControls\StockTransferOrderAsnView.ascx.designer.cs">
+      <DependentUpon>StockTransferOrderAsnView.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewProcurement\UserControls\StockTransferOrderCreate.ascx.cs">
       <DependentUpon>StockTransferOrderCreate.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2529,6 +2589,13 @@
     </Compile>
     <Compile Include="ViewReport\CustomerVisitReport.aspx.designer.cs">
       <DependentUpon>CustomerVisitReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\Report\OofCustomerReport.aspx.cs">
+      <DependentUpon>OofCustomerReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\Report\OofCustomerReport.aspx.designer.cs">
+      <DependentUpon>OofCustomerReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleInvoicePending.aspx.cs">
       <DependentUpon>SaleInvoicePending.aspx</DependentUpon>
@@ -3348,6 +3415,20 @@
     <Compile Include="ViewSupportTicket\SupportTicketView.aspx.designer.cs">
       <DependentUpon>SupportTicketView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewSupportTicket\TaskMeasurement.aspx.cs">
+      <DependentUpon>TaskMeasurement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\TaskMeasurement.aspx.designer.cs">
+      <DependentUpon>TaskMeasurement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSupportTicket\TaskSummaryDetails.aspx.cs">
+      <DependentUpon>TaskSummaryDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSupportTicket\TaskSummaryDetails.aspx.designer.cs">
+      <DependentUpon>TaskSummaryDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSupportTicket\Task_DashboardMonthwise.aspx.cs">
       <DependentUpon>Task_DashboardMonthwise.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3488,6 +3569,7 @@
     <Content Include="Print\PartsInvoiceQRCode.rdlc" />
     <Content Include="Print\SalesMachineInvoice.rdlc" />
     <EmbeddedResource Include="Print\SalesInvoiceCreditNote.rdlc" />
+    <EmbeddedResource Include="Print\SalesMachineQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\StockTransferOrder.rdlc" />
     <EmbeddedResource Include="Print\PhysicalInventoryPosting.rdlc" />
     <EmbeddedResource Include="Print\StockTransferOrderDeliveryChallan.rdlc" />
@@ -3495,7 +3577,6 @@
     <EmbeddedResource Include="Print\PurchaseOrderReturn.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesCommisionTaxQuotationQRCode.rdlc" />
-    <EmbeddedResource Include="Print\SalesMachineQuotationStd.rdlc" />
     <EmbeddedResource Include="Print\SalesMachineQuotation.rdlc" />
     <Content Include="Print\SalesMachineQuotation.rdlc" />
     <EmbeddedResource Include="Print\SalesDeliveryChallan.rdlc" />

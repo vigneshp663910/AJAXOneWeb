@@ -186,17 +186,7 @@ namespace Business
                         //new BDMS_MTTR().MailEscalationMoreThan72Hrs();
                         //new BDMS_MTTR().MailEscalationMoreThan48Hrs();
                         //new BDMS_MTTR().MailEscalationMoreThan24Hrs(); 
-                        break;
-
-                    //case Jobs.IntegrationEquipmentFromSAP:
-                    //    new FileLogger().LogMessageService("Started", "IntegrationEquipmentFromSAP", null);
-                    //    new BDMS_Equipment().IntegrationEquipmentFromSAP();
-                    //    new FileLogger().LogMessageService("Ended", "IntegrationEquipmentFromSAP", null);
-                    //    break;
-                    case Jobs.IntegrationEquipmentFromSAP_New: 
-                        new BAPI().ApiGetWithOutToken("Equipment/IntegrationEquipmentFromSAP_new"); 
-                        break;
-
+                        break; 
                     case Jobs.EnquiryIndiamart: 
                         new BAPI().ApiGetWithOutToken("Enquiry/IntegrationEnquiryIndiamart"); 
                         break;

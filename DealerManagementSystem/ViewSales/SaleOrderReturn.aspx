@@ -102,7 +102,7 @@
                             <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2 col-sm-12">
-                            <label class="modal-label">Sales Return Number</label>
+                            <label class="modal-label">Sales Return No</label>
                             <asp:TextBox ID="txtSoReturnNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                         </div>
                         <div class="col-md-2 col-sm-12">
@@ -124,6 +124,24 @@
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Sales Return Status</label>
                             <asp:DropDownList ID="ddlReturnStatus" runat="server" CssClass="form-control" />
+                        </div>
+
+
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Credit Note No</label>
+                            <asp:TextBox ID="txtCreditNoteNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                        </div> 
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Credit Note Date From</label>
+                            <asp:TextBox ID="txtCreditNoteDateF" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                            <asp:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtCreditNoteDateF" PopupButtonID="txtCreditNoteDateF" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtCreditNoteDateF" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <label class="modal-label">Credit Note Date To</label>
+                            <asp:TextBox ID="txtCreditNoteDateT" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
+                            <asp:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="txtCreditNoteDateT" PopupButtonID="txtCreditNoteDateT" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtCreditNoteDateT" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
@@ -166,13 +184,37 @@
                                         <asp:Button ID="btnViewSoReturn" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSoReturn_Click" Width="75px" Height="25px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Sales Return Number">
+                                <asp:TemplateField HeaderText="Sales Return">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblSaleOrderReturnID" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderReturnID")%>' runat="server" Visible="false" />
                                         <asp:Label ID="lblSaleOrderNumberReturn" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderReturnNumber")%>' runat="server" />
                                         <br />
                                         <asp:Label ID="lblSaleOrderReturnDate" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderReturnDate","{0:d}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Credit Note">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblCreditNoteNumber" Text='<%# DataBinder.Eval(Container.DataItem, "CreditNoteNumber")%>' runat="server" />
+                                        <br />
+                                        <asp:Label ID="lblCreditNoteDate" Text='<%# DataBinder.Eval(Container.DataItem, "CreditNoteDate","{0:d}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Delivery">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDeliveryNumber" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.DeliveryNumber")%>' runat="server" />
+                                        <br />
+                                        <asp:Label ID="lblDeliveryeDate" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.DeliveryDate","{0:d}")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Invoice">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblInvoiceeNumber" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.InvoiceNumber")%>' runat="server" />
+                                        <br />
+                                        <asp:Label ID="lblInvoiceDate" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.InvoiceDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer">
@@ -190,17 +232,17 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Division">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.SaleOrder.Division.DivisionCode")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.SaleOrder.Division.DivisionCode")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Sale Order Type">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblSaleOrderType" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderType")%>' runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblSaleOrderType" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.SaleOrder.SaleOrderType.SaleOrderType")%>' runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Customer">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
@@ -246,7 +288,7 @@
             <div class="col-md-12">
                 <%--<fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>--%>
-                <UC:UC_SaleOrderReturnCreate ID="UC_SaleOrderReturnCreate" runat="server"></UC:UC_SaleOrderReturnCreate> 
+                <UC:UC_SaleOrderReturnCreate ID="UC_SaleOrderReturnCreate" runat="server"></UC:UC_SaleOrderReturnCreate>
                 <%--</fieldset>--%>
             </div>
         </div>

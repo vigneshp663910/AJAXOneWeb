@@ -17,6 +17,12 @@ namespace Business
               + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&StatusID=" + StatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public PApiResult GetStockTransferOrderForDelivery(int? DealerID, int? OfficeID, string StockTransferOrderNo, string DateFrom, string DateTo, int? StatusID, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "StockTransferOrder/GetStockTransferOrderForDelivery?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&StockTransferOrderNo=" + StockTransferOrderNo
+              + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&StatusID=" + StatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
         public PApiResult InsertStockTransferOrder(object obj)
         {
             string endPoint = "StockTransferOrder/InsertStockTransferOrder";
@@ -74,7 +80,6 @@ namespace Business
                 Quantity = PoI.Quantity
             });
 
-            //PMaterial Mat = new BDMS_Material().MaterialPriceFromSap(Dealer.DealerCode, Dealer.DealerCode, "DEFAULT_SEC_AUART", 1, PoI.MaterialCode, PoI.Quantity, "", "", "false");
             List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(InPut);
             PMaterial Mat = Mats[0];
             PoI.TaxableValue = Mat.CurrentPrice;
@@ -95,6 +100,11 @@ namespace Business
         {
             string endPoint = "StockTransferOrder/UpdateStockTransferOrderItemStatus?StockTransferOrderItemID=" + StockTransferOrderItemID + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public List<PDealer> GetSourceDealerForStockTransferOrder(int DealerID)
+        {
+            string endPoint = "StockTransferOrder/GetSourceDealerForStockTransferOrder?DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<List<PDealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
 }

@@ -138,10 +138,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
 
             lblDiscount.Text = Discount.ToString();
-            lblTaxableValue.Text = TaxableValue.ToString();
-            lblTaxValue.Text = TaxValue.ToString();
+            lblTaxableValue.Text = (TaxableValue + SOrder.Freight + SOrder.PackingAndForward).ToString();
+            lblTaxValue.Text = (TaxValue + (SOrder.Freight * 18 / 100) + (SOrder.PackingAndForward * 18 / 10)).ToString();
             lblNetAmount.Text = NetAmount.ToString();
-
+            lblNetAmountWithTCS.Text = (NetAmount+ SOrder.TcsValue).ToString();
             gvSOItem.DataSource = SOrder.SaleOrderItems;
             gvSOItem.DataBind();
             gvSODelivery.DataSource = SOrder.Deliverys;
@@ -176,7 +176,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else if (StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced) //Order Placed
             {
                 lbEditSaleOrder.Visible = false;
-                lbCancelSaleOrder.Visible = false;
+                //lbCancelSaleOrder.Visible = false;
                 lbAddSaleOrderItem.Visible = false;
                 lbReleaseSaleOrder.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
@@ -283,6 +283,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else if (lbActions.ID == "lbReleaseSaleOrder")
             {
+             string   Message = new BDMS_SalesOrder().ValidationCustomerGST(SOrder.Customer.CustomerID, SOrder.Dealer.DealerID, SOrder.TaxType);
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessage.Text = Message;
+                    return;
+                }
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SOrder.SaleOrderID));
                 // PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SOrder.SaleOrderID + "&StatusID=" + 13));
                 PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderStatus(SOrder.SaleOrderID, (short)AjaxOneStatus.SaleOrder_OrderPlaced);
@@ -325,9 +331,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
                 {
-                    divEquipment.Visible = true;
-                    int RRowCount = 0;
-                    List<PDMS_Equipment> EQs = new BDMS_Equipment().GetEquipmentHeader(null, null, SOrder.Dealer.DealerCode, null, null, null, null, null, PSession.User.UserID, 1, 100, out RRowCount);
+                    divEquipment.Visible = true; 
+                    List<PDMS_Equipment> EQs = new BDMS_Equipment().GetEquipmentForSale(SOrder.Dealer.DealerCode, PSession.User.UserID);
                     new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
                 }
                 else
@@ -629,10 +634,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             GrandTotal = Math.Round(SubTotal);
 
-            P[21] = new ReportParameter("CGST_Header", "%", false);
-            P[22] = new ReportParameter("CGSTVal_Header", "CGST", false);
-            P[23] = new ReportParameter("SGST_Header", "%", false);
-            P[24] = new ReportParameter("SGSTVal_Header", "SGST", false);
+            //P[21] = new ReportParameter("CGST_Header", "%", false);
+            //P[22] = new ReportParameter("CGSTVal_Header", "CGST", false);
+            //P[23] = new ReportParameter("SGST_Header", "%", false);
+            //P[24] = new ReportParameter("SGSTVal_Header", "SGST", false);
             P[25] = new ReportParameter("SubTotal", SubTotal.ToString(), false);
             P[26] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
             P[27] = new ReportParameter("GrandTotalInWord", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)).ToUpper(), false);
@@ -883,6 +888,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
         {
             lblMessageSOEdit.ForeColor = Color.Red;
             lblMessageSOEdit.Text = "";
+            MPE_SaleOrderEdit.Show();
             try
             {
                 string Message = Validation();
@@ -890,6 +896,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     lblMessageSOEdit.Text = Message;
                     MPE_SaleOrderEdit.Show();
+                    return;
+                }
+                Message = new BDMS_SalesOrder().ValidationCustomerGST(SOrder.Customer.CustomerID, SOrder.Dealer.DealerID, ddlTaxType.SelectedItem.Text);
+                if (!string.IsNullOrEmpty(Message))
+                {
+                    lblMessageSOEdit.Text = Message;
                     return;
                 }
 
@@ -902,9 +914,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 if (Result.Status == PApplication.Failure)
                 {
                     lblMessageSOEdit.Text = Result.Message;
-                    MPE_SaleOrderEdit.Show();
+                   
                     return;
                 }
+                MPE_SaleOrderEdit.Hide();
                 lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SOrder.SaleOrderID);

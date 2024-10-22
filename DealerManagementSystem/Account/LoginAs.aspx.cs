@@ -11,7 +11,7 @@ namespace DealerManagementSystem.Account
      
     public partial class LoginAs : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.Account_LoginAs; } }
+        public override SubModule SubModuleName { get { return SubModule.SignIn; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -23,6 +23,17 @@ namespace DealerManagementSystem.Account
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Login As');</script>");
             lblMessage.Visible = false;
+            if (PSession.User.UserID == 1 || 
+                PSession.User.UserID == 2954 || 
+                PSession.User.UserID == 491 || 
+                PSession.User.UserID == 383 ||
+                PSession.User.UserID == 382)
+            {}
+            else
+            {
+                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            }
+
             if (!IsPostBack)
             {
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);

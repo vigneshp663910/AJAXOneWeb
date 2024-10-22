@@ -120,9 +120,18 @@ namespace DealerManagementSystem.ViewMarketing
                 if (dtDocs.Select("AD_PKDocID='" + iDocID + "'").Length > 0)
                 {
                     DataRow dr = (DataRow)dtDocs.Select("AD_PKDocID='" + iDocID + "'").GetValue(0);
-
-                    byte[] bytData = ((byte[])dr["AD_AttachedFile"]);
                     string FileNme = dr["AD_FileName"].ToString();
+                    // byte[] bytData = ((byte[])dr["AD_AttachedFile"]);
+                    byte[] bytData = null;
+                    if (DBNull.Value == dr["AD_AttachedFile"])
+                    {
+                         bytData = new BDMS_Activity().DowloadActivityDocs(iDocID + Path.GetExtension(FileNme)).AttachedFile;
+                    }
+                    else
+                    {
+                          bytData = ((byte[])dr["AD_AttachedFile"]);
+                    }
+                   
                     string ContentType = dr["AD_ContentType"].ToString();
                     Response.Clear();
                     Response.Buffer = true;

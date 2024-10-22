@@ -344,7 +344,7 @@ namespace DealerManagementSystem.ViewService
             long WarrantyClaimInvoiceID = 0;
 
             PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(Inv.Dealer.DealerCode);
-            PDMS_Customer CustomerAE = new BDMS_Customer().GetCustomerAE();
+            PDMS_Customer CustomerAE = new BDMS_Customer().GetCustomerAE(DateTime.Now);
 
 
             if (InvoiceTypeID == (short)DMS_InvoiceType.NEPI_Commission)

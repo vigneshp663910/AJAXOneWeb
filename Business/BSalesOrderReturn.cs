@@ -42,12 +42,12 @@ namespace Business
             //return JsonConvert.DeserializeObject<List<PSaleOrderDelivery>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public PApiResult GetSaleOrderReturnHeader(int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, long? SaleOrderReturnID, string SaleOrderReturnNo, DateTime? SaleOrderReturnDateF, DateTime? SaleOrderReturnDateT, int? SaleOrderReturnStatusID
-            , int? PageIndex = null, int? PageSize = null)
+        public PApiResult GetSaleOrderReturnHeader(int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, long? SaleOrderReturnID, string SaleOrderReturnNo, string SaleOrderReturnDateF, string SaleOrderReturnDateT, int? SaleOrderReturnStatusID
+            ,string CreditNoteNumber , string CreditNotenDateF, string CreditNotenDateT, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "SaleOrderReturn/SaleOrderReturnHeader?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID + "&CustomerCode=" + CustomerCode + "&SaleOrderReturnID=" + SaleOrderReturnID + "&SaleOrderReturnNo=" + SaleOrderReturnNo
                  + "&SaleOrderReturnDateF=" + SaleOrderReturnDateF + "&SaleOrderReturnDateT=" + SaleOrderReturnDateT + "&SaleOrderReturnStatusID=" + SaleOrderReturnStatusID
-                 + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                 + "&CreditNoteNumber=" + CreditNoteNumber + "&CreditNotenDateF=" + CreditNotenDateF + "&CreditNotenDateT=" + CreditNotenDateT + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PSaleOrderReturn GetSaleOrderReturnByID(long SaleOrderReturnID)
@@ -61,6 +61,10 @@ namespace Business
             string endPoint = "SaleOrderReturn/UpdateSaleOrderReturnStatus?SaleOrderReturnID=" + SaleOrderReturnID + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-         
+        public SalesReturnCreditFileDetails GetSaleOrderReturnCreditNoteFileDetails(long SaleOrderReturnID)
+        {
+            string endPoint = "SaleOrderReturn/GetSaleOrderReturnCreditNoteFileDetails?SaleOrderReturnID=" + SaleOrderReturnID;
+            return JsonConvert.DeserializeObject<SalesReturnCreditFileDetails>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

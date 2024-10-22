@@ -141,6 +141,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblSaleOrderDate;
 
         /// <summary>
+        /// lblFreight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFreight;
+
+        /// <summary>
         /// lblSODealer control.
         /// </summary>
         /// <remarks>
@@ -177,13 +186,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblSaleOrderType;
 
         /// <summary>
-        /// lblTcsTax control.
+        /// lblPackingAndForward control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTcsTax;
+        protected global::System.Web.UI.WebControls.Label lblPackingAndForward;
 
         /// <summary>
         /// lblTaxType control.
@@ -195,31 +204,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
         protected global::System.Web.UI.WebControls.Label lblTaxType;
 
         /// <summary>
-        /// lblHeaderDiscount control.
+        /// lblTcsTax control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHeaderDiscount;
-
-        /// <summary>
-        /// lblFreight control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFreight;
-
-        /// <summary>
-        /// lblPackingAndForward control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPackingAndForward;
+        protected global::System.Web.UI.WebControls.Label lblTcsTax;
 
         /// <summary>
         /// lblTcsValue control.
@@ -229,6 +220,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTcsValue;
+
+        /// <summary>
+        /// lblHeaderDiscount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblHeaderDiscount;
 
         /// <summary>
         /// lblDiscount control.
@@ -265,6 +265,15 @@ namespace DealerManagementSystem.ViewSales.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNetAmount;
+
+        /// <summary>
+        /// lblNetAmountWithTCS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNetAmountWithTCS;
 
         /// <summary>
         /// lblMessage control.

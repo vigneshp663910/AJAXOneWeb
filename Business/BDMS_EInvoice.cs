@@ -437,7 +437,7 @@ namespace Business
                                 W.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
                                 W.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
                                 W.SaleOrder = new PSaleOrder();
-                                W.SaleOrder.TaxType = Convert.ToString(dr["InvoiceNumber"]);
+                                W.SaleOrder.TaxType = Convert.ToString(dr["TaxType"]);
                                 W.SaleOrder.Dealer = new PDMS_Dealer()
                                 {
                                     DealerCode = Convert.ToString(dr["UserName"]),
@@ -465,60 +465,60 @@ namespace Business
                                 W.InvoiceDetails.BuyerPincode = Convert.ToString(dr["BuyerPincode"]);
 
 
-                                if (W.Freight != 0)
-                                {
-                                    PSaleOrderDeliveryItem Item = new PSaleOrderDeliveryItem();
-                                    W.SaleOrderDeliveryItems.Add(Item);
-                                    Item.Material = new PDMS_Material()
-                                    {
-                                        MaterialCode = "Freight",
-                                        MaterialDescription = "Freight Charges",
-                                        HSN = "998719",
-                                        BaseUnit = "LE"
-                                    };
-                                    Item.Qty = 1;
-                                    Item.Value = W.Freight;
-                                    Item.TaxableValue = W.Freight;
-                                    if (W.SaleOrder.TaxType != "IGST")
-                                    {
-                                        Item.CGST = 9;
-                                        Item.SGST = 9;
-                                        Item.CGSTValue = W.Freight * 9 / 100;
-                                        Item.SGSTValue = W.Freight * 9 / 100;
-                                    }
-                                    else
-                                    {
-                                        Item.IGST = 18;
-                                        Item.IGSTValue = W.Freight * 18 / 100;
-                                    }
-                                }
-                                if (W.PackingAndForward != 0)
-                                {
-                                    PSaleOrderDeliveryItem Item = new PSaleOrderDeliveryItem();
-                                    W.SaleOrderDeliveryItems.Add(Item);
-                                    Item.Material = new PDMS_Material()
-                                    {
-                                        MaterialCode = "Packing",
-                                        MaterialDescription = "Packing Charges",
-                                        HSN = "998719",
-                                        BaseUnit = "LE"
-                                    };
-                                    Item.Qty = 1;
-                                    Item.Value = W.PackingAndForward;
-                                    Item.TaxableValue = W.PackingAndForward;
-                                    if (W.SaleOrder.TaxType != "IGST")
-                                    {
-                                        Item.CGST = 9;
-                                        Item.SGST = 9;
-                                        Item.CGSTValue = W.PackingAndForward * 9 / 100;
-                                        Item.SGSTValue = W.PackingAndForward * 9 / 100;
-                                    }
-                                    else
-                                    {
-                                        Item.IGST = 18;
-                                        Item.IGSTValue = W.PackingAndForward * 18 / 100;
-                                    }
-                                }
+                                //if (W.Freight != 0)
+                                //{
+                                //    PSaleOrderDeliveryItem Item = new PSaleOrderDeliveryItem();
+                                //    W.SaleOrderDeliveryItems.Add(Item);
+                                //    Item.Material = new PDMS_Material()
+                                //    {
+                                //        MaterialCode = "Freight",
+                                //        MaterialDescription = "Freight Charges",
+                                //        HSN = "998719",
+                                //        BaseUnit = "LE"
+                                //    };
+                                //    Item.Qty = 1;
+                                //    Item.Value = W.Freight;
+                                //    Item.TaxableValue = W.Freight;
+                                //    if (W.SaleOrder.TaxType != "IGST")
+                                //    {
+                                //        Item.CGST = 9;
+                                //        Item.SGST = 9;
+                                //        Item.CGSTValue = W.Freight * 9 / 100;
+                                //        Item.SGSTValue = W.Freight * 9 / 100;
+                                //    }
+                                //    else
+                                //    {
+                                //        Item.IGST = 18;
+                                //        Item.IGSTValue = W.Freight * 18 / 100;
+                                //    }
+                                //}
+                                //if (W.PackingAndForward != 0)
+                                //{
+                                //    PSaleOrderDeliveryItem Item = new PSaleOrderDeliveryItem();
+                                //    W.SaleOrderDeliveryItems.Add(Item);
+                                //    Item.Material = new PDMS_Material()
+                                //    {
+                                //        MaterialCode = "Packing",
+                                //        MaterialDescription = "Packing Charges",
+                                //        HSN = "998719",
+                                //        BaseUnit = "LE"
+                                //    };
+                                //    Item.Qty = 1;
+                                //    Item.Value = W.PackingAndForward;
+                                //    Item.TaxableValue = W.PackingAndForward;
+                                //    if (W.SaleOrder.TaxType != "IGST")
+                                //    {
+                                //        Item.CGST = 9;
+                                //        Item.SGST = 9;
+                                //        Item.CGSTValue = W.PackingAndForward * 9 / 100;
+                                //        Item.SGSTValue = W.PackingAndForward * 9 / 100;
+                                //    }
+                                //    else
+                                //    {
+                                //        Item.IGST = 18;
+                                //        Item.IGSTValue = W.PackingAndForward * 18 / 100;
+                                //    }
+                                //}
                                 // W.InvoiceDetails = new PDMS_WarrantyClaimInvoiceDetails();
                             }
                             W.SaleOrderDeliveryItems.Add(new PSaleOrderDeliveryItem()
@@ -694,7 +694,7 @@ namespace Business
             PDMS_EInvoice EInvoice = new PDMS_EInvoice();
             int TOTALLINEITEMS = 0;
             List<PDMS_WarrantyClaimDebitNote> Invoice = getWarrantyClaimDebitNoteForRequestEInvoice(InvoiceNumber, InvoiceDateF, InvoiceDateT, DealerID, CustomerCode);
-            int i = 0;
+            int i = 0; 
             foreach (PDMS_WarrantyClaimDebitNote Pinv in Invoice)
             {
                 i = i + 1;
@@ -708,7 +708,8 @@ namespace Business
                     InvoiceDate = Pinv.DebitNoteDate,
 
                     // SupplierCode = Pinv.Dealer.DealerCode,
-                    SupplierTrade_Name = "Ajax Engineering Private Limited",
+                     
+                    SupplierTrade_Name = new BDMS_Customer().GetCustomerAE(Pinv.DebitNoteDate).CustomerName,
                     SupplierGSTIN = "29AABCA2035K1ZT",
                     Supplier_addr1 = Pinv.DebitNoteDetails.Supplier_addr1.Trim(),
                     SupplierLocation = Pinv.DebitNoteDetails.SupplierLocation.Trim(),
@@ -2972,6 +2973,56 @@ namespace Business
             catch (Exception ex)
             { }
             return InvoiceE;
+        }
+
+        public string GetInvoiceError(string InvoiceNumber, string InvTyp)
+        { 
+            try
+            {
+                string Quer = "";
+                if (InvTyp == "PAY")
+                {
+                    Quer = "select E.Comments from ZDMS_TServiceInvoice H left join ZDMS_TServiceInvoiceE  E on E.ServiceInvoiceID = H.ServiceInvoiceID where  H.InvoiceNumber ='"+ InvoiceNumber + "'";
+                }
+                else if(InvTyp == "ATY")
+                {
+                    Quer = "select E.Comments from YDMS_ActivityInvoiceHdr H left join YDMS_ActivityInvoiceHdrE_Z  E on E.AIH_PkHdrID = H.AIH_PkHdrID where  H.AIH_InvoiceNo ='" + InvoiceNumber + "'";
+                } 
+                else if (InvTyp == "WARR")
+                {
+                    Quer = "select E.Comments from ZDMS_WarrantyClaimInvoiceHeader H left join ZDMS_WarrantyClaimInvoiceE  E on E.WarrantyClaimInvoiceID = H.WarrantyClaimInvoiceID where  H.InvoiceNumber ='"+ InvoiceNumber + "'";
+                }
+                else if (InvTyp == "SalesCom")
+                {
+                    Quer = "select E.Comments from TSalesCommissionClaimInvoice H left join TSalesCommissionClaimInvoiceE  E on E.SalesCommissionClaimInvoiceID = H.SalesCommissionClaimInvoiceID where  H.InvoiceNumber ='" + InvoiceNumber + "'";
+                }
+                else if (InvTyp == "SalesInv")
+                {
+                    Quer = "select E.Comments from TSaleOrderDelivery H left join TSaleOrderDeliveryE  E on E.SaleOrderDeliveryID = H.SaleOrderDeliveryID where  H.InvoiceNumber ='" + InvoiceNumber + "'";
+
+                }
+                else if (InvTyp == "SalesReCre")
+                {
+                    Quer = "select E.Comments from TSaleOrderReturn H left join TSaleOrderReturnE  E on E.SaleOrderReturnID = H.SaleOrderReturnID where  H.CreditNoteNumber ='" + InvoiceNumber + "'";
+
+                }
+
+                using (DataSet DataSet = provider.SelectUsingQuery(Quer))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            return Convert.ToString(dr["Comments"]);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return "";
         }
     }
 }

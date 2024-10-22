@@ -101,77 +101,77 @@
                         </div>
 
                         <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
-                            <columns>
+                            <Columns>
                                 <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                    </itemtemplate>
+                                    </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Name">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
-                                    </itemtemplate>
-                                    <headerstyle width="162px" />
-                                    <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                                    </ItemTemplate>
+                                    <HeaderStyle Width="162px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Father Name">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <asp:Label ID="lblFatherName" Text='<%# DataBinder.Eval(Container.DataItem, "FatherName")%>' runat="server"></asp:Label>
-                                    </itemtemplate>
-                                    <headerstyle width="192px" />
-                                    <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                                    </ItemTemplate>
+                                    <HeaderStyle Width="192px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Contact Number">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <asp:Label ID="lblContactNumber" runat="server">
                                             <a href='tel:<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "ContactNumber")%></a>
                                         </asp:Label>
-                                    </itemtemplate>
-                                    <headerstyle width="150px" />
-                                    <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                                    </ItemTemplate>
+                                    <HeaderStyle Width="150px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Email">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <asp:Label ID="lblEmail" runat="server">
                                             <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Email")%>'><%# DataBinder.Eval(Container.DataItem, "Email")%></a>
                                         </asp:Label>
-                                    </itemtemplate>
-                                    <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                                    </ItemTemplate>
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="State">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "State.State" )%>' runat="server"></asp:Label>
-                                    </itemtemplate>
-                                    <headerstyle width="75px" />
-                                    <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                                    </ItemTemplate>
+                                    <HeaderStyle Width="75px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Aadhaar Card No">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <asp:Label ID="lblser_rec_date" Text='<%# DataBinder.Eval(Container.DataItem, "AadhaarCardNo" )%>' runat="server"></asp:Label>
-                                    </itemtemplate>
-                                    <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                                    </ItemTemplate>
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="PAN No">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <asp:Label ID="lblser_res_date" Text='<%# DataBinder.Eval(Container.DataItem, "PANNo")%>' runat="server"></asp:Label>
-                                    </itemtemplate>
-                                    <headerstyle width="76px" />
-                                    <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                                    </ItemTemplate>
+                                    <HeaderStyle Width="76px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Add Role">
-                                    <itemtemplate>
+                                    <ItemTemplate>
                                         <asp:LinkButton ID="lbEditRole" runat="server" OnClick="lbEditRole_Click">Click </asp:LinkButton>
-                                    </itemtemplate>
-                                    <headerstyle width="150px" />
-                                    <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                                    </ItemTemplate>
+                                    <HeaderStyle Width="150px" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
-                            </columns>
-                            <alternatingrowstyle backcolor="#ffffff" />
-                            <footerstyle forecolor="White" />
-                            <headerstyle font-bold="True" forecolor="White" horizontalalign="Left" />
+                            </Columns>
+                            <AlternatingRowStyle BackColor="#ffffff" />
+                            <FooterStyle ForeColor="White" />
+                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                             <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <rowstyle backcolor="#fbfcfd" forecolor="Black" horizontalalign="Left" />
+                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                         </asp:GridView>
                     </fieldset>
                 </div>
@@ -336,89 +336,89 @@
             <legend style="background: none; color: #007bff; font-size: 17px;">Employee Role</legend>
             <div class="col-md-12 Report">
                 <asp:GridView ID="gvRole" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid">
-                    <columns>
+                    <Columns>
                         <asp:TemplateField HeaderText="Employee ID" Visible="false">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <asp:Label ID="lblDealerEmployeeID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeID")%>' runat="server" />
-                            </itemtemplate>
-                            <headerstyle width="162px" />
-                            <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                            </ItemTemplate>
+                            <HeaderStyle Width="162px" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Name" Visible="false">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployee.Name")%>' runat="server" />
-                            </itemtemplate>
-                            <headerstyle width="162px" />
-                            <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                            </ItemTemplate>
+                            <HeaderStyle Width="162px" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Dealer Code">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
-                            </itemtemplate>
-                            <headerstyle width="62px" />
-                            <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                            </ItemTemplate>
+                            <HeaderStyle Width="62px" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Dealer Name">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerName")%>' runat="server"></asp:Label>
-                            </itemtemplate>
-                            <headerstyle width="250px" />
-                            <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                            </ItemTemplate>
+                            <HeaderStyle Width="250px" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Date Of Joining">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <asp:Label ID="lblFatherName" Text='<%# DataBinder.Eval(Container.DataItem, "DateOfJoining","{0:d}")%>' runat="server"></asp:Label>
-                            </itemtemplate>
-                            <headerstyle width="192px" />
-                            <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                            </ItemTemplate>
+                            <HeaderStyle Width="192px" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Date Of Leaving">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <asp:Label ID="lblDateOfLeaving" Text='<%# DataBinder.Eval(Container.DataItem, "DateOfLeaving","{0:d}")%>' runat="server"></asp:Label>
-                            </itemtemplate>
-                            <headerstyle width="192px" />
-                            <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                            </ItemTemplate>
+                            <HeaderStyle Width="192px" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Department">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <asp:Label ID="lblContactNumber" Text='<%# DataBinder.Eval(Container.DataItem, "DealerDepartment.DealerDepartment")%>' runat="server"></asp:Label>
-                            </itemtemplate>
-                            <headerstyle width="150px" />
-                            <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                            </ItemTemplate>
+                            <HeaderStyle Width="150px" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Designation">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <asp:Label ID="lblEmail" Text='<%# DataBinder.Eval(Container.DataItem, "DealerDesignation.DealerDesignation")%>' runat="server"></asp:Label>
-                            </itemtemplate>
-                            <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                            </ItemTemplate>
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Reporting To">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "ReportingTo.Name" )%>' runat="server"></asp:Label>
-                            </itemtemplate>
-                            <headerstyle width="75px" />
-                            <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                            </ItemTemplate>
+                            <HeaderStyle Width="75px" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="SAP Emp Code">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <asp:Label ID="lblSAPEmpCode" Text='<%# DataBinder.Eval(Container.DataItem, "SAPEmpCode" )%>' runat="server"></asp:Label>
-                            </itemtemplate>
-                            <headerstyle width="75px" />
-                            <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                            </ItemTemplate>
+                            <HeaderStyle Width="75px" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Active">
-                            <itemtemplate>
+                            <ItemTemplate>
                                 <%--   <asp:Label ID="lblser_rec_date" Text='<%# DataBinder.Eval(Container.DataItem, "IsActive" )%>' runat="server"></asp:Label>--%>
                                 <asp:Label ID="Label6" Text='<%# DataBinder.Eval(Container.DataItem, "IsActiveString" )%>' runat="server"></asp:Label>
-                            </itemtemplate>
-                            <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                            </ItemTemplate>
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                         </asp:TemplateField>
-                    </columns>
-                    <alternatingrowstyle backcolor="#ffffff" />
-                    <footerstyle forecolor="White" />
-                    <headerstyle font-bold="True" forecolor="White" horizontalalign="Left" />
+                    </Columns>
+                    <AlternatingRowStyle BackColor="#ffffff" />
+                    <FooterStyle ForeColor="White" />
+                    <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                     <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                    <rowstyle backcolor="#fbfcfd" forecolor="Black" horizontalalign="Left" />
+                    <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                 </asp:GridView>
             </div>
         </fieldset>
@@ -479,7 +479,7 @@
                     <div class="col-md-3 text-right">
                         <label>-</label>
                     </div>
-                    <div class="col-md-3">
+                    <%--<div class="col-md-3">
                         <asp:GridView ID="GVAssignDistrict" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid">
                             <columns>
                                 <asp:TemplateField HeaderText="District ID" Visible="false">
@@ -515,13 +515,52 @@
                     <div class="col-md-3">
                         <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" />
                         <asp:HiddenField ID="HiddenDistrictID" runat="server" Visible="false" />
+                    </div>--%>
+                    <div id="divDistrict" runat="server">
+                        <div class="col-md-3 text-right">
+                            <label>District</label>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" />
+                            <asp:HiddenField ID="HiddenDistrictID" runat="server" Visible="false" />
+                        </div>
+                        <div class="col-md-3">
+                            <asp:GridView ID="GVAssignDistrict" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="District ID" Visible="false">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDistrictID" Text='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' runat="server" />
+                                        </ItemTemplate>
+                                        <HeaderStyle Width="162px" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="District">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District")%>' runat="server" />
+                                        </ItemTemplate>
+                                        <HeaderStyle Width="162px" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Delete">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="LnkDistrict" runat="server" Text="Delete" OnClick="LnkDistrict_Click"></asp:LinkButton>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
                     </div>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnAssignRole" runat="server" Text="Assign Role" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnAssignRole_Click" Width="100px" />
-                        <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton btn Back" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnBack_Click" />
-                    </div>
+                <div class="col-md-12 text-center">
+                    <asp:Button ID="btnAssignRole" runat="server" Text="Assign Role" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnAssignRole_Click" Width="100px" />
+                    <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton btn Back" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnBack_Click" />
                 </div>
-            </fieldset>
         </div>
+        </fieldset>
+    </div>
     </div>
 </asp:Content>

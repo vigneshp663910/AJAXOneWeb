@@ -20,9 +20,14 @@ namespace DealerManagementSystem.ViewSales
         int? DivisionID = null;
         string CustomerCode = null;
         string SaleOrderReturnNo = null;
-        DateTime? SaleOrderReturnDateF = null;
-        DateTime? SaleOrderReturnDateT = null;
+        string SaleOrderReturnDateF = null;
+        string SaleOrderReturnDateT = null;
         int? SaleOrderReturnStatusID = null;
+
+        string CreditNoteNumber = null;
+        string CreditNotenDateF = null;
+        string CreditNotenDateT = null;
+
         private int PageCount
         {
             get
@@ -129,8 +134,8 @@ namespace DealerManagementSystem.ViewSales
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BSalesOrderReturn().GetSaleOrderReturnHeader(DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderReturnID, SaleOrderReturnNo, SaleOrderReturnDateF
-                    , SaleOrderReturnDateT, SaleOrderReturnStatusID, PageIndex, gvSoReturn.PageSize);
+                   PApiResult Result = new BSalesOrderReturn().GetSaleOrderReturnHeader(DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderReturnID, SaleOrderReturnNo, SaleOrderReturnDateF
+                    , SaleOrderReturnDateT, SaleOrderReturnStatusID, CreditNoteNumber, CreditNotenDateF, CreditNotenDateT, PageIndex, gvSoReturn.PageSize);
                 gvSoReturn.PageIndex = 0;
                 gvSoReturn.DataSource = JsonConvert.DeserializeObject<List<PSaleOrderReturn>>(JsonConvert.SerializeObject(Result.Data)); ;
                 gvSoReturn.DataBind();
@@ -161,13 +166,16 @@ namespace DealerManagementSystem.ViewSales
             DealerID = ddlDealerCode.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerCode.SelectedValue);
             OfficeCodeID = ddlOfficeName.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlOfficeName.SelectedValue);
             DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
-            SaleOrderReturnDateF = null;
-            SaleOrderReturnDateF = string.IsNullOrEmpty(txtSoReturnDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtSoReturnDateFrom.Text.Trim());
-            SaleOrderReturnDateT = string.IsNullOrEmpty(txtSoReturnDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtSoReturnDateTo.Text.Trim());
+            SaleOrderReturnDateF = txtSoReturnDateFrom.Text.Trim();
+            SaleOrderReturnDateT = txtSoReturnDateTo.Text.Trim();
 
             CustomerCode = string.IsNullOrEmpty(txtCustomer.Text.Trim()) ? null : txtCustomer.Text.Trim();
             SaleOrderReturnNo = txtSoReturnNumber.Text.Trim();
             SaleOrderReturnStatusID = ddlReturnStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlReturnStatus.SelectedValue);
+
+            CreditNoteNumber = txtCreditNoteNumber.Text.Trim();
+            CreditNotenDateF = txtCreditNoteDateF.Text.Trim();
+            CreditNotenDateT = txtCreditNoteDateT.Text.Trim();
         }
         protected void ibtnArrowLeftSoReturn_Click(object sender, ImageClickEventArgs e)
         {

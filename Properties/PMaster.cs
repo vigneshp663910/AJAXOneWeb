@@ -127,4 +127,14 @@ namespace Properties
         public string FileType { get; set; }
         public byte[] AttachedFile { get; set; }
     }
+    [Serializable]
+    public class PProductSpecification
+    {
+        public int ProductSpecificationID { get; set; }
+        public PProduct Product { get; set; }
+        public string SpecificationText { get; set; }
+        public string SpecificationDescription { get; set; }
+        public int OrderByNo { get; set; }
+        public bool IsActive { get; set; }
+    }    
 }

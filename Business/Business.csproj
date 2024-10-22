@@ -121,6 +121,7 @@
     <Compile Include="BDealer.cs" />
     <Compile Include="BDealerBusiness.cs" />
     <Compile Include="BDealerBusinessExcellence.cs" />
+    <Compile Include="BDealerOfficeUserMapping.cs" />
     <Compile Include="BDealerOperatorDetails.cs" />
     <Compile Include="BDeviationProcess.cs" />
     <Compile Include="BDMS_Address.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="BMachineOperator.cs" />
     <Compile Include="BMessageAnnouncement.cs" />
     <Compile Include="BNotification.cs" />
+    <Compile Include="BOnboardEmployee.cs" />
     <Compile Include="BOrganization.cs" />
     <Compile Include="BPG.cs" />
     <Compile Include="BPreSale.cs" />

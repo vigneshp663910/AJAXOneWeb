@@ -14,6 +14,7 @@ namespace Properties
         public DateTime StockTransferOrderDate { get; set; }
         public PDMS_Dealer Dealer { get; set; }
         public PDMS_DealerOffice DestinationOffice { get; set; }
+        public PDMS_Dealer SourceDealer { get; set; }
         public PDMS_DealerOffice SourceOffice { get; set; }
         public PAjaxOneStatus Status { get; set; }
         public PDMS_Division Division { get; set; }

@@ -19,6 +19,7 @@ namespace DealerManagementSystem.ViewPreSale
        // public override SubModule SubModuleName { get { return SubModule.ViewPreSale_EnquiryTimeLineReport; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);

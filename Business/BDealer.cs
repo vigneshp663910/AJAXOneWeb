@@ -244,7 +244,7 @@ namespace Business
         public int InsertOrUpdateDealerAddress(string Code)
         {
             //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(Code);
-            PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(Code);
+            PDMS_Customer Dealer = new BDMS_Customer().getDealerAddressFromSAP(Code);
             if (String.IsNullOrEmpty(Dealer.CustomerName))
             {
                 return 0;

@@ -2064,9 +2064,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Label>Name</Label>
-                                  <Value>=IIf((Parameters!NewLogo.Value  = "0"),"Ajax Fiori Eng (I) Pvt Ltd","Ajax Engineering Private Limited &lt;br /&gt; (Formerly Ajax Fiori Engineering (I) Pvt. Ltd)")</Value>
-                                  <ToolTip>ff</ToolTip>
+                                  <Value>=Parameters!Name.Value</Value>
                                   <MarkupType>HTML</MarkupType>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
@@ -3958,6 +3956,12 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="Name">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -4118,6 +4122,11 @@
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>15</RowIndex>
           <ParameterName>TCSTax</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>15</RowIndex>
+          <ParameterName>Name</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

@@ -20,27 +20,13 @@ namespace DealerManagementSystem.ViewProcurement
         string VendorID = null;
         string AsnNumber = null;
         string PurchaseOrderNo = null;
+        string invoiceNo = null;
         string SaleOrderNo = null;
         DateTime? AsnDateF = null;
         DateTime? AsnDateT = null;
         int? AsnStatusID = null;
         int? PurchaseOrderTypeID = null;
-        int? DivisionID = null;
-        public List<PAsn> PAsnHeader
-        {
-            get
-            {
-                if (ViewState["PAsnHeader"] == null)
-                {
-                    ViewState["PAsnHeader"] = new List<PAsn>();
-                }
-                return (List<PAsn>)ViewState["PAsnHeader"];
-            }
-            set
-            {
-                ViewState["PAsnHeader"] = value;
-            }
-        }
+        int? DivisionID = null; 
         private int PageCount
         {
             get
@@ -128,6 +114,7 @@ namespace DealerManagementSystem.ViewProcurement
             AsnStatusID = ddlAsnStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlAsnStatus.SelectedValue);
             AsnNumber = txtAsnNumber.Text.Trim();
             PurchaseOrderNo = txtPoNumber.Text.Trim();
+            invoiceNo=txtInvoiceNo.Text.Trim();
             SaleOrderNo = txtSoNumber.Text.Trim();
             DivisionID = ddlDivision.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDivision.SelectedValue);
             PurchaseOrderTypeID = ddlPurchaseOrderType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);
@@ -178,8 +165,8 @@ namespace DealerManagementSystem.ViewProcurement
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnHeader(DealerID, DealerOfficeID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo, PurchaseOrderTypeID, DivisionID, PageIndex, gvPAsn.PageSize);
-                PAsnHeader = JsonConvert.DeserializeObject<List<PAsn>>(JsonConvert.SerializeObject(Result.Data));
+                PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnHeader(DealerID, DealerOfficeID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo, invoiceNo, PurchaseOrderTypeID, DivisionID, PageIndex, gvPAsn.PageSize);
+                List<PAsn> PAsnHeader = JsonConvert.DeserializeObject<List<PAsn>>(JsonConvert.SerializeObject(Result.Data));
                 gvPAsn.PageIndex = 0;
                 gvPAsn.DataSource = PAsnHeader;
                 gvPAsn.DataBind();
@@ -221,13 +208,7 @@ namespace DealerManagementSystem.ViewProcurement
                 fillPurchaseOrderASN();
             }
         }
-        protected void gvPAsn_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvPAsn.PageIndex = e.NewPageIndex;
-            gvPAsn.DataSource = PAsnHeader;
-            gvPAsn.DataBind();
-            lblRowCount.Text = (((gvPAsn.PageIndex) * gvPAsn.PageSize) + 1) + " - " + (((gvPAsn.PageIndex) * gvPAsn.PageSize) + gvPAsn.Rows.Count) + " of " + PAsnHeader.Count;
-        }
+        
         void fillDealer()
         {
             ddlDealer.DataTextField = "CodeWithName";
@@ -265,68 +246,27 @@ namespace DealerManagementSystem.ViewProcurement
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
-            ExportExcel(PAsnHeader, "Asn Report");
-        }
-        void ExportExcel(List<PAsn> AsnList, String Name)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Sno");
-            dt.Columns.Add("Asn Number");
-            dt.Columns.Add("Asn Date");
-            dt.Columns.Add("PO Number");
-            dt.Columns.Add("PO Date");
-            dt.Columns.Add("Dealer Code");
-            dt.Columns.Add("Vendor Code");
-            dt.Columns.Add("Asn Status");
-            dt.Columns.Add("Delivery Number");
-            dt.Columns.Add("Delivery Date");
-            dt.Columns.Add("Net Weight");            
-            dt.Columns.Add("Track ID");
-            dt.Columns.Add("Courier ID");
-            dt.Columns.Add("Courier Date");
-            dt.Columns.Add("LR Number");
-            dt.Columns.Add("Asn Remarks");
-            dt.Columns.Add("Gr Number");
-            dt.Columns.Add("Gr Date");
-            dt.Columns.Add("Gr Status");
-            int sno = 0;
-            foreach (PAsn Asn in AsnList)
-            {
-                sno += 1;
-                dt.Rows.Add(
-                    sno
-                    , Asn.AsnNumber
-                    , Asn.AsnDate
-                    , Asn.PurchaseOrder.PurchaseOrderNumber
-                    , Asn.PurchaseOrder.PurchaseOrderDate
-                    , Asn.PurchaseOrder.Dealer.DealerCode
-                    , Asn.PurchaseOrder.Vendor.DealerCode
-                    , Asn.AsnStatus.ProcurementStatus
-                    , Asn.DeliveryNumber
-                    , Asn.DeliveryDate
-                    , Asn.NetWeight
-                    , Asn.TrackID
-                    , Asn.CourierID
-                    , Asn.CourierDate
-                    , Asn.LRNo
-                    , Asn.Remarks
-                    , (Asn.Gr != null) ? Asn.Gr.GrNumber : ""
-                    , (Asn.Gr != null) ? Asn.Gr.GrDate.ToString() : ""
-                    , (Asn.Gr != null) ? Asn.Gr.Status.ProcurementStatus : ""
-                    );
-            }
-            try
-            {
-                new BXcel().ExporttoExcel(dt, Name);
-            }
-            catch
-            {
+            Search();
+            DataTable Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnExcel(DealerID, DealerOfficeID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo, invoiceNo, PurchaseOrderTypeID, DivisionID, 0);
+            new BXcel().ExporttoExcel(Result, "Asn Report"); 
+        } 
 
-            }
-            finally
-            {
-                //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
-            }
+        protected void btnExportExcelDetails_Click(object sender, EventArgs e)
+        {
+            Search();
+            DataTable Result = new BDMS_PurchaseOrder().GetPurchaseOrderAsnExcel(DealerID, DealerOfficeID, VendorID, AsnNumber, AsnDateF, AsnDateT, AsnStatusID, PurchaseOrderNo, SaleOrderNo,invoiceNo, PurchaseOrderTypeID, DivisionID, 1);
+            new BXcel().ExporttoExcel(Result, "Asn Report");
+        }
+
+        protected void btnMissingASN_Click(object sender, EventArgs e)
+        {
+            MPE_MissingASN.Show();
+        }
+
+        protected void btnMissingAsnSave_Click(object sender, EventArgs e)
+        {
+            new BAPI().ApiGet("Sap/GetASNFromSAP?InvoiceNo=" + txtInvoiceNumber.Text);
+            fillPurchaseOrderASN();
         }
     }
 }

@@ -15,10 +15,11 @@ namespace DealerManagementSystem.ViewMarketing
        // public override SubModule SubModuleName { get { return SubModule.ViewMarketing_ActivityInvoice; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            if (PSession.User == null)
-            {
-                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
+            //Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            //if (PSession.User == null)
+            //{
+            //    Response.Redirect(UIHelper.SessionFailureRedirectionPage);
+            //}
         }
         BDMS_Activity oActivity = new BDMS_Activity();
         protected void Page_Load(object sender, EventArgs e)

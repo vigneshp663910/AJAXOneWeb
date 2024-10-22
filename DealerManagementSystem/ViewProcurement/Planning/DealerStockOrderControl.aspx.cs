@@ -53,7 +53,7 @@ namespace DealerManagementSystem.ViewProcurement.Planning
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Planning » Dealer Stock Order Control');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Procurement » Stock Order Control');</script>");
             
             lblMessage.Text = string.Empty;
             lblMessageCreateDealerSOControl.Text = string.Empty;

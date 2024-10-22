@@ -49,6 +49,7 @@ namespace DealerManagementSystem.ViewInventory
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Inventory » Initial / Opening Stock');</script>");
             if (!IsPostBack)
             {
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select Division");
@@ -235,13 +236,21 @@ namespace DealerManagementSystem.ViewInventory
                                 {
                                     continue;
                                 }
+                                string ExcelMaterialCode = Convert.ToString(IXLCell_[1].Value).TrimEnd('\0');
+
+                                if ((MaterialUpload.Any(z => z.MaterialCode == ExcelMaterialCode)))
+                                {
+                                    lblMessage.Text = "Duplicate Material Code : " + ExcelMaterialCode;
+                                    lblMessage.ForeColor = Color.Red;
+                                    return false;
+                                } 
                                 PInitialStock_Post S = new PInitialStock_Post();
                                 MaterialUpload.Add(S);
 
                                 S.ID = Convert.ToInt32(IXLCell_[0].Value);
                                 S.DealerID = Convert.ToInt32(ddlDealerO.SelectedValue);
                                 S.OfficeID = Convert.ToInt32(ddlDealerOfficeO.SelectedValue);
-                                string ExcelMaterialCode = Convert.ToString(IXLCell_[1].Value).TrimEnd('\0');
+                                
                                 S.MaterialCode = ExcelMaterialCode;
 
                                // S.MaterialCode = Convert.ToString(IXLCell_[1].Value);
@@ -251,11 +260,24 @@ namespace DealerManagementSystem.ViewInventory
                                 MaterialPrice.Customer = DealerCode;
                                 MaterialPrice.Vendor = DealerCode;
                                 //MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
-                                MaterialPrice.OrderType = "101_DPPOR_PURC_ORDER_HDR";
-                                //MaterialPrice.Division = Convert.ToString(IXLCell_[3].Value).TrimEnd('\0');
-                                if (!string.IsNullOrEmpty(MaterialPrice.Division))
+                               
+                                MaterialPrice.Division = Convert.ToString(IXLCell_[3].Value).TrimEnd('\0');
+                                if (MaterialPrice.Division == "SP")
+                                {
+                                    MaterialPrice.OrderType = "101_DPPOR_PURC_ORDER_HDR";
+                                }
+                                else if (MaterialPrice.Division=="CM")
                                 {
                                     MaterialPrice.OrderType = "201_DPPOR_PURC_ORDER_HDR";
+                                }
+                                //else if (!string.IsNullOrEmpty(MaterialPrice.Division))
+                                //{
+                                //    MaterialPrice.OrderType = "201_DPPOR_PURC_ORDER_HDR";
+                                //}
+                                else
+                                {
+                                    MaterialPrice.Division = "SP";
+                                    MaterialPrice.OrderType = "402_DPPOR_PURC_ORDER_HDR";
                                 }
                                 //   MaterialPrice.Division = new BDMS_Master().GetDivision(Convert.ToInt32(ddlDivision.SelectedValue), null)[0].DivisionCode;
                                 MaterialPrice.Item = new List<PSapMatPriceItem_Input>();

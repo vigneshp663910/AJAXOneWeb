@@ -3,6 +3,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
@@ -94,10 +95,21 @@ namespace DealerManagementSystem.ViewMarketing
             DataRow dr = dtDocs.Select("AD_PkDocID= " + iSno).GetValue(0) as DataRow;
             if (dr != null)
             {
+                string FileNme = dr["AD_FileName"].ToString();
+                byte[] bytData = null;
+                if (DBNull.Value == dr["AD_AttachedFile"])
+                {
+                    bytData = new BDMS_Activity().DowloadActivityDocs(iSno + Path.GetExtension(FileNme)).AttachedFile;
+                }
+                else
+                {
+                    bytData = ((byte[])dr["AD_AttachedFile"]);
+                }
+
                 Response.Clear();
                 Response.ContentType = dr["AD_ContentType"].ToString();
-                Response.AddHeader("content-disposition", "attachment;filename=\"" + dr["AD_FileName"].ToString() + "\"");
-                Response.BinaryWrite((byte[])dr["AD_AttachedFile"]);
+                Response.AddHeader("content-disposition", "attachment;filename=\"" + FileNme + "\"");
+                Response.BinaryWrite(bytData);
                 Response.End();
             }
 

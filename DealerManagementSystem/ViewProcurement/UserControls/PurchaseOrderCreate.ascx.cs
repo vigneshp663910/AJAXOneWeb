@@ -955,7 +955,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             if (Convert.ToInt32(ddlPurchaseOrderType.SelectedValue) == (short)PurchaseOrderType.MachineOrder)
             {
-                Boolean chMaterialType = PurchaseOrderItem_Insert.Any(item => item.MaterialType == m.MaterialType);
+                Boolean chMaterialType = PurchaseOrderItem_Insert.Any(item => item.MaterialType == m.MaterialType && m.MaterialType == "FERT");
                 if (chMaterialType)
                 {
                     return "Already FERT Material Available : " + m.MaterialCode;

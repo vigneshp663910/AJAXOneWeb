@@ -1259,7 +1259,11 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/GenerateSaleInvoice?SaleOrderDeliveryID=" + SaleOrderDeliveryID));
 
         }
+        public PApiResult UpdateSaleOrderDeliveryCancel(long SaleOrderDeliveryID)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderDeliveryCancel?SaleOrderDeliveryID=" + SaleOrderDeliveryID));
 
+        }
         public PSaleOrderItem_Insert ReadItem(PDMS_Material m, int DealerID, int DealerOfficeID, int Qty, string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, decimal IDiscountPercentage, string TaxType)
         {
             PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
@@ -1387,9 +1391,10 @@ namespace Business
 
                 if (Files.AttachedFile == null || Files.AttachedFile.Length == 0)
                 {
-                    new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", Invoicefile(ID));
-                    Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-                    Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
+                    return Invoicefile(ID);
+                    //  new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", Invoicefile(ID));
+                    //  Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                    // Files = JsonConvert.DeserializeObject<PAttachedFile>(JsonConvert.SerializeObject(Result.Data));
                 }
                 return Files;
             }
@@ -1465,48 +1470,48 @@ namespace Business
                     else
                     {
                         GST_Header = "IGST";
-                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.Material.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
+                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
 
                         CessValue = CessValue + item.CessValue;
                         CessSubTotal = CessSubTotal + item.TaxableValue + item.IGSTValue + item.CessValue;
                     }
                 }
-                if (D.Freight != 0)
-                {
-                    i = i + 1;
-                    if (GST_Header == "CGST & SGST")
-                    {
-                        decimal GSTValue = D.Freight * 9 / 100;
-                        CommissionDT.Rows.Add(i, "Freight", "Freight Charges", "998719", "LE", "", String.Format("{0:n}", D.Freight), String.Format("{0:n}", D.Freight)
-                            , String.Format("{0:n}", 9),  String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", GSTValue), D.Freight+ GSTValue+ GSTValue);
-                        CessSubTotal = CessSubTotal + (D.Freight + GSTValue + GSTValue);
-                    }
-                    else
-                    {
-                        decimal GSTValue = D.Freight * 18 / 100;
-                        CommissionDT.Rows.Add(i, "Freight", "Freight Charges", "998719", "", "LE", String.Format("{0:n}", D.Freight),  String.Format("{0:n}", D.Freight)
-                            , null, String.Format("{0:n}", 18), null, String.Format("{0:n}", GSTValue), D.Freight + GSTValue);
-                        CessSubTotal = CessSubTotal + (D.Freight + GSTValue);
-                    }
-                }
-                if (D.PackingAndForward != 0)
-                {
-                    i = i + 1;
-                    if (GST_Header == "CGST & SGST")
-                    {
-                        decimal GSTValue = D.PackingAndForward * 9 / 100;
-                        CommissionDT.Rows.Add(i, "Packing", "Packing Charges", "998719", "LE", "", String.Format("{0:n}", D.PackingAndForward), String.Format("{0:n}", D.PackingAndForward)
-                            , String.Format("{0:n}", 9), String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", GSTValue), D.PackingAndForward + GSTValue + GSTValue);
-                        CessSubTotal = CessSubTotal + (D.PackingAndForward + GSTValue + GSTValue);
-                    }
-                    else
-                    {
-                        decimal GSTValue = D.PackingAndForward * 18 / 100;
-                        CommissionDT.Rows.Add(i, "Packing", "Packing Charges", "998719", "", "LE", String.Format("{0:n}", D.PackingAndForward), String.Format("{0:n}", D.PackingAndForward)
-                            , null, String.Format("{0:n}", 18), null, String.Format("{0:n}", GSTValue), D.PackingAndForward + GSTValue);
-                        CessSubTotal = CessSubTotal + (D.PackingAndForward + GSTValue);
-                    } 
-                }
+                //if (D.Freight != 0)
+                //{
+                //    i = i + 1;
+                //    if (GST_Header == "CGST & SGST")
+                //    {
+                //        decimal GSTValue = D.Freight * 9 / 100;
+                //        CommissionDT.Rows.Add(i, "Freight", "Freight Charges", "998719", "LE", "", String.Format("{0:n}", D.Freight), String.Format("{0:n}", D.Freight)
+                //            , String.Format("{0:n}", 9),  String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", GSTValue), D.Freight+ GSTValue+ GSTValue);
+                //        CessSubTotal = CessSubTotal + (D.Freight + GSTValue + GSTValue);
+                //    }
+                //    else
+                //    {
+                //        decimal GSTValue = D.Freight * 18 / 100;
+                //        CommissionDT.Rows.Add(i, "Freight", "Freight Charges", "998719", "", "LE", String.Format("{0:n}", D.Freight),  String.Format("{0:n}", D.Freight)
+                //            , null, String.Format("{0:n}", 18), null, String.Format("{0:n}", GSTValue), D.Freight + GSTValue);
+                //        CessSubTotal = CessSubTotal + (D.Freight + GSTValue);
+                //    }
+                //}
+                //if (D.PackingAndForward != 0)
+                //{
+                //    i = i + 1;
+                //    if (GST_Header == "CGST & SGST")
+                //    {
+                //        decimal GSTValue = D.PackingAndForward * 9 / 100;
+                //        CommissionDT.Rows.Add(i, "Packing", "Packing Charges", "998719", "LE", "", String.Format("{0:n}", D.PackingAndForward), String.Format("{0:n}", D.PackingAndForward)
+                //            , String.Format("{0:n}", 9), String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", GSTValue), D.PackingAndForward + GSTValue + GSTValue);
+                //        CessSubTotal = CessSubTotal + (D.PackingAndForward + GSTValue + GSTValue);
+                //    }
+                //    else
+                //    {
+                //        decimal GSTValue = D.PackingAndForward * 18 / 100;
+                //        CommissionDT.Rows.Add(i, "Packing", "Packing Charges", "998719", "", "LE", String.Format("{0:n}", D.PackingAndForward), String.Format("{0:n}", D.PackingAndForward)
+                //            , null, String.Format("{0:n}", 18), null, String.Format("{0:n}", GSTValue), D.PackingAndForward + GSTValue);
+                //        CessSubTotal = CessSubTotal + (D.PackingAndForward + GSTValue);
+                //    } 
+                //}
                 string contentType = string.Empty;
                 contentType = "application/pdf";
                 var CC = CultureInfo.CurrentCulture;
@@ -1524,16 +1529,25 @@ namespace Business
 
                 P[24] = new ReportParameter("QRCodeImg", "", false);
                 P[25] = new ReportParameter("IRN", "", false);
-                if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD"))
+                if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= D.InvoiceDate) && (Customer.GSTIN != "URD")&& (Customer.GSTIN != DealerN.GSTIN))
                 {
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
+                    if (EInvoiceSigned != null)
+                    {
+                        if (string.IsNullOrEmpty(EInvoiceSigned.SignedQRCode))
+                        {
+                            throw new Exception("E Invoice not generated.: " + EInvoiceSigned.Comments);
+                        }
+                    }
                     if (string.IsNullOrEmpty(D.IRN))
                     {
                         throw new Exception("E Invoice not generated. Please contact IT Team.");
                     }
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(ID);
-                    P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
-                    P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
-
+                    if (!string.IsNullOrEmpty(D.IRN))
+                    {
+                        P[24] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, D.InvoiceNumber), false);
+                        P[25] = new ReportParameter("IRN", "IRN : " + D.IRN, false);
+                    } 
                 }
 
 
@@ -1597,6 +1611,10 @@ namespace Business
                 InvF.AttachedFile = mybytes;
                 InvF.AttachedFileID = 0;
                 InvF.FileName = Convert.ToString(ID);
+                if ((Customer.GSTIN == "URD") || !string.IsNullOrEmpty(D.IRN))
+                {
+                    new BAPI().ApiPut("SaleOrder/UpdateSalesInvoice", InvF);
+                }
                 return InvF;
             }
             catch (Exception ex)
@@ -1605,17 +1623,48 @@ namespace Business
             }
             return null;
         }
-        public PApiResult GetSaleOrderInvoiceReport(int? DealerID, int? OfficeCodeID, string CustomerCode, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, string DeliveryNumber, string SaleOrderNumber, int? SaleOrderTypeID, int? DeliveryStatusID, int? PageIndex = null, int? PageSize = null)
+        public PApiResult GetSaleOrderInvoiceReport(int? DealerID, int? OfficeCodeID, string CustomerCode, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, string DeliveryNumber, string SaleOrderNumber, int? SaleOrderTypeID, int? DeliveryStatusID, int? DivisionID, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "SaleOrder/GetSaleOrderInvoiceReport?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&CustomerCode=" + CustomerCode + "&InvoiceNumber=" + InvoiceNumber + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo
-                + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&DivisionID=" + DivisionID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetSaleOrderInvoiceReportByExcelDownload(int? DealerID, int? OfficeCodeID, string CustomerCode, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, string DeliveryNumber, string SaleOrderNumber, int? SaleOrderTypeID, int? DeliveryStatusID)
+        public PApiResult GetSaleOrderInvoiceReportByExcelDownload(int? DealerID, int? OfficeCodeID, string CustomerCode, string InvoiceNumber, string InvoiceDateFrom, string InvoiceDateTo, string DeliveryNumber, string SaleOrderNumber, int? SaleOrderTypeID, int? DeliveryStatusID, int? DivisionID)
         {
             string endPoint = "SaleOrder/GetSaleOrderInvoiceReportByExcelDownload?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&CustomerCode=" + CustomerCode + "&InvoiceNumber=" + InvoiceNumber + "&InvoiceDateFrom=" + InvoiceDateFrom + "&InvoiceDateTo=" + InvoiceDateTo
-                + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID;
+                + "&DeliveryNumber=" + DeliveryNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&DivisionID=" + DivisionID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetOOFCustomerReport(int? DealerID, string SaleOrderDate, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "SaleOrder/GetOOFCustomerReport?DealerID=" + DealerID + "&SaleOrderDate=" + SaleOrderDate
+                + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+
+        public string ValidationCustomerGST(long CustomerId,int DealerID,string TaxType)
+        {
+            string Message = "";
+            PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(CustomerId);
+            PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(DealerID, null, null, null)[0];
+            if (Customer.GSTIN != "URD")
+            {
+                if (TaxType == "IGST")
+                {
+                    if (Customer.State.StateID == Dealer.StateN.StateID)
+                    {
+                        return "Please check the Tax Type w.r.t to Customer.";
+                    }
+                }
+                else
+                {
+                    if (Customer.State.StateID != Dealer.StateN.StateID)
+                    {
+                        return "Please check the Tax Type w.r.t to Customer.";
+                    }
+                }
+            }
+            return Message;
         }
     }
 }

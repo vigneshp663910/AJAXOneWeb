@@ -267,6 +267,16 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             {
                 MPE_CustomerSingedCopy.Show();
             }
+            else if(lbActions.Text == "Add Specification")
+            {
+                lblSpecificationMessage.Text = "";
+                lblSpecificationMessage.ForeColor = Color.Red;
+                lblSpecificationMessage.Visible = true;
+                txtSpecText.Text = "";
+                txtSpecDesc.Text = "";
+                txtOrderByNo.Text = "";
+                MPE_Specification.Show();
+            }
             //else if (lbActions.Text == "Generate Commission Claim")
             //{ 
             //    lblMessage.Visible = true;
@@ -836,7 +846,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             fillVisit();
             fillSalesCommissionClaim();
             fillCustomerSingedCopy();
-
+            GetSpecification();
             ActionControlMange();
         }
         public string ValidationFinancier()
@@ -1028,7 +1038,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
 
-            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE(Q.RefQuotationDate);
             string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
             string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
 
@@ -1227,7 +1237,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(null, Q.Lead.Dealer.DealerCode, null);
 
-            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE(Q.RefQuotationDate);
             string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : ", " + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : ", " + Ajax.Address3)).Trim(',', ' ');
             string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : ", " + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
 
@@ -1253,9 +1263,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblMessage.Visible = true;
             lblMessage.ForeColor = Color.Red;
 
-
-
-            ReportParameter[] P = new ReportParameter[38];
+            ReportParameter[] P = new ReportParameter[40];
             P[0] = new ReportParameter("QuotationType", "MACHINE QUOTATION", false);
             P[1] = new ReportParameter("QuotationNo", Q.SapQuotationNo, false);
             P[2] = new ReportParameter("QuotationDate", Q.SapQuotationDate.ToString(), false);
@@ -1339,6 +1347,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[31] = new ReportParameter("CompanyPAN", "PAN:" + Dealer.PAN);
                 P[32] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Mobile + ",Email:" + Dealer.Email);
             }
+
             //string   BatchingPlantImage1 = new Uri(Server.MapPath("~/d/TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
             //string BatchingPlantImage2 = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
             //string BatchingPlantTechSpec = new Uri(Server.MapPath("~/" + Path + "TPhoto" + "." + FSRSignature.FileType)).AbsoluteUri;
@@ -1385,12 +1394,31 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             P[36] = new ReportParameter("BatchingPlantImage2Spec", Image2Spec);
             P[37] = new ReportParameter("BatchingPlantTechSpec", BatchingPlantTechSpec);
 
+            DataTable dtQtSpec = new DataTable();
+            dtQtSpec.Columns.Add("SpecificationID");
+            dtQtSpec.Columns.Add("SpecificationText");
+            dtQtSpec.Columns.Add("SpecificationDescription");
+
+            List<PQuotationSpecification> QuotationSpecification = new BSalesQuotation().GetQuotationSpecification(Quotation.QuotationID);
+
+            foreach (PQuotationSpecification pqs in QuotationSpecification)
+            {
+                dtQtSpec.Rows.Add(pqs.SpecificationID, pqs.SpecificationText, pqs.SpecificationDescription);
+            }
+            P[38] = new ReportParameter("BatchingPlantModel", Q.LeadProduct.Product.Product);
+            P[39] = new ReportParameter("FertCode", Q.QuotationItems[0].Material.MaterialCode);
+
             report.ReportPath = Server.MapPath("~/Print/SalesMachineQuotationStd.rdlc");
             report.SetParameters(P);
             ReportDataSource rds = new ReportDataSource();
             rds.Name = "SalesQuotationItem";//This refers to the dataset name in the RDLC file  
             rds.Value = dtItem;
-            report.DataSources.Add(rds); ;
+            report.DataSources.Add(rds);
+            ReportDataSource rds1 = new ReportDataSource();
+            rds1.Name = "QuotationSpecification";//This refers to the dataset name in the RDLC file  
+            rds1.Value = dtQtSpec;
+            report.DataSources.Add(rds1);
+
             Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF  
 
             return mybytes;
@@ -1415,7 +1443,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 if (Quotation.IsStandard)
                 {
                     List<PProductDrawing> ProductDrawing = new BDMS_Master().GetProductDrawing(Q.LeadProduct.Product.ProductID);
-                    if (ProductDrawing.Count != 3)
+                    if (ProductDrawing.Count != 2)
                     {
                         lblMessage.Text = "Drawing is not available";
                         lblMessage.Visible = true;
@@ -1479,7 +1507,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 if (Quotation.IsStandard)
                 {
                     List<PProductDrawing> ProductDrawing = new BDMS_Master().GetProductDrawing(Q.LeadProduct.Product.ProductID);
-                    if (ProductDrawing.Count != 3)
+                    if (ProductDrawing.Count != 2)
                     {
                         lblMessage.Text = "Drawing is not available";
                         lblMessage.Visible = true;
@@ -1629,7 +1657,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             P[29] = new ReportParameter("ShipToPartyBPCode", CustomerShipTo.CustomerCode, false);
             P[30] = new ReportParameter("Hypothecation", Hypothecation, false);
             string Div = Q.Lead.ProductType.Division.DivisionCode;
-            if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM" || Div == "CP" || Div == "SB")
+            if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM" || Div == "CP" || Div == "SB" || Div == "PS")
             {
                 P[31] = new ReportParameter("TermsandConditionHead", "TERMS & CONDITIONS:", false);
                 P[32] = new ReportParameter("PaymentTerms", "Payment Terms :", false);
@@ -1871,7 +1899,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 return null;
             }
 
-            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE();
+            PDMS_Customer Ajax = new BDMS_Customer().GetCustomerAE(Q.RefQuotationDate);
             string AjaxCustomerAddress1 = (Ajax.Address1 + (string.IsNullOrEmpty(Ajax.Address2) ? "" : "," + Ajax.Address2) + (string.IsNullOrEmpty(Ajax.Address3) ? "" : "," + Ajax.Address3)).Trim(',', ' ');
             string AjaxCustomerAddress2 = (Ajax.City + (string.IsNullOrEmpty(Ajax.State.State) ? "" : "," + Ajax.State.State) + (string.IsNullOrEmpty(Ajax.Pincode) ? "" : "-" + Ajax.Pincode)).Trim(',', ' ');
 
@@ -2421,6 +2449,137 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Response.Flush();
             Response.End();
         }
+        protected void btnSaveSpecification_Click(object sender, EventArgs e)
+        {
+            lblSpecificationMessage.Text = "";
+            lblSpecificationMessage.ForeColor = Color.Red;
+            lblSpecificationMessage.Visible = true;
+            lblMessage.Text = "";
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            try
+            {
+
+                if (string.IsNullOrEmpty(txtSpecText.Text))
+                {
+                    lblSpecificationMessage.Text = "Please Enter Specification Text...!";
+                    MPE_Specification.Show();
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtSpecDesc.Text))
+                {
+                    lblSpecificationMessage.Text = "Please Enter Specification Description...!";
+                    MPE_Specification.Show();
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtOrderByNo.Text))
+                {
+                    lblSpecificationMessage.Text = "Please Enter OrderBy No...!";
+                    MPE_Specification.Show();
+                    return;
+                }
+
+                PQuotationSpecification_Insert PD = new PQuotationSpecification_Insert();
+                if (!string.IsNullOrEmpty(Hid_SpecificationID.Value))
+                {
+                    PD.SpecificationID = Convert.ToInt64(Hid_SpecificationID.Value);
+                }
+                PD.SalesQuotationID = Convert.ToInt64(Quotation.QuotationID);
+                PD.SpecificationText = txtSpecText.Text.Trim();
+                PD.SpecificationDescription = txtSpecDesc.Text.Trim();
+                PD.OrderByNo = Convert.ToInt32(txtOrderByNo.Text);
+                PD.IsActive = true;
+                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/InsertOrUpdateQuotationSpecification", PD));
+                if (result.Status == PApplication.Failure)
+                {
+                    lblSpecificationMessage.Text = result.Message;
+                    MPE_Specification.Show();
+                    return;
+                }
+
+                lblSpecificationMessage.Text = result.Message;
+                lblSpecificationMessage.ForeColor = Color.Green;
+                lblMessage.Text = result.Message;
+                lblMessage.ForeColor = Color.Green;
+                Hid_SpecificationID.Value = "";
+                GetSpecification();
+            }
+            catch (Exception ex)
+            {
+                lblSpecificationMessage.Text = ex.Message.ToString();
+                MPE_Specification.Show();
+            }
+        }
+        private void GetSpecification()
+        {
+            long? QuotationID = Quotation.QuotationID;
+            List<PQuotationSpecification> QuotationSpecification = new BSalesQuotation().GetQuotationSpecification(QuotationID);
+            GVSpecification.DataSource = null;
+            GVSpecification.DataBind();
+            if (QuotationSpecification.Count > 0)
+            {
+                GVSpecification.DataSource = QuotationSpecification;
+                GVSpecification.DataBind();
+            }
+        }
+        protected void lblSpecificationDelete_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "";
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            try
+            {
+                LinkButton lblSpecificationDelete = (LinkButton)sender;
+                long SpecificationID = Convert.ToInt32(lblSpecificationDelete.CommandArgument);
+                GridViewRow row = (GridViewRow)(lblSpecificationDelete.NamingContainer);
+                string SpecificationText = Convert.ToString(((Label)row.FindControl("lblSpecificationText")).Text.Trim());
+                string SpecificationDescription = Convert.ToString(((Label)row.FindControl("lblSpecificationDescription")).Text.Trim());
+                int OrderByNo = Convert.ToInt32(((Label)row.FindControl("lblOrderByNo")).Text.Trim());
+
+                PQuotationSpecification_Insert PD = new PQuotationSpecification_Insert();
+                PD.SpecificationID = Convert.ToInt64(SpecificationID);
+                PD.SalesQuotationID = Convert.ToInt64(Quotation.QuotationID);
+                PD.SpecificationText = SpecificationText;
+                PD.SpecificationDescription = SpecificationDescription;
+                PD.OrderByNo = OrderByNo;
+                PD.IsActive = false;
+
+                PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesQuotation/InsertOrUpdateQuotationSpecification", PD));
+                if (result.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = result.Message;
+                    return;
+                }
+
+                lblMessage.Text = result.Message;
+                lblMessage.ForeColor = Color.Green;
+                GetSpecification();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+            }
+        }
+        protected void lblSpecificationEdit_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "";
+            lblMessage.ForeColor = Color.Red;
+            lblMessage.Visible = true;
+            try
+            {
+                LinkButton lblSpecificationDelete = (LinkButton)sender;
+                Hid_SpecificationID.Value = lblSpecificationDelete.CommandArgument;
+                GridViewRow row = (GridViewRow)(lblSpecificationDelete.NamingContainer);
+                txtSpecText.Text = Convert.ToString(((Label)row.FindControl("lblSpecificationText")).Text.Trim());
+                txtSpecDesc.Text = Convert.ToString(((Label)row.FindControl("lblSpecificationDescription")).Text.Trim());
+                txtOrderByNo.Text = Convert.ToString(((Label)row.FindControl("lblOrderByNo")).Text.Trim());
+                btnSaveSpecification.Text = "Update";
+                MPE_Specification.Show();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+            }
+        }
     }
 }
- 

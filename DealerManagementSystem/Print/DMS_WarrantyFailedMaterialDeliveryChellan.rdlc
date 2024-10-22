@@ -1453,18 +1453,12 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve">   </Value>
+                                  <Value> PRC (Parts Recall Centre)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>PRC (Parts Recall Centre)</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontFamily>Calibri</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>#000000</Color>
                                   </Style>
@@ -1475,18 +1469,18 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Ajax engineering spares warehouse</Value>
+                                  <Value> Ajax engineering ltd spares warehouse</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>11pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
+                                    <FontWeight>Bold</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                     <Color>#000000</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <LeftIndent>9.2pt</LeftIndent>
+                              <LeftIndent>0cm</LeftIndent>
                               <RightIndent>0cm</RightIndent>
                               <Style>
                                 <TextAlign>Left</TextAlign>
@@ -1495,7 +1489,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Near sri Balaji weigh bridge, plot no. 298,</Value>
+                                  <Value> Plot Number 26, Adinarayana Hosahalli Industrial Area 4th Phase,</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Calibri</FontFamily>
@@ -1506,7 +1500,7 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <LeftIndent>9.2pt</LeftIndent>
+                              <LeftIndent>0cm</LeftIndent>
                               <RightIndent>0cm</RightIndent>
                               <Style>
                                 <TextAlign>Left</TextAlign>
@@ -1515,7 +1509,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Obadenahalli, Industrial area, D'pur 3rd Phase Kasaba</Value>
+                                  <Value> Doddaballapura, Bangalore – 561203</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Calibri</FontFamily>
@@ -1526,27 +1520,7 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <LeftIndent>9.2pt</LeftIndent>
-                              <RightIndent>11.149pt</RightIndent>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Bangalore Rural District, Doddaballapur-561203. Karnataka</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontFamily>Calibri</FontFamily>
-                                    <FontSize>11pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <LeftIndent>9.2pt</LeftIndent>
+                              <LeftIndent>0cm</LeftIndent>
                               <RightIndent>0cm</RightIndent>
                               <Style>
                                 <TextAlign>Left</TextAlign>
@@ -1555,7 +1529,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>GST State Code :29 , GSTIN/UIN No : 29AABCA2035K1ZT Ph : +91 9972527363</Value>
+                                  <Value> GST State Code :29 , GSTIN/UIN No : 29AABCA2035K1ZT Ph : +91 9972527363</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Calibri</FontFamily>
@@ -2120,7 +2094,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>12.28316cm</Height>
+        <Height>12.02916cm</Height>
         <Style>
           <Border>
             <Style>Solid</Style>

@@ -81,12 +81,25 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 DownloadSalesDeliveryChallan();
             }
+            else if (lbActions.ID == "lbCancel")
+            {
+                PApiResult Results = new BDMS_SalesOrder().UpdateSaleOrderDeliveryCancel(SODeliveryID);
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Red;
+                    return;
+                }
+                lblMessage.Text = Results.Message;
+                lblMessage.ForeColor = Color.Green;
+                fillViewSODelivery(SODeliveryID);
+            }
             else if (lbActions.ID == "lbGenerateInvoice")
             {
                 PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
                 if (Dealer.IsEInvoice && SaleOrderDeliveryByID.SaleOrder.Customer.GSTIN != "URD")
                 {
-                    if(string.IsNullOrEmpty(SaleOrderDeliveryByID.SaleOrder.Customer.Address1))
+                    if (string.IsNullOrEmpty(SaleOrderDeliveryByID.SaleOrder.Customer.Address1))
                     {
                         lblMessage.Text = "Please update Customer Address.";
                         return;
@@ -99,6 +112,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     if (string.IsNullOrEmpty(SaleOrderDeliveryByID.SaleOrder.Customer.Pincode))
                     {
                         lblMessage.Text = "Please update Customer Pincode.";
+                        return;
+                    }
+                    string Message = ValidationEInvoice(SaleOrderDeliveryByID.SaleOrder.Customer.GSTIN, SaleOrderDeliveryByID.SaleOrder.Customer.Pincode, SaleOrderDeliveryByID.SaleOrder.Customer.State.StateCode);
+
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessage.Text = Message;
                         return;
                     }
                 }
@@ -180,6 +200,36 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 }
             }
         }
+        public string ValidationEInvoice(string Gstin,string Pin,string Stcd)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Gstin))
+                {
+                    return "Please update Buyer GST Number";
+                }
+                String regexS = "^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$";
+                System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(regexS);
+                if (regex.Match(Gstin).Success)
+                {
+                    if (Gstin.Trim().Substring(0, 2) != Stcd.Trim())
+                    {
+                        return "Please verify the GST number with State";
+                    }
+                }
+                else
+                {
+                    return "Please update correct GST Number";
+                } 
+                if (!new BDMS_EInvoice().ValidatePincode(Pin.Substring(0, 2), Stcd))
+                {
+                    return "Please check Buyer Pincode and Statecode";
+                } 
+            }
+            catch (Exception e)
+            { }
+            return "";
+        }
         void ViewSalesDeliveryChallan()
         {
             try
@@ -221,7 +271,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
             string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
-            ReportParameter[] P = new ReportParameter[11];
+            ReportParameter[] P = new ReportParameter[12];
             P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
             P[1] = new ReportParameter("CompanyAddress1", DealerCustomerAddress1, false);
             P[2] = new ReportParameter("CompanyAddress2", DealerCustomerAddress2, false);
@@ -232,7 +282,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[7] = new ReportParameter("CustomerAddress2", CustomerAddress2, false);
             P[8] = new ReportParameter("DeliveryNo", SaleOrderDeliveryByID.DeliveryNumber, false);
             P[9] = new ReportParameter("DeliveryDate", SaleOrderDeliveryByID.DeliveryDate.ToString(), false);
-
+            P[11] = new ReportParameter("DeliveryAddress", SaleOrderDeliveryByID.ShippingAddress, false);
             DataTable dtItem = new DataTable();
             dtItem.Columns.Add("ItemNo");
             dtItem.Columns.Add("PartNo");
@@ -317,21 +367,23 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblCustomer.Text = SaleOrderDeliveryByID.SaleOrder.Customer.CustomerCode + " " + SaleOrderDeliveryByID.SaleOrder.Customer.CustomerName;
             lblEquipment.Text = SaleOrderDeliveryByID.Equipment.EquipmentSerialNo;
             lblPaymentMode.Text = SaleOrderDeliveryByID.PaymentMode == null ? "" : SaleOrderDeliveryByID.PaymentMode.Status;
+            lblTcsTax.Text = Convert.ToString(SaleOrderDeliveryByID.TCSTax);
             lblTcsValue.Text = Convert.ToString(SaleOrderDeliveryByID.TCSValue);
-            decimal Value = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
+            decimal Discount = 0, TaxableValue = 0, TaxValue = 0, NetAmount = 0;
             foreach (PSaleOrderDeliveryItem DeliveryItem in SaleOrderDeliveryByID.SaleOrderDeliveryItems)
             {
-                Value = Value + DeliveryItem.Value;
+                Discount = Discount + + DeliveryItem.DiscountValue;
                 TaxableValue = TaxableValue + DeliveryItem.TaxableValue;
                 TaxValue = TaxValue + DeliveryItem.CGSTValue + DeliveryItem.SGSTValue + DeliveryItem.IGSTValue;
                 NetAmount = NetAmount + DeliveryItem.TaxableValue + DeliveryItem.CGSTValue + DeliveryItem.SGSTValue + DeliveryItem.IGSTValue;
                 DeliveryItem.SaleOrderItem.NetAmount = DeliveryItem.TaxableValue + DeliveryItem.CGSTValue + DeliveryItem.SGSTValue + DeliveryItem.IGSTValue;
             }
 
-            lblValue.Text = Value.ToString();
+            lblDiscount.Text = Discount.ToString();
             lblTaxableValue.Text = TaxableValue.ToString();
             lblTaxValue.Text = TaxValue.ToString();
             lblNetAmount.Text = NetAmount.ToString();
+            lblNetAmountWithTCS.Text = (NetAmount + SaleOrderDeliveryByID.TCSValue).ToString();
 
             gvSODeliveryItem.DataSource = SaleOrderDeliveryByID.SaleOrderDeliveryItems;
             gvSODeliveryItem.DataBind();
@@ -414,13 +466,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lbUpdateShippingDetails.Visible = true;
             lbPreviewInvoice.Visible = true;
             lbDowloadInvoice.Visible = true;
+            lbCancel.Visible = true;
             if (SaleOrderDeliveryByID.SaleOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder)
             {
                 lbGenerateInvoice.Visible = false;
                 lbPreviewInvoice.Visible = false;
                 lbDowloadInvoice.Visible = false;
             }
-
             if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_InvoicePending)
             {
                 if (SaleOrderDeliveryByID.SaleOrder.SaleOrderType.SaleOrderTypeID != (short)SaleOrderType.WarrantyOrder)
@@ -432,14 +484,33 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Invoiced)
             {
-                lbGenerateInvoice.Visible = false;
+                lbGenerateInvoice.Visible = false; 
             }
             else if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Shipped)
             {
                 lbGenerateInvoice.Visible = false;
+                lbUpdateShippingDetails.Visible = false; 
+            }
+            else if (SaleOrderDeliveryByID.Status.StatusID == (short)AjaxOneStatus.SaleOrderDelivery_Cancelled)
+            {
+                lbGenerateInvoice.Visible = false;
                 lbUpdateShippingDetails.Visible = false;
+                lbPreviewInvoice.Visible = false;
+                lbDowloadInvoice.Visible = false;
+                lbCancel.Visible = false;
+                lbPreviewDC.Visible = false;
+                lbDowloadDC.Visible = false;
+            }
+            if (!string.IsNullOrEmpty(SaleOrderDeliveryByID.InvoiceNumber))
+            {
+                lbCancel.Visible = false;
             }
 
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SaleOrderDeliveryCancel).Count() == 0)
+            {
+                lbCancel.Visible = false;
+            }
         }
         void ibPDF_Click()
         {
@@ -573,8 +644,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[16] = new ReportParameter("CustomerShipToGSTIN", Customer.GSTIN, false);
             P[17] = new ReportParameter("InvoiceNo", SaleOrderDeliveryByID.InvoiceNumber, false);
             P[18] = new ReportParameter("InvoiceDate", (SaleOrderDeliveryByID.InvoiceDate == null) ? "" : Convert.ToDateTime(SaleOrderDeliveryByID.InvoiceDate).ToShortDateString(), false);
-            P[19] = new ReportParameter("Attn", KindAttention, false);
-            P[20] = new ReportParameter("Mobile", PhoneNumber, false);
+            P[19] = new ReportParameter("Attn", Customer.ContactPerson, false);
+            P[20] = new ReportParameter("Mobile", Customer.Mobile, false);
             P[21] = new ReportParameter("Ref", SaleOrderDeliveryByID.SaleOrder.RefNumber, false);
             P[22] = new ReportParameter("CGST_Header", "", false);
             P[23] = new ReportParameter("CGSTVal_Header", "", false);
@@ -645,17 +716,26 @@ namespace DealerManagementSystem.ViewSales.UserControls
             P[33] = new ReportParameter("GrandTotalInwords", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
             P[41] = new ReportParameter("TCSTaxPer", String.Format("{0:n}", SaleOrderDeliveryByID.TCSTax), false);
             PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
-            if ((DealerN.IsEInvoice) && (DealerN.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate) && (Customer.GSTIN != "URD"))
+            if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate) && (Customer.GSTIN != "URD"))
             {
-                if(string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
+                PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(SaleOrderDeliveryByID.SaleOrderDeliveryID);
+                if (EInvoiceSigned != null)
+                {
+                    if (string.IsNullOrEmpty(EInvoiceSigned.SignedQRCode))
+                    {
+                        throw new Exception("E Invoice not generated.: " + EInvoiceSigned.Comments);
+                    }
+                }
+                if (string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
                 {
                     throw new Exception("E Invoice not generated. Please contact IT Team.");
+                } 
+                else
+                {
+                    P[40] = new ReportParameter("IRNo", "IRN : " + SaleOrderDeliveryByID.IRN, false);
+                    P[42] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderDeliveryByID.InvoiceNumber), false); 
                 }
-                PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(SaleOrderDeliveryByID.SaleOrderDeliveryID);
-                //P = new ReportParameter[26];                
-                P[40] = new ReportParameter("IRNo", "IRN : " + SaleOrderDeliveryByID.IRN, false);
-                P[42] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderDeliveryByID.InvoiceNumber), false);
-                //report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
+
             }
             else
             {

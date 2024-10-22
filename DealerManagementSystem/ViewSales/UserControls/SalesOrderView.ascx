@@ -373,11 +373,10 @@
                     <label>SO Date : </label>
                     <asp:Label ID="lblSaleOrderDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-
-
-
-
-
+                <div class="col-md-12">
+                    <label>Freight : </label>
+                    <asp:Label ID="lblFreight" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
@@ -402,24 +401,6 @@
                     <label>Order Type : </label>
                     <asp:Label ID="lblSaleOrderType" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="col-md-12">
-                    <label>TCS Tax : </label>
-                    <asp:Label ID="lblTcsTax" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Tax : </label>
-                    <asp:Label ID="lblTaxType" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Header Discount% : </label>
-                    <asp:Label ID="lblHeaderDiscount" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Freight : </label>
-                    <asp:Label ID="lblFreight" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
                 <div class="col-md-12">
                     <label>Packing & Forward : </label>
                     <asp:Label ID="lblPackingAndForward" runat="server" CssClass="LabelValue"></asp:Label>
@@ -427,9 +408,24 @@
             </div>
             <div class="col-md-3">
                 <div class="col-md-12">
+                    <label>Tax : </label>
+                    <asp:Label ID="lblTaxType" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>TCS Tax : </label>
+                    <asp:Label ID="lblTcsTax" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
                     <label>TCS Value : </label>
                     <asp:Label ID="lblTcsValue" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>Header Discount% : </label>
+                    <asp:Label ID="lblHeaderDiscount" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+            </div>
+            <div class="col-md-3">
+
                 <div class="col-md-12">
                     <label>Discount Amount : </label>
                     <asp:Label ID="lblDiscount" runat="server" CssClass="LabelValue"></asp:Label>
@@ -449,6 +445,10 @@
                 <div class="col-md-12">
                     <label>Gross Amount : </label>
                     <asp:Label ID="lblNetAmount" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Gross Amt with TCS : </label>
+                    <asp:Label ID="lblNetAmountWithTCS" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
             </div>
         </div>
@@ -725,7 +725,7 @@
                                             <asp:Label ID="lblNetAmount" Text='<%# DataBinder.Eval(Container.DataItem, "NetAmount","{0:n}")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Balance Qty">
+                                    <asp:TemplateField HeaderText="Qty To Deliver">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblBalanceQuantity" Text='<%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Quantity")) - Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "DeliveredQuantity"))%>' runat="server"></asp:Label>
@@ -794,7 +794,12 @@
                                             <asp:Label ID="lblInvoiceDate" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceDate")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-
+                                    <asp:TemplateField HeaderText="Status">
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblDeliveryOrderStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Material">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
@@ -913,11 +918,11 @@
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtRefDate" WatermarkText="DD/MM/YYYY" />
                         </div>
 
-                        <div class="col-md-6 col-sm-12"  style="display:none">
+                        <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Freight</label>
                             <asp:TextBox ID="txtFreight" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                         </div>
-                        <div class="col-md-6 col-sm-12"  style="display:none">
+                        <div class="col-md-6 col-sm-12">
                             <label class="modal-label">Packing & Forward</label>
                             <asp:TextBox ID="txtPackingAndForward" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                         </div>
@@ -1013,15 +1018,15 @@
                         </label>
                         <asp:TextBox ID="txtShippingAddress" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="MultiLine"></asp:TextBox>
                     </div>
-                     <div class="col-md-12 col-sm-12">
+                    <div class="col-md-12 col-sm-12">
                         <label>Remarks</label>
                         <asp:TextBox ID="txtBoxRemarks" runat="server" CssClass="form-control" TextMode="MultiLine" AutoCompleteType="Disabled"></asp:TextBox>
                     </div>
-                    <div class="col-md-6 col-sm-12" style="display:none">
+                    <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Freight</label>
                         <asp:TextBox ID="txtDeliveryFreight" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                     </div>
-                    <div class="col-md-6 col-sm-12" style="display:none">
+                    <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Packing & Forward</label>
                         <asp:TextBox ID="txtDeliveryPackingAndForward" runat="server" CssClass="form-control" BorderColor="Silver" Text="0"></asp:TextBox>
                     </div>
@@ -1043,7 +1048,7 @@
             <div class="col-md-12 Report">
                 <div class="table-responsive">
                     <asp:GridView ID="gvDelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid"
-                        EmptyDataText="No Data Found" AllowPaging="true" PageSize="2" OnPageIndexChanging="gvDelivery_PageIndexChanging">
+                        EmptyDataText="No Data Found" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvDelivery_PageIndexChanging">
                         <Columns>
                             <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                 <ItemTemplate>
@@ -1096,7 +1101,7 @@
             </div>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnSaveDelivery" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveDelivery_Click"  OnClientClick="return ConfirmSaleOrderDelivery();" />
+            <asp:Button ID="btnSaveDelivery" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSaveDelivery_Click" OnClientClick="return ConfirmSaleOrderDelivery();" />
         </div>
     </div>
 </asp:Panel>

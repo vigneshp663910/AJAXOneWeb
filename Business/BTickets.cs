@@ -226,9 +226,9 @@ namespace Business
             string endPoint = "Task/GetTicketDetailsCountByStatusForChart?DealerEmployeeUserID=" + DealerEmployeeUserID + "&DealerID=" + DealerID + "&Dealerwise=" + Dealerwise;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetTicketToClose(long? HeaderID, int? CategoryID, int? SubCategoryID, int? PageIndex, int? PageSize)
+        public PApiResult GetTicketToClose(long? HeaderID, int? DealerId, int? CategoryID, int? SubCategoryID, int? PageIndex, int? PageSize)
         {
-            string endPoint = "Task/GetTicketToClose?HeaderID=" + HeaderID + "&CategoryID=" + CategoryID + "&SubCategoryID=" + SubCategoryID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            string endPoint = "Task/GetTicketToClose?HeaderID=" + HeaderID + "&DealerId=" + DealerId + "&CategoryID=" + CategoryID + "&SubCategoryID=" + SubCategoryID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetForumDetails(long HeaderId)
@@ -236,9 +236,9 @@ namespace Business
             string endPoint = "Task/GetForumDetails?HeaderId=" + HeaderId;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetInProgressTickets(long? HeaderId, int? CategoryID, int? SubCategoryID, int? SeverityID, int? PageIndex, int? PageSize)
+        public PApiResult GetInProgressTickets(long? HeaderId, int? DealerId, int? CategoryID, int? SubCategoryID, int? SeverityID, int? PageIndex, int? PageSize)
         {
-            string endPoint = "Task/GetInProgressTickets?HeaderId=" + HeaderId + "&CategoryID=" + CategoryID + "&SubCategoryID=" + SubCategoryID + "&SeverityID=" + SeverityID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            string endPoint = "Task/GetInProgressTickets?HeaderId=" + HeaderId + "&DealerId=" + DealerId + "&CategoryID=" + CategoryID + "&SubCategoryID=" + SubCategoryID + "&SeverityID=" + SeverityID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetTicketDetails(long? HeaderId, long? ItemId, int? CategoryID, int? SubCategoryID, int? Severity, int? Type, int? AssignedBy, int? AssignedTo, int? UserId, string HeaderStatus, string TicketFrom, string TicketTo, int? PageIndex, int? PageSize)
@@ -261,19 +261,19 @@ namespace Business
             string endPoint = "Task/GetTicketDetailsByExcel?DealerId=" + DealerId + "&HeaderId=" + HeaderId + "&CategoryID=" + CategoryID + "&SubCategoryID=" + SubCategoryID + "&Severity=" + Severity + "&Type=" + Type + "&CreatedBy=" + CreatedBy + "&AssignedTo=" + AssignedTo + "&ApprovalTo=" + ApprovalTo + "&UserId=" + UserId + "&HeaderStatus=" + HeaderStatus + "&TicketFrom=" + TicketFrom + "&TicketTo=" + TicketTo;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetTicketsApprovaldetails(long? HeaderId, string CreatedDateFrom, string CreatedDateTo, int? CategoryID, int? SubCategoryID, int? SeverityID, long UserID, int? PageIndex, int? PageSize)
+        public PApiResult GetTicketsApprovaldetails(long? HeaderId, int? DealerId, string CreatedDateFrom, string CreatedDateTo, int? CategoryID, int? SubCategoryID, int? SeverityID, long UserID, int? PageIndex, int? PageSize)
         {
-            string endPoint = "Task/GetTicketsApprovaldetails?HeaderId=" + HeaderId + "&CreatedDateFrom=" + CreatedDateFrom + "&CreatedDateTo=" + CreatedDateTo + "&CategoryID=" + CategoryID + "&SubCategoryID=" + SubCategoryID + "&SeverityID=" + SeverityID + "&UserID=" + UserID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            string endPoint = "Task/GetTicketsApprovaldetails?HeaderId=" + HeaderId + "&DealerId=" + DealerId + "&CreatedDateFrom=" + CreatedDateFrom + "&CreatedDateTo=" + CreatedDateTo + "&CategoryID=" + CategoryID + "&SubCategoryID=" + SubCategoryID + "&SeverityID=" + SeverityID + "&UserID=" + UserID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetOpenTickets(long? HeaderId, int? TicketCategoryID, int? Status, long? CreatedBy, string CreatedDateFrom, string CreatedDateTo, long UserID, int? PageIndex, int? PageSize)
+        public PApiResult GetOpenTickets(long? HeaderId, int? DealerId, int? TicketCategoryID, int? Status, long? CreatedBy, string CreatedDateFrom, string CreatedDateTo, long UserID, int? PageIndex, int? PageSize)
         {
-            string endPoint = "Task/GetOpenTickets?HeaderId=" + HeaderId + "&TicketCategoryID=" + TicketCategoryID + "&Status=" + Status + "&CreatedBy=" + CreatedBy + "&CreatedDateFrom=" + CreatedDateFrom + "&CreatedDateTo=" + CreatedDateTo + "&UserID=" + UserID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            string endPoint = "Task/GetOpenTickets?HeaderId=" + HeaderId + "&DealerId=" + DealerId + "&TicketCategoryID=" + TicketCategoryID + "&Status=" + Status + "&CreatedBy=" + CreatedBy + "&CreatedDateFrom=" + CreatedDateFrom + "&CreatedDateTo=" + CreatedDateTo + "&UserID=" + UserID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetAssignedTickets(long? HeaderID, int? CategoryID, int? SubCategoryID, int? SeverityID, int UserID, int? PageIndex, int? PageSize)
+        public PApiResult GetAssignedTickets(long? HeaderID, int? DealerId, int? CategoryID, int? SubCategoryID, int? SeverityID, int UserID, int? PageIndex, int? PageSize)
         {
-            string endPoint = "Task/GetAssignedTickets?HeaderID=" + HeaderID + "&CategoryID=" + CategoryID + "&SubCategoryID=" + SubCategoryID + "&SeverityID=" + SeverityID + "&UserID=" + UserID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            string endPoint = "Task/GetAssignedTickets?HeaderID=" + HeaderID + "&DealerId=" + DealerId + "&CategoryID=" + CategoryID + "&SubCategoryID=" + SubCategoryID + "&SeverityID=" + SeverityID + "&UserID=" + UserID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PAttachedFile GetAttachedFileTaskForDownload(string DocumentName)
@@ -315,6 +315,21 @@ namespace Business
         public PApiResult getTicketType(int? TicketTypeID, string TicketType)
         {
             string endPoint = "Task/getTicketType?TicketTypeID=" + TicketTypeID + "&TicketType=" + TicketType;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetTicketSupportMeasurement(long? HeaderId, int? CategoryID, int? SubCategoryID, int? CreatedBy, int? AssignedTo, int? DepartmentID, string TicketFrom, string TicketTo, string HeaderStatus, int? Rating, int? PageIndex, int? PageSize)
+        {
+            string endPoint = "Task/GetTicketSupportMeasurement?HeaderId=" + HeaderId + "&CategoryID=" + CategoryID + "&SubCategoryID=" + SubCategoryID + "&CreatedBy=" + CreatedBy + "&AssignedTo=" + AssignedTo + "&DepartmentID=" + DepartmentID + "&TicketFrom=" + TicketFrom + "&TicketTo=" + TicketTo + "&HeaderStatus=" + HeaderStatus + "&Rating=" + Rating + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetTicketSummaryDetails(long? HeaderId, int? Year, int? Month, int? DepartmentID, string TicketFrom, string TicketTo, int? CategoryID, int? CreatedBy, int? AssignedTo, string SLAType, string ReportType, int? TicketSeverity, string TicketStatus, int? PageIndex, int? PageSize)
+        {
+            string endPoint = "Task/GetTicketSummaryDetails?HeaderId=" + HeaderId + "&Year=" + Year + "&Month=" + Month + "&DepartmentID=" + DepartmentID + "&TicketFrom=" + TicketFrom + "&TicketTo=" + TicketTo + "&CategoryID=" + CategoryID + "&CreatedBy=" + CreatedBy + "&AssignedTo=" + AssignedTo + "&SLAType=" + SLAType + "&ReportType=" + ReportType + "&TicketSeverity=" + TicketSeverity + "&TicketStatus=" + TicketStatus + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetTicketSummaryDetails_TicketInfo(long? HeaderId, int? Year, int? DepartmentID, string TicketFrom, string TicketTo, int? CategoryID, int? CreatedBy, int? AssignedTo, string SLAType, string ReportType, int? StatusID, int? Month, string SLA, int? TicketSeverity, string TicketStatus)
+        {
+            string endPoint = "Task/GetTicketSummaryDetails_TicketInfo?HeaderId=" + HeaderId + "&Year=" + Year + "&DepartmentID=" + DepartmentID + "&TicketFrom=" + TicketFrom + "&TicketTo=" + TicketTo + "&CategoryID=" + CategoryID + "&CreatedBy=" + CreatedBy + "&AssignedTo=" + AssignedTo + "&SLAType=" + SLAType + "&ReportType=" + ReportType + "&StatusID=" + StatusID + "&Month=" + Month + "&SLA=" + SLA + "&TicketSeverity=" + TicketSeverity + "&TicketStatus=" + TicketStatus;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
     }

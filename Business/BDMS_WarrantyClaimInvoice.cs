@@ -234,7 +234,7 @@ namespace Business
             return WarrantyClaimInvoiceID;
         }
 
-        public long InsertWarrantyClaimInvoiceAbove5K(string DealerCode, string ClaimNumber, int UserID, string reportPath, string Through, string LRNumber, PDMS_Customer Dealer, PDMS_Customer Customer, Boolean IsPartial)
+        public long InsertWarrantyClaimInvoiceAbove5K(string DealerCode, string ClaimNumber, int UserID, string Through, string LRNumber, PDMS_Customer Dealer, PDMS_Customer Customer, Boolean IsPartial)
         {
             int success = 0;
             long WarrantyClaimInvoiceID = 0;
@@ -590,18 +590,14 @@ namespace Business
 
                 ReportParameter[] P = null;
                 if ((ClaimInvoice.Dealer.IsEInvoice) && (ClaimInvoice.Dealer.EInvoiceDate <= ClaimInvoice.InvoiceDate))
-                {
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimInvoiceESigned(WarrantyClaimInvoiceID); 
-                    P = new ReportParameter[33];
-                    P[31] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, ClaimInvoice.InvoiceNumber), false);
-                    P[32] = new ReportParameter("IRN", "IRN : " + ClaimInvoice.IRN, false);
-                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoice50KQRCode.rdlc");
+                { 
+                    P = new ReportParameter[34]; 
                 }
                 else
                 {
-                    P = new ReportParameter[31];
-                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoice50K.rdlc");
+                    P = new ReportParameter[32]; 
                 }
+                
 
 
                 //   ViewState["Month"] = ddlMonth.SelectedValue;
@@ -641,17 +637,31 @@ namespace Business
                 P[26] = new ReportParameter("InvDate", ((DateTime)ClaimInvoice.InvoiceDate).ToShortDateString(), false);
                 DateTime NewLogoDate = Convert.ToDateTime(ConfigurationManager.AppSettings["NewLogoDate"]);
                 string NewLogo = "0";
+                string Name = "Ajax Fiori Eng (I) Pvt Ltd";
                 if (NewLogoDate <= ClaimInvoice.InvoiceDate)
                 {
                     NewLogo = "1";
+                    Name = new BDMS_Customer().GetCustomerAE(ClaimInvoice.InvoiceDate).CustomerName;
                 }
                 P[27] = new ReportParameter("NewLogo", NewLogo, false);
 
                 P[28] = new ReportParameter("TCSValue", Convert.ToString(ClaimInvoice.TCSValue), false);
                 P[29] = new ReportParameter("TCSSubTotal", Convert.ToString(TCSSubTotal + ClaimInvoice.TCSValue), false);
                 P[30] = new ReportParameter("TCSTax", Convert.ToString(ClaimInvoice.TCSTax), false);
-
-
+                if ((ClaimInvoice.Dealer.IsEInvoice) && (ClaimInvoice.Dealer.EInvoiceDate <= ClaimInvoice.InvoiceDate))
+                {
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimInvoiceESigned(WarrantyClaimInvoiceID); 
+                    P[31] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, ClaimInvoice.InvoiceNumber), false);
+                    P[32] = new ReportParameter("IRN", "IRN : " + ClaimInvoice.IRN, false);
+                    P[33] = new ReportParameter("Name", Name, false);
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoice50KQRCode.rdlc");
+                }
+                else
+                {
+                    P[31] = new ReportParameter("Name", Name, false);
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoice50K.rdlc");
+                }
+               
 
                 ReportDataSource rds = new ReportDataSource();
                 rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  
@@ -747,19 +757,22 @@ namespace Business
 
                 LocalReport report = new LocalReport();
                 report.EnableExternalImages = true;
-                
+
+                string Name = new BDMS_Customer().GetCustomerAE(ClaimInvoice.InvoiceDate).CustomerName;
                 ReportParameter[] P = null;
                 if ((ClaimInvoice.Dealer.IsEInvoice) && (ClaimInvoice.Dealer.EInvoiceDate <= ClaimInvoice.InvoiceDate))
                 {
                     PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimInvoiceESigned(WarrantyClaimInvoiceID);
-                    P = new ReportParameter[16];
+                    P = new ReportParameter[17];
                     P[14] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, ClaimInvoice.InvoiceNumber), false);
                     P[15] = new ReportParameter("IRN", "IRN : " + ClaimInvoice.IRN, false);
+                    P[16] = new ReportParameter("Name", Name, false);
                     report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoiceNCQRCode.rdlc");
                 }
                 else
                 {
-                    P = new ReportParameter[14];
+                    P = new ReportParameter[15];
+                    P[14] = new ReportParameter("Name", Name, false);
                     report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoiceNC.rdlc");
                 }
 
@@ -890,19 +903,21 @@ namespace Business
 
                 LocalReport report = new LocalReport();
                 report.EnableExternalImages = true;
-                 
+                string Name = new BDMS_Customer().GetCustomerAE(ClaimInvoice.InvoiceDate).CustomerName;
                 ReportParameter[] P = null;
                 if ((ClaimInvoice.Dealer.IsEInvoice) && (ClaimInvoice.Dealer.EInvoiceDate <= ClaimInvoice.InvoiceDate))
                 {
                     PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimInvoiceESigned(WarrantyClaimInvoiceID);
-                    P = new ReportParameter[21];
+                    P = new ReportParameter[22];
                     P[19] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, ClaimInvoice.InvoiceNumber), false);
                     P[20] = new ReportParameter("IRN", "IRN : " + ClaimInvoice.IRN, false);
+                    P[21] = new ReportParameter("Name", Name, false);
                     report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoiceWSQRCode.rdlc");
                 }
                 else
                 {
-                    P = new ReportParameter[19];
+                    P = new ReportParameter[20];
+                    P[19] = new ReportParameter("Name", Name, false);
                     report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoiceWS.rdlc");
                 }
 
@@ -1016,19 +1031,21 @@ namespace Business
 
                 LocalReport report = new LocalReport();
                 report.EnableExternalImages = true;
-
+                string Name = new BDMS_Customer().GetCustomerAE(ClaimInvoice.InvoiceDate).CustomerName;
                 ReportParameter[] P = null;
                 if ((ClaimInvoice.Dealer.IsEInvoice) && (ClaimInvoice.Dealer.EInvoiceDate <= ClaimInvoice.InvoiceDate))
                 {
                     PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimInvoiceESigned(WarrantyClaimInvoiceID);
-                    P = new ReportParameter[21];
+                    P = new ReportParameter[22];
                     P[19] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, ClaimInvoice.InvoiceNumber), false);
                     P[20] = new ReportParameter("IRN", "IRN : " + ClaimInvoice.IRN, false);
+                    P[21] = new ReportParameter("Name", Name, false);
                     report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoiceWSQRCode.rdlc");
                 }
                 else
                 {
-                    P = new ReportParameter[19];
+                    P = new ReportParameter[20];
+                    P[19] = new ReportParameter("Name", Name, false);
                     report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoiceWS.rdlc");
                 }
 
@@ -1148,17 +1165,13 @@ namespace Business
                 ReportParameter[] P = null;
                 if ((ClaimInvoice.Dealer.IsEInvoice) && (ClaimInvoice.Dealer.EInvoiceDate <= ClaimInvoice.InvoiceDate))
                 {
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimInvoiceESigned(WarrantyClaimInvoiceID);
-                    P = new ReportParameter[33];
-                    P[31] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, ClaimInvoice.InvoiceNumber), false);
-                    P[32] = new ReportParameter("IRN", "IRN : " + ClaimInvoice.IRN, false);
-                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoice50KQRCode.rdlc");
+                    P = new ReportParameter[34];
                 }
                 else
                 {
-                    P = new ReportParameter[31];
-                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoice50K.rdlc");
+                    P = new ReportParameter[32];
                 }
+               
 
 
                 //   ViewState["Month"] = ddlMonth.SelectedValue;
@@ -1193,16 +1206,30 @@ namespace Business
                 P[26] = new ReportParameter("InvDate", ((DateTime)ClaimInvoice.InvoiceDate).ToShortDateString(), false);
                 DateTime NewLogoDate = Convert.ToDateTime(ConfigurationManager.AppSettings["NewLogoDate"]);
                 string NewLogo = "0";
+                string Name = "Ajax Fiori Eng (I) Pvt Ltd";
                 if (NewLogoDate <= ClaimInvoice.InvoiceDate)
                 {
                     NewLogo = "1";
+                    Name = new BDMS_Customer().GetCustomerAE(ClaimInvoice.InvoiceDate).CustomerName;
                 }
                 P[27] = new ReportParameter("NewLogo", NewLogo, false);
 
                 P[28] = new ReportParameter("TCSValue", Convert.ToString(ClaimInvoice.TCSValue), false);
                 P[29] = new ReportParameter("TCSSubTotal", Convert.ToString(TCSSubTotal + ClaimInvoice.TCSValue), false);
                 P[30] = new ReportParameter("TCSTax", Convert.ToString(ClaimInvoice.TCSTax), false);
-
+                if ((ClaimInvoice.Dealer.IsEInvoice) && (ClaimInvoice.Dealer.EInvoiceDate <= ClaimInvoice.InvoiceDate))
+                {
+                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().getWarrantyClaimInvoiceESigned(WarrantyClaimInvoiceID); 
+                    P[31] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, ClaimInvoice.InvoiceNumber), false);
+                    P[32] = new ReportParameter("IRN", "IRN : " + ClaimInvoice.IRN, false);
+                    P[33] = new ReportParameter("Name", Name, false);
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoice50KQRCode.rdlc");
+                }
+                else
+                {
+                    P[31] = new ReportParameter("Name", Name, false);
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_ClaimInvoice50K.rdlc");
+                }
 
 
                 ReportDataSource rds = new ReportDataSource();

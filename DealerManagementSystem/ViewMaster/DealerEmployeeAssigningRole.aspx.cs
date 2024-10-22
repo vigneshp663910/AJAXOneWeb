@@ -467,7 +467,15 @@ namespace DealerManagementSystem.ViewMaster
 
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
+            divDistrict.Visible = true;
             new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null,2);
+            if(Convert.ToInt32(ddlDepartment.SelectedValue) != (short)DealerDepartment.Sales)
+            {
+                divDistrict.Visible = false;
+                District.Clear();
+                GVAssignDistrict.DataSource = District;
+                GVAssignDistrict.DataBind();
+            }
         }
 
         void ClearField()
@@ -489,8 +497,12 @@ namespace DealerManagementSystem.ViewMaster
         }
 
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            HiddenDistrictID.Value+=(HiddenDistrictID.Value=="")?ddlDistrict.SelectedValue:","+ddlDistrict.SelectedValue;
+        {           
+            if (District.Where(m => m.DistrictID == Convert.ToInt32(ddlDistrict.SelectedValue)).Count() != 0)
+            {
+                return;
+            }
+            HiddenDistrictID.Value += (HiddenDistrictID.Value == "") ? ddlDistrict.SelectedValue : "," + ddlDistrict.SelectedValue;
             PDMS_District pDMS_District = new PDMS_District();
             pDMS_District.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
             pDMS_District.District = ddlDistrict.SelectedItem.Text.Trim();
@@ -514,6 +526,8 @@ namespace DealerManagementSystem.ViewMaster
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrictBySalesEngineerUserID(Convert.ToInt32(ddlDealer.SelectedValue)), "District", "DistrictID");
+            GVAssignDistrict.DataSource = null;
+            GVAssignDistrict.DataBind();
             new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName_OfficeCode", "OfficeID", true, "Select");
             new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, Convert.ToInt32(ddlDealer.SelectedValue));
         }

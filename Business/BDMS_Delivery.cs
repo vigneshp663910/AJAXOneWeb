@@ -261,14 +261,14 @@ namespace Business
             {
 
                 //PDMS_Customer Dealer = new SCustomer().getCustomerAddress(DealerCode);
-                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getDealerAddressFromSAP(DealerCode);
 
                 PDMS_DeliveryHeader Delivery = getDelivery("", DeliveryNumber, null, null, null, Dealer.State.StateCode)[0];
 
 
                  PDMS_DealerOffice DealerOffice = new BDMS_Dealer().GetDealerOffice(null, null, Delivery.Dealer.DealerOffice.OfficeCode)[0];
                 //PDMS_Customer DealerAD = new SCustomer().getCustomerAddress(DealerOffice.SapLocationCode.Trim());
-                PDMS_Customer DealerAD = new BDMS_Customer().getCustomerAddressFromSAP(DealerOffice.SapLocationCode.Trim());
+                PDMS_Customer DealerAD = new BDMS_Customer().getDealerAddressFromSAP(DealerOffice.SapLocationCode.Trim());
 
                 string DealerAddress1 = (DealerAD.Address1 + (string.IsNullOrEmpty(DealerAD.Address2) ? "" : "," + DealerAD.Address2) + (string.IsNullOrEmpty(DealerAD.Address3) ? "" : "," + DealerAD.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (DealerAD.City + (string.IsNullOrEmpty(DealerAD.State.State) ? "" : "," + DealerAD.State.State) + (string.IsNullOrEmpty(DealerAD.Pincode) ? "" : "-" + DealerAD.Pincode)).Trim(',', ' ');
@@ -333,7 +333,7 @@ namespace Business
                 LocalReport report = new LocalReport();
                 report.EnableExternalImages = true;
 
-                ReportParameter[] P = new ReportParameter[29];
+                ReportParameter[] P = new ReportParameter[30];
 
                 List <PDMS_ServiceMaterial> ServiceMaterial = new BDMS_Service().GetServiceMaterials(null, null, null, "", null, Delivery.SoNumber);
                 string DateOfComm = "";
@@ -413,6 +413,8 @@ namespace Business
                     NewLogo = "1";
                 }
                 P[28] = new ReportParameter("NewLogo", NewLogo, false);
+                string Name = new BDMS_Customer().GetCustomerAE(Delivery.DeliveryDate).CustomerName;
+                P[29] = new ReportParameter("Name", Name, false);
                 report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_DeliveryChellan.rdlc");
 
                 ReportDataSource rds = new ReportDataSource();

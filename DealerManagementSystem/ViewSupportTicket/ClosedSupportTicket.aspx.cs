@@ -58,6 +58,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                 PageCount = 0;
                 PageIndex = 1;
                 FillCategory();
+                new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 FillTickets();
             }
         }
@@ -88,8 +89,9 @@ namespace DealerManagementSystem.ViewSupportTicket
             {
                 TicketSubCategoryID = ddlSubcategory.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSubcategory.SelectedValue);
             }
+            int? DealerId = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             List<PTicketHeader> TicketHeader = new List<PTicketHeader>();
-            PApiResult Result = new BTickets().GetTicketToClose(HeaderID, TicketCategoryID, TicketSubCategoryID, PageIndex, gvTickets.PageSize);
+            PApiResult Result = new BTickets().GetTicketToClose(HeaderID, DealerId, TicketCategoryID, TicketSubCategoryID, PageIndex, gvTickets.PageSize);
             TicketHeader = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data));
             if (Result.RowCount == 0)
             {
@@ -165,23 +167,23 @@ namespace DealerManagementSystem.ViewSupportTicket
             btnBackToList.Visible = false;
             divList.Visible = true;
         }
-        protected void btnClose_Click(object sender, EventArgs e)
-        {
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            int index = gvRow.RowIndex;
+        //protected void btnClose_Click(object sender, EventArgs e)
+        //{
+        //    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //    int index = gvRow.RowIndex;
 
-            PApiResult Result = new BTickets().GetTicketDetails(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null, null, null, 1, 10000);
-            PTicketHeader H = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data))[0];
-            //PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null, null, null, 1, 10000, out RowCount)[0];
+        //    PApiResult Result = new BTickets().GetTicketDetails(Convert.ToInt64(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null, null, null, 1, 10000);
+        //    PTicketHeader H = JsonConvert.DeserializeObject<List<PTicketHeader>>(JsonConvert.SerializeObject(Result.Data))[0];
+        //    //PTicketHeader H = new BTickets().GetTicketDetails(Convert.ToInt32(((Label)gvTickets.Rows[index].FindControl("lblTicketID")).Text), null, null, null, null, null, null, null, null, null, null, null, 1, 10000, out RowCount)[0];
 
-            //new BTickets().UpdateTicketClosedStatus(H.HeaderID,PSession.User.UserID);
-            new BAPI().ApiPut("Task/UpdateTicketClosedStatus", H.HeaderID);
+        //    //new BTickets().UpdateTicketClosedStatus(H.HeaderID,PSession.User.UserID);
+        //    new BAPI().ApiPut("Task/UpdateTicketClosedStatus", H.HeaderID);
 
-            FillTickets();
-            lblMessage.Text = "Ticket is  successfully updated.";
-            lblMessage.ForeColor = Color.Green;
-            lblMessage.Visible = true;
-        }
+        //    FillTickets();
+        //    lblMessage.Text = "Ticket is  successfully updated.";
+        //    lblMessage.ForeColor = Color.Green;
+        //    lblMessage.Visible = true;
+        //}
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (PageIndex > 1)

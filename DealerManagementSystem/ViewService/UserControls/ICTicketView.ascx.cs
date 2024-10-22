@@ -1732,25 +1732,38 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lblMessage.Text = "Please enter the material";
                     return;
                 }
-                string Material = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null)[0].MaterialCode;
-                string endPoint = "ICTicket/GetMateriAlavailablQty?DealerCode=" + SDMS_ICTicket.Dealer.DealerCode + "&OfficeCode=" + SDMS_ICTicket.DealerOffice.OfficeCode + "&Material=" + Material+ "&SupersedeYN=" + cbSupersedeYN.Checked;
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
-                if (Results.Status == PApplication.Failure)
+               // string Material = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null)[0].MaterialCode;
+
+                PDealerStock s = new BInventory().GetDealerStockCountByID(SDMS_ICTicket.Dealer.DealerID, SDMS_ICTicket.DealerOffice.OfficeID, Convert.ToInt32(hdfMaterialID.Value));
+
+                if (s != null)
                 {
-                    lblMessageMaterialCharges.Text = Results.Message; 
+                    lblMessageMaterialCharges.ForeColor = Color.Green;
+                    lblMessageMaterialCharges.Text = "On Order Qty : " + s.OnOrderQty.ToString() + ", Transit Qty : " + s.TransitQty.ToString() + ", Unrestricted Qty : " + s.UnrestrictedQty.ToString();
                 }
                 else
                 {
-                    if (cbSupersedeYN.Checked)
-                    {
-                        lblMessageMaterialCharges.Text = "Supersede Material  available quantity is "+ Convert.ToString( Results.Data);
-                    }
-                    else
-                    {
-                        lblMessageMaterialCharges.Text = "Material  available quantity is " + Convert.ToString(Results.Data);
-                    }
-                    lblMessageMaterialCharges.ForeColor = Color.Green; 
+                    lblMessageMaterialCharges.Text = "Stock is not available";
                 }
+
+                //string endPoint = "ICTicket/GetMateriAlavailablQty?DealerCode=" + SDMS_ICTicket.Dealer.DealerCode + "&OfficeCode=" + SDMS_ICTicket.DealerOffice.OfficeCode + "&Material=" + Material+ "&SupersedeYN=" + cbSupersedeYN.Checked;
+                //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+                //if (Results.Status == PApplication.Failure)
+                //{
+                //    lblMessageMaterialCharges.Text = Results.Message; 
+                //}
+                //else
+                //{
+                //    if (cbSupersedeYN.Checked)
+                //    {
+                //        lblMessageMaterialCharges.Text = "Supersede Material  available quantity is "+ Convert.ToString( Results.Data);
+                //    }
+                //    else
+                //    {
+                //        lblMessageMaterialCharges.Text = "Material  available quantity is " + Convert.ToString(Results.Data);
+                //    }
+                //    lblMessageMaterialCharges.ForeColor = Color.Green; 
+                //}
                 return;
             }
             MPE_AddMaterialCharges.Hide();
@@ -2179,7 +2192,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnArrivalBack.Visible = false;
             }
 
-            if ((Boolean)SDMS_ICTicket.IsLocked)
+            if ((Boolean)SDMS_ICTicket.IsLocked || SDMS_ICTicket.ICTicketDate <= Convert.ToDateTime("2022.03.31"))
             {
                 lbtnAddTechnician.Visible = false;
                 lbtnEditCallInformation.Visible = false;
@@ -2655,6 +2668,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             
            // ControlBaseOn60Days();
+            
 
             DisableAllGridEditDelete();
         }

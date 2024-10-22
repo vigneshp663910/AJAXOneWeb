@@ -117,14 +117,22 @@ namespace Business
             return Customer;
         }
 
-        public PDMS_Customer GetCustomerAE()
+        public PDMS_Customer GetCustomerAE(DateTime DocumentDate)
         {
             TraceLogger.Log(DateTime.Now);
             PDMS_Customer Customer = new PDMS_Customer();
             try
             {
-                Customer.CustomerName = ConfigurationManager.AppSettings["EOrgName"];
-                //  Customer.OrgName = ConfigurationManager.AppSettings["EOrgName"];
+                DateTime EOrgNameLimitedDate = Convert.ToDateTime(ConfigurationManager.AppSettings["EOrgNameLimitedDate"]);
+                if (DocumentDate <= EOrgNameLimitedDate)
+                {
+                    Customer.CustomerName = ConfigurationManager.AppSettings["EOrgName"];
+                }
+                else
+                {
+                    Customer.CustomerName = ConfigurationManager.AppSettings["EOrgNameLimited"];
+                }
+                 
                 Customer.Address1 = ConfigurationManager.AppSettings["EAddress1"];
                 Customer.Address2 = ConfigurationManager.AppSettings["EAddress2"];
                 Customer.City = ConfigurationManager.AppSettings["ECity"];
@@ -634,6 +642,11 @@ namespace Business
         {
             string endPoint = "Customer/getCustomerAddressFromSAP?CustomerCode=" + CustomerCode;
             return JsonConvert.DeserializeObject<PDMS_Customer>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data)); 
+        }
+        public PDMS_Customer getDealerAddressFromSAP(string DealerCode)
+        {
+            string endPoint = "Customer/getCustomerAddressFromSAP?CustomerCode=" + DealerCode;
+            return JsonConvert.DeserializeObject<PDMS_Customer>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public PApiResult GetCustomerGstApproval(string CustomerCode, string From, string To, bool? IsApproved, int? PageIndex, int? PageSize)
         {

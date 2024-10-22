@@ -709,7 +709,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead", LeadEdit));
             if (Results.Status == PApplication.Failure)
             { 
-                lblMessageLead.Text = "Customer is not updated successfully ";
+                lblMessageLead.Text = "Lead is not updated successfully ";
                 return;
             } 
             ShowMessage(Results);

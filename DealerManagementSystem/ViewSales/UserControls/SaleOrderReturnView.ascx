@@ -3,6 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 <asp:Panel ID="PnlSaleOrderReturnView" runat="server" class="col-md-12">
+   
     <div class="col-md-12">
         <div class="action-btn">
             <div class="" id="boxHere"></div>
@@ -18,6 +19,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-md-12 field-margin-top" runat="server" id="divPoReturnView">
         <fieldset class="fieldset-border">
             <legend style="background: none; color: #007bff; font-size: 17px;">Sales Return</legend>
@@ -96,7 +98,7 @@
                 </div>
             </div>
         </fieldset>
-        <asp:Label ID="lblMessageSoReturn" runat="server" Text="" CssClass="message" />
+         <asp:Label ID="lblMessageSoReturn" runat="server" Text="" CssClass="message" />
         <asp1:TabContainer ID="tbpSalesReturn" runat="server" ToolTip="Sales Return Info." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0">
             <asp1:TabPanel ID="tbPSalesReturnHeader" runat="server" HeaderText="Sales Return Header" Font-Bold="True" ToolTip="">
                 <ContentTemplate>
