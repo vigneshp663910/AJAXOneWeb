@@ -97,7 +97,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             else if (lbActions.ID == "lbGenerateInvoice")
             {
                 PDMS_Dealer Dealer = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
-                if (Dealer.IsEInvoice && SaleOrderDeliveryByID.SaleOrder.Customer.GSTIN != "URD")
+                if (Dealer.ServicePaidEInvoice && SaleOrderDeliveryByID.SaleOrder.Customer.GSTIN != "URD")
                 {
                     if (string.IsNullOrEmpty(SaleOrderDeliveryByID.SaleOrder.Customer.Address1))
                     {
