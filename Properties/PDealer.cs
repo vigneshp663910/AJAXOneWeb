@@ -224,10 +224,7 @@ namespace Properties
         public string HeadOfficeID { get; set; }
        
 
-        public Boolean IsEInvoice { get; set; }
-        public string EInvoiveFTPPath { get; set; }
-        public string EInvoiveFTPUserID { get; set; }
-        public string EInvoiveFTPPassword { get; set; }
+        public Boolean IsEInvoice { get; set; } 
         public string EInvoiveDate { get; set; }
 
        
