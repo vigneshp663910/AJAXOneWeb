@@ -60,12 +60,10 @@ namespace DealerManagementSystem.ViewMaster
                 new DDLBind(ddlRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID");
             }
         }
-
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             SearchDealer();
         }
-
         protected void ibtnDealerArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealer.PageIndex > 0)
@@ -82,8 +80,6 @@ namespace DealerManagementSystem.ViewMaster
                 DealerBind(gvDealer, lblRowCount, DealerList);
             }
         }
-
-
         void DealerBind(GridView gv, Label lbl, List<PDMS_Dealer> DealerList)
         {
             gv.DataSource = DealerList;
@@ -103,7 +99,6 @@ namespace DealerManagementSystem.ViewMaster
             gvDealer.DataSource = DealerList;
             gvDealer.DataBind();
 
-
             if (DealerList.Count == 0)
             {
                 lblRowCount.Visible = false;
@@ -117,11 +112,8 @@ namespace DealerManagementSystem.ViewMaster
                 ibtnDealerArrowRight.Visible = true;
                 lblRowCount.Text = (((gvDealer.PageIndex) * gvDealer.PageSize) + 1) + " - " + (((gvDealer.PageIndex) * gvDealer.PageSize) + gvDealer.Rows.Count) + " of " + DealerList.Count;
             }
-
         }
-        
-       
-
+              
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
             divDealerView.Visible = false;
@@ -149,7 +141,6 @@ namespace DealerManagementSystem.ViewMaster
 
             UC_DealerView.filldealer(Convert.ToInt32(lblDealerID.Text));
         }
-
         protected void gvDealer_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDealer.PageIndex = e.NewPageIndex;

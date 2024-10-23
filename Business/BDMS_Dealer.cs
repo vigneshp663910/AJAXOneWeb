@@ -102,12 +102,18 @@ namespace Business
                                 Address1 = Convert.ToString(dr["Address1"]),
                                 Address2 = Convert.ToString(dr["Address2"]),
                                 Address3 = Convert.ToString(dr["Address3"]),
-                                Country = Convert.ToString(dr["Country"]),
+                                //Country = Convert.ToString(dr["Country"]),
+                                Country = DBNull.Value == dr["CountryID"] ? null : new PDMS_Country() { CountryID = Convert.ToInt32(dr["CountryID"]), Country = Convert.ToString(dr["Country"]) },
                                 State = Convert.ToString(dr["State"]),
+                                StateN = DBNull.Value == dr["State"] ? null : new PDMS_State() { StateID = Convert.ToInt32(dr["StateID"]), State = Convert.ToString(dr["State"]) },
+                                District = DBNull.Value == dr["DistrictID"] ? null : new PDMS_District() { DistrictID = Convert.ToInt32(dr["DistrictID"]), District = Convert.ToString(dr["District"]) },
                                 City = Convert.ToString(dr["City"]),
                                 Pincode = Convert.ToString(dr["Pincode"]),
                                 Mobile= Convert.ToString(dr["Mobile"]),
-                                Email= Convert.ToString(dr["Email"])
+                                Email= Convert.ToString(dr["Email"]),
+                                GSTIN = Convert.ToString(dr["GSTIN"]),
+                                PAN = Convert.ToString(dr["Pan"]),
+                                IsHeadOffice = Convert.ToBoolean(dr["IsHeadOffice"])
                             });
                         }
                     }
@@ -1167,11 +1173,10 @@ namespace Business
             ddl.Items.Insert(0, new ListItem("Select", "0"));
         }
 
-        public List<PDealerNotification> GetDealerNotification(int? DealerID)
+        public List<PDealerNotification> GetDealerNotification(int? DealerID, int? UsersDealerID, int? DealerDepartmentID, int? DealerDesignationID, int? DealerNotificationModuleID)
         {
-            string endPoint = "Dealer/DealerNotification?DealerID=" + DealerID;
+            string endPoint = "Dealer/GetDealerNotification?DealerID=" + DealerID + "&UsersDealerID=" + UsersDealerID + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&DealerNotificationModuleID=" + DealerNotificationModuleID;
             return JsonConvert.DeserializeObject<List<PDealerNotification>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-
         }
         public List<PDealerNotificationModule> GetDealerNotificationModule()
         {

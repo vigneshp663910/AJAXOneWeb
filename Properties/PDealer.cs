@@ -61,11 +61,17 @@ namespace Properties
         public string Address3 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public string Country { get; set; }
+        public PDMS_Country Country { get; set; }
         public string Pincode { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
         public Boolean IsActive { get; set; }
+        public Boolean IsHeadOffice { get; set; }
+        public string GSTIN { get; set; }
+        public string PAN { get; set; }
+        public PDMS_District District { get; set; }
+        public PDMS_State StateN { get; set; }
+        public PAudit Audit { get; set; }
     }
 
     [Serializable]
@@ -436,5 +442,38 @@ namespace Properties
         public string Mobile { get; set; }
         public string GSTIN { get; set; }
         public string PAN { get; set; }
+    }
+    [Serializable]
+    public class PDMS_DealerOffice_Insert
+    {
+        public int OfficeID { get; set; }
+        public int DealerID { get; set; }
+        public string OfficeCode { get; set; }
+        public string OfficeName { get; set; }
+        public string SapLocationCode { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string City { get; set; }
+        public int DistrictID { get; set; }
+        public int StateID { get; set; }
+        public int CountryID { get; set; }
+        public string Pincode { get; set; }
+        public string GSTIN { get; set; }
+        public string PAN { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public Boolean IsActive { get; set; }
+        public Boolean IsHeadOffice { get; set; }
+        public int UserID { get; set; }
+    }
+
+    [Serializable]
+    public class PAudit
+    {
+        public PUser CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public PUser MoidifiedBy { get; set; } 
+        public DateTime? MoidifiedOn { get; set; }
     }
 }
