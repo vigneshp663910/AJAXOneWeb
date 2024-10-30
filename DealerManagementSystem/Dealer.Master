@@ -2385,7 +2385,13 @@
             <div class="ajaxheaderinner">
                 <div class="row">
                     <div id="CompanyLogo" class="logo">
-                        <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />
+
+                       <%-- <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />--%>
+                       
+                         <div style="padding:5px;"; >
+                         <asp:Image ID="Image6" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="23" Width="30" />
+                         <asp:Image ID="Image2" Width="94px" Height="42px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" /></div>     
+
                     </div>
                     <div id="SideBarToggle" class="w3-display-topleft" style="color: white; padding-left: 235px">
                         <a class="navbar-brand" href="javascript:void(0)" onclick="w3_closeSideBar()" style="color: #FFFFFF; padding: 16px;"><i class="fa fa-fw fa-list font-white" style="color: lightgray"></i></a>
