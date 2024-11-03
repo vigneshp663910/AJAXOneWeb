@@ -185,5 +185,47 @@ namespace DealerManagementSystem.ViewSales
 
             new BXcel().ExporttoExcel(SalesOrderInvoiceReport, "SalesInvoiceReport");
         }
+
+        protected void ibPDF_Click(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+                GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+                int index = gvRow.RowIndex;
+                Label lblDeliveryByID = (Label)gvSOInvoice.Rows[index].FindControl("lblDeliveryByID");
+                Label lblSOType = (Label)gvSOInvoice.Rows[index].FindControl("lblSOType");
+                Label lblInvoiceNumber = (Label)gvSOInvoice.Rows[index].FindControl("lblInvoiceNumber");
+
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + lblInvoiceNumber.Text + ".pdf");
+                if (lblSOType.Text == "Machine Order")
+                {
+                    PSaleOrderDelivery SODelivery = new BDMS_SalesOrder().GetSaleOrderDeliveryByID(Convert.ToInt64(lblDeliveryByID.Text));  
+                    string mimeType;
+                    Byte[] mybytes = new BDMS_SalesOrder().SalesMachineInvoiceRdlc(SODelivery, out mimeType);
+                    Response.Buffer = true;
+                    Response.Clear();
+                    Response.ContentType = mimeType; 
+                    Response.BinaryWrite(mybytes); // create the file 
+                }
+                else
+                { 
+
+                    PAttachedFile UploadedFile = new BDMS_SalesOrder().GetPartInvoiceFile(Convert.ToInt64(lblDeliveryByID.Text));
+                    Response.AddHeader("Content-type", UploadedFile.FileType); 
+                    HttpContext.Current.Response.Charset = "utf-16";
+                    HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
+                    Response.BinaryWrite(UploadedFile.AttachedFile); 
+                }
+                new BXcel().PdfDowload();
+                Response.Flush();
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Please Contact Administrator. " + ex.Message;
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Visible = true;
+            } 
+        }
     }
 }

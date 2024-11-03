@@ -4,6 +4,7 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,6 +15,21 @@ namespace DealerManagementSystem.ViewInventory
     public partial class WarehouseStock : BasePage
     {
         public override SubModule SubModuleName { get { return SubModule.ViewInventory_WarehouseStock; } }
+        private DataTable StockTrackDetail
+        {
+            get
+            {
+                if (Session["WarehouseStockStockTrackDetail"] == null)
+                {
+                    Session["WarehouseStockStockTrackDetail"] = new DataTable();
+                }
+                return (DataTable)Session["WarehouseStockStockTrackDetail"];
+            }
+            set
+            {
+                Session["WarehouseStockStockTrackDetail"] = value;
+            }
+        }
         private int PageCount
         {
             get
@@ -136,6 +152,53 @@ namespace DealerManagementSystem.ViewInventory
             }
             finally
             {
+            }
+        }
+
+        protected void lblLinkButton_Click(object sender, EventArgs e)
+        {
+            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+            Label lblDealerID = (Label)gvRow.FindControl("lblDealerID");
+            Label lblOfficeID = (Label)gvRow.FindControl("lblOfficeID");
+            Label lblMaterialID = (Label)gvRow.FindControl("lblMaterialID"); 
+            int TrackTypeID = 0;
+            LinkButton lbActions = ((LinkButton)sender);
+            if (lbActions.ID == "lbOnOrderQty")
+            {
+                TrackTypeID = 1;
+            }
+            else if (lbActions.ID == "lbTransitQty")
+            {
+                TrackTypeID = 2;
+            }
+            else if (lbActions.ID == "lbReservedQty")
+            {
+                TrackTypeID = 3;
+            } 
+            StockTrackDetail = new BInventory().GetDealerStockTrackDetail(lblDealerID.Text, lblOfficeID.Text, lblMaterialID.Text, TrackTypeID);
+            gvDetails.DataSource = StockTrackDetail;
+            gvDetails.DataBind();
+            MPE_LeadDetails.Show();
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                try
+                {
+                    new BXcel().ExporttoExcelForLeadNextFollowUpAgeingReport(StockTrackDetail, "Lead Next Follow Up Ageing", "Lead Next Follow Up Ageing");
+                }
+                catch
+                {
+                }
+                finally
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
             }
         }
     }

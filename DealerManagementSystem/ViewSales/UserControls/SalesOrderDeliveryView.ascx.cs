@@ -181,7 +181,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     if (SaleOrderDeliveryByID.SaleOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
                     {
                         string mimeType = string.Empty;
-                        Byte[] mybytes = SalesMachineInvoiceRdlc(out mimeType);
+                        Byte[] mybytes = new BDMS_SalesOrder().SalesMachineInvoiceRdlc(SaleOrderDeliveryByID,out mimeType);
                         File.WriteAllBytes(tempfilenameandlocation, mybytes);
                     }
                     else
@@ -569,190 +569,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 lblMessageCreateSODelivery.Text = e1.Message;
             }
-        }
-        Byte[] SalesMachineInvoiceRdlc(out string mimeType)
-        {
-            var CC = CultureInfo.CurrentCulture;
-            Random r = new Random();
-            string extension;
-            string encoding;
-            string[] streams;
-            Warning[] warnings;
-            LocalReport report = new LocalReport();
-            report.EnableExternalImages = true;
-
-            PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID)[0];
-
-            PDMS_DealerOffice DealerOffice = new BDMS_Dealer().GetDealerOffice(null, SaleOrderDeliveryByID.SaleOrder.Dealer.DealerOffice.OfficeID, null)[0];
-
-            string DealerAddress1 = (DealerOffice.Address1 + (string.IsNullOrEmpty(DealerOffice.Address2) ? "" : "," + DealerOffice.Address2) + (string.IsNullOrEmpty(DealerOffice.Address3) ? "" : "," + DealerOffice.Address3)).Trim(',', ' ');
-            string DealerAddress2 = (DealerOffice.City + (string.IsNullOrEmpty(DealerOffice.State) ? "" : "," + DealerOffice.State) + (string.IsNullOrEmpty(DealerOffice.Pincode) ? "" : "-" + DealerOffice.Pincode)).Trim(',', ' ');
-
-            PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
-            string CustomerAddress = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-              CustomerAddress = CustomerAddress+"," + (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-
-          //  string  CustomerShipToAddress = SaleOrderDeliveryByID.ShippingAddress;
-            string ShippingAddress = string.IsNullOrEmpty(SaleOrderDeliveryByID.ShippingAddress.Trim()) ? CustomerAddress : SaleOrderDeliveryByID.ShippingAddress.Trim();
-
-            //if (SaleOrderDeliveryByID.SaleOrder.ShipTo != null)
-            //{
-            //    List<PDMS_CustomerShipTo> CustomerShipTo = new BDMS_Customer().GetCustomerShopTo(SaleOrderDeliveryByID.SaleOrder.ShipTo.CustomerShipToID, SaleOrderDeliveryByID.SaleOrder.Customer.CustomerID);
-            //    CustomerShipToCode = CustomerShipTo[0].CustomerCode;
-            //    CustomerShipToAddress1 = (CustomerShipTo[0].Address1 + (string.IsNullOrEmpty(CustomerShipTo[0].Address2) ? "" : "," + CustomerShipTo[0].Address2) + (string.IsNullOrEmpty(CustomerShipTo[0].Address3) ? "" : "," + CustomerShipTo[0].Address3)).Trim(',', ' ');
-            //    CustomerShipToAddress2 = (CustomerShipTo[0].City + (string.IsNullOrEmpty(CustomerShipTo[0].State.State) ? "" : "," + CustomerShipTo[0].State.State) + (string.IsNullOrEmpty(CustomerShipTo[0].Pincode) ? "" : "-" + CustomerShipTo[0].Pincode)).Trim(',', ' ');
-            //}
-            //else
-            //{
-            //    CustomerShipToCode = Customer.CustomerCode;
-            //    CustomerShipToAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address1) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
-            //    CustomerShipToAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-            //}
-
-            PApiResult Result = new BSalesQuotation().GetSalesQuotationBasic(null, SaleOrderDeliveryByID.SaleOrder.QuotationNumber, null, null
-               , null, null, null, null, null, null, null, null, null, null, null);
-
-            List<PSalesQuotation> QL = JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(Result.Data));
-
-            PSalesQuotation Q = new BSalesQuotation().GetSalesQuotationByID(QL[0].QuotationID);
-            string KindAttention = "", Hypothecation = "", PhoneNumber = "";
-
-            foreach (PSalesQuotationNote Note in Q.Notes)
-            {
-                if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.KindAttention) { KindAttention = Note.Remark; }
-                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.Hypothecation) { Hypothecation = Note.Remark; }
-                else if (Note.Note.SalesQuotationNoteListID == (short)SalesQuotationNoteList.PhoneNumber) { PhoneNumber = Note.Remark; }
-            }
-            //PDMS_EquipmentHeader E = new BDMS_Equipment().GetEquipmentHeaderByID(Convert.ToInt32(SaleOrderDeliveryByID.Equipment.EquipmentHeaderID));
-            ReportParameter[] P = new ReportParameter[43];
-            P[0] = new ReportParameter("CompanyName", Dealer.DealerName.ToUpper(), false);
-            P[1] = new ReportParameter("CompanyAddress1", DealerAddress1, false);
-            P[2] = new ReportParameter("CompanyAddress2", DealerAddress2, false);
-            P[3] = new ReportParameter("CompanyTelephoneandEmail", "T:" + Dealer.Address.Mobile + "," + Environment.NewLine + "Email:" + Dealer.Address.Email);
-            P[4] = new ReportParameter("CompanyPAN", Dealer.Address.PAN, false);
-            P[5] = new ReportParameter("CompanyGSTIN", Dealer.Address.GSTIN, false);
-            P[6] = new ReportParameter("CustomerCode", Customer.CustomerCode, false);
-            P[7] = new ReportParameter("CustomerName", Customer.CustomerName, false);
-            P[8] = new ReportParameter("CustomerAddress", CustomerAddress, false);
-            P[9] = new ReportParameter("CustomerAddress2", "", false);
-            P[10] = new ReportParameter("Hypothecation", Hypothecation, false);
-            P[11] = new ReportParameter("CustomerShipToCode", Customer.CustomerCode, false);
-            P[12] = new ReportParameter("CustomerShipToName", Customer.CustomerName, false);
-            P[13] = new ReportParameter("ShippingAddress", ShippingAddress, false);
-            P[14] = new ReportParameter("CustomerShipToAddress2", "", false);
-            P[15] = new ReportParameter("CustomerShipToPAN", Customer.PAN, false);
-            P[16] = new ReportParameter("CustomerShipToGSTIN", Customer.GSTIN, false);
-            P[17] = new ReportParameter("InvoiceNo", SaleOrderDeliveryByID.InvoiceNumber, false);
-            P[18] = new ReportParameter("InvoiceDate", (SaleOrderDeliveryByID.InvoiceDate == null) ? "" : Convert.ToDateTime(SaleOrderDeliveryByID.InvoiceDate).ToShortDateString(), false);
-            P[19] = new ReportParameter("Attn", Customer.ContactPerson, false);
-            P[20] = new ReportParameter("Mobile", Customer.Mobile, false);
-            P[21] = new ReportParameter("Ref", SaleOrderDeliveryByID.SaleOrder.RefNumber, false);
-            P[22] = new ReportParameter("CGST_Header", "", false);
-            P[23] = new ReportParameter("CGSTVal_Header", "", false);
-            P[24] = new ReportParameter("SGST_Header", "", false);
-            P[25] = new ReportParameter("SGSTVal_Header", "", false);
-            P[26] = new ReportParameter("DateOfPreparationOfInvoice", (SaleOrderDeliveryByID.InvoiceDate == null) ? "" : Convert.ToDateTime(SaleOrderDeliveryByID.InvoiceDate).ToShortDateString(), false);
-            P[27] = new ReportParameter("DateOfRemovalOfGoods", (SaleOrderDeliveryByID.InvoiceDate == null) ? "" : Convert.ToDateTime(SaleOrderDeliveryByID.InvoiceDate).ToShortDateString(), false);
-            //P[28] = new ReportParameter("MannerOfTransport", SaleOrderDeliveryByID.Shipping.TransportDetails, false);
-            P[28] = new ReportParameter("MannerOfTransport", "", false);
-            P[29] = new ReportParameter("Destination", SaleOrderDeliveryByID.SaleOrder.Dealer.DealerOffice.OfficeName, false);
-            P[30] = new ReportParameter("SubTotal", "", false);
-            P[31] = new ReportParameter("TCSTotal", "", false);
-            P[32] = new ReportParameter("GrandTotal", "", false);
-            P[33] = new ReportParameter("GrandTotalInwords", "", false);
-            P[34] = new ReportParameter("Model", Q.LeadProduct.Product.Product, false);
-            P[35] = new ReportParameter("MachineSlno", SaleOrderDeliveryByID.Equipment.EquipmentSerialNo, false);
-            P[36] = new ReportParameter("EngineNo", SaleOrderDeliveryByID.Equipment.EngineSerialNo, false);
-            P[37] = new ReportParameter("ChassisNo", SaleOrderDeliveryByID.Equipment.ChassisSlNo, false);
-            P[38] = new ReportParameter("Remarks", "", false);
-            P[39] = new ReportParameter("DeliveryNo", SaleOrderDeliveryByID.DeliveryNumber, false);
-            P[40] = new ReportParameter("IRNo", "", false);
-            P[41] = new ReportParameter("TCSTaxPer", "", false);
-            P[42] = new ReportParameter("QRCodeImg", "", false);
-
-            DataTable dtItem = new DataTable();
-            dtItem.Columns.Add("Sn");
-            dtItem.Columns.Add("PartNo");
-            dtItem.Columns.Add("Description");
-            dtItem.Columns.Add("HSN");
-            dtItem.Columns.Add("Qty");
-            dtItem.Columns.Add("UOM");
-            dtItem.Columns.Add("UnitPrice");
-            dtItem.Columns.Add("TotalValue");
-            dtItem.Columns.Add("Discount");
-            dtItem.Columns.Add("Taxable");
-            dtItem.Columns.Add("CGSTPer");
-            dtItem.Columns.Add("CGSTVal");
-            dtItem.Columns.Add("SGSTPer");
-            dtItem.Columns.Add("SGSTVal");
-
-            int sno = 0;
-            decimal SubTotal = 0, GrandTotal = 0;
-            foreach (PSaleOrderDeliveryItem Item in SaleOrderDeliveryByID.SaleOrderDeliveryItems)
-            {
-                if (Item.IGST == 0)
-                {
-                    dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Material.HSN, Item.Qty.ToString("0"), Item.Material.BaseUnit, String.Format("{0:n}", Item.Value / Item.Qty), String.Format("{0:n}", Item.Value), String.Format("{0:n}", Item.DiscountValue), String.Format("{0:n}", Item.TaxableValue), String.Format("{0:n}", Item.CGST), String.Format("{0:n}", Item.CGSTValue), String.Format("{0:n}", Item.SGST), String.Format("{0:n}", Item.SGSTValue));
-                    SubTotal += (Item.TaxableValue + Item.CGSTValue + Item.SGSTValue);
-                    P[22] = new ReportParameter("CGST_Header", "%", false);
-                    P[23] = new ReportParameter("CGSTVal_Header", "CGST", false);
-                    P[24] = new ReportParameter("SGST_Header", "%", false);
-                    P[25] = new ReportParameter("SGSTVal_Header", "SGST", false);
-                }
-                else
-                {
-                    dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Material.HSN, Item.Qty.ToString("0"), Item.Material.BaseUnit, String.Format("{0:n}", Item.Value / Item.Qty), String.Format("{0:n}", Item.Value), String.Format("{0:n}", Item.DiscountValue), String.Format("{0:n}", Item.TaxableValue), "", "", String.Format("{0:n}", Item.IGST), String.Format("{0:n}", Item.IGSTValue));
-                    SubTotal += (Item.TaxableValue + Item.IGSTValue);
-                    P[22] = new ReportParameter("CGST_Header", "", false);
-                    P[23] = new ReportParameter("CGSTVal_Header", "", false);
-                    P[24] = new ReportParameter("SGST_Header", "%", false);
-                    P[25] = new ReportParameter("SGSTVal_Header", "IGST", false);
-                }
-            }
-            GrandTotal = Math.Round(SubTotal + SaleOrderDeliveryByID.TCSValue);
-            P[30] = new ReportParameter("SubTotal", String.Format("{0:n}", SubTotal), false);
-            P[31] = new ReportParameter("TCSTotal", String.Format("{0:n}", SaleOrderDeliveryByID.TCSValue), false);
-            P[32] = new ReportParameter("GrandTotal", String.Format("{0:n}", GrandTotal), false);
-            P[33] = new ReportParameter("GrandTotalInwords", new BDMS_Fn().NumbersToWords(Convert.ToInt32(GrandTotal)), false);
-            P[41] = new ReportParameter("TCSTaxPer", String.Format("{0:n}", SaleOrderDeliveryByID.TCSTax), false);
-            PDMS_Dealer DealerN = new BDMS_Dealer().GetDealer(SaleOrderDeliveryByID.SaleOrder.Dealer.DealerID, null, null, null)[0];
-            if ((DealerN.ServicePaidEInvoice) && (DealerN.EInvoiceDate <= SaleOrderDeliveryByID.InvoiceDate) && (Customer.GSTIN != "URD"))
-            {
-                PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetSaleOrderDeliveryInvoiceESigned(SaleOrderDeliveryByID.SaleOrderDeliveryID);
-                if (EInvoiceSigned != null)
-                {
-                    if (string.IsNullOrEmpty(EInvoiceSigned.SignedQRCode))
-                    {
-                        throw new Exception("E Invoice not generated.: " + EInvoiceSigned.Comments);
-                    }
-                }
-                if (string.IsNullOrEmpty(SaleOrderDeliveryByID.IRN))
-                {
-                    throw new Exception("E Invoice not generated. Please contact IT Team.");
-                } 
-                else
-                {
-                    P[40] = new ReportParameter("IRNo", "IRN : " + SaleOrderDeliveryByID.IRN, false);
-                    P[42] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, SaleOrderDeliveryByID.InvoiceNumber), false); 
-                }
-
-            }
-            else
-            {
-                P[40] = new ReportParameter("IRNo", "", false);
-                P[42] = new ReportParameter("QRCodeImg", "", false);
-            }
-
-
-            report.ReportPath = Server.MapPath("~/Print/SalesMachineInvoice.rdlc");
-            report.SetParameters(P);
-            ReportDataSource rds = new ReportDataSource();
-            rds.Name = "SalesMachineInvoice";//This refers to the dataset name in the RDLC file  
-            rds.Value = dtItem;
-            report.DataSources.Add(rds);
-            Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF 
-            return mybytes;
-        }
+        } 
         void DownloadSalesMachineInvoice()
         {
             try
@@ -761,7 +578,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 contentType = "application/pdf";
                 string FileName = SaleOrderDeliveryByID.InvoiceNumber + ".pdf";
                 string mimeType;
-                Byte[] mybytes = SalesMachineInvoiceRdlc(out mimeType);
+                Byte[] mybytes = new BDMS_SalesOrder().SalesMachineInvoiceRdlc(SaleOrderDeliveryByID, out mimeType);
                 Response.Buffer = true;
                 Response.Clear();
                 Response.ContentType = mimeType;

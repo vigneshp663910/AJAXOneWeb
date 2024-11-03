@@ -73,5 +73,10 @@ namespace Business
             + "&MaterialCode=" + MaterialCode + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public DataTable GetDealerStockTrackDetail(string DealerID, string OfficeID, string MaterialID, int TrackTypeID)
+        {
+            string endPoint = "Inventory/GetDealerStockTrackDetail?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&MaterialID=" + MaterialID + "&TrackTypeID=" + TrackTypeID;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

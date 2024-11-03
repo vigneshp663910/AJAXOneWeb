@@ -72,7 +72,7 @@ namespace DealerManagementSystem.ViewProcurement
                 txtPoDateTo.Text = DateTime.Now.ToShortDateString();
 
                 fillDealer();
-               
+                new DDLBind(ddlPOStatus, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.StockTransferOrderDelivery), "Status", "StatusID");
                 if (Session["StockTransferOrderID"] != null)
                 {
                     divList.Visible = false;
@@ -80,6 +80,7 @@ namespace DealerManagementSystem.ViewProcurement
                     UC_StockTransferOrderView.fillViewPO(Convert.ToInt64(Session["StockTransferOrderID"]));
                     Session["StockTransferOrderID"] = null;
                 }
+                
                 lblRowCount.Visible = false;
                 ibtnArrowLeft.Visible = false;
                 ibtnArrowRight.Visible = false;
