@@ -20,7 +20,8 @@ namespace Business
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
             if (string.IsNullOrEmpty(Convert.ToString(Result.Data)))
             {
-                throw new Exception("EDFS Cash Balance is not maintained."); 
+                //throw new Exception("EDFS Cash Balance is not maintained."); 
+                return 0;
             }
             return Convert.ToDecimal(Result.Data); 
         }

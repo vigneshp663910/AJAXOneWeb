@@ -611,7 +611,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-            PDMS_DealerOffice DealerFrom = new BDMS_Dealer().GetDealerOffice(StockTransferOrder.Dealer.DealerID, StockTransferOrder.SourceOffice.OfficeID, null)[0];
+            PDMS_DealerOffice DealerFrom = new BDMS_Dealer().GetDealerOffice(StockTransferOrder.SourceDealer.DealerID, StockTransferOrder.SourceOffice.OfficeID, null)[0];
             string FromAddress1 = (DealerFrom.Address1 + (string.IsNullOrEmpty(DealerFrom.Address2) ? "" : "," + DealerFrom.Address2) + (string.IsNullOrEmpty(DealerFrom.Address3) ? "" : "," + DealerFrom.Address3)).Trim(',', ' ');
             string FromAddress2 = (DealerFrom.City + (string.IsNullOrEmpty(DealerFrom.State) ? "" : "," + DealerFrom.State) + (string.IsNullOrEmpty(DealerFrom.Pincode) ? "" : "-" + DealerFrom.Pincode)).Trim(',', ' ');
 

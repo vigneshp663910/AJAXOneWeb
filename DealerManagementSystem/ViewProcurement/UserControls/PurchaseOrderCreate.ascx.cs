@@ -301,7 +301,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             ddlDealer.DataTextField = "CodeWithDisplayName";
             ddlDealer.DataValueField = "DID";
-            ddlDealer.DataSource = PSession.User.Dealer.Where(m => m.DealerType.DealerTypeID == 2);
+            ddlDealer.DataSource = PSession.User.Dealer.Where(m => m.DealerType.DealerTypeID == (short)DealerType.DealerShip 
+                                                                || m.DealerType.DealerTypeID == (short)DealerType.DealerCF 
+                                                                || m.DealerType.DealerTypeID == (short)DealerType.Retailer);
             ddlDealer.DataBind();
             //ddlDealer.Items.Insert(0, new ListItem("All", "0"));
             FillGetDealerOffice();
