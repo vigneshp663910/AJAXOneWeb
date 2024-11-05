@@ -589,8 +589,7 @@ namespace Business
                         }
                     }
                 }
-
-                new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Customer.CustomerID);
+                 
 
                 return success;
             }

@@ -155,25 +155,12 @@ namespace DealerManagementSystem.ViewAdmin
                     Result = new BDMS_Customer().InsertOrUpdateDealerCustomerMapping(null, Convert.ToInt32(ddlDealerCodeM.SelectedValue), txtCustomerCode.Text.Trim(), PSession.User.UserID, true);
                     if (Result == 1)
                     {
-                        //lblMessage.Text = "Dealer To Customer Mapped successfully";
                         lblMessage.Text = "Customer mapped to Dealer successfully.";
                         lblMessage.ForeColor = Color.Green;
-                   
-                        List<PDMS_Customer> Cust = new BDMS_Customer().GetCustomer(null, txtCustomerCode.Text.Trim(), null, null, null, null, null, null, null, null); 
-                        new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Cust[0].CustomerID);
+                        //  List<PDMS_Customer> Cust = new BDMS_Customer().GetCustomer(null, txtCustomerCode.Text.Trim(), null, null, null, null, null, null, null, null); 
                         txtCustomerCodeS.Text = txtCustomerCode.Text.Trim();
                         FillCustomer();
-                    }
-                    else if (Result == 2)
-                    {
-                        //lblMessage.Text = "Dealer To Customer Already Mapped";
-                        lblMessage.Text = "Customer already mapped to Dealer.";
-                        lblMessage.ForeColor = Color.Red;
-
-                        List<PDMS_Customer> Cust = new BDMS_Customer().GetCustomer(null, txtCustomerCode.Text.Trim(), null, null, null, null, null, null, null, null);
-                        new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Cust[0].CustomerID);
-                        return;
-                    }
+                    } 
                     else
                     {
                         //lblMessage.Text = "Dealer To Customer Is Not Mapped successfully";

@@ -186,7 +186,7 @@ namespace DealerManagementSystem.ViewInventory
             {
                 try
                 {
-                    new BXcel().ExporttoExcelForLeadNextFollowUpAgeingReport(StockTrackDetail, "Lead Next Follow Up Ageing", "Lead Next Follow Up Ageing");
+                    new BXcel().ExporttoExcel(StockTrackDetail, "Stock Track Detail");
                 }
                 catch
                 {

@@ -94,18 +94,9 @@ namespace DealerManagementSystem.ViewMaster
                     List<PDMS_Customer> Customer = JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(new BDMS_Customer().GetCustomerN(null, txtCustomerCode.Text.Trim(), null, null, null, null, null, null, null, null).Data));
                     if (Result == 1)
                     {
-                        new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Customer[0].CustomerID); 
                         lblMessage.Text = "Dealer To Customer Mapped successfully";
                         lblMessage.ForeColor = Color.Green;
                         FillCustomer();
-                    }
-                    else if(Result == 2)
-                    {
-                        new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Customer[0].CustomerID);
-
-                        lblMessage.Text = "Dealer To Customer Already Mapped";
-                        lblMessage.ForeColor = Color.Red;
-                        return;
                     }
                     else
                     {

@@ -350,21 +350,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     }
                     lblMessage.Visible = true;
                     fillCustomer(Customer.CustomerID);
-                }
-                else if (lbActions.Text == "Sync to Parts")
-                {
-                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Customer/SysCustomerWithPG?CustomerID=" + Customer.CustomerID));
-                    if (Results.Status == PApplication.Failure)
-                    {
-                        lblMessage.Text = Results.Message;
-                        lblMessage.Visible = true;
-                        lblMessage.ForeColor = Color.Red;
-                        return;
-                    }
-                    lblMessage.Text = Results.Message;
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Green;
-                }
+                } 
                 else if (lbActions.Text == "Add Lead Ajax")
                 {
                     List<PLeadQualification> Qualification = new BLead().GetLeadQualification(null, null);
@@ -1069,8 +1055,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lbAddGroupOfCompanies.Visible = true;
             lbAddResponsibleEmployee.Visible = true;
             lbtnVerifiedCustomer.Visible = true;
-            lbtnSyncToSap.Visible = true;
-            lbtnSyncToParts.Visible = true;
+            lbtnSyncToSap.Visible = true;  
             lbtnAddLeadAjax.Visible = true;
             lbtnUpdateGst.Visible = true;
 
@@ -1101,13 +1086,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.CustomerVerify).Count() == 0)
             {
                 lbtnVerifiedCustomer.Visible = false;
-            }
-
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.SyncToParts).Count() == 0)
-            {
-                lbtnSyncToParts.Visible = false;
-            }
-
+            } 
             if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.LeadAjax).Count() == 0)
             {
                 lbtnAddLeadAjax.Visible = false;

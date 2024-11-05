@@ -52,7 +52,7 @@
                     <asp:LinkButton ID="lbtnActivateCustomer" runat="server" OnClick="lbActions_Click">Activate Customer</asp:LinkButton>
                     <asp:LinkButton ID="lbtnSyncToSap" runat="server" OnClick="lbActions_Click">Sync to Sap</asp:LinkButton>
                     <asp:LinkButton ID="lbtnShipTo" runat="server" OnClick="lbActions_Click">Add ShipTo</asp:LinkButton>
-                    <asp:LinkButton ID="lbtnSyncToParts" runat="server" OnClick="lbActions_Click">Sync to Parts</asp:LinkButton>
+                    <%--<asp:LinkButton ID="lbtnSyncToParts" runat="server" OnClick="lbActions_Click">Sync to Parts</asp:LinkButton> --%>
                     <asp:LinkButton ID="lbtnAddLeadAjax" runat="server" OnClick="lbActions_Click">Add Lead Ajax</asp:LinkButton>
                     <asp:LinkButton ID="lbtnUpdateGst" runat="server" OnClick="lbActions_Click">Update GST</asp:LinkButton>
                 </div>

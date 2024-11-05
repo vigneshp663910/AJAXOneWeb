@@ -42,8 +42,7 @@ namespace Properties
         public List<PDMS_Customer> Customer { get; set; }
         public Boolean IsActive { get; set; }
 
-        public PDMS_Region Region { get; set; }
-        public Boolean IsPartsPortal { get; set; }
+        public PDMS_Region Region { get; set; } 
         public PAddress Address { get; set; }
     }
 
@@ -237,8 +236,7 @@ namespace Properties
         public string ApiPassword { get; set; }
 
         public PEInvUserAPI EInvUserAPI { get; set; }
-        public PDealerType DealerType { get; set; }
-        public Boolean IsPartsPortal { get; set; }
+        public PDealerType DealerType { get; set; } 
     }
     [Serializable] 
     public class PDealerStateMappingID
