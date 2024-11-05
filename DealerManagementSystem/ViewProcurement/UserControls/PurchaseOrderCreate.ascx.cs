@@ -312,7 +312,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             ddlVendor.DataTextField = "CodeWithDisplayName";
             ddlVendor.DataValueField = "DealerID";
-            ddlVendor.DataSource = new BDMS_Dealer().GetDealerAll(null, null, null, OrderTo == "1" ? 1 : 2);
+            //ddlVendor.DataSource = new BDMS_Dealer().GetDealerAll(null, null, null, OrderTo == "1" ? 1 : 2);
+            ddlVendor.DataSource = new BDMS_Dealer().GetDealerAll(null, null, null, Convert.ToInt32(OrderTo));
             ddlVendor.DataBind();
             ddlVendor.Items.Insert(0, new ListItem("Select", "0"));
             if (ddlOrderTo.SelectedValue == "1")
@@ -364,7 +365,24 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null);
             ddlDealerOffice.DataBind();
             ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
-        }        
+
+
+            ddlOrderTo.Items.Clear();
+            List<PDealer> Dealer = PSession.User.Dealer.Where(m => m.DealerID == Convert.ToInt32(ddlDealer.SelectedValue)).ToList();
+            //ddlOrderTo.DataTextField = "PurchaseOrderType";
+            //ddlOrderTo.DataValueField = "PurchaseOrderTypeID";
+            ddlOrderTo.Items.Insert(0, new ListItem("OE", "1"));
+            if (Dealer[0].DealerType.DealerTypeID == (short)DealerType.DealerShip)
+            {
+                ddlOrderTo.Items.Insert(1, new ListItem("Co-Dealers", "2"));
+            }
+            else if (Dealer[0].DealerType.DealerTypeID == (short)DealerType.DealerCF)
+            {
+                ddlOrderTo.Items.Insert(1, new ListItem("C&F", "4"));
+            }
+            fillVendor(ddlOrderTo.SelectedValue);
+            fillPurchaseOrderType(ddlOrderTo.SelectedValue);
+        }     
        
         protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -405,14 +423,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             }
             else if (ddlPurchaseOrderType.SelectedValue == "6")
             {
-                ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
-                ddlDivision.Items.Insert(2, new ListItem("Batching Plant", "1"));
-                ddlDivision.Items.Insert(3, new ListItem("Concrete Mixer", "2"));
-                ddlDivision.Items.Insert(4, new ListItem("Concrete Pump", "3"));
-                ddlDivision.Items.Insert(5, new ListItem("Dumper", "4"));
-                ddlDivision.Items.Insert(6, new ListItem("Transit Mixer", "11"));
-                ddlDivision.Items.Insert(7, new ListItem("Mobile Concrete Equipment", "14"));
-                ddlDivision.Items.Insert(8, new ListItem("Placing Equipment", "19"));
+                ddlDivision.Items.Insert(1, new ListItem("Parts", "15")); 
             }
             //if (OrderType == "1" || OrderType == "6")
             //{

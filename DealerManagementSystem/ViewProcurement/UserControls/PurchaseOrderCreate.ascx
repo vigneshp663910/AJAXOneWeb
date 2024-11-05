@@ -47,8 +47,8 @@
             <div class="col-md-3 col-sm-12">
                 <label class="modal-label">Order To<samp style="color: red">*</samp></label>
                 <asp:DropDownList ID="ddlOrderTo" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlOrderTo_SelectedIndexChanged" AutoPostBack="true">
-                    <asp:ListItem Value="1">OE</asp:ListItem>
-                    <asp:ListItem Value="2">Co-Dealer</asp:ListItem>
+                   <%-- <asp:ListItem Value="1">OE</asp:ListItem>
+                    <asp:ListItem Value="2">Co-Dealer</asp:ListItem>--%>
                 </asp:DropDownList>
             </div>
             <div class="col-md-3 col-sm-12">
