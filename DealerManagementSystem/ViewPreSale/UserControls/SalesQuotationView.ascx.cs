@@ -2050,7 +2050,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
            // lbtnAddDiscount.Visible = true;
 
             lbtnAddCustomerSingedQuotation.Visible = true;
-
+            lbtnAddSpecification.Visible = true;
 
             if (Quotation.CommissionAgent)
             {
@@ -2064,6 +2064,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if ((Quotation.Lead.Status.StatusID == (short)LeadStatus.Dropped)
                 || (Quotation.Lead.Status.StatusID == (short)LeadStatus.SalesLost)
                 || (Quotation.Lead.Status.StatusID == (short)LeadStatus.Won)
+                || (Quotation.Lead.Status.StatusID == (short)LeadStatus.Dropped)
+                || (Quotation.Status.SalesQuotationStatusID == (short)SalesQuotationStatus.ConvertedToOtherProduct)
                 )
             {
                 lbtnEditQuotation.Visible = false;
@@ -2081,9 +2083,42 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lbtnDownloadMachineQuotation.Visible = false;
                 lbtnSaleOrderConfirmation.Visible = false;
                 lbtnAddVisit.Visible = false;
+
+                lbtnAddCustomerSingedQuotation.Visible = false;
+                lbtnAddSpecification.Visible = false;
+
+                for (int i = 0; i < gvProduct.Rows.Count; i++)
+                {
+                    ((LinkButton)gvProduct.Rows[i].FindControl("lblMaterialRemove")).Visible = false;
+                }
+                for (int i = 0; i < gvCompetitor.Rows.Count; i++)
+                {
+                    ((LinkButton)gvCompetitor.Rows[i].FindControl("lblCompetitorRemove")).Visible = false;
+                }
+                for (int i = 0; i < gvNote.Rows.Count; i++)
+                {
+                    ((LinkButton)gvNote.Rows[i].FindControl("lblNoteRemove")).Visible = false;
+                } 
+            }
+            if ((Quotation.Status.SalesQuotationStatusID == (short)SalesQuotationStatus.Delivery)
+                || (Quotation.Status.SalesQuotationStatusID == (short)SalesQuotationStatus.SaleOrder)
+                )
+            {
+                for (int i = 0; i < gvProduct.Rows.Count; i++)
+                {
+                    ((LinkButton)gvProduct.Rows[i].FindControl("lblMaterialRemove")).Visible = false;
+                }
+                for (int i = 0; i < gvCompetitor.Rows.Count; i++)
+                {
+                    ((LinkButton)gvCompetitor.Rows[i].FindControl("lblCompetitorRemove")).Visible = false;
+                }
+                for (int i = 0; i < gvNote.Rows.Count; i++)
+                {
+                    ((LinkButton)gvNote.Rows[i].FindControl("lblNoteRemove")).Visible = false;
+                }
             }
 
-            if (!Quotation.IsStandard)
+                if (!Quotation.IsStandard)
             {
               //  lbtnAddDiscount.Visible = false;
             }
