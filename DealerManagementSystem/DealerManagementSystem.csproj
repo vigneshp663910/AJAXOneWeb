@@ -573,7 +573,6 @@
     <Content Include="JS\jquery.min.js" />
     <Content Include="Account\LoginAs.aspx" />
     <Content Include="ViewAdmin\OrganizationStructure.aspx" />
-    <Content Include="Login.aspx" />
     <Content Include="ViewMaster\DealerEmployeeApproval.aspx" />
     <Content Include="ViewMaster\DealerEmployeeAssigningRole.aspx" />
     <Content Include="ViewMaster\DealerEmployeeCreate.aspx" />
@@ -2050,13 +2049,6 @@
     </Compile>
     <Compile Include="ViewAdmin\OrganizationStructure.aspx.designer.cs">
       <DependentUpon>OrganizationStructure.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewMaster\DealerEmployeeApproval.aspx.cs">
       <DependentUpon>DealerEmployeeApproval.aspx</DependentUpon>

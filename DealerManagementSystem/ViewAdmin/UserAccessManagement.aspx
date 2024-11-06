@@ -47,15 +47,7 @@
                             <asp:ListItem Value="2">InActive</asp:ListItem>
                         </asp:DropDownList>
                     </div>
-                    <div class="col-md-1 text-left">
-                        <label>AJAXOne</label>
-                        <asp:DropDownList ID="ddlAJAXOne" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="0">ALL</asp:ListItem>
-                            <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
-                            <asp:ListItem Value="2">InActive</asp:ListItem>
-                        </asp:DropDownList>
-                    </div>
-
+                
                     <div class="col-md-2 text-left">
                         <label>Department</label>
                         <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
@@ -210,13 +202,7 @@
                                         <%--<asp:Label ID="lblIsTechnician" runat="server" CssClass="label" Text='<%# DataBinder.Eval(Container.DataItem, "IsTechnician")%>'></asp:Label>--%>
                                         <asp:CheckBox ID="cbIsTechnician" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsTechnician")%>' Enabled="false"></asp:CheckBox>
                                     </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Disabled Service" ItemStyle-Width="80px">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
-                                    <ItemTemplate>
-                                        <asp:CheckBox ID="cbIsDisabledService" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsDisabledService")%>' Enabled="false"></asp:CheckBox>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField> 
                                 <asp:TemplateField HeaderText="Action" ItemStyle-Width="140px">
                                     <ItemTemplate>
                                         <table>

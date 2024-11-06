@@ -448,8 +448,8 @@ namespace Business
                 DbParameter isFirstTimeParam = provider.CreateParameter("IsFirstTime", userDAO.IsFirstTimeLogin, DbType.Boolean);
                 DbParameter isLockedParam = provider.CreateParameter("IsLocked", userDAO.IsLocked, DbType.Boolean);
                 DbParameter isEnabledParam = provider.CreateParameter("IsEnabled", userDAO.IsEnabled, DbType.Boolean);
-                DbParameter ajaxOne = provider.CreateParameter("ajaxOne", userDAO.ajaxOne, DbType.Boolean);
-                DbParameter IsDisabledService = provider.CreateParameter("IsDisabledService", userDAO.IsDisabledService, DbType.Boolean);
+                DbParameter ajaxOne = provider.CreateParameter("ajaxOne", 1, DbType.Boolean);
+                DbParameter IsDisabledService = provider.CreateParameter("IsDisabledService", 1, DbType.Boolean);
                 DbParameter passwordExpirationDateParam = provider.CreateParameter("PasswordExpirationDate", userDAO.PasswordExpiryDate, DbType.DateTime);
                 if (userDAO.EnableDisableReason != null)
                     enableDisableReasonParam = provider.CreateParameter("EnableDisableReason", userDAO.EnableDisableReason, DbType.String);

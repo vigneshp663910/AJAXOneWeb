@@ -53,15 +53,13 @@ namespace Properties
         public string OTP { get; set; }
         public DateTime OTPExpiry { get; set; }
         public DateTime? LastLoginDate { get; set; }
-        public Boolean ajaxOne { get; set; }
-        public Boolean ajaxOneDealer { get; set; }
+       // public Boolean ajaxOne { get; set; } 
         public List<PUserMobileFeature> UserMobileFeature { get; set; }
         public string Language { get; set; }
         public Boolean IsOffLineAllowed { get; set; }
         public Boolean DebuggingStatus { get; set; }
         public Int32? DaysSince { get; set; }
-        public Int32? LoginCount { get; set; }
-        public Boolean IsDisabledService { get; set; }
+        public Int32? LoginCount { get; set; } 
         #endregion
     }
     [Serializable]

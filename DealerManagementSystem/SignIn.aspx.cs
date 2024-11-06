@@ -153,13 +153,7 @@ namespace DealerManagementSystem
                 //{ 
                 //    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + PSession.User.UserID + "", true);
                 //} 
-                if ((!PSession.User.ajaxOne) || (!PSession.User.ajaxOneDealer))
-                {
-                    lblMessage.ForeColor =  Color.Red;
-                    lblMessage.Text = "You are not allowed to use";
-                    lblMessage.Visible = true;
-                    return;
-                }
+                
                 UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
                 if (PSession.User.PasswordExpiryDate < DateTime.Now)
                 {
@@ -233,13 +227,7 @@ namespace DealerManagementSystem
                 //{
                 //    Response.Redirect("SignIn.aspx?SignIn=ChangePassword&UserID=" + PSession.User.UserID + "", true);
                 //}
-                if ((!userDetails.ajaxOne) || (!userDetails.ajaxOneDealer))
-                {
-                    lblMessage.ForeColor = Color.Red;
-                    lblMessage.Text = "You are not allowed to use";
-                    lblMessage.Visible = true;
-                    return;
-                }
+                 
                 PSession.Latitude = hfLatitude.Value;
                 PSession.Longitude = hfLongitude.Value;
                 UIHelper.UserAudit(hfLatitude.Value, hfLongitude.Value);
