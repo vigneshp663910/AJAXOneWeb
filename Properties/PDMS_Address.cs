@@ -67,9 +67,13 @@ namespace Properties
         public string DistrictSAP { get; set; }
         public PDMS_State State { get; set; }
         public PDMS_Country Country { get; set; }
-        public PDMS_Dealer Dealer { get; set; }
         public PSalesOffice SalesOffice { get; set; }
-        public PUser SalesEngineer { get; set; }
+        public PDMS_Dealer Dealer { get; set; }
+        public PUser SalesDealerEngineer { get; set; }
+        public PDMS_Dealer ServiceDealer { get; set; }
+        public PDMS_Dealer SalesRetailer { get; set; }
+        public PUser SalesRetailerEngineer { get; set; }
+        public PDMS_Dealer ServiceRetailer { get; set; }
     }
     [Serializable]
     public class PDMS_Tehsil

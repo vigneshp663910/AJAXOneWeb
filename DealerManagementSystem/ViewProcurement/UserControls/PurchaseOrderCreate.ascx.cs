@@ -74,10 +74,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             fillDealer();
             PDealer P = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), null);
-            lblEdfsCashBalance.Text = Convert.ToString(new BSap().GetEdfsCashBalance(P.DealerCode));
+            //lblEdfsCashBalance.Text = Convert.ToString(new BSap().GetEdfsCashBalance(P.DealerCode));
             //new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
-            fillVendor(ddlOrderTo.SelectedValue);
-            fillPurchaseOrderType(ddlOrderTo.SelectedValue);
+            ddlDealer_SelectedIndexChanged(null, null);
+            //fillVendor(ddlOrderTo.SelectedValue);
+            //fillPurchaseOrderType(ddlOrderTo.SelectedValue);
             ddlPurchaseOrderType_SelectedIndexChanged(null, null);
             PurchaseOrderItem_Insert = new List<PPurchaseOrderItem_Insert>();
             Clear();
@@ -301,8 +302,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             ddlDealer.DataTextField = "CodeWithDisplayName";
             ddlDealer.DataValueField = "DID";
-            ddlDealer.DataSource = PSession.User.Dealer.Where(m => m.DealerType.DealerTypeID == (short)DealerType.DealerShip 
-                                                                || m.DealerType.DealerTypeID == (short)DealerType.DealerCF 
+            ddlDealer.DataSource = PSession.User.Dealer.Where(m => m.DealerType.DealerTypeID == (short)DealerType.Dealer  
                                                                 || m.DealerType.DealerTypeID == (short)DealerType.Retailer);
             ddlDealer.DataBind();
             //ddlDealer.Items.Insert(0, new ListItem("All", "0"));
@@ -350,6 +350,19 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 PDealer P = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), null);
                 lblEdfsCashBalance.Text = Convert.ToString(new BSap().GetEdfsCashBalance(P.DealerCode));
                 FillGetDealerOffice();
+
+                ddlOrderTo.Items.Clear();
+                List<PDealer> Dealer = PSession.User.Dealer.Where(m => m.DealerID == Convert.ToInt32(ddlDealer.SelectedValue)).ToList(); 
+                ddlOrderTo.Items.Insert(0, new ListItem("OE", "1"));
+                ddlOrderTo.Items.Insert(1, new ListItem("Dealers", "2"));
+                //if (Dealer[0].DealerType.DealerTypeID == (short)DealerType.Retailer)
+                //{
+                //    ddlOrderTo.Items.Insert(1, new ListItem("Retailer", "4"));
+                //}
+                // fillVendor(ddlOrderTo.SelectedValue);
+                // fillPurchaseOrderType(ddlOrderTo.SelectedValue);
+                ddlOrderTo_SelectedIndexChanged(null, null);
+
             }
             catch (Exception e1)
             {
@@ -364,24 +377,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlDealerOffice.DataValueField = "OfficeID";
             ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null);
             ddlDealerOffice.DataBind();
-            ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
-
-
-            ddlOrderTo.Items.Clear();
-            List<PDealer> Dealer = PSession.User.Dealer.Where(m => m.DealerID == Convert.ToInt32(ddlDealer.SelectedValue)).ToList();
-            //ddlOrderTo.DataTextField = "PurchaseOrderType";
-            //ddlOrderTo.DataValueField = "PurchaseOrderTypeID";
-            ddlOrderTo.Items.Insert(0, new ListItem("OE", "1"));
-            if (Dealer[0].DealerType.DealerTypeID == (short)DealerType.DealerShip)
-            {
-                ddlOrderTo.Items.Insert(1, new ListItem("Co-Dealers", "2"));
-            }
-            else if (Dealer[0].DealerType.DealerTypeID == (short)DealerType.DealerCF)
-            {
-                ddlOrderTo.Items.Insert(1, new ListItem("C&F", "4"));
-            }
-            fillVendor(ddlOrderTo.SelectedValue);
-            fillPurchaseOrderType(ddlOrderTo.SelectedValue);
+            ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0")); 
         }     
        
         protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
@@ -389,12 +385,9 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             if (ddlPurchaseOrderType.SelectedValue == "1")
             {
                 PApiResult Result = new BDMS_PurchaseOrder().GetValidateDealerStockOrderControl(Convert.ToInt32(ddlDealer.SelectedValue));
-
                 if (Result.Status == PApplication.Failure)
                 {
-                    Response.Write("<script>alert('" + Result.Message + "');</script>");
-                    //lblMessage.Text = Result.Message; 
-                    //lblMessage.ForeColor = Color.Red;
+                    Response.Write("<script>alert('" + Result.Message + "');</script>"); 
                     ddlPurchaseOrderType.SelectedValue = "0";
                     return;
                 }
@@ -438,6 +431,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             fillVendor(ddlOrderTo.SelectedValue);
             fillPurchaseOrderType(ddlOrderTo.SelectedValue);
+            ddlPurchaseOrderType_SelectedIndexChanged(null, null);
         }
         void fillPurchaseOrderType(string OrderTo)
         {
@@ -445,19 +439,33 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             ddlPurchaseOrderType.DataTextField = "PurchaseOrderType";
             ddlPurchaseOrderType.DataValueField = "PurchaseOrderTypeID";
             ddlPurchaseOrderType.Items.Insert(0, new ListItem("Select", "0"));
+            List<PDealer> Dealer = PSession.User.Dealer.Where(m => m.DealerID == Convert.ToInt32(ddlDealer.SelectedValue)).ToList();
+            if (Dealer[0].DealerType.DealerTypeID == (short)DealerType.Dealer)
+            { 
+                if (OrderTo == "1")
+                {
+                    ddlPurchaseOrderType.Items.Insert(1, new ListItem("Stock Order-Within 15 Days", "1"));
+                    ddlPurchaseOrderType.Items.Insert(2, new ListItem("Emergency Order-Within 3 Days", "2"));
+                    ddlPurchaseOrderType.Items.Insert(3, new ListItem("Break Down Order-Within 3 Days", "7"));
+                    ddlPurchaseOrderType.Items.Insert(4, new ListItem("Machine Order-Within 3 Days", "5"));
+                    ddlPurchaseOrderType.Items.Insert(5, new ListItem("Merchandising-Within 3 Days", "8"));
 
-            if (OrderTo == "1")
-            {
-                ddlPurchaseOrderType.Items.Insert(1, new ListItem("Stock Order-Within 15 Days", "1"));
-                ddlPurchaseOrderType.Items.Insert(2, new ListItem("Emergency Order-Within 3 Days", "2"));
-                ddlPurchaseOrderType.Items.Insert(3, new ListItem("Break Down Order-Within 3 Days", "7"));
-                ddlPurchaseOrderType.Items.Insert(4, new ListItem("Machine Order-Within 3 Days", "5"));
-                ddlPurchaseOrderType.Items.Insert(5, new ListItem("Merchandising-Within 3 Days", "8"));
-
+                }
+                else
+                {
+                    ddlPurchaseOrderType.Items.Insert(1, new ListItem("Intra-Dealer Order-Within 3 Days", "6"));
+                }
             }
-            else
-            {
-                ddlPurchaseOrderType.Items.Insert(1, new ListItem("Intra-Dealer Order-Within 3 Days", "6"));
+            else if (Dealer[0].DealerType.DealerTypeID == (short)DealerType.Retailer)
+            { 
+                if (OrderTo == "1")
+                {  
+                    ddlPurchaseOrderType.Items.Insert(1, new ListItem("Machine Order-Within 3 Days", "5")); 
+                }
+                else
+                {
+                    ddlPurchaseOrderType.Items.Insert(1, new ListItem("Intra-Dealer Order-Within 3 Days", "6"));
+                }
             }
         }
         void ClearItem()

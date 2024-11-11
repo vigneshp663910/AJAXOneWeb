@@ -9,12 +9,12 @@
     <title>AJAX-DMS | Sign in</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+
     <link rel="stylesheet" href="CSS/bootstrap.min.4.5.2.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-<%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">--%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -39,8 +39,8 @@
                 background: #fff;
                 padding: 0 4px;
                 color: #313131;
-                width:100%;
-                height:100%;
+                width: 100%;
+                height: 100%;
                 font-size: 14px;
                 margin-bottom: 5px;
                 border: none;
@@ -110,7 +110,7 @@
                 background-color: #45a049;
             }
 
-        
+
 
         .modal-lc {
             max-width: 20%;
@@ -191,7 +191,7 @@
             display: none;
         }
 
-     /*   @media screen and (min-device-width: 250px) and (max-device-width: 1000px) {
+        /*   @media screen and (min-device-width: 250px) and (max-device-width: 1000px) {
             #LoginLeft {
                 display: none;
             }
@@ -236,7 +236,7 @@
 
             #LoginRight {
                 width: 100%;
-                overflow : auto;
+                overflow: auto;
             }
 
 
@@ -251,7 +251,7 @@
             }
         }
 
-        
+
 
         .care {
             font-family: Proxima Nova;
@@ -282,7 +282,7 @@
             }
         }
     </script>
-     
+
 
     <script> 
         function success(position) {
@@ -290,7 +290,7 @@
             const longitude = position.coords.longitude;
             document.getElementById('hfLatitude').value = latitude;
             document.getElementById('hfLongitude').value = longitude;
-            status.textContent = ''; 
+            status.textContent = '';
         }
         function error() {
             status.textContent = 'Unable to retrieve your location';
@@ -302,10 +302,10 @@
         } else {
             status.textContent = 'Locating…';
             navigator.geolocation.getCurrentPosition(success, error);
-        } 
+        }
     </script>
 </head>
-<body> 
+<body>
     <style type="text/css">
         .modal {
             position: fixed;
@@ -328,9 +328,9 @@
             position: fixed;
             background-color: black;
             z-index: 999;
-            width:100%;
-            height:100%;
-            opacity:80%;
+            width: 100%;
+            height: 100%;
+            opacity: 80%;
         }
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -361,7 +361,7 @@
                         <asp:Image ID="Image1" runat="server" Width="100%" Height="100%" ImageUrl="~/Ajax/Images/bg01.jpg" />
 
                         <div class="vertical-center" style="padding: 198px; text-align: center">
-                            <asp:Image ID="Image6" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="35" Width="48" /> 
+                            <asp:Image ID="Image6" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="35" Width="48" />
                             <asp:Image ID="ImageCompanyLogo" runat="server" ImageUrl="~/Ajax/Images/AJAXOneW.png" Height="50" Width="150" />
                             <h3 style="font-family: Calibri; color: white; margin-top: 5px">DEALER MANAGEMENT SYSTEM</h3>
 
@@ -376,23 +376,23 @@
                                 <a class="care text-white" href="mailto:support@ajax-engg.com"><span>support@ajax-engg.com</span></a></li>
                         </div>
 
-                    </div> 
+                    </div>
                 </div>
                 <div id="LoginRight" class="right split" style="margin: 0 auto">
                     <div class="col-md-12 vertical-center" style="width: 80%">
-                        <div id="ImageCompanyLogoRight" style="text-align: center;"> 
+                        <div id="ImageCompanyLogoRight" style="text-align: center;">
                             <asp:Image ID="ImageCompanyLogo2" runat="server" ImageUrl="~/Ajax/Images/AJAXOneB.png" Height="40" Width="150" />
                         </div>
                         <br />
                         <div style="text-align: center;">
                             <asp:Image ID="ImageAppLogo" runat="server" ImageUrl="~/Ajax/Images/dms4.jpg" Width="50" Height="50" />
-                        </div> 
+                        </div>
                         <fieldset class="fieldset-border" id="FldSignin" runat="server">
 
                             <legend style="background: none; color: #007bff; font-size: 20px; width: auto">Sign in</legend>
                             <div class="col-md-12">
                                 <div>
-                                    
+
                                     <br />
                                     <label><b>UserID / Email / Mobile</b></label>
                                 </div>
@@ -405,7 +405,7 @@
                                     <%-- <input type="text" name="username" id="txtusername" runat="server" placeholder="Username" required>--%>
                                 </div>
                                 <div>
-                                    <%--<br />--%>
+
                                     <label><b>Password</b></label>
                                 </div>
                                 <div>
@@ -414,7 +414,7 @@
 
                                     <%--<input type="password" name="password" id="txtpassword" runat="server" placeholder="Password" required>--%>
                                 </div>
-                                <%--  <br />--%>
+
                                 <%--  <input type="submit" value="Login">--%>
                                 <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
                             </div>
@@ -425,7 +425,7 @@
                                 <br />
                                 <label>Don't have ajax account?</label>
                                 <input type="submit" value="Create an account" class="btn-danger">--%>
-                                <dev  style="float: right; padding-right: 1em; font-size: medium; color: white; background-color:darkgray ; margin-right:4px;">
+                                <dev style="float: right; padding-right: 1em; font-size: medium; color: white; background-color: darkgray; margin-right: 4px;">
                                     <asp:Label ID="lblServer" runat="server"></asp:Label></dev>
                             </div>
                         </fieldset>
@@ -438,7 +438,9 @@
                                     <label><b>OTP</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" TextMode="Number" Width="130px" ></asp:TextBox><asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" /><div id="some_div"></div>
+                                    <asp:TextBox ID="txtOTP" runat="server" ToolTip="Type Six digit OTP" PlaceHolder="OTP" autocomplete="off" Width="140px"></asp:TextBox>
+                                    <asp:Button ID="BtnSendOTP" runat="server" Text="Send OTP" Width="130px" OnClick="BtnSendOTP_Click" />
+                                    <div id="some_div"></div>
                                     <%--<asp:LinkButton ID="BtnSendOTP" runat="server" OnClick="BtnSendOTP_Click" Text="Send OTP">LinkButton</asp:LinkButton>--%>
                                 </div>
                                 <div>
@@ -460,11 +462,11 @@
                                 <asp:Button ID="BtnReset" runat="server" Text="Reset" OnClick="BtnReset_Click" />
                             </div>
                         </fieldset>
-                         
+
                         <div style="text-align: center">
-                            <asp:Label ID="lblMessage" runat="server"></asp:Label>
+                            <asp:Label ID="lblMessage" runat="server" Visible="true"></asp:Label>
                         </div>
-                       
+
 
                         <div id="Footer1">
                             <div style="text-align: center; margin: 10px 0;">
@@ -594,6 +596,6 @@
 
             </div>
         </div>
-    </div> 
+    </div>
 </body>
 </html>

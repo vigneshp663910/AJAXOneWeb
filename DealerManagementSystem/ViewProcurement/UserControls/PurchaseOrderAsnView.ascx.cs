@@ -402,20 +402,30 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             try
             {
-                PApiResult Result = new BSap().GetPurchaseOrderAsnInvoiceNumber(PAsnView.InvoiceNumber);
-                if (string.IsNullOrEmpty(Convert.ToString(Result.Data)))
-                {
-                    lblMessage.Text = "Invoice Not generated. Please contact Parts Team.";
-                    lblMessage.Visible = true;
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-
                 Response.AddHeader("Content-type", "application/pdf");
                 Response.AddHeader("Content-Disposition", "attachment; filename=" + PAsnView.InvoiceNumber + ".pdf");
                 HttpContext.Current.Response.Charset = "utf-16";
                 HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("windows-1250");
-                Response.BinaryWrite(Convert.FromBase64String(Convert.ToString(Result.Data)));
+                if (PAsnView.PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.IntraDealerOrder)
+                {
+                    PApiResult r=  new BDMS_SalesOrder().GetSaleOrderDeliveryHeader(null, "", "", PAsnView.DeliveryNumber, null, null, null, null, null, null, null, null, 1, 1);
+                    List<PSaleOrderDelivery> Delivery = JsonConvert.DeserializeObject<List<PSaleOrderDelivery>>(JsonConvert.SerializeObject(r.Data));
+                    PAttachedFile UploadedFile = new BDMS_SalesOrder().GetPartInvoiceFile(Delivery[0].SaleOrderDeliveryID);  
+                    Response.BinaryWrite(UploadedFile.AttachedFile); 
+                }
+                else
+                {
+                    PApiResult Result = new BSap().GetPurchaseOrderAsnInvoiceNumber(PAsnView.InvoiceNumber);
+                    if (string.IsNullOrEmpty(Convert.ToString(Result.Data)))
+                    {
+                        lblMessage.Text = "Invoice Not generated. Please contact Parts Team.";
+                        lblMessage.Visible = true;
+                        lblMessage.ForeColor = Color.Red;
+                        return;
+                    }
+                    Response.BinaryWrite(Convert.FromBase64String(Convert.ToString(Result.Data)));
+                } 
+                
                 new BXcel().PdfDowload();
                 Response.Flush();
                 Response.End();

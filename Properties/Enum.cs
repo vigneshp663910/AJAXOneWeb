@@ -834,10 +834,9 @@ namespace Properties
     public enum DealerType
     {
         OEM = 1,
-        DealerShip = 2,
-        CallCenter = 3,
-        DealerCF=4,
-        Retailer =5, 
+        Dealer = 2,
+        CallCenter = 3, 
+        Retailer =4, 
     }
     public enum ProductType
     {

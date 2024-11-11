@@ -190,12 +190,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="AJAX One" ItemStyle-Width="80px">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
-                                    <ItemTemplate>
-                                        <asp:CheckBox ID="cbAjaxOne" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "ajaxOne")%>' Enabled="false"></asp:CheckBox>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                                
                                 <asp:TemplateField HeaderText="Is Technician?" ItemStyle-Width="80px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" Width="80px" />
                                     <ItemTemplate>

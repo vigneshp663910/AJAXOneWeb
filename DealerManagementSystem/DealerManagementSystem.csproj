@@ -430,6 +430,7 @@
     <Content Include="ViewAdmin\DefaultUserModule.aspx" />
     <Content Include="ViewAdmin\MessageAnnouncement.aspx" />
     <Content Include="ViewAdmin\ModulePermissionList.aspx" />
+    <Content Include="ViewAdmin\SalesAndServiceConfiguration.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
     <Content Include="ViewAdmin\UserAccessByChildModule.aspx" />
@@ -1213,6 +1214,13 @@
     </Compile>
     <Compile Include="ViewAdmin\ModulePermissionList.aspx.designer.cs">
       <DependentUpon>ModulePermissionList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\SalesAndServiceConfiguration.aspx.cs">
+      <DependentUpon>SalesAndServiceConfiguration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\SalesAndServiceConfiguration.aspx.designer.cs">
+      <DependentUpon>SalesAndServiceConfiguration.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\tab_AdminModule.aspx.cs">
       <DependentUpon>tab_AdminModule.aspx</DependentUpon>
