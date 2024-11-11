@@ -199,7 +199,7 @@ namespace DealerManagementSystem.ViewProcurement
             TraceLogger.Log(DateTime.Now);
             Search();
             PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderExportToExcel(DealerID, VendorID, PurchaseOrderNo, PurchaseOrderDateF
-                    , PurchaseOrderDateT, PurchaseOrderStatusID, PurchaseOrderTypeID, DivisionID, DealerOfficeID);
+                    , PurchaseOrderDateT, PurchaseOrderStatusID, PurchaseOrderTypeID, DivisionID, DealerOfficeID, 0);
             DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
             //DataTable dt = new DataTable();
             //dt.Columns.Add("PO Number");
@@ -230,7 +230,7 @@ namespace DealerManagementSystem.ViewProcurement
             //        , M.Created.ContactName
             //        );
             //}
-            new BXcel().ExporttoExcel(dt, "PurchaseOrder Report");
+            new BXcel().ExporttoExcel(dt, "Purchase Order Report");
         }
         void fillDealer()
         {
@@ -354,6 +354,14 @@ namespace DealerManagementSystem.ViewProcurement
             {
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
             }
+        }
+        protected void btnExportExcelDetails_Click(object sender, EventArgs e)
+        {
+            Search();
+            PApiResult Result = new BDMS_PurchaseOrder().GetPurchaseOrderExportToExcel(DealerID, VendorID, PurchaseOrderNo, PurchaseOrderDateF
+                    , PurchaseOrderDateT, PurchaseOrderStatusID, PurchaseOrderTypeID, DivisionID, DealerOfficeID, 1);
+            DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
+            new BXcel().ExporttoExcel(dt, "Purchase Order Report");
         }
     }
 }

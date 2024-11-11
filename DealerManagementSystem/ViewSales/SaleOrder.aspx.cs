@@ -243,7 +243,7 @@ namespace DealerManagementSystem.ViewSales
             Search();
             long? SaleOrderID = null;
             DataTable dt = new DataTable();
-            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderReport(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), QuotationNo, SaleOrderNumber, EquipmentSerialNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID);
+            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderReport(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), QuotationNo, SaleOrderNumber, EquipmentSerialNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID, 0);
             dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
             new BXcel().ExporttoExcel(dt, "Sales Order Report");
@@ -295,6 +295,17 @@ namespace DealerManagementSystem.ViewSales
                 lstStudentDetails.Add(studentDetails);
             }
             return lstStudentDetails;
+        }
+        protected void btnExportExcelDetails_Click(object sender, EventArgs e)
+        {
+            TraceLogger.Log(DateTime.Now);
+            Search();
+            long? SaleOrderID = null;
+            DataTable dt = new DataTable();
+            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderReport(SaleOrderID, DateFrom.ToString(), DateTo.ToString(), QuotationNo, SaleOrderNumber, EquipmentSerialNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderStatusID, SaleOrderTypeID, 1);
+            dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
+
+            new BXcel().ExporttoExcel(dt, "Sales Order Report");
         }
     }
 }

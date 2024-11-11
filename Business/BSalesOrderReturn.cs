@@ -66,5 +66,14 @@ namespace Business
             string endPoint = "SaleOrderReturn/GetSaleOrderReturnCreditNoteFileDetails?SaleOrderReturnID=" + SaleOrderReturnID;
             return JsonConvert.DeserializeObject<SalesReturnCreditFileDetails>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public DataTable GetSaleOrderReturnExcel(int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, string SaleOrderReturnNo, string SaleOrderReturnDateF, string SaleOrderReturnDateT, int? SaleOrderReturnStatusID
+            , string CreditNoteNumber, string CreditNotenDateF, string CreditNotenDateT, int WithDetails)
+        {
+            string endPoint = "SaleOrderReturn/GetSaleOrderReturnExcel?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID + "&CustomerCode=" + CustomerCode + "&SaleOrderReturnNo=" + SaleOrderReturnNo
+                 + "&SaleOrderReturnDateF=" + SaleOrderReturnDateF + "&SaleOrderReturnDateT=" + SaleOrderReturnDateT + "&SaleOrderReturnStatusID=" + SaleOrderReturnStatusID
+                 + "&CreditNoteNumber=" + CreditNoteNumber + "&CreditNotenDateF=" + CreditNotenDateF + "&CreditNotenDateT=" + CreditNotenDateT + "&WithDetails=" + WithDetails;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+        }
     }
 }
