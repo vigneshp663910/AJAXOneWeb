@@ -232,6 +232,10 @@ namespace DealerManagementSystem.ViewProcurement
             //        , decimal.Round(M.PurchaseOrderItem.GrossAmount, 2, MidpointRounding.AwayFromZero));
             //}
             //new BXcel().ExporttoExcel(dt, "PurchaseOrder Report");
+
+            Search();
+            DataTable Result = new BStockTransferOrder().GetStockTransferOrderAsnExcel(DealerID, DealerOfficeID, DeliveryNumber, StockTransferOrderNo, DateFrom, DateTo, StatusID, 0);
+            new BXcel().ExporttoExcel(Result, "STO ASN Report");
         }
         void fillDealer()
         {
@@ -270,6 +274,12 @@ namespace DealerManagementSystem.ViewProcurement
             divList.Visible = false;
             divDetailsView.Visible = true;
             UC_StockTransferOrderAsnView.fillViewDelivery(Convert.ToInt64(lblDeliveryID.Text));
+        }
+        protected void btnExportExcelDetails_Click(object sender, EventArgs e)
+        {
+            Search();
+            DataTable Result = new BStockTransferOrder().GetStockTransferOrderAsnExcel(DealerID, DealerOfficeID, DeliveryNumber, StockTransferOrderNo, DateFrom, DateTo, StatusID, 1);
+            new BXcel().ExporttoExcel(Result, "STO ASN Report");
         }
     }
 }

@@ -226,7 +226,18 @@ namespace DealerManagementSystem.ViewSales
             Search();
             long? SaleOrderDeliveryID = null;
             DataTable dt = new DataTable();
-            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderDeliveryReport(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID, DeliveryStatusID);
+            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderDeliveryReport(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID, DeliveryStatusID, 0);
+            dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
+
+            new BXcel().ExporttoExcel(dt, "Sales Order Delivery Report");
+        }
+        protected void btnExportExcelDetails_Click(object sender, EventArgs e)
+        {
+            TraceLogger.Log(DateTime.Now);
+            Search();
+            long? SaleOrderDeliveryID = null;
+            DataTable dt = new DataTable();
+            PApiResult Result = new BDMS_SalesOrder().GetSaleOrderDeliveryReport(SaleOrderDeliveryID, DateFrom.ToString(), DateTo.ToString(), DeliveryNo, DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderTypeID, DeliveryStatusID, 1);
             dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
             new BXcel().ExporttoExcel(dt, "Sales Order Delivery Report");

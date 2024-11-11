@@ -1204,10 +1204,10 @@ namespace Business
             string endPoint = "SaleOrder/SaleOrderByID?SaleOrderID=" + SaleOrderID;
             return JsonConvert.DeserializeObject<PSaleOrder>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public PApiResult GetSaleOrderReport(long? SaleOrderID, string DateFrom, string DateTo, string QuotationNumber, string SaleOrderNumber, string EquipmentSerialNo, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderStatusID, int? SaleOrderTypeID)
+        public PApiResult GetSaleOrderReport(long? SaleOrderID, string DateFrom, string DateTo, string QuotationNumber, string SaleOrderNumber, string EquipmentSerialNo, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderStatusID, int? SaleOrderTypeID, int WithDetails)
         {
             string endPoint = "SaleOrder/GetSaleOrderReport?SaleOrderID=" + SaleOrderID + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&QuotationNumber=" + QuotationNumber + "&SaleOrderNumber=" + SaleOrderNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
-                + "&CustomerCode=" + CustomerCode + "&SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderTypeID=" + SaleOrderTypeID;
+                + "&CustomerCode=" + CustomerCode + "&SaleOrderStatusID=" + SaleOrderStatusID + "&SaleOrderTypeID=" + SaleOrderTypeID + "&WithDetails=" + WithDetails;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public List<PSaleOrderType> GetSaleOrderType(int? SaleOrderTypeID, string SaleOrderType)
@@ -1237,11 +1237,11 @@ namespace Business
                 + "&DivisionID=" + DivisionID + "&CustomerCode=" + CustomerCode + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetSaleOrderDeliveryReport(long? SaleOrderDeliveryID, string DateFrom, string DateTo, string DeliveryNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderTypeID, int? DeliveryStatusID)
+        public PApiResult GetSaleOrderDeliveryReport(long? SaleOrderDeliveryID, string DateFrom, string DateTo, string DeliveryNumber, int? DealerID, int? OfficeCodeID, int? DivisionID, string CustomerCode, int? SaleOrderTypeID, int? DeliveryStatusID, int WithDetails)
         {
             string endPoint = "SaleOrder/GetSaleOrderDeliveryReport?SaleOrderDeliveryID=" + SaleOrderDeliveryID + "&DateFrom=" + DateFrom
                 + "&DateTo=" + DateTo + "&DeliveryNumber=" + DeliveryNumber + "&DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&DivisionID=" + DivisionID
-                + "&CustomerCode=" + CustomerCode + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID;
+                + "&CustomerCode=" + CustomerCode + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DeliveryStatusID=" + DeliveryStatusID + "&WithDetails=" + WithDetails;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PSaleOrderDelivery GetSaleOrderDeliveryByID(long SaleOrderDeliveryID)

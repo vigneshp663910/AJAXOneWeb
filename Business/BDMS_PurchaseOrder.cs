@@ -300,11 +300,11 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetPurchaseOrderExportToExcel(int? DealerID, string VendorID, string PurchaseOrderNo, DateTime? PurchaseOrderDateF, DateTime? PurchaseOrderDateT
-            , int? PurchaseOrderStatusID, int? PurchaseOrderTypeID, int? DivisionID, int? LocationID)
+            , int? PurchaseOrderStatusID, int? PurchaseOrderTypeID, int? DivisionID, int? LocationID, int WithDetails)
         {
             string endPoint = "PurchaseOrder/GetPurchaseOrderExportToExcel?DealerID=" + DealerID + "&VendorID=" + VendorID + "&PurchaseOrderNo=" + PurchaseOrderNo
                 + "&PurchaseOrderDateF=" + PurchaseOrderDateF + "&PurchaseOrderDateT=" + PurchaseOrderDateT + "&PurchaseOrderStatusID=" + PurchaseOrderStatusID
-                + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&DivisionID=" + DivisionID + "&LocationID=" + LocationID;
+                + "&PurchaseOrderTypeID=" + PurchaseOrderTypeID + "&DivisionID=" + DivisionID + "&LocationID=" + LocationID + "&WithDetails=" + WithDetails;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult UpdatePurchaseOrderReturnStatus(long PurchaseOrderReturnID, int StatusID, string Remarks)

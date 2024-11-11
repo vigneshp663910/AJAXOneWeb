@@ -68,7 +68,8 @@
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
-                         <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                        <asp:Button ID="btnExportExcelDetails" runat="server" Text="Export STO Delivery Details" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelDetails_Click" Width="190px" />
                     </div>
                 </div>
             </fieldset>
@@ -160,7 +161,7 @@
                     </fieldset>
                 </div>
             </div>
-        </div>s
+        </div>
         <div class="col-md-12" id="divDetailsView" runat="server" visible="false" style="padding: 5px 15px">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>

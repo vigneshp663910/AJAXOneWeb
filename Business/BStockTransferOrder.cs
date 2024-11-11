@@ -106,5 +106,23 @@ namespace Business
             string endPoint = "StockTransferOrder/GetSourceDealerForStockTransferOrder?DealerID=" + DealerID;
             return JsonConvert.DeserializeObject<List<PDealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public DataTable GetStockTransferOrderExcel(int? DealerID, int? OfficeID, string StockTransferOrderNo, string DateFrom, string DateTo, int? StatusID, int WithDetails)
+        {
+            string endPoint = "StockTransferOrder/GetStockTransferOrderExcel?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&StockTransferOrderNo=" + StockTransferOrderNo
+              + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&StatusID=" + StatusID + "&WithDetails=" + WithDetails;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetStockTransferOrderAsnExcel(int? DealerID, int? OfficeID, string DeliveryNumber, string StockTransferOrderNo, string DateFrom, string DateTo, int? StatusID, int WithDetails)
+        {
+            string endPoint = "StockTransferOrder/GetStockTransferOrderAsnExcel?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&DeliveryNumber=" + DeliveryNumber + "&StockTransferOrderNo=" + StockTransferOrderNo
+              + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&StatusID=" + StatusID + "&WithDetails=" + WithDetails;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public DataTable GetStockTransferOrderDeliveryExcel(int? DealerID, int? OfficeID, string StockTransferOrderNo, string DateFrom, string DateTo, int? StatusID, int WithDetails)
+        {
+            string endPoint = "StockTransferOrder/GetStockTransferOrderDeliveryExcel?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&StockTransferOrderNo=" + StockTransferOrderNo
+              + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&StatusID=" + StatusID + "&WithDetails=" + WithDetails;
+            return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

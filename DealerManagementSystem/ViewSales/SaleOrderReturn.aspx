@@ -146,6 +146,8 @@
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
                             <asp:Button ID="btnCreateSoReturn" runat="server" CssClass="btn Save" Text="Create Sales Return" OnClick="btnCreateSoReturn_Click" Width="150px"></asp:Button>
+                            <asp:Button ID="btnExportExcel" runat="server" Text="Export Sales Return" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="150px" />
+                            <asp:Button ID="btnExportExcelDetails" runat="server" Text="Export Sales Return Details" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelDetails_Click" Width="200px" />
                         </div>
                     </div>
                 </fieldset>

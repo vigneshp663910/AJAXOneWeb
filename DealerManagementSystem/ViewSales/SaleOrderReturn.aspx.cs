@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -237,5 +238,21 @@ namespace DealerManagementSystem.ViewSales
             List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 0);
             return JsonConvert.SerializeObject(Customer);
         }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            Search();
+            DataTable Result = new BSalesOrderReturn().GetSaleOrderReturnExcel(DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderReturnNo, SaleOrderReturnDateF
+                    , SaleOrderReturnDateT, SaleOrderReturnStatusID, CreditNoteNumber, CreditNotenDateF, CreditNotenDateT, 0);
+            new BXcel().ExporttoExcel(Result, "Sales Return Report");
+        }
+
+        protected void btnExportExcelDetails_Click(object sender, EventArgs e)
+        {
+            Search();
+            DataTable Result = new BSalesOrderReturn().GetSaleOrderReturnExcel(DealerID, OfficeCodeID, DivisionID, CustomerCode, SaleOrderReturnNo, SaleOrderReturnDateF
+                    , SaleOrderReturnDateT, SaleOrderReturnStatusID, CreditNoteNumber, CreditNotenDateF, CreditNotenDateT, 1);
+            new BXcel().ExporttoExcel(Result, "Sales Return Report");
+        }
+
     }
 }

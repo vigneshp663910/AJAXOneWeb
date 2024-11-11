@@ -230,6 +230,10 @@ namespace DealerManagementSystem.ViewProcurement
             //        , decimal.Round(M.PurchaseOrderItem.GrossAmount, 2, MidpointRounding.AwayFromZero));
             //}
             //new BXcel().ExporttoExcel(dt, "PurchaseOrder Report");
+
+            Search();
+            DataTable Result = new BStockTransferOrder().GetStockTransferOrderExcel(DealerID, OfficeID, StockTransferOrderNo, DateFrom, DateTo, StatusID, 0);
+            new BXcel().ExporttoExcel(Result, "Stock Transfer Order Report");
         }
 
         
@@ -297,6 +301,12 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealerCode.SelectedValue), null, null);
             ddlDealerOffice.DataBind();
             ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        protected void btnExportExcelDetails_Click(object sender, EventArgs e)
+        {
+            Search();
+            DataTable Result = new BStockTransferOrder().GetStockTransferOrderExcel(DealerID, OfficeID, StockTransferOrderNo, DateFrom, DateTo, StatusID, 1);
+            new BXcel().ExporttoExcel(Result, "Stock Transfer Order Report");
         }
     }
 }
