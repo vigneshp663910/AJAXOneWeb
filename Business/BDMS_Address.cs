@@ -608,85 +608,20 @@ namespace Business
             return false;
         }
 
-        public List<PDMS_District> GetSalesAndServiceDistrict(int? CountryID, int? RegionID, int? StateID, int? DistrictID
-            , int? SalesDealerID, int? ServiceDealerID, int? SalesRetailerID, int? ServiceRetailerID)
+        public PApiResult GetSalesAndServiceDistrict(int? CountryID, int? RegionID, int? StateID, int? DistrictID
+            , int? SalesDealerID, int? ServiceDealerID, int? SalesRetailerID, int? ServiceRetailerID, int? PageIndex = null, int? PageSize = null)
         {
-            List<PDMS_District> MML = new List<PDMS_District>();
-            try
-            {
-                DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
-                DbParameter RegionIDP = provider.CreateParameter("RegionID", RegionID, DbType.Int32);
-                DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
-                DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
+            string endPoint = "Location/GetSalesAndServiceDistrict?CountryID=" + CountryID + "&RegionID=" + RegionID + "&StateID=" + StateID + "&DistrictID=" + DistrictID
+                + "&SalesDealerID=" + SalesDealerID + "&ServiceDealerID=" + ServiceDealerID + "&SalesRetailerID=" + SalesRetailerID
+                + "&ServiceRetailerID=" + ServiceRetailerID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
 
-                DbParameter SalesDealerIDP = provider.CreateParameter("SalesDealerID", SalesDealerID, DbType.Int32);
-                DbParameter ServiceDealerIDP = provider.CreateParameter("ServiceDealerID", ServiceDealerID, DbType.Int32);
-                DbParameter SalesRetailerIDP = provider.CreateParameter("SalesRetailerID", SalesRetailerID, DbType.Int32);
-                DbParameter ServiceRetailerIDP = provider.CreateParameter("ServiceRetailerID", ServiceRetailerID, DbType.Int32);
-
-                DbParameter[] Params = new DbParameter[8] { CountryIDP, RegionIDP, StateIDP, DistrictIDP, SalesDealerIDP, ServiceDealerIDP, SalesRetailerIDP, ServiceRetailerIDP };
-
-                using (DataSet DataSet = provider.Select("GetSalesAndServiceDistrict", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            MML.Add(new PDMS_District()
-                            {
-                                DistrictID = Convert.ToInt32(dr["DistrictID"]),
-                                District = Convert.ToString(dr["District"]),
-                                Dealer = dr["SalesDealerID"] == DBNull.Value ? null : new PDMS_Dealer
-                                {
-                                    DealerID = Convert.ToInt32(dr["SalesDealerID"]),
-                                    DealerCode = Convert.ToString(dr["SalesDealerCode"])
-                                },
-                                SalesDealerEngineer = DBNull.Value == dr["SalesDealerEngineerrUserID"] ? null : new PUser()
-                                {
-                                    UserID = Convert.ToInt32(dr["SalesDealerEngineerrUserID"]),
-                                    ContactName = Convert.ToString(dr["SalesDealerEngineerContactName"])
-                                },
-                                ServiceDealer = dr["ServiceDealerID"] == DBNull.Value ? null : new PDMS_Dealer
-                                {
-                                    DealerID = Convert.ToInt32(dr["ServiceDealerID"]),
-                                    DealerCode = Convert.ToString(dr["ServiceDealerCode"])
-                                },
-                                SalesRetailer = dr["SalesRetailerID"] == DBNull.Value ? null : new PDMS_Dealer
-                                {
-                                    DealerID = Convert.ToInt32(dr["SalesRetailerID"]),
-                                    DealerCode = Convert.ToString(dr["SalesRetailerCode"])
-                                },
-                                SalesRetailerEngineer = DBNull.Value == dr["SalesRetailerEngineerUserID"] ? null : new PUser()
-                                {
-                                    UserID = Convert.ToInt32(dr["SalesRetailerEngineerUserID"]),
-                                    ContactName = Convert.ToString(dr["SalesRetailerEngineerContactName"])
-                                },
-                                ServiceRetailer = dr["ServiceRetailerID"] == DBNull.Value ? null : new PDMS_Dealer
-                                {
-                                    DealerID = Convert.ToInt32(dr["ServiceRetailerID"]),
-                                    DealerCode = Convert.ToString(dr["ServiceRetailerCode"])
-                                },
-                                State = new PDMS_State()
-                                {
-                                    StateID = Convert.ToInt32(dr["StateID"]),
-                                    State = Convert.ToString(dr["State"]),
-                                    Region = new PDMS_Region() { RegionID = Convert.ToInt32(dr["RegionID"]), Region = Convert.ToString(dr["Region"]), }
-                                },
-                                Country = new PDMS_Country() { CountryID = Convert.ToInt32(dr["CountryID"]), Country = Convert.ToString(dr["Country"]) }
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return MML;
+        public PApiResult UpdateSalesAndServiceDistrict(int DistrictID, int DealerID, int? SalesOfficeID, int? EngineerUserID,int ConfigureID)
+        {
+            string endPoint = "Location/UpdateSalesAndServiceDistrict?DistrictID=" + DistrictID + "&DealerID=" + DealerID + "&SalesOfficeID=" + SalesOfficeID 
+                + "&EngineerUserID=" + EngineerUserID + "&ConfigureID=" + ConfigureID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
     }
 }

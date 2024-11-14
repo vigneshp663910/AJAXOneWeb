@@ -620,6 +620,9 @@ namespace Properties
         DealerOfficeUserMappingUpdate = 99,
         UserPurchaseOrderTypeMappingUpdate = 100,
         SaleOrderDeliveryCancel = 101,
+        EditAllSalesAndServiceConfiguration=103,
+        EditDealerSalesEngineer = 104,
+        EditRetailerSalesEngineer = 105
     }
     public enum DMS_WarrantyClaimStatus
     {

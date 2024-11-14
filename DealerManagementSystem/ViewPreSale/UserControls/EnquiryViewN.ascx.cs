@@ -205,11 +205,14 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ((HiddenField)UC_Customer.FindControl("hdfCustomerName")).Value = Convert.ToString(Customer.CustomerFullName);
             ((HiddenField)UC_Customer.FindControl("hdfContactPerson")).Value = Convert.ToString(Customer.ContactPerson);
             ((HiddenField)UC_Customer.FindControl("hdfMobile")).Value = Convert.ToString(Customer.Mobile);
-          ((Button)UC_Customer.FindControl("BtnChangeCustomer")).Enabled = true;
-             
+            ((Button)UC_Customer.FindControl("BtnChangeCustomer")).Enabled = true;
 
+            DropDownList ddlProductType = (DropDownList)UC_AddLead.FindControl("ddlProductType");
+            ddlProductType.SelectedValue = Enquiry.ProductType == null ? "0" : Convert.ToString(Enquiry.ProductType.ProductTypeID);
             DropDownList ddlSource = (DropDownList)UC_AddLead.FindControl("ddlSource");
             ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
+            ddlProductType.Enabled = Enquiry.ProductType == null ? true : false;
+            ddlSource.Enabled = Enquiry.Source == null ? true : false;
         }
 
         protected void btnNewCustomer_Click(object sender, EventArgs e)
@@ -238,14 +241,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlProductType.SelectedValue = Enquiry.ProductType == null ? "0" : Convert.ToString(Enquiry.ProductType.ProductTypeID);
             ddlSource.SelectedValue = Convert.ToString(Enquiry.Source.SourceID);
 
-            if (Enquiry.ProductType != null)
-            {
-                ddlProductType.Enabled = false;
-            }
-            if (Enquiry.Source != null)
-            {
-                ddlSource.Enabled = false;
-            }
+
+            ddlProductType.Enabled = Enquiry.ProductType == null ? true : false;
+            ddlSource.Enabled = Enquiry.Source == null ? true : false;
 
             ddlCountry.SelectedValue = Convert.ToString(Enquiry.Country.CountryID);
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
@@ -266,6 +264,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtAddress2.Text = Enquiry.Address2;
             txtAddress3.Text = Enquiry.Address3;
         }
+        
 
         protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

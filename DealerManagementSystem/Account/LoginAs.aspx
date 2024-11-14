@@ -217,13 +217,7 @@
                                     <asp:CheckBox ID="cbIsEnabled" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsEnabled")%>' Enabled="false"></asp:CheckBox>
                                 </ItemTemplate>
                             </asp:TemplateField>
-
-                            <asp:TemplateField HeaderText="AJAX One">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                <ItemTemplate>
-                                    <asp:CheckBox ID="cbAjaxOne" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "ajaxOne")%>' Enabled="false"></asp:CheckBox>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                             
                             <asp:TemplateField HeaderText="Remarks">
                                 <ItemStyle VerticalAlign="Middle" />
                                 <ItemTemplate>
