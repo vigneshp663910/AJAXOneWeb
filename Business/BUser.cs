@@ -831,93 +831,93 @@ namespace Business
         }
         public PApiResult UpdateUserPermition(PUserAccess_Insert Access)
         {
-            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadFollowUpReport", Access));
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("User/UpdateUserPermition", Access));
         }
-        public Boolean UpdateUserPermition(long UserID, List<int> AccessModule, List<int> AccessModuleC, List<int> AccessDealer, List<int> Dashboard, List<int> MobileFeature, long CreatedBy)
-        {
-            List<PUser> users = new List<PUser>();
-            DateTime traceStartTime = DateTime.Now;
-            DataTable usersDataTable = new DataTable();
-            try
-            {
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                DbParameter CreatedByP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-                DbParameter DMSP = provider.CreateParameter("DMS", 2, DbType.Int32);
+        //public Boolean UpdateUserPermition(long UserID, List<int> AccessModule, List<int> AccessModuleC, List<int> AccessDealer, List<int> Dashboard, List<int> MobileFeature, long CreatedBy)
+        //{
+        //    List<PUser> users = new List<PUser>();
+        //    DateTime traceStartTime = DateTime.Now;
+        //    DataTable usersDataTable = new DataTable();
+        //    try
+        //    {
+        //        DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+        //        DbParameter CreatedByP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+        //        DbParameter DMSP = provider.CreateParameter("DMS", 2, DbType.Int32);
 
-                DbParameter[] userParams = new DbParameter[3] { UserIDP, CreatedByP, DMSP };
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("DeactivateUserAccess", userParams, false);
+        //        DbParameter[] userParams = new DbParameter[3] { UserIDP, CreatedByP, DMSP };
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
+        //            provider.Insert("DeactivateUserAccess", userParams, false);
 
-                    foreach (int SubModuleAccessID in AccessModule)
-                    {
-                        DbParameter UserIDMP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                        DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleAccessID", SubModuleAccessID, DbType.Int32);
-                        DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-                        DbParameter[] MParams = new DbParameter[3] { UserIDMP, SubModuleAccessIDP, CreatedByMP };
-                        provider.Insert("InsertOrUpdateUserModuleAccess", MParams, false);
-                    }
-                    foreach (int SubModuleChildID in AccessModuleC)
-                    {
-                        DbParameter UserIDMP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                        DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleChildID", SubModuleChildID, DbType.Int32);
-                        DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-                        DbParameter[] MParams = new DbParameter[3] { UserIDMP, SubModuleAccessIDP, CreatedByMP };
-                        provider.Insert("InsertOrUpdateUserSubModuleChildAccess", MParams, false);
-                    }
-                    foreach (int DealerID in AccessDealer)
-                    {
-                        DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                        DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int64);
-                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-                        DbParameter[] DParams = new DbParameter[3] { UserIDDP, DealerIDP, CreatedByDP };
-                        provider.Insert("InsertOrUpdateUserDealerAccess", DParams, false);
-                    }
+        //            foreach (int SubModuleAccessID in AccessModule)
+        //            {
+        //                DbParameter UserIDMP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+        //                DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleAccessID", SubModuleAccessID, DbType.Int32);
+        //                DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+        //                DbParameter[] MParams = new DbParameter[3] { UserIDMP, SubModuleAccessIDP, CreatedByMP };
+        //                provider.Insert("InsertOrUpdateUserModuleAccess", MParams, false);
+        //            }
+        //            foreach (int SubModuleChildID in AccessModuleC)
+        //            {
+        //                DbParameter UserIDMP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+        //                DbParameter SubModuleAccessIDP = provider.CreateParameter("SubModuleChildID", SubModuleChildID, DbType.Int32);
+        //                DbParameter CreatedByMP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+        //                DbParameter[] MParams = new DbParameter[3] { UserIDMP, SubModuleAccessIDP, CreatedByMP };
+        //                provider.Insert("InsertOrUpdateUserSubModuleChildAccess", MParams, false);
+        //            }
+        //            foreach (int DealerID in AccessDealer)
+        //            {
+        //                DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+        //                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int64);
+        //                DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+        //                DbParameter[] DParams = new DbParameter[3] { UserIDDP, DealerIDP, CreatedByDP };
+        //                provider.Insert("InsertOrUpdateUserDealerAccess", DParams, false);
+        //            }
 
-                    foreach (int DashboardID in Dashboard)
-                    {
-                        DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                        DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
-                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-                        DbParameter[] DParams = new DbParameter[3] { UserIDDP, DashboardIDP, CreatedByDP };
-                        provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
-                    }
+        //            foreach (int DashboardID in Dashboard)
+        //            {
+        //                DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+        //                DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
+        //                DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+        //                DbParameter[] DParams = new DbParameter[3] { UserIDDP, DashboardIDP, CreatedByDP };
+        //                provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
+        //            }
 
-                    foreach (int DashboardID in Dashboard)
-                    {
-                        DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                        DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
-                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-                        DbParameter[] DParams = new DbParameter[3] { UserIDDP, DashboardIDP, CreatedByDP };
-                        provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
-                    }
+        //            foreach (int DashboardID in Dashboard)
+        //            {
+        //                DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+        //                DbParameter DashboardIDP = provider.CreateParameter("DashboardID", DashboardID, DbType.Int32);
+        //                DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+        //                DbParameter[] DParams = new DbParameter[3] { UserIDDP, DashboardIDP, CreatedByDP };
+        //                provider.Insert("InsertOrUpdateUserDashboardAccess", DParams, false);
+        //            }
 
-                    foreach (int UserMobileFeatureID in MobileFeature)
-                    {
-                        DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
-                        DbParameter UserMobileFeatureIDP = provider.CreateParameter("UserMobileFeatureID", UserMobileFeatureID, DbType.Int32);
-                        DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
-                        DbParameter[] DParams = new DbParameter[3] { UserIDDP, UserMobileFeatureIDP, CreatedByDP };
-                        provider.Insert("InsertOrUpdateMUserMobileFeatureAccessAccess", DParams, false);
-                    }
+        //            foreach (int UserMobileFeatureID in MobileFeature)
+        //            {
+        //                DbParameter UserIDDP = provider.CreateParameter("UserID", UserID, DbType.Int64);
+        //                DbParameter UserMobileFeatureIDP = provider.CreateParameter("UserMobileFeatureID", UserMobileFeatureID, DbType.Int32);
+        //                DbParameter CreatedByDP = provider.CreateParameter("CreatedBy", CreatedBy, DbType.Int64);
+        //                DbParameter[] DParams = new DbParameter[3] { UserIDDP, UserMobileFeatureIDP, CreatedByDP };
+        //                provider.Insert("InsertOrUpdateMUserMobileFeatureAccessAccess", DParams, false);
+        //            }
 
-                    scope.Complete();
-                    // This call is for track the status and logged into the trace logeer
-                    TraceLogger.Log(traceStartTime);
-                }
-                return true;
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new LMSException(ErrorCode.SQLDBE, sqlEx);
-            }
+        //            scope.Complete();
+        //            // This call is for track the status and logged into the trace logeer
+        //            TraceLogger.Log(traceStartTime);
+        //        }
+        //        return true;
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        throw new LMSException(ErrorCode.SQLDBE, sqlEx);
+        //    }
 
-            catch (Exception ex)
-            {
-                throw new LMSException(ErrorCode.GENE, ex);
-            }
-            return false;
-        }
+        //    catch (Exception ex)
+        //    {
+        //        throw new LMSException(ErrorCode.GENE, ex);
+        //    }
+        //    return false;
+        //}
 
 
         public List<PSubModuleChild> GetSubModuleChileAll(int? SubModuleMasterID)

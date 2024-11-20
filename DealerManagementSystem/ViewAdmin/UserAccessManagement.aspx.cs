@@ -54,7 +54,7 @@ namespace DealerManagementSystem.ViewAdmin
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » User Access Management');</script>");
-            lblMessage.Visible = false;
+            lblMessage.Text = "";
             if (!IsPostBack)
             {
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
@@ -244,205 +244,121 @@ namespace DealerManagementSystem.ViewAdmin
             }
         }
 
-        //protected void btnUpdate_Click(object sender, EventArgs e)
-        //{
-        //    PUserAccess_Insert Access = new PUserAccess_Insert();
-        //    Access.UserID = Convert.ToInt32(ViewState["EId"]);
-        //    Access.Module = new Dictionary<int, bool>();
-        //    Access.ModuleC = new Dictionary<int, bool>();
-        //    Access.Dealer = new Dictionary<int, bool>();
-        //    Access.Dashboard = new Dictionary<int, bool>();
-        //    Access.MobileFeature = new Dictionary<int, bool>();
-
-        //    List<PModuleAccess> EAccessModule = new BUser().GetDMSModuleByUser(Access.UserID, null, null);
-        //    for (int j = 0; j < gvModule.Rows.Count; j++)
-        //    {
-        //        int ModuleMasterID = Convert.ToInt32(gvModule.DataKeys[j].Value);
-        //        List<PSubModuleAccess> SubModule = new List<PSubModuleAccess>();
-        //        SubModule = EAccessModule.Find(s => s.ModuleMasterID == ModuleMasterID).SubModuleAccess;
-
-        //        DataList dlModule = (DataList)gvModule.Rows[j].FindControl("dlModule");
-        //        for (int i = 0; i < dlModule.Items.Count; i++)
-        //        {
-        //            CheckBox cbSMId = (CheckBox)dlModule.Items[i].FindControl("cbSMId");
-        //            int dlModuleID = Convert.ToInt32(dlModule.DataKeys[i].ToString());
-        //            if (SubModule.Where(A => A.SubModuleMasterID == dlModuleID).Count() != 0)
-        //            {
-        //                if (!cbSMId.Checked)
-        //                    Access.Module.Add(dlModuleID, false);
-        //            }
-        //            else
-        //            {
-        //                if (cbSMId.Checked)
-        //                    Access.Module.Add(dlModuleID, true);
-        //            }
-
-        //            List<PSubModuleChild> ChildModule = new BUser().GetSubModuleChileAll(dlModuleID);
-
-        //            DataList dlChildModule = (DataList)dlModule.Items[i].FindControl("dlChildModule");
-        //            for (int k = 0; k < dlChildModule.Items.Count; k++)
-        //            {
-        //                int SubModuleChildID = Convert.ToInt32(dlChildModule.DataKeys[k].ToString());
-        //                CheckBox cbChildId = (CheckBox)dlChildModule.Items[k].FindControl("cbChildId");
-
-        //                if (SubModuleChileByUserID.Where(A => A.SubModuleChildID == SubModuleChildID).Count() != 0)
-        //                {
-        //                    if (!cbChildId.Checked)
-        //                        Access.ModuleC.Add(SubModuleChildID, false);
-        //                }
-        //                else
-        //                {
-        //                    if (cbChildId.Checked)
-        //                        Access.ModuleC.Add(SubModuleChildID, true);
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    List<PDealer> Dealer = new BDealer().GetDealerByUserID(Access.UserID);
-        //    for (int i = 0; i < dlDealer.Items.Count; i++)
-        //    {
-        //        CheckBox cbSMId = (CheckBox)dlDealer.Items[i].FindControl("cbSMId");
-        //        int dlModuleID = Convert.ToInt32(dlDealer.DataKeys[i].ToString());
-
-        //        if (Dealer.Where(A => A.DID == dlModuleID).Count() != 0)
-        //        {
-        //            if (!cbSMId.Checked)
-        //                Access.Dealer.Add(dlModuleID, false);
-        //        }
-        //        else
-        //        {
-        //            if (cbSMId.Checked)
-        //                Access.Dealer.Add(dlModuleID, true);
-        //        }
-
-        //    }
-
-        //    List<PDMS_Dashboard> Dashboard = new BDMS_Dashboard().GetDashboardByUserID(Access.UserID);
-        //    for (int i = 0; i < dlDashboard.Items.Count; i++)
-        //    {
-        //        CheckBox cbSMId = (CheckBox)dlDashboard.Items[i].FindControl("cbSMId");
-        //        int dlDashboardID = Convert.ToInt32(dlDashboard.DataKeys[i].ToString());
-
-        //        if (Dashboard.Where(A => A.DashboardID == dlDashboardID).Count() != 0)
-        //        {
-        //            if (!cbSMId.Checked)
-        //                Access.Dashboard.Add(dlDashboardID, false);
-        //        }
-        //        else
-        //        {
-        //            if (cbSMId.Checked)
-        //                Access.Dashboard.Add(dlDashboardID, false);
-        //        }
-        //    }
-
-        //    List<PUserMobileFeature> UserMobileFeature = new BUser().GetUserMobileFeatureAccessByUserID(UserID);
-        //    for (int i = 0; i < dlMobileFeatureAccess.Items.Count; i++)
-        //    {
-        //        CheckBox cbSMId = (CheckBox)dlMobileFeatureAccess.Items[i].FindControl("cbSMId");
-        //        int UserMobileFeatureID = Convert.ToInt32(dlMobileFeatureAccess.DataKeys[i].ToString());
-
-        //        if (UserMobileFeature.Where(A => A.UserMobileFeatureID == UserMobileFeatureID).Count() != 0)
-        //        {
-        //            if (!cbSMId.Checked)
-        //                Access.MobileFeature.Add(UserMobileFeatureID, false);
-        //        }
-        //        else
-        //        {
-        //            if (cbSMId.Checked)
-        //                Access.MobileFeature.Add(UserMobileFeatureID, true);
-        //        }
-        //    }
-
-
-        //    if (new BUser().UpdateUserPermition(Convert.ToInt64(ViewState["EId"]), AccessM, AccessSCM, AccessD, AccessDB, MobileFeature, PSession.User.UserID))
-        //    {
-        //        btnUpdate.Visible = false;
-        //        btnBack.Visible = false;
-        //        pnlDealer.Visible = false;
-        //        pnlModule.Visible = false;
-        //        pnlUser.Visible = true;
-
-        //        lblMessage.Text = "It is updated successfully";
-        //        lblMessage.ForeColor = Color.Green;
-        //        divList.Visible = true;
-        //    }
-        //    else
-        //    {
-        //        lblMessage.Text = "It is not updated successfully ";
-        //        lblMessage.ForeColor = Color.Red;
-        //    }
-        //    lblMessage.Visible = true;
-
-        //}
-
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            List<int> AccessM = new List<int>();
-            List<int> AccessSCM = new List<int>();
+            PUserAccess_Insert Access = new PUserAccess_Insert();
+            Access.UserID = Convert.ToInt32(ViewState["EId"]);
+            Access.Module = new Dictionary<int, bool>();
+            Access.ModuleC = new Dictionary<int, bool>();
+            Access.Dealer = new Dictionary<int, bool>();
+            Access.Dashboard = new Dictionary<int, bool>();
+            Access.MobileFeature = new Dictionary<int, bool>();
+
+            List<PModuleAccess> EAccessModule = new BUser().GetDMSModuleByUser(Access.UserID, null, null);
             for (int j = 0; j < gvModule.Rows.Count; j++)
             {
+                int ModuleMasterID = Convert.ToInt32(gvModule.DataKeys[j].Value);
+                List<PSubModuleAccess> SubModule = new List<PSubModuleAccess>();
+                if (EAccessModule.Where(A => A.ModuleMasterID == ModuleMasterID).Count() != 0)
+                {
+                    SubModule = EAccessModule.Find(s => s.ModuleMasterID == ModuleMasterID).SubModuleAccess;
+                }
+                else
+                {
+                    SubModule = new List<PSubModuleAccess>();
+                }
+                    
+
                 DataList dlModule = (DataList)gvModule.Rows[j].FindControl("dlModule");
                 for (int i = 0; i < dlModule.Items.Count; i++)
                 {
                     CheckBox cbSMId = (CheckBox)dlModule.Items[i].FindControl("cbSMId");
                     int dlModuleID = Convert.ToInt32(dlModule.DataKeys[i].ToString());
-                    if (cbSMId.Checked)
+                    if (SubModule.Where(A => A.SubModuleMasterID == dlModuleID).Count() != 0)
                     {
-                        AccessM.Add(dlModuleID);
+                        if (!cbSMId.Checked)
+                            Access.Module.Add(dlModuleID, false);
                     }
+                    else
+                    {
+                        if (cbSMId.Checked)
+                            Access.Module.Add(dlModuleID, true);
+                    }
+
+                    List<PSubModuleChild> ChildModule = new BUser().GetSubModuleChileAll(dlModuleID);
                     DataList dlChildModule = (DataList)dlModule.Items[i].FindControl("dlChildModule");
                     for (int k = 0; k < dlChildModule.Items.Count; k++)
                     {
                         int SubModuleChildID = Convert.ToInt32(dlChildModule.DataKeys[k].ToString());
                         CheckBox cbChildId = (CheckBox)dlChildModule.Items[k].FindControl("cbChildId");
-                        if (cbChildId.Checked)
+                        if (SubModuleChileByUserID.Where(A => A.SubModuleChildID == SubModuleChildID).Count() != 0)
                         {
-                            AccessSCM.Add(SubModuleChildID);
+                            if (!cbChildId.Checked)
+                                Access.ModuleC.Add(SubModuleChildID, false);
+                        }
+                        else
+                        {
+                            if (cbChildId.Checked)
+                                Access.ModuleC.Add(SubModuleChildID, true);
                         }
                     }
                 }
             }
-            List<int> AccessD = new List<int>();
+
+            List<PDealer> Dealer = new BDealer().GetDealerByUserID(Access.UserID);
             for (int i = 0; i < dlDealer.Items.Count; i++)
             {
                 CheckBox cbSMId = (CheckBox)dlDealer.Items[i].FindControl("cbSMId");
                 int dlModuleID = Convert.ToInt32(dlDealer.DataKeys[i].ToString());
-                if (cbSMId.Checked)
+                if (Dealer.Where(A => A.DID == dlModuleID).Count() != 0)
                 {
-                    AccessD.Add(dlModuleID);
+                    if (!cbSMId.Checked)
+                        Access.Dealer.Add(dlModuleID, false);
+                }
+                else
+                {
+                    if (cbSMId.Checked)
+                        Access.Dealer.Add(dlModuleID, true);
                 }
             }
-            List<int> AccessDB = new List<int>();
+
+            List<PDMS_Dashboard> Dashboard = new BDMS_Dashboard().GetDashboardByUserID(Access.UserID);
             for (int i = 0; i < dlDashboard.Items.Count; i++)
             {
                 CheckBox cbSMId = (CheckBox)dlDashboard.Items[i].FindControl("cbSMId");
                 int dlDashboardID = Convert.ToInt32(dlDashboard.DataKeys[i].ToString());
-                if (cbSMId.Checked)
+                if (Dashboard.Where(A => A.DashboardID == dlDashboardID).Count() != 0)
                 {
-                    AccessDB.Add(dlDashboardID);
+                    if (!cbSMId.Checked)
+                        Access.Dashboard.Add(dlDashboardID, false);
+                }
+                else
+                {
+                    if (cbSMId.Checked)
+                        Access.Dashboard.Add(dlDashboardID, true);
                 }
             }
 
-            List<int> MobileFeature = new List<int>();
+            List<PUserMobileFeature> UserMobileFeature = new BUser().GetUserMobileFeatureAccessByUserID(Access.UserID);
             for (int i = 0; i < dlMobileFeatureAccess.Items.Count; i++)
             {
                 CheckBox cbSMId = (CheckBox)dlMobileFeatureAccess.Items[i].FindControl("cbSMId");
                 int UserMobileFeatureID = Convert.ToInt32(dlMobileFeatureAccess.DataKeys[i].ToString());
-                if (cbSMId.Checked)
+                if (UserMobileFeature.Where(A => A.UserMobileFeatureID == UserMobileFeatureID).Count() != 0)
                 {
-                    MobileFeature.Add(UserMobileFeatureID);
+                    if (!cbSMId.Checked)
+                        Access.MobileFeature.Add(UserMobileFeatureID, false);
+                }
+                else
+                {
+                    if (cbSMId.Checked)
+                        Access.MobileFeature.Add(UserMobileFeatureID, true);
                 }
             }
 
-
-            if (new BUser().UpdateUserPermition(Convert.ToInt64(ViewState["EId"]), AccessM, AccessSCM, AccessD, AccessDB, MobileFeature, PSession.User.UserID))
+            PApiResult Result = new BUser().UpdateUserPermition(Access);
+            if (Result.Status == PApplication.Success)
             {
-                //List<PModuleAccess> AccessModule = new BUser().GetDMSModuleAll();
-                //ModuleAccess = AccessModule;
-                //gvModule.DataSource = AccessModule;
-                //gvModule.DataBind();
-                //fillDealer();
                 btnUpdate.Visible = false;
                 btnBack.Visible = false;
                 pnlDealer.Visible = false;
@@ -457,10 +373,93 @@ namespace DealerManagementSystem.ViewAdmin
             {
                 lblMessage.Text = "It is not updated successfully ";
                 lblMessage.ForeColor = Color.Red;
-            }
-            lblMessage.Visible = true;
-
+            } 
         }
+
+        //protected void btnUpdate_Click(object sender, EventArgs e)
+        //{
+        //    List<int> AccessM = new List<int>();
+        //    List<int> AccessSCM = new List<int>();
+        //    for (int j = 0; j < gvModule.Rows.Count; j++)
+        //    {
+        //        DataList dlModule = (DataList)gvModule.Rows[j].FindControl("dlModule");
+        //        for (int i = 0; i < dlModule.Items.Count; i++)
+        //        {
+        //            CheckBox cbSMId = (CheckBox)dlModule.Items[i].FindControl("cbSMId");
+        //            int dlModuleID = Convert.ToInt32(dlModule.DataKeys[i].ToString());
+        //            if (cbSMId.Checked)
+        //            {
+        //                AccessM.Add(dlModuleID);
+        //            }
+        //            DataList dlChildModule = (DataList)dlModule.Items[i].FindControl("dlChildModule");
+        //            for (int k = 0; k < dlChildModule.Items.Count; k++)
+        //            {
+        //                int SubModuleChildID = Convert.ToInt32(dlChildModule.DataKeys[k].ToString());
+        //                CheckBox cbChildId = (CheckBox)dlChildModule.Items[k].FindControl("cbChildId");
+        //                if (cbChildId.Checked)
+        //                {
+        //                    AccessSCM.Add(SubModuleChildID);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    List<int> AccessD = new List<int>();
+        //    for (int i = 0; i < dlDealer.Items.Count; i++)
+        //    {
+        //        CheckBox cbSMId = (CheckBox)dlDealer.Items[i].FindControl("cbSMId");
+        //        int dlModuleID = Convert.ToInt32(dlDealer.DataKeys[i].ToString());
+        //        if (cbSMId.Checked)
+        //        {
+        //            AccessD.Add(dlModuleID);
+        //        }
+        //    }
+        //    List<int> AccessDB = new List<int>();
+        //    for (int i = 0; i < dlDashboard.Items.Count; i++)
+        //    {
+        //        CheckBox cbSMId = (CheckBox)dlDashboard.Items[i].FindControl("cbSMId");
+        //        int dlDashboardID = Convert.ToInt32(dlDashboard.DataKeys[i].ToString());
+        //        if (cbSMId.Checked)
+        //        {
+        //            AccessDB.Add(dlDashboardID);
+        //        }
+        //    }
+
+        //    List<int> MobileFeature = new List<int>();
+        //    for (int i = 0; i < dlMobileFeatureAccess.Items.Count; i++)
+        //    {
+        //        CheckBox cbSMId = (CheckBox)dlMobileFeatureAccess.Items[i].FindControl("cbSMId");
+        //        int UserMobileFeatureID = Convert.ToInt32(dlMobileFeatureAccess.DataKeys[i].ToString());
+        //        if (cbSMId.Checked)
+        //        {
+        //            MobileFeature.Add(UserMobileFeatureID);
+        //        }
+        //    }
+
+
+        //    if (new BUser().UpdateUserPermition(Convert.ToInt64(ViewState["EId"]), AccessM, AccessSCM, AccessD, AccessDB, MobileFeature, PSession.User.UserID))
+        //    {
+        //        //List<PModuleAccess> AccessModule = new BUser().GetDMSModuleAll();
+        //        //ModuleAccess = AccessModule;
+        //        //gvModule.DataSource = AccessModule;
+        //        //gvModule.DataBind();
+        //        //fillDealer();
+        //        btnUpdate.Visible = false;
+        //        btnBack.Visible = false;
+        //        pnlDealer.Visible = false;
+        //        pnlModule.Visible = false;
+        //        pnlUser.Visible = true;
+
+        //        lblMessage.Text = "It is updated successfully";
+        //        lblMessage.ForeColor = Color.Green;
+        //        divList.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Text = "It is not updated successfully ";
+        //        lblMessage.ForeColor = Color.Red;
+        //    } 
+
+        //}
         protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             DateTime traceStartTime = DateTime.Now;
@@ -662,8 +661,7 @@ namespace DealerManagementSystem.ViewAdmin
             cbIsEnabled.Enabled = false; 
         }
         protected void GvbtnUpdate_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
+        { 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
             Label lblUserID = (Label)gvUser.Rows[index].FindControl("lblUserID");
@@ -792,8 +790,7 @@ namespace DealerManagementSystem.ViewAdmin
             }
         }
         protected void btnUserResetPassword_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
+        { 
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             int index = gvRow.RowIndex;
             Label lblUserID = (Label)gvUser.Rows[index].FindControl("lblUserID");
@@ -817,8 +814,7 @@ namespace DealerManagementSystem.ViewAdmin
                 }
                 else
                 {
-                    lblMessage.Text = "Invalid UserName...!";
-                    lblMessage.Visible = true;
+                    lblMessage.Text = "Invalid UserName...!"; 
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
