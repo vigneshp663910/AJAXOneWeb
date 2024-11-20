@@ -141,7 +141,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             lblTaxableValue.Text = (TaxableValue + SOrder.Freight + SOrder.PackingAndForward).ToString();
             lblTaxValue.Text = (TaxValue + (SOrder.Freight * 18 / 100) + (SOrder.PackingAndForward * 18 / 10)).ToString();
             lblNetAmount.Text = NetAmount.ToString();
-            lblNetAmountWithTCS.Text = (NetAmount+ SOrder.TcsValue).ToString();
+            lblNetAmountWithTCS.Text = (NetAmount + SOrder.TcsValue).ToString();
             gvSOItem.DataSource = SOrder.SaleOrderItems;
             gvSOItem.DataBind();
             gvSODelivery.DataSource = SOrder.Deliverys;
@@ -283,11 +283,19 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             else if (lbActions.ID == "lbReleaseSaleOrder")
             {
-             string   Message = new BDMS_SalesOrder().ValidationCustomerGST(SOrder.Customer.CustomerID, SOrder.Dealer.DealerID, SOrder.TaxType);
+                string Message = new BDMS_SalesOrder().ValidationCustomerGST(SOrder.Customer.CustomerID, SOrder.Dealer.DealerID, SOrder.TaxType);
                 if (!string.IsNullOrEmpty(Message))
                 {
                     lblMessage.Text = Message;
                     return;
+                }
+                if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
+                {
+                    if (SOrder.SalesEngineer == null)
+                    {
+                        lblMessage.Text = "Please update the Sales Engnieer.";
+                        return;
+                    }
                 }
                 //PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/ReleaseSaleOrder?SaleOrderID=" + SOrder.SaleOrderID));
                 // PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderStatus?SaleOrderID=" + SOrder.SaleOrderID + "&StatusID=" + 13));
@@ -331,7 +339,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
                 if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
                 {
-                    divEquipment.Visible = true; 
+                    divEquipment.Visible = true;
                     List<PDMS_Equipment> EQs = new BDMS_Equipment().GetEquipmentForSale(SOrder.Dealer.DealerCode, PSession.User.UserID);
                     new DDLBind(ddlEquipment, EQs, "EquipmentSerialNo", "EquipmentHeaderID", true, "Select");
                 }
@@ -345,8 +353,8 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 {
                     if (Item.Quantity != Item.DeliveredQuantity)
                     {
-                         
-                        PDealerStock Stock = new BInventory().GetDealerStockCountByID(SOrder.Dealer.DealerID, SOrder.DealerOffice.OfficeID, Item.Material.MaterialID); 
+
+                        PDealerStock Stock = new BInventory().GetDealerStockCountByID(SOrder.Dealer.DealerID, SOrder.DealerOffice.OfficeID, Item.Material.MaterialID);
                         SODelivery_Insert.Add(new PSaleOrderDeliveryItem_Insert()
                         {
                             SaleOrderID = SOrder.SaleOrderID,
@@ -472,7 +480,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             LocalReport report = new LocalReport();
             report.EnableExternalImages = true;
 
-           PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SOrder.Dealer.DealerID)[0];
+            PDMS_Dealer Dealer = new BDealer().GetDealerAddress(SOrder.Dealer.DealerID)[0];
             //string DealerCustomerAddress1 = (Dealer.Address.Address1 + (string.IsNullOrEmpty(Dealer.Address.Address2) ? "" : "," + Dealer.Address.Address2) + (string.IsNullOrEmpty(Dealer.Address.Address3) ? "" : "," + Dealer.Address.Address3)).Trim(',', ' ');
             //string DealerCustomerAddress2 = (Dealer.Address.City + (string.IsNullOrEmpty(Dealer.Address.State.State) ? "" : "," + Dealer.Address.State.State) + (string.IsNullOrEmpty(Dealer.Address.Pincode) ? "" : "-" + Dealer.Address.Pincode)).Trim(',', ' ');
 
@@ -586,17 +594,17 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     P[24] = new ReportParameter("SGSTVal_Header", "IGST", false);
                 }
             }
-            if(SOrder.Freight!=0)
+            if (SOrder.Freight != 0)
             {
                 if (SOrder.TaxType.Contains("SGST & CGST"))
                 {
                     decimal GSTValue = SOrder.Freight * 9 / 100;
-                    dtItem.Rows.Add(sno += 1, "Freight", "Freight Charges", "998719", "" , "LE", String.Format("{0:n}", SOrder.Freight), String.Format("{0:n}", 0), String.Format("{0:n}", SOrder.Freight)
+                    dtItem.Rows.Add(sno += 1, "Freight", "Freight Charges", "998719", "", "LE", String.Format("{0:n}", SOrder.Freight), String.Format("{0:n}", 0), String.Format("{0:n}", SOrder.Freight)
                         , String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue), String.Format("{0:n}", 9), String.Format("{0:n}", GSTValue));
-                    SubTotal += (SOrder.Freight + GSTValue + GSTValue); 
+                    SubTotal += (SOrder.Freight + GSTValue + GSTValue);
                     TotalTaxable += SOrder.Freight;
                     TotalCGSTVal += GSTValue;
-                    TotalSGSTVal += GSTValue; 
+                    TotalSGSTVal += GSTValue;
                 }
                 else
                 {
@@ -604,9 +612,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     dtItem.Rows.Add(sno += 1, "Freight", "Freight Charges", "998719", "", "LE", String.Format("{0:n}", SOrder.Freight), String.Format("{0:n}", 0), String.Format("{0:n}", SOrder.Freight)
                         , String.Format("{0:n}", 0), String.Format("{0:n}", 0), String.Format("{0:n}", 18), String.Format("{0:n}", GSTValue));
 
-                    SubTotal += (SOrder.Freight + GSTValue);                   
+                    SubTotal += (SOrder.Freight + GSTValue);
                     TotalTaxable += SOrder.Freight;
-                    TotalSGSTVal += GSTValue; 
+                    TotalSGSTVal += GSTValue;
                 }
             }
             if (SOrder.PackingAndForward != 0)
@@ -876,7 +884,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             txtRefDate.Text = SOrder.RefDate == null ? "" : ((DateTime)SOrder.RefDate).ToString("dd/MM/yyyy");
 
             if (SOrder.SalesType != null)
-                ddlSalesType.SelectedValue = SOrder.SalesType.StatusID.ToString(); 
+                ddlSalesType.SelectedValue = SOrder.SalesType.StatusID.ToString();
 
         }
         protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
@@ -914,7 +922,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 if (Result.Status == PApplication.Failure)
                 {
                     lblMessageSOEdit.Text = Result.Message;
-                   
+
                     return;
                 }
                 MPE_SaleOrderEdit.Hide();
@@ -944,7 +952,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null)[0];
                 PSaleOrderItem_Insert pSaleOrderItem = new BDMS_SalesOrder().ReadItem(m, SOrder.Dealer.DealerID, SOrder.DealerOffice.OfficeID
                     , Convert.ToInt32(txtQty.Text.Trim()), SOrder.Customer.CustomerCode
-                    , SOrder.Dealer.DealerCode, SOrder.HeaderDiscountPercentage, 0,0, SOrder.TaxType);
+                    , SOrder.Dealer.DealerCode, SOrder.HeaderDiscountPercentage, 0, 0, SOrder.TaxType);
 
                 pSaleOrderItem.SaleOrderID = SOrder.SaleOrderID;
                 // pSaleOrderItem = ReadItem();
@@ -1238,7 +1246,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             }
             if (Convert.ToDecimal(txtQty.Text.Trim()) < 1)
             {
-                return "Quantity cannot be less than 1."; 
+                return "Quantity cannot be less than 1.";
             }
 
             foreach (PSaleOrderItem Item in SOrder.SaleOrderItems)
@@ -1284,7 +1292,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             Label lblQuantity = (Label)gvRow.FindControl("lblQuantity");
             //TextBox txtItemDiscountValue = (TextBox)gvRow.FindControl("txtItemDiscountValue");
             Panel pnlItemDiscount = (Panel)gvRow.FindControl("pnlItemDiscount");
-            
+
             Label lblItemDiscountValue = (Label)gvRow.FindControl("lblItemDiscountValue");
 
             if (lbActions.ID == "lnkBtnEdit")
@@ -1305,7 +1313,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 Label lblSaleOrderItemID = (Label)gvRow.FindControl("lblSaleOrderItemID");
                 Label lblMaterialID = (Label)gvRow.FindControl("lblMaterialID");
 
-                
+
 
                 TextBox txtItemDiscountPercentage = (TextBox)gvRow.FindControl("txtItemDiscountPercentage");
                 decimal IDiscountValue = 0;
@@ -1324,13 +1332,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 }
 
                 if (!string.IsNullOrEmpty(txtItemDiscountPercentage.Text.Trim()))
-                { 
+                {
                     if (!decimal.TryParse(txtItemDiscountPercentage.Text.Trim(), out value))
                     {
                         lblMessage.Text = "Please enter correct format in Discount Percent.";
                         return;
                     }
-                    IDiscountPercentage = Convert.ToDecimal(txtItemDiscountPercentage.Text.Trim()) ;
+                    IDiscountPercentage = Convert.ToDecimal(txtItemDiscountPercentage.Text.Trim());
                     if (0 > IDiscountPercentage || IDiscountPercentage > 100)
                     {
                         lblMessage.Text = "Discount Percentage cannot be less than 0 or  exceed 100.";
@@ -1438,7 +1446,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 long? EquipmentID = null;
                 if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder)
                 {
-                    if(ddlEquipment== null)
+                    if (ddlEquipment == null)
                     {
                         lblMessageCreateSODelivery.Text = "Equipment is not available.";
                         return;
@@ -1450,8 +1458,14 @@ namespace DealerManagementSystem.ViewSales.UserControls
                         return;
                     }
                     EquipmentID = Convert.ToInt64(ddlEquipment.SelectedValue);
+
+                    if (SOrder.SalesEngineer == null)
+                    {
+                        lblMessageCreateSODelivery.Text = "Please update the Sales Engnieer.";
+                        return;
+                    }
                 }
-                
+
 
                 readSaleOrderDelivery();
                 foreach (PSaleOrderDeliveryItem_Insert T in SODelivery_Insert)
@@ -1496,7 +1510,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder)
                 {
                     DeliveryQuantity = OrderQty;
-                } 
+                }
                 else
                 {
                     if (string.IsNullOrEmpty(txtDeliveryQuantity.Text))
@@ -1505,7 +1519,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     }
                     DeliveryQuantity = Convert.ToDecimal(txtDeliveryQuantity.Text);
                 }
-              
+
                 if (DeliveryQuantity > OrderQty || DeliveryQuantity < 0)
                 {
                     throw new Exception("Please check the Delivery Quantity.");
@@ -1563,25 +1577,25 @@ namespace DealerManagementSystem.ViewSales.UserControls
         //}
         protected void ddlShiftTo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MPE_Delivery.Show(); 
+            MPE_Delivery.Show();
             if (ddlShiftTo.SelectedValue == "0")
-            { 
+            {
                 txtShippingAddress.Text = SOrder.Customer.Address1 + ","
                     + SOrder.Customer.Address2 + ","
                     + SOrder.Customer.Address3 + " ,"
                     + SOrder.Customer.Pincode + " ,"
                     + SOrder.Customer.District.District + ","
-                    + SOrder.Customer.State.State;                
+                    + SOrder.Customer.State.State;
             }
             else
             {
-                PDMS_CustomerShipTo ShiftTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(ddlShiftTo.SelectedValue), SOrder.Customer.CustomerID)[0];                
+                PDMS_CustomerShipTo ShiftTo = new BDMS_Customer().GetCustomerShopTo(Convert.ToInt64(ddlShiftTo.SelectedValue), SOrder.Customer.CustomerID)[0];
                 txtShippingAddress.Text = ShiftTo.Address1 + ","
                     + ShiftTo.Address2 + ","
                     + ShiftTo.Address3 + " ,"
                     + ShiftTo.Pincode
                      + ShiftTo.District.District + ","
-                    + ShiftTo.State.State;                
+                    + ShiftTo.State.State;
             }
         }
     }

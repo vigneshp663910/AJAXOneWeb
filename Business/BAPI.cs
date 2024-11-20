@@ -193,6 +193,8 @@ namespace Business
             //var APIResponse = client.PostAsync(url, new FormUrlEncodedContent(RequestBody)).Result;
 
 
+            //System.Net.ServicePointManager.SecurityProtocol =  SecurityProtocolType.Ssl3;
+
             var APIResponse = client.GetAsync(ApiBaseAddress + Filter).Result;
             if (APIResponse.IsSuccessStatusCode)
             {
@@ -221,13 +223,16 @@ namespace Business
             HttpClient client = new HttpClient(handler);
             client.Timeout = TimeSpan.FromSeconds(2500);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
-
             //var RequestBody = new Dictionary<string, string>
             //    {
             //    {"Parameter1", "value1"},
             //    {"Parameter2", "vakue2"},
             //    };
+
+             
+             
             //var APIResponse = client.PostAsync(url, new FormUrlEncodedContent(RequestBody)).Result;
+             //var APIResponse1 = client.PostAsync(ApiBaseAddress + EndPoint, new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json"));
 
             var APIResponse = client.PostAsync(ApiBaseAddress + EndPoint, new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json")).Result;
             if (APIResponse.IsSuccessStatusCode)

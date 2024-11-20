@@ -187,40 +187,6 @@ namespace Business
             { }
         }
        
-        public Boolean InsertOrUpdateAddressDistrict(int? DistrictID, int CountryID, int StateID, int? SalesOfficeID, int? DealerID, int? SalesEngineerUserID, string District, string DistrictSAP,Boolean IsActive, int UserID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
-            DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
-            DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
-            DbParameter SalesOfficeIDP = provider.CreateParameter("SalesOfficeID", SalesOfficeID, DbType.Int32);
-            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-            DbParameter SalesEngineerUserIDP = provider.CreateParameter("SalesEngineerUserID", SalesEngineerUserID, DbType.Int32);
-            DbParameter DistrictP = provider.CreateParameter("District", District, DbType.String);
-            DbParameter DistrictSAPP = provider.CreateParameter("DistrictSAP", string.IsNullOrEmpty(DistrictSAP) ? null : DistrictSAP, DbType.String);
-            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[10] { DistrictIDP, CountryIDP, StateIDP, DealerIDP, SalesOfficeIDP, DistrictP, DistrictSAPP, IsActiveP, UserIDP, SalesEngineerUserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_InsertOrUpdateAddressDistrict", Params);
-                    scope.Complete();
-                }
-                return true;
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_InsertOrUpdateAddressDistrict", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Address", " ZDMS_InsertOrUpdateAddressDistrict", ex);
-            }
-            TraceLogger.Log(DateTime.Now);
-            return false;
-        }
         public void GetTehsil(DropDownList ddl, int? CountryID, int? StateID, int? DistrictID, string Tehsil)
         {
             try
@@ -623,5 +589,13 @@ namespace Business
                 + "&EngineerUserID=" + EngineerUserID + "&ConfigureID=" + ConfigureID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public PApiResult InsertOrUpdateAddressDistrict(int? CountryID, int? StateID, int? DistrictID, string District, int? SalesOfficeID, Boolean Hilly, Boolean IsActive)
+        {
+            string endPoint = "Location/InsertOrUpdateAddressDistrict?CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID
+                 + "&District=" + District + "&SalesOfficeID=" + SalesOfficeID + "&Hilly=" + Hilly + "&IsActive=" + IsActive;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+
+        }
+
     }
 }

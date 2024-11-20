@@ -243,90 +243,84 @@ namespace DealerManagementSystem.ViewAdmin
                 }
             }
         }
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-            List<int> AccessM = new List<int>();
-            List<int> AccessSCM = new List<int>();
-            for (int j = 0; j < gvModule.Rows.Count; j++)
-            {
-                DataList dlModule = (DataList)gvModule.Rows[j].FindControl("dlModule");
-                for (int i = 0; i < dlModule.Items.Count; i++)
-                {
-                    CheckBox cbSMId = (CheckBox)dlModule.Items[i].FindControl("cbSMId");
-                    int dlModuleID = Convert.ToInt32(dlModule.DataKeys[i].ToString());
-                    if (cbSMId.Checked)
-                    {
-                        AccessM.Add(dlModuleID);
-                    }
-                    DataList dlChildModule = (DataList)dlModule.Items[i].FindControl("dlChildModule");
-                    for (int k = 0; k < dlChildModule.Items.Count; k++)
-                    {
-                        int SubModuleChildID = Convert.ToInt32(dlChildModule.DataKeys[k].ToString());
-                        CheckBox cbChildId = (CheckBox)dlChildModule.Items[k].FindControl("cbChildId");
-                        if (cbChildId.Checked)
-                        {
-                            AccessSCM.Add(SubModuleChildID);
-                        }
-                    }
-                }
-            }
-            List<int> AccessD = new List<int>();
-            for (int i = 0; i < dlDealer.Items.Count; i++)
-            {
-                CheckBox cbSMId = (CheckBox)dlDealer.Items[i].FindControl("cbSMId");
-                int dlModuleID = Convert.ToInt32(dlDealer.DataKeys[i].ToString());
-                if (cbSMId.Checked)
-                {
-                    AccessD.Add(dlModuleID);
-                }
-            }
-            List<int> AccessDB = new List<int>();
-            for (int i = 0; i < dlDashboard.Items.Count; i++)
-            {
-                CheckBox cbSMId = (CheckBox)dlDashboard.Items[i].FindControl("cbSMId");
-                int dlDashboardID = Convert.ToInt32(dlDashboard.DataKeys[i].ToString());
-                if (cbSMId.Checked)
-                {
-                    AccessDB.Add(dlDashboardID);
-                }
-            }
+        //protected void btnUpdate_Click(object sender, EventArgs e)
+        //{
+        //    List<int> AccessM = new List<int>();
+        //    List<int> AccessSCM = new List<int>();
+        //    for (int j = 0; j < gvModule.Rows.Count; j++)
+        //    {
+        //        DataList dlModule = (DataList)gvModule.Rows[j].FindControl("dlModule");
+        //        for (int i = 0; i < dlModule.Items.Count; i++)
+        //        {
+        //            CheckBox cbSMId = (CheckBox)dlModule.Items[i].FindControl("cbSMId");
+        //            int dlModuleID = Convert.ToInt32(dlModule.DataKeys[i].ToString());
+        //            if (cbSMId.Checked)
+        //            {
+        //                AccessM.Add(dlModuleID);
+        //            }
+        //            DataList dlChildModule = (DataList)dlModule.Items[i].FindControl("dlChildModule");
+        //            for (int k = 0; k < dlChildModule.Items.Count; k++)
+        //            {
+        //                int SubModuleChildID = Convert.ToInt32(dlChildModule.DataKeys[k].ToString());
+        //                CheckBox cbChildId = (CheckBox)dlChildModule.Items[k].FindControl("cbChildId");
+        //                if (cbChildId.Checked)
+        //                {
+        //                    AccessSCM.Add(SubModuleChildID);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    List<int> AccessD = new List<int>();
+        //    for (int i = 0; i < dlDealer.Items.Count; i++)
+        //    {
+        //        CheckBox cbSMId = (CheckBox)dlDealer.Items[i].FindControl("cbSMId");
+        //        int dlModuleID = Convert.ToInt32(dlDealer.DataKeys[i].ToString());
+        //        if (cbSMId.Checked)
+        //        {
+        //            AccessD.Add(dlModuleID);
+        //        }
+        //    }
+        //    List<int> AccessDB = new List<int>();
+        //    for (int i = 0; i < dlDashboard.Items.Count; i++)
+        //    {
+        //        CheckBox cbSMId = (CheckBox)dlDashboard.Items[i].FindControl("cbSMId");
+        //        int dlDashboardID = Convert.ToInt32(dlDashboard.DataKeys[i].ToString());
+        //        if (cbSMId.Checked)
+        //        {
+        //            AccessDB.Add(dlDashboardID);
+        //        }
+        //    }
 
-            List<int> MobileFeature = new List<int>();
-            for (int i = 0; i < dlMobileFeatureAccess.Items.Count; i++)
-            {
-                CheckBox cbSMId = (CheckBox)dlMobileFeatureAccess.Items[i].FindControl("cbSMId");
-                int UserMobileFeatureID = Convert.ToInt32(dlMobileFeatureAccess.DataKeys[i].ToString());
-                if (cbSMId.Checked)
-                {
-                    MobileFeature.Add(UserMobileFeatureID);
-                }
-            }
+        //    List<int> MobileFeature = new List<int>();
+        //    for (int i = 0; i < dlMobileFeatureAccess.Items.Count; i++)
+        //    {
+        //        CheckBox cbSMId = (CheckBox)dlMobileFeatureAccess.Items[i].FindControl("cbSMId");
+        //        int UserMobileFeatureID = Convert.ToInt32(dlMobileFeatureAccess.DataKeys[i].ToString());
+        //        if (cbSMId.Checked)
+        //        {
+        //            MobileFeature.Add(UserMobileFeatureID);
+        //        }
+        //    }
 
-            if (new BUser().UpdateUserPermition(Convert.ToInt64(ViewState["EId"]), AccessM, AccessSCM, AccessD, AccessDB, MobileFeature, PSession.User.UserID))
-            {
-                //List<PModuleAccess> AccessModule = new BUser().GetDMSModuleAll();
-                //ModuleAccess = AccessModule;
-                //gvModule.DataSource = AccessModule;
-                //gvModule.DataBind();
-                //fillDealer();
-                //btnUpdate.Visible = false;
-                btnBack.Visible = false;
-                pnlDealer.Visible = false;
-                pnlModule.Visible = false;
-                pnlUser.Visible = true;
+        //    if (new BUser().UpdateUserPermition(Convert.ToInt64(ViewState["EId"]), AccessM, AccessSCM, AccessD, AccessDB, MobileFeature, PSession.User.UserID))
+        //    { 
+        //        btnBack.Visible = false;
+        //        pnlDealer.Visible = false;
+        //        pnlModule.Visible = false;
+        //        pnlUser.Visible = true;
 
-                lblMessage.Text = "It is updated successfully";
-                lblMessage.ForeColor = Color.Green;
-                divList.Visible = true;
-            }
-            else
-            {
-                lblMessage.Text = "It is not updated successfully ";
-                lblMessage.ForeColor = Color.Red;
-            }
-            lblMessage.Visible = true;
+        //        lblMessage.Text = "It is updated successfully";
+        //        lblMessage.ForeColor = Color.Green;
+        //        divList.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Text = "It is not updated successfully ";
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //    lblMessage.Visible = true;
 
-        }
+        //}
         protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             DateTime traceStartTime = DateTime.Now;
@@ -368,16 +362,7 @@ namespace DealerManagementSystem.ViewAdmin
             List<PDealer> dealer = new BDealer().GetDealerList(null, "", "");
             dlDealer.DataSource = dealer;
             dlDealer.DataBind();
-        }
-
-        //void fillDealerDLL()
-        //{ 
-        //    ddlDealer.DataTextField = "CodeWithName";
-        //    ddlDealer.DataValueField = "DID";
-        //    ddlDealer.DataSource = PSession.User.Dealer;
-        //    ddlDealer.DataBind();
-        //    ddlDealer.Items.Insert(0, new ListItem("All", "0"));
-        //}
+        }       
         protected void cbAllDealer_CheckedChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < dlDealer.Items.Count; i++)
@@ -405,8 +390,7 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            divList.Visible = true;
-            //btnUpdate.Visible = false;
+            divList.Visible = true; 
             btnBack.Visible = false;
             pnlDealer.Visible = false;
             pnlModule.Visible = false;
@@ -527,96 +511,96 @@ namespace DealerManagementSystem.ViewAdmin
             cbIsLocked.Enabled = false;
             cbIsEnabled.Enabled = false; 
         }
-        protected void GvbtnUpdate_Click(object sender, EventArgs e)
-        {
-            lblMessage.Visible = true;
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            int index = gvRow.RowIndex;
-            Label lblUserID = (Label)gvUser.Rows[index].FindControl("lblUserID");
+        //protected void GvbtnUpdate_Click(object sender, EventArgs e)
+        //{
+        //    lblMessage.Visible = true;
+        //    GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
+        //    int index = gvRow.RowIndex;
+        //    Label lblUserID = (Label)gvUser.Rows[index].FindControl("lblUserID");
 
-            Button btnEdit = (Button)gvUser.Rows[index].FindControl("btnEdit");
-            Button btnUpdate = (Button)gvUser.Rows[index].FindControl("btnUpdate");
-            Button btnCancel = (Button)gvUser.Rows[index].FindControl("btnCancel");
-            btnEdit.Visible = true;
-            btnUpdate.Visible = false;
-            btnCancel.Visible = false;
+        //    Button btnEdit = (Button)gvUser.Rows[index].FindControl("btnEdit");
+        //    Button btnUpdate = (Button)gvUser.Rows[index].FindControl("btnUpdate");
+        //    Button btnCancel = (Button)gvUser.Rows[index].FindControl("btnCancel");
+        //    btnEdit.Visible = true;
+        //    btnUpdate.Visible = false;
+        //    btnCancel.Visible = false;
 
-            //Label lblPassWord = (Label)gvUser.Rows[index].FindControl("lblPassWord");
-            Label lblUserName = (Label)gvUser.Rows[index].FindControl("lblUserName");
-            Label lblContactName = (Label)gvUser.Rows[index].FindControl("lblContactName");
-            Label lblMail = (Label)gvUser.Rows[index].FindControl("lblMail");
-            Label lblContactNumber = (Label)gvUser.Rows[index].FindControl("lblContactNumber");
-            Label lblExternalReferenceID = (Label)gvUser.Rows[index].FindControl("lblExternalReferenceID");
+        //    //Label lblPassWord = (Label)gvUser.Rows[index].FindControl("lblPassWord");
+        //    Label lblUserName = (Label)gvUser.Rows[index].FindControl("lblUserName");
+        //    Label lblContactName = (Label)gvUser.Rows[index].FindControl("lblContactName");
+        //    Label lblMail = (Label)gvUser.Rows[index].FindControl("lblMail");
+        //    Label lblContactNumber = (Label)gvUser.Rows[index].FindControl("lblContactNumber");
+        //    Label lblExternalReferenceID = (Label)gvUser.Rows[index].FindControl("lblExternalReferenceID");
 
-            //TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
-            TextBox txtUserName = (TextBox)gvUser.Rows[index].FindControl("txtUserName");
-            TextBox txtContactName = (TextBox)gvUser.Rows[index].FindControl("txtContactName");
-            TextBox txtMail = (TextBox)gvUser.Rows[index].FindControl("txtMail");
-            TextBox txtContactNumber = (TextBox)gvUser.Rows[index].FindControl("txtContactNumber");
-            TextBox txtExternalReferenceID = (TextBox)gvUser.Rows[index].FindControl("txtExternalReferenceID");
+        //    //TextBox txtPassWord = (TextBox)gvUser.Rows[index].FindControl("txtPassWord");
+        //    TextBox txtUserName = (TextBox)gvUser.Rows[index].FindControl("txtUserName");
+        //    TextBox txtContactName = (TextBox)gvUser.Rows[index].FindControl("txtContactName");
+        //    TextBox txtMail = (TextBox)gvUser.Rows[index].FindControl("txtMail");
+        //    TextBox txtContactNumber = (TextBox)gvUser.Rows[index].FindControl("txtContactNumber");
+        //    TextBox txtExternalReferenceID = (TextBox)gvUser.Rows[index].FindControl("txtExternalReferenceID");
 
-            CheckBox cbIsTechnician = (CheckBox)gvUser.Rows[index].FindControl("cbIsTechnician");
-            CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
-            CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled"); 
+        //    CheckBox cbIsTechnician = (CheckBox)gvUser.Rows[index].FindControl("cbIsTechnician");
+        //    CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
+        //    CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled"); 
 
-            //if (string.IsNullOrEmpty(txtState.Text.Trim()))
-            //{
-            //    lblMessage.Text = "Please Enter the State";
-            //    lblMessage.ForeColor = Color.Red;
-            //    return;
-            //}
+        //    //if (string.IsNullOrEmpty(txtState.Text.Trim()))
+        //    //{
+        //    //    lblMessage.Text = "Please Enter the State";
+        //    //    lblMessage.ForeColor = Color.Red;
+        //    //    return;
+        //    //}
 
-            PUser userDAO = new BUser().GetUserDetails(Convert.ToInt32(lblUserID.Text));
-            userDAO.UserName = txtUserName.Text.Trim();
-            // userDAO.PassWord = txtPassWord.Text.Trim();
-            userDAO.ContactName = txtContactName.Text.Trim();
-            userDAO.Mail = txtMail.Text.Trim();
-            userDAO.ContactNumber = txtContactNumber.Text.Trim();
-            userDAO.ExternalReferenceID = txtExternalReferenceID.Text.Trim();
+        //    PUser userDAO = new BUser().GetUserDetails(Convert.ToInt32(lblUserID.Text));
+        //    userDAO.UserName = txtUserName.Text.Trim();
+        //    // userDAO.PassWord = txtPassWord.Text.Trim();
+        //    userDAO.ContactName = txtContactName.Text.Trim();
+        //    userDAO.Mail = txtMail.Text.Trim();
+        //    userDAO.ContactNumber = txtContactNumber.Text.Trim();
+        //    userDAO.ExternalReferenceID = txtExternalReferenceID.Text.Trim();
 
-            userDAO.IsTechnician = cbIsTechnician.Checked;
-            userDAO.IsLocked = cbIsLocked.Checked;
-            userDAO.IsEnabled = cbIsEnabled.Checked; 
-            userDAO.UpdatedBy = PSession.User.UserID;
-            userDAO.UpdatedOn = DateTime.Now;
+        //    userDAO.IsTechnician = cbIsTechnician.Checked;
+        //    userDAO.IsLocked = cbIsLocked.Checked;
+        //    userDAO.IsEnabled = cbIsEnabled.Checked; 
+        //    userDAO.UpdatedBy = PSession.User.UserID;
+        //    userDAO.UpdatedOn = DateTime.Now;
 
-            if (new BUser().InsertOrUpdateUser(userDAO))
-            {
-                lblMessage.Text = "User Updated Successfully";
-                lblMessage.ForeColor = Color.Green;
+        //    if (new BUser().InsertOrUpdateUser(userDAO))
+        //    {
+        //        lblMessage.Text = "User Updated Successfully";
+        //        lblMessage.ForeColor = Color.Green;
 
-                btnEdit.Visible = true;
-                btnUpdate.Visible = false;
-                btnCancel.Visible = false;
+        //        btnEdit.Visible = true;
+        //        btnUpdate.Visible = false;
+        //        btnCancel.Visible = false;
 
-              //  lblPassWord.Visible = true;
-                lblUserName.Visible = true;
-                lblContactName.Visible = true;
-                lblMail.Visible = true;
-                lblContactNumber.Visible = true;
-                lblExternalReferenceID.Visible = true;
+        //      //  lblPassWord.Visible = true;
+        //        lblUserName.Visible = true;
+        //        lblContactName.Visible = true;
+        //        lblMail.Visible = true;
+        //        lblContactNumber.Visible = true;
+        //        lblExternalReferenceID.Visible = true;
 
-               // txtPassWord.Visible = false;
-                txtUserName.Visible = false;
-                txtContactName.Visible = false;
-                txtMail.Visible = false;
-                txtContactNumber.Visible = false;
-                txtExternalReferenceID.Visible = false;
+        //       // txtPassWord.Visible = false;
+        //        txtUserName.Visible = false;
+        //        txtContactName.Visible = false;
+        //        txtMail.Visible = false;
+        //        txtContactNumber.Visible = false;
+        //        txtExternalReferenceID.Visible = false;
 
-                cbIsTechnician.Enabled = false;
-                cbIsLocked.Enabled = false;
-                cbIsEnabled.Enabled = false; 
-                //lblPassWord.Text = txtPassWord.Text.Trim();
-                lblContactName.Text = txtContactName.Text.Trim();
-                lblMail.Text = txtMail.Text.Trim();
-                lblContactNumber.Text = txtContactNumber.Text.Trim();
-            }
-            else
-            {
-                lblMessage.Text = "State is not Updated Successfully";
-                lblMessage.ForeColor = Color.Red;
-            }
-        }         
+        //        cbIsTechnician.Enabled = false;
+        //        cbIsLocked.Enabled = false;
+        //        cbIsEnabled.Enabled = false; 
+        //        //lblPassWord.Text = txtPassWord.Text.Trim();
+        //        lblContactName.Text = txtContactName.Text.Trim();
+        //        lblMail.Text = txtMail.Text.Trim();
+        //        lblContactNumber.Text = txtContactNumber.Text.Trim();
+        //    }
+        //    else
+        //    {
+        //        lblMessage.Text = "State is not Updated Successfully";
+        //        lblMessage.ForeColor = Color.Red;
+        //    }
+        //}         
         protected void gvSubModuleChild_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 

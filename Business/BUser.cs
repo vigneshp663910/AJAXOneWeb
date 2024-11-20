@@ -829,6 +829,10 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
+        public PApiResult UpdateUserPermition(PUserAccess_Insert Access)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadFollowUpReport", Access));
+        }
         public Boolean UpdateUserPermition(long UserID, List<int> AccessModule, List<int> AccessModuleC, List<int> AccessDealer, List<int> Dashboard, List<int> MobileFeature, long CreatedBy)
         {
             List<PUser> users = new List<PUser>();

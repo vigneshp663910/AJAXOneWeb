@@ -39,7 +39,7 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Dealer Sales Configuration');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master » District Sales And Service Configuration');</script>");
             if (!IsPostBack)
             {
                 try

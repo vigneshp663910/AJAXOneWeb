@@ -231,6 +231,7 @@ namespace Business
                                 HandleType = Convert.ToString(dr["EInvHandleType"]),
                                 Password = Convert.ToString(dr["EInvMailPassword"])
                             };
+                            Dealer.DealerType = new PDealerType() { DealerTypeID = Convert.ToInt32(dr["DealerTypeID"]) };
                         }
                     }
                 }

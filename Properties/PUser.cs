@@ -345,4 +345,16 @@ namespace Properties
         public int UserMobileFeatureAccessID { get; set; }
         public string FeatureName { get; set; }
     }
+
+
+    [Serializable]
+    public class PUserAccess_Insert
+    {
+        public int UserID { get; set; }
+        public Dictionary<int, Boolean> Module { get; set; }
+        public Dictionary<int, Boolean> ModuleC { get; set; }
+        public Dictionary<int, Boolean> Dealer { get; set; }
+        public Dictionary<int, Boolean> Dashboard { get; set; }
+        public Dictionary<int, Boolean> MobileFeature { get; set; }
+    }
 }

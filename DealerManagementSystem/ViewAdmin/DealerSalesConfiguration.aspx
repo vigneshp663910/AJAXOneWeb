@@ -123,8 +123,8 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Sales Engineer">
                             <ItemTemplate>
-                                <asp:Label ID="lblGDSalesEngineer" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.ContactName")%>' runat="server"></asp:Label>
-                                <asp:Label ID="lblGDSalesEngineerUserID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesEngineer.UserID")%>' runat="server" Visible="false"></asp:Label>
+                                <asp:Label ID="lblGDSalesEngineer" Text='<%# DataBinder.Eval(Container.DataItem, "SalesDealerEngineer.ContactName")%>' runat="server"></asp:Label>
+                                <asp:Label ID="lblGDSalesEngineerUserID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesDealerEngineer.UserID")%>' runat="server" Visible="false"></asp:Label>
                             </ItemTemplate>
                             <FooterTemplate>
                                 <asp:DropDownList ID="ddlSalesEngineer" runat="server" CssClass="form-control" Visible="false" />

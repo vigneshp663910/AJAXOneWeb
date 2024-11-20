@@ -4,8 +4,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-
     <div class="col-md-12">
         <fieldset class="fieldset-border" id="fldDistrict" runat="server">
             <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
@@ -34,11 +32,11 @@
                     <label>Service Dealer</label>
                     <asp:DropDownList ID="ddlServiceDealer" runat="server" CssClass="form-control"></asp:DropDownList>
                 </div>
-                <div class="col-md-2 col-sm-12">
+                <div class="col-md-2 col-sm-12" style="display: none">
                     <label>Sales Retailer</label>
                     <asp:DropDownList ID="ddlSalesRetailer" runat="server" CssClass="form-control"></asp:DropDownList>
                 </div>
-                <div class="col-md-2 col-sm-12">
+                <div class="col-md-2 col-sm-12" style="display: none">
                     <label>Service Retailer</label>
                     <asp:DropDownList ID="ddlServiceRetailer" runat="server" CssClass="form-control"></asp:DropDownList>
                 </div>
@@ -99,7 +97,7 @@
                                     <asp:TemplateField HeaderText="District">
                                         <ItemTemplate>
                                             <asp:Label ID="lblGDsalesDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District")%>' runat="server"></asp:Label>
-                                            <asp:Label ID="lblGvDistrictID" Text='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblGvDistrictID" Text='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' runat="server" Visible="false"></asp:Label>
                                         </ItemTemplate>
                                         <FooterTemplate>
                                             <asp:Label ID="lblfGvDistrictID" runat="server" Visible="false"></asp:Label>
@@ -177,7 +175,7 @@
                                     <asp:TemplateField HeaderText="District">
                                         <ItemTemplate>
                                             <asp:Label ID="lblGDsalesDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District")%>' runat="server"></asp:Label>
-                                            <asp:Label ID="lblGvDistrictID" Text='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblGvDistrictID" Text='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' runat="server" Visible="false"></asp:Label>
                                         </ItemTemplate>
                                         <FooterTemplate>
                                             <asp:Label ID="lblfGvDistrictID" runat="server" Visible="false"></asp:Label>
@@ -209,7 +207,7 @@
                             </asp:GridView>
                         </ContentTemplate>
                     </asp1:TabPanel>
-                    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="Retailer Sales" Font-Bold="True">
+                    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="Retailer Sales" Font-Bold="True" Visible="false">
                         <ContentTemplate>
                             <asp:GridView ID="gvRetailerSales" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found">
                                 <Columns>
@@ -278,7 +276,7 @@
                             </asp:GridView>
                         </ContentTemplate>
                     </asp1:TabPanel>
-                    <asp1:TabPanel ID="TabPanel3" runat="server" HeaderText="Retailer Service" Font-Bold="True">
+                    <asp1:TabPanel ID="TabPanel3" runat="server" HeaderText="Retailer Service" Font-Bold="True" Visible="false">
                         <ContentTemplate>
                             <asp:GridView ID="gvRetailerService" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found">
                                 <Columns>
@@ -306,7 +304,7 @@
                                     <asp:TemplateField HeaderText="District">
                                         <ItemTemplate>
                                             <asp:Label ID="lblGDsalesDistrict" Text='<%# DataBinder.Eval(Container.DataItem, "District")%>' runat="server"></asp:Label>
-                                            <asp:Label ID="lblGvDistrictID" Text='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' runat="server"></asp:Label>
+                                            <asp:Label ID="lblGvDistrictID" Text='<%# DataBinder.Eval(Container.DataItem, "DistrictID")%>' runat="server" Visible="false"></asp:Label>
                                         </ItemTemplate>
                                         <FooterTemplate>
                                             <asp:Label ID="lblfGvDistrictID" runat="server" Visible="false"></asp:Label>
@@ -338,7 +336,7 @@
                             </asp:GridView>
                         </ContentTemplate>
                     </asp1:TabPanel>
-                    <asp1:TabPanel ID="TabPanel4" runat="server" HeaderText="List" Font-Bold="True">
+                    <asp1:TabPanel ID="TabPanel4" runat="server" HeaderText="List" Font-Bold="True" Visible="false">
                         <ContentTemplate>
                             <asp:GridView ID="gvList" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found">
                                 <Columns>

@@ -64,7 +64,7 @@ namespace Properties
     {
         public int DistrictID { get; set; }
         public string District { get; set; }
-        public string DistrictSAP { get; set; }
+        public Boolean Hilly { get; set; }
         public PDMS_State State { get; set; }
         public PDMS_Country Country { get; set; }
         public PSalesOffice SalesOffice { get; set; }

@@ -365,6 +365,7 @@ namespace DealerManagementSystem.ViewMaster
             ddlDealerOffice.BorderColor = Color.Silver;
             ddlDepartment.BorderColor = Color.Silver;
             ddlDesignation.BorderColor = Color.Silver;
+            ddlDistrict.BorderColor = Color.Silver;
             Boolean Ret = true;
             string Message = "";
             //if (string.IsNullOrEmpty(txtLoginUserName.Text.Trim()))
@@ -425,13 +426,7 @@ namespace DealerManagementSystem.ViewMaster
             //    Ret = false;
             //    ddlReportingTo.BorderColor = Color.Red;
             //}
-            //Commented By Vignesh and Suggestion by John
-            //if (District.Count == 0)
-            //{
-            //    Message = Message + "<br/>Please select the District";
-            //    Ret = false;
-            //    ddlDistrict.BorderColor = Color.Red;
-            //}
+            
 
 
             List<PDMS_DealerEmployee> Employee = new BDMS_Dealer().GetDealerEmployeeManage(null, null, null, null, "", txtSAPEmpCode.Text.Trim(), null, null, null);
@@ -457,6 +452,18 @@ namespace DealerManagementSystem.ViewMaster
                         Ret = false;
                         break;
                     }
+                }
+            }
+
+            PDealer d = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), null);
+            if((d.DealerType.DealerTypeID == (short)DealerType.Dealer) && (ddlDesignation.SelectedValue == "4"))
+            {
+
+                if (District.Count == 0)
+                {
+                    Message = Message + "<br/>Please select the District";
+                    Ret = false;
+                    ddlDistrict.BorderColor = Color.Red;
                 }
             }
 
