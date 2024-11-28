@@ -233,7 +233,7 @@ namespace DealerManagementSystem.ViewService
                 PDMS_PaidServiceInvoice SOIs = new BDMS_Service().GetPaidServiceInvoice(Convert.ToInt64(PaidServiceInvoiceID), null, null, null, null, null, null, null)[0];
 
 
-                if ((SOIs.ICTicket.Dealer.IsEInvoice) && (SOIs.ICTicket.Dealer.EInvoiceDate <= SOIs.InvoiceDate))
+                if ((SOIs.ICTicket.Dealer.IsEInvoice) && (SOIs.ICTicket.Dealer.EInvoiceDate <= SOIs.InvoiceDate) && SOIs.ICTicket.Dealer.ServicePaidEInvoice == true)
                 {
                     if (SOIs.InvoiceDetails.BuyerGSTIN.Trim() == "URD")
                     {

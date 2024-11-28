@@ -14,6 +14,16 @@
             overflow: auto;
         }
 </style>
+<script type="text/javascript"> 
+    function ConfirmPOSave() {
+        var x = confirm("Are you sure you want to Save?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+</script>
 <asp:HiddenField ID="hdfItemCount" runat="server" Value="0" />
 <div class="col-md-12">
     <div class="action-btn">
@@ -25,7 +35,7 @@
                 <asp:LinkButton ID="lbUploadMaterial" runat="server" OnClick="lbActions_Click">Upload Material</asp:LinkButton>
                 <asp:LinkButton ID="lbAddMaterialFromCart" runat="server" OnClick="lbActions_Click">Add Material From Cart</asp:LinkButton>
                 <asp:LinkButton ID="lbCopyFromPO" runat="server" OnClick="lbActions_Click">Copy From PO</asp:LinkButton>
-                <asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click">Save</asp:LinkButton>
+                <asp:LinkButton ID="lbSave" runat="server" OnClick="lbActions_Click"  OnClientClick="return ConfirmPOSave();">Save</asp:LinkButton>
             </div>
         </div>
     </div>

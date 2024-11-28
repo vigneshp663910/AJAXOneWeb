@@ -178,23 +178,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             gv.DataBind();
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + LDistrict.Count;
 
+            DropDownList ddlfGvCountry = gvDistrict.FooterRow.FindControl("ddlfGvCountry") as DropDownList;
+            new DDLBind(ddlfGvCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
 
-            DropDownList ddlGDCountry = gvDistrict.FooterRow.FindControl("ddlGDCountry") as DropDownList;
-            new DDLBind(ddlGDCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID", true, "Select Country");
+            DropDownList ddlfGvState = gvDistrict.FooterRow.FindControl("ddlfGvState") as DropDownList;
+            new DDLBind(ddlfGvState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID", true, "Select State");
 
-            DropDownList ddlGDState = gvDistrict.FooterRow.FindControl("ddlGDState") as DropDownList;
-            new DDLBind(ddlGDState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID", true, "Select State");
-
-            DropDownList ddlGDSalesOffice = gvDistrict.FooterRow.FindControl("ddlGDSalesOffice") as DropDownList;
-            new DDLBind(ddlGDSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
-
-            DropDownList ddlGDDealer = gvDistrict.FooterRow.FindControl("ddlGDDealer") as DropDownList;
-            new DDLBind(ddlGDDealer, new BDMS_Dealer().GetDealer(null, null, null, null), "DealerCode", "DealerID", true, "Select Dealer");
-
-            DropDownList ddlSalesEngineer = gvDistrict.FooterRow.FindControl("ddlSalesEngineer") as DropDownList;
-            //new DDLBind(ddlSalesEngineer, new BUser().GetUsers(null, null, 7, null, null, true, null, null, null), "ContactName", "UserID", true, "Select Engineer");
-            List<PUser> DealerUser = new BUser().GetUsers(null, null, 7, null, null, true, null, null, 4);
-            new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID", true, "Select Sales Engineer");
+            DropDownList ddlfGvSalesOffice = gvDistrict.FooterRow.FindControl("ddlfGvSalesOffice") as DropDownList;
+            new DDLBind(ddlfGvSalesOffice, new BDMS_Address().GetSalesOffice(null, null), "SalesOffice", "SalesOfficeID", true, "Select SalesOffice");
+            ActionControlMange();
         }
         protected void lnkBtnDistrictEdit_Click(object sender, EventArgs e)
         {
@@ -417,5 +409,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
         }
 
+        protected void gvDistrict_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvDistrict.PageIndex = e.NewPageIndex;
+            DistrictBind(gvDistrict, lblRowCountD, LDistrict);
+        }
     }
 }
