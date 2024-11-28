@@ -116,6 +116,7 @@
     <Compile Include="PTickets.cs" />
     <Compile Include="PUser.cs" />
     <Compile Include="PUserPermission.cs" />
+    <Compile Include="PUserPurchaseOrderTypeMapping.cs" />
     <Compile Include="YDMS\PDMS_Activity.cs" />
     <Compile Include="ZF.cs" />
   </ItemGroup>

@@ -195,6 +195,7 @@
     <Compile Include="BTestSN.cs" />
     <Compile Include="BTickets.cs" />
     <Compile Include="BUser.cs" />
+    <Compile Include="BUserPurchaseOrderTypeMapping.cs" />
     <Compile Include="BUserType.cs" />
     <Compile Include="BXcel.cs">
       <SubType>ASPXCodeBehind</SubType>
