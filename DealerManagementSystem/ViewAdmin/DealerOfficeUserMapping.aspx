@@ -127,12 +127,6 @@
                                                         <asp:Label ID="lblModifiedOn" Text='<%# DataBinder.Eval(Container.DataItem, "ModifiedOn")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="IsActive">
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblIsActive" Text='<%# Eval("IsActive").ToString() == "True" ? "Yes" : "No"%>' runat="server"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
                                             </Columns>
                                             <AlternatingRowStyle BackColor="#ffffff" />
                                             <FooterStyle ForeColor="White" />
