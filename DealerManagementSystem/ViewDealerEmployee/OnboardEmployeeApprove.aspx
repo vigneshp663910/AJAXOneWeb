@@ -57,15 +57,9 @@
                     </div>
                     <asp:GridView ID="gvEmployee" runat="server" Width="100%" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" PageSize="10" AllowPaging="true" EmptyDataText="No Data Found">
                         <Columns>
-                            <%--<asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                            <asp:TemplateField HeaderText="Action">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
-                            <asp:TemplateField HeaderText="View">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "OnboardEmployeeID")%>'>View</asp:LinkButton>
+                                    <asp:Button ID="lbView" runat="server" Text="View" CssClass="btn Back" OnClick="lbView_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "OnboardEmployeeID")%>' Width="75px" Height="25px" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Emp Code">
@@ -120,6 +114,12 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Status">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblStatus" Text='<%# Eval("Status.Status") %>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

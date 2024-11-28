@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
-                    <div class="col-md-12">                        
+                    <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Emp Code</label>
                             <asp:TextBox ID="txtEmpCode" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="14" onkeydown="return isNumber(event);"></asp:TextBox>
@@ -57,9 +57,9 @@
                     </div>
                     <asp:GridView ID="gvEmployee" runat="server" Width="100%" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" PageSize="10" AllowPaging="true" EmptyDataText="No Data Found">
                         <Columns>
-                            <asp:TemplateField HeaderText="View">
+                            <asp:TemplateField HeaderText="Action">
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "OnboardEmployeeID")%>'>View</asp:LinkButton>
+                                    <asp:Button ID="lbView" runat="server" Text="View" CssClass="btn Back" OnClick="lbView_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "OnboardEmployeeID")%>' Width="75px" Height="25px" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Emp Code">
@@ -109,17 +109,25 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblDateOfJoining" Text='<%# DataBinder.Eval(Container.DataItem, "DateOfJoining")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                            </asp:TemplateField>                            
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Created On">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Approver Status">
+                            <asp:TemplateField HeaderText="Approved By">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                    <asp:Label ID="lblApproverStatus" Text='<%# Eval("IsApproved") == null ? "" : Eval("IsApproved").ToString() == "True" ? "Approved" : "Rejected" %>' runat="server"></asp:Label>
+                                    <asp:Label ID="lblApprovedBy" Text='<%# DataBinder.Eval(Container.DataItem, "Approver.ContactName")%>' runat="server"></asp:Label>
+                                    <br />
+                                    <asp:Label ID="lblApprovedOn" Text='<%# DataBinder.Eval(Container.DataItem, "ApprovedOn")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Status">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblStatus" Text='<%# Eval("Status.Status") %>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

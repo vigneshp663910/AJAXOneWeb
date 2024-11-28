@@ -1,5 +1,44 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnboardEmployeeView.ascx.cs" Inherits="DealerManagementSystem.ViewDealerEmployee.UserControls.OnboardEmployeeView" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<div class="col-md-12">
+    <script type="text/javascript">
+        function ConfirmReject() {
+            var x = confirm("Are you sure you want to Reject Employee?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+        function ConfirmApprove() {
+            var x = confirm("Are you sure you want to Approve Employee?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+        function ConfirmGenerate() {
+            var x = confirm("Are you sure you want to Generate User?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+    </script>
+    <div class="action-btn">
+        <div class="" id="boxHere"></div>
+        <div class="dropdown btnactions" id="customerAction">
+            <div class="btn Approval">Actions</div>
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                <asp:LinkButton ID="lbApprove" runat="server" OnClientClick="return ConfirmApprove();" OnClick="lbActions_Click">Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbReject" runat="server" OnClientClick="return ConfirmReject();" OnClick="lbActions_Click">Reject</asp:LinkButton>
+                <asp:LinkButton ID="lbGenerate" runat="server" OnClientClick="return ConfirmGenerate();" OnClick="lbActions_Click">Generate User</asp:LinkButton>
+            </div>
+        </div>
+    </div>
+</div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <div class="col-md-12">
     <div class="col-md-12">
@@ -156,29 +195,90 @@
                 </div>
             </div>
         </fieldset>
-        <div class="col-md-12" id="DivApprover" runat="server" visible="false">
-            <div class="col-md-3 text-right">
-                <label>Module Permission</label>
+        <fieldset class="fieldset-border">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Approver Information</legend>
+            <div class="col-md-12">
+                <div class="col-md-3 text-right">
+                    <label>Approved By</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblApprovedBy" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Approved On</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblApprovedOn" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Status</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <br />
+                <div class="col-md-3 text-right">
+                    <label>Module Permission</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblModulePermission" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Dealer Permission</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblDealerPermission" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Remarks</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblApproverRemarks" runat="server" CssClass="label"></asp:Label>
+                </div>
             </div>
-            <div class="col-md-3">
-                <asp:TextBox ID="txtModulePermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
+        </fieldset>
+        <fieldset class="fieldset-border" id="DivApprover" runat="server" visible="false">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Permission</legend>
+            <div class="col-md-12">
+                <div class="col-md-3 text-right">
+                    <label>Module Permission</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:TextBox ID="txtModulePermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Dealer Permission</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:TextBox ID="txtDealerPermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Remarks</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:TextBox ID="txtRemarks" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                </div>
             </div>
-            <div class="col-md-3 text-right">
-                <label>Dealer Permission</label>
-            </div>
-            <div class="col-md-3">
-                <asp:TextBox ID="txtDealerPermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
-            </div>
-            <div class="col-md-3 text-right">
-                <label>Approver Remarks</label>
-            </div>
-            <div class="col-md-3">
-                <asp:TextBox ID="txtRemarks" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
-            </div>
-            <div class="col-md-12 text-center">
-                <asp:Button ID="btnApprove" runat="server" Text="Approve" CssClass="btn btn-success" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnApprove_Click" />
-                <asp:Button ID="btnReject" runat="server" Text="Reject" CssClass="btn btn-danger" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnReject_Click" />
-            </div>
-        </div>
+        </fieldset>
     </div>
 </div>
+<%--<asp:Panel ID="pnlAjaxEmployeeCreate" runat="server" CssClass="Popup" Style="display: none;">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Generate User Creation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+    <asp:Label ID="lblMessageAjaxEmployeeCreate" runat="server" Text="" CssClass="message" Visible="false" />
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <UC:UC_AjaxEmployeeCreate ID="UC_AjaxEmployeeCreate" runat="server"></UC:UC_AjaxEmployeeCreate>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="BtnCreateAjaxEmployee" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnCreateAjaxEmployee_Click"></asp:Button>
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_CreateAjaxEmployee" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAjaxEmployeeCreate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<div style="display: none">
+    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+</div>--%>

@@ -49,9 +49,9 @@ namespace Business
                 + "&DealerDesignationID=" + DealerDesignationID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public bool ApproveOnboardEmployee(int OnboardEmployeeID, string ModulePermission, string DealerPermission, string ApprovedRemark, bool IsApproved)
+        public bool ApproveOnboardEmployee(int OnboardEmployeeID, string ModulePermission, string DealerPermission, string ApprovedRemark, bool IsApproved, int StatusId)
         {
-            string endPoint = "OnboardEmployee/ApproveOnboardEmployee?OnboardEmployeeID=" + OnboardEmployeeID + "&ModulePermission=" + ModulePermission + "&DealerPermission=" + DealerPermission + "&ApprovedRemark=" + ApprovedRemark + "&IsApproved=" + IsApproved;
+            string endPoint = "OnboardEmployee/ApproveOnboardEmployee?OnboardEmployeeID=" + OnboardEmployeeID + "&ModulePermission=" + ModulePermission + "&DealerPermission=" + DealerPermission + "&ApprovedRemark=" + ApprovedRemark + "&IsApproved=" + IsApproved + "&StatusId=" + StatusId;
             return JsonConvert.DeserializeObject<bool>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }

@@ -171,7 +171,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
         }
         protected void lbView_Click(object sender, EventArgs e)
         {
-            LinkButton lbView = (LinkButton)sender;
+            Button lbView = (Button)sender;
             divList.Visible = false;
             divOnboardEmployeeView.Visible = true;
             UC_OnboardEmployeeView.FillOnboardEmployee(Convert.ToInt32(lbView.CommandArgument));

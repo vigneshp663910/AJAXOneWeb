@@ -516,6 +516,7 @@ namespace Properties
         ViewSales_Report_OofCustomerReport = 270,
         ViewSupportTicket_TaskMeasurement = 271,
         ViewSupportTicket_TaskSummaryDetails = 272,
+        ViewAdmin_UserPurchaseOrderTypeMapping = 273,
     }
     public enum SubModuleChildMaster
     {
@@ -617,7 +618,10 @@ namespace Properties
         StockTransferOrderRelease = 96,
         StockTransferOrderCancel = 97,
         CustomerEdit = 98,
-        DealerOfficeUserMappingUpdate = 99
+        DealerOfficeUserMappingUpdate = 99,
+        UserPurchaseOrderTypeMappingUpdate = 100,
+
+        OnboardEmployeeGenerateUser = 102,
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -990,6 +994,13 @@ namespace Properties
         Commissioning = 2,
         ClaimApprovalDelay = 3,
         ClaimCreationDelay = 4,
+    }
+    public enum OnboardEmployeeStatus
+    {
+        Requested = 1,
+        Approved = 2,
+        Rejected = 3,
+        Created = 4
     }
 }
 

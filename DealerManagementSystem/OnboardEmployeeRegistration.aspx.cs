@@ -102,7 +102,7 @@ namespace DealerManagementSystem
             Emp.DealerDepartmentID = Convert.ToInt32(ddlDepartment.SelectedValue);
             Emp.DealerDesignationID = Convert.ToInt32(ddlDesignation.SelectedValue);
             Emp.ReportingTo = Convert.ToInt32(ddlReportingTo.SelectedValue);
-            Emp.UserID = 1;
+            Emp.StatusId = (short)OnboardEmployeeStatus.Requested;
 
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee", Emp));
             if (Result.Status == PApplication.Failure)

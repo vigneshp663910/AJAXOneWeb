@@ -33,6 +33,7 @@ namespace Properties
         public PDMS_DealerDepartment DealerDepartment { get; set; }
         public PDMS_DealerDesignation DealerDesignation { get; set; }
         public PDMS_DealerEmployee ReportingTo { get; set; }
+        public PUser CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public PUser Approver { get; set; }
         public DateTime? ApprovedOn { get; set; }
@@ -40,6 +41,13 @@ namespace Properties
         public string ModulePermission { get; set; }
         public string DealerPermission { get; set; }
         public string ApprovedRemark { get; set; }
+        public POnboardEmployeeStatus Status { get; set; }
+    }
+    public class POnboardEmployeeStatus
+    {
+        public int StatusId { get; set; }
+        public string Status { get; set; }
+        public bool IsActive { get; set; }
     }
     public class POnboardEmployee_Insert
     {
@@ -67,6 +75,6 @@ namespace Properties
         public int DealerDepartmentID { get; set; }
         public int DealerDesignationID { get; set; }
         public int ReportingTo { get; set; }
-        public int UserID { get; set; }
+        public int StatusId { get; set; }
     }
 }
