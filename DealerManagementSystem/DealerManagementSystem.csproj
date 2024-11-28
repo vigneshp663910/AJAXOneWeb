@@ -440,6 +440,7 @@
     <Content Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
+    <Content Include="ViewAdmin\UserPurchaseOrderTypeMapping.aspx" />
     <Content Include="ViewAdmin\VisitTagetPlanning.aspx" />
     <Content Include="ViewBusinessExcellence\DealerBusinessExcellence.aspx" />
     <Content Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx" />
@@ -1284,6 +1285,13 @@
     </Compile>
     <Compile Include="ViewAdmin\UserMobileManagement.aspx.designer.cs">
       <DependentUpon>UserMobileManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserPurchaseOrderTypeMapping.aspx.cs">
+      <DependentUpon>UserPurchaseOrderTypeMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserPurchaseOrderTypeMapping.aspx.designer.cs">
+      <DependentUpon>UserPurchaseOrderTypeMapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\VisitTagetPlanning.aspx.cs">
       <DependentUpon>VisitTagetPlanning.aspx</DependentUpon>
