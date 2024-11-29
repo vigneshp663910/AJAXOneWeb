@@ -975,9 +975,14 @@ namespace Business
                 report.EnableExternalImages = true;
 
                 ReportParameter[] P =null;
-                if ((PaidServiceInvoice.ICTicket.Dealer.IsEInvoice) && (PaidServiceInvoice.ICTicket.Dealer.EInvoiceDate <= PaidServiceInvoice.InvoiceDate) && (Customer.GSTIN != "URD"))
+                PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetPaidServiceInvoiceESigned(ServiceInvoiceHeaderID);
+                if (PaidServiceInvoice.ICTicket.Dealer.ServicePaidEInvoice == false && string.IsNullOrEmpty(PaidServiceInvoice.IRN))
                 {
-                    PDMS_EInvoiceSigned EInvoiceSigned = new BDMS_EInvoice().GetPaidServiceInvoiceESigned(ServiceInvoiceHeaderID);
+                    P = new ReportParameter[28];
+                    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/DMS_PaidServiceInvoice.rdlc");
+                }
+                else if((PaidServiceInvoice.ICTicket.Dealer.IsEInvoice) && (PaidServiceInvoice.ICTicket.Dealer.EInvoiceDate <= PaidServiceInvoice.InvoiceDate) && (Customer.GSTIN != "URD"))
+                { 
                     P = new ReportParameter[30];
                     P[28] = new ReportParameter("QRCodeImg", new BDMS_EInvoice().GetQRCodePath(EInvoiceSigned.SignedQRCode, PaidServiceInvoice.InvoiceNumber), false);
                     P[29] = new ReportParameter("IRN", "IRN : " + PaidServiceInvoice.IRN, false);

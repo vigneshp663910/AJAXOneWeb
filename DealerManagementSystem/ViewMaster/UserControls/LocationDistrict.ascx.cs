@@ -402,9 +402,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 for (int i = 0; i < gvDistrict.Rows.Count; i++)
                 {
                     ((LinkButton)gvDistrict.Rows[i].FindControl("lnkBtnDistrictEdit")).Visible = false;
-                    ((LinkButton)gvDistrict.Rows[i].FindControl("lnkBtnDistrictDelete")).Visible = false;
-                    ((LinkButton)gvDistrict.Rows[i].FindControl("BtnAddOrUpdateDistrict")).Visible = false;
+                    ((LinkButton)gvDistrict.Rows[i].FindControl("lnkBtnDistrictDelete")).Visible = false;                    
                 }
+                ((Button)gvDistrict.FooterRow.FindControl("BtnAddOrUpdateDistrict")).Visible = false;
                 gvDistrict.ShowFooter = false;
             }
         }
