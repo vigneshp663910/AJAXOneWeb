@@ -179,12 +179,7 @@ namespace DealerManagementSystem
             new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow");
         }
 
-        protected void btnUpdateServiceDeliveryNumber_Click(object sender, EventArgs e)
-        {
-            new BIntegration().UpdateSaleOrderNumberFromPostgres();
-
-            //new BAPI().ApiGetWithOutToken("ICTicket/UpdateSaleOrderNumberFromPostgres");
-        }
+        
    
        void FSRSignatur()
         {

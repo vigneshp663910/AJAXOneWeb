@@ -18,7 +18,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class SalesQuotationView : System.Web.UI.UserControl
     {
-
         public PSalesQuotation Quotation
         {
             get
@@ -34,7 +33,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 ViewState["SalesQuotationView"] = value;
             }
         }
-
         public PSalesQuotationCustomerSinged Singed
         {
             get

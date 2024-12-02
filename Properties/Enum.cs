@@ -682,7 +682,7 @@ namespace Properties
         // ICTicketIntegrationFromCRM = 3,
         MaterialIntegrationFromPostgre = 4,
         SAPDocumentForWarrantyInvoiceFromSAP = 5,
-        SaleOrderNumberForSrviceQuatationFromSAP = 6,
+       // SaleOrderNumberForSrviceQuatationFromSAP = 6,
         //  TechnicianIntegrationFromSAP = 7,
         RebuildIndex = 8,
         //  ModelForClaim = 9,

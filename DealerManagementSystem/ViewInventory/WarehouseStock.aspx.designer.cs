@@ -8,9 +8,7 @@
 //------------------------------------------------------------------------------
 
 namespace DealerManagementSystem.ViewInventory
-{
-
-
+{ 
     public partial class WarehouseStock
     {
 

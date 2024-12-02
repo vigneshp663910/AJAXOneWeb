@@ -153,7 +153,7 @@
                                     <asp:Label ID="lblBlockedQty" Text='<%# DataBinder.Eval(Container.DataItem, "BlockedQty","{0:0}")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Reserved Qty">
+                            <asp:TemplateField HeaderText="Reserved (Sale Order) Qty">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                      <asp:LinkButton ID="lbReservedQty" Text='<%# DataBinder.Eval(Container.DataItem, "ReservedQty","{0:0}" )%>' runat="server" OnClick="lblLinkButton_Click" />

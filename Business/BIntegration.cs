@@ -126,11 +126,11 @@ namespace Business
                         //new BDMS_WarrantyClaimInvoice().UpdateSAPDocumentNumber();
                         new BAPI().ApiGetWithOutToken("Warranty/UpdateSAPDocumentNumber"); 
                         break;
-                    case Jobs.SaleOrderNumberForSrviceQuatationFromSAP:
-                        new FileLogger().LogMessageService("Started", "SaleOrder Number For Srvice Quatation From SAP", null);
-                        UpdateSaleOrderNumberFromPostgres();
-                        new FileLogger().LogMessageService("Ended", "Sale Order Number For Srvice Quatation From SAP Total Record" + C.ToString(), null);
-                        break;
+                    //case Jobs.SaleOrderNumberForSrviceQuatationFromSAP:
+                    //    new FileLogger().LogMessageService("Started", "SaleOrder Number For Srvice Quatation From SAP", null);
+                    //    UpdateSaleOrderNumberFromPostgres();
+                    //    new FileLogger().LogMessageService("Ended", "Sale Order Number For Srvice Quatation From SAP Total Record" + C.ToString(), null);
+                    //    break;
 
                     //case Jobs.TechnicianIntegrationFromSAP:
                     //    new FileLogger().LogMessageService("Started", "Technician Integration From SAP", null);
@@ -231,10 +231,6 @@ namespace Business
             }
             return activeJobs;
         }
-
-        public void UpdateSaleOrderNumberFromPostgres()
-        { 
-            new BAPI().ApiGetWithOutToken("ICTicket/UpdateSaleOrderNumberFromPostgres"); 
-        }
+         
     }
 }
