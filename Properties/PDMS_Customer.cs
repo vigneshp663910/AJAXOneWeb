@@ -92,7 +92,8 @@ namespace Properties
         public Boolean IsFinanceVerified { get; set; }
         public PUser FinanceVerifiedBy { get; set; }
         public DateTime? FinanceVerifiedOn { get; set; }
-
+        public PCustomerSalesType SalesType { get; set; }
+        
     }
     [Serializable]
     public class PDMS_Customer_Insert
@@ -121,6 +122,7 @@ namespace Properties
         public Boolean SendSMS { get; set; }
         public Boolean SendEmail { get; set; }
         public Boolean IsDraft { get; set; }
+        public int CustomerSalesTypeID { get; set; }
     }
     [Serializable]
     public class PDMS_CustomerShipTo
@@ -279,5 +281,12 @@ namespace Properties
         public int DesignationID { get; set; }
         public string Designation { get; set; }
         public string DesignationCode { get; set; }
+    }
+
+    [Serializable]
+    public class PCustomerSalesType
+    {
+        public long SalesTypeID { get; set; }
+        public string SalesType { get; set; } 
     }
 }

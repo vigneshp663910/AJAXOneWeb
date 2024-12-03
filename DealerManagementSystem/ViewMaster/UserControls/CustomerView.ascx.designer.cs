@@ -276,6 +276,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.Label lblPinCode;
 
         /// <summary>
+        /// lblSalesType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSalesType;
+
+        /// <summary>
         /// lblLastVisitDate control.
         /// </summary>
         /// <remarks>
@@ -283,15 +292,6 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLastVisitDate;
-
-        /// <summary>
-        /// cbOrderBlock control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbOrderBlock;
 
         /// <summary>
         /// cbIsActive control.
@@ -303,15 +303,6 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.CheckBox cbIsActive;
 
         /// <summary>
-        /// cbBillingBlock control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbBillingBlock;
-
-        /// <summary>
         /// cbVerified control.
         /// </summary>
         /// <remarks>
@@ -319,6 +310,24 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox cbVerified;
+
+        /// <summary>
+        /// cbOrderBlock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbOrderBlock;
+
+        /// <summary>
+        /// cbBillingBlock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbBillingBlock;
 
         /// <summary>
         /// cbDeliveryBlock control.
