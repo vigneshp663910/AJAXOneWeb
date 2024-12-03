@@ -817,7 +817,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     dtItem.Rows.Add(sno += 1, Item.Material.MaterialCode, Item.Material.MaterialDescription, Item.Material.HSN, Item.Quantity.ToString("0")
                         , Item.Material.BaseUnit, String.Format("{0:n}", Item.Value), String.Format("{0:n}", Item.DiscountValue), String.Format("{0:n}", Item.TaxableValue)
                         , String.Format("{0:n}", 0), String.Format("{0:n}", 0), String.Format("{0:n}", Item.Material.IGST), String.Format("{0:n}", Item.Material.IGSTValue));
-                    SubTotal += (Item.TaxableValue + Item.Material.IGSTValue + Item.Material.IGSTValue);
+                    SubTotal += Item.TaxableValue + Item.Material.IGSTValue;
                     TotalDiscount += Item.DiscountValue;
                     TotalTaxable += Item.TaxableValue;
                     TotalSGSTVal += Item.Material.IGSTValue;
