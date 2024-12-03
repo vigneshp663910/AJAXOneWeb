@@ -312,10 +312,21 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
         {
             ddlVendor.DataTextField = "CodeWithDisplayName";
             ddlVendor.DataValueField = "DealerID";
-            //ddlVendor.DataSource = new BDMS_Dealer().GetDealerAll(null, null, null, OrderTo == "1" ? 1 : 2);
-            ddlVendor.DataSource = new BDMS_Dealer().GetDealerAll(null, null, null, Convert.ToInt32(OrderTo));
-            ddlVendor.DataBind();
-            ddlVendor.Items.Insert(0, new ListItem("Select", "0"));
+            //ddlVendor.DataSource = new BDMS_Dealer().GetDealerAll(null, null, null, OrderTo == "1" ? 1 : 2); 
+
+            PDealer d = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), null);
+            if (d.DealerType.DealerTypeID == (short)DealerType.Retailer && ddlOrderTo.SelectedValue != "1")
+            { 
+                ddlVendor.DataSource = new BDMS_Dealer().GetDealerByMappedRetailerID(Convert.ToInt32(ddlDealer.SelectedValue));
+                ddlVendor.DataBind(); 
+            }
+            else
+            {
+                ddlVendor.DataSource = new BDMS_Dealer().GetDealerAll(null, null, null, null, Convert.ToInt32(OrderTo));
+                ddlVendor.DataBind();
+                ddlVendor.Items.Insert(0, new ListItem("Select", "0"));
+            }
+           
             if (ddlOrderTo.SelectedValue == "1")
                 ddlVendor.SelectedValue = ConfigurationManager.AppSettings["AjaxDealerID"];
         }
@@ -400,9 +411,14 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             string OrderType = ddlPurchaseOrderType.SelectedValue;
 
-            if ((OrderType == "1") || (OrderType == "2") || (OrderType == "7") || (OrderType == "8"))
+            PDealer d = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), null); 
+            if ((OrderType == "1") || (OrderType == "2") || (OrderType == "6") || (OrderType == "7") || (OrderType == "8"))
             {
                 ddlDivision.Items.Insert(1, new ListItem("Parts", "15"));
+            }
+            else if (ddlPurchaseOrderType.SelectedValue == "5" && d.DealerType.DealerTypeID == (short)DealerType.Retailer)
+            {
+                ddlDivision.Items.Insert(1, new ListItem("UDAAN", "5"));
             }
             else if (ddlPurchaseOrderType.SelectedValue == "5")
             {
@@ -413,11 +429,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 ddlDivision.Items.Insert(5, new ListItem("Transit Mixer", "11"));
                 ddlDivision.Items.Insert(6, new ListItem("Mobile Concrete Equipment", "14"));
                 ddlDivision.Items.Insert(7, new ListItem("Placing Equipment", "19"));
-            }
-            else if (ddlPurchaseOrderType.SelectedValue == "6")
-            {
-                ddlDivision.Items.Insert(1, new ListItem("Parts", "15")); 
-            }
+            } 
             //if (OrderType == "1" || OrderType == "6")
             //{
             //    Btn_MatAvailability.Visible = true;
