@@ -92,7 +92,7 @@ namespace Properties
         public Boolean IsFinanceVerified { get; set; }
         public PUser FinanceVerifiedBy { get; set; }
         public DateTime? FinanceVerifiedOn { get; set; }
-        public PCustomerSalesType SalesType { get; set; }
+        public PPreSalesMasterItem SalesType { get; set; }
         
     }
     [Serializable]
@@ -283,10 +283,5 @@ namespace Properties
         public string DesignationCode { get; set; }
     }
 
-    [Serializable]
-    public class PCustomerSalesType
-    {
-        public long SalesTypeID { get; set; }
-        public string SalesType { get; set; } 
-    }
+   
 }

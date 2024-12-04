@@ -87,7 +87,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblEmail.Text = "<a href='mailto:" + Customer.Email + "'>" + Customer.Email + "</a>";
             lblGSTIN.Text = Customer.GSTIN;
             lblPAN.Text = Customer.PAN;
-            lblSalesType.Text = Customer.SalesType.SalesType;
+            lblSalesType.Text = Customer.SalesType.ItemText;
             string Address = Customer.Address1 + ", " + Customer.Address2 + ", " + Customer.District.District + ", " + Customer.State.State;
 
             lblAddress1.Text = Customer.Address1;

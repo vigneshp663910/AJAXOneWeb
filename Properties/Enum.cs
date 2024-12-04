@@ -999,5 +999,11 @@ namespace Properties
         ClaimApprovalDelay = 3,
         ClaimCreationDelay = 4,
     }
+    public enum PreSalesMasterHeader
+    {
+        CustomerVisitType = 1,
+        CallType = 2,
+        CustomerSalesType = 3, 
+    }
 }
 

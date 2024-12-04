@@ -26,6 +26,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             cxDOAnniversary.EndDate = DateTime.Now;
             cxDOB.EndDate = DateTime.Now;
             //fillDealer();
+            new DDLBind(ddlSalesType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.CustomerSalesType), "ItemText", "MasterItemID");
             new DDLBind(ddlTitle, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID",false);
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             PDealer Dealer = PSession.User.Dealer[0];
@@ -152,7 +153,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 ddlTehsil.SelectedValue = Convert.ToString(Customer.Tehsil.TehsilID);
             }
-            ddlSalesType.SelectedValue = Convert.ToString(Customer.SalesType.SalesTypeID); 
+            ddlSalesType.SelectedValue = Convert.ToString(Customer.SalesType.MasterItemID); 
             txtDOB.Text = Customer.DOB == null ? "" : ((DateTime)Customer.DOB).ToString("yyyy-MM-dd");
             txtDOAnniversary.Text = Customer.DOAnniversary == null ? "" : ((DateTime)Customer.DOAnniversary).ToString("yyyy-MM-dd");
             cbSendSMS.Checked = Customer.SendSMS;
