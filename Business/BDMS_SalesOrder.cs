@@ -1470,7 +1470,7 @@ namespace Business
                     else
                     {
                         GST_Header = "IGST";
-                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.IGSTValue, null, item.TaxableValue + item.Material.IGSTValue);
+                        CommissionDT.Rows.Add(i, item.Material.MaterialCode, item.Material.MaterialDescription, item.Material.HSN, item.Material.BaseUnit, item.Qty, item.Value, item.TaxableValue, item.IGST, null, item.IGSTValue, null, item.TaxableValue + item.IGSTValue);
 
                         CessValue = CessValue + item.CessValue;
                         CessSubTotal = CessSubTotal + item.TaxableValue + item.IGSTValue + item.CessValue;
@@ -1524,7 +1524,7 @@ namespace Business
                 LocalReport report = new LocalReport();
                 report.EnableExternalImages = true;
 
-                ReportParameter[] P = new ReportParameter[27];
+                ReportParameter[] P = new ReportParameter[29];
                 report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoiceQRCode.rdlc");
 
                 P[24] = new ReportParameter("QRCodeImg", "", false);
@@ -1569,7 +1569,7 @@ namespace Business
                 //    P = new ReportParameter[24];
                 //    report.ReportPath = HttpContext.Current.Server.MapPath("~/Print/PartsInvoice.rdlc");
                 //}
-                long GrandTotal = Convert.ToInt64(Math.Round(CessSubTotal));
+                long GrandTotal = Convert.ToInt64(Math.Round(CessSubTotal + D.TCSValue));
 
                 //   ViewState["Month"] = ddlMonth.SelectedValue;
                 P[0] = new ReportParameter("DealerCode", Dealer.DealerCode, false);
@@ -1598,7 +1598,8 @@ namespace Business
                 P[22] = new ReportParameter("CessValue", Convert.ToString(CessValue), false);
                 P[23] = new ReportParameter("CessSubTotal", Convert.ToString(CessSubTotal), false);
                 P[26] = new ReportParameter("Remarks", "Remarks : " + D.Remarks, false);
-
+                P[27] = new ReportParameter("Tcs", Convert.ToString(D.TCSTax), false);
+                P[28] = new ReportParameter("TcsValue", Convert.ToString(D.TCSValue), false);
                 ReportDataSource rds = new ReportDataSource();
                 rds.Name = "DataSet1";//This refers to the dataset name in the RDLC file  
                 rds.Value = CommissionDT;
