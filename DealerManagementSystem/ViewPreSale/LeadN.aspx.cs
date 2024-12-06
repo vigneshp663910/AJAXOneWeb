@@ -130,7 +130,38 @@ namespace DealerManagementSystem.ViewPreSale
                 return;
             }
             Lead.Customer = UC_Customer.ReadCustomer();
-            
+            if (Lead.Customer.CustomerID == 0)
+            {
+                if (Lead.ProductTypeID == (short)ProductType.Udaan)
+                {
+                    Lead.Customer.CustomerSalesTypeID = (short)PreSalesMasterItem.UdaanCustomer;
+                }
+                else
+                {
+                    Lead.Customer.CustomerSalesTypeID = (short)PreSalesMasterItem.RegularCustomer;
+                }
+            }
+            else
+            {
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(Lead.Customer.CustomerID);
+                if (Customer.SalesType.MasterItemID == (short)PreSalesMasterItem.RegularCustomer)
+                {
+                    if (Lead.ProductTypeID == (short)ProductType.Udaan)
+                    {
+                        lblMessageLead.Text = "You can not select this customer. To select this customer, please contact Co-ordinator";
+                        return;
+                    }
+                }
+                else if (Customer.SalesType.MasterItemID == (short)PreSalesMasterItem.UdaanCustomer)
+                {
+                    if (Lead.ProductTypeID != (short)ProductType.Udaan)
+                    {
+                        lblMessageLead.Text = "You can not select this customer. To select this customer, please contact Co-ordinator";
+                        return;
+                    }
+                }
+            }
+
             string result = new BAPI().ApiPut("Lead", Lead);
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
             

@@ -850,9 +850,10 @@ namespace Properties
         BoomPump = 5,
         SlipFormPaver = 6,
         Dumper = 7,
+        Udaan=10,
         DumperOld = 11,
         SpareParts = 12,
-        PlacingEquipment = 13
+        PlacingEquipment = 13,
     }
     public enum AjaxOneStatusHeader
     {
@@ -1004,6 +1005,12 @@ namespace Properties
         CustomerVisitType = 1,
         CallType = 2,
         CustomerSalesType = 3, 
+    }
+    public enum PreSalesMasterItem
+    {
+        RegularCustomer = 10,
+        UdaanCustomer = 11,
+        Regular_UdaanCustomer = 12
     }
 }
 
