@@ -926,7 +926,7 @@ namespace Properties
         PaymentMode_Cash = 51,
         PartsSalesType_Engineer = 52,
         PaymentMode_Credit = 53,
-        SaleOrderDelivery_Cancelled=54
+        SaleOrderDelivery_Cancelled=56,
     }
     public enum ProcurementStatusHeader
     {

@@ -181,7 +181,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 lbReleaseSaleOrder.Visible = false;
                 lbGenerateProformaInvoice.Visible = false;
             }
-            else if (StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled) //Cancelled
+            else if (StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled || StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyClosed) 
             {
                 lbEditSaleOrder.Visible = false;
                 lbCancelSaleOrder.Visible = false;
@@ -233,6 +233,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             if (StatusID == (short)AjaxOneStatus.SaleOrder_OrderPlaced
                 || StatusID == (short)AjaxOneStatus.SaleOrder_Delivered
                 || StatusID == (short)AjaxOneStatus.SaleOrder_Cancelled
+                || StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyClosed
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder
                 )
@@ -1088,88 +1089,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             SO.Freight = string.IsNullOrEmpty(txtFreight.Text.Trim()) ? 0 : Convert.ToDecimal(txtFreight.Text.Trim());
             SO.PackingAndForward = string.IsNullOrEmpty(txtPackingAndForward.Text.Trim()) ? 0 : Convert.ToDecimal(txtPackingAndForward.Text.Trim());
             return SO;
-        }
-        public PSaleOrderItem_Insert ReadItem()
-        {
-            PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
-            SoI.SaleOrderID = SOrder.SaleOrderID;
-            SoI.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
-            SoI.MaterialCode = hdfMaterialCode.Value;
-            SoI.Quantity = Convert.ToInt32(txtQty.Text.Trim());
-
-            PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(SoI.MaterialID), null, null, null, null)[0];
-            if (string.IsNullOrEmpty(m.HSN))
-            {
-                throw new Exception("HSN Code is not updated for this Material. Please contact Parts Admin.");
-            }
-            List<PMaterial_Api> Material_SapS = new List<PMaterial_Api>();
-            Material_SapS.Add(new PMaterial_Api()
-            {
-                MaterialCode = SoI.MaterialCode,
-                Quantity = SoI.Quantity,
-                Item = (Material_SapS.Count + 1) * 10
-            });
-
-            PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
-            MaterialPrice.Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(SOrder.Customer.CustomerID)).CustomerCode;
-            MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(SOrder.Dealer.DealerID), "").DealerCode;
-            MaterialPrice.OrderType = "101_DSSOR_SALES_ORDER_HDR";
-
-            MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
-            MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
-            {
-                ItemNo = "10",
-                Material = SoI.MaterialCode,
-                Quantity = SoI.Quantity
-            });
-            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-            PMaterial Mat = Mats[0];
-
-            if (Mat.CurrentPrice <= 0)
-            {
-                throw new Exception("Please maintain the Price for Material " + SoI.MaterialCode + " in SAP.");
-            }
-            if (Mat.SGST <= 0 && Mat.IGST <= 0)
-            {
-                throw new Exception("Please maintain the Tax for Material " + SoI.MaterialCode + " in SAP.");
-            }
-            if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
-            {
-                throw new Exception("GST Tax value not found this Material " + SoI.MaterialCode + " in SAP.");
-            }
-
-            SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
-            SoI.Value = Mat.CurrentPrice;
-
-            SoI.DiscountValue = SOrder.HeaderDiscountPercentage > 0 ? (Mat.CurrentPrice * (SOrder.HeaderDiscountPercentage / 100)) : Mat.Discount;
-
-            SoI.TaxableValue = SOrder.HeaderDiscountPercentage > 0 ? (Mat.CurrentPrice - (Mat.CurrentPrice * (SOrder.HeaderDiscountPercentage / 100))) : Mat.TaxablePrice;
-
-            if (SOrder.TaxType == "SGST & CGST")
-            {
-                SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                SoI.SGSTValue = SOrder.HeaderDiscountPercentage > 0 ? (SoI.TaxableValue * (SoI.SGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
-                SoI.CGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                SoI.CGSTValue = SOrder.HeaderDiscountPercentage > 0 ? (SoI.TaxableValue * (SoI.CGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
-                SoI.IGST = 0;
-                SoI.IGSTValue = 0;
-            }
-            else
-            {
-                SoI.SGST = 0;
-                SoI.SGSTValue = 0;
-                SoI.CGST = 0;
-                SoI.CGSTValue = 0;
-                SoI.IGST = Mat.SGST + Mat.CGST + Mat.IGST;
-                SoI.IGSTValue = SOrder.HeaderDiscountPercentage > 0 ? (SoI.TaxableValue * (SoI.IGST / 100)) : (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue);
-            }
-
-            SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
-            SoI.MaterialDescription = m.MaterialDescription;
-            SoI.HSN = m.HSN;
-            SoI.UOM = m.BaseUnit;
-            return SoI;
-        }
+        } 
         public string Validation()
         {
             ddlOfficeName.BorderColor = Color.Silver;

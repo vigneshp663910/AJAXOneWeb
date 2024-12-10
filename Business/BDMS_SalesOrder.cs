@@ -1264,6 +1264,120 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("SaleOrder/UpdateSaleOrderDeliveryCancel?SaleOrderDeliveryID=" + SaleOrderDeliveryID));
 
         }
+        //public PSaleOrderItem_Insert ReadItem(PDMS_Material m, int DealerID, int DealerOfficeID, int Qty, string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, decimal IDiscountPercentage, string TaxType)
+        //{
+        //    PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
+        //    SoI.MaterialID = m.MaterialID;
+        //    SoI.MaterialCode = m.MaterialCode;
+        //    SoI.Quantity = Qty;
+
+        //    if (string.IsNullOrEmpty(m.HSN))
+        //    {
+        //        throw new Exception("HSN Code is not updated for this Material. Please contact Parts Admin.");
+        //    }
+        //    SoI.MaterialDescription = m.MaterialDescription;
+        //    SoI.HSN = m.HSN;
+        //    SoI.UOM = m.BaseUnit;
+
+        //    PMaterial Mat = null;
+        //    if (m.MaterialGroup != "887")
+        //    {
+        //        PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
+        //        MaterialPrice.Customer = CustomerCode;
+        //        MaterialPrice.Vendor = DealerCode;
+        //        MaterialPrice.OrderType = "DEFAULT_SEC_AUART";
+        //        MaterialPrice.Division = "SP";
+        //        MaterialPrice.Item = new List<PSapMatPriceItem_Input>();
+        //        MaterialPrice.Item.Add(new PSapMatPriceItem_Input()
+        //        {
+        //            ItemNo = "10",
+        //            Material = SoI.MaterialCode,
+        //            Quantity = SoI.Quantity
+        //        });
+        //        List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+        //        Mat = Mats[0];
+        //    }
+        //    else
+        //    {
+        //        Mat = new PMaterial();
+        //        Mat.Discount = 0;
+        //        Mat.CurrentPrice = m.CurrentPrice * SoI.Quantity;
+        //        Mat.TaxablePrice = m.CurrentPrice * SoI.Quantity;
+        //        if (TaxType == "SGST & CGST")
+        //        {
+        //            Mat.SGST = m.TaxPercentage;
+        //            Mat.CGST = m.TaxPercentage;
+        //            Mat.SGSTValue = Mat.SGST * Mat.CurrentPrice / 100;
+        //            Mat.CGSTValue = Mat.CGST * Mat.CurrentPrice / 100;
+
+        //            Mat.IGST = 0;
+        //            SoI.IGSTValue = 0;
+        //        }
+        //        else
+        //        {
+        //            Mat.SGST = 0;
+        //            Mat.CGST = 0;
+        //            Mat.SGSTValue = 0;
+        //            Mat.CGSTValue = 0;
+
+        //            Mat.IGST = m.TaxPercentage * 2;
+        //            Mat.IGSTValue = Mat.IGST * Mat.CurrentPrice / 100;
+        //        }
+        //    }
+        //    if (Mat.CurrentPrice <= 0)
+        //    {
+        //        throw new Exception("Please maintain the Price for Material " + SoI.MaterialCode + " in SAP.");
+        //    }
+        //    if (Mat.SGST <= 0 && Mat.IGST <= 0)
+        //    {
+        //        throw new Exception("Please maintain the Tax for Material " + SoI.MaterialCode + " in SAP.");
+        //    }
+        //    if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
+        //    {
+        //        throw new Exception("GST Tax value not found this Material " + SoI.MaterialCode + " in SAP.");
+        //    }
+
+        //    SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
+        //    SoI.Value = Mat.CurrentPrice;
+        //    SoI.ItemDiscountValue = IDiscountValue + (SoI.Value * IDiscountPercentage / 100);
+        //    SoI.DiscountValue = (SoI.Value * HDiscountPercentage / 100) + SoI.ItemDiscountValue;
+        //    SoI.TaxableValue = SoI.Value - SoI.DiscountValue;
+
+        //    if (TaxType == "SGST & CGST")
+        //    {
+        //        SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
+        //        SoI.SGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+        //        SoI.CGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
+        //        SoI.CGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+        //        SoI.IGST = 0;
+        //        SoI.IGSTValue = 0;
+        //    }
+        //    else
+        //    {
+        //        SoI.SGST = 0;
+        //        SoI.SGSTValue = 0;
+        //        SoI.CGST = 0;
+        //        SoI.CGSTValue = 0;
+        //        SoI.IGST = Mat.SGST + Mat.CGST + Mat.IGST;
+        //        SoI.IGSTValue = Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue;
+        //    }
+
+
+        //    SoI.SGSTValue = SoI.TaxableValue * (SoI.SGST / 100);
+        //    SoI.CGSTValue = SoI.TaxableValue * (SoI.CGST / 100);
+        //    SoI.IGSTValue = SoI.TaxableValue * (SoI.IGST / 100);
+
+
+
+        //    SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
+        //    SoI.Tcs = Mat.Tcs;
+        //    PDealerStock s = new BInventory().GetDealerStockCountByID(DealerID, DealerOfficeID, SoI.MaterialID);
+        //    SoI.OnOrderQty = s.OnOrderQty;
+        //    SoI.TransitQty = s.TransitQty;
+        //    SoI.UnrestrictedQty = s.UnrestrictedQty;
+
+        //    return SoI;
+        //}
         public PSaleOrderItem_Insert ReadItem(PDMS_Material m, int DealerID, int DealerOfficeID, int Qty, string CustomerCode, string DealerCode, decimal HDiscountPercentage, decimal IDiscountValue, decimal IDiscountPercentage, string TaxType)
         {
             PSaleOrderItem_Insert SoI = new PSaleOrderItem_Insert();
@@ -1279,7 +1393,7 @@ namespace Business
             SoI.HSN = m.HSN;
             SoI.UOM = m.BaseUnit;
 
-            PMaterial Mat = null;
+            PMaterialPrice Mat = new PMaterialPrice();
             if (m.MaterialGroup != "887")
             {
                 PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
@@ -1294,83 +1408,54 @@ namespace Business
                     Material = SoI.MaterialCode,
                     Quantity = SoI.Quantity
                 });
-                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                List<PMaterialPrice> Mats = new BDMS_Material().MaterialPriceFromSapApiNew(MaterialPrice);
                 Mat = Mats[0];
             }
             else
             {
-                Mat = new PMaterial();
-                Mat.Discount = 0;
-                Mat.CurrentPrice = m.CurrentPrice * SoI.Quantity;
-                Mat.TaxablePrice = m.CurrentPrice * SoI.Quantity;
-                if (TaxType == "SGST & CGST")
-                {
-                    Mat.SGST = m.TaxPercentage;
-                    Mat.CGST = m.TaxPercentage;
-                    Mat.SGSTValue = Mat.SGST * Mat.CurrentPrice / 100;
-                    Mat.CGSTValue = Mat.CGST * Mat.CurrentPrice / 100;
-
-                    Mat.IGST = 0;
-                    SoI.IGSTValue = 0;
-                }
-                else
-                {
-                    Mat.SGST = 0;
-                    Mat.CGST = 0;
-                    Mat.SGSTValue = 0;
-                    Mat.CGSTValue = 0;
-
-                    Mat.IGST = m.TaxPercentage * 2;
-                    Mat.IGSTValue = Mat.IGST * Mat.CurrentPrice / 100;
-                }
+                Mat.Price = m.CurrentPrice * SoI.Quantity;
+                Mat.Tax = m.TaxPercentage;
             }
-            if (Mat.CurrentPrice <= 0)
+
+            if (Mat.Price <= 0)
             {
                 throw new Exception("Please maintain the Price for Material " + SoI.MaterialCode + " in SAP.");
             }
-            if (Mat.SGST <= 0 && Mat.IGST <= 0)
+            if (Mat.Tax <= 0)
             {
                 throw new Exception("Please maintain the Tax for Material " + SoI.MaterialCode + " in SAP.");
             }
-            if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
-            {
-                throw new Exception("GST Tax value not found this Material " + SoI.MaterialCode + " in SAP.");
-            }
+            //if (Mat.SGSTValue <= 0 && Mat.IGSTValue <= 0)
+            //{
+            //    throw new Exception("GST Tax value not found this Material " + SoI.MaterialCode + " in SAP.");
+            //}
 
-            SoI.PerRate = Mat.CurrentPrice / SoI.Quantity;
-            SoI.Value = Mat.CurrentPrice;
+            SoI.PerRate = Mat.Price / SoI.Quantity;
+            SoI.Value = Mat.Price;
             SoI.ItemDiscountValue = IDiscountValue + (SoI.Value * IDiscountPercentage / 100);
             SoI.DiscountValue = (SoI.Value * HDiscountPercentage / 100) + SoI.ItemDiscountValue;
             SoI.TaxableValue = SoI.Value - SoI.DiscountValue;
 
             if (TaxType == "SGST & CGST")
             {
-                SoI.SGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                SoI.SGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
-                SoI.CGST = (Mat.SGST + Mat.CGST + Mat.IGST) / 2;
-                SoI.CGSTValue = (Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue) / 2;
+                SoI.SGST = Mat.Tax;
+                SoI.CGST = Mat.Tax;
+                SoI.SGSTValue = SoI.TaxableValue * (SoI.SGST / 100);
+                SoI.CGSTValue = SoI.TaxableValue * (SoI.CGST / 100);
                 SoI.IGST = 0;
                 SoI.IGSTValue = 0;
             }
             else
             {
                 SoI.SGST = 0;
-                SoI.SGSTValue = 0;
                 SoI.CGST = 0;
+                SoI.SGSTValue = 0;
                 SoI.CGSTValue = 0;
-                SoI.IGST = Mat.SGST + Mat.CGST + Mat.IGST;
-                SoI.IGSTValue = Mat.SGSTValue + Mat.CGSTValue + Mat.IGSTValue;
-            }
-
-
-            SoI.SGSTValue = SoI.TaxableValue * (SoI.SGST / 100);
-            SoI.CGSTValue = SoI.TaxableValue * (SoI.CGST / 100);
-            SoI.IGSTValue = SoI.TaxableValue * (SoI.IGST / 100);
-
-
-
+                SoI.IGST = Mat.Tax * 2;
+                SoI.IGSTValue = SoI.TaxableValue * (SoI.IGST / 100);
+            }  
             SoI.NetAmount = SoI.TaxableValue + SoI.SGSTValue + SoI.CGSTValue + SoI.IGSTValue;
-            SoI.Tcs = Mat.Tcs;
+            // SoI.Tcs = Mat.Tcs;
             PDealerStock s = new BInventory().GetDealerStockCountByID(DealerID, DealerOfficeID, SoI.MaterialID);
             SoI.OnOrderQty = s.OnOrderQty;
             SoI.TransitQty = s.TransitQty;

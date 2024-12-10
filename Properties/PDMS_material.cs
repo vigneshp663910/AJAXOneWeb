@@ -190,6 +190,33 @@ namespace Properties
         public bool IsActive { get; set; }
     }
     [Serializable]
+    public class PMaterialPrice
+    {
+        public long MaterialID { get; set; }
+        public string MaterialCode { get; set; }
+        public string MaterialCodeWithOutZero
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(MaterialCode))
+                    return "";
+                long n;
+                if (long.TryParse(MaterialCode, out n))
+                {
+                    return MaterialCode.TrimStart('0');
+                }
+                return MaterialCode;
+            }
+            set
+            {
+                MaterialCode = value;
+            }
+        }
+        public string HSN { get; set; }
+        public decimal Price { get; set; }
+        public decimal Tax { get; set; } 
+    }
+    [Serializable]
     public class PSupersede
     {
         public int MaterialID { get; set; }
