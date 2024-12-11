@@ -678,32 +678,19 @@ namespace Properties
     public enum Jobs
     {
         SendSMS = 1,
-        SendMail = 2,
-        // ICTicketIntegrationFromCRM = 3,
-        MaterialIntegrationFromPostgre = 4,
-        SAPDocumentForWarrantyInvoiceFromSAP = 5,
-       // SaleOrderNumberForSrviceQuatationFromSAP = 6,
-        //  TechnicianIntegrationFromSAP = 7,
-        RebuildIndex = 8,
-        //  ModelForClaim = 9,
-        //   Category = 10,
-        //   ICTicketIntegrationVerification = 11,
-        //  QuotationForJSN = 12,
+        SendMail = 2, 
+        SAPDocumentForWarrantyInvoiceFromSAP = 5, 
+        RebuildIndex = 8, 
         //  IntegrationSalesOrder = 13,
         IntegrationSalesOrderInvoice = 14,
         IntegrationClaimAnnexure = 15,
         EInvoice = 16,
-        SendMailMttrEscalationMatrix = 17,
-        // IntegrationEquipmentFromSAP = 18,
-        // IntegrationMaterialFromEccSap = 19,
-        GetPurchaseOrderIntegration = 20,
-        MaterialIntegrationFromSAP = 21,
-        //   CustomerIntegration = 22,
+        SendMailMttrEscalationMatrix = 17,  
+        GetPurchaseOrderIntegration = 20, 
         //  UpdateSalesQuotationDeliveryDetails = 23 ,
         SalesQuotationFlowFromSap = 24,
         //   EnquiryFromCRM = 25,
-        LeadQualificationByExpectedDateOfSale = 26,
-        IntegrationEquipmentFromSAP_New = 27,
+        LeadQualificationByExpectedDateOfSale = 26, 
         EnquiryIndiamart = 28,
         TaskTicketResolvedAutoClose = 29
     }
@@ -927,7 +914,7 @@ namespace Properties
         PaymentMode_Cash = 51,
         PartsSalesType_Engineer = 52,
         PaymentMode_Credit = 53,
-        SaleOrderDelivery_Cancelled=54
+        SaleOrderDelivery_Cancelled=56,
     }
     public enum ProcurementStatusHeader
     {
