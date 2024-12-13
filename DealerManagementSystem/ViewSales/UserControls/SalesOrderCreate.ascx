@@ -466,7 +466,7 @@
 <script>
     function GetCustomers() {
         $("#MainContent_UC_SalesOrderCreate_hdfCustomerId").val('');
-        var param = { CustS: $('#MainContent_UC_SalesOrderCreate_txtCustomer').val() };
+        var param = { CustS: $('#MainContent_UC_SalesOrderCreate_txtCustomer').val(), DealerID: $('#MainContent_UC_SalesOrderCreate_ddlDealer').val() };
         var Customers = [];
         if ($('#MainContent_UC_SalesOrderCreate_txtCustomer').val().trim().length >= 3) {
             $.ajax({

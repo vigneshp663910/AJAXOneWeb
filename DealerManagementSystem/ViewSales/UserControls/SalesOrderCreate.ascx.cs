@@ -85,6 +85,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
+
+            txtCustomer.Text = "";
+            hdfCustomerId.Value = "";
         }
         protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
         {

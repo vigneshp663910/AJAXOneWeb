@@ -249,9 +249,9 @@ namespace DealerManagementSystem.ViewSales
             new BXcel().ExporttoExcel(dt, "Sales Order Report");
         }
         [WebMethod]
-        public static string GetCustomer(string CustS)
+        public static string GetCustomer(string CustS,string DealerID)
         {
-            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 1);
+            List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocompleteForPartSales(CustS, DealerID);
             return JsonConvert.SerializeObject(Customer);
         }
         [WebMethod]

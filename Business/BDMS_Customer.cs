@@ -356,6 +356,13 @@ namespace Business
             return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         }
+        public List<PDMS_Customer> GetCustomerAutocompleteForPartSales(string Customer, string DealerID)
+        {
+            TraceLogger.Log(DateTime.Now);
+            string endPoint = "Customer/GetCustomerAutocompleteForPartSales?Customer=" + Customer + "&DealerID=" + DealerID;
+            return JsonConvert.DeserializeObject<List<PDMS_Customer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+        }
         public List<PDMS_Customer> GetCustomerForEnquiryToLead(string Customer, string Mobile, int StateID)
         {
             TraceLogger.Log(DateTime.Now);
