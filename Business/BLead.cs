@@ -281,5 +281,14 @@ namespace Business
             string endPoint = "Lead/GetLeadNextFollowUpDateAgeingDetails?DealerID=" + DealerID + "&RegionID=" + RegionID + "&ReportTypeID=" + ReportTypeID;
             return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public PApiResult GetLeadDeviation(PLeadSearch Lead)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Lead/GetLeadDeviation", Lead));
+        }
+        public PApiResult UpdateLeadDeviationApprove(int LeadDeviationID)
+        {
+            string endPoint = "Lead/UpdateLeadDeviationApprove?LeadDeviationID=" + LeadDeviationID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

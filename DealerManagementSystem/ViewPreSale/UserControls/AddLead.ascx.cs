@@ -71,6 +71,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtCustomerFeedback.Text = Lead.CustomerFeedback;
             txtRemarks.Text = Lead.Remarks;
             txtNextFollowUpDate.Text = Lead.NextFollowUpDate == null ? "" : Convert.ToString(Lead.NextFollowUpDate);
+            cbB2B.Checked = Lead.B2B;
         }
         public PLead_Insert Read()
         {
@@ -89,6 +90,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead.CustomerFeedback = txtCustomerFeedback.Text.Trim();
             Lead.Remarks = txtRemarks.Text.Trim();
             Lead.NextFollowUpDate = Convert.ToDateTime(txtNextFollowUpDate.Text.Trim());
+            Lead.B2B = cbB2B.Checked;
             return Lead;
         }
         public string Validation()

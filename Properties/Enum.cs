@@ -516,6 +516,8 @@ namespace Properties
         ViewSales_Report_OofCustomerReport = 270,
         ViewSupportTicket_TaskMeasurement = 271,
         ViewSupportTicket_TaskSummaryDetails = 272,
+        ViewAdmin_UserPurchaseOrderTypeMapping = 273,
+        ViewPreSale_LeadDeviation = 274,
     }
     public enum SubModuleChildMaster
     {

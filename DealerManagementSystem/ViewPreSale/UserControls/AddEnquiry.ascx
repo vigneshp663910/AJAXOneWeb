@@ -3,7 +3,7 @@
 
 <asp:UpdatePanel ID="updatepnl" runat="server">
     <ContentTemplate>
-        <fieldset class="fieldset-border"> 
+        <fieldset class="fieldset-border">
             <div class="col-md-12">
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Customer Name<samp style="color: red">*</samp></label>
@@ -16,18 +16,22 @@
                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtNextFollowUpDate" WatermarkText="DD/MM/YYYY HH:mm:ss" />
                 </div>
                 <div class="col-md-6 col-sm-12">
+                    <label class="modal-label">B2B</label>
+                    <asp:CheckBox ID="cbB2B" runat="server" />
+                </div>
+                <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Contact Person Name</label>
                     <asp:TextBox ID="txtPersonName" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Contact Person Mobile<samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"  TextMode="Phone" MaxLength="10"></asp:TextBox>
+                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled" TextMode="Phone" MaxLength="10"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">EMail</label>
                     <asp:TextBox ID="txtMail" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
                 </div>
-                 <div class="col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Product Type<samp style="color: red">*</samp></label>
                     <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" DataTextField="Source" DataValueField="SourceID" />
                 </div>

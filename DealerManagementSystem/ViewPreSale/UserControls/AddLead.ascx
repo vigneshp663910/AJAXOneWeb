@@ -30,9 +30,9 @@
                         onKeyUp="GetProjectAuto('TextBox-id')"></asp:TextBox>
                 </div>
                 <div class="myDiv" style="float: left; width: 5%; height: 35px" onclick="myFunction()">
-                    <i class="fa fa-fw fa-times" style="font-size: 25px"></i> 
+                    <i class="fa fa-fw fa-times" style="font-size: 25px"></i>
                 </div>
-               <%-- <asp:DropDownList ID="ddlProject" runat="server" CssClass="form-control"   />--%>
+                <%-- <asp:DropDownList ID="ddlProject" runat="server" CssClass="form-control"   />--%>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -59,6 +59,10 @@
             <asp:TextBox ID="txtNextFollowUpDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
             <asp1:CalendarExtender ID="cxNextFollowUpDate" runat="server" TargetControlID="txtNextFollowUpDate" PopupButtonID="txtNextFollowUpDate" Format="dd/MM/yyyy" />
             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtNextFollowUpDate" WatermarkText="DD/MM/YYYY" />
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <label class="modal-label">B2B</label>
+            <asp:CheckBox ID="cbB2B" runat="server" />
         </div>
     </div>
 </fieldset>

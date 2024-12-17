@@ -77,6 +77,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             enquiry.Product = txtProduct.Text.Trim();
             enquiry.Remarks = txtRemarks.Text.Trim();
             enquiry.CreatedBy = new PUser();
+            enquiry.B2B = cbB2B.Checked;
             return enquiry;
         }
 
@@ -103,6 +104,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtProduct.Text = enquiry.Product;
             txtRemarks.Text = enquiry.Remarks;
             txtNextFollowUpDate.Text = Convert.ToString(enquiry.EnquiryNextFollowUpDate);
+            cbB2B.Checked = enquiry.B2B;
         }
         public string Validation()
         {
