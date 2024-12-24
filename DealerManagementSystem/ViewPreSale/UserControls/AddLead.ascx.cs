@@ -35,10 +35,30 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //new DDLBind(ddlCategory, Category, "Category", "CategoryID");
 
 
-            List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
-            new DDLBind(ddlProductType, ProductType, "ProductType", "ProductTypeID");
+            //List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
+            //new DDLBind(ddlProductType, ProductType, "ProductType", "ProductTypeID");
+            List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
+            if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
+            {
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID == (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                }
+            }
+            else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
+            {
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID != (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                }
+            }
+            else
+            {
+                new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID");
+            }
 
-            
             new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID");
           //  new DDLBind(ddlProject, new BProject().GetProject(null, null,null,null,null,null,null), "ProjectName_state", "ProjectID");
 

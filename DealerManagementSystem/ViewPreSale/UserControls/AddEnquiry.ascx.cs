@@ -40,7 +40,28 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlCountry.SelectedValue = "1";
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null, null, null), "District", "DistrictID");
-            new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+            List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
+            if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
+            { 
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID == (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                } 
+            }
+            else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
+            {
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID != (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                }
+            }
+            else
+            {
+                new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID"); 
+            }
+
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
             txtAddress.Text = string.Empty;
             txtAddress2.Text = string.Empty;
