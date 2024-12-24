@@ -27,6 +27,16 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             cxDOB.EndDate = DateTime.Now;
             //fillDealer();
             new DDLBind(ddlSalesType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.CustomerSalesType), "ItemText", "MasterItemID");
+            if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
+            {
+                ddlSalesType.SelectedValue = Convert.ToString((short)PreSalesMasterItem.UdaanCustomer);
+                ddlSalesType.Enabled = false;
+            }
+           else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
+            {
+                ddlSalesType.SelectedValue = Convert.ToString((short)PreSalesMasterItem.RegularCustomer);
+                ddlSalesType.Enabled = false;
+            }
             new DDLBind(ddlTitle, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID",false);
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             PDealer Dealer = PSession.User.Dealer[0];
