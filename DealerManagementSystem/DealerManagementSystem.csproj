@@ -513,6 +513,7 @@
     <Content Include="ViewMaster\DealerBinLocation.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
     <Content Include="ViewPreSale\LeadDeviation.aspx" />
+    <Content Include="ViewPreSale\LeadDeviationApprove.aspx" />
     <Content Include="ViewPreSale\Planning\DealerBusinessExcellence.aspx" />
     <Content Include="ViewPreSale\Planning\DealerBusinessExcellenceCategory3Update.aspx" />
     <Content Include="ViewPreSale\Planning\DealerMissionPlanning.aspx" />
@@ -1796,6 +1797,13 @@
     </Compile>
     <Compile Include="ViewPreSale\LeadDeviation.aspx.designer.cs">
       <DependentUpon>LeadDeviation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadDeviationApprove.aspx.cs">
+      <DependentUpon>LeadDeviationApprove.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\LeadDeviationApprove.aspx.designer.cs">
+      <DependentUpon>LeadDeviationApprove.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Planning\DealerBusinessExcellence.aspx.cs">
       <DependentUpon>DealerBusinessExcellence.aspx</DependentUpon>

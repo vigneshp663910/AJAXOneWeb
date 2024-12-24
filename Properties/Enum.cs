@@ -518,6 +518,7 @@ namespace Properties
         ViewSupportTicket_TaskSummaryDetails = 272,
         ViewAdmin_UserPurchaseOrderTypeMapping = 273,
         ViewPreSale_LeadDeviation = 274,
+        ViewPreSale_LeadDeviationApprove = 275,
     }
     public enum SubModuleChildMaster
     {
@@ -859,7 +860,8 @@ namespace Properties
         SaleOrderDelivery = 11,
         SaleOrderReturn = 12,
         SalesType = 13,
-        PaymentMode = 14
+        PaymentMode = 14,
+        LeadDeviation = 15
     }
     public enum AjaxOneStatus
     {
@@ -917,6 +919,9 @@ namespace Properties
         PartsSalesType_Engineer = 52,
         PaymentMode_Credit = 53,
         SaleOrderDelivery_Cancelled=56,
+        LeadDeviation_Requested =57,
+        LeadDeviation_Approved=58,
+        LeadDeviation_Rejected =59
     }
     public enum ProcurementStatusHeader
     {

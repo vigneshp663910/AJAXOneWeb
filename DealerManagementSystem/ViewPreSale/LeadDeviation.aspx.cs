@@ -61,9 +61,8 @@ namespace DealerManagementSystem.ViewPreSale
                 new DDLBind().FillDealerAndEngneer(ddlSDealer, null);
                 List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
                 new DDLBind(ddlSSource, Source, "Source", "SourceID");  
-                new DDLBind(ddlSRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID"); 
-                List<PLeadStatus> Status = new BLead().GetLeadStatus(null, null);
-                new DDLBind(ddlSStatus, Status, "Status", "StatusID"); 
+                new DDLBind(ddlSRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID");
+                new DDLBind(ddlSStatus, new BDMS_Master().GetAjaxOneStatus((short)AjaxOneStatusHeader.LeadDeviation), "Status", "StatusID"); 
                 new DDLBind(ddlSProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
             }
         }
@@ -101,7 +100,7 @@ namespace DealerManagementSystem.ViewPreSale
             S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
             S.ProductTypeID = ddlSProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSProductType.SelectedValue); 
             S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue);
-            S.CustomerCode = txtCustomer.Text.Trim();
+            S.CustomerCode = txtSCustomer.Text.Trim();
             S.LeadDateFrom = string.IsNullOrEmpty(txtSDateFrom.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtSDateFrom.Text.Trim());
             S.LeadDateTo = string.IsNullOrEmpty(txtSDateTo.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtSDateTo.Text.Trim()); 
             S.DealerID = ddlSDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSDealer.SelectedValue);  
@@ -233,21 +232,6 @@ namespace DealerManagementSystem.ViewPreSale
             new DDLBind(ddlSource, new BLead().GetLeadSource(null, null), "Source", "SourceID");
             new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID");
         }
-
-        protected void btnApprove_Click(object sender, EventArgs e)
-        {
-
-            GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            int LeadDeviationID = Convert.ToInt32(((Label)gvRow.FindControl("lblLeadDeviationID")).Text); 
-            PApiResult Results = new BLead().UpdateLeadDeviationApprove(LeadDeviationID);
-            lblMessage.Text = Results.Message;
-            if (Results.Status == PApplication.Failure)
-            {
-                lblMessage.ForeColor = Color.Red;
-                return;
-            }
-            FillLeadDeviation();
-            lblMessage.ForeColor = Color.Green;
-        }
+ 
     }
 }
