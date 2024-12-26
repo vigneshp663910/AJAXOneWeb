@@ -92,13 +92,13 @@
             <Source>External</Source>
             <Value>=Parameters!QRCodeImg.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>8.75983cm</Top>
-            <Left>23.4213cm</Left>
-            <Height>5cm</Height>
-            <Width>5.2775cm</Width>
+            <Top>8.27458cm</Top>
+            <Left>22.39472cm</Left>
+            <Height>6cm</Height>
+            <Width>6cm</Width>
             <Style>
               <Border>
-                <Style>Solid</Style>
+                <Style>None</Style>
               </Border>
             </Style>
           </Image>
@@ -1723,7 +1723,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>1.47312cm</Height>
+                  <Height>1.13445cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1741,17 +1741,6 @@
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Parameters!DateOfPreparationOfInvoice.Value</Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1821,19 +1810,6 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
                                   <Value>TCS @ </Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
@@ -1885,19 +1861,6 @@
                                   <Value>=Parameters!SubTotal.Value</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -2102,7 +2065,7 @@
             <DataSetName>SalesMachineInvoice</DataSetName>
             <Top>4.71924cm</Top>
             <Left>0.10678cm</Left>
-            <Height>3.74937cm</Height>
+            <Height>3.4107cm</Height>
             <Width>28.62835cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -2117,16 +2080,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.72356cm</Width>
+                  <Width>3.77725cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.675cm</Width>
+                  <Width>5.13858cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.12921cm</Width>
+                  <Width>8.02213cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>5.74738cm</Width>
+                  <Width>4.6403cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -2357,7 +2320,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>2.33625cm</Height>
+                  <Height>2.851cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -2454,8 +2417,8 @@
             </TablixRowHierarchy>
             <Top>8.75983cm</Top>
             <Left>0.10678cm</Left>
-            <Height>5cm</Height>
-            <Width>23.27515cm</Width>
+            <Height>5.51475cm</Height>
+            <Width>21.57825cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -2536,9 +2499,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox186</rd:DefaultName>
-            <Top>13.83038cm</Top>
-            <Left>0.10678cm</Left>
-            <Height>2.301cm</Height>
+            <Top>14.58533cm</Top>
+            <Left>0.12795cm</Left>
+            <Height>1.58133cm</Height>
             <Width>28.59202cm</Width>
             <ZIndex>4</ZIndex>
             <Style>

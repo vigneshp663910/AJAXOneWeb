@@ -628,20 +628,55 @@ namespace Business
             return Ws;
         }
 
+        //public string GetQRCodePath(string IRN, string InvoiceNumber)
+        //{
+        //    string code = IRN.Trim();
+        //    QRCodeGenerator qrGenerator = new QRCodeGenerator();
+        //    QRCodeGenerator.QRCode qrCode = null;
+        //    try
+        //    {
+        //        qrCode = qrGenerator.CreateQrCode(code, QRCodeGenerator.ECCLevel.Q);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //    string QRCodeFilePath = string.Format("QRCode/{0}.png", InvoiceNumber);
+        //    using (Bitmap bitMap = qrCode.GetGraphic(20))
+        //    {
+        //        using (MemoryStream ms = new MemoryStream())
+        //        {
+        //            bitMap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+        //            byte[] byteImage = ms.ToArray();
+        //            string qrCodeImg = "data:image/png;base64," + Convert.ToBase64String(byteImage);
+        //            if (!Directory.Exists(HttpContext.Current.Server.MapPath("~/QRCode")))
+        //            {
+        //                Directory.CreateDirectory(HttpContext.Current.Server.MapPath("~/QRCode"));
+        //            }
+        //            using (FileStream fs = new FileStream(HttpContext.Current.Server.MapPath("~/" + QRCodeFilePath), FileMode.OpenOrCreate, FileAccess.Write))
+        //            {
+        //                using (BinaryWriter bw = new BinaryWriter(fs))
+        //                {
+        //                    var base64Data = Regex.Match(qrCodeImg, @"data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
+        //                    byte[] data = Convert.FromBase64String(base64Data);
+        //                    bw.Write(data);
+        //                    bw.Close();
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return new Uri(HttpContext.Current.Server.MapPath("~/" + QRCodeFilePath)).AbsoluteUri;
+        //}
+
         public string GetQRCodePath(string IRN, string InvoiceNumber)
         {
-            string code = IRN.Trim();
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeGenerator.QRCode qrCode = null;
-            try
-            {
-                qrCode = qrGenerator.CreateQrCode(code, QRCodeGenerator.ECCLevel.Q);
-            }
-            catch (Exception ex)
-            {
-            }
+
+            MessagingToolkit.QRCode.Codec.QRCodeEncoder encoder = new MessagingToolkit.QRCode.Codec.QRCodeEncoder();
+            encoder.QRCodeScale = 8;
+            // Bitmap bmp = new Bitmap(encoder.Encode(IRN), new Size(200, 200));
+            //   var newBmp = bmp.Clone(new Rectangle(0, 0, bmp.Width, bmp.Height), PixelFormat.Format8bppIndexed);
             string QRCodeFilePath = string.Format("QRCode/{0}.png", InvoiceNumber);
-            using (Bitmap bitMap = qrCode.GetGraphic(20))
+
+            using (Bitmap bitMap = new Bitmap(encoder.Encode(IRN), new Size(200, 200)))
             {
                 using (MemoryStream ms = new MemoryStream())
                 {
@@ -666,8 +701,6 @@ namespace Business
             }
             return new Uri(HttpContext.Current.Server.MapPath("~/" + QRCodeFilePath)).AbsoluteUri;
         }
-
-       
         public Boolean GetTCS_Validation(string DealerCode, string CustomerCode, decimal Amount)
         {
             Boolean TCS = false;
