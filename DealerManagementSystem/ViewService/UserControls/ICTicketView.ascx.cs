@@ -254,11 +254,25 @@ namespace DealerManagementSystem.ViewService.UserControls
                 TabechnicianWorkHours.Visible = false;
                 TabRestore.Visible = false;
                 TabSignature.Visible = false;
+
+
+                tpnlDeclined.Visible = true;
                 FillDeclinedInfo();
             }
             else
             {
                 tpnlDeclined.Visible = false;
+
+                tpnlTechnician.Visible = true; 
+                tpnlFSR.Visible = true;
+                tpnlAvailabilityOfOtherMachine.Visible = true;
+                tpnlServiceCharges.Visible = true;
+                tpnlTSIR.Visible = true;
+                tpnlMaterialCharges.Visible = true;
+                tpnlNotes.Visible = true;
+                TabechnicianWorkHours.Visible = true;
+                TabRestore.Visible = true;
+                TabSignature.Visible = true;
             } 
             ActionControlMange();
 
