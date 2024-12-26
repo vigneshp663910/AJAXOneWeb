@@ -38,6 +38,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
             //new DDLBind(ddlProductType, ProductType, "ProductType", "ProductTypeID");
             List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
+            ddlProductType.Items.Clear();
             if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
             {
                 foreach (PProductType PType in PTypes)

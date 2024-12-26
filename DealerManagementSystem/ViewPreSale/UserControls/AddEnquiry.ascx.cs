@@ -40,6 +40,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlCountry.SelectedValue = "1";
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null, null, null), "District", "DistrictID");
+            ddlProductType.Items.Clear();
             List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
             if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
             { 
@@ -115,6 +116,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             // new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
 
             List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
+            ddlProductType.Items.Clear();
             if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
             {
                 foreach (PProductType PType in PTypes)
