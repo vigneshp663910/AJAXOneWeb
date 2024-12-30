@@ -64,7 +64,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
 
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
-            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID");
+            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID",false);
             txtAddress.Text = string.Empty;
             txtAddress2.Text = string.Empty;
             txtAddress3.Text = string.Empty;
@@ -108,7 +108,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         public void Write(PEnquiry enquiry)
         {
             txtCustomerName.Text = enquiry.CustomerName;
-           // txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
+            // txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
             txtPersonName.Text = enquiry.PersonName;
             txtMobile.Text = enquiry.Mobile;
             txtMail.Text = enquiry.Mail;
@@ -140,19 +140,20 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID");
             }
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
-            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID");
+            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID", false);
             ddlCountry.SelectedValue = enquiry.Country.CountryID.ToString();
             ddlState.SelectedValue = enquiry.State.StateID.ToString();
             ddlDistrict.SelectedValue = enquiry.District.DistrictID.ToString();
             ddlSource.SelectedValue = enquiry.Source.SourceID.ToString();
-            ddlProductType.SelectedValue = enquiry.ProductType == null? "0": enquiry.ProductType.ProductTypeID.ToString();
+            ddlProductType.SelectedValue = enquiry.ProductType == null ? "0" : enquiry.ProductType.ProductTypeID.ToString();
             txtAddress.Text = enquiry.Address.ToString();
             txtAddress2.Text = enquiry.Address2.ToString();
             txtAddress3.Text = enquiry.Address3.ToString();
             txtProduct.Text = enquiry.Product;
             txtRemarks.Text = enquiry.Remarks;
             txtNextFollowUpDate.Text = Convert.ToString(enquiry.EnquiryNextFollowUpDate);
-            ddlSalesChannelType.SelectedValue = enquiry.SalesChannelType == null ? "0" : enquiry.SalesChannelType.MasterItemID.ToString();
+            if (enquiry.SalesChannelType != null)
+                ddlSalesChannelType.SelectedValue = enquiry.SalesChannelType.MasterItemID.ToString();
         }
         public string Validation()
         {

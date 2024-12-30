@@ -29,7 +29,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //new DDLBind(ddlLeadType, LeadType, "Type", "TypeID");
              
             new DDLBind(ddlSource, new BLead().GetLeadSource(null, null), "Source", "SourceID");
-            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID");
+            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID",false);
             //List<PLeadCategory> Category = new BLead().GetLeadCategory(null, null);
             //new DDLBind(ddlCategory, Category, "Category", "CategoryID");
 
