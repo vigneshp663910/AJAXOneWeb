@@ -221,6 +221,7 @@ namespace DealerManagementSystem.ViewPreSale
             Lead.CustomerFeedback = txtCustomerFeedback.Text.Trim();
             Lead.Remarks = txtRemarks.Text.Trim();
             Lead.NextFollowUpDate = Convert.ToDateTime(txtNextFollowUpDate.Text.Trim());
+            Lead.SalesChannelTypeID = ddlSalesChannelType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesChannelType.SelectedValue);
             return Lead;
         }
         protected void btnAddLead_Click(object sender, EventArgs e)
@@ -231,6 +232,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             new DDLBind(ddlSource, new BLead().GetLeadSource(null, null), "Source", "SourceID");
             new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID");
+            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID");
         }
  
     }

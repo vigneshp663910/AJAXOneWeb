@@ -998,7 +998,8 @@ namespace Properties
     {
         CustomerVisitType = 1,
         CallType = 2,
-        CustomerSalesType = 3, 
+        CustomerSalesType = 3,
+        SalesChannelType = 4,
     }
     public enum PreSalesMasterItem
     {

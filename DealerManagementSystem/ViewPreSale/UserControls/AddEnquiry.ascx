@@ -16,8 +16,8 @@
                     <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtNextFollowUpDate" WatermarkText="DD/MM/YYYY HH:mm:ss" />
                 </div>
                 <div class="col-md-6 col-sm-12">
-                    <label class="modal-label">B2B</label>
-                    <asp:CheckBox ID="cbB2B" runat="server" />
+                    <label class="modal-label">Sales Channel Type</label>
+                    <asp:DropDownList ID="ddlSalesChannelType" runat="server" CssClass="form-control"/> 
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Contact Person Name</label>

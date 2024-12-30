@@ -64,6 +64,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
 
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
+            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID");
             txtAddress.Text = string.Empty;
             txtAddress2.Text = string.Empty;
             txtAddress3.Text = string.Empty;
@@ -85,6 +86,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             enquiry.Source = new PLeadSource();
             enquiry.Source.SourceID = Convert.ToInt32(ddlSource.SelectedValue);
+            enquiry.SalesChannelType = new PPreSalesMasterItem() { MasterItemID = Convert.ToInt32(ddlSalesChannelType.SelectedValue) };
             enquiry.Status = new PPreSaleStatus();
             enquiry.Status.StatusID = 1;
             enquiry.Country = new PDMS_Country();
@@ -99,7 +101,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             enquiry.Product = txtProduct.Text.Trim();
             enquiry.Remarks = txtRemarks.Text.Trim();
             enquiry.CreatedBy = new PUser();
-            enquiry.B2B = cbB2B.Checked;
+            
             return enquiry;
         }
 
@@ -138,6 +140,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID");
             }
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
+            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID");
             ddlCountry.SelectedValue = enquiry.Country.CountryID.ToString();
             ddlState.SelectedValue = enquiry.State.StateID.ToString();
             ddlDistrict.SelectedValue = enquiry.District.DistrictID.ToString();
@@ -149,7 +152,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtProduct.Text = enquiry.Product;
             txtRemarks.Text = enquiry.Remarks;
             txtNextFollowUpDate.Text = Convert.ToString(enquiry.EnquiryNextFollowUpDate);
-            cbB2B.Checked = enquiry.B2B;
+            ddlSalesChannelType.SelectedValue = enquiry.SalesChannelType == null ? "0" : enquiry.SalesChannelType.MasterItemID.ToString();
         }
         public string Validation()
         {

@@ -42,11 +42,11 @@
                         <label>Product Type</label>
                         <asp:DropDownList ID="ddlSProductType" runat="server" CssClass="form-control" />
                     </div>
-
+                   
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         <asp:Button ID="btnAddLead" runat="server" CssClass="btn Save" Text="Add Lead" OnClick="btnAddLead_Click" Width="150px"></asp:Button>
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true"  Width="100px" />
+                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" Width="100px" />
                     </div>
                 </div>
             </fieldset>
@@ -73,9 +73,9 @@
                         </div>
 
                         <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                            PageSize="10" AllowPaging="true"   EmptyDataText="No Data Found">
+                            PageSize="10" AllowPaging="true" EmptyDataText="No Data Found">
                             <Columns>
-                                
+
                                 <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
@@ -84,23 +84,23 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer Code">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate> 
-                                         <asp:Label ID="lblLeadDeviationID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDeviationID")%>' runat="server" Visible="false" /> 
-                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" /> 
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblLeadDeviationID" Text='<%# DataBinder.Eval(Container.DataItem, "LeadDeviationID")%>' runat="server" Visible="false" />
+                                        <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Dealer Name">
+                                <asp:TemplateField HeaderText="Dealer Name">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate> 
-                                        <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerName")%>' runat="server" /> 
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerName")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Customer Code">
+                                <asp:TemplateField HeaderText="Customer Code">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerCode")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Customer Name">
+                                <asp:TemplateField HeaderText="Customer Name">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerName")%>' runat="server" />
                                     </ItemTemplate>
@@ -109,7 +109,7 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType")%>' runat="server" />
                                     </ItemTemplate>
-                                </asp:TemplateField> 
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Source">
                                     <ItemTemplate>
                                         <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source")%>' runat="server" />
@@ -120,32 +120,32 @@
                                         <asp:Label ID="lblExpectedDateOfSale" Text='<%# DataBinder.Eval(Container.DataItem, "ExpectedDateOfSale")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                  <asp:TemplateField HeaderText="Application">
+                                <asp:TemplateField HeaderText="Application">
                                     <ItemTemplate>
                                         <asp:Label ID="lblMainApplication" Text='<%# DataBinder.Eval(Container.DataItem, "MainApplication")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                               <asp:TemplateField HeaderText="Customer Feedback">
+                                <asp:TemplateField HeaderText="Customer Feedback">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCustomerFeedback" Text='<%# DataBinder.Eval(Container.DataItem, "CustomerFeedback")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Remarks">
+                                <asp:TemplateField HeaderText="Remarks">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRemarks" Text='<%# DataBinder.Eval(Container.DataItem, "Remarks")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Next FollowUp Date">
+                                <asp:TemplateField HeaderText="Next FollowUp Date">
                                     <ItemTemplate>
                                         <asp:Label ID="lblNextFollowUpDate" Text='<%# DataBinder.Eval(Container.DataItem, "NextFollowUpDate")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                  <asp:TemplateField HeaderText="B2B">
+                                <asp:TemplateField HeaderText="B2B">
                                     <ItemTemplate>
                                         <asp:Label ID="lblB2B" Text='<%# DataBinder.Eval(Container.DataItem, "B2B")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Status">
+                                <asp:TemplateField HeaderText="Status">
                                     <ItemTemplate>
                                         <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status")%>' runat="server" />
                                     </ItemTemplate>
@@ -158,7 +158,7 @@
                                         <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                  <asp:TemplateField HeaderText="Appoved">
+                                <asp:TemplateField HeaderText="Appoved">
                                     <ItemStyle VerticalAlign="Middle" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblAppovedBy" Text='<%# DataBinder.Eval(Container.DataItem, "AppovedBy")%>' runat="server" />
@@ -166,7 +166,7 @@
                                         <asp:Label ID="lblAppovedOn" Text='<%# DataBinder.Eval(Container.DataItem, "AppovedOn")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                               
+
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />
@@ -234,6 +234,10 @@
                             <asp1:CalendarExtender ID="cxNextFollowUpDate" runat="server" TargetControlID="txtNextFollowUpDate" PopupButtonID="txtNextFollowUpDate" Format="dd/MM/yyyy" />
                             <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtNextFollowUpDate" WatermarkText="DD/MM/YYYY" />
                         </div>
+                        <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Sales Channel Type</label>
+                        <asp:DropDownList ID="ddlSalesChannelType" runat="server" CssClass="form-control" />
+                    </div>
                     </div>
                 </fieldset>
             </div>
