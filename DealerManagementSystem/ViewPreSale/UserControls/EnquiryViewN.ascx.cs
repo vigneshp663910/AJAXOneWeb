@@ -82,6 +82,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblPersonName.Text = Enquiry.PersonName;
             lblEnquiryDate.Text = Enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
             lblSource.Text = Enquiry.Source.Source;
+            lblSalesChannelType.Text = Enquiry.SalesChannelType == null ? "" : Enquiry.SalesChannelType.ItemText;
             lblStatus.Text = Enquiry.Status.Status;
             lblProduct.Text = Enquiry.Product;
             lblCountry.Text = Enquiry.Country.Country.ToString();

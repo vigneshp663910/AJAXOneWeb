@@ -72,8 +72,8 @@
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>Quotation Type : </label>
-                    <asp:Label ID="lblQuotationType" runat="server" CssClass="LabelValue"></asp:Label>
+                     <label>Sales Channel : </label>
+                    <asp:Label ID="lblSalesChannelType" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Quotation Status : </label>

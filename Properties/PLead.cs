@@ -217,7 +217,8 @@ namespace Properties
         public int? StatusID { get; set; }
         public int? ProductTypeID { get; set; } 
         public int? QualificationID { get; set; }
-        public int? SourceID { get; set; } 
+        public int? SourceID { get; set; }
+        public int? SalesChannelTypeID { get; set; }
         public int? DealerID { get; set; }
         public long? SalesEngineerID { get; set; }
         public long? CustomerID { get; set; }

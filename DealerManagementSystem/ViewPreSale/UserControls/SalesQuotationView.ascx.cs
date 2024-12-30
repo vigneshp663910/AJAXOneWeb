@@ -816,7 +816,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblPgQuotationNumber.Text = Quotation.PgQuotationNo;
             lblPgQuotationDate.Text = Quotation.PgQuotationDate == null ? "" : ((DateTime)Quotation.PgQuotationDate).ToLongDateString();
 
-            lblQuotationType.Text = Quotation.QuotationType.QuotationType;
+            //lblQuotationType.Text = Quotation.QuotationType.QuotationType;
             lblQuotationStatus.Text = Quotation.Status.SalesQuotationStatus;
             lblValidFrom.Text = Quotation.ValidFrom == null ? "" : ((DateTime)Quotation.ValidFrom).ToLongDateString();
             lblValidTo.Text = Quotation.ValidTo == null ? "" : ((DateTime)Quotation.ValidTo).ToLongDateString();
@@ -825,6 +825,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
             lblProduct.Text = Quotation.LeadProduct.Product.Product;
+            lblSalesChannelType.Text = Quotation.Lead.SalesChannelType == null ? "" : Quotation.Lead.SalesChannelType.ItemText;
             // lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
             // lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
             cbCommissionAgent.Checked = Quotation.CommissionAgent;

@@ -61,6 +61,10 @@
                     <label>Source : </label>
                     <asp:Label ID="lblSource" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                 <div class="col-md-12">
+                    <label>Sales Channel : </label>
+                    <asp:Label ID="lblSalesChannelType" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
                 <div class="col-md-12">
                     <label>Country : </label>
                     <asp:Label ID="lblCountry" runat="server" CssClass="LabelValue"></asp:Label>

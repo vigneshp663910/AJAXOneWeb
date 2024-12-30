@@ -67,7 +67,7 @@ namespace DealerManagementSystem.ViewPreSale
 
                 List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
                 new DDLBind(ddlSSource, Source, "Source", "SourceID");
-
+                new DDLBind(ddlSSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID");
                 List<PDMS_Country> Country = new BDMS_Address().GetCountry(null, null);
                 new DDLBind(ddlSCountry, Country, "Country", "CountryID");
 
@@ -263,6 +263,7 @@ namespace DealerManagementSystem.ViewPreSale
             S.RegionID = ddlRegion.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRegion.SelectedValue); 
             S.QualificationID = ddlSQualification.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSQualification.SelectedValue);
             S.SourceID = ddlSSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSource.SelectedValue);
+            S.SalesChannelTypeID = ddlSSalesChannelType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSalesChannelType.SelectedValue);
             S.ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
             S.CountryID = ddlSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSCountry.SelectedValue);             
             S.StatusID = ddlSStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSStatus.SelectedValue); 

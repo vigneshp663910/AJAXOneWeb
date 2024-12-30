@@ -130,22 +130,22 @@ namespace Business
             return true;
         }
         public PApiResult GetEnquiry(long? EnquiryID, int? DealerID, int? EngineerUserID, string EnquiryNumber, string CustomerName
-            , int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID
+            , int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? SalesChannelTypeID
             , int? StatusID, int? PageIndex = null, int? PageSize = null)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Enquiry/GetEnquiry?EnquiryID=" + EnquiryID + "&DealerID=" + DealerID + "&EngineerUserID=" + EngineerUserID + "&EnquiryNumber=" + EnquiryNumber
                 + "&CustomerName=" + CustomerName + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID
-                + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SourceID=" + SourceID + "&StatusID=" + StatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SourceID=" + SourceID + "&SalesChannelTypeID=" + SalesChannelTypeID + "&StatusID=" + StatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetEnquiryExcel(long? EnquiryID, int? DealerID, int? EngineerUserID, string EnquiryNumber, string CustomerName
-            , int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? StatusID)
+            , int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? SalesChannelTypeID, int? StatusID)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Enquiry/GetEnquiryExcel?EnquiryID=" + EnquiryID + "&DealerID=" + DealerID + "&EngineerUserID=" + EngineerUserID + "&EnquiryNumber=" + EnquiryNumber
                 + "&CustomerName=" + CustomerName + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID
-                + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SourceID=" + SourceID + "&StatusID=" + StatusID;
+                + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SourceID=" + SourceID + "&SalesChannelTypeID=" + SalesChannelTypeID + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PEnquiry GetEnquiryByID(long? EnquiryID)

@@ -55,7 +55,10 @@
                         <label>Source</label>
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
                     </div>
-
+                     <div class="col-md-2 text-left">
+                        <label class="modal-label">Sales Channel Type</label>
+                        <asp:DropDownList ID="ddlSSalesChannelType" runat="server" CssClass="form-control" />
+                    </div>
                     <div class="col-md-2 text-left">
                         <label>Status</label>
                         <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control" />
@@ -76,7 +79,7 @@
                         <label>Product Type</label>
                         <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
                     </div>
-
+                    
                     <div class="col-md-12 text-center">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         <asp:Button ID="btnAddLead" runat="server" CssClass="btn Save" Text="Add Lead" OnClick="btnAddLead_Click" Width="150px"></asp:Button>
@@ -139,6 +142,7 @@
                                         <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source.Source")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                 <asp:BoundField HeaderText="Sales Channel Type" DataField="SalesChannelType.ItemText"></asp:BoundField>
                                 <asp:TemplateField HeaderText="Status">
                                     <ItemTemplate>
                                         <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />

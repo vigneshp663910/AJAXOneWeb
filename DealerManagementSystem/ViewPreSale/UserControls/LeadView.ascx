@@ -70,6 +70,10 @@
                 <label>Source : </label>
                 <asp:Label ID="lblSource" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
+             <div class="col-md-4">
+                    <label>Sales Channel : </label>
+                    <asp:Label ID="lblSalesChannelType" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             <div class="col-md-4">
                 <label>Status : </label>
                 <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>

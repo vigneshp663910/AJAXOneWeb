@@ -5,7 +5,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
             var hdfCustomerID = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID');
@@ -91,7 +91,10 @@
                         <label>Source</label>
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
                     </div>
-
+                    <div class="col-md-2 text-left">
+                        <label class="modal-label">Sales Channel Type</label>
+                        <asp:DropDownList ID="ddlSSalesChannelType" runat="server" CssClass="form-control" />
+                    </div>
                     <div class="col-md-2 text-left">
                         <label>Status</label>
                         <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control">
@@ -136,7 +139,7 @@
                             </div>
                             <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
                             <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
-                                AutoGenerateColumns="false" Width="100%" >
+                                AutoGenerateColumns="false" Width="100%">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -144,7 +147,7 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField>
+                                    <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
                                         </ItemTemplate>
@@ -187,6 +190,7 @@
                                     <asp:BoundField HeaderText="Product" DataField="Product"></asp:BoundField>
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Sales Channel Type" DataField="SalesChannelType.ItemText"></asp:BoundField>
                                     <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Created">
                                         <ItemStyle VerticalAlign="Middle" />
@@ -196,7 +200,7 @@
                                             <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                   
+
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
@@ -315,85 +319,85 @@
             }
         }
     </script>
-     <script type="text/javascript">
+    <script type="text/javascript">
 
-         function GetProjectAuto(id) {
-             debugger;
-             var parentIDC = "";
-             var parentID = "";
+        function GetProjectAuto(id) {
+            debugger;
+            var parentIDC = "";
+            var parentID = "";
 
 
-             parentIDC = "#MainContent_UC_EnquiryView_UC_AddLead_";
-             parentID = "MainContent_UC_EnquiryView_UC_AddLead_";
+            parentIDC = "#MainContent_UC_EnquiryView_UC_AddLead_";
+            parentID = "MainContent_UC_EnquiryView_UC_AddLead_";
 
-             var param = { Pro: $(parentIDC + 'txtProject').val() }
-             var Customers = [];
-             if ($(parentIDC + 'txtProject').val().trim().length >= 3) {
-                 $.ajax({
-                     url: "LeadN.aspx/GetProject",
-                     contentType: "application/json; charset=utf-8",
-                     type: 'POST',
-                     data: JSON.stringify(param),
-                     dataType: 'JSON',
-                     success: function (data) {
-                         var DataList = JSON.parse(data.d);
-                         for (i = 0; i < DataList.length; i++) {
-                             Customers[i] = {
-                                 value: DataList[i].ProjectName,
-                                 ProjectID: DataList[i].ProjectID,
-                                 TenderNumber: DataList[i].TenderNumber,
-                                 State: DataList[i].State.State,
-                                 District: DataList[i].District.District,
-                                 ProjectValue: DataList[i].Value,
-                                 ContractAwardDate: DataList[i].ContractAwardDate,
-                                 ContractEndDate: DataList[i].ContractEndDate
-                             };
-                         }
-                         $(parentIDC + 'txtProject').autocomplete({
-                             source: function (request, response) { response(Customers) },
-                             select: function (e, u) {
-                                 debugger;
+            var param = { Pro: $(parentIDC + 'txtProject').val() }
+            var Customers = [];
+            if ($(parentIDC + 'txtProject').val().trim().length >= 3) {
+                $.ajax({
+                    url: "LeadN.aspx/GetProject",
+                    contentType: "application/json; charset=utf-8",
+                    type: 'POST',
+                    data: JSON.stringify(param),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        var DataList = JSON.parse(data.d);
+                        for (i = 0; i < DataList.length; i++) {
+                            Customers[i] = {
+                                value: DataList[i].ProjectName,
+                                ProjectID: DataList[i].ProjectID,
+                                TenderNumber: DataList[i].TenderNumber,
+                                State: DataList[i].State.State,
+                                District: DataList[i].District.District,
+                                ProjectValue: DataList[i].Value,
+                                ContractAwardDate: DataList[i].ContractAwardDate,
+                                ContractEndDate: DataList[i].ContractEndDate
+                            };
+                        }
+                        $(parentIDC + 'txtProject').autocomplete({
+                            source: function (request, response) { response(Customers) },
+                            select: function (e, u) {
+                                debugger;
 
-                                 $(parentIDC + "hdfProjectID").val(u.item.ProjectID);
-                                 document.getElementById(parentID + "txtProject").disabled = true;
-                                 //document.getElementById('divCustomerViewID').style.display = "block";
-                                 //document.getElementById('divCustomerCreateID').style.display = "none";
+                                $(parentIDC + "hdfProjectID").val(u.item.ProjectID);
+                                document.getElementById(parentID + "txtProject").disabled = true;
+                                //document.getElementById('divCustomerViewID').style.display = "block";
+                                //document.getElementById('divCustomerCreateID').style.display = "none";
 
-                                 //document.getElementById('lblCustomerName').innerText = u.item.value;
-                                 //document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
-                                 //document.getElementById('lblMobile').innerText = u.item.Mobile;
+                                //document.getElementById('lblCustomerName').innerText = u.item.value;
+                                //document.getElementById('lblContactPerson').innerText = u.item.ContactPerson;
+                                //document.getElementById('lblMobile').innerText = u.item.Mobile;
 
-                             },
-                             open: function (event, ui) {
-                                 $(this).autocomplete("widget").css({
-                                     "max-width":
-                                         $(parentIDC + 'txtProject').width() + 48,
-                                 });
-                                 $(this).autocomplete("widget").scrollTop(0);
-                             }
-                         }).focus(function (e) {
-                             $(this).autocomplete("search");
-                         }).click(function () {
-                             $(this).autocomplete("search");
-                         }).data('ui-autocomplete')._renderItem = function (ul, item) {
+                            },
+                            open: function (event, ui) {
+                                $(this).autocomplete("widget").css({
+                                    "max-width":
+                                        $(parentIDC + 'txtProject').width() + 48,
+                                });
+                                $(this).autocomplete("widget").scrollTop(0);
+                            }
+                        }).focus(function (e) {
+                            $(this).autocomplete("search");
+                        }).click(function () {
+                            $(this).autocomplete("search");
+                        }).data('ui-autocomplete')._renderItem = function (ul, item) {
 
-                             var inner_html = FormatAutocompleteProject(item);
-                             return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
-                                 .data('item.autocomplete', item)
-                                 .append(inner_html)
-                                 .appendTo(ul);
-                         };
+                            var inner_html = FormatAutocompleteProject(item);
+                            return $('<li class="" style="padding:5px 5px 20px 5px;border-bottom:1px solid #82949a;  z-index: 10002"></li>')
+                                .data('item.autocomplete', item)
+                                .append(inner_html)
+                                .appendTo(ul);
+                        };
 
-                     }
-                 });
-             }
-             else {
-                 $(parentIDC + 'txtProject').autocomplete({
-                     source: function (request, response) {
-                         response($.ui.autocomplete.filter(Customers, ""))
-                     }
-                 });
-             }
-         }
-     </script>
+                    }
+                });
+            }
+            else {
+                $(parentIDC + 'txtProject').autocomplete({
+                    source: function (request, response) {
+                        response($.ui.autocomplete.filter(Customers, ""))
+                    }
+                });
+            }
+        }
+    </script>
 </asp:Content>

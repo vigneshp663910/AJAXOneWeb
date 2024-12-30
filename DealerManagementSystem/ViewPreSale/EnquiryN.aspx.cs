@@ -27,6 +27,7 @@ namespace DealerManagementSystem.ViewPreSale
         DateTime? DateFrom = null;
         DateTime? DateTo = null;
         int? SourceID = null;
+        int? SalesChannelTypeID = null; 
         int? StatusID = null;
 
         //public List<PEnquiry> PEnquiry
@@ -104,7 +105,7 @@ namespace DealerManagementSystem.ViewPreSale
 
                     List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
                     new DDLBind(ddlSSource, Source, "Source", "SourceID");
-
+                    new DDLBind(ddlSSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID");
                     List<PPreSaleStatus> Status = new BDMS_Master().GetPreSaleStatus(null, null); 
                     if (Session["leadStatusID"] != null)
                     {
@@ -158,7 +159,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             //DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
 
-            PApiResult Result =  new BEnquiry().GetEnquiry(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, StatusID, PageIndex, gvEnquiry.PageSize);
+            PApiResult Result =  new BEnquiry().GetEnquiry(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, SalesChannelTypeID, StatusID, PageIndex, gvEnquiry.PageSize);
 
             gvEnquiry.DataSource = JsonConvert.DeserializeObject<List<PEnquiry>>(JsonConvert.SerializeObject(Result.Data));
             gvEnquiry.DataBind();
@@ -296,7 +297,7 @@ namespace DealerManagementSystem.ViewPreSale
             try
             {
                 Search();
-                PApiResult Result = new BEnquiry().GetEnquiryExcel(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, StatusID);
+                PApiResult Result = new BEnquiry().GetEnquiryExcel(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, SalesChannelTypeID, StatusID);
                 DataTable Enquirys = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
 
                 try
@@ -316,83 +317,7 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
-        }
-        void SalesCommisionClaimExportExcel()
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Sno");
-            dt.Columns.Add("Created By");
-            dt.Columns.Add("Region");
-            dt.Columns.Add("Dealer Code");
-            dt.Columns.Add("Dealer Name");
-            dt.Columns.Add("Enquiry Number");
-            dt.Columns.Add("Enquiry Date");
-            dt.Columns.Add("Status");
-            dt.Columns.Add("Customer Name");
-            dt.Columns.Add("Person Name");
-            dt.Columns.Add("Mail");
-            dt.Columns.Add("Mobile");
-            dt.Columns.Add("Address1");
-            dt.Columns.Add("Address2");
-            dt.Columns.Add("Address3");
-            dt.Columns.Add("Country");
-            dt.Columns.Add("State");
-            dt.Columns.Add("District");
-            dt.Columns.Add("Product");
-            dt.Columns.Add("Source");
-            dt.Columns.Add("Remarks");
-            dt.Columns.Add("Rejected Remark");
-            dt.Columns.Add("Product Type");
-            dt.Columns.Add("Sales Teritory Manager");
-
-            Search();
-
-
-
-            PApiResult Result = new BEnquiry().GetEnquiryExcel(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, StatusID);
-
-            DataTable Enquirys = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
-
-            //        dt.Rows.Add(
-            //             i
-            //            , Enquiry.CreatedBy.ContactName
-            //            , Enquiry.State.Region.Region
-            //            , Enquiry.Dealer.DealerCode
-            //            , Enquiry.Dealer.DealerName
-            //            , Enquiry.EnquiryNumber
-            //            , (Enquiry.EnquiryDate == null) ? "" : Enquiry.EnquiryDate.ToString()
-            //            , Enquiry.Status.Status
-            //            , Enquiry.CustomerName
-            //            , Enquiry.PersonName
-            //            , Enquiry.Mail
-            //            , Enquiry.Mobile
-            //            , Enquiry.Address
-            //            , Enquiry.Address2
-            //            , Enquiry.Address3
-            //            , Enquiry.Country.Country
-            //            , Enquiry.State.State
-            //            , Enquiry.District.District
-            //            , Enquiry.Product
-            //            , Enquiry.Source.Source
-            //            , Enquiry.Remarks
-            //            , Enquiry.RejectReason
-            //            , Enquiry.ProductType.ProductType 
-            //            ,Enquiry.STM.ContactName
-            //            );
-            //    }
-            //}
-            try
-            {
-                new BXcel().ExporttoExcel(Enquirys, "Enquiry Report");
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-            }
-        }
+        } 
         void Search()
         {
             DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
@@ -413,6 +338,8 @@ namespace DealerManagementSystem.ViewPreSale
             DateFrom = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
 
             DateTo = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
+
+            SalesChannelTypeID = ddlSSalesChannelType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSalesChannelType.SelectedValue);
         }
     }
 }
