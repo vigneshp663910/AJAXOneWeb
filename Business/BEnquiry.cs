@@ -111,7 +111,7 @@ namespace Business
                 DbParameter DistrictID = provider.CreateParameter("DistrictID", enquiry.District.DistrictID, DbType.Int32);                
                 DbParameter Product = provider.CreateParameter("Product", enquiry.Product, DbType.String);
                 DbParameter Remarks = provider.CreateParameter("Remarks", enquiry.Remarks, DbType.String);
-                DbParameter SalesChannelTypeID = provider.CreateParameter("SalesChannelTypeID", enquiry.SalesChannelType.MasterItemID, DbType.Boolean);
+                DbParameter SalesChannelTypeID = provider.CreateParameter("SalesChannelTypeID", enquiry.SalesChannelType.MasterItemID, DbType.Int32);
                 DbParameter CreatedBy = provider.CreateParameter("CreatedBy", UserID, DbType.Int32);
                 DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
