@@ -472,11 +472,11 @@ namespace DealerManagementSystem.ViewAdmin
 
                 DropDownList ddlGvSalesRetailer = (DropDownList)gvRetailerSales.FooterRow.FindControl("ddlGvSalesRetailer");
                 fillDealer(ddlGvSalesRetailer, PSession.User.Dealer.Where(m => m.DealerType.DealerTypeID == (short)DealerType.Retailer || m.DealerType.DealerTypeID == (short)DealerType.OEM), "Select Dealer");  
-                ddlGvSalesRetailer.SelectedValue = District[0].ServiceRetailer == null ? "0" : District[0].ServiceRetailer.DealerID.ToString();
+                ddlGvSalesRetailer.SelectedValue = District[0].SalesRetailer == null ? "0" : District[0].SalesRetailer.DealerID.ToString();
                 //ddlGvSalesRetailer.Visible = true;
 
                 Label lblFGvSalesRetailer = (Label)gvRetailerSales.FooterRow.FindControl("lblFGvSalesRetailer");
-                lblFGvSalesRetailer.Text = District[0].ServiceRetailer == null ? "" : District[0].ServiceRetailer.DealerCode;
+                lblFGvSalesRetailer.Text = District[0].SalesRetailer == null ? "" : District[0].SalesRetailer.DealerCode;
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
                 if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.EditAllSalesAndServiceConfiguration).Count() == 1)
                 {
