@@ -471,7 +471,7 @@ namespace DealerManagementSystem.ViewAdmin
                  
 
                 DropDownList ddlGvSalesRetailer = (DropDownList)gvRetailerSales.FooterRow.FindControl("ddlGvSalesRetailer");
-                fillDealer(ddlGvSalesRetailer, PSession.User.Dealer.Where(m => m.DealerType.DealerTypeID == (short)DealerType.Retailer || m.DealerType.DealerTypeID == (short)DealerType.OEM), "Select Dealer");  
+                fillDealer(ddlGvSalesRetailer, PSession.User.Dealer.Where(m => m.DealerType.DealerTypeID == (short)DealerType.Retailer || m.DealerType.DealerTypeID == (short)DealerType.OEM), "Select Retailer");  
                 ddlGvSalesRetailer.SelectedValue = District[0].SalesRetailer == null ? "0" : District[0].SalesRetailer.DealerID.ToString();
                 //ddlGvSalesRetailer.Visible = true;
 
@@ -522,7 +522,7 @@ namespace DealerManagementSystem.ViewAdmin
                 DropDownList ddlGvSalesRetailer = (DropDownList)gvRetailerSales.FooterRow.FindControl("ddlGvSalesRetailer");
                 if (ddlGvSalesRetailer.SelectedValue == "0")
                 {
-                    lblMessage.Text = "Please select Dealer.";
+                    lblMessage.Text = "Please select Retailer.";
                     return;
                 }
 
