@@ -281,17 +281,18 @@ namespace DealerManagementSystem.ViewMaster
 
                 });
 
-                List<PMaterial> Ms = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                List<PMaterialPrice> Ms = new BDMS_Material().MaterialPriceFromSapApiNew(MaterialPrice);
                 if (Ms.Count == 1)
                 {
-                    if (Ms[0].CurrentPrice < 0)
+                    if (Ms[0].Price < 0)
                     {
                         lblMessage.Text = "Please Check Material Code : " + txtMaterialCodePrice.Text.Trim() + " Price is not valid!";
                         return;
                     } 
                 }
                
-                Material[0].CurrentPrice = Ms[0].CurrentPrice;
+                Material[0].CurrentPrice = Ms[0].Price;
+                Material[0].TaxPercentage = Ms[0].Tax * 2;
                 gvMaterialPrice.DataSource = Material;
                 gvMaterialPrice.DataBind();
             }

@@ -289,16 +289,16 @@ namespace DealerManagementSystem.ViewInventory
                                     
                                 });
 
-                                List<PMaterial> Ms = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                                List<PMaterialPrice> Ms = new BDMS_Material().MaterialPriceFromSapApiNew(MaterialPrice);
                                 if (Ms.Count == 1)
                                 {
-                                    if (Ms[0].CurrentPrice < 0)
+                                    if (Ms[0].Price < 0)
                                     {
                                         lblMessage.Text = "Please Check Material Code : " + ExcelMaterialCode + " Price is not valid!";
                                         lblMessage.ForeColor = Color.Red;
                                         return false;
                                     }
-                                    S.PerUnitPrice = Ms[0].CurrentPrice - Ms[0].Discount;
+                                    S.PerUnitPrice = Ms[0].Price;// - Ms[0].Discount;
                                 }
                                 else
                                 {

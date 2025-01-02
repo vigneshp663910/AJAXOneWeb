@@ -65,8 +65,8 @@ namespace Business
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, obj));
         }
         public PStockTransferOrderItem_Insert GetMaterialPriceForStockTransferOrder(int DealerID, PStockTransferOrderItem_Insert PoI)
-        { 
-            PDealer Dealer= new BDealer().GetDealerByID(DealerID,"");
+        {
+            PDealer Dealer = new BDealer().GetDealerByID(DealerID, "");
             PSapMatPrice_Input InPut = new PSapMatPrice_Input();
             InPut.Customer = Dealer.DealerCode;
             InPut.Vendor = Dealer.DealerCode;
@@ -80,16 +80,15 @@ namespace Business
                 Quantity = PoI.Quantity
             });
 
-            List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(InPut);
-            PMaterial Mat = Mats[0];
-            PoI.TaxableValue = Mat.CurrentPrice;
-            PoI.SGST = Mat.SGST;
-            PoI.SGSTValue = Mat.SGST == 0 ? 0 : Mat.CurrentPrice * Mat.SGST / 100;
-            PoI.CGST = Mat.SGST;
-            PoI.CGSTValue = Mat.SGST == 0 ? 0 : Mat.CurrentPrice * Mat.SGST / 100;
-            PoI.IGST = Mat.IGST;
-            PoI.IGSTValue = Mat.IGST == 0 ? 0 : Mat.CurrentPrice * Mat.IGST / 100; 
-
+            List<PMaterialPrice> Mats = new BDMS_Material().MaterialPriceFromSapApiNew(InPut);
+            PMaterialPrice Mat = Mats[0];
+            PoI.TaxableValue = Mat.Price;
+            PoI.SGST = Mat.Tax;
+            PoI.SGSTValue = Mat.Price * Mat.Tax / 100;
+            PoI.CGST = Mat.Tax;
+            PoI.CGSTValue = Mat.Price * Mat.Tax / 100;
+            PoI.IGST = 0;
+            PoI.IGSTValue = 0;
             return PoI;
         }
         public PApiResult UpdateStockTransferOrderDeliveryShipping(long DeliveryID,string KindAtten,string Ref, string TransRemark, string PackingDesc, string TransMode, string TransDetail)
