@@ -462,6 +462,7 @@
     <Content Include="ViewDashboard\UserControls\ICTicketTransactionStatics.ascx" />
     <Content Include="ViewDashboard\UserControls\LeadStatusDashboard.ascx" />
     <Content Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx" />
+    <Content Include="ViewDashboard\WarrantyCostPerMachine.aspx" />
     <Content Include="ViewDealerEmployee\DealerOperatorDetails.aspx" />
     <Content Include="ViewDealerEmployee\MachineOperatorApproval.aspx" />
     <Content Include="ViewDealerEmployee\MachineOperatorManage.aspx" />
@@ -1439,6 +1440,13 @@
     </Compile>
     <Compile Include="ViewDashboard\UserControls\WarrantyClaimDebitNoteAcknowledgePending.ascx.designer.cs">
       <DependentUpon>WarrantyClaimDebitNoteAcknowledgePending.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDashboard\WarrantyCostPerMachine.aspx.cs">
+      <DependentUpon>WarrantyCostPerMachine.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDashboard\WarrantyCostPerMachine.aspx.designer.cs">
+      <DependentUpon>WarrantyCostPerMachine.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewDealerEmployee\DealerOperatorDetails.aspx.cs">
       <DependentUpon>DealerOperatorDetails.aspx</DependentUpon>

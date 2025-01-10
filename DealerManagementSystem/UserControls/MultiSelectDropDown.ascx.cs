@@ -10,6 +10,7 @@ namespace DealerManagementSystem.UserControls
     public partial class MultiSelectDropDown : System.Web.UI.UserControl
     {
         public string SelectedValue { get { return GetSelectedValue(); } }
+        public event EventHandler ButtonClicked;
         protected void Page_Load(object sender, EventArgs e)
         { 
         }
@@ -58,6 +59,11 @@ namespace DealerManagementSystem.UserControls
             {
                 divMultiSelect.Visible = true;
                 btnView.ImageUrl = "~/Images/CloseIcon.jpg";
+            }
+
+            if (ButtonClicked != null)
+            {
+                ButtonClicked(this, EventArgs.Empty);
             }
         }
 

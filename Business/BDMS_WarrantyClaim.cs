@@ -1459,5 +1459,12 @@ namespace Business
             string endPoint = "Warranty/GetDeviatedClaimToVerify?ClaimNumber=" + ClaimNumber + "&DeviationTypeID=" + DeviationTypeID;
             return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public DataSet DAGetQuality(string ManufacturingDateF, string ManufacturingDateT, string AsOnDate, string Dealer, string Region, string ServiceType, string Division, string Model, int Excel = 0)
+        {
+            string endPoint = "Warranty/DAGetQuality?ManufacturingDateF=" + ManufacturingDateF + "&ManufacturingDateT=" + ManufacturingDateT + "&AsOnDate=" + AsOnDate
+                + "&Dealer=" + Dealer + "&Region=" + Region + "&ServiceType=" + ServiceType + "&Division=" + Division + "&Model=" + Model + "&Excel=" + Excel;
+            return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

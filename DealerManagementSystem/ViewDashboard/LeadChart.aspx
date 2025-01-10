@@ -114,17 +114,17 @@
                                 <div class="col-md-6">
                                     <div id="divRegionNorth"></div>
                                 </div>
-                                <div class="col-md-6"> 
-                                     <div id="divRegionSouth"></div>
+                                <div class="col-md-6">
+                                    <div id="divRegionSouth"></div>
                                 </div>
-                                 <div class="col-md-6"> 
-                                     <div id="divRegionWest"></div>
+                                <div class="col-md-6">
+                                    <div id="divRegionWest"></div>
                                 </div>
                             </div>
 
 
-                           
-                            
+
+
                             <div id="columnchart_values"></div>
                             <div id="divRegionWiseLeadStatus"></div>
                         </ContentTemplate>
