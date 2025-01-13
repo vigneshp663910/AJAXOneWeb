@@ -214,6 +214,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
             if (SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.IntraDealerOrder
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder
+                || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_PartsStk_Order
+                || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_PartsEmg_Order
+                || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_PartsWarr_Order
+                || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_BreakDown_Order
                 )
             {
                 lbAddSaleOrderItem.Visible = false;
@@ -236,6 +240,10 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 || StatusID == (short)AjaxOneStatus.SaleOrder_PartiallyClosed
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.MachineOrder
                 || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.WarrantyOrder
+                || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_PartsStk_Order
+                || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_PartsEmg_Order
+                || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_PartsWarr_Order
+                || SOrder.SaleOrderType.SaleOrderTypeID == (short)SaleOrderType.RTLR_BreakDown_Order 
                 )
             {
                 for (int i = 0; i < gvSOItem.Rows.Count; i++)

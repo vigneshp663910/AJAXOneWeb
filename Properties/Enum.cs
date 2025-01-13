@@ -985,7 +985,11 @@ namespace Properties
         CustomerOrder = 1,
         IntraDealerOrder = 2,
         WarrantyOrder = 3,
-        MachineOrder = 4
+        MachineOrder = 4,
+        RTLR_PartsStk_Order=5,
+        RTLR_PartsEmg_Order =6,
+        RTLR_PartsWarr_Order=7,
+        RTLR_BreakDown_Order =8
     }
     public enum ICTicketDeviationType
     {

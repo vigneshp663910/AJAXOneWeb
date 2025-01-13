@@ -998,7 +998,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             //{
             //    return "Material " + m.MaterialCode + " Not Available."; 
             //}
-            int Qty1 = Convert.ToInt32(Convert.ToDecimal(QtyN));
+                int Qty1 = Convert.ToInt32(Convert.ToDecimal(QtyN));
 
             if (Qty1 < 1)
             {
