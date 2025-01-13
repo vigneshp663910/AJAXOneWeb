@@ -438,7 +438,7 @@
                                                         <asp:TemplateField HeaderText="Tax%">
                                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                                             <ItemTemplate>
-                                                                <asp:Label ID="lblTaxPercentage" Text='<%# DataBinder.Eval(Container.DataItem, "GST","{0:n}")%>' runat="server"></asp:Label>
+                                                                <asp:Label ID="lblTaxPercentage" Text='<%# DataBinder.Eval(Container.DataItem, "TaxPercentage","{0:n}")%>' runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="Price">
