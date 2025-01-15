@@ -280,42 +280,7 @@ namespace Business
             { }
             return W;
         }
-       
-        public long InsertOrUpdateMaterialRecommendedBySEICTicketFSR(long ServiceMaterialID, long ICTicketID, string Material, decimal Qty, Boolean IsDeleted, int UserID)
-        {
-            long success = 0;
-            long ID = 0;
-            DbParameter ServiceMaterialIDP = provider.CreateParameter("ServiceMaterialID", ServiceMaterialID, DbType.Int64);
-            DbParameter ICTicketP = provider.CreateParameter("ICTicket", ICTicketID, DbType.Int64);
-            DbParameter MaterialP = provider.CreateParameter("Material", Material, DbType.String);
-            DbParameter QtyP = provider.CreateParameter("Qty", Qty, DbType.Decimal);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter IsDeleteP = provider.CreateParameter("IsDeleted", IsDeleted, DbType.Boolean);
-            DbParameter IDP = provider.CreateParameter("OutValue", ID, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
-            DbParameter[] Params = new DbParameter[7] { ServiceMaterialIDP, ICTicketP, MaterialP, QtyP, UserIDP, IsDeleteP, IDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_InsertOrUpdateMaterialAddOrRemoveICTicket", Params);
-                    scope.Complete();
-                    success = Convert.ToInt64(IDP.Value);
-                }
-
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicketFSR", "InsertOrUpdateMaterialAddOrRemoveICTicket", sqlEx);
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_ICTicketFSR", " InsertOrUpdateMaterialAddOrRemoveICTicket", ex);
-                return 0;
-            }
-            return success;
-        }
-
+        
         public long InsertOrUpdateICTicketFSRSignature(long FsrID, string Photo, int UserID, Int32 ImageType, Boolean IsDeleted, string Name)
         {
             long success = 0; 
