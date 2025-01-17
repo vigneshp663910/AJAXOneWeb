@@ -7,36 +7,34 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewDashboard
 {
-    public partial class WarrantyCostPerMachine : BasePage
+    public partial class IncidentPer100 : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewDashboard_WarrantyCostPerMachine; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewDashboard_IncidentPer100; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Warranty Cost Per Machine');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Incident Per 100 Machine');</script>");
 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
             }
-        } 
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             ddlmDivision.ButtonClicked += new EventHandler(UserControl_ModelFill);
             if (!IsPostBack)
             {
-                
+
 
                 ddlmDealer.Fill("CodeWithDisplayName", "DID", PSession.User.Dealer);
                 ddlmDivision.Fill("DivisionDescription", "DivisionID", new BDMS_Master().GetDivision(null, null));
                 UserControl_ModelFill(null, null);
                 ddlmRegion.Fill("Region", "RegionID", new BDMS_Address().GetRegion(1, null, null));
-               
-                
+
+
 
                 DataTable dtServiceType = new DataTable();
                 dtServiceType.Columns.Add("ServiceTypeID");
@@ -44,7 +42,7 @@ namespace DealerManagementSystem.ViewDashboard
                 dtServiceType.Rows.Add("2", "Warranty");
                 dtServiceType.Rows.Add("15", "Goodwill Warranty");
                 dtServiceType.Rows.Add("10", "Parts Warranty ");
-                dtServiceType.Rows.Add("5", "Pre Commission");               
+                dtServiceType.Rows.Add("5", "Pre Commission");
                 dtServiceType.Rows.Add("8", "Promotional Activity");
                 dtServiceType.Rows.Add("9", "Policy Warranty");
                 ddlmServiceType.Fill("ServiceType", "ServiceTypeID", dtServiceType);
@@ -65,12 +63,8 @@ namespace DealerManagementSystem.ViewDashboard
             }
         }
         protected void UserControl_ModelFill(object sender, EventArgs e)
-        {
-            //HtmlGenericControl MultiSelect = ddlmModel.MultiSelect;
-            //if (MultiSelect.Visible)
-            //{
-                ddlmModel.Fill("Model", "ModelID", new BDMS_WarrantyClaim().ZYA_GetModel(ddlmDivision.SelectedValue));
-            //}
+        { 
+            ddlmModel.Fill("Model", "ModelID", new BDMS_WarrantyClaim().ZYA_GetModel(ddlmDivision.SelectedValue));
         }
 
         protected void BtnSearch_Click(object sender, EventArgs e)
@@ -79,7 +73,7 @@ namespace DealerManagementSystem.ViewDashboard
         }
 
         [WebMethod]
-        public static List<object> RegionEastChart(string DateFrom, string DateTo, string AsOnDate)
+        public static List<object> IncidentPer(string DateFrom, string DateTo, string AsOnDate)
         {
             string HMR = (string)HttpContext.Current.Session["HMR"];
 
@@ -141,7 +135,7 @@ namespace DealerManagementSystem.ViewDashboard
             string Division = (string)HttpContext.Current.Session["Division"];
             string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
             string Model = (string)HttpContext.Current.Session["Model"];
-            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(DateFrom, DateTo, AsOnDate, Dealer, Region, ServiceType, Division, Model)).Tables[0];
+            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(DateFrom, DateTo, AsOnDate, Dealer, Region, ServiceType, Division, Model)).Tables[0];
             foreach (DataRow dr in dt.Rows)
             {
 
@@ -226,8 +220,8 @@ namespace DealerManagementSystem.ViewDashboard
             string Division = (string)HttpContext.Current.Session["Division"];
             string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
             string Model = (string)HttpContext.Current.Session["Model"];
-            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model)).Tables[0];
-            new BXcel().ExporttoExcel(dt, "Warranty Cost Per Machine Chart Data");
+            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model)).Tables[0];
+            new BXcel().ExporttoExcel(dt, "Incident Per 100 Machine Chart Data");
         }
 
         protected void BtnDetailData_Click(object sender, EventArgs e)
@@ -237,8 +231,8 @@ namespace DealerManagementSystem.ViewDashboard
             string Division = (string)HttpContext.Current.Session["Division"];
             string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
             string Model = (string)HttpContext.Current.Session["Model"];
-            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetWarrantyCostPerMachine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, 1)).Tables[0];
-            new BXcel().ExporttoExcel(dt, "Warranty Cost Per Machine");
+            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, 1)).Tables[0];
+            new BXcel().ExporttoExcel(dt, "Incident Per 100 Machine");
         }
     }
 }
