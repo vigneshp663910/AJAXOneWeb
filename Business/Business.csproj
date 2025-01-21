@@ -183,6 +183,7 @@
     <Compile Include="BPreSale.cs" />
     <Compile Include="BProject.cs" />
     <Compile Include="BProcurementMasters.cs" />
+    <Compile Include="BSalesTouchPoint.cs" />
     <Compile Include="BSap.cs" />
     <Compile Include="BSne.cs" />
     <Compile Include="BSalesCommissionClaim.cs" />

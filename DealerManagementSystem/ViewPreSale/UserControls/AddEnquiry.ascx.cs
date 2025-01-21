@@ -173,5 +173,29 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         { 
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
         }
+        public void WriteSalesTouchPointEnquiry(PSalesTouchPointEnquiry enquiry)
+        {
+            txtCustomerName.Text = enquiry.CustomerName;
+            // txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
+            txtPersonName.Text = enquiry.PersonName;
+            txtMobile.Text = enquiry.Mobile;
+            txtMail.Text = enquiry.Mail;
+            new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID");
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null, null), "District", "DistrictID");
+            new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+            new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
+            ddlCountry.SelectedValue = enquiry.Country.CountryID.ToString();
+            ddlState.SelectedValue = enquiry.State.StateID.ToString();
+            ddlDistrict.SelectedValue = enquiry.District.DistrictID.ToString();
+            ddlSource.SelectedValue = "0";
+            ddlProductType.SelectedValue = "0";
+            txtAddress.Text = enquiry.Address.ToString();
+            txtAddress2.Text = enquiry.Address2.ToString();
+            txtAddress3.Text = enquiry.Address3.ToString();
+            txtProduct.Text = "";
+            txtRemarks.Text = enquiry.Remarks;
+            txtNextFollowUpDate.Text = "";
+        }
     }
 }

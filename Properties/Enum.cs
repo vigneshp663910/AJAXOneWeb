@@ -291,7 +291,7 @@ namespace Properties
         ViewService_WarrantyClaimApprovalRequest = 46,
         ViewService_WarrantyClaimInvoiceCreate5k = 47,
         ViewService_WarrantyClaimDebitNoteCreate = 48,
-        ViewProcurement_StockTransferOrderASN=49,
+        ViewProcurement_StockTransferOrderASN = 49,
         ViewService_ICTicket = 50,
         ViewService_PaidServiceQuotation = 51,
         ViewService_PaidServiceProformaInvoice = 52,
@@ -516,6 +516,8 @@ namespace Properties
         ViewSales_Report_OofCustomerReport = 270,
         ViewSupportTicket_TaskMeasurement = 271,
         ViewSupportTicket_TaskSummaryDetails = 272,
+        ViewPreSale_SalesTouchPointEnquiry = 276,
+        ViewPreSale_SalesTouchPointEnquiryReport = 277
     }
     public enum SubModuleChildMaster
     {
@@ -620,9 +622,10 @@ namespace Properties
         DealerOfficeUserMappingUpdate = 99,
         UserPurchaseOrderTypeMappingUpdate = 100,
         SaleOrderDeliveryCancel = 101,
-        EditAllSalesAndServiceConfiguration=103,
+        EditAllSalesAndServiceConfiguration = 103,
         EditDealerSalesEngineer = 104,
-        EditRetailerSalesEngineer = 105
+        EditRetailerSalesEngineer = 105,
+        EnquiryRejectOrConvert = 106,
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -682,7 +685,7 @@ namespace Properties
         // ICTicketIntegrationFromCRM = 3,
         MaterialIntegrationFromPostgre = 4,
         SAPDocumentForWarrantyInvoiceFromSAP = 5,
-       // SaleOrderNumberForSrviceQuatationFromSAP = 6,
+        // SaleOrderNumberForSrviceQuatationFromSAP = 6,
         //  TechnicianIntegrationFromSAP = 7,
         RebuildIndex = 8,
         //  ModelForClaim = 9,
@@ -838,8 +841,8 @@ namespace Properties
     {
         OEM = 1,
         Dealer = 2,
-        CallCenter = 3, 
-        Retailer =4, 
+        CallCenter = 3,
+        Retailer = 4,
     }
     public enum ProductType
     {
@@ -926,7 +929,7 @@ namespace Properties
         PaymentMode_Cash = 51,
         PartsSalesType_Engineer = 52,
         PaymentMode_Credit = 53,
-        SaleOrderDelivery_Cancelled=54
+        SaleOrderDelivery_Cancelled = 54
     }
     public enum ProcurementStatusHeader
     {
@@ -998,6 +1001,14 @@ namespace Properties
         Commissioning = 2,
         ClaimApprovalDelay = 3,
         ClaimCreationDelay = 4,
+    }
+    public enum SalesTouchPointEnquiryStatus
+    {
+        Created = 1,
+        Converted = 2,
+        Rejected = 3,
+        Loss = 4,
+        Won = 5
     }
 }
 
