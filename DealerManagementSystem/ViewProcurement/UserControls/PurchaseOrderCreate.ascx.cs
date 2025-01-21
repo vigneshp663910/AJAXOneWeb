@@ -712,11 +712,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     lblMessage.Text = Message;
                     return;
                 }
-                if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
-                {
-                    lblMessage.Text = "Material already available.";
-                    return;
-                }
+                //if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
+                //{
+                //    lblMessage.Text = "Material already available.";
+                //    return;
+                //}
                 int MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
 
                 if (MaterialID != Convert.ToInt32(hdfMaterialID.Value))
@@ -728,6 +728,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     //});
                 }
 
+                if (PurchaseOrderItem_Insert.Any(item => item.MaterialID == MaterialID))
+                {
+                    lblMessage.Text = "Material already available.";
+                    return;
+                }
                 //lblMessage.Text = "The entered material : " + hdfMaterialCode.Value + " is superseded by other material number " + PoI.MaterialCode + ".";
                 PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, null, null, null, null)[0];
 

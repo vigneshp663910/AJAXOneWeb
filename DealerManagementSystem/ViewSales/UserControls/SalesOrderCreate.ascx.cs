@@ -110,7 +110,11 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblMessage.Text = Message;
                     return;
                 }
-                int MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
+                int MaterialID = Convert.ToInt32(hdfMaterialID.Value);
+                if (cbSupersede.Checked)
+                {
+                    MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
+                }
                 string MessageSupersede = "";
                 PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, null, null, null, null)[0];
 
@@ -610,8 +614,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
                             if (Cells.Count != 0)
                             {
                                 string ExcelMaterialCode = Convert.ToString(Cells[1].Value).TrimEnd('\0');
-
-                                string MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(ExcelMaterialCode);
+                                Boolean SupersedeCheck = Convert.ToBoolean(Convert.ToString(Cells[3].Value).TrimEnd('\0'));
+                                string MaterialCode = ExcelMaterialCode;
+                                if (SupersedeCheck)
+                                {
+                                    MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(ExcelMaterialCode);
+                                }
                                 MaterialCode = MaterialCode.Trim();
                                 // PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, TMaterialCode, null, null, null)[0];
 

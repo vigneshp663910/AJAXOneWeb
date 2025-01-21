@@ -227,6 +227,10 @@
                 <label class="modal-label">Qty<samp style="color: red">*</samp></label>
                 <asp:TextBox ID="txtQty" runat="server" CssClass="form-control"></asp:TextBox>
             </div>
+               <div class="col-md-3 col-sm-12">
+                <label class="modal-label">Qty<samp style="color: red">*</samp></label>
+                   <asp:CheckBox ID="cbSupersede" runat="server" Checked="true" />
+            </div>
             <div class="col-md-2 text-left">
                 <label class="modal-label">.</label>
                 <asp:Button ID="btnAddMaterial" runat="server" Text="Add" CssClass="btn Search" OnClick="btnAddMaterial_Click" />
