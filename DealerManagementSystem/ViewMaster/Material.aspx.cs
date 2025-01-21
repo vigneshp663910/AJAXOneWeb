@@ -305,7 +305,33 @@ namespace DealerManagementSystem.ViewMaster
         {
             try
             {
-                MaterialSupersede = new BDMS_Material().GetMaterialSupersede(null, txtMaterialCodeSupersede.Text.Trim());
+                if (!string.IsNullOrEmpty(txtMaterialCodeSupersede.Text.Trim()))
+                {
+                    MaterialSupersede.Clear();
+                    int cout = 0;
+                    string MaterialCode = txtMaterialCodeSupersede.Text.Trim();
+                    string sMaterialCode = MaterialCode;
+                    do
+                    {
+                        cout = cout + 1;
+                        if (cout == 100)
+                        {
+                            throw new Exception("Material Has supersede issue Please contact support team.");
+                        }
+                        MaterialCode = sMaterialCode;
+                        List<PDMS_Material> d = (List<PDMS_Material>)new BDMS_Material().GetMaterialSupersede(null, MaterialCode, 0);
+                        if (d.Count == 1)
+                        {
+                            MaterialSupersede.Add(d[0]);
+                            sMaterialCode = d[0].Supersede.Material;
+                        }
+                    } while (sMaterialCode != MaterialCode); 
+                }
+                else
+                {
+                    MaterialSupersede = (List<PDMS_Material>)new BDMS_Material().GetMaterialSupersede(null, txtMaterialCodeSupersede.Text.Trim(), 0);
+                }
+                
                 gvMaterialSupersede.PageIndex = 0;
                 gvMaterialSupersede.DataSource = MaterialSupersede;
                 gvMaterialSupersede.DataBind();
@@ -350,8 +376,9 @@ namespace DealerManagementSystem.ViewMaster
             MaterialBind(gvMaterialSupersede, lblRowCount, MaterialSupersede);
         }
         protected void btnMaterialSupersedeExportExcel_Click(object sender, EventArgs e)
-        {
-            MaterialExportExcel(MaterialSupersede, "Material Superede");
+        { 
+            DataTable dt = (DataTable)new BDMS_Material().GetMaterialSupersede(null, txtMaterialCodeSupersede.Text.Trim(), 1);
+            new BXcel().ExporttoExcel(dt, "Material Superede");
         }
         void MaterialBind(GridView gv, Label lbl, List<PDMS_Material> Mat)
         {

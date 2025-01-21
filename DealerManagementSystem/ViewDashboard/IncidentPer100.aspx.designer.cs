@@ -42,6 +42,15 @@ namespace DealerManagementSystem.ViewDashboard
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset1;
 
         /// <summary>
+        /// ddlGrapgType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlGrapgType;
+
+        /// <summary>
         /// txtMfgDateFrom control.
         /// </summary>
         /// <remarks>

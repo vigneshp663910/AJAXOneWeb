@@ -11,6 +11,13 @@
             <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
+                    <div class="col-md-1 col-sm-12">
+                        <label class="modal-label">Graph Type</label>
+                        <asp:DropDownList ID="ddlGrapgType" runat="server"  CssClass="form-control">
+                            <asp:ListItem Value="1">Month</asp:ListItem>
+                            <asp:ListItem Value="2">Quarter</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Mfg Date From</label>
                         <asp:TextBox ID="txtMfgDateFrom" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
@@ -32,7 +39,7 @@
                         <%-- <asp1:TextBoxWatermarkExtender ID="Text1" runat="server" TargetControlID="txtMfgDateFrom" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
                         --%>
                     </div>
-                    <div class="col-md-2 text-left">
+                   <div class="col-md-2 col-sm-12">
                         <label>Dealer</label>
                         <UC:UC_M_Dealer ID="ddlmDealer" runat="server" CssClass="form-control"></UC:UC_M_Dealer>
                     </div>
@@ -46,9 +53,9 @@
                     </div>
                     <div class="col-md-2 text-left">
                         <label>Division</label>
-                        <UC:UC_M_Dealer ID="ddlmDivision" runat="server" CssClass="form-control" ></UC:UC_M_Dealer>
+                        <UC:UC_M_Dealer ID="ddlmDivision" runat="server" CssClass="form-control"></UC:UC_M_Dealer>
                     </div>
-                    <div class="col-md-2 text-left" >
+                    <div class="col-md-2 text-left">
                         <label>Model</label>
                         <UC:UC_M_Dealer ID="ddlmModel" runat="server" CssClass="form-control"></UC:UC_M_Dealer>
                     </div>
@@ -57,13 +64,13 @@
                         <label>HMR</label>
                         <UC:UC_M_Dealer ID="ddlmHMR" runat="server" CssClass="form-control"></UC:UC_M_Dealer>
                     </div>
-                    <div class="col-md-2 text-left">
+                    <div class="col-md-1 text-left">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                     </div>
-                    <div class="col-md-2 text-left">
+                    <div class="col-md-1 text-left">
                         <asp:Button ID="BtnLineChartData" runat="server" CssClass="btn Search" Text="Line Chart Data" OnClick="BtnLineChartData_Click" Width="117px"></asp:Button>
                     </div>
-                    <div class="col-md-2 text-left">
+                    <div class="col-md-1   text-left">
                         <asp:Button ID="BtnDetailData" runat="server" CssClass="btn Search" Text="Detail data" OnClick="BtnDetailData_Click" Width="90px"></asp:Button>
                     </div>
                 </div>
@@ -121,10 +128,12 @@
                     //    //},
                     //    2, 3, 4, 5
                     //]);
+                    var GraphType = document.querySelector('#MainContent_ddlGrapgType')
+                    var title1 = 'Warranty Cost Per Machine - Mfg. ' + GraphType.selectedOptions[0].text + ' wise';
                     var options = {
-                        title: 'Warranty Cost Per Machine - Mfg. Qtrwise',
+                        title: title1,
                         hAxis: {
-                            title: 'Quarter'
+                            title: GraphType.selectedOptions[0].text
                         },
                         vAxis: {
                             title: 'Cost / Machine'

@@ -135,7 +135,8 @@ namespace DealerManagementSystem.ViewDashboard
             string Division = (string)HttpContext.Current.Session["Division"];
             string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
             string Model = (string)HttpContext.Current.Session["Model"];
-            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(DateFrom, DateTo, AsOnDate, Dealer, Region, ServiceType, Division, Model)).Tables[0];
+            string Gragh = (string)HttpContext.Current.Session["Gragh"];
+            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(DateFrom, DateTo, AsOnDate, Dealer, Region, ServiceType, Division, Model, Gragh)).Tables[0];
             foreach (DataRow dr in dt.Rows)
             {
 
@@ -207,7 +208,7 @@ namespace DealerManagementSystem.ViewDashboard
             HttpContext.Current.Session["Division"] = Division;
             HttpContext.Current.Session["Model"] = Model;
             HttpContext.Current.Session["HMR"] = HMR;
-
+            HttpContext.Current.Session["Gragh"] = ddlGrapgType.SelectedValue;
 
             ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionEastChart); ", true);
 
@@ -220,7 +221,8 @@ namespace DealerManagementSystem.ViewDashboard
             string Division = (string)HttpContext.Current.Session["Division"];
             string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
             string Model = (string)HttpContext.Current.Session["Model"];
-            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model)).Tables[0];
+            string Gragh = (string)HttpContext.Current.Session["Gragh"];
+            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Gragh)).Tables[0];
             new BXcel().ExporttoExcel(dt, "Incident Per 100 Machine Chart Data");
         }
 
@@ -231,7 +233,8 @@ namespace DealerManagementSystem.ViewDashboard
             string Division = (string)HttpContext.Current.Session["Division"];
             string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
             string Model = (string)HttpContext.Current.Session["Model"];
-            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, 1)).Tables[0];
+            string Gragh = (string)HttpContext.Current.Session["Gragh"];
+            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Gragh, 1)).Tables[0];
             new BXcel().ExporttoExcel(dt, "Incident Per 100 Machine");
         }
     }
