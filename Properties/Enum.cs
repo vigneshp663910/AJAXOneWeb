@@ -517,6 +517,7 @@ namespace Properties
         ViewSupportTicket_TaskMeasurement = 271,
         ViewSupportTicket_TaskSummaryDetails = 272,
         ViewDashboard_WarrantyCostPerMachine = 278,
+        ViewDashboard_IncidentPer100 = 279
     }
     public enum SubModuleChildMaster
     {

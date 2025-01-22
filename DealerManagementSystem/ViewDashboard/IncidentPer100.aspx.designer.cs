@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewDashboard
 {
 
 
-    public partial class WarrantyCostPerMachine
+    public partial class IncidentPer100
     {
 
         /// <summary>

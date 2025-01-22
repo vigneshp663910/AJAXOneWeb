@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="WarrantyCostPerMachine.aspx.cs" Inherits="DealerManagementSystem.ViewDashboard.WarrantyCostPerMachine" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="IncidentPer100.aspx.cs" Inherits="DealerManagementSystem.ViewDashboard.IncidentPer100" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/UserControls/MultiSelectDropDown.ascx" TagPrefix="UC" TagName="UC_M_Dealer" %>
@@ -12,8 +12,8 @@
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-1 col-sm-12">
-                        <label class="modal-label">Graph Type</label>
-                        <asp:DropDownList ID="ddlGrapgType" runat="server"  CssClass="form-control">
+                        <label class="modal-label">Grapg Type</label>
+                        <asp:DropDownList ID="ddlGrapgType" runat="server"   CssClass="form-control">
                             <asp:ListItem Value="1">Month</asp:ListItem>
                             <asp:ListItem Value="2">Quarter</asp:ListItem>
                         </asp:DropDownList>
@@ -39,7 +39,7 @@
                         <%-- <asp1:TextBoxWatermarkExtender ID="Text1" runat="server" TargetControlID="txtMfgDateFrom" WatermarkText="DD/MM/YYYY"></asp1:TextBoxWatermarkExtender>
                         --%>
                     </div>
-                   <div class="col-md-2 col-sm-12">
+                    <div class="col-md-2 text-left">
                         <label>Dealer</label>
                         <UC:UC_M_Dealer ID="ddlmDealer" runat="server" CssClass="form-control"></UC:UC_M_Dealer>
                     </div>
@@ -70,7 +70,7 @@
                     <div class="col-md-1 text-left">
                         <asp:Button ID="BtnLineChartData" runat="server" CssClass="btn Search" Text="Line Chart Data" OnClick="BtnLineChartData_Click" Width="117px"></asp:Button>
                     </div>
-                    <div class="col-md-1   text-left">
+                    <div class="col-md-1 text-left">
                         <asp:Button ID="BtnDetailData" runat="server" CssClass="btn Search" Text="Detail data" OnClick="BtnDetailData_Click" Width="90px"></asp:Button>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
             }
             $.ajax({
                 type: "POST",
-                url: 'WarrantyCostPerMachine.aspx/RegionEastChart',
+                url: 'IncidentPer100.aspx/IncidentPer',
                 data: JSON.stringify(param),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -129,7 +129,7 @@
                     //    2, 3, 4, 5
                     //]);
                     var GraphType = document.querySelector('#MainContent_ddlGrapgType')
-                    var title1 = 'Warranty Cost Per Machine - Mfg. ' + GraphType.selectedOptions[0].text + ' wise';
+                    var title1 = 'Incident Per 100 Machine - Mfg. ' + GraphType.selectedOptions[0].text + ' wise';
                     var options = {
                         title: title1,
                         hAxis: {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.UserControls
@@ -10,6 +11,10 @@ namespace DealerManagementSystem.UserControls
     public partial class MultiSelectDropDown : System.Web.UI.UserControl
     {
         public string SelectedValue { get { return GetSelectedValue(); } }
+        public HtmlGenericControl MultiSelect
+        {
+            get { return divMultiSelect; } // Assuming btnExample is the ID of your Button
+        }
         public event EventHandler ButtonClicked;
         protected void Page_Load(object sender, EventArgs e)
         { 
