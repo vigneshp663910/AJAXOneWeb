@@ -67,11 +67,11 @@
                     <div class="col-md-1 text-left">
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                     </div>
-                    <div class="col-md-1 text-left">
+                    <%--<div class="col-md-1 text-left">
                         <asp:Button ID="BtnLineChartData" runat="server" CssClass="btn Search" Text="Line Chart Data" OnClick="BtnLineChartData_Click" Width="117px"></asp:Button>
-                    </div>
+                    </div>--%>
                     <div class="col-md-1 text-left">
-                        <asp:Button ID="BtnDetailData" runat="server" CssClass="btn Search" Text="Detail data" OnClick="BtnDetailData_Click" Width="90px"></asp:Button>
+                        <asp:Button ID="BtnDetailData" runat="server" CssClass="btn Search" Text="Detail Data" OnClick="BtnDetailData_Click" Width="90px"></asp:Button>
                     </div>
                 </div>
             </fieldset>
@@ -97,7 +97,7 @@
     <div class="col-md-12">
         <div class="col-md-12 Report">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Data</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Data <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="BtnLineChartData_Click" ToolTip="Excel Download..." /></legend>
                 <div class="col-md-12 Report">
 
                     <!-- GridView -->
@@ -227,7 +227,7 @@
                     //    2, 3, 4, 5
                     //]);
                     var GraphType = document.querySelector('#MainContent_ddlGrapgType')
-                    var title1 = 'Incident Per 100 Machine - Mfg. ' + GraphType.selectedOptions[0].text + ' wise';
+                    var title1 = 'Mfg. ' + GraphType.selectedOptions[0].text + ' wise';
                     var options = {
                         title: title1,
                         hAxis: {

@@ -168,15 +168,6 @@ namespace DealerManagementSystem.ViewDashboard
         protected global::System.Web.UI.WebControls.Button BtnSearch;
 
         /// <summary>
-        /// BtnLineChartData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnLineChartData;
-
-        /// <summary>
         /// BtnDetailData control.
         /// </summary>
         /// <remarks>
@@ -184,6 +175,15 @@ namespace DealerManagementSystem.ViewDashboard
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnDetailData;
+
+        /// <summary>
+        /// imgBtnExportExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnExportExcel;
 
         /// <summary>
         /// gvData control.
