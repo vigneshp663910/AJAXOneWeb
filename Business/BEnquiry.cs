@@ -117,7 +117,7 @@ namespace Business
                 DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    DbParameter[] Params = new DbParameter[19] { EnquiryID, EnquiryNextFollowUpDate,   CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, ProductTypeID, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, SalesChannelTypeID, CreatedBy, OutValue };
+                    DbParameter[] Params = new DbParameter[19] { EnquiryIDP, EnquiryNextFollowUpDate,   CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, ProductTypeID, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, SalesChannelTypeID, CreatedBy, OutValue };
                     provider.Insert("InsertOrUpdateEnquiry", Params);
                     EnquiryID = Convert.ToInt64(OutValue.Value);
                     scope.Complete();
