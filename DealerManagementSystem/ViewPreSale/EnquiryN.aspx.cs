@@ -219,7 +219,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             lblAddEnquiryMessage.Text = "";
             lblMessage.Text = "";
-            Button BtnView = (Button)sender;
+            ImageButton BtnView = (ImageButton)sender;
             ViewState["EnquiryID"] = Convert.ToInt64(BtnView.CommandArgument);
             UC_EnquiryView.fillViewEnquiry(Convert.ToInt64(BtnView.CommandArgument));
         } 
