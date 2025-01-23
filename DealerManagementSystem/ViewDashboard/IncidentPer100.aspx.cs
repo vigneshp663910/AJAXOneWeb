@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewDashboard
 {
@@ -27,14 +28,10 @@ namespace DealerManagementSystem.ViewDashboard
             ddlmDivision.ButtonClicked += new EventHandler(UserControl_ModelFill);
             if (!IsPostBack)
             {
-
-
                 ddlmDealer.Fill("CodeWithDisplayName", "DID", PSession.User.Dealer);
                 ddlmDivision.Fill("DivisionDescription", "DivisionID", new BDMS_Master().GetDivision(null, null));
                 UserControl_ModelFill(null, null);
                 ddlmRegion.Fill("Region", "RegionID", new BDMS_Address().GetRegion(1, null, null));
-
-
 
                 DataTable dtServiceType = new DataTable();
                 dtServiceType.Columns.Add("ServiceTypeID");
@@ -70,6 +67,31 @@ namespace DealerManagementSystem.ViewDashboard
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionEastChart); ", true);
+        }
+
+        public DataTable GetData()
+        {
+            DataTable dt = new DataTable();
+            string Dealer = (string)HttpContext.Current.Session["Dealer"];
+            string Region = (string)HttpContext.Current.Session["Region"];
+            string Division = (string)HttpContext.Current.Session["Division"];
+            string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
+            string Model = (string)HttpContext.Current.Session["Model"];
+            string Gragh = (string)HttpContext.Current.Session["Gragh"];
+            dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Gragh)).Tables[0];
+            return dt;
+        }
+
+
+        public void PopulateGridView()
+        {
+            DataTable dt = GetData();
+
+            if (dt.Rows.Count > 0)
+            {
+                gvData.DataSource = dt;
+                gvData.DataBind();
+            }
         }
 
         [WebMethod]
@@ -212,17 +234,13 @@ namespace DealerManagementSystem.ViewDashboard
 
             ClientScript.RegisterStartupScript(GetType(), "hwa1", "google.charts.load('current', { packages: ['corechart'] });  google.charts.setOnLoadCallback(RegionEastChart); ", true);
 
+            PopulateGridView();
+
         }
 
         protected void BtnLineChartData_Click(object sender, EventArgs e)
         {
-            string Dealer = (string)HttpContext.Current.Session["Dealer"];
-            string Region = (string)HttpContext.Current.Session["Region"];
-            string Division = (string)HttpContext.Current.Session["Division"];
-            string ServiceType = (string)HttpContext.Current.Session["ServiceType"];
-            string Model = (string)HttpContext.Current.Session["Model"];
-            string Gragh = (string)HttpContext.Current.Session["Gragh"];
-            DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Gragh)).Tables[0];
+            DataTable dt = GetData();
             new BXcel().ExporttoExcel(dt, "Incident Per 100 Machine Chart Data");
         }
 
@@ -236,6 +254,12 @@ namespace DealerManagementSystem.ViewDashboard
             string Gragh = (string)HttpContext.Current.Session["Gragh"];
             DataTable dt = ((DataSet)new BDMS_WarrantyClaim().ZYA_GetIncidentPer100Machine(txtMfgDateFrom.Text.Trim(), txtMfgDateTo.Text.Trim(), txtAsOnDate.Text.Trim(), Dealer, Region, ServiceType, Division, Model, Gragh, 1)).Tables[0];
             new BXcel().ExporttoExcel(dt, "Incident Per 100 Machine");
+        }
+
+        protected void gvData_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvData.PageIndex = e.NewPageIndex;
+            //PopulateGridView();
         }
     }
 }

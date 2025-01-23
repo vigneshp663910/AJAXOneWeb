@@ -84,7 +84,105 @@
         </div>
     </div>
     <div class="col-md-12">
-        <div id="divRegionEast"></div>
+        <div class="col-md-12 Report">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Incidence / 100 Mc</legend>
+                <div class="col-md-12 Report">
+                <div id="divRegionEast"></div>
+                    </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="col-md-12 Report">
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Data</legend>
+                <div class="col-md-12 Report">
+
+                    <!-- GridView -->
+                    <asp:GridView ID="gvData" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"  ShowFooter="false" EmptyDataText="No Data Found" OnPageIndexChanging="gvData_PageIndexChanging">
+                        <Columns>
+                            <asp:TemplateField HeaderText="FinYear">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblYear" Text='<%# DataBinder.Eval(Container.DataItem, "FinYear")%>' runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Month/Quarter">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "Quarter")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="HMR 0-15">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "HMR 0-15")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="HMR 0-250">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "HMR 0-250")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="HMR 0-500">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "HMR 0-500")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="HMR 0-750">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "HMR 0-750")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="HMR 0-1000">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "HMR 0-1000")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="HMR 0-1500">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "HMR 0-1500")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="HMR 0-2000">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "HMR 0-2000")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="HMR All">
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />
+                                <ItemTemplate>
+                                    <asp:Label ID="lblMonth" Text='<%# DataBinder.Eval(Container.DataItem, "HMR All")%>' runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                        </Columns>
+                        <AlternatingRowStyle BackColor="#ffffff" />
+                        <FooterStyle CssClass="FooterStyle" />
+                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                    </asp:GridView>
+
+                </div>
+            </fieldset>
+        </div>
     </div>
 
 
