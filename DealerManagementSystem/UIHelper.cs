@@ -25,7 +25,23 @@ namespace DealerManagementSystem
 
         private const String materialDrawingFolder = "~/Drawing/Material";
         private const String productDrawingFolder = "~/Drawing/Product";
+        private const String redirectToSalesTouchPointHomePage = "/ViewSalesTouchPoint/Home.aspx";
+        private const String redirectToSalesTouchPointLogin = "/ViewSalesTouchPoint/SignIn.aspx";
 
+        public static String RedirectToSalesTouchPointHomePage
+        {
+            get
+            {
+                return redirectToSalesTouchPointHomePage;
+            }
+        }
+        public static String RedirectToSalesTouchPointLogin
+        {
+            get
+            {
+                return redirectToSalesTouchPointLogin;
+            }
+        }
         public static String RedirectToCreateCircularPage
         {
             get

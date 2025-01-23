@@ -90,12 +90,13 @@ namespace Business
         //        }
         //    }
         //}
-        public Boolean InsertOrUpdateEnquiry(PEnquiry enquiry,int UserID)
+        public long InsertOrUpdateEnquiry(PEnquiry enquiry,int UserID)
         {
             TraceLogger.Log(DateTime.Now);
+            long EnquiryID = 0;
             try
             {
-                DbParameter EnquiryID = provider.CreateParameter("EnquiryID", enquiry.EnquiryID, DbType.Int32);
+                DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", enquiry.EnquiryID, DbType.Int32);
                 DbParameter EnquiryNextFollowUpDate = provider.CreateParameter("EnquiryNextFollowUpDate", enquiry.EnquiryNextFollowUpDate, DbType.DateTime); 
                 DbParameter CustomerName = provider.CreateParameter("CustomerName", enquiry.CustomerName, DbType.String);
                 DbParameter PersonName = provider.CreateParameter("PersonName", enquiry.PersonName, DbType.String);
@@ -118,6 +119,7 @@ namespace Business
                 {
                     DbParameter[] Params = new DbParameter[19] { EnquiryID, EnquiryNextFollowUpDate,   CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, ProductTypeID, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, SalesChannelTypeID, CreatedBy, OutValue };
                     provider.Insert("InsertOrUpdateEnquiry", Params);
+                    EnquiryID = Convert.ToInt64(OutValue.Value);
                     scope.Complete();
                 }
                 TraceLogger.Log(DateTime.Now);
@@ -125,9 +127,9 @@ namespace Business
             catch (Exception ex)
             {
                 new FileLogger().LogMessageService("BEnquiry", "InsertOrUpdateEnquiry", ex);
-                return false;
+                return 0;
             }
-            return true;
+            return EnquiryID;
         }
         public PApiResult GetEnquiry(long? EnquiryID, int? DealerID, int? EngineerUserID, string EnquiryNumber, string CustomerName
             , int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? SalesChannelTypeID

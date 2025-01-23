@@ -110,8 +110,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PSalesCommissionClaim.cs" />
     <Compile Include="PSalesQuotation.cs" />
+    <Compile Include="PSalesTouchPoint.cs" />
     <Compile Include="PSAPDocumentNumber.cs" />
     <Compile Include="PSession.cs" />
+    <Compile Include="PSession_STP.cs" />
     <Compile Include="PStockTransferOrder.cs" />
     <Compile Include="PTickets.cs" />
     <Compile Include="PUser.cs" />
