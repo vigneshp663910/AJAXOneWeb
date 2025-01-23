@@ -279,6 +279,7 @@
     <Content Include="Images\Edit1.png" />
     <Content Include="Images\Employee.jpg" />
     <Content Include="Images\Excel.jfif" />
+    <Content Include="Images\filter1.png" />
     <Content Include="Images\grid_collapse.png" />
     <Content Include="Images\grid_expand.png" />
     <Content Include="Images\hsizegrip.png" />
