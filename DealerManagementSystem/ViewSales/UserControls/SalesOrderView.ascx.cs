@@ -958,7 +958,27 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     MPE_SaleOrderItemAdd.Show();
                     return;
                 }
-                PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null)[0];
+                int MaterialID = Convert.ToInt32(hdfMaterialID.Value);
+                if (cbSupersede.Checked)
+                {
+                    MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
+                }
+
+                PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, null, null, null, null)[0];
+                if (MaterialID != Convert.ToInt32(hdfMaterialID.Value))
+                {
+                    lblMessage.Text = "Material :" + hdfMaterialCode.Value + "Supersede to " + "Material :" + m.MaterialCode;
+                }
+                foreach (PSaleOrderItem Item in SOrder.SaleOrderItems)
+                {
+                    if (Item.Material.MaterialID == MaterialID)
+                    {
+                        lblMessageAddSOItem.Text = "Duplicate Material.";
+                        return;
+                    }
+                }
+
+                //PDMS_Material m = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null)[0];
                 PSaleOrderItem_Insert pSaleOrderItem = new BDMS_SalesOrder().ReadItem(m, SOrder.Dealer.DealerID, SOrder.DealerOffice.OfficeID
                     , Convert.ToInt32(txtQty.Text.Trim()), SOrder.Customer.CustomerCode
                     , SOrder.Dealer.DealerCode, SOrder.HeaderDiscountPercentage, 0, 0, SOrder.TaxType);
@@ -974,10 +994,13 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     MPE_SaleOrderItemAdd.Show();
                     return;
                 }
+                if (MaterialID != Convert.ToInt32(hdfMaterialID.Value))
+                {
+                    lblMessage.Text = "Material :" + hdfMaterialCode.Value + "Supersede to " + "Material :" + m.MaterialCode + ", " + Result.Message;
+                }
                 lblMessage.Text = Result.Message;
                 lblMessage.ForeColor = Color.Green;
                 fillViewSO(SOrder.SaleOrderID);
-
             }
             catch (Exception ex)
             {
@@ -1177,13 +1200,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 return "Quantity cannot be less than 1.";
             }
 
-            foreach (PSaleOrderItem Item in SOrder.SaleOrderItems)
-            {
-                if (Item.Material.MaterialID == Convert.ToInt32(hdfMaterialID.Value))
-                {
-                    return "Duplicate Material.";
-                }
-            }
+            
 
             decimal value;
             if (!decimal.TryParse(txtQty.Text, out value))

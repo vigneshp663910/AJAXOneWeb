@@ -114,15 +114,22 @@ namespace DealerManagementSystem.ViewSales.UserControls
                 if (cbSupersede.Checked)
                 {
                     MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
-                }
-                string MessageSupersede = "";
+                } 
                 PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, null, null, null, null)[0];
 
                 if (MaterialID != Convert.ToInt32(hdfMaterialID.Value))
                 {
-                    lblMessage.Text = MessageSupersede = "Material :" + hdfMaterialCode.Value + "Supersede to " + "Material :" + m.MaterialCode;
-                } 
+                    lblMessage.Text =  "Material :" + hdfMaterialCode.Value + "Supersede to " + "Material :" + m.MaterialCode;
+                }
 
+                foreach (PSaleOrderItem_Insert Item in SOItem_Insert)
+                {
+                    if (Item.MaterialID == MaterialID)
+                    {
+                        lblMessage.Text = "Duplicate Material.";
+                        return ;
+                    }
+                }
                 string Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
                 string Dealer  = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
                 decimal HDiscountPercent = Convert.ToDecimal(txtHeaderDiscountPercent.Text.Trim()); 
@@ -913,13 +920,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 return "Please enter the Qty.";
             }
-            foreach (PSaleOrderItem_Insert Item in SOItem_Insert)
-            {
-                if (Item.MaterialID == Convert.ToInt32(hdfMaterialID.Value))
-                {
-                    return "Duplicate Material.";
-                }
-            }
+            
             decimal value;
             if (!decimal.TryParse(txtQty.Text, out value))
             {
