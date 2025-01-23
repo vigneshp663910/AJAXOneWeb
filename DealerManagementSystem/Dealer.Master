@@ -579,7 +579,7 @@
             padding-left: initial;
             padding-right: initial;
             overflow: auto;
-            font-weight: 400;
+            font-weight: 300;
             /*font-size: 1rem;*/
             line-height: 1.5;
         }
@@ -1273,7 +1273,7 @@
 
         .table.table-bordered.table-condensed.Grid td {
             padding: 6px 8px;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .table.table-bordered.table-condensed.Grid tr:last-child td {
