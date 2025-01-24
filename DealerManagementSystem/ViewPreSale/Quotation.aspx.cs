@@ -347,8 +347,8 @@ namespace DealerManagementSystem.ViewPreSale
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
 
-                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
-                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='aquamarine';";
+                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='aquamarine';";
                 //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#80ff80';";
                 e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
                 e.Row.ToolTip = "Click On View Icon for More Details... ";
