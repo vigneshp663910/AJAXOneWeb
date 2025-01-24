@@ -101,8 +101,9 @@
                         <label>Source</label>
                         <asp:DropDownList ID="ddlSource" runat="server" CssClass="form-control" DataTextField="LeadSource" DataValueField="LeadSourceID" />
                     </div>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnEnquiryIndiamart_Click" OnClientClick="return dateValidation();" />
+                    <div class="col-md-2 text-Left">
+                        <label class="modal-label">Action</label>
+                        <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" Width="95" OnClick="btnEnquiryIndiamart_Click" OnClientClick="return dateValidation();" />
                        <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="125px" />--%>
                     </div>
                 </div>

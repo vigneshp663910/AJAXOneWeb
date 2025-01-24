@@ -97,7 +97,7 @@ namespace DealerManagementSystem.ViewPreSale
                     new DDLBind().FillDealerAndEngneer(ddlDealer, ddlDealerEmployee);
                     new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
                     ddlCountry.SelectedValue = "1";
-                    new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID"); 
+                    new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
                     txtFromDate.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                     txtToDate.Text = DateTime.Now.ToShortDateString();
 
@@ -105,10 +105,10 @@ namespace DealerManagementSystem.ViewPreSale
                     List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
                     new DDLBind(ddlSSource, Source, "Source", "SourceID");
 
-                    List<PPreSaleStatus> Status = new BDMS_Master().GetPreSaleStatus(null, null); 
+                    List<PPreSaleStatus> Status = new BDMS_Master().GetPreSaleStatus(null, null);
                     if (Session["leadStatusID"] != null)
                     {
-                        ddlSStatus.SelectedValue = Convert.ToString(Session["leadStatusID"]); 
+                        ddlSStatus.SelectedValue = Convert.ToString(Session["leadStatusID"]);
                         txtFromDate.Text = Convert.ToDateTime(Session["leadDateFrom"]).ToShortDateString();
                         txtToDate.Text = "";
                         if (!string.IsNullOrEmpty(Convert.ToString(Session["leadDealerID"])))
@@ -138,7 +138,7 @@ namespace DealerManagementSystem.ViewPreSale
         }
         private void FillGrid()
         {
-            Search(); 
+            Search();
             //int? DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
             //int? DealerEmployeeUserID = ddlDealerEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerEmployee.SelectedValue);
             //string CustomerName = txtSCustomerName.Text.Trim();
@@ -158,7 +158,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             //DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
 
-            PApiResult Result =  new BEnquiry().GetEnquiry(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, StatusID, PageIndex, gvEnquiry.PageSize);
+            PApiResult Result = new BEnquiry().GetEnquiry(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, StatusID, PageIndex, gvEnquiry.PageSize);
 
             gvEnquiry.DataSource = JsonConvert.DeserializeObject<List<PEnquiry>>(JsonConvert.SerializeObject(Result.Data));
             gvEnquiry.DataBind();
@@ -210,7 +210,7 @@ namespace DealerManagementSystem.ViewPreSale
             MPE_AddEnquiry.Show();
             UC_AddEnquiry.FillMaster();
         }
-         
+
 
         protected void BtnView_Click(object sender, EventArgs e)
         {
@@ -222,31 +222,31 @@ namespace DealerManagementSystem.ViewPreSale
             ImageButton BtnView = (ImageButton)sender;
             ViewState["EnquiryID"] = Convert.ToInt64(BtnView.CommandArgument);
             UC_EnquiryView.fillViewEnquiry(Convert.ToInt64(BtnView.CommandArgument));
-        } 
+        }
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
             divList.Visible = true;
             divDetailsView.Visible = false;
-        } 
+        }
         protected void ibtnEnqArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (PageIndex > 1)
-            { 
+            {
                 PageIndex = PageIndex - 1;
                 FillGrid();
             }
-        } 
+        }
         protected void ibtnEnqArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-           
+
 
             if (PageCount > PageIndex)
-            { 
+            {
                 PageIndex = PageIndex + 1;
-                FillGrid(); 
+                FillGrid();
             }
         }
-        
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -280,7 +280,7 @@ namespace DealerManagementSystem.ViewPreSale
                 lblAddEnquiryMessage.Text = ex.Message.ToString();
                 lblAddEnquiryMessage.ForeColor = Color.Red;
             }
-        } 
+        }
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<PDMS_State> State = new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
@@ -304,7 +304,7 @@ namespace DealerManagementSystem.ViewPreSale
                     new BXcel().ExporttoExcel(Enquirys, "Enquiry Report");
                 }
                 catch
-                { 
+                {
                 }
                 finally
                 {
@@ -413,6 +413,19 @@ namespace DealerManagementSystem.ViewPreSale
             DateFrom = string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtFromDate.Text.Trim());
 
             DateTo = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
+        }
+
+        protected void gvEnquiry_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#e6ccff';";
+                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='aquamarine';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+            }
         }
     }
 }

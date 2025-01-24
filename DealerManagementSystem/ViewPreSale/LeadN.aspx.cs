@@ -383,5 +383,16 @@ namespace DealerManagementSystem.ViewPreSale
             List<PProject> Project = new BProject().GetProjectAutocomplete(Pro);
             return JsonConvert.SerializeObject(Project);
         }
+
+        protected void gvLead_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='aquamarine';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+            }
+        }
     }
 }

@@ -24,7 +24,7 @@
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer</label>
@@ -46,7 +46,7 @@
                             <label class="modal-label">SO Number</label>
                             <asp:TextBox ID="txtSoNumber" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
-                         <div class="col-md-2 col-sm-12">
+                        <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Invoice Number</label>
                             <asp:TextBox ID="txtInvoiceNo" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
@@ -75,10 +75,10 @@
                             <asp:DropDownList ID="ddlAsnStatus" runat="server" CssClass="form-control">
                             </asp:DropDownList>
                         </div>
-                       
+
                         <div class="col-md-12 text-center">
-                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
-                            <asp:Button ID="btnExportExcel" runat="server" Text="Export ASN" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                            <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="95px" />
+                            <%-- <asp:Button ID="btnExportExcel" runat="server" Text="Export ASN" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
                             <asp:Button ID="btnExportExcelDetails" runat="server" Text="Export ASN Details" CssClass="btn Back" UseSubmitBehavior="true" OnClick="btnExportExcelDetails_Click" Width="150px" />
                             <asp:Button ID="btnMissingASN" runat="server" Text="Missing ASN" CssClass="btn Back" UseSubmitBehavior="true" Width="100px" OnClick="btnMissingASN_Click" />
                         </div>
@@ -101,6 +101,9 @@
                                                 <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
                                             <td>
                                                 <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." />
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -108,9 +111,10 @@
                         </div>
                         <asp:GridView ID="gvPAsn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20">
                             <Columns>
-                                <asp:TemplateField>
+                                <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
-                                        <asp:Button ID="btnViewPO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPO_Click" Width="75px" Height="25px" />
+                                        <%--<asp:Button ID="btnViewPO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPO_Click" Width="75px" Height="25px" />--%>
+                                         <asp:ImageButton ID="BtnView" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle"  OnClick="btnViewPO_Click" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Asn Number">
@@ -146,11 +150,11 @@
                                         <asp:Label ID="lblDeliveryDate" Text='<%# DataBinder.Eval(Container.DataItem, "DeliveryDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Invoice">
+                                <asp:TemplateField HeaderText="Invoice">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblInvoiceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceNumber")%>' runat="server" />
-                                       </ItemTemplate>
+                                    </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Order Type">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
