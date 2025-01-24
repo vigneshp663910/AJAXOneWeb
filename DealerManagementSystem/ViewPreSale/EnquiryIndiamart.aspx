@@ -75,17 +75,15 @@
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
 
-
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />
+    <%--<asp:Label ID="lblMessage" runat="server" Text="" CssClass="label" Width="100%" />--%>
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"/>
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-2 text-left">
                         <label>Date From</label>
@@ -105,7 +103,7 @@
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnEnquiryIndiamart_Click" OnClientClick="return dateValidation();" />
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="125px" />
+                       <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="125px" />--%>
                     </div>
                 </div>
             </fieldset>
@@ -126,6 +124,9 @@
                                                     <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
                                                 <td>
                                                     <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." />
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
@@ -142,9 +143,10 @@
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField>
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
-                                            <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryIndiamartID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />
+                                            <%--<asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryIndiamartID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />--%>
+                                            <asp:ImageButton ID="BtnView" ImageUrl="~/Images/Preview.png" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryIndiamartID")%>' ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle"  OnClick="BtnView_Click" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Query Id" DataField="Query ID" />

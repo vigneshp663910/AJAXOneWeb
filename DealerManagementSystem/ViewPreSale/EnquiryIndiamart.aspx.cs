@@ -205,7 +205,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             //lblAddEnquiryMessage.Text = "";
             lblMessage.Text = "";
-            Button BtnView = (Button)sender; 
+            ImageButton BtnView = (ImageButton)sender; 
             UC_ViewEquiryIndiamart.fillViewEnquiryIndiamart(Convert.ToInt64(BtnView.CommandArgument));
         }
         protected void btnBackToList_Click(object sender, EventArgs e)
