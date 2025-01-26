@@ -621,7 +621,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
                             if (Cells.Count != 0)
                             {
                                 string ExcelMaterialCode = Convert.ToString(Cells[1].Value).TrimEnd('\0');
-                                Boolean SupersedeCheck = Convert.ToBoolean(Convert.ToString(Cells[3].Value).TrimEnd('\0'));
+                                Boolean SupersedeCheck = Convert.ToBoolean(Convert.ToInt32(Convert.ToString(Cells[3].Value).TrimEnd('\0')));
                                 string MaterialCode = ExcelMaterialCode;
                                 if (SupersedeCheck)
                                 {
