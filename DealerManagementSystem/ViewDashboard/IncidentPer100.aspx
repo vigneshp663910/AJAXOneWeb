@@ -101,7 +101,9 @@
                 <div class="col-md-12 Report">
 
                     <!-- GridView -->
-                    <asp:GridView ID="gvData" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"  ShowFooter="false" EmptyDataText="No Data Found" OnPageIndexChanging="gvData_PageIndexChanging">
+                    <asp:GridView ID="gvData" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"  ShowFooter="false" EmptyDataText="No Data Found" 
+                        OnPageIndexChanging="gvData_PageIndexChanging"
+                        OnRowDataBound="gvData_RowDataBound">
                         <Columns>
                             <asp:TemplateField HeaderText="FinYear">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right" />

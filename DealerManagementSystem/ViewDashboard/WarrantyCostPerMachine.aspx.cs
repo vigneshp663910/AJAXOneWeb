@@ -271,5 +271,15 @@ namespace DealerManagementSystem.ViewDashboard
             gvData.PageIndex = e.NewPageIndex;
             //PopulateGridView();
         }
+
+        protected void gvData_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#0000b3'; this.style.color = 'white' ";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white'; this.style.color = 'black'; ";
+            }
+        }
     }
 }

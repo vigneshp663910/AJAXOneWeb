@@ -425,6 +425,10 @@ namespace DealerManagementSystem.ViewPreSale
                 //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='aquamarine';";
                 e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
                 e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#0000b3'; this.style.color = 'white' ";
+                //e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white'; this.style.color = 'black'; ";
+                //e.Row.ToolTip = "Click On View Icon for More Details... ";
             }
         }
     }
