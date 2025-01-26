@@ -32,11 +32,11 @@
                     <label>Service Dealer</label>
                     <asp:DropDownList ID="ddlServiceDealer" runat="server" CssClass="form-control"></asp:DropDownList>
                 </div>
-                <div class="col-md-2 col-sm-12" style="display: none">
+                <div class="col-md-2 col-sm-12">
                     <label>Sales Retailer</label>
                     <asp:DropDownList ID="ddlSalesRetailer" runat="server" CssClass="form-control"></asp:DropDownList>
                 </div>
-                <div class="col-md-2 col-sm-12" style="display: none">
+                <div class="col-md-2 col-sm-12">
                     <label>Service Retailer</label>
                     <asp:DropDownList ID="ddlServiceRetailer" runat="server" CssClass="form-control"></asp:DropDownList>
                 </div>
@@ -207,7 +207,7 @@
                             </asp:GridView>
                         </ContentTemplate>
                     </asp1:TabPanel>
-                    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="Retailer Sales" Font-Bold="True" Visible="false">
+                    <asp1:TabPanel ID="TabPanel2" runat="server" HeaderText="Retailer Sales" Font-Bold="True">
                         <ContentTemplate>
                             <asp:GridView ID="gvRetailerSales" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found">
                                 <Columns>
@@ -276,7 +276,7 @@
                             </asp:GridView>
                         </ContentTemplate>
                     </asp1:TabPanel>
-                    <asp1:TabPanel ID="TabPanel3" runat="server" HeaderText="Retailer Service" Font-Bold="True" Visible="false">
+                    <asp1:TabPanel ID="TabPanel3" runat="server" HeaderText="Retailer Service" Font-Bold="True">
                         <ContentTemplate>
                             <asp:GridView ID="gvRetailerService" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found">
                                 <Columns>
@@ -336,7 +336,7 @@
                             </asp:GridView>
                         </ContentTemplate>
                     </asp1:TabPanel>
-                    <asp1:TabPanel ID="TabPanel4" runat="server" HeaderText="List" Font-Bold="True" Visible="false">
+                    <asp1:TabPanel ID="TabPanel4" runat="server" HeaderText="List" Font-Bold="True">
                         <ContentTemplate>
                             <asp:GridView ID="gvList" runat="server" PageSize="10" AllowPaging="true" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" ShowFooter="true" EmptyDataText="No Data Found">
                                 <Columns>

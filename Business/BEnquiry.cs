@@ -90,12 +90,13 @@ namespace Business
         //        }
         //    }
         //}
-        public Boolean InsertOrUpdateEnquiry(PEnquiry enquiry,int UserID)
+        public long InsertOrUpdateEnquiry(PEnquiry enquiry,int UserID)
         {
             TraceLogger.Log(DateTime.Now);
+            long EnquiryID = 0;
             try
             {
-                DbParameter EnquiryID = provider.CreateParameter("EnquiryID", enquiry.EnquiryID, DbType.Int32);
+                DbParameter EnquiryIDP = provider.CreateParameter("EnquiryID", enquiry.EnquiryID, DbType.Int32);
                 DbParameter EnquiryNextFollowUpDate = provider.CreateParameter("EnquiryNextFollowUpDate", enquiry.EnquiryNextFollowUpDate, DbType.DateTime); 
                 DbParameter CustomerName = provider.CreateParameter("CustomerName", enquiry.CustomerName, DbType.String);
                 DbParameter PersonName = provider.CreateParameter("PersonName", enquiry.PersonName, DbType.String);
@@ -111,12 +112,14 @@ namespace Business
                 DbParameter DistrictID = provider.CreateParameter("DistrictID", enquiry.District.DistrictID, DbType.Int32);                
                 DbParameter Product = provider.CreateParameter("Product", enquiry.Product, DbType.String);
                 DbParameter Remarks = provider.CreateParameter("Remarks", enquiry.Remarks, DbType.String);
+                DbParameter SalesChannelTypeID = provider.CreateParameter("SalesChannelTypeID", enquiry.SalesChannelType.MasterItemID, DbType.Int32);
                 DbParameter CreatedBy = provider.CreateParameter("CreatedBy", UserID, DbType.Int32);
                 DbParameter OutValue = provider.CreateParameter("OutValue", 0, DbType.Int64, Convert.ToInt32(ParameterDirection.Output));
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
                 {
-                    DbParameter[] Params = new DbParameter[18] { EnquiryID, EnquiryNextFollowUpDate,   CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, ProductTypeID, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, CreatedBy, OutValue };
+                    DbParameter[] Params = new DbParameter[19] { EnquiryIDP, EnquiryNextFollowUpDate,   CustomerName, PersonName, Mail, Mobile, Address, Address2, Address3, ProductTypeID, SourceID,  CountryID, StateID, DistrictID, Product, Remarks, SalesChannelTypeID, CreatedBy, OutValue };
                     provider.Insert("InsertOrUpdateEnquiry", Params);
+                    EnquiryID = Convert.ToInt64(OutValue.Value);
                     scope.Complete();
                 }
                 TraceLogger.Log(DateTime.Now);
@@ -124,27 +127,27 @@ namespace Business
             catch (Exception ex)
             {
                 new FileLogger().LogMessageService("BEnquiry", "InsertOrUpdateEnquiry", ex);
-                return false;
+                return 0;
             }
-            return true;
+            return EnquiryID;
         }
         public PApiResult GetEnquiry(long? EnquiryID, int? DealerID, int? EngineerUserID, string EnquiryNumber, string CustomerName
-            , int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID
+            , int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? SalesChannelTypeID
             , int? StatusID, int? PageIndex = null, int? PageSize = null)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Enquiry/GetEnquiry?EnquiryID=" + EnquiryID + "&DealerID=" + DealerID + "&EngineerUserID=" + EngineerUserID + "&EnquiryNumber=" + EnquiryNumber
                 + "&CustomerName=" + CustomerName + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID
-                + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SourceID=" + SourceID + "&StatusID=" + StatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SourceID=" + SourceID + "&SalesChannelTypeID=" + SalesChannelTypeID + "&StatusID=" + StatusID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult GetEnquiryExcel(long? EnquiryID, int? DealerID, int? EngineerUserID, string EnquiryNumber, string CustomerName
-            , int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? StatusID)
+            , int? CountryID, int? StateID, int? DistrictID, DateTime? DateFrom, DateTime? DateTo, int? SourceID, int? SalesChannelTypeID, int? StatusID)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "Enquiry/GetEnquiryExcel?EnquiryID=" + EnquiryID + "&DealerID=" + DealerID + "&EngineerUserID=" + EngineerUserID + "&EnquiryNumber=" + EnquiryNumber
                 + "&CustomerName=" + CustomerName + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID
-                + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SourceID=" + SourceID + "&StatusID=" + StatusID;
+                + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SourceID=" + SourceID + "&SalesChannelTypeID=" + SalesChannelTypeID + "&StatusID=" + StatusID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PEnquiry GetEnquiryByID(long? EnquiryID)

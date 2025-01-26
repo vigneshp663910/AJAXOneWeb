@@ -27,18 +27,38 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             //List<PLeadType> LeadType = new BLead().GetLeadType(null, null);
             //new DDLBind(ddlLeadType, LeadType, "Type", "TypeID");
-
-            List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
-            new DDLBind(ddlSource, Source, "Source", "SourceID");
-
+             
+            new DDLBind(ddlSource, new BLead().GetLeadSource(null, null), "Source", "SourceID");
+            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID",false);
             //List<PLeadCategory> Category = new BLead().GetLeadCategory(null, null);
             //new DDLBind(ddlCategory, Category, "Category", "CategoryID");
 
 
-            List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
-            new DDLBind(ddlProductType, ProductType, "ProductType", "ProductTypeID");
+            //List<PProductType> ProductType = new BDMS_Master().GetProductType(null, null);
+            //new DDLBind(ddlProductType, ProductType, "ProductType", "ProductTypeID");
+            List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
+            ddlProductType.Items.Clear();
+            if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
+            {
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID == (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                }
+            }
+            else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
+            {
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID != (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                }
+            }
+            else
+            {
+                new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID");
+            }
 
-            
             new DDLBind(ddlApplication, new BDMS_Service().GetMainApplication(null, null), "MainApplication", "MainApplicationID");
           //  new DDLBind(ddlProject, new BProject().GetProject(null, null,null,null,null,null,null), "ProjectName_state", "ProjectID");
 
@@ -47,9 +67,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         }
 
         void Clear()
-        {
-
-
+        { 
         }
         public void fillLead(PLead Lead)
         {
@@ -61,6 +79,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             }
             ddlProductType.SelectedValue = Convert.ToString(Lead.ProductType.ProductTypeID); 
             ddlSource.SelectedValue = Lead.Source==null?"0": Convert.ToString(Lead.Source.SourceID);
+            ddlSalesChannelType.SelectedValue = Lead.SalesChannelType == null ? "0" : Convert.ToString(Lead.SalesChannelType.MasterItemID);
             // ddlProject.SelectedValue = Lead.Project == null ? "0" : Convert.ToString(Lead.Project.ProjectID);
             hdfProjectID.Value = Lead.Project == null ? "" : Convert.ToString(Lead.Project.ProjectID);
             txtProject.Text = Lead.Project == null ? "" : Convert.ToString(Lead.Project.ProjectName);
@@ -71,6 +90,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             txtCustomerFeedback.Text = Lead.CustomerFeedback;
             txtRemarks.Text = Lead.Remarks;
             txtNextFollowUpDate.Text = Lead.NextFollowUpDate == null ? "" : Convert.ToString(Lead.NextFollowUpDate);
+             
         }
         public PLead_Insert Read()
         {
@@ -81,6 +101,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             //Lead.Category = ddlCategory.SelectedValue == "" ? null : new PLeadCategory() { CategoryID = Convert.ToInt32(ddlCategory.SelectedValue) };
             //Lead.QualificationID = ddlQualification.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlQualification.SelectedValue);
             Lead.SourceID = ddlSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSource.SelectedValue);
+            Lead.SalesChannelTypeID = ddlSalesChannelType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesChannelType.SelectedValue);
             // Lead.ProjectID = ddlProject.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProject.SelectedValue);
             Lead.ProjectID = hdfProjectID.Value == "" ? (int?)null : Convert.ToInt32(hdfProjectID.Value);
             // Lead.UrgencyID = ddlUrgency.SelectedValue == "0" ? (int?)null :    Convert.ToInt32(ddlUrgency.SelectedValue);
@@ -89,6 +110,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             Lead.CustomerFeedback = txtCustomerFeedback.Text.Trim();
             Lead.Remarks = txtRemarks.Text.Trim();
             Lead.NextFollowUpDate = Convert.ToDateTime(txtNextFollowUpDate.Text.Trim());
+            Lead.SalesChannelTypeID = ddlSalesChannelType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSalesChannelType.SelectedValue);
             return Lead;
         }
         public string Validation()

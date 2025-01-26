@@ -13,21 +13,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 {
     public partial class EnquiryViewN : System.Web.UI.UserControl
     {
-        public PDMS_Customer Customer
-        {
-            get
-            {
-                if (Session["CustomerEnquiry"] == null)
-                {
-                    Session["CustomerEnquiry"] = new PDMS_Customer();
-                }
-                return (PDMS_Customer)Session["CustomerEnquiry"];
-            }
-            set
-            {
-                Session["CustomerEnquiry"] = value;
-            }
-        }
+        //public PDMS_Customer Customer
+        //{
+        //    get
+        //    {
+        //        if (Session["CustomerEnquiry"] == null)
+        //        {
+        //            Session["CustomerEnquiry"] = new PDMS_Customer();
+        //        }
+        //        return (PDMS_Customer)Session["CustomerEnquiry"];
+        //    }
+        //    set
+        //    {
+        //        Session["CustomerEnquiry"] = value;
+        //    }
+        //}
         public PEnquiry Enquiry
         {
             get
@@ -63,7 +63,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         {
             lblMessage.Text = "";
             lblAddEnquiryMessage.Text = "";
-
+            lblMessageCustomer.Text = "";
             //if (!string.IsNullOrEmpty(Convert.ToString(ViewState["EnquiryID"])))
             //{
             //    long EnquiryID = Convert.ToInt64(Convert.ToString(ViewState["EnquiryID"]));
@@ -82,6 +82,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblPersonName.Text = Enquiry.PersonName;
             lblEnquiryDate.Text = Enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
             lblSource.Text = Enquiry.Source.Source;
+            lblSalesChannelType.Text = Enquiry.SalesChannelType == null ? "" : Enquiry.SalesChannelType.ItemText;
             lblStatus.Text = Enquiry.Status.Status;
             lblProduct.Text = Enquiry.Product;
             lblCountry.Text = Enquiry.Country.Country.ToString();
@@ -123,7 +124,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 PEnquiry enquiryAdd = UC_AddEnquiry.Read();
 
                 enquiryAdd.EnquiryID = Enquiry.EnquiryID;
-                if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
+                //if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
+                //{
+                if (Convert.ToInt64(new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID)) != 0)
                 {
                     lblMessage.Text = "Enquiry is saved successfully...";
                     lblMessage.ForeColor = Color.Green;
@@ -192,10 +195,30 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
         protected void btnSelectCustomer_Click(object sender, EventArgs e)
         {
-            MPE_Lead.Show();
+            MPE_CustomerSelect.Show();
+            lblMessageCustomer.ForeColor = Color.Red;
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblCustomerID = (Label)gvRow.FindControl("lblCustomerID");
-            Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt64(lblCustomerID.Text));
+            PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt64(lblCustomerID.Text));
+            if(Customer.SalesType.MasterItemID == (short)PreSalesMasterItem.RegularCustomer)
+            {
+               if( Enquiry.ProductType.ProductTypeID == (short)ProductType.Udaan)
+                {
+                    lblMessageCustomer.Text = "You can not select this customer. To select this customer, please contact Co-ordinator";
+                    return;
+                }
+            }
+            else if (Customer.SalesType.MasterItemID == (short)PreSalesMasterItem.UdaanCustomer)
+            {
+                if (Enquiry.ProductType.ProductTypeID != (short)ProductType.Udaan)
+                {
+                    lblMessageCustomer.Text = "You can not select this customer. To select this customer, please contact Co-ordinator";
+                    return;
+                }
+            }
+            MPE_CustomerSelect.Hide();
+
+            MPE_Lead.Show();
             pnlCustomerOld.Enabled = false;
             UC_AddLead.FillMaster();
             UC_Customer.FillMaster();
@@ -295,8 +318,15 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 lblMessageLead.Text = Message;
                 return;
             }
-            Lead.Customer = UC_Customer.ReadCustomer(); 
-
+            Lead.Customer = UC_Customer.ReadCustomer();
+            if (Enquiry.ProductType.ProductTypeID == (short)ProductType.Udaan)
+            {
+                Lead.Customer.CustomerSalesTypeID = (short)PreSalesMasterItem.UdaanCustomer;
+            }
+            else
+            {
+                Lead.Customer.CustomerSalesTypeID = (short)PreSalesMasterItem.RegularCustomer;
+            }
             Lead.EnquiryID = Enquiry.EnquiryID;
             string result = new BAPI().ApiPut("Lead", Lead);
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(result);

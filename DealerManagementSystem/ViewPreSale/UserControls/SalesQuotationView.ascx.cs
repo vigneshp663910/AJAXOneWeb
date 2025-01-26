@@ -816,7 +816,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblPgQuotationNumber.Text = Quotation.PgQuotationNo;
             lblPgQuotationDate.Text = Quotation.PgQuotationDate == null ? "" : ((DateTime)Quotation.PgQuotationDate).ToLongDateString();
 
-            lblQuotationType.Text = Quotation.QuotationType.QuotationType;
+            //lblQuotationType.Text = Quotation.QuotationType.QuotationType;
             lblQuotationStatus.Text = Quotation.Status.SalesQuotationStatus;
             lblValidFrom.Text = Quotation.ValidFrom == null ? "" : ((DateTime)Quotation.ValidFrom).ToLongDateString();
             lblValidTo.Text = Quotation.ValidTo == null ? "" : ((DateTime)Quotation.ValidTo).ToLongDateString();
@@ -825,6 +825,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblPriceGroup.Text = Quotation.PriceGroup == null ? "" : Quotation.PriceGroup.Description;
             lblUserStatus.Text = Quotation.UserStatus == null ? "" : Quotation.UserStatus.SalesQuotationUserStatus;
             lblProduct.Text = Quotation.LeadProduct.Product.Product;
+            lblSalesChannelType.Text = Quotation.Lead.SalesChannelType == null ? "" : Quotation.Lead.SalesChannelType.ItemText;
             // lblTotalEffort.Text = Convert.ToString(Quotation.TotalEffort);
             // lblTotalExpense.Text = Convert.ToString(Quotation.TotalExpense);
             cbCommissionAgent.Checked = Quotation.CommissionAgent;
@@ -1655,8 +1656,8 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             P[29] = new ReportParameter("ShipToPartyBPCode", CustomerShipTo.CustomerCode, false);
             P[30] = new ReportParameter("Hypothecation", Hypothecation, false);
             string Div = Q.Lead.ProductType.Division.DivisionCode;
-            if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM" || Div == "CP" || Div == "SB" || Div == "PS")
-            {
+            //if (Div == "CM" || Div == "DP" || Div == "BP" || Div == "TM" || Div == "CP" || Div == "SB" || Div == "PS")
+            //{
                 P[31] = new ReportParameter("TermsandConditionHead", "TERMS & CONDITIONS:", false);
                 P[32] = new ReportParameter("PaymentTerms", "Payment Terms :", false);
                 P[33] = new ReportParameter("TermsOfPayment", TermsOfPayment + " along with order, balance payment against proforma invoice prior to dispatch . All payment to be made in favour of :", false);
@@ -1680,37 +1681,21 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 P[41] = new ReportParameter("Transportation", "Transportation : To-pay basis to customer's account.", false);
                 P[42] = new ReportParameter("Validity", "Validity :This offer is valid till : " + Validity, false);
                 P[43] = new ReportParameter("Note", "Note : " + QNote, false);
-            }
-            //else if (Div == "CP")
+            //} 
+            //else if (!string.IsNullOrEmpty(Div))
             //{
-            //    P[31] = new ReportParameter("TermsandConditionHead", "", false);
-            //    P[32] = new ReportParameter("PaymentTerms", "", false);
-            //    P[33] = new ReportParameter("TermsOfPayment", "", false);
-            //    P[34] = new ReportParameter("PaymentTermAccName", "", false);
-            //    P[35] = new ReportParameter("PaymentTermBankName", "", false);
-            //    P[36] = new ReportParameter("PaymentTermBankAddress", "");
-            //    P[37] = new ReportParameter("PaymentTermAccNo", "", false);
-            //    P[38] = new ReportParameter("PaymentTermIFSCCode", "", false);
-            //    P[39] = new ReportParameter("Delivery", "", false);
-            //    P[40] = new ReportParameter("TransitInsurance", "", false);
-            //    P[41] = new ReportParameter("Transportation", "", false);
-            //    P[42] = new ReportParameter("Validity", "", false);
-            //    P[43] = new ReportParameter("Note", "", false);
+            //    lblMessage.Text = "Please Change First Line Item of Material";
+            //    lblMessage.Visible = true;
+            //    lblMessage.ForeColor = Color.Red;
+            //    return null;
             //}
-            else if (!string.IsNullOrEmpty(Div))
-            {
-                lblMessage.Text = "Please Change First Line Item of Material";
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Red;
-                return null;
-            }
-            else
-            {
-                lblMessage.Text = "Division Not Available";
-                lblMessage.Visible = true;
-                lblMessage.ForeColor = Color.Red;
-                return null;
-            }
+            //else
+            //{
+            //    lblMessage.Text = "Division Not Available";
+            //    lblMessage.Visible = true;
+            //    lblMessage.ForeColor = Color.Red;
+            //    return null;
+            //}
 
             P[44] = new ReportParameter("Name", Name, false);
             P[45] = new ReportParameter("Designation", Designation, false);

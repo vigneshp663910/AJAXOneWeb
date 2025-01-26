@@ -69,9 +69,11 @@
                             <label>Product</label>
                             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="form-control" />
                         </div>
-
-                        <div class="col-md-2 text-Left">
-                            <label class="modal-label">Action</label>
+                        <div class="col-md-2 text-left">
+                        <label class="modal-label">Sales Channel</label>
+                        <asp:DropDownList ID="ddlSSalesChannelType" runat="server" CssClass="form-control" />
+                    </div>
+                        <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                             <asp:Button ID="btnAddQuotation" runat="server" CssClass="btn Save" Text="Add Quotation" OnClick="btnAddQuotation_Click" Width="150px" Visible="false"></asp:Button>
                          <%--<asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
@@ -182,7 +184,12 @@
                                             <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                   
+                                    <asp:BoundField HeaderText="Sales Channel" DataField="Lead.SalesChannelType.ItemText"></asp:BoundField>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <asp:Button ID="btnViewQuotation" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewQuotation_Click" Width="50px" Height="33px" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

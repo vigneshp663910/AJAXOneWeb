@@ -85,6 +85,9 @@ namespace DealerManagementSystem.ViewSales.UserControls
 
             List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
             new DDLBind(ddlSalesEngineer, DealerUser, "ContactName", "UserID");
+
+            txtCustomer.Text = "";
+            hdfCustomerId.Value = "";
         }
         protected void ddlDivision_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -107,15 +110,26 @@ namespace DealerManagementSystem.ViewSales.UserControls
                     lblMessage.Text = Message;
                     return;
                 }
-                int MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
-                string MessageSupersede = "";
+                int MaterialID = Convert.ToInt32(hdfMaterialID.Value);
+                if (cbSupersede.Checked)
+                {
+                    MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
+                } 
                 PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, null, null, null, null)[0];
 
                 if (MaterialID != Convert.ToInt32(hdfMaterialID.Value))
                 {
-                    lblMessage.Text = MessageSupersede = "Material :" + hdfMaterialCode.Value + "Supersede to " + "Material :" + m.MaterialCode;
-                } 
+                    lblMessage.Text =  "Material :" + hdfMaterialCode.Value + "Supersede to " + "Material :" + m.MaterialCode;
+                }
 
+                foreach (PSaleOrderItem_Insert Item in SOItem_Insert)
+                {
+                    if (Item.MaterialID == MaterialID)
+                    {
+                        lblMessage.Text = "Duplicate Material.";
+                        return ;
+                    }
+                }
                 string Customer = new BDMS_Customer().GetCustomerByID(Convert.ToInt32(hdfCustomerId.Value)).CustomerCode;
                 string Dealer  = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
                 decimal HDiscountPercent = Convert.ToDecimal(txtHeaderDiscountPercent.Text.Trim()); 
@@ -607,8 +621,12 @@ namespace DealerManagementSystem.ViewSales.UserControls
                             if (Cells.Count != 0)
                             {
                                 string ExcelMaterialCode = Convert.ToString(Cells[1].Value).TrimEnd('\0');
-
-                                string MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(ExcelMaterialCode);
+                                Boolean SupersedeCheck = Convert.ToBoolean(Convert.ToInt32(Convert.ToString(Cells[3].Value).TrimEnd('\0')));
+                                string MaterialCode = ExcelMaterialCode;
+                                if (SupersedeCheck)
+                                {
+                                    MaterialCode = new BDMS_Material().GetMaterialSupersedeFinalByCode(ExcelMaterialCode);
+                                }
                                 MaterialCode = MaterialCode.Trim();
                                 // PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, TMaterialCode, null, null, null)[0];
 
@@ -902,13 +920,7 @@ namespace DealerManagementSystem.ViewSales.UserControls
             {
                 return "Please enter the Qty.";
             }
-            foreach (PSaleOrderItem_Insert Item in SOItem_Insert)
-            {
-                if (Item.MaterialID == Convert.ToInt32(hdfMaterialID.Value))
-                {
-                    return "Duplicate Material.";
-                }
-            }
+            
             decimal value;
             if (!decimal.TryParse(txtQty.Text, out value))
             {

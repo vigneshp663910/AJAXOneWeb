@@ -1779,7 +1779,7 @@ namespace Business
 
             
             PApiResult Result = new BSalesQuotation().GetSalesQuotationBasic(null, SaleOrderDeliveryByID.SaleOrder.QuotationNumber, null, null
-               , null, null, null, null, null, null, null, null, null, null, null);
+               , null, null, null, null, null, null, null, null, null, null,null, null);
 
             List<PSalesQuotation> QL = JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(Result.Data));
 

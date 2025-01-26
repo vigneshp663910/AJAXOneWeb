@@ -63,6 +63,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             lblApplication.Text = Lead.Application == null ? "" : Lead.Application.MainApplication;
             lblQualification.Text = Lead.Qualification == null ? "" : Lead.Qualification.Qualification;
             lblSource.Text = Lead.Source == null ? "" : Lead.Source.Source;
+            lblSalesChannelType.Text = Lead.SalesChannelType == null ? "" : Lead.SalesChannelType.ItemText;
             lblStatus.Text = Lead.Status.Status;
             lblProject.Text = Lead.Project == null ? "" : Lead.Project.ProjectName;
             lblDealer.Text = Lead.Dealer.DealerCode;

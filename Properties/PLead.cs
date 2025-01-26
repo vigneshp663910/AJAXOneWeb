@@ -40,6 +40,7 @@ namespace Properties
         public decimal TotalExpense { get; set; }
         public PProductType ProductType { get; set; }
         public List<PLeadProduct> LeadProduct { get; set; }
+        public PPreSalesMasterItem SalesChannelType { get; set; }
     }
     [Serializable]
     public class PLead_Insert
@@ -55,6 +56,21 @@ namespace Properties
         public string CustomerFeedback { get; set; }
         public string Remarks { get; set; }
         public PDMS_Customer_Insert Customer { get; set; }
+        public int? SalesChannelTypeID { get; set; }
+    }
+    [Serializable]
+    public class PLeadDeviation_Insert
+    {
+        public long CustomerID { get; set; }
+        public int DealerID { get; set; }
+        public int ProductTypeID { get; set; }
+        public int? SourceID { get; set; }
+        public DateTime ExpectedDateOfSale { get; set; }
+        public DateTime NextFollowUpDate { get; set; } 
+        public int? MainApplicationID { get; set; }
+        public string CustomerFeedback { get; set; }
+        public string Remarks { get; set; }
+        public int? SalesChannelTypeID { get; set; }
     }
     [Serializable]
     public class PLeadSalesEngineer
@@ -201,7 +217,8 @@ namespace Properties
         public int? StatusID { get; set; }
         public int? ProductTypeID { get; set; } 
         public int? QualificationID { get; set; }
-        public int? SourceID { get; set; } 
+        public int? SourceID { get; set; }
+        public int? SalesChannelTypeID { get; set; }
         public int? DealerID { get; set; }
         public long? SalesEngineerID { get; set; }
         public long? CustomerID { get; set; }

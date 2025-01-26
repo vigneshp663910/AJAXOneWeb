@@ -61,6 +61,10 @@
                     <label>Source : </label>
                     <asp:Label ID="lblSource" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                 <div class="col-md-12">
+                    <label>Sales Channel : </label>
+                    <asp:Label ID="lblSalesChannelType" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
                 <div class="col-md-12">
                     <label>Country : </label>
                     <asp:Label ID="lblCountry" runat="server" CssClass="LabelValue"></asp:Label>
@@ -194,7 +198,7 @@
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
-    <asp:Label ID="Label1" runat="server" Text="" CssClass="message" Visible="false" />
+    <asp:Label ID="lblMessageCustomer" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="model-scroll">
             <asp:GridView ID="gvCustomer" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"

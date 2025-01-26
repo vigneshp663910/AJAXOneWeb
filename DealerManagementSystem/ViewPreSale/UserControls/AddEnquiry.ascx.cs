@@ -40,8 +40,31 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             ddlCountry.SelectedValue = "1";
             new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, null, null, null, null), "District", "DistrictID");
-            new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+            ddlProductType.Items.Clear();
+            List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
+            if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
+            { 
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID == (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                } 
+            }
+            else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
+            {
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID != (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                }
+            }
+            else
+            {
+                new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID"); 
+            }
+
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
+            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID",false);
             txtAddress.Text = string.Empty;
             txtAddress2.Text = string.Empty;
             txtAddress3.Text = string.Empty;
@@ -63,6 +86,7 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
 
             enquiry.Source = new PLeadSource();
             enquiry.Source.SourceID = Convert.ToInt32(ddlSource.SelectedValue);
+            enquiry.SalesChannelType = new PPreSalesMasterItem() { MasterItemID = Convert.ToInt32(ddlSalesChannelType.SelectedValue) };
             enquiry.Status = new PPreSaleStatus();
             enquiry.Status.StatusID = 1;
             enquiry.Country = new PDMS_Country();
@@ -77,32 +101,59 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             enquiry.Product = txtProduct.Text.Trim();
             enquiry.Remarks = txtRemarks.Text.Trim();
             enquiry.CreatedBy = new PUser();
+            
             return enquiry;
         }
 
         public void Write(PEnquiry enquiry)
         {
             txtCustomerName.Text = enquiry.CustomerName;
-           // txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
+            // txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
             txtPersonName.Text = enquiry.PersonName;
             txtMobile.Text = enquiry.Mobile;
             txtMail.Text = enquiry.Mail;
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             new DDLBind(ddlState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null, null), "District", "DistrictID");
-            new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+            // new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+
+            List<PProductType> PTypes = new BDMS_Master().GetProductType(null, null);
+            ddlProductType.Items.Clear();
+            if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
+            {
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID == (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                }
+            }
+            else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
+            {
+                foreach (PProductType PType in PTypes)
+                {
+                    if (PType.ProductTypeID != (short)ProductType.Udaan)
+                        ddlProductType.Items.Insert(0, new ListItem(PType.ProductType, PType.ProductTypeID.ToString()));
+                }
+            }
+            else
+            {
+                new DDLBind(ddlProductType, PTypes, "ProductType", "ProductTypeID");
+            }
             new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
+            new DDLBind(ddlSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID", false);
             ddlCountry.SelectedValue = enquiry.Country.CountryID.ToString();
             ddlState.SelectedValue = enquiry.State.StateID.ToString();
             ddlDistrict.SelectedValue = enquiry.District.DistrictID.ToString();
             ddlSource.SelectedValue = enquiry.Source.SourceID.ToString();
-            ddlProductType.SelectedValue = enquiry.ProductType == null? "0": enquiry.ProductType.ProductTypeID.ToString();
+            ddlProductType.SelectedValue = enquiry.ProductType == null ? "0" : enquiry.ProductType.ProductTypeID.ToString();
             txtAddress.Text = enquiry.Address.ToString();
             txtAddress2.Text = enquiry.Address2.ToString();
             txtAddress3.Text = enquiry.Address3.ToString();
             txtProduct.Text = enquiry.Product;
             txtRemarks.Text = enquiry.Remarks;
             txtNextFollowUpDate.Text = Convert.ToString(enquiry.EnquiryNextFollowUpDate);
+            if (enquiry.SalesChannelType != null)
+                ddlSalesChannelType.SelectedValue = enquiry.SalesChannelType.MasterItemID.ToString();
         }
         public string Validation()
         {
@@ -172,6 +223,30 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
         protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
         { 
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
+        }
+        public void WriteSalesTouchPointEnquiry(PSalesTouchPointEnquiry enquiry)
+        {
+            txtCustomerName.Text = enquiry.CustomerName;
+            // txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
+            txtPersonName.Text = enquiry.PersonName;
+            txtMobile.Text = enquiry.Mobile;
+            txtMail.Text = enquiry.Mail;
+            new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID");
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null, null), "District", "DistrictID");
+            new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
+            new DDLBind(ddlSource, new BPresalesMasters().GetLeadSource(null, null), "Source", "SourceID");
+            ddlCountry.SelectedValue = enquiry.Country.CountryID.ToString();
+            ddlState.SelectedValue = enquiry.State.StateID.ToString();
+            ddlDistrict.SelectedValue = enquiry.District.DistrictID.ToString();
+            ddlSource.SelectedValue = "0";
+            ddlProductType.SelectedValue = "0";
+            txtAddress.Text = enquiry.Address.ToString();
+            txtAddress2.Text = enquiry.Address2.ToString();
+            txtAddress3.Text = enquiry.Address3.ToString();
+            txtProduct.Text = "";
+            txtRemarks.Text = enquiry.Remarks;
+            txtNextFollowUpDate.Text = "";
         }
     }
 }

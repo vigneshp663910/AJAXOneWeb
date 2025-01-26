@@ -92,6 +92,12 @@
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">
+                            Sales Type
+                        <samp style="color: red">*</samp></label>
+                        <asp:DropDownList ID="ddlSalesType" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">
                             Contact Person
                         <samp style="color: red">*</samp>
                         </label>

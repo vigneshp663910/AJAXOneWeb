@@ -720,18 +720,18 @@ namespace Business
         }
 
         public PApiResult GetSalesQuotationBasic(long? SalesQuotationID, string QuotationNo, string QuotationDateFrom, string QuotationDateTo
-            , long? LeadID,string LeadNumber, int? StatusID, int? UserStatusID,int? ProductTypeID,int? ProductID, int? DealerID, int? SalesEngineerID, string CustomerCode, int? PageIndex = null, int? PageSize = null)
+            , long? LeadID,string LeadNumber, int? StatusID, int? UserStatusID,int? ProductTypeID,int? ProductID, int? DealerID, int? SalesEngineerID, string CustomerCode,int? SalesChannelTypeID, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "SalesQuotation/SalesQuotationBasic?SalesQuotationID=" + SalesQuotationID + "&QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom  + "&QuotationDateTo=" + QuotationDateTo 
                 + "&LeadID=" + LeadID + "&LeadNumber=" + LeadNumber
                 + "&StatusID=" + StatusID + "&UserStatusID=" + UserStatusID + "&ProductTypeID=" + ProductTypeID + "&ProductID=" + ProductID
                 + "&DealerID=" + DealerID + "&SalesEngineerID=" + SalesEngineerID
-                + "&CustomerCode=" + CustomerCode + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                + "&CustomerCode=" + CustomerCode + "&SalesChannelTypeID=" + SalesChannelTypeID + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
 
         }
         public PApiResult GetSalesQuotationExcel(long? SalesQuotationID, string QuotationNo, string QuotationDateFrom, string QuotationDateTo
-           , long? LeadID, string LeadNumber, int? StatusID, int? UserStatusID, int? ProductTypeID, int? ProductID, int? DealerID, int? SalesEngineerID, string CustomerCode)
+           , long? LeadID, string LeadNumber, int? StatusID, int? UserStatusID, int? ProductTypeID, int? ProductID, int? DealerID, int? SalesEngineerID, string CustomerCode, int? SalesChannelTypeID)
         {
             string endPoint = "SalesQuotation/SalesQuotationExcel?SalesQuotationID=" + SalesQuotationID + "&QuotationNo=" + QuotationNo + "&QuotationDateFrom=" + QuotationDateFrom + "&QuotationDateTo=" + QuotationDateTo
                 + "&LeadID=" + LeadID + "&LeadNumber=" + LeadNumber

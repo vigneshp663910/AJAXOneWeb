@@ -26,6 +26,17 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             cxDOAnniversary.EndDate = DateTime.Now;
             cxDOB.EndDate = DateTime.Now;
             //fillDealer();
+            new DDLBind(ddlSalesType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.CustomerSalesType), "ItemText", "MasterItemID");
+            if (PSession.User.DealerTypeID == (short)DealerType.Retailer)
+            {
+                ddlSalesType.SelectedValue = Convert.ToString((short)PreSalesMasterItem.UdaanCustomer);
+                ddlSalesType.Enabled = false;
+            }
+           else if (PSession.User.DealerTypeID == (short)DealerType.Dealer)
+            {
+                ddlSalesType.SelectedValue = Convert.ToString((short)PreSalesMasterItem.RegularCustomer);
+                ddlSalesType.Enabled = false;
+            }
             new DDLBind(ddlTitle, new BDMS_Customer().GetCustomerTitle(null, null), "Title", "TitleID",false);
             new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
             PDealer Dealer = PSession.User.Dealer[0];
@@ -34,7 +45,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //new DDLBind(ddlState, new BDMS_Address().GetState(Dealer.DealerID, CountryID, null, null, null), "State", "StateID");
             new DDLBind(ddlState, new BDMS_Address().GetState(null, CountryID, null, null, null), "State", "StateID");
 
-
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, CountryID, null, null, null), "State", "StateID");
 
             // new DDLBind(ddlTehsil, new BDMS_Address().GetTehsil(1, null, null, null), "Tehsil", "TehsilID");
 
@@ -99,7 +110,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Customer.DOAnniversary = string.IsNullOrEmpty(txtDOAnniversary.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOAnniversary.Text.Trim());
             Customer.SendSMS = cbSendSMS.Checked;
             Customer.SendEmail = cbSendEmail.Checked;
-            Customer.IsDraft = cbIsDraft.Checked; 
+            Customer.IsDraft = cbIsDraft.Checked;
+            Customer.CustomerSalesTypeID = Convert.ToInt32(ddlSalesType.SelectedValue);
             return Customer;
         }
 
@@ -151,7 +163,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             {
                 ddlTehsil.SelectedValue = Convert.ToString(Customer.Tehsil.TehsilID);
             }
-
+            ddlSalesType.SelectedValue = Convert.ToString(Customer.SalesType.MasterItemID); 
             txtDOB.Text = Customer.DOB == null ? "" : ((DateTime)Customer.DOB).ToString("yyyy-MM-dd");
             txtDOAnniversary.Text = Customer.DOAnniversary == null ? "" : ((DateTime)Customer.DOAnniversary).ToString("yyyy-MM-dd");
             cbSendSMS.Checked = Customer.SendSMS;

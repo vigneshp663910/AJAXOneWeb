@@ -123,6 +123,10 @@
                         <label>PinCode : </label>
                         <asp:Label ID="lblPinCode" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
+                    <div class="col-md-12">
+                        <label>Sales Type : </label>
+                        <asp:Label ID="lblSalesType" runat="server" CssClass="LabelValue"></asp:Label>
+                    </div>
 
                 </div>
                 <div class="col-md-4">
@@ -130,24 +134,23 @@
                         <label>Last Visit Date : </label>
                         <asp:Label ID="lblLastVisitDate" runat="server" CssClass="LabelValue"></asp:Label>
                     </div>
+                   
+                    <div class="col-md-12">
+                        <label>Active : </label>
+                        <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" CssClass="mycheckBig" />
+                    </div> 
+                    <div class="col-md-12">
+                        <label>Verified : </label>
+                        <asp:CheckBox ID="cbVerified" runat="server" Enabled="false" CssClass="mycheckBig" />
+                    </div>
                     <div class="col-md-12">
                         <label>OrderBlock : </label>
                         <asp:CheckBox ID="cbOrderBlock" runat="server" Enabled="false" CssClass="mycheckBig" />
                     </div>
                     <div class="col-md-12">
-                        <label>Active : </label>
-                        <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" CssClass="mycheckBig" />
-                    </div>
-                    <div class="col-md-12">
                         <label>BillingBlock : </label>
                         <asp:CheckBox ID="cbBillingBlock" runat="server" Enabled="false" CssClass="mycheckBig" />
-                    </div>
-
-
-                    <div class="col-md-12">
-                        <label>Verified : </label>
-                        <asp:CheckBox ID="cbVerified" runat="server" Enabled="false" CssClass="mycheckBig" />
-                    </div>
+                    </div> 
                     <div class="col-md-12">
                         <label>DeliveryBlock : </label>
                         <asp:CheckBox ID="cbDeliveryBlock" runat="server" Enabled="false" CssClass="mycheckBig" />

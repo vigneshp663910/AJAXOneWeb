@@ -291,7 +291,7 @@ namespace Properties
         ViewService_WarrantyClaimApprovalRequest = 46,
         ViewService_WarrantyClaimInvoiceCreate5k = 47,
         ViewService_WarrantyClaimDebitNoteCreate = 48,
-        ViewProcurement_StockTransferOrderASN=49,
+        ViewProcurement_StockTransferOrderASN = 49,
         ViewService_ICTicket = 50,
         ViewService_PaidServiceQuotation = 51,
         ViewService_PaidServiceProformaInvoice = 52,
@@ -516,8 +516,13 @@ namespace Properties
         ViewSales_Report_OofCustomerReport = 270,
         ViewSupportTicket_TaskMeasurement = 271,
         ViewSupportTicket_TaskSummaryDetails = 272,
+        ViewAdmin_UserPurchaseOrderTypeMapping = 273,
+        ViewPreSale_LeadDeviation = 274,
+        ViewPreSale_LeadDeviationApprove = 275,
+        ViewPreSale_SalesTouchPointEnquiry = 276,
+        ViewPreSale_SalesTouchPointEnquiryReport = 277,
         ViewDashboard_WarrantyCostPerMachine = 278,
-        ViewDashboard_IncidentPer100 = 279
+        ViewDashboard_IncidentPer100 = 279,
     }
     public enum SubModuleChildMaster
     {
@@ -622,9 +627,10 @@ namespace Properties
         DealerOfficeUserMappingUpdate = 99,
         UserPurchaseOrderTypeMappingUpdate = 100,
         SaleOrderDeliveryCancel = 101,
-        EditAllSalesAndServiceConfiguration=103,
+        EditAllSalesAndServiceConfiguration = 103,
         EditDealerSalesEngineer = 104,
-        EditRetailerSalesEngineer = 105
+        EditRetailerSalesEngineer = 105,
+        EnquiryRejectOrConvert = 106,
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -682,7 +688,13 @@ namespace Properties
         SendSMS = 1,
         SendMail = 2, 
         SAPDocumentForWarrantyInvoiceFromSAP = 5, 
-        RebuildIndex = 8, 
+        RebuildIndex = 8,    
+        // SaleOrderNumberForSrviceQuatationFromSAP = 6,
+        //  TechnicianIntegrationFromSAP = 7, 
+        //  ModelForClaim = 9,
+        //   Category = 10,
+        //   ICTicketIntegrationVerification = 11,
+        //  QuotationForJSN = 12,
         //  IntegrationSalesOrder = 13,
         IntegrationSalesOrderInvoice = 14,
         IntegrationClaimAnnexure = 15,
@@ -827,8 +839,8 @@ namespace Properties
     {
         OEM = 1,
         Dealer = 2,
-        CallCenter = 3, 
-        Retailer =4, 
+        CallCenter = 3,
+        Retailer = 4,
     }
     public enum ProductType
     {
@@ -839,9 +851,10 @@ namespace Properties
         BoomPump = 5,
         SlipFormPaver = 6,
         Dumper = 7,
+        Udaan=10,
         DumperOld = 11,
         SpareParts = 12,
-        PlacingEquipment = 13
+        PlacingEquipment = 13,
     }
     public enum AjaxOneStatusHeader
     {
@@ -858,7 +871,8 @@ namespace Properties
         SaleOrderDelivery = 11,
         SaleOrderReturn = 12,
         SalesType = 13,
-        PaymentMode = 14
+        PaymentMode = 14,
+        LeadDeviation = 15
     }
     public enum AjaxOneStatus
     {
@@ -915,7 +929,12 @@ namespace Properties
         PaymentMode_Cash = 51,
         PartsSalesType_Engineer = 52,
         PaymentMode_Credit = 53,
+        PaymentMode_Online = 54,
+        PaymentMode_Others = 55,
         SaleOrderDelivery_Cancelled=56,
+        LeadDeviation_Requested =57,
+        LeadDeviation_Approved=58,
+        LeadDeviation_Rejected =59
     }
     public enum ProcurementStatusHeader
     {
@@ -979,7 +998,11 @@ namespace Properties
         CustomerOrder = 1,
         IntraDealerOrder = 2,
         WarrantyOrder = 3,
-        MachineOrder = 4
+        MachineOrder = 4,
+        RTLR_PartsStk_Order=5,
+        RTLR_PartsEmg_Order =6,
+        RTLR_PartsWarr_Order=7,
+        RTLR_BreakDown_Order =8
     }
     public enum ICTicketDeviationType
     {
@@ -987,6 +1010,27 @@ namespace Properties
         Commissioning = 2,
         ClaimApprovalDelay = 3,
         ClaimCreationDelay = 4,
+    }
+    public enum PreSalesMasterHeader
+    {
+        CustomerVisitType = 1,
+        CallType = 2,
+        CustomerSalesType = 3,
+        SalesChannelType = 4,
+    }
+    public enum PreSalesMasterItem
+    {
+        RegularCustomer = 10,
+        UdaanCustomer = 11,
+        Regular_UdaanCustomer = 12
+    }
+    public enum SalesTouchPointEnquiryStatus
+    {
+        Created = 1,
+        Converted = 2,
+        Rejected = 3,
+        Loss = 4,
+        Won = 5
     }
 }
 

@@ -61,7 +61,7 @@ namespace DealerManagementSystem.ViewPreSale
         string CustomerCode = null;
         int? ProductTypeID = null;
         int? ProductID = null;
-
+        int? SalesChannelTypeID = null;
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -102,6 +102,7 @@ namespace DealerManagementSystem.ViewPreSale
                 new DDLBind(ddlQuotationStatus, new BSalesQuotation().GetSalesQuotationStatus(null, null), "SalesQuotationStatus", "SalesQuotationStatusID");
                 new DDLBind(ddlProductType, new BDMS_Master().GetProductType(null, null), "ProductType", "ProductTypeID");
                 new DDLBind(ddlProduct, new BDMS_Master().GetProduct(null, null, Convert.ToInt32(ddlProductType.SelectedValue), null), "Product", "ProductID");
+                new DDLBind(ddlSSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID");
             }
         }
 
@@ -144,13 +145,14 @@ namespace DealerManagementSystem.ViewPreSale
             CustomerCode = txtCustomer.Text.Trim();
             ProductTypeID = ddlProductType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProductType.SelectedValue);
             ProductID = ddlProduct.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlProduct.SelectedValue);
+            SalesChannelTypeID = ddlSSalesChannelType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlSSalesChannelType.SelectedValue);
         }
         void FillQuotation()
         {
             Search();
             //List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
             PApiResult Result = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, QuotationNo, QuotationDateFrom, QuotationDateTo
-               , LeadID, LeadNumber, StatusID, UserStatusID, ProductTypeID, ProductID, DealerID, SalesEngineerID, CustomerCode, PageIndex, gvQuotation.PageSize);
+               , LeadID, LeadNumber, StatusID, UserStatusID, ProductTypeID, ProductID, DealerID, SalesEngineerID, CustomerCode,SalesChannelTypeID, PageIndex, gvQuotation.PageSize);
 
             gvQuotation.DataSource = JsonConvert.DeserializeObject<List<PSalesQuotation>>(JsonConvert.SerializeObject(Result.Data));
             gvQuotation.DataBind();
@@ -320,7 +322,7 @@ namespace DealerManagementSystem.ViewPreSale
                 Search();
                 //List<PSalesQuotation> Quotations = new BSalesQuotation().GetSalesQuotationBasic(SalesQuotationID, RefQuotationID, LeadID, RefQuotationDate, QuotationNo, QuotationDateFrom, QuotationDateTo, QuotationTypeID, StatusID, DealerID, CustomerCode);
                 PApiResult Result = new BSalesQuotation().GetSalesQuotationExcel(SalesQuotationID, QuotationNo, QuotationDateFrom, QuotationDateTo
-                   , LeadID, LeadNumber, StatusID, UserStatusID, ProductTypeID, ProductID, DealerID, SalesEngineerID, CustomerCode);
+                   , LeadID, LeadNumber, StatusID, UserStatusID, ProductTypeID, ProductID, DealerID, SalesEngineerID, CustomerCode,SalesChannelTypeID);
                  
                 try
                 {

@@ -1593,11 +1593,15 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return success;
         }
-        public List<PDealer> GetDealerAll(int? DealerID, string DealerCode, int? RegionID, int? DealerTypeID)
+        public List<PDealer> GetDealerAll(int? DealerID, string DealerCode, int? RegionID,int?District, int? DealerTypeID)
         {
             string endPoint = "Dealer/GetDealerAll?DealerID=" + DealerID + "&DealerCode=" + DealerCode + "&RegionID=" + RegionID + "&DealerTypeID=" + DealerTypeID;
             return JsonConvert.DeserializeObject<List<PDealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-       
+        public List<PDealer> GetDealerByMappedRetailerID(int RetailerID)
+        {
+            string endPoint = "Dealer/GetDealerByMappedRetailerID?RetailerID=" + RetailerID;
+            return JsonConvert.DeserializeObject<List<PDealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

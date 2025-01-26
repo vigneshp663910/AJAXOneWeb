@@ -35,6 +35,7 @@ namespace Properties
         public long? LeadID { get; set; }
         public PUser STM { get; set; }
         public DateTime? EnquiryNextFollowUpDate { get; set; }
+        public PPreSalesMasterItem SalesChannelType { get; set; }
     }
 
     [Serializable]

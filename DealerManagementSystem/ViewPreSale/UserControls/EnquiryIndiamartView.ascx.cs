@@ -241,7 +241,9 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                 }
                 PEnquiry enquiryAdd = new PEnquiry();
                 enquiryAdd = UC_AddEnquiry.Read();
-                if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
+                //if (new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID))
+                //{
+                if (Convert.ToInt64(new BEnquiry().InsertOrUpdateEnquiry(enquiryAdd, PSession.User.UserID)) != 0)
                 {
                     if (new BEnquiry().UpdateEnquiryIndiamartStatus(Convert.ToInt64(EnquiryIndiamartViewID), null, 2, enquiryAdd.Remarks.Trim(), PSession.User.UserID))
                     {
@@ -255,7 +257,6 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
                         lblAddEnquiryMessage.Text = "Enquiry from India Mart not saved successfully!";
                         lblAddEnquiryMessage.ForeColor = Color.Red;
                     }
-
                 }
                 else
                 {
