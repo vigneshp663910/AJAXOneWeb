@@ -79,12 +79,8 @@
                         <label>Product Type</label>
                         <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
                     </div>
-
-                    <div class="col-md-8 text-left">
-                        
-                    </div>
-                    
-                    <div class="col-md-2 text-left">
+               
+                    <div class="col-md-10 text-left">
                         <label class="modal-label">Action</label>
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         <asp:Button ID="btnAddLead" runat="server" CssClass="btn Save" Text="Add Lead" OnClick="btnAddLead_Click" Width="150px"></asp:Button>

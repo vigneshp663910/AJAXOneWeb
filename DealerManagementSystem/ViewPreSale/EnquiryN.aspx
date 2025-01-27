@@ -106,7 +106,7 @@
                         </asp:DropDownList>
                     </div>
 
-                    <div class="col-sm-12 text-right">
+                    <div class="col-sm-12 text-center">
           
                          <%--<label class="modal-label">Action</label>--%>
                         <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" Width="100"/>

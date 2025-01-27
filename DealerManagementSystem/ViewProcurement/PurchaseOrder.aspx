@@ -74,7 +74,7 @@
                         <asp:DropDownList ID="ddlPOStatus" runat="server" CssClass="form-control"> 
                         </asp:DropDownList>
                     </div>
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-8">
                         <label class="modal-label">Action</label>
                         <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="95px" />
                         
