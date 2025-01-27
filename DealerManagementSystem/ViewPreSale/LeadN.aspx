@@ -56,7 +56,7 @@
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
                     </div>
                      <div class="col-md-2 text-left">
-                        <label class="modal-label">Sales Channel Type</label>
+                        <label class="modal-label">Sales Channel</label>
                         <asp:DropDownList ID="ddlSSalesChannelType" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 text-left">
@@ -79,8 +79,13 @@
                         <label>Product Type</label>
                         <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
                     </div>
+
+                    <div class="col-md-8 text-left">
+                        
+                    </div>
                     
-                    <div class="col-md-12 text-center">
+                    <div class="col-md-2 text-left">
+                        <label class="modal-label">Action</label>
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                         <asp:Button ID="btnAddLead" runat="server" CssClass="btn Save" Text="Add Lead" OnClick="btnAddLead_Click" Width="150px"></asp:Button>
                         <%--<asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
@@ -154,7 +159,7 @@
                                         <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source.Source")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:BoundField HeaderText="Sales Channel Type" DataField="SalesChannelType.ItemText"></asp:BoundField>
+                                 <asp:BoundField HeaderText="S.Channel" DataField="SalesChannelType.ItemText"></asp:BoundField>
                                 <asp:TemplateField HeaderText="Status">
                                     <ItemTemplate>
                                         <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />

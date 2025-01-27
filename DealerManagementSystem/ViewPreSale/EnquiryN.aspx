@@ -106,9 +106,9 @@
                         </asp:DropDownList>
                     </div>
 
-                    <div class="col-md-2 col-sm-12 text-left">
+                    <div class="col-sm-12 text-right">
           
-                         <label class="modal-label">Action</label>
+                         <%--<label class="modal-label">Action</label>--%>
                         <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" Width="100"/>
                         <asp:Button ID="BtnAdd" runat="server" Text="Add Enquiry" CssClass="btn Save" Width="100px" OnClick="BtnAdd_Click" />
                        <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>                    
@@ -144,7 +144,8 @@
                             </div>
                             <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
                             <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
-                                AutoGenerateColumns="false" Width="100%">
+                                AutoGenerateColumns="false" Width="100%"
+                                OnRowDataBound="gvEnquiry_RowDataBound">
                                 <Columns>
                                     <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
@@ -185,7 +186,7 @@
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                     <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Address">
-                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemStyle VerticalAlign="Middle" Font-Size="XX-Small"/>
                                         <ItemTemplate>
                                             <asp:Label ID="lblAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address")%>' runat="server" />
                                             <br />
@@ -198,10 +199,10 @@
                                     <asp:BoundField HeaderText="Product" DataField="Product"></asp:BoundField>
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
-                                    <asp:BoundField HeaderText="Sales Channel Type" DataField="SalesChannelType.ItemText"></asp:BoundField>
+                                    <asp:BoundField HeaderText="S.Channel" DataField="SalesChannelType.ItemText"></asp:BoundField>
                                     <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Created">
-                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemStyle VerticalAlign="Middle" Font-Size="XX-Small" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
                                             <br />
