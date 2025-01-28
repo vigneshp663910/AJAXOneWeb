@@ -268,5 +268,25 @@ namespace DealerManagementSystem.ViewProcurement
             new BAPI().ApiGet("Sap/GetASNFromSAP?InvoiceNo=" + txtInvoiceNumber.Text);
             fillPurchaseOrderASN();
         }
+
+
+        protected void gvPAsn_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                Label lblStatus = e.Row.FindControl("lblAsnStatus") as Label;
+                string lStatus = lblStatus.Text;
+
+                if (lStatus == "GR Pending") { e.Row.Cells[0].Attributes["style"] = "background-color: red"; }
+                else if (lStatus == "GR Done") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; }
+                else if (lStatus == "Cancelled") { e.Row.Cells[0].Attributes["style"] = "background-color: #52527a"; }
+               
+
+            }
+        }
     }
 }

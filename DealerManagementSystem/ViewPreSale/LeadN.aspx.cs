@@ -419,11 +419,23 @@ namespace DealerManagementSystem.ViewPreSale
         protected void gvLead_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+            {             
                 e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='aquamarine';";
                 e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
                 e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                Label lblStatus = e.Row.FindControl("lblStatus") as Label;
+                string lStatus = lblStatus.Text; 
+
+                if (lStatus == "Unattended") { e.Row.Cells[0].Attributes["style"] = "background-color: darkgoldenrod"; }
+                else if (lStatus == "In Progress") { e.Row.Cells[0].Attributes["style"] = "background-color: #3598dc"; }           
+                else if (lStatus == "Quotation") { e.Row.Cells[0].Attributes["style"] = "background-color: #32c5d2"; }
+                else if (lStatus == "Won") { e.Row.Cells[0].Attributes["style"] = "background-color: #26c281"; }
+                else if (lStatus == "Sales Lost ") { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; }
+                //else if (lStatus == "Sales Lost ") { e.Row.Cells[0].Attributes["style"] = "background-color: red"; }
+                else if (lStatus == "Dropped") { e.Row.Cells[0].Attributes["style"] = "background-color: #d05454"; }
+
+
             }
         }
     }

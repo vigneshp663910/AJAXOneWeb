@@ -89,12 +89,12 @@ namespace DealerManagementSystem.ViewProcurement
                 txtPoDateFrom.Text = "01/" + DateTime.Now.Month.ToString("0#") + "/" + DateTime.Now.Year;
                 txtPoDateTo.Text = DateTime.Now.ToShortDateString();
 
-                fillDealer(); 
+                fillDealer();
                 new DDLBind(ddlPOStatus, new BDMS_PurchaseOrder().GetProcurementStatus((short)ProcurementStatusHeader.PurchaseOrder), "ProcurementStatus", "ProcurementStatusID");
 
                 //FillGetDealerOffice();
                 ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
-                 new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID"); 
+                new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
                 new DDLBind(ddlDivision, new BDMS_Master().GetDivision(null, null), "DivisionDescription", "DivisionID", true, "Select");
                 //ddlDivision.Items.Insert(0, new ListItem("Select", "0"));
                 List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
@@ -240,7 +240,7 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerCode.DataBind();
             ddlDealerCode.Items.Insert(0, new ListItem("All", "0"));
         }
-        
+
 
         //protected void BtnView_Click(object sender, EventArgs e)
         //{
@@ -276,12 +276,12 @@ namespace DealerManagementSystem.ViewProcurement
             divPurchaseOrderCreate.Visible = true;
             lblMessage.Text = "";
             Button BtnView = (Button)sender;
-            UC_PurchaseOrderCreate.FillMaster(); 
+            UC_PurchaseOrderCreate.FillMaster();
         }
 
         [WebMethod]
-        public static string GetMaterial(string Material, string MaterialType, string DivisionID,int ItemCount)
-        { 
+        public static string GetMaterial(string Material, string MaterialType, string DivisionID, int ItemCount)
+        {
             List<PDMS_Material> Materials = null;
             if (ItemCount == 0)
             {
@@ -291,8 +291,8 @@ namespace DealerManagementSystem.ViewProcurement
             {
                 Materials = new BDMS_Material().GetMaterialAutocompleteN(Material, MaterialType, (short)Division.Parts, "false");
             }
-           
-            return JsonConvert.SerializeObject(Materials); 
+
+            return JsonConvert.SerializeObject(Materials);
         }
 
         protected void btnViewPO_Click(object sender, EventArgs e)
@@ -315,7 +315,7 @@ namespace DealerManagementSystem.ViewProcurement
             ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(DealerID, null, null);
             ddlDealerOffice.DataBind();
             ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
-        } 
+        }
         protected void ddlPurchaseOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
             ddlDivision.Items.Clear();
@@ -362,6 +362,29 @@ namespace DealerManagementSystem.ViewProcurement
                     , PurchaseOrderDateT, PurchaseOrderStatusID, PurchaseOrderTypeID, DivisionID, DealerOfficeID, 1);
             DataTable dt = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
             new BXcel().ExporttoExcel(dt, "Purchase Order Report");
+        }
+
+        protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                Label lblStatus = e.Row.FindControl("lblPurchaseOrderStatus") as Label;
+                string lStatus = lblStatus.Text;
+
+                if (lStatus == "Draft") { e.Row.Cells[0].Attributes["style"] = "background-color: #3399ff"; }
+                else if (lStatus == "Released") { e.Row.Cells[0].Attributes["style"] = "background-color: #40bf80"; }
+                else if (lStatus == "Partial Received") { e.Row.Cells[0].Attributes["style"] = "background-color: #00e600"; }
+                else if (lStatus == "Completed") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; }
+                else if (lStatus == "Force Closed") { e.Row.Cells[0].Attributes["style"] = "background-color: #cc6600"; }
+                else if (lStatus == "Cancelled") { e.Row.Cells[0].Attributes["style"] = "background-color: #52527a"; }
+                else if (lStatus == "Waiting for Release Approval") { e.Row.Cells[0].Attributes["style"] = "background-color: #cccc00"; }
+                else if (lStatus == "Waiting for Cancel Approval") { e.Row.Cells[0].Attributes["style"] = "background-color: #ffb366"; }
+
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
 namespace DealerManagementSystem.ViewPreSale
 {
@@ -27,7 +28,7 @@ namespace DealerManagementSystem.ViewPreSale
         DateTime? DateFrom = null;
         DateTime? DateTo = null;
         int? SourceID = null;
-        int? SalesChannelTypeID = null; 
+        int? SalesChannelTypeID = null;
         int? StatusID = null;
 
         //public List<PEnquiry> PEnquiry
@@ -106,7 +107,7 @@ namespace DealerManagementSystem.ViewPreSale
                     List<PLeadSource> Source = new BLead().GetLeadSource(null, null);
                     new DDLBind(ddlSSource, Source, "Source", "SourceID");
                     new DDLBind(ddlSSalesChannelType, new BPreSale().GetPreSalesMasterItem((short)PreSalesMasterHeader.SalesChannelType), "ItemText", "MasterItemID");
-                    List<PPreSaleStatus> Status = new BDMS_Master().GetPreSaleStatus(null, null); 
+                    List<PPreSaleStatus> Status = new BDMS_Master().GetPreSaleStatus(null, null);
                     if (Session["leadStatusID"] != null)
                     {
                         ddlSStatus.SelectedValue = Convert.ToString(Session["leadStatusID"]);
@@ -159,7 +160,7 @@ namespace DealerManagementSystem.ViewPreSale
 
             //DateTime? DateT = string.IsNullOrEmpty(txtToDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtToDate.Text.Trim());
 
-            PApiResult Result =  new BEnquiry().GetEnquiry(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, SalesChannelTypeID, StatusID, PageIndex, gvEnquiry.PageSize);
+            PApiResult Result = new BEnquiry().GetEnquiry(null, DealerID, EngineerUserID, txtSEnquiryNumber.Text.Trim(), CustomerName, CountryID, StateID, DistrictID, DateFrom, DateTo, SourceID, SalesChannelTypeID, StatusID, PageIndex, gvEnquiry.PageSize);
 
             gvEnquiry.DataSource = JsonConvert.DeserializeObject<List<PEnquiry>>(JsonConvert.SerializeObject(Result.Data));
             gvEnquiry.DataBind();
@@ -319,7 +320,7 @@ namespace DealerManagementSystem.ViewPreSale
                 lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
-        } 
+        }
         void Search()
         {
             DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
@@ -348,17 +349,20 @@ namespace DealerManagementSystem.ViewPreSale
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-
-                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#e6ccff';";
                 e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
-                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='aquamarine';";
                 e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
                 e.Row.ToolTip = "Click On View Icon for More Details... ";
 
-                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#0000b3'; this.style.color = 'white' ";
-                //e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white'; this.style.color = 'black'; ";
-                //e.Row.ToolTip = "Click On View Icon for More Details... ";
+                string eStatus = e.Row.Cells[13].Text;
+
+                if      (eStatus == "Unattended")       { e.Row.Cells[0].Attributes["style"] = "background-color: darkgoldenrod";}
+                else if (eStatus == "InProgress")       { e.Row.Cells[0].Attributes["style"] = "background-color: red";}
+                else if (eStatus == "Converted To Lead"){ e.Row.Cells[0].Attributes["style"] = "background-color: darkolivegreen";}
+                else if (eStatus == "Rejected")         { e.Row.Cells[0].Attributes["style"] = "background-color: red";}
             }
         }
+
+
     }
 }
+

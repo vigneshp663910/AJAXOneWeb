@@ -307,5 +307,29 @@ namespace DealerManagementSystem.ViewSales
 
             new BXcel().ExporttoExcel(dt, "Sales Order Report");
         }
+
+
+        protected void gvSaleOrder_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                Label lblStatus = e.Row.FindControl("lblStatus") as Label;
+                string lStatus = lblStatus.Text;
+
+                if (lStatus == "Quotation") { e.Row.Cells[0].Attributes["style"] = "background-color: #3399ff"; }
+                else if (lStatus == "Proforma Invoice") { e.Row.Cells[0].Attributes["style"] = "background-color: #40bf80"; }
+                else if (lStatus == "Order Placed") { e.Row.Cells[0].Attributes["style"] = "background-color: #cccc00"; }
+                else if (lStatus == "Partially Delivered") { e.Row.Cells[0].Attributes["style"] = "background-color: #00e600"; }
+                else if (lStatus == "Delivered") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; }
+                else if (lStatus == "Cancelled") { e.Row.Cells[0].Attributes["style"] = "background-color: #52527a"; }
+                else if (lStatus == "Partially Closed") { e.Row.Cells[0].Attributes["style"] = "background-color: #9933ff"; }
+               
+
+            }
+        }
     }
 }

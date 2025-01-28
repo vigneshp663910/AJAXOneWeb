@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<%--<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />--%>
+    <%--<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />--%>
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
@@ -70,13 +70,13 @@
                             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-2 text-left">
-                        <label class="modal-label">Sales Channel</label>
-                        <asp:DropDownList ID="ddlSSalesChannelType" runat="server" CssClass="form-control" />
-                    </div>
+                            <label class="modal-label">Sales Channel</label>
+                            <asp:DropDownList ID="ddlSSalesChannelType" runat="server" CssClass="form-control" />
+                        </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                             <asp:Button ID="btnAddQuotation" runat="server" CssClass="btn Save" Text="Add Quotation" OnClick="btnAddQuotation_Click" Width="150px" Visible="false"></asp:Button>
-                         <%--<asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
+                            <%--<asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
                         </div>
                     </div>
                 </fieldset>
@@ -112,17 +112,17 @@
                             <asp:GridView ID="gvQuotation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true"
                                 OnRowDataBound="gvQuotation_RowDataBound">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
-                                     <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
-                                           <%-- <asp:Button ID="btnViewQuotation" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewQuotation_Click" Width="50px" Height="33px" />--%>
-                                             <asp:ImageButton ID="btnViewLead" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle"  OnClick="btnViewQuotation_Click" />
+                                            <%-- <asp:Button ID="btnViewQuotation" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewQuotation_Click" Width="50px" Height="33px" />--%>
+                                            <asp:ImageButton ID="btnViewLead" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="btnViewQuotation_Click" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
@@ -178,14 +178,17 @@
                                                 <a href='tel:<%# DataBinder.Eval(Container.DataItem, "Lead.Customer.Mobile")%>'><%# DataBinder.Eval(Container.DataItem, "Lead.Customer.Mobile")%></a>
                                             </asp:Label><asp:Label ID="lblEMail" runat="server">
                                                 <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Lead.Customer.EMail")%>'><%# DataBinder.Eval(Container.DataItem, "Lead.Customer.EMail")%></a>
-                                            </asp:Label></ItemTemplate></asp:TemplateField><asp:TemplateField HeaderText="Created">
-                                        <ItemStyle VerticalAlign="Middle" />
+                                            </asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Created">
+                                        <ItemStyle  VerticalAlign="Middle" Font-Size="XX-Small" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="S.Channel" DataField="Lead.SalesChannelType.ItemText"></asp:BoundField>
-                                   <%-- <asp:TemplateField>
+                                    <%-- <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnViewQuotation" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewQuotation_Click" Width="50px" Height="33px" />
                                         </ItemTemplate>
@@ -200,7 +203,10 @@
 
                         </div>
                     </fieldset>
-                 </div></div></div><div class="col-md-12" id="divColdVisitView" runat="server" visible="false">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="divColdVisitView" runat="server" visible="false">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
                 <div class="back-buttton" id="backBtn">

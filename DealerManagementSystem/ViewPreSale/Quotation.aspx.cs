@@ -348,11 +348,19 @@ namespace DealerManagementSystem.ViewPreSale
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
-                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='aquamarine';";
-                //e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#80ff80';";
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";             
                 e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
                 e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                Label lblStatus = e.Row.FindControl("lblUserStatus") as Label;
+                string lStatus = lblStatus.Text;
+
+                if (lStatus == "Cold ( <50% )") { e.Row.Cells[0].Attributes["style"] = "background-color: #0099ff"; }
+                else if (lStatus == "Hot ( > 75% )") { e.Row.Cells[0].Attributes["style"] = "background-color: #ff9933"; }
+                else if (lStatus == "Warm ( >50%<75% )") { e.Row.Cells[0].Attributes["style"] = "background-color: yellow"; }
+                else if (lStatus == "Lost to Competition") { e.Row.Cells[0].Attributes["style"] = "background-color: #cc3300"; }
+                else if (lStatus == "Converted to AJAX Other Product") { e.Row.Cells[0].Attributes["style"] = "background-color: #99cc00"; }
+                                 
             }
         }
     }
