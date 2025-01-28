@@ -195,7 +195,7 @@
                 </div>
             </div>
         </fieldset>
-        <fieldset class="fieldset-border">
+        <fieldset class="fieldset-border" id="DivApproverInfo" runat="server" visible="false">
             <legend style="background: none; color: #007bff; font-size: 17px;">Approver Information</legend>
             <div class="col-md-12">
                 <div class="col-md-3 text-right">
@@ -216,69 +216,66 @@
                 <div class="col-md-3">
                     <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
                 </div>
-                <br />
+                <div class="col-md-3 text-right">
+                    <label>Remarks</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblApproverRemarks" runat="server" CssClass="label"></asp:Label>
+                </div>                
                 <div class="col-md-3 text-right">
                     <label>Module Permission</label>
                 </div>
                 <div class="col-md-3">
                     <asp:Label ID="lblModulePermission" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <br />
                 <div class="col-md-3 text-right">
                     <label>Dealer Permission</label>
                 </div>
-                <div class="col-md-3">
-                    <asp:Label ID="lblDealerPermission" runat="server" CssClass="label"></asp:Label>
+                <div class="col-md-9">
+                    <asp:ListView ID="ListViewDealerList" runat="server" DataKeyNames="DealerID">
+                    <ItemTemplate>
+                        <div class="col-md-3 col-sm-12">
+                            <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")+"-"+DataBinder.Eval(Container.DataItem, "DisplayName")%>' runat="server" />
+                            <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
+                        </div>
+                    </ItemTemplate>
+                </asp:ListView>
                 </div>
-                <div class="col-md-3 text-right">
-                    <label>Remarks</label>
-                </div>
-                <div class="col-md-3">
-                    <asp:Label ID="lblApproverRemarks" runat="server" CssClass="label"></asp:Label>
-                </div>
+                
             </div>
         </fieldset>
         <fieldset class="fieldset-border" id="DivApprover" runat="server" visible="false">
             <legend style="background: none; color: #007bff; font-size: 17px;">Permission</legend>
             <div class="col-md-12">
                 <div class="col-md-3 text-right">
-                    <label>Module Permission</label>
+                    <label>Module Permission<samp style="color: red">*</samp></label>
                 </div>
                 <div class="col-md-3">
                     <asp:TextBox ID="txtModulePermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
                 </div>
                 <div class="col-md-3 text-right">
-                    <label>Dealer Permission</label>
-                </div>
-                <div class="col-md-3">
-                    <asp:TextBox ID="txtDealerPermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
-                </div>
-                <div class="col-md-3 text-right">
-                    <label>Remarks</label>
+                    <label>Remarks<samp style="color: red">*</samp></label>
                 </div>
                 <div class="col-md-3">
                     <asp:TextBox ID="txtRemarks" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
                 </div>
+                <div class="col-md-3 text-right">
+                    <label>Dealer Permission</label>
+                </div>
+                <br />
+                <asp:CheckBox ID="chkSelectAll" runat="server" AutoPostBack="true" OnCheckedChanged="chkSelectAll_CheckedChanged" /><asp:Label ID="lblSelect" runat="server" Text="Select All Dealer"></asp:Label>
+                <br />
+                <asp:ListView ID="ListViewDealer" runat="server" DataKeyNames="DealerID">
+                    <ItemTemplate>
+                        <div class="col-md-3 col-sm-12">
+                            <asp:CheckBox ID="chkDealer" runat="server" OnCheckedChanged="chkDealer_CheckedChanged" AutoPostBack="true" />
+                            <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")+"-"+DataBinder.Eval(Container.DataItem, "DisplayName")%>' runat="server" />
+                            <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
+                        </div>
+                    </ItemTemplate>
+                </asp:ListView>
             </div>
         </fieldset>
     </div>
 </div>
-<%--<asp:Panel ID="pnlAjaxEmployeeCreate" runat="server" CssClass="Popup" Style="display: none;">
-    <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Generate User Creation</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-            <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
-        </a>
-    </div>
-    <asp:Label ID="lblMessageAjaxEmployeeCreate" runat="server" Text="" CssClass="message" Visible="false" />
-    <div class="col-md-12">
-        <div class="model-scroll">
-            <UC:UC_AjaxEmployeeCreate ID="UC_AjaxEmployeeCreate" runat="server"></UC:UC_AjaxEmployeeCreate>
-        </div>
-        <div class="col-md-12 text-center">
-            <asp:Button ID="BtnCreateAjaxEmployee" runat="server" CssClass="btn Save" Text="Save" OnClick="BtnCreateAjaxEmployee_Click"></asp:Button>
-        </div>
-    </div>
-</asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_CreateAjaxEmployee" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlAjaxEmployeeCreate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-<div style="display: none">
-    <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
-</div>--%>

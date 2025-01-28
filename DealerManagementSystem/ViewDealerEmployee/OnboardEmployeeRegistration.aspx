@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OnboardEmployeeRegistration.aspx.cs" MaintainScrollPositionOnPostback="true" Inherits="DealerManagementSystem.OnboardEmployeeRegistration" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OnboardEmployeeRegistration.aspx.cs" MaintainScrollPositionOnPostback="true" Inherits="DealerManagementSystem.ViewDealerEmployee.OnboardEmployeeRegistration" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <!DOCTYPE html>
 
@@ -77,9 +76,12 @@
             color: black;
         }
 
-        .btn {
-            padding: 10px 20px;
+        .btn-success {
+            padding: 5px 20px;
             font-size: 18px;
+            border : 5px solid green;
+            border-radius : 10px;
+            background-color : green;
         }
         /*.fieldset-border {
             border: 1px solid #007bff;
@@ -98,7 +100,7 @@
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ToolkitScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
         <div>
-            <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"/>
+            <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -273,11 +275,42 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 text-center">
-                                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn-success" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
+                            </fieldset>
+                            <fieldset>
+                                <legend>Permission Information</legend>
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Module Permission<samp style="color: red">*</samp></label>
+                                            <asp:TextBox ID="txtModulePermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Dealer Permission<samp style="color: red">*</samp></label>
+                                            <br />
+                                            <asp:CheckBox ID="chkSelectAll" runat="server" AutoPostBack="true" OnCheckedChanged="chkSelectAll_CheckedChanged" /><asp:Label ID="lblSelect" runat="server" Text="Select All Dealer"></asp:Label>
+                                            <br />
+                                            <asp:ListView ID="ListViewDealer" runat="server" DataKeyNames="DealerID">
+                                                <ItemTemplate>
+                                                    <div class="col-md-3">
+                                                        <asp:CheckBox ID="chkDealer" runat="server" OnCheckedChanged="chkDealer_CheckedChanged" AutoPostBack="true" />
+                                                        <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")+"-"+DataBinder.Eval(Container.DataItem, "DisplayName")%>' runat="server" />
+                                                        <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
+                                                    </div>
+                                                </ItemTemplate>
+                                            </asp:ListView>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-12 text-center">
+                                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn-success" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
+                                    </div>
                                 </div>
                             </fieldset>
-
                         </div>
                     </div>
                 </div>

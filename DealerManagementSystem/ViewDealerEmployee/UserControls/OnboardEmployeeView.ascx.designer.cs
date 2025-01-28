@@ -258,6 +258,15 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
         protected global::System.Web.UI.WebControls.Label lblReportingTo;
 
         /// <summary>
+        /// DivApproverInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivApproverInfo;
+
+        /// <summary>
         /// lblApprovedBy control.
         /// </summary>
         /// <remarks>
@@ -285,6 +294,15 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
         protected global::System.Web.UI.WebControls.Label lblStatus;
 
         /// <summary>
+        /// lblApproverRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblApproverRemarks;
+
+        /// <summary>
         /// lblModulePermission control.
         /// </summary>
         /// <remarks>
@@ -294,22 +312,13 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
         protected global::System.Web.UI.WebControls.Label lblModulePermission;
 
         /// <summary>
-        /// lblDealerPermission control.
+        /// ListViewDealerList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDealerPermission;
-
-        /// <summary>
-        /// lblApproverRemarks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblApproverRemarks;
+        protected global::System.Web.UI.WebControls.ListView ListViewDealerList;
 
         /// <summary>
         /// DivApprover control.
@@ -330,15 +339,6 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtModulePermission;
 
         /// <summary>
-        /// txtDealerPermission control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDealerPermission;
-
-        /// <summary>
         /// txtRemarks control.
         /// </summary>
         /// <remarks>
@@ -346,5 +346,32 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemarks;
+
+        /// <summary>
+        /// chkSelectAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSelectAll;
+
+        /// <summary>
+        /// lblSelect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelect;
+
+        /// <summary>
+        /// ListViewDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListView ListViewDealer;
     }
 }

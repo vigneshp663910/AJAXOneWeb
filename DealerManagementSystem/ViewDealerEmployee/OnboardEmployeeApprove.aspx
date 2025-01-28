@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" AutoEventWireup="true" CodeBehind="OnboardEmployeeApprove.aspx.cs" Inherits="DealerManagementSystem.ViewDealerEmployee.OnboardEmployeeApprove" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="OnboardEmployeeApprove.aspx.cs" Inherits="DealerManagementSystem.ViewDealerEmployee.OnboardEmployeeApprove" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="~/ViewDealerEmployee/UserControls/OnboardEmployeeView.ascx" TagPrefix="UC" TagName="UC_OnboardEmployeeView" %>
@@ -28,9 +28,12 @@
                             <label>Designation</label>
                             <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
                         </div>
+                        <div class="col-md-2 text-left">
+                            <label>Status</label>
+                            <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control" />
+                        </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="btnSearch_Click" />
-                            <%--<asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="InputButton btn Search" OnClick="btnExportExcel_Click" Width="100px" />--%>
                         </div>
                     </div>
                 </fieldset>
