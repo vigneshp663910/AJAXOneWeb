@@ -432,10 +432,23 @@ namespace DealerManagementSystem.ViewPreSale
                 else if (lStatus == "Quotation") { e.Row.Cells[0].Attributes["style"] = "background-color: #32c5d2"; }
                 else if (lStatus == "Won") { e.Row.Cells[0].Attributes["style"] = "background-color: #26c281"; }
                 else if (lStatus == "Sales Lost ") { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; }
-                //else if (lStatus == "Sales Lost ") { e.Row.Cells[0].Attributes["style"] = "background-color: red"; }
                 else if (lStatus == "Dropped") { e.Row.Cells[0].Attributes["style"] = "background-color: #d05454"; }
 
+                Label lblDivision = e.Row.FindControl("lblProductType") as Label;
+                string lDivision = lblDivision.Text;
 
+                ImageButton imgButton = e.Row.FindControl("imgDivision") as ImageButton;
+
+                if (lDivision == "Self-Loading Concrete Mixer") { imgButton.ImageUrl = "~/Images/Argo-1000.jpg"; }
+                else if (lDivision == "Concrete Pumps") { imgButton.ImageUrl = "~/Images/ASP-7011.jpg"; }
+                else if (lDivision == "Batching Plant") { imgButton.ImageUrl = "~/Images/CRB-20.jpg"; }
+                else if (lDivision == "Boom Pump") { imgButton.ImageUrl = "~/Images/Boom-Pump.jpg"; }
+                else if (lDivision == "Transit Mixers") { imgButton.ImageUrl = "~/Images/Transit-Mixer.jpg"; }
+                else if (lDivision == "Dumper") { imgButton.ImageUrl = "~/Images/Dumper.jpg"; }
+                else if (lDivision == "SB") { imgButton.ImageUrl = "~/Images/SPBP.png"; }
+                else if (lDivision == "Slip form Paver") { imgButton.ImageUrl = "~/Images/Paver.png"; }
+                //else if (lDivision == "Yet To Be Confirmed") { imgButton.ImageUrl = ""; }
+                
             }
         }
     }

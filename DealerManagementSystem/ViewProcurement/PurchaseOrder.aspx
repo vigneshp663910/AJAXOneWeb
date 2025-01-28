@@ -165,8 +165,10 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Division">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                        <ItemTemplate>
+                                        <ItemStyle VerticalAlign="Top" HorizontalAlign="Left" />
+                                        <ItemTemplate>               
+                                           
+                                            <asp:ImageButton ID="imgDivision" runat="server" ImageUrl="~/Images/SpareParts.png" Width="25" Height="25"/>
                                             <asp:Label ID="lblf_division" Text='<%# DataBinder.Eval(Container.DataItem, "Division.DivisionCode")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -202,7 +204,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Created">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" Font-Size="XX-Small" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "Created.ContactName")%>' runat="server"></asp:Label>
                                            

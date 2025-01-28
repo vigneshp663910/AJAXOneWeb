@@ -200,6 +200,7 @@
                                 <asp:TemplateField HeaderText="Division">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
+                                        <asp:ImageButton ID="imgDivision" runat="server" ImageUrl="~/Images/SpareParts.png" Width="25" Height="25"/>
                                         <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrder.Division.DivisionCode")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>

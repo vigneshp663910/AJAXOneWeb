@@ -10,6 +10,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace DealerManagementSystem.ViewProcurement
 {
     public partial class PurchaseOrder : BasePage
@@ -384,6 +385,19 @@ namespace DealerManagementSystem.ViewProcurement
                 else if (lStatus == "Waiting for Release Approval") { e.Row.Cells[0].Attributes["style"] = "background-color: #cccc00"; }
                 else if (lStatus == "Waiting for Cancel Approval") { e.Row.Cells[0].Attributes["style"] = "background-color: #ffb366"; }
 
+                Label lblDivision = e.Row.FindControl("lblf_division") as Label;
+                string lDivision = lblDivision.Text;
+
+                ImageButton imgButton = e.Row.FindControl("imgDivision") as ImageButton;
+
+                if (lDivision == "CM") { imgButton.ImageUrl = "~/Images/Argo-1000.jpg"; }
+                else if (lDivision == "CP") { imgButton.ImageUrl = "~/Images/ASP-7011.jpg"; }
+                else if (lDivision == "BP") { imgButton.ImageUrl = "~/Images/CRB-20.jpg"; }
+                else if (lDivision == "BM") { imgButton.ImageUrl = "~/Images/Boom-Pump.jpg"; }
+                else if (lDivision == "TM") { imgButton.ImageUrl = "~/Images/Transit-Mixer.jpg"; }
+                else if (lDivision == "DP") { imgButton.ImageUrl = "~/Images/Dumper.jpg"; }
+                else if (lDivision == "SB") { imgButton.ImageUrl = "~/Images/SPBP.png"; }
+                else if (lDivision == "PS") { imgButton.ImageUrl = "~/Images/Paver.png"; }
             }
         }
     }

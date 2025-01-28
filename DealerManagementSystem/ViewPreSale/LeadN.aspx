@@ -142,6 +142,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Product Type">
                                     <ItemTemplate>
+                                         <asp:ImageButton ID="imgDivision" runat="server" ImageUrl="~/Images/SpareParts.png" Width="25" Height="25"/>
                                         <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
