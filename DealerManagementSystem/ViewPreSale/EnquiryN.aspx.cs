@@ -359,6 +359,16 @@ namespace DealerManagementSystem.ViewPreSale
                 else if (eStatus == "InProgress")       { e.Row.Cells[0].Attributes["style"] = "background-color: red";}
                 else if (eStatus == "Converted To Lead"){ e.Row.Cells[0].Attributes["style"] = "background-color: darkolivegreen";}
                 else if (eStatus == "Rejected")         { e.Row.Cells[0].Attributes["style"] = "background-color: red";}
+
+
+                Label lblChannel = e.Row.FindControl("lblChannel") as Label;
+                string lChannel = lblChannel.Text;
+
+                ImageButton imgButton = e.Row.FindControl("imgChannel") as ImageButton;
+
+                if (lChannel == "B2B") { imgButton.ImageUrl = "~/Images/b2b.png"; }
+                else if (lChannel == "B2C") { imgButton.ImageUrl = "~/Images/b2c.png"; }
+               
             }
         }
 

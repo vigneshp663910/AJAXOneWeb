@@ -199,7 +199,16 @@
                                     <asp:BoundField HeaderText="Product" DataField="Product"></asp:BoundField>
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
-                                    <asp:BoundField HeaderText="S.Channel" DataField="SalesChannelType.ItemText"></asp:BoundField>
+                                    <%--<asp:BoundField HeaderText="S.Channel" DataField="SalesChannelType.ItemText"> </asp:BoundField>--%>
+
+                                    <asp:TemplateField HeaderText="S.Channel">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>      
+                                                <asp:ImageButton ID="imgChannel" runat="server" ImageUrl="~/Images/b2c.png" Width="35" Height="35"/>
+                                                <asp:Label ID="lblChannel" Text='<%# DataBinder.Eval(Container.DataItem, "SalesChannelType.ItemText")%>' runat="server" />                                           
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
                                     <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Created">
                                         <ItemStyle VerticalAlign="Middle" Font-Size="XX-Small" />

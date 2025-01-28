@@ -270,6 +270,8 @@
     <Content Include="Images\ArrowLeft.png" />
     <Content Include="Images\ArrowRight.png" />
     <Content Include="Images\ASP-7011.jpg" />
+    <Content Include="Images\b2b.png" />
+    <Content Include="Images\b2c.png" />
     <Content Include="Images\BOOM-Pump-ULTRA.png" />
     <Content Include="Images\Boom-Pump.jpg" />
     <Content Include="Images\ChangePw.jpg" />
