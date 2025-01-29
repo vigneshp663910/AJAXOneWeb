@@ -11,7 +11,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
 {
     public partial class OnboardEmployeeApprove : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewDealerEmployee_OnboardEmployeeManage; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewDealerEmployee_OnboardEmployeeApproval; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -29,6 +29,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
         int? DepartmentID = null;
         int? DesignationID = null;
         string Name = null;
+        int? StatusId = null;
         public List<POnboardEmployee> OnboardEmployeePendingApproval
         {
             get
@@ -84,6 +85,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
                 {
                     new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
                     new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+                    new DDLBind(ddlStatus, new BOnboardEmployee().GetOnboardEmployeeStatus(null, null), "Status", "StatusId", true, "Select");
 
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
@@ -115,6 +117,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
             Name = string.IsNullOrEmpty(txtName.Text) ? null : txtName.Text;
             DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
             DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
+            StatusId = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
         }
         private void FillGrid()
         {
@@ -122,7 +125,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
             {
                 TraceLogger.Log(DateTime.Now);
                 Search();
-                PApiResult Result = new BOnboardEmployee().GetOnboardEmployeePendingApproval(EmpCode, Name, DepartmentID, DesignationID, PageIndex, gvEmployee.PageSize);
+                PApiResult Result = new BOnboardEmployee().GetOnboardEmployeePendingApproval(EmpCode, Name, DepartmentID, DesignationID, StatusId, PageIndex, gvEmployee.PageSize);
                 OnboardEmployeePendingApproval = JsonConvert.DeserializeObject<List<POnboardEmployee>>(JsonConvert.SerializeObject(Result.Data));
                 gvEmployee.DataSource = OnboardEmployeePendingApproval;
                 gvEmployee.DataBind();
@@ -172,11 +175,10 @@ namespace DealerManagementSystem.ViewDealerEmployee
 
         protected void lbView_Click(object sender, EventArgs e)
         {
-            LinkButton lbView = (LinkButton)sender;
+            Button lbView = (Button)sender;
             divList.Visible = false;
             divOnboardEmployeeView.Visible = true;
-            UC_OnboardEmployeeView.FillOnboardEmployee(Convert.ToInt32(lbView.CommandArgument));
-            UC_OnboardEmployeeView.FindControl("DivApprover").Visible = true;
+            UC_OnboardEmployeeView.FillOnboardEmployee(Convert.ToInt32(lbView.CommandArgument),"Approve");
         }
 
         protected void btnBackToList_Click(object sender, EventArgs e)

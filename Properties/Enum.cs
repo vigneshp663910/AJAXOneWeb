@@ -627,10 +627,13 @@ namespace Properties
         DealerOfficeUserMappingUpdate = 99,
         UserPurchaseOrderTypeMappingUpdate = 100,
         SaleOrderDeliveryCancel = 101,
+        OnboardEmployeeGenerateUser = 102,
         EditAllSalesAndServiceConfiguration = 103,
         EditDealerSalesEngineer = 104,
         EditRetailerSalesEngineer = 105,
-        EnquiryRejectOrConvert = 106,
+        EnquiryRejectOrConvert = 106, 
+
+       
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -1031,6 +1034,13 @@ namespace Properties
         Rejected = 3,
         Loss = 4,
         Won = 5
+    }
+    public enum OnboardEmployeeStatus
+    {
+        Requested = 1,
+        Approved = 2,
+        Rejected = 3,
+        Created = 4
     }
 }
 

@@ -230,7 +230,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                     RptSLA.Visible = false;
                     ReportType = ddlReportSelection.SelectedItem.Text.Replace("/", "");
 
-                    PApiResult Result = new BTickets().GetTicketSummaryDetails(HeaderId, Year, Month, DepartmentID, txtTicketFrom.Text, txtTicketTo.Text, CategoryID, CreatedBy, AssignedTo, SLAType, ReportType, TicketSeverity, TicketStatus, PageIndex, gvTickets.PageSize);
+                    PApiResult Result = new BTickets().GetTicketSummaryDetails(HeaderId, Year, Month, DepartmentID, txtTicketFrom.Text, txtTicketTo.Text, CategoryID, CreatedBy, AssignedTo, SLAType, ReportType, TicketSeverity, TicketStatus, PageIndex, gvDeptCatewise.PageSize);
                     dtTicketSummaryDetails = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
                     gvDeptCatewise.DataSource = dtTicketSummaryDetails;
                     gvDeptCatewise.DataBind();
@@ -243,11 +243,11 @@ namespace DealerManagementSystem.ViewSupportTicket
                     }
                     else
                     {
-                        PageCount = (Result.RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
+                        PageCount = (Result.RowCount + gvDeptCatewise.PageSize - 1) / gvDeptCatewise.PageSize;
                         lblRowCount.Visible = true;
                         ibtnArrowLeft.Visible = true;
                         ibtnArrowRight.Visible = true;
-                        lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + Result.RowCount;
+                        lblRowCount.Text = (((PageIndex - 1) * gvDeptCatewise.PageSize) + 1) + " - " + (((PageIndex - 1) * gvDeptCatewise.PageSize) + gvDeptCatewise.Rows.Count) + " of " + Result.RowCount;
                     }
                     GridCustomize(gvDeptCatewise, dtTicketSummaryDetails);
                 }
@@ -261,7 +261,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                     RptSLA.Visible = false;
                     ReportType = ddlReportSelection.SelectedItem.Text;
 
-                    PApiResult Result = new BTickets().GetTicketSummaryDetails(HeaderId, Year, Month, DepartmentID, txtTicketFrom.Text, txtTicketTo.Text, CategoryID, CreatedBy, AssignedTo, SLAType, ReportType, TicketSeverity, TicketStatus, PageIndex, gvTickets.PageSize);
+                    PApiResult Result = new BTickets().GetTicketSummaryDetails(HeaderId, Year, Month, DepartmentID, txtTicketFrom.Text, txtTicketTo.Text, CategoryID, CreatedBy, AssignedTo, SLAType, ReportType, TicketSeverity, TicketStatus, PageIndex, gvCategorywise.PageSize);
                     dtTicketSummaryDetails = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
                     gvCategorywise.DataSource = dtTicketSummaryDetails;
                     gvCategorywise.DataBind();
@@ -274,11 +274,11 @@ namespace DealerManagementSystem.ViewSupportTicket
                     }
                     else
                     {
-                        PageCount = (Result.RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
+                        PageCount = (Result.RowCount + gvCategorywise.PageSize - 1) / gvCategorywise.PageSize;
                         lblRowCount.Visible = true;
                         ibtnArrowLeft.Visible = true;
                         ibtnArrowRight.Visible = true;
-                        lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + Result.RowCount;
+                        lblRowCount.Text = (((PageIndex - 1) * gvCategorywise.PageSize) + 1) + " - " + (((PageIndex - 1) * gvCategorywise.PageSize) + gvCategorywise.Rows.Count) + " of " + Result.RowCount;
                     }
                     GridCustomize(gvCategorywise, dtTicketSummaryDetails);
                 }
@@ -292,7 +292,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                     RptSLA.Visible = false;
                     ReportType = ddlReportSelection.SelectedItem.Text.Replace(" ", "");
 
-                    PApiResult Result = new BTickets().GetTicketSummaryDetails(HeaderId, Year, Month, DepartmentID, txtTicketFrom.Text, txtTicketTo.Text, CategoryID, CreatedBy, AssignedTo, SLAType, ReportType, TicketSeverity, TicketStatus, PageIndex, gvTickets.PageSize);
+                    PApiResult Result = new BTickets().GetTicketSummaryDetails(HeaderId, Year, Month, DepartmentID, txtTicketFrom.Text, txtTicketTo.Text, CategoryID, CreatedBy, AssignedTo, SLAType, ReportType, TicketSeverity, TicketStatus, PageIndex, gvAssignTo.PageSize);
                     dtTicketSummaryDetails = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
                     gvAssignTo.DataSource = dtTicketSummaryDetails;
                     gvAssignTo.DataBind();
@@ -305,11 +305,11 @@ namespace DealerManagementSystem.ViewSupportTicket
                     }
                     else
                     {
-                        PageCount = (Result.RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
+                        PageCount = (Result.RowCount + gvAssignTo.PageSize - 1) / gvAssignTo.PageSize;
                         lblRowCount.Visible = true;
                         ibtnArrowLeft.Visible = true;
                         ibtnArrowRight.Visible = true;
-                        lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + Result.RowCount;
+                        lblRowCount.Text = (((PageIndex - 1) * gvAssignTo.PageSize) + 1) + " - " + (((PageIndex - 1) * gvAssignTo.PageSize) + gvAssignTo.Rows.Count) + " of " + Result.RowCount;
                     }
                     GridCustomize(gvAssignTo, dtTicketSummaryDetails);
                 }
@@ -323,7 +323,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                     RptSLA.Visible = false;
                     ReportType = ddlReportSelection.SelectedItem.Text.Replace(" ", "");
 
-                    PApiResult Result = new BTickets().GetTicketSummaryDetails(HeaderId, Year, Month, DepartmentID, txtTicketFrom.Text, txtTicketTo.Text, CategoryID, CreatedBy, AssignedTo, SLAType, ReportType, TicketSeverity, TicketStatus, PageIndex, gvTickets.PageSize);
+                    PApiResult Result = new BTickets().GetTicketSummaryDetails(HeaderId, Year, Month, DepartmentID, txtTicketFrom.Text, txtTicketTo.Text, CategoryID, CreatedBy, AssignedTo, SLAType, ReportType, TicketSeverity, TicketStatus, PageIndex, gvCreatorBy.PageSize);
                     dtTicketSummaryDetails = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
                     gvCreatorBy.DataSource = dtTicketSummaryDetails;
                     gvCreatorBy.DataBind();
@@ -336,11 +336,11 @@ namespace DealerManagementSystem.ViewSupportTicket
                     }
                     else
                     {
-                        PageCount = (Result.RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
+                        PageCount = (Result.RowCount + gvCreatorBy.PageSize - 1) / gvCreatorBy.PageSize;
                         lblRowCount.Visible = true;
                         ibtnArrowLeft.Visible = true;
                         ibtnArrowRight.Visible = true;
-                        lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + Result.RowCount;
+                        lblRowCount.Text = (((PageIndex - 1) * gvCreatorBy.PageSize) + 1) + " - " + (((PageIndex - 1) * gvCreatorBy.PageSize) + gvCreatorBy.Rows.Count) + " of " + Result.RowCount;
                     }
                     GridCustomize(gvCreatorBy, dtTicketSummaryDetails);
                 }
@@ -354,7 +354,7 @@ namespace DealerManagementSystem.ViewSupportTicket
                     RptSLA.Visible = true;
                     ReportType = ddlReportSelection.SelectedItem.Text;
 
-                    PApiResult Result = new BTickets().GetTicketSummaryDetails(HeaderId, Year, Month, DepartmentID, txtTicketFrom.Text, txtTicketTo.Text, CategoryID, CreatedBy, AssignedTo, SLAType, ReportType, TicketSeverity, TicketStatus, PageIndex, gvTickets.PageSize);
+                    PApiResult Result = new BTickets().GetTicketSummaryDetails(HeaderId, Year, Month, DepartmentID, txtTicketFrom.Text, txtTicketTo.Text, CategoryID, CreatedBy, AssignedTo, SLAType, ReportType, TicketSeverity, TicketStatus, PageIndex, gvSLA.PageSize);
                     dtTicketSummaryDetails = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
                     gvSLA.DataSource = dtTicketSummaryDetails;
                     gvSLA.DataBind();
@@ -382,11 +382,11 @@ namespace DealerManagementSystem.ViewSupportTicket
                     }
                     else
                     {
-                        PageCount = (Result.RowCount + gvTickets.PageSize - 1) / gvTickets.PageSize;
+                        PageCount = (Result.RowCount + gvSLA.PageSize - 1) / gvSLA.PageSize;
                         lblRowCount.Visible = true;
                         ibtnArrowLeft.Visible = true;
                         ibtnArrowRight.Visible = true;
-                        lblRowCount.Text = (((PageIndex - 1) * gvTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvTickets.PageSize) + gvTickets.Rows.Count) + " of " + Result.RowCount;
+                        lblRowCount.Text = (((PageIndex - 1) * gvSLA.PageSize) + 1) + " - " + (((PageIndex - 1) * gvSLA.PageSize) + gvSLA.Rows.Count) + " of " + Result.RowCount;
                     }
                 }
                 lblViewRowCount.Text = "";

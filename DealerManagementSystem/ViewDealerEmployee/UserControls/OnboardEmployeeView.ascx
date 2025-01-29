@@ -1,5 +1,44 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnboardEmployeeView.ascx.cs" Inherits="DealerManagementSystem.ViewDealerEmployee.UserControls.OnboardEmployeeView" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<div class="col-md-12">
+    <script type="text/javascript">
+        function ConfirmReject() {
+            var x = confirm("Are you sure you want to Reject Employee?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+        function ConfirmApprove() {
+            var x = confirm("Are you sure you want to Approve Employee?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+        function ConfirmGenerate() {
+            var x = confirm("Are you sure you want to Generate User?");
+            if (x) {
+                return true;
+            }
+            else
+                return false;
+        }
+    </script>
+    <div class="action-btn">
+        <div class="" id="boxHere"></div>
+        <div class="dropdown btnactions" id="customerAction">
+            <div class="btn Approval">Actions</div>
+            <div class="dropdown-content" style="font-size: small; margin-left: -105px">
+                <asp:LinkButton ID="lbApprove" runat="server" OnClientClick="return ConfirmApprove();" OnClick="lbActions_Click">Approve</asp:LinkButton>
+                <asp:LinkButton ID="lbReject" runat="server" OnClientClick="return ConfirmReject();" OnClick="lbActions_Click">Reject</asp:LinkButton>
+                <asp:LinkButton ID="lbGenerate" runat="server" OnClientClick="return ConfirmGenerate();" OnClick="lbActions_Click">Generate User</asp:LinkButton>
+            </div>
+        </div>
+    </div>
+</div>
 <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <div class="col-md-12">
     <div class="col-md-12">
@@ -156,29 +195,87 @@
                 </div>
             </div>
         </fieldset>
-        <div class="col-md-12" id="DivApprover" runat="server" visible="false">
-            <div class="col-md-3 text-right">
-                <label>Module Permission</label>
+        <fieldset class="fieldset-border" id="DivApproverInfo" runat="server" visible="false">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Approver Information</legend>
+            <div class="col-md-12">
+                <div class="col-md-3 text-right">
+                    <label>Approved By</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblApprovedBy" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Approved On</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblApprovedOn" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Status</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblStatus" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Remarks</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblApproverRemarks" runat="server" CssClass="label"></asp:Label>
+                </div>                
+                <div class="col-md-3 text-right">
+                    <label>Module Permission</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblModulePermission" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <br />
+                <div class="col-md-3 text-right">
+                    <label>Dealer Permission</label>
+                </div>
+                <div class="col-md-9">
+                    <asp:ListView ID="ListViewDealerList" runat="server" DataKeyNames="DealerID">
+                    <ItemTemplate>
+                        <div class="col-md-3 col-sm-12">
+                            <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")+"-"+DataBinder.Eval(Container.DataItem, "DisplayName")%>' runat="server" />
+                            <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
+                        </div>
+                    </ItemTemplate>
+                </asp:ListView>
+                </div>
+                
             </div>
-            <div class="col-md-3">
-                <asp:TextBox ID="txtModulePermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
+        </fieldset>
+        <fieldset class="fieldset-border" id="DivApprover" runat="server" visible="false">
+            <legend style="background: none; color: #007bff; font-size: 17px;">Permission</legend>
+            <div class="col-md-12">
+                <div class="col-md-3 text-right">
+                    <label>Module Permission<samp style="color: red">*</samp></label>
+                </div>
+                <div class="col-md-3">
+                    <asp:TextBox ID="txtModulePermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Remarks<samp style="color: red">*</samp></label>
+                </div>
+                <div class="col-md-3">
+                    <asp:TextBox ID="txtRemarks" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>Dealer Permission</label>
+                </div>
+                <br />
+                <asp:CheckBox ID="chkSelectAll" runat="server" AutoPostBack="true" OnCheckedChanged="chkSelectAll_CheckedChanged" /><asp:Label ID="lblSelect" runat="server" Text="Select All Dealer"></asp:Label>
+                <br />
+                <asp:ListView ID="ListViewDealer" runat="server" DataKeyNames="DealerID">
+                    <ItemTemplate>
+                        <div class="col-md-3 col-sm-12">
+                            <asp:CheckBox ID="chkDealer" runat="server" OnCheckedChanged="chkDealer_CheckedChanged" AutoPostBack="true" />
+                            <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")+"-"+DataBinder.Eval(Container.DataItem, "DisplayName")%>' runat="server" />
+                            <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
+                        </div>
+                    </ItemTemplate>
+                </asp:ListView>
             </div>
-            <div class="col-md-3 text-right">
-                <label>Dealer Permission</label>
-            </div>
-            <div class="col-md-3">
-                <asp:TextBox ID="txtDealerPermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
-            </div>
-            <div class="col-md-3 text-right">
-                <label>Approver Remarks</label>
-            </div>
-            <div class="col-md-3">
-                <asp:TextBox ID="txtRemarks" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
-            </div>
-            <div class="col-md-12 text-center">
-                <asp:Button ID="btnApprove" runat="server" Text="Approve" CssClass="btn btn-success" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnApprove_Click" />
-                <asp:Button ID="btnReject" runat="server" Text="Reject" CssClass="btn btn-danger" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnReject_Click" />
-            </div>
-        </div>
+        </fieldset>
     </div>
 </div>
