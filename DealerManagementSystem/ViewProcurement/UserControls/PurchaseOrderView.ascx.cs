@@ -754,7 +754,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
                 PMaterial Mat = Mats[0];
 
-                POi.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
+                POi.MaterialID = MaterialID;
                 POi.Price = Mat.CurrentPrice;
                 POi.DiscountAmount = Mat.Discount;
                 POi.TaxableAmount = Mat.TaxablePrice;
