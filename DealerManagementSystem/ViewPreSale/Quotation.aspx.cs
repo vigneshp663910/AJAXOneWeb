@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Image = System.Web.UI.WebControls.Image;
 
 namespace DealerManagementSystem.ViewPreSale
 {
@@ -360,7 +361,15 @@ namespace DealerManagementSystem.ViewPreSale
                 else if (lStatus == "Warm ( >50%<75% )") { e.Row.Cells[0].Attributes["style"] = "background-color: yellow"; }
                 else if (lStatus == "Lost to Competition") { e.Row.Cells[0].Attributes["style"] = "background-color: #cc3300"; }
                 else if (lStatus == "Converted to AJAX Other Product") { e.Row.Cells[0].Attributes["style"] = "background-color: #99cc00"; }
-                                 
+
+
+                Label lblChannel = e.Row.FindControl("lblChannel") as Label;
+                string lChannel = lblChannel.Text;
+                Image img = e.Row.FindControl("imgChannel") as Image;
+
+                if (lChannel == "B2B") { img.ImageUrl = "~/Images/b2b.png"; }
+                else if (lChannel == "B2C") { img.ImageUrl = "~/Images/b2c.png"; }
+
             }
         }
     }

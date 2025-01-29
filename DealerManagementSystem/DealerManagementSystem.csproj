@@ -263,6 +263,7 @@
     <Content Include="Help\UserGuide.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="HomeWithTiles.aspx" />
+    <Content Include="Images\AddEDoc.png" />
     <Content Include="Images\apple.png" />
     <Content Include="Images\Argo-1000.jpg" />
     <Content Include="Images\ARROW01.png" />
