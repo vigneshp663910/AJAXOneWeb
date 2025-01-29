@@ -99,19 +99,21 @@
                         <label>Status</label>
                         <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control">
                             <asp:ListItem Value="0">Select</asp:ListItem>
-                            <asp:ListItem Value="1">Unattended</asp:ListItem>
-                            <asp:ListItem Value="6">In Progress</asp:ListItem>
-                            <asp:ListItem Value="4">Converted To Lead</asp:ListItem>
-                            <asp:ListItem Value="5">Rejected</asp:ListItem>
+                            <asp:ListItem Value="1" style="background-color: #d91e18 !important; color : white;">Unattended</asp:ListItem>
+                            <asp:ListItem Value="6" style="background-color: #3598dc !important; color : white;">In Progress</asp:ListItem>
+                            <asp:ListItem Value="4" style="background-color: darkolivegreen!important; color : white;">Converted To Lead</asp:ListItem>
+                            <asp:ListItem Value="5" style="background-color: #737373!important; color : white">Rejected</asp:ListItem>
+
                         </asp:DropDownList>
                     </div>
 
                     <div class="col-sm-12 text-center">
-          
-                         <%--<label class="modal-label">Action</label>--%>
-                        <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" Width="100"/>
+
+                        <%--<label class="modal-label">Action</label>--%>
+                        <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" Width="100" />
+                         <%--<asp:Image ID="imgChannel" runat="server" ImageUrl="~/Images/AddEDoc.png" Width="25" Height="25" />--%>
                         <asp:Button ID="BtnAdd" runat="server" Text="Add Enquiry" CssClass="btn Save" Width="100px" OnClick="BtnAdd_Click" />
-                       <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>                    
+                        <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
                     </div>
                 </div>
             </fieldset>
@@ -145,7 +147,7 @@
                             <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
                             <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10" runat="server" ShowHeaderWhenEmpty="true"
                                 AutoGenerateColumns="false" Width="100%"
-                                OnRowDataBound="gvEnquiry_RowDataBound" >
+                                OnRowDataBound="gvEnquiry_RowDataBound">
                                 <Columns>
                                     <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White">
                                         <ItemTemplate>
@@ -153,12 +155,12 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
 
                                         <ItemTemplate>
                                             <%--<asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />--%>
-                                            <asp:ImageButton ID="BtnView" ImageUrl="~/Images/Preview.png" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle"  OnClick="BtnView_Click" />
-                                            <%-- <itemstyle width="10px" horizontalalign="Center"></itemstyle>--%>
+                                            <asp:ImageButton ID="BtnView" ImageUrl="~/Images/Preview.png" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="BtnView_Click" />
+                                          
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Enquiry">
@@ -186,7 +188,7 @@
                                     <asp:BoundField HeaderText="State" DataField="State.State"></asp:BoundField>
                                     <asp:BoundField HeaderText="District" DataField="District.District"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Address">
-                                        <ItemStyle VerticalAlign="Middle" Font-Size="XX-Small"/>
+                                        <ItemStyle VerticalAlign="Middle" Font-Size="XX-Small" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblAddress1" Text='<%# DataBinder.Eval(Container.DataItem, "Address")%>' runat="server" />
                                             <br />
@@ -200,12 +202,12 @@
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
                                     <asp:BoundField HeaderText="Source" DataField="Source.Source"></asp:BoundField>
                                     <%--<asp:BoundField HeaderText="S.Channel" DataField="SalesChannelType.ItemText"> </asp:BoundField>--%>
-
-                                    <asp:TemplateField HeaderText="S.Channel">
+                                    <asp:TemplateField HeaderText="S.Channel" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White">
                                         <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>      
-                                                <asp:ImageButton ID="imgChannel" runat="server" ImageUrl="~/Images/b2c.png" Width="35" Height="35"/>
-                                                <asp:Label ID="lblChannel" Text='<%# DataBinder.Eval(Container.DataItem, "SalesChannelType.ItemText")%>' runat="server" />                                           
+                                        <ItemTemplate>
+                                            <asp:Image ID="imgChannel" runat="server" ImageUrl="~/Images/b2c.png" Width="50" Height="50" />
+                                            </br>
+                                                <asp:Label ID="lblChannel" Text='<%# DataBinder.Eval(Container.DataItem, "SalesChannelType.ItemText")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
 

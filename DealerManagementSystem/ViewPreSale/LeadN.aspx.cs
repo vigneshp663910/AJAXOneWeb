@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Image = System.Web.UI.WebControls.Image;
 
 namespace DealerManagementSystem.ViewPreSale
 {
@@ -448,7 +449,14 @@ namespace DealerManagementSystem.ViewPreSale
                 else if (lDivision == "SB") { imgButton.ImageUrl = "~/Images/SPBP.png"; }
                 else if (lDivision == "Slip form Paver") { imgButton.ImageUrl = "~/Images/Paver.png"; }
                 //else if (lDivision == "Yet To Be Confirmed") { imgButton.ImageUrl = ""; }
-                
+
+                Label lblChannel = e.Row.FindControl("lblChannel") as Label;
+                string lChannel = lblChannel.Text;
+                Image img = e.Row.FindControl("imgChannel") as Image;
+
+                if (lChannel == "B2B") { img.ImageUrl = "~/Images/b2b.png"; }
+                else if (lChannel == "B2C") { img.ImageUrl = "~/Images/b2c.png"; }
+
             }
         }
     }

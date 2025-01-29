@@ -156,7 +156,16 @@
                                         <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source.Source")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:BoundField HeaderText="S.Channel" DataField="SalesChannelType.ItemText"></asp:BoundField>
+                                 <%--<asp:BoundField HeaderText="S.Channel" DataField="SalesChannelType.ItemText"></asp:BoundField>--%>
+
+                                <asp:TemplateField HeaderText="S.Channel" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White">
+                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemTemplate>
+                                            <asp:Image ID="imgChannel" runat="server" ImageUrl="~/Images/b2c.png" Width="40" Height="40" />
+                                            
+                                                <asp:Label ID="lblChannel" Text='<%# DataBinder.Eval(Container.DataItem, "SalesChannelType.ItemText")%>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Status">
                                     <ItemTemplate>
                                         <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />

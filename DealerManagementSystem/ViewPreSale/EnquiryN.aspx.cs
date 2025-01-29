@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using Image = System.Web.UI.WebControls.Image;
 
 namespace DealerManagementSystem.ViewPreSale
 {
@@ -355,19 +356,17 @@ namespace DealerManagementSystem.ViewPreSale
 
                 string eStatus = e.Row.Cells[13].Text;
 
-                if      (eStatus == "Unattended")       { e.Row.Cells[0].Attributes["style"] = "background-color: darkgoldenrod";}
-                else if (eStatus == "InProgress")       { e.Row.Cells[0].Attributes["style"] = "background-color: red";}
+                if      (eStatus == "Unattended")       { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; }
+                else if (eStatus == "InProgress")       { e.Row.Cells[0].Attributes["style"] = "background-color: #3598dc"; }
                 else if (eStatus == "Converted To Lead"){ e.Row.Cells[0].Attributes["style"] = "background-color: darkolivegreen";}
-                else if (eStatus == "Rejected")         { e.Row.Cells[0].Attributes["style"] = "background-color: red";}
-
+                else if (eStatus == "Rejected")         { e.Row.Cells[0].Attributes["style"] = "background-color: #737373"; }
 
                 Label lblChannel = e.Row.FindControl("lblChannel") as Label;
                 string lChannel = lblChannel.Text;
+                Image img = e.Row.FindControl("imgChannel") as Image;
 
-                ImageButton imgButton = e.Row.FindControl("imgChannel") as ImageButton;
-
-                if (lChannel == "B2B") { imgButton.ImageUrl = "~/Images/b2b.png"; }
-                else if (lChannel == "B2C") { imgButton.ImageUrl = "~/Images/b2c.png"; }
+                if (lChannel == "B2B") { img.ImageUrl = "~/Images/b2b.png"; }
+                else if (lChannel == "B2C") { img.ImageUrl = "~/Images/b2c.png"; }
                
             }
         }
