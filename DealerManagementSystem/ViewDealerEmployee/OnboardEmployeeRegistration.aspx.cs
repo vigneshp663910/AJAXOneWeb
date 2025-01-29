@@ -4,54 +4,39 @@ using Properties;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace DealerManagementSystem
+namespace DealerManagementSystem.ViewDealerEmployee
 {
     public partial class OnboardEmployeeRegistration : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            lblMessage.Text = "";
             if (!IsPostBack)
             {
                 ViewState["OnboardEmployeeID"] = null;
                 new DDLBind(ddlState, new BOnboardEmployee().GetState(null, null, null, null, null), "State", "StateID", true, "Select");
                 new BDMS_Dealer().GetEqucationalQualificationDDL(ddlEducationalQualification, null, null);
                 new BDMS_Dealer().GetBloodGroupDDL(ddlBloodGroup, null, null);
-
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
-
-                if (!string.IsNullOrEmpty(Request.QueryString["OnboardEmployeeID"]))
-                {
-                    ViewState["OnboardEmployeeID"] = Convert.ToInt32(Request.QueryString["OnboardEmployeeID"]);
-                }
-                else
-                {
-                    fillDealer();
-                }
+                fillDealer();
             }
         }
         void fillDealer()
         {
             int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-            new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, DealerID);
-        }
-        private void FillGetDealerOffice(int DealerID)
-        {
-            ddlDealerOffice.DataTextField = "OfficeName_OfficeCode";
-            ddlDealerOffice.DataValueField = "OfficeID";
-            ddlDealerOffice.DataSource = new BDMS_Dealer().GetDealerOffice(DealerID, null, null);
-            ddlDealerOffice.DataBind();
-            ddlDealerOffice.Items.Insert(0, new ListItem("Select", "0"));
+            new BOnboardEmployee().GetDealerEmployeeDDL(ddlReportingTo, DealerID, null);
+
+            List<PDMS_Dealer> DealerList = new BDMS_Dealer().GetDealer(null, "", null, null);
+            ListViewDealer.DataSource = DealerList;
+            ListViewDealer.DataBind();
         }
         protected void txtEmpCode_TextChanged(object sender, EventArgs e)
         {
-            PApiResult Result = new BOnboardEmployee().GetOnboardEmployee(txtEmpCode.Text.Trim(), null, null, null, null, null);
+            PApiResult Result = new BOnboardEmployee().GetOnboardEmployee(txtEmpCode.Text.Trim(), null, null, null, null, null, null);
             if (JsonConvert.DeserializeObject<List<POnboardEmployee>>(JsonConvert.SerializeObject(Result.Data)).Count() != 0)
             {
                 lblMessage.Text = "This Emp Code Already Available";
@@ -69,12 +54,34 @@ namespace DealerManagementSystem
         }
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+            int DepartmentID = Convert.ToInt32(ddlDepartment.SelectedValue);
             new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+            new BOnboardEmployee().GetDealerEmployeeDDL(ddlReportingTo, DealerID, DepartmentID);
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
             if (!ValidationOnboardEmp())
             {
+                return;
+            }
+            List<POnboardEmployeeDealer_Insert> DealerList = new List<POnboardEmployeeDealer_Insert>();
+            foreach (ListViewItem item in ListViewDealer.Items)
+            {
+                CheckBox chkDealer = (CheckBox)item.FindControl("chkDealer");
+                Label lblDID = (Label)item.FindControl("lblDID");
+                if (chkDealer.Checked)
+                {
+                    POnboardEmployeeDealer_Insert Dealer = new POnboardEmployeeDealer_Insert();
+                    Dealer.DealerID = Convert.ToInt32(lblDID.Text);
+                    Dealer.IsActive = true;
+                    DealerList.Add(Dealer);
+                }
+            }
+            if (DealerList.Count == 0)
+            {
+                lblMessage.ForeColor = Color.Red;
+                lblMessage.Text = "Please select dealer permission.";
                 return;
             }
             POnboardEmployee_Insert Emp = new POnboardEmployee_Insert();
@@ -102,8 +109,8 @@ namespace DealerManagementSystem
             Emp.DealerDepartmentID = Convert.ToInt32(ddlDepartment.SelectedValue);
             Emp.DealerDesignationID = Convert.ToInt32(ddlDesignation.SelectedValue);
             Emp.ReportingTo = Convert.ToInt32(ddlReportingTo.SelectedValue);
-            Emp.UserID = 1;
-
+            Emp.StatusId = (short)OnboardEmployeeStatus.Requested;
+            Emp.ModulePermission = txtModulePermission.Text;
             PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee", Emp));
             if (Result.Status == PApplication.Failure)
             {
@@ -113,6 +120,16 @@ namespace DealerManagementSystem
             int OnboardEmployeeID = Convert.ToInt32(Result.Data);
             if (OnboardEmployeeID != 0)
             {
+                foreach (POnboardEmployeeDealer_Insert PD in DealerList)
+                {
+                    PD.OnboardEmployeeID = OnboardEmployeeID;
+                }
+                Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee/InsertorUpdateOnboardEmployeeDealerPermission", DealerList));
+                if (Result.Status == PApplication.Failure)
+                {
+                    lblMessage.Text = Result.Message;
+                    return;
+                }
                 lblMessage.Text = "Onboard Employee is updated successfully";
                 lblMessage.ForeColor = Color.Green;
                 btnSave.Visible = false;
@@ -168,6 +185,12 @@ namespace DealerManagementSystem
                 Ret = false;
                 txtDOB.BorderColor = Color.Red;
             }
+            if (string.IsNullOrEmpty(txtContactNumber.Text))
+            {
+                Message = Message + "<br/>Please enter the Contact Number";
+                Ret = false;
+                txtContactNumber.BorderColor = Color.Red;
+            }
             if (txtContactNumber.Text.Trim().Count() != 10)
             {
                 Message = Message + "<br/>Please check the Contact Number";
@@ -192,7 +215,7 @@ namespace DealerManagementSystem
             Match match = regex.Match(email);
             if (!match.Success)
             {
-                Message = Message + "<br/>" + email + " is not correct";
+                Message = Message + "<br/>Email is not correct";
                 Ret = false;
                 txtEmail.BorderColor = Color.Red;
             }
@@ -255,17 +278,48 @@ namespace DealerManagementSystem
                 Ret = false;
                 ddlReportingTo.BorderColor = Color.Red;
             }
-
-            PApiResult Result = new BOnboardEmployee().GetOnboardEmployee(txtEmpCode.Text.Trim(), null, null, null, null, null);
+            if (string.IsNullOrEmpty(txtModulePermission.Text))
+            {
+                Message = Message + "<br/>Please enter module permission.";
+                Ret = false;
+                txtModulePermission.BorderColor = Color.Red;
+            }
+            PApiResult Result = new BOnboardEmployee().GetOnboardEmployee(txtEmpCode.Text.Trim(), null, null, null, null, null, null);
             if (JsonConvert.DeserializeObject<List<POnboardEmployee>>(JsonConvert.SerializeObject(Result.Data)).Count() != 0)
             {
                 Message = Message + "<br/>Employee Code Already Available";
                 Ret = false;
                 txtEmpCode.BorderColor = Color.Red;
             }
-
             lblMessage.Text = Message;
             return Ret;
+        }
+        protected void chkSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkSelectAll.Checked == true)
+            {
+                foreach (ListViewItem item in ListViewDealer.Items)
+                {
+                    CheckBox chkDealer = (CheckBox)item.FindControl("chkDealer");
+                    chkDealer.Checked = true;
+                }
+            }
+            else
+            {
+                foreach (ListViewItem item in ListViewDealer.Items)
+                {
+                    CheckBox chkDealer = (CheckBox)item.FindControl("chkDealer");
+                    chkDealer.Checked = false;
+                }
+            }
+        }
+        protected void chkDealer_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkDealer = (CheckBox)sender;
+            if (!chkDealer.Checked)
+            {
+                chkSelectAll.Checked = false;
+            }
         }
     }
 }

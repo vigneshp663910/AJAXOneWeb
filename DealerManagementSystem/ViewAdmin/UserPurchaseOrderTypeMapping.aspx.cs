@@ -11,9 +11,9 @@ using System.Web.UI.WebControls;
 
 namespace DealerManagementSystem.ViewAdmin
 {
-    public partial class DealerOfficeUserMapping : BasePage
+    public partial class UserPurchaseOrderTypeMapping : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewAdmin_DealerOfficeUserMapping; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewAdmin_UserPurchaseOrderTypeMapping; } }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (PSession.User == null)
@@ -51,60 +51,60 @@ namespace DealerManagementSystem.ViewAdmin
                 ViewState["PageIndex"] = value;
             }
         }
-        public List<PDealerOfficeUserMapping> GetDealerOfficeUserMapping
+        public List<PUserPurchaseOrderTypeMapping> GetUserPurchaseOrderTypeMapping
         {
             get
             {
-                if (ViewState["GetDealerOfficeUserMapping"] == null)
+                if (ViewState["GetUserPurchaseOrderTypeMapping"] == null)
                 {
-                    ViewState["GetDealerOfficeUserMapping"] = new List<PDealerOfficeUserMapping>();
+                    ViewState["GetUserPurchaseOrderTypeMapping"] = new List<PUserPurchaseOrderTypeMapping>();
                 }
-                return (List<PDealerOfficeUserMapping>)ViewState["GetDealerOfficeUserMapping"];
+                return (List<PUserPurchaseOrderTypeMapping>)ViewState["GetUserPurchaseOrderTypeMapping"];
             }
             set
             {
-                ViewState["GetDealerOfficeUserMapping"] = value;
+                ViewState["GetUserPurchaseOrderTypeMapping"] = value;
             }
         }
-        public List<PDealerOfficeUserMapping> GetDealerOfficeUserMappingUpdated
+        public List<PUserPurchaseOrderTypeMapping> GetUserPurchaseOrderTypeMappingUpdated
         {
             get
             {
-                if (ViewState["GetDealerOfficeUserMappingUpdated"] == null)
+                if (ViewState["GetUserPurchaseOrderTypeMappingUpdated"] == null)
                 {
-                    ViewState["GetDealerOfficeUserMappingUpdated"] = new List<PDealerOfficeUserMapping>();
+                    ViewState["GetUserPurchaseOrderTypeMappingUpdated"] = new List<PUserPurchaseOrderTypeMapping>();
                 }
-                return (List<PDealerOfficeUserMapping>)ViewState["GetDealerOfficeUserMappingUpdated"];
+                return (List<PUserPurchaseOrderTypeMapping>)ViewState["GetUserPurchaseOrderTypeMappingUpdated"];
             }
             set
             {
-                ViewState["GetDealerOfficeUserMappingUpdated"] = value;
+                ViewState["GetUserPurchaseOrderTypeMappingUpdated"] = value;
             }
         }
-        public List<PDealerOfficeUserMapping> GetDealerOfficeUserMappingList
+        public List<PUserPurchaseOrderTypeMapping> GetUserPurchaseOrderTypeMappingList
         {
             get
             {
-                if (ViewState["GetDealerOfficeUserMappingList"] == null)
+                if (ViewState["GetUserPurchaseOrderTypeMappingList"] == null)
                 {
-                    ViewState["GetDealerOfficeUserMappingList"] = new List<PDealerOfficeUserMapping>();
+                    ViewState["GetUserPurchaseOrderTypeMappingList"] = new List<PUserPurchaseOrderTypeMapping>();
                 }
-                return (List<PDealerOfficeUserMapping>)ViewState["GetDealerOfficeUserMappingList"];
+                return (List<PUserPurchaseOrderTypeMapping>)ViewState["GetUserPurchaseOrderTypeMappingList"];
             }
             set
             {
-                ViewState["GetDealerOfficeUserMappingList"] = value;
+                ViewState["GetUserPurchaseOrderTypeMappingList"] = value;
             }
         }
         int? DealerID = null;
         int? DealerEmployeeID = null;
         int? DepartmentID = null;
         int? DesignationID = null;
-        int? OfficeID = null;
+        int? PurchaseOrderTypeID = null;
         bool? IsActive = null;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » Dealer Office User Mapping');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Admin » User Purchase Order Type Mapping');</script>");
             lblMessage.Text = "";
             try
             {
@@ -113,13 +113,13 @@ namespace DealerManagementSystem.ViewAdmin
                     PageCount = 0;
                     PageIndex = 1;
                     new DDLBind().FillDealerAndEngneer(ddlDealer, null);
-                    new DDLBind(ddlOffice, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
+                    new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
                     new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
                     new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
 
                     new DDLBind().FillDealerAndEngneer(ddlRDealer, null);
                     new BDMS_Dealer().GetDealerEmployeeDDL(ddlEmployee, Convert.ToInt32(ddlRDealer.SelectedValue));
-                    new DDLBind(ddlROffice, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
+                    new DDLBind(ddlRPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
                     new BDMS_Dealer().GetDealerDepartmentDDL(ddlRDepartment, null, null);
                     new BDMS_Dealer().GetDealerDesignationDDL(ddlRDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
 
@@ -141,7 +141,7 @@ namespace DealerManagementSystem.ViewAdmin
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             DealerID = (ddlDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            new DDLBind(ddlOffice, new BDMS_Dealer().GetDealerOffice(DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
+            new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
         }
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -150,7 +150,7 @@ namespace DealerManagementSystem.ViewAdmin
         void Search()
         {
             DealerID = ddlDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealer.SelectedValue);
-            OfficeID = ddlOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlOffice.SelectedValue);
+            PurchaseOrderTypeID = ddlPurchaseOrderType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlPurchaseOrderType.SelectedValue);
             DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
             DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
             if (ddlIsActive.SelectedValue == "1") { IsActive = true; } else if (ddlIsActive.SelectedValue == "2") { IsActive = false; }
@@ -165,9 +165,9 @@ namespace DealerManagementSystem.ViewAdmin
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
-                if (ddlOffice.SelectedValue == "0")
+                if (ddlPurchaseOrderType.SelectedValue == "0")
                 {
-                    lblMessage.Text = "Please Select Office...!";
+                    lblMessage.Text = "Please Select PO Type...!";
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
@@ -175,11 +175,11 @@ namespace DealerManagementSystem.ViewAdmin
                 Search();
                 PApiResult Result = new PApiResult();
 
-                Result = new BDealerOfficeUserMapping().GetDealerOfficeUserMapping(DealerID, OfficeID, DepartmentID, DesignationID, IsActive, PageIndex, gvDealerOfficeUserMapping.PageSize);
-                GetDealerOfficeUserMapping = JsonConvert.DeserializeObject<List<PDealerOfficeUserMapping>>(JsonConvert.SerializeObject(Result.Data));
-                GetDealerOfficeUserMappingUpdated = null;
-                gvDealerOfficeUserMapping.DataSource = GetDealerOfficeUserMapping;
-                gvDealerOfficeUserMapping.DataBind();
+                Result = new BUserPurchaseOrderTypeMapping().GetUserPurchaseOrderTypeMapping(DealerID, PurchaseOrderTypeID, DepartmentID, DesignationID, IsActive, PageIndex, gvUserPurchaseOrderTypeMapping.PageSize);
+                GetUserPurchaseOrderTypeMapping = JsonConvert.DeserializeObject<List<PUserPurchaseOrderTypeMapping>>(JsonConvert.SerializeObject(Result.Data));
+                GetUserPurchaseOrderTypeMappingUpdated = null;
+                gvUserPurchaseOrderTypeMapping.DataSource = GetUserPurchaseOrderTypeMapping;
+                gvUserPurchaseOrderTypeMapping.DataBind();
 
                 if (Result.RowCount == 0)
                 {
@@ -189,11 +189,11 @@ namespace DealerManagementSystem.ViewAdmin
                 }
                 else
                 {
-                    PageCount = (Result.RowCount + gvDealerOfficeUserMapping.PageSize - 1) / gvDealerOfficeUserMapping.PageSize;
+                    PageCount = (Result.RowCount + gvUserPurchaseOrderTypeMapping.PageSize - 1) / gvUserPurchaseOrderTypeMapping.PageSize;
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((PageIndex - 1) * gvDealerOfficeUserMapping.PageSize) + 1) + " - " + (((PageIndex - 1) * gvDealerOfficeUserMapping.PageSize) + gvDealerOfficeUserMapping.Rows.Count) + " of " + Result.RowCount;
+                    lblRowCount.Text = (((PageIndex - 1) * gvUserPurchaseOrderTypeMapping.PageSize) + 1) + " - " + (((PageIndex - 1) * gvUserPurchaseOrderTypeMapping.PageSize) + gvUserPurchaseOrderTypeMapping.Rows.Count) + " of " + Result.RowCount;
                 }
                 TraceLogger.Log(DateTime.Now);
             }
@@ -242,18 +242,18 @@ namespace DealerManagementSystem.ViewAdmin
                 GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
                 Label lblUserID = (Label)gvRow.FindControl("lblUserID");
                 CheckBox ChkIsActive = (CheckBox)gvRow.FindControl("ChkIsActive");
-                if ((GetDealerOfficeUserMappingUpdated.Any(z => z.User.UserID == Convert.ToInt32(lblUserID.Text))))
+                if ((GetUserPurchaseOrderTypeMappingUpdated.Any(z => z.User.UserID == Convert.ToInt32(lblUserID.Text))))
                 {
-                    GetDealerOfficeUserMappingUpdated.RemoveAll(p => p.User.UserID == Convert.ToInt32(lblUserID.Text));
+                    GetUserPurchaseOrderTypeMappingUpdated.RemoveAll(p => p.User.UserID == Convert.ToInt32(lblUserID.Text));
                 }
-                if (!GetDealerOfficeUserMapping.Any(z => z.User.UserID == Convert.ToInt32(lblUserID.Text) && z.IsActive == ChkIsActive.Checked))
+                if (!GetUserPurchaseOrderTypeMapping.Any(z => z.User.UserID == Convert.ToInt32(lblUserID.Text) && z.IsActive == ChkIsActive.Checked))
                 {
-                    PDealerOfficeUserMapping item = new PDealerOfficeUserMapping();
+                    PUserPurchaseOrderTypeMapping item = new PUserPurchaseOrderTypeMapping();
                     item.User = new PUser { UserID = Convert.ToInt32(lblUserID.Text) };
                     item.IsActive = ChkIsActive.Checked;
-                    GetDealerOfficeUserMappingUpdated.Add(item);
+                    GetUserPurchaseOrderTypeMappingUpdated.Add(item);
                 }
-                if (PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerOfficeUserMappingUpdate).Count() > 0)
+                if (PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.UserPurchaseOrderTypeMappingUpdate).Count() > 0)
                 {
                     BtnSave.Visible = true;
                 }
@@ -269,29 +269,29 @@ namespace DealerManagementSystem.ViewAdmin
             try
             {
                 CheckBox cbIsActiveH = (CheckBox)sender;
-                CheckBox chckheader = (CheckBox)gvDealerOfficeUserMapping.HeaderRow.FindControl("cbIsActiveH");
+                CheckBox chckheader = (CheckBox)gvUserPurchaseOrderTypeMapping.HeaderRow.FindControl("cbIsActiveH");
                 chckheader.Checked = cbIsActiveH.Checked;
 
-                foreach (GridViewRow Row in gvDealerOfficeUserMapping.Rows)
+                foreach (GridViewRow Row in gvUserPurchaseOrderTypeMapping.Rows)
                 {
                     Label lblUserID = (Label)Row.FindControl("lblUserID");
                     CheckBox ChkIsActive = (CheckBox)Row.FindControl("ChkIsActive");
                     ChkIsActive.Checked = cbIsActiveH.Checked;
 
-                    if ((GetDealerOfficeUserMappingUpdated.Any(z => z.User.UserID == Convert.ToInt32(lblUserID.Text))))
+                    if ((GetUserPurchaseOrderTypeMappingUpdated.Any(z => z.User.UserID == Convert.ToInt32(lblUserID.Text))))
                     {
-                        GetDealerOfficeUserMappingUpdated.RemoveAll(p => p.User.UserID == Convert.ToInt32(lblUserID.Text));
+                        GetUserPurchaseOrderTypeMappingUpdated.RemoveAll(p => p.User.UserID == Convert.ToInt32(lblUserID.Text));
                     }
-                    if (!GetDealerOfficeUserMapping.Any(z => z.User.UserID == Convert.ToInt32(lblUserID.Text) && z.IsActive == ChkIsActive.Checked))
+                    if (!GetUserPurchaseOrderTypeMapping.Any(z => z.User.UserID == Convert.ToInt32(lblUserID.Text) && z.IsActive == ChkIsActive.Checked))
                     {
-                        PDealerOfficeUserMapping item = new PDealerOfficeUserMapping();
+                        PUserPurchaseOrderTypeMapping item = new PUserPurchaseOrderTypeMapping();
                         item.User = new PUser { UserID = Convert.ToInt32(lblUserID.Text) };
                         item.IsActive = cbIsActiveH.Checked;
-                        GetDealerOfficeUserMappingUpdated.Add(item);
+                        GetUserPurchaseOrderTypeMappingUpdated.Add(item);
                     }
                 }
-                GetDealerOfficeUserMappingUpdated.RemoveAll(p => GetDealerOfficeUserMapping.Any(z => z.User.UserID == p.User.UserID && z.IsActive == p.IsActive));
-                if (PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerOfficeUserMappingUpdate).Count() > 0)
+                GetUserPurchaseOrderTypeMappingUpdated.RemoveAll(p => GetUserPurchaseOrderTypeMapping.Any(z => z.User.UserID == p.User.UserID && z.IsActive == p.IsActive));
+                if (PSession.User.SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.UserPurchaseOrderTypeMappingUpdate).Count() > 0)
                 {
                     BtnSave.Visible = true;
                 }
@@ -306,9 +306,9 @@ namespace DealerManagementSystem.ViewAdmin
             lblMessage.ForeColor = Color.Red;
             try
             {
-                foreach (PDealerOfficeUserMapping user in GetDealerOfficeUserMappingUpdated)
+                foreach (PUserPurchaseOrderTypeMapping user in GetUserPurchaseOrderTypeMappingUpdated)
                 {
-                    PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("DealerOfficeUserMapping/InsertOrUpdateDealerOfficeUserMapping?UserID=" + Convert.ToInt32(user.User.UserID) + "&OfficeID=" + Convert.ToInt32(ddlOffice.SelectedValue) + "&IsActive=" + user.IsActive));
+                    PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("UserPurchaseOrderTypeMapping/InsertOrUpdateUserPurchaseOrderTypeMapping?UserID=" + Convert.ToInt32(user.User.UserID) + "&PurchaseOrderTypeID=" + Convert.ToInt32(ddlPurchaseOrderType.SelectedValue) + "&IsActive=" + user.IsActive));
                     if (result.Status == PApplication.Failure)
                     {
                         lblMessage.Text = result.Message;
@@ -328,13 +328,12 @@ namespace DealerManagementSystem.ViewAdmin
         {
             DealerID = (ddlRDealer.SelectedValue == "0") ? (int?)null : Convert.ToInt32(ddlRDealer.SelectedValue);
             new BDMS_Dealer().GetDealerEmployeeDDL(ddlEmployee, DealerID);
-            new DDLBind(ddlROffice, new BDMS_Dealer().GetDealerOffice(DealerID, null, null), "OfficeName", "OfficeID", true, "Select");
         }
         protected void ddlRDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
             new BDMS_Dealer().GetDealerDesignationDDL(ddlRDesignation, Convert.ToInt32(ddlRDepartment.SelectedValue), null, null);
         }
-        protected void tbpDealerOfficeUser_ActiveTabChanged(object sender, EventArgs e)
+        protected void tbpUserPurchaseOrderType_ActiveTabChanged(object sender, EventArgs e)
         {
             lblMessage.Text = "";
             try
@@ -344,13 +343,13 @@ namespace DealerManagementSystem.ViewAdmin
                     PageCount = 0;
                     PageIndex = 1;
                     new DDLBind().FillDealerAndEngneer(ddlDealer, null);
-                    new DDLBind(ddlOffice, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
+                    new DDLBind(ddlPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
                     new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
                     new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
 
                     new DDLBind().FillDealerAndEngneer(ddlRDealer, null);
                     new BDMS_Dealer().GetDealerEmployeeDDL(ddlEmployee, Convert.ToInt32(ddlRDealer.SelectedValue));
-                    new DDLBind(ddlROffice, new BDMS_Dealer().GetDealerOffice(0, null, null), "OfficeName", "OfficeID", true, "Select");
+                    new DDLBind(ddlRPurchaseOrderType, new BProcurementMasters().GetPurchaseOrderType(null, null), "PurchaseOrderType", "PurchaseOrderTypeID");
                     new BDMS_Dealer().GetDealerDepartmentDDL(ddlRDepartment, null, null);
                     new BDMS_Dealer().GetDealerDesignationDDL(ddlRDesignation, Convert.ToInt32(ddlRDepartment.SelectedValue), null, null);
 
@@ -391,11 +390,11 @@ namespace DealerManagementSystem.ViewAdmin
                 SearchReportFilter();
                 PApiResult Result = new PApiResult();
 
-                Result = new BDealerOfficeUserMapping().GetDealerOfficeUserMappingReport(DealerID, DealerEmployeeID, OfficeID, DepartmentID, DesignationID, PageIndex, gvDealerOfficeUserReport.PageSize);
-                GetDealerOfficeUserMappingList = JsonConvert.DeserializeObject<List<PDealerOfficeUserMapping>>(JsonConvert.SerializeObject(Result.Data));
-                
-                gvDealerOfficeUserReport.DataSource = GetDealerOfficeUserMappingList;
-                gvDealerOfficeUserReport.DataBind();
+                Result = new BUserPurchaseOrderTypeMapping().GetUserPurchaseOrderTypeMappingReport(DealerID, DealerEmployeeID, PurchaseOrderTypeID, DepartmentID, DesignationID, PageIndex, gvUserPurchaseOrderTypeReport.PageSize);
+                GetUserPurchaseOrderTypeMappingList = JsonConvert.DeserializeObject<List<PUserPurchaseOrderTypeMapping>>(JsonConvert.SerializeObject(Result.Data));
+
+                gvUserPurchaseOrderTypeReport.DataSource = GetUserPurchaseOrderTypeMappingList;
+                gvUserPurchaseOrderTypeReport.DataBind();
 
                 if (Result.RowCount == 0)
                 {
@@ -405,11 +404,11 @@ namespace DealerManagementSystem.ViewAdmin
                 }
                 else
                 {
-                    PageCount = (Result.RowCount + gvDealerOfficeUserReport.PageSize - 1) / gvDealerOfficeUserReport.PageSize;
+                    PageCount = (Result.RowCount + gvUserPurchaseOrderTypeReport.PageSize - 1) / gvUserPurchaseOrderTypeReport.PageSize;
                     lblRRowCount.Visible = true;
                     ibtnRArrowLeft.Visible = true;
                     ibtnRArrowRight.Visible = true;
-                    lblRRowCount.Text = (((PageIndex - 1) * gvDealerOfficeUserReport.PageSize) + 1) + " - " + (((PageIndex - 1) * gvDealerOfficeUserReport.PageSize) + gvDealerOfficeUserReport.Rows.Count) + " of " + Result.RowCount;
+                    lblRRowCount.Text = (((PageIndex - 1) * gvUserPurchaseOrderTypeReport.PageSize) + 1) + " - " + (((PageIndex - 1) * gvUserPurchaseOrderTypeReport.PageSize) + gvUserPurchaseOrderTypeReport.Rows.Count) + " of " + Result.RowCount;
                 }
                 TraceLogger.Log(DateTime.Now);
             }
@@ -422,10 +421,10 @@ namespace DealerManagementSystem.ViewAdmin
         void SearchReportFilter()
         {
             DealerID = ddlRDealer.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRDealer.SelectedValue);
-            OfficeID = ddlROffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlROffice.SelectedValue);
+            PurchaseOrderTypeID = ddlRPurchaseOrderType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRPurchaseOrderType.SelectedValue);
             DepartmentID = ddlRDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRDepartment.SelectedValue);
             DesignationID = ddlRDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlRDesignation.SelectedValue);
-            DealerEmployeeID = ddlEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlEmployee.SelectedValue);            
+            DealerEmployeeID = ddlEmployee.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlEmployee.SelectedValue);
         }
         protected void ibtnRArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
@@ -450,9 +449,9 @@ namespace DealerManagementSystem.ViewAdmin
                 SearchReportFilter();
                 PApiResult Result = new PApiResult();
 
-                Result = new BDealerOfficeUserMapping().GetDealerOfficeUserMappingReport_Excel(DealerID, DealerEmployeeID, OfficeID, DepartmentID, DesignationID);
+                Result = new BUserPurchaseOrderTypeMapping().GetUserPurchaseOrderTypeMappingReport_Excel(DealerID, DealerEmployeeID, PurchaseOrderTypeID, DepartmentID, DesignationID);
                 DataSet DS = JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(Result.Data));
-                new BXcel().ExporttoExcel(DS.Tables[0], "Dealer Office User Report");
+                new BXcel().ExporttoExcel(DS.Tables[0], "User Purchase Order Type Report");
                 TraceLogger.Log(DateTime.Now);
             }
             catch (Exception ex)

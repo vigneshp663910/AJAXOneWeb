@@ -1,12 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="DealerOfficeUserMapping.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.DealerOfficeUserMapping" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Dealer.Master" MaintainScrollPositionOnPostback="true" AutoEventWireup="true" CodeBehind="UserPurchaseOrderTypeMapping.aspx.cs" Inherits="DealerManagementSystem.ViewAdmin.UserPurchaseOrderTypeMapping" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Width="100%" />
-    <asp:TabContainer ID="tbpDealerOfficeUser" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0" AutoPostBack="true" OnActiveTabChanged="tbpDealerOfficeUser_ActiveTabChanged">
-        <asp:TabPanel ID="tpnlDealerOfficeUserReport" runat="server" HeaderText="Dealer Office User Report" Font-Bold="True" ToolTip="Dealer Office User Report">
+    <asp:TabContainer ID="tbpUserPurchaseOrderType" runat="server" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="0" AutoPostBack="true" OnActiveTabChanged="tbpUserPurchaseOrderType_ActiveTabChanged">
+        <asp:TabPanel ID="tpnlUserPurchaseOrderTypeReport" runat="server" HeaderText="User Purchase Order Type Report" Font-Bold="True" ToolTip="User PurchaseOrderType Report">
             <ContentTemplate>
                 <div class="col-md-12">
                     <div class="col-md-12" id="divRpt" runat="server">
@@ -23,8 +22,8 @@
                                         <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control" />
                                     </div>
                                     <div class="col-md-2 text-left">
-                                        <label>Office</label>
-                                        <asp:DropDownList ID="ddlROffice" runat="server" CssClass="form-control" />
+                                        <label>PO Type</label>
+                                        <asp:DropDownList ID="ddlRPurchaseOrderType" runat="server" CssClass="form-control" />
                                     </div>
                                     <div class="col-md-2 text-left">
                                         <label class="modal-label">Department</label>
@@ -51,7 +50,7 @@
                                                 <div style="float: left">
                                                     <table>
                                                         <tr>
-                                                            <td>Dealer Office User List(s):</td>
+                                                            <td>User Purchase Order Type Mapping List(s):</td>
 
                                                             <td>
                                                                 <asp:Label ID="lblRRowCount" runat="server" CssClass="label"></asp:Label></td>
@@ -64,7 +63,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <asp:GridView ID="gvDealerOfficeUserReport" runat="server" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20">
+                                        <asp:GridView ID="gvUserPurchaseOrderTypeReport" runat="server" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="45px">
                                                     <ItemTemplate>
@@ -87,10 +86,10 @@
                                                         <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerName")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Office">
+                                                <asp:TemplateField HeaderText="PO Type">
                                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                                     <ItemTemplate>
-                                                        <asp:Label ID="lblOfficeName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerOffice.OfficeName")%>' runat="server"></asp:Label>
+                                                        <asp:Label ID="lblPurchaseOrderType" Text='<%# DataBinder.Eval(Container.DataItem, "PurchaseOrderType.Description")%>' runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Employee Name">
@@ -142,7 +141,7 @@
                 </div>
             </ContentTemplate>
         </asp:TabPanel>
-        <asp:TabPanel ID="tpnlDealerOfficeUserMapping" runat="server" HeaderText="Dealer Office User Mapping" Font-Bold="True" ToolTip="Dealer Office User Mapping">
+        <asp:TabPanel ID="tpnlUserPurchaseOrderTypeMapping" runat="server" HeaderText="User Purchase Order Type Mapping" Font-Bold="True" ToolTip="User Purchase Order Type Mapping">
             <ContentTemplate>
                 <div class="col-md-12">
                     <div class="col-md-12" id="divList" runat="server">
@@ -155,8 +154,8 @@
                                         <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
                                     </div>
                                     <div class="col-md-2 text-left">
-                                        <label>Office</label>
-                                        <asp:DropDownList ID="ddlOffice" runat="server" CssClass="form-control" />
+                                        <label>PO Type</label>
+                                        <asp:DropDownList ID="ddlPurchaseOrderType" runat="server" CssClass="form-control" />
                                     </div>
                                     <div class="col-md-2 text-left">
                                         <label class="modal-label">Department</label>
@@ -190,7 +189,7 @@
                                                 <div style="float: left">
                                                     <table>
                                                         <tr>
-                                                            <td>Dealer Office User Mapping(s):</td>
+                                                            <td>User Purchase Order Type Mapping(s):</td>
 
                                                             <td>
                                                                 <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
@@ -203,7 +202,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <asp:GridView ID="gvDealerOfficeUserMapping" runat="server" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20">
+                                        <asp:GridView ID="gvUserPurchaseOrderTypeMapping" runat="server" CssClass="table table-bordered table-condensed Grid" AutoGenerateColumns="false" AllowPaging="true" PageSize="20">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="45px">
                                                     <ItemTemplate>
