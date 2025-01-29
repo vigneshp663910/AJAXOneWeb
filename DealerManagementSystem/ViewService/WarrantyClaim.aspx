@@ -80,6 +80,16 @@
             else
                 return false;
         }
+
+
+        function AttachmentView(Status) {
+            if (Status == '1')
+                document.getElementById("Attachment").style.display = "block";
+            else
+                document.getElementById("Attachment").style.display = "none";
+            return false;
+        }
+
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -203,18 +213,20 @@
                                             <img id="imageInvoiceNumber-<%# Eval("InvoiceNumber") %>" alt="Click to show/hide orders" border="0" src="../Images/grid_collapse.png" height="10" width="10" /></a>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Claim Number">
+                                <asp:TemplateField HeaderText="Claim">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblInvoiceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceNumber")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Claim Dt" HeaderStyle-Width="55px">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
+                                        <br />
                                         <asp:Label ID="lblInvoiceDate" Text='<%# DataBinder.Eval(Container.DataItem, "InvoiceDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <%-- <asp:TemplateField HeaderText="Claim Dt" HeaderStyle-Width="55px">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                        
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Claim Type" HeaderStyle-Width="55px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -226,14 +238,16 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblICTicketNumber" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketNumber")%>' runat="server"></asp:Label>
                                         <asp:Label ID="lblICTicketID" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketID")%>' runat="server" Visible="false"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="IC Ticket Dt" HeaderStyle-Width="75px">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <ItemTemplate>
+                                        <br />
                                         <asp:Label ID="lblICTicketDate" Text='<%# DataBinder.Eval(Container.DataItem, "ICTicketDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <%--  <asp:TemplateField HeaderText="IC Ticket Dt" HeaderStyle-Width="75px">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemTemplate>
+                                        
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Restore Dt" HeaderStyle-Width="75px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
@@ -302,42 +316,48 @@
                                         <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "ClaimStatus")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Apr.1 By" HeaderStyle-Width="55px">
+                                <asp:TemplateField HeaderText="Apr.1" HeaderStyle-Width="55px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblApproved1By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved1By.ContactName")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Apr.1 On" HeaderStyle-Width="55px">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
+                                        <br />
                                         <asp:Label ID="lblApproved1On" Text='<%# DataBinder.Eval(Container.DataItem, "Approved1On","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Apr.2 By" HeaderStyle-Width="55px">
+                                <%--  <asp:TemplateField HeaderText="Apr.1 On" HeaderStyle-Width="55px">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                       
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
+                                <asp:TemplateField HeaderText="Apr.2" HeaderStyle-Width="55px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblApproved2By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved2By.ContactName")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Apr.2 On" HeaderStyle-Width="55px">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
+                                        <br />
                                         <asp:Label ID="lblApproved2On" Text='<%# DataBinder.Eval(Container.DataItem, "Approved2On","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Apr.3 By" HeaderStyle-Width="55px">
+                                <%--  <asp:TemplateField HeaderText="Apr.2 On" HeaderStyle-Width="55px">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                       
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
+                                <asp:TemplateField HeaderText="Apr.3 " HeaderStyle-Width="55px">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblApproved3By" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3By.ContactName")%>' runat="server"></asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Apr.3 On" HeaderStyle-Width="55px">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemTemplate>
+                                        <br />
                                         <asp:Label ID="lblApproved3On" Text='<%# DataBinder.Eval(Container.DataItem, "Approved3On","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <%--     <asp:TemplateField HeaderText="Apr.3 On" HeaderStyle-Width="55px">
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemTemplate>
+                                       
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Annexure Number">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -349,78 +369,84 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblPscID" Text='<%# DataBinder.Eval(Container.DataItem, "PscID")%>' runat="server" Visible="false" />
-                                        <asp:GridView ID="gvFileAttached" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <ItemStyle BorderStyle="None" />
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="lnkDownload" Text='<%# Eval("fileName") %>' OnClientClick='<%# Eval("Url") %>' runat="server"></asp:LinkButton>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                            <AlternatingRowStyle BackColor="#ffffff" />
-                                            <FooterStyle ForeColor="White" />
-                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                        </asp:GridView>
-                                        <asp:GridView ID="gvFileAttachedAF" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <ItemStyle BorderStyle="None" />
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click">
-                                                            <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
-                                                        </asp:LinkButton>
-                                                        <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false"></asp:Label>
-                                                    </ItemTemplate>
-                                                    <FooterTemplate>
-                                                        <asp:FileUpload ID="fu" runat="server" Style="position: relative;" CssClass="form-control" ViewStateMode="Inherit" Width="200px" />
-                                                    </FooterTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                            <AlternatingRowStyle BackColor="#ffffff" />
-                                            <FooterStyle ForeColor="White" />
-                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                        </asp:GridView>
-                                        <asp:GridView ID="gvFileAttachedFSR" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <ItemStyle BorderStyle="None" />
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="lnkFSRDownload" runat="server" OnClick="lnkFSRDownload_Click">
-                                                            <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
-                                                        </asp:LinkButton>
-                                                        <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                            <AlternatingRowStyle BackColor="#ffffff" />
-                                            <FooterStyle ForeColor="White" />
-                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                        </asp:GridView>
-                                        <asp:GridView ID="gvFileAttachedTSIR" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <ItemStyle BorderStyle="None" />
-                                                    <ItemTemplate>
-                                                        <asp:LinkButton ID="lnkTSIRDownload" runat="server" OnClick="lnkTSIRDownload_Click">
-                                                            <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
-                                                        </asp:LinkButton>
-                                                        <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false"></asp:Label>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                            <AlternatingRowStyle BackColor="#ffffff" />
-                                            <FooterStyle ForeColor="White" />
-                                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                        </asp:GridView>
+                                        <%--  <asp:Button ID="btnShowAttachment" runat="server" Text="Show Attachment" CssClass="btn Search" Width="100px" Height="30px" OnClientClick="return AttachmentView('1');"/>
+                                    --%>
+                                        <div id="Attachment">
+                                          <%--  <asp:Button ID="btnHideAttachment" runat="server" Text="Hide Attachment" CssClass="btn Search" Width="100px" Height="30px"   OnClientClick="return AttachmentView('0');"/>
+                                  --%>
+                                            <asp:GridView ID="gvFileAttached" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
+                                                <Columns>
+                                                    <asp:TemplateField>
+                                                        <ItemStyle BorderStyle="None" />
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="lnkDownload" Text='<%# Eval("fileName") %>' OnClientClick='<%# Eval("Url") %>' runat="server"></asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                                <AlternatingRowStyle BackColor="#ffffff" />
+                                                <FooterStyle ForeColor="White" />
+                                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                            </asp:GridView>
+                                            <asp:GridView ID="gvFileAttachedAF" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
+                                                <Columns>
+                                                    <asp:TemplateField>
+                                                        <ItemStyle BorderStyle="None" />
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="lnkDownload" runat="server" OnClick="lnkDownload_Click">
+                                                                <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
+                                                            </asp:LinkButton>
+                                                            <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false"></asp:Label>
+                                                        </ItemTemplate>
+                                                        <FooterTemplate>
+                                                            <asp:FileUpload ID="fu" runat="server" Style="position: relative;" CssClass="form-control" ViewStateMode="Inherit" Width="200px" />
+                                                        </FooterTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                                <AlternatingRowStyle BackColor="#ffffff" />
+                                                <FooterStyle ForeColor="White" />
+                                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                            </asp:GridView>
+                                            <asp:GridView ID="gvFileAttachedFSR" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
+                                                <Columns>
+                                                    <asp:TemplateField>
+                                                        <ItemStyle BorderStyle="None" />
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="lnkFSRDownload" runat="server" OnClick="lnkFSRDownload_Click">
+                                                                <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
+                                                            </asp:LinkButton>
+                                                            <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                                <AlternatingRowStyle BackColor="#ffffff" />
+                                                <FooterStyle ForeColor="White" />
+                                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                            </asp:GridView>
+                                            <asp:GridView ID="gvFileAttachedTSIR" runat="server" AutoGenerateColumns="false" ShowHeader="False" BorderStyle="None" CssClass="table table-bordered table-condensed Grid">
+                                                <Columns>
+                                                    <asp:TemplateField>
+                                                        <ItemStyle BorderStyle="None" />
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="lnkTSIRDownload" runat="server" OnClick="lnkTSIRDownload_Click">
+                                                                <asp:Label ID="lblFileName" Text='<%# DataBinder.Eval(Container.DataItem, "FileName")%>' runat="server"></asp:Label>
+                                                            </asp:LinkButton>
+                                                            <asp:Label ID="lblAttachedFileID" Text='<%# DataBinder.Eval(Container.DataItem, "AttachedFileID")%>' runat="server" Visible="false"></asp:Label>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                                <AlternatingRowStyle BackColor="#ffffff" />
+                                                <FooterStyle ForeColor="White" />
+                                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                                            </asp:GridView>
+                                        </div>
                                         <tr>
                                             <td colspan="100%" style="padding-left: 96px">
                                                 <div id="InvoiceNumber-<%# Eval("InvoiceNumber") %>" style="display: inline; position: relative;">
@@ -845,7 +871,7 @@
                 </fieldset>
             </div>
         </div>
-          <div class="col-md-12" id="divTSIRView" runat="server" visible="false">
+        <div class="col-md-12" id="divTSIRView" runat="server" visible="false">
             <div class="col-md-12 lead-back-btn">
                 <div class="" id="boxHere"></div>
                 <div class="back-buttton" id="backBtn">
@@ -853,7 +879,7 @@
                 </div>
             </div>
 
-            <uc:uc_tsirview ID="UC_TSIRView" runat="server"></uc:uc_tsirview>
+            <UC:UC_TSIRView ID="UC_TSIRView" runat="server"></UC:UC_TSIRView>
         </div>
         <div class="col-md-12" id="divEquipmentView" runat="server" visible="false">
             <div class="" id="boxHere"></div>
@@ -861,11 +887,11 @@
                 <asp:Button ID="btnEquipmentViewBack" runat="server" Text="Back" CssClass="btn Back" OnClick="btnEquipmentViewBack_Click" />
             </div>
             <div class="col-md-12" runat="server" id="Div2">
-                <uc:uc_equipmentview ID="UC_EquipmentView" runat="server"></uc:uc_equipmentview>
+                <UC:UC_EquipmentView ID="UC_EquipmentView" runat="server"></UC:UC_EquipmentView>
             </div>
         </div>
     </div>
-   <%-- <asp:LinkButton ID="lnkDummy" runat="server"></asp:LinkButton>
+    <%-- <asp:LinkButton ID="lnkDummy" runat="server"></asp:LinkButton>
     <asp:ModalPopupExtender ID="mp1" runat="server" PopupControlID="Panel1" TargetControlID="lnkDummy"
         CancelControlID="btnClose" BackgroundCssClass="modalBackground">
     </asp:ModalPopupExtender>
