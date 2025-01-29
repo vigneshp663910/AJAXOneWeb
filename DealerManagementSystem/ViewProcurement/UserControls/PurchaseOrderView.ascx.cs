@@ -668,6 +668,28 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 lblMessage.ForeColor = Color.Red;
             }
         }
+        public string ValidationItem(string MaterialID, string Qty)
+        {
+            if (string.IsNullOrEmpty(MaterialID))
+            {
+                return "Please select the Material";
+            }
+            if (string.IsNullOrEmpty(Qty))
+            {
+                return "Please enter the Qty";
+            }
+            decimal value;
+            if (!decimal.TryParse(Qty, out value))
+            {
+                return "Please enter correct format in Qty";
+            }
+            if (value < 1)
+            {
+                return "Please enter qty more than zero";
+            }
+            return "";
+        }
+
         protected void btnSubmitMaterial_Click(object sender, EventArgs e)
         {
             MPE_AddMaterial.Show();
@@ -675,13 +697,27 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             lblMessage.ForeColor = Color.Red;
             try
             {
-                if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
+             string   Message = ValidationItem(hdfMaterialID.Value, txtQty.Text.Trim());
+                if (!string.IsNullOrEmpty(Message))
                 {
-                    lblAddMaterialMessage.Text = "Material Already Available...!";
+                    lblAddMaterialMessage.Text = Message;
                     return;
                 }
 
-                List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null);
+                int MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
+                if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialID == MaterialID))
+                {
+                    lblMessage.Text = "Material already available.";
+                    return;
+                }
+
+                //if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialID == Convert.ToInt32(hdfMaterialID.Value)))
+                //{
+                //    lblAddMaterialMessage.Text = "Material Already Available...!";
+                //    return;
+                //} 
+                // List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(Convert.ToInt32(hdfMaterialID.Value), null, null, null, null);
+                List<PDMS_Material> Materials = new BDMS_Material().GetMaterialListSQL(MaterialID, null, null, null, null);
                 if (PurchaseOrder.PurchaseOrderType.PurchaseOrderTypeID == (short)PurchaseOrderType.MachineOrder)
                 {
                     if (PurchaseOrder.PurchaseOrderItems.Any(item => item.Material.MaterialType == Materials[0].MaterialType && Materials[0].MaterialType == "FERT"))
@@ -699,7 +735,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 PPurchaseOrderItem_Insert POi = new PPurchaseOrderItem_Insert();
                 POi.PurchaseOrderID = Convert.ToInt64(PurchaseOrder.PurchaseOrderID);
                 POi.Quantity = Convert.ToDecimal(txtQty.Text);
-                POi.MaterialCode = hdfMaterialCode.Value;
+                POi.MaterialCode = Materials[0].MaterialCode;
+                // POi.MaterialCode = hdfMaterialCode.Value;
 
                 PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
                 MaterialPrice.Customer = PurchaseOrder.Dealer.DealerCode;
@@ -717,7 +754,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
                 PMaterial Mat = Mats[0];
 
-                POi.MaterialID = Convert.ToInt32(hdfMaterialID.Value);
+                POi.MaterialID = MaterialID;
                 POi.Price = Mat.CurrentPrice;
                 POi.DiscountAmount = Mat.Discount;
                 POi.TaxableAmount = Mat.TaxablePrice;

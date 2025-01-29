@@ -16,6 +16,36 @@ namespace DealerManagementSystem.ViewService
     public partial class ICTicket : BasePage
     {
         public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicket; } }
+        private int PageCount
+        {
+            get
+            {
+                if (ViewState["PageCount"] == null)
+                {
+                    ViewState["PageCount"] = 0;
+                }
+                return (int)ViewState["PageCount"];
+            }
+            set
+            {
+                ViewState["PageCount"] = value;
+            }
+        }
+        private int PageIndex
+        {
+            get
+            {
+                if (ViewState["PageIndex"] == null)
+                {
+                    ViewState["PageIndex"] = 1;
+                }
+                return (int)ViewState["PageIndex"];
+            }
+            set
+            {
+                ViewState["PageIndex"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         { 
             if (PSession.User == null)
@@ -52,6 +82,8 @@ namespace DealerManagementSystem.ViewService
             }
             if (!IsPostBack)
             {
+                PageCount = 0;
+                PageIndex = 1;
                 fillStatus();
                 new BDMS_Division().GetDivisionForSerchGroped(ddlDivision);
                 FillGetServiceType();
@@ -106,7 +138,7 @@ namespace DealerManagementSystem.ViewService
                 int? StatusID = ddlStatus.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlStatus.SelectedValue);
                 int? ServiceTypeID = ddlServiceType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlServiceType.SelectedValue);
                 int? TechnicianID = null;
-                List<PDMS_ICTicket> SOIs = null;
+              //  List<PDMS_ICTicket> SOIs = null;
                 if (PSession.User.IsTechnician)
                 {
                     TechnicianID = PSession.User.UserID;
@@ -117,28 +149,32 @@ namespace DealerManagementSystem.ViewService
                     Division = ddlDivision.SelectedValue;
                 }
 
-                SOIs = new BDMS_ICTicket().GetICTicketManage(DealerID, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, StatusID, TechnicianID, ServiceTypeID, Division);
+                //SOIs = new BDMS_ICTicket().GetICTicketManage(DealerID, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, StatusID, TechnicianID, ServiceTypeID, Division);
 
-                if (ddlDealerCode.SelectedValue == "0")
-                {
-                    var SOIs1 = (from S in SOIs
-                                 join D in PSession.User.Dealer on S.Dealer.DealerCode equals D.UserName
-                                 select new
-                                 {
-                                     S
-                                 }).ToList();
-                    SOIs.Clear();
-                    foreach (var w in SOIs1)
-                    {
-                        SOIs.Add(w.S);
-                    }
-                }
-                ICTickets = SOIs;
+                //if (ddlDealerCode.SelectedValue == "0")
+                //{
+                //    var SOIs1 = (from S in SOIs
+                //                 join D in PSession.User.Dealer on S.Dealer.DealerCode equals D.UserName
+                //                 select new
+                //                 {
+                //                     S
+                //                 }).ToList();
+                //    SOIs.Clear();
+                //    foreach (var w in SOIs1)
+                //    {
+                //        SOIs.Add(w.S);
+                //    }
+                //}
+                //ICTickets = SOIs;
 
-                gvICTickets.PageIndex = 0;
-                gvICTickets.DataSource = SOIs;
+                PApiResult Result = new BDMS_ICTicket().GetICTicketManage(DealerID, txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), ICTicketDateF, ICTicketDateT, StatusID, TechnicianID, ServiceTypeID, Division, PageIndex, gvICTickets.PageSize);
+
+                // gvICTickets.PageIndex = 0;
+
+                // gvICTickets.DataSource = SOIs;
+                gvICTickets.DataSource = JsonConvert.DeserializeObject<List<PDMS_ICTicket>>(JsonConvert.SerializeObject(Result.Data));
                 gvICTickets.DataBind();
-                if (SOIs.Count == 0)
+                if (Result.RowCount == 0)
                 {
                     lblRowCount.Visible = false;
                     ibtnArrowLeft.Visible = false;
@@ -146,10 +182,12 @@ namespace DealerManagementSystem.ViewService
                 }
                 else
                 {
+                    PageCount = (Result.RowCount + gvICTickets.PageSize - 1) / gvICTickets.PageSize;
                     lblRowCount.Visible = true;
                     ibtnArrowLeft.Visible = true;
                     ibtnArrowRight.Visible = true;
-                    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTickets.Count;
+                    //  lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTickets.Count;
+                    lblRowCount.Text = (((PageIndex - 1) * gvICTickets.PageSize) + 1) + " - " + (((PageIndex - 1) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + Result.RowCount;
                 }
 
                 TraceLogger.Log(DateTime.Now);
@@ -163,24 +201,35 @@ namespace DealerManagementSystem.ViewService
 
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvICTickets.PageIndex > 0)
+            if (PageIndex > 1)
             {
-                gvICTickets.DataSource = ICTickets;
-                gvICTickets.PageIndex = gvICTickets.PageIndex - 1;
-
-                gvICTickets.DataBind();
-                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTickets.Count;
+                PageIndex = PageIndex - 1;
+                fillICTicket();
             }
+
+            //if (gvICTickets.PageIndex > 0)
+            //{
+            //    gvICTickets.DataSource = ICTickets;
+            //    gvICTickets.PageIndex = gvICTickets.PageIndex - 1;
+
+            //    gvICTickets.DataBind();
+            //    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTickets.Count;
+            //}
         }
         protected void ibtnArrowRight_Click(object sender, ImageClickEventArgs e)
         {
-            if (gvICTickets.PageCount > gvICTickets.PageIndex)
+            if (PageCount > PageIndex)
             {
-                gvICTickets.DataSource = ICTickets;
-                gvICTickets.PageIndex = gvICTickets.PageIndex + 1;
-                gvICTickets.DataBind();
-                lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTickets.Count;
+                PageIndex = PageIndex + 1;
+                fillICTicket();
             }
+            //if (gvICTickets.PageCount > gvICTickets.PageIndex)
+            //{
+            //    gvICTickets.DataSource = ICTickets;
+            //    gvICTickets.PageIndex = gvICTickets.PageIndex + 1;
+            //    gvICTickets.DataBind();
+            //    lblRowCount.Text = (((gvICTickets.PageIndex) * gvICTickets.PageSize) + 1) + " - " + (((gvICTickets.PageIndex) * gvICTickets.PageSize) + gvICTickets.Rows.Count) + " of " + ICTickets.Count;
+            //}
         }
 
         protected void btnExportExcel_Click(object sender, EventArgs e)

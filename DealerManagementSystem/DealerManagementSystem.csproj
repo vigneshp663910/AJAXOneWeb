@@ -431,7 +431,6 @@
     <Content Include="testDropWithMasteMain.aspx" />
     <Content Include="TestDropWithMaterSite.aspx" />
     <Content Include="UserControls\ICTicketBasicInformation.ascx" />
-    <Content Include="UserControls\ICTicketButton.ascx" />
     <Content Include="UserControls\ICTicketTSIR.ascx" />
     <Content Include="UserControls\MultiSelectDropDown.ascx" />
     <Content Include="ViewActivity\Activity.aspx" />
@@ -733,7 +732,6 @@
     <Content Include="ViewService\ICTicketCreate.aspx" />
     <Content Include="ViewService\ICTicketEscalationOnBreakdown.aspx" />
     <Content Include="ViewService\ICTicketFSRManage.aspx" />
-    <Content Include="ViewService\ICTicketManage.aspx" />
     <Content Include="ViewService\ICTicketMarginWarrantyApproval.aspx" />
     <Content Include="ViewService\ICTicketMarginWarrantyChange.aspx" />
     <Content Include="ViewService\ICTicketMarginWarrantyReport.aspx" />
@@ -1136,13 +1134,6 @@
     </Compile>
     <Compile Include="UserControls\ICTicketBasicInformation.ascx.designer.cs">
       <DependentUpon>ICTicketBasicInformation.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ICTicketButton.ascx.cs">
-      <DependentUpon>ICTicketButton.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\ICTicketButton.ascx.designer.cs">
-      <DependentUpon>ICTicketButton.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ICTicketTSIR.ascx.cs">
       <DependentUpon>ICTicketTSIR.ascx</DependentUpon>
@@ -3092,13 +3083,6 @@
     </Compile>
     <Compile Include="ViewService\ICTicketFSRManage.aspx.designer.cs">
       <DependentUpon>ICTicketFSRManage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewService\ICTicketManage.aspx.cs">
-      <DependentUpon>ICTicketManage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewService\ICTicketManage.aspx.designer.cs">
-      <DependentUpon>ICTicketManage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\ICTicketMarginWarrantyApproval.aspx.cs">
       <DependentUpon>ICTicketMarginWarrantyApproval.aspx</DependentUpon>
