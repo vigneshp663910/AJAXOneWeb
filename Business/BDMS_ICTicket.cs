@@ -29,13 +29,20 @@ namespace Business
             {
                 new FileLogger().LogMessageService("BDMS_ICTicket", "provider : " + e1.Message, null);
             }
-        }   
-        public List<PDMS_ICTicket> GetICTicketManage(long? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, int? TechnicianID, int? ServiceTypeID,string Division)
+        }
+        //public List<PDMS_ICTicket> GetICTicketManage(long? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, int? TechnicianID, int? ServiceTypeID,string Division)
+        //{
+        //    string endPoint = "Service/ICTicketManage?DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF="
+        //       + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&StatusID=" + StatusID + "&TechnicianID=" + TechnicianID + "&ServiceTypeID=" + ServiceTypeID + "&Division=" + Division;
+        //    return JsonConvert.DeserializeObject<List<PDMS_ICTicket>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+
+        //}
+        public PApiResult GetICTicketManage(long? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, int? TechnicianID, int? ServiceTypeID, string Division, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "Service/ICTicketManage?DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF="
-               + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&StatusID=" + StatusID + "&TechnicianID=" + TechnicianID + "&ServiceTypeID=" + ServiceTypeID + "&Division=" + Division;
-            return JsonConvert.DeserializeObject<List<PDMS_ICTicket>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-          
+               + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&StatusID=" + StatusID + "&TechnicianID=" + TechnicianID + "&ServiceTypeID=" + ServiceTypeID + "&Division=" + Division + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+
         }
 
         public List<PDMS_ICTicket> GetICTicket(int? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, int? TechnicianID)

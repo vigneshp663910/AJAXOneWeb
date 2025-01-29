@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -73,7 +74,8 @@ namespace DealerManagementSystem.ViewService
             }
 
             long DealerID = Convert.ToInt64( ddlDealerCode.SelectedValue);
-            List<PDMS_ICTicket> ICTicket = new BDMS_ICTicket().GetICTicketManage(DealerID, "", txtICTicketNumber.Text.Trim(), null, null, null, null, null, null);
+            PApiResult Result = new BDMS_ICTicket().GetICTicketManage(DealerID, "", txtICTicketNumber.Text.Trim(), null, null, null, null, null, null, null, null);
+            List <PDMS_ICTicket> ICTicket = JsonConvert.DeserializeObject<List<PDMS_ICTicket>>(JsonConvert.SerializeObject(Result.Data));
 
             //var SOIs1 = (from S in ICTicket
             //             join D in PSession.User.Dealer on S.Dealer.DealerCode equals D.UserName

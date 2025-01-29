@@ -21,11 +21,11 @@ namespace Business
             provider = new ProviderFactory().GetProvider();
         }
          
-         public PApiResult GetMTTR(int? DealerID, string CustomerCode, string ICTicketNumber, string ICTicketDateF, string ICTicketDateT, int? ServiceStatusID, string Division, int? PageIndex = null, int? PageSize = null)
+         public PApiResult GetMTTR(int? DealerID, string CustomerCode, string ICTicketNumber, string ICTicketDateF, string ICTicketDateT, int? ServiceStatusID, string Division, string Excel, int? PageIndex = null, int? PageSize = null)
         {
             TraceLogger.Log(DateTime.Now);
             string endPoint = "ICTicket/GetMTTR?DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF=" + ICTicketDateF
-                + "&ICTicketDateT=" + ICTicketDateT + "&ServiceStatusID=" + ServiceStatusID + "&Division=" + Division + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                + "&ICTicketDateT=" + ICTicketDateT + "&ServiceStatusID=" + ServiceStatusID + "&Division=" + Division + "&Excel=" + Excel + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
 
