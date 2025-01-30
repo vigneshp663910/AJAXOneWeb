@@ -286,6 +286,24 @@ namespace DealerManagementSystem.ViewProcurement
             DataTable Result = new BStockTransferOrder().GetStockTransferOrderDeliveryExcel(DealerID, OfficeID, StockTransferOrderNo, DateFrom, DateTo, StatusID, 1);
             new BXcel().ExporttoExcel(Result, "STO Delivery Report");
         }
+
+        protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                Label lblStatus = e.Row.FindControl("lblPurchaseOrderStatus") as Label;
+                string lStatus = lblStatus.Text;
+
+                if (lStatus == "Draft") { e.Row.Cells[0].Attributes["style"] = "background-color: #3399ff"; }
+                else if (lStatus == "Release") { e.Row.Cells[0].Attributes["style"] = "background-color: #40bf80"; }               
+                else if (lStatus == "Delivered") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; }             
+            }
+        }
+
     }
 }
 //int? DealerID = null;

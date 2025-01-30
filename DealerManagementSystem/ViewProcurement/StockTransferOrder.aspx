@@ -67,7 +67,7 @@
                         </asp:DropDownList>
                     </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
+                        <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="95px" />
                         <asp:Button ID="btnCreatePO" runat="server" CssClass="btn Save" Text="Create STO" OnClick="btnCreatePO_Click" Width="150px"></asp:Button>
                         <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
                         <asp:Button ID="btnExportExcelDetails" runat="server" Text="Export STO Details" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelDetails_Click" Width="150px" />
@@ -97,11 +97,21 @@
                                 </div>
                             </div>
                             <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" 
+                                OnRowDataBound="gvICTickets_RowDataBound"
                                 EmptyDataText="No Data Found">
                                 <Columns>
-                                    <asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" HeaderStyle-Width="15px">
                                         <ItemTemplate>
-                                            <asp:Button ID="btnViewPO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPO_Click" Width="75px" Height="25px" />
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px"> 
+                                        <ItemTemplate>
+                                            <%--<asp:Button ID="btnViewPO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewPO_Click" Width="75px" Height="25px" />--%>
+                                             <asp:ImageButton ID="btnViewPO" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle"  OnClick="btnViewPO_Click" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="STO">
@@ -154,7 +164,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Created By">
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" Font-Size="XX-Small" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblCreatedBy" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server"></asp:Label>
                                         </ItemTemplate>

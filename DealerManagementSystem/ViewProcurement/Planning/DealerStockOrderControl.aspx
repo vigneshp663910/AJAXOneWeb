@@ -15,7 +15,7 @@
                             <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" />
                         </div>
                         <div class="col-md-12 text-center">
-                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" Width="65px" />
+                            <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" Width="95px" />
                             <asp:Button ID="btnCreate" runat="server" CssClass="btn Save" Text="Create" OnClick="btnCreate_Click" Width="65px" />
                         </div>
                     </div>
@@ -46,10 +46,10 @@
                         </div>
                         <asp:GridView ID="gvDealerStockOrderControl" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20"  EmptyDataText="No Data Found">
                             <Columns>
-                                <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="45px">
+                                <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Right" HeaderStyle-Width="15px" ItemStyle-BackColor="#039caf" ItemStyle-ForeColor="White">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer">

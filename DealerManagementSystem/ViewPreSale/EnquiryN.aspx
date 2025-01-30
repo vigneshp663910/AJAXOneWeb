@@ -5,7 +5,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
+    
     <script type="text/javascript">
         $(document).ready(function () {
             var hdfCustomerID = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID');
@@ -42,7 +42,7 @@
     <div class="col-md-12">
 
         <div class="col-md-12" id="divList" runat="server">
-            <fieldset class="fieldset-border">
+            <fieldset id="fsCriteria" class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
@@ -92,7 +92,7 @@
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 text-left">
-                        <label class="modal-label">Sales Channel Type</label>
+                        <label class="modal-label">Sales Channel</label>
                         <asp:DropDownList ID="ddlSSalesChannelType" runat="server" CssClass="form-control" />
                     </div>
                     <div class="col-md-2 text-left">
@@ -133,11 +133,16 @@
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
-                                                    <asp:ImageButton ID="ibtnEnqArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnEnqArrowLeft_Click" /></td>
+                                                    <asp:ImageButton ID="ibtnEnqArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnEnqArrowLeft_Click"/></td>
                                                 <td>
                                                     <asp:ImageButton ID="ibtnEnqArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnEnqArrowRight_Click" /></td>
                                                 <td>
-                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." />
+                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." width="23" height="23"/>
+                                                </td>
+                                                <td>
+                                                    <%--<asp:ImageButton ID="ImgSC" runat="server" ImageUrl="~/Images/NormalScreen.png" UseSubmitBehavior="true" OnClientClick="btn_imgSC_Click" ToolTip="Excel Download..." width="23" height="23"/>--%>
+                                                    <img id="fs" alt="" src="../Images/NormalScreen.png" OnClick="ScreenControl(2)"  width="23" height="23"  style="display:none;"/>
+                                                    <img id="rs" alt="" src="../Images/FullScreen.jpg" OnClick="ScreenControl(1)"  width="23" height="23"  style="display:block;" />                                              
                                                 </td>
                                             </tr>
                                         </table>
@@ -149,15 +154,15 @@
                                 AutoGenerateColumns="false" Width="100%"
                                 OnRowDataBound="gvEnquiry_RowDataBound">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White">
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" HeaderStyle-Width="15px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
 
-                                        <ItemTemplate>
+                                        <ItemTemplate >
                                             <%--<asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />--%>
                                             <asp:ImageButton ID="BtnView" ImageUrl="~/Images/Preview.png" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="BtnView_Click" />
                                           
@@ -417,6 +422,29 @@
                         response($.ui.autocomplete.filter(Customers, ""))
                     }
                 });
+            }
+        }
+    </script>
+    <script>
+
+        function ScreenControl(optn) {
+            var fsCriteria = document.getElementById("fsCriteria");
+            var fs = document.getElementById("fs");
+            var rs = document.getElementById("rs");
+            //alert("Hi");
+
+            if (optn == 1) {
+                fsCriteria.style.display = "none";
+                
+                fs.style.display = "block";
+                rs.style.display = "none";
+            }
+
+            if (optn == 2) {
+                fsCriteria.style.display = "block";
+               
+                fs.style.display = "none";
+                rs.style.display = "block";
             }
         }
     </script>

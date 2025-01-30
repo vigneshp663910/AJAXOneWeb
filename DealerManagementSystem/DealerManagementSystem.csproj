@@ -289,9 +289,11 @@
     <Content Include="Images\Employee.jpg" />
     <Content Include="Images\Excel.jfif" />
     <Content Include="Images\filter1.png" />
+    <Content Include="Images\FullScreen.jpg" />
     <Content Include="Images\grid_collapse.png" />
     <Content Include="Images\grid_expand.png" />
     <Content Include="Images\hsizegrip.png" />
+    <Content Include="Images\NormalScreen.png" />
     <Content Include="Images\NotVerified.jpg" />
     <Content Include="Images\Officer.png" />
     <Content Include="Images\PageLoader.gif" />

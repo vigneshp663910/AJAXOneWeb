@@ -308,5 +308,26 @@ namespace DealerManagementSystem.ViewProcurement
             DataTable Result = new BStockTransferOrder().GetStockTransferOrderExcel(DealerID, OfficeID, StockTransferOrderNo, DateFrom, DateTo, StatusID, 1);
             new BXcel().ExporttoExcel(Result, "Stock Transfer Order Report");
         }
+
+        protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                Label lblStatus = e.Row.FindControl("lblPurchaseOrderStatus") as Label;
+                string lStatus = lblStatus.Text;
+
+                if (lStatus == "Draft") { e.Row.Cells[0].Attributes["style"] = "background-color: #3399ff"; }
+                else if (lStatus == "Release") { e.Row.Cells[0].Attributes["style"] = "background-color: #40bf80"; }
+                else if (lStatus == "Partial Delivered") { e.Row.Cells[0].Attributes["style"] = "background-color: #00e600"; }
+                else if (lStatus == "Delivered") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; }
+                else if (lStatus == "Cancelled") { e.Row.Cells[0].Attributes["style"] = "background-color: #52527a"; }
+                
+                
+            }
+        }
     }
 }

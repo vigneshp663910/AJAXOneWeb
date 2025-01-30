@@ -356,10 +356,10 @@ namespace DealerManagementSystem.ViewPreSale
 
                 string eStatus = e.Row.Cells[13].Text;
 
-                if      (eStatus == "Unattended")       { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; }
-                else if (eStatus == "InProgress")       { e.Row.Cells[0].Attributes["style"] = "background-color: #3598dc"; }
-                else if (eStatus == "Converted To Lead"){ e.Row.Cells[0].Attributes["style"] = "background-color: darkolivegreen";}
-                else if (eStatus == "Rejected")         { e.Row.Cells[0].Attributes["style"] = "background-color: #737373"; }
+                if (eStatus == "Unattended") { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; }
+                else if (eStatus == "InProgress") { e.Row.Cells[0].Attributes["style"] = "background-color: #3598dc"; }
+                else if (eStatus == "Converted To Lead") { e.Row.Cells[0].Attributes["style"] = "background-color: darkolivegreen"; }
+                else if (eStatus == "Rejected") { e.Row.Cells[0].Attributes["style"] = "background-color: #737373"; }
 
                 Label lblChannel = e.Row.FindControl("lblChannel") as Label;
                 string lChannel = lblChannel.Text;
@@ -367,11 +367,15 @@ namespace DealerManagementSystem.ViewPreSale
 
                 if (lChannel == "B2B") { img.ImageUrl = "~/Images/b2b.png"; }
                 else if (lChannel == "B2C") { img.ImageUrl = "~/Images/b2c.png"; }
-               
+
             }
         }
 
+        protected void btn_imgSC_Click(object sender, EventArgs e)
+        {
 
+            ScriptManager.RegisterStartupScript(this, GetType(), "displayalertmessage", "ScreenControl(1)", true);
+        }
     }
 }
 

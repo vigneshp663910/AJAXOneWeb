@@ -114,10 +114,10 @@
                                 EmptyDataText="No Data Found"
                                 OnRowDataBound="gvICTickets_RowDataBound">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White">
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" HeaderStyle-Width="15px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                            <itemstyle width="20px" horizontalalign="Right"></itemstyle>
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
