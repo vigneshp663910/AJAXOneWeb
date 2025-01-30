@@ -256,8 +256,8 @@ namespace Business
             string msg = string.Empty;
             try
             {
-                string FilePath = ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/" + FileName; 
-                //string FilePath = HttpContext.Current.Server.MapPath("~/MailFormat/" + FileName);
+                //string FilePath = ConfigurationManager.AppSettings["BasePath"] + "/MailFormat/" + FileName; 
+                string FilePath = HttpContext.Current.Server.MapPath("~/MailFormat/" + FileName);
 
                 if (File.Exists(FilePath))
                 {

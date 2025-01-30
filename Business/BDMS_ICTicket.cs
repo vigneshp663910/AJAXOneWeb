@@ -37,10 +37,10 @@ namespace Business
         //    return JsonConvert.DeserializeObject<List<PDMS_ICTicket>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
 
         //}
-        public PApiResult GetICTicketManage(long? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, int? TechnicianID, int? ServiceTypeID, string Division, int? PageIndex = null, int? PageSize = null)
+        public PApiResult GetICTicketManage(long? DealerID, string CustomerCode, string ICTicketNumber, DateTime? ICTicketDateF, DateTime? ICTicketDateT, int? StatusID, int? TechnicianID, int? ServiceTypeID, string Division,int Excel, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "Service/ICTicketManage?DealerID=" + DealerID + "&CustomerCode=" + CustomerCode + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF="
-               + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&StatusID=" + StatusID + "&TechnicianID=" + TechnicianID + "&ServiceTypeID=" + ServiceTypeID + "&Division=" + Division + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+               + ICTicketDateF + "&ICTicketDateT=" + ICTicketDateT + "&StatusID=" + StatusID + "&TechnicianID=" + TechnicianID + "&ServiceTypeID=" + ServiceTypeID + "&Division=" + Division + "&Excel=" + Excel + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
 
         }
