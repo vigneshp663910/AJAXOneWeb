@@ -74,7 +74,7 @@ namespace DealerManagementSystem.ViewService
             }
 
             long DealerID = Convert.ToInt64( ddlDealerCode.SelectedValue);
-            PApiResult Result = new BDMS_ICTicket().GetICTicketManage(DealerID, "", txtICTicketNumber.Text.Trim(), null, null, null, null, null, null, null, null);
+            PApiResult Result = new BDMS_ICTicket().GetICTicketManage(DealerID, "", txtICTicketNumber.Text.Trim(), null, null, null, null, null, null, 0, null, null);
             List <PDMS_ICTicket> ICTicket = JsonConvert.DeserializeObject<List<PDMS_ICTicket>>(JsonConvert.SerializeObject(Result.Data));
 
             //var SOIs1 = (from S in ICTicket

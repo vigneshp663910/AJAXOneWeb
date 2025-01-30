@@ -93,18 +93,12 @@
                                 </div>
                             </div>
                         </div>
-                        <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" DataKeyNames="ICTicketID" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging" OnRowDataBound="gvICTickets_RowDataBound1">
+                        <asp:GridView ID="gvICTickets" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" DataKeyNames="ICTicketID" PageSize="20">
                             <Columns>
                                 <asp:TemplateField HeaderText="View">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click">View</asp:LinkButton> 
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="" Visible="false">
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" BorderStyle="None" />
-                                    <ItemTemplate>
-                                        <asp:RadioButton ID="rbICTicketID" runat="server" onclick="javascript:CheckOtherIsCheckedByGVID(this);" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="IC Ticket">
