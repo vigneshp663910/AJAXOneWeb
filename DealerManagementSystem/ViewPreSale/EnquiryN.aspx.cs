@@ -286,6 +286,13 @@ namespace DealerManagementSystem.ViewPreSale
                 lblAddEnquiryMessage.ForeColor = Color.Red;
             }
         }
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+        }
+
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<PDMS_State> State = new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);

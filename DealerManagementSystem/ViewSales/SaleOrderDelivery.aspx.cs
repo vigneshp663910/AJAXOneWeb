@@ -242,5 +242,39 @@ namespace DealerManagementSystem.ViewSales
 
             new BXcel().ExporttoExcel(dt, "Sales Order Delivery Report");
         }
+
+
+        protected void gvSODelivery_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                Label lblStatus = e.Row.FindControl("lblDeliveryOrderStatus") as Label;
+                string lStatus = lblStatus.Text;
+
+                if (lStatus == "Invoice Pending") { e.Row.Cells[0].Attributes["style"] = "background-color: #ff0000"; }
+                else if (lStatus == "Shipping Pending") { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; }
+                else if (lStatus == "Shipped") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; }
+                else if (lStatus == "Delivery Cancelled") { e.Row.Cells[0].Attributes["style"] = "background-color: #737373"; }
+               
+
+                Label lblDivision = e.Row.FindControl("lblDivision") as Label;
+                string lDivision = lblDivision.Text;
+
+                ImageButton imgButton = e.Row.FindControl("imgDivision") as ImageButton;
+
+                if (lDivision == "CM") { imgButton.ImageUrl = "~/Images/Argo-1000.jpg"; }
+                else if (lDivision == "CP") { imgButton.ImageUrl = "~/Images/ASP-7011.jpg"; }
+                else if (lDivision == "BP") { imgButton.ImageUrl = "~/Images/CRB-20.jpg"; }
+                else if (lDivision == "BM") { imgButton.ImageUrl = "~/Images/Boom-Pump.jpg"; }
+                else if (lDivision == "TM") { imgButton.ImageUrl = "~/Images/Transit-Mixer.jpg"; }
+                else if (lDivision == "DP") { imgButton.ImageUrl = "~/Images/Dumper.jpg"; }
+                else if (lDivision == "SB") { imgButton.ImageUrl = "~/Images/SPBP.png"; }
+                else if (lDivision == "PS") { imgButton.ImageUrl = "~/Images/Paver.png"; }
+            }
+        }
     }
 }

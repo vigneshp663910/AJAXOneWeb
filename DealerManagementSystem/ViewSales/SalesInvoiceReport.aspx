@@ -13,7 +13,7 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
-            <fieldset class="fieldset-border">
+            <fieldset id="fsCriteria" class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
@@ -66,8 +66,8 @@
                         <asp:DropDownList ID="ddlDivision" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" Width="100px" OnClick="btnExportExcel_Click" />
+                        <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="95px" />
+                        <%--<asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" Width="100px" OnClick="btnExportExcel_Click" />--%>
                     </div>
                 </div>
             </fieldset>
@@ -81,111 +81,129 @@
                             <div style="float: left">
                                 <table>
                                     <tr>
-                                        <td>Sale Order Invoice</td>
+                                        <td>Sale Order Invoice : </td>
                                         <td>
-                                            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                            <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>
+                                        </td>
                                         <td>
-                                            <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
+                                            <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" />
+                                        </td>
                                         <td>
-                                            <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                            <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" />
+                                        </td>
+                                        <td>
+                                            <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." Width="23" Height="23" />
+                                        </td>
                                     </tr>
                                 </table>
+                            </div>
+                            <div style="float: right; overflow: auto;">
+                                <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                <div style="float: right">
+                                    <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                    <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                </div>
                             </div>
                         </div>
                     </div>
                     <asp:GridView ID="gvSOInvoice" runat="server" CssClass="table table-bordered table-condensed Grid"
                         AllowPaging="true" PageSize="20" EmptyDataText="No Data Found" AutoGenerateColumns="false">
-                        <Columns>
-                            <asp:TemplateField HeaderText="PDF">
-                                <ItemTemplate>
-                                     <asp:Label ID="lblDeliveryByID" Text='<%# DataBinder.Eval(Container.DataItem, "ID")%>' runat="server" Visible="false" />
-                                    <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="../Images/pdf_dload.png" OnClick="ibPDF_Click" Style="height: 50px; width: 60px;" />
-                                </ItemTemplate>
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center">
-                                <ItemTemplate>
+                        <columns>
+                            
+                            <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
+                                <itemtemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                </ItemTemplate>
+                                    <itemstyle width="15px" horizontalalign="Right"></itemstyle>
+                                </itemtemplate>
                             </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="PDF">
+                                <itemtemplate>
+                                    <asp:Label ID="lblDeliveryByID" Text='<%# DataBinder.Eval(Container.DataItem, "ID")%>' runat="server" Visible="false" />
+                                    <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="../Images/pdf_dload.png" OnClick="ibPDF_Click" Style="height: 50px; width: 60px;" />
+                                </itemtemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                            </asp:TemplateField>
+
                             <asp:TemplateField HeaderText="Invoice Number">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                <ItemTemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                                <itemtemplate>
                                     <asp:Label ID="lblInvoiceNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Invoice Number")%>' runat="server" />
                                     <br />
                                     <asp:Label ID="lblInvoiceDateDate" Text='<%# DataBinder.Eval(Container.DataItem, "Invoice Date","{0:d}")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                                </itemtemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Delivery Number">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                <ItemTemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                                <itemtemplate>
                                     <asp:Label ID="lblDeliveryNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Delivery Number")%>' runat="server" />
                                     <br />
                                     <asp:Label ID="lblDeliveryDate" Text='<%# DataBinder.Eval(Container.DataItem, "Delivery Date","{0:d}")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                                </itemtemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Sale Order Number">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                <ItemTemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Center" />
+                                <itemtemplate>
                                     <asp:Label ID="lblSaleOrderNumber" Text='<%# DataBinder.Eval(Container.DataItem, "Sale Order Number")%>' runat="server" />
                                     <br />
                                     <asp:Label ID="lblSaleOrderDate" Text='<%# DataBinder.Eval(Container.DataItem, "Sale Order Date","{0:d}")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                                </itemtemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Dealer">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                                <itemtemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Code")%>' runat="server"></asp:Label>
                                     <br />
                                     <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Name")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                                </itemtemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Office">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                                <itemtemplate>
                                     <asp:Label ID="lblDealerOffice" Text='<%# DataBinder.Eval(Container.DataItem, "Office Name")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                                </itemtemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Division">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                                <itemtemplate>
                                     <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "Division")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                                </itemtemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Customer">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                                <itemtemplate>
                                     <asp:Label ID="lblCustomerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Customer Code")%>' runat="server"></asp:Label>
                                     <br />
                                     <asp:Label ID="lblCustomerName" Text='<%# DataBinder.Eval(Container.DataItem, "Customer Name")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                                </itemtemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="SO Type">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                                <itemtemplate>
                                     <asp:Label ID="lblSOType" Text='<%# DataBinder.Eval(Container.DataItem, "Order Type")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                                </itemtemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Delivery Status">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Left" />
+                                <itemtemplate>
                                     <asp:Label ID="lblDeliveryOrderStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                                </itemtemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Gross Amount">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                <ItemTemplate>
+                                <itemstyle verticalalign="Middle" horizontalalign="Right" />
+                                <itemtemplate>
                                     <asp:Label ID="lblGross" Text='<%# DataBinder.Eval(Container.DataItem, "Gross Amount")%>' runat="server"></asp:Label>
-                                </ItemTemplate>
+                                </itemtemplate>
                             </asp:TemplateField>
-                        </Columns>
-                        <AlternatingRowStyle BackColor="#ffffff" />
-                        <FooterStyle ForeColor="White" />
-                        <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                        </columns>
+                        <alternatingrowstyle backcolor="#ffffff" />
+                        <footerstyle forecolor="White" />
+                        <headerstyle font-bold="True" forecolor="White" horizontalalign="Left" />
+                        <pagerstyle font-bold="True" forecolor="White" horizontalalign="Left" />
+                        <rowstyle backcolor="#fbfcfd" forecolor="Black" horizontalalign="Left" />
                     </asp:GridView>
                 </div>
             </fieldset>

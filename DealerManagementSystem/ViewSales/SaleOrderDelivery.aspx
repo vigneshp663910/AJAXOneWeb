@@ -15,7 +15,7 @@
     <asp:Label ID="lblMessageSODelivery" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12" id="divSODeliveryList" runat="server">
-            <fieldset class="fieldset-border">
+            <fieldset id="fsCriteria" class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
@@ -68,9 +68,9 @@
                         <asp:DropDownList ID="ddlDeliveryStatus" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearchSODelivery_Click" OnClientClick="return dateValidation();" Width="65px" />
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
-                        <asp:Button ID="btnExportExcelDetails" runat="server" Text="Export Sales Delivery Details" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelDetails_Click" Width="150px" />
+                        <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearchSODelivery_Click" OnClientClick="return dateValidation();" Width="95px" />
+                       <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
+                        <asp:Button ID="btnExportExcelDetails" runat="server" Text="Export SO Delivery Details" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelDetails_Click" Width="200px" />
                     </div>
                 </div>
             </fieldset>
@@ -84,30 +84,46 @@
                                     <div style="float: left">
                                         <table>
                                             <tr>
-                                                <td>Sale Order Delivery:</td>
+                                                <td>SO Delivery Doc(s):</td>
                                                 <td>
                                                     <asp:Label ID="lblRowCountSODelivery" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
                                                     <asp:ImageButton ID="ibtnArrowLeftSODelivery" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeftSODelivery_Click" /></td>
                                                 <td>
                                                     <asp:ImageButton ID="ibtnArrowRightSODelivery" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRightSODelivery_Click" /></td>
+
+                                                 <td>
+                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." Width="23" Height="23" />
+                                                </td>
                                             </tr>
                                         </table>
+                                    </div>
+
+                                    <div style="float: right; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <asp:GridView ID="gvSODelivery" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
-                                OnPageIndexChanging="gvSODelivery_PageIndexChanging">
+                                OnPageIndexChanging="gvSODelivery_PageIndexChanging"
+                                OnRowDataBound="gvSODelivery_RowDataBound">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField>
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
                                         <ItemTemplate>
-                                            <asp:Button ID="btnViewSODelivery" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSODelivery_Click" Width="75px" Height="25px" />
+                                            <%--<asp:Button ID="btnViewSODelivery" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSODelivery_Click" Width="75px" Height="25px" />--%>
+                                             <asp:ImageButton ID="btnViewSODelivery" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="btnViewSODelivery_Click" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Delivery Number">
@@ -152,6 +168,7 @@
                                     <asp:TemplateField HeaderText="Division">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                         <ItemTemplate>
+                                            <asp:ImageButton ID="imgDivision" runat="server" ImageUrl="~/Images/SpareParts.png" Width="25" Height="25"/>
                                             <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrder.Division.DivisionCode")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
