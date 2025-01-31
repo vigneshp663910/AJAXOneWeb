@@ -1047,8 +1047,11 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 Item = (Material_SapS.Count + 1) * 10
             });
             PSapMatPrice_Input MaterialPrice = new PSapMatPrice_Input();
-            MaterialPrice.Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "").DealerCode;
-            MaterialPrice.Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "").DealerCode;
+
+            PDealer Customer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealer.SelectedValue), "");
+            PDealer Vendor = new BDealer().GetDealerByID(Convert.ToInt32(ddlVendor.SelectedValue), "");
+            MaterialPrice.Customer = Customer.DealerCode;
+            MaterialPrice.Vendor = Vendor.DealerCode;
             MaterialPrice.OrderType = new BProcurementMasters().GetPurchaseOrderType(Convert.ToInt32(ddlPurchaseOrderType.SelectedValue), null)[0].SapOrderType;
 
             MaterialPrice.Division = new BDMS_Master().GetDivision(Convert.ToInt32(ddlDivision.SelectedValue), null)[0].DivisionCode;
@@ -1062,29 +1065,63 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
 
             try
             {
-                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-                PMaterial Mat = Mats[0];
-                if (Mat.CurrentPrice == 0)
+                List<PMaterialPrice> Mats = new BDMS_Material().MaterialPriceFromSapApiNew(MaterialPrice);
+                PMaterialPrice Mat = Mats[0];
+                if (Mat.Price == 0)
                 {
                     return "Price is Not updated for this material " + PoI.MaterialCode + ". Please contact Admin.";
                 }
-                PoI.UnitPrice = Mat.CurrentPrice / PoI.Quantity;
-                PoI.Price = Mat.CurrentPrice;
+
+
+                PoI.UnitPrice = (Mat.Price + Mat.Discount) / PoI.Quantity;
+                PoI.Price = (Mat.Price + Mat.Discount);
                 PoI.DiscountAmount = Mat.Discount;
-                PoI.TaxableAmount = Mat.TaxablePrice;
-                PoI.SGST = Mat.SGST;
-                PoI.SGSTValue = Mat.SGSTValue;
-                PoI.CGST = Mat.SGST;
-                PoI.CGSTValue = Mat.SGSTValue;
-                PoI.IGST = Mat.IGST;
-                PoI.IGSTValue = Mat.IGSTValue;
-                PoI.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
-                PoI.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
+                PoI.TaxableAmount = Mat.Price;
+
+                if(Customer.State.StateID == Vendor.State.StateID)
+                {
+                    PoI.SGST = Mat.Tax;
+                    PoI.SGSTValue = PoI.TaxableAmount * (PoI.SGST / 100); 
+                    PoI.CGST = Mat.Tax;
+                    PoI.CGSTValue = PoI.TaxableAmount * (PoI.CGST / 100);
+                    PoI.IGST = 0;
+                    PoI.IGSTValue = 0;
+                }
+                else
+                {
+                    PoI.SGST = 0;
+                    PoI.SGSTValue = 0;
+                    PoI.CGST = 0;
+                    PoI.CGSTValue = 0;
+                    PoI.IGST = Mat.Tax * 2;
+                    PoI.IGSTValue = PoI.TaxableAmount * (PoI.IGST / 100);
+                }
+
+                
+                PoI.Tax = PoI.SGST + PoI.CGST + PoI.IGST;
+                PoI.TaxValue = PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
+
                 PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
                 PurchaseOrderItem_Insert.Add(PoI);
                 PoI.Item = PurchaseOrderItem_Insert.Count * 10;
+
+                //PoI.UnitPrice = Mat.CurrentPrice / PoI.Quantity;
+                //PoI.Price = Mat.CurrentPrice;
+                //PoI.DiscountAmount = Mat.Discount;
+                //PoI.TaxableAmount = Mat.TaxablePrice;
+                //PoI.SGST = Mat.SGST;
+                //PoI.SGSTValue = Mat.SGSTValue;
+                //PoI.CGST = Mat.SGST;
+                //PoI.CGSTValue = Mat.SGSTValue;
+                //PoI.IGST = Mat.IGST;
+                //PoI.IGSTValue = Mat.IGSTValue;
+                //PoI.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
+                //PoI.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
+                //PoI.NetValue = PoI.TaxableAmount + PoI.SGSTValue + PoI.CGSTValue + PoI.IGSTValue;
+                //PurchaseOrderItem_Insert.Add(PoI);
+                //PoI.Item = PurchaseOrderItem_Insert.Count * 10;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return e.Message;
             }

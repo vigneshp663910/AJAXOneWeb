@@ -261,17 +261,17 @@ namespace Business
             //return MaterialCode;
         }
         
-        public List<PMaterial> MaterialPriceFromSapApi(PSapMatPrice_Input MaterialPrice)
-        {
-            string endPoint = "Material/MaterialPriceFromSapApi";
+        //public List<PMaterial> MaterialPriceFromSapApi(PSapMatPrice_Input MaterialPrice)
+        //{
+        //    string endPoint = "Material/MaterialPriceFromSapApi";
 
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialPrice));
-            if (Result.Status == PApplication.Failure)
-            {
-                throw new Exception(Result.Message);
-            }
-            return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
-        }
+        //    PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut(endPoint, MaterialPrice));
+        //    if (Result.Status == PApplication.Failure)
+        //    {
+        //        throw new Exception(Result.Message);
+        //    }
+        //    return JsonConvert.DeserializeObject<List<PMaterial>>(JsonConvert.SerializeObject(Result.Data));
+        //}
         public List<PMaterialPrice> MaterialPriceFromSapApiNew(PSapMatPrice_Input MaterialPrice)
         {
             string endPoint = "Material/MaterialPriceFromSapApiNew";

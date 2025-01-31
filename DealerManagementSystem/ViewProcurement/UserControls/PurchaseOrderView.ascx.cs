@@ -427,20 +427,58 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     Quantity = POi.Quantity
                 });
 
-                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-                PMaterial Mat = Mats[0];
-                POi.Price = Mat.CurrentPrice;
+                List<PMaterialPrice> Mats = new BDMS_Material().MaterialPriceFromSapApiNew(MaterialPrice);
+                PMaterialPrice Mat = Mats[0];
+                 
+                if (Mat.Price == 0)
+                {
+                    lblMessage.Text = "Price is Not updated for this material " + POi.MaterialCode + ". Please contact Admin.";
+                    return;
+                }
+
+
+                POi.UnitPrice = (Mat.Price + Mat.Discount) / POi.Quantity;
+                POi.Price = (Mat.Price + Mat.Discount);
                 POi.DiscountAmount = Mat.Discount;
-                POi.TaxableAmount = Mat.TaxablePrice;
-                POi.SGST = Mat.SGST;
-                POi.SGSTValue = Mat.SGSTValue;
-                POi.CGST = Mat.SGST;
-                POi.CGSTValue = Mat.SGSTValue;
-                POi.IGST = Mat.IGST;
-                POi.IGSTValue = Mat.IGSTValue;
-                POi.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
-                POi.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
-                POi.NetValue = POi.TaxableAmount + POi.SGSTValue + POi.CGSTValue + POi.IGSTValue;
+                POi.TaxableAmount = Mat.Price;
+
+
+                if (PurchaseOrder.Dealer.StateN.StateID == PurchaseOrder.Vendor.StateN.StateID)
+                {
+                    POi.SGST = Mat.Tax;
+                    POi.SGSTValue = POi.TaxableAmount * (POi.SGST / 100);
+                    POi.CGST = Mat.Tax;
+                    POi.CGSTValue = POi.TaxableAmount * (POi.CGST / 100);
+                    POi.IGST = 0;
+                    POi.IGSTValue = 0;
+                }
+                else
+                {
+                    POi.SGST = 0;
+                    POi.SGSTValue = 0;
+                    POi.CGST = 0;
+                    POi.CGSTValue = 0;
+                    POi.IGST = Mat.Tax * 2;
+                    POi.IGSTValue = POi.TaxableAmount * (POi.IGST / 100);
+                }
+                POi.Tax = POi.SGST + POi.CGST + POi.IGST;
+                POi.TaxValue = POi.SGSTValue + POi.CGSTValue + POi.IGSTValue;
+                POi.NetValue = POi.TaxableAmount + POi.SGSTValue + POi.CGSTValue + POi.IGSTValue; 
+
+                //List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                //PMaterial Mat = Mats[0];
+                //POi.Price = Mat.CurrentPrice;
+                //POi.DiscountAmount = Mat.Discount;
+                //POi.TaxableAmount = Mat.TaxablePrice;
+                //POi.SGST = Mat.SGST;
+                //POi.SGSTValue = Mat.SGSTValue;
+                //POi.CGST = Mat.SGST;
+                //POi.CGSTValue = Mat.SGSTValue;
+                //POi.IGST = Mat.IGST;
+                //POi.IGSTValue = Mat.IGSTValue;
+                //POi.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
+                //POi.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
+                //POi.NetValue = POi.TaxableAmount + POi.SGSTValue + POi.CGSTValue + POi.IGSTValue;
 
                 string result = new BAPI().ApiPut("PurchaseOrder/UpdatePurchaseOrderItem", POi);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
@@ -751,22 +789,62 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                     Material = POi.MaterialCode,
                     Quantity = POi.Quantity
                 });
-                List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
-                PMaterial Mat = Mats[0];
+
+                List<PMaterialPrice> Mats = new BDMS_Material().MaterialPriceFromSapApiNew(MaterialPrice);
+                PMaterialPrice Mat = Mats[0];
+
+                if (Mat.Price == 0)
+                {
+                    lblMessage.Text = "Price is Not updated for this material " + POi.MaterialCode + ". Please contact Admin.";
+                    return;
+                }
 
                 POi.MaterialID = MaterialID;
-                POi.Price = Mat.CurrentPrice;
+                POi.UnitPrice = (Mat.Price + Mat.Discount) / POi.Quantity;
+                POi.Price = (Mat.Price + Mat.Discount);
                 POi.DiscountAmount = Mat.Discount;
-                POi.TaxableAmount = Mat.TaxablePrice;
-                POi.SGST = Mat.SGST;
-                POi.SGSTValue = Mat.SGSTValue;
-                POi.CGST = Mat.SGST;
-                POi.CGSTValue = Mat.SGSTValue;
-                POi.IGST = Mat.IGST;
-                POi.IGSTValue = Mat.IGSTValue;
-                POi.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
-                POi.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
+                POi.TaxableAmount = Mat.Price;
+
+
+                if (PurchaseOrder.Dealer.StateN.StateID == PurchaseOrder.Vendor.StateN.StateID)
+                {
+                    POi.SGST = Mat.Tax;
+                    POi.SGSTValue = POi.TaxableAmount * (POi.SGST / 100);
+                    POi.CGST = Mat.Tax;
+                    POi.CGSTValue = POi.TaxableAmount * (POi.CGST / 100);
+                    POi.IGST = 0;
+                    POi.IGSTValue = 0;
+                }
+                else
+                {
+                    POi.SGST = 0;
+                    POi.SGSTValue = 0;
+                    POi.CGST = 0;
+                    POi.CGSTValue = 0;
+                    POi.IGST = Mat.Tax * 2;
+                    POi.IGSTValue = POi.TaxableAmount * (POi.IGST / 100);
+                }
+                POi.Tax = POi.SGST + POi.CGST + POi.IGST;
+                POi.TaxValue = POi.SGSTValue + POi.CGSTValue + POi.IGSTValue;
                 POi.NetValue = POi.TaxableAmount + POi.SGSTValue + POi.CGSTValue + POi.IGSTValue;
+             
+
+                //List<PMaterial> Mats = new BDMS_Material().MaterialPriceFromSapApi(MaterialPrice);
+                //PMaterial Mat = Mats[0];
+
+                //POi.MaterialID = MaterialID;
+                //POi.Price = Mat.CurrentPrice;
+                //POi.DiscountAmount = Mat.Discount;
+                //POi.TaxableAmount = Mat.TaxablePrice;
+                //POi.SGST = Mat.SGST;
+                //POi.SGSTValue = Mat.SGSTValue;
+                //POi.CGST = Mat.SGST;
+                //POi.CGSTValue = Mat.SGSTValue;
+                //POi.IGST = Mat.IGST;
+                //POi.IGSTValue = Mat.IGSTValue;
+                //POi.Tax = Mat.SGST + Mat.SGST + Mat.IGST;
+                //POi.TaxValue = Mat.SGSTValue + Mat.SGSTValue + Mat.IGSTValue;
+                //POi.NetValue = POi.TaxableAmount + POi.SGSTValue + POi.CGSTValue + POi.IGSTValue;
 
                 string result = new BAPI().ApiPut("PurchaseOrder/UpdatePurchaseOrderItem", POi);
                 PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
