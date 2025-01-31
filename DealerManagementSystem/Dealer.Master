@@ -1980,6 +1980,28 @@
 
     </script>
 
+     <script>
+
+         function ScreenControl(optn) {
+             var fsCriteria = document.getElementById("fsCriteria");
+             var fs = document.getElementById("fs");
+             var rs = document.getElementById("rs");
+             //alert("Hi");
+
+             if (optn == 1) {
+                 fsCriteria.style.display = "none";
+                 fs.style.display = "block";
+                 rs.style.display = "none";
+             }
+
+             if (optn == 2) {
+                 fsCriteria.style.display = "block";
+                 fs.style.display = "none";
+                 rs.style.display = "block";
+             }
+         }
+     </script>
+
     <script>
         /*const {hidden} = require("modernizr");*/
 

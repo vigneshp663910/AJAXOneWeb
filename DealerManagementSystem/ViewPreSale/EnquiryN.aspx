@@ -5,7 +5,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
             var hdfCustomerID = document.getElementById('MainContent_UC_EnquiryView_UC_Customer_hdfCustomerID');
@@ -31,24 +31,14 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
-    <%--  <asp:ListBox ID="lstFruits" runat="server" SelectionMode="Multiple">
-        <asp:ListItem Text="Mango" Value="1" />
-        <asp:ListItem Text="Apple" Value="2" />
-        <asp:ListItem Text="Banana" Value="3" />
-        <asp:ListItem Text="Guava" Value="4" />
-        <asp:ListItem Text="Orange" Value="5" />
-    </asp:ListBox>--%>
-
     <div class="col-md-12">
-
         <div class="col-md-12" id="divList" runat="server">
             <fieldset id="fsCriteria" class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer</label>
-                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" />
-
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Employee</label>
@@ -99,10 +89,10 @@
                         <label>Status</label>
                         <asp:DropDownList ID="ddlSStatus" runat="server" CssClass="form-control">
                             <asp:ListItem Value="0">Select</asp:ListItem>
-                            <asp:ListItem Value="1" style="background-color: #d91e18 !important; color : white;">Unattended</asp:ListItem>
-                            <asp:ListItem Value="6" style="background-color: #3598dc !important; color : white;">In Progress</asp:ListItem>
-                            <asp:ListItem Value="4" style="background-color: darkolivegreen!important; color : white;">Converted To Lead</asp:ListItem>
-                            <asp:ListItem Value="5" style="background-color: #737373!important; color : white">Rejected</asp:ListItem>
+                            <asp:ListItem Value="1" style="background-color: #d91e18 !important; color: white;">Unattended</asp:ListItem>
+                            <asp:ListItem Value="6" style="background-color: #3598dc !important; color: white;">In Progress</asp:ListItem>
+                            <asp:ListItem Value="4" style="background-color: darkolivegreen!important; color: white;">Converted To Lead</asp:ListItem>
+                            <asp:ListItem Value="5" style="background-color: #737373!important; color: white">Rejected</asp:ListItem>
 
                         </asp:DropDownList>
                     </div>
@@ -111,7 +101,7 @@
 
                         <%--<label class="modal-label">Action</label>--%>
                         <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" Width="100" />
-                         <%--<asp:Image ID="imgChannel" runat="server" ImageUrl="~/Images/AddEDoc.png" Width="25" Height="25" />--%>
+                        <%--<asp:Image ID="imgChannel" runat="server" ImageUrl="~/Images/AddEDoc.png" Width="25" Height="25" />--%>
                         <asp:Button ID="BtnAdd" runat="server" Text="Add Enquiry" CssClass="btn Save" Width="100px" OnClick="BtnAdd_Click" />
                         <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
                     </div>
@@ -133,24 +123,29 @@
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
-                                                    <asp:ImageButton ID="ibtnEnqArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnEnqArrowLeft_Click"/></td>
+                                                    <asp:ImageButton ID="ibtnEnqArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnEnqArrowLeft_Click" /></td>
                                                 <td>
                                                     <asp:ImageButton ID="ibtnEnqArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnEnqArrowRight_Click" /></td>
                                                 <td>
-                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." width="23" height="23"/>
+                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." Width="23" Height="23" />
                                                 </td>
-                                                <td>
-                                                    <%--<asp:ImageButton ID="ImgSC" runat="server" ImageUrl="~/Images/NormalScreen.png" UseSubmitBehavior="true" OnClientClick="btn_imgSC_Click" ToolTip="Excel Download..." width="23" height="23"/>--%>
-                                                    <img id="fs" alt="" src="../Images/NormalScreen.png" OnClick="ScreenControl(2)"  width="23" height="23"  style="display:none;"/>
-                                                    <img id="rs" alt="" src="../Images/FullScreen.jpg" OnClick="ScreenControl(1)"  width="23" height="23"  style="display:block;" />                                              
-                                                </td>
+                                                
                                             </tr>
                                         </table>
+                                    </div>
+                                    <div style="float: right; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <asp:HiddenField ID="HiddenEnquiryID" runat="server" />
-                            <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="10" runat="server" ShowHeaderWhenEmpty="true"
+                            <asp:GridView ID="gvEnquiry" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="15" runat="server" ShowHeaderWhenEmpty="true"
                                 AutoGenerateColumns="false" Width="100%"
                                 OnRowDataBound="gvEnquiry_RowDataBound">
                                 <Columns>
@@ -162,10 +157,10 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
 
-                                        <ItemTemplate >
+                                        <ItemTemplate>
                                             <%--<asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />--%>
                                             <asp:ImageButton ID="BtnView" ImageUrl="~/Images/Preview.png" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryID")%>' ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="BtnView_Click" />
-                                          
+
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Enquiry">
@@ -425,27 +420,5 @@
             }
         }
     </script>
-    <script>
 
-        function ScreenControl(optn) {
-            var fsCriteria = document.getElementById("fsCriteria");
-            var fs = document.getElementById("fs");
-            var rs = document.getElementById("rs");
-            //alert("Hi");
-
-            if (optn == 1) {
-                fsCriteria.style.display = "none";
-                
-                fs.style.display = "block";
-                rs.style.display = "none";
-            }
-
-            if (optn == 2) {
-                fsCriteria.style.display = "block";
-               
-                fs.style.display = "none";
-                rs.style.display = "block";
-            }
-        }
-    </script>
 </asp:Content>
