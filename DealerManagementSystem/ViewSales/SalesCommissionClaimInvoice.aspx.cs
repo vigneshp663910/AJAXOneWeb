@@ -216,6 +216,10 @@ namespace DealerManagementSystem.ViewSales
                     gvClaimInvoiceItem.DataSource = Lines;
 
                     gvClaimInvoiceItem.DataBind();
+
+                    e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                    e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                    e.Row.ToolTip = "Click On View Icon for More Details... ";
                 }
                 TraceLogger.Log(traceStartTime);
             }
@@ -621,5 +625,17 @@ namespace DealerManagementSystem.ViewSales
             Label lblSalesCommissionClaimInvoiceID = (Label)gvRow.FindControl("lblSalesCommissionClaimInvoiceID");
             UC_ClaimInvoiceView.fillViewSalesCommissionClaimInvoice(Convert.ToInt64(lblSalesCommissionClaimInvoiceID.Text));
         }
+
+        //protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+        //        e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+        //        e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+
+        //    }
+        //}
     }
 }

@@ -254,5 +254,31 @@ namespace DealerManagementSystem.ViewSales
             new BXcel().ExporttoExcel(Result, "Sales Return Report");
         }
 
+        protected void gvSoReturn_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            f_Return_Product_Type_Image rStr1 = new f_Return_Product_Type_Image();
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                Label lblStatus = e.Row.FindControl("lblSoReturnStatus") as Label;
+                string lStatus = lblStatus.Text;
+
+                if (lStatus == "Approval Pending") { e.Row.Cells[0].Attributes["style"] = "background-color: #ff0000"; }
+                else if (lStatus == "Approved") { e.Row.Cells[0].Attributes["style"] = "background-color: #40bf80"; }  
+                else if (lStatus == "Cancelled") { e.Row.Cells[0].Attributes["style"] = "background-color: #52527a"; }
+                else if (lStatus == "Credit Note ") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; }
+
+                Label lblDivision = e.Row.FindControl("lblDivision") as Label;
+                string lDivision = lblDivision.Text;
+
+                ImageButton imgButton = e.Row.FindControl("imgDivision") as ImageButton;
+                rStr1.as_ProductType = lDivision;
+                imgButton.ImageUrl = rStr1.GetProductTypeImage();
+            }
+        }
+
     }
 }

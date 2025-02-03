@@ -246,6 +246,9 @@ namespace DealerManagementSystem.ViewSales
 
         protected void gvSODelivery_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+
+            f_Return_Product_Type_Image rStr1 = new f_Return_Product_Type_Image();
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
@@ -260,20 +263,14 @@ namespace DealerManagementSystem.ViewSales
                 else if (lStatus == "Shipped") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; }
                 else if (lStatus == "Delivery Cancelled") { e.Row.Cells[0].Attributes["style"] = "background-color: #737373"; }
                
-
                 Label lblDivision = e.Row.FindControl("lblDivision") as Label;
                 string lDivision = lblDivision.Text;
 
                 ImageButton imgButton = e.Row.FindControl("imgDivision") as ImageButton;
+                rStr1.as_ProductType = lDivision;
+                imgButton.ImageUrl = rStr1.GetProductTypeImage();
 
-                if (lDivision == "CM") { imgButton.ImageUrl = "~/Images/Argo-1000.jpg"; }
-                else if (lDivision == "CP") { imgButton.ImageUrl = "~/Images/ASP-7011.jpg"; }
-                else if (lDivision == "BP") { imgButton.ImageUrl = "~/Images/CRB-20.jpg"; }
-                else if (lDivision == "BM") { imgButton.ImageUrl = "~/Images/Boom-Pump.jpg"; }
-                else if (lDivision == "TM") { imgButton.ImageUrl = "~/Images/Transit-Mixer.jpg"; }
-                else if (lDivision == "DP") { imgButton.ImageUrl = "~/Images/Dumper.jpg"; }
-                else if (lDivision == "SB") { imgButton.ImageUrl = "~/Images/SPBP.png"; }
-                else if (lDivision == "PS") { imgButton.ImageUrl = "~/Images/Paver.png"; }
+               
             }
         }
     }

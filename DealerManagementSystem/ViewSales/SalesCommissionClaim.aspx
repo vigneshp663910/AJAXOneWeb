@@ -9,8 +9,8 @@
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <fieldset id="fsCriteria" class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer</label>
@@ -37,16 +37,16 @@
                             <label class="modal-label">Status</label>
                             <asp:DropDownList ID="ddlStatus" runat="server" CssClass="form-control">
                                 <asp:ListItem Value="0" Text="All"></asp:ListItem>
-                                <asp:ListItem Value="1" Text="Requested"></asp:ListItem>
-                                <asp:ListItem Value="2" Text="Approved Level 1"></asp:ListItem>
-                                <asp:ListItem Value="3" Text="Approved Level 2"></asp:ListItem>
-                                <asp:ListItem Value="4" Text="Approved"></asp:ListItem>
+                                <asp:ListItem Value="1" Text="Requested" style="background-color: #3399ff !important; color: white;"></asp:ListItem>
+                                <asp:ListItem Value="2" Text="Approved Level 1" style="background-color: #40bf80 !important; color: white;"></asp:ListItem>
+                                <asp:ListItem Value="3" Text="Approved Level 2" style="background-color: #009900 !important; color: white;"></asp:ListItem>
+                                <asp:ListItem Value="4" Text="Approved" style="background-color: #00802b!important; color: white;"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
                             <asp:Button ID="btnAddQuotation" runat="server" CssClass="btn Save" Text="Add Quotation" OnClick="btnAddQuotation_Click" Width="150px" Visible="false"></asp:Button>
-                            <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                           <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
                         </div>
                     </div>
                 </fieldset>
@@ -61,7 +61,7 @@
                                     <div style="float: left">
                                         <table>
                                             <tr>
-                                                <td>Quotation(s):</td>
+                                                <td>Claim(s):</td>
 
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
@@ -69,14 +69,41 @@
                                                     <asp:ImageButton ID="ibtnQuoteArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnQuoteArrowLeft_Click" /></td>
                                                 <td>
                                                     <asp:ImageButton ID="ibtnQuoteArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnQuoteArrowRight_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." Width="23" Height="23" />
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
+                                    <div style="float: right; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <asp:GridView ID="gvQuotation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
+                            <asp:GridView ID="gvQuotation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" 
+                                AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" OnRowDataBound="gvQuotation_RowDataBound">
 
                                 <Columns>
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" HeaderStyle-Width="15px">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
+                                        <ItemTemplate>
+                                            <%--<asp:Button ID="btnViewSO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSO_Click" Width="75px" Height="25px" />--%>
+                                             <asp:ImageButton ID="btnViewQuotation" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle"  OnClick="btnViewQuotation_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
                                     <asp:TemplateField HeaderText="Claim Number">
                                         <ItemTemplate>
                                             <asp:Label ID="lblSalesCommissionClaimID" Text='<%# DataBinder.Eval(Container.DataItem, "SalesCommissionClaimID")%>' runat="server" Visible="false" />
@@ -119,11 +146,11 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     </asp:TemplateField>
                                   
-                                    <asp:TemplateField>
+                                    <%--<asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnViewQuotation" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewQuotation_Click" Width="50px" Height="33px" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

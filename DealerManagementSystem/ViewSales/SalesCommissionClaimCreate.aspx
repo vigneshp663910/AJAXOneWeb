@@ -9,8 +9,8 @@
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <fieldset id="fsCriteria" class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                     <div class="col-md-12"> 
                           <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer</label>
@@ -65,17 +65,35 @@
                                             </tr>
                                         </table>
                                     </div>
+                                    <div style="float: right; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <asp:GridView ID="gvQuotation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging">
+                            <asp:GridView ID="gvQuotation" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" PageSize="15" 
+                                AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" OnRowDataBound="gvQuotation_RowDataBound">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
+                                        <ItemTemplate>
+                                            <%--<asp:Button ID="btnViewSO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSO_Click" Width="75px" Height="25px" />--%>
+                                             <asp:ImageButton ID="btnViewQuotation" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle"  OnClick="btnViewQuotation_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
                                     <asp:TemplateField HeaderText="Quotation">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
@@ -122,7 +140,7 @@
                                   
                                     <asp:TemplateField>
                                         <ItemTemplate>
-                                            <asp:Button ID="btnViewQuotation" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewQuotation_Click" Width="50px" Height="33px" />
+                                            <%--<asp:Button ID="btnViewQuotation" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewQuotation_Click" Width="50px" Height="33px" />--%>
                                             <asp:Button ID="btnCreate" runat="server" Text="Create" CssClass="btn Back" OnClick="btnCreate_Click" Width="100px" Height="33px" />
                                         </ItemTemplate>
                                     </asp:TemplateField>

@@ -14,7 +14,7 @@
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
             <fieldset id="fsCriteria" class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer</label>
@@ -122,7 +122,7 @@
                             <asp:TemplateField HeaderText="PDF">
                                 <itemtemplate>
                                     <asp:Label ID="lblDeliveryByID" Text='<%# DataBinder.Eval(Container.DataItem, "ID")%>' runat="server" Visible="false" />
-                                    <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="../Images/pdf_dload.png" OnClick="ibPDF_Click" Style="height: 50px; width: 60px;" />
+                                    <asp:ImageButton ID="ibPDF" runat="server" Width="20px" ImageUrl="../Images/pdf_dload.png" OnClick="ibPDF_Click" Style="height: 30px; width: 40px;" />
                                 </itemtemplate>
                                 <itemstyle verticalalign="Middle" horizontalalign="Left" />
                             </asp:TemplateField>

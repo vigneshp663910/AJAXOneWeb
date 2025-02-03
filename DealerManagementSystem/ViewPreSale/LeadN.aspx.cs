@@ -428,12 +428,12 @@ namespace DealerManagementSystem.ViewPreSale
                 Label lblStatus = e.Row.FindControl("lblStatus") as Label;
                 string lStatus = lblStatus.Text; 
 
-                if (lStatus == "Unattended") { e.Row.Cells[0].Attributes["style"] = "background-color: darkgoldenrod"; }
-                else if (lStatus == "In Progress") { e.Row.Cells[0].Attributes["style"] = "background-color: #3598dc"; }           
-                else if (lStatus == "Quotation") { e.Row.Cells[0].Attributes["style"] = "background-color: #32c5d2"; }
-                else if (lStatus == "Won") { e.Row.Cells[0].Attributes["style"] = "background-color: #26c281"; }
-                else if (lStatus == "Sales Lost ") { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; }
-                else if (lStatus == "Dropped") { e.Row.Cells[0].Attributes["style"] = "background-color: #d05454"; }
+                if (lStatus == "Unattended") { e.Row.Cells[0].Attributes["style"] = "background-color: darkgoldenrod"; e.Row.Cells[7].Attributes["style"] = "color: darkgoldenrod; font-weight: bold; font-size :12px;"; }
+                else if (lStatus == "In Progress") { e.Row.Cells[0].Attributes["style"] = "background-color: #3598dc"; e.Row.Cells[7].Attributes["style"] = "color: #3598dc; font-weight: bold; font-size :12px;"; }           
+                else if (lStatus == "Quotation") { e.Row.Cells[0].Attributes["style"] = "background-color: #32c5d2"; e.Row.Cells[7].Attributes["style"] = "color: #32c5d2; font-weight: bold; font-size :12px;"; }
+                else if (lStatus == "Won") { e.Row.Cells[0].Attributes["style"] = "background-color: #26c281"; e.Row.Cells[7].Attributes["style"] = "color: #26c281; font-weight: bold; font-size :12px;"; }
+                else if (lStatus == "Sales Lost ") { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; e.Row.Cells[7].Attributes["style"] = "color: #d91e18; font-weight: bold; font-size :12px;"; }
+                else if (lStatus == "Dropped") { e.Row.Cells[0].Attributes["style"] = "background-color: #d05454"; e.Row.Cells[7].Attributes["style"] = "color: #d05454; font-weight: bold; font-size :12px;"; }
 
                 Label lblDivision = e.Row.FindControl("lblProductType") as Label;
                 string lDivision = lblDivision.Text;

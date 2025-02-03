@@ -215,6 +215,7 @@
     <Compile Include="FileManager.cs" />
     <Compile Include="FillDropDownList.cs" />
     <Compile Include="FTPManager.cs" />
+    <Compile Include="f_Return_Product_Type_Image.cs" />
     <Compile Include="LMSException.cs" />
     <Compile Include="LMSHelper.cs" />
     <Compile Include="LMSMessaging.cs" />

@@ -241,5 +241,24 @@ namespace DealerManagementSystem.ViewSales
                 //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>HideProgress();</script>");
             }
         }
+
+        protected void gvQuotation_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                Label lblStatus = e.Row.FindControl("lblActionType") as Label;
+                string lStatus = lblStatus.Text;
+
+                if (lStatus == "Requested") { e.Row.Cells[0].Attributes["style"] = "background-color: #3399ff"; }
+                else if (lStatus == "Approved Level 1") { e.Row.Cells[0].Attributes["style"] = "background-color: #40bf80"; }
+                else if (lStatus == "Approved Level 2") { e.Row.Cells[0].Attributes["style"] = "background-color: #cccc00"; }         
+                else if (lStatus == "Approved") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; }
+                else if (lStatus == "Invoiced") { e.Row.Cells[0].Attributes["style"] = "background-color: #00802b"; }
+            }
+        }
     }
 }

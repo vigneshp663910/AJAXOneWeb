@@ -372,6 +372,8 @@ namespace DealerManagementSystem.ViewService
 
         protected void gvICTickets_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            f_Return_Product_Type_Image rStr1 = new f_Return_Product_Type_Image();
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 //LinkButton lbReqDecline = (LinkButton)e.Row.FindControl("lbReqDecline");
@@ -408,15 +410,8 @@ namespace DealerManagementSystem.ViewService
                 string lDivision = lblDivision.Text;
 
                 ImageButton imgButton = e.Row.FindControl("imgDivision") as ImageButton;
-
-                if (lDivision == "CM") { imgButton.ImageUrl = "~/Images/Argo-1000.jpg"; }
-                else if (lDivision == "CP") { imgButton.ImageUrl = "~/Images/ASP-7011.jpg"; }
-                else if (lDivision == "BP") { imgButton.ImageUrl = "~/Images/CRB-20.jpg"; }
-                else if (lDivision == "BM") { imgButton.ImageUrl = "~/Images/Boom-Pump.jpg"; }
-                else if (lDivision == "TM") { imgButton.ImageUrl = "~/Images/Transit-Mixer.jpg"; }
-                else if (lDivision == "DP") { imgButton.ImageUrl = "~/Images/Dumper.jpg"; }
-                else if (lDivision == "SB") { imgButton.ImageUrl = "~/Images/SPBP.png"; }
-                else if (lDivision == "PS") { imgButton.ImageUrl = "~/Images/Paver.png"; }
+                rStr1.as_ProductType = lDivision;
+                imgButton.ImageUrl = rStr1.GetProductTypeImage();
             }
         }
 

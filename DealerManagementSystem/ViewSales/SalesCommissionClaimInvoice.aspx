@@ -60,8 +60,8 @@
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <fieldset id="fsCriteria" class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer</label>
@@ -93,7 +93,7 @@
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="btnSearch_Click"></asp:Button>
-                            <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelForSAP_Click" Width="100px" />
+                           <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelForSAP_Click" Width="100px" />--%>
                         </div>
                     </div>
                 </fieldset>
@@ -116,13 +116,43 @@
                                                     <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
                                                 <td>
                                                     <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+
+                                                <td>
+                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcelForSAP_Click" ToolTip="Excel Download..." Width="23" Height="23" />
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
+
+                                    <div style="float: right; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                            <asp:GridView ID="gvClaimInvoice" runat="server" AutoGenerateColumns="false" Width="100%" DataKeyNames="SalesCommissionClaimInvoiceID" OnRowDataBound="gvICTickets_RowDataBound" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging">
+                            <asp:GridView ID="gvClaimInvoice" runat="server" AutoGenerateColumns="false" Width="100%" DataKeyNames="SalesCommissionClaimInvoiceID" OnRowDataBound="gvICTickets_RowDataBound" 
+                                CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging">
                                 <Columns>
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
+                                        <ItemTemplate>
+                                            <%--<asp:Button ID="btnViewSO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSO_Click" Width="75px" Height="25px" />--%>
+                                             <asp:ImageButton ID="btnViewQuotation" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle"  OnClick="btnViewClaimInvoice_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <a href="javascript:collapseExpand('SalesCommissionClaimInvoiceID-<%# Eval("SalesCommissionClaimInvoiceID") %>');">
@@ -215,16 +245,16 @@
                                             <asp:Label ID="lblIsVerified" Text='<%# DataBinder.Eval(Container.DataItem, "IsVerified")%>' runat="server"></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField>
+                                   <%-- <asp:TemplateField>
                                         <ItemTemplate>
                                             <asp:Button ID="btnClainInvoiceView" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewClaimInvoice_Click" Width="50px" Height="33px" />
                                         </ItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
 
                                     <asp:TemplateField HeaderText="PDF">
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemTemplate>
-                                            <asp:ImageButton ID="ibPDF" runat="server" Height="50px" Width="60px" ImageUrl="~/Images/pdf_dload.png" OnClick="ibPDF_Click" />
+                                            <asp:ImageButton ID="ibPDF" runat="server" Height="40px" Width="45px" ImageUrl="~/Images/pdf_dload.png" OnClick="ibPDF_Click" />
                                             <tr>
                                                 <td colspan="100%" style="padding-left: 96px">
                                                     <div id="SalesCommissionClaimInvoiceID-<%# Eval("SalesCommissionClaimInvoiceID") %>" style="display: none; position: relative;">

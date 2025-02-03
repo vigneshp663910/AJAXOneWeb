@@ -34,7 +34,7 @@
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
             <fieldset id="fsCriteria" class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer</label>
@@ -91,8 +91,8 @@
                             <asp:ListItem Value="0">Select</asp:ListItem>
                             <asp:ListItem Value="1" style="background-color: #d91e18 !important; color: white;">Unattended</asp:ListItem>
                             <asp:ListItem Value="6" style="background-color: #3598dc !important; color: white;">In Progress</asp:ListItem>
-                            <asp:ListItem Value="4" style="background-color: darkolivegreen!important; color: white;">Converted To Lead</asp:ListItem>
-                            <asp:ListItem Value="5" style="background-color: #737373!important; color: white">Rejected</asp:ListItem>
+                            <asp:ListItem Value="4" style="background-color: #00994d !important; color: white;">Converted To Lead</asp:ListItem>
+                            <asp:ListItem Value="5" style="background-color: #737373 !important; color: white">Rejected</asp:ListItem>
 
                         </asp:DropDownList>
                     </div>
@@ -211,7 +211,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
-                                    <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Status" DataField="Status.Status" ></asp:BoundField>
                                     <asp:TemplateField HeaderText="Created">
                                         <ItemStyle VerticalAlign="Middle" Font-Size="XX-Small" />
                                         <ItemTemplate>
