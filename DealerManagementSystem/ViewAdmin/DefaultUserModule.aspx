@@ -5,8 +5,8 @@
 
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
-            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+            <fieldset id="fsCriteria" class="fieldset-border" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-2 text-left">
                         <label>Department</label>
@@ -42,6 +42,15 @@
                                         </tr>
                                     </table>
                                 </div>
+                                <div style="float: right; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
+                                    </div>
                             </div>
                         </div>
 

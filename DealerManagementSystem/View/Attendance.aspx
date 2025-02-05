@@ -51,7 +51,7 @@
     <asp:HiddenField ID="hfLongitude" runat="server" />
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"  />
     <div class="col-md-12">
-        <fieldset class="fieldset-border" id="Fieldset2" runat="server">
+        <fieldset id="fsCriteria" class="fieldset-border"  > 
             <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
             <div class="col-md-12">
 
@@ -106,16 +106,26 @@
                                     </tr>
                                 </table>
                             </div>
+                            <div style="float: right; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
+                                    </div>
                         </div>
                     </div>
                     <asp:GridView ID="gvAttendance" runat="server" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                        PageSize="10" AllowPaging="true" OnPageIndexChanging="gvAttendance_PageIndexChanging" EmptyDataText="No Data Found" AutoGenerateColumns="false">
+                        PageSize="15" AllowPaging="true" OnPageIndexChanging="gvAttendance_PageIndexChanging" EmptyDataText="No Data Found" AutoGenerateColumns="false"
+                        OnRowDataBound="gvAttendance_RowDataBound">
                         <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                            <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" HeaderStyle-Width="15px">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                     <asp:Label ID="lblAttendanceID" Text='<%# DataBinder.Eval(Container.DataItem, "AttendanceID")%>' runat="server" Visible="false" />
-                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Date" SortExpression="Date">
@@ -125,7 +135,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Contact Name">
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblContactName" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" />
                                 </ItemTemplate>

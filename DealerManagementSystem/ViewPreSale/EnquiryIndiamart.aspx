@@ -82,7 +82,7 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"/>
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
-            <fieldset class="fieldset-border">
+            <fieldset id="fsCriteria" class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-2 text-left">
@@ -118,7 +118,7 @@
                                     <div style="float: left">
                                         <table>
                                             <tr>
-                                                <td>Enquiry Indiamart:</td>
+                                                <td>Indiamart Enquiry :</td>
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
                                                 <td>
@@ -131,16 +131,25 @@
                                             </tr>
                                         </table>
                                     </div>
+                                    <div style="float: left; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <asp:GridView ID="gvEnquiry" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                                EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvEnquiry_PageIndexChanging"
+                                EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvEnquiry_PageIndexChanging"  OnRowDataBound="gvEnquiry_RowDataBound"
                                 DataKeyNames="Sender Name,Sender Email,MOB,Company Name,Address,State,Country,Product Name,Date,City,Query ID">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="25px">
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" ItemStyle-Width="15px" >
                                         <ItemTemplate>
-                                            <itemstyle width="25px" horizontalalign="Center"></itemstyle>
+                                            <itemstyle width="15px" horizontalalign="Center"></itemstyle>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>

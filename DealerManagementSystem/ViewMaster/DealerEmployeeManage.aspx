@@ -46,7 +46,7 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer</label>
@@ -123,12 +123,18 @@
                         </div>
                         <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                <%--<asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                         <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
+                                <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px" ItemStyle-ForeColor="white" ItemStyle-BackColor="#039caf">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField> 
                                 <asp:TemplateField HeaderText="Dealer Code">
                                     <ItemTemplate>
                                         <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.Dealer.DealerCode")%>' runat="server" />

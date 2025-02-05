@@ -13,7 +13,7 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Dealer Employee Approve</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                         <div class="col-md-12 Report">
                             <div class="boxHead">
                                 <div class="logheading">
@@ -32,7 +32,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
+                            <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" 
+                                DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging"
+                                OnRowDataBound="gvDealerEmployee_RowDataBound">
                                 <Columns>
                                     <%--    <asp:TemplateField HeaderText="Dealer Code">
                                                 <ItemTemplate>
@@ -48,6 +50,28 @@
                                                 <HeaderStyle Width="250px" />
                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             </asp:TemplateField>--%>
+
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px" ItemStyle-ForeColor="white" ItemStyle-BackColor="#039caf">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField> 
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
+                                        <ItemTemplate>
+                                           <%--asp:Button ID="btnViewEquipment" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewEquipment_Click" Width="75px" Height="25px" />--%>
+                                            <asp:ImageButton ID="lbView" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="lbView_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
+                                    <%--<asp:TemplateField HeaderText="View">
+                                        <ItemTemplate>
+                                            <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click">View </asp:LinkButton>
+                                        </ItemTemplate>
+                                        <HeaderStyle Width="150px" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    </asp:TemplateField>--%>
+
                                     <asp:TemplateField HeaderText="Name">
                                         <ItemTemplate>
                                             <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
@@ -99,13 +123,7 @@
                                         <HeaderStyle Width="76px" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="View">
-                                        <ItemTemplate>
-                                            <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click">View </asp:LinkButton>
-                                        </ItemTemplate>
-                                        <HeaderStyle Width="150px" />
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    </asp:TemplateField>
+                                    
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

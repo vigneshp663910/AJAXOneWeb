@@ -456,6 +456,15 @@ namespace DealerManagementSystem.View
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divProjectList;
 
         /// <summary>
+        /// Image1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image1;
+
+        /// <summary>
         /// txtFromDate control.
         /// </summary>
         /// <remarks>
@@ -582,15 +591,6 @@ namespace DealerManagementSystem.View
         protected global::System.Web.UI.WebControls.Button BtnAdd;
 
         /// <summary>
-        /// btnExportExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportExcel;
-
-        /// <summary>
         /// BtnUpload control.
         /// </summary>
         /// <remarks>
@@ -625,6 +625,15 @@ namespace DealerManagementSystem.View
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ibtnPjtArrowRight;
+
+        /// <summary>
+        /// imgBtnExportExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnExportExcel;
 
         /// <summary>
         /// HiddenProjectID control.

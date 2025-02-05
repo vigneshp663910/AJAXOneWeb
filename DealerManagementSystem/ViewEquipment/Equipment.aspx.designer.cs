@@ -33,6 +33,15 @@ namespace DealerManagementSystem.ViewEquipment
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
+        /// Image1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image1;
+
+        /// <summary>
         /// ddlDealerCode control.
         /// </summary>
         /// <remarks>
@@ -132,15 +141,6 @@ namespace DealerManagementSystem.ViewEquipment
         protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
-        /// btnExportExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportExcel;
-
-        /// <summary>
         /// lblRowCount control.
         /// </summary>
         /// <remarks>
@@ -166,6 +166,15 @@ namespace DealerManagementSystem.ViewEquipment
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
+
+        /// <summary>
+        /// imgBtnExportExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnExportExcel;
 
         /// <summary>
         /// gvEquipment control.

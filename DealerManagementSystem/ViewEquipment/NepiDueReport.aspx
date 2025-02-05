@@ -10,8 +10,8 @@
     <div class="col-md-12">
 
         <div class="col-md-12" id="divList" runat="server">
-            <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+            <fieldset id="fsCriteria" class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer</label>
@@ -40,8 +40,9 @@
                     </div>
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="btnSearch_Click" />
-                        <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search"
-                            UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                        <%--<asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search"
+                            UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
+
                     </div>
                 </div>
             </fieldset>
@@ -57,7 +58,7 @@
                                     <div style="float: left">
                                         <table>
                                             <tr>
-                                                <td>Equipment Population:</td>
+                                                <td>Equipment(s):</td>
 
                                                 <td>
                                                     <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
@@ -65,18 +66,31 @@
                                                     <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
                                                 <td>
                                                     <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." Width="23" Height="23" />
+                                                </td>
                                             </tr>
                                         </table>
+                                    </div>
+                                    <div style="float: right; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <asp:GridView ID="gvEquipment" runat="server" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" OnPageIndexChanging="gvICTickets_PageIndexChanging">
+
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />
                                 <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                 <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="left" />
                                 <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-
+             
                             </asp:GridView>
                         </div>
                     </fieldset>
