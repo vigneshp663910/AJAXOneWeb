@@ -825,5 +825,16 @@ namespace DealerManagementSystem.ViewAdmin
                 lblMessage.ForeColor = Color.Red;
             }
         }
+
+        protected void gvUser_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                // e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+            }
+        }
     }
 }

@@ -74,10 +74,10 @@
                         </div>
                         <asp:GridView ID="gvUsers" runat="server" Width="100%" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" PageSize="10" AllowPaging="true" EmptyDataText="No Data Found">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" HeaderStyle-Width="15px" ItemStyle-BackColor="#039caf">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="User Name">

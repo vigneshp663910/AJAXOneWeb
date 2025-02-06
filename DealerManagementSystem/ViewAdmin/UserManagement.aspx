@@ -46,7 +46,7 @@
                             <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
                             <asp:ListItem Value="2">InActive</asp:ListItem>
                         </asp:DropDownList>
-                    </div> 
+                    </div>
 
                     <div class="col-md-2 text-left">
                         <label>Department</label>
@@ -90,7 +90,9 @@
         <div class="col-md-12">
             <div class="col-md-12 Report">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;"><asp:Image ID="Image2" runat="server" ImageUrl="~/Images/user.jpg" Width="23" Height="23" /> List</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">
+                        <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/user.jpg" Width="23" Height="23" />
+                        List</legend>
                     <div class="col-md-12 Report">
                         <%-- <div style="width: 100%; overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">--%>
 
@@ -110,24 +112,26 @@
                                         </tr>
                                     </table>
                                 </div>
-                                 <div style="float: right; overflow: auto;">
-                                        <%--<div style="float :left">
+                                <div style="float: right; overflow: auto;">
+                                    <%--<div style="float :left">
                                              
                                         </div>--%>
-                                        <div style="float: right">
-                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
-                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
-                                        </div>
+                                    <div style="float: right">
+                                        <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                        <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
                                     </div>
+                                </div>
                             </div>
                         </div>
 
-                        <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvEmployee_PageIndexChanging">
+                        <asp:GridView ID="gvUser" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15"
+                            OnPageIndexChanging="gvEmployee_PageIndexChanging"
+                            OnRowDataBound="gvEmployee_RowDataBound">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
+                                <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" HeaderStyle-Width="15px" ItemStyle-BackColor="#039caf">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 

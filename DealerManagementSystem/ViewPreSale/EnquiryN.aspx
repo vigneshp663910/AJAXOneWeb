@@ -212,6 +212,7 @@
                                     </asp:TemplateField>
 
                                     <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
+
                                     <asp:TemplateField HeaderText="Created">
                                         <ItemStyle VerticalAlign="Middle" Font-Size="XX-Small" />
                                         <ItemTemplate>
@@ -419,5 +420,6 @@
             }
         }
     </script>
+   
 
 </asp:Content>

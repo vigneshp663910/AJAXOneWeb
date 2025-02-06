@@ -61,7 +61,7 @@ namespace DealerManagementSystem.ViewAdmin
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
                 new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
-                FillUser();                             
+                FillUser();
             }
         }
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,15 +120,15 @@ namespace DealerManagementSystem.ViewAdmin
 
             bool? IsEnabled = null;
             if (ddlIsEnabled.SelectedValue == "1") { IsEnabled = true; } else if (ddlIsEnabled.SelectedValue == "2") { IsEnabled = false; }
-              
 
-            int?  DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
+
+            int? DepartmentID = ddlDepartment.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDepartment.SelectedValue);
             int? DesignationID = ddlDesignation.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDesignation.SelectedValue);
 
             // List<PUser> u = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, DepartmentID, DesignationID);
             //u = u.FindAll(m => m.SystemCategoryID == (short)SystemCategory.Dealer && m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
             //u = u.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()));
-        
+
             UserLst = new BUser().GetUsers(null, txtEmp.Text, null, "", DealerID, IsEnabled, ContactName, DepartmentID, DesignationID);
 
             UserLst = UserLst.FindAll(m => m.ContactName.ToLower().Contains(txtContactName.Text.Trim().ToLower()) && ((m.IsLocked == IsLocked) || (IsLocked == null)));
@@ -149,7 +149,7 @@ namespace DealerManagementSystem.ViewAdmin
                 ibtnUserArrowLeft.Visible = true;
                 ibtnUserArrowRight.Visible = true;
                 lblRowCount.Text = (((gvUser.PageIndex) * gvUser.PageSize) + 1) + " - " + (((gvUser.PageIndex) * gvUser.PageSize) + gvUser.Rows.Count) + " of " + UserLst.Count;
-            } 
+            }
         }
         protected void lbEmpId_Click(object sender, EventArgs e)
         {
@@ -362,7 +362,7 @@ namespace DealerManagementSystem.ViewAdmin
             List<PDealer> dealer = new BDealer().GetDealerList(null, "", "");
             dlDealer.DataSource = dealer;
             dlDealer.DataBind();
-        }       
+        }
         protected void cbAllDealer_CheckedChanged(object sender, EventArgs e)
         {
             for (int i = 0; i < dlDealer.Items.Count; i++)
@@ -390,7 +390,7 @@ namespace DealerManagementSystem.ViewAdmin
         }
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            divList.Visible = true; 
+            divList.Visible = true;
             btnBack.Visible = false;
             pnlDealer.Visible = false;
             pnlModule.Visible = false;
@@ -413,7 +413,7 @@ namespace DealerManagementSystem.ViewAdmin
             List<PDMS_Dashboard> Dashboard = new BDMS_Dashboard().GetDashboardAll(null);
             dlDashboard.DataSource = Dashboard;
             dlDashboard.DataBind();
-             
+
             dlMobileFeatureAccess.DataSource = new BUser().GetUserMobileFeature();
             dlMobileFeatureAccess.DataBind();
         }
@@ -444,7 +444,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             CheckBox cbIsTechnician = (CheckBox)gvUser.Rows[index].FindControl("cbIsTechnician");
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
-            CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled"); 
+            CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
 
             //lblPassWord.Visible = false;
             lblUserName.Visible = false;
@@ -462,7 +462,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             cbIsTechnician.Enabled = true;
             cbIsLocked.Enabled = true;
-            cbIsEnabled.Enabled = true; 
+            cbIsEnabled.Enabled = true;
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
@@ -491,7 +491,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             CheckBox cbIsTechnician = (CheckBox)gvUser.Rows[index].FindControl("cbIsTechnician");
             CheckBox cbIsLocked = (CheckBox)gvUser.Rows[index].FindControl("cbIsLocked");
-            CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled"); 
+            CheckBox cbIsEnabled = (CheckBox)gvUser.Rows[index].FindControl("cbIsEnabled");
 
             //lblPassWord.Visible = true;
             lblUserName.Visible = true;
@@ -509,7 +509,7 @@ namespace DealerManagementSystem.ViewAdmin
 
             cbIsTechnician.Enabled = false;
             cbIsLocked.Enabled = false;
-            cbIsEnabled.Enabled = false; 
+            cbIsEnabled.Enabled = false;
         }
         //protected void GvbtnUpdate_Click(object sender, EventArgs e)
         //{
@@ -609,7 +609,7 @@ namespace DealerManagementSystem.ViewAdmin
         {
             DateTime traceStartTime = DateTime.Now;
             try
-            {                
+            {
                 TraceLogger.Log(traceStartTime);
             }
             catch (Exception ex)
@@ -679,6 +679,17 @@ namespace DealerManagementSystem.ViewAdmin
                 lblMessage.ForeColor = Color.Red;
             }
 
+        }
+
+        protected void gvEmployee_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+               // e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+            }
         }
     }
 }

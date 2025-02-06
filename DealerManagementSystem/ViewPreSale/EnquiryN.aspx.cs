@@ -368,8 +368,6 @@ namespace DealerManagementSystem.ViewPreSale
                 else if (eStatus == "Converted To Lead") { e.Row.Cells[0].Attributes["style"] = "background-color: #00994d"; e.Row.Cells[13].Attributes["style"] = "color: #00994d; font-weight: bold; font-size : 12px;"; }
                 else if (eStatus == "Rejected") { e.Row.Cells[0].Attributes["style"] = "background-color: #737373"; e.Row.Cells[13].Attributes["style"] = "color: #737373; font-weight: bold; font-size : 12px;"; }
 
-                //e.Row.Cells[13].Attributes["style"] = "color: #d91e18; font-weight: normal";
-
                 Label lblChannel = e.Row.FindControl("lblChannel") as Label;
                 string lChannel = lblChannel.Text;
                 Image img = e.Row.FindControl("imgChannel") as Image;
@@ -385,6 +383,14 @@ namespace DealerManagementSystem.ViewPreSale
 
             ScriptManager.RegisterStartupScript(this, GetType(), "displayalertmessage", "ScreenControl(1)", true);
         }
+
+        //protected void ddlStatusF_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlSStatusF = (DropDownList)sender;
+        //    ddlSStatus.SelectedItem.Text = ddlSStatusF.SelectedItem.Text;
+        //    ddlSStatus.SelectedValue = ddlSStatusF.SelectedValue ;
+        //    FillGrid();
+        //}
     }
 }
 
