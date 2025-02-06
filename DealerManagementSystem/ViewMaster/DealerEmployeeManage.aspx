@@ -137,37 +137,52 @@
                     </div>
                     <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
                         <Columns>
-                            <%--<asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                    </ItemTemplate>
-                                </asp:TemplateField>--%>
+
                             <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px" ItemStyle-ForeColor="white" ItemStyle-BackColor="#039caf">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                     <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Dealer Code">
+
+                            <%--<asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lbEdit" runat="server" OnClick="lbEdit_Click">Edit</asp:LinkButton>&nbsp
+                                <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click">View</asp:LinkButton>
+                                </ItemTemplate>
+                                <HeaderStyle Width="150px" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            </asp:TemplateField>--%>
+                            <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10px">
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="lbView" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="lbView_Click" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="<i class='fa fa-pencil fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10px">
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="lbEdit" ImageUrl="~/Images/Edit1.png" runat="server" ToolTip="Edit..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="lbEdit_Click" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Dlr.Code">
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.Dealer.DealerCode")%>' runat="server" />
                                 </ItemTemplate>
-                                <HeaderStyle Width="62px" />
+                                <HeaderStyle Width="60px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Name">
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.Dealer.DealerName")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                                <HeaderStyle Width="250px" />
+                                <%--<HeaderStyle Width="250px" />--%>
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Name">
                                 <ItemTemplate>
                                     <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
                                 </ItemTemplate>
-                                <HeaderStyle Width="162px" />
+                               <%-- <HeaderStyle Width="162px" />--%>
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                             <%-- <asp:TemplateField HeaderText="Father Name">
@@ -195,7 +210,7 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "State.State" )%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                                <HeaderStyle Width="75px" />
+                               <%-- <HeaderStyle Width="75px" />--%>
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Aadhaar Card No">
@@ -211,7 +226,7 @@
                                 <HeaderStyle Width="76px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Created By">
+                            <asp:TemplateField HeaderText="CreatedBy">
                                 <ItemTemplate>
                                     <asp:Label ID="lblCreatedByNmae" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.ContactName")%>' runat="server"></asp:Label>
                                     <asp:Label ID="lblCreatedByID" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedBy.UserID")%>' runat="server" Visible="false"></asp:Label>
@@ -219,21 +234,14 @@
                                 <HeaderStyle Width="76px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Is Approved">
+                            <asp:TemplateField HeaderText="IsApproved">
                                 <ItemTemplate>
                                     <asp:CheckBox ID="cbIsAjaxHPApproved" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsAjaxHPApproved")%>' Enabled="false" />
                                 </ItemTemplate>
                                 <HeaderStyle Width="76px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="lbEdit" runat="server" OnClick="lbEdit_Click">Edit</asp:LinkButton>&nbsp
-                                <asp:LinkButton ID="lbView" runat="server" OnClick="lbView_Click">View</asp:LinkButton>
-                                </ItemTemplate>
-                                <HeaderStyle Width="150px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField>
+
                         </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />

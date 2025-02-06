@@ -76,6 +76,21 @@
                                             <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField> 
+
+                            <%--<asp:TemplateField HeaderText="Edit Role">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lbEditRole" runat="server" OnClick="lbEditRole_Click">Click </asp:LinkButton>
+                                </ItemTemplate>
+                                <HeaderStyle Width="150px" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            </asp:TemplateField>--%>
+
+                            <asp:TemplateField HeaderText="Edit Role" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10px">
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="lbEditRole" ImageUrl="~/Images/Edit1.png" runat="server" ToolTip="Edit..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="lbEditRole_Click" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
                             <asp:TemplateField HeaderText="Dealer Code">
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.Dealer.DealerCode")%>' runat="server" />
@@ -125,7 +140,7 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "State.State" )%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                                <HeaderStyle Width="75px" />
+                                <%--<HeaderStyle Width="75px" />--%>
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Aadhaar Card No">
@@ -141,13 +156,7 @@
                                 <HeaderStyle Width="76px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Edit Role">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="lbEditRole" runat="server" OnClick="lbEditRole_Click">Click </asp:LinkButton>
-                                </ItemTemplate>
-                                <HeaderStyle Width="150px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField>
+                            
                         </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />

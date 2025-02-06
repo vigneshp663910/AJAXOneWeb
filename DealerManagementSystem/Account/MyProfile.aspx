@@ -8,10 +8,10 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Info</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;"><asp:ImageButton ID="ibtnPhoto" ImageUrl="~/Images/User.jpg" runat="server" Width="30px" Height="30px" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-3 text-right">
-                        <asp:ImageButton ID="ibtnPhoto" ImageUrl="~/Images/User.jpg" runat="server" Width="60px" Height="55px" />
+                        
                     </div>
                     <div class="col-md-9"></div>
                     <div class="col-md-3 text-right">

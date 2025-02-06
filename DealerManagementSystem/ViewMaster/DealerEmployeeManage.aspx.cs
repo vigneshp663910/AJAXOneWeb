@@ -97,7 +97,7 @@ namespace DealerManagementSystem.ViewMaster
             {
                 Label lblCreatedByID = (Label)gvDealerEmployee.Rows[i].FindControl("lblCreatedByID");
                 CheckBox cbIsAjaxHPApproved = (CheckBox)gvDealerEmployee.Rows[i].FindControl("cbIsAjaxHPApproved");
-                LinkButton lbEdit = (LinkButton)gvDealerEmployee.Rows[i].FindControl("lbEdit");
+                ImageButton lbEdit = (ImageButton)gvDealerEmployee.Rows[i].FindControl("lbEdit");
                 if (lblCreatedByID.Text != PSession.User.UserID.ToString() || cbIsAjaxHPApproved.Checked)
                 {
                     lbEdit.Visible = false;

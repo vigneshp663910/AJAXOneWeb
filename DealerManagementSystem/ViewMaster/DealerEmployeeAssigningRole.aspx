@@ -126,18 +126,27 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
+                                <asp:TemplateField HeaderText="Assign Role"  HeaderStyle-Width="15px" >
+                                    <ItemTemplate>
+                                        <%--  <asp:LinkButton ID="lbEditRole" runat="server" OnClick="lbEditRole_Click">Click </asp:LinkButton>--%>
+                                        <asp:ImageButton ID="lbEditRole" ImageUrl="~/Images/Edit1.png" runat="server" ToolTip="Assign Role..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="lbEditRole_Click" />
+                                    </ItemTemplate>
+                                    
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                </asp:TemplateField>
+
                                 <asp:TemplateField HeaderText="Name">
                                     <ItemTemplate>
                                         <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
                                     </ItemTemplate>
-                                    <HeaderStyle Width="162px" />
+                                  
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Father Name">
+                                <asp:TemplateField HeaderText="Father Name" >
                                     <ItemTemplate>
                                         <asp:Label ID="lblFatherName" Text='<%# DataBinder.Eval(Container.DataItem, "FatherName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
-                                    <HeaderStyle Width="192px" />
+                                   
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Contact Number">
@@ -146,7 +155,7 @@
                                             <a href='tel:<%# DataBinder.Eval(Container.DataItem, "ContactNumber")%>'><%# DataBinder.Eval(Container.DataItem, "ContactNumber")%></a>
                                         </asp:Label>
                                     </ItemTemplate>
-                                    <HeaderStyle Width="150px" />
+                                  
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Email">
@@ -161,7 +170,7 @@
                                     <ItemTemplate>
                                         <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "State.State" )%>' runat="server"></asp:Label>
                                     </ItemTemplate>
-                                    <HeaderStyle Width="75px" />
+                                    
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Aadhaar Card No">
@@ -177,14 +186,7 @@
                                     <HeaderStyle Width="76px" />
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Assign Role">
-                                    <ItemTemplate>
-                                        <%--  <asp:LinkButton ID="lbEditRole" runat="server" OnClick="lbEditRole_Click">Click </asp:LinkButton>--%>
-                                        <asp:ImageButton ID="lbEditRole" ImageUrl="~/Images/Edit1.png" runat="server" ToolTip="Assign Role..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="lbEditRole_Click" />
-                                    </ItemTemplate>
-                                    <HeaderStyle Width="150px" />
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                </asp:TemplateField>
+                                
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />
