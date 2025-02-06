@@ -11,7 +11,7 @@
     <div class="col-md-12">
         <div id="pnlManage" runat="server">
             <div class="col-md-12">
-                <fieldset class="fieldset-border">
+                <fieldset id="fsCriteria" class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
@@ -38,7 +38,7 @@
                     </div>--%>
 
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;"><asp:Image ID="Image2" runat="server" ImageUrl="~/Images/Employee1.jpg" Width="23" Height="23" />List</legend>
 
                         <div class="boxHead">
                             <div class="logheading">
@@ -55,6 +55,15 @@
                                                 <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
                                         </tr>
                                     </table>
+                                </div>
+                                <div style="float: right; overflow: auto;">
+                                    <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                    <div style="float: right">
+                                        <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                        <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

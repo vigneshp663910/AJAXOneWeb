@@ -46,7 +46,7 @@
     <div class="col-md-12">
         <div class="col-md-12" id="pnlManage" runat="server">
             <div class="col-md-12">
-                <fieldset class="fieldset-border">
+                <fieldset id="fsCriteria" class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                     <div class="col-md-12">
                         <div class="col-md-2 text-left">
@@ -76,7 +76,7 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;"><asp:Image ID="Image3" runat="server" ImageUrl="~/Images/Employee1.jpg" Width="23" Height="23" /> List</legend>
 
                         <div class="boxHead">
                             <div class="logheading">
@@ -97,6 +97,15 @@
                                         </tr>
                                     </table>
                                 </div>
+                                <div style="float: right; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
+                                    </div>
                             </div>
                         </div>
 
@@ -111,11 +120,11 @@
 
 
                                 <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px" ItemStyle-ForeColor="white" ItemStyle-BackColor="#039caf">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
-                                        </ItemTemplate>
-                                    </asp:TemplateField> 
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        <itemstyle width="15px" horizontalalign="Right"></itemstyle>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
 
                                 <asp:TemplateField HeaderText="Name">
                                     <ItemTemplate>
@@ -168,9 +177,10 @@
                                     <HeaderStyle Width="76px" />
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Add Role">
+                                <asp:TemplateField HeaderText="Assign Role">
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lbEditRole" runat="server" OnClick="lbEditRole_Click">Click </asp:LinkButton>
+                                        <%--  <asp:LinkButton ID="lbEditRole" runat="server" OnClick="lbEditRole_Click">Click </asp:LinkButton>--%>
+                                        <asp:ImageButton ID="lbEditRole" ImageUrl="~/Images/Edit1.png" runat="server" ToolTip="Assign Role..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="lbEditRole_Click" />
                                     </ItemTemplate>
                                     <HeaderStyle Width="150px" />
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
@@ -189,7 +199,8 @@
     </div>
     <div class="col-md-12" id="pnlAssingn" runat="server" visible="false">
         <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Employee View</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">
+                <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/Employee1.jpg" Width="30" Height="30" /></legend>
             <div class="col-md-12">
                 <div class="col-md-3 text-right">
                     <label>Name</label>
@@ -342,10 +353,16 @@
             </div>
         </fieldset>
         <fieldset class="fieldset-border">
-            <legend style="background: none; color: #007bff; font-size: 17px;">Employee Role</legend>
+            <legend style="background: none; color: #007bff; font-size: 17px;">Assigned Role</legend>
             <div class="col-md-12 Report">
                 <asp:GridView ID="gvRole" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid">
                     <Columns>
+                        <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px" ItemStyle-ForeColor="white" ItemStyle-BackColor="#039caf">
+                            <ItemTemplate>
+                                <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                <itemstyle width="15px" horizontalalign="Right"></itemstyle>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Employee ID" Visible="false">
                             <ItemTemplate>
                                 <asp:Label ID="lblDealerEmployeeID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeID")%>' runat="server" />
@@ -360,7 +377,7 @@
                             <HeaderStyle Width="162px" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Dealer Code">
+                        <asp:TemplateField HeaderText="Dlr.Code">
                             <ItemTemplate>
                                 <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer.DealerCode")%>' runat="server" />
                             </ItemTemplate>
@@ -401,14 +418,14 @@
                             </ItemTemplate>
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Reporting To">
+                        <asp:TemplateField HeaderText="ReportingTo">
                             <ItemTemplate>
                                 <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "ReportingTo.Name" )%>' runat="server"></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle Width="75px" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="SAP Emp Code">
+                        <asp:TemplateField HeaderText="SAPEmpCode">
                             <ItemTemplate>
                                 <asp:Label ID="lblSAPEmpCode" Text='<%# DataBinder.Eval(Container.DataItem, "SAPEmpCode" )%>' runat="server"></asp:Label>
                             </ItemTemplate>
@@ -564,12 +581,12 @@
                             </asp:GridView>
                         </div>
                     </div>
-                <div class="col-md-12 text-center">
-                    <asp:Button ID="btnAssignRole" runat="server" Text="Assign Role" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnAssignRole_Click" Width="100px" />
-                    <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton btn Back" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnBack_Click" />
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnAssignRole" runat="server" Text="Assign Role" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnAssignRole_Click" Width="100px" />
+                        <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="InputButton btn Back" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnBack_Click" />
+                    </div>
                 </div>
+            </fieldset>
         </div>
-        </fieldset>
-    </div>
     </div>
 </asp:Content>

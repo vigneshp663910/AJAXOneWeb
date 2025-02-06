@@ -13,7 +13,7 @@
             <div class="col-md-12">
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;"><asp:Image ID="Image1" runat="server" ImageUrl="~/Images/Employee1.jpg" Width="23" Height="23" /> List</legend>
                         <div class="col-md-12 Report">
                             <div class="boxHead">
                                 <div class="logheading">

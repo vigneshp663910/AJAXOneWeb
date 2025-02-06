@@ -111,7 +111,8 @@
 
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List
+                            <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/ListEdit.jpg" Width="20" Height="20" /></legend>
                         <div class="col-md-12 Report">
                             <div class="boxHead">
                                 <div class="logheading">
@@ -129,7 +130,7 @@
                                                 <td>
                                                     <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." Width="23" Height="23" />
                                                 </td>
-                                                
+
                                             </tr>
                                         </table>
                                     </div>
@@ -210,7 +211,7 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
 
-                                    <asp:BoundField HeaderText="Status" DataField="Status.Status" ></asp:BoundField>
+                                    <asp:BoundField HeaderText="Status" DataField="Status.Status"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Created">
                                         <ItemStyle VerticalAlign="Middle" Font-Size="XX-Small" />
                                         <ItemTemplate>
@@ -231,7 +232,6 @@
                         </div>
                     </fieldset>
                 </div>
-                <%--</div>--%>
             </div>
         </div>
         <div class="col-md-12" id="divDetailsView" runat="server" visible="false" style="padding: 5px 15px">
