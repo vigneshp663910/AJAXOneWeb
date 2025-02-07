@@ -37,8 +37,8 @@
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>--%>
-                                    <asp:TemplateField HeaderText="SN" HeaderStyle-Width="30px" ItemStyle-Width="30px" ControlStyle-Width="30px">
-                                          <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right"  Font-Size="Medium" />
+                                    <asp:TemplateField HeaderText="#" HeaderStyle-Width="20px" ItemStyle-Width="20px" ControlStyle-Width="20px" >
+                                          <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right"  Font-Size="Medium" BackColor="#039CAF" ForeColor="White" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblsno" Text='<%# DataBinder.Eval(Container.DataItem, "Sno")%>' runat="server"/>
                                         </ItemTemplate>
@@ -55,7 +55,7 @@
                                             <asp:TextBox ID="txtDescription" runat="server" placeholder="Description" CssClass="form-control" ForeColor="#0066FF"></asp:TextBox>
                                         </FooterTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="PDF" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="PDF" ItemStyle-HorizontalAlign="Center" >
                                         <ItemTemplate>
                                             <asp:HyperLink ID="HyperLinkpdf" runat="server" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "PDFAttachment")%>'>
                                                 <asp:Image ID="Imagepdf" runat="server" ImageUrl="~/Images/Preview.png" Width="25px" Height="25px" />
@@ -65,7 +65,7 @@
                                             <asp:FileUpload ID="fileUploadPDF" runat="server" Height="30px" Width="220px"/>
                                         </FooterTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="PPS" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="PPS" ItemStyle-HorizontalAlign="Center" >
                                         <ItemTemplate>
                                             <asp:HyperLink ID="HyperLinkpps" runat="server" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "PPSAttachment")%>'>
                                                 <asp:Image ID="Imagepps" runat="server" ImageUrl="~/Images/save.png" Width="25px" Height="25px" />
@@ -75,7 +75,7 @@
                                             <asp:FileUpload ID="fileUploadPPS" runat="server" Height="30px" Width="220px"/>
                                         </FooterTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Video" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="Video" ItemStyle-HorizontalAlign="Center" >
                                         <ItemTemplate>
                                             <asp:HyperLink ID="HyperLinklink" runat="server" NavigateUrl='<%# DataBinder.Eval(Container.DataItem, "VideoLink")%>'>
                                                 <asp:Image ID="Imagelink" runat="server" ImageUrl="~/Images/vplay.png" Width="40px" Height="25px" />
@@ -85,8 +85,8 @@
                                             <asp:TextBox ID="txtVideoLink" runat="server" placeholder="VideoLink" CssClass="form-control"></asp:TextBox>
                                         </FooterTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="OrderBy">
-                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right"  ForeColor="#3366FF" Font-Size="Medium" Width="100px"/>
+                                    <asp:TemplateField HeaderText="OrderBy" HeaderStyle-Width="10px">
+                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Right"  ForeColor="#3366FF" Font-Size="Medium" Width="10px"/>
                                         <ItemTemplate>
                                             <asp:Label ID="lblOrderNo" Text='<%# DataBinder.Eval(Container.DataItem, "OrderNo")%>' runat="server" />
                                         </ItemTemplate>
@@ -95,13 +95,13 @@
                                         </FooterTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Updated By">
-                                        <ItemStyle VerticalAlign="Middle"  Font-Size="Medium" Font-Bold="True" />
+                                        <ItemStyle VerticalAlign="Middle"  Font-Size="XX-Small" Font-Bold="True" />
                                         <ItemTemplate>
                                             <asp:Label ID="lblUpdatedBy" ForeColor="#0066FF" Text='<%# DataBinder.Eval(Container.DataItem, "ModifiedBy.ContactName")%>' runat="server" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Updated On">
-                                        <ItemStyle VerticalAlign="Middle"  Font-Size="Medium" Font-Bold="True" />
+                                        <ItemStyle VerticalAlign="Middle"  Font-Size="XX-Small" Font-Bold="True"  />
                                         <ItemTemplate>
                                             <asp:Label ID="lblUpdatedOn" ForeColor="#0066FF" Text='<%# DataBinder.Eval(Container.DataItem, "ModifiedOn")%>' runat="server" />
                                         </ItemTemplate>
