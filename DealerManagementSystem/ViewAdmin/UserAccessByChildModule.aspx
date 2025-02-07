@@ -80,13 +80,14 @@
                                         <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="User Name">
+                                <asp:TemplateField HeaderText="UserID/User Name">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:Label ID="lblUserID" Text='<%# DataBinder.Eval(Container.DataItem, "User.UserID")%>' runat="server" Visible="false"></asp:Label>
+                                        <asp:Label ID="lblUserID" Text='<%# DataBinder.Eval(Container.DataItem, "User.UserID")%>' runat="server" Visible="false"></asp:Label>  
                                         <asp:Label ID="lblUserName" Text='<%# DataBinder.Eval(Container.DataItem, "User.UserName")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                
                                 <asp:TemplateField HeaderText="Contact Name">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
@@ -97,9 +98,9 @@
                                     <HeaderTemplate>
                                         <asp:CheckBox ID="cbIsActiveH" Text="Select All" runat="server" AutoPostBack="true" OnCheckedChanged="cbIsActiveH_CheckedChanged" />
                                     </HeaderTemplate>
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <ItemStyle VerticalAlign="Top" HorizontalAlign="Left" />
                                     <ItemTemplate>
-                                        <asp:CheckBox ID="ChkIsActive" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsActive")%>' OnCheckedChanged="ChkIsActive_CheckedChanged" AutoPostBack="true" />
+                                        <asp:CheckBox ID="ChkIsActive" runat="server" Checked='<%# DataBinder.Eval(Container.DataItem, "IsActive")%>' OnCheckedChanged="ChkIsActive_CheckedChanged" AutoPostBack="true"  Height="2px" Width="2px" Font-Size="XX-Small"/>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

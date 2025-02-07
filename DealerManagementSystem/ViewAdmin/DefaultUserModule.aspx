@@ -56,10 +56,10 @@
 
                         <asp:GridView ID="gvDealerDesignation" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" BorderStyle="None" AllowPaging="true" PageSize="15" OnPageIndexChanging="gvDealerDesignation_PageIndexChanging">
                             <Columns>
-                                <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="25px">
+                                <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px" ItemStyle-ForeColor="White" ItemStyle-BackColor="#039caf">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
 

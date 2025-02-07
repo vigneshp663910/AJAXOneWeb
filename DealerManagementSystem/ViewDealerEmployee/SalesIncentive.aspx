@@ -69,13 +69,20 @@
                             <asp:GridView ID="gvSalesIncentive" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                                 EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvSalesIncentive_PageIndexChanging">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-BackColor="#039caf" ItemStyle-ForeColor="White">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:BoundField HeaderText="DCode" DataField="DealerCode"></asp:BoundField>
+                                     <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
+
+                                        <ItemTemplate>
+                                            <%--<asp:Button ID="Button1" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SalesIncentiveID")%>' CssClass="btn Back" OnClick="BtnView_Click" Width="75px" Height="25px" />--%>
+                                            <asp:ImageButton ID="BtnView" ImageUrl="~/Images/Preview.png" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SalesIncentiveID")%>' ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="BtnView_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField HeaderText="DCode" DataField="DealerCode" ItemStyle-HorizontalAlign="Center"></asp:BoundField>
                                     <asp:TemplateField HeaderText="Dealer Name" ControlStyle-Width="250px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerName")%>' runat="server" />
@@ -97,11 +104,7 @@
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Model" DataField="Model"></asp:BoundField>
                                     <asp:BoundField HeaderText="Incentive Amount" DataField="IncentiveAmount" ItemStyle-HorizontalAlign="Right"></asp:BoundField>
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "SalesIncentiveID")%>' CssClass="btn Back" OnClick="BtnView_Click" Width="75px" Height="25px" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                   
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

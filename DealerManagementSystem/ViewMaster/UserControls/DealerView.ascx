@@ -414,7 +414,7 @@
             <div class="col-md-12">
                 <div class="col-md-12" id="divDealerNotification" runat="server" visible="false">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                         <div class="col-md-12">
                             <div class="col-md-2 text-left">
                                 <label class="modal-label">Dealer</label>

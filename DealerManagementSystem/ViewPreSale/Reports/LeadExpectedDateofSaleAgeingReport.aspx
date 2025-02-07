@@ -62,16 +62,14 @@
             <asp:GridView ID="gvEnquiry" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnDataBound="OnDataBound"
                 ShowFooter="true">
                 <Columns>
-                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="35px">
-                        <HeaderStyle BackColor="#ddebf7" />
+                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-BackColor="#039caf" ItemStyle-ForeColor="White" HeaderStyle-Width="2px">
                         <ItemTemplate>
-
                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                            <itemstyle width="2px" horizontalalign="Right"></itemstyle>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Region" ItemStyle-Width="30px">
-                        <HeaderStyle BackColor="#ddebf7" />
+                        <HeaderStyle BackColor="#039caf" />
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
                             <asp:Label ID="lblRegionID" Text='<%# DataBinder.Eval(Container.DataItem, "RegionID")%>' runat="server" Visible="false" />
@@ -79,7 +77,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Dealer Code" ItemStyle-Width="30px">
-                        <HeaderStyle BackColor="#ddebf7" />
+                        <HeaderStyle BackColor="#039caf" />
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
                             <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
@@ -88,7 +86,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Dealer Name" ItemStyle-Width="30px">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                        <HeaderStyle BackColor="#ddebf7" />
+                        <HeaderStyle BackColor="#039caf" />
                         <ItemTemplate>
                             <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerName")%>' runat="server" />
                         </ItemTemplate>

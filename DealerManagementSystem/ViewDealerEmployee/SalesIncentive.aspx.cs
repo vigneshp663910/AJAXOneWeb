@@ -261,7 +261,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
             divSalesIncentiveView.Visible = true;
             divSalesIncentiveList.Visible = false;
             lblMessage.Text = "";
-            Button BtnView = (Button)sender;
+            ImageButton BtnView = (ImageButton)sender;
             int? SalesIncentiveID = Convert.ToInt32(BtnView.CommandArgument);
             HiddenSalesIncentiveID.Value = SalesIncentiveID.ToString();
             FillGrid();
