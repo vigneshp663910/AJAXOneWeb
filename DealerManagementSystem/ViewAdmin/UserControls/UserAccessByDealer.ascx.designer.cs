@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DealerManagementSystem.ViewAdmin
+namespace DealerManagementSystem.ViewAdmin.UserControls
 {
 
 
-    public partial class UserAccessByChildModule
+    public partial class UserAccessByDealer
     {
 
         /// <summary>
@@ -33,6 +33,15 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divList;
 
         /// <summary>
+        /// ddlDealerAccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealerAccess;
+
+        /// <summary>
         /// Image1 control.
         /// </summary>
         /// <remarks>
@@ -42,31 +51,13 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.Image Image1;
 
         /// <summary>
-        /// ddlMainModule control.
+        /// ddlDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMainModule;
-
-        /// <summary>
-        /// ddlSubModule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubModule;
-
-        /// <summary>
-        /// ddlChildModule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlChildModule;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDealer;
 
         /// <summary>
         /// ddlDepartment control.
@@ -87,15 +78,6 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
 
         /// <summary>
-        /// ddlIsEnabled control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlIsEnabled;
-
-        /// <summary>
         /// ddlIsActive control.
         /// </summary>
         /// <remarks>
@@ -114,31 +96,13 @@ namespace DealerManagementSystem.ViewAdmin
         protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
-        /// lblRowCount control.
+        /// BtnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRowCount;
-
-        /// <summary>
-        /// ibtnArrowLeft control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowLeft;
-
-        /// <summary>
-        /// ibtnArrowRight control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRight;
+        protected global::System.Web.UI.WebControls.Button BtnSave;
 
         /// <summary>
         /// gvUsers control.
@@ -148,14 +112,5 @@ namespace DealerManagementSystem.ViewAdmin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvUsers;
-
-        /// <summary>
-        /// BtnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnSave;
     }
 }

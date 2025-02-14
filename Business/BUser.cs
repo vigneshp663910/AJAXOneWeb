@@ -1481,17 +1481,34 @@ namespace Business
                 throw new LMSException(ErrorCode.GENE, ex);
             }
         }
-        public PApiResult GetUserAccessBySubModule(int? SubModuleAccessID, int? DealerDepartmentID, int? DealerDesignationID, bool? IsActive, bool? IsEnabled, int? PageIndex, int? PageSize)
+        public PApiResult GetUserAccessBySubModule(int SubModuleAccessID,int? DealerID, int? DealerDepartmentID, int? DealerDesignationID, bool? IsActive)
         {
-            string endPoint = "User/GetUserAccessBySubModule?SubModuleAccessID=" + SubModuleAccessID + "&DealerDepartmentID=" + DealerDepartmentID 
-                + "&DealerDesignationID=" + DealerDesignationID + "&IsActive=" + IsActive +  "&IsEnabled=" + IsEnabled  + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            string endPoint = "User/GetUserAccessBySubModule?SubModuleAccessID=" + SubModuleAccessID + "&DealerID=" + DealerID + "&DealerDepartmentID=" + DealerDepartmentID
+                + "&DealerDesignationID=" + DealerDesignationID + "&IsActive=" + IsActive;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
-        public PApiResult GetUserAccessByChildModule(int? SubModuleChildID, int? DealerDepartmentID, int? DealerDesignationID, bool? IsActive, bool? IsEnabled, int? PageIndex, int? PageSize)
+        public PApiResult GetUserAccessByChildModule(int SubModuleChildID, int? DealerID, int? DealerDepartmentID, int? DealerDesignationID, bool? IsActive)
         {
-            string endPoint = "User/GetUserAccessByChildModule?SubModuleChildID=" + SubModuleChildID + "&DealerDepartmentID=" + DealerDepartmentID
-                + "&DealerDesignationID=" + DealerDesignationID + "&IsActive=" + IsActive + "&IsEnabled=" + IsEnabled + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            string endPoint = "User/GetUserAccessByChildModule?SubModuleChildID=" + SubModuleChildID + "&DealerID=" + DealerID + "&DealerDepartmentID=" + DealerDepartmentID
+                + "&DealerDesignationID=" + DealerDesignationID + "&IsActive=" + IsActive ;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult GetUserAccessByDealer(int DealerIDToAccess,int? DealerID, int? DealerDepartmentID, int? DealerDesignationID, bool? IsActive)
+        {
+            string endPoint = "User/GetUserAccessByDealer?DealerIDToAccess=" + DealerIDToAccess + "&DealerID=" + DealerID + "&DealerDepartmentID=" + DealerDepartmentID + "&DealerDesignationID=" + DealerDesignationID + "&IsActive=" + IsActive;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult InsertOrUpdateUserModuleAccess(Dictionary<int, Dictionary<int, Boolean>> Access)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("User/InsertOrUpdateUserModuleAccess", Access));
+        }
+        public PApiResult InsertOrUpdateUserSubModuleChildAccess(Dictionary<int, Dictionary<int, Boolean>> Access)
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("User/InsertOrUpdateUserSubModuleChildAccess", Access));
+        }
+        public PApiResult InsertOrUpdateUserDealerAccess(Dictionary<int, Dictionary<int, Boolean>> Access )
+        {
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("User/InsertOrUpdateUserDealerAccess", Access));
         }
     }
 }

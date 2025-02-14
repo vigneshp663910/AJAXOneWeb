@@ -452,12 +452,14 @@
     <Content Include="ViewAdmin\SalesAndServiceConfiguration.aspx" />
     <Content Include="ViewAdmin\tab_AdminModule.aspx" />
     <Content Include="ViewAdmin\tab_AdminModulePages.aspx" />
-    <Content Include="ViewAdmin\UserAccessByChildModule.aspx" />
-    <Content Include="ViewAdmin\UserAccessBySubModule.aspx" />
+    <Content Include="ViewAdmin\UserAccessByModule.aspx" />
     <Content Include="ViewAdmin\UserAccessManagement.aspx" />
     <Content Include="ViewAdmin\UserActivityTrackingReport.aspx" />
     <Content Include="ViewAdmin\UserControls\MessageAnnouncementCreate.ascx" />
     <Content Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx" />
+    <Content Include="ViewAdmin\UserControls\UserAccessByChildModule.ascx" />
+    <Content Include="ViewAdmin\UserControls\UserAccessByDealer.ascx" />
+    <Content Include="ViewAdmin\UserControls\UserAccessBySubModule.ascx" />
     <Content Include="ViewAdmin\UserMobileApproval.aspx" />
     <Content Include="ViewAdmin\UserMobileManagement.aspx" />
     <Content Include="ViewAdmin\UserPurchaseOrderTypeMapping.aspx" />
@@ -1258,19 +1260,12 @@
     <Compile Include="ViewAdmin\tab_AdminModulePages.aspx.designer.cs">
       <DependentUpon>tab_AdminModulePages.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ViewAdmin\UserAccessByChildModule.aspx.cs">
-      <DependentUpon>UserAccessByChildModule.aspx</DependentUpon>
+    <Compile Include="ViewAdmin\UserAccessByModule.aspx.cs">
+      <DependentUpon>UserAccessByModule.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewAdmin\UserAccessByChildModule.aspx.designer.cs">
-      <DependentUpon>UserAccessByChildModule.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ViewAdmin\UserAccessBySubModule.aspx.cs">
-      <DependentUpon>UserAccessBySubModule.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ViewAdmin\UserAccessBySubModule.aspx.designer.cs">
-      <DependentUpon>UserAccessBySubModule.aspx</DependentUpon>
+    <Compile Include="ViewAdmin\UserAccessByModule.aspx.designer.cs">
+      <DependentUpon>UserAccessByModule.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserAccessManagement.aspx.cs">
       <DependentUpon>UserAccessManagement.aspx</DependentUpon>
@@ -1299,6 +1294,27 @@
     </Compile>
     <Compile Include="ViewAdmin\UserControls\MessageAnnouncementView.ascx.designer.cs">
       <DependentUpon>MessageAnnouncementView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\UserAccessByChildModule.ascx.cs">
+      <DependentUpon>UserAccessByChildModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\UserAccessByChildModule.ascx.designer.cs">
+      <DependentUpon>UserAccessByChildModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\UserAccessByDealer.ascx.cs">
+      <DependentUpon>UserAccessByDealer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\UserAccessByDealer.ascx.designer.cs">
+      <DependentUpon>UserAccessByDealer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\UserAccessBySubModule.ascx.cs">
+      <DependentUpon>UserAccessBySubModule.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewAdmin\UserControls\UserAccessBySubModule.ascx.designer.cs">
+      <DependentUpon>UserAccessBySubModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewAdmin\UserMobileApproval.aspx.cs">
       <DependentUpon>UserMobileApproval.aspx</DependentUpon>

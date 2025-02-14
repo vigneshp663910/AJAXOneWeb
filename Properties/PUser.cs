@@ -359,4 +359,16 @@ namespace Properties
         public Dictionary<int, Boolean> Dashboard { get; set; }
         public Dictionary<int, Boolean> MobileFeature { get; set; }
     }
+    [Serializable]
+    public class PUserAccessByDealer
+    {
+        #region Properties
+        public PUser User { get; set; }
+        public int DealerIDToAccess { get; set; }
+        public string DealerCodeToAccess { get; set; }
+        public int DealerID { get; set; }
+        public string DealerCode { get; set; }
+        public bool IsActive { get; set; }
+        #endregion
+    }
 }
