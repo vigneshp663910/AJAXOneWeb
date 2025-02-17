@@ -12,13 +12,11 @@ namespace DealerManagementSystem.ViewService
     {
         public override SubModule SubModuleName { get { return SubModule.ViewService_WarrantyClaimAnnexureCreate; } }
         protected void Page_PreInit(object sender, EventArgs e)
-        {
-            Session["previousUrl"] = "DMS_WarrantyClaimAnnexureCreate.aspx";
+        { 
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
         public PDMS_WarrantyClaimAnnexureHeader SDMS_ClaimAnnexure
         {
@@ -305,13 +303,30 @@ namespace DealerManagementSystem.ViewService
                 lblMessage.Visible = true;
             }
         }
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ddlMonthRange.Items.Clear();
+                PDealer Dealer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealerCode.SelectedValue), null);   
+                if (Dealer.DealerType.DealerTypeID == (short)DealerType.Retailer)
+                {
+                    ddlMonthRange.Items.Insert(0, new ListItem("Month", "5"));
+                }
+                else
+                {
+                    ddlMonthRange.Items.Insert(0, new ListItem("W1 (1st to 7th)", "1"));
+                    ddlMonthRange.Items.Insert(1, new ListItem("W2 (8th to 15th)", "2"));
+                    ddlMonthRange.Items.Insert(2, new ListItem("W3 (16th to 23rd)", "3"));
+                    ddlMonthRange.Items.Insert(3, new ListItem("W4 (24th to 31st)", "4"));
+                }  
+            }
+            catch (Exception e1)
+            {
+                lblMessage.Text = e1.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
 
-        //void FillInvoiceType()
-        //{
-        //    ddlInvoiceTypeID.DataTextField = "InvoiceType";
-        //    ddlInvoiceTypeID.DataValueField = "InvoiceTypeID";
-        //    ddlInvoiceTypeID.DataSource =  new BDMS_WarrantyClaimInvoice().GetWarrantyInvoiceType();
-        //    ddlInvoiceTypeID.DataBind();
-        //}
+        }
     }
 }

@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Code</label>
-                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" BorderColor="Silver" />
+                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" BorderColor="Silver" AutoPostBack="true"  OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" />
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Year</label>
