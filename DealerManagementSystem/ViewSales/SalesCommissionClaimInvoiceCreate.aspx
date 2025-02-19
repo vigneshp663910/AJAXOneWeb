@@ -9,8 +9,8 @@
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <fieldset id="fsCriteria" class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Filter</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Claim Number</label>
@@ -56,6 +56,15 @@
                                                     <asp:ImageButton ID="ibtnQuoteArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnQuoteArrowRight_Click" /></td>
                                             </tr>
                                         </table>
+                                    </div>
+                                    <div style="float: right; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

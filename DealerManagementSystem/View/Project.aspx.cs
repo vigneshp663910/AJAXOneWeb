@@ -318,7 +318,7 @@ namespace DealerManagementSystem.View
             divProjectList.Visible = false;
             lblAddProjectMessage.Text = "";
             lblMessage.Text = "";
-            Button BtnView = (Button)sender;
+            ImageButton BtnView = (ImageButton)sender;
             int? ProjectID = Convert.ToInt32(BtnView.CommandArgument);
             HiddenProjectID.Value = ProjectID.ToString();
             FillGrid(ProjectID);
@@ -648,6 +648,17 @@ namespace DealerManagementSystem.View
             {
                 lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
+            }
+        }
+
+        protected void gvProject_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+                e.Row.Cells[0].Attributes["style"] = "background-color: #039caf";
             }
         }
     }

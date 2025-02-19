@@ -222,16 +222,16 @@
                 <div class="table-responsive">
                     <asp:GridView ID="gvEquipment" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found">
                         <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="25px">
+                            <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Right" ItemStyle-Width="15px" ItemStyle-BackColor="#039caf" ItemStyle-ForeColor="White">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Select">
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                 <ItemTemplate>
-                                    <asp:RadioButton ID="rbCheck" runat="server" GroupName="G" OnCheckedChanged="rbCheck_CheckedChanged" AutoPostBack="true" />
+                                    <asp:RadioButton ID="rbCheck" runat="server" GroupName="G" OnCheckedChanged="rbCheck_CheckedChanged" AutoPostBack="true" BackColor="#CC99FF" Height="0" Width="0" />
                                     <asp:Label ID="lblEquipmentHeaderID" Text='<%# DataBinder.Eval(Container.DataItem, "EquipmentHeaderID")%>' runat="server" Visible="false" />
                                 </ItemTemplate>
                             </asp:TemplateField>

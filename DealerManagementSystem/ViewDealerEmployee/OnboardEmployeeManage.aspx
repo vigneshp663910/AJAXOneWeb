@@ -10,7 +10,7 @@
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
                 <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Emp Code</label>
@@ -60,9 +60,15 @@
                     </div>
                     <asp:GridView ID="gvEmployee" runat="server" Width="100%" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" PageSize="10" AllowPaging="true" EmptyDataText="No Data Found">
                         <Columns>
+                            <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-BackColor="#039caf" ItemStyle-ForeColor="White">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                    <itemstyle width="15px" horizontalalign="Right"></itemstyle>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Action">
                                 <ItemTemplate>
-                                    <asp:Button ID="lbView" runat="server" Text="View" CssClass="btn Back" OnClick="lbView_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "OnboardEmployeeID")%>' Width="75px" Height="25px" />
+                                    <asp:Button ID="lbView" runat="server" Text="View" CssClass="btn Back" OnClick="lbView_Click" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "OnboardEmployeeID")%>' Width="55px" Height="25px" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Emp Code">

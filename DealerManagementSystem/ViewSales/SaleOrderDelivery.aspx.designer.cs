@@ -33,6 +33,15 @@ namespace DealerManagementSystem.ViewSales
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSODeliveryList;
 
         /// <summary>
+        /// Image1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image1;
+
+        /// <summary>
         /// ddlDealer control.
         /// </summary>
         /// <remarks>
@@ -186,15 +195,6 @@ namespace DealerManagementSystem.ViewSales
         protected global::System.Web.UI.WebControls.Button btnSearch;
 
         /// <summary>
-        /// btnExportExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportExcel;
-
-        /// <summary>
         /// btnExportExcelDetails control.
         /// </summary>
         /// <remarks>
@@ -229,6 +229,15 @@ namespace DealerManagementSystem.ViewSales
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ibtnArrowRightSODelivery;
+
+        /// <summary>
+        /// imgBtnExportExcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgBtnExportExcel;
 
         /// <summary>
         /// gvSODelivery control.

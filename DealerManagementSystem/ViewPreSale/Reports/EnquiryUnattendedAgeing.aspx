@@ -19,7 +19,7 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
 
     <fieldset class="fieldset-border" id="Fieldset2" runat="server">
-        <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+        <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
         <div class="col-md-12">
             <div class="col-md-2 col-sm-12">
                 <label class="modal-label">Region</label>
@@ -62,24 +62,23 @@
             <asp:GridView ID="gvEnquiry" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid" EmptyDataText="No Data Found" OnDataBound="OnDataBound"
                 ShowFooter="true">
                 <Columns>
-                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="35px">
-                         <HeaderStyle BackColor="#ddebf7" />
+                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-BackColor="#039caf" ItemStyle-ForeColor="White" HeaderStyle-Width="2px">
                         <ItemTemplate>
-
                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                            <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                            <itemstyle width="2px" horizontalalign="Right"></itemstyle>
                         </ItemTemplate>
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Region" ItemStyle-Width="30px">
-                          <HeaderStyle BackColor="#ddebf7" />
+
+                    <asp:TemplateField HeaderText="Region" ItemStyle-Width="30px">
+                        <HeaderStyle BackColor="#039caf" />
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                        <ItemTemplate> 
+                        <ItemTemplate>
                             <asp:Label ID="lblRegionID" Text='<%# DataBinder.Eval(Container.DataItem, "RegionID")%>' runat="server" Visible="false" />
                             <asp:Label ID="lblRegion" Text='<%# DataBinder.Eval(Container.DataItem, "Region")%>' runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Dealer Code" ItemStyle-Width="30px">
-                         <HeaderStyle BackColor="#ddebf7" />
+                        <HeaderStyle BackColor="#039caf" />
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         <ItemTemplate>
                             <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
@@ -88,45 +87,45 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Dealer Name" ItemStyle-Width="30px">
                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                          <HeaderStyle BackColor="#ddebf7" />
+                        <HeaderStyle BackColor="#039caf" />
                         <ItemTemplate>
                             <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerName")%>' runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Days 0 to 3" ItemStyle-Width="130px" ItemStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
-                        <HeaderStyle BackColor="#c2d2b6" />
+                        <HeaderStyle BackColor="#ff8080" />
                         <ItemTemplate>
-                             <asp:LinkButton ID="lblDays0To3" Text='<%# DataBinder.Eval(Container.DataItem, "Days 0 to 3" )%>' runat="server" OnClick="lblLinkButton_Click" />  
+                            <asp:LinkButton ID="lblDays0To3" Text='<%# DataBinder.Eval(Container.DataItem, "Days 0 to 3" )%>' runat="server" OnClick="lblLinkButton_Click" />
                         </ItemTemplate>
                         <FooterTemplate>
-                              <asp:LinkButton ID="lblDays0To3F" runat="server" OnClick="lblLinkButton_Click" ForeColor="Black" Font-Size="Large" /> 
+                            <asp:LinkButton ID="lblDays0To3F" runat="server" OnClick="lblLinkButton_Click" ForeColor="Black" Font-Size="Large" />
                         </FooterTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Days 4 to 6" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
-                        <HeaderStyle BackColor="#a9d08e" />
+                        <HeaderStyle BackColor="#ff4d4d" />
                         <ItemTemplate>
-                            <asp:LinkButton ID="lblDays4To6" Text='<%# DataBinder.Eval(Container.DataItem, "Days 4 To 6" )%>' runat="server" OnClick="lblLinkButton_Click" /> 
+                            <asp:LinkButton ID="lblDays4To6" Text='<%# DataBinder.Eval(Container.DataItem, "Days 4 To 6" )%>' runat="server" OnClick="lblLinkButton_Click" />
                         </ItemTemplate>
-                        <FooterTemplate> 
-                            <asp:LinkButton ID="lblDays4To6F" runat="server" OnClick="lblLinkButton_Click" ForeColor="Black" Font-Size="Large" /> 
+                        <FooterTemplate>
+                            <asp:LinkButton ID="lblDays4To6F" runat="server" OnClick="lblLinkButton_Click" ForeColor="Black" Font-Size="Large" />
                         </FooterTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Days > 6" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
-                        <HeaderStyle BackColor="#92cf68" />
+                        <HeaderStyle BackColor="#ff0000" />
                         <ItemTemplate>
-                            <asp:LinkButton ID="lblDaysGr6" Text='<%# DataBinder.Eval(Container.DataItem, "Days > 6" )%>' runat="server" OnClick="lblLinkButton_Click" /> 
+                            <asp:LinkButton ID="lblDaysGr6" Text='<%# DataBinder.Eval(Container.DataItem, "Days > 6" )%>' runat="server" OnClick="lblLinkButton_Click" />
                         </ItemTemplate>
-                        <FooterTemplate> 
-                            <asp:LinkButton ID="lblDaysGr6F" runat="server" OnClick="lblLinkButton_Click" ForeColor="Black" Font-Size="Large" /> 
+                        <FooterTemplate>
+                            <asp:LinkButton ID="lblDaysGr6F" runat="server" OnClick="lblLinkButton_Click" ForeColor="Black" Font-Size="Large" />
                         </FooterTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Enquiry Total" ItemStyle-Width="30px" ItemStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
-                          <HeaderStyle BackColor="#fce4d6" /> 
-                        <ItemTemplate> 
-                             <asp:LinkButton ID="lblEnquiryTotal" Text='<%# DataBinder.Eval(Container.DataItem, "Enquiry Total" )%>' runat="server" OnClick="lblLinkButton_Click" /> 
+                        <HeaderStyle BackColor="#b30000" />
+                        <ItemTemplate>
+                            <asp:LinkButton ID="lblEnquiryTotal" Text='<%# DataBinder.Eval(Container.DataItem, "Enquiry Total" )%>' runat="server" OnClick="lblLinkButton_Click" />
                         </ItemTemplate>
-                         <FooterTemplate> 
-                            <asp:LinkButton ID="lblEnquiryTotalF" runat="server" OnClick="lblLinkButton_Click" ForeColor="Black" Font-Size="Large" /> 
+                        <FooterTemplate>
+                            <asp:LinkButton ID="lblEnquiryTotalF" runat="server" OnClick="lblLinkButton_Click" ForeColor="Black" Font-Size="Large" />
                         </FooterTemplate>
                     </asp:TemplateField>
 

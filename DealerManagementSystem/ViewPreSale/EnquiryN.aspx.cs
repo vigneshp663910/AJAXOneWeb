@@ -286,6 +286,13 @@ namespace DealerManagementSystem.ViewPreSale
                 lblAddEnquiryMessage.ForeColor = Color.Red;
             }
         }
+
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Convert.ToInt32(ddlDealer.SelectedValue), true, null, null, null);
+            new DDLBind(ddlDealerEmployee, DealerUser, "ContactName", "UserID");
+        }
+
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<PDMS_State> State = new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null);
@@ -356,10 +363,10 @@ namespace DealerManagementSystem.ViewPreSale
 
                 string eStatus = e.Row.Cells[13].Text;
 
-                if (eStatus == "Unattended") { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; }
-                else if (eStatus == "InProgress") { e.Row.Cells[0].Attributes["style"] = "background-color: #3598dc"; }
-                else if (eStatus == "Converted To Lead") { e.Row.Cells[0].Attributes["style"] = "background-color: darkolivegreen"; }
-                else if (eStatus == "Rejected") { e.Row.Cells[0].Attributes["style"] = "background-color: #737373"; }
+                if (eStatus == "Unattended") { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; e.Row.Cells[13].Attributes["style"] = "color: #d91e18; font-weight: bold; font-size :12px;"; }
+                else if (eStatus == "InProgress") { e.Row.Cells[0].Attributes["style"] = "background-color: #3598dc"; e.Row.Cells[13].Attributes["style"] = "color: #3598dc; font-weight: bold; font-size : 12px;"; }
+                else if (eStatus == "Converted To Lead") { e.Row.Cells[0].Attributes["style"] = "background-color: #00994d"; e.Row.Cells[13].Attributes["style"] = "color: #00994d; font-weight: bold; font-size : 12px;"; }
+                else if (eStatus == "Rejected") { e.Row.Cells[0].Attributes["style"] = "background-color: #737373"; e.Row.Cells[13].Attributes["style"] = "color: #737373; font-weight: bold; font-size : 12px;"; }
 
                 Label lblChannel = e.Row.FindControl("lblChannel") as Label;
                 string lChannel = lblChannel.Text;
@@ -376,6 +383,14 @@ namespace DealerManagementSystem.ViewPreSale
 
             ScriptManager.RegisterStartupScript(this, GetType(), "displayalertmessage", "ScreenControl(1)", true);
         }
+
+        //protected void ddlStatusF_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    DropDownList ddlSStatusF = (DropDownList)sender;
+        //    ddlSStatus.SelectedItem.Text = ddlSStatusF.SelectedItem.Text;
+        //    ddlSStatus.SelectedValue = ddlSStatusF.SelectedValue ;
+        //    FillGrid();
+        //}
     }
 }
 

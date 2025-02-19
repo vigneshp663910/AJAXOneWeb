@@ -9,14 +9,14 @@
             <div class="col-md-12">
                 <div class="col-md-12">
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                         <div class="col-md-12">
                             <div class="col-md-2 col-sm-12">
                                 <label class="modal-label">Equipment</label>
                                 <asp:TextBox ID="txtEquipment" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
                             <div class="col-md-12 text-center">
-                                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true"   OnClick="btnSearch_Click" />
+                                <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true"   OnClick="btnSearch_Click" />
                             </div>
                         </div>
                     </fieldset>

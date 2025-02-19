@@ -11,8 +11,8 @@
     <div class="col-md-12">
         <div id="pnlManage" runat="server">
             <div class="col-md-12">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <fieldset id="fsCriteria" class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer</label>
@@ -38,7 +38,7 @@
                     </div>--%>
 
                     <fieldset class="fieldset-border">
-                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                        <legend style="background: none; color: #007bff; font-size: 17px;"><asp:Image ID="Image2" runat="server" ImageUrl="~/Images/Employee1.jpg" Width="23" Height="23" />List</legend>
 
                         <div class="boxHead">
                             <div class="logheading">
@@ -56,17 +56,41 @@
                                         </tr>
                                     </table>
                                 </div>
+                                <div style="float: right; overflow: auto;">
+                                    <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                    <div style="float: right">
+                                        <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                        <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                     <asp:GridView ID="gvDealerEmployee" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-condensed Grid" AllowPaging="True" DataKeyNames="DealerEmployeeID" PageSize="20" OnPageIndexChanging="gvDealerEmployee_PageIndexChanging">
                         <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
+                            <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px" ItemStyle-ForeColor="white" ItemStyle-BackColor="#039caf">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                            <itemstyle width="15px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField> 
+
+                            <%--<asp:TemplateField HeaderText="Edit Role">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lbEditRole" runat="server" OnClick="lbEditRole_Click">Click </asp:LinkButton>
+                                </ItemTemplate>
+                                <HeaderStyle Width="150px" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                            </asp:TemplateField>--%>
+
+                            <asp:TemplateField HeaderText="Edit Role" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="10px">
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="lbEditRole" ImageUrl="~/Images/Edit1.png" runat="server" ToolTip="Edit..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="lbEditRole_Click" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
                             <asp:TemplateField HeaderText="Dealer Code">
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.Dealer.DealerCode")%>' runat="server" />
@@ -116,7 +140,7 @@
                                 <ItemTemplate>
                                     <asp:Label ID="lblser_req_date" Text='<%# DataBinder.Eval(Container.DataItem, "State.State" )%>' runat="server"></asp:Label>
                                 </ItemTemplate>
-                                <HeaderStyle Width="75px" />
+                                <%--<HeaderStyle Width="75px" />--%>
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Aadhaar Card No">
@@ -132,13 +156,7 @@
                                 <HeaderStyle Width="76px" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Edit Role">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="lbEditRole" runat="server" OnClick="lbEditRole_Click">Click </asp:LinkButton>
-                                </ItemTemplate>
-                                <HeaderStyle Width="150px" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                            </asp:TemplateField>
+                            
                         </Columns>
                         <AlternatingRowStyle BackColor="#ffffff" />
                         <FooterStyle ForeColor="White" />

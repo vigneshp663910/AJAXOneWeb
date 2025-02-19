@@ -311,6 +311,9 @@ namespace DealerManagementSystem.ViewSales
 
         protected void gvSaleOrder_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+
+            f_Return_Product_Type_Image rStr1 = new f_Return_Product_Type_Image();
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
@@ -320,27 +323,22 @@ namespace DealerManagementSystem.ViewSales
                 Label lblStatus = e.Row.FindControl("lblStatus") as Label;
                 string lStatus = lblStatus.Text;
 
-                if (lStatus == "Quotation") { e.Row.Cells[0].Attributes["style"] = "background-color: #3399ff"; }
-                else if (lStatus == "Proforma Invoice") { e.Row.Cells[0].Attributes["style"] = "background-color: #40bf80"; }
-                else if (lStatus == "Order Placed") { e.Row.Cells[0].Attributes["style"] = "background-color: #cccc00"; }
-                else if (lStatus == "Partially Delivered") { e.Row.Cells[0].Attributes["style"] = "background-color: #00e600"; }
-                else if (lStatus == "Delivered") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; }
-                else if (lStatus == "Cancelled") { e.Row.Cells[0].Attributes["style"] = "background-color: #52527a"; }
-                else if (lStatus == "Partially Closed") { e.Row.Cells[0].Attributes["style"] = "background-color: #9933ff"; }
+                if (lStatus == "Quotation") { e.Row.Cells[0].Attributes["style"] = "background-color: #3399ff"; e.Row.Cells[9].Attributes["style"] = "color: #3399ff; font-weight: bold; font-size :12px;"; }
+                else if (lStatus == "Proforma Invoice") { e.Row.Cells[0].Attributes["style"] = "background-color: #40bf80"; e.Row.Cells[9].Attributes["style"] = "color: #40bf80; font-weight: bold; font-size :12px;"; }
+                else if (lStatus == "Order Placed") { e.Row.Cells[0].Attributes["style"] = "background-color: #cccc00"; e.Row.Cells[9].Attributes["style"] = "color: #cccc00; font-weight: bold; font-size :12px;"; }
+                else if (lStatus == "Partially Delivered") { e.Row.Cells[0].Attributes["style"] = "background-color: #00e600"; e.Row.Cells[9].Attributes["style"] = "color: #00e600; font-weight: bold; font-size :12px;"; }
+                else if (lStatus == "Delivered") { e.Row.Cells[0].Attributes["style"] = "background-color: #009900"; e.Row.Cells[9].Attributes["style"] = "color: #009900; font-weight: bold; font-size :12px;"; }
+                else if (lStatus == "Cancelled") { e.Row.Cells[0].Attributes["style"] = "background-color: #52527a"; e.Row.Cells[9].Attributes["style"] = "color: #52527a; font-weight: bold; font-size :12px;"; }
+                else if (lStatus == "Partially Closed") { e.Row.Cells[0].Attributes["style"] = "background-color: #9933ff"; e.Row.Cells[9].Attributes["style"] = "color: #9933ff; font-weight: bold; font-size :12px;"; }
 
                 Label lblDivision = e.Row.FindControl("lblDivision") as Label;
-                string lDivision = lblDivision.Text;
+                string lDivision = lblDivision.Text.ToString();
 
                 ImageButton imgButton = e.Row.FindControl("imgDivision") as ImageButton;
+                
+                rStr1.as_ProductType = lDivision;
+                imgButton.ImageUrl = rStr1.GetProductTypeImage();
 
-                if (lDivision == "CM") { imgButton.ImageUrl = "~/Images/Argo-1000.jpg"; }
-                else if (lDivision == "CP") { imgButton.ImageUrl = "~/Images/ASP-7011.jpg"; }
-                else if (lDivision == "BP") { imgButton.ImageUrl = "~/Images/CRB-20.jpg"; }
-                else if (lDivision == "BM") { imgButton.ImageUrl = "~/Images/Boom-Pump.jpg"; }
-                else if (lDivision == "TM") { imgButton.ImageUrl = "~/Images/Transit-Mixer.jpg"; }
-                else if (lDivision == "DP") { imgButton.ImageUrl = "~/Images/Dumper.jpg"; }
-                else if (lDivision == "SB") { imgButton.ImageUrl = "~/Images/SPBP.png"; }
-                else if (lDivision == "PS") { imgButton.ImageUrl = "~/Images/Paver.png"; }
             }
         }
     }

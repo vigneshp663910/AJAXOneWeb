@@ -243,5 +243,25 @@ namespace DealerManagementSystem.ViewPreSale
                 FillGrid();
             }
         }
+
+        protected void gvEnquiry_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Attributes["onmouseover"] = "this.style.backgroundColor='#b3ecff';";
+                e.Row.Attributes["onmouseout"] = "this.style.backgroundColor='white';";
+                e.Row.ToolTip = "Click On View Icon for More Details... ";
+
+                string eStatus = e.Row.Cells[4].Text;
+
+                if (eStatus == "Unattended") { e.Row.Cells[0].Attributes["style"] = "background-color: #d91e18"; e.Row.Cells[4].Attributes["style"] = "color: #d91e18; font-weight: bold; font-size :12px;"; }
+                else if (eStatus == "InProgress") { e.Row.Cells[0].Attributes["style"] = "background-color: #3598dc"; e.Row.Cells[4].Attributes["style"] = "color: #3598dc; font-weight: bold; font-size : 12px;"; }
+                else if (eStatus == "Converted To Lead") { e.Row.Cells[0].Attributes["style"] = "background-color: #00994d"; e.Row.Cells[4].Attributes["style"] = "color: #00994d; font-weight: bold; font-size : 12px;"; }
+                else if (eStatus == "Rejected" || eStatus == "Close " || eStatus == "Cancel" ) { e.Row.Cells[0].Attributes["style"] = "background-color: #737373"; e.Row.Cells[4].Attributes["style"] = "color: #737373; font-weight: bold; font-size : 12px;"; }
+
+               
+
+            }
+        }
     }
 }

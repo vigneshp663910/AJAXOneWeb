@@ -86,8 +86,8 @@
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
             <div class="col-md-12">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <fieldset id="fsCriteria" class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Dealer</label>
@@ -130,7 +130,7 @@
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Credit Note No</label>
                             <asp:TextBox ID="txtCreditNoteNumber" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
-                        </div> 
+                        </div>
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">Credit Note Date From</label>
                             <asp:TextBox ID="txtCreditNoteDateF" runat="server" CssClass="form-control" AutoComplete="Off"></asp:TextBox>
@@ -144,16 +144,16 @@
                             <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server" TargetControlID="txtCreditNoteDateT" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
                         </div>
                         <div class="col-md-12 text-center">
-                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="65px" />
+                            <asp:Button ID="btnSearch" runat="server" Text="Retrieve" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnSearch_Click" OnClientClick="return dateValidation();" Width="95px" />
                             <asp:Button ID="btnCreateSoReturn" runat="server" CssClass="btn Save" Text="Create Sales Return" OnClick="btnCreateSoReturn_Click" Width="150px"></asp:Button>
-                            <asp:Button ID="btnExportExcel" runat="server" Text="Export Sales Return" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="150px" />
+                            <%--<asp:Button ID="btnExportExcel" runat="server" Text="Export Sales Return" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="150px" />--%>
                             <asp:Button ID="btnExportExcelDetails" runat="server" Text="Export Sales Return Details" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcelDetails_Click" Width="200px" />
                         </div>
                     </div>
                 </fieldset>
             </div>
             <div class="col-md-12 Report">
-                <fieldset class="fieldset-border">
+                <fieldset  class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
                     <div class="col-md-12">
                         <div class="boxHead">
@@ -168,24 +168,44 @@
                                                 <asp:ImageButton ID="ibtnArrowLeftSoReturn" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeftSoReturn_Click" /></td>
                                             <td>
                                                 <asp:ImageButton ID="ibtnArrowRightSoReturn" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRightSoReturn_Click" /></td>
+                                            <td>
+                                                <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." Width="23" Height="23" />
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
+                                <div style="float: right; overflow: auto;">
+                                    <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                    <div style="float: right">
+                                        <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                        <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <asp:GridView ID="gvSoReturn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found">
+                        <asp:GridView ID="gvSoReturn" runat="server" AutoGenerateColumns="false" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="20" EmptyDataText="No Data Found"
+                            OnRowDataBound="gvSoReturn_RowDataBound">
                             <Columns>
-                                <asp:TemplateField HeaderText="Sl No" ItemStyle-HorizontalAlign="Center">
+                                <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
                                     <ItemTemplate>
                                         <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                        <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        <itemstyle width="15px" horizontalalign="Right"></itemstyle>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField>
+                                <%--<asp:TemplateField>
                                     <ItemTemplate>
                                         <asp:Button ID="btnViewSoReturn" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSoReturn_Click" Width="75px" Height="25px" />
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
+                                 <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
+                                        <ItemTemplate>
+                                            <%--<asp:Button ID="btnViewSO" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewSO_Click" Width="75px" Height="25px" />--%>
+                                             <asp:ImageButton ID="btnViewSoReturn" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle"  OnClick="btnViewSoReturn_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
                                 <asp:TemplateField HeaderText="Sales Return">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
@@ -203,7 +223,7 @@
                                         <asp:Label ID="lblCreditNoteDate" Text='<%# DataBinder.Eval(Container.DataItem, "CreditNoteDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Delivery">
+                                <asp:TemplateField HeaderText="Delivery">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblDeliveryNumber" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.DeliveryNumber")%>' runat="server" />
@@ -211,7 +231,7 @@
                                         <asp:Label ID="lblDeliveryeDate" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.DeliveryDate","{0:d}")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Invoice">
+                                <asp:TemplateField HeaderText="Invoice">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemTemplate>
                                         <asp:Label ID="lblInvoiceeNumber" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.InvoiceNumber")%>' runat="server" />
@@ -236,6 +256,7 @@
                                 <asp:TemplateField HeaderText="Division">
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <ItemTemplate>
+                                        <asp:ImageButton ID="imgDivision" runat="server" ImageUrl="~/Images/SpareParts.png" Width="25" Height="25"/>
                                         <asp:Label ID="lblDivision" Text='<%# DataBinder.Eval(Container.DataItem, "SaleOrderDelivery.SaleOrder.Division.DivisionCode")%>' runat="server"></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>

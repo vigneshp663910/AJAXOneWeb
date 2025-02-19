@@ -186,8 +186,8 @@
         </div>
         <div class="col-md-12 Report" id="divProjectList" runat="server">
             <div class="col-md-12">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <fieldset id="fsCriteria" class="fieldset-border">
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label class="modal-label">From Date</label>
@@ -223,7 +223,7 @@
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" Text="Retrieve" CssClass="btn Search" OnClick="BtnSearch_Click" />
                             <asp:Button ID="BtnAdd" runat="server" Text="Add Project" CssClass="btn Save" OnClick="BtnAdd_Click" Width="100px" />
-                            <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />
+                           <%-- <asp:Button ID="btnExportExcel" runat="server" Text="<%$ Resources:Resource, btnExportExcel %>" CssClass="btn Search" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" Width="100px" />--%>
                             <asp:Button ID="BtnUpload" runat="server" Text="Upload" CssClass="btn Save" OnClick="BtnUpload_Click" Width="100px" />
                         </div>
                     </div>
@@ -247,19 +247,39 @@
                                                     <asp:ImageButton ID="ibtnPjtArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnPjtArrowLeft_Click" /></td>
                                                 <td>
                                                     <asp:ImageButton ID="ibtnPjtArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnPjtArrowRight_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." Width="23" Height="23" />
+                                                </td>
                                             </tr>
                                         </table>
+                                    </div>
+                                     <div style="float: left; overflow: auto;">
+                                        <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <asp:HiddenField ID="HiddenProjectID" runat="server" />
                             <asp:GridView ID="gvProject" CssClass="table table-bordered table-condensed Grid" AllowPaging="true" PageSize="5" runat="server" ShowHeaderWhenEmpty="true"
-                                EmptyDataText="No Data Found" AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvProject_PageIndexChanging">
+                                EmptyDataText="No Data Found" AutoGenerateColumns="false" Width="100%" OnPageIndexChanging="gvProject_PageIndexChanging"
+                                 OnRowDataBound="gvProject_RowDataBound">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" HeaderStyle-Width="15px">
                                         <ItemTemplate>
                                             <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
                                             <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                     <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center" HeaderStyle-Width="15px">
+
+                                        <ItemTemplate>
+                                         <%--  <asp:Button ID="Button1" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProjectID")%>' CssClass="btn Back" OnClick="BtnView_Click" Width="75px" Height="25px" />--%>
+                                            <asp:ImageButton ID="BtnView" ImageUrl="~/Images/Preview.png" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProjectID")%>' runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="BtnView_Click" />
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Project Number" DataField="ProjectNumber"></asp:BoundField>
@@ -281,11 +301,7 @@
                                     <asp:BoundField HeaderText="Contract Award Date" DataField="ContractAwardDate"></asp:BoundField>
                                     <asp:BoundField HeaderText="Contract End Date" DataField="ContractEndDate"></asp:BoundField>
                                     <asp:BoundField HeaderText="Remarks" DataField="Remarks"></asp:BoundField>
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "ProjectID")%>' CssClass="btn Back" OnClick="BtnView_Click" Width="75px" Height="25px" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                   
                                 </Columns>
                                 <AlternatingRowStyle BackColor="#ffffff" />
                                 <FooterStyle ForeColor="White" />

@@ -23,8 +23,8 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
-            <fieldset class="fieldset-border" id="Fieldset2" runat="server">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
+            <fieldset id="fsCriteria" class="fieldset-border" >
+                <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer</label>
@@ -55,7 +55,7 @@
                         <label>Source</label>
                         <asp:DropDownList ID="ddlSSource" runat="server" CssClass="form-control" />
                     </div>
-                     <div class="col-md-2 text-left">
+                    <div class="col-md-2 text-left">
                         <label class="modal-label">Sales Channel</label>
                         <asp:DropDownList ID="ddlSSalesChannelType" runat="server" CssClass="form-control" />
                     </div>
@@ -79,7 +79,7 @@
                         <label>Product Type</label>
                         <asp:DropDownList ID="ddlProductType" runat="server" CssClass="form-control" />
                     </div>
-               
+
                     <div class="col-md-10 text-left">
                         <label class="modal-label">Action</label>
                         <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
@@ -105,19 +105,28 @@
                                             <td>
                                                 <asp:ImageButton ID="ibtnLeadArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnLeadArrowRight_Click" /></td>
                                             <td>
-                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." />
-                                                </td>
+                                                <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." />
+                                            </td>
 
                                         </tr>
                                     </table>
+                                </div>
+                                <div style="float: right; overflow: auto;">
+                                    <%--<div style="float :left">
+                                             
+                                        </div>--%>
+                                    <div style="float: right">
+                                        <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                        <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                            PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found" 
+                            PageSize="15" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found"
                             OnRowDataBound="gvLead_RowDataBound">
-                            
+
                             <Columns>
                                 <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White">
                                     <ItemTemplate>
@@ -128,7 +137,7 @@
                                 <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
                                     <ItemTemplate>
                                         <%--<asp:Button ID="btnViewLead" runat="server" Text="View" CssClass="btn Back" OnClick="btnViewLead_Click" Width="75px" Height="25px" />--%>
-                                        <asp:ImageButton ID="btnViewLead" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle"  OnClick="btnViewLead_Click" />
+                                        <asp:ImageButton ID="btnViewLead" ImageUrl="~/Images/Preview.png" runat="server" ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="btnViewLead_Click" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Lead Number">
@@ -142,7 +151,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Product Type">
                                     <ItemTemplate>
-                                         <asp:ImageButton ID="imgDivision" runat="server" ImageUrl="~/Images/SpareParts.png" Width="25" Height="25"/>
+                                        <asp:ImageButton ID="imgDivision" runat="server" ImageUrl="~/Images/SpareParts.png" Width="25" Height="25" />
                                         <asp:Label ID="lblProductType" Text='<%# DataBinder.Eval(Container.DataItem, "ProductType.ProductType")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -156,16 +165,16 @@
                                         <asp:Label ID="lblSource" Text='<%# DataBinder.Eval(Container.DataItem, "Source.Source")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <%--<asp:BoundField HeaderText="S.Channel" DataField="SalesChannelType.ItemText"></asp:BoundField>--%>
+                                <%--<asp:BoundField HeaderText="S.Channel" DataField="SalesChannelType.ItemText"></asp:BoundField>--%>
 
                                 <asp:TemplateField HeaderText="S.Channel" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White">
-                                        <ItemStyle VerticalAlign="Middle" />
-                                        <ItemTemplate>
-                                            <asp:Image ID="imgChannel" runat="server" ImageUrl="~/Images/b2c.png" Width="40" Height="40" />
-                                            
-                                                <asp:Label ID="lblChannel" Text='<%# DataBinder.Eval(Container.DataItem, "SalesChannelType.ItemText")%>' runat="server" />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                    <ItemStyle VerticalAlign="Middle" />
+                                    <ItemTemplate>
+                                        <asp:Image ID="imgChannel" runat="server" ImageUrl="~/Images/b2c.png" Width="40" Height="40" />
+
+                                        <asp:Label ID="lblChannel" Text='<%# DataBinder.Eval(Container.DataItem, "SalesChannelType.ItemText")%>' runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Status">
                                     <ItemTemplate>
                                         <asp:Label ID="lblStatus" Text='<%# DataBinder.Eval(Container.DataItem, "Status.Status")%>' runat="server" />
@@ -189,7 +198,7 @@
                                         <asp:Label ID="lblCreatedOn" Text='<%# DataBinder.Eval(Container.DataItem, "CreatedOn")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                
+
                             </Columns>
                             <AlternatingRowStyle BackColor="#ffffff" />
                             <FooterStyle ForeColor="White" />
@@ -323,10 +332,10 @@
             }
             else {
                 return;
-            } 
-            var param = { Pro: $(parentIDC+'txtProject').val() }
+            }
+            var param = { Pro: $(parentIDC + 'txtProject').val() }
             var Customers = [];
-            if ($(parentIDC +'txtProject').val().trim().length >= 3) {
+            if ($(parentIDC + 'txtProject').val().trim().length >= 3) {
                 $.ajax({
                     url: "LeadN.aspx/GetProject",
                     contentType: "application/json; charset=utf-8",
@@ -347,13 +356,13 @@
                                 ContractEndDate: DataList[i].ContractEndDate
                             };
                         }
-                        $(parentIDC +'txtProject').autocomplete({
+                        $(parentIDC + 'txtProject').autocomplete({
                             source: function (request, response) { response(Customers) },
                             select: function (e, u) {
                                 debugger;
-                               
-                                $(parentIDC +"hdfProjectID").val(u.item.ProjectID);
-                                document.getElementById(parentID+"txtProject").disabled = true;
+
+                                $(parentIDC + "hdfProjectID").val(u.item.ProjectID);
+                                document.getElementById(parentID + "txtProject").disabled = true;
                                 //document.getElementById('divCustomerViewID').style.display = "block";
                                 //document.getElementById('divCustomerCreateID').style.display = "none";
 
@@ -365,7 +374,7 @@
                             open: function (event, ui) {
                                 $(this).autocomplete("widget").css({
                                     "max-width":
-                                        $(parentIDC +'txtProject').width() + 48,
+                                        $(parentIDC + 'txtProject').width() + 48,
                                 });
                                 $(this).autocomplete("widget").scrollTop(0);
                             }
@@ -386,7 +395,7 @@
                 });
             }
             else {
-                $(parentIDC +'txtProject').autocomplete({
+                $(parentIDC + 'txtProject').autocomplete({
                     source: function (request, response) {
                         response($.ui.autocomplete.filter(Customers, ""))
                     }
@@ -394,4 +403,6 @@
             }
         }
     </script>
+
+
 </asp:Content>

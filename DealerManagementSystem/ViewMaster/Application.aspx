@@ -81,7 +81,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <fieldset class="fieldset-border">
-                                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                                <legend style="background: none; color: #007bff; font-size: 17px;">Filter</legend>
                                 <div class="col-md-12">
                                     <div class="col-md-2 text-right">
                                         <label>Main Application</label>

@@ -97,35 +97,15 @@
                     <asp:GridView ID="gvLead" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLead_PageIndexChanging" EmptyDataText="No Data Found" OnDataBound="OnDataBound" ShowFooter="true">
                         <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                <%-- <HeaderTemplate>
-                                    <th colspan="3">Report Period</th>
-                                    <th colspan="3">Ratio</th>
-                                    <th colspan="3">Opening Lead</th>
-                                    <th colspan="3">Lead Generated</th>
-                                    <th colspan="3">Win to Ajax</th>
-                                    <th colspan="3">Lead Lost</th>
-                                    <th colspan="3">Lead Drop</th>
-                                    <th colspan="3">Closing Lead</th>
-                                    <th colspan="5">Ageing - Closing Lead</th>
-                                    <tr class="header2">
-                                        <th></th>
-                                        <th>Serial No.</th>
-                                        <th>Employee Name</th>
-                                        <th>Employee Adress</th>
-                                        <th>Employee designation </th>
-                                        <th>Salary</th>
-                                    </tr>
-                                </HeaderTemplate>--%>
-                                <HeaderStyle BackColor="#fce4d6" />
+                            <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-BackColor="#039caf" ItemStyle-ForeColor="White" HeaderStyle-Width="2px">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    <itemstyle width="2px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Dealer Code">
-                                <HeaderStyle BackColor="#fce4d6" />
+                                <HeaderStyle BackColor="#5cd1db" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Code")%>' runat="server" />
                                     <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
@@ -133,13 +113,13 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Name">
-                                <HeaderStyle BackColor="#fce4d6" />
+                                <HeaderStyle BackColor="#5cd1db" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Name")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Salesman">
-                                <HeaderStyle BackColor="#fce4d6" />
+                                <HeaderStyle BackColor="#5cd1db" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerSalesman" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Salesman")%>' runat="server" />
                                 </ItemTemplate>
@@ -456,16 +436,15 @@
                     <asp:GridView ID="gvLeadSLCM" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLeadSLCM_PageIndexChanging" EmptyDataText="No Data Found" OnDataBound="gvLeadSLCM_OnDataBound" ShowFooter="true">
                         <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                <HeaderStyle BackColor="#fce4d6" />
+                            <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-BackColor="#039caf" ItemStyle-ForeColor="White" HeaderStyle-Width="2px">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    <itemstyle width="2px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Dealer Code">
-                                <HeaderStyle BackColor="#fce4d6" />
+                                <HeaderStyle BackColor="#5cd1db" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Code")%>' runat="server" />
                                     <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
@@ -473,13 +452,13 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Name">
-                                <HeaderStyle BackColor="#fce4d6" />
+                                <HeaderStyle BackColor="#5cd1db" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Name")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Salesman">
-                                <HeaderStyle BackColor="#fce4d6" />
+                                <HeaderStyle BackColor="#5cd1db" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerSalesman" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Salesman")%>' runat="server" />
                                 </ItemTemplate>
@@ -799,16 +778,15 @@
                     <asp:GridView ID="gvLeadFocusProduct" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
                         PageSize="10" AllowPaging="true" OnPageIndexChanging="gvLeadFocusProduct_PageIndexChanging" EmptyDataText="No Data Found" OnDataBound="gvLeadFocusProduct_OnDataBound" ShowFooter="true">
                         <Columns>
-                            <asp:TemplateField HeaderText="RId" ItemStyle-HorizontalAlign="Center">
-                                <HeaderStyle BackColor="#fce4d6" />
+                            <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-BackColor="#039caf" ItemStyle-ForeColor="White" HeaderStyle-Width="2px">
                                 <ItemTemplate>
                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                    <itemstyle width="25px" horizontalalign="Right"></itemstyle>
+                                    <itemstyle width="2px" horizontalalign="Right"></itemstyle>
                                 </ItemTemplate>
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Dealer Code">
-                                <HeaderStyle BackColor="#fce4d6" />
+                                <HeaderStyle BackColor="#5cd1db" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerCode" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Code")%>' runat="server" />
                                     <asp:Label ID="lblDealerID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
@@ -816,13 +794,13 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Name">
-                                <HeaderStyle BackColor="#fce4d6" />
+                                <HeaderStyle BackColor="#5cd1db" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Name")%>' runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Dealer Salesman">
-                                <HeaderStyle BackColor="#fce4d6" />
+                                <HeaderStyle BackColor="#5cd1db" />
                                 <ItemTemplate>
                                     <asp:Label ID="lblDealerSalesman" Text='<%# DataBinder.Eval(Container.DataItem, "Dealer Salesman")%>' runat="server" />
                                 </ItemTemplate>

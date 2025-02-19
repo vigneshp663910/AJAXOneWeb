@@ -115,7 +115,7 @@
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Details Input</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;"><asp:Image ID="Image1" runat="server" ImageUrl="~/Images/Employee1.jpg" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
                     <%--<div class="col-md-3 text-right">
                         <label>Ajax Emp</label>

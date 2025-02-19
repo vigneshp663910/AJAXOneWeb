@@ -34,7 +34,7 @@
                 </div>
             </fieldset>
             <fieldset class="fieldset-border">
-                <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                <legend style="background: none; color: #007bff; font-size: 17px;">Filter</legend>
                 <div class="col-md-12">
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Code</label>
