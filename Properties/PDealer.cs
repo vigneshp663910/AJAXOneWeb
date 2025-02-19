@@ -41,9 +41,13 @@ namespace Properties
         public string AuthorityMobile { get; set; }
         public List<PDMS_Customer> Customer { get; set; }
         public Boolean IsActive { get; set; }
-
         public PDMS_Region Region { get; set; } 
         public PAddress Address { get; set; }
+        public PDealerType DealerType { get; set; }
+        public int CountryID { get; set; }
+        public string ContactPerson { get; set; }
+        public string ApiUserName { get; set; }
+        public string ApiPassword { get; set; }
     }
 
     [Serializable]
@@ -470,5 +474,41 @@ namespace Properties
         public DateTime? CreatedOn { get; set; }
         public PUser MoidifiedBy { get; set; } 
         public DateTime? MoidifiedOn { get; set; }
+    }
+
+    [Serializable]
+    public class PDealer_Insert
+    {
+        public int DealerID { get; set; }
+        public int DealerCode { get; set; }
+        public string DealerName { get; set; }
+        public string DealerShortName { get; set; }
+        public string GSTIN { get; set; }
+        public string PAN { get; set; }
+        public string ContactPerson { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public int DealerTypeID { get; set; }    
+        public Boolean? IsActive { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string City { get; set; }
+        public int DistrictID { get; set; }
+        public int StateID { get; set; }
+        public int CountryID { get; set; }
+        public string Pincode { get; set; }              
+        public string BankName { get; set; }
+        public string Branch { get; set; }
+        public string AcNumber { get; set; }
+        public string IfscCode { get; set; }
+        public string OfficeCode { get; set; }
+        public string OfficeName { get; set; }
+        public string SapLocationCode { get; set; }
+        public Boolean? IsEInvoice { get; set; }
+        public DateTime EInvoiceDate { get; set; }
+        public string APIUsername { get; set; }
+        public string APIPassword { get; set; }
+        public Boolean? IsServicePaidEInvoice { get; set; }       
     }
 }

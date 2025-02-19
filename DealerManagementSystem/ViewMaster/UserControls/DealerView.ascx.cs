@@ -150,6 +150,51 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             try
             {
                 LinkButton lbActions = ((LinkButton)sender);
+                if (lbActions.Text == "Edit Dealer")
+                {
+                    lblMessageEditDealer.Text = string.Empty;
+                    cbIsActiveDealer.Checked = Dealer.IsActive;
+                    txtDealerCode.Text = lblDealerCode.Text;
+                    txtDealerName.Text = lblDealerName.Text;
+                    txtDealerShortName.Text = Dealer.DisplayName;
+                    txtGSTIN.Text = Dealer.GSTIN;
+                    txtPAN.Text = Dealer.PAN;
+                    txtContactPerson.Text = Dealer.ContactPerson;
+                    txtEmail.Text = lblEmail.Text;
+                    txtMobile.Text = txtMobile.Text;
+                    ddlDealerType.SelectedItem.Text = Dealer.DealerType.DealerType;
+
+                    new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+                    ddlCountry.SelectedValue = Convert.ToString(Dealer.CountryID);
+
+                    new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+                    ddlState.SelectedValue = Convert.ToString(Dealer.StateN.StateID);
+
+                    cbIsActiveDealer.Checked = Dealer.IsActive;
+                    txtEInvoiceDate.Text = Dealer.EInvoiceDate.ToString();
+                    cxEInvoiceDate.StartDate = Dealer.EInvoiceDate;
+                    cbServicePaidEInvoice.Checked = Dealer.ServicePaidEInvoice;
+                    txtApiUserName.Text = Dealer.ApiUserName;
+                    txtApiPassword.Text = Dealer.ApiPassword;
+
+                    MPE_EditDealer.Show();
+                }
+                if (lbActions.Text == "Edit Dealer Address")
+                {
+                    lblMessageEditDealerAddress.Text = string.Empty;
+                    txtAddress1.Text = Dealer.Address.Address1;
+                    txtAddress2.Text = Dealer.Address.Address2;
+                    //txtAddress3.Text = Dealer.Address.Address3;
+
+                    new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(Dealer.CountryID), null, Convert.ToInt32(Dealer.StateN.StateID), null, null, null), "District", "DistrictID");
+                    ddlDistrict.SelectedValue = Convert.ToString(Dealer.Address.District.DistrictID);
+
+                    txtCity.Text = Dealer.Address.City;
+                    txtPindode.Text = Dealer.Address.Pincode;
+                    txtContactPerson.Text = Dealer.ContactPerson;
+
+                    MPE_EditDealerAddress.Show();
+                }
                 if (lbActions.Text == "Add Branch Office")
                 {
                     lblMessageAddBranchOffice.Text = string.Empty;
@@ -167,7 +212,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     txtDealerOfficeMobile.Text = string.Empty;
                     txtDealerOfficeEmail.Text = string.Empty;
 
-                    new DDLBind(ddlDealerOfficeState, new BDMS_Address().GetState(Dealer.DealerID, 1, null, null, null), "State", "StateID");
+                    new DDLBind(ddlDealerOfficeState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
                     
                     ddlDealerOfficeDistrict.Items.Clear();
                     ddlDealerOfficeDistrict.SelectedValue = "0";
@@ -314,7 +359,6 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         protected void lnkbtnDealerOfficeDelete_Click(object sender, EventArgs e)
         {
-
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblOfficeCode = (Label)gvRow.FindControl("lblOfficeCode");
             PDMS_DealerOffice DealerOffice = new PDMS_DealerOffice();
@@ -341,7 +385,6 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //lblMessage.ForeColor = Color.Green;
 
             fillDealerOffice();
-
         }
         protected void lnkBtnNotificationDelete_Click(object sender, EventArgs e)
         {
@@ -489,15 +532,35 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         }
         protected void btnEditBank_Click(object sender, EventArgs e)
         {
-            PDealerBankDetails BankDetails = new PDealerBankDetails();
-            BankDetails.DealerID = Convert.ToInt32(Dealer.DealerID);
-            BankDetails.DealerBankID = Convert.ToInt32(lblDealerBankID.Text);
-            BankDetails.BankName = txtBank.Text;
-            BankDetails.Branch = txtBranch.Text;
-            BankDetails.AcNumber = txtAccountNo.Text;
-            BankDetails.IfscCode = txtIFSCCode.Text;
+            //PDealerBankDetails BankDetails = new PDealerBankDetails();
+            //BankDetails.DealerID = Convert.ToInt32(Dealer.DealerID);
+            //BankDetails.DealerBankID = Convert.ToInt32(lblDealerBankID.Text);
+            //BankDetails.BankName = txtBank.Text;
+            //BankDetails.Branch = txtBranch.Text;
+            //BankDetails.AcNumber = txtAccountNo.Text;
+            //BankDetails.IfscCode = txtIFSCCode.Text;
 
-            if (new BDMS_Dealer().InsertOrUpdateDealerBankDetails(BankDetails, 0))
+            //if (new BDMS_Dealer().InsertOrUpdateDealerBankDetails(BankDetails, 0))
+            //{
+            //    lblMessageEditBank.Text = "Bank Details updated for the Dealer.";
+            //    lblMessage.ForeColor = Color.Green;
+            //    lblMessageEditBank.Visible = true;
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "Bank Details not updated for the Dealer.";
+            //    lblMessage.ForeColor = Color.Red;
+            //    lblMessageEditBank.Visible = true;
+            //}
+
+            int DealerID = Convert.ToInt32(Dealer.DealerID);
+            int DealerBankID = Convert.ToInt32(lblDealerBankID.Text);
+            string BankName = txtBank.Text.Trim();
+            string Branch = txtBranch.Text.Trim();
+            string AcNumber = txtAccountNo.Text.Trim();
+            string IfscCode = txtIFSCCode.Text.Trim();
+
+            if (new BDMS_Dealer().UpdateDealerBankDetails(DealerID, DealerBankID, BankName, Branch, AcNumber, IfscCode))
             {
                 lblMessageEditBank.Text = "Bank Details updated for the Dealer.";
                 lblMessage.ForeColor = Color.Green;
@@ -509,6 +572,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.ForeColor = Color.Red;
                 lblMessageEditBank.Visible = true;
             }
+
             filldealer(Dealer.DealerID);
         }
         void fillDealerResponsibleUser()
@@ -838,6 +902,245 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
+        }
+        protected void btnUpdateDealer_Click(object sender, EventArgs e)
+        {
+            string Message = ValidationDealer();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAddBranchOffice.Text = Message;
+                return;
+            }
+
+            int DealerCode = Convert.ToInt32(txtDealerCode.Text.Trim());
+            string DealerName = txtDealerName.Text.Trim();
+            string DealerShortName = txtDealerShortName.Text.Trim();
+            string GSTIN = txtGSTIN.Text.Trim();
+            string PAN = txtPAN.Text.Trim();
+            string Email = txtEmail.Text.Trim();
+            string Mobile = txtMobile.Text.Trim();
+            int DealerTypeID = Convert.ToInt32(ddlDealerType.SelectedValue);
+            
+            int StateID = Convert.ToInt32(ddlState.SelectedValue);
+            int CountryID = Convert.ToInt32(ddlCountry.SelectedValue);
+
+            string OfficeCodeE = txtOfficeCodeE.Text.Trim();
+
+            DateTime? EInvoiceDate = string.IsNullOrEmpty(txtEInvoiceDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtEInvoiceDate.Text.Trim());
+            string APIUsername = txtApiUserName.Text.Trim();
+            string APIPassword = txtApiPassword.Text.Trim();
+
+            if (new BDMS_Dealer().UpdateDealer(DealerCode, DealerName, DealerShortName, GSTIN, PAN, Email, Mobile, DealerTypeID, cbIsActiveDealer.Checked, StateID, CountryID, OfficeCodeE, cbEInvAPI.Checked, EInvoiceDate, APIUsername, APIPassword, cbServicePaidEInvoice.Checked))
+            {
+                lblMessageEditBank.Text = "Dealer Details updated successfully.";
+                lblMessage.ForeColor = Color.Green;
+                lblMessageEditBank.Visible = true;
+            }
+            else
+            {
+                lblMessage.Text = "Dealer Details not updated successfully.";
+                lblMessage.ForeColor = Color.Red;
+                lblMessageEditBank.Visible = true;
+            }
+
+            filldealer(Dealer.DealerID);
+        }
+        public string ValidationDealer()
+        {
+            long longCheck;
+
+            string Message = "";
+            txtDealerCode.BorderColor = Color.Silver;
+            txtDealerName.BorderColor = Color.Silver;
+            txtDealerShortName.BorderColor = Color.Silver;
+            txtGSTIN.BorderColor = Color.Silver;
+            txtPAN.BorderColor = Color.Silver;
+            txtEmail.BorderColor = Color.Silver;
+            txtMobile.BorderColor = Color.Silver;
+
+            ddlDealerType.BorderColor = Color.Silver;
+
+            ddlCountry.BorderColor = Color.Silver;
+            ddlState.BorderColor = Color.Silver;
+
+            txtOfficeCode.BorderColor = Color.Silver;
+
+            txtEInvoiceDate.BorderColor = Color.Silver;
+            txtApiUserName.BorderColor = Color.Silver;
+            txtApiPassword.BorderColor = Color.Silver;
+                       
+            Regex regex = new Regex(@"^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[a-zA-Z0-9]{3}$");
+
+            if (string.IsNullOrEmpty(txtDealerCode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Dealer Code.";
+                txtDealerCode.BorderColor = Color.Red;
+                //return Message;
+            }
+
+            if (string.IsNullOrEmpty(txtDealerName.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Dealer Name.";
+                txtDealerName.BorderColor = Color.Red;
+                //return Message;
+            }
+
+            if (string.IsNullOrEmpty(txtDealerShortName.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Dealer Short Name.";
+                txtDealerShortName.BorderColor = Color.Red;
+                //return Message;
+            }
+
+            if (!string.IsNullOrEmpty(txtGSTIN.Text.Trim()))
+            {
+                if ((!regex.Match(txtGSTIN.Text.Trim()).Success) && (txtGSTIN.Text.Trim() != "URD"))
+                {
+                    Message = Message + "GST Number " + txtGSTIN.Text.Trim() + " is not correct.";
+                    txtGSTIN.BorderColor = Color.Red;
+                    return Message;
+                }
+                if ((txtGSTIN.Text.Trim() != "URD") && (!string.IsNullOrEmpty(txtGSTIN.Text.Trim())))
+                {
+                    string gst = txtGSTIN.Text.Trim().Remove(0, 2).Substring(0, 10);
+                    if (txtPAN.Text.Trim().ToUpper() != gst.ToUpper())
+                    {
+                        Message = Message + "<br/>PAN and GSTIN are not matching.";
+                        txtPAN.BorderColor = Color.Red;
+                        return Message;
+                    }
+                }
+            }
+            if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+            {
+                Message = Message + "<br/>Mobile should be 10 digit.";
+                txtMobile.BorderColor = Color.Red;
+                return Message;
+            }
+            if (ddlDealerType.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Dealer Type.";
+                ddlDealerType.BorderColor = Color.Red;
+                //return Message;
+            }
+            if (ddlCountry.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Country.";
+                ddlCountry.BorderColor = Color.Red;
+                //return Message;
+            }
+            if (ddlState.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the State.";
+                ddlState.BorderColor = Color.Red;
+                //return Message;
+            }
+            if (string.IsNullOrEmpty(txtOfficeCode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Office Code.";
+                txtOfficeCode.BorderColor = Color.Red;
+                //return Message;
+            }
+            if (cbEInvAPI.Checked)
+            {
+                if (string.IsNullOrEmpty(txtApiUserName.Text.Trim()))
+                {
+                    Message = Message + "<br/>Please enter API Username.";
+                    txtApiUserName.BorderColor = Color.Red;
+                    return Message;
+                }
+                if (string.IsNullOrEmpty(txtApiPassword.Text.Trim()))
+                {
+                    Message = Message + "<br/>Please enter API Password.";
+                    txtApiPassword.BorderColor = Color.Red;
+                    return Message;
+                }
+            }
+            
+            return Message;
+        }
+        protected void btnUpdateDealerAddress_Click(object sender, EventArgs e)
+        {
+            string Message = ValidationDealer();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageAddBranchOffice.Text = Message;
+                return;
+            }
+
+            string Address1 = txtAddress1.Text.Trim();
+            string Address2 = txtAddress2.Text.Trim();
+            string City = txtCity.Text.Trim();
+            string Pincode = txtPincode.Text.Trim();
+            string ContactPerson = txtContactPerson.Text.Trim();
+
+            if (new BDealer().UpdateDealerAddress(Dealer.DealerID, Address1, Address2, City, Dealer.State, Dealer.StateCode, Pincode, Dealer.GSTIN, Dealer.PAN, Dealer.Mobile, Dealer.Email, ContactPerson))
+            {
+                lblMessageEditBank.Text = "Dealer Address updated successfully.";
+                lblMessage.ForeColor = Color.Green;
+                lblMessageEditBank.Visible = true;
+            }
+            else
+            {
+                lblMessage.Text = "Dealer Address not updated successfully.";
+                lblMessage.ForeColor = Color.Red;
+                lblMessageEditBank.Visible = true;
+            }
+
+            filldealer(Dealer.DealerID);
+        }
+        public string ValidationDealerAddress()
+        {
+            string Message = "";
+            
+            txtAddress1.BorderColor = Color.Silver;
+            txtAddress2.BorderColor = Color.Silver;
+            //txtAddress3.BorderColor = Color.Silver;
+            txtCity.BorderColor = Color.Silver;
+            txtPincode.BorderColor = Color.Silver;
+
+            ddlDistrict.BorderColor = Color.Silver;
+            
+            if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Address1.";
+                txtAddress1.BorderColor = Color.Red;
+                //return Message;
+            }            
+            if (ddlDistrict.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the District.";
+                ddlDistrict.BorderColor = Color.Red;
+                //return Message;
+            }
+            if (string.IsNullOrEmpty(txtCity.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the City.";
+                txtCity.BorderColor = Color.Red;
+                //return Message;
+            }
+            if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Pincode.";
+                txtPincode.BorderColor = Color.Red;
+                //return Message;
+            }            
+            if (!string.IsNullOrEmpty(txtPincode.Text.Trim()))
+            {
+                if (!long.TryParse(txtPincode.Text.Trim(), out longCheck))
+                {
+                    Message = Message + "<br/>Pincode should be in digit.";
+                    txtPincode.BorderColor = Color.Red;
+                    //return Message;
+                }
+            }
+            if (string.IsNullOrEmpty(txtOfficeCode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Office Code.";
+                txtOfficeCode.BorderColor = Color.Red;
+                //return Message;
+            }
+            return Message;
         }
     }
 }

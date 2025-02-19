@@ -533,6 +533,7 @@
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerBinLocation.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewMaster\UserControls\DealerCreate.ascx" />
     <Content Include="ViewPreSale\LeadDeviation.aspx" />
     <Content Include="ViewPreSale\LeadDeviationApprove.aspx" />
     <Content Include="ViewPreSale\Planning\DealerBusinessExcellence.aspx" />
@@ -1836,6 +1837,13 @@
     </Compile>
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\DealerCreate.ascx.cs">
+      <DependentUpon>DealerCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\DealerCreate.ascx.designer.cs">
+      <DependentUpon>DealerCreate.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\LeadDeviation.aspx.cs">
       <DependentUpon>LeadDeviation.aspx</DependentUpon>

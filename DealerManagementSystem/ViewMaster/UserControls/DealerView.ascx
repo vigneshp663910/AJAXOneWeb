@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DealerView.ascx.cs" Inherits="DealerManagementSystem.ViewMaster.UserControls.DealerView" %>
-<%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_DealerCreate" %>
+<%@ Register Src="~/ViewMaster/UserControls/DealerCreate.ascx" TagPrefix="UC" TagName="UC_DealerCreate" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 
 
@@ -86,6 +86,7 @@
         <div class="dropdown btnactions" id="dealerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px; overflow-x: auto; max-height: 300px">
+                <asp:LinkButton ID="lnkBtnEditDealer" runat="server" OnClick="lnkBtnActions_Click">Edit Dealer</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnAddBranchOffice" runat="server" OnClick="lnkBtnActions_Click">Add Branch Office</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnAddNotification" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Notification</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnEditBank" runat="server" OnClick="lnkBtnActions_Click">Edit Bank Details</asp:LinkButton>
@@ -631,24 +632,193 @@
     </asp1:TabPanel>
 </asp1:TabContainer>
 
-<asp:Panel ID="pnlDealer" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnlEditDealer" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Edit Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogueEditDealer">Edit Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageDealerEdit" runat="server" Text="" CssClass="message" Visible="false" />
-            <UC:UC_DealerCreate ID="UC_Dealer" runat="server"></UC:UC_DealerCreate>
+            <asp:Label ID="lblMessageEditDealer" runat="server" Text="" CssClass="message" Visible="false" />
+            <%--<UC:UC_DealerCreate ID="UC_Dealer" runat="server"></UC:UC_DealerCreate>--%>
+            <fieldset class="fieldset-border" id="Fieldset6" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Dealer</legend>
+                            <div class="col-md-12">
+                                <label class="modal-label">Active</label>
+                                <asp:CheckBox ID="cbIsActiveDealer" runat="server" Enabled="false" CssClass="mycheckBig" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Dealer Code</label>
+                                <asp:TextBox ID="txtDealerCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                                <asp:Label ID="Label1" runat="server" Visible="false" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Dealer Name</label>
+                                <asp:TextBox ID="txtDealerName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Dealer Short Name</label>
+                                <asp:TextBox ID="txtDealerShortName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">GSTIN</label>
+                                <asp:TextBox ID="txtGSTIN" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">PAN</label>
+                                <asp:TextBox ID="txtPAN" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Email</label>
+                                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Phone</label>
+                                <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">Country</label>
+                                <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">State</label>
+                                <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Office Code</label>
+                                <asp:TextBox ID="txtOfficeCodeE" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Dealer Type</label>
+                                <asp:DropDownList ID="ddlDealerType" runat="server" CssClass="form-control" DataTextField="DealerType" DataValueField="DealerTypeID" />
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4">
+                        <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">E Invoice</legend>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">E Invoice</label>
+                                <asp:CheckBox ID="cbEInvAPI" runat="server" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Service Paid E Invoice</label>
+                                <asp:CheckBox ID="cbServicePaidEInvoice" runat="server" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label>E Invoice Date</label>
+                                <asp:TextBox ID="txtEInvoiceDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                                <asp1:CalendarExtender ID="cxEInvoiceDate" runat="server" TargetControlID="txtEInvoiceDate" PopupButtonID="txtEInvoiceDate" Format="dd/MM/yyyy" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">API Username</label>
+                                <asp:TextBox ID="txtApiUserName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">API Password</label>
+                                <asp:TextBox ID="txtApiPassword" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnUpdateDealer" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateDealer_Click" OnClientClick="return ConfirmDealerChanges();" />
+                    </div>
+                </div>
+            </fieldset>
         </div>
         <%--<div class="col-md-12 text-center">
             <asp:Button ID="btnUpdateDealer" runat="server" Text="Update" CssClass="btn Save" OnClick="btnUpdateDealer_Click" />
         </div>--%>
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_Dealer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDealer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditDealer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditDealer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlEditDealerAddress" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueEditDealerAddress">Edit Dealer Address</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageEditDealerAddress" runat="server" Text="" CssClass="message" Visible="false" />
+            <fieldset class="fieldset-border" id="Fieldset4" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Address</legend>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">Address 1</label>
+                                <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">Address 2</label>
+                                <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                            </div>
+                            <%--<div class="col-md-12 col-sm-12">
+                                <label class="modal-label">Address 3</label>
+                                <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                            </div>--%>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">District</label>
+                                <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" OnSelectedIndexChanged="ddlDistrict_SelectedIndexChanged" AutoPostBack="true" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">City</label>
+                                <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">PinCode</label>
+                                <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"></asp:TextBox>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Contact Person</label>
+                                <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4">
+                        <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">E Invoice</legend>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">E Invoice</label>
+                                <asp:CheckBox ID="CheckBox2" runat="server" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Service Paid E Invoice</label>
+                                <asp:CheckBox ID="CheckBox3" runat="server" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label>E Invoice Date</label>
+                                <asp:TextBox ID="TextBox14" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                                <asp1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtEInvoiceDate" PopupButtonID="txtEInvoiceDate" Format="dd/MM/yyyy" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">API Username</label>
+                                <asp:TextBox ID="TextBox15" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">API Password</label>
+                                <asp:TextBox ID="TextBox16" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnUpdateDealerAddress" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateDealerAddress_Click" OnClientClick="return ConfirmDealerAddressChanges();" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditDealerAddress" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditDealerAddress" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
 
 <asp:Panel ID="pnlAddBranchOffice" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
@@ -734,7 +904,7 @@
                         <%-- <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID ="txtDealerOfficeEmail" WatermarkText="Email"  />--%>
                     </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnAddUpdateBranchOffice" runat="server" Text="Save" CssClass="btn Save" OnClientClick = "return ConfirmDealerOfficeChanges();" OnClick="btnAddUpdateBranchOffice_Click" />
+                        <asp:Button ID="btnAddUpdateBranchOffice" runat="server" Text="Save" CssClass="btn Save" OnClientClick="return ConfirmDealerOfficeChanges();" OnClick="btnAddUpdateBranchOffice_Click" />
                     </div>
                 </div>
             </fieldset>
@@ -781,7 +951,7 @@
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnAddNotification" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddNotification_Click" OnClientClick = "return ConfirmNotificationAdd();" />
+            <asp:Button ID="btnAddNotification" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddNotification_Click" OnClientClick="return ConfirmNotificationAdd();" />
         </div>
     </div>
 </asp:Panel>
@@ -856,7 +1026,7 @@
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnUpdateDealerResposibleUser" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateDealerResposibleUser_Click" OnClientClick = "return ConfirmDealerResposibleUserChanges();"/>
+            <asp:Button ID="btnUpdateDealerResposibleUser" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateDealerResposibleUser_Click" OnClientClick="return ConfirmDealerResposibleUserChanges();" />
         </div>
     </div>
 </asp:Panel>
@@ -867,6 +1037,22 @@
 </div>
 
 <script type="text/javascript">
+    function ConfirmDealerChanges() {
+        var x = confirm("Are you sure you want to confirm saving the Dealer Details Changes?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmDealerAddressChanges() {
+        var x = confirm("Are you sure you want to confirm saving the Dealer Address Changes?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
     function ConfirmDealerOfficeChanges() {
 
         var cbIsHeadOffice = document.getElementById('MainContent_UC_DealerView_cbIsHeadOffice');

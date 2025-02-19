@@ -2,8 +2,8 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <%@ Register Src="~/ViewMaster/UserControls/DealerView.ascx" TagPrefix="UC" TagName="UC_DealerView" %>
+<%@ Register Src="~/ViewMaster/UserControls/DealerCreate.ascx" TagPrefix="UC" TagName="UC_DealerCreate" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
     <style>
         .portlet.box.green {
             border: 1px solid #5cd1db;
@@ -41,12 +41,22 @@
             font-weight: 700;
         }
     </style>
+    <style>
+    .Popup {
+        width: 95%;
+        height: 95%;
+        top: 128px;
+        left: 283px;
+    }
 
-
+        .Popup .model-scroll {
+            height: 80vh;
+            overflow: auto;
+        }
+</style>
     <script src="../JSAutocomplete/ajax/jquery-1.8.0.js"></script>
     <script src="../JSAutocomplete/ajax/ui1.8.22jquery-ui.js"></script>
     <link rel="Stylesheet" href="../JSAutocomplete/ajax/jquery-ui.css" />
-
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -67,7 +77,7 @@
                         </div>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="BtnSearch" runat="server" CssClass="btn Search" Text="Retrieve" OnClick="BtnSearch_Click"></asp:Button>
-                            <asp:Button ID="btnAddDealer" runat="server" CssClass="btn Save" Text="Create Dealer" OnClick="btnAddDealer_Click" Width="150px" Visible="false"></asp:Button>
+                            <asp:Button ID="btnAddDealer" runat="server" CssClass="btn Save" Text="Create Dealer" OnClick="btnAddDealer_Click" Width="150px"></asp:Button>
                         </div>
                     </div>
                 </fieldset>
@@ -189,32 +199,33 @@
                 <div class="back-buttton" id="backBtn">
                     <asp:Button ID="btnBackToList" runat="server" Text="Back" CssClass="btn Back" OnClick="btnBackToList_Click" />
                 </div>
-            </div>
-            <%--<div class="col-md-12" runat="server" id="tblDashboard">--%>
-                <UC:UC_DealerView ID="UC_DealerView" runat="server"></UC:UC_DealerView>
-            <%--</div>--%>
+            </div> 
+            <UC:UC_DealerView ID="UC_DealerView" runat="server"></UC:UC_DealerView> 
         </div>
-
-
-        <%--  <div class="col-md-12">
-        <asp:Panel ID="pnlDealer" runat="server" CssClass="Popup" Style="display: none">
-            <div class="PopupHeader clearfix">
-                <span id="PopupDialogue">Create Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
-                    <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
-            </div>
-            <div class="col-md-12">
-                <div class="model-scroll">
-                    <asp:Label ID="lblMessageCustomer" runat="server" Text="" CssClass="message" Visible="false" />
-                    <UC:UC_DealerCreate ID="UC_Dealer" runat="server"></UC:UC_DealerCreate>
+        
+        <div class="col-md-12">
+            <asp:Panel ID="pnlDealerCreate" runat="server" CssClass="Popup" Style="display: none">
+                <div class="PopupHeader clearfix">
+                    <span id="PopupDialogue">Create Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+                        <asp:Button ID="Button6" runat="server" Text="X" CssClass="PopupClose" /></a>
                 </div>
-                <div class="col-md-12 text-center">
-                    <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="btn Save" OnClick="btnSave_Click" />
+                <div class="col-md-12">
+                    <div class="model-scroll">
+                        <asp:Label ID="lblMessageDealerCreate" runat="server" Text="" CssClass="message" Visible="false" />
+                        <fieldset class="fieldset-border">
+                            <UC:UC_DealerCreate ID="UC_DealerCreate" runat="server"></UC:UC_DealerCreate>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />
+                    </div>
                 </div>
-            </div>
-        </asp:Panel>
-        <ajaxToolkit:ModalPopupExtender ID="MPE_Dealer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
-    </div>--%>
+            </asp:Panel>
+            <ajaxToolkit:ModalPopupExtender ID="MPE_DealerCreate" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDealerCreate" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+        </div>
+        <div style="display: none">
+            <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton>
+            <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+        </div>
     </div>
-
-
 </asp:Content>

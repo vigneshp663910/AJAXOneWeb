@@ -162,33 +162,39 @@ namespace Business
             //{ }
             //return Dealers;
         }
-        public Boolean InsertOrUpdateDealerBankDetails(PDealerBankDetails BankDetails, int UserID)
+        //public Boolean InsertOrUpdateDealerBankDetails(PDealerBankDetails BankDetails, int UserID)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    try
+        //    {
+        //        DbParameter DealerBankID = provider.CreateParameter("DealerBankID", BankDetails.DealerBankID, DbType.Int32);
+        //        DbParameter DealerID = provider.CreateParameter("DealerID", BankDetails.DealerID, DbType.Int32);
+        //        DbParameter BankName = provider.CreateParameter("BankName", BankDetails.BankName, DbType.String);
+        //        DbParameter Branch = provider.CreateParameter("Branch", BankDetails.Branch, DbType.String);
+        //        DbParameter AcNumber = provider.CreateParameter("AcNumber", BankDetails.AcNumber, DbType.String);
+        //        DbParameter IfscCode = provider.CreateParameter("IfscCode", BankDetails.IfscCode, DbType.String);
+        //        // DbParameter IsActive = provider.CreateParameter("IsActive", BankDetails.IsActive, DbType.Int32);
+        //        DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
+
+        //            DbParameter[] Params = new DbParameter[7] { DealerBankID, DealerID, BankName, Branch, AcNumber, IfscCode, UserIDP };
+        //            //provider.Insert("ZDMS_InsertOrUpdateDealerBankDetails", Params);
+        //            scope.Complete();
+        //        }
+        //        TraceLogger.Log(DateTime.Now);
+        //    }
+        //    catch (SqlException sqlEx) { throw sqlEx; }
+        //    catch (Exception ex) { throw ex; }
+        //    return true;
+        //}
+
+        public Boolean UpdateDealerBankDetails(int DealerBankID, int DealerID, string Bank, string Branch, string AccountNo, string IFSCCode)
         {
-            TraceLogger.Log(DateTime.Now);
-            try
-            {
-                DbParameter DealerBankID = provider.CreateParameter("DealerBankID", BankDetails.DealerBankID, DbType.Int32);
-                DbParameter DealerID = provider.CreateParameter("DealerID", BankDetails.DealerID, DbType.Int32);
-                DbParameter BankName = provider.CreateParameter("BankName", BankDetails.BankName, DbType.String);
-                DbParameter Branch = provider.CreateParameter("Branch", BankDetails.Branch, DbType.String);
-                DbParameter AcNumber = provider.CreateParameter("AcNumber", BankDetails.AcNumber, DbType.String);
-                DbParameter IfscCode = provider.CreateParameter("IfscCode", BankDetails.IfscCode, DbType.String);
-                // DbParameter IsActive = provider.CreateParameter("IsActive", BankDetails.IsActive, DbType.Int32);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-
-                    DbParameter[] Params = new DbParameter[7] { DealerBankID, DealerID, BankName, Branch, AcNumber, IfscCode, UserIDP };
-                    provider.Insert("ZDMS_InsertOrUpdateDealerBankDetails", Params);
-                    scope.Complete();
-                }
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (SqlException sqlEx) { throw sqlEx; }
-            catch (Exception ex) { throw ex; }
-            return true;
+            string endPoint = "Dealer/UpdateDealerBankDetails?DealerBankID=" + DealerBankID + "&DealerID=" + DealerID
+                + "&Bank=" + Bank + "&Branch=" + Branch + "&AccountNo=" + AccountNo + "&IFSCCode=" + IFSCCode;
+            return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-
         public int InsertOrUpdateDealerEmployee(PDMS_DealerEmployee Emp, int UserID)
         {
             TraceLogger.Log(DateTime.Now);
@@ -1377,29 +1383,34 @@ namespace Business
             catch (Exception ex) { throw ex; }
             return EMP;
         }
-        public Boolean UpdateDealerResponsibleUser(Int32 DealerID, Int32 UserID, string DealerResponsibleUserType)
-        {
-            TraceLogger.Log(DateTime.Now);
-            try
-            {
-                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-                DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-                DbParameter DealerResponsibleUserTypeP = provider.CreateParameter("DealerResponsibleUserType", DealerResponsibleUserType, DbType.String);
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
+        //public Boolean UpdateDealerResponsibleUser(Int32 DealerID, Int32 UserID, string DealerResponsibleUserType)
+        //{
+        //    TraceLogger.Log(DateTime.Now);
+        //    try
+        //    {
+        //        DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+        //        DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
+        //        DbParameter DealerResponsibleUserTypeP = provider.CreateParameter("DealerResponsibleUserType", DealerResponsibleUserType, DbType.String);
+        //        using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
+        //        {
 
-                    DbParameter[] Params = new DbParameter[3] { DealerIDP, UserIDP, DealerResponsibleUserTypeP };
-                    provider.Insert("UpdateDealerResponsibleUser", Params);
-                    scope.Complete();
-                }
-                TraceLogger.Log(DateTime.Now);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessageService("BDMS_Dealer", "UpdateDealerResponsibleUser", ex);
-                return false;
-            }
-            return true;
+        //            DbParameter[] Params = new DbParameter[3] { DealerIDP, UserIDP, DealerResponsibleUserTypeP };
+        //            provider.Insert("UpdateDealerResponsibleUser", Params);
+        //            scope.Complete();
+        //        }
+        //        TraceLogger.Log(DateTime.Now);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new FileLogger().LogMessageService("BDMS_Dealer", "UpdateDealerResponsibleUser", ex);
+        //        return false;
+        //    }
+        //    return true;
+        //}
+        public Boolean UpdateDealerResponsibleUser(int DealerID, int DealerResponsibleUserID, string DealerResponsibleUserType)
+        {
+            string endPoint = "Dealer/UpdateDealerResponsibleUser?DealerID=" + DealerID + "&DealerResponsibleUserID=" + DealerResponsibleUserID + "&DealerResponsibleUserType=" + DealerResponsibleUserType;
+            return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PDealerBinLocation> GetDealerBin(int? DealerID, int? OfficeCodeID)
         {
@@ -1603,5 +1614,17 @@ namespace Business
             string endPoint = "Dealer/GetDealerByMappedRetailerID?RetailerID=" + RetailerID;
             return JsonConvert.DeserializeObject<List<PDealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public List<PDealerType> GetDealerType(int? DealerTypeID, string DealerType)
+        {
+            string endPoint = "Dealer/GetDealerType?DealerTypeID=" + DealerTypeID + "&DealerType=" + DealerType;
+            return JsonConvert.DeserializeObject<List<PDealerType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public Boolean UpdateDealer(int DealerCode, string DealerName, string DealerShortName, string GSTIN, string PAN
+            , string Email, string Mobile, int DealerTypeID, Boolean IsActiveDealer, int StateID, int CountryID, string OfficeCodeE, Boolean EInvAPI, DateTime? EInvoiceDate, string APIUsername, string APIPassword, Boolean ServicePaidEInvoice)
+        {
+            string endPoint = "Dealer/UpdateDealer?DealerCode=" + DealerCode + "&DealerName=" + DealerName + "&DealerShortName=" + DealerShortName + "&DealerShortName=" + DealerShortName + "&GSTIN=" + GSTIN + "&PAN=" + PAN 
+                + "&Email=" + Email + "&Mobile=" + Mobile + "&DealerTypeID=" + DealerTypeID + "&IsActiveDealer=" + IsActiveDealer + "&StateID=" + StateID + "&CountryID=" + CountryID + "&OfficeCodeE=" + OfficeCodeE + "&EInvAPI=" + EInvAPI + "&EInvoiceDate=" + EInvoiceDate + "&APIUsername=" + APIUsername + "&APIPassword=" + APIPassword + "&ServicePaidEInvoice=" + ServicePaidEInvoice;
+            return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }        
     }
 }
