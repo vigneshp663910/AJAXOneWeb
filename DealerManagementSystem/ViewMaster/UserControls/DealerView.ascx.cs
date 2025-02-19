@@ -190,7 +190,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     ddlDistrict.SelectedValue = Convert.ToString(Dealer.Address.District.DistrictID);
 
                     txtCity.Text = Dealer.Address.City;
-                    txtPindode.Text = Dealer.Address.Pincode;
+                    txtPincode.Text = Dealer.Address.Pincode;
                     txtContactPerson.Text = Dealer.ContactPerson;
 
                     MPE_EditDealerAddress.Show();
@@ -242,7 +242,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
                 if (lbActions.Text == "Edit Bank Details")
                 {
-                    lblMessageDealerEdit.Text = string.Empty;
+                    lblMessageEditBank.Text = string.Empty;
                     txtBank.Text = lblDealerBank.Text;
                     txtBranch.Text = lblDealerBankBranch.Text;
                     txtIFSCCode.Text = lblIFSCCode.Text;
@@ -1092,7 +1092,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         public string ValidationDealerAddress()
         {
             string Message = "";
-            
+
+            long longCheck;
+
             txtAddress1.BorderColor = Color.Silver;
             txtAddress2.BorderColor = Color.Silver;
             //txtAddress3.BorderColor = Color.Silver;
