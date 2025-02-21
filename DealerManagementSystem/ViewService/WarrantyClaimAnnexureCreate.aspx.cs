@@ -54,6 +54,7 @@ namespace DealerManagementSystem.ViewService
                 // FillInvoiceType();
 
                 fillDealer();
+                ddlDealer_SelectedIndexChanged(null, null);
             }
 
         }
@@ -235,15 +236,15 @@ namespace DealerManagementSystem.ViewService
                 string Annexure = "";
                 if (ddlInvoiceTypeID.SelectedValue == "1")
                 {
-                    Annexure = DealerCode + Year.Substring(2, 2) + Month + "N" + MonthRange;
+                    Annexure = DealerCode + Year.Substring(2, 2) + Month + "N" + (MonthRange == "5" ? "" : MonthRange);
                 }
                 else if (ddlInvoiceTypeID.SelectedValue == "2")
                 {
-                    Annexure = DealerCode + Year.Substring(2, 2) + Month + "W" + MonthRange;
+                    Annexure = DealerCode + Year.Substring(2, 2) + Month + "W" + (MonthRange == "5" ? "" : MonthRange);
                 }
                 else if (ddlInvoiceTypeID.SelectedValue == "5")
                 {
-                    Annexure = DealerCode + Year.Substring(2, 2) + Month + "DW" + MonthRange;
+                    Annexure = DealerCode + Year.Substring(2, 2) + Month + "DW" + (MonthRange == "5" ? "" : MonthRange);
                 }
                 if (MonthRange == "1")
                 {
@@ -260,9 +261,15 @@ namespace DealerManagementSystem.ViewService
                     SDMS_ClaimAnnexure.PeriodFrom = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(Month), 16);
                     SDMS_ClaimAnnexure.PeriodTo = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(Month), 23);
                 }
-                else
+                else if (MonthRange == "4")
                 {
                     SDMS_ClaimAnnexure.PeriodFrom = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(Month), 23);
+                    SDMS_ClaimAnnexure.PeriodTo = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(Month), 1).AddMonths(1);
+                    SDMS_ClaimAnnexure.PeriodTo = SDMS_ClaimAnnexure.PeriodTo.AddDays(-1);
+                }
+                else if (MonthRange == "5")
+                {
+                    SDMS_ClaimAnnexure.PeriodFrom = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(Month), 1);
                     SDMS_ClaimAnnexure.PeriodTo = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(Month), 1).AddMonths(1);
                     SDMS_ClaimAnnexure.PeriodTo = SDMS_ClaimAnnexure.PeriodTo.AddDays(-1);
                 }
@@ -308,7 +315,7 @@ namespace DealerManagementSystem.ViewService
             try
             {
                 ddlMonthRange.Items.Clear();
-                PDealer Dealer = new BDealer().GetDealerByID(Convert.ToInt32(ddlDealerCode.SelectedValue), null);   
+                PDealer Dealer = new BDealer().GetDealerByID(null, ddlDealerCode.SelectedValue);   
                 if (Dealer.DealerType.DealerTypeID == (short)DealerType.Retailer)
                 {
                     ddlMonthRange.Items.Insert(0, new ListItem("Month", "5"));

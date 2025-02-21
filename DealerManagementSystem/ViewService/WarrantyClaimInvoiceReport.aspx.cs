@@ -99,7 +99,7 @@ namespace DealerManagementSystem.ViewService
                     Year = Convert.ToInt32(ddlYear.SelectedValue);
                 if (ddlMonth.SelectedValue != "0")
                     Month = Convert.ToInt32(ddlMonth.SelectedValue);
-                if (ddlMonthRange.SelectedValue != "0")
+                if (ddlMonthRange.SelectedValue != "-1")
                     MonthRange = Convert.ToInt32(ddlMonthRange.SelectedValue);
                 if (ddlInvoiceTypeID.SelectedValue != "0")
                     InvoiceTypeID = Convert.ToInt32(ddlInvoiceTypeID.SelectedValue);

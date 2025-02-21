@@ -54,6 +54,7 @@ namespace DealerManagementSystem.ViewService
                 //   FillInvoiceType();
 
                 fillDealer();
+                ddlDealer_SelectedIndexChanged(null, null);
             }
         }
 
@@ -389,6 +390,31 @@ namespace DealerManagementSystem.ViewService
             ddlDealerCode.DataValueField = "UserName";
             ddlDealerCode.DataSource = PSession.User.Dealer;
             ddlDealerCode.DataBind();
+        }
+        protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ddlMonthRange.Items.Clear();
+                PDealer Dealer = new BDealer().GetDealerByID(null, ddlDealerCode.SelectedValue);
+                if (Dealer.DealerType.DealerTypeID == (short)DealerType.Retailer)
+                {
+                    ddlMonthRange.Items.Insert(0, new ListItem("Month", "5"));
+                }
+                else
+                {
+                    ddlMonthRange.Items.Insert(0, new ListItem("W1 (1st to 7th)", "1"));
+                    ddlMonthRange.Items.Insert(1, new ListItem("W2 (8th to 15th)", "2"));
+                    ddlMonthRange.Items.Insert(2, new ListItem("W3 (16th to 23rd)", "3"));
+                    ddlMonthRange.Items.Insert(3, new ListItem("W4 (24th to 31st)", "4"));
+                }
+            }
+            catch (Exception e1)
+            {
+                lblMessage.Text = e1.Message.ToString();
+                lblMessage.ForeColor = Color.Red;
+            }
+
         }
     }
 }

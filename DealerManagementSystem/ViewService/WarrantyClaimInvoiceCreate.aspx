@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Dealer Code</label>
-                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control"/>
+                        <asp:DropDownList ID="ddlDealerCode" runat="server" CssClass="form-control" AutoPostBack="true"  OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged"/>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Year</label>
@@ -85,10 +85,10 @@
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">Month Range</label>
                         <asp:DropDownList ID="ddlMonthRange" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="1">W1 (1st to 7th) </asp:ListItem>
+                         <%--   <asp:ListItem Value="1">W1 (1st to 7th) </asp:ListItem>
                             <asp:ListItem Value="2">W2 (8th to 15th)</asp:ListItem>
                             <asp:ListItem Value="3">W3 (16th to 23rd) </asp:ListItem>
-                            <asp:ListItem Value="4">W4 (24th to 31st)</asp:ListItem>
+                            <asp:ListItem Value="4">W4 (24th to 31st)</asp:ListItem>--%>
                         </asp:DropDownList>
                     </div>
                     <div class="col-md-2 col-sm-12">
