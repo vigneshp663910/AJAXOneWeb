@@ -309,7 +309,7 @@ namespace DealerManagementSystem.ViewSales
             {
                 PSalesCommissionClaimInvoice SalesCommissionClaimInvoice = new BSalesCommissionClaim().GetSalesCommissionClaimInvoiceByID(SalesCommissionClaimInvoiceID);
 
-                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(SalesCommissionClaimInvoice.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getDealerAddressFromSAP(SalesCommissionClaimInvoice.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 

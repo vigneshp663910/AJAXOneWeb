@@ -312,11 +312,12 @@ namespace DealerManagementSystem.ViewService
             try
             {
                 new BDMS_ICTicketFSR().ICTicket_Directorys(Server.MapPath("~"));
-                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(FSR.ICTicket.Dealer.DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getDealerAddressFromSAP(FSR.ICTicket.Dealer.DealerCode);
                 string DealerAddress1 = (Dealer.Address1 + (string.IsNullOrEmpty(Dealer.Address2) ? "" : "," + Dealer.Address2) + (string.IsNullOrEmpty(Dealer.Address3) ? "" : "," + Dealer.Address3)).Trim(',', ' ');
                 string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
-                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(FSR.ICTicket.Customer.CustomerCode);
+                //PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(FSR.ICTicket.Customer.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(FSR.ICTicket.Customer.CustomerID);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
@@ -667,8 +668,8 @@ namespace DealerManagementSystem.ViewService
             }
             string FSRNumber = FSR.ICTicket.Dealer.DealerCode + "/" + FSR.ICTicket.ICTicketNumber + "/" + FSR.ICTicket.Technician.UserName + "/" + Year;
 
-            PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(FSR.ICTicket.Customer.CustomerCode);
-
+            //PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(FSR.ICTicket.Customer.CustomerCode);
+            PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(FSR.ICTicket.Customer.CustomerID);
             string[] saAllowedCharacters = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
             string sRandomOTP = GenerateRandomOTP(4, saAllowedCharacters);
 

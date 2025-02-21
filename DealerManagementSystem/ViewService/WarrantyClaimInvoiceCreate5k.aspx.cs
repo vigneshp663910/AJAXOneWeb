@@ -223,7 +223,7 @@ namespace DealerManagementSystem.ViewService
                 TextBox txtThrough = (TextBox)gvClaimByClaimID.Rows[gvRow.RowIndex].FindControl("txtThrough");
                 TextBox txtLRNumber = (TextBox)gvClaimByClaimID.Rows[gvRow.RowIndex].FindControl("txtLRNumber");
                 TraceLogger.Log(DateTime.Now);
-                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(ddlDealerCode.SelectedValue);
+                PDMS_Customer Dealer = new BDMS_Customer().getDealerAddressFromSAP(ddlDealerCode.SelectedValue);
                 PDMS_Customer CustomerAE = new BDMS_Customer().GetCustomerAE(DateTime.Now);
 
                 PDMS_ICTicket IC = new BDMS_ICTicket().GetICTicket(null, null, lblICTicketID.Text, null, null, null, null)[0];

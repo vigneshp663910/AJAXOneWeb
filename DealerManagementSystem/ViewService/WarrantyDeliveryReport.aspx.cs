@@ -86,7 +86,7 @@ namespace DealerManagementSystem.ViewService
                 //{
                 //    DeliveryDateTo = Convert.ToDateTime(txtDeliveryDateTo.Text.Trim());
                 //}
-                PDMS_Customer Dealer = new BDMS_Customer().getCustomerAddressFromSAP(DealerCode);
+                PDMS_Customer Dealer = new BDMS_Customer().getDealerAddressFromSAP(DealerCode);
 
                 DealerStateCode = Dealer.State.StateCode;
                 List<PDMS_DeliveryHeader> SOIs = new BDMS_Delivery().getDelivery(DealerCode, DeliveryNumber, txtDeliveryDateFrom.Text.Trim(), txtDeliveryDateTo.Text.Trim(), DeliveryTypeID, DealerStateCode);

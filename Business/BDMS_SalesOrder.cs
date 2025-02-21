@@ -1513,7 +1513,7 @@ namespace Business
 
                 PDMS_Dealer DealerBank = new BDMS_Dealer().GetDealerBankDetails(D.SaleOrder.Dealer.DealerID, null, null)[0];
                 PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(D.SaleOrder.Customer.CustomerID);
-                // PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Customer.CustomerCode);
+                //PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(D.SaleOrder.Customer.CustomerCode);
                 string CustomerAddress = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 CustomerAddress = CustomerAddress + "," + (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 

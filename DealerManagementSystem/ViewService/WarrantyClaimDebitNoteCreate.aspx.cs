@@ -328,7 +328,7 @@ namespace DealerManagementSystem.ViewService
 
             }
             PDMS_Customer Supplier = new BDMS_Customer().GetCustomerAE(DateTime.Now);
-            PDMS_Customer Buyer = new BDMS_Customer().getCustomerAddressFromSAP(lblDealerCode.Text);
+            PDMS_Customer Buyer = new BDMS_Customer().getDealerAddressFromSAP(lblDealerCode.Text);
             decimal? TCSValue = null;
             decimal? TCSTax = null;
             //if (PDMS_EInvoice.TcsDate <= DateTime.Now)
