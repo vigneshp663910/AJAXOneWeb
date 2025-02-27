@@ -179,7 +179,7 @@ namespace DealerManagementSystem.ViewMaster
 
             MPE_DealerCreate.Hide();
             
-            DealerList = new BDMS_Dealer().GetDealer(Convert.ToInt32(dealer.DealerCode), null, PSession.User.UserID, null);
+            DealerList = new BDMS_Dealer().GetDealer( null,dealer.DealerCode, PSession.User.UserID, null);
             
             gvDealer.DataSource = DealerList;
             gvDealer.DataBind();

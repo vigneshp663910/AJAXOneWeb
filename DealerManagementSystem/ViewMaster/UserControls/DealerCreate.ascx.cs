@@ -313,7 +313,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             PDealer_Insert Dealer = new PDealer_Insert();
 
-            Dealer.DealerCode = Convert.ToInt32(txtDealerCode.Text.Trim());
+            Dealer.DealerCode = txtDealerCode.Text.Trim();
             Dealer.DealerName = txtContactName.Text.Trim();
             Dealer.DealerShortName = txtDisplayName.Text.Trim();
             Dealer.GSTIN = txtGSTIN.Text.Trim().ToUpper();

@@ -58,6 +58,13 @@ namespace Business
                             Dealer.SM = new PUser() { ContactName = Convert.ToString(Dr["ServiceManager"]) };
                             Dealer.IsActive = Dr["IsActive"] == DBNull.Value ? false : Convert.ToBoolean(Dr["IsActive"]);
                             Dealer.Region = DBNull.Value == Dr["RegionID"] ? null : new PDMS_Region() { RegionID = Convert.ToInt32(Dr["RegionID"]), Region = Convert.ToString(Dr["Region"]) };
+                            Dealer.CountryID = Convert.ToInt32(Dr["CountryID"]);
+                            Dealer.Country = Convert.ToString(Dr["Country"]);
+                            Dealer.DealerType = DBNull.Value == Dr["DealerTypeID"] ? null : new PDealerType() { DealerTypeID = Convert.ToInt32(Dr["DealerTypeID"]), DealerType = Convert.ToString(Dr["DealerType"]) };
+                            Dealer.HeadOfficeID = Convert.ToString(Dr["HeadOfficeID"]);
+                            Dealer.ApiUserName = Convert.ToString(Dr["ApiUserName"]);
+                            Dealer.ApiPassword = Convert.ToString(Dr["ApiPassword"]);
+                            Dealer.ServicePaidEInvoice = Dr["ServicePaidEInvoice"] == DBNull.Value ? false : Convert.ToBoolean(Dr["ServicePaidEInvoice"]);
                             Dealers.Add(Dealer);
                         }
                     }
@@ -1619,12 +1626,9 @@ namespace Business
             string endPoint = "Dealer/GetDealerType?DealerTypeID=" + DealerTypeID + "&DealerType=" + DealerType;
             return JsonConvert.DeserializeObject<List<PDealerType>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
-        public Boolean UpdateDealer(int DealerCode, string DealerName, string DealerShortName, string GSTIN, string PAN
-            , string Email, string Mobile, int DealerTypeID, Boolean IsActiveDealer, int StateID, int CountryID, string OfficeCodeE, Boolean EInvAPI, DateTime? EInvoiceDate, string APIUsername, string APIPassword, Boolean ServicePaidEInvoice)
+        public Boolean UpdateDealer(PDealer_Update DUpdatee)
         {
-            string endPoint = "Dealer/UpdateDealer?DealerCode=" + DealerCode + "&DealerName=" + DealerName + "&DealerShortName=" + DealerShortName + "&DealerShortName=" + DealerShortName + "&GSTIN=" + GSTIN + "&PAN=" + PAN 
-                + "&Email=" + Email + "&Mobile=" + Mobile + "&DealerTypeID=" + DealerTypeID + "&IsActiveDealer=" + IsActiveDealer + "&StateID=" + StateID + "&CountryID=" + CountryID + "&OfficeCodeE=" + OfficeCodeE + "&EInvAPI=" + EInvAPI + "&EInvoiceDate=" + EInvoiceDate + "&APIUsername=" + APIUsername + "&APIPassword=" + APIPassword + "&ServicePaidEInvoice=" + ServicePaidEInvoice;
-            return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
-        }        
+            return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/UpdateDealer", DUpdatee)).Data));
+        }
     }
 }
