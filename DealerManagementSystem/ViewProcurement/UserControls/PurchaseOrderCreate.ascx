@@ -125,10 +125,10 @@
         <legend style="background: none; color: #007bff; font-size: 17px;">Material Add</legend>
         <div class="col-md-12 Report">
             <div class="col-md-12">
-                <%--  <div class="col-md-2 col-sm-12">
+                  <div id ="divSupersedeYN"  runat="server" class="col-md-2 col-sm-12">
                         <label class="modal-label">SupersedeYN</label>
                         <asp:CheckBox ID="cbSupersedeYN" runat="server" Checked="true" />
-                    </div>--%>
+                    </div>
                 <div class="col-md-3 col-sm-12">
                     <asp:HiddenField ID="hdfMaterialID" runat="server" />
                     <asp:HiddenField ID="hdfMaterialCode" runat="server" />
