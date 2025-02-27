@@ -271,6 +271,7 @@
             /*min-height:670px;*/
         }
 
+        /* 275-291 - repeat
         .fieldset-border {
             border: solid 1px #cacaca;
             margin: 15px 0;
@@ -292,10 +293,12 @@
         fieldset {
             padding: 5px;
         }
+           
 
-            fieldset legend {
-                font-weight: bold;
-            }
+        fieldset legend {
+            font-weight: bold;
+        }
+            */
 
         .loginfooter_new {
             background: #232425;
@@ -362,12 +365,12 @@
         }
 
         .Grid th {
-           /* background-color: #d8d8d8;*/        
-           /* color: black;*/
-           /*font: message-box;*/
-           /* background-color:#5083af; */
+            /* background-color: #d8d8d8;*/
+            /* color: black;*/
+            /*font: message-box;*/
+            /* background-color:#5083af; */
 
-            background-color:#039caf;
+            background-color: #039caf;
             color: white;
             font-weight: bold;
             font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
@@ -889,7 +892,7 @@
 
         .PopupHeader {
             border: 1px solid #333;
-            background: #003d99 url(Ajax/Images/Feedbackheader.png) 50% 50% repeat-x;           
+            background: #003d99 url(Ajax/Images/Feedbackheader.png) 50% 50% repeat-x;
             color: #fff;
             font-weight: bold;
             cursor: move;
@@ -1980,27 +1983,27 @@
 
     </script>
 
-     <script>
+    <script>
 
-         function ScreenControl(optn) {
-             var fsCriteria = document.getElementById("fsCriteria");
-             var fs = document.getElementById("fs");
-             var rs = document.getElementById("rs");
-             //alert("Hi");
+        function ScreenControl(optn) {
+            var fsCriteria = document.getElementById("fsCriteria");
+            var fs = document.getElementById("fs");
+            var rs = document.getElementById("rs");
+            //alert("Hi");
 
-             if (optn == 1) {
-                 fsCriteria.style.display = "none";
-                 fs.style.display = "block";
-                 rs.style.display = "none";
-             }
+            if (optn == 1) {
+                fsCriteria.style.display = "none";
+                fs.style.display = "block";
+                rs.style.display = "none";
+            }
 
-             if (optn == 2) {
-                 fsCriteria.style.display = "block";
-                 fs.style.display = "none";
-                 rs.style.display = "block";
-             }
-         }
-     </script>
+            if (optn == 2) {
+                fsCriteria.style.display = "block";
+                fs.style.display = "none";
+                rs.style.display = "block";
+            }
+        }
+    </script>
 
     <script>
         /*const {hidden} = require("modernizr");*/
@@ -2412,11 +2415,12 @@
                 <div class="row">
                     <div id="CompanyLogo" class="logo">
 
-                       <%-- <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />--%>
-                       
-                         <div style="padding:5px;"; >
-                         <asp:Image ID="Image6" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="23" Width="30" />
-                         <asp:Image ID="Image2" Width="94px" Height="42px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" /></div>     
+                        <%-- <asp:Image ID="ImgLogo" Width="110px" Height="50px" ImageUrl="~/Ajax/Images/ajax_logow.png" AlternateText="rr" runat="server" />--%>
+
+                        <div style="padding: 5px;">
+                            <asp:Image ID="Image6" runat="server" ImageUrl="~/Ajax/Images/AJAXtLogo.png" Height="23" Width="30" />
+                            <asp:Image ID="Image2" Width="94px" Height="42px" ImageUrl="~/Ajax/Images/AJAXOneW.png" AlternateText="rr" runat="server" />
+                        </div>
 
                     </div>
                     <div id="SideBarToggle" class="w3-display-topleft" style="color: white; padding-left: 235px">
@@ -2615,8 +2619,9 @@
                                     <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                     <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
                                     <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                                </asp:GridView><b>
-                                <a class="dropdown-item text-center mediaum" href="/ViewAdmin/MessageAnnouncement.aspx" style="color:white;font-weight:normal;background-color:#006699;">List All Notification</a></b>
+                                </asp:GridView>
+                                <b>
+                                    <a class="dropdown-item text-center mediaum" href="/ViewAdmin/MessageAnnouncement.aspx" style="color: white; font-weight: normal; background-color: #006699;">List All Notification</a></b>
                             </td>
                         </tr>
                     </table>

@@ -17,7 +17,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
-
+        <div class="col-md-12">
     <fieldset class="fieldset-border" id="Fieldset2" runat="server">
         <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
         <div class="col-md-12">
@@ -138,6 +138,7 @@
             </asp:GridView>
         </div>
     </fieldset>
+            </div>
 
     <div style="display: none">
         <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton>
