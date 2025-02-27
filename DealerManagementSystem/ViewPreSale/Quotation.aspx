@@ -81,11 +81,11 @@
                     </div>
                 </fieldset>
             </div>
-            <div class="col-md-12">
+           <%-- <div class="col-md-12">--%>
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
-                        <div class="col-md-12 Report">
+                      <%--  <div class="col-md-12 Report">--%>
 
                             <div class="boxHead">
                                 <div class="logheading">
@@ -219,10 +219,10 @@
                                 <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
                             </asp:GridView>
 
-                        </div>
+                      <%--  </div>--%>
                     </fieldset>
                 </div>
-            </div>
+           <%-- </div>--%>
         </div>
         <div class="col-md-12" id="divColdVisitView" runat="server" visible="false">
             <div class="col-md-12 lead-back-btn">

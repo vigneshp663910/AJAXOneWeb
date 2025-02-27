@@ -33,6 +33,7 @@
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <div class="col-md-12">
         <div class="col-md-12" id="divList" runat="server">
+            <div class="col-md-12">
             <fieldset id="fsCriteria" class="fieldset-border">
                 <legend style="background: none; color: #007bff; font-size: 17px;">Filter<asp:Image ID="Image1" runat="server" ImageUrl="~/Images/filter1.png" Width="30" Height="30" /></legend>
                 <div class="col-md-12">
@@ -107,13 +108,14 @@
                     </div>
                 </div>
             </fieldset>
-            <div class="col-md-12">
+                </div>
+         <%--   <div class="col-md-12">--%>
 
                 <div class="col-md-12 Report">
                     <fieldset class="fieldset-border">
                         <legend style="background: none; color: #007bff; font-size: 17px;">List
                             <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/ListEdit.jpg" Width="20" Height="20" /></legend>
-                        <div class="col-md-12 Report">
+                       <%-- <div class="col-md-12 Report">--%>
                             <div class="boxHead">
                                 <div class="logheading">
                                     <div style="float: left">
@@ -230,10 +232,10 @@
                                 <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
 
                             </asp:GridView>
-                        </div>
+                      <%--  </div>--%>
                     </fieldset>
                 </div>
-            </div>
+          <%--  </div>--%>
         </div>
         <div class="col-md-12" id="divDetailsView" runat="server" visible="false" style="padding: 5px 15px">
             <div class="col-md-12 lead-back-btn">
