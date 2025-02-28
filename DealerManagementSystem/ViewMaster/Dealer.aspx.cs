@@ -19,15 +19,15 @@ namespace DealerManagementSystem.ViewMaster
         {
             get
             {
-                if (Session["Dealer"] == null)
+                if (Session["ViewMaster_Dealer"] == null)
                 {
-                    Session["Dealer"] = new List<PDMS_Dealer>();
+                    Session["ViewMaster_Dealer"] = new List<PDMS_Dealer>();
                 }
-                return (List<PDMS_Dealer>)Session["Dealer"];
+                return (List<PDMS_Dealer>)Session["ViewMaster_Dealer"];
             }
             set
             {
-                Session["Dealer"] = value;
+                Session["ViewMaster_Dealer"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -57,7 +57,17 @@ namespace DealerManagementSystem.ViewMaster
                 //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 new DDLBind(ddlRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID");
+
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerCreateAndEditAddrOfficeAndBank).Count() == 0)
+                {
+                    btnAddDealer.Visible = false;
+                }
             }
+            
+            lblRowCount.Visible = false;
+            ibtnDealerArrowLeft.Visible = false;
+            ibtnDealerArrowRight.Visible = false;
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {

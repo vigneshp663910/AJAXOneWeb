@@ -54,15 +54,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             get
             {
-                if (Session["DealerOffice"] == null)
+                if (ViewState["DealerOffice"] == null)
                 {
-                    Session["DealerOffice"] = new List<PDMS_DealerOffice>();
+                    ViewState["DealerOffice"] = new List<PDMS_DealerOffice>();
                 }
-                return (List<PDMS_DealerOffice>)Session["DealerOffice"];
+                return (List<PDMS_DealerOffice>)ViewState["DealerOffice"];
             }
             set
             {
-                Session["DealerOffice"] = value;
+                ViewState["DealerOffice"] = value;
             }
         }
         
@@ -70,15 +70,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             get
             {
-                if (Session["DealerEmployee"] == null)
+                if (ViewState["DealerEmployee"] == null)
                 {
-                    Session["DealerEmployee"] = new List<PDMS_DealerEmployee>();
+                    ViewState["DealerEmployee"] = new List<PDMS_DealerEmployee>();
                 }
-                return (List<PDMS_DealerEmployee>)Session["DealerEmployee"];
+                return (List<PDMS_DealerEmployee>)ViewState["DealerEmployee"];
             }
             set
             {
-                Session["DealerEmployee"] = value;
+                ViewState["DealerEmployee"] = value;
             }
         }
         
@@ -86,15 +86,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             get
             {
-                if (Session["DealerNotification"] == null)
+                if (ViewState["DealerNotification"] == null)
                 {
-                    Session["DealerNotification"] = new List<PDealerNotification>();
+                    ViewState["DealerNotification"] = new List<PDealerNotification>();
                 }
-                return (List<PDealerNotification>)Session["DealerNotification"];
+                return (List<PDealerNotification>)ViewState["DealerNotification"];
             }
             set
             {
-                Session["DealerNotification"] = value;
+                ViewState["DealerNotification"] = value;
             }
         }
         
@@ -118,15 +118,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             get
             {
-                if (Session["DealerResponsibleUser"] == null)
+                if (ViewState["DealerResponsibleUser"] == null)
                 {
-                    Session["DealerResponsibleUser"] = new List<PDMS_DealerEmployee>();
+                    ViewState["DealerResponsibleUser"] = new List<PDMS_DealerEmployee>();
                 }
-                return (List<PDMS_DealerEmployee>)Session["DealerResponsibleUser"];
+                return (List<PDMS_DealerEmployee>)ViewState["DealerResponsibleUser"];
             }
             set
             {
-                Session["DealerResponsibleUser"] = value;
+                ViewState["DealerResponsibleUser"] = value;
             }
         }
         
@@ -489,6 +489,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         
         void ActionControlMange()
         {
+            lnkBtnEditDealer.Visible = true;
+            lnkBtnEditDealerAddress.Visible = true;
+            lnkBtnAddBranchOffice.Visible = true;
             lnkBtnEditBank.Visible = true;
             lnkBtnAddNotification.Visible = true;
             lnkBtnEditDealerResponsibleUser.Visible = true;
@@ -499,8 +502,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lnkBtnAddNotification.Visible = false;
             }
 
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBankDetailsEdit).Count() == 0)
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerCreateAndEditAddrOfficeAndBank).Count() == 0)
             {
+                lnkBtnEditDealer.Visible = false;
+                lnkBtnEditDealerAddress.Visible = false;
+                lnkBtnAddBranchOffice.Visible = false;
                 lnkBtnEditBank.Visible = false;
             }
 
