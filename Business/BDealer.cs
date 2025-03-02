@@ -416,5 +416,14 @@ namespace Business
             string endPoint = "Dealer/GetDealerAddress?DealerID=" + DealerID ;
             return JsonConvert.DeserializeObject<List<PDMS_Dealer>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+
+        public Boolean UpdateDealerAddress(int DealerID, string Address1, string Address2, string Address3, string City
+            , int CountryID, int StateID, int DistrictID, string Pincode)
+        {
+            string endPoint = "Dealer/UpdateDealerAddress?DealerID=" + DealerID + "&Address1=" + Address1 + "&Address2=" + Address2 + "&Address3=" + Address3 
+                + "&City=" + City + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID
+                + "&Pincode=" + Pincode ;
+            return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

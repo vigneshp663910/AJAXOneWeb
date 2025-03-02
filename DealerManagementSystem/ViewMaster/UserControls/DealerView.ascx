@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DealerView.ascx.cs" Inherits="DealerManagementSystem.ViewMaster.UserControls.DealerView" %>
-<%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_DealerCreate" %>
+<%@ Register Src="~/ViewMaster/UserControls/DealerCreate.ascx" TagPrefix="UC" TagName="UC_DealerCreate" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
-
 
 <script type="text/javascript" src="../JSAutocomplete/ajax/1.8.3jquery.min.js"></script>
 <script type="text/javascript">  
@@ -86,6 +85,8 @@
         <div class="dropdown btnactions" id="dealerAction">
             <div class="btn Approval">Actions</div>
             <div class="dropdown-content" style="font-size: small; margin-left: -105px; overflow-x: auto; max-height: 300px">
+                <asp:LinkButton ID="lnkBtnEditDealer" runat="server" OnClick="lnkBtnActions_Click">Edit Dealer</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnEditDealerAddress" runat="server" OnClick="lnkBtnActions_Click">Edit Address</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnAddBranchOffice" runat="server" OnClick="lnkBtnActions_Click">Add Branch Office</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnAddNotification" runat="server" OnClick="lnkBtnActions_Click">Add Dealer Notification</asp:LinkButton>
                 <asp:LinkButton ID="lnkBtnEditBank" runat="server" OnClick="lnkBtnActions_Click">Edit Bank Details</asp:LinkButton>
@@ -108,13 +109,13 @@
                     <asp:Label ID="lblEmail" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>State : </label>
-                    <asp:Label ID="lblDealerState" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>Region : </label>
+                    <asp:Label ID="lblDealerRegion" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
+                <%--<div class="col-md-12">
                     <label>IFSC Code : </label>
                     <asp:Label ID="lblIFSCCode" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
+                </div>--%>
                 <%--<div class="col-md-12">
                     <label>Team Lead : </label>
                     <asp:Label ID="lblTeamLead" runat="server" CssClass="label"></asp:Label>
@@ -126,21 +127,29 @@
                     <asp:Label ID="lblDealerName" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Country : </label>
-                    <asp:Label ID="lblDealerCountry" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>Contact Person : </label>
+                    <asp:Label ID="lblContactPerson" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
+                <%--<div class="col-md-12">
                     <label>Bank : </label>
                     <asp:Label ID="lblDealerBank" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
+                </div>--%>
+                <%--<div class="col-md-12">
                     <label>Account Number : </label>
                     <asp:Label ID="lblAccountNo" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
+                </div>--%>
                 <%--<div class="col-md-12">
                     <label>Serivce Manager : </label>
                     <asp:Label ID="lblSerivceManager" runat="server" CssClass="label"></asp:Label>
                 </div>--%>
+                <div class="col-md-12">
+                    <label>State : </label>
+                    <asp:Label ID="lblDealerState" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>PAN : </label>
+                    <asp:Label ID="lblPAN" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12">
@@ -148,12 +157,16 @@
                     <asp:Label ID="lblMobile" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>Region : </label>
-                    <asp:Label ID="lblDealerRegion" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>Country : </label>
+                    <asp:Label ID="lblDealerCountry" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
+                <%--<div class="col-md-12">
                     <label>Branch : </label>
                     <asp:Label ID="lblDealerBankBranch" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>--%>
+                <div class="col-md-12">
+                    <label>GSTIN : </label>
+                    <asp:Label ID="lblGSTIN" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
                     <label>Active : </label>
@@ -163,9 +176,55 @@
         </div>
     </fieldset>
 </div>
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <asp:HiddenField ID="HiddenID" runat="server" Visible="false" />
 <asp1:TabContainer ID="tbpDealer" runat="server" ToolTip="Dealer" Font-Bold="True" Font-Size="Medium" ActiveTabIndex="1">
+    <asp1:TabPanel ID="tpnlDealerAddress" runat="server" HeaderText="Address" Height="350px">
+        <ContentTemplate>
+            <br />
+            <div class="col-md-12">
+                <div class="col-md-12 field-margin-top">
+                    <fieldset class="fieldset-border">
+                        <%--<legend style="background: none; color: #007bff; font-size: 17px;">Address</legend>--%>
+                        <div class="col-md-12 View">
+                            <div class="col-md-4">
+                                <div class="col-md-12">
+                                    <label>Address1 : </label>
+                                    <asp:Label ID="lblAddress1" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>City : </label>
+                                    <asp:Label ID="lblCity" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-12">
+                                    <label>Address2 : </label>
+                                    <asp:Label ID="lblAddress2" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>District: </label>
+                                    <asp:Label ID="lblDistrict" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-12">
+                                    <label>Address3 : </label>
+                                    <asp:Label ID="lblAddress3" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Pincode: </label>
+                                    <asp:Label ID="lblPincode" runat="server" CssClass="LabelValue"></asp:Label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlDealerOffice" runat="server" HeaderText="Dealer Office" Font-Bold="True" ToolTip="List of Dealer Office...">
         <ContentTemplate>
             <div class="col-md-12">
@@ -534,7 +593,7 @@
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Action" HeaderStyle-Width="50px" ItemStyle-HorizontalAlign="Center">
                                                 <ItemTemplate>
-                                                    <asp:LinkButton ID="lnkBtnNotificationDelete" runat="server" OnClick="lnkBtnNotificationDelete_Click" OnClientClick="return ConfirmNotificationDelete();"><i class="fa fa-fw fa-times" style="font-size: 18px"></i></asp:LinkButton>
+                                                    <asp:LinkButton ID="dc" runat="server" OnClick="lnkBtnNotificationDelete_Click" OnClientClick="return ConfirmNotificationDelete();"><i class="fa fa-fw fa-times" style="font-size: 18px"></i></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
@@ -551,6 +610,36 @@
                 </div>
             </div>
 
+        </ContentTemplate>
+    </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlDealerBankDetials" runat="server" HeaderText="Bank" Height="350px">
+        <ContentTemplate>
+            <br />
+            <div class="col-md-12">
+                <div class="col-md-12 field-margin-top">
+                    <fieldset class="fieldset-border">
+                        <%--<legend style="background: none; color: #007bff; font-size: 17px;">Bank</legend>--%>
+                        <div class="col-md-12 View">
+                            <div class="col-md-4">
+                                <label>Bank : </label>
+                                <asp:Label ID="lblDealerBank" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Account Number : </label>
+                                <asp:Label ID="lblAccountNumber" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Branch : </label>
+                                <asp:Label ID="lblDealerBranch" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>IFSC Code: </label>
+                                <asp:Label ID="lblIFSCCode" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
         </ContentTemplate>
     </asp1:TabPanel>
     <asp1:TabPanel ID="tpnlDealerResponsibleUser" runat="server" HeaderText="Dealer Responsible User" Font-Bold="True" ToolTip="List of Dealer Responsible Users...">
@@ -629,26 +718,191 @@
             </div>
         </ContentTemplate>
     </asp1:TabPanel>
+    <asp1:TabPanel ID="tpnlDealerEInvoice" runat="server" HeaderText="E Invoice" Height="350px">
+        <ContentTemplate>
+            <br />
+            <div class="col-md-12">
+                <div class="col-md-12 field-margin-top">
+                    <fieldset class="fieldset-border">
+                        <%--<legend style="background: none; color: #007bff; font-size: 17px;">E Invoice</legend>--%>
+                        <div class="col-md-12 View">
+                            <div class="col-md-4">
+                                <label>E Invoice : </label>
+                                <asp:CheckBox ID="cbIsEInvoice" runat="server" />
+                            </div>
+                            <div class="col-md-4">
+                                <label>E Invoice Date : </label>
+                                <asp:Label ID="lblEInvoiceDate" runat="server" CssClass="LabelValue"></asp:Label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Service Paid E Invoice : </label>
+                                <asp:CheckBox ID="cbServicePaidEInvoiceP" runat="server" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp1:TabPanel>
 </asp1:TabContainer>
 
-<asp:Panel ID="pnlDealer" runat="server" CssClass="Popup" Style="display: none">
+<asp:Panel ID="pnlEditDealer" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Edit Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogueEditDealer">Edit Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageDealerEdit" runat="server" Text="" CssClass="message" Visible="false" />
-            <UC:UC_DealerCreate ID="UC_Dealer" runat="server"></UC:UC_DealerCreate>
+            <asp:Label ID="lblMessageEditDealer" runat="server" Text="" CssClass="message"/>
+            <%--<UC:UC_DealerCreate ID="UC_Dealer" runat="server"></UC:UC_DealerCreate>--%>
+            <fieldset class="fieldset-border" id="Fieldset6" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-8">
+                        <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Dealer</legend>
+                            <div class="col-md-5 col-sm-12">
+                                <label class="modal-label">Active</label>
+                                <asp:CheckBox ID="cbIsActiveDealer" runat="server" BorderColor="Silver" />
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <label class="modal-label">Dealer Code</label>
+                                <asp:TextBox ID="txtDealerCode" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                                <asp:Label ID="Label1" runat="server" Visible="false" />
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <label class="modal-label">Dealer Name</label>
+                                <asp:TextBox ID="txtDealerName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <label class="modal-label">Dealer Short Name</label>
+                                <asp:TextBox ID="txtDealerShortName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <label class="modal-label">GSTIN</label>
+                                <asp:TextBox ID="txtGSTIN" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <label class="modal-label">PAN</label>
+                                <asp:TextBox ID="txtPAN" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <label class="modal-label">Email</label>
+                                <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <label class="modal-label">Phone</label>
+                                <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <label class="modal-label">Contact Person</label>
+                                <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <label class="modal-label">Dealer Type</label>
+                                <asp:DropDownList ID="ddlDealerType" runat="server" CssClass="form-control" DataTextField="DealerType" DataValueField="DealerTypeID" />
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4">
+                        <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">E Invoice</legend>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">E Invoice</label>
+                                <asp:CheckBox ID="cbEInvAPI" runat="server" />
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <label class="modal-label">Service Paid E Invoice</label>
+                                <asp:CheckBox ID="cbServicePaidEInvoice" runat="server" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label>E Invoice Date</label>
+                                <asp:TextBox ID="txtEInvoiceDate" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"></asp:TextBox>
+                                <asp1:CalendarExtender ID="cxEInvoiceDate" runat="server" TargetControlID="txtEInvoiceDate" PopupButtonID="txtEInvoiceDate" Format="dd/MM/yyyy" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">API Username</label>
+                                <asp:TextBox ID="txtApiUserName" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">API Password</label>
+                                <asp:TextBox ID="txtApiPassword" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnUpdateDealer" runat="server" Text="Save" CssClass="btn Save" OnClick="lnkBtnPopupActions_Click" OnClientClick="return ConfirmDealerChanges();" />
+                    </div>
+                </div>
+            </fieldset>
         </div>
         <%--<div class="col-md-12 text-center">
             <asp:Button ID="btnUpdateDealer" runat="server" Text="Update" CssClass="btn Save" OnClick="btnUpdateDealer_Click" />
         </div>--%>
     </div>
 </asp:Panel>
-<ajaxToolkit:ModalPopupExtender ID="MPE_Dealer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlDealer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditDealer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditDealer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlEditDealerAddress" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogueEditDealerAddress">Edit Dealer Address</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button3" runat="server" Text="X" CssClass="PopupClose" />
+        </a>
+    </div>
+
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblMessageEditDealerAddress" runat="server" Text="" CssClass="message"/>
+            <fieldset class="fieldset-border" id="Fieldset4" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <fieldset class="fieldset-border">
+                            <legend style="background: none; color: #007bff; font-size: 17px;">Address</legend>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">Address 1</label>
+                                <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">Address 2</label>
+                                <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">Address 3</label>
+                                <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">Country</label>
+                                <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">State</label>
+                                <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">District</label>
+                                <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">City</label>
+                                <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <label class="modal-label">PinCode</label>
+                                <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"></asp:TextBox>
+                            </div>
+
+                        </fieldset>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnUpdateDealerAddress" runat="server" Text="Save" CssClass="btn Save" OnClick="lnkBtnPopupActions_Click" OnClientClick="return ConfirmDealerAddressChanges();" />
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_EditDealerAddress" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditDealerAddress" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <asp:Panel ID="pnlAddBranchOffice" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
@@ -659,7 +913,7 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageAddBranchOffice" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageAddBranchOffice" runat="server" Text="" CssClass="message"/>
             <fieldset class="fieldset-border" id="Fieldset3" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-4 col-sm-12">
@@ -734,7 +988,7 @@
                         <%-- <asp1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender6" runat="server" TargetControlID ="txtDealerOfficeEmail" WatermarkText="Email"  />--%>
                     </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnAddUpdateBranchOffice" runat="server" Text="Save" CssClass="btn Save" OnClientClick = "return ConfirmDealerOfficeChanges();" OnClick="btnAddUpdateBranchOffice_Click" />
+                        <asp:Button ID="btnAddUpdateBranchOffice" runat="server" Text="Save" CssClass="btn Save" OnClientClick="return ConfirmDealerOfficeChanges();" OnClick="lnkBtnPopupActions_Click" />
                     </div>
                 </div>
             </fieldset>
@@ -753,7 +1007,7 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageAddNotification" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageAddNotification" runat="server" Text="" CssClass="message"/>
             <fieldset class="fieldset-border" id="Fieldset5" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-12 col-sm-12">
@@ -781,7 +1035,7 @@
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnAddNotification" runat="server" Text="Save" CssClass="btn Save" OnClick="btnAddNotification_Click" OnClientClick = "return ConfirmNotificationAdd();" />
+            <asp:Button ID="btnAddNotification" runat="server" Text="Save" CssClass="btn Save" OnClick="lnkBtnPopupActions_Click" OnClientClick="return ConfirmNotificationAdd();" />
         </div>
     </div>
 </asp:Panel>
@@ -796,7 +1050,7 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageEditBank" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblMessageEditBank" runat="server" Text="" CssClass="message"/>
             <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
@@ -817,7 +1071,7 @@
                         <asp:TextBox ID="txtAccountNo" runat="server" CssClass="form-control" BorderColor="Silver"></asp:TextBox>
                     </div>
                     <div class="col-md-12 text-center">
-                        <asp:Button ID="btnEditBank" runat="server" Text="Save" CssClass="btn Save" OnClick="btnEditBank_Click" OnClientClick="return ConfirmDealerBankChanges();" />
+                        <asp:Button ID="btnEditBank" runat="server" Text="Save" CssClass="btn Save" OnClick="lnkBtnPopupActions_Click" OnClientClick="return ConfirmDealerBankChanges();" />
                     </div>
                 </div>
             </fieldset>
@@ -836,7 +1090,7 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblEditDealerResponsibleUserMessage" runat="server" Text="" CssClass="message" Visible="false" />
+            <asp:Label ID="lblEditDealerResponsibleUserMessage" runat="server" Text="" CssClass="message"/>
             <fieldset class="fieldset-border" id="Fieldset2" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
@@ -856,7 +1110,7 @@
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnUpdateDealerResposibleUser" runat="server" Text="Save" CssClass="btn Save" OnClick="btnUpdateDealerResposibleUser_Click" OnClientClick = "return ConfirmDealerResposibleUserChanges();"/>
+            <asp:Button ID="btnUpdateDealerResposibleUser" runat="server" Text="Save" CssClass="btn Save" OnClick="lnkBtnPopupActions_Click" OnClientClick="return ConfirmDealerResposibleUserChanges();" />
         </div>
     </div>
 </asp:Panel>
@@ -867,6 +1121,22 @@
 </div>
 
 <script type="text/javascript">
+    function ConfirmDealerChanges() {
+        var x = confirm("Are you sure you want to confirm saving the Dealer Details Changes?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
+    function ConfirmDealerAddressChanges() {
+        var x = confirm("Are you sure you want to confirm saving the Dealer Address Changes?");
+        if (x) {
+            return true;
+        }
+        else
+            return false;
+    }
     function ConfirmDealerOfficeChanges() {
 
         var cbIsHeadOffice = document.getElementById('MainContent_UC_DealerView_cbIsHeadOffice');
