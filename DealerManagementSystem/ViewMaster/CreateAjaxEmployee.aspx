@@ -60,13 +60,13 @@
         function escapeRegExp(string) {
             return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         }
-       
+
     </script>
     <style>
         .uppercase {
             text-transform: uppercase;
         }
-    </style>     
+    </style>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" Visible="false" />
@@ -79,9 +79,9 @@
                         <label>Aadhaar Card No / Emp Code</label>
                     </div>
                     <div class="col-md-3">
-                        <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" MaxLength="14"    OnTextChanged="txtAadhaarCardNo_TextChanged" AutoPostBack="true"></asp:TextBox>
-                        
-                    </div>  
+                        <asp:TextBox ID="txtAadhaarCardNo" runat="server" CssClass="form-control" MaxLength="14" OnTextChanged="txtAadhaarCardNo_TextChanged" AutoPostBack="true"></asp:TextBox>
+
+                    </div>
                     <div class="col-md-3 text-right">
                         <label>Name</label>
                     </div>
@@ -168,7 +168,7 @@
                     <div class="col-md-3">
                         <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" AutoComplete="SP"></asp:TextBox>
                     </div>
-                   
+
                     <div class="col-md-3 text-right">
                         <label>Emergency Contact</label>
                     </div>
@@ -185,55 +185,88 @@
             </fieldset>
 
 
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Employee Role Assigning</legend>
-                    <div class="col-md-12">
-                       <div class="col-md-3 text-right">
-                            <label>Dealer</label>
-                        </div>
-                        <div class="col-md-3">
-                            <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged" >
-                                <asp:ListItem Value="53">Ajax</asp:ListItem>
-                                <asp:ListItem Value="54">IC Center</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-
-                        <div class="col-md-3 text-right">
-                            <label>Dealer Office</label>
-                        </div>
-                        <div class="col-md-3">
-                            <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <label>Date of Joining</label>
-                        </div>
-                        <div class="col-md-3">
-                            <asp:TextBox ID="txtDateOfJoining" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDOB');"></asp:TextBox>
-                            <asp:CalendarExtender ID="caDateOfJoining" runat="server" TargetControlID="txtDateOfJoining" PopupButtonID="txtDateOfJoining" Format="dd/MM/yyyy"></asp:CalendarExtender>
-                            <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateOfJoining" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
-                        </div>
-                        
-                        <div class="col-md-3 text-right">
-                            <label>Department</label>
-                        </div>
-                        <div class="col-md-3">
-                            <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <label>Designation</label>
-                        </div>
-                        <div class="col-md-3">
-                            <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <label>Reporting To</label>
-                        </div>
-                        <div class="col-md-3">
-                            <asp:DropDownList ID="ddlReportingTo" runat="server" CssClass="form-control" />
-                        </div>
-                       
+            <fieldset class="fieldset-border">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Employee Role Assigning</legend>
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>Dealer</label>
                     </div>
-                </fieldset>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlDealer" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlDealer_SelectedIndexChanged">
+                            <asp:ListItem Value="53">Ajax</asp:ListItem>
+                            <asp:ListItem Value="54">IC Center</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <label>Dealer Office</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlDealerOffice" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Date of Joining</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtDateOfJoining" runat="server" CssClass="form-control" AutoComplete="SP" onkeyup="return removeText('MainContent_txtDOB');"></asp:TextBox>
+                        <asp:CalendarExtender ID="caDateOfJoining" runat="server" TargetControlID="txtDateOfJoining" PopupButtonID="txtDateOfJoining" Format="dd/MM/yyyy"></asp:CalendarExtender>
+                        <asp:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtDateOfJoining" WatermarkText="DD/MM/YYYY"></asp:TextBoxWatermarkExtender>
+                    </div>
+
+                    <div class="col-md-3 text-right">
+                        <label>Department</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDepartment_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Designation</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlDesignation" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Reporting To</label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:DropDownList ID="ddlReportingTo" runat="server" CssClass="form-control" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="fieldset-border" id="fldDealerPermission" runat="server" visible="false">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Dealer Permission</legend>
+                <div class="col-md-12">
+                    <div class="col-md-3 text-right">
+                        <label>Module Permission<samp style="color: red">*</samp></label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtModulePermission" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Remarks<samp style="color: red">*</samp></label>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:TextBox ID="txtRemarks" runat="server" CssClass="uppercase form-control" AutoComplete="SP" TextMode="MultiLine" Rows="5"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <label>Dealer Permission</label>
+                    </div>
+                    <br />
+                    <asp:CheckBox ID="chkSelectAll" runat="server" AutoPostBack="true" OnCheckedChanged="chkSelectAll_CheckedChanged" /><asp:Label ID="lblSelect" runat="server" Text="Select All Dealer"></asp:Label>
+                    <br />
+                    <asp:ListView ID="ListViewDealer" runat="server" DataKeyNames="DealerID">
+                        <ItemTemplate>
+                            <div class="col-md-3 col-sm-12">
+                                <asp:CheckBox ID="chkDealer" runat="server" OnCheckedChanged="chkDealer_CheckedChanged" AutoPostBack="true" />
+                                <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")+"-"+DataBinder.Eval(Container.DataItem, "DisplayName")%>' runat="server" />
+                                <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
+                            </div>
+                        </ItemTemplate>
+                    </asp:ListView>
+                </div>
+            </fieldset>
+
 
             <div class="col-md-12 text-center">
                 <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="InputButton btn Save" UseSubmitBehavior="true" OnClientClick="return ConfirmCreate();" OnClick="btnSave_Click" />

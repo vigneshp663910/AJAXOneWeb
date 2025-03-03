@@ -204,24 +204,6 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
 
         /// <summary>
-        /// btnEmailVerify control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnEmailVerify;
-
-        /// <summary>
-        /// VerifyEmailOTP control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image VerifyEmailOTP;
-
-        /// <summary>
         /// txtAddress1 control.
         /// </summary>
         /// <remarks>

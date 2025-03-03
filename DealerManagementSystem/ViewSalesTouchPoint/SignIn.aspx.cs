@@ -171,7 +171,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
                 Emailsome_div.Visible = true;
                 txtEmailOTP.Visible = true;
                 BtnVerifyEmailOTP.Visible = true;
-                VerifyEmailOTP.Visible = true;
+                //VerifyEmailOTP.Visible = true;
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "EmailOTP", "EmailOTP()", true);
             }
             catch (Exception ex)
@@ -186,12 +186,12 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             {
                 txtEmail.Enabled = false;
                 Emailsome_div.Visible = false;
-                VerifyEmailOTP.ImageUrl = "~/Images/Verified.jpg";
+                //VerifyEmailOTP.ImageUrl = "~/Images/Verified.jpg";
                 BtnSendEmailOTP.Visible = false;
                 Emailsome_div.Visible = false;
                 txtEmailOTP.Visible = false;
                 BtnVerifyEmailOTP.Visible = false;
-                btnEmailVerify.Visible = false;
+                //btnEmailVerify.Visible = false;
 
                 FldVerifyEmailOTP.Visible = false;
                 FldVerifyMobileOTP.Visible = false;
@@ -378,12 +378,12 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
                 Ret = false;
                 txtMobileNumber.BorderColor = Color.Red;
             }
-            if (EmailOTP != "Verified")
-            {
-                Message = Message + "<br/>Please verify email";
-                Ret = false;
-                txtEmail.BorderColor = Color.Red;
-            }
+            //if (EmailOTP != "Verified")
+            //{
+            //    Message = Message + "<br/>Please verify email";
+            //    Ret = false;
+            //    txtEmail.BorderColor = Color.Red;
+            //}
             if (string.IsNullOrEmpty(txtRegPassword.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the password";
@@ -464,7 +464,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
                 return;
             }
 
-            PSalesTouchPointUser User = new BSalesTouchPoint().GetSalesTouchPointUser(txtMobileNumber.Text.Trim(), LMSHelper.EncodeString(txtPassword.Text.Trim()));
+            PSalesTouchPointUser User = new BSalesTouchPoint().GetSalesTouchPointUser(txtUsername.Text.Trim(), LMSHelper.EncodeString(txtPassword.Text.Trim()));
             if (User != null)
             {
                 PSession_STP.SalesTouchPointUser = User;
@@ -515,7 +515,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
                 return;
             }
             PSalesTouchPointUser_Insert UpdateUser = FillUser(txtUsername.Text);
-            UpdateUser.ModifiedBy = PSession_STP.SalesTouchPointUser.SalesTouchPointUserID;
+            UpdateUser.ModifiedBy = UpdateUser.SalesTouchPointUserID;
             if (!string.IsNullOrEmpty(UpdateUser.ContactNumber))
             {
                 if (UpdateUser.IsLocked)

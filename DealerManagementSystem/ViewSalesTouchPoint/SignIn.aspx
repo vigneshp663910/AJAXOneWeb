@@ -561,8 +561,8 @@
                                 </div>
                                 <div>
                                     <asp:TextBox ID="txtEmail" runat="server" placeholder="Email ID" Width="205px" AutoCompleteType="Disabled"></asp:TextBox>
-                                    <asp:LinkButton ID="btnEmailVerify" runat="server" OnClick="btnEmailVerify_Click">Verify Email?</asp:LinkButton>
-                                    <asp:Image ID="VerifyEmailOTP" runat="server" ImageUrl="~/Images/NotVerified.jpg" Width="30px" Height="30px"/>
+                                    <%--<asp:LinkButton ID="btnEmailVerify" runat="server" OnClick="btnEmailVerify_Click">Verify Email?</asp:LinkButton>
+                                    <asp:Image ID="VerifyEmailOTP" runat="server" ImageUrl="~/Images/NotVerified.jpg" Width="30px" Height="30px"/>--%>
                                 </div>
                                 <div>
                                     <label><b>Password</b></label>
