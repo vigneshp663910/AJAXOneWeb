@@ -631,9 +631,8 @@ namespace Properties
         EditAllSalesAndServiceConfiguration = 103,
         EditDealerSalesEngineer = 104,
         EditRetailerSalesEngineer = 105,
-        EnquiryRejectOrConvert = 106, 
-
-       
+        EnquiryRejectOrConvert = 106,
+        HelpCreateandEdit = 107,
     }
     public enum DMS_WarrantyClaimStatus
     {

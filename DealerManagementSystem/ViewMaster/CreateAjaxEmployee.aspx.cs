@@ -1,4 +1,5 @@
 ﻿using Business;
+using Newtonsoft.Json;
 using Properties;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,24 @@ namespace DealerManagementSystem.ViewMaster
         {
             get
             {
-
                 return txtAadhaarCardNo.Text.Trim().Replace("-", "");
             }
-        }       
+        }
+        public List<POnboardEmployeeDealer_Insert> DealerList
+        {
+            get
+            {
+                if (ViewState["DealerList"] == null)
+                {
+                    ViewState["DealerList"] = new List<POnboardEmployeeDealer_Insert>();
+                }
+                return (List<POnboardEmployeeDealer_Insert>)ViewState["DealerList"];
+            }
+            set
+            {
+                ViewState["DealerList"] = value;
+            }
+        }
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Session["previousUrl"] = "DealerEmployeeCreate.aspx";
@@ -39,22 +54,25 @@ namespace DealerManagementSystem.ViewMaster
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('OE Employee » Create / Manpower Registration');</script>");
 
             if (!IsPostBack)
-            {                
+            {
                 ViewState["DealerEmployeeID"] = null;
-                new BDMS_Address().GetStateDDL(ddlState, null, null, null, null);
+                new BDMS_Address().GetStateDDL(ddlState, 1, null, null, null);
                 new BDMS_Dealer().GetEqucationalQualificationDDL(ddlEqucationalQualification, null, null);
                 new BDMS_Dealer().GetBloodGroupDDL(ddlBloodGroup, null, null);
 
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
-
-                // int DealerID =  new BDMS_Dealer().GetDealer(null,"2000", null, null)[0].DealerID;
-
-               
+                // int DealerID =  new BDMS_Dealer().GetDealer(null,"2000", null, null)[0].DealerID;                
                 if (!string.IsNullOrEmpty(Request.QueryString["DealerEmployeeID"]))
                 {
                     ViewState["DealerEmployeeID"] = Convert.ToInt32(Request.QueryString["DealerEmployeeID"]);
-                    FillDealerEmployee(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));   
-                    btnBack.Visible = true; 
+                    FillDealerEmployee(Convert.ToInt32(Request.QueryString["DealerEmployeeID"]));
+                    btnBack.Visible = true;
+                }
+                if (Session["OnboardEmployeeToAjaxID"] != null)
+                {
+                    FillDealerEmployee(Convert.ToInt32(Session["OnboardEmployeeToAjaxID"]));
+                    fldDealerPermission.Visible = true;
+                    btnBack.Visible = true;
                 }
                 else
                 {
@@ -77,8 +95,8 @@ namespace DealerManagementSystem.ViewMaster
                 new BDMS_Address().GetDistrict(ddlDistrict, null, null, null, Convert.ToInt32(ddlState.SelectedValue), null, null);
         }
         protected void ddlDistrict_SelectedIndexChanged(object sender, EventArgs e)
-        { 
-                new BDMS_Address().GetTehsil(ddlTehsil, null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
+        {
+            new BDMS_Address().GetTehsil(ddlTehsil, null, null, Convert.ToInt32(ddlDistrict.SelectedValue), null);
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -87,100 +105,173 @@ namespace DealerManagementSystem.ViewMaster
             {
                 return;
             }
-            PDMS_DealerEmployee Emp = new PDMS_DealerEmployee();
-            Emp.DealerEmployeeID = ViewState["DealerEmployeeID"] == null ? 0 : (int)ViewState["DealerEmployeeID"];
-            Emp.Name = txtName.Text.Trim();
-            Emp.FatherName = txtFatherName.Text.Trim();
 
-            Emp.DOB = string.IsNullOrEmpty(txtDOB.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOB.Text.Trim());
-            Emp.ContactNumber = txtContactNumber.Text.Trim();
-            Emp.ContactNumber1 = txtContactNumber1.Text.Trim();
+            PAjaxEmployee_Insert DEmp = new PAjaxEmployee_Insert();
+            DEmp.Name = txtName.Text.Trim();
+            DEmp.FatherName = txtFatherName.Text.Trim();
+            DEmp.DOB = string.IsNullOrEmpty(txtDOB.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtDOB.Text.Trim());
+            DEmp.ContactNumber = txtContactNumber.Text.Trim();
+            DEmp.ContactNumber1 = txtContactNumber1.Text.Trim();
+            DEmp.Email = txtEmail.Text.Trim();
+            DEmp.Address = txtAddress.Text.Trim();
 
-            Emp.Email = txtEmail.Text.Trim();
-
-            Emp.Address = txtAddress.Text.Trim();
             if (ddlState.SelectedValue != "0")
             {
-                Emp.State = new PDMS_State();
-                Emp.State.StateID = Convert.ToInt32(ddlState.SelectedValue);
-                if (ddlDistrict.SelectedValue != "0")
-                {
-                    Emp.District = new PDMS_District();
-                    Emp.District.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
-                    if (ddlTehsil.SelectedValue != "0")
-                    {
-                        Emp.Tehsil = new PDMS_Tehsil();
-                        Emp.Tehsil.TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue);
-                    }
-                }
+                DEmp.StateID = Convert.ToInt32(ddlState.SelectedValue); ;
             }
-            Emp.Village = txtVillage.Text.Trim();
-            Emp.Location = txtLocation.Text.Trim();
+            if (ddlDistrict.SelectedValue != "0")
+            {
+                DEmp.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
+            }
+            if (ddlTehsil.SelectedValue != "0")
+            {
+                DEmp.TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue);
+            }
 
-            Emp.AadhaarCardNo = AadhaarCardNo;
+            DEmp.Village = txtVillage.Text.Trim();
+            DEmp.Location = txtLocation.Text.Trim();
+            
 
             if (ddlEqucationalQualification.SelectedValue != "0")
             {
-                Emp.EqucationalQualification = new PDMS_EqucationalQualification();
-                Emp.EqucationalQualification.EqucationalQualificationID = Convert.ToInt32(ddlEqucationalQualification.SelectedValue);
+                DEmp.EducationalQualificationID = Convert.ToInt32(ddlEqucationalQualification.SelectedValue);
             }
-            Emp.TotalExperience = string.IsNullOrEmpty(txtTotalExperience.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtTotalExperience.Text.Trim());
-
-         
-            Emp.EmergencyContactNumber = txtEmergencyContactNumber.Text.Trim();
+            DEmp.TotalExperience = string.IsNullOrEmpty(txtTotalExperience.Text.Trim()) ? (decimal?)null : Convert.ToDecimal(txtTotalExperience.Text.Trim());
+            DEmp.EmergencyContactNumber = txtEmergencyContactNumber.Text.Trim();
             if (ddlBloodGroup.SelectedValue != "0")
             {
-                Emp.BloodGroup = new PDMS_BloodGroup() { BloodGroupID = Convert.ToInt32(ddlBloodGroup.SelectedValue) };
+                DEmp.BloodGroupID = Convert.ToInt32(ddlBloodGroup.SelectedValue);
             }
-
-            PDMS_DealerEmployeeRole Role = new PDMS_DealerEmployeeRole();
-            Role.DealerEmployeeID = ViewState["DealerEmployeeID"] == null ? 0 : (int)ViewState["DealerEmployeeID"];
-            Role.DealerOffice = new PDMS_DealerOffice();
-            Role.DealerOffice.OfficeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
-            Role.DateOfJoining = Convert.ToDateTime(txtDateOfJoining.Text.Trim());
-            Role.SAPEmpCode = txtAadhaarCardNo.Text.Trim();
-            Role.DealerDepartment = new PDMS_DealerDepartment();
-            Role.DealerDepartment.DealerDepartmentID = Convert.ToInt32(ddlDepartment.SelectedValue);
-            Role.DealerDesignation = new PDMS_DealerDesignation();
-            Role.DealerDesignation.DealerDesignationID = Convert.ToInt32(ddlDesignation.SelectedValue);
+            DEmp.AadhaarCardNo = txtAadhaarCardNo.Text.Trim();
+            DEmp.OfficeCodeID = Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            DEmp.DateOfJoining = Convert.ToDateTime(txtDateOfJoining.Text.Trim());
+            DEmp.DealerDepartmentID = Convert.ToInt32(ddlDepartment.SelectedValue);
+            DEmp.DealerDesignationID = Convert.ToInt32(ddlDesignation.SelectedValue);
             if (ddlReportingTo.SelectedValue != "0")
             {
-                Role.ReportingTo = new PDMS_DealerEmployee();
-                Role.ReportingTo.DealerEmployeeID = Convert.ToInt32(ddlReportingTo.SelectedValue);
+                DEmp.ReportingTo = Convert.ToInt32(ddlReportingTo.SelectedValue);
             }
 
-            int DealerEmployeeID = new BDMS_Dealer().InsertOrUpdateAjaxEmployee(Emp, Role, PSession.User.UserID);
+            PApiResult Result = new PApiResult();
+            bool Success = false;
+            if (Session["OnboardEmployeeToAjaxID"] != null)
+            {                
+                DEmp.ModulePermission = txtModulePermission.Text.Trim();
+                DEmp.ApprovedRemark = txtRemarks.Text.Trim();                
+                DEmp.StatusId = (short)OnboardEmployeeStatus.Created;
 
-            new BDMS_Dealer().ApproveDealerEmployee(DealerEmployeeID, PSession.User.UserID); 
-            if (DealerEmployeeID != 0)
-            {
-                lblMessage.Text = "Employee is updated successfully";
-                lblMessage.ForeColor = Color.Green;
-                btnSave.Visible = false;
+                Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee/InsertorUpdateOnboardEmployeeDealerPermission", DealerList));
+                Success = Convert.ToBoolean(Result.Data);
+                if (Success == true)
+                {
+                    Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee/InsertOrUpdateOnboardUserCreation", DEmp));
+                    int DealerEmployeeID = Convert.ToInt32(Result.Data);
+                    new BDMS_Dealer().ApproveDealerEmployee(DealerEmployeeID, PSession.User.UserID);
+                    if (DealerEmployeeID != 0)
+                    {
+                        Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee/InsertOrUpdateOnboardUserDealerPermission", DealerList));
+                        Success = Convert.ToBoolean(Result.Data);
+                        if (Success == true)
+                        {
+                            lblMessage.Text = "Employee userid is Created successfully";
+                            lblMessage.ForeColor = Color.Green;
+                            btnSave.Visible = false;
+                        }
+                        else
+                        {
+                            lblMessage.Text = "Employee userid is Created and Dealer Permission not updated successfully";
+                        }
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Employee userid is not created successfully";
+                    }
+                }
             }
             else
             {
-                lblMessage.Text = "Employee is not updated successfully";
+                DEmp.AjaxEmployeeID = ViewState["DealerEmployeeID"] == null ? 0 : (int)ViewState["DealerEmployeeID"];
+
+                Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee/InsertOrUpdateOnboardUserCreation", DEmp));
+                int DealerEmployeeID = Convert.ToInt32(Result.Data);
+
+                new BDMS_Dealer().ApproveDealerEmployee(DealerEmployeeID, PSession.User.UserID);
+                if (DealerEmployeeID != 0)
+                {
+                    lblMessage.Text = "Employee is updated successfully";
+                    lblMessage.ForeColor = Color.Green;
+                    btnSave.Visible = false;
+                }
+                else
+                {
+                    lblMessage.Text = "Employee is not updated successfully";
+                }                
             }
             btnSave.Focus();
         }
- 
-        void FillDealerEmployee(int DealerEmployeeID)
+
+        void FillDealerEmployee(int AjaxEmployeeID)
         {
-            PDMS_DealerEmployee Emp = new BDMS_Dealer().GetDealerEmployeeByDealerEmployeeID(DealerEmployeeID);
-            ViewState["DealerEmployeeID"] = Emp.DealerEmployeeID;
+            PAjaxEmployee Emp = new PAjaxEmployee();
+
+            if (Session["OnboardEmployeeToAjaxID"]!=null)
+            {
+                Emp = new BOnboardEmployee().GetOnboardEmployeeByGenerateAjaxEmployee(AjaxEmployeeID);
+                ddlDealer.SelectedValue = Convert.ToString(Emp.DealerEmployeeRole.Dealer.DealerID);
+                fillDealer();
+                ddlDealerOffice.SelectedValue = Convert.ToString(Emp.DealerEmployeeRole.DealerOffice.OfficeID);
+                ddlDepartment.SelectedValue = Convert.ToString(Emp.DealerEmployeeRole.DealerDepartment.DealerDepartmentID);
+                new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
+                ddlDesignation.SelectedValue = Convert.ToString(Emp.DealerEmployeeRole.DealerDesignation.DealerDesignationID);
+                ddlReportingTo.SelectedValue = Emp.DealerEmployeeRole.ReportingTo == null ? "0" : Convert.ToString(Emp.DealerEmployeeRole.ReportingTo.DealerEmployeeID);
+                txtDateOfJoining.Text = Convert.ToString(Emp.DealerEmployeeRole.DateOfJoining);
+                txtModulePermission.Text = Emp.ModulePermission;
+                txtRemarks.Text = Emp.ApprovedRemark;
+
+                DealerList = new List<POnboardEmployeeDealer_Insert>();
+                foreach (PDealer Dealer in Emp.DealerPermissionList)
+                {
+                    POnboardEmployeeDealer_Insert D = new POnboardEmployeeDealer_Insert();
+                    D.OnboardEmployeeID = Emp.AjaxEmployeeID;
+                    D.DealerID = Dealer.DealerID;
+                    D.IsActive = true;
+                    DealerList.Add(D);
+                }
+
+                List<PDMS_Dealer> DealerList1 = new BDMS_Dealer().GetDealer(null, "", null, null);
+                ListViewDealer.DataSource = DealerList1;
+                ListViewDealer.DataBind();
+
+                foreach (ListViewItem item in ListViewDealer.Items)
+                {
+                    CheckBox chkDealer = (CheckBox)item.FindControl("chkDealer");
+                    Label lblDID = (Label)item.FindControl("lblDID");
+                    bool containsItem = DealerList.Any(x => x.DealerID == Convert.ToInt32(lblDID.Text) && x.OnboardEmployeeID == Emp.AjaxEmployeeID && x.IsActive == true);
+                    if (containsItem)
+                    {
+                        chkDealer.Checked = true;
+                    }
+                }
+            }
+            else
+            {
+                Emp = new BOnboardEmployee().GetDealerEmployeeByDealerEmployeeID(AjaxEmployeeID);
+                ViewState["DealerEmployeeID"] = Emp.AjaxEmployeeID;
+                if (Emp.DealerEmployeeRole != null)
+                {
+                    FillDealerEmployeeRole(Emp.DealerEmployeeRole.DealerEmployeeRoleID);
+                }
+            }
             txtName.Text = Emp.Name;
             txtFatherName.Text = Emp.FatherName;
             txtDOB.Text = Convert.ToString(Emp.DOB);
             txtContactNumber.Text = Emp.ContactNumber;
             txtContactNumber1.Text = Emp.ContactNumber1;
-            
             txtEmail.Text = Emp.Email;
             txtAddress.Text = Emp.Address;
             txtLocation.Text = Emp.Location;
             txtAadhaarCardNo.Text = Emp.AadhaarCardNo;
-            txtTotalExperience.Text = Convert.ToString(Emp.TotalExperience); 
-            
+            txtTotalExperience.Text = Convert.ToString(Emp.TotalExperience);
             txtEmergencyContactNumber.Text = Emp.EmergencyContactNumber;
             if (Emp.BloodGroup != null)
             {
@@ -205,158 +296,20 @@ namespace DealerManagementSystem.ViewMaster
             {
                 ddlEqucationalQualification.SelectedValue = Convert.ToString(Emp.EqucationalQualification.EqucationalQualificationID);
             }
-            if (Emp.DealerEmployeeRole != null)
-            {
-                FillDealerEmployeeRole(Emp.DealerEmployeeRole.DealerEmployeeRoleID);
-            }
-        }        
+        }
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            string url = "DealerEmployeeApproval.aspx";
-            Response.Redirect(url);
-        }
- 
-        Boolean Validation()
-        {
-            lblMessage.ForeColor = Color.Red;
-            lblMessage.Visible = true;
-
-            txtName.BorderColor = Color.Silver;
-            txtFatherName.BorderColor = Color.Silver;
-            txtDOB.BorderColor = Color.Silver;
-            txtContactNumber.BorderColor = Color.Silver;
-            txtEmail.BorderColor = Color.Silver;
-
-            txtTotalExperience.BorderColor = Color.Silver;
-            txtAddress.BorderColor = Color.Silver;
-            txtLocation.BorderColor = Color.Silver;
-            txtAadhaarCardNo.BorderColor = Color.Silver; 
-
-            ddlEqucationalQualification.BorderColor = Color.Silver;
-            ddlState.BorderColor = Color.Silver;
-            ddlDistrict.BorderColor = Color.Silver;
-            ddlState.BorderColor = Color.Silver; 
-
-            Boolean Ret = true;
-            string Message = "";
-
-            if (string.IsNullOrEmpty(txtName.Text.Trim()))
+            if (Session["OnboardEmployeeToAjaxID"] != null)
             {
-                Message = "Please enter the Name";
-                Ret = false;
-                txtName.BorderColor = Color.Red;
+                Session["OnboardEmployeeToAjaxID"] = null;
+                string url = "~/ViewDealerEmployee/OnboardEmployeeManage.aspx";
+                Response.Redirect(url);
             }
-            if (string.IsNullOrEmpty(txtFatherName.Text.Trim()))
+            else
             {
-                Message = Message + "<br/>Please enter the Father Name";
-                Ret = false;
-                txtFatherName.BorderColor = Color.Red;
+                string url = "DealerEmployeeApproval.aspx";
+                Response.Redirect(url);
             }
-            if (string.IsNullOrEmpty(txtDOB.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the DOB";
-                Ret = false;
-                txtDOB.BorderColor = Color.Red;
-            }
-
-            if (txtContactNumber.Text.Trim().Count() != 10)
-            {
-                Message = Message + "<br/>Please check the Contact Number";
-                Ret = false;
-                txtContactNumber.BorderColor = Color.Red;
-            }
-
-            if (string.IsNullOrEmpty(txtEmail.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Email";
-                Ret = false;
-                txtEmail.BorderColor = Color.Red;
-            }
-
-            if (ddlEqucationalQualification.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the Equcational Qualification";
-                Ret = false;
-                ddlEqucationalQualification.BorderColor = Color.Red;
-            }
-            if (string.IsNullOrEmpty(txtTotalExperience.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Total Experience";
-                Ret = false;
-                txtTotalExperience.BorderColor = Color.Red;
-            }
-
-            if (string.IsNullOrEmpty(txtAddress.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Address";
-                Ret = false;
-                txtAddress.BorderColor = Color.Red;
-            }
-
-            if (ddlState.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the State";
-                Ret = false;
-                ddlState.BorderColor = Color.Red;
-            }
-            if (ddlDistrict.SelectedValue == "0")
-            {
-                Message = Message + "<br/>Please select the District";
-                Ret = false;
-                ddlDistrict.BorderColor = Color.Red;
-            }
-            if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
-            {
-                Message = Message + "<br/>Please enter the Location";
-                Ret = false;
-                txtLocation.BorderColor = Color.Red;
-            }
-            if (AadhaarCardNo.Count() != 12)
-            {
-                Message = Message + "<br/>Please check the Aadhaar Card No";
-                Ret = false;
-                txtAadhaarCardNo.BorderColor = Color.Red;
-            }
-
-            
-           
-            lblMessage.Text = Message;
-            if (!Ret)
-            {
-                return Ret;
-            }
-
-            decimal value;
-
-            if (!decimal.TryParse("0" + txtTotalExperience.Text, out value))
-            {
-                Message = Message + "<br/> Please enter integer in TotalExperience";
-                Ret = false;
-                txtTotalExperience.BorderColor = Color.Red;
-            }
-
-            string email = txtEmail.Text;
-            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-            Match match = regex.Match(email);
-            if (!match.Success)
-            {
-                Message = Message + "<br/>" + email + " is not correct";
-                Ret = false;
-                txtEmail.BorderColor = Color.Red;
-            }
-             
-             
-            long valueLong;
-
-            if (!long.TryParse("0" + AadhaarCardNo, out valueLong))
-            {
-                Message = Message + "<br/> Please enter integer in Aadhaar Card No";
-                Ret = false;
-                txtTotalExperience.BorderColor = Color.Red;
-            }
-
-            lblMessage.Text = Message;
-            return Ret;
         }
         Boolean ValidationAjaxEmp()
         {
@@ -373,7 +326,7 @@ namespace DealerManagementSystem.ViewMaster
             txtTotalExperience.BorderColor = Color.Silver;
             txtAddress.BorderColor = Color.Silver;
             txtLocation.BorderColor = Color.Silver;
-            txtAadhaarCardNo.BorderColor = Color.Silver; 
+            txtAadhaarCardNo.BorderColor = Color.Silver;
 
             ddlEqucationalQualification.BorderColor = Color.Silver;
             ddlState.BorderColor = Color.Silver;
@@ -433,9 +386,9 @@ namespace DealerManagementSystem.ViewMaster
                 txtTotalExperience.BorderColor = Color.Red;
             }
 
-          
-            
-            
+
+
+
             if (string.IsNullOrEmpty(txtDateOfJoining.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Date of Joining";
@@ -460,12 +413,29 @@ namespace DealerManagementSystem.ViewMaster
                 Ret = false;
                 ddlDesignation.BorderColor = Color.Red;
             }
-             
-            
+
+            if (Session["OnboardEmployeeToAjaxID"] != null)
+            {
+                if (string.IsNullOrEmpty(txtModulePermission.Text))
+                {
+                    Message = Message + "<br/>Please enter module permission";
+                    Ret = false;
+                }
+                if (string.IsNullOrEmpty(txtRemarks.Text))
+                {
+                    Message = Message + "<br/>Please enter Remark";
+                    Ret = false;
+                }
+                if (DealerList.Count == 0)
+                {
+                    Message = Message + "<br/>Please select dealer permission";
+                    Ret = false;
+                }
+            }
+
             lblMessage.Text = Message;
             return Ret;
         }
-
         protected void txtAadhaarCardNo_TextChanged(object sender, EventArgs e)
         {
             if (new BDMS_Dealer().GetDealerEmployeeManage(null, AadhaarCardNo, null, null, "", null, null, null, null).Count() != 0)
@@ -493,17 +463,76 @@ namespace DealerManagementSystem.ViewMaster
             ddlReportingTo.SelectedValue = Role.ReportingTo == null ? "0" : Convert.ToString(Role.ReportingTo.DealerEmployeeID);
             txtDateOfJoining.Text = Convert.ToString(Role.DateOfJoining);
         }
-
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             fillDealer();
         }
-
         void fillDealer()
         {
             int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-            new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, DealerID);
+            //new BDMS_Dealer().GetDealerEmployeeDDL(ddlReportingTo, DealerID);
+            List<PDMS_DealerEmployee> Employee = new BDMS_Dealer().GetDealerEmployeeByDealerID(DealerID, null, null, null, null);
+            ddlReportingTo.DataValueField = "DealerEmployeeID";
+            ddlReportingTo.DataTextField = "Name";
+            ddlReportingTo.DataSource = Employee;
+            ddlReportingTo.DataBind();
+            ddlReportingTo.Items.Insert(0, new ListItem("Select", "0"));
             FillGetDealerOffice(DealerID);
+        }
+        protected void chkSelectAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkSelectAll.Checked == true)
+            {
+                DealerList = new List<POnboardEmployeeDealer_Insert>();
+                foreach (ListViewItem item in ListViewDealer.Items)
+                {
+                    CheckBox chkDealer = (CheckBox)item.FindControl("chkDealer");
+                    Label lblDID = (Label)item.FindControl("lblDID");
+                    chkDealer.Checked = true;
+                    POnboardEmployeeDealer_Insert D = new POnboardEmployeeDealer_Insert();
+                    D.OnboardEmployeeID = Convert.ToInt32(Session["OnboardEmployeeToAjaxID"]);
+                    D.DealerID = Convert.ToInt32(lblDID.Text);
+                    D.IsActive = true;
+                    DealerList.Add(D);
+                }
+            }
+            else
+            {
+                DealerList = new List<POnboardEmployeeDealer_Insert>();
+                foreach (ListViewItem item in ListViewDealer.Items)
+                {
+                    CheckBox chkDealer = (CheckBox)item.FindControl("chkDealer");
+                    Label lblDID = (Label)item.FindControl("lblDID");
+                    chkDealer.Checked = false;
+                    POnboardEmployeeDealer_Insert D = new POnboardEmployeeDealer_Insert();
+                    D.OnboardEmployeeID = Convert.ToInt32(Session["OnboardEmployeeToAjaxID"]);
+                    D.DealerID = Convert.ToInt32(lblDID.Text);
+                    D.IsActive = false;
+                    DealerList.Add(D);
+                }
+            }
+        }
+        protected void chkDealer_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkDealer = (CheckBox)sender;
+            Label lblDID = (Label)chkDealer.FindControl("lblDID");
+            if (!chkDealer.Checked)
+            {
+                chkSelectAll.Checked = false;
+            }
+            bool containsItem = DealerList.Any(item => item.DealerID == Convert.ToInt32(lblDID.Text) && item.OnboardEmployeeID == Convert.ToInt32(Session["OnboardEmployeeToAjaxID"]));
+            if (containsItem)
+            {
+                DealerList.Where(w => w.DealerID == Convert.ToInt32(lblDID.Text)).Select(w => { w.IsActive = chkDealer.Checked; return w; }).ToList();
+            }
+            else
+            {
+                POnboardEmployeeDealer_Insert D = new POnboardEmployeeDealer_Insert();
+                D.OnboardEmployeeID = Convert.ToInt32(Session["OnboardEmployeeToAjaxID"]);
+                D.DealerID = Convert.ToInt32(lblDID.Text);
+                D.IsActive = chkDealer.Checked;
+                DealerList.Add(D);
+            }
         }
     }
 }

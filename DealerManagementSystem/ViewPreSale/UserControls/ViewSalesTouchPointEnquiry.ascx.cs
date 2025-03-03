@@ -64,16 +64,41 @@ namespace DealerManagementSystem.ViewPreSale.UserControls
             if (lbActions.Text == "Convert To Enquiry")
             {
                 MPE_Enquiry.Show();
-                UC_AddEnquiry.WriteSalesTouchPointEnquiry(SalesTouchPointEnquiry);
+                UC_AddEnquiry.Write(ConvertPresaleEnquiry(SalesTouchPointEnquiry));
+                //UC_AddEnquiry.WriteSalesTouchPointEnquiry(SalesTouchPointEnquiry);
             }
+        }
+        PEnquiry ConvertPresaleEnquiry(PSalesTouchPointEnquiry Enq)
+        {
+            PEnquiry PEnq = new PEnquiry();
+            PEnq.CustomerName = Enq.CustomerName;
+            PEnq.PersonName = Enq.PersonName;
+            PEnq.Mobile = Enq.Mobile;
+            PEnq.Mail = Enq.Mail;
+            PEnq.Country = Enq.Country;
+            PEnq.State = Enq.State;
+            PEnq.District = Enq.District;
+            PEnq.Address = Enq.Address;
+            PEnq.Address2 = Enq.Address2;
+            PEnq.Address3 = Enq.Address3;
+            PEnq.Remarks = Enq.Remarks;
+            return PEnq;
         }
         protected void btnEnquiryReject_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtEnquiryRejectReason.Text))
+            {
+                MPE_EnquiryReject.Show();
+                lblMessageResponsible.ForeColor = Color.Red;
+                lblMessageResponsible.Text = "Please enter remark";
+                return;
+            }
             PApiResult Result = new BSalesTouchPoint().UpdateSalesTouchPointEnquiryReject(SalesTouchPointEnquiry.SalesTouchPointEnquiryID, txtEnquiryRejectReason.Text.Trim());
             if (Result.Status == PApplication.Failure)
             {
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Text = Result.Message;
+                MPE_EnquiryReject.Show();
+                lblMessageResponsible.ForeColor = Color.Red;
+                lblMessageResponsible.Text = Result.Message;
                 return;
             }
             lblMessage.ForeColor = Color.Green;

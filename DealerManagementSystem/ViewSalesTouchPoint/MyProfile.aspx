@@ -163,7 +163,7 @@
                         <label class="modal-label">Email ID</label>
                         <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Email ID" AutoCompleteType="Disabled" OnTextChanged="txtEmail_TextChanged" AutoPostBack="true"></asp:TextBox>
                     </div>
-                    <div class="col-md-2 col-sm-12">
+                    <%--<div class="col-md-2 col-sm-12">
                         <label class="modal-label">
                             <br />
                         </label>
@@ -174,7 +174,7 @@
                             <br />
                         </label>
                         <asp:Image ID="VerifyEmailOTP" runat="server" ImageUrl="~/Images/NotVerified.jpg" Width="30px" Height="30px"/>
-                    </div>
+                    </div>--%>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Address1</label>
                         <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" ToolTip="Address1..." PlaceHolder="Address1" AutoCompleteType="Disabled"></asp:TextBox>
