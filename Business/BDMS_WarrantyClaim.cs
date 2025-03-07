@@ -362,6 +362,7 @@ namespace Business
                                 ICTicketID = Convert.ToInt64(dr["ICTicketID"]),
                                 ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]),
                                 ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]),
+                                Customer = new PDMS_Customer() { CustomerID = Convert.ToInt64(dr["CustomerID"]) },
                                 //ServiceType = new PDMS_ServiceType() { ServiceType = Convert.ToString(dr["ServiceType"]) },
                                 //Equipment = new PDMS_EquipmentHeader() { CommissioningOn = DBNull.Value == dr["CommissioningOn"] ? (DateTime?)null : Convert.ToDateTime(dr["CommissioningOn"]) }
                             };

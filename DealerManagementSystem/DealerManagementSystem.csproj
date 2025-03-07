@@ -629,6 +629,7 @@
     <Content Include="ViewPreSale\PreSalesSummaryReport.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewPreSale\Quotation.aspx" />
+    <Content Include="ViewPreSale\Reports\DealerSalesTarget.aspx" />
     <Content Include="ViewPreSale\Reports\EnquiryUnattendedAgeing.aspx" />
     <Content Include="ViewPreSale\Reports\LeadExpectedDateofSaleAgeingReport.aspx" />
     <Content Include="ViewPreSale\Reports\LeadNextFollowUpAgeingReport.aspx" />
@@ -2334,6 +2335,13 @@
     </Compile>
     <Compile Include="ViewPreSale\Quotation.aspx.designer.cs">
       <DependentUpon>Quotation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\DealerSalesTarget.aspx.cs">
+      <DependentUpon>DealerSalesTarget.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\DealerSalesTarget.aspx.designer.cs">
+      <DependentUpon>DealerSalesTarget.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Reports\EnquiryUnattendedAgeing.aspx.cs">
       <DependentUpon>EnquiryUnattendedAgeing.aspx</DependentUpon>

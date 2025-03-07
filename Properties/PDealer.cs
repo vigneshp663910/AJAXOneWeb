@@ -34,14 +34,14 @@ namespace Properties
         public PUser TL { get; set; }
         public PUser SM { get; set; }
         public Boolean ServicePaidEInvoice { get; set; }
-        public Boolean IsEInvoice { get; set; } 
+        public Boolean IsEInvoice { get; set; }
         public DateTime? EInvoiceDate { get; set; }
         public string AuthorityName { get; set; }
         public string AuthorityDesignation { get; set; }
         public string AuthorityMobile { get; set; }
         public List<PDMS_Customer> Customer { get; set; }
         public Boolean IsActive { get; set; }
-        public PDMS_Region Region { get; set; } 
+        public PDMS_Region Region { get; set; }
         public PAddress Address { get; set; }
         public PDealerType DealerType { get; set; }
         public int CountryID { get; set; }
@@ -194,7 +194,7 @@ namespace Properties
         public int BloodGroupID { get; set; }
         public string BloodGroup { get; set; }
     }
-    [Serializable]    
+    [Serializable]
     public class PDealer
     {
         public int DID { get; set; }
@@ -211,7 +211,7 @@ namespace Properties
         public PDMS_State State { get; set; }
         public string StateCode { get; set; }
         public PDMS_Country Country { get; set; }
-        
+
         public string Pincode { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
@@ -223,15 +223,15 @@ namespace Properties
         public string CodeWithName { get; set; }
         public string MailID1 { get; set; }
         public string Phone { get; set; }
-        public int UserTypeID { get; set; }        
+        public int UserTypeID { get; set; }
         public Boolean IsActive { get; set; }
         public string HeadOfficeID { get; set; }
-       
 
-        public Boolean IsEInvoice { get; set; } 
+
+        public Boolean IsEInvoice { get; set; }
         public string EInvoiveDate { get; set; }
 
-       
+
 
 
         public Boolean EInvAPI { get; set; }
@@ -241,14 +241,14 @@ namespace Properties
         public string ApiPassword { get; set; }
 
         public PEInvUserAPI EInvUserAPI { get; set; }
-        public PDealerType DealerType { get; set; } 
+        public PDealerType DealerType { get; set; }
     }
-    [Serializable] 
+    [Serializable]
     public class PDealerStateMappingID
     {
         public int DealerStateMappingID { get; set; }
         public PDealer Dealer { get; set; }
-        public PDMS_State State { get; set; } 
+        public PDMS_State State { get; set; }
     }
     [Serializable]
     public class PDealerAddress
@@ -264,7 +264,7 @@ namespace Properties
         public string Mobile { get; set; }
         public string Email { get; set; }
         public string IsActive { get; set; }
-        public string ContactPerson { get; set; }  
+        public string ContactPerson { get; set; }
     }
 
     [Serializable]
@@ -332,8 +332,8 @@ namespace Properties
     [Serializable]
     public class PDealerType
     {
-        public int DealerTypeID { get; set; } 
-        public string DealerType { get; set; } 
+        public int DealerTypeID { get; set; }
+        public string DealerType { get; set; }
     }
 
     [Serializable]
@@ -362,11 +362,11 @@ namespace Properties
     [Serializable]
     public class PDealerBusinessExcellence
     {
-       // public long DealerBusinessExcellenceID { get; set; }
+        // public long DealerBusinessExcellenceID { get; set; }
         public int DealerBusinessExcellenceCategory3ID { get; set; }
         public string FunctionArea { get; set; }
         public string Category2 { get; set; }
-        public string Parameter { get; set; }  
+        public string Parameter { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
         public string MonthName
@@ -382,7 +382,7 @@ namespace Properties
 
         public decimal Target { get; set; }
         public decimal Actual { get; set; }
-        public string Remarks { get; set; } 
+        public string Remarks { get; set; }
         public Boolean IsSubmitted { get; set; }
     }
     [Serializable]
@@ -397,8 +397,8 @@ namespace Properties
             {
                 return Month == 0 ? "" : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month).Substring(0, 3);
             }
-        } 
-        public PDMS_Dealer Dealer { get; set; }  
+        }
+        public PDMS_Dealer Dealer { get; set; }
         public PAjaxOneStatus Status { get; set; }
         public PUser RequestedBy { get; set; }
         public DateTime RequestedOn { get; set; }
@@ -421,10 +421,10 @@ namespace Properties
         public int DealerBusinessExcellenceCategory3ID { get; set; }
         public PDealerBusinessExcellenceCategory1 FunctionArea { get; set; }
         public PDealerBusinessExcellenceCategory2 FunctionSubArea { get; set; }
-        public PDealerBusinessExcellenceCategory3 Parameter { get; set; }  
+        public PDealerBusinessExcellenceCategory3 Parameter { get; set; }
         public decimal Target { get; set; }
         public decimal Actual { get; set; }
-        public string Remarks { get; set; } 
+        public string Remarks { get; set; }
     }
     [Serializable]
     public class PAddress
@@ -474,13 +474,13 @@ namespace Properties
     {
         public PUser CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
-        public PUser MoidifiedBy { get; set; } 
+        public PUser MoidifiedBy { get; set; }
         public DateTime? MoidifiedOn { get; set; }
     }
 
     [Serializable]
     public class PDealer_Insert
-    { 
+    {
         public string DealerCode { get; set; }
         public string DealerName { get; set; }
         public string DealerShortName { get; set; }
@@ -489,7 +489,7 @@ namespace Properties
         public string ContactPerson { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
-        public int DealerTypeID { get; set; }    
+        public int DealerTypeID { get; set; }
         public Boolean? IsActive { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
@@ -498,7 +498,7 @@ namespace Properties
         public int DistrictID { get; set; }
         public int StateID { get; set; }
         public int CountryID { get; set; }
-        public string Pincode { get; set; }              
+        public string Pincode { get; set; }
         public string BankName { get; set; }
         public string Branch { get; set; }
         public string AcNumber { get; set; }
@@ -510,7 +510,7 @@ namespace Properties
         public DateTime? EInvoiceDate { get; set; }
         public string APIUsername { get; set; }
         public string APIPassword { get; set; }
-        public Boolean? IsServicePaidEInvoice { get; set; }       
+        public Boolean? IsServicePaidEInvoice { get; set; }
     }
     [Serializable]
     public class PDealer_Update
@@ -525,11 +525,21 @@ namespace Properties
         public string Email { get; set; }
         public string Mobile { get; set; }
         public int DealerTypeID { get; set; }
-        public Boolean? IsActive { get; set; }    
+        public Boolean? IsActive { get; set; }
         public Boolean? IsEInvoice { get; set; }
         public DateTime? EInvoiceDate { get; set; }
         public string APIUsername { get; set; }
         public string APIPassword { get; set; }
         public Boolean? IsServicePaidEInvoice { get; set; }
+    }
+
+    [Serializable]
+    public class PDealerSalesTarget_Insert
+    {
+        public int DealerID { get; set; }
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int DivisionID { get; set; }
+        public int Target { get; set; }
     }
 }

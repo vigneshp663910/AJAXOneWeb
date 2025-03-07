@@ -652,11 +652,11 @@ namespace Properties
     public enum DMS_InvoiceType
     {
         NEPI_Commission = 1,
-        Warranty_Service,
-        Above50k,
-        DebitNote,
-        Warranty_ServicePartial,
-        Above50kPartial
+        Warranty_Service=2,
+        Above50k=3,
+        DebitNote=4,
+        Warranty_ServicePartial=5,
+        Above50kPartial=6
     }
     public enum DMS_ServiceType
     {

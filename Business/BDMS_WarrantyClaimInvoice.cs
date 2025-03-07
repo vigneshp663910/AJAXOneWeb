@@ -529,13 +529,14 @@ namespace Business
                 //   PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "","","", false, 1)[0];
 
                 PDMS_WarrantyInvoiceHeader_1 WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimHeader(null, null, ClaimInvoice.AnnexureNumber)[0];
-               // string CustomerCode = "", CustomerName="", ICTicketID="", Model="", HMR="", MachineSerialNumber="";
-               // DateTime ICTicketDate = DateTime.Now;
+                // string CustomerCode = "", CustomerName="", ICTicketID="", Model="", HMR="", MachineSerialNumber="";
+                // DateTime ICTicketDate = DateTime.Now;
 
                 //PDMS_Customer Customer = new SCustomer().getCustomerAddress(WarrantyInvoiceHeader.CustomerCode);
 
                 // PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(WarrantyInvoiceHeader.CustomerCode);
-                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(WarrantyInvoiceHeader.CustomerCode);
+                // PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(WarrantyInvoiceHeader.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(WarrantyInvoiceHeader.ICTicket.Customer.CustomerID);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
@@ -1109,7 +1110,8 @@ namespace Business
 
                 //  PDMS_WarrantyInvoiceHeader WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimReport("", null, null, ClaimInvoice.AnnexureNumber, null, null, "", null, null, null, "", "", "", false, 1)[0];
                 PDMS_WarrantyInvoiceHeader_1 WarrantyInvoiceHeader = new BDMS_WarrantyClaim().GetWarrantyClaimHeader(null, null, ClaimInvoice.AnnexureNumber)[0];
-                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(WarrantyInvoiceHeader.CustomerCode);
+                // PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(WarrantyInvoiceHeader.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(WarrantyInvoiceHeader.ICTicket.Customer.CustomerID);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 

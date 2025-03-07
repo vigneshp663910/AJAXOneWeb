@@ -1241,11 +1241,10 @@ namespace Business
                                 Service.ICTicket.Dealer.DealerBank.AcNumber = Convert.ToString(dr["AcNumber"]);
                                 Service.ICTicket.Dealer.DealerBank.IfscCode = Convert.ToString(dr["IfscCode"]);
 
-                                Service.ICTicket.Customer = new PDMS_Customer() { 
-                                    CustomerID = Convert.ToInt64(dr["CustomerID"]),
-                                    CustomerCode = Convert.ToString(dr["CustomerCode"]),
-                                    CustomerName = Convert.ToString(dr["CustomerName"])
-                                }; 
+                                Service.ICTicket.Customer = new PDMS_Customer();
+                                Service.ICTicket.Customer.CustomerID =  Convert.ToInt64(dr["CustomerID"]);
+                                Service.ICTicket.Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+                                Service.ICTicket.Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
                                 Service.ICTicket.ScopeOfWork = Convert.ToString(dr["ScopeOfWork"]);
                                 Service.ICTicket.Remarks = Convert.ToString(dr["Remarks"]);
                                 Service.ICTicket.KindAttn = Convert.ToString(dr["KindAttn"]);
@@ -1297,12 +1296,9 @@ namespace Business
 
                 //PDMS_Customer Customer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
                 //PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
-
                 PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(PaidServiceInvoice.ICTicket.Customer.CustomerID);
-
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
-                 
 
                 DataTable CommissionDT = new DataTable();
                 CommissionDT.Columns.Add("SNO");
@@ -1508,6 +1504,7 @@ namespace Business
                                 Service.ICTicket.Dealer.DealerBank.IfscCode = Convert.ToString(dr["IfscCode"]);
 
                                 Service.ICTicket.Customer = new PDMS_Customer();
+                                Service.ICTicket.Customer.CustomerID = Convert.ToInt64(dr["CustomerID"]);
                                 Service.ICTicket.Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
                                 Service.ICTicket.Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
                                 Service.ICTicket.ScopeOfWork = Convert.ToString(dr["ScopeOfWork"]);
@@ -1561,7 +1558,8 @@ namespace Business
 
 
                 //PDMS_Customer Customer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
-                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
+                //PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(PaidServiceInvoice.ICTicket.Customer.CustomerID);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                 string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
