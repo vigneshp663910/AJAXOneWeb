@@ -117,20 +117,19 @@ namespace DealerManagementSystem.ViewMaster
 
             if (ddlState.SelectedValue != "0")
             {
-                DEmp.StateID = Convert.ToInt32(ddlState.SelectedValue); ;
+                DEmp.StateID = Convert.ToInt32(ddlState.SelectedValue);
+                if (ddlDistrict.SelectedValue != "0")
+                {
+                    DEmp.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
+                    if (ddlTehsil.SelectedValue != "0")
+                    {
+                        DEmp.TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue);
+                    }
+                }
             }
-            if (ddlDistrict.SelectedValue != "0")
-            {
-                DEmp.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
-            }
-            if (ddlTehsil.SelectedValue != "0")
-            {
-                DEmp.TehsilID = Convert.ToInt32(ddlTehsil.SelectedValue);
-            }
-
             DEmp.Village = txtVillage.Text.Trim();
             DEmp.Location = txtLocation.Text.Trim();
-            
+
 
             if (ddlEqucationalQualification.SelectedValue != "0")
             {
@@ -155,9 +154,9 @@ namespace DealerManagementSystem.ViewMaster
             PApiResult Result = new PApiResult();
             bool Success = false;
             if (Session["OnboardEmployeeToAjaxID"] != null)
-            {                
+            {
                 DEmp.ModulePermission = txtModulePermission.Text.Trim();
-                DEmp.ApprovedRemark = txtRemarks.Text.Trim();                
+                DEmp.ApprovedRemark = txtRemarks.Text.Trim();
                 DEmp.StatusId = (short)OnboardEmployeeStatus.Created;
 
                 Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee/InsertorUpdateOnboardEmployeeDealerPermission", DealerList));
@@ -192,7 +191,7 @@ namespace DealerManagementSystem.ViewMaster
             {
                 DEmp.AjaxEmployeeID = ViewState["DealerEmployeeID"] == null ? 0 : (int)ViewState["DealerEmployeeID"];
 
-                Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee/InsertOrUpdateOnboardUserCreation", DEmp));
+                Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee/InsertOrUpdateAjaxEmployee", DEmp));
                 int DealerEmployeeID = Convert.ToInt32(Result.Data);
 
                 new BDMS_Dealer().ApproveDealerEmployee(DealerEmployeeID, PSession.User.UserID);
@@ -205,7 +204,7 @@ namespace DealerManagementSystem.ViewMaster
                 else
                 {
                     lblMessage.Text = "Employee is not updated successfully";
-                }                
+                }
             }
             btnSave.Focus();
         }
@@ -214,7 +213,7 @@ namespace DealerManagementSystem.ViewMaster
         {
             PAjaxEmployee Emp = new PAjaxEmployee();
 
-            if (Session["OnboardEmployeeToAjaxID"]!=null)
+            if (Session["OnboardEmployeeToAjaxID"] != null)
             {
                 Emp = new BOnboardEmployee().GetOnboardEmployeeByGenerateAjaxEmployee(AjaxEmployeeID);
                 ddlDealer.SelectedValue = Convert.ToString(Emp.DealerEmployeeRole.Dealer.DealerID);
@@ -388,7 +387,12 @@ namespace DealerManagementSystem.ViewMaster
 
 
 
-
+            if (string.IsNullOrEmpty(txtDOB.Text))
+            {
+                Message = Message + "<br/>Please enter the DOB";
+                Ret = false;
+                txtDOB.BorderColor = Color.Red;
+            }
             if (string.IsNullOrEmpty(txtDateOfJoining.Text.Trim()))
             {
                 Message = Message + "<br/>Please enter the Date of Joining";
@@ -412,6 +416,12 @@ namespace DealerManagementSystem.ViewMaster
                 Message = Message + "<br/>Please select the Designation";
                 Ret = false;
                 ddlDesignation.BorderColor = Color.Red;
+            }
+            if (ddlReportingTo.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the ReportingTo";
+                Ret = false;
+                ddlReportingTo.BorderColor = Color.Red;
             }
 
             if (Session["OnboardEmployeeToAjaxID"] != null)
