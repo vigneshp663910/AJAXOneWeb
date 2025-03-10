@@ -53,7 +53,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtApiPassword.Text = "";
             cbServicePaidEInvoice.Checked = false;
 
-            FillMaster();
+            //FillMaster();
         }
         public void FillMaster()
         {
@@ -342,7 +342,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             Dealer.SapLocationCode = txtSapLocationCode.Text.Trim();
 
             Dealer.IsEInvoice = cbEInvoice.Checked;
-            Dealer.EInvoiceDate = Convert.ToDateTime(txtEInvoiceDate.Text.Trim());
+            Dealer.EInvoiceDate = String.IsNullOrEmpty(txtEInvoiceDate.Text) ? (DateTime?) null : Convert.ToDateTime(txtEInvoiceDate.Text.Trim());
             Dealer.APIUsername = txtApiUserName.Text.Trim();
             Dealer.APIPassword = txtApiPassword.Text.Trim();
             Dealer.IsServicePaidEInvoice = cbServicePaidEInvoice.Checked;

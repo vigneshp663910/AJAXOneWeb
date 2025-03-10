@@ -112,6 +112,10 @@
                     <label>Region : </label>
                     <asp:Label ID="lblDealerRegion" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                <div class="col-md-12">
+                    <label>PAN : </label>
+                    <asp:Label ID="lblPAN" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
                 <%--<div class="col-md-12">
                     <label>IFSC Code : </label>
                     <asp:Label ID="lblIFSCCode" runat="server" CssClass="LabelValue"></asp:Label>
@@ -147,8 +151,8 @@
                     <asp:Label ID="lblDealerState" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>PAN : </label>
-                    <asp:Label ID="lblPAN" runat="server" CssClass="LabelValue"></asp:Label>
+                    <label>Active : </label>
+                    <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" CssClass="mycheckBig" />
                 </div>
             </div>
             <div class="col-md-4">
@@ -167,10 +171,6 @@
                 <div class="col-md-12">
                     <label>GSTIN : </label>
                     <asp:Label ID="lblGSTIN" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>Active : </label>
-                    <asp:CheckBox ID="cbIsActive" runat="server" Enabled="false" CssClass="mycheckBig" />
                 </div>
             </div>
         </div>
@@ -532,7 +532,7 @@
                                                 <ItemTemplate>
                                                     <itemstyle width="25px" horizontalalign="Center"></itemstyle>
                                                     <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                                    <asp:Label ID="lblDealerNotificationID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerNotificationID")%>' runat="server" Visible="false" />
+                                                    <asp:Label ID="lblDealerNotificationIDG" Text='<%# DataBinder.Eval(Container.DataItem, "DealerNotificationID")%>' runat="server" Visible="false" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Module Name" ItemStyle-HorizontalAlign="Left">
@@ -681,17 +681,20 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Name">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />
+                                        <%--<asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "Name")%>' runat="server" />--%>
+                                        <asp:Label ID="lblName" Text='<%# DataBinder.Eval(Container.DataItem, "ContactName")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer Department">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDealerDepartment" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.DealerDepartment.DealerDepartment")%>' runat="server" />
+                                        <%--<asp:Label ID="lblDealerDepartment" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.DealerDepartment.DealerDepartment")%>' runat="server" />--%>
+                                        <asp:Label ID="lblDealerDepartment" Text='<%# DataBinder.Eval(Container.DataItem, "Department.DealerDepartment")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Dealer Designation">
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDealerDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.DealerDesignation.DealerDesignation")%>' runat="server" />
+                                        <%--<asp:Label ID="lblDealerDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "DealerEmployeeRole.DealerDesignation.DealerDesignation")%>' runat="server" />--%>
+                                        <asp:Label ID="lblDealerDesignation" Text='<%# DataBinder.Eval(Container.DataItem, "Designation.DealerDesignation")%>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Contact">
@@ -702,7 +705,8 @@
                                         </asp:Label>
                                         <br />
                                         <asp:Label ID="lblEMail" runat="server">
-                                                <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Email")%>'><%# DataBinder.Eval(Container.DataItem, "Email")%></a>
+                                               <%-- <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Email")%>'><%# DataBinder.Eval(Container.DataItem, "Email")%></a>--%>
+                                             <a href='mailto:<%# DataBinder.Eval(Container.DataItem, "Mail")%>'><%# DataBinder.Eval(Container.DataItem, "Mail")%></a>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -755,7 +759,7 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageEditDealer" runat="server" Text="" CssClass="message"/>
+            <asp:Label ID="lblMessageEditDealer" runat="server" Text="" CssClass="message" />
             <%--<UC:UC_DealerCreate ID="UC_Dealer" runat="server"></UC:UC_DealerCreate>--%>
             <fieldset class="fieldset-border" id="Fieldset6" runat="server">
                 <div class="col-md-12">
@@ -853,53 +857,58 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageEditDealerAddress" runat="server" Text="" CssClass="message"/>
+            <asp:Label ID="lblMessageEditDealerAddress" runat="server" Text="" CssClass="message" />
             <fieldset class="fieldset-border" id="Fieldset4" runat="server">
+                <legend style="background: none; color: #007bff; font-size: 17px;">Address</legend>
                 <div class="col-md-12">
-                    <div class="col-md-4">
-                        <fieldset class="fieldset-border">
-                            <legend style="background: none; color: #007bff; font-size: 17px;">Address</legend>
-                            <div class="col-md-12 col-sm-12">
-                                <label class="modal-label">Address 1</label>
-                                <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <label class="modal-label">Address 2</label>
-                                <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <label class="modal-label">Address 3</label>
-                                <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <label class="modal-label">Country</label>
-                                <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <label class="modal-label">State</label>
-                                <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <label class="modal-label">District</label>
-                                <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <label class="modal-label">City</label>
-                                <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <label class="modal-label">PinCode</label>
-                                <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"></asp:TextBox>
-                            </div>
-
-                        </fieldset>
+                    <%--<div class="col-md-6">--%>
+                    <%--<fieldset class="fieldset-border">--%>
+                    <%--<legend style="background: none; color: #007bff; font-size: 17px;">Address</legend>--%>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Address 1</label>
+                        <asp:TextBox ID="txtAddress1" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
                     </div>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnUpdateDealerAddress" runat="server" Text="Save" CssClass="btn Save" OnClick="lnkBtnPopupActions_Click" OnClientClick="return ConfirmDealerAddressChanges();" />
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Address 2</label>
+                        <asp:TextBox ID="txtAddress2" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
                     </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Address 3</label>
+                        <asp:TextBox ID="txtAddress3" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="40"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">Country</label>
+                        <asp:DropDownList ID="ddlCountry" runat="server" CssClass="form-control" DataTextField="Country" DataValueField="CountryID" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">State</label>
+                        <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control" DataTextField="State" DataValueField="StateID" OnSelectedIndexChanged="ddlState_SelectedIndexChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">District</label>
+                        <asp:DropDownList ID="ddlDistrict" runat="server" CssClass="form-control" DataTextField="District" DataValueField="DistrictID" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">City</label>
+                        <asp:TextBox ID="txtCity" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="20"></asp:TextBox>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label">PinCode</label>
+                        <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" TextMode="Phone"></asp:TextBox>
+                    </div>
+                    <%--</div>--%>
+                    <%--<div class="col-md-6">--%>
+                    <%--</fieldset>--%>
+                    <%--</div>--%>
                 </div>
             </fieldset>
         </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnUpdateDealerAddress" runat="server" Text="Save" CssClass="btn Save" OnClick="lnkBtnPopupActions_Click" OnClientClick="return ConfirmDealerAddressChanges();" />
+        </div>
+        <%-- </div>--%>
+        <%--</fieldset>--%>
+        <%--</div>--%>
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_EditDealerAddress" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEditDealerAddress" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
@@ -913,7 +922,7 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageAddBranchOffice" runat="server" Text="" CssClass="message"/>
+            <asp:Label ID="lblMessageAddBranchOffice" runat="server" Text="" CssClass="message" />
             <fieldset class="fieldset-border" id="Fieldset3" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-4 col-sm-12">
@@ -1007,7 +1016,7 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageAddNotification" runat="server" Text="" CssClass="message"/>
+            <asp:Label ID="lblMessageAddNotification" runat="server" Text="" CssClass="message" />
             <fieldset class="fieldset-border" id="Fieldset5" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-12 col-sm-12">
@@ -1050,7 +1059,7 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageEditBank" runat="server" Text="" CssClass="message"/>
+            <asp:Label ID="lblMessageEditBank" runat="server" Text="" CssClass="message" />
             <fieldset class="fieldset-border" id="Fieldset1" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
@@ -1090,10 +1099,10 @@
 
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblEditDealerResponsibleUserMessage" runat="server" Text="" CssClass="message"/>
+            <asp:Label ID="lblEditDealerResponsibleUserMessage" runat="server" Text="" CssClass="message" />
             <fieldset class="fieldset-border" id="Fieldset2" runat="server">
                 <div class="col-md-12">
-                    <div class="col-md-6 col-sm-12">
+                    <%--<div class="col-md-6 col-sm-12">
                         <label class="modal-label" runat="server" id="lblDealerResposnibleUserType">Dealer Resposible User Type</label>
                         <asp:DropDownList ID="ddlDealerResposibleUserType" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlDealerResposibleUserType_SelectedIndexChanged" AutoPostBack="true">
                             <asp:ListItem Text="Select Dealer Responsible User Type" Value="0"></asp:ListItem>
@@ -1101,10 +1110,22 @@
                             <asp:ListItem Text="Service Manager" Value="SM"></asp:ListItem>
                             <asp:ListItem Text="Sales Responsible User" Value="Sales Responsible User"></asp:ListItem>
                         </asp:DropDownList>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
+                    </div>--%>
+                    <%--<div class="col-md-6 col-sm-12">
                         <label class="modal-label" runat="server" id="lblDealerResponsibleUser">Dealer Resposible User</label>
                         <asp:DropDownList ID="ddlDealerResponsibleUser" runat="server" CssClass="form-control" />
+                    </div>--%>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label" runat="server" id="lblTeamLead">Team Lead</label>
+                        <asp:DropDownList ID="ddlTeamLead" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label" runat="server" id="lblServiceManager">Service Manager</label>
+                        <asp:DropDownList ID="ddlServiceManager" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label class="modal-label" runat="server" id="lblSalesIncharge">Sales Incharge</label>
+                        <asp:DropDownList ID="ddlSalesIncharge" runat="server" CssClass="form-control" />
                     </div>
                 </div>
             </fieldset>

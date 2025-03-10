@@ -96,6 +96,15 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.Label lblDealerRegion;
 
         /// <summary>
+        /// lblPAN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPAN;
+
+        /// <summary>
         /// lblDealerName control.
         /// </summary>
         /// <remarks>
@@ -123,13 +132,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.WebControls.Label lblDealerState;
 
         /// <summary>
-        /// lblPAN control.
+        /// cbIsActive control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPAN;
+        protected global::System.Web.UI.WebControls.CheckBox cbIsActive;
 
         /// <summary>
         /// lblMobile control.
@@ -157,15 +166,6 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGSTIN;
-
-        /// <summary>
-        /// cbIsActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbIsActive;
 
         /// <summary>
         /// lblMessage control.
@@ -1428,40 +1428,58 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Fieldset2;
 
         /// <summary>
-        /// lblDealerResposnibleUserType control.
+        /// lblTeamLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblDealerResposnibleUserType;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblTeamLead;
 
         /// <summary>
-        /// ddlDealerResposibleUserType control.
+        /// ddlTeamLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealerResposibleUserType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTeamLead;
 
         /// <summary>
-        /// lblDealerResponsibleUser control.
+        /// lblServiceManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblDealerResponsibleUser;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblServiceManager;
 
         /// <summary>
-        /// ddlDealerResponsibleUser control.
+        /// ddlServiceManager control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDealerResponsibleUser;
+        protected global::System.Web.UI.WebControls.DropDownList ddlServiceManager;
+
+        /// <summary>
+        /// lblSalesIncharge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblSalesIncharge;
+
+        /// <summary>
+        /// ddlSalesIncharge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalesIncharge;
 
         /// <summary>
         /// btnUpdateDealerResposibleUser control.
