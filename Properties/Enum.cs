@@ -522,7 +522,8 @@ namespace Properties
         ViewPreSale_SalesTouchPointEnquiry = 276,
         ViewPreSale_SalesTouchPointEnquiryReport = 277,
         ViewDashboard_WarrantyCostPerMachine = 278,
-        ViewDashboard_IncidentPer100 = 279,
+        ViewDashboard_IncidentPer100 = 279, 
+        ViewPreSale_Reports_DealerSalesTarget = 282,
     }
     public enum SubModuleChildMaster
     {
