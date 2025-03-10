@@ -100,8 +100,8 @@ namespace Properties
         public string ContactNumber1 { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public int StateID { get; set; }
-        public int DistrictID { get; set; }
+        public int? StateID { get; set; }
+        public int? DistrictID { get; set; }
         public int? TehsilID { get; set; }
         public string Village { get; set; }
         public string Location { get; set; }
