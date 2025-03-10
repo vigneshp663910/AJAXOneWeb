@@ -49,6 +49,7 @@ namespace Properties
         public string ApiUserName { get; set; }
         public string ApiPassword { get; set; }
         public string HeadOfficeID { get; set; }
+        public PUser SalesResponsibleID { get; set; }
     }
 
     [Serializable]

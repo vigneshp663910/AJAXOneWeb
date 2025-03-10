@@ -56,6 +56,7 @@ namespace Business
                             Dealer.Mobile = Convert.ToString(Dr["Phone"]);
                             Dealer.TL = new PUser() { ContactName = Convert.ToString(Dr["TeamLead"]) };
                             Dealer.SM = new PUser() { ContactName = Convert.ToString(Dr["ServiceManager"]) };
+                            Dealer.SalesResponsibleID = new PUser() { ContactName = Convert.ToString(Dr["SalesResponsible"]) };
                             Dealer.IsActive = Dr["IsActive"] == DBNull.Value ? false : Convert.ToBoolean(Dr["IsActive"]);
                             Dealer.Region = DBNull.Value == Dr["RegionID"] ? null : new PDMS_Region() { RegionID = Convert.ToInt32(Dr["RegionID"]), Region = Convert.ToString(Dr["Region"]) };
                             Dealer.CountryID = Convert.ToInt32(Dr["CountryID"]);
@@ -1354,9 +1355,9 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return true;
         }
-        public List<PDMS_DealerEmployee> GetDealerResponsibleUser(int? DealerID, string DealerCode)
+        public List<PUser> GetDealerResponsibleUser(int? DealerID, string DealerCode)
         {
-            List<PDMS_DealerEmployee> EMP = new List<PDMS_DealerEmployee>();
+            List<PUser> EMP = new List<PUser>();
             try
             {
 
@@ -1371,16 +1372,27 @@ namespace Business
                     {
                         foreach (DataRow dr in DataSet.Tables[0].Rows)
                         {
-                            EMP.Add(new PDMS_DealerEmployee()
+                            //EMP.Add(new PDMS_DealerEmployee()
+                            //{
+                            //    Name = Convert.ToString(dr["Name"]),
+                            //    ContactNumber = Convert.ToString(dr["ContactNumber"]),
+                            //    Email = Convert.ToString(dr["EmailID"]),
+                            //    DealerEmployeeRole = new PDMS_DealerEmployeeRole()
+                            //    {
+                            //        DealerDepartment = new PDMS_DealerDepartment() { DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
+                            //        DealerDesignation = new PDMS_DealerDesignation() { DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
+                            //    }
+                            //});
+
+                            EMP.Add(new PUser()
                             {
-                                Name = Convert.ToString(dr["Name"]),
+                                UserID= Convert.ToInt32(dr["UserID"]),
+                                ContactName = Convert.ToString(dr["Name"]),
                                 ContactNumber = Convert.ToString(dr["ContactNumber"]),
-                                Email = Convert.ToString(dr["EmailID"]),
-                                DealerEmployeeRole = new PDMS_DealerEmployeeRole()
-                                {
-                                    DealerDepartment = new PDMS_DealerDepartment() { DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
-                                    DealerDesignation = new PDMS_DealerDesignation() { DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
-                                }
+                                Mail = Convert.ToString(dr["EmailID"]),
+
+                                Department = new PDMS_DealerDepartment() { DealerDepartment = Convert.ToString(dr["DealerDepartment"]) },
+                                Designation = new PDMS_DealerDesignation() { DealerDesignation = Convert.ToString(dr["DealerDesignation"]) },
                             });
                         }
                     }
@@ -1414,9 +1426,14 @@ namespace Business
         //    }
         //    return true;
         //}
-        public Boolean UpdateDealerResponsibleUser(int DealerID, int DealerResponsibleUserID, string DealerResponsibleUserType)
+        //public Boolean UpdateDealerResponsibleUser(int DealerID, int DealerResponsibleUserID, string DealerResponsibleUserType)
+        //{
+        //    string endPoint = "Dealer/UpdateDealerResponsibleUser?DealerID=" + DealerID + "&DealerResponsibleUserID=" + DealerResponsibleUserID + "&DealerResponsibleUserType=" + DealerResponsibleUserType;
+        //    return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        //}
+        public Boolean UpdateDealerResponsibleUser(int DealerID, int TeamLead, int ServiceManager, int SalesIncharge)
         {
-            string endPoint = "Dealer/UpdateDealerResponsibleUser?DealerID=" + DealerID + "&DealerResponsibleUserID=" + DealerResponsibleUserID + "&DealerResponsibleUserType=" + DealerResponsibleUserType;
+            string endPoint = "Dealer/UpdateDealerResponsibleUser?DealerID=" + DealerID + "&TeamLead=" + TeamLead + "&ServiceManager=" + ServiceManager + "&SalesIncharge=" + SalesIncharge;
             return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
         public List<PDealerBinLocation> GetDealerBin(int? DealerID, int? OfficeCodeID)
