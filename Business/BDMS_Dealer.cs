@@ -56,7 +56,6 @@ namespace Business
                             Dealer.Mobile = Convert.ToString(Dr["Phone"]);
                             Dealer.TL = new PUser() { ContactName = Convert.ToString(Dr["TeamLead"]) };
                             Dealer.SM = new PUser() { ContactName = Convert.ToString(Dr["ServiceManager"]) };
-                            Dealer.SalesResponsibleID = new PUser() { ContactName = Convert.ToString(Dr["SalesResponsible"]) };
                             Dealer.IsActive = Dr["IsActive"] == DBNull.Value ? false : Convert.ToBoolean(Dr["IsActive"]);
                             Dealer.Region = DBNull.Value == Dr["RegionID"] ? null : new PDMS_Region() { RegionID = Convert.ToInt32(Dr["RegionID"]), Region = Convert.ToString(Dr["Region"]) };
                             Dealer.CountryID = Convert.ToInt32(Dr["CountryID"]);
