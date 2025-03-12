@@ -930,7 +930,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 dealerOffice.Email = DealerOfficeList[0].Email;
                 dealerOffice.IsHeadOffice = DealerOfficeList[0].IsHeadOffice; 
                 dealerOffice.IsActive = false;
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerBranchOffice", dealerOffice));
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerOffice", dealerOffice));
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
@@ -1185,7 +1185,8 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     //{
                     //    lblMessageEditDealer.Text = "Dealer Details not updated successfully.";
                     //}
-                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Dealer/UpdateDealer?DUpdate=" + DUpdate));
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/UpdateDealer", DUpdate));
+
                     if (Results.Status == PApplication.Failure)
                     {
                         lblMessageEditDealer.Text = Results.Message;
