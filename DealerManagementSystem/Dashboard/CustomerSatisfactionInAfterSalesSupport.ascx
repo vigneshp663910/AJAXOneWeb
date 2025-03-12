@@ -8,7 +8,7 @@
             <table>
                 <tr style="height: 40px">
                     <td>
-                        <asp:Label ID="Label1" Text="Mean Time to Respond (MTTR-1) < 8 Hrs" runat="server" Font-Size="20px" /></td>
+                        <asp:Label ID="Label1" Text="Mean Time to Respond (MTTR-1) < 6 Hrs" runat="server" Font-Size="20px" /></td>
                     <td style="width: 20px"></td>
                     <td>
                         <asp:Label ID="lblMTTR1" runat="server" Font-Size="20px" /></td>
@@ -17,7 +17,7 @@
                 </tr>
                 <tr style="height: 40px">
                     <td>
-                        <asp:Label ID="Label2" Text="Mean Time to Restore (MTTR-2) < 48 Hrs" runat="server" Font-Size="20px" /></td>
+                        <asp:Label ID="Label2" Text="Mean Time to Restore (MTTR-2) < 24 Hrs" runat="server" Font-Size="20px" /></td>
                     <td></td>
                     <td>
                         <asp:Label ID="lblMTTR2" runat="server" Font-Size="20px" /></td>

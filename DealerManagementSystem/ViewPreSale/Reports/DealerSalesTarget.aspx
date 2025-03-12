@@ -16,24 +16,6 @@
 
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <style>
-        /*#div1 {*/
-        /*height: 91.7vh;*/
-        /*display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            margin-left: 1px;
-            background: skyblue;
-            background: linear-gradient(to right, #4e97d5, #30526f );*/
-        /* background-image:url('https://localhost:44343/Ajax/Images/bg01.jpg');*/
-        /* background-image:url('https://localhost:44343/Ajax/Images/bg05q.png');*/
-        /* background-image:url('https://localhost:44343/Ajax/Images/bg04r.png');*/
-        /*background-image: url('https://ajaxapps.ajax-engg.com:1444/Ajax/Images/bg05qr.png');*/
-        /* scroll*/
-        /*}*/
-
-
-
-
         .div1 {
             /*height: 91.7vh;*/
             /* height: 100vh;*/
@@ -124,102 +106,6 @@
             /* bottom: 0; */
             top: 47px;
         }
-        /*Home page tiles*/
-        /*.container .tblcontrols12 {
-            position: relative;
-        }
-        .container .tblcontrols12 div.cell {
-
-        }
-        .container .tblcontrols12 #Div1 {
-            float:left;
-            width:48%;
-        }
-        .container .tblcontrols12 #Div1 .modbox, .container .tblcontrols12 #Div2 .modbox  {
-            margin-right:11px;
-            margin-bottom:15px;
-        }
-        .container .tblcontrols12 #Div3 .modbox {
-            margin-right:11px;
-        }
-        .container .tblcontrols12 #Div2 {
-            float:right;
-            width:52%;
-        }
-        .container .tblcontrols12 #Div2 .modbox, .container .tblcontrols12 #Div5 .modbox, .container .tblcontrols12 #Div6 .modbox, 
-        .container .tblcontrols12 #Div7 .modbox {
-            margin-left:22px;
-        }
-        .container .tblcontrols12 #Div1 .dashboardGrid, .container .tblcontrols12 #Div2 .dashboardGrid {
-            padding:15px;
-            background:#d8d8d8;
-        }
-        .container .tblcontrols12 #Div3 {
-            width:70%;
-            float:left;
-        }
-        .container .tblcontrols12 #Div3 .dashboardGrid img  {
-        }
-        .container .tblcontrols12 #Div4 {
-            clear:both;
-        }
-        .container .tblcontrols12 #Div4, .container .tblcontrols12 #Div5,.container .tblcontrols12 #Div6 {
-            width:33.33%;
-            float:left;
-        }*/
-        /* .container .tblcontrols12 #Div6 {
-            width:30%;
-            float:right;
-        }
-            
-        .container .tblcontrols12 #Div7 {
-            width:30%;
-            float:right;
-        }*/
-        /*.container .tblcontrols12 div.cell table {
-            width:100%;
-        }
-        .container .tblcontrols12 div.cell table tr td {
-            
-        }
-        .modbox .row {
-            margin: 0;
-        }
-        .modbox .wide_thumbnail {
-            margin: 0!important;
-            padding-bottom: 10px;
-        }
-        .modbox .portlet-body {
-            padding: 0!important;
-        }
-        .modbox .portlet-body .details span {
-            font-size:100px;
-        }
-        .container .tblcontrols12 div.cell {
-            margin-bottom: 15px;
-        }
-        .cell .modbox .modtitle {
-            font-size: 18px;
-            text-shadow: 1px 2px 3px #bac4cf;
-            font-weight: 500;
-        }
-        @media screen and (max-width: 767px) {
-            .container .tblcontrols12 div.cell {
-                width:100%!important;
-                float:none!important;
-            }
-            .container .tblcontrols12 #Div1 .modbox, .container .tblcontrols12 #Div3 .modbox, .container .tblcontrols12 #Div2 .modbox, .container .tblcontrols12 #Div4 .modbox, .container .tblcontrols12 #Div5 .modbox, .container .tblcontrols12 #Div6 .modbox, 
-            .container .tblcontrols12 #Div7 .modbox {
-                margin:0;
-            }
-        }
-        @media screen and (min-device-width: 320px) and (max-device-width: 720px) {
-
-            #div1 {
-                /*height: 93.2vh;
-                 margin-left: 0px;*/
-        /* }
-        }*/
     </style>
     <style>
         .grid-item {
@@ -237,6 +123,8 @@
                 background-color: #F0F0F0;
             }
 
+
+
         .tile-size-one {
             width: 160px;
             height: 169px;
@@ -245,13 +133,13 @@
         .tile-size-two {
             width: 340px;
             height: 169px;
-        } 
+        }
 
         .tile-size-three {
             width: 340px;
             height: 360px;
         }
-         
+
 
         .tile-size-four {
             width: 640px;
@@ -263,11 +151,9 @@
             height: 100px !important;
         }
 
-        #MainContent_tblDashboard .grid {
-            /*  display: flex;
-    flex-wrap: wrap;*/
-            /*-webkit-column-width: 19em;
-    -webkit-column-gap: 1rem;*/
+        .tile-Dasboard {
+            width: 100%;
+            height: 180px;
         }
     </style>
     <script>
@@ -287,50 +173,7 @@
             });
         });
     </script>
-
-
-    <style>
-        /* Style the tab */
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        .tablinks {
-            height: auto;
-            padding-bottom: 33px
-        }
-        /* Style the buttons inside the tab */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 17px;
-        }
-
-            /* Change background color of buttons on hover */
-            .tab button:hover {
-                background-color: #ddd;
-            }
-
-            /* Create an active/current tablink class */
-            .tab button.active {
-                background-color: #ccc;
-            }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-        }
-    </style>
+     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="PopupHeader clearfix">
@@ -366,10 +209,7 @@
                             <label>Dealer</label>
                             <UC:UC_M_Dealer ID="ddlmDealer" runat="server" CssClass="form-control"></UC:UC_M_Dealer>
                         </div>
-                        <div class="col-md-2 text-left">
-                            <label>Division</label>
-                            <UC:UC_M_Dealer ID="ddlmDivision" runat="server" CssClass="form-control"></UC:UC_M_Dealer>
-                        </div>
+                        
                         <div class="col-md-2 col-sm-12">
                             <label>Year</label>
                             <asp:DropDownList ID="ddlYear" runat="server" CssClass="form-control" />
@@ -405,92 +245,90 @@
                         <div class="div1">
                             <div class="grid">
 
-                                <div class="tile-size-four grid-item" style="height: auto !important ; width: 100%;  height: 180px;">
+                                <div class="tile-Dasboard grid-item" style="height: auto !important;">
                                     <div class="content">
                                         <div class="details">
                                             <div class="desc">
-                                                <asp:Label ID="Label8" Text="Region Wise Enquiry" runat="server" />
+                                                <asp:Label ID="Label8" Text="SLCM Sales Person Wise" runat="server" />
                                             </div>
                                             <div id="divSlcmSalesPerson" style="height: 300px"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tile-size-three grid-item" style="height: auto !important">
+                                <div class="tile-Dasboard grid-item" style="height: auto !important">
                                     <div class="content">
                                         <div class="details">
                                             <div class="desc">
-                                                <asp:Label ID="Label1" Text="Region Wise Enquiry" runat="server" />
+                                                <asp:Label ID="Label1" Text="SLCM State Wise" runat="server" />
                                             </div>
                                             <div id="divSlcmState" style="height: 300px"></div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="tile-size-four grid-item" style="height: auto !important">
+                                <div class="tile-Dasboard grid-item" style="height: auto !important">
                                     <div class="content">
                                         <div class="details">
                                             <div class="desc">
-                                                <asp:Label ID="Label2" Text="Region Wise Enquiry" runat="server" />
+                                                <asp:Label ID="Label2" Text="BP Sales Person Wise" runat="server" />
                                             </div>
                                             <div id="divBpSalesPerson" style="height: 300px"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tile-size-three grid-item" style="height: auto !important">
+                                <div class="tile-Dasboard grid-item" style="height: auto !important">
                                     <div class="content">
                                         <div class="details">
                                             <div class="desc">
-                                                <asp:Label ID="Label3" Text="Region Wise Enquiry" runat="server" />
+                                                <asp:Label ID="Label3" Text="BP State Wise" runat="server" />
                                             </div>
                                             <div id="divBpState" style="height: 300px"></div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="tile-size-four grid-item" style="height: auto !important">
+                                <div class="tile-Dasboard grid-item" style="height: auto !important">
                                     <div class="content">
                                         <div class="details">
                                             <div class="desc">
-                                                <asp:Label ID="Label4" Text="Region Wise Enquiry" runat="server" />
+                                                <asp:Label ID="Label4" Text="CP Sales Person Wise" runat="server" />
                                             </div>
                                             <div id="divCpSalesPerson" style="height: 300px"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tile-size-three grid-item" style="height: auto !important">
+                                <div class="tile-Dasboard grid-item" style="height: auto !important">
                                     <div class="content">
                                         <div class="details">
                                             <div class="desc">
-                                                <asp:Label ID="Label5" Text="Region Wise Enquiry" runat="server" />
+                                                <asp:Label ID="Label5" Text="CP State Wise" runat="server" />
                                             </div>
                                             <div id="divCpState" style="height: 300px"></div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="tile-size-four grid-item" style="height: auto !important">
+                                <div class="tile-Dasboard grid-item" style="height: auto !important">
                                     <div class="content">
                                         <div class="details">
                                             <div class="desc">
-                                                <asp:Label ID="Label6" Text="Region Wise Enquiry" runat="server" />
+                                                <asp:Label ID="Label6" Text="BoomPump Sales Person Wise" runat="server" />
                                             </div>
                                             <div id="divBoomPumpSalesPerson" style="height: 300px"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tile-size-three grid-item" style="height: auto !important">
+                                <div class="tile-Dasboard grid-item" style="height: auto !important">
                                     <div class="content">
                                         <div class="details">
                                             <div class="desc">
-                                                <asp:Label ID="Label7" Text="Region Wise Enquiry" runat="server" />
+                                                <asp:Label ID="Label7" Text="Boom Pump State Wise" runat="server" />
                                             </div>
                                             <div id="divBoomPumpState" style="height: 300px"></div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div id=""></div>
-                                <div id=""></div>
+                                 
                             </div>
                         </div>
 
@@ -552,15 +390,13 @@
                     },
                     success: function (data) {
                         var DataSlcmSalesPerson = google.visualization.arrayToDataTable(data.d[0]);
-                        var DataSlcmState = google.visualization.arrayToDataTable(data.d[1]);
+                        var DataBpSalesPerson = google.visualization.arrayToDataTable(data.d[1]);
+                        var DataCpSalesPerson = google.visualization.arrayToDataTable(data.d[2]);
+                        var DataBoomPumpSalesPerson = google.visualization.arrayToDataTable(data.d[3]);
 
-                        var DataBpSalesPerson = google.visualization.arrayToDataTable(data.d[2]);
-                        var DataBpState = google.visualization.arrayToDataTable(data.d[3]);
-
-                        var DataCpSalesPerson = google.visualization.arrayToDataTable(data.d[4]);
-                        var DataCpState = google.visualization.arrayToDataTable(data.d[5]);
-
-                        var DataBoomPumpSalesPerson = google.visualization.arrayToDataTable(data.d[6]);
+                        var DataSlcmState = google.visualization.arrayToDataTable(data.d[4]);                        
+                        var DataBpState = google.visualization.arrayToDataTable(data.d[5]);                        
+                        var DataCpState = google.visualization.arrayToDataTable(data.d[6]);                       
                         var DataBoomPumpState = google.visualization.arrayToDataTable(data.d[7]);
 
                         var viewSlcmSalesPerson = new google.visualization.DataView(DataSlcmSalesPerson);

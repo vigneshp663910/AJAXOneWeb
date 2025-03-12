@@ -96,15 +96,6 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         protected global::DealerManagementSystem.UserControls.MultiSelectDropDown ddlmDealer;
 
         /// <summary>
-        /// ddlmDivision control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DealerManagementSystem.UserControls.MultiSelectDropDown ddlmDivision;
-
-        /// <summary>
         /// ddlYear control.
         /// </summary>
         /// <remarks>

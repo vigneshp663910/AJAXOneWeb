@@ -26,8 +26,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
             }
             if (!IsPostBack)
             {
-                ddlmDealer.Fill("CodeWithDisplayName", "DID", PSession.User.Dealer);
-                ddlmDivision.Fill("DivisionDescription", "DivisionID", new BDMS_Master().GetDivision(null, null));
+                ddlmDealer.Fill("CodeWithDisplayName", "DID", PSession.User.Dealer); 
                 ddlmRegion.Fill("Region", "RegionID", new BDMS_Address().GetRegion(1, null, null));
                 int i = 0;
                 // ddlYear.Items.Insert(0, new ListItem("Year", "0"));
@@ -55,11 +54,10 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         {
             DataTable dt = new DataTable();
             string Dealer = (string)HttpContext.Current.Session["Dealer"];
-            string Region = (string)HttpContext.Current.Session["Region"];
-            string Division = (string)HttpContext.Current.Session["Division"];
+            string Region = (string)HttpContext.Current.Session["Region"]; 
             string Year = (string)HttpContext.Current.Session["Year"];
             string Month = (string)HttpContext.Current.Session["Month"]; 
-            dt = ((DataSet)new BDMS_Dealer().ZYA_GetDealerSalesTarget( Dealer, Region,  Division, Year, Month)).Tables[0];
+            dt = ((DataSet)new BDMS_Dealer().ZYA_GetDealerSalesTarget( Dealer, Region,   Year, Month,0)).Tables[0];
             return dt;
         }
 
@@ -82,12 +80,11 @@ namespace DealerManagementSystem.ViewPreSale.Reports
 
 
             string Dealer = (string)HttpContext.Current.Session["Dealer"];
-            string Region = (string)HttpContext.Current.Session["Region"];
-            string Division = (string)HttpContext.Current.Session["Division"];
+            string Region = (string)HttpContext.Current.Session["Region"]; 
             string Year = (string)HttpContext.Current.Session["Year"];
             string Month = (string)HttpContext.Current.Session["Month"];
 
-            DataSet ds = new BDMS_Dealer().ZYA_GetDealerSalesTarget(Dealer, Region, Division, Year, Month);
+            DataSet ds = new BDMS_Dealer().ZYA_GetDealerSalesTarget(Dealer, Region,  Year, Month,0);
 
             //List<object> chartData = new List<object>();  
             //chartData.Add(new object[3] { "Name", "Target", "Actual" });
@@ -107,15 +104,13 @@ namespace DealerManagementSystem.ViewPreSale.Reports
             //OutPut.Add(chartData);
 
             OutPut.Add(FillSalesPerson(ds.Tables[0]));
-            OutPut.Add(FillState(ds.Tables[1]));
-
+            OutPut.Add(FillSalesPerson(ds.Tables[1]));
             OutPut.Add(FillSalesPerson(ds.Tables[2]));
-            OutPut.Add(FillState(ds.Tables[3]));
+            OutPut.Add(FillSalesPerson(ds.Tables[3]));
 
-            OutPut.Add(FillSalesPerson(ds.Tables[4]));
-            OutPut.Add(FillState(ds.Tables[5]));
-
-            OutPut.Add(FillSalesPerson(ds.Tables[6]));
+            OutPut.Add(FillState(ds.Tables[4]));            
+            OutPut.Add(FillState(ds.Tables[5]));            
+            OutPut.Add(FillState(ds.Tables[6]));            
             OutPut.Add(FillState(ds.Tables[7]));
             return OutPut;
         }
@@ -143,14 +138,12 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         protected void Page_LoadComplete(object sender, EventArgs e)
         {
             string Dealer = ddlmDealer.SelectedValue;
-            string Region = ddlmRegion.SelectedValue;
-            string Division = ddlmDivision.SelectedValue;
+            string Region = ddlmRegion.SelectedValue; 
             string Year = ddlYear.SelectedValue;
             string Month = ddlMonth.SelectedValue; 
 
             HttpContext.Current.Session["Dealer"] = Dealer;
-            HttpContext.Current.Session["Region"] = Region;
-            HttpContext.Current.Session["Division"] = Division;
+            HttpContext.Current.Session["Region"] = Region; 
             HttpContext.Current.Session["Year"] = Year;
             HttpContext.Current.Session["Month"] = Month; 
 
@@ -169,11 +162,10 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         protected void BtnDetailData_Click(object sender, EventArgs e)
         {
             string Dealer = (string)HttpContext.Current.Session["Dealer"];
-            string Region = (string)HttpContext.Current.Session["Region"];
-            string Division = (string)HttpContext.Current.Session["Division"];
+            string Region = (string)HttpContext.Current.Session["Region"]; 
             string Year = (string)HttpContext.Current.Session["Year"];
             string Month = (string)HttpContext.Current.Session["Month"];
-            DataTable dt = ((DataSet)new BDMS_Dealer().ZYA_GetDealerSalesTarget(Dealer, Region, Division, Year, Month,1)).Tables[0]; 
+            DataTable dt = ((DataSet)new BDMS_Dealer().ZYA_GetDealerSalesTarget(Dealer, Region,  Year, Month,1)).Tables[0]; 
             new BXcel().ExporttoExcel(dt, "Incident Per 100 Machine");
         }
 

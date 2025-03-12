@@ -1647,10 +1647,10 @@ namespace Business
             return JsonConvert.DeserializeObject<Boolean>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/UpdateDealer", DUpdatee)).Data));
         }
 
-        public DataSet ZYA_GetDealerSalesTarget(string Dealer, string Region,string Division, string Year, string Month, int Excel = 0)
+        public DataSet ZYA_GetDealerSalesTarget(string Dealer, string Region, string Year, string Month, int OrderBy, int Excel = 0)
         {
-            string endPoint = "Dealer/ZYA_GetDealerSalesTarget?Dealer=" + Dealer + "&Region=" + Region + "&Division=" + Division
-                + "&Year=" + Year + "&Month=" + Month +"&Excel=" + Excel;
+            string endPoint = "Dealer/ZYA_GetDealerSalesTarget?Dealer=" + Dealer + "&Region=" + Region 
+                + "&Year=" + Year + "&Month=" + Month + "&OrderBy=" + OrderBy +"&Excel=" + Excel;
             return JsonConvert.DeserializeObject<DataSet>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
     }
