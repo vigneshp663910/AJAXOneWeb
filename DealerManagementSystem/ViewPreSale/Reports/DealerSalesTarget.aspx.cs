@@ -76,31 +76,66 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         }
 
         [System.Web.Services.WebMethod]
-        public static List<object> IncidentPer()
+        public static List<List<object>> IncidentPer()
         {
-            
-              
+            List<List<object>> OutPut = new List<List<object>>();
+
 
             string Dealer = (string)HttpContext.Current.Session["Dealer"];
             string Region = (string)HttpContext.Current.Session["Region"];
             string Division = (string)HttpContext.Current.Session["Division"];
             string Year = (string)HttpContext.Current.Session["Year"];
             string Month = (string)HttpContext.Current.Session["Month"];
-             
-            DataTable dt = ((DataSet)new BDMS_Dealer().ZYA_GetDealerSalesTarget(Dealer, Region, Division, Year, Month)).Tables[0];
+
+            DataSet ds = new BDMS_Dealer().ZYA_GetDealerSalesTarget(Dealer, Region, Division, Year, Month);
+
+            //List<object> chartData = new List<object>();  
+            //chartData.Add(new object[3] { "Name", "Target", "Actual" });
+            //foreach (DataRow dr in ds.Tables[0].Rows)
+            //{ 
+            //    chartData.Add(new object[3] { Convert.ToString(dr["ContactName"]), Convert.ToInt32(dr["Target"]), Convert.ToInt32(dr["Actual"]) });
+            //}
+            //OutPut.Add(chartData);
+
+
+            //chartData = new List<object>();
+            //chartData.Add(new object[3] { "State", "Target", "Actual" });
+            //foreach (DataRow dr in ds.Tables[1].Rows)
+            //{
+            //    chartData.Add(new object[3] { Convert.ToString(dr["ContactName"]), Convert.ToInt32(dr["Target"]), Convert.ToInt32(dr["Actual"]) });
+            //}
+            //OutPut.Add(chartData);
+
+            OutPut.Add(FillSalesPerson(ds.Tables[0]));
+            OutPut.Add(FillState(ds.Tables[1]));
+
+            OutPut.Add(FillSalesPerson(ds.Tables[2]));
+            OutPut.Add(FillState(ds.Tables[3]));
+
+            OutPut.Add(FillSalesPerson(ds.Tables[4]));
+            OutPut.Add(FillState(ds.Tables[5]));
+
+            OutPut.Add(FillSalesPerson(ds.Tables[6]));
+            OutPut.Add(FillState(ds.Tables[7]));
+            return OutPut;
+        }
+       static List<object> FillSalesPerson(DataTable dt)
+        {
             List<object> chartData = new List<object>();
-            object[] obtData = new object[3];
-            obtData[0] = "Name";
-            obtData[1] = "Actual";
-            obtData[2] = "Target";
-            chartData.Add(obtData);
+            chartData.Add(new object[4] { "Name", "Target", "Actual", "Performance" });
             foreach (DataRow dr in dt.Rows)
             {
-                obtData = new object[3];
-                obtData[0] = Convert.ToString(dr["ContactName"]);
-                obtData[1] = Convert.ToInt32(dr["Actual"]);
-                obtData[2] = Convert.ToInt32(dr["Target"]);
-                chartData.Add(obtData);
+                chartData.Add(new object[4] { Convert.ToString(dr["ContactName"]), Convert.ToInt32(dr["Target"]), Convert.ToInt32(dr["Actual"]), Convert.ToInt32(dr["Performance"]) });
+            }
+            return chartData;
+        }
+        static List<object> FillState(DataTable dt)
+        {
+            List<object> chartData = new List<object>();
+            chartData.Add(new object[4] { "State", "Target", "Actual", "Performance" });
+            foreach (DataRow dr in dt.Rows)
+            {
+                chartData.Add(new object[4] { Convert.ToString(dr["State"]), Convert.ToInt32(dr["Target"]), Convert.ToInt32(dr["Actual"]), Convert.ToInt32(dr["Performance"]) });
             }
             return chartData;
         }
