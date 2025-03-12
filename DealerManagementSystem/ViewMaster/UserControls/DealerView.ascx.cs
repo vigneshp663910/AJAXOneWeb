@@ -983,7 +983,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             txtDealerName.BorderColor = Color.Silver;
             txtDealerShortName.BorderColor = Color.Silver;
             txtGSTIN.BorderColor = Color.Silver;
-            //txtPAN.BorderColor = Color.Silver;
+            txtPAN.BorderColor = Color.Silver;
             txtEmail.BorderColor = Color.Silver;
             txtMobile.BorderColor = Color.Silver;
 
@@ -1028,22 +1028,25 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     txtGSTIN.BorderColor = Color.Red;
                     return Message;
                 }
-                //if ((txtGSTIN.Text.Trim() != "URD") && (!string.IsNullOrEmpty(txtGSTIN.Text.Trim())))
-                //{
-                //    string gst = txtGSTIN.Text.Trim().Remove(0, 2).Substring(0, 10);
-                //    if (txtPAN.Text.Trim().ToUpper() != gst.ToUpper())
-                //    {
-                //        Message = Message + "<br/>PAN and GSTIN are not matching.";
-                //        txtPAN.BorderColor = Color.Red;
-                //        return Message;
-                //    }
-                //}
+                if ((txtGSTIN.Text.Trim() != "URD") && (!string.IsNullOrEmpty(txtGSTIN.Text.Trim())))
+                {
+                    string gst = txtGSTIN.Text.Trim().Remove(0, 2).Substring(0, 10);
+                    if (txtPAN.Text.Trim().ToUpper() != gst.ToUpper())
+                    {
+                        Message = Message + "<br/>PAN and GSTIN are not matching.";
+                        txtPAN.BorderColor = Color.Red;
+                        return Message;
+                    }
+                }
             }
-            if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+            if (!string.IsNullOrEmpty(txtMobile.Text.Trim()))
             {
-                Message = Message + "<br/>Mobile should be 10 digit.";
-                txtMobile.BorderColor = Color.Red;
-                return Message;
+                if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+                {
+                    Message = Message + "<br/>Mobile should be 10 digit.";
+                    txtMobile.BorderColor = Color.Red;
+                    return Message;
+                }
             }
             if (ddlDealerType.SelectedValue == "0")
             {
@@ -1228,7 +1231,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     //{
                     //    lblMessageEditDealerAddress.Text = "Dealer Address not updated successfully.";                        
                     //} 
-                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Dealer/UpdateDealerAddress?DealerID=" + Dealer.DealerID + "&Address1" + Address1 + "&Address2" + Address2 + "&Address3" + Address3 + "&City" + City + "&CountryID" + CountryID + "&StateID" + StateID + "&DistrictID" + DistrictID + "&Pincode" + Pincode));
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Dealer/UpdateDealerAddress?DealerID=" + Dealer.DealerID + "&Address1=" + Address1 + "&Address2=" + Address2 + "&Address3=" + Address3 + "&City=" + City + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID + "&Pincode=" + Pincode));
                     if (Results.Status == PApplication.Failure)
                     {
                         lblMessageEditDealerAddress.Text = Results.Message;
@@ -1339,7 +1342,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     //{
                     //    lblMessageEditBank.Text = "Bank Details not updated for the Dealer.";
                     //}
-                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Dealer/UpdateDealerAddress?DealerID=" + DealerID + "&DealerBankID" + DealerBankID + "&BankName" + BankName + "&Branch" + Branch + "&AcNumber" + AcNumber + "&IfscCode" + IfscCode));
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Dealer/UpdateDealerBankDetails?DealerID=" + DealerID + "&DealerBankID=" + DealerBankID + "&BankName=" + BankName + "&Branch=" + Branch + "&AcNumber=" + AcNumber + "&IfscCode=" + IfscCode));
                     if (Results.Status == PApplication.Failure)
                     {
                         lblMessageEditBank.Text = Results.Message;
@@ -1398,7 +1401,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     //{
                     //    lblEditDealerResponsibleUserMessage.Text = "Dealer Responsible User not updated for the Dealer.";
                     //}
-                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Dealer/UpdateDealerResponsibleUser?DealerID=" + Dealer.DealerID + "&TeamLead" + Convert.ToInt32(ddlTeamLead.SelectedValue) + "&ServiceManager" + Convert.ToInt32(ddlServiceManager.SelectedValue) + "&SalesIncharge" + Convert.ToInt32(ddlSalesIncharge.SelectedValue)));
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Dealer/UpdateDealerResponsibleUser?DealerID=" + Dealer.DealerID + "&TeamLead=" + Convert.ToInt32(ddlTeamLead.SelectedValue) + "&ServiceManager=" + Convert.ToInt32(ddlServiceManager.SelectedValue) + "&SalesIncharge=" + Convert.ToInt32(ddlSalesIncharge.SelectedValue)));
                     if (Results.Status == PApplication.Failure)
                     {
                         lblMessageEditBank.Text = Results.Message;
