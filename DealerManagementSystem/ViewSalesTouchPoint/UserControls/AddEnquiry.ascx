@@ -2,6 +2,18 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
 <asp:UpdatePanel ID="updatepnl" runat="server">
     <ContentTemplate>
+        <script type="text/javascript">
+        function IsNumbericOnlyCheck(name) {
+            var regEx = /^\d+$/;
+            if (name.value.match(regEx)) {
+                return true;
+            }
+            else {
+                name.value = '';
+                return false;
+            }
+        }
+        </script>
         <fieldset class="fieldset-border"> 
             <div class="col-md-12">
                 <div class="col-md-6 col-sm-12">
@@ -14,7 +26,7 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Contact Person Mobile<samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"  TextMode="Phone" MaxLength="10"></asp:TextBox>
+                    <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" BorderColor="Silver" AutoCompleteType="Disabled"  TextMode="Phone" MaxLength="10" onchange="return IsNumbericOnlyCheck(this);"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">EMail</label>
@@ -49,7 +61,7 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Pincode<samp style="color: red">*</samp></label>
-                    <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="6" autocomplete="off" onkeydown="return isNumber(event);"></asp:TextBox>
+                    <asp:TextBox ID="txtPincode" runat="server" CssClass="form-control" BorderColor="Silver" MaxLength="6" autocomplete="off" onchange="return IsNumbericOnlyCheck(this);"></asp:TextBox>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="modal-label">Remarks</label>
