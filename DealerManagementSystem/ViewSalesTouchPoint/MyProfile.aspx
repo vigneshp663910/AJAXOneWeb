@@ -2,6 +2,17 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
+        function IsNumbericOnlyCheck(name) {
+            var regEx = /^\d+$/;
+            if (name.value.match(regEx)) {
+                return true;
+            }
+            else {
+                name.value = '';
+                $('#MainContent_lblMessage').text('Invalid Number Format');
+                return false;
+            }
+        }
         function MobileOTP() {
             var timeLeft = 30;
             var timerId = setInterval(countdown, 1000);
@@ -48,7 +59,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"/>
     <%--<script> 
         function success(position) {
             const latitude = position.coords.latitude;
@@ -145,7 +156,7 @@
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Mobile Number</label>
-                        <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="form-control" MaxLength="10" onkeydown="return isNumber(event);" placeholder="Mobile Number" AutoCompleteType="Disabled" OnTextChanged="txtMobileNumber_TextChanged" AutoPostBack="true"></asp:TextBox>
+                        <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="form-control" MaxLength="10" onchange="return IsNumbericOnlyCheck(this);" placeholder="Mobile Number" AutoCompleteType="Disabled" OnTextChanged="txtMobileNumber_TextChanged" AutoPostBack="true"></asp:TextBox>
                     </div>
                     <div class="col-md-2 col-sm-12">
                         <label class="modal-label">
@@ -206,7 +217,7 @@
                         <div id="some_div" runat="server"></div>
                     </div>
                     <div class="col-md-1 col-sm-12">
-                        <asp:TextBox ID="txtOTP" runat="server" CssClass="form-control" ToolTip="Type Six digit OTP" MaxLength="6" onkeydown="return isNumber(event);" Width="100px" AutoCompleteType="Disabled" PlaceHolder="OTP"></asp:TextBox>
+                        <asp:TextBox ID="txtOTP" runat="server" CssClass="form-control" ToolTip="Type Six digit OTP" MaxLength="6" onchange="return IsNumbericOnlyCheck(this);" Width="100px" AutoCompleteType="Disabled" PlaceHolder="OTP"></asp:TextBox>
                     </div>
                     <div class="col-md-1 col-sm-12">
                         <asp:Button ID="BtnVerifyOTP" runat="server" Text="Verify" CssClass="btn Save" Width="130px" Visible="false" OnClick="BtnVerifyOTP_Click" />
