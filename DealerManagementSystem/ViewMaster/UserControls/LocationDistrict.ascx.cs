@@ -94,14 +94,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        protected void ibtnDistrictArrowLeft_Click(object sender, ImageClickEventArgs e)
-        {
-            if (gvDistrict.PageIndex > 0)
-            {
-                gvDistrict.PageIndex = gvDistrict.PageIndex - 1;
-                DistrictBind(gvDistrict, lblRowCountD, LDistrict);
-            }
-        }
+       
         private void FillGridDistrict()
         {
             try
@@ -126,8 +119,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 if (LDistrict.Count == 0)
                 {
                     LDistrict.Add(new PDMS_District());
-                }
-                ViewState["gvDistrict"] = LDistrict;
+                } 
                 gvDistrict.DataSource = LDistrict;
                 gvDistrict.DataBind();
 
@@ -164,14 +156,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.ForeColor = Color.Red;
             }
         }
-        protected void ibtnDistrictArrowRight_Click(object sender, ImageClickEventArgs e)
-        {
-            if (gvDistrict.PageCount > gvDistrict.PageIndex)
-            {
-                gvDistrict.PageIndex = gvDistrict.PageIndex + 1;
-                DistrictBind(gvDistrict, lblRowCountD, LDistrict);
-            }
-        }
+        
         void DistrictBind(GridView gv, Label lbl, List<PDMS_District> LDistrict)
         {
             gv.DataSource = LDistrict;
@@ -408,7 +393,22 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 gvDistrict.ShowFooter = false;
             }
         }
-
+        protected void ibtnDistrictArrowLeft_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvDistrict.PageIndex > 0)
+            {
+                gvDistrict.PageIndex = gvDistrict.PageIndex - 1;
+                DistrictBind(gvDistrict, lblRowCountD, LDistrict);
+            }
+        }
+        protected void ibtnDistrictArrowRight_Click(object sender, ImageClickEventArgs e)
+        {
+            if (gvDistrict.PageCount > gvDistrict.PageIndex)
+            {
+                gvDistrict.PageIndex = gvDistrict.PageIndex + 1;
+                DistrictBind(gvDistrict, lblRowCountD, LDistrict);
+            }
+        }
         protected void gvDistrict_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDistrict.PageIndex = e.NewPageIndex;

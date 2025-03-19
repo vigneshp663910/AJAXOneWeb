@@ -521,42 +521,48 @@ namespace DealerManagementSystem.ViewService
                 for (int i = 0; i < FSRFile.Count(); i++)
                 {
                     PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFile[i].AttachedFileID);
-                    string Url1 = "~/ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
-
-                    if (File.Exists(MapPath(Url1)))
+                    if (F1 != null)
                     {
-                        File.Delete(MapPath(Url1));
+                        string Url1 = "~/ICTickrtFSR_Files/Org/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
+
+                        if (File.Exists(MapPath(Url1)))
+                        {
+                            File.Delete(MapPath(Url1));
+                        }
+                        File.WriteAllBytes(MapPath(Url1), F1.AttachedFile);
+                        string DestPath = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
+
+                        new BDMS_ICTicketTSIR().resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
+                        Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
+                        // FsrFiles.Rows.Add(F1.FSRAttachedName.FSRAttachedName, Path1);
+
+                        FileNames.Add(F1.FileName);
+                        FiePath.Add(Path1);
                     }
-                    File.WriteAllBytes(MapPath(Url1), F1.AttachedFile);
-                    string DestPath = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
-
-                    new BDMS_ICTicketTSIR().resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
-                    Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
-                    // FsrFiles.Rows.Add(F1.FSRAttachedName.FSRAttachedName, Path1);
-
-                    FileNames.Add(F1.FileName);
-                    FiePath.Add(Path1);
                 }
 
                 List<PDMS_TSIRAttachedFile> TSIRFile = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileDetails(TSIR.ICTicket.ICTicketID, TSIR.TsirID, null);
                 for (int i = 0; i < TSIRFile.Count(); i++)
                 {
                     PAttachedFile T1 = new BDMS_ICTicketTSIR().GetICTicketTSIRAttachedFileForDownload(TSIRFile[i].AttachedFileID);
-                    string Url1 = "~/ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
-                    if (File.Exists(MapPath(Url1)))
+                    if (T1 != null)
                     {
-                        File.Delete(MapPath(Url1));
+                        string Url1 = "~/ICTickrtTSIR_Files/Org/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
+                        if (File.Exists(MapPath(Url1)))
+                        {
+                            File.Delete(MapPath(Url1));
+                        }
+
+                        File.WriteAllBytes(MapPath(Url1), T1.AttachedFile);
+                        string DestPath = "ICTickrtTSIR_Files/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
+
+                        new BDMS_ICTicketTSIR().resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
+                        Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
+                        //  FsrFiles.Rows.Add(T1.FSRAttachedName.FSRAttachedName, Path1);
+
+                        FileNames.Add(T1.FileName);
+                        FiePath.Add(Path1);
                     }
-                    
-                    File.WriteAllBytes(MapPath(Url1), T1.AttachedFile);
-                    string DestPath = "ICTickrtTSIR_Files/" + T1.AttachedFileID + "." + T1.FileName.Split('.')[T1.FileName.Split('.').Count() - 1];
-
-                    new BDMS_ICTicketTSIR().resizeImage2(MapPath(Url1), Server.MapPath("~/" + DestPath));
-                    Path1 = new Uri(Server.MapPath("~/" + DestPath)).AbsoluteUri;
-                    //  FsrFiles.Rows.Add(T1.FSRAttachedName.FSRAttachedName, Path1);
-
-                    FileNames.Add(T1.FileName);
-                    FiePath.Add(Path1);
                 }
 
                 for (int i = 0; i < FileNames.Count; i++)

@@ -444,17 +444,20 @@ namespace DealerManagementSystem.ViewService
                     {
                        // PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFileAll[i].AttachedFileID);
                         PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFileAll[i].AttachedFileID);
-                        Path = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
-                        if (File.Exists(Server.MapPath("~/" + Path)))
+                        if (F1 != null)
                         {
-                            File.Delete(Server.MapPath("~/" + Path));
-                        }
-                        File.WriteAllBytes(Server.MapPath("~/" + Path), F1.AttachedFile);
+                            Path = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
+                            if (File.Exists(Server.MapPath("~/" + Path)))
+                            {
+                                File.Delete(Server.MapPath("~/" + Path));
+                            }
+                            File.WriteAllBytes(Server.MapPath("~/" + Path), F1.AttachedFile);
 
-                        if (FileNameID == (short)FSRAttachedFileName.BeforeMachineRestore)
-                            BeforeMachineRestoreFilePath = new Uri(Server.MapPath("~/" + Path)).AbsoluteUri;
-                        else if (FileNameID == (short)FSRAttachedFileName.AfterMachineRestore)
-                            AfterMachineRestoreFilePath = new Uri(Server.MapPath("~/" + Path)).AbsoluteUri;
+                            if (FileNameID == (short)FSRAttachedFileName.BeforeMachineRestore)
+                                BeforeMachineRestoreFilePath = new Uri(Server.MapPath("~/" + Path)).AbsoluteUri;
+                            else if (FileNameID == (short)FSRAttachedFileName.AfterMachineRestore)
+                                AfterMachineRestoreFilePath = new Uri(Server.MapPath("~/" + Path)).AbsoluteUri;
+                        }
                     }
                     else
                     {
@@ -468,27 +471,32 @@ namespace DealerManagementSystem.ViewService
                 {
                    // PDMS_FSRAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i].AttachedFileID);
                     PAttachedFile F1 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFile[i].AttachedFileID);
-                    string Url1 = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
-                    if (File.Exists(MapPath("~/"+Url1)))
+                    if (F1 != null)
                     {
-                        File.Delete(MapPath("~/"+Url1));
+                        string Url1 = "ICTickrtFSR_Files/" + F1.AttachedFileID + "." + F1.FileName.Split('.')[F1.FileName.Split('.').Count() - 1];
+                        if (File.Exists(MapPath("~/" + Url1)))
+                        {
+                            File.Delete(MapPath("~/" + Url1));
+                        }
+                        File.WriteAllBytes(MapPath("~/" + Url1), F1.AttachedFile);
+                        Path1 = new Uri(Server.MapPath("~/" + Url1)).AbsoluteUri;
                     }
-                    File.WriteAllBytes(MapPath("~/"+Url1), F1.AttachedFile);
-                    Path1 = new Uri(Server.MapPath("~/" + Url1)).AbsoluteUri;
-
                     if (i + 1 != FSRFile.Count())
                     {
                       //  PDMS_FSRAttachedFile F2 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileByID(FSRFile[i + 1].AttachedFileID);
                         PAttachedFile F2 = new BDMS_ICTicketFSR().GetICTicketFSRAttachedFileForDownload(FSRFile[i + 1].AttachedFileID);
-                        string Url2 = "ICTickrtFSR_Files/" + F2.AttachedFileID + "." + F2.FileName.Split('.')[F2.FileName.Split('.').Count() - 1];
-                        if (File.Exists(MapPath("~/" + Url2)))
+                        if (F2 != null)
                         {
-                            File.Delete(MapPath("~/" + Url2));
+                            string Url2 = "ICTickrtFSR_Files/" + F2.AttachedFileID + "." + F2.FileName.Split('.')[F2.FileName.Split('.').Count() - 1];
+                            if (File.Exists(MapPath("~/" + Url2)))
+                            {
+                                File.Delete(MapPath("~/" + Url2));
+                            }
+                            File.WriteAllBytes(MapPath("~/" + Url2), F2.AttachedFile);
+                            Path2 = new Uri(Server.MapPath("~/" + Url2)).AbsoluteUri;
+
+                            FsrFiles.Rows.Add(F1.ReferenceName, Path1, F2.ReferenceName, Path2);
                         }
-                        File.WriteAllBytes(MapPath("~/" + Url2), F2.AttachedFile);
-                        Path2 = new Uri(Server.MapPath("~/" + Url2)).AbsoluteUri;
-                         
-                        FsrFiles.Rows.Add(F1.ReferenceName, Path1, F2.ReferenceName, Path2);
                     }
                     else
                     {
