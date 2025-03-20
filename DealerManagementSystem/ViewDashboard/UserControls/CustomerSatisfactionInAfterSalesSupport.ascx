@@ -6,7 +6,7 @@
     <div class="content">
         <div class="details">
             <div class="desc">
-                <asp:Label ID="Label1" Text="Mean Time to Respond (MTTR-1) < 8 Hrs" runat="server" />
+                <asp:Label ID="Label1" Text="Mean Time to Respond (MTTR-1) < 6 Hrs" runat="server" />
             </div>
             <div class="details-position">
                 <%--<div id="donut_single" style="width: 100px; height: 100px;"></div>--%>
@@ -20,7 +20,7 @@
     <div class="content">
         <div class="details">
             <div class="desc">
-                <asp:Label ID="Label12" Text="Mean Time to Restore (MTTR-2) < 48 Hrs" runat="server" />
+                <asp:Label ID="Label12" Text="Mean Time to Restore (MTTR-2) < 24 Hrs" runat="server" />
             </div>
 
             <div class="details-position">
