@@ -190,11 +190,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //    txtMobile.BorderColor = Color.Red;
             //    return Message;
             //}
-            if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+            if (!string.IsNullOrEmpty(txtMobile.Text.Trim()))
             {
-                Message = Message + "<br/>Mobile should be 10 digit.";
-                txtMobile.BorderColor = Color.Red;
-                return Message;
+                if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+                {
+                    Message = Message + "<br/>Mobile should be 10 digit.";
+                    txtMobile.BorderColor = Color.Red;
+                    return Message;
+                }
             }
             if (ddlDealerType.SelectedValue == "0")
             {
@@ -259,7 +262,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             }
             if (string.IsNullOrEmpty(txtIFSCCode.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Pincode.";
+                Message = Message + "<br/>Please enter the IFSC Code.";
                 txtIFSCCode.BorderColor = Color.Red;
                 //return Message;
             }

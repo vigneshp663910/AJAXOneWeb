@@ -1413,9 +1413,9 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     lblMessage.Visible = true;
                     lblMessage.ForeColor = Color.Green;
 
-                    MPE_EditBank.Hide();
-                    tbpDealer.ActiveTabIndex = 4;
-                    fillDealerBankDetails();
+                    MPE_EditDealerResposibleUser.Hide();
+                    tbpDealer.ActiveTabIndex = 5;
+                    fillDealerResponsibleUser();
                 }
             }
             catch (Exception ex)
