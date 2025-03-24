@@ -607,32 +607,7 @@ namespace Business
             TraceLogger.Log(DateTime.Now);
             return success;
         }
-
-
-        public void UpdateCustomerAddressFromSapToSql()
-        {
-            List<PDMS_Customer> Customers = new List<PDMS_Customer>();
-            PDMS_Customer Customer = new PDMS_Customer();
-            using (DataSet DataSet = provider.Select("GetCustomerForUpdateAddressFromSapToSql"))
-            {
-                if (DataSet != null)
-                {
-                    foreach (DataRow dr in DataSet.Tables[0].Rows)
-                    {
-                        Customer = new PDMS_Customer();
-                        Customers.Add(Customer);
-                        Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
-
-                    }
-                }
-            }
-
-            foreach (PDMS_Customer C in Customers)
-            {
-                InsertOrUpdateCustomerSap(C.CustomerCode);
-            }
-        }
-
+         
         public List<PDMS_CustomerShipTo> GetCustomerShopTo(long? CustomerShipToID, long? CustomerID)
         {
             TraceLogger.Log(DateTime.Now);

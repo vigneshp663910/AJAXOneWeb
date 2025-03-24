@@ -22,80 +22,123 @@ namespace DealerManagementSystem.ViewMaster.UserControls
         {
             get
             {
-                if (Session["DealerView"] == null)
+                if (ViewState["DealerView"] == null)
                 {
-                    Session["DealerView"] = new PDMS_Dealer();
+                    ViewState["DealerView"] = new PDMS_Dealer();
                 }
-                return (PDMS_Dealer)Session["DealerView"];
+                return (PDMS_Dealer)ViewState["DealerView"];
             }
             set
             {
-                Session["DealerView"] = value;
+                ViewState["DealerView"] = value;
             }
         }
+        
+        public PDMS_Dealer DealerAddress
+        {
+            get
+            {
+                if (ViewState["DealerAddress"] == null)
+                {
+                    ViewState["DealerAddress"] = new PDMS_Dealer();
+                }
+                return (PDMS_Dealer)ViewState["DealerAddress"];
+            }
+            set
+            {
+                ViewState["DealerAddress"] = value;
+            }
+        }
+        
         public List<PDMS_DealerOffice> DealerOfficeList
         {
             get
             {
-                if (Session["DealerOffice"] == null)
+                if (ViewState["DealerOffice"] == null)
                 {
-                    Session["DealerOffice"] = new List<PDMS_DealerOffice>();
+                    ViewState["DealerOffice"] = new List<PDMS_DealerOffice>();
                 }
-                return (List<PDMS_DealerOffice>)Session["DealerOffice"];
+                return (List<PDMS_DealerOffice>)ViewState["DealerOffice"];
             }
             set
             {
-                Session["DealerOffice"] = value;
+                ViewState["DealerOffice"] = value;
             }
         }
+        
         public List<PDMS_DealerEmployee> DealerEmployeeList
         {
             get
             {
-                if (Session["DealerEmployee"] == null)
+                if (ViewState["DealerEmployee"] == null)
                 {
-                    Session["DealerEmployee"] = new List<PDMS_DealerEmployee>();
+                    ViewState["DealerEmployee"] = new List<PDMS_DealerEmployee>();
                 }
-                return (List<PDMS_DealerEmployee>)Session["DealerEmployee"];
+                return (List<PDMS_DealerEmployee>)ViewState["DealerEmployee"];
             }
             set
             {
-                Session["DealerEmployee"] = value;
+                ViewState["DealerEmployee"] = value;
             }
         }
+        
         public List<PDealerNotification> DealerNotificationList
         {
             get
             {
-                if (Session["DealerNotification"] == null)
+                if (ViewState["DealerNotification"] == null)
                 {
-                    Session["DealerNotification"] = new List<PDealerNotification>();
+                    ViewState["DealerNotification"] = new List<PDealerNotification>();
                 }
-                return (List<PDealerNotification>)Session["DealerNotification"];
+                return (List<PDealerNotification>)ViewState["DealerNotification"];
             }
             set
             {
-                Session["DealerNotification"] = value;
+                ViewState["DealerNotification"] = value;
             }
         }
-        public List<PDMS_DealerEmployee> DealerResponsibleUserList
+        
+        public PDMS_Dealer DealerBank
         {
             get
             {
-                if (Session["DealerResponsibleUser"] == null)
+                if (ViewState["DealerBank"] == null)
                 {
-                    Session["DealerResponsibleUser"] = new List<PDMS_DealerEmployee>();
+                    ViewState["DealerBank"] = new PDMS_Dealer();
                 }
-                return (List<PDMS_DealerEmployee>)Session["DealerResponsibleUser"];
+                return (PDMS_Dealer)ViewState["DealerBank"];
             }
             set
             {
-                Session["DealerResponsibleUser"] = value;
+                ViewState["DealerBank"] = value;
             }
         }
+        
+        public List<PUser> DealerResponsibleUserList
+        {
+            get
+            {
+                if (ViewState["DealerResponsibleUser"] == null)
+                {
+                    ViewState["DealerResponsibleUser"] = new List<PUser>();
+                }
+                return (List<PUser>)ViewState["DealerResponsibleUser"];
+            }
+            set
+            {
+                ViewState["DealerResponsibleUser"] = value;
+            }
+        }
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             lblMessage.Text = "";
+            lblMessageEditDealer.Text = string.Empty;
+            lblMessageEditDealerAddress.Text = string.Empty;
+            lblMessageAddBranchOffice.Text = string.Empty;
+            lblMessageAddNotification.Text = string.Empty;
+            lblMessageEditBank.Text = string.Empty;
+            lblEditDealerResponsibleUserMessage.Text = string.Empty;
             if (!IsPostBack)
             {
                 //ActionControlMange();
@@ -110,10 +153,13 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 }
             }
         }
+        
         public void filldealer(int DealerID)
         {
             ViewState["DealerID"] = DealerID;
             Dealer = new BDMS_Dealer().GetDealer(DealerID, "", null, null)[0];
+            //new BDealer().GetDealerByID(DealerID, "", null, null)[0];
+            DealerAddress  = new BDealer().GetDealerAddress(DealerID)[0];
 
             lblDealerCode.Text = Dealer.DealerCode;
             lblDealerName.Text = Dealer.DealerName;
@@ -125,13 +171,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             lblDealerRegion.Text = Dealer.Region.Region;
             //lblTeamLead.Text = Dealer.TL.ContactName;
             //lblSerivceManager.Text = Dealer.SM.ContactName;
-
-            List<PDMS_Dealer> DealerBank = new BDMS_Dealer().GetDealerBankDetails(DealerID, null, null);
-            lblDealerBank.Text = DealerBank[0].DealerBank.BankName;
-            lblDealerBankBranch.Text = DealerBank[0].DealerBank.Branch;
-            lblIFSCCode.Text = DealerBank[0].DealerBank.IfscCode;
-            lblAccountNo.Text = DealerBank[0].DealerBank.AcNumber;
-            lblDealerBankID.Text = DealerBank[0].DealerBank.DealerBankID.ToString();
+            lblGSTIN.Text = Dealer.GSTIN;
+            lblPAN.Text = DealerAddress.Address.PAN;
+            lblContactPerson.Text = DealerAddress.Address.ContactPerson;
+             
 
             //new DDLBind().FillDealerAndEngneer(ddlDealerDN, null);
             new DDLBind(ddlDealerDN, PSession.User.Dealer, "CodeWithDisplayName", "DID", true, "All Dealer");
@@ -139,20 +182,67 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
             new DDLBind(ddlDealerNotificationModuleG, new BDMS_Dealer().GetDealerNotificationModule(), "ModuleName", "DealerNotificationModuleID");
 
+            fillDealerAddress();
             fillDealerOffice();
             fillDealerEmployee();
             fillDealerNotification();
+            fillDealerBankDetails();
             fillDealerResponsibleUser();
+            fillDealerEInvoice();
             ActionControlMange();
+            tbpDealer.ActiveTabIndex = 0;
         }
+        
         protected void lnkBtnActions_Click(object sender, EventArgs e)
         {
             try
             {
                 LinkButton lbActions = ((LinkButton)sender);
-                if (lbActions.Text == "Add Branch Office")
-                {
-                    lblMessageAddBranchOffice.Text = string.Empty;
+                if (lbActions.ID == "lnkBtnEditDealer")
+                {                   
+                    txtDealerCode.Text = lblDealerCode.Text;
+                    txtDealerName.Text = lblDealerName.Text;
+                    txtDealerShortName.Text = Dealer.DisplayName;
+                    txtGSTIN.Text = Dealer.GSTIN;
+                    txtPAN.Text = DealerAddress.Address.PAN;
+                    txtContactPerson.Text = DealerAddress.Address.ContactPerson;
+                    txtEmail.Text = Dealer.Email;
+                    txtMobile.Text = Dealer.Mobile; 
+                    new DDLBind(ddlDealerType, new BDMS_Dealer().GetDealerType(null, null), "DealerType", "DealerTypeID");
+                    ddlDealerType.SelectedValue = Dealer.DealerType.DealerTypeID.ToString();
+                    
+                    cbEInvAPI.Checked = Dealer.IsEInvoice;
+                    txtEInvoiceDate.Text = Dealer.EInvoiceDate.ToString();                     
+                    txtApiUserName.Text = Dealer.ApiUserName;
+                    txtApiPassword.Text = Dealer.ApiPassword;
+                    cbServicePaidEInvoice.Checked = Dealer.ServicePaidEInvoice;
+
+                    cbIsActiveDealer.Checked = Dealer.IsActive;
+
+                    MPE_EditDealer.Show();
+                }
+                if (lbActions.ID == "lnkBtnEditDealerAddress")
+                {                    
+                    txtAddress1.Text = DealerAddress.Address.Address1;
+                    txtAddress2.Text = DealerAddress.Address.Address2;
+                    txtAddress3.Text = DealerAddress.Address.Address3;                   
+                    txtCity.Text = DealerAddress.Address.City;
+
+                    new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+                    ddlCountry.SelectedValue = Convert.ToString(Dealer.CountryID);
+
+                    new DDLBind(ddlState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
+                    ddlState.SelectedValue = Convert.ToString(DealerAddress.Address.State.StateID);
+
+                    new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, Convert.ToInt32(DealerAddress.Address.State.StateID), null, null, null), "District", "DistrictID");
+                    ddlDistrict.SelectedValue = Convert.ToString(DealerAddress.Address.District.DistrictID);
+
+                    txtPincode.Text = DealerAddress.Address.Pincode;
+
+                    MPE_EditDealerAddress.Show();
+                }
+                if (lbActions.ID == "lnkBtnAddBranchOffice")
+                {                    
                     cbIsHeadOffice.Checked = false;
                     txtSapLocationCode.Text = string.Empty;
                     txtOfficeCode.Text = string.Empty;
@@ -167,16 +257,20 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     txtDealerOfficeMobile.Text = string.Empty;
                     txtDealerOfficeEmail.Text = string.Empty;
 
-                    new DDLBind(ddlDealerOfficeState, new BDMS_Address().GetState(Dealer.DealerID, 1, null, null, null), "State", "StateID");
+                    new DDLBind(ddlDealerOfficeState, new BDMS_Address().GetState(null, 1, null, null, null), "State", "StateID");
                     
                     ddlDealerOfficeDistrict.Items.Clear();
                     ddlDealerOfficeDistrict.SelectedValue = "0";
 
                     MPE_AddBranchOffice.Show();
                 }
-                if (lbActions.Text == "Add Dealer Notification")
+                if (lbActions.ID == "lnkBtnAddNotification")
                 {
-                    lblMessageAddNotification.Text = string.Empty;
+                    ddlDealerNotificationModule.BorderColor = Color.Silver;
+                    ddlEmployee.BorderColor = Color.Silver;
+                    cbSendSMS.Checked = false;
+                    cbSendEmail.Checked = false;
+                    
                     List<PUser> DealerUser = new BUser().GetUsers(null, null, null, null, Dealer.DealerID, true, null, null,null);
                     new DDLBind(ddlDealerNotificationModule, new BDMS_Dealer().GetDealerNotificationModule(), "ModuleName", "DealerNotificationModuleID");
                     new DDLBind(ddlEmployee, DealerUser, "ContactName", "UserID");
@@ -195,23 +289,45 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                     new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID", false);
                     ddlDealer.SelectedValue = Convert.ToString(Dealer.DealerID);
                 }
-                if (lbActions.Text == "Edit Bank Details")
+                if (lbActions.ID == "lnkBtnEditBank")
                 {
-                    lblMessageDealerEdit.Text = string.Empty;
-                    txtBank.Text = lblDealerBank.Text;
-                    txtBranch.Text = lblDealerBankBranch.Text;
-                    txtIFSCCode.Text = lblIFSCCode.Text;
-                    txtAccountNo.Text = lblAccountNo.Text;
+                    //txtBank.Text = lblDealerBank.Text;
+                    //txtBranch.Text = lblDealerBankBranch.Text;
+                    //txtIFSCCode.Text = lblIFSCCode.Text;
+                    //txtAccountNo.Text = lblAccountNo.Text;
+
+                    txtBank.BorderColor = Color.Silver;
+                    txtBranch.BorderColor = Color.Silver;
+                    txtIFSCCode.BorderColor = Color.Silver;
+                    txtAccountNo.BorderColor = Color.Silver;
+
+                    txtBank.Text = DealerBank.DealerBank.BankName;
+                    txtBranch.Text = DealerBank.DealerBank.Branch;
+                    txtIFSCCode.Text = DealerBank.DealerBank.IfscCode;
+                    txtAccountNo.Text = DealerBank.DealerBank.AcNumber;
+                    
                     MPE_EditBank.Show();
                 }
-                if (lbActions.Text == "Edit Dealer Responsible User")
+                if (lbActions.ID == "lnkBtnEditDealerResponsibleUser")
                 {
-                    ddlDealerResposibleUserType.SelectedValue = "0";
-                    //ddlDealerResponsibleUser.SelectedValue = "0";
-                    //ddlDealerResposibleUserType.Items.Clear();
-                    ddlDealerResponsibleUser.Items.Clear();
-                    lblEditDealerResponsibleUserMessage.Text = "";
-                    lblEditDealerResponsibleUserMessage.Visible = false;
+                    //ddlDealerResposibleUserType.SelectedValue = "0";
+                    ////ddlDealerResponsibleUser.SelectedValue = "0";
+                    ////ddlDealerResposibleUserType.Items.Clear();
+                    //ddlDealerResponsibleUser.Items.Clear();
+
+                    new DDLBind(ddlTeamLead, new BUser().GetUsers(null, null, null, null, 53, true, null, 2, null), "ContactName", "UserID");
+                    new DDLBind(ddlServiceManager, new BUser().GetUsers(null, null, null, null, 53, true, null, 2, null), "ContactName", "UserID");
+                    new DDLBind(ddlSalesIncharge, new BUser().GetUsers(null, null, null, null, 53, true, null, 1, null), "ContactName", "UserID");
+
+                    foreach (PUser User in DealerResponsibleUserList)
+                    {
+                        if (User.Designation.DealerDesignation.Split('-')[1].Trim() == "Service TL")
+                            ddlTeamLead.SelectedValue = User.UserID.ToString();
+                        if (User.Designation.DealerDesignation.Split('-')[1].Trim() == "Service Manager")
+                            ddlServiceManager.SelectedValue = User.UserID.ToString();
+                        if (User.Designation.DealerDesignation.Split('-')[1].Trim() == "Sales Incharge")
+                            ddlSalesIncharge.SelectedValue = User.UserID.ToString();
+                    }
                     MPE_EditDealerResposibleUser.Show();
                 }
             }
@@ -222,6 +338,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.ForeColor = Color.Red;
             }
         }
+        
         void fillDealerOffice()
         {
             DealerOfficeList = new BDMS_Dealer().GetDealerOffice(Dealer.DealerID, null, null);
@@ -229,6 +346,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //gvDealerOffice.DataSource = DealerOfficeList;
             //gvDealerOffice.DataBind();
         }
+        
         void fillDealerEmployee()
         {
             DealerEmployeeList = new BDMS_Dealer().GetDealerEmployeeByDealerID(Dealer.DealerID, null, null, null, null);
@@ -236,6 +354,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //gvDealerEmployee.DataSource = DealerEmployeeList;
             //gvDealerEmployee.DataBind();
         }
+        
         void fillDealerNotification()
         {
             int AFDealerID = Convert.ToInt32(ConfigurationManager.AppSettings["AjaxDealerID"]);
@@ -258,6 +377,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //gvDealerNotification.DataSource = DealerNotificationList;
             //gvDealerNotification.DataBind();
         }
+        
         protected void ibtnDealerOfficeArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerOffice.PageIndex > 0)
@@ -266,6 +386,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 DealerOfficeBind();
             }
         }
+        
         protected void ibtnDealerOfficeArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerOffice.PageCount > gvDealerOffice.PageIndex)
@@ -274,17 +395,20 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 DealerOfficeBind();
             }
         }
+        
         void DealerOfficeBind()
         {
             gvDealerOffice.DataSource = DealerOfficeList;
             gvDealerOffice.DataBind();
             lblRowCountDealerOffice.Text = (((gvDealerOffice.PageIndex) * gvDealerOffice.PageSize) + 1) + " - " + (((gvDealerOffice.PageIndex) * gvDealerOffice.PageSize) + gvDealerOffice.Rows.Count) + " of " + DealerOfficeList.Count;
         }
+        
         protected void gvDealerOffice_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDealerOffice.PageIndex = e.NewPageIndex;
             fillDealerOffice();
         }
+        
         protected void ibtnDealerEmployeeArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerEmployee.PageIndex > 0)
@@ -293,6 +417,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 DealerEmployeeBind();
             }
         }
+        
         protected void ibtnDealerEmployeeArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerEmployee.PageCount > gvDealerEmployee.PageIndex)
@@ -301,20 +426,22 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 DealerEmployeeBind();
             }
         }
+        
         void DealerEmployeeBind()
         {
             gvDealerEmployee.DataSource = DealerEmployeeList;
             gvDealerEmployee.DataBind();
             lblRowCountDealerEmployee.Text = (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + 1) + " - " + (((gvDealerEmployee.PageIndex) * gvDealerEmployee.PageSize) + gvDealerEmployee.Rows.Count) + " of " + DealerEmployeeList.Count;
         }
+        
         protected void gvDealerEmployee_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDealerEmployee.PageIndex = e.NewPageIndex;
             fillDealerEmployee();
         }
+        
         protected void lnkbtnDealerOfficeDelete_Click(object sender, EventArgs e)
         {
-
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
             Label lblOfficeCode = (Label)gvRow.FindControl("lblOfficeCode");
             PDMS_DealerOffice DealerOffice = new PDMS_DealerOffice();
@@ -341,18 +468,18 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //lblMessage.ForeColor = Color.Green;
 
             fillDealerOffice();
-
         }
+        
         protected void lnkBtnNotificationDelete_Click(object sender, EventArgs e)
         {
             GridViewRow gvRow = (GridViewRow)(sender as Control).Parent.Parent;
-            Label lblDealerNotificationID = (Label)gvRow.FindControl("lblDealerNotificationID");
+            Label lblDealerNotificationIDG = (Label)gvRow.FindControl("lblDealerNotificationIDG");
             Label lblDealerNotificationModuleID = (Label)gvRow.FindControl("lblDealerNotificationModuleID");
             Label lblUserID = (Label)gvRow.FindControl("lblUserID");
             CheckBox chkbxIsSMS = (CheckBox)gvRow.FindControl("chkbxIsSMS");
             CheckBox chkbxIsMail = (CheckBox)gvRow.FindControl("chkbxIsMail");
             PDealerNotification DealerNotification = new PDealerNotification();
-            DealerNotification.DealerNotificationID = Convert.ToInt32(lblDealerNotificationID.Text);
+            DealerNotification.DealerNotificationID = Convert.ToInt32(lblDealerNotificationIDG.Text);
 
             DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Dealer.DealerID };
             DealerNotification.User = new PUser() { UserID = Convert.ToInt32(lblUserID.Text) };
@@ -375,8 +502,12 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             fillDealerNotification();
 
         }
+        
         void ActionControlMange()
         {
+            lnkBtnEditDealer.Visible = true;
+            lnkBtnEditDealerAddress.Visible = true;
+            lnkBtnAddBranchOffice.Visible = true;
             lnkBtnEditBank.Visible = true;
             lnkBtnAddNotification.Visible = true;
             lnkBtnEditDealerResponsibleUser.Visible = true;
@@ -387,8 +518,11 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lnkBtnAddNotification.Visible = false;
             }
 
-            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerBankDetailsEdit).Count() == 0)
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerCreateAndEditAddrOfficeAndBank).Count() == 0)
             {
+                lnkBtnEditDealer.Visible = false;
+                lnkBtnEditDealerAddress.Visible = false;
+                lnkBtnAddBranchOffice.Visible = false;
                 lnkBtnEditBank.Visible = false;
             }
 
@@ -397,42 +531,44 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lnkBtnEditDealerResponsibleUser.Visible = false;
             }
         }
-        protected void btnAddNotification_Click(object sender, EventArgs e)
-        {
-            MPE_AddNotification.Show();
-            lblMessageAddNotification.Visible = true;
-            lblMessageAddNotification.ForeColor = Color.Red;
+
+        //protected void btnAddNotification_Click(object sender, EventArgs e)
+        //{
+        //    MPE_AddNotification.Show();
+        //    lblMessageAddNotification.Visible = true;
+        //    lblMessageAddNotification.ForeColor = Color.Red;
            
             
-            string Message = ValidationAddNotification();
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageAddNotification.Text = Message;
-                return;
-            }
-            PDealerNotification DealerNotification = new PDealerNotification();
-            DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(ddlDealer.SelectedValue) };
-            DealerNotification.User = new PUser() { UserID = Convert.ToInt32(ddlEmployee.SelectedValue) };
-            DealerNotification.Module = new PDealerNotificationModule() { DealerNotificationModuleID = Convert.ToInt32(ddlDealerNotificationModule.SelectedValue) };
-            DealerNotification.IsSMS = cbSendSMS.Checked;
-            DealerNotification.IsMail = cbSendEmail.Checked;
-            DealerNotification.IsActive = true;
+        //    string Message = ValidationAddNotification();
+        //    if (!string.IsNullOrEmpty(Message))
+        //    {
+        //        lblMessageAddNotification.Text = Message;
+        //        return;
+        //    }
+        //    PDealerNotification DealerNotification = new PDealerNotification();
+        //    DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(ddlDealer.SelectedValue) };
+        //    DealerNotification.User = new PUser() { UserID = Convert.ToInt32(ddlEmployee.SelectedValue) };
+        //    DealerNotification.Module = new PDealerNotificationModule() { DealerNotificationModuleID = Convert.ToInt32(ddlDealerNotificationModule.SelectedValue) };
+        //    DealerNotification.IsSMS = cbSendSMS.Checked;
+        //    DealerNotification.IsMail = cbSendEmail.Checked;
+        //    DealerNotification.IsActive = true;
 
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
-            if (Results.Status == PApplication.Failure)
-            {
-                lblMessageAddNotification.Text = Results.Message;
-                return;
-            }
-            lblMessage.Text = Results.Message;
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Green;
+        //    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
+        //    if (Results.Status == PApplication.Failure)
+        //    {
+        //        lblMessageAddNotification.Text = Results.Message;
+        //        return;
+        //    }
+        //    lblMessage.Text = Results.Message;
+        //    lblMessage.Visible = true;
+        //    lblMessage.ForeColor = Color.Green;
 
-            ddlEmployee.Items.Clear();
-            tbpDealer.ActiveTabIndex = 3;
-            MPE_AddNotification.Hide();
-            fillDealerNotification();
-        }
+        //    ddlEmployee.Items.Clear();
+        //    tbpDealer.ActiveTabIndex = 3;
+        //    MPE_AddNotification.Hide();
+        //    fillDealerNotification();
+        //}
+
         public string ValidationAddNotification()
         {
             string Message = "";
@@ -460,6 +596,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             msg:
             return Message;
         }
+
         protected void ibtnDealerNotificationArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerNotification.PageIndex > 0)
@@ -468,6 +605,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 DealerNotificationBind();
             }
         }
+
         protected void ibtnDealerNotificationArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerNotification.PageCount > gvDealerNotification.PageIndex)
@@ -476,28 +614,51 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 DealerNotificationBind();
             }
         }
+
         void DealerNotificationBind()
         {
             gvDealerNotification.DataSource = DealerNotificationList;
             gvDealerNotification.DataBind();
             lblRowCountDealerNotification.Text = (((gvDealerNotification.PageIndex) * gvDealerNotification.PageSize) + 1) + " - " + (((gvDealerNotification.PageIndex) * gvDealerNotification.PageSize) + gvDealerNotification.Rows.Count) + " of " + DealerNotificationList.Count;
         }
+
         protected void gvDealerNotification_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDealerNotification.PageIndex = e.NewPageIndex;
             fillDealerNotification();
         }
+
         protected void btnEditBank_Click(object sender, EventArgs e)
         {
-            PDealerBankDetails BankDetails = new PDealerBankDetails();
-            BankDetails.DealerID = Convert.ToInt32(Dealer.DealerID);
-            BankDetails.DealerBankID = Convert.ToInt32(lblDealerBankID.Text);
-            BankDetails.BankName = txtBank.Text;
-            BankDetails.Branch = txtBranch.Text;
-            BankDetails.AcNumber = txtAccountNo.Text;
-            BankDetails.IfscCode = txtIFSCCode.Text;
+            //PDealerBankDetails BankDetails = new PDealerBankDetails();
+            //BankDetails.DealerID = Convert.ToInt32(Dealer.DealerID);
+            //BankDetails.DealerBankID = Convert.ToInt32(lblDealerBankID.Text);
+            //BankDetails.BankName = txtBank.Text;
+            //BankDetails.Branch = txtBranch.Text;
+            //BankDetails.AcNumber = txtAccountNo.Text;
+            //BankDetails.IfscCode = txtIFSCCode.Text;
 
-            if (new BDMS_Dealer().InsertOrUpdateDealerBankDetails(BankDetails, 0))
+            //if (new BDMS_Dealer().InsertOrUpdateDealerBankDetails(BankDetails, 0))
+            //{
+            //    lblMessageEditBank.Text = "Bank Details updated for the Dealer.";
+            //    lblMessage.ForeColor = Color.Green;
+            //    lblMessageEditBank.Visible = true;
+            //}
+            //else
+            //{
+            //    lblMessage.Text = "Bank Details not updated for the Dealer.";
+            //    lblMessage.ForeColor = Color.Red;
+            //    lblMessageEditBank.Visible = true;
+            //}
+
+            int DealerID = Convert.ToInt32(Dealer.DealerID);
+            int DealerBankID = Convert.ToInt32(lblDealerBankID.Text);
+            string BankName = txtBank.Text.Trim();
+            string Branch = txtBranch.Text.Trim();
+            string AcNumber = txtAccountNo.Text.Trim();
+            string IfscCode = txtIFSCCode.Text.Trim();
+
+            if (new BDMS_Dealer().UpdateDealerBankDetails(DealerID, DealerBankID, BankName, Branch, AcNumber, IfscCode))
             {
                 lblMessageEditBank.Text = "Bank Details updated for the Dealer.";
                 lblMessage.ForeColor = Color.Green;
@@ -509,8 +670,10 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.ForeColor = Color.Red;
                 lblMessageEditBank.Visible = true;
             }
+
             filldealer(Dealer.DealerID);
         }
+
         void fillDealerResponsibleUser()
         {
             DealerResponsibleUserList = new BDMS_Dealer().GetDealerResponsibleUser(Dealer.DealerID, Dealer.DealerCode);
@@ -518,12 +681,14 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             //gvDealerResponsibleUser.DataSource = DealerResponsibleUserList;
             //gvDealerResponsibleUser.DataBind();
         }
+
         void DealerResponsibleUserBind()
         {
             gvDealerResponsibleUser.DataSource = DealerResponsibleUserList;
             gvDealerResponsibleUser.DataBind();
             lblRowCountDealerResponsibleUser.Text = (((gvDealerResponsibleUser.PageIndex) * gvDealerResponsibleUser.PageSize) + 1) + " - " + (((gvDealerResponsibleUser.PageIndex) * gvDealerResponsibleUser.PageSize) + gvDealerResponsibleUser.Rows.Count) + " of " + DealerResponsibleUserList.Count;
         }
+
         protected void ibtnDealerResponsibleUserArrowLeft_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerResponsibleUser.PageIndex > 0)
@@ -532,6 +697,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 DealerResponsibleUserBind();
             }
         }
+
         protected void ibtnDealerResponsibleUserArrowRight_Click(object sender, ImageClickEventArgs e)
         {
             if (gvDealerResponsibleUser.PageCount > gvDealerResponsibleUser.PageIndex)
@@ -540,81 +706,32 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 DealerResponsibleUserBind();
             }
         }
+
         protected void gvDealerResponsibleUser_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDealerResponsibleUser.PageIndex = e.NewPageIndex;
             fillDealerResponsibleUser();
         }
-        protected void ddlDealerResposibleUserType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(ddlDealerResposibleUserType.SelectedValue == "TL" || ddlDealerResposibleUserType.SelectedValue == "SM")
-            {
-                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, 53, true, null, 2, null), "ContactName", "UserID");
-            }
-            if(ddlDealerResposibleUserType.SelectedValue == "Sales Responsible User")
-            {
-                new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, 53, true, null, 1, null), "ContactName", "UserID");
-            }
-            MPE_EditDealerResposibleUser.Show();
-        }
+
+        //protected void ddlDealerResposibleUserType_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if(ddlDealerResposibleUserType.SelectedValue == "TL" || ddlDealerResposibleUserType.SelectedValue == "SM")
+        //    {
+        //        new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, 53, true, null, 2, null), "ContactName", "UserID");
+        //    }
+        //    if(ddlDealerResposibleUserType.SelectedValue == "Sales Responsible User")
+        //    {
+        //        new DDLBind(ddlDealerResponsibleUser, new BUser().GetUsers(null, null, null, null, 53, true, null, 1, null), "ContactName", "UserID");
+        //    }
+        //    MPE_EditDealerResposibleUser.Show();
+        //}
+
         protected void ddlDealerOfficeState_SelectedIndexChanged(object sender, EventArgs e)
         {
             MPE_AddBranchOffice.Show();
-            new DDLBind(ddlDealerOfficeDistrict, new BDMS_Address().GetDistrict(1, null, Convert.ToInt32(ddlDealerOfficeState.SelectedValue), null, null, Convert.ToInt32(Dealer.DealerID)), "District", "DistrictID");
+            new DDLBind(ddlDealerOfficeDistrict, new BDMS_Address().GetDistrict(1, null, Convert.ToInt32(ddlDealerOfficeState.SelectedValue), null, null, null), "District", "DistrictID"); //Convert.ToInt32(Dealer.DealerID)
         }
-        protected void btnUpdateDealerResposibleUser_Click(object sender, EventArgs e)
-        {
-            if (ddlDealerResponsibleUser.SelectedValue == "0")
-            {
-                lblEditDealerResponsibleUserMessage.Text = "";
-                lblEditDealerResponsibleUserMessage.ForeColor = Color.Red;
-                lblEditDealerResponsibleUserMessage.Visible = true;
-            }
-
-            if (new BDMS_Dealer().UpdateDealerResponsibleUser(Dealer.DealerID, Convert.ToInt32(ddlDealerResponsibleUser.SelectedValue), ddlDealerResposibleUserType.SelectedValue))
-            {
-                lblMessage.Text = "Dealer Responsible User updated for the Dealer.";
-                lblMessage.ForeColor = Color.Green;
-                lblMessage.Visible = true;
-            }
-            else
-            {
-                lblMessage.Text = "Dealer Responsible User not updated for the Dealer.";
-                lblMessage.ForeColor = Color.Red;
-                lblMessage.Visible = true;
-            }
-            filldealer(Dealer.DealerID);
-        }
-        protected void btnAddUpdateBranchOffice_Click(object sender, EventArgs e)
-        {
-            MPE_AddBranchOffice.Show();
-            lblMessageAddBranchOffice.Visible = true;
-            lblMessageAddBranchOffice.ForeColor = Color.Red;
-            
-            string Message = ValidationAddBranchOffice();
-            if (!string.IsNullOrEmpty(Message))
-            {
-                lblMessageAddBranchOffice.Text = Message;
-                return;
-            }
-            
-            PDMS_DealerOffice_Insert dealerOffice = ReadDealerOffice();
-
-            PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerOffice", dealerOffice));
-            if (Results.Status == PApplication.Failure)
-            {
-                lblMessageAddBranchOffice.Text = Results.Message;
-                return;
-            }
-            HiddenID.Value = "0";
-            lblMessage.Text = Results.Message;
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = Color.Green;
-
-            tbpDealer.ActiveTabIndex = 1;
-            MPE_AddBranchOffice.Hide();
-            fillDealerOffice();
-        }
+         
         private PDMS_DealerOffice_Insert ReadDealerOffice()
         {
             PDMS_DealerOffice_Insert dealerOffice = new PDMS_DealerOffice_Insert();
@@ -640,6 +757,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             dealerOffice.IsActive = true;
             return dealerOffice;
         }
+
         private string ValidationAddBranchOffice()
         {
             string Message = "";
@@ -742,6 +860,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
             msg:
                 return Message;
         }
+
         protected void lnkBtnItemAction_Click(object sender, EventArgs e)
         {
             lblMessage.ForeColor = Color.Red;
@@ -811,7 +930,7 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 dealerOffice.Email = DealerOfficeList[0].Email;
                 dealerOffice.IsHeadOffice = DealerOfficeList[0].IsHeadOffice; 
                 dealerOffice.IsActive = false;
-                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerBranchOffice", dealerOffice));
+                PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerOffice", dealerOffice));
                 if (Results.Status == PApplication.Failure)
                 {
                     lblMessage.Text = Results.Message;
@@ -823,10 +942,12 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 //lnkBtnDelete.Visible = true;
             }
         }
+
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
             new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
         }
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             try
@@ -838,6 +959,533 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 lblMessage.Text = ex.Message.ToString();
                 lblMessage.ForeColor = Color.Red;
             }
+        }
+
+        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MPE_EditDealerAddress.Show();
+            new DDLBind(ddlState, new BDMS_Address().GetState(null, Convert.ToInt32(ddlCountry.SelectedValue), null, null, null), "State", "StateID");
+
+        }
+
+        protected void ddlState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MPE_EditDealerAddress.Show();
+            new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(Convert.ToInt32(ddlCountry.SelectedValue), null, Convert.ToInt32(ddlState.SelectedValue), null, null, null), "District", "DistrictID");
+        }
+      
+        public string ValidationDealer()
+        {
+            long longCheck;
+
+            string Message = "";
+            txtDealerCode.BorderColor = Color.Silver;
+            txtDealerName.BorderColor = Color.Silver;
+            txtDealerShortName.BorderColor = Color.Silver;
+            txtGSTIN.BorderColor = Color.Silver;
+            txtPAN.BorderColor = Color.Silver;
+            txtEmail.BorderColor = Color.Silver;
+            txtMobile.BorderColor = Color.Silver;
+
+            ddlDealerType.BorderColor = Color.Silver;
+             
+            ddlState.BorderColor = Color.Silver;
+
+            txtOfficeCode.BorderColor = Color.Silver;
+
+            txtEInvoiceDate.BorderColor = Color.Silver;
+            txtApiUserName.BorderColor = Color.Silver;
+            txtApiPassword.BorderColor = Color.Silver;
+                       
+            Regex regex = new Regex(@"^[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[a-zA-Z0-9]{3}$");
+
+            if (string.IsNullOrEmpty(txtDealerCode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Dealer Code.";
+                txtDealerCode.BorderColor = Color.Red;
+                //return Message;
+            }
+
+            if (string.IsNullOrEmpty(txtDealerName.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Dealer Name.";
+                txtDealerName.BorderColor = Color.Red;
+                //return Message;
+            }
+
+            if (string.IsNullOrEmpty(txtDealerShortName.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Dealer Short Name.";
+                txtDealerShortName.BorderColor = Color.Red;
+                //return Message;
+            }
+
+            if (!string.IsNullOrEmpty(txtGSTIN.Text.Trim()))
+            {
+                if ((!regex.Match(txtGSTIN.Text.Trim()).Success) && (txtGSTIN.Text.Trim() != "URD"))
+                {
+                    Message = Message + "GST Number " + txtGSTIN.Text.Trim() + " is not correct.";
+                    txtGSTIN.BorderColor = Color.Red;
+                    return Message;
+                }
+                if ((txtGSTIN.Text.Trim() != "URD") && (!string.IsNullOrEmpty(txtGSTIN.Text.Trim())))
+                {
+                    string gst = txtGSTIN.Text.Trim().Remove(0, 2).Substring(0, 10);
+                    if (txtPAN.Text.Trim().ToUpper() != gst.ToUpper())
+                    {
+                        Message = Message + "<br/>PAN and GSTIN are not matching.";
+                        txtPAN.BorderColor = Color.Red;
+                        return Message;
+                    }
+                }
+            }
+            if (!string.IsNullOrEmpty(txtMobile.Text.Trim()))
+            {
+                if (!long.TryParse(txtMobile.Text.Trim(), out longCheck))
+                {
+                    Message = Message + "<br/>Mobile should be 10 digit.";
+                    txtMobile.BorderColor = Color.Red;
+                    return Message;
+                }
+            }
+            if (ddlDealerType.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the Dealer Type.";
+                ddlDealerType.BorderColor = Color.Red;
+                //return Message;
+            }
+             
+            if (ddlState.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the State.";
+                ddlState.BorderColor = Color.Red;
+                //return Message;
+            }
+            //if (string.IsNullOrEmpty(txtOfficeCode.Text.Trim()))
+            //{
+            //    Message = Message + "<br/>Please enter the Office Code.";
+            //    txtOfficeCode.BorderColor = Color.Red;
+            //    //return Message;
+            //}
+            if (cbEInvAPI.Checked)
+            {
+                if (string.IsNullOrEmpty(txtEInvoiceDate.Text.Trim()))
+                {
+                    Message = Message + "<br/>Please enter E Invoice Date.";
+                    txtEInvoiceDate.BorderColor = Color.Red;
+                    return Message;
+                }
+                if (string.IsNullOrEmpty(txtApiUserName.Text.Trim()))
+                {
+                    Message = Message + "<br/>Please enter API Username.";
+                    txtApiUserName.BorderColor = Color.Red;
+                    return Message;
+                }
+                if (string.IsNullOrEmpty(txtApiPassword.Text.Trim()))
+                {
+                    Message = Message + "<br/>Please enter API Password.";
+                    txtApiPassword.BorderColor = Color.Red;
+                    return Message;
+                }
+            }
+            
+            return Message;
+        }
+        
+        public string ValidationDealerAddress()
+        {
+            string Message = "";
+
+            long longCheck;
+
+            txtAddress1.BorderColor = Color.Silver;
+            txtAddress2.BorderColor = Color.Silver;
+            //txtAddress3.BorderColor = Color.Silver;
+            txtCity.BorderColor = Color.Silver;
+            txtPincode.BorderColor = Color.Silver;
+
+            ddlDistrict.BorderColor = Color.Silver;
+            
+            if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Address1.";
+                txtAddress1.BorderColor = Color.Red;
+                //return Message;
+            }            
+            if (ddlDistrict.SelectedValue == "0")
+            {
+                Message = Message + "<br/>Please select the District.";
+                ddlDistrict.BorderColor = Color.Red;
+                //return Message;
+            }
+            if (string.IsNullOrEmpty(txtCity.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the City.";
+                txtCity.BorderColor = Color.Red;
+                //return Message;
+            }
+            if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Pincode.";
+                txtPincode.BorderColor = Color.Red;
+                //return Message;
+            }            
+            if (!string.IsNullOrEmpty(txtPincode.Text.Trim()))
+            {
+                if (!long.TryParse(txtPincode.Text.Trim(), out longCheck))
+                {
+                    Message = Message + "<br/>Pincode should be in digit.";
+                    txtPincode.BorderColor = Color.Red;
+                    //return Message;
+                }
+            } 
+            return Message;
+        }
+
+        protected void lnkBtnPopupActions_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Button btn = ((Button)sender);
+                if (btn.ID == "btnUpdateDealer")
+                {
+                    MPE_EditDealer.Show();
+                    lblMessageEditDealer.ForeColor = Color.Red;
+                    string Message = ValidationDealer();
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessageEditDealer.Text = Message;
+                        return;
+                    }  
+                    PDealer_Update DUpdate = new PDealer_Update();
+                    DUpdate.DealerID = Dealer.DealerID;
+                    DUpdate.DealerCode = Convert.ToInt32(txtDealerCode.Text.Trim());
+                    DUpdate.DealerName = txtDealerName.Text.Trim();
+                    DUpdate.DealerShortName = txtDealerShortName.Text.Trim();
+                    DUpdate.GSTIN = txtGSTIN.Text.Trim();
+                    DUpdate.PAN = txtPAN.Text.Trim();
+                    DUpdate.Email = txtEmail.Text.Trim();
+                    DUpdate.Mobile = txtMobile.Text.Trim();
+                    DUpdate.ContactPerson = txtContactPerson.Text.Trim();
+                    DUpdate.DealerTypeID = Convert.ToInt32(ddlDealerType.SelectedValue);
+                    DUpdate.IsActive = cbIsActiveDealer.Checked;
+                    DUpdate.IsEInvoice = cbEInvAPI.Checked;
+                    DUpdate.EInvoiceDate = string.IsNullOrEmpty(txtEInvoiceDate.Text.Trim()) ? (DateTime?)null : Convert.ToDateTime(txtEInvoiceDate.Text.Trim());
+                    DUpdate.APIUsername = txtApiUserName.Text.Trim();
+                    DUpdate.APIPassword = txtApiPassword.Text.Trim(); 
+                    DUpdate.IsServicePaidEInvoice = cbServicePaidEInvoice.Checked; 
+                    //if (new BDMS_Dealer().UpdateDealer(DUpdate)) 
+                    //{
+                    //    lblMessage.Text = "Dealer Details updated successfully.";
+                    //    lblMessage.ForeColor = Color.Green;
+                    //    MPE_EditDealer.Hide();
+                    //    filldealer(Dealer.DealerID);
+                    //}
+                    //else
+                    //{
+                    //    lblMessageEditDealer.Text = "Dealer Details not updated successfully.";
+                    //}
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/UpdateDealer", DUpdate));
+
+                    if (Results.Status == PApplication.Failure)
+                    {
+                        lblMessageEditDealer.Text = Results.Message;
+                        return;
+                    }
+                    //lblMessage.Text = "Dealer Details updated successfully.";
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Green;
+                    
+                    MPE_EditDealer.Hide();
+                    filldealer(Dealer.DealerID);
+                }
+                else if (btn.ID == "btnUpdateDealerAddress")
+                {
+                    MPE_EditDealerAddress.Show();
+                    lblMessageEditDealerAddress.ForeColor = Color.Red;
+                    
+                    string Message = ValidationDealerAddress();
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessageEditDealerAddress.Text = Message;
+                        return;
+                    }
+                    string Address1 = txtAddress1.Text.Trim();
+                    string Address2 = txtAddress2.Text.Trim();
+                    string Address3 = txtAddress3.Text.Trim();
+                    string City = txtCity.Text.Trim();
+                    int CountryID = Convert.ToInt32(ddlCountry.SelectedValue);
+                    int StateID = Convert.ToInt32(ddlState.SelectedValue);
+                    string Pincode = txtPincode.Text.Trim();
+                    string ContactPerson = txtContactPerson.Text.Trim();
+                   
+                    int DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
+                    //if (new BDealer().UpdateDealerAddress(Dealer.DealerID, Address1, Address2, Address3, City, CountryID, StateID, DistrictID, Pincode))
+                    //{
+                    //    lblMessage.Text = "Dealer Address updated successfully.";
+                    //    lblMessage.ForeColor = Color.Green;
+                    //    MPE_EditDealerAddress.Hide();
+                    //    filldealer(Dealer.DealerID);
+                    //    tbpDealer.ActiveTabIndex = 0;
+                    //}
+                    //else
+                    //{
+                    //    lblMessageEditDealerAddress.Text = "Dealer Address not updated successfully.";                        
+                    //} 
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Dealer/UpdateDealerAddress?DealerID=" + Dealer.DealerID + "&Address1=" + Address1 + "&Address2=" + Address2 + "&Address3=" + Address3 + "&City=" + City + "&CountryID=" + CountryID + "&StateID=" + StateID + "&DistrictID=" + DistrictID + "&Pincode=" + Pincode));
+                    if (Results.Status == PApplication.Failure)
+                    {
+                        lblMessageEditDealerAddress.Text = Results.Message;
+                        return;
+                    }
+                    //lblMessage.Text = "Dealer Address updated successfully.";
+                    lblMessage.Text = Results.Message;
+                    lblMessage.ForeColor = Color.Green;
+                    
+                    MPE_EditDealerAddress.Hide();
+                    filldealer(Dealer.DealerID);
+                    tbpDealer.ActiveTabIndex = 0;
+                }
+                else if (btn.ID == "btnAddUpdateBranchOffice")
+                {
+                    MPE_AddBranchOffice.Show();
+                    lblMessageAddBranchOffice.Visible = true;
+                    lblMessageAddBranchOffice.ForeColor = Color.Red;
+
+                    string Message = ValidationAddBranchOffice();
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessageAddBranchOffice.Text = Message;
+                        return;
+                    }
+
+                    PDMS_DealerOffice_Insert dealerOffice = ReadDealerOffice();
+
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerOffice", dealerOffice));
+                    if (Results.Status == PApplication.Failure)
+                    {
+                        lblMessageAddBranchOffice.Text = Results.Message;
+                        return;
+                    }
+                    HiddenID.Value = "0";
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Green;
+
+                    tbpDealer.ActiveTabIndex = 1;
+                    MPE_AddBranchOffice.Hide();
+                    fillDealerOffice();
+                }
+                else if (btn.ID == "btnAddNotification")
+                {
+                    MPE_AddNotification.Show();
+                    lblMessageAddNotification.Visible = true;
+                    lblMessageAddNotification.ForeColor = Color.Red;
+
+                    string Message = ValidationAddNotification();
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessageAddNotification.Text = Message;
+                        return;
+                    }
+                    PDealerNotification DealerNotification = new PDealerNotification();
+                    DealerNotification.Dealer = new PDMS_Dealer() { DealerID = Convert.ToInt32(ddlDealer.SelectedValue) };
+                    DealerNotification.User = new PUser() { UserID = Convert.ToInt32(ddlEmployee.SelectedValue) };
+                    DealerNotification.Module = new PDealerNotificationModule() { DealerNotificationModuleID = Convert.ToInt32(ddlDealerNotificationModule.SelectedValue) };
+                    DealerNotification.IsSMS = cbSendSMS.Checked;
+                    DealerNotification.IsMail = cbSendEmail.Checked;
+                    DealerNotification.IsActive = true;
+
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer/DealerNotification", DealerNotification));
+                    if (Results.Status == PApplication.Failure)
+                    {
+                        lblMessageAddNotification.Text = Results.Message;
+                        return;
+                    }
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Green;
+
+                    //ddlEmployee.Items.Clear();
+                    tbpDealer.ActiveTabIndex = 3;
+                    MPE_AddNotification.Hide();
+                    fillDealerNotification();
+                }
+                else if (btn.ID == "btnEditBank")
+                {
+                    MPE_EditBank.Show();
+                    lblMessageEditBank.Visible = true;
+                    lblMessageEditBank.ForeColor = Color.Red;
+
+                    string Message = ValidationDealerBank();
+                    if (!string.IsNullOrEmpty(Message))
+                    {
+                        lblMessageEditBank.Text = Message;
+                        return;
+                    }
+
+                    int DealerID = Convert.ToInt32(Dealer.DealerID);
+                    int DealerBankID = Convert.ToInt32(lblDealerBankID.Text);
+                    string BankName = txtBank.Text.Trim();
+                    string Branch = txtBranch.Text.Trim();
+                    string AcNumber = txtAccountNo.Text.Trim();
+                    string IfscCode = txtIFSCCode.Text.Trim();
+
+                    //if (new BDMS_Dealer().UpdateDealerBankDetails(DealerID, DealerBankID, BankName, Branch, AcNumber, IfscCode))
+                    //{
+                    //    lblMessage.Text = "Bank Details updated for the Dealer.";
+                    //    lblMessage.ForeColor = Color.Green;
+                    //    MPE_EditBank.Hide();
+                    //    tbpDealer.ActiveTabIndex = 4;
+                    //    fillDealerBankDetails();
+                    //}
+                    //else
+                    //{
+                    //    lblMessageEditBank.Text = "Bank Details not updated for the Dealer.";
+                    //}
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Dealer/UpdateDealerBankDetails?DealerID=" + DealerID + "&DealerBankID=" + DealerBankID + "&BankName=" + BankName + "&Branch=" + Branch + "&AcNumber=" + AcNumber + "&IfscCode=" + IfscCode));
+                    if (Results.Status == PApplication.Failure)
+                    {
+                        lblMessageEditBank.Text = Results.Message;
+                        return;
+                    }
+                    //lblMessage.Text = "Bank Details not updated for the Dealer.";
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Green;
+
+                    MPE_EditBank.Hide();
+                    tbpDealer.ActiveTabIndex = 4;
+                    fillDealerBankDetails();
+                }
+                else if (btn.ID == "btnUpdateDealerResposibleUser")
+                {
+                    MPE_EditDealerResposibleUser.Show();
+                    lblEditDealerResponsibleUserMessage.Visible = true;
+                    lblEditDealerResponsibleUserMessage.ForeColor = Color.Red;
+
+                    //if (ddlDealerResponsibleUser.SelectedValue == "0")
+                    //{
+                    //    lblEditDealerResponsibleUserMessage.Text = "Please select the Dealer Responsible User.";
+                    //    return;
+                    //}
+
+                    if (ddlTeamLead.SelectedItem.Text == "0" || ddlServiceManager.SelectedItem.Text == "0" || ddlSalesIncharge.SelectedItem.Text == "0")
+                    {
+                        lblEditDealerResponsibleUserMessage.Text = "Please select the Team Lead or Service Manager or Sales Responsible User.";
+                        return;
+                    }
+
+                    //if (new BDMS_Dealer().UpdateDealerResponsibleUser(Dealer.DealerID, Convert.ToInt32(ddlDealerResponsibleUser.SelectedValue), ddlDealerResposibleUserType.SelectedValue))
+                    //{
+                    //    lblMessage.Text = "Dealer Responsible User updated for the Dealer.";
+                    //    lblMessage.ForeColor = Color.Green;
+                    //    lblMessage.Visible = true;
+                    //    MPE_EditDealerResposibleUser.Hide();
+                    //    tbpDealer.ActiveTabIndex = 5;
+                    //    fillDealerResponsibleUser();
+                    //}
+                    //else
+                    //{
+                    //    lblEditDealerResponsibleUserMessage.Text = "Dealer Responsible User not updated for the Dealer.";
+                    //}
+                    //if (new BDMS_Dealer().UpdateDealerResponsibleUser(Dealer.DealerID, Convert.ToInt32(ddlTeamLead.SelectedValue), Convert.ToInt32(ddlServiceManager.SelectedValue), Convert.ToInt32(ddlSalesIncharge.SelectedValue)))
+                    //{
+                    //    lblMessage.Text = "Dealer Responsible User updated for the Dealer.";
+                    //    lblMessage.ForeColor = Color.Green;
+                    //    lblMessage.Visible = true;
+                    //    MPE_EditDealerResposibleUser.Hide();
+                    //    tbpDealer.ActiveTabIndex = 5;
+                    //    fillDealerResponsibleUser();
+                    //}
+                    //else
+                    //{
+                    //    lblEditDealerResponsibleUserMessage.Text = "Dealer Responsible User not updated for the Dealer.";
+                    //}
+                    PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Dealer/UpdateDealerResponsibleUser?DealerID=" + Dealer.DealerID + "&TeamLead=" + Convert.ToInt32(ddlTeamLead.SelectedValue) + "&ServiceManager=" + Convert.ToInt32(ddlServiceManager.SelectedValue) + "&SalesIncharge=" + Convert.ToInt32(ddlSalesIncharge.SelectedValue)));
+                    if (Results.Status == PApplication.Failure)
+                    {
+                        lblMessageEditBank.Text = Results.Message;
+                        return;
+                    }
+                    //lblMessage.Text = "Dealer Responsible User not updated for the Dealer.";
+                    lblMessage.Text = Results.Message;
+                    lblMessage.Visible = true;
+                    lblMessage.ForeColor = Color.Green;
+
+                    MPE_EditDealerResposibleUser.Hide();
+                    tbpDealer.ActiveTabIndex = 5;
+                    fillDealerResponsibleUser();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+                lblMessage.Visible = true;
+                lblMessage.ForeColor = Color.Red;
+            }
+        }
+
+        public string ValidationDealerBank()
+        {
+            string Message = "";
+            txtBank.BorderColor = Color.Silver;
+            txtBranch.BorderColor = Color.Silver;
+            txtIFSCCode.BorderColor = Color.Silver;
+            txtAccountNo.BorderColor = Color.Silver;
+
+            if (string.IsNullOrEmpty(txtBank.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Bank.";
+                txtBank.BorderColor = Color.Red;
+                //return Message;
+            }           
+            if (string.IsNullOrEmpty(txtBranch.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Branch.";
+                txtBranch.BorderColor = Color.Red;
+                //return Message;
+            }
+            if (string.IsNullOrEmpty(txtIFSCCode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the IFSC Code.";
+                txtIFSCCode.BorderColor = Color.Red;
+                //return Message;
+            }
+            if (string.IsNullOrEmpty(txtAccountNo.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Account Number.";
+                txtAccountNo.BorderColor = Color.Red;
+                //return Message;
+            }
+            return Message;
+        }
+
+        void fillDealerAddress()
+        {
+            lblAddress1.Text = DealerAddress.Address.Address1;
+            lblAddress2.Text = DealerAddress.Address.Address2;
+            lblAddress3.Text = DealerAddress.Address.Address3;
+            lblCity.Text = DealerAddress.Address.City;
+            lblDistrict.Text = DealerAddress.Address.District.District;
+            lblPincode.Text = DealerAddress.Address.Pincode;
+        }
+
+        void fillDealerBankDetails()
+        {
+            DealerBank = new BDMS_Dealer().GetDealerBankDetails(Dealer.DealerID, null, null)[0];
+            lblDealerBank.Text = DealerBank.DealerBank.BankName;
+            lblDealerBranch.Text = DealerBank.DealerBank.Branch;
+            lblIFSCCode.Text = DealerBank.DealerBank.IfscCode;
+            lblAccountNumber.Text = DealerBank.DealerBank.AcNumber;
+            lblDealerBankID.Text = DealerBank.DealerBank.DealerBankID.ToString();
+        }
+
+        void fillDealerEInvoice()
+        {
+            cbIsEInvoice.Checked = Dealer.IsEInvoice;
+            lblEInvoiceDate.Text = Dealer.EInvoiceDate.ToString();
+            cbServicePaidEInvoiceP.Checked = Dealer.ServicePaidEInvoice;
         }
     }
 }

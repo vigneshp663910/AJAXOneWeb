@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnboardEmployeeView.ascx.cs" Inherits="DealerManagementSystem.ViewDealerEmployee.UserControls.OnboardEmployeeView" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <div class="col-md-12">
     <script type="text/javascript">
         function ConfirmReject() {
@@ -193,6 +194,18 @@
                 <div class="col-md-3">
                     <asp:Label ID="lblReportingTo" runat="server" CssClass="label"></asp:Label>
                 </div>
+                <div class="col-md-3 text-right">
+                    <label>UserName</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblUserName" runat="server" CssClass="label"></asp:Label>
+                </div>
+                <div class="col-md-3 text-right">
+                    <label>User Created On</label>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblUserCreatedOn" runat="server" CssClass="label"></asp:Label>
+                </div>
             </div>
         </fieldset>
         <fieldset class="fieldset-border" id="DivApproverInfo" runat="server" visible="false">
@@ -221,7 +234,7 @@
                 </div>
                 <div class="col-md-3">
                     <asp:Label ID="lblApproverRemarks" runat="server" CssClass="label"></asp:Label>
-                </div>                
+                </div>
                 <div class="col-md-3 text-right">
                     <label>Module Permission</label>
                 </div>
@@ -234,15 +247,15 @@
                 </div>
                 <div class="col-md-9">
                     <asp:ListView ID="ListViewDealerList" runat="server" DataKeyNames="DealerID">
-                    <ItemTemplate>
-                        <div class="col-md-3 col-sm-12">
-                            <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")+"-"+DataBinder.Eval(Container.DataItem, "DisplayName")%>' runat="server" />
-                            <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
-                        </div>
-                    </ItemTemplate>
-                </asp:ListView>
+                        <ItemTemplate>
+                            <div class="col-md-3 col-sm-12">
+                                <asp:Label ID="lblDealerName" Text='<%# DataBinder.Eval(Container.DataItem, "DealerCode")+"-"+DataBinder.Eval(Container.DataItem, "DisplayName")%>' runat="server" />
+                                <asp:Label ID="lblDID" Text='<%# DataBinder.Eval(Container.DataItem, "DealerID")%>' runat="server" Visible="false" />
+                            </div>
+                        </ItemTemplate>
+                    </asp:ListView>
                 </div>
-                
+
             </div>
         </fieldset>
         <fieldset class="fieldset-border" id="DivApprover" runat="server" visible="false">

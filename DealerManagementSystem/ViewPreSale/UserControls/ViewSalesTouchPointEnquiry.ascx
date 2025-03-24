@@ -1,7 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewSalesTouchPointEnquiry.ascx.cs" Inherits="DealerManagementSystem.ViewPreSale.UserControls.ViewSalesTouchPointEnquiry" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %>
-<%@ Register Src="~/ViewPreSale/UserControls/AddLead.ascx" TagPrefix="UC" TagName="UC_AddLead" %>
-<%@ Register Src="~/ViewMaster/UserControls/CustomerCreate.ascx" TagPrefix="UC" TagName="UC_CustomerCreate" %>
 <%@ Register Src="~/ViewPreSale/UserControls/AddEnquiry.ascx" TagPrefix="UC" TagName="UC_AddEnquiry" %>
 <div class="col-md-12">
     <div class="action-btn">
@@ -99,7 +97,7 @@
             <asp:Button ID="Button7" runat="server" Text="X" CssClass="PopupClose" />
         </a>
     </div>
-    <asp:Label ID="lblMessageResponsible" runat="server" Text="" CssClass="message" Visible="false" />
+    <asp:Label ID="lblMessageResponsible" runat="server" Text="" CssClass="message"/>
     <div class="col-md-12">
         <div class="col-md-12">
             <fieldset class="fieldset-border" id="Fieldset5" runat="server">

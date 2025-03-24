@@ -46,10 +46,11 @@ namespace DealerManagementSystem.Help
                     gvDocument.DataSource = helps;
                     gvDocument.DataBind();
                 }
-                if (!PSession.User.ContactName.Contains("MURUGESHAN KN") && !PSession.User.ContactName.Contains("VIGNESH PERIYASAMI") && !PSession.User.ContactName.Contains("SUNIL KU BEHERA"))
+
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.HelpCreateandEdit).Count() == 0)
                 {
-                    gvDocument.Columns[5].Visible = false;
-                    gvDocument.Columns[6].Visible = false;
+                    gvDocument.Columns[8].Visible = false;
                     gvDocument.ShowFooter = false;
                 }
                 if (helps.Count == 0)

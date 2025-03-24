@@ -522,7 +522,8 @@ namespace Properties
         ViewPreSale_SalesTouchPointEnquiry = 276,
         ViewPreSale_SalesTouchPointEnquiryReport = 277,
         ViewDashboard_WarrantyCostPerMachine = 278,
-        ViewDashboard_IncidentPer100 = 279,
+        ViewDashboard_IncidentPer100 = 279, 
+        ViewPreSale_Reports_DealerSalesTarget = 282,
     }
     public enum SubModuleChildMaster
     {
@@ -591,7 +592,8 @@ namespace Properties
         OperatorEdit = 63,
         ICTicketUnblock,
         DealerNotificationAdd,
-        DealerBankDetailsEdit,
+        //DealerBankDetailsEdit,
+        DealerCreateAndEditAddrOfficeAndBank,
         DealerResponsibleUserEdit,
         ICTicketRemoveRestoreDate,
         ClaimApprove4 = 69,
@@ -631,9 +633,8 @@ namespace Properties
         EditAllSalesAndServiceConfiguration = 103,
         EditDealerSalesEngineer = 104,
         EditRetailerSalesEngineer = 105,
-        EnquiryRejectOrConvert = 106, 
-
-       
+        EnquiryRejectOrConvert = 106,
+        HelpCreateandEdit = 107,
     }
     public enum DMS_WarrantyClaimStatus
     {
@@ -652,11 +653,11 @@ namespace Properties
     public enum DMS_InvoiceType
     {
         NEPI_Commission = 1,
-        Warranty_Service,
-        Above50k,
-        DebitNote,
-        Warranty_ServicePartial,
-        Above50kPartial
+        Warranty_Service=2,
+        Above50k=3,
+        DebitNote=4,
+        Warranty_ServicePartial=5,
+        Above50kPartial=6
     }
     public enum DMS_ServiceType
     {

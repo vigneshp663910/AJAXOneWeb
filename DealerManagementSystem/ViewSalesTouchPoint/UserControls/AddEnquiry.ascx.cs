@@ -40,6 +40,12 @@ namespace DealerManagementSystem.ViewSalesTouchPoint.UserControls
             txtAddress3.Text = string.Empty;
             txtPincode.Text = string.Empty;
             txtRemarks.Text = string.Empty;
+
+            txtCustomerName.Enabled = true;
+            txtMobile.Enabled = true;
+            ddlCountry.Enabled = true;
+            ddlState.Enabled = true;
+            ddlDistrict.Enabled = true;
         }
         public PSalesTouchPointEnquiry_Insert Read()
         {
@@ -62,16 +68,21 @@ namespace DealerManagementSystem.ViewSalesTouchPoint.UserControls
         public void Write(PSalesTouchPointEnquiry enquiry)
         {
             txtCustomerName.Text = enquiry.CustomerName;
+            txtCustomerName.Enabled = false;
             // txtEnquiryDate.Text = enquiry.EnquiryDate.ToString("dd/MM/yyyy HH:mm:ss");
             txtPersonName.Text = enquiry.PersonName;
             txtMobile.Text = enquiry.Mobile;
+            txtMobile.Enabled = false;
             txtMail.Text = enquiry.Mail;
-            new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");
+            new DDLBind(ddlCountry, new BDMS_Address().GetCountry(null, null), "Country", "CountryID");            
             new DDLBind(ddlState, new BDMS_Address().GetState(null, null, null, null, null), "State", "StateID");
             new DDLBind(ddlDistrict, new BDMS_Address().GetDistrict(null, null, null, null, null, null), "District", "DistrictID");
             ddlCountry.SelectedValue = enquiry.Country.CountryID.ToString();
+            ddlCountry.Enabled = false;
             ddlState.SelectedValue = enquiry.State.StateID.ToString();
+            ddlState.Enabled = false;
             ddlDistrict.SelectedValue = enquiry.District.DistrictID.ToString();
+            ddlDistrict.Enabled = false;
             txtAddress.Text = enquiry.Address.ToString();
             txtAddress2.Text = enquiry.Address2.ToString();
             txtAddress3.Text = enquiry.Address3.ToString();

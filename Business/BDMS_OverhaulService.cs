@@ -22,112 +22,113 @@ namespace Business
         {
             provider = new ProviderFactory().GetProvider();
         }
-         public List<PDMS_PaidServiceInvoice> GetOverhaulServiceQuotation(long? ServiceQuotationID, long? ICTicketID, string QuotationNumber, DateTime? QuotationDateF, DateTime? QuotationDateT, int? DealerID, string CustomerCode)
-         {
-             List<PDMS_PaidServiceInvoice> Services = new List<PDMS_PaidServiceInvoice>();
-             try
-             {
-                 DbParameter ServiceQuotationIDP = provider.CreateParameter("ServiceQuotationID", ServiceQuotationID, DbType.Int64);
-                 DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
-                 //  DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int64);
-                 DbParameter QuotationNumberP;
-                 if (!string.IsNullOrEmpty(QuotationNumber))
-                     QuotationNumberP = provider.CreateParameter("QuotationNumber", QuotationNumber, DbType.String);
-                 else
-                     QuotationNumberP = provider.CreateParameter("QuotationNumber", null, DbType.String);
+        public List<PDMS_PaidServiceInvoice> GetOverhaulServiceQuotation(long? ServiceQuotationID, long? ICTicketID, string QuotationNumber, DateTime? QuotationDateF, DateTime? QuotationDateT, int? DealerID, string CustomerCode)
+        {
+            List<PDMS_PaidServiceInvoice> Services = new List<PDMS_PaidServiceInvoice>();
+            try
+            {
+                DbParameter ServiceQuotationIDP = provider.CreateParameter("ServiceQuotationID", ServiceQuotationID, DbType.Int64);
+                DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
+                //  DbParameter StatusIDP = provider.CreateParameter("StatusID", StatusID, DbType.Int64);
+                DbParameter QuotationNumberP;
+                if (!string.IsNullOrEmpty(QuotationNumber))
+                    QuotationNumberP = provider.CreateParameter("QuotationNumber", QuotationNumber, DbType.String);
+                else
+                    QuotationNumberP = provider.CreateParameter("QuotationNumber", null, DbType.String);
 
-                 DbParameter QuotationDateFP = provider.CreateParameter("QuotationDateF", QuotationDateF, DbType.DateTime);
-                 DbParameter QuotationDateTP = provider.CreateParameter("QuotationDateT", QuotationDateT, DbType.DateTime);
-                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+                DbParameter QuotationDateFP = provider.CreateParameter("QuotationDateF", QuotationDateF, DbType.DateTime);
+                DbParameter QuotationDateTP = provider.CreateParameter("QuotationDateT", QuotationDateT, DbType.DateTime);
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
 
-                 DbParameter CustomerCodeP;
-                 if (!string.IsNullOrEmpty(CustomerCode))
-                     CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
-                 else
-                     CustomerCodeP = provider.CreateParameter("CustomerCode", null, DbType.String);
+                DbParameter CustomerCodeP;
+                if (!string.IsNullOrEmpty(CustomerCode))
+                    CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
+                else
+                    CustomerCodeP = provider.CreateParameter("CustomerCode", null, DbType.String);
 
-                 DbParameter[] Params = new DbParameter[7] { ServiceQuotationIDP, ICTicketIDP, QuotationNumberP, QuotationDateFP, QuotationDateTP, DealerIDP, CustomerCodeP };
+                DbParameter[] Params = new DbParameter[7] { ServiceQuotationIDP, ICTicketIDP, QuotationNumberP, QuotationDateFP, QuotationDateTP, DealerIDP, CustomerCodeP };
 
-                 PDMS_PaidServiceInvoice Service = null;
-                 long InvoiceID = 0;
-                 using (DataSet DataSet = provider.Select("ZDMS_GetPaidServiceQuotation", Params))
-                 {
-                     if (DataSet != null)
-                     {
-                         foreach (DataRow dr in DataSet.Tables[0].Rows)
-                         {
-                             if (InvoiceID != Convert.ToInt64(dr["ServiceQuotationID"]))
-                             {
-                                 Service = new PDMS_PaidServiceInvoice();
-                                 Services.Add(Service);
-                                 Service.PaidServiceInvoiceID = Convert.ToInt64(dr["ServiceQuotationID"]);
-                                 Service.InvoiceNumber = Convert.ToString(dr["QuotationNumber"]);
-                                 Service.InvoiceDate = Convert.ToDateTime(dr["QuotationDate"]);
-                                 Service.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
-                                 Service.Through = Convert.ToString(dr["Through"]);
-                                 Service.LRNumber = Convert.ToString(dr["LRNumber"]);
+                PDMS_PaidServiceInvoice Service = null;
+                long InvoiceID = 0;
+                using (DataSet DataSet = provider.Select("ZDMS_GetPaidServiceQuotation", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            if (InvoiceID != Convert.ToInt64(dr["ServiceQuotationID"]))
+                            {
+                                Service = new PDMS_PaidServiceInvoice();
+                                Services.Add(Service);
+                                Service.PaidServiceInvoiceID = Convert.ToInt64(dr["ServiceQuotationID"]);
+                                Service.InvoiceNumber = Convert.ToString(dr["QuotationNumber"]);
+                                Service.InvoiceDate = Convert.ToDateTime(dr["QuotationDate"]);
+                                Service.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
+                                Service.Through = Convert.ToString(dr["Through"]);
+                                Service.LRNumber = Convert.ToString(dr["LRNumber"]);
 
-                                 Service.ICTicket = new PDMS_ICTicket();
-                                 Service.ICTicket.ICTicketID = Convert.ToInt32(dr["ICTicketID"]);
-                                 Service.ICTicket.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
-                                 Service.ICTicket.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-                                 Service.ICTicket.ContactPerson = Convert.ToString(dr["ContactPerson"]);
-                                 Service.ICTicket.FSRNumber = Convert.ToString(dr["FSRNumber"]);
-                                 Service.ICTicket.FSRDate = dr["FSRDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["FSRDate"]);// Convert.ToString(dr["FSRDate"]);
+                                Service.ICTicket = new PDMS_ICTicket();
+                                Service.ICTicket.ICTicketID = Convert.ToInt32(dr["ICTicketID"]);
+                                Service.ICTicket.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+                                Service.ICTicket.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+                                Service.ICTicket.ContactPerson = Convert.ToString(dr["ContactPerson"]);
+                                Service.ICTicket.FSRNumber = Convert.ToString(dr["FSRNumber"]);
+                                Service.ICTicket.FSRDate = dr["FSRDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["FSRDate"]);// Convert.ToString(dr["FSRDate"]);
 
-                                 Service.ICTicket.Equipment = new PDMS_EquipmentHeader();
-                                 Service.ICTicket.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+                                Service.ICTicket.Equipment = new PDMS_EquipmentHeader();
+                                Service.ICTicket.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
 
-                                 Service.ICTicket.Dealer = new PDMS_Dealer();
-                                 Service.ICTicket.Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
-                                 Service.ICTicket.Dealer.DealerName = Convert.ToString(dr["ContactName"]);
-                                 Service.ICTicket.Dealer.DealerBank = new PDealerBankDetails();
-                                 Service.ICTicket.Dealer.DealerBank.BankName = Convert.ToString(dr["BankName"]);
-                                 Service.ICTicket.Dealer.DealerBank.Branch = Convert.ToString(dr["Branch"]);
-                                 Service.ICTicket.Dealer.DealerBank.AcNumber = Convert.ToString(dr["AcNumber"]);
-                                 Service.ICTicket.Dealer.DealerBank.IfscCode = Convert.ToString(dr["IfscCode"]);
+                                Service.ICTicket.Dealer = new PDMS_Dealer();
+                                Service.ICTicket.Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
+                                Service.ICTicket.Dealer.DealerName = Convert.ToString(dr["ContactName"]);
+                                Service.ICTicket.Dealer.DealerBank = new PDealerBankDetails();
+                                Service.ICTicket.Dealer.DealerBank.BankName = Convert.ToString(dr["BankName"]);
+                                Service.ICTicket.Dealer.DealerBank.Branch = Convert.ToString(dr["Branch"]);
+                                Service.ICTicket.Dealer.DealerBank.AcNumber = Convert.ToString(dr["AcNumber"]);
+                                Service.ICTicket.Dealer.DealerBank.IfscCode = Convert.ToString(dr["IfscCode"]);
 
-                                 Service.ICTicket.Customer = new PDMS_Customer();
-                                 Service.ICTicket.Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
-                                 Service.ICTicket.Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
-                                 Service.ICTicket.ScopeOfWork = Convert.ToString(dr["ScopeOfWork"]);
-                                 Service.ICTicket.Remarks = Convert.ToString(dr["Remarks"]);
-                                 Service.ICTicket.KindAttn = Convert.ToString(dr["KindAttn"]);
-                                 Service.ICTicket.NoOfDays = Convert.ToDecimal(dr["WorkedDay"]);
-                                 InvoiceID = Service.PaidServiceInvoiceID;
-                                 Service.IsDeletionAllowed = Convert.ToBoolean(dr["IsDeletionAllowed"]);
-                                 Service.InvoiceItems = new List<PDMS_PaidServiceInvoiceItem>();
-                             }
-                             Service.InvoiceItems.Add(new PDMS_PaidServiceInvoiceItem()
-                             {
-                                 Material = new PDMS_Material()
-                                 {
-                                     MaterialCode = Convert.ToString(dr["MaterialCode"]),
-                                     MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
-                                     HSN = Convert.ToString(dr["HSNCode"])
-                                 },
-                                 Qty = Convert.ToInt32(dr["Qty"]),
-                                 Rate = Convert.ToDecimal(dr["Rate"]),
-                                 Discount = Convert.ToDecimal(dr["Discount"]),
-                                 TaxableValue = Convert.ToDecimal(dr["TaxableValue"]),
-                                 CGST = Convert.ToInt32(dr["CGST"]),
-                                 SGST = Convert.ToInt32(dr["SGST"]),
-                                 IGST = Convert.ToInt32(dr["IGST"]),
-                                 CGSTValue = Convert.ToDecimal(dr["CGSTValue"]),
-                                 SGSTValue = Convert.ToDecimal(dr["SGSTValue"]),
-                                 IGSTValue = Convert.ToDecimal(dr["IGSTValue"]),
+                                Service.ICTicket.Customer = new PDMS_Customer();
+                                Service.ICTicket.Customer.CustomerID = Convert.ToInt64(dr["CustomerID"]);
+                                Service.ICTicket.Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+                                Service.ICTicket.Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
+                                Service.ICTicket.ScopeOfWork = Convert.ToString(dr["ScopeOfWork"]);
+                                Service.ICTicket.Remarks = Convert.ToString(dr["Remarks"]);
+                                Service.ICTicket.KindAttn = Convert.ToString(dr["KindAttn"]);
+                                Service.ICTicket.NoOfDays = Convert.ToDecimal(dr["WorkedDay"]);
+                                InvoiceID = Service.PaidServiceInvoiceID;
+                                Service.IsDeletionAllowed = Convert.ToBoolean(dr["IsDeletionAllowed"]);
+                                Service.InvoiceItems = new List<PDMS_PaidServiceInvoiceItem>();
+                            }
+                            Service.InvoiceItems.Add(new PDMS_PaidServiceInvoiceItem()
+                            {
+                                Material = new PDMS_Material()
+                                {
+                                    MaterialCode = Convert.ToString(dr["MaterialCode"]),
+                                    MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
+                                    HSN = Convert.ToString(dr["HSNCode"])
+                                },
+                                Qty = Convert.ToInt32(dr["Qty"]),
+                                Rate = Convert.ToDecimal(dr["Rate"]),
+                                Discount = Convert.ToDecimal(dr["Discount"]),
+                                TaxableValue = Convert.ToDecimal(dr["TaxableValue"]),
+                                CGST = Convert.ToInt32(dr["CGST"]),
+                                SGST = Convert.ToInt32(dr["SGST"]),
+                                IGST = Convert.ToInt32(dr["IGST"]),
+                                CGSTValue = Convert.ToDecimal(dr["CGSTValue"]),
+                                SGSTValue = Convert.ToDecimal(dr["SGSTValue"]),
+                                IGSTValue = Convert.ToDecimal(dr["IGSTValue"]),
 
-                             });
-                         }
-                     }
-                 }
-             }
-             catch (SqlException sqlEx)
-             { }
-             catch (Exception ex)
-             { }
-             return Services;
-         }
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Services;
+        }
          public PAttachedFile OverhaulServiceQuotationfile(long ServiceQuotationID)
          {
              try
@@ -140,7 +141,8 @@ namespace Business
 
 
                 //PDMS_Customer Customer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
-                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
+                //PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(PaidServiceInvoice.ICTicket.Customer.CustomerID);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                  string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 
@@ -273,116 +275,117 @@ namespace Business
              return true;
          }
 
-        
 
-         public List<PDMS_PaidServiceInvoice> GetOverhaulServiceInvoice(long? ServiceInvoiceID, long? ICTicketID, string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
-         {
-             List<PDMS_PaidServiceInvoice> Services = new List<PDMS_PaidServiceInvoice>();
-             try
-             {
-                 DbParameter ServiceInvoiceIDP = provider.CreateParameter("ServiceInvoiceID", ServiceInvoiceID, DbType.Int64);
-                 DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
-                 DbParameter InvoiceNumberP;
-                 if (!string.IsNullOrEmpty(InvoiceNumber))
-                     InvoiceNumberP = provider.CreateParameter("InvoiceNumber", InvoiceNumber, DbType.String);
-                 else
-                     InvoiceNumberP = provider.CreateParameter("InvoiceNumber", null, DbType.String);
 
-                 DbParameter InvoiceDateFP = provider.CreateParameter("InvoiceDateF", InvoiceDateF, DbType.DateTime);
-                 DbParameter InvoiceDateTP = provider.CreateParameter("InvoiceDateT", InvoiceDateT, DbType.DateTime);
-                 DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
+        public List<PDMS_PaidServiceInvoice> GetOverhaulServiceInvoice(long? ServiceInvoiceID, long? ICTicketID, string InvoiceNumber, DateTime? InvoiceDateF, DateTime? InvoiceDateT, int? DealerID, string CustomerCode)
+        {
+            List<PDMS_PaidServiceInvoice> Services = new List<PDMS_PaidServiceInvoice>();
+            try
+            {
+                DbParameter ServiceInvoiceIDP = provider.CreateParameter("ServiceInvoiceID", ServiceInvoiceID, DbType.Int64);
+                DbParameter ICTicketIDP = provider.CreateParameter("ICTicketID", ICTicketID, DbType.Int64);
+                DbParameter InvoiceNumberP;
+                if (!string.IsNullOrEmpty(InvoiceNumber))
+                    InvoiceNumberP = provider.CreateParameter("InvoiceNumber", InvoiceNumber, DbType.String);
+                else
+                    InvoiceNumberP = provider.CreateParameter("InvoiceNumber", null, DbType.String);
 
-                 DbParameter CustomerCodeP;
-                 if (!string.IsNullOrEmpty(CustomerCode))
-                     CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
-                 else
-                     CustomerCodeP = provider.CreateParameter("CustomerCode", null, DbType.String);
+                DbParameter InvoiceDateFP = provider.CreateParameter("InvoiceDateF", InvoiceDateF, DbType.DateTime);
+                DbParameter InvoiceDateTP = provider.CreateParameter("InvoiceDateT", InvoiceDateT, DbType.DateTime);
+                DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
 
-                 DbParameter[] Params = new DbParameter[7] { ServiceInvoiceIDP, ICTicketIDP, InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, DealerIDP, CustomerCodeP };
+                DbParameter CustomerCodeP;
+                if (!string.IsNullOrEmpty(CustomerCode))
+                    CustomerCodeP = provider.CreateParameter("CustomerCode", CustomerCode, DbType.String);
+                else
+                    CustomerCodeP = provider.CreateParameter("CustomerCode", null, DbType.String);
 
-                 PDMS_PaidServiceInvoice Service = null;
-                 long InvoiceID = 0;
-                 using (DataSet DataSet = provider.Select("ZDMS_GetPaidServiceInvoice", Params))
-                 {
-                     if (DataSet != null)
-                     {
-                         foreach (DataRow dr in DataSet.Tables[0].Rows)
-                         {
-                             if (InvoiceID != Convert.ToInt64(dr["ServiceInvoiceID"]))
-                             {
-                                 Service = new PDMS_PaidServiceInvoice();
-                                 Services.Add(Service);
-                                 Service.PaidServiceInvoiceID = Convert.ToInt64(dr["ServiceInvoiceID"]);
-                                 Service.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
-                                 Service.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
-                                 Service.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
-                                 Service.Through = Convert.ToString(dr["Through"]);
-                                 Service.LRNumber = Convert.ToString(dr["LRNumber"]);
-                                 // Service.NoOfDays = Convert.ToDecimal(dr["NoOfDays"]);
-                                 //Service.ScopOfWork = Convert.ToString(dr["ScopOfWork"]);
-                                 //Service.Remarks = Convert.ToString(dr["Remarks"]);
+                DbParameter[] Params = new DbParameter[7] { ServiceInvoiceIDP, ICTicketIDP, InvoiceNumberP, InvoiceDateFP, InvoiceDateTP, DealerIDP, CustomerCodeP };
 
-                                 Service.ICTicket = new PDMS_ICTicket();
-                                 Service.ICTicket.ICTicketID = Convert.ToInt32(dr["ICTicketID"]);
-                                 Service.ICTicket.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
-                                 Service.ICTicket.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
-                                 Service.ICTicket.ContactPerson = Convert.ToString(dr["ContactPerson"]);
-                                 Service.ICTicket.FSRNumber = Convert.ToString(dr["FSRNumber"]);
-                                 Service.ICTicket.FSRDate = dr["FSRDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["FSRDate"]);//Convert.ToString(dr["FSRDate"]);
+                PDMS_PaidServiceInvoice Service = null;
+                long InvoiceID = 0;
+                using (DataSet DataSet = provider.Select("ZDMS_GetPaidServiceInvoice", Params))
+                {
+                    if (DataSet != null)
+                    {
+                        foreach (DataRow dr in DataSet.Tables[0].Rows)
+                        {
+                            if (InvoiceID != Convert.ToInt64(dr["ServiceInvoiceID"]))
+                            {
+                                Service = new PDMS_PaidServiceInvoice();
+                                Services.Add(Service);
+                                Service.PaidServiceInvoiceID = Convert.ToInt64(dr["ServiceInvoiceID"]);
+                                Service.InvoiceNumber = Convert.ToString(dr["InvoiceNumber"]);
+                                Service.InvoiceDate = Convert.ToDateTime(dr["InvoiceDate"]);
+                                Service.GrandTotal = Convert.ToInt32(dr["GrandTotal"]);
+                                Service.Through = Convert.ToString(dr["Through"]);
+                                Service.LRNumber = Convert.ToString(dr["LRNumber"]);
+                                // Service.NoOfDays = Convert.ToDecimal(dr["NoOfDays"]);
+                                //Service.ScopOfWork = Convert.ToString(dr["ScopOfWork"]);
+                                //Service.Remarks = Convert.ToString(dr["Remarks"]);
 
-                                 Service.ICTicket.Equipment = new PDMS_EquipmentHeader();
-                                 Service.ICTicket.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
+                                Service.ICTicket = new PDMS_ICTicket();
+                                Service.ICTicket.ICTicketID = Convert.ToInt32(dr["ICTicketID"]);
+                                Service.ICTicket.ICTicketNumber = Convert.ToString(dr["ICTicketNumber"]);
+                                Service.ICTicket.ICTicketDate = Convert.ToDateTime(dr["ICTicketDate"]);
+                                Service.ICTicket.ContactPerson = Convert.ToString(dr["ContactPerson"]);
+                                Service.ICTicket.FSRNumber = Convert.ToString(dr["FSRNumber"]);
+                                Service.ICTicket.FSRDate = dr["FSRDate"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(dr["FSRDate"]);//Convert.ToString(dr["FSRDate"]);
 
-                                 Service.ICTicket.Dealer = new PDMS_Dealer();
-                                 Service.ICTicket.Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
-                                 Service.ICTicket.Dealer.DealerName = Convert.ToString(dr["ContactName"]);
-                                 Service.ICTicket.Dealer.DealerBank = new PDealerBankDetails();
-                                 Service.ICTicket.Dealer.DealerBank.BankName = Convert.ToString(dr["BankName"]);
-                                 Service.ICTicket.Dealer.DealerBank.Branch = Convert.ToString(dr["Branch"]);
-                                 Service.ICTicket.Dealer.DealerBank.AcNumber = Convert.ToString(dr["AcNumber"]);
-                                 Service.ICTicket.Dealer.DealerBank.IfscCode = Convert.ToString(dr["IfscCode"]);
+                                Service.ICTicket.Equipment = new PDMS_EquipmentHeader();
+                                Service.ICTicket.Equipment.EquipmentSerialNo = Convert.ToString(dr["EquipmentSerialNo"]);
 
-                                 Service.ICTicket.Customer = new PDMS_Customer();
-                                 Service.ICTicket.Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
-                                 Service.ICTicket.Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
-                                 Service.ICTicket.ScopeOfWork = Convert.ToString(dr["ScopeOfWork"]);
-                                 Service.ICTicket.NoOfDays = Convert.ToDecimal(dr["WorkedDay"]);
-                                 Service.ICTicket.Remarks = Convert.ToString(dr["Remarks"]);
-                                 Service.ICTicket.KindAttn = Convert.ToString(dr["KindAttn"]);
+                                Service.ICTicket.Dealer = new PDMS_Dealer();
+                                Service.ICTicket.Dealer.DealerCode = Convert.ToString(dr["DealerCode"]);
+                                Service.ICTicket.Dealer.DealerName = Convert.ToString(dr["ContactName"]);
+                                Service.ICTicket.Dealer.DealerBank = new PDealerBankDetails();
+                                Service.ICTicket.Dealer.DealerBank.BankName = Convert.ToString(dr["BankName"]);
+                                Service.ICTicket.Dealer.DealerBank.Branch = Convert.ToString(dr["Branch"]);
+                                Service.ICTicket.Dealer.DealerBank.AcNumber = Convert.ToString(dr["AcNumber"]);
+                                Service.ICTicket.Dealer.DealerBank.IfscCode = Convert.ToString(dr["IfscCode"]);
 
-                                 InvoiceID = Service.PaidServiceInvoiceID;
-                                 Service.InvoiceItems = new List<PDMS_PaidServiceInvoiceItem>();
-                             }
-                             Service.InvoiceItems.Add(new PDMS_PaidServiceInvoiceItem()
-                             {
-                                 Material = new PDMS_Material()
-                                 {
-                                     MaterialCode = Convert.ToString(dr["MaterialCode"]),
-                                     MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
-                                     HSN = Convert.ToString(dr["HSNCode"])
-                                 },
-                                 Qty = Convert.ToInt32(dr["Qty"]),
-                                 Rate = Convert.ToDecimal(dr["Rate"]),
-                                 Discount = Convert.ToDecimal(dr["Discount"]),
-                                 TaxableValue = Convert.ToDecimal(dr["TaxableValue"]),
-                                 CGST = Convert.ToInt32(dr["CGST"]),
-                                 SGST = Convert.ToInt32(dr["SGST"]),
-                                 IGST = Convert.ToInt32(dr["IGST"]),
-                                 CGSTValue = Convert.ToDecimal(dr["CGSTValue"]),
-                                 SGSTValue = Convert.ToDecimal(dr["SGSTValue"]),
-                                 IGSTValue = Convert.ToDecimal(dr["IGSTValue"]),
-                                 CessValue = dr["CessValue"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["CessValue"])
-                             });
-                         }
-                     }
-                 }
-             }
-             catch (SqlException sqlEx)
-             { }
-             catch (Exception ex)
-             { }
-             return Services;
-         }
+                                Service.ICTicket.Customer = new PDMS_Customer();
+                                Service.ICTicket.Customer.CustomerID = Convert.ToInt64(dr["CustomerID"]);
+                                Service.ICTicket.Customer.CustomerCode = Convert.ToString(dr["CustomerCode"]);
+                                Service.ICTicket.Customer.CustomerName = Convert.ToString(dr["CustomerName"]);
+                                Service.ICTicket.ScopeOfWork = Convert.ToString(dr["ScopeOfWork"]);
+                                Service.ICTicket.NoOfDays = Convert.ToDecimal(dr["WorkedDay"]);
+                                Service.ICTicket.Remarks = Convert.ToString(dr["Remarks"]);
+                                Service.ICTicket.KindAttn = Convert.ToString(dr["KindAttn"]);
+
+                                InvoiceID = Service.PaidServiceInvoiceID;
+                                Service.InvoiceItems = new List<PDMS_PaidServiceInvoiceItem>();
+                            }
+                            Service.InvoiceItems.Add(new PDMS_PaidServiceInvoiceItem()
+                            {
+                                Material = new PDMS_Material()
+                                {
+                                    MaterialCode = Convert.ToString(dr["MaterialCode"]),
+                                    MaterialDescription = Convert.ToString(dr["MaterialDescription"]),
+                                    HSN = Convert.ToString(dr["HSNCode"])
+                                },
+                                Qty = Convert.ToInt32(dr["Qty"]),
+                                Rate = Convert.ToDecimal(dr["Rate"]),
+                                Discount = Convert.ToDecimal(dr["Discount"]),
+                                TaxableValue = Convert.ToDecimal(dr["TaxableValue"]),
+                                CGST = Convert.ToInt32(dr["CGST"]),
+                                SGST = Convert.ToInt32(dr["SGST"]),
+                                IGST = Convert.ToInt32(dr["IGST"]),
+                                CGSTValue = Convert.ToDecimal(dr["CGSTValue"]),
+                                SGSTValue = Convert.ToDecimal(dr["SGSTValue"]),
+                                IGSTValue = Convert.ToDecimal(dr["IGSTValue"]),
+                                CessValue = dr["CessValue"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["CessValue"])
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            { }
+            catch (Exception ex)
+            { }
+            return Services;
+        }
          private PAttachedFile OverhaulServiceInvoicefile(long ServiceInvoiceHeaderID)
          {
              try
@@ -394,7 +397,8 @@ namespace Business
                  string DealerAddress2 = (Dealer.City + (string.IsNullOrEmpty(Dealer.State.State) ? "" : "," + Dealer.State.State) + (string.IsNullOrEmpty(Dealer.Pincode) ? "" : "-" + Dealer.Pincode)).Trim(',', ' ');
 
                 //PDMS_Customer Customer = new SCustomer().getCustomerAddress(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
-                PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
+                //PDMS_Customer Customer = new BDMS_Customer().getCustomerAddressFromSAP(PaidServiceInvoice.ICTicket.Customer.CustomerCode);
+                PDMS_Customer Customer = new BDMS_Customer().GetCustomerByID(PaidServiceInvoice.ICTicket.Customer.CustomerID);
                 string CustomerAddress1 = (Customer.Address1 + (string.IsNullOrEmpty(Customer.Address2) ? "" : "," + Customer.Address2) + (string.IsNullOrEmpty(Customer.Address3) ? "" : "," + Customer.Address3)).Trim(',', ' ');
                  string CustomerAddress2 = (Customer.City + (string.IsNullOrEmpty(Customer.State.State) ? "" : "," + Customer.State.State) + (string.IsNullOrEmpty(Customer.Pincode) ? "" : "-" + Customer.Pincode)).Trim(',', ' ');
 

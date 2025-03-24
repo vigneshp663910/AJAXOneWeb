@@ -303,20 +303,21 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                 Message = Message + "<br/>Please select the District";
                 ddlDistrict.BorderColor = Color.Red;
             }
-            else if (!string.IsNullOrEmpty(txtPincode.Text.Trim()))
+            else if(string.IsNullOrEmpty(txtAddress1.Text.Trim()))
             {
-                //   if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
-                //{
-                //    Message = Message + "<br/>Please enter the Postal";
-                //    txtPincode.BorderColor = Color.Red;
-                //}
-
-                if (!long.TryParse(txtPincode.Text.Trim(), out longCheck))
-                {
-                    Message = Message + "<br/>Pincode should be in digit";
-                    txtPincode.BorderColor = Color.Red;
-                }
+                Message = Message + "<br/>Please enter the Address1";
+                txtAddress1.BorderColor = Color.Red;
             }
+            else if(string.IsNullOrEmpty(txtPincode.Text.Trim()))
+            {
+                Message = Message + "<br/>Please enter the Postal";
+                txtPincode.BorderColor = Color.Red;
+            }
+            else if(!long.TryParse(txtPincode.Text.Trim(), out longCheck))
+            {
+                Message = Message + "<br/>Pincode should be in digit";
+                txtPincode.BorderColor = Color.Red;
+            } 
 
             if(!cbIsDraft.Checked)
             {
@@ -335,17 +336,6 @@ namespace DealerManagementSystem.ViewMaster.UserControls
                         txtPAN.BorderColor = Color.Red;
                         return Message;
                     }
-                }
-
-                if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
-                {
-                    Message = Message + "<br/>Please enter the Address1";
-                    txtAddress1.BorderColor = Color.Red;
-                }
-                if (string.IsNullOrEmpty(txtPincode.Text.Trim()))
-                {
-                    Message = Message + "<br/>Please enter the Postal";
-                    txtPincode.BorderColor = Color.Red;
                 } 
             }
             return Message;

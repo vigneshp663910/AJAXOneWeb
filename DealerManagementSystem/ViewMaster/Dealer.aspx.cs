@@ -19,15 +19,15 @@ namespace DealerManagementSystem.ViewMaster
         {
             get
             {
-                if (Session["Dealer"] == null)
+                if (Session["ViewMaster_Dealer"] == null)
                 {
-                    Session["Dealer"] = new List<PDMS_Dealer>();
+                    Session["ViewMaster_Dealer"] = new List<PDMS_Dealer>();
                 }
-                return (List<PDMS_Dealer>)Session["Dealer"];
+                return (List<PDMS_Dealer>)Session["ViewMaster_Dealer"];
             }
             set
             {
-                Session["Dealer"] = value;
+                Session["ViewMaster_Dealer"] = value;
             }
         }
         protected void Page_PreInit(object sender, EventArgs e)
@@ -44,7 +44,6 @@ namespace DealerManagementSystem.ViewMaster
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master <i class= '+ '"' + 'fa fa-angle-double-down fa-2x' + '"'> </i>Customer');</script>");
             //Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Master < i class='fa fa-fw fa-home font-white' style='color: lightgray'></i> Customer');</script>");
 
-
             lblDealerMessage.Text = "";
             if (!IsPostBack)
             {
@@ -58,7 +57,17 @@ namespace DealerManagementSystem.ViewMaster
                 //new DDLBind(ddlDealer, PSession.User.Dealer, "CodeWithName", "DID");
                 new DDLBind().FillDealerAndEngneer(ddlDealer, null);
                 new DDLBind(ddlRegion, new BDMS_Address().GetRegion(1, null, null), "Region", "RegionID");
+
+                List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+                if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.DealerCreateAndEditAddrOfficeAndBank).Count() == 0)
+                {
+                    btnAddDealer.Visible = false;
+                }
             }
+            
+            lblRowCount.Visible = false;
+            ibtnDealerArrowLeft.Visible = false;
+            ibtnDealerArrowRight.Visible = false;
         }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
@@ -86,7 +95,6 @@ namespace DealerManagementSystem.ViewMaster
             gv.DataBind();
             lbl.Text = (((gv.PageIndex) * gv.PageSize) + 1) + " - " + (((gv.PageIndex) * gv.PageSize) + gv.Rows.Count) + " of " + DealerList.Count;
         }
-
         void SearchDealer()
         {
             //int? CountryID = ddlDSCountry.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDSCountry.SelectedValue);
@@ -112,26 +120,22 @@ namespace DealerManagementSystem.ViewMaster
                 ibtnDealerArrowRight.Visible = true;
                 lblRowCount.Text = (((gvDealer.PageIndex) * gvDealer.PageSize) + 1) + " - " + (((gvDealer.PageIndex) * gvDealer.PageSize) + gvDealer.Rows.Count) + " of " + DealerList.Count;
             }
-        }
-              
+        }              
         protected void btnBackToList_Click(object sender, EventArgs e)
         {
             divDealerView.Visible = false;
             divDealerList.Visible = true;
         }
-
         protected void btnAddDealer_Click(object sender, EventArgs e)
         {
-            //MPE_Customer.Show();
-            //UC_Customer.FillMaster();
+            MPE_DealerCreate.Show();
+            UC_DealerCreate.FillMaster();
         }
-
         protected void gvCustomer_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDealer.PageIndex = e.NewPageIndex;
             SearchDealer();
-        }
-       
+        }       
         protected void btnViewDealer_Click(object sender, EventArgs e)
         {
             divDealerView.Visible = true;
@@ -145,6 +149,52 @@ namespace DealerManagementSystem.ViewMaster
         {
             gvDealer.PageIndex = e.NewPageIndex;
             SearchDealer();
+        }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            string Message = UC_DealerCreate.ValidationDealer();
+            lblMessageDealerCreate.ForeColor = Color.Red;
+            lblMessageDealerCreate.Visible = true;
+            MPE_DealerCreate.Show();
+            if (!string.IsNullOrEmpty(Message))
+            {
+                lblMessageDealerCreate.Text = Message;
+                return;
+            }
+            PDealer_Insert dealer = UC_DealerCreate.ReadDealer();
+
+            PApiResult result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("Dealer", dealer));
+
+            //if (Convert.ToBoolean(result.Data))
+            //{
+            //    MPE_DealerCreate.Show();
+            //    lblMessageDealerCreate.Text = "Dealer is not created successfully.";
+            //    return;
+            //}
+            //else
+            //{
+            //    lblDealerMessage.Visible = true;
+            //    lblDealerMessage.ForeColor = Color.Green;
+            //    lblDealerMessage.Text = "Dealer is created successfully.";
+            //}
+
+            if (result.Status == PApplication.Failure)
+            {
+                lblMessageDealerCreate.Text = result.Message;
+                return;
+            }
+            lblDealerMessage.Text = result.Message;
+            lblDealerMessage.Visible = true;
+            lblDealerMessage.ForeColor = Color.Green;
+
+            MPE_DealerCreate.Hide();
+            
+            DealerList = new BDMS_Dealer().GetDealer( null,dealer.DealerCode, PSession.User.UserID, null);
+            
+            gvDealer.DataSource = DealerList;
+            gvDealer.DataBind();
+            UC_DealerCreate.Clear();
+            MPE_DealerCreate.Hide();
         }
     }
 }

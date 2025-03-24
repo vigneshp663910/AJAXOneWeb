@@ -366,6 +366,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 List<PDealer> Dealer = PSession.User.Dealer.Where(m => m.DealerID == Convert.ToInt32(ddlDealer.SelectedValue)).ToList(); 
                 ddlOrderTo.Items.Insert(0, new ListItem("Ajax", "1"));
                 ddlOrderTo.Items.Insert(1, new ListItem("Dealers", "2"));
+
+
                 //if (Dealer[0].DealerType.DealerTypeID == (short)DealerType.Retailer)
                 //{
                 //    ddlOrderTo.Items.Insert(1, new ListItem("Retailer", "4"));
@@ -373,6 +375,8 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 // fillVendor(ddlOrderTo.SelectedValue);
                 // fillPurchaseOrderType(ddlOrderTo.SelectedValue);
                 ddlOrderTo_SelectedIndexChanged(null, null);
+
+                
 
             }
             catch (Exception e1)
@@ -451,6 +455,16 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             // fillPurchaseOrderType(ddlOrderTo.SelectedValue);
             fillPurchaseOrderType();
             ddlPurchaseOrderType_SelectedIndexChanged(null, null);
+
+            cbSupersedeYN.Checked = true;
+            if (ddlOrderTo.SelectedValue == "2")
+            {
+                divSupersedeYN.Visible = true;
+            }
+            else
+            {
+                divSupersedeYN.Visible = false;
+            }
         }
         void fillPurchaseOrderType()
         {
@@ -694,7 +708,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
             MPE_CopyOrder.Show();
         }
 
-        
+
         protected void btnAddMaterial_Click(object sender, EventArgs e)
         {
             try
@@ -717,7 +731,12 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 //    lblMessage.Text = "Material already available.";
                 //    return;
                 //}
-                int MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
+
+                int MaterialID = Convert.ToInt32(hdfMaterialID.Value);
+                if (cbSupersedeYN.Checked)
+                {
+                    MaterialID = new BDMS_Material().GetMaterialSupersedeFinalByID(Convert.ToInt32(hdfMaterialID.Value));
+                }
 
                 if (MaterialID != Convert.ToInt32(hdfMaterialID.Value))
                 {
@@ -736,7 +755,7 @@ namespace DealerManagementSystem.ViewProcurement.UserControls
                 //lblMessage.Text = "The entered material : " + hdfMaterialCode.Value + " is superseded by other material number " + PoI.MaterialCode + ".";
                 PDMS_Material m = new BDMS_Material().GetMaterialListSQL(MaterialID, null, null, null, null)[0];
 
-                
+
                 Message = AddMaterial(m, txtQty.Text.Trim());
                 if (!string.IsNullOrEmpty(Message))
                 {

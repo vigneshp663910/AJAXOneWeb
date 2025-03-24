@@ -537,6 +537,7 @@
     <Content Include="ViewMaster\Dealer.aspx" />
     <Content Include="ViewMaster\DealerBinLocation.aspx" />
     <Content Include="ViewMaster\DealerCustomerMapping.aspx" />
+    <Content Include="ViewMaster\UserControls\DealerCreate.ascx" />
     <Content Include="ViewPreSale\LeadDeviation.aspx" />
     <Content Include="ViewPreSale\LeadDeviationApprove.aspx" />
     <Content Include="ViewPreSale\Planning\DealerBusinessExcellence.aspx" />
@@ -628,6 +629,7 @@
     <Content Include="ViewPreSale\PreSalesSummaryReport.aspx" />
     <Content Include="ViewPreSale\Pre_Sales_Dashboard.aspx" />
     <Content Include="ViewPreSale\Quotation.aspx" />
+    <Content Include="ViewPreSale\Reports\DealerSalesTarget.aspx" />
     <Content Include="ViewPreSale\Reports\EnquiryUnattendedAgeing.aspx" />
     <Content Include="ViewPreSale\Reports\LeadExpectedDateofSaleAgeingReport.aspx" />
     <Content Include="ViewPreSale\Reports\LeadNextFollowUpAgeingReport.aspx" />
@@ -1855,6 +1857,13 @@
     <Compile Include="ViewMaster\DealerCustomerMapping.aspx.designer.cs">
       <DependentUpon>DealerCustomerMapping.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewMaster\UserControls\DealerCreate.ascx.cs">
+      <DependentUpon>DealerCreate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewMaster\UserControls\DealerCreate.ascx.designer.cs">
+      <DependentUpon>DealerCreate.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewPreSale\LeadDeviation.aspx.cs">
       <DependentUpon>LeadDeviation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2326,6 +2335,13 @@
     </Compile>
     <Compile Include="ViewPreSale\Quotation.aspx.designer.cs">
       <DependentUpon>Quotation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\DealerSalesTarget.aspx.cs">
+      <DependentUpon>DealerSalesTarget.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPreSale\Reports\DealerSalesTarget.aspx.designer.cs">
+      <DependentUpon>DealerSalesTarget.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPreSale\Reports\EnquiryUnattendedAgeing.aspx.cs">
       <DependentUpon>EnquiryUnattendedAgeing.aspx</DependentUpon>

@@ -118,7 +118,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             txtMobileNumber.Text = User.ContactNumber;
             VerifyMobileOTP.ImageUrl = "~/Images/Verified.jpg";
             txtEmail.Text = User.EmailID;
-            VerifyEmailOTP.ImageUrl = "~/Images/Verified.jpg";
+            //VerifyEmailOTP.ImageUrl = "~/Images/Verified.jpg";
             txtAddress1.Text = User.Address1;
             txtAddress2.Text = User.Address2;
             new DDLBind(ddlState, new BOnboardEmployee().GetState(null, null, null, null, null), "State", "StateID", true, "Select");
@@ -225,7 +225,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "EmailOTP", "EmailOTP()", true);
             txtOTP.Visible = true;
             BtnVerifyOTP.Visible = true;
-            VerifyEmailOTP.Visible = true;
+            //VerifyEmailOTP.Visible = true;
             FldResetOTP.Visible = true;
             FldUpdateProfile.Visible = false;
             FldViewProfile.Visible = false;
@@ -249,7 +249,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             {
                 if (EmailOTP == txtOTP.Text)
                 {
-                    VerifyEmailOTP.ImageUrl = "~/Images/Verified.jpg";
+                    //VerifyEmailOTP.ImageUrl = "~/Images/Verified.jpg";
                     txtOTP.Text = "";
                     EmailOTP = "Verified";
                 }
@@ -374,12 +374,12 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             }
             if (txtEmail.Text != GetSalesTouchPointUserByID.EmailID)
             {
-                if (EmailOTP != "Verified")
-                {
-                    Message = Message + "<br/>Please Verify Email";
-                    Ret = false;
-                    txtEmail.BorderColor = Color.Red;
-                }
+                //if (EmailOTP != "Verified")
+                //{
+                //    Message = Message + "<br/>Please Verify Email";
+                //    Ret = false;
+                //    txtEmail.BorderColor = Color.Red;
+                //}
                 PApiResult Result = new BSalesTouchPoint().GetSalesTouchPointUserList(null, txtEmail.Text.Trim(), null, null, null);
                 if (JsonConvert.DeserializeObject<List<PSalesTouchPointUser>>(JsonConvert.SerializeObject(Result.Data)).Count > 0)
                 {
@@ -480,12 +480,12 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             {
                 if (EmailOTP != "Verified")
                 {
-                    VerifyEmailOTP.ImageUrl = "~/Images/NotVerified.jpg";
+                    //VerifyEmailOTP.ImageUrl = "~/Images/NotVerified.jpg";
                 }
             }
             else
             {
-                VerifyEmailOTP.ImageUrl = "~/Images/Verified.jpg";
+                //VerifyEmailOTP.ImageUrl = "~/Images/Verified.jpg";
             }
         }
     }

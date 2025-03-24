@@ -18,7 +18,7 @@ namespace DealerManagementSystem.ViewDealerEmployee
             if (!IsPostBack)
             {
                 ViewState["OnboardEmployeeID"] = null;
-                new DDLBind(ddlState, new BOnboardEmployee().GetState(null, null, null, null, null), "State", "StateID", true, "Select");
+                new DDLBind(ddlState, new BOnboardEmployee().GetState(null, 1, null, null, null), "State", "StateID", true, "Select");
                 new BDMS_Dealer().GetEqucationalQualificationDDL(ddlEducationalQualification, null, null);
                 new BDMS_Dealer().GetBloodGroupDDL(ddlBloodGroup, null, null);
                 new BDMS_Dealer().GetDealerDepartmentDDL(ddlDepartment, null, null);
@@ -28,7 +28,13 @@ namespace DealerManagementSystem.ViewDealerEmployee
         void fillDealer()
         {
             int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-            new BOnboardEmployee().GetDealerEmployeeDDL(ddlReportingTo, DealerID, null);
+            //new BOnboardEmployee().GetDealerEmployeeDDL(ddlReportingTo, DealerID, null);
+            List<PDMS_DealerEmployee> Employee = new BDMS_Dealer().GetDealerEmployeeByDealerID(DealerID, null, null, null, null);
+            ddlReportingTo.DataValueField = "DealerEmployeeID";
+            ddlReportingTo.DataTextField = "Name";
+            ddlReportingTo.DataSource = Employee;
+            ddlReportingTo.DataBind();
+            ddlReportingTo.Items.Insert(0, new ListItem("Select", "0"));
 
             List<PDMS_Dealer> DealerList = new BDMS_Dealer().GetDealer(null, "", null, null);
             ListViewDealer.DataSource = DealerList;
@@ -54,10 +60,8 @@ namespace DealerManagementSystem.ViewDealerEmployee
         }
         protected void ddlDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
             int DepartmentID = Convert.ToInt32(ddlDepartment.SelectedValue);
-            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, Convert.ToInt32(ddlDepartment.SelectedValue), null, null);
-            new BOnboardEmployee().GetDealerEmployeeDDL(ddlReportingTo, DealerID, DepartmentID);
+            new BDMS_Dealer().GetDealerDesignationDDL(ddlDesignation, DepartmentID, null, null);
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -130,13 +134,13 @@ namespace DealerManagementSystem.ViewDealerEmployee
                     lblMessage.Text = Result.Message;
                     return;
                 }
-                lblMessage.Text = "Onboard Employee is updated successfully";
+                lblMessage.Text = "Onboard Employee is requested successfully";
                 lblMessage.ForeColor = Color.Green;
                 btnSave.Visible = false;
             }
             else
             {
-                lblMessage.Text = "Onboard Employee is not updated successfully";
+                lblMessage.Text = "Onboard Employee is not requested successfully";
             }
             btnSave.Focus();
         }
@@ -320,6 +324,12 @@ namespace DealerManagementSystem.ViewDealerEmployee
             {
                 chkSelectAll.Checked = false;
             }
+        }
+
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            string url = "~/ViewDealerEmployee/OnboardEmployeeRegistration.aspx";
+            Response.Redirect(url);
         }
     }
 }

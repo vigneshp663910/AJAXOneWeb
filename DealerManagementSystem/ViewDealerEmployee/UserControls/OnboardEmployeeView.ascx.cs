@@ -101,7 +101,6 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
                 lblDepartment.Text = Emp.DealerDepartment.DealerDepartment;
                 lblDesignation.Text = Emp.DealerDesignation.DealerDesignation;
                 lblReportingTo.Text = Emp.ReportingTo.Name;
-
                 lblApprovedBy.Text = "";
                 lblApprovedOn.Text = "";
                 if (Emp.ApprovedOn != null)
@@ -113,9 +112,15 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
                 lblModulePermission.Text = Emp.ModulePermission;
                 lblApproverRemarks.Text = Emp.ApprovedRemark;
                 txtModulePermission.Text = Emp.ModulePermission;
+                if (Emp.User != null)
+                {
+                    lblUserName.Text = Emp.User.UserName;
+                    lblUserCreatedOn.Text = Emp.User.CreatedOn.ToString();
+                }
+
                 DealerList = new List<POnboardEmployeeDealer_Insert>();
                 foreach (PDealer Dealer in Emp.DealerList)
-                {                    
+                {
                     POnboardEmployeeDealer_Insert D = new POnboardEmployeeDealer_Insert();
                     D.OnboardEmployeeID = Emp.OnboardEmployeeID;
                     D.DealerID = Dealer.DealerID;
@@ -218,71 +223,7 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
             {
                 lblMessage.Text = ex.Message.ToString();
             }
-        }
-        void GenerateUser()
-        {
-            try
-            {
-                lblMessage.ForeColor = Color.Red;
-
-                POnboardEmployee_Insert DEmp = new POnboardEmployee_Insert();
-                DEmp.Name = Emp.Name;
-                DEmp.FatherName = Emp.FatherName;
-                DEmp.DOB = Emp.DOB;
-                DEmp.ContactNumber1 = Emp.ContactNumber1;
-                DEmp.ContactNumber2 = Emp.ContactNumber2;
-                DEmp.EmailID = Emp.EmailID;
-                DEmp.Address = Emp.Address;
-                if (Emp.State != null)
-                {
-                    DEmp.StateID = Emp.State.StateID;
-                }
-                if (Emp.District != null)
-                {
-                    DEmp.DistrictID = Emp.District.DistrictID;
-                }
-                if (Emp.Tehsil != null)
-                {
-                    DEmp.TehsilID = Emp.Tehsil.TehsilID;
-                }
-                DEmp.Village = Emp.Village;
-                DEmp.Location = Emp.Location;
-                DEmp.EmpCode = Emp.EmpCode;
-                if (Emp.EducationalQualification != null)
-                {
-                    DEmp.EducationalQualificationID = Emp.EducationalQualification.EqucationalQualificationID;
-                }
-                DEmp.TotalExperience = (Emp.TotalExperience != null) ? (decimal?)null : Emp.TotalExperience;
-                DEmp.EmergencyContactNumber = Emp.EmergencyContactNumber;
-                if (Emp.BloodGroup != null)
-                {
-                    DEmp.BloodGroupID = Emp.BloodGroup.BloodGroupID;
-                }
-                DEmp.OfficeCodeID = Emp.DealerOffice.OfficeID;
-                DEmp.DateOfJoining = Emp.DateOfJoining;
-                DEmp.DealerDepartmentID = Emp.DealerDepartment.DealerDepartmentID;
-                DEmp.DealerDesignationID = Emp.DealerDesignation.DealerDesignationID;
-                DEmp.ReportingTo = Emp.ReportingTo.DealerEmployeeID;
-                DEmp.StatusId = (short)OnboardEmployeeStatus.Created;
-
-                PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("OnboardEmployee/InsertOrUpdateOnboardUserCreation", DEmp));
-                int DealerEmployeeID = Convert.ToInt32(Result.Data);
-                new BDMS_Dealer().ApproveDealerEmployee(DealerEmployeeID, PSession.User.UserID);
-                if (DealerEmployeeID != 0)
-                {
-                    lblMessage.Text = "Employee user is updated successfully";
-                    lblMessage.ForeColor = Color.Green;
-                }
-                else
-                {
-                    lblMessage.Text = "Employee user is not updated successfully";
-                }
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message.ToString();
-            }
-        }
+        }        
         protected void lbActions_Click(object sender, EventArgs e)
         {
             try
@@ -299,7 +240,9 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
                 }
                 else if (lbActions.ID == "lbGenerate")
                 {
-                    GenerateUser();
+                    Session["OnboardEmployeeToAjaxID"] = Emp.OnboardEmployeeID;
+                    string url = "~/ViewMaster/CreateAjaxEmployee.aspx";
+                    Response.Redirect(url);
                 }
             }
             catch (Exception ex)
@@ -339,6 +282,8 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
             List<PDMS_Dealer> DealerList1 = new BDMS_Dealer().GetDealer(null, "", null, null);
             ListViewDealer.DataSource = DealerList1;
             ListViewDealer.DataBind();
+            //ListViewMDealer.DataSource = DealerList1;
+            //ListViewMDealer.DataBind();
             foreach (ListViewItem item in ListViewDealer.Items)
             {
                 CheckBox chkDealer = (CheckBox)item.FindControl("chkDealer");
@@ -347,7 +292,7 @@ namespace DealerManagementSystem.ViewDealerEmployee.UserControls
                 if (containsItem)
                 {
                     chkDealer.Checked = true;
-                }               
+                }
             }
         }
         protected void chkSelectAll_CheckedChanged(object sender, EventArgs e)

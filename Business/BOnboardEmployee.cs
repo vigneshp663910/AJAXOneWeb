@@ -60,5 +60,15 @@ namespace Business
             string endPoint = "OnboardEmployee/GetOnboardEmployeeStatus?StatusId=" + StatusId + "&Status=" + Status;
             return JsonConvert.DeserializeObject<List<POnboardEmployeeStatus>>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
         }
+        public PAjaxEmployee GetOnboardEmployeeByGenerateAjaxEmployee(int OnboardEmployeeID)
+        {
+            string endPoint = "OnboardEmployee/GetOnboardEmployeeByGenerateAjaxEmployee?OnboardEmployeeID=" + OnboardEmployeeID;
+            return JsonConvert.DeserializeObject<PAjaxEmployee>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
+        public PAjaxEmployee GetDealerEmployeeByDealerEmployeeID(int DealerEmployeeID)
+        {
+            string endPoint = "OnboardEmployee/GetDealerEmployeeByDealerEmployeeID?DealerEmployeeID=" + DealerEmployeeID;
+            return JsonConvert.DeserializeObject<PAjaxEmployee>(JsonConvert.SerializeObject(JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)).Data));
+        }
     }
 }

@@ -255,7 +255,18 @@
             font-size: 12px;
         }
     </style>
-    <script type="text/javascript">        
+    <script type="text/javascript">
+        function IsNumbericOnlyCheck(name) {
+            var regEx = /^\d+$/;
+            if (name.value.match(regEx)) {                
+                return true;
+            }
+            else {
+                name.value = '';
+                $('#lblMessage').text('Invalid Number Format');
+                return false;
+            }
+        }
         function isNumber(evt) {
             var iKeyCode = (evt.which) ? evt.which : evt.keyCode
             if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57)) {
@@ -267,7 +278,7 @@
                 }
             }
             return true;
-        }
+        }        
     </script>
     <script type="text/javascript">
         function OTP() {
@@ -452,10 +463,10 @@
                             <div class="col-md-12">
                                 <div>
                                     <br />
-                                    <label><b>UserName</b></label>
+                                    <label><b>Mobile Number</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter UserName..." PlaceHolder="UserName" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter UserName..." PlaceHolder="UserName" CssClass="form-control" onchange="return IsNumbericOnlyCheck(this);"></asp:TextBox>
                                 </div>
                                 <div>
                                     <label><b>Password</b></label>
@@ -539,7 +550,7 @@
                                     <label><b>Aadhaar Number</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtAadharNo" runat="server" ToolTip="Enter AadharNo..." PlaceHolder="AadharNo" AutoCompleteType="Disabled" MaxLength="12" onkeydown="return isNumber(event);"></asp:TextBox>
+                                    <asp:TextBox ID="txtAadharNo" runat="server" ToolTip="Enter AadharNo..." PlaceHolder="AadharNo" AutoCompleteType="Disabled" MaxLength="12" onchange="return IsNumbericOnlyCheck(this);"></asp:TextBox>
                                 </div>
                                 <div>
                                     <label><b>Name</b></label>
@@ -551,7 +562,7 @@
                                     <label><b>Mobile Number</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtMobileNumber" runat="server" MaxLength="10" onkeydown="return isNumber(event);" placeholder="Mobile Number" Width="205px" AutoCompleteType="Disabled"></asp:TextBox>
+                                    <asp:TextBox ID="txtMobileNumber" runat="server" MaxLength="10" onchange="return IsNumbericOnlyCheck(this);" placeholder="Mobile Number" Width="205px" AutoCompleteType="Disabled"></asp:TextBox>
                                     <asp:LinkButton ID="btnMobileVerify" runat="server" OnClick="btnMobileVerify_Click">Verify Mobile?</asp:LinkButton>
                                     <asp:Image ID="VerifyMobileOTP" runat="server" ImageUrl="~/Images/NotVerified.jpg" Width="30px" Height="30px"/>
                                 </div>
@@ -561,8 +572,8 @@
                                 </div>
                                 <div>
                                     <asp:TextBox ID="txtEmail" runat="server" placeholder="Email ID" Width="205px" AutoCompleteType="Disabled"></asp:TextBox>
-                                    <asp:LinkButton ID="btnEmailVerify" runat="server" OnClick="btnEmailVerify_Click">Verify Email?</asp:LinkButton>
-                                    <asp:Image ID="VerifyEmailOTP" runat="server" ImageUrl="~/Images/NotVerified.jpg" Width="30px" Height="30px"/>
+                                    <%--<asp:LinkButton ID="btnEmailVerify" runat="server" OnClick="btnEmailVerify_Click">Verify Email?</asp:LinkButton>
+                                    <asp:Image ID="VerifyEmailOTP" runat="server" ImageUrl="~/Images/NotVerified.jpg" Width="30px" Height="30px"/>--%>
                                 </div>
                                 <div>
                                     <label><b>Password</b></label>
