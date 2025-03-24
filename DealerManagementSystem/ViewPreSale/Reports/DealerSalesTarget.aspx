@@ -251,7 +251,7 @@
         <div class="col-md-12">
             <div class="col-md-12" id="div1" runat="server">
                 <fieldset class="fieldset-border" id="Fieldset1" runat="server">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">Specify Criteria</legend>
+                    <legend style="background: none; color: #007bff; font-size: 17px;">Filter</legend>
                     <div class="col-md-12">
                         <div class="col-md-2 col-sm-12">
                             <label>Region</label>
@@ -304,8 +304,8 @@
                 <fieldset class="fieldset-border">
                     <legend style="background: none; color: #007bff; font-size: 17px;">Sales Target vs Actual</legend>
                     <div class="tab">
-                        <button id="btnLondon" class="tablinks" onclick="openCityFixName('London');">SLCM Target vs Actual </button>
-                        <button id="btnParis" class="tablinks" onclick="openCityFixName('Paris');">Non SLCM Target vs Actual</button>
+                        <button id="btnLondon" class="tablinks" onclick="openCityFixName('London');">SLCM</button>
+                        <button id="btnParis" class="tablinks" onclick="openCityFixName('Paris');">Non SLCM</button>
                         <button id="btnTokyo" class="tablinks" onclick="openCityFixName('Tokyo');">Velocity</button>
                         <asp:HiddenField ID="hfTab" Value="London" runat="server" />
 
