@@ -691,6 +691,7 @@
     <Content Include="ViewSalesTouchPoint\UserControls\AddEnquiry.ascx" />
     <Content Include="ViewSalesTouchPoint\UserControls\ViewEnquiry.ascx" />
     <Content Include="ViewSales\Report\OofCustomerReport.aspx" />
+    <Content Include="ViewSales\Report\SalesReport.aspx" />
     <Content Include="ViewSales\SaleInvoicePending.aspx" />
     <Content Include="ViewSales\SaleOrder.aspx" />
     <Content Include="ViewSales\SaleOrderDelivery.aspx" />
@@ -2776,6 +2777,13 @@
     </Compile>
     <Compile Include="ViewSales\Report\OofCustomerReport.aspx.designer.cs">
       <DependentUpon>OofCustomerReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSales\Report\SalesReport.aspx.cs">
+      <DependentUpon>SalesReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSales\Report\SalesReport.aspx.designer.cs">
+      <DependentUpon>SalesReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSales\SaleInvoicePending.aspx.cs">
       <DependentUpon>SaleInvoicePending.aspx</DependentUpon>

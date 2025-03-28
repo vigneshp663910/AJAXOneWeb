@@ -136,6 +136,9 @@ namespace Business
                     case Jobs.RebuildIndex: 
                         new BAPI().ApiGetWithOutToken("Application/RebuildIndex"); 
                         break;
+                    case Jobs.SqlJob:
+                        new BAPI().ApiGetWithOutToken("SqlJob/SqlJob");
+                        break;
                 }
                 i = true;
             }

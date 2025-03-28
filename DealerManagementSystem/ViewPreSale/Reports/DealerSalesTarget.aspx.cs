@@ -154,7 +154,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
                     Convert.ToString(dr["Name"])
                     , Convert.ToInt32(dr["EnquiryToInvoice"])
                     , Convert.ToInt32(dr["QuotationToInvoice"])
-                    , Convert.ToInt32(dr["LeadToInvoice"])
+                    , Convert.ToInt32(dr["LeadToQuotation"])
                     , Convert.ToInt32(dr["Won"])
                     , Convert.ToInt32(dr["EnquiryCount"])
                     , Convert.ToInt32(dr["LeadCount"])

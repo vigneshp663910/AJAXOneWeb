@@ -34,38 +34,38 @@ namespace DealerManagementSystem
             //  PrintFSR2();
 
             // FSRSignatur();
-             new FileLogger().WriteLog("Web Test" + DateTime.Now.ToString());
+            new FileLogger().WriteLog("Web Test" + DateTime.Now.ToString());
         }
 
         void PrintFSR2()
-        { 
-                string Path1 = "https://storciaedev.blob.core.windows.net/dms-dev-temp/118333.jpg"; 
-                string contentType = string.Empty;
-                contentType = "application/pdf";
-                var CC = CultureInfo.CurrentCulture;
-                string FileName = "TSIR_" + ".pdf";
-                string extension;
-                string encoding;
-                string mimeType;
-                string[] streams;
-                Warning[] warnings;
-                LocalReport report = new LocalReport();
-                report.EnableExternalImages = true;
-                ReportParameter[] P = new ReportParameter[1];
+        {
+            string Path1 = "https://storciaedev.blob.core.windows.net/dms-dev-temp/118333.jpg";
+            string contentType = string.Empty;
+            contentType = "application/pdf";
+            var CC = CultureInfo.CurrentCulture;
+            string FileName = "TSIR_" + ".pdf";
+            string extension;
+            string encoding;
+            string mimeType;
+            string[] streams;
+            Warning[] warnings;
+            LocalReport report = new LocalReport();
+            report.EnableExternalImages = true;
+            ReportParameter[] P = new ReportParameter[1];
 
-                P[0] = new ReportParameter("Path1", Path1, false); 
-                report.ReportPath = Server.MapPath("~/Print/Test.rdlc");
-                report.SetParameters(P); 
+            P[0] = new ReportParameter("Path1", Path1, false);
+            report.ReportPath = Server.MapPath("~/Print/Test.rdlc");
+            report.SetParameters(P);
 
-                Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF   
-                Response.Buffer = true;
-                Response.Clear();
-                Response.ContentType = mimeType;
-                Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
-                Response.BinaryWrite(mybytes); // create the file
-                new BXcel().PdfDowload();
-                Response.Flush(); // send it to the client to download
-           
+            Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF   
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=" + FileName);
+            Response.BinaryWrite(mybytes); // create the file
+            new BXcel().PdfDowload();
+            Response.Flush(); // send it to the client to download
+
         }
 
         protected void btnAPITest_Click(object sender, EventArgs e)
@@ -74,22 +74,7 @@ namespace DealerManagementSystem
             new BAPI().Main1();
         }
 
-        [WebMethod]
-        public static List<object> GetChartData(string country)
-        {
-            List<object> chartData = new List<object>();
-            chartData.Add(new object[] { "ShipCity", "TotalOrders", "tttt" });
-            chartData.Add(new object[] { 2013, 1000, 522 });
-            chartData.Add(new object[] { 2014, 1170, 866 });
-            chartData.Add(new object[] { 2015, 660, 88 });
-            chartData.Add(new object[] { 2016, 1030, 866 });
-            return chartData;
-        }
- 
 
-       
-       
-       
         protected void btnSMS_Click(object sender, EventArgs e)
         {
             new BSmsManager().Start();
@@ -103,17 +88,17 @@ namespace DealerManagementSystem
         protected void BtnSalesQuotationDetails_Click(object sender, EventArgs e)
         {
             new BAPI().ApiGet("SalesQuotation/GetSalesQuotationFlow");
-           // new BSalesQuotation().GetSalesQuotationFlow();
+            // new BSalesQuotation().GetSalesQuotationFlow();
         }
 
-       
+
 
         protected void btnCustomerMiss_Click(object sender, EventArgs e)
         {
             new BAPI().ApiGetWithOutToken("Customer/CustomerMiss?CustomerCode=" + txtCustomerCodeMiss.Text.Trim());
         }
 
-        
+
 
         protected void btnDealerAddress_Click(object sender, EventArgs e)
         {
@@ -133,7 +118,7 @@ namespace DealerManagementSystem
             Dealer.Add("9018");
             Dealer.Add("9019");
             Dealer.Add("9020");
-            Dealer.Add("9021"); 
+            Dealer.Add("9021");
             Dealer.Add("9023");
             Dealer.Add("9024");
             Dealer.Add("9026");
@@ -160,7 +145,7 @@ namespace DealerManagementSystem
             Dealer.Add("9052");
             Dealer.Add("9053");
             Dealer.Add("9054");
-            Dealer.Add("9055");  
+            Dealer.Add("9055");
             foreach (string DealerCode in Dealer)
             {
                 new BDealer().InsertOrUpdateDealerAddress(DealerCode);
@@ -169,16 +154,14 @@ namespace DealerManagementSystem
 
         protected void btnIntegrationWarrantyClaimAnnexureToSAP_Click(object sender, EventArgs e)
         {
-            new BAPI().ApiGetWithOutToken("Warranty/CreateWarrantyClaimAnnexureToSAP"); 
-        } 
+            new BAPI().ApiGetWithOutToken("Warranty/CreateWarrantyClaimAnnexureToSAP");
+        }
         protected void Button1_Click(object sender, EventArgs e)
         {
             new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow");
         }
 
-        
-   
-       void FSRSignatur()
+        void FSRSignatur()
         {
             PICTicketFSRSignature_Insert FSr = new PICTicketFSRSignature_Insert();
             FSr.FsrID = 68531;
@@ -192,14 +175,17 @@ namespace DealerManagementSystem
             FSr.Latitude = 1;
             FSr.Longitude = 1;
             string result = new BAPI().ApiPut("ICTicketFSR/UpdateTicketFSRSignature", FSr);
-            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result); 
+            PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(result);
         }
-
-       
 
         protected void btnMttrEscalation_Click(object sender, EventArgs e)
         {
             new BDMS_MTTR().SendMailMttrEscalationMatrix();
+        }
+
+        protected void btnSqlJob_Click(object sender, EventArgs e)
+        {
+            new BAPI().ApiGetWithOutToken("SqlJob/SqlJob");
         }
     }
     [Serializable]

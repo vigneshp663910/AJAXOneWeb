@@ -1921,5 +1921,12 @@ namespace Business
             Byte[] mybytes = report.Render("PDF", null, out extension, out encoding, out mimeType, out streams, out warnings); //for exporting to PDF 
             return mybytes;
         }
+
+        public PApiResult GetSalesReport(int? DealerID, int? OfficeCodeID, string CustomerCode, string DocumentNumber, string DateFrom, string DateTo, int? SaleOrderTypeID, int? DivisionID, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "SaleOrder/GetSalesReport?DealerID=" + DealerID + "&OfficeCodeID=" + OfficeCodeID + "&CustomerCode=" + CustomerCode
+                + "&DocumentNumber=" + DocumentNumber + "&DateFrom=" + DateFrom + "&DateTo=" + DateTo + "&SaleOrderTypeID=" + SaleOrderTypeID + "&DivisionID=" + DivisionID  + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

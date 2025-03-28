@@ -710,7 +710,8 @@ namespace Properties
         //   EnquiryFromCRM = 25,
         LeadQualificationByExpectedDateOfSale = 26, 
         EnquiryIndiamart = 28,
-        TaskTicketResolvedAutoClose = 29
+        TaskTicketResolvedAutoClose = 29,
+        SqlJob = 30
     }
     public enum DashboardControl
     {
