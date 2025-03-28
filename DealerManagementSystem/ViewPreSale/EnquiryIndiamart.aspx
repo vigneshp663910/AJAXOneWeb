@@ -110,86 +110,86 @@
                     </div>
                 </fieldset>
             </div>
-            <%--<div class="col-md-12">--%>
-            <div class="col-md-12 Report">
-                <fieldset class="fieldset-border">
-                    <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
-                    <div class="col-md-12 Report">
-                        <div class="boxHead">
-                            <div class="logheading">
-                                <div style="float: left">
-                                    <table>
-                                        <tr>
-                                            <td>Indiamart Enquiry :</td>
-                                            <td>
-                                                <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
-                                            <td>
-                                                <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
-                                            <td>
-                                                <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
-                                            <td>
-                                                <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div style="float: left; overflow: auto;">
-                                    <%--<div style="float :left">
+            <div class="col-md-12">
+                <div class="col-md-12 Report">
+                    <fieldset class="fieldset-border">
+                        <legend style="background: none; color: #007bff; font-size: 17px;">List</legend>
+                        <div class="col-md-12 Report">
+                            <div class="boxHead">
+                                <div class="logheading">
+                                    <div style="float: left">
+                                        <table>
+                                            <tr>
+                                                <td>Indiamart Enquiry :</td>
+                                                <td>
+                                                    <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnArrowLeft" runat="server" ImageUrl="~/Images/ArrowLeft.png" Width="15px" OnClick="ibtnArrowLeft_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="ibtnArrowRight" runat="server" ImageUrl="~/Images/ArrowRight.png" Width="15px" OnClick="ibtnArrowRight_Click" /></td>
+                                                <td>
+                                                    <asp:ImageButton ID="imgBtnExportExcel" runat="server" ImageUrl="~/Images/Excel.jfif" UseSubmitBehavior="true" OnClick="btnExportExcel_Click" ToolTip="Excel Download..." />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div style="float: left; overflow: auto;">
+                                        <%--<div style="float :left">
                                              
                                         </div>--%>
-                                    <div style="float: right">
-                                        <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
-                                        <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        <div style="float: right">
+                                            <img id="fs" alt="" src="../Images/NormalScreen.png" onclick="ScreenControl(2)" width="23" height="23" style="display: none;" />
+                                            <img id="rs" alt="" src="../Images/FullScreen.jpg" onclick="ScreenControl(1)" width="23" height="23" style="display: block;" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <asp:GridView ID="gvEnquiry" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
-                            EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvEnquiry_PageIndexChanging" OnRowDataBound="gvEnquiry_RowDataBound"
-                            DataKeyNames="Sender Name,Sender Email,MOB,Company Name,Address,State,Country,Product Name,Date,City,Query ID">
-                            <Columns>
-                                <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" ItemStyle-Width="15px">
-                                    <ItemTemplate>
-                                        <itemstyle width="15px" horizontalalign="Center"></itemstyle>
-                                        <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
-                                    <ItemTemplate>
-                                        <%--<asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryIndiamartID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />--%>
-                                        <asp:ImageButton ID="BtnView" ImageUrl="~/Images/Preview.png" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryIndiamartID")%>' ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="BtnView_Click" />
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:BoundField HeaderText="Query Id" DataField="Query ID" />
-                                <asp:BoundField HeaderText="Query Type" DataField="Query Type" />
-                                <asp:BoundField HeaderText="Status" DataField="Status" />
-                                <asp:BoundField HeaderText="Sender Name" DataField="Sender Name" />
-                                <asp:BoundField HeaderText="Sender Email" DataField="Sender Email" />
-                                <asp:BoundField HeaderText="Lead Source" DataField="LeadSource" />
-                                <asp:BoundField HeaderText="Mobile" DataField="MOB" />
-                                <asp:BoundField HeaderText="Company Name" DataField="Company Name" />
-                                <asp:BoundField HeaderText="Address" DataField="Address" />
-                                <asp:BoundField HeaderText="City" DataField="City" />
-                                <asp:BoundField HeaderText="State" DataField="State" />
-                                <asp:BoundField HeaderText="Country" DataField="Country" />
-                                <asp:BoundField HeaderText="Product Name" DataField="Product Name" />
-                                <asp:BoundField HeaderText="Message" DataField="Message" />
-                                <asp:BoundField HeaderText="Date" DataField="Date" />
-                                <asp:BoundField HeaderText="Receiver Mobile" DataField="Receiver Mob" />
-                                <asp:BoundField HeaderText="Email Alternative" DataField="Email Alt" />
-                                <asp:BoundField HeaderText="Mobile Alternative" DataField="Mobile Alt" />
-                            </Columns>
-                            <AlternatingRowStyle BackColor="#ffffff" />
-                            <FooterStyle ForeColor="White" />
-                            <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
-                        </asp:GridView>
-                    </div>
-                </fieldset>
+                            <asp:GridView ID="gvEnquiry" runat="server" AutoGenerateColumns="false" Width="100%" CssClass="table table-bordered table-condensed Grid"
+                                EmptyDataText="No Data Found" PageSize="10" AllowPaging="true" OnPageIndexChanging="gvEnquiry_PageIndexChanging" OnRowDataBound="gvEnquiry_RowDataBound"
+                                DataKeyNames="Sender Name,Sender Email,MOB,Company Name,Address,State,Country,Product Name,Date,City,Query ID">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="#" ItemStyle-HorizontalAlign="Center" ItemStyle-ForeColor="White" ItemStyle-Width="15px">
+                                        <ItemTemplate>
+                                            <itemstyle width="15px" horizontalalign="Center"></itemstyle>
+                                            <asp:Label ID="lblRowNumber" Text='<%# Container.DataItemIndex + 1 %>' runat="server" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="<i class='fa fa-eye fa-1x' aria-hidden='true'></i>" ItemStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <%--<asp:Button ID="BtnView" runat="server" Text="View" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryIndiamartID")%>' CssClass="btn Back" Width="75px" Height="25px" OnClick="BtnView_Click" />--%>
+                                            <asp:ImageButton ID="BtnView" ImageUrl="~/Images/Preview.png" runat="server" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "EnquiryIndiamartID")%>' ToolTip="View..." Height="20px" Width="20px" ImageAlign="Middle" OnClick="BtnView_Click" />
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField HeaderText="Query Id" DataField="Query ID" />
+                                    <asp:BoundField HeaderText="Query Type" DataField="Query Type" />
+                                    <asp:BoundField HeaderText="Status" DataField="Status" />
+                                    <asp:BoundField HeaderText="Sender Name" DataField="Sender Name" />
+                                    <asp:BoundField HeaderText="Sender Email" DataField="Sender Email" />
+                                    <asp:BoundField HeaderText="Lead Source" DataField="LeadSource" />
+                                    <asp:BoundField HeaderText="Mobile" DataField="MOB" />
+                                    <asp:BoundField HeaderText="Company Name" DataField="Company Name" />
+                                    <asp:BoundField HeaderText="Address" DataField="Address" />
+                                    <asp:BoundField HeaderText="City" DataField="City" />
+                                    <asp:BoundField HeaderText="State" DataField="State" />
+                                    <asp:BoundField HeaderText="Country" DataField="Country" />
+                                    <asp:BoundField HeaderText="Product Name" DataField="Product Name" />
+                                    <asp:BoundField HeaderText="Message" DataField="Message" />
+                                    <asp:BoundField HeaderText="Date" DataField="Date" />
+                                    <asp:BoundField HeaderText="Receiver Mobile" DataField="Receiver Mob" />
+                                    <asp:BoundField HeaderText="Email Alternative" DataField="Email Alt" />
+                                    <asp:BoundField HeaderText="Mobile Alternative" DataField="Mobile Alt" />
+                                </Columns>
+                                <AlternatingRowStyle BackColor="#ffffff" />
+                                <FooterStyle ForeColor="White" />
+                                <HeaderStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <PagerStyle Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
+                                <RowStyle BackColor="#fbfcfd" ForeColor="Black" HorizontalAlign="Left" />
+                            </asp:GridView>
+                        </div>
+                    </fieldset>
+                </div>
             </div>
-            <%--</div>--%>
         </div>
         <div class="col-md-12" id="divDetailsView" runat="server" visible="false" style="padding: 5px 15px">
             <div class="col-md-12 lead-back-btn">
