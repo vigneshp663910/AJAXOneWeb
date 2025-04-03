@@ -468,6 +468,8 @@
     <Content Include="ViewBusinessExcellence\DealerBusinessExcellenceApprove.aspx" />
     <Content Include="ViewBusinessExcellence\DealerBusinessExcellenceQuarterWise.aspx" />
     <Content Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx" />
+    <Content Include="ViewChangeHistory\CustomerChangeLogs.aspx" />
+    <Content Include="ViewChangeHistory\DealerChangeLogs.aspx" />
     <Content Include="ViewChangeHistory\QuotationChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\LeadChangeHistory.aspx" />
     <Content Include="ViewChangeHistory\CustomerChangeHistory.aspx" />
@@ -1373,6 +1375,20 @@
     </Compile>
     <Compile Include="ViewBusinessExcellence\UserControls\ViewDealerBusinessExcellence.ascx.designer.cs">
       <DependentUpon>ViewDealerBusinessExcellence.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\CustomerChangeLogs.aspx.cs">
+      <DependentUpon>CustomerChangeLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\CustomerChangeLogs.aspx.designer.cs">
+      <DependentUpon>CustomerChangeLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewChangeHistory\DealerChangeLogs.aspx.cs">
+      <DependentUpon>DealerChangeLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewChangeHistory\DealerChangeLogs.aspx.designer.cs">
+      <DependentUpon>DealerChangeLogs.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewChangeHistory\QuotationChangeHistory.aspx.cs">
       <DependentUpon>QuotationChangeHistory.aspx</DependentUpon>

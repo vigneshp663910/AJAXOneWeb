@@ -259,6 +259,7 @@ namespace DealerManagementSystem.ViewMaster
             int index = gvRow.RowIndex;
             string url = "";
            Label lblDealerCode = (Label)gvDealerEmployee.Rows[index].FindControl("lblDealerCode");
+            Session["OnboardEmployeeToAjaxID"] = null;
             if ((lblDealerCode.Text == "2000") || (lblDealerCode.Text == "3000"))
             {
                 url = "CreateAjaxEmployee.aspx?DealerEmployeeID=" + gvDealerEmployee.DataKeys[index].Value.ToString();
