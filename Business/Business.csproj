@@ -120,6 +120,7 @@
     <Compile Include="BAttendance.cs" />
     <Compile Include="BBudgetPlanningYearWise.cs" />
     <Compile Include="BChangeHistory.cs" />
+    <Compile Include="BChangeLogs.cs" />
     <Compile Include="BColdVisit.cs" />
     <Compile Include="BDealer.cs" />
     <Compile Include="BDealerBusiness.cs" />

@@ -524,6 +524,9 @@ namespace Properties
         ViewDashboard_WarrantyCostPerMachine = 278,
         ViewDashboard_IncidentPer100 = 279, 
         ViewPreSale_Reports_DealerSalesTarget = 282,
+        ViewChangeHistory_DealerChangeLogs = 283,
+        ViewChangeHistory_CustomerChangeLogs = 286,
+
     }
     public enum SubModuleChildMaster
     {
