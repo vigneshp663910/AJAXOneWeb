@@ -136,5 +136,11 @@ namespace Properties
         public string SpecificationDescription { get; set; }
         public int OrderByNo { get; set; }
         public bool IsActive { get; set; }
-    }    
+    }
+    [Serializable]
+    public class PStatusItem
+    {
+        public int StatusItemID { get; set; }
+        public string StatusItem { get; set; }
+    }
 }

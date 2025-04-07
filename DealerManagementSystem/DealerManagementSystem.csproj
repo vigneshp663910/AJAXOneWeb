@@ -754,6 +754,7 @@
     <Content Include="ViewService\ICTicketTSIRMessage.aspx" />
     <Content Include="ViewService\ICTicketTSIRReport.aspx" />
     <Content Include="ViewService\MTTR_New.aspx" />
+    <Content Include="ViewService\OnlineServiceTicket.aspx" />
     <Content Include="ViewService\PaidServiceInvoice.aspx" />
     <Content Include="ViewService\PaidServiceProformaInvoice.aspx" />
     <Content Include="ViewService\PaidServiceQuotation.aspx" />
@@ -777,6 +778,7 @@
     <Content Include="ViewService\UserControls\ICTicketUpdateCallInformation.ascx" />
     <Content Include="ViewService\UserControls\ICTicketUpdateRestore.ascx" />
     <Content Include="ViewService\UserControls\ICTicketView.ascx" />
+    <Content Include="ViewService\UserControls\OnlineServiceTicketView.ascx" />
     <Content Include="ViewService\WarrantyClaim.aspx" />
     <Content Include="ViewService\WarrantyClaimAnnexureCreate.aspx" />
     <Content Include="ViewService\WarrantyClaimAnnexureReport.aspx" />
@@ -3219,6 +3221,13 @@
     <Compile Include="ViewService\MTTR_New.aspx.designer.cs">
       <DependentUpon>MTTR_New.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ViewService\OnlineServiceTicket.aspx.cs">
+      <DependentUpon>OnlineServiceTicket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\OnlineServiceTicket.aspx.designer.cs">
+      <DependentUpon>OnlineServiceTicket.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ViewService\PaidServiceInvoice.aspx.cs">
       <DependentUpon>PaidServiceInvoice.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3379,6 +3388,13 @@
     </Compile>
     <Compile Include="ViewService\UserControls\ICTicketView.ascx.designer.cs">
       <DependentUpon>ICTicketView.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewService\UserControls\OnlineServiceTicketView.ascx.cs">
+      <DependentUpon>OnlineServiceTicketView.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewService\UserControls\OnlineServiceTicketView.ascx.designer.cs">
+      <DependentUpon>OnlineServiceTicketView.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewService\WarrantyClaim.aspx.cs">
       <DependentUpon>WarrantyClaim.aspx</DependentUpon>

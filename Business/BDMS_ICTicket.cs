@@ -1266,6 +1266,25 @@ namespace Business
                 throw;
             }
             return Ws;
-        } 
+        }
+        public PApiResult GetOnlineServiceTicket(long? OnlineServiceTicketID, string CustomerCode, string ICTicketNumber, string DateF, string DateT, int? StatusID, string Division, int Excel, int? PageIndex = null, int? PageSize = null)
+        {
+            string endPoint = "ICTicket/GetOnlineServiceTicket?OnlineServiceTicketID=" + OnlineServiceTicketID + "&CustomerCode=" + CustomerCode
+                + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF=" + DateF + "&ICTicketDateT=" + DateT + "&StatusID=" + StatusID
+                + "&Division=" + Division + "&Excel=" + Excel + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+        public PApiResult UpdateOnlineServiceTicketStatus(long OnlineServiceTicketID, int StatusID, string Remarks, string EmployeeUserID)
+        {
+            string endPoint = "ICTicket/UpdateOnlineServiceTicketStatus?OnlineServiceTicketID=" + OnlineServiceTicketID + "&StatusID="
+                + StatusID + "&Remarks=" + Remarks + "&EmployeeUserID=" + EmployeeUserID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint)); 
+        }
+        public PApiResult UpdateOnlineServiceTickeCustomerSatisfactionLevel(long OnlineServiceTicketID, string SatisfactionLevelID)
+        {
+            string endPoint = "ICTicket/UpdateOnlineServiceTickeCustomerSatisfactionLevel?OnlineServiceTicketID=" + OnlineServiceTicketID + "&SatisfactionLevelID="
+                + SatisfactionLevelID;
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
     }
 }

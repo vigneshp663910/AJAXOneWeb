@@ -1044,5 +1044,12 @@ namespace Properties
         Rejected = 3,
         Created = 4
     }
+    public enum StatusItem
+    {
+        OnlineServiceTicketStatus_Requested = 1,
+        OnlineServiceTicketStatus_EscalatedL1=2,
+        OnlineServiceTicketStatus_EscalatedDealer=3,
+        OnlineServiceTicketStatus_Restored=4, 
+    }
 }
 

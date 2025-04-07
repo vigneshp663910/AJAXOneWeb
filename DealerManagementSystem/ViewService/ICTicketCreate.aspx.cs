@@ -143,6 +143,7 @@ namespace DealerManagementSystem.ViewService
             IC.StateID = Convert.ToInt32(ddlState.SelectedValue);
             IC.DistrictID = Convert.ToInt32(ddlDistrict.SelectedValue);
             IC.CallCategoryID = Convert.ToInt32(ddlCallCategory.SelectedValue);
+            IC.IsOnline = Convert.ToBoolean(Convert.ToInt32(ddlTypeOfCall.SelectedValue));
             PApiResult Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("ICTicket", IC));
             lblMessage.Text = Results.Message;
             if (Results.Status == PApplication.Failure)
