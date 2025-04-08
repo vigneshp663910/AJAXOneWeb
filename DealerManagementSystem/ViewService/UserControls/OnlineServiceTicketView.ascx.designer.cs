@@ -105,13 +105,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Label lblCustomer;
 
         /// <summary>
-        /// lblCustomerCategory control.
+        /// lblLocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCustomerCategory;
+        protected global::System.Web.UI.WebControls.Label lblLocation;
 
         /// <summary>
         /// lblContactPerson control.
@@ -148,24 +148,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblModel;
-
-        /// <summary>
-        /// lblWarrantyExpiry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWarrantyExpiry;
-
-        /// <summary>
-        /// lblLastHMRValue control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLastHMRValue;
 
         /// <summary>
         /// pnlUpdateRestore control.

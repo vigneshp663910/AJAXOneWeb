@@ -121,6 +121,7 @@
     </div>
 </div>
  <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"/>
+<br />
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">IC Ticket</legend>
@@ -146,8 +147,8 @@
                 <asp:Label ID="lblCustomer" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
-                <label>Customer Category : </label>
-                <asp:Label ID="lblCustomerCategory" runat="server" CssClass="LabelValue"></asp:Label>
+                <label>Location : </label>
+                <asp:Label ID="lblLocation" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Contact Person Name & No : </label>
@@ -165,14 +166,14 @@
                 <label>Model : </label>
                 <asp:Label ID="lblModel" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
-            <div class="col-md-4">
+          <%--  <div class="col-md-4">
                 <label>Warranty Expiry : </label>
                 <asp:Label ID="lblWarrantyExpiry" runat="server" CssClass="LabelValue"></asp:Label>
             </div>
             <div class="col-md-4">
                 <label>Last HMR Date & Value : </label>
                 <asp:Label ID="lblLastHMRValue" runat="server" CssClass="LabelValue"></asp:Label>
-            </div> 
+            </div> --%>
         </div>
     </fieldset>
 </div>

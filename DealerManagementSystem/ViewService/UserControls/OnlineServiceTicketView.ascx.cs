@@ -50,7 +50,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                     return;
                 }
                 lblMessage.Text = "Updated successfully";
-                lblMessage.ForeColor = Color.Red;
+                lblMessage.ForeColor = Color.Green;
                 FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
                 MPE_UpdateRestore.Hide();
             }
@@ -65,14 +65,14 @@ namespace DealerManagementSystem.ViewService.UserControls
                     return;
                 }
                 lblMessage.Text = "Updated successfully";
-                lblMessage.ForeColor = Color.Red;
+                lblMessage.ForeColor = Color.Green;
                 FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
                 MPE_EscalatedL1.Hide();
             }
             else if (lbActions.ID == "btnUpdateCustomerSatisfactionLevel")
             {
                 MPE_CustomerSatisfactionLevelk.Show();
-                PApiResult Results = new BDMS_ICTicket().UpdateOnlineServiceTickeCustomerSatisfactionLevel(Ticket.OnlineServiceTicketID,ddlCustomerSatisfactionLevel.SelectedValue);
+                PApiResult Results = new BDMS_ICTicket().UpdateOnlineServiceTickeCustomerSatisfactionLevel(Ticket.OnlineServiceTicketID, ddlCustomerSatisfactionLevel.SelectedValue);
                 if (Results.Status == PApplication.Failure)
                 {
                     lblCustomerSatisfactionLevelMessage.Text = Results.Message;
@@ -80,14 +80,13 @@ namespace DealerManagementSystem.ViewService.UserControls
                     return;
                 }
                 lblMessage.Text = "Updated successfully";
-                lblMessage.ForeColor = Color.Red;
+                lblMessage.ForeColor = Color.Green;
                 FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
                 MPE_CustomerSatisfactionLevelk.Hide();
             }
         }
         protected void lbActions_Click(object sender, EventArgs e)
-        {
-
+        { 
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.ID == "lbtnRestore")
             {
@@ -112,7 +111,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                     return;
                 }
                 lblMessage.Text = "Updated successfully";
-                lblMessage.ForeColor = Color.Red;
+                lblMessage.ForeColor = Color.Green;
                 FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
             }
             else if (lbActions.ID == "lbtnUpdateCustomerSatisfactionLevel")
@@ -126,7 +125,19 @@ namespace DealerManagementSystem.ViewService.UserControls
             PApiResult Result = new BDMS_ICTicket().GetOnlineServiceTicket(ICTicketID, null, null, null, null, null, null, 0);
             Ticket = JsonConvert.DeserializeObject<List<POnlineServiceTicket>>(JsonConvert.SerializeObject(Result.Data))[0];
             lblTicket.Text = Ticket.OnlineTicketNumber;
-
+            lblDistrict.Text = Ticket.Address.District.District;
+            lblLocation.Text = Ticket.Location;
+            lblComplaintDescription.Text = Ticket.ComplaintDescription;
+            lblStatus.Text = Ticket.Status.StatusItem;
+            lblCustomer.Text = Ticket.Customer.CustomerName + " - " + Ticket.Customer.CustomerCode;
+            lblContactPerson.Text = Ticket.ContactPerson + " & "+ Ticket.ContactNumber;
+            cbIsWarranty.Checked = Ticket.IsWarranty;
+            lblEquipment.Text = Ticket.Equipment.EquipmentSerialNo;
+            lblModel.Text = Ticket.Equipment.EquipmentModel.Model;
+            //lblModel.Text = "";
+            //lblModel.Text = "";
+            //lblModel.Text = "";
+            //lblModel.Text = "";  
             ActionControlMange();
         }
         void ActionControlMange()
