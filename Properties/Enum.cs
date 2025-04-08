@@ -526,7 +526,6 @@ namespace Properties
         ViewPreSale_Reports_DealerSalesTarget = 282,
         ViewChangeHistory_DealerChangeLogs = 283,
         ViewChangeHistory_CustomerChangeLogs = 286,
-
     }
     public enum SubModuleChildMaster
     {
@@ -693,7 +692,9 @@ namespace Properties
     public enum Jobs
     {
         SendSMS = 1,
-        SendMail = 2, 
+        SendMail = 2,
+        InsertDealerStockAgeing = 3,
+        InsertIncidentMachine = 4,
         SAPDocumentForWarrantyInvoiceFromSAP = 5, 
         RebuildIndex = 8,    
         // SaleOrderNumberForSrviceQuatationFromSAP = 6,
@@ -713,8 +714,7 @@ namespace Properties
         //   EnquiryFromCRM = 25,
         LeadQualificationByExpectedDateOfSale = 26, 
         EnquiryIndiamart = 28,
-        TaskTicketResolvedAutoClose = 29,
-        SqlJob = 30
+        TaskTicketResolvedAutoClose = 29
     }
     public enum DashboardControl
     {
@@ -1050,9 +1050,9 @@ namespace Properties
     public enum StatusItem
     {
         OnlineServiceTicketStatus_Requested = 1,
-        OnlineServiceTicketStatus_EscalatedL1=2,
-        OnlineServiceTicketStatus_EscalatedDealer=3,
-        OnlineServiceTicketStatus_Restored=4, 
+        OnlineServiceTicketStatus_EscalatedL1 = 2,
+        OnlineServiceTicketStatus_EscalatedDealer = 3,
+        OnlineServiceTicketStatus_Restored = 4,
     }
 }
 

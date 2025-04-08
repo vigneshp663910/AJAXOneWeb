@@ -49,6 +49,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lblMessageRestore.ForeColor = Color.Red;
                     return;
                 }
+                lblMessage.Text = "Updated successfully";
+                lblMessage.ForeColor = Color.Red;
+                FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
                 MPE_UpdateRestore.Hide();
             }
             else if (lbActions.ID == "btnUpdateEscalatedL1")
@@ -61,6 +64,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lblEscalatedL1Message.ForeColor = Color.Red;
                     return;
                 }
+                lblMessage.Text = "Updated successfully";
+                lblMessage.ForeColor = Color.Red;
+                FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
                 MPE_EscalatedL1.Hide();
             }
             else if (lbActions.ID == "btnUpdateCustomerSatisfactionLevel")
@@ -73,6 +79,9 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lblCustomerSatisfactionLevelMessage.ForeColor = Color.Red;
                     return;
                 }
+                lblMessage.Text = "Updated successfully";
+                lblMessage.ForeColor = Color.Red;
+                FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
                 MPE_CustomerSatisfactionLevelk.Hide();
             }
         }
@@ -86,6 +95,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.ID == "lbtnEscalatedL1")
             {
+                ddlAjaxEmployee.DataTextField = "ContactName";
+                ddlAjaxEmployee.DataValueField = "UserID";
+                ddlAjaxEmployee.DataSource = JsonConvert.DeserializeObject<List<PUser>>(JsonConvert.SerializeObject(new BDMS_ICTicket().GetUserForOnlineServiceTicketSupport().Data));;
+                ddlAjaxEmployee.DataBind(); 
+
                 MPE_EscalatedL1.Show();
             }
             else if (lbActions.ID == "lbtnEscalatedDealer")
@@ -97,9 +111,13 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lblMessage.ForeColor = Color.Red;
                     return;
                 }
+                lblMessage.Text = "Updated successfully";
+                lblMessage.ForeColor = Color.Red;
+                FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
             }
             else if (lbActions.ID == "lbtnUpdateCustomerSatisfactionLevel")
             {
+                FillCustomerSatisfactionLevel();
                 MPE_CustomerSatisfactionLevelk.Show();
             }
         }
@@ -164,6 +182,14 @@ namespace DealerManagementSystem.ViewService.UserControls
             //    lbtnMarginWarrantyRequest.Visible = false;
             //}
 
+        }
+
+        private void FillCustomerSatisfactionLevel()
+        {
+            ddlCustomerSatisfactionLevel.DataTextField = "CustomerSatisfactionLevel";
+            ddlCustomerSatisfactionLevel.DataValueField = "CustomerSatisfactionLevelID";
+            ddlCustomerSatisfactionLevel.DataSource = new BDMS_Service().GetCustomerSatisfactionLevel(null, null);
+            ddlCustomerSatisfactionLevel.DataBind(); 
         }
     }
 }

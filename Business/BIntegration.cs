@@ -65,6 +65,7 @@ namespace Business
         {
             Boolean i = false;
             int C = 0;
+            PApiResult Results = new PApiResult();
             try
             {
                 switch (JobName)
@@ -78,7 +79,7 @@ namespace Business
                         new FileLogger().LogMessageService("Started", "SendSMS", null);
                         C = new EmailManager().Start();
                         new FileLogger().LogMessageService("Ended", "Send Mail Total Record " + C.ToString(), null);
-                        break;  
+                        break;
 
                     //case Jobs.UpdateSalesQuotationDeliveryDetails:
                     //    new FileLogger().LogMessageService("Started", "CustomerIntegration", null);
@@ -86,58 +87,70 @@ namespace Business
                     //    new FileLogger().LogMessageService("Ended", "CustomerIntegration ", null);
                     //    break;
 
-                    case Jobs.SalesQuotationFlowFromSap: 
-                        new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow"); 
-                        break; 
-                    case Jobs.EInvoice: 
-                        new BDMS_EInvoice().StartGeneratEInvoice(); 
+                    case Jobs.SalesQuotationFlowFromSap:
+                        new BAPI().ApiGetWithOutToken("SalesQuotation/GetSalesQuotationFlow");
                         break;
-                    case Jobs.LeadQualificationByExpectedDateOfSale: 
-                        new BAPI().ApiGetWithOutToken("Lead/UpdateLeadQualificationByExpectedDateOfSale"); 
+                    case Jobs.EInvoice:
+                        new BDMS_EInvoice().StartGeneratEInvoice();
+                        break;
+                    case Jobs.LeadQualificationByExpectedDateOfSale:
+                        new BAPI().ApiGetWithOutToken("Lead/UpdateLeadQualificationByExpectedDateOfSale");
                         break;
 
-                    case Jobs.IntegrationClaimAnnexure: 
-                        new BAPI().ApiGetWithOutToken("Warranty/CreateWarrantyClaimAnnexureToSAP"); 
-                        break; 
+                    case Jobs.IntegrationClaimAnnexure:
+                        new BAPI().ApiGetWithOutToken("Warranty/CreateWarrantyClaimAnnexureToSAP");
+                        break;
 
-                    case Jobs.SAPDocumentForWarrantyInvoiceFromSAP:  
-                        new BAPI().ApiGetWithOutToken("Warranty/UpdateSAPDocumentNumber"); 
+                    case Jobs.SAPDocumentForWarrantyInvoiceFromSAP:
+                        new BAPI().ApiGetWithOutToken("Warranty/UpdateSAPDocumentNumber");
                         break;
                     //case Jobs.SaleOrderNumberForSrviceQuatationFromSAP:
                     //    new FileLogger().LogMessageService("Started", "SaleOrder Number For Srvice Quatation From SAP", null);
                     //    UpdateSaleOrderNumberFromPostgres();
                     //    new FileLogger().LogMessageService("Ended", "Sale Order Number For Srvice Quatation From SAP Total Record" + C.ToString(), null);
                     //    break;
-                            
+
                     //case Jobs.IntegrationSalesOrderInvoice:
                     //    new FileLogger().LogMessageService("Started", "IntegrationSalesOrderInvoice", null);
                     //    new BDMS_SalesOrder().IntegrationSalesOrderInvoice();
                     //    new FileLogger().LogMessageService("Ended", "IntegrationSalesOrderInvoice", null);
                     //    break;
-                    //case Jobs.IntegrationClaimAnnexure:
-                    //    new FileLogger().LogMessageService("Started", "IntegrationWarrantyClaimAnnexureToSAP", null);
-                    //    new BDMS_WarrantyClaimAnnexure().IntegrationWarrantyClaimAnnexureToSAP();
-                    //    new FileLogger().LogMessageService("Ended", "IntegrationWarrantyClaimAnnexureToSAP", null);
-                    //    break;
-                    //case Jobs.EInvoice:
-                    //    new FileLogger().LogMessageService("Started", "BDMS_EInvoice", null);
-                    //    new BDMS_EInvoice().IntegrationEInvoive();
-                    //    new FileLogger().LogMessageService("Ended", "BDMS_EInvoice", null);
-                    //    break;
-                    case Jobs.SendMailMttrEscalationMatrix: 
-                        new BDMS_MTTR().SendMailMttrEscalationMatrix(); 
-                        break; 
-                    case Jobs.EnquiryIndiamart: 
-                        new BAPI().ApiGetWithOutToken("Enquiry/IntegrationEnquiryIndiamart"); 
+                    
+                    case Jobs.SendMailMttrEscalationMatrix:
+                        new BDMS_MTTR().SendMailMttrEscalationMatrix();
                         break;
-                    case Jobs.TaskTicketResolvedAutoClose: 
-                        new BAPI().ApiGetWithOutToken("Task/TaskTicketResolvedAutoClose"); 
+                    case Jobs.EnquiryIndiamart:
+                        new BAPI().ApiGetWithOutToken("Enquiry/IntegrationEnquiryIndiamart");
+                        break;
+                    case Jobs.TaskTicketResolvedAutoClose:
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/TaskTicketResolvedAutoClose"));
+                        if (Results.Status == PApplication.Failure)
+                        {
+                            throw new Exception(Results.Message);
+                        }
+                        // new BAPI().ApiGetWithOutToken("SqlJob/TaskTicketResolvedAutoClose");
                         break;
                     case Jobs.RebuildIndex: 
-                        new BAPI().ApiGetWithOutToken("Application/RebuildIndex"); 
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/RebuildIndex"));
+                        if (Results.Status == PApplication.Failure)
+                        {
+                            throw new Exception(Results.Message);
+                        }
                         break;
-                    case Jobs.SqlJob:
-                        new BAPI().ApiGetWithOutToken("SqlJob/SqlJob");
+                    case Jobs.InsertDealerStockAgeing:
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/InsertDealerStockAgeing"));
+                        if (Results.Status == PApplication.Failure)
+                        {
+                            throw new Exception(Results.Message);
+                        }
+                        break;
+                    case Jobs.InsertIncidentMachine:
+                        Results = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGetWithOutToken("SqlJob/InsertIncidentMachine"));
+                        if (Results.Status == PApplication.Failure)
+                        {
+                            throw new Exception(Results.Message);
+                        }
+                        new BAPI().ApiGetWithOutToken("SqlJob/");
                         break;
                 }
                 i = true;

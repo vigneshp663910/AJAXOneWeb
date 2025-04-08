@@ -143,6 +143,7 @@ namespace Properties
         public int DistrictID { get; set; }
         public int CallCategoryID { get; set; }
         public Boolean IsOnline { get; set; }
+
     }
     [Serializable]
     public class PICTicketServiceConfirmation

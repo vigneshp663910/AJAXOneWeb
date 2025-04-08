@@ -1286,5 +1286,11 @@ namespace Business
                 + SatisfactionLevelID;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
+        public PApiResult GetUserForOnlineServiceTicketSupport()
+        {
+            string endPoint = "ICTicket/GetUserForOnlineServiceTicketSupport";
+            return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
+        }
+
     }
 }

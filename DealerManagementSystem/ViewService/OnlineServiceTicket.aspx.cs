@@ -72,8 +72,8 @@ namespace DealerManagementSystem.ViewService
             }
             void fillStatus()
             {
-                ddlStatus.DataTextField = "StatusItemID";
-                ddlStatus.DataValueField = "StatusItem";
+                ddlStatus.DataTextField = "StatusItem";
+                ddlStatus.DataValueField = "StatusItemID";
                 ddlStatus.DataSource = new BMaster().GetStatusItem(1);
                 ddlStatus.DataBind();
                 ddlStatus.Items.Insert(0, new ListItem("All", "0"));
