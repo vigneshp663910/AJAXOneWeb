@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineServiceTicketView.ascx.cs" Inherits="DealerManagementSystem.ViewService.UserControls.OnlineServiceTicketView" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp1" %> 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Src="~/ViewMaster/UserControls/CustomerViewHeader.ascx" TagPrefix="UC" TagName="UC_CustomerViewSoldTo" %>
 <script type="text/javascript">
     function ConfirmDeclineApprove() {
         var x = confirm("Are you sure you want to decline the IC Ticket?");
@@ -120,64 +121,124 @@
         </div>
     </div>
 </div>
- <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"/>
+<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
 <br />
 <div class="col-md-12 field-margin-top">
     <fieldset class="fieldset-border">
         <legend style="background: none; color: #007bff; font-size: 17px;">IC Ticket</legend>
         <div class="col-md-12 View">
             <div class="col-md-4">
-                <label>IC Ticket : </label>
-                <asp:Label ID="lblTicket" runat="server" CssClass="LabelValue"></asp:Label>
-            </div> 
-            <div class="col-md-4">
-                <label>District : </label>
-                <asp:Label ID="lblDistrict" runat="server" CssClass="LabelValue"></asp:Label>
+                <div class="col-md-12">
+                    <label>IC Ticket : </label>
+                    <asp:Label ID="lblTicket" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+
+                <div class="col-md-12">
+                    <label>Complaint Description : </label>
+                    <asp:Label ID="lblComplaintDescription" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Customer : </label>
+                    <asp:Label ID="lblCustomer" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Equipment : </label>
+                    <asp:Label ID="lblEquipment" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Model : </label>
+                    <asp:Label ID="lblModel" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Warranty : </label>
+                    <asp:CheckBox ID="cbIsWarranty" runat="server" Enabled="false" />
+                </div>
+                <div class="col-md-12">
+                    <label>Priority : </label>
+                    <asp:Label ID="lblPriority" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+
             </div>
             <div class="col-md-4">
-                <label>Complaint Description : </label>
-                <asp:Label ID="lblComplaintDescription" runat="server" CssClass="LabelValue"></asp:Label>
+
+
+                <div class="col-md-12">
+                    <label>Restore By : </label>
+                    <asp:Label ID="lblRestoreBy" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>RestoreDate : </label>
+                    <asp:Label ID="lblRestoreDate" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>RestoreRemarks : </label>
+                    <asp:Label ID="lblRestoreRemarks" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>RegisteredBy : </label>
+                    <asp:Label ID="lblRegisteredBy" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>SatisfactionLevel : </label>
+                    <asp:Label ID="lblSatisfactionLevel" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+
+                <div class="col-md-12">
+                    <label>EscalatedL1 : </label>
+                    <asp:Label ID="lblEscalatedL1" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>EscalatedL1 Date : </label>
+                    <asp:Label ID="lblEscalatedL1Date" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+
             </div>
             <div class="col-md-4">
-                <label>Status : </label>
-                <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
-            </div>  
-            <div class="col-md-4">
-                <label>Customer : </label>
-                <asp:Label ID="lblCustomer" runat="server" CssClass="LabelValue"></asp:Label>
+                <div class="col-md-12">
+                    <label>Contact Person Name & No : </label>
+                    <asp:Label ID="lblContactPerson" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+
+
+                <div class="col-md-12">
+                    <label>Status : </label>
+                    <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+
+                <div class="col-md-12">
+                    <label>State : </label>
+                    <asp:Label ID="lblState" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>District : </label>
+                    <asp:Label ID="lblDistrict" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <div class="col-md-12">
+                    <label>Location : </label>
+                    <asp:Label ID="lblLocation" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+              <%--  <div class="col-md-12">
+                    <label>Call Category : </label>
+                    <asp:Label ID="lblCallCategory" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>--%>
             </div>
-            <div class="col-md-4">
-                <label>Location : </label>
-                <asp:Label ID="lblLocation" runat="server" CssClass="LabelValue"></asp:Label>
-            </div>
-            <div class="col-md-4">
-                <label>Contact Person Name & No : </label>
-                <asp:Label ID="lblContactPerson" runat="server" CssClass="LabelValue"></asp:Label>
-            </div> 
-            <div class="col-md-4">
-                <label>Warranty : </label>
-                <asp:CheckBox ID="cbIsWarranty" runat="server" Enabled="false" />
-            </div> 
-            <div class="col-md-4">
-                <label>Equipment : </label>
-                <asp:Label ID="lblEquipment" runat="server" CssClass="LabelValue"></asp:Label>
-            </div>
-            <div class="col-md-4">
-                <label>Model : </label>
-                <asp:Label ID="lblModel" runat="server" CssClass="LabelValue"></asp:Label>
-            </div>
-          <%--  <div class="col-md-4">
-                <label>Warranty Expiry : </label>
-                <asp:Label ID="lblWarrantyExpiry" runat="server" CssClass="LabelValue"></asp:Label>
-            </div>
-            <div class="col-md-4">
+
+            <%--    <div class="col-md-4">
                 <label>Last HMR Date & Value : </label>
                 <asp:Label ID="lblLastHMRValue" runat="server" CssClass="LabelValue"></asp:Label>
             </div> --%>
         </div>
     </fieldset>
 </div>
-  
+<%--<asp:TabContainer ID="tbpSaleQuotation" runat="server" ToolTip="Geographical Location Master..." Font-Bold="True" Font-Size="Medium" ActiveTabIndex="10">
+    <asp:TabPanel ID="TabCustomer" runat="server" HeaderText="Customer">
+        <ContentTemplate>
+            <div class="col-md-12 field-margin-top">
+                <UC:UC_CustomerViewSoldTo ID="CustomerViewSoldTo" runat="server"></UC:UC_CustomerViewSoldTo>
+            </div>
+        </ContentTemplate>
+    </asp:TabPanel>
+</asp:TabContainer>--%>
 
 <asp:Panel ID="pnlUpdateRestore" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
@@ -186,8 +247,8 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblMessageRestore" runat="server" Text="" CssClass="message"/>
-            <fieldset class="fieldset-border"   runat="server">
+            <asp:Label ID="lblMessageRestore" runat="server" Text="" CssClass="message" />
+            <fieldset class="fieldset-border" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-12 col-sm-12">
                         <label class="modal-label">Customer Remarks</label>
@@ -211,14 +272,14 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblEscalatedL1Message" runat="server" Text="" CssClass="message"/>
-            <fieldset class="fieldset-border"   runat="server">
+            <asp:Label ID="lblEscalatedL1Message" runat="server" Text="" CssClass="message" />
+            <fieldset class="fieldset-border" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-12 col-sm-12">
                         <label class="modal-label">Customer Remarks</label>
                         <asp:TextBox ID="txtEscalatedL1Remark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                     </div>
-                     <div class="col-md-6 col-sm-12">
+                    <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Ajax Employee</label>
                         <asp:DropDownList ID="ddlAjaxEmployee" runat="server" CssClass="form-control" />
                     </div>
@@ -242,8 +303,8 @@
     </div>
     <div class="col-md-12">
         <div class="model-scroll">
-            <asp:Label ID="lblCustomerSatisfactionLevelMessage" runat="server" Text="" CssClass="message"/>
-            <fieldset class="fieldset-border"   runat="server">
+            <asp:Label ID="lblCustomerSatisfactionLevelMessage" runat="server" Text="" CssClass="message" />
+            <fieldset class="fieldset-border" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-6 col-sm-12">
                         <label class="modal-label">Customer Satisfaction Level</label>

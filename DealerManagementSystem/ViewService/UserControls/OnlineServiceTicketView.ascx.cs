@@ -130,14 +130,24 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblComplaintDescription.Text = Ticket.ComplaintDescription;
             lblStatus.Text = Ticket.Status.StatusItem;
             lblCustomer.Text = Ticket.Customer.CustomerName + " - " + Ticket.Customer.CustomerCode;
-            lblContactPerson.Text = Ticket.ContactPerson + " & "+ Ticket.ContactNumber;
+            lblContactPerson.Text = Ticket.ContactPerson + " & " + Ticket.ContactNumber;
             cbIsWarranty.Checked = Ticket.IsWarranty;
             lblEquipment.Text = Ticket.Equipment.EquipmentSerialNo;
             lblModel.Text = Ticket.Equipment.EquipmentModel.Model;
-            //lblModel.Text = "";
-            //lblModel.Text = "";
-            //lblModel.Text = "";
-            //lblModel.Text = "";  
+
+            lblSatisfactionLevel.Text = Ticket.CustomerSatisfactionLevel.CustomerSatisfactionLevel;
+            lblRestoreDate.Text = Convert.ToString(Ticket.RestoreDate);
+            lblRestoreRemarks.Text = Ticket.RestoreRemarks;
+            lblRegisteredBy.Text = Ticket.RegisteredBy.ContactNumber;
+            lblEscalatedL1.Text = Ticket.EscalatedL1 == null ? "" : Ticket.EscalatedL1.ContactName;
+            lblEscalatedL1Date.Text = Convert.ToString(Ticket.EscalatedL1On);
+            lblRestoreBy.Text = Ticket.RegisteredBy.ContactName;
+            //  lblCallCategory.Text = "";
+            lblPriority.Text = Ticket.ICPriority.ServicePriority;
+            lblState.Text = Ticket.Address.State.State;
+
+            //  CustomerViewSoldTo.fillCustomer(Ticket.Customer.CustomerID);
+
             ActionControlMange();
         }
         void ActionControlMange()
@@ -163,6 +173,11 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 lbtnEscalatedL1.Visible = false;
                 lbtnUpdateCustomerSatisfactionLevel.Visible = false;
+                if (Ticket.EscalatedL1.UserID != PSession.User.UserID)
+                {
+                    lbtnRestore.Visible = false; 
+                    lbtnEscalatedDealer.Visible = false;
+                } 
             }
             else if ((Ticket.Status.StatusItemID == (short)StatusItem.OnlineServiceTicketStatus_EscalatedDealer))
             {

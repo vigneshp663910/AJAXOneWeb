@@ -501,6 +501,8 @@ namespace Properties
         public PUser CustomerSatisfactionLevelUpdatedBy { get; set; }
         public DateTime? CustomerSatisfactionLevelUpdatedOn { get; set; }
         public PUser RegisteredBy { get; set; }
+        public PUser EscalatedL1 { get; set; }
+        public DateTime? EscalatedL1On { get; set; }
 
     }
 }
