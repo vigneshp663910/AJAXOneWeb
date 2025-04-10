@@ -142,6 +142,7 @@ namespace Properties
         public int StateID { get; set; }
         public int DistrictID { get; set; }
         public int CallCategoryID { get; set; }
+        public Boolean IsOnline { get; set; }
 
     }
     [Serializable]
@@ -477,5 +478,34 @@ namespace Properties
     {
         public int CallCategoryID { get; set; }
         public string CallCategory { get; set; }
+    }
+    [Serializable]
+    public class POnlineServiceTicket
+    {
+        public long OnlineServiceTicketID { get; set; }
+        public string OnlineTicketNumber { get; set; }
+        public DateTime OnlineTicketDate { get; set; }
+        public PDMS_Customer Customer { get; set; }
+        public PDMS_EquipmentHeader Equipment { get; set; }
+        public string ContactNumber { get; set; }
+        public string ContactPerson { get; set; }
+        public string ComplaintDescription { get; set; }
+        public PDMS_ServicePriority ICPriority { get; set; }
+        public PStatusItem Status { get; set; }
+        public Boolean IsWarranty { get; set; }
+        public string Location { get; set; }
+        public PUser RestoredBy { get; set; }
+        public DateTime? RestoreDate { get; set; }
+        public string RestoreRemarks { get; set; }
+        public PDMS_Address Address { get; set; }
+        public PDMS_CustomerSatisfactionLevel CustomerSatisfactionLevel { get; set; }
+        public PUser CustomerSatisfactionLevelUpdatedBy { get; set; }
+        public DateTime? CustomerSatisfactionLevelUpdatedOn { get; set; }
+        public PUser RegisteredBy { get; set; }
+        public PUser EscalatedL1 { get; set; }
+        public DateTime? EscalatedL1On { get; set; }
+        public string EscalatedRemarks { get; set; }
+        public string EscalatedDealerRemarks { get; set; }
+
     }
 }

@@ -524,6 +524,8 @@ namespace Properties
         ViewDashboard_WarrantyCostPerMachine = 278,
         ViewDashboard_IncidentPer100 = 279, 
         ViewPreSale_Reports_DealerSalesTarget = 282,
+        ViewChangeHistory_DealerChangeLogs = 283,
+        ViewChangeHistory_CustomerChangeLogs = 286,
     }
     public enum SubModuleChildMaster
     {
@@ -690,7 +692,9 @@ namespace Properties
     public enum Jobs
     {
         SendSMS = 1,
-        SendMail = 2, 
+        SendMail = 2,
+        InsertDealerStockAgeing = 3,
+        InsertIncidentMachine = 4,
         SAPDocumentForWarrantyInvoiceFromSAP = 5, 
         RebuildIndex = 8,    
         // SaleOrderNumberForSrviceQuatationFromSAP = 6,
@@ -1042,6 +1046,13 @@ namespace Properties
         Approved = 2,
         Rejected = 3,
         Created = 4
+    }
+    public enum StatusItem
+    {
+        OnlineServiceTicketStatus_Requested = 1,
+        OnlineServiceTicketStatus_EscalatedL1 = 2,
+        OnlineServiceTicketStatus_EscalatedDealer = 3,
+        OnlineServiceTicketStatus_Restored = 4,
     }
 }
 

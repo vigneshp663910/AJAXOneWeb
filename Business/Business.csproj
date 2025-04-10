@@ -120,6 +120,7 @@
     <Compile Include="BAttendance.cs" />
     <Compile Include="BBudgetPlanningYearWise.cs" />
     <Compile Include="BChangeHistory.cs" />
+    <Compile Include="BChangeLogs.cs" />
     <Compile Include="BColdVisit.cs" />
     <Compile Include="BDealer.cs" />
     <Compile Include="BDealerBusiness.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="BIntegration.cs" />
     <Compile Include="BInventory.cs" />
     <Compile Include="BMachineOperator.cs" />
+    <Compile Include="BMaster.cs" />
     <Compile Include="BMessageAnnouncement.cs" />
     <Compile Include="BNotification.cs" />
     <Compile Include="BOnboardEmployee.cs" />
@@ -194,6 +196,7 @@
     <Compile Include="BSalesOrderReturn.cs" />
     <Compile Include="BSalesQuotation.cs" />
     <Compile Include="BSmsManager.cs" />
+    <Compile Include="BSqlJob.cs" />
     <Compile Include="BStockTransferOrder.cs" />
     <Compile Include="BTest.cs" />
     <Compile Include="BTestSN.cs" />

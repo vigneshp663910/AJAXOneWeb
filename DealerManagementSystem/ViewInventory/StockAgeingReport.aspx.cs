@@ -59,20 +59,10 @@ namespace DealerManagementSystem.ViewInventory
             FilStock();
         }
         void FilStock()
-        {
-            int? DealerID = null;
-            int? OfficeID = null;
-            if (ddlDealer.SelectedValue != "0")
-            {
-                DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
-                OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
-            }
-            string MaterialCode = txtMaterial.Text.Trim();
-            PApiResult Result = new BInventory().GetDealerStockAgeing(DealerID, OfficeID, null, null, MaterialCode, PageIndex, gvStock.PageSize);
-
+        { 
+            PApiResult Result = GetStockTable(0);
             gvStock.DataSource = JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
-            gvStock.DataBind();
-
+            gvStock.DataBind(); 
             if (Result.RowCount == 0)
             {
                 lblRowCount.Visible = false;
@@ -87,6 +77,23 @@ namespace DealerManagementSystem.ViewInventory
                 ibtnArrowRight.Visible = true;
                 lblRowCount.Text = (((PageIndex - 1) * gvStock.PageSize) + 1) + " - " + (((PageIndex - 1) * gvStock.PageSize) + gvStock.Rows.Count) + " of " + Result.RowCount;
             }
+        }
+
+        PApiResult GetStockTable(int Excel)
+        {
+            int? DealerID = null;
+            int? OfficeID = null;
+            if (ddlDealer.SelectedValue != "0")
+            {
+                DealerID = Convert.ToInt32(ddlDealer.SelectedValue);
+                OfficeID = ddlDealerOffice.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlDealerOffice.SelectedValue);
+            }
+            string MaterialCode = txtMaterial.Text.Trim();
+            // PApiResult Result =
+            return new BInventory().GetDealerStockAgeing(DealerID, OfficeID, null, null, MaterialCode, Excel, PageIndex, gvStock.PageSize);
+
+          // return JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data));
+             
         }
 
         protected void ibtnArrowLeft_Click(object sender, ImageClickEventArgs e)
@@ -108,6 +115,11 @@ namespace DealerManagementSystem.ViewInventory
         protected void ddlDealer_SelectedIndexChanged(object sender, EventArgs e)
         {
             new DDLBind(ddlDealerOffice, new BDMS_Dealer().GetDealerOffice(Convert.ToInt32(ddlDealer.SelectedValue), null, null), "OfficeName", "OfficeID");
+        }
+        protected void btnExportExcel_Click(object sender, EventArgs e)
+        { 
+            PApiResult Result = GetStockTable(1); 
+            new BXcel().ExporttoExcel(JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(Result.Data)), "Stock Ageing Report");
         }
     }
 }

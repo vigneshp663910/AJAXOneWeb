@@ -51,18 +51,13 @@ namespace DealerManagementSystem.ViewService
             if (PSession.User == null)
             {
                 Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
-            this.Page.MasterPageFile = "~/Dealer.master";
+            } 
         }
        
         protected void Page_Load(object sender, EventArgs e)
         { 
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Service » IC Ticket » Manage');</script>");
-            lblMessage.Visible = false;
-            if (PSession.User == null)
-            {
-                Response.Redirect(UIHelper.SessionFailureRedirectionPage);
-            }
+            lblMessage.Visible = false; 
             if (!IsPostBack)
             {
                 PageCount = 0;

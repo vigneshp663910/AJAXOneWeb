@@ -67,10 +67,10 @@ namespace Business
         {
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet("Inventory/UpdateDealerPhysicalInventoryPosting?PhysicalInventoryPostingID="+ PhysicalInventoryPostingID));
         }
-        public PApiResult GetDealerStockAgeing(int? DealerID, int? OfficeID, int? DivisionID, int? ModelID, string MaterialCode, int? PageIndex = null, int? PageSize = null)
+        public PApiResult GetDealerStockAgeing(int? DealerID, int? OfficeID, int? DivisionID, int? ModelID, string MaterialCode,int Excel, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "Inventory/GetDealerStockAgeing?DealerID=" + DealerID + "&OfficeID=" + OfficeID + "&DivisionID=" + DivisionID + "&ModelID=" + ModelID
-            + "&MaterialCode=" + MaterialCode + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+            + "&MaterialCode=" + MaterialCode + "&Excel=" + Excel + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public DataTable GetDealerStockTrackDetail(string DealerID, string OfficeID, string MaterialID, int TrackTypeID)
