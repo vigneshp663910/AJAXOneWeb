@@ -150,24 +150,6 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.Label lblRestoreRemarks;
 
         /// <summary>
-        /// lblRegisteredBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRegisteredBy;
-
-        /// <summary>
-        /// lblSatisfactionLevel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSatisfactionLevel;
-
-        /// <summary>
         /// lblEscalatedL1 control.
         /// </summary>
         /// <remarks>
@@ -184,6 +166,33 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblEscalatedL1Date;
+
+        /// <summary>
+        /// lblEscalatedL1Remarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEscalatedL1Remarks;
+
+        /// <summary>
+        /// lblEscalatedDealerRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEscalatedDealerRemarks;
+
+        /// <summary>
+        /// lblRegisteredBy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRegisteredBy;
 
         /// <summary>
         /// lblContactPerson control.
@@ -229,6 +238,15 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblLocation;
+
+        /// <summary>
+        /// lblSatisfactionLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSatisfactionLevel;
 
         /// <summary>
         /// pnlUpdateRestore control.
@@ -400,6 +418,60 @@ namespace DealerManagementSystem.ViewService.UserControls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender MPE_CustomerSatisfactionLevelk;
+
+        /// <summary>
+        /// pnlEscalatedDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlEscalatedDealer;
+
+        /// <summary>
+        /// Button2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
+
+        /// <summary>
+        /// lblEscalatedDealerMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEscalatedDealerMessage;
+
+        /// <summary>
+        /// txtEscalatedDealerRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEscalatedDealerRemarks;
+
+        /// <summary>
+        /// btnUpdateEscalatedDeale control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateEscalatedDeale;
+
+        /// <summary>
+        /// MPE_EscalatedDealer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender MPE_EscalatedDealer;
 
         /// <summary>
         /// lnkMPE control.

@@ -494,6 +494,7 @@ namespace Properties
         public PStatusItem Status { get; set; }
         public Boolean IsWarranty { get; set; }
         public string Location { get; set; }
+        public PUser RestoredBy { get; set; }
         public DateTime? RestoreDate { get; set; }
         public string RestoreRemarks { get; set; }
         public PDMS_Address Address { get; set; }
@@ -503,6 +504,8 @@ namespace Properties
         public PUser RegisteredBy { get; set; }
         public PUser EscalatedL1 { get; set; }
         public DateTime? EscalatedL1On { get; set; }
+        public string EscalatedRemarks { get; set; }
+        public string EscalatedDealerRemarks { get; set; }
 
     }
 }

@@ -42,32 +42,53 @@ namespace DealerManagementSystem.ViewService.UserControls
             if (lbActions.ID == "btnUpdateRestore")
             {
                 MPE_UpdateRestore.Show();
+                lblMessageRestore.ForeColor = Color.Red;
+                if (string.IsNullOrEmpty(txtRestoreRemarks.Text.Trim()))
+                {
+                    lblMessageRestore.Text = "Please enter the Remark";
+                    return;
+                }
                 PApiResult Results = new BDMS_ICTicket().UpdateOnlineServiceTicketStatus(Ticket.OnlineServiceTicketID, (short)StatusItem.OnlineServiceTicketStatus_Restored, txtRestoreRemarks.Text.Trim(), null);
                 if (Results.Status == PApplication.Failure)
                 {
-                    lblMessageRestore.Text = Results.Message;
-                    lblMessageRestore.ForeColor = Color.Red;
+                    lblMessageRestore.Text = Results.Message; 
                     return;
-                }
-                lblMessage.Text = "Updated successfully";
-                lblMessage.ForeColor = Color.Green;
-                FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
+                } 
                 MPE_UpdateRestore.Hide();
             }
             else if (lbActions.ID == "btnUpdateEscalatedL1")
             {
-                MPE_EscalatedL1.Show();
+                MPE_EscalatedL1.Show(); 
+                lblEscalatedL1Message.ForeColor = Color.Red;
+                if (string.IsNullOrEmpty(txtEscalatedL1Remark.Text.Trim()))
+                {
+                    lblEscalatedL1Message.Text = "Please enter the Remark";
+                    return;
+                }
                 PApiResult Results = new BDMS_ICTicket().UpdateOnlineServiceTicketStatus(Ticket.OnlineServiceTicketID, (short)StatusItem.OnlineServiceTicketStatus_EscalatedL1, txtEscalatedL1Remark.Text.Trim(), ddlAjaxEmployee.SelectedValue);
                 if (Results.Status == PApplication.Failure)
                 {
                     lblEscalatedL1Message.Text = Results.Message;
-                    lblEscalatedL1Message.ForeColor = Color.Red;
+                    return;
+                } 
+                MPE_EscalatedL1.Hide();
+            }
+            else if (lbActions.ID == "btnUpdateEscalatedDeale")
+            {
+                MPE_EscalatedDealer.Show();
+                lblEscalatedDealerMessage.ForeColor = Color.Red;
+                if (string.IsNullOrEmpty(lblEscalatedDealerRemarks.Text.Trim()))
+                {
+                    lblEscalatedDealerMessage.Text = "Please enter the Remark";
                     return;
                 }
-                lblMessage.Text = "Updated successfully";
-                lblMessage.ForeColor = Color.Green;
-                FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
-                MPE_EscalatedL1.Hide();
+                PApiResult Results = new BDMS_ICTicket().UpdateOnlineServiceTicketStatus(Ticket.OnlineServiceTicketID, (short)StatusItem.OnlineServiceTicketStatus_EscalatedDealer, lblEscalatedDealerRemarks.Text.Trim(), null);
+                if (Results.Status == PApplication.Failure)
+                {
+                    lblEscalatedDealerMessage.Text = Results.Message; 
+                    return;
+                }
+                MPE_EscalatedDealer.Hide();
             }
             else if (lbActions.ID == "btnUpdateCustomerSatisfactionLevel")
             {
@@ -78,12 +99,13 @@ namespace DealerManagementSystem.ViewService.UserControls
                     lblCustomerSatisfactionLevelMessage.Text = Results.Message;
                     lblCustomerSatisfactionLevelMessage.ForeColor = Color.Red;
                     return;
-                }
-                lblMessage.Text = "Updated successfully";
-                lblMessage.ForeColor = Color.Green;
-                FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
+                } 
                 MPE_CustomerSatisfactionLevelk.Hide();
             }
+
+            lblMessage.Text = "Updated successfully";
+            lblMessage.ForeColor = Color.Green;
+            FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
         }
         protected void lbActions_Click(object sender, EventArgs e)
         { 
@@ -103,16 +125,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             }
             else if (lbActions.ID == "lbtnEscalatedDealer")
             {
-                PApiResult Results = new BDMS_ICTicket().UpdateOnlineServiceTicketStatus(Ticket.OnlineServiceTicketID,(short)StatusItem.OnlineServiceTicketStatus_EscalatedDealer, null, null);
-                if (Results.Status == PApplication.Failure)
-                {
-                    lblMessage.Text = Results.Message;
-                    lblMessage.ForeColor = Color.Red;
-                    return;
-                }
-                lblMessage.Text = "Updated successfully";
-                lblMessage.ForeColor = Color.Green;
-                FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
+                MPE_EscalatedDealer.Show();
             }
             else if (lbActions.ID == "lbtnUpdateCustomerSatisfactionLevel")
             {
@@ -136,15 +149,21 @@ namespace DealerManagementSystem.ViewService.UserControls
             lblModel.Text = Ticket.Equipment.EquipmentModel.Model;
 
             lblSatisfactionLevel.Text = Ticket.CustomerSatisfactionLevel.CustomerSatisfactionLevel;
+
+            lblRestoreBy.Text =  Ticket.RestoredBy.ContactName;
             lblRestoreDate.Text = Convert.ToString(Ticket.RestoreDate);
             lblRestoreRemarks.Text = Ticket.RestoreRemarks;
-            lblRegisteredBy.Text = Ticket.RegisteredBy.ContactNumber;
+
+            lblRegisteredBy.Text = Ticket.RegisteredBy.ContactName;
             lblEscalatedL1.Text = Ticket.EscalatedL1 == null ? "" : Ticket.EscalatedL1.ContactName;
             lblEscalatedL1Date.Text = Convert.ToString(Ticket.EscalatedL1On);
-            lblRestoreBy.Text = Ticket.RegisteredBy.ContactName;
+            
             //  lblCallCategory.Text = "";
             lblPriority.Text = Ticket.ICPriority.ServicePriority;
             lblState.Text = Ticket.Address.State.State;
+
+            lblEscalatedL1Remarks.Text = Ticket.EscalatedRemarks;
+            lblEscalatedDealerRemarks.Text = Ticket.EscalatedDealerRemarks;
 
             //  CustomerViewSoldTo.fillCustomer(Ticket.Customer.CustomerID);
 

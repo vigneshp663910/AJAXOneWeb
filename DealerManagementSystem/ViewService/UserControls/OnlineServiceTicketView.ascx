@@ -121,11 +121,11 @@
         </div>
     </div>
 </div>
-<asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
-<br />
+
 <div class="col-md-12 field-margin-top">
+    <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message" />
     <fieldset class="fieldset-border">
-        <legend style="background: none; color: #007bff; font-size: 17px;">IC Ticket</legend>
+        <legend style="background: none; color: #007bff; font-size: 17px;">Online Ticket</legend>
         <div class="col-md-12 View">
             <div class="col-md-4">
                 <div class="col-md-12">
@@ -174,14 +174,8 @@
                     <label>RestoreRemarks : </label>
                     <asp:Label ID="lblRestoreRemarks" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>RegisteredBy : </label>
-                    <asp:Label ID="lblRegisteredBy" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-                <div class="col-md-12">
-                    <label>SatisfactionLevel : </label>
-                    <asp:Label ID="lblSatisfactionLevel" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
+               
+               
 
                 <div class="col-md-12">
                     <label>EscalatedL1 : </label>
@@ -191,15 +185,24 @@
                     <label>EscalatedL1 Date : </label>
                     <asp:Label ID="lblEscalatedL1Date" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-
+                <div class="col-md-12">
+                    <label>EscalatedL1 Remarks : </label>
+                    <asp:Label ID="lblEscalatedL1Remarks" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                 <div class="col-md-12">
+                    <label>Escalated Dealer Remarks : </label>
+                    <asp:Label ID="lblEscalatedDealerRemarks" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
             </div>
             <div class="col-md-4">
+                 <div class="col-md-12">
+                    <label>RegisteredBy : </label>
+                    <asp:Label ID="lblRegisteredBy" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
                 <div class="col-md-12">
                     <label>Contact Person Name & No : </label>
                     <asp:Label ID="lblContactPerson" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
-
-
+                </div> 
                 <div class="col-md-12">
                     <label>Status : </label>
                     <asp:Label ID="lblStatus" runat="server" CssClass="LabelValue"></asp:Label>
@@ -217,7 +220,11 @@
                     <label>Location : </label>
                     <asp:Label ID="lblLocation" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-              <%--  <div class="col-md-12">
+                 <div class="col-md-12">
+                    <label>SatisfactionLevel : </label>
+                    <asp:Label ID="lblSatisfactionLevel" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
+                <%--  <div class="col-md-12">
                     <label>Call Category : </label>
                     <asp:Label ID="lblCallCategory" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>--%>
@@ -242,7 +249,7 @@
 
 <asp:Panel ID="pnlUpdateRestore" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">IC Ticket Restoration</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Restore</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button9" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
@@ -251,7 +258,7 @@
             <fieldset class="fieldset-border" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-12 col-sm-12">
-                        <label class="modal-label">Customer Remarks</label>
+                        <label class="modal-label">Remarks</label>
                         <asp:TextBox ID="txtRestoreRemarks" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                     </div>
                 </div>
@@ -267,7 +274,7 @@
 
 <asp:Panel ID="pnlEscalatedL1" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Escalated L1</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Escalation To L1</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
@@ -276,7 +283,7 @@
             <fieldset class="fieldset-border" runat="server">
                 <div class="col-md-12">
                     <div class="col-md-12 col-sm-12">
-                        <label class="modal-label">Customer Remarks</label>
+                        <label class="modal-label">Remarks</label>
                         <asp:TextBox ID="txtEscalatedL1Remark" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                     </div>
                     <div class="col-md-6 col-sm-12">
@@ -298,7 +305,7 @@
 
 <asp:Panel ID="pnlCustomerFeedback" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Customer Feedback</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Customer Satisfaction</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button101" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
@@ -321,6 +328,30 @@
     </div>
 </asp:Panel>
 <ajaxToolkit:ModalPopupExtender ID="MPE_CustomerSatisfactionLevelk" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlCustomerFeedback" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
+
+<asp:Panel ID="pnlEscalatedDealer" runat="server" CssClass="Popup" Style="display: none">
+    <div class="PopupHeader clearfix">
+        <span id="PopupDialogue">Escalation To Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+            <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a>
+    </div>
+    <div class="col-md-12">
+        <div class="model-scroll">
+            <asp:Label ID="lblEscalatedDealerMessage" runat="server" Text="" CssClass="message" />
+            <fieldset class="fieldset-border" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12">
+                        <label class="modal-label">Remarks</label>
+                        <asp:TextBox ID="txtEscalatedDealerRemarks" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 text-center">
+            <asp:Button ID="btnUpdateEscalatedDeale" runat="server" Text="Save" CssClass="btn Save" OnClick="btnPopup_Click" />
+        </div>
+    </div>
+</asp:Panel>
+<ajaxToolkit:ModalPopupExtender ID="MPE_EscalatedDealer" runat="server" TargetControlID="lnkMPE" PopupControlID="pnlEscalatedDealer" BackgroundCssClass="modalBackground" CancelControlID="btnCancel" />
 
 <div style="display: none">
     <asp:LinkButton ID="lnkMPE" runat="server">MPE</asp:LinkButton><asp:Button ID="btnCancel" runat="server" Text="Cancel" />
