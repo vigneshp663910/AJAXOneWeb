@@ -351,6 +351,19 @@
             ShowProgress();
         });
     </script>
+
+    <script>
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("txtPassword");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
+
+
     <div>
         <form id="form1" runat="server">
             <asp:HiddenField ID="hfLatitude" runat="server" />
@@ -405,8 +418,11 @@
                                     <%-- <input type="text" name="username" id="txtusername" runat="server" placeholder="Username" required>--%>
                                 </div>
                                 <div>
-
-                                    <label><b>Password</b></label>
+                                    <label>
+                                        <b>Password</b></label>
+                                    <div style="float: right;">
+                                        <i class="fa fa-fw fa-eye font-white" style="color:gray" onclick="togglePasswordVisibility()"></i>
+                                    </div>
                                 </div>
                                 <div>
                                     <asp:TextBox ID="txtPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password" CssClass="form-control"></asp:TextBox>
