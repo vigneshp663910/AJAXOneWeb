@@ -35,7 +35,7 @@ namespace DealerManagementSystem.ViewChangeHistory
         {
             if (string.IsNullOrEmpty(txtCustomerCode.Text.Trim()))
             {
-                lblMessage.Text = "Please enter dealer code";
+                lblMessage.Text = "Please enter customer code";
                 lblMessage.ForeColor = Color.Red;
                 return;
             }
