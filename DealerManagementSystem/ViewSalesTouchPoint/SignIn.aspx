@@ -157,7 +157,7 @@
 
         /* Control the right side */
         .right {
-            right: 0;
+            right: 20px;
             width: 50%;
             padding: initial;
         }
@@ -243,7 +243,7 @@
                 margin: 0;
                 padding: initial;
                 position: absolute;
-                top: 40%;
+                /*top: 40%;*/
                 left: 10%;
                 -ms-transform: translateY(-50%);
                 transform: translateY(-50%);
@@ -466,7 +466,7 @@
                                     <label><b>Mobile Number</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter UserName..." PlaceHolder="UserName" CssClass="form-control" onchange="return IsNumbericOnlyCheck(this);"></asp:TextBox>
+                                    <asp:TextBox ID="txtUsername" runat="server" ToolTip="Enter Mobile Number..." PlaceHolder="Mobile Number" CssClass="form-control" onchange="return IsNumbericOnlyCheck(this);"></asp:TextBox>
                                 </div>
                                 <div>
                                     <label><b>Password</b></label>
@@ -550,7 +550,7 @@
                                     <label><b>Aadhaar Number</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtAadharNo" runat="server" ToolTip="Enter AadharNo..." PlaceHolder="AadharNo" AutoCompleteType="Disabled" MaxLength="12" onchange="return IsNumbericOnlyCheck(this);"></asp:TextBox>
+                                    <asp:TextBox ID="txtAadharNo" runat="server" ToolTip="Enter Aadhaar Number..." PlaceHolder="Aadhaar Number" AutoCompleteType="Disabled" MaxLength="12" onchange="return IsNumbericOnlyCheck(this);"></asp:TextBox>
                                 </div>
                                 <div>
                                     <label><b>Name</b></label>
@@ -562,7 +562,7 @@
                                     <label><b>Mobile Number</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtMobileNumber" runat="server" MaxLength="10" onchange="return IsNumbericOnlyCheck(this);" placeholder="Mobile Number" Width="205px" AutoCompleteType="Disabled"></asp:TextBox>
+                                    <asp:TextBox ID="txtMobileNumber" runat="server" MaxLength="10" onchange="return IsNumbericOnlyCheck(this);" placeholder="Mobile Number" Width="175px" AutoCompleteType="Disabled"></asp:TextBox>
                                     <asp:LinkButton ID="btnMobileVerify" runat="server" OnClick="btnMobileVerify_Click">Verify Mobile?</asp:LinkButton>
                                     <asp:Image ID="VerifyMobileOTP" runat="server" ImageUrl="~/Images/NotVerified.jpg" Width="30px" Height="30px"/>
                                 </div>
@@ -571,7 +571,7 @@
                                     <label><b>Email ID</b></label>
                                 </div>
                                 <div>
-                                    <asp:TextBox ID="txtEmail" runat="server" placeholder="Email ID" Width="205px" AutoCompleteType="Disabled"></asp:TextBox>
+                                    <asp:TextBox ID="txtEmail" runat="server" placeholder="Email ID" Width="175px" AutoCompleteType="Disabled"></asp:TextBox>
                                     <%--<asp:LinkButton ID="btnEmailVerify" runat="server" OnClick="btnEmailVerify_Click">Verify Email?</asp:LinkButton>
                                     <asp:Image ID="VerifyEmailOTP" runat="server" ImageUrl="~/Images/NotVerified.jpg" Width="30px" Height="30px"/>--%>
                                 </div>
@@ -582,7 +582,7 @@
                                     <asp:TextBox ID="txtRegPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password" AutoCompleteType="Disabled"></asp:TextBox>
                                 </div>
                                 <div>
-                                    <label><b>Conform Password</b></label>
+                                    <label><b>Confirm Password</b></label>
                                 </div>
                                 <div>
                                     <asp:TextBox ID="txtRegConfirmPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password" AutoCompleteType="Disabled"></asp:TextBox>
