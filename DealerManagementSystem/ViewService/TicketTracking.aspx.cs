@@ -74,8 +74,12 @@ namespace DealerManagementSystem.ViewService
             try
             {
                 TraceLogger.Log(DateTime.Now);
+                PWarrantyClaim_Filter Filter = new PWarrantyClaim_Filter(); 
+                Filter.ICTicketNumber = txtICTicket.Text.Trim();
 
-                List<PDMS_WarrantyInvoiceHeader> InvoiceHeaders = new BDMS_WarrantyClaim().GetWarrantyClaimReport(txtICTicket.Text.Trim(), null, null, "", null, null, "", null, null, null, "", "", "", false, PSession.User.UserID);
+                // List<PDMS_WarrantyInvoiceHeader> InvoiceHeaders = new BDMS_WarrantyClaim().GetWarrantyClaimReport(txtICTicket.Text.Trim(), null, null, "", null, null, "", null, null, null, "", "", "", false, PSession.User.UserID);
+                List<PDMS_WarrantyInvoiceHeader_New> InvoiceHeaders = new BDMS_WarrantyClaim().GetWarrantyClaimReport_New1(Filter);
+
                 gvClaimByClaimID.DataSource = InvoiceHeaders;
                 gvClaimByClaimID.DataBind();
 

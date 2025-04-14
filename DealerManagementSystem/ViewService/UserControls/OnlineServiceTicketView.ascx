@@ -348,7 +348,7 @@
             </fieldset>
         </div>
         <div class="col-md-12 text-center">
-            <asp:Button ID="btnUpdateEscalatedDeale" runat="server" Text="Save" CssClass="btn Save" OnClick="btnPopup_Click" />
+            <asp:Button ID="btnUpdateEscalatedDealer" runat="server" Text="Save" CssClass="btn Save" OnClick="btnPopup_Click" />
         </div>
     </div>
 </asp:Panel>

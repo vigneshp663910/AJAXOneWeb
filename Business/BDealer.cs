@@ -78,77 +78,7 @@ namespace Business
             { }
             return Dealers;
         }
-
-        public int insertOrUpdateL1SupportMapping(int DealerID, int CategoryID, int UserId, Boolean IsActive)
-        {
-            int success = 0;
-            DbParameter DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-            DbParameter CategoryIDP = provider.CreateParameter("CategoryID", CategoryID, DbType.Int32);
-            DbParameter UserIdP = provider.CreateParameter("UserId", UserId, DbType.Int32);
-            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Int32);
-
-            DbParameter[] Params = new DbParameter[4] { DealerIDP, CategoryIDP, UserIdP, IsActiveP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    success = provider.Insert("insertOrUpdateL1SupportMapping", Params);
-                    scope.Complete();
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return success;
-        }
-
-        public List<PL1SupportMapping> GetL1SupportMapping(int? DealerID, int? CategoryID)
-        {
-            List<PL1SupportMapping> L1SupportMappingS = new List<PL1SupportMapping>();
-            PL1SupportMapping L1SupportMapping = null;
-            DbParameter DealerIDP;
-            DbParameter CategoryIDP;
-
-            if (DealerID != null)
-                DealerIDP = provider.CreateParameter("DealerID", DealerID, DbType.Int32);
-            else
-                DealerIDP = provider.CreateParameter("DealerID", DBNull.Value, DbType.Int32);
-
-
-            if (CategoryID != null)
-                CategoryIDP = provider.CreateParameter("CategoryID", CategoryID, DbType.Int32);
-            else
-                CategoryIDP = provider.CreateParameter("CategoryID", DBNull.Value, DbType.Int32);
-
-            DbParameter[] Params = new DbParameter[2] { DealerIDP, CategoryIDP };
-            try
-            {
-                using (DataSet EmployeeDataSet = provider.Select("GetL1SupportMapping", Params))
-                {
-                    if (EmployeeDataSet != null)
-                    {
-                        foreach (DataRow Row in EmployeeDataSet.Tables[0].Rows)
-                        {
-                            L1SupportMapping = new PL1SupportMapping();
-                            L1SupportMapping.L1SupportUserMappingID = Row["L1SupportUserMappingID"] == DBNull.Value ? (int?)null : Convert.ToInt32(Row["L1SupportUserMappingID"]);
-                            L1SupportMapping.DealerID = Row["DealerID"] == DBNull.Value ? (int?)null : Convert.ToInt32(Row["DealerID"]);
-                            L1SupportMapping.CategoryID = Convert.ToInt32(Row["CategoryID"]);
-                            L1SupportMapping.UserId = Row["UserId"] == DBNull.Value ? (int?)null : Convert.ToInt32(Row["UserId"]);
-                            L1SupportMapping.IsActive = Row["IsActive"] == DBNull.Value ? false : Convert.ToBoolean(Row["IsActive"]);
-                            L1SupportMapping.Category = Convert.ToString(Convert.ToString(Row["Category"]));
-                            L1SupportMappingS.Add(L1SupportMapping);
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return L1SupportMappingS;
-        }
-
+         
         public List<PDealer> GetDealerByUserID(long UserID)
         {
             List<PDealer> Dealers = new List<PDealer>();

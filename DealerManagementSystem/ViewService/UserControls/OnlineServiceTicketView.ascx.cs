@@ -73,7 +73,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 } 
                 MPE_EscalatedL1.Hide();
             }
-            else if (lbActions.ID == "btnUpdateEscalatedDeale")
+            else if (lbActions.ID == "btnUpdateEscalatedDealer")
             {
                 MPE_EscalatedDealer.Show();
                 lblEscalatedDealerMessage.ForeColor = Color.Red;
@@ -112,6 +112,7 @@ namespace DealerManagementSystem.ViewService.UserControls
             LinkButton lbActions = ((LinkButton)sender);
             if (lbActions.ID == "lbtnRestore")
             {
+                txtRestoreRemarks.Text = "";
                 MPE_UpdateRestore.Show();
             }
             else if (lbActions.ID == "lbtnEscalatedL1")
@@ -119,12 +120,14 @@ namespace DealerManagementSystem.ViewService.UserControls
                 ddlAjaxEmployee.DataTextField = "ContactName";
                 ddlAjaxEmployee.DataValueField = "UserID";
                 ddlAjaxEmployee.DataSource = JsonConvert.DeserializeObject<List<PUser>>(JsonConvert.SerializeObject(new BDMS_ICTicket().GetUserForOnlineServiceTicketSupport().Data));;
-                ddlAjaxEmployee.DataBind(); 
+                ddlAjaxEmployee.DataBind();
 
+                txtEscalatedL1Remark.Text = "";
                 MPE_EscalatedL1.Show();
             }
             else if (lbActions.ID == "lbtnEscalatedDealer")
             {
+                txtEscalatedDealerRemarks.Text = "";
                 MPE_EscalatedDealer.Show();
             }
             else if (lbActions.ID == "lbtnUpdateCustomerSatisfactionLevel")

@@ -14,7 +14,7 @@ namespace DealerManagementSystem.ViewService
 {
     public partial class OnlineServiceTicket : BasePage
     {
-        public override SubModule SubModuleName { get { return SubModule.ViewService_ICTicket; } }
+        public override SubModule SubModuleName { get { return SubModule.ViewService_OnlineTicketManage; } }
         private int PageCount
         {
             get

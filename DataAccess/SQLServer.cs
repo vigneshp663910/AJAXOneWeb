@@ -107,28 +107,27 @@ namespace DataAccess
         /// <param name="parameters">DbParameter[]</param>
         /// <param name="timeOut">Int32</param>        
         /// <returns>DataSet</returns>
-        public DataSet Select(String storedProcedureName,
-            DbParameter[] parameters, Int32 timeOut)
-        {
-            DateTime traceStartTime = DateTime.Now;
-            DataSet selectedData = new DataSet();
-            try
-            {
-                selectedData = ExecuteDataset(storedProcedureName,
-                    CommandType.StoredProcedure, parameters, null, timeOut);
+        //public DataSet Select(String storedProcedureName,            DbParameter[] parameters, Int32 timeOut)
+        //{
+        //    DateTime traceStartTime = DateTime.Now;
+        //    DataSet selectedData = new DataSet();
+        //    try
+        //    {
+        //        selectedData = ExecuteDataset(storedProcedureName,
+        //            CommandType.StoredProcedure, parameters, null, timeOut);
 
-                //TraceLogger.Log(traceStartTime);
-                return selectedData;
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //        //TraceLogger.Log(traceStartTime);
+        //        return selectedData;
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        throw sqlEx;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
         
         /// <summary>
         /// This methods accepts stored procedure name and parameters as input
@@ -228,30 +227,6 @@ namespace DataAccess
             {
                 throw ex;
             }
-        } 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="storedProcedureName"></param>
-        /// <param name="parameters"></param>
-        /// <param name="errorMessage"></param>
-        /// <returns></returns>
-        public int Delete(string storedProcedureName, DbParameter[] parameters, Boolean outputValueRequired = false)
-        {
-            try
-            {
-                return ExecuteNonQuery(storedProcedureName, outputValueRequired,
-                    CommandType.StoredProcedure, parameters);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
 
         /// <summary>
@@ -261,8 +236,31 @@ namespace DataAccess
         /// <param name="parameters"></param>
         /// <param name="errorMessage"></param>
         /// <returns></returns>
-        public object GetScalar(string storedProcedureName,
-            DbParameter[] parameters)
+        //public int Delete(string storedProcedureName, DbParameter[] parameters, Boolean outputValueRequired = false)
+        //{
+        //    try
+        //    {
+        //        return ExecuteNonQuery(storedProcedureName, outputValueRequired,
+        //            CommandType.StoredProcedure, parameters);
+        //    }
+        //    catch (SqlException sqlEx)
+        //    {
+        //        throw sqlEx;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="storedProcedureName"></param>
+        /// <param name="parameters"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
+        public object GetScalar(string storedProcedureName, DbParameter[] parameters)
         {
             try
             {

@@ -456,13 +456,13 @@ namespace DealerManagementSystem.ViewService.UserControls
         protected global::System.Web.UI.WebControls.TextBox txtEscalatedDealerRemarks;
 
         /// <summary>
-        /// btnUpdateEscalatedDeale control.
+        /// btnUpdateEscalatedDealer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdateEscalatedDeale;
+        protected global::System.Web.UI.WebControls.Button btnUpdateEscalatedDealer;
 
         /// <summary>
         /// MPE_EscalatedDealer control.
