@@ -311,34 +311,7 @@ namespace Business
             { }
             return Technicians;
         }
-
-        public List<PUser> GetTechniciansAll()
-        {
-            List<PUser> Technicians = new List<PUser>();
-            try
-            {
-                using (DataSet DataSet = provider.Select("ZDMS_GetTechniciansAll"))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            Technicians.Add(new PUser()
-                            {
-                                UserID = Convert.ToInt32(dr["UserID"]),
-                                ContactName = Convert.ToString(dr["ContactName"]),
-                                UserName = Convert.ToString(dr["UserName"])
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            return Technicians;
-        }
+         
 
         public List<PDMS_MainApplication> GetMainApplication(int? MainApplicationID, string MainApplication)
         {

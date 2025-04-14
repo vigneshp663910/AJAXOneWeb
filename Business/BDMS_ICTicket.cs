@@ -1267,11 +1267,11 @@ namespace Business
             }
             return Ws;
         }
-        public PApiResult GetOnlineServiceTicket(long? OnlineServiceTicketID, string CustomerCode, string ICTicketNumber, string DateF, string DateT, int? StatusID, string Division, int Excel, int? PageIndex = null, int? PageSize = null)
+        public PApiResult GetOnlineServiceTicket(long? OnlineServiceTicketID, string CustomerCode, string ICTicketNumber, string DateF, string DateT, int? StatusID, string Division, long? EquipmentHeaderID, int Excel, int? PageIndex = null, int? PageSize = null)
         {
             string endPoint = "ICTicket/GetOnlineServiceTicket?OnlineServiceTicketID=" + OnlineServiceTicketID + "&CustomerCode=" + CustomerCode
                 + "&ICTicketNumber=" + ICTicketNumber + "&ICTicketDateF=" + DateF + "&ICTicketDateT=" + DateT + "&StatusID=" + StatusID
-                + "&Division=" + Division + "&Excel=" + Excel + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
+                + "&Division=" + Division + "&EquipmentHeaderID=" + EquipmentHeaderID + "&Excel=" + Excel + "&PageIndex=" + PageIndex + "&PageSize=" + PageSize;
             return JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiGet(endPoint));
         }
         public PApiResult UpdateOnlineServiceTicketStatus(long OnlineServiceTicketID, int StatusID, string Remarks, string EmployeeUserID)

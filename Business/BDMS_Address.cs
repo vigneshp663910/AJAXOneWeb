@@ -203,108 +203,7 @@ namespace Business
             catch (Exception ex)
             { }
         }
-        
-        //public void GetTehsil(DropDownList ddl, int? TehsilID,int? CountryID,int? StateID, int? DistrictID, string Tehsil)
-        //{
-        //    List<PDMS_Tehsil> MML = new List<PDMS_Tehsil>();
-        //    try
-        //    {
-        //        DbParameter TehsilIDP = provider.CreateParameter("TehsilID", TehsilID, DbType.Int32);
-        //        DbParameter CountryIDP = provider.CreateParameter("CountryID", CountryID, DbType.Int32);
-        //        DbParameter StateIDP = provider.CreateParameter("StateID", StateID, DbType.Int32);
-        //        DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
-        //        DbParameter TehsilP = provider.CreateParameter("Tehsil", string.IsNullOrEmpty(Tehsil) ? null : Tehsil, DbType.String);
-
-        //        DbParameter[] Params = new DbParameter[5] { TehsilIDP, CountryIDP, StateIDP, DistrictIDP, TehsilP };
-        //        using (DataSet DataSet = provider.Select("ZDMS_GetTehsil", Params))
-        //        {
-        //            if (DataSet != null)
-        //            {
-        //                foreach (DataRow dr in DataSet.Tables[0].Rows)
-        //                {
-        //                    MML.Add(new PDMS_Tehsil()
-        //                    {
-        //                        TehsilID = Convert.ToInt32(dr["TehsilID"]),
-        //                        Tehsil = Convert.ToString(dr["Tehsil"])
-        //                    });
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (SqlException sqlEx)
-        //    { }
-        //    catch (Exception ex)
-        //    { }
-        //    ddl.DataValueField = "TehsilID";
-        //    ddl.DataTextField = "Tehsil";
-        //    ddl.DataSource = MML;
-        //    ddl.DataBind();
-        //    ddl.Items.Insert(0, new ListItem("Select", "0"));
-        //}
-        public void GetVillage(DropDownList ddl, int? VillageID, int? TehsilID, string Village)
-        {
-            List<PDMS_Village> MML = new List<PDMS_Village>();
-            try
-            {
-                DbParameter VillageIDP = provider.CreateParameter("VillageID", VillageID, DbType.Int32);
-                DbParameter TehsilIDP = provider.CreateParameter("TehsilID", TehsilID, DbType.Int32);
-                DbParameter VillageP = provider.CreateParameter("Village", string.IsNullOrEmpty(Village) ? null : Village, DbType.String);
-
-                DbParameter[] Params = new DbParameter[3] { VillageIDP, TehsilIDP, VillageP };
-                using (DataSet DataSet = provider.Select("ZDMS_GetVillage", Params))
-                {
-                    if (DataSet != null)
-                    {
-                        foreach (DataRow dr in DataSet.Tables[0].Rows)
-                        {
-                            MML.Add(new PDMS_Village()
-                            {
-                                VillageID = Convert.ToInt32(dr["VillageID"]),
-                                Village = Convert.ToString(dr["Village"])
-                            });
-                        }
-                    }
-                }
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-            ddl.DataValueField = "DistrictID";
-            ddl.DataTextField = "District";
-            ddl.DataSource = MML;
-            ddl.DataBind();
-            ddl.Items.Insert(0, new ListItem("Select", "0"));
-        }
-        public Boolean InsertOrUpdateAddressTehsil(int? TehsilID,int? DistrictID, string Tehsil, Boolean IsActive, int UserID)
-        {
-            TraceLogger.Log(DateTime.Now);
-            DbParameter TehsilIDP = provider.CreateParameter("TehsilID", TehsilID, DbType.Int32);
-            DbParameter DistrictIDP = provider.CreateParameter("DistrictID", DistrictID, DbType.Int32);
-            DbParameter TehsilP = provider.CreateParameter("Tehsil", Tehsil, DbType.String);
-            DbParameter IsActiveP = provider.CreateParameter("IsActive", IsActive, DbType.Boolean);
-            DbParameter UserIDP = provider.CreateParameter("UserID", UserID, DbType.Int32);
-            DbParameter[] Params = new DbParameter[5] { TehsilIDP,DistrictIDP, TehsilP, IsActiveP, UserIDP };
-            try
-            {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew))
-                {
-                    provider.Insert("ZDMS_InsertOrUpdateAddressTehsil", Params);
-                    scope.Complete();
-                }
-                return true;
-            }
-            catch (SqlException sqlEx)
-            {
-                new FileLogger().LogMessage("BDMS_Address", "ZDMS_InsertOrUpdateAddressTehsil", sqlEx);
-            }
-            catch (Exception ex)
-            {
-                new FileLogger().LogMessage("BDMS_Address", " ZDMS_InsertOrUpdateAddressTehsil", ex);
-            }
-            TraceLogger.Log(DateTime.Now);
-            return false;
-        }
+          
 
         public List<PCurrency> GetCurrency(int? CurrencyID, string Currency)
         {
@@ -336,23 +235,7 @@ namespace Business
             { }
             return MML;
         }
-
-        public void GetSalesOrganization(DropDownList ddl, int? CountryID, string Country)
-        {
-            try
-            {
-                List<PDMS_Country> MML = GetCountry(CountryID, Country);
-                ddl.DataValueField = "SalesOrganization";
-                ddl.DataTextField = "SalesOrganization";
-                ddl.DataSource = MML.Distinct();
-                ddl.DataBind();
-                ddl.Items.Insert(0, new ListItem("Select Sales Organization", "0"));
-            }
-            catch (SqlException sqlEx)
-            { }
-            catch (Exception ex)
-            { }
-        }
+         
         public List<PSalesOffice> GetSalesOffice(int? SalesOfficeID, string SalesOffice)
         {
             List<PSalesOffice> MML = new List<PSalesOffice>();
