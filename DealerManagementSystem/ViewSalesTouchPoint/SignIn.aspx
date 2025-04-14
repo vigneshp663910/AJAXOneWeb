@@ -582,7 +582,7 @@
                                     <asp:TextBox ID="txtRegPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password" AutoCompleteType="Disabled"></asp:TextBox>
                                 </div>
                                 <div>
-                                    <label><b>Conform Password</b></label>
+                                    <label><b>Confirm Password</b></label>
                                 </div>
                                 <div>
                                     <asp:TextBox ID="txtRegConfirmPassword" runat="server" ToolTip="Enter Password..." PlaceHolder="Password" TextMode="Password" AutoCompleteType="Disabled"></asp:TextBox>

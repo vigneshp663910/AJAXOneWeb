@@ -328,32 +328,32 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
 
             if (txtAadharNo.Text.Length!=12)
             {
-                Message = "Please enter Valid AadharNo";
+                Message = "Please enter Valid aadhar number.";
                 Ret = false;
                 txtAadharNo.BorderColor = Color.Red;
             }
             if (string.IsNullOrEmpty(txtName.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the name";
+                Message = Message + "<br/>Please enter the name.";
                 Ret = false;
                 txtName.BorderColor = Color.Red;
             }
             if (string.IsNullOrEmpty(txtMobileNumber.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the mobile number";
+                Message = Message + "<br/>Please enter the mobile number.";
                 Ret = false;
                 txtMobileNumber.BorderColor = Color.Red;
             }
-            if (txtMobileNumber.Text.Trim().Count() != 10)
+            else if(txtMobileNumber.Text.Trim().Count() != 10)
             {
-                Message = Message + "<br/>Please check the mobile number";
+                Message = Message + "<br/>Please check the mobile number.";
                 Ret = false;
                 txtMobileNumber.BorderColor = Color.Red;
             }
 
             if (string.IsNullOrEmpty(txtEmail.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the Email";
+                Message = Message + "<br/>Please enter the email";
                 Ret = false;
                 txtEmail.BorderColor = Color.Red;
             }
@@ -368,13 +368,13 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             Match match = regex.Match(email);
             if (!match.Success)
             {
-                Message = Message + "<br/>" + email + " is not correct";
+                Message = Message + "<br/>" + email + " is not correct.";
                 Ret = false;
                 txtEmail.BorderColor = Color.Red;
             }
             if (MobileOTP != "Verified")
             {
-                Message = Message + "<br/>Please verify mobile";
+                Message = Message + "<br/>Please verify mobile.";
                 Ret = false;
                 txtMobileNumber.BorderColor = Color.Red;
             }
@@ -386,33 +386,33 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             //}
             if (string.IsNullOrEmpty(txtRegPassword.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the password";
+                Message = Message + "<br/>Please enter the password.";
                 Ret = false;
                 txtRegPassword.BorderColor = Color.Red;
             }
             if (string.IsNullOrEmpty(txtRegPassword.Text.Trim()) != string.IsNullOrEmpty(txtRegConfirmPassword.Text.Trim()))
             {
-                Message = Message + "<br/>Mismatch the confirm password";
+                Message = Message + "<br/>Mismatch the confirm password.";
                 Ret = false;
                 txtRegPassword.BorderColor = Color.Red;
                 txtRegConfirmPassword.BorderColor = Color.Red;
             }
             if (string.IsNullOrEmpty(txtAddress1.Text.Trim()))
             {
-                Message = Message + "<br/>Please enter the address1";
+                Message = Message + "<br/>Please enter the address1.";
                 Ret = false;
                 txtAddress1.BorderColor = Color.Red;
             }
             if (ddlState.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select state";
+                Message = Message + "<br/>Please select state.";
                 Ret = false;
                 ddlState.BorderColor = Color.Red;
             }
 
             if (ddlDistrict.SelectedValue == "0")
             {
-                Message = Message + "<br/>Please select district";
+                Message = Message + "<br/>Please select district.";
                 Ret = false;
                 ddlDistrict.BorderColor = Color.Red;
             }
@@ -420,7 +420,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             PSalesTouchPointUser User = new BSalesTouchPoint().GetSalesTouchPointUser(txtMobileNumber.Text.Trim(), null);
             if (User != null)
             {
-                Message = Message + "<br/>User already available";
+                Message = Message + "<br/>User already available.";
                 Ret = false;
                 txtMobileNumber.BorderColor = Color.Red;
             }
@@ -434,12 +434,12 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
 
             if (string.IsNullOrEmpty(txtUsername.Text))
             {
-                lblMessage.Text = "Please enter username...!";
+                lblMessage.Text = "Please enter mobile number.";
                 return;
             }
             if (string.IsNullOrEmpty(txtPassword.Text))
             {
-                lblMessage.Text = "Please enter password...!";
+                lblMessage.Text = "Please enter password.";
                 return;
             }
 
@@ -500,7 +500,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             }
             else
             {
-                lblMessage.Text = "Invalid Username and Password...!";
+                lblMessage.Text = "Invalid mobile number and password.";
                 return;
             }
         }
@@ -511,7 +511,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             lblMessage.ForeColor = Color.Red;
             if (string.IsNullOrEmpty(txtUsername.Text))
             {
-                lblMessage.Text = "Please Enter UserName...!";
+                lblMessage.Text = "Please enter mobile number.";
                 return;
             }
             PSalesTouchPointUser_Insert UpdateUser = FillUser(txtUsername.Text);
@@ -520,7 +520,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             {
                 if (UpdateUser.IsLocked)
                 {
-                    lblMessage.Text = "Your ID is Locked. Please contact Admin";
+                    lblMessage.Text = "Your ID is Locked. Please contact Admin.";
                     return;
                 }
 
@@ -531,7 +531,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
                     PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesTouchPointUser", UpdateUser));
                     RemoveLoginAttemptsFromViewState();
 
-                    lblMessage.Text = "Your ID is Locked. Please contact Admin";
+                    lblMessage.Text = "Your ID is Locked. Please contact Admin.";
                     OtpCount = 0;
                     return;
                 }
@@ -556,7 +556,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
                 }
                 else
                 {
-                    lblMessage.Text = "Invalid UserName...!";
+                    lblMessage.Text = "Invalid mobile number.";
                 }
                 SalesTouchPointUserID = UpdateUser.SalesTouchPointUserID;
                 FldVerifyEmailOTP.Visible = false;
@@ -570,7 +570,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             }
             else
             {
-                lblMessage.Text = "Invalid UserName...!";
+                lblMessage.Text = "Invalid Mobile Number.";
                 return;
             }
         }
@@ -659,12 +659,12 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             else
             {
                 OtpCount = OtpCount + 1;
-                lblMessage.Text = "Your OTP is not Matching";
+                lblMessage.Text = "Invalid OTP.";
                 if (OtpCount > 4)
                 {
                     LockUser(txtUsername.Text);
                     OtpCount = 0;
-                    lblMessage.Text = "Your ID is Locked. Please contact Admin";
+                    lblMessage.Text = "Your ID is Locked. Please contact Admin.";
                 }
                 return;
             }
@@ -677,26 +677,36 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
             {
                 if (string.IsNullOrEmpty(txtOTP.Text))
                 {
-                    lblMessage.Text = "Please Enter OTP...!";
+                    lblMessage.Text = "Please enter OTP.";
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtRNewPassword.Text))
+                {
+                    lblMessage.Text = "Please enter new password.";
+                    return;
+                }
+                if (string.IsNullOrEmpty(txtRRetypePassword.Text))
+                {
+                    lblMessage.Text = "Please enter retype password.";
                     return;
                 }
                 if (txtRNewPassword.Text.ToUpper().Contains("AJAX@123"))
                 {
-                    lblMessage.Text = "Please Provide Another Password...!";
+                    lblMessage.Text = "Please provide another password.";
                     return;
                 }
                 if (SalesTouchPointUserID != 0)
                 {
                     PSalesTouchPointUser_Insert UpdateUser = FillUser(txtUsername.Text);
-                    UpdateUser.ModifiedBy = PSession_STP.SalesTouchPointUser.SalesTouchPointUserID;
+                    UpdateUser.ModifiedBy = UpdateUser.SalesTouchPointUserID;
                     if (UpdateUser.IsLocked)
                     {
-                        lblMessage.Text = "Your ID is Locked. Please contact Admin";
+                        lblMessage.Text = "Your ID is Locked. Please contact Admin.";
                         return;
                     }
                     if (ResetOTP != "Verified")
                     {
-                        lblMessage.Text = "Please Verify Email/Mobile?";
+                        lblMessage.Text = "Please verify email/mobile OTP.";
                         return;
                     }
                     if (new BSalesTouchPoint().ValidateChangePassword(UpdateUser, txtOTP.Text.Trim(), txtRNewPassword.Text.Trim(), txtRRetypePassword.Text, "Reset") == true)
@@ -711,7 +721,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
                     }
                     else
                     {
-                        lblMessage.Text = "Your Password is not changed successfully, please try again...!";
+                        lblMessage.Text = "Your Password is not changed successfully, please try again.";
                         return;
                     }
                 }
@@ -731,7 +741,7 @@ namespace DealerManagementSystem.ViewSalesTouchPoint
                 PSalesTouchPointUser_Insert UpdateUser = FillUser(txtUsername.Text);
                 if (new BSalesTouchPoint().ValidateChangePassword(UpdateUser, txtOldPassword.Text.Trim(), txtNewPassword.Text.Trim(), txtRetypePassword.Text, "Change") == true)
                 {
-                    UpdateUser.ModifiedBy = PSession_STP.SalesTouchPointUser.SalesTouchPointUserID;
+                    UpdateUser.ModifiedBy = UpdateUser.SalesTouchPointUserID;
                     UpdateUser.Password = LMSHelper.EncodeString(txtRetypePassword.Text);
                     UpdateUser.PasswordExpirationDate = DateTime.Now.AddMonths(3);
                     PApiResult Result = JsonConvert.DeserializeObject<PApiResult>(new BAPI().ApiPut("SalesTouchPointUser", UpdateUser));
