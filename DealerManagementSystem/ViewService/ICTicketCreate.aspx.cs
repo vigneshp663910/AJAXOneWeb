@@ -167,28 +167,14 @@ namespace DealerManagementSystem.ViewService
 
         [WebMethod]
         public static string GetCustomer(string CustS)
-        {
-            //  List<string> Emp = new List<string>();
-            //  List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 0);
-            //int i = 0;
-            //foreach (PDMS_Customer cust in Customer)
-            //{
-            //    i = i + 1; 
-            //    string div = "<label id='lblCustomerID" + i + "' style='display: none'>" + cust.CustomerID + "</label>"
-            //        + "<p><label id='lblCustomerName" + i + "'>" + cust.CustomerName + "</label><span>" + cust.CustomerType + "</span></p>"
-
-            //        + "<div class='customer-info'><label id='lblContactPerson" + i + "'>" + cust.ContactPerson + "</label>"
-            //        + "<label id='lblMobile" + i + "'>" + cust.Mobile + "</label></div>";
-            //    Emp.Add(div); 
-            // }
-
+        { 
             List<PDMS_Customer> Customer = new BDMS_Customer().GetCustomerAutocomplete(CustS, 0);
             return JsonConvert.SerializeObject(Customer);
         }
 
         string Validation()
         {
-           
+            
             txtContactNumber.BorderColor = Color.Silver;
             txtContactPerson.BorderColor = Color.Silver;
             txtComplaintDescription.BorderColor = Color.Silver;
@@ -199,6 +185,8 @@ namespace DealerManagementSystem.ViewService
             ddlServicePriority.BorderColor = Color.Silver;
             ddlState.BorderColor = Color.Silver;
             ddlDistrict.BorderColor = Color.Silver;
+            txtLocation.BorderColor = Color.Silver;
+
             if (string.IsNullOrEmpty(txtContactNumber.Text.Trim()))
             {
                 txtContactNumber.BorderColor = Color.Red;
@@ -208,7 +196,7 @@ namespace DealerManagementSystem.ViewService
             if (!long.TryParse("0" + txtContactNumber.Text, out value))
             {
                 txtContactNumber.BorderColor = Color.Red;
-                return "Please enter valid Mobile number";
+                return "Please enter valid Contact number.";
             }
             if (string.IsNullOrEmpty(txtContactPerson.Text.Trim()))
             {
@@ -218,9 +206,13 @@ namespace DealerManagementSystem.ViewService
             if (string.IsNullOrEmpty(txtComplaintDescription.Text.Trim()))
             {
                 txtComplaintDescription.BorderColor = Color.Red;
-                return "Please enter the Complaint Description";
+                return "Please enter the Complaint Description.";
             }
-
+            if (string.IsNullOrEmpty(txtLocation.Text.Trim()))
+            {
+                txtLocation.BorderColor = Color.Red;
+                return "Please enter the Location.";
+            }
             //if (string.IsNullOrEmpty(txtRequestedDate.Text.Trim()))
             //{
             //    txtRequestedDate.BorderColor = Color.Red;

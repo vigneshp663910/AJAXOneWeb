@@ -71,7 +71,7 @@
             </tr>
               <tr>
                 <td>
-                    <asp:Button ID="btnSqlJob" runat="server" Text="Sql Job" OnClick="btnSqlJob_Click" />
+                    <asp:Button ID="btnInsertDealerStockAgeing" runat="server" Text="Insert Dealer Stock Ageing" OnClick="btnInsertDealerStockAgeing_Click" />
                 </td>
             </tr>
         </table>

@@ -114,8 +114,8 @@
             <div class="dropdown-content" style="font-size: small; margin-left: -105px; overflow-x: auto; max-height: 300px">
                 <%--  <asp:LinkButton ID="lbtnEditCallInformation" runat="server" OnClick="lbActions_Click">Edit Call Information</asp:LinkButton> --%>
                 <asp:LinkButton ID="lbtnRestore" runat="server" OnClick="lbActions_Click">Restore</asp:LinkButton>
-                <asp:LinkButton ID="lbtnEscalatedL1" runat="server" OnClick="lbActions_Click">Escalated to L1</asp:LinkButton>
-                <asp:LinkButton ID="lbtnEscalatedDealer" runat="server" OnClick="lbActions_Click">Escalated to Dealer</asp:LinkButton>
+                <asp:LinkButton ID="lbtnEscalatedL1" runat="server" OnClick="lbActions_Click">Escalate to L1</asp:LinkButton>
+                <asp:LinkButton ID="lbtnEscalatedDealer" runat="server" OnClick="lbActions_Click">Escalate to Dealer</asp:LinkButton>
                 <asp:LinkButton ID="lbtnUpdateCustomerSatisfactionLevel" runat="server" OnClick="lbActions_Click">Update Customer Satisfaction Level</asp:LinkButton>
             </div>
         </div>
@@ -129,7 +129,7 @@
         <div class="col-md-12 View">
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>IC Ticket : </label>
+                    <label>Ticket : </label>
                     <asp:Label ID="lblTicket" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
 
@@ -141,14 +141,15 @@
                     <label>Customer : </label>
                     <asp:Label ID="lblCustomer" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
+                 <div class="col-md-12">
+                    <label>Model : </label>
+                    <asp:Label ID="lblModel" runat="server" CssClass="LabelValue"></asp:Label>
+                </div>
                 <div class="col-md-12">
                     <label>Equipment : </label>
                     <asp:Label ID="lblEquipment" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
-                <div class="col-md-12">
-                    <label>Model : </label>
-                    <asp:Label ID="lblModel" runat="server" CssClass="LabelValue"></asp:Label>
-                </div>
+               
                 <div class="col-md-12">
                     <label>Warranty : </label>
                     <asp:CheckBox ID="cbIsWarranty" runat="server" Enabled="false" />
@@ -167,26 +168,26 @@
                     <asp:Label ID="lblRestoreBy" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>RestoreDate : </label>
+                    <label>Restore Date : </label>
                     <asp:Label ID="lblRestoreDate" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>RestoreRemarks : </label>
+                    <label>Restore Remarks : </label>
                     <asp:Label ID="lblRestoreRemarks" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                
                
 
                 <div class="col-md-12">
-                    <label>EscalatedL1 : </label>
+                    <label>Escalated L1 : </label>
                     <asp:Label ID="lblEscalatedL1" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>EscalatedL1 Date : </label>
+                    <label>Escalated L1 Date : </label>
                     <asp:Label ID="lblEscalatedL1Date" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
-                    <label>EscalatedL1 Remarks : </label>
+                    <label>Escalated L1 Remarks : </label>
                     <asp:Label ID="lblEscalatedL1Remarks" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                  <div class="col-md-12">
@@ -196,7 +197,7 @@
             </div>
             <div class="col-md-4">
                  <div class="col-md-12">
-                    <label>RegisteredBy : </label>
+                    <label>Registered By : </label>
                     <asp:Label ID="lblRegisteredBy" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <div class="col-md-12">
@@ -221,7 +222,7 @@
                     <asp:Label ID="lblLocation" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                  <div class="col-md-12">
-                    <label>SatisfactionLevel : </label>
+                    <label>Satisfaction Level : </label>
                     <asp:Label ID="lblSatisfactionLevel" runat="server" CssClass="LabelValue"></asp:Label>
                 </div>
                 <%--  <div class="col-md-12">
@@ -274,7 +275,7 @@
 
 <asp:Panel ID="pnlEscalatedL1" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Escalation To L1</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Escalate to L1</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button1" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">
@@ -331,7 +332,7 @@
 
 <asp:Panel ID="pnlEscalatedDealer" runat="server" CssClass="Popup" Style="display: none">
     <div class="PopupHeader clearfix">
-        <span id="PopupDialogue">Escalation To Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
+        <span id="PopupDialogue">Escalate to Dealer</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button">
             <asp:Button ID="Button2" runat="server" Text="X" CssClass="PopupClose" /></a>
     </div>
     <div class="col-md-12">

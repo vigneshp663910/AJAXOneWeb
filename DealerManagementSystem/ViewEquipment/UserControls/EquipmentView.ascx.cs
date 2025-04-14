@@ -127,10 +127,16 @@ namespace DealerManagementSystem.ViewEquipment.UserControls
             //fillWarrantyExpiryDateChangeSupportDocument();
             fillSupportDocument();
             fillChangeRequestHistory();
+
+
              
             List<PDMS_ICTicket> Equ = new BDMS_ICTicket().GetICTicketByEquipmentSerialNo(EquipmentHeaderID);
             gvICTicket.DataSource = Equ;
             gvICTicket.DataBind();
+
+            PApiResult Result = new BDMS_ICTicket().GetOnlineServiceTicket(null, null, null, null, null, null, null, EquipmentHeaderID, 0); 
+            gvOnlineTickets.DataSource = JsonConvert.DeserializeObject<List<POnlineServiceTicket>>(JsonConvert.SerializeObject(Result.Data));
+            gvOnlineTickets.DataBind(); 
         }
         //void fillEquipmentService()
         //{

@@ -77,12 +77,12 @@ namespace DealerManagementSystem.ViewService.UserControls
             {
                 MPE_EscalatedDealer.Show();
                 lblEscalatedDealerMessage.ForeColor = Color.Red;
-                if (string.IsNullOrEmpty(lblEscalatedDealerRemarks.Text.Trim()))
+                if (string.IsNullOrEmpty(txtEscalatedDealerRemarks.Text.Trim()))
                 {
                     lblEscalatedDealerMessage.Text = "Please enter the Remark";
                     return;
                 }
-                PApiResult Results = new BDMS_ICTicket().UpdateOnlineServiceTicketStatus(Ticket.OnlineServiceTicketID, (short)StatusItem.OnlineServiceTicketStatus_EscalatedDealer, lblEscalatedDealerRemarks.Text.Trim(), null);
+                PApiResult Results = new BDMS_ICTicket().UpdateOnlineServiceTicketStatus(Ticket.OnlineServiceTicketID, (short)StatusItem.OnlineServiceTicketStatus_EscalatedDealer, txtEscalatedDealerRemarks.Text.Trim(), null);
                 if (Results.Status == PApplication.Failure)
                 {
                     lblEscalatedDealerMessage.Text = Results.Message; 
@@ -103,7 +103,7 @@ namespace DealerManagementSystem.ViewService.UserControls
                 MPE_CustomerSatisfactionLevelk.Hide();
             }
 
-            lblMessage.Text = "Updated successfully";
+            lblMessage.Text = "Your request has been successfully processed.";
             lblMessage.ForeColor = Color.Green;
             FillOnlineServiceTicket(Ticket.OnlineServiceTicketID);
         }
@@ -135,9 +135,9 @@ namespace DealerManagementSystem.ViewService.UserControls
         }
         public void FillOnlineServiceTicket(long ICTicketID)
         {
-            PApiResult Result = new BDMS_ICTicket().GetOnlineServiceTicket(ICTicketID, null, null, null, null, null, null, 0);
+            PApiResult Result = new BDMS_ICTicket().GetOnlineServiceTicket(ICTicketID, null, null, null, null, null,null, null, 0);
             Ticket = JsonConvert.DeserializeObject<List<POnlineServiceTicket>>(JsonConvert.SerializeObject(Result.Data))[0];
-            lblTicket.Text = Ticket.OnlineTicketNumber;
+            lblTicket.Text = Ticket.OnlineTicketNumber + " - "+ Convert.ToString(Ticket.OnlineTicketDate); 
             lblDistrict.Text = Ticket.Address.District.District;
             lblLocation.Text = Ticket.Location;
             lblComplaintDescription.Text = Ticket.ComplaintDescription;
@@ -217,11 +217,22 @@ namespace DealerManagementSystem.ViewService.UserControls
                 lbtnUpdateCustomerSatisfactionLevel.Visible = false; 
             }
 
-            //List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
-            //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.RequestForDecline).Count() == 0)
-            //{
-            //    lbtnRequestForDecline.Visible = false;
-            //}
+            List<PSubModuleChild> SubModuleChild = PSession.User.SubModuleChild;
+            if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.OnlineTicketAdmin).Count() == 1)
+            {
+                if ((Ticket.Status.StatusItemID == (short)StatusItem.OnlineServiceTicketStatus_Requested))
+                {
+                    lbtnRestore.Visible = true;
+                    lbtnEscalatedL1.Visible = true;
+                    lbtnEscalatedDealer.Visible = true;
+                    lbtnUpdateCustomerSatisfactionLevel.Visible = true;
+                }
+                else if ((Ticket.Status.StatusItemID == (short)StatusItem.OnlineServiceTicketStatus_EscalatedL1))
+                {
+                    lbtnRestore.Visible = true;
+                    lbtnEscalatedDealer.Visible = true;
+                }
+            }
             //if (SubModuleChild.Where(A => A.SubModuleChildID == (short)SubModuleChildMaster.MarginWarrantyRequest).Count() == 0)
             //{
             //    lbtnMarginWarrantyRequest.Visible = false;

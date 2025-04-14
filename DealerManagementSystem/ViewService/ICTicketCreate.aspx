@@ -326,8 +326,8 @@
                  <div class="col-md-6 col-sm-12" style="display:block">
                     <label class="modal-label">Type of Call<samp style="color: red">*</samp></label>
                     <asp:DropDownList ID="ddlTypeOfCall" runat="server" CssClass="form-control" >
-                        <asp:ListItem Value="0">Off line</asp:ListItem>
-                        <asp:ListItem Value="1">On Line</asp:ListItem>
+                        <asp:ListItem Value="0">Offline</asp:ListItem>
+                        <asp:ListItem Value="1">Online</asp:ListItem>
                      </asp:DropDownList>
                 </div>
                 <div class="col-md-6 col-sm-12">

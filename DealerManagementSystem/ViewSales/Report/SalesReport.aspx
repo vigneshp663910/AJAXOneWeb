@@ -70,7 +70,7 @@
                             <div style="float: left">
                                 <table>
                                     <tr>
-                                        <td>Sale Order Invoice : </td>
+                                        <td>Sales Report : </td>
                                         <td>
                                             <asp:Label ID="lblRowCount" runat="server" CssClass="label"></asp:Label>
                                         </td>

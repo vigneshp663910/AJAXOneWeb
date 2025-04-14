@@ -64,7 +64,7 @@ namespace DealerManagementSystem.ViewSales.Report
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Sales Invoice Report');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Sales » Sales Report');</script>");
             lblMessage.Visible = false;
             if (!IsPostBack)
             {

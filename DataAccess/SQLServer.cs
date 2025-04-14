@@ -180,75 +180,7 @@ namespace DataAccess
                 throw ex;
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="errorMessage"></param>
-        /// <returns></returns>
-        public int InsertUsingQuery(string query, Boolean outputValueRequired = false)
-        {
-            try
-            {
-                return ExecuteNonQuery(query, outputValueRequired);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="query"></param>
-        ///// <param name="errorMessage"></param>
-        ///// <returns></returns>
-        //public Object InsertUsingQuery(string query)
-        //{
-        //    try
-        //    {
-        //        return ExecuteScalar(query);
-        //    }
-        //    catch (SqlException sqlEx)
-        //    {
-        //        throw sqlEx;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="storedProcedureName"></param>
-        ///// <param name="parameters"></param>
-        ///// <param name="errorMessage"></param>
-        ///// <returns></returns>
-        //public Object Insert(string storedProcedureName, DbParameter[] parameters)
-        //{
-        //    try
-        //    {
-        //        return ExecuteScalar(storedProcedureName,
-        //            CommandType.StoredProcedure, parameters);
-        //    }
-        //    catch (SqlException sqlEx)
-        //    {
-        //        throw sqlEx;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
+       
         /// <summary>
         /// 
         /// </summary>
@@ -272,28 +204,7 @@ namespace DataAccess
                 throw ex;
             }
         }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="errorMessage"></param>
-        /// <returns></returns>
-        public int UpdateUsingQuery(string query, Boolean outputValueRequired = false)
-        {
-            try
-            {
-                return ExecuteNonQuery(query, outputValueRequired);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+      
 
         /// <summary>
         /// 
@@ -317,28 +228,7 @@ namespace DataAccess
             {
                 throw ex;
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public int DeleteUsingQuery(string query, Boolean outputValueRequired = false)
-        {
-            try
-            {
-                return ExecuteNonQuery(query, outputValueRequired);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        } 
 
         /// <summary>
         /// 
@@ -388,28 +278,7 @@ namespace DataAccess
                 throw ex;
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="storedProcedureName"></param>
-        /// <param name="errorMessage"></param>
-        /// <returns></returns>
-        public object GetScalar(string storedProcedureName)
-        {
-            try
-            {
-                return ExecuteScalar(storedProcedureName);
-            }
-            catch (SqlException sqlEx)
-            {
-                throw sqlEx;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+         
         #endregion
 
         /// <summary>

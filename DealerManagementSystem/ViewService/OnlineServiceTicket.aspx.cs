@@ -134,7 +134,7 @@ namespace DealerManagementSystem.ViewService
                 {
                     Division = ddlDivision.SelectedValue;
                 }
-                return new BDMS_ICTicket().GetOnlineServiceTicket(null,txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), StatusID,   Division, Excel, PageIndex, gvICTickets.PageSize);
+                return new BDMS_ICTicket().GetOnlineServiceTicket(null,txtCustomerCode.Text.Trim(), txtICTicketNumber.Text.Trim(), txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), StatusID,   Division,null, Excel, PageIndex, gvICTickets.PageSize);
 
             }
             catch (Exception e1)

@@ -637,6 +637,7 @@ namespace Properties
         EditRetailerSalesEngineer = 105,
         EnquiryRejectOrConvert = 106,
         HelpCreateandEdit = 107,
+        OnlineTicketAdmin=108,
     }
     public enum DMS_WarrantyClaimStatus
     {
