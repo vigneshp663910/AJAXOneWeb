@@ -33,7 +33,7 @@ namespace DealerManagementSystem.ViewPreSale.Reports
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Dashboard » Sales Target vs Actual');</script>");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script1", "<script type='text/javascript'>SetScreenTitle('Pre-Sales » Sales Target Vs Actual');</script>");
 
             if (PSession.User == null)
             {
